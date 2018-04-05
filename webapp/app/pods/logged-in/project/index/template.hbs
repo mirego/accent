@@ -1,0 +1,17 @@
+{{#if model.loading}}
+  {{skeleton-ui/progress-line}}
+{{/if}}
+
+{{#if showLoading}}
+  {{loading-content label=(t 'pods.project.index.loading_content')}}
+{{else}}
+  {{dashboard-revisions
+    document=document
+    project=project
+    activities=project.activities.entries
+    revisions=revisions
+    permissions=permissions
+    onCorrectAllConflicts=(action 'correctAllConflicts')
+    onUncorrectAllConflicts=(action 'uncorrectAllConflicts')
+  }}
+{{/if}}

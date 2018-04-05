@@ -1,0 +1,5 @@
+{
+  "disableAnalytics": false,
+  "usePods": true,
+  "output-path": "../priv/static/webapp"
+}

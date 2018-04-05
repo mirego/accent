@@ -1,0 +1,126 @@
+& {
+  position: relative;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: $color-white;
+  box-shadow: 0 1px 5px rgba($color-black, 0.04);
+  border: 1px solid $color-border;
+  border-radius: 3px;
+
+  &.empty {
+    padding: 35px 10px;
+    color: $color-grey;
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
+  }
+
+  &.item--editMode {
+    background: $color-light-grey;
+    border: 1px solid lighten($color-grey, 25%);
+
+    .editButton {
+      opacity: 1;
+    }
+
+    .editButton-icon {
+      &:focus,
+      &:hover {
+        fill: $color-error;
+      }
+    }
+  }
+
+  &:hover,
+  &:focus {
+    .editButton {
+      opacity: 1;
+    }
+  }
+}
+
+.textEmpty {
+  margin-bottom: 15px;
+}
+
+.language-icon {
+  position: relative;
+  top: -2px;
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+  opacity: 0.2;
+}
+
+.key {
+  display: flex;
+  align-items: flex-end;
+  margin-right: 4px;
+  color: rgba($color-black, 0.7);
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 12px;
+
+  &:focus,
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.updatedAt {
+  margin-left: 6px;
+  color: $color-grey;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text {
+  @extend %translationTextBase;
+  padding-top: 10px;
+  margin: 10px 0 0;
+  border-top: 1px solid $color-light-grey;
+  font-size: 13px;
+}
+
+.textEdit {
+  margin-top: 10px;
+}
+
+.textEdit-input {
+  @extend %textInput;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.textEdit-cancel {
+  margin-right: 20px;
+  color: $color-grey;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.textEdit-button {
+  padding: 1px 9px;
+}
+
+.textEdit-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.textEdit-actions-warning {
+  margin-right: 10px;
+  font-style: italic;
+  font-size: 12px;
+  color: #bbb;
+}

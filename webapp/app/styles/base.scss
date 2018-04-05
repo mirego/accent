@@ -1,0 +1,31 @@
+::-moz-selection { background: lighten($color-primary, 45%); }
+::selection { background: lighten($color-primary, 45%); }
+
+body {
+  font-family: $font-primary;
+  line-height: 1.5;
+}
+
+textarea,
+select,
+button,
+input[type="submit"],
+input[type="text"] {
+  font-family: $font-primary;
+}
+
+dl,
+dt,
+dd {
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.app-content {
+  flex: 1;
+}

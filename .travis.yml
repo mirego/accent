@@ -1,0 +1,43 @@
+# Use Travis container-based infrastructure
+sudo: false
+
+# Elixir baby!
+language: 'elixir'
+
+elixir: 1.6.4
+otp_release: 20.2.1
+node_js: 9.5.0
+
+cache:
+  directories:
+  - _build
+  - deps
+
+# Make sure PostgreSQL is running
+addons:
+  postgresql: 9.6
+  apt:
+    packages:
+      - libyaml-dev
+
+# Set global environment variables
+env:
+  global:
+    - NODE_VERSION: '9.5.0'
+    - MIX_ENV: 'test'
+    - SECRET_KEY_BASE: 'lolwut'
+    - DATABASE_URL: 'postgres://localhost/accent_web_test'
+
+# Output Travis server IP for debugging
+before_install:
+  - 'echo `curl --verbose http://jsonip.com`'
+  - npm config set spin false
+  - npm --prefix webapp install
+
+# Create database and prepare the application
+before_script:
+  - mix compile
+  - mix ecto.setup
+
+script:
+  - ./priv/scripts/ci-check.sh

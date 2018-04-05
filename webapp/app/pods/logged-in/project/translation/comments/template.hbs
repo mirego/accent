@@ -1,0 +1,19 @@
+{{#if model.loading}}
+  {{skeleton-ui/progress-line}}
+{{/if}}
+
+{{#if showSkeleton}}
+  {{skeleton-ui/translation-comments-list}}
+{{else}}
+  {{translation-conversation
+    permissions=permissions
+    translation=model.translation
+    collaborators=model.collaborators
+    subscriptions=model.commentsSubscriptions
+    comments=model.comments
+    onCreateSubscription=(action 'createSubscription')
+    onDeleteSubscription=(action 'deleteSubscription')
+    onSubmit=(action 'createComment')
+    onSelectPage=(action 'selectPage')
+  }}
+{{/if}}

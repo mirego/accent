@@ -1,0 +1,103 @@
+& {
+  position: relative;
+  margin-bottom: 20px;
+  min-width: 300px;
+  max-width: 600px;
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: 3px;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
+  color: $color-grey;
+  font-weight: bold;
+  animation: 0.3s flash-message-in ease;
+
+  &.is-exiting {
+    animation: 0.3s flash-message-out forwards ease;
+  }
+}
+
+&.success {
+  border-color: lighten($color-primary, 35%);
+  border-bottom: 3px solid $color-primary;
+  color: $color-primary;
+
+  .icon {
+    fill: lighten($color-primary, 35%)
+  }
+}
+
+&.socket {
+  border-color: lighten($color-socket, 35%);
+  border-bottom: 3px solid $color-socket;
+  color: $color-socket;
+
+  .icon {
+    fill: lighten($color-socket, 35%)
+  }
+}
+
+&.error {
+  border-color: lighten($color-error, 35%);
+  border-bottom: 3px solid $color-error;
+  color: $color-error;
+
+  .icon {
+    fill: lighten($color-error, 35%)
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.text {
+  flex: 1 1 auto;
+  line-height: 1.7;
+  font-size: 13px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  background: none;
+  text-align: center;
+}
+
+.deleteButton-icon {
+  width: 13px;
+  height: 13px;
+  fill: $color-grey;
+}
+
+@keyframes flash-message-in {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes flash-message-out {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}

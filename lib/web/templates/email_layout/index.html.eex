@@ -1,0 +1,21 @@
+<html>
+  <body style="margin: 0; padding: 0;">
+    <table width="600px" border="0" cellspacing="10" cellpadding="0">
+      <tr>
+        <td>
+          <img alt="Accent" width=40 height=40 src="<%= logo_url() %>" />
+
+          <%= render @view_module, @view_template, assigns %>
+
+          <hr style="<%= style(background: "#f3f3f3", color: "#f3f3f3", "border": "1px solid #f3f3f3", margin: "10px 0") %>" />
+
+          <span style="<%= paragraph_style("font-size": "13px", color: "#555") %>">The Accent Team</span>
+
+          <br />
+
+          <a style="<%= link_style("font-size": "13px", "text-decoration": "underline") %>" href="<%= webapp_host() %>"><%= webapp_host() %></a>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

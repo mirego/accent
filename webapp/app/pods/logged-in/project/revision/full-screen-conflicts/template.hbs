@@ -1,0 +1,23 @@
+{{#ember-wormhole to='modals'}}
+  {{conflicts-page
+    fullscreen=fullscreen
+    project=model.project
+    revision=revision
+    translations=model.translations
+    isLoading=model.loading
+    showLoading=showLoading
+    document=document
+    permissions=permissions
+    documents=model.documents
+    showSkeleton=showSkeleton
+    query=query
+    reference=reference
+    referenceRevision=referenceRevision
+    referenceRevisions=referenceRevisions
+    onCorrect=(action 'correctConflict')
+    onSelectPage=(action 'selectPage')
+    onChangeDocument=(action 'changeDocument')
+    onChangeReference=(action 'changeReference')
+    onChangeQuery=(action 'changeQuery')
+  }}
+{{/ember-wormhole}}

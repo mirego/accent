@@ -1,0 +1,6 @@
+<%= @commenter.email %> has commented on <%= @translation.key %>:
+
+---
+<%= @comment.text %>
+
+You can reply here (<%= webapp_host() %><%= @translation_path %>)

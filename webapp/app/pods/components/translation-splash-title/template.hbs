@@ -1,0 +1,46 @@
+<div>
+  {{#link-to
+    'logged-in.project.revision.translations'
+    project.id
+    translation.revision.id
+    (query-params version=versionParam)
+    class='language'
+  }}
+    {{inline-svg 'assets/chevron-left.svg' class='back-icon'}}
+    {{translation.revision.language.name}}
+  {{/link-to}}
+
+  <h1 class="key">
+    <small class="key-prefix">{{translationKey.prefix}}</small>
+    {{translationKey.value}}
+  </h1>
+
+  {{#if translation.version}}
+    {{#acc-badge}}
+      <span class="version-tag">
+        {{inline-svg 'assets/tag.svg' class='version-icon'}}
+        {{translation.version.tag}}
+      </span>
+    {{/acc-badge}}
+  {{/if}}
+
+  {{#if translation.isRemoved}}
+    <div class="removedBadge">
+      {{t 'components.translation_splash_title.removed_label' removedAt=(time-ago-in-words translation.updatedAt)}}
+    </div>
+  {{else if translation.isConflicted}}
+    {{#acc-badge
+      link=true
+      primary=true
+    }}
+      {{#link-to
+        'logged-in.project.revision.conflicts'
+        project.id
+        translation.revision.id
+        (query-params query=translation.id)
+      }}
+        {{t 'components.translation_splash_title.conflicted_label'}}
+      {{/link-to}}
+    {{/acc-badge}}
+  {{/if}}
+</div>

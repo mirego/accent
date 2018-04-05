@@ -1,0 +1,75 @@
+& {
+  position: relative;
+  margin-top: 30px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  color: $color-grey;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.toggleCreateFormButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.createForm {
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.columns {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.columns-item:first-of-type {
+  flex: 1 0 65%;
+  margin-right: 25px;
+}
+
+.columns-item:last-of-type {
+  flex: 1 1 100%;
+}
+
+.rolesList {
+  background: $color-white;
+  padding: 10px;
+  box-shadow: 0 1px 9px rgba(0, 0, 0, 0.08);
+}
+
+.rolesList-title {
+  display: block;
+  padding-bottom: 5px;
+  margin: 10px 0 5px;
+  border-bottom: 1px solid #eee;
+  color: $color-primary;
+  font-size: 12px;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.rolesList-text {
+  color: $color-grey;
+  font-size: 12px;
+}
+
+@media (max-width: ($screen-sm)) {
+  .rolesList {
+    display: none;
+  }
+}

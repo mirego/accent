@@ -1,0 +1,7 @@
+{{#if showLoading}}
+  {{loading-content label=(t 'pods.project.edit.badges.loading_content')}}
+{{else}}
+  {{project-settings/back-link project=project}}
+
+  {{project-settings/badges project=project}}
+{{/if}}

@@ -1,0 +1,22 @@
+{{inline-svg 'assets/logo-bw.svg' class='logo'}}
+
+<div class="header">
+  <h1 class="status">{{status}}</h1>
+  <h2 class="title">{{title}}</h2>
+</div>
+
+<p class="text">{{text}}</p>
+
+{{#if isAuthenticated}}
+  <button {{action onLogout}} class="button button--bordered button--red">
+    {{t 'components.error_section.logout'}}
+  </button>
+
+  <span class="or">
+    {{t 'components.error_section.or'}}
+  </span>
+{{/if}}
+
+{{#link-to 'login' class='link'}}
+  {{t 'components.error_section.return'}}
+{{/link-to}}

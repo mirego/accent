@@ -1,0 +1,9 @@
+{{projects-header session=session}}
+
+{{#if googleLoginEnabled}}
+  {{google-login-form onGoogleLogin=(action 'googleLogin')}}
+{{/if}}
+
+{{#if dummyLoginEnabled}}
+  {{dummy-login-form onDummyLogin=(action 'dummyLogin')}}
+{{/if}}

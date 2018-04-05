@@ -1,0 +1,48 @@
+& {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  color: rgba($color-black, 0.4);
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+
+  &.error {
+    .icon {
+      fill: $color-error;
+      opacity: 0.2;
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  &.success {
+    color: $color-primary;
+
+    .icon {
+      fill: $color-primary;
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+.icon {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.link {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="item-header">
+  {{#link-to
+    'logged-in.project.revision.translations'
+    project.id
+    groupedComment.value.revision.id
+    class='item-language'
+  }}
+    {{groupedComment.value.revision.language.name}}
+  {{/link-to}}
+
+  {{#link-to
+    'logged-in.project.translation.comments'
+    project.id
+    groupedComment.value.id
+    class='item-link'
+  }}
+    <small class="item-key-prefix">{{translationKey.prefix}}</small>
+    {{translationKey.value}}
+  {{/link-to}}
+
+  {{#if groupedComment.value.removed}}
+    <div class="removedBadge">
+      {{t 'components.translation_splash_title.removed_label' removedAt=(time-ago-in-words groupedComment.value.updatedAt)}}
+    </div>
+  {{/if}}
+</div>
+
+{{translation-comments-list
+  comments=groupedComment.items
+  class=(if groupedComment.value.removed 'translationRemoved')
+}}

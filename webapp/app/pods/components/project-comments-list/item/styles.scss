@@ -1,0 +1,53 @@
+& {
+  margin-bottom: 45px;
+}
+
+.item-link {
+  transition: $transition-speed $transition-easing;
+  transition-property: color;
+  @extend %translationKeyBase;
+  display: inline-block;
+  color: $color-primary;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    color: darken($color-primary, 15%);
+  }
+}
+
+.item-header {
+  margin-bottom: 15px;
+}
+
+.item-key-prefix {
+  display: block;
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #959595;
+  font-weight: 300;
+}
+
+.item-language {
+  transition: $transition-speed $transition-easing;
+  transition-property: color;
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  color: $color-black;
+}
+
+.item-badge {
+  font-size: 12px;
+  color: $color-primary;
+  text-decoration: none;
+}
+
+.removedBadge {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: $color-error;
+}

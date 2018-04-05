@@ -1,0 +1,8 @@
+{{#each documents key='id' as |document|}}
+  {{documents-list/item
+    permissions=permissions
+    document=document
+    onDelete=onDelete
+    project=project
+  }}
+{{/each}}

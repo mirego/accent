@@ -1,0 +1,7 @@
+{{#acc-modal onClose=(action 'closeModal')}}
+  {{version-create-form
+    error=error
+    project=model.project
+    onCreate=(action 'create')
+  }}
+{{/acc-modal}}

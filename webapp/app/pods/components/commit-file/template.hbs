@@ -1,0 +1,105 @@
+<div>
+  {{#if isPeekingError}}
+    <div class="errorMessage">{{t 'components.commit_file.peek_error'}}</div>
+  {{/if}}
+
+  {{#if isCommitingError}}
+    <div class="errorMessage">{{t 'components.commit_file.commit_error'}}</div>
+  {{/if}}
+
+  {{#if isMerge}}
+    <div class="options">
+      <div class="option option--borderless">
+        <p class="textHelper">{{t 'components.commit_file.language'}}:</p>
+        {{#power-select
+          searchEnabled=false
+          selected=revisionValue
+          options=mappedRevisions
+          onchange=(action 'onSelectRevision') as |option|
+        }}
+          {{option.label}}
+        {{/power-select}}
+      </div>
+
+      <div class="option option--borderless">
+        <p class="textHelper">{{t 'components.commit_file.merge_type'}}:</p>
+        {{#power-select
+          searchEnabled=false
+          selected=mergeType
+          options=mergeTypes
+          onchange=(action 'onSelectMergeType') as |option|
+        }}
+          {{option}}
+        {{/power-select}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if file}}
+    <div>
+      <div class="option">
+        <p class="textHelper">{{t 'components.commit_file.file_source'}}</p>
+        <span class="fileSourceName">{{fileSource.name}}</span>
+      </div>
+
+      <div class="option">
+        <p class="textHelper">{{t 'components.commit_file.document_format'}}</p>
+        {{#power-select
+          searchEnabled=false
+          selected=documentFormatValue
+          options=documentFormatOptions
+          onchange=(action (mut documentFormat) value='value') as |option|
+        }}
+          {{option.label}}
+        {{/power-select}}
+      </div>
+
+      {{#if (get permissions peekAction)}}
+        <div class="option">
+          <p class="textHelper">{{t 'components.commit_file.peek_help'}}</p>
+
+          {{#async-button
+            onClick=(action 'peek')
+            loading=isPeeking
+            class='button
+            button--filled button--blue peekButton'
+          }}
+            {{t 'components.commit_file.peek_button'}}
+          {{/async-button}}
+        </div>
+      {{/if}}
+
+      {{#if (get permissions commitAction)}}
+        <div class="actions">
+          {{#async-button
+            onClick=(action 'fileCancel')
+            class='button button--filled button--white'
+          }}
+            {{t 'components.commit_file.cancel_button'}}
+          {{/async-button}}
+
+          {{#if canCommit}}
+            {{#async-button
+              onClick=(action 'commit')
+              loading=isCommiting class='button button--filled'
+            }}
+              {{commitButtonText}}
+            {{/async-button}}
+          {{else}}
+            {{#async-button class='button button--filled button--disabled'}}
+              {{commitButtonText}}
+            {{/async-button}}
+          {{/if}}
+        </div>
+      {{/if}}
+    </div>
+  {{else}}
+    <div class="option option--borderless">
+      <p class="textHelper">{{t 'components.commit_file.upload_help'}}</p>
+      {{file-input
+        onChange=(action 'fileChange')
+        class='fileInput'
+      }}
+    </div>
+  {{/if}}
+</div>

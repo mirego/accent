@@ -1,0 +1,34 @@
+defmodule Accent.FormatterTestHelper do
+  def test_parse(variant, parser) do
+    context = %Langue.Formatter.SerializerResult{render: variant.render} |> parser.parse
+
+    {variant.entries, context.entries}
+  end
+
+  def test_serialize(variant, serializer, locale \\ "fr") do
+    context =
+      %Langue.Formatter.ParserResult{
+        entries: variant.entries,
+        locale: locale,
+        top_of_the_file_comment: variant.top_of_the_file_comment,
+        header: variant.header
+      }
+      |> serializer.serialize
+
+    {variant.render, context.render}
+  end
+end
+
+defmodule Langue.Expectation.Case do
+  defmacro __using__(_) do
+    quote do
+      def top_of_the_file_comment, do: ""
+      def header, do: ""
+
+      defoverridable top_of_the_file_comment: 0, header: 0
+    end
+  end
+end
+
+ExUnit.start()
+Ecto.Adapters.SQL.Sandbox.mode(Accent.Repo, :manual)

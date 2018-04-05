@@ -1,0 +1,46 @@
+{{project-settings/title title=(t 'components.project_settings.collaborators.title')}}
+
+{{#if (get permissions 'create_collaborator')}}
+  <button {{action 'toggleCreateForm'}} class="toggleCreateFormButton button button--iconOnly {{if showCreateForm 'button--filled button--white' 'button--filled'}}">
+    {{#if showCreateForm}}
+      {{inline-svg '/assets/x.svg' class='button-icon'}}
+    {{else}}
+      {{inline-svg '/assets/add.svg' class='button-icon'}}
+    {{/if}}
+  </button>
+{{/if}}
+
+{{#if showCreateForm}}
+  <div class="createForm">
+    {{project-settings/collaborators/create-form
+      project=project
+      onCancel=(action 'toggleCreateForm')
+      onCreate=onCreateCollaborator
+    }}
+  </div>
+{{/if}}
+
+<div class="columns">
+  <div class="columns-item">
+    {{project-settings/collaborators/list
+      permissions=permissions
+      collaborators=collaborators
+      onDelete=onDeleteCollaborator
+      onUpdate=onUpdateCollaborator
+    }}
+  </div>
+
+  <div class="columns-item rolesList">
+    <span class="rolesList-title">{{t 'general.roles.OWNER'}}</span>
+    <p class="rolesList-text">{{t 'components.project_settings.collaborators.owner_text'}}</p>
+
+    <span class="rolesList-title">{{t 'general.roles.ADMIN'}}</span>
+    <p class="rolesList-text">{{t 'components.project_settings.collaborators.admin_text'}}</p>
+
+    <span class="rolesList-title">{{t 'general.roles.DEVELOPER'}}</span>
+    <p class="rolesList-text">{{t 'components.project_settings.collaborators.developer_text'}}</p>
+
+    <span class="rolesList-title">{{t 'general.roles.REVIEWER'}}</span>
+    <p class="rolesList-text">{{t 'components.project_settings.collaborators.reviewer_text'}}</p>
+  </div>
+</div>

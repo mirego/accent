@@ -1,0 +1,291 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  transition: $transition-speed $transition-easing;
+  transition-property: all;
+  appearance: none;
+  margin: 0;
+  border: 0;
+  text-decoration: none;
+  border-radius: $border-radius;
+  outline: none;
+  cursor: pointer;
+  background: none;
+  font-weight: bold;
+  font-size: 12px;
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
+.button-icon {
+  position: relative;
+  top: 3px;
+  transition: $transition-speed $transition-easing;
+  transition-property: fill;
+  width: 14px;
+  height: 14px;
+  margin: -3px 4px 3px -2px;
+}
+
+.button--bordered {
+  padding: 5px 12px;
+  border: 1px solid;
+  border-radius: $border-radius;
+  font-size: 12px;
+
+  .button-icon {
+    fill: darken(#ccc, 4%);
+  }
+}
+
+.button--iconOnly {
+  .button-icon {
+    top: 1px;
+    margin: 0;
+  }
+}
+
+.button--filled {
+  padding: 5px 12px;
+  background: $color-secondary;
+  box-shadow: 0 1px 2px rgba($color-black, 0.1);
+  border: 1px solid darken($color-secondary, 4%);
+  text-shadow: 0 1px 1px rgba($color-black, 0.2);
+  color: $color-white;
+
+  .button-icon {
+    fill: $color-white;
+  }
+
+  &:active {
+    background: darken($color-secondary, 4%);
+  }
+
+  &:focus {
+    box-shadow: 0 0 10px lighten($color-secondary, 20%);
+  }
+
+  &:hover,
+  &:focus {
+    background: darken($color-secondary, 2%);
+  }
+
+  &.button--red {
+    background: $color-error;
+    border: 1px solid darken($color-error, 4%);
+    color: $color-white;
+
+    .button-icon {
+      fill: $color-white;
+    }
+
+    &:focus {
+      box-shadow: 0 0 10px lighten($color-error, 20%);
+    }
+
+    &:active {
+      background: darken($color-error, 6%);
+    }
+
+    &:hover,
+    &:focus {
+      background: darken($color-error, 4%);
+      color: $color-white;
+    }
+  }
+
+  &.button--grey {
+    background: #ccc;
+    border: 1px solid darken(#ccc, 4%);
+    color: $color-white;
+
+    &:focus {
+      box-shadow: 0 0 10px darken(#ccc, 7%);
+    }
+
+    &:hover,
+    &:focus {
+      background: darken(#ccc, 4%);
+      color: $color-white;
+    }
+  }
+
+  &.button--black {
+    background: lighten($color-true-black, 6%);
+    border: 1px solid darken($color-true-black, 4%);
+    color: $color-white;
+
+    &:focus {
+      box-shadow: 0 0 10px darken($color-true-black, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      background: lighten($color-black, 2%);
+      color: $color-white;
+    }
+  }
+
+  &.button--blue {
+    background: $color-blue;
+    border: 1px solid darken($color-blue, 4%);
+    color: $color-white;
+
+    &:focus {
+      box-shadow: 0 0 10px lighten($color-blue, 27%);
+    }
+
+    &:hover,
+    &:focus {
+      background: darken($color-blue, 4%);
+      color: $color-white;
+    }
+  }
+
+  &.button--white {
+    background: $color-white;
+    border: 1px solid darken(#ccc, 4%);
+    color: darken($color-grey, 20%);
+    text-shadow: none;
+
+    &:focus {
+      box-shadow: 0 0 10px lighten($color-grey, 27%);
+    }
+
+    &:hover,
+    &:focus {
+      .button-icon {
+        fill: $color-black;
+      }
+
+      background: darken($color-white, 4%);
+      color: $color-black;
+    }
+
+    &[disabled] {
+      &:hover,
+      &:focus {
+        .button-icon {
+          fill: $color-grey;
+        }
+
+        background: $color-white;
+        color: darken($color-grey, 20%);
+      }
+    }
+
+    .loading {
+      fill: darken($color-grey, 50%);
+    }
+
+    .button-icon {
+      fill: darken($color-grey, 10%);
+    }
+  }
+}
+
+.button--big {
+  padding: 7px 30px 8px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.button--disabled,
+.button--dimmed {
+  opacity: 0.5;
+}
+
+.button--disabled {
+  cursor: default;
+}
+
+.button--filled.button--borderLess {
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.button--cancel {
+  align-self: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+  position: relative;
+  top: -1px;
+  padding: 1px 3px;
+  margin: 0 4px;
+  border: 0;
+  border-radius: 50%;
+  background: #dbdbdb;
+  font-size: 9px;
+  color: $color-white;
+
+  &:hover,
+  &:focus {
+    background: darken(#dbdbdb, 5%);
+  }
+}
+
+.button--grey {
+  color: #8a8a8a;
+  border-color: #dbdbdb;
+
+  .button-icon {
+    fill: #8a8a8a;
+  }
+
+  &:hover,
+  &:focus {
+    color: darken(#8a8a8a, 10%);
+    background: lighten(#8a8a8a, 43%);
+    border-color: darken(#dbdbdb, 10%);
+  }
+}
+
+.button--green {
+  color: $color-success;
+
+  .button-icon {
+    fill: $color-success;
+  }
+
+  &:hover,
+  &:focus {
+    background: lighten($color-success, 43%);
+    color: $color-dark-success;
+  }
+}
+
+.button--red {
+  color: $color-error;
+
+  .button-icon {
+    fill: $color-error;
+  }
+
+  &:hover,
+  &:focus {
+    background: lighten($color-error, 41%);
+    color: $color-dark-error;
+  }
+}
+
+.button--primary {
+  color: $color-primary;
+
+  .button-icon {
+    fill: $color-primary;
+  }
+
+  &:hover,
+  &:focus {
+    color: darken($color-primary, 15%);
+  }
+}
+
+.button--text {
+  background: transparent;
+  font-size: 12px;
+  font-weight: 400;
+}

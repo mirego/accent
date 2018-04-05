@@ -1,0 +1,2 @@
+cd $phoenix_dir
+npm --prefix ./webapp run build-production

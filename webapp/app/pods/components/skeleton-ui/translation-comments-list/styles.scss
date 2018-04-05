@@ -1,0 +1,42 @@
+& {
+  margin-top: 30px;
+  width: 530px;
+}
+
+.form {
+  height: 70px;
+  margin-bottom: 25px;
+  border: 1px solid #f3f3f3;
+}
+
+.item {
+  padding: 0 0 15px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+
+  &:nth-child(3) {
+    opacity: 0.6;
+  }
+
+  &:nth-child(4) {
+    opacity: 0.2;
+  }
+}
+
+.item-user {
+  height: 4px;
+  width: 140px;
+  margin-bottom: 25px;
+  background: #ddd;
+}
+
+.item-text {
+  height: 3px;
+  width: 340px;
+  margin-bottom: 6px;
+  background: #eee;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

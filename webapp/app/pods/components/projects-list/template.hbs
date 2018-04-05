@@ -1,0 +1,49 @@
+<ul>
+  {{#each projects key='id' as |project|}}
+    <li class="item">
+      {{#link-to
+        'logged-in.project'
+        project.id
+        class='item-link'
+      }}
+        <span>
+          <span class="projectName">{{project.name}}</span>
+          <span class="projectSyncedAt">
+            {{#if project.lastSyncedAt}}
+              {{t 'components.projects_list.last_synced_at_label'}}
+              {{time-ago-in-words-tag
+                date=project.lastSyncedAt
+                class='lastSyncedAt-date'
+              }}
+            {{else}}
+              {{t 'components.projects_list.never_synced'}}
+            {{/if}}
+          </span>
+        </span>
+
+        <span class="projectLanguage">
+          {{project.language.name}}
+        </span>
+      {{/link-to}}
+    </li>
+  {{else if query}}
+    {{empty-content
+      iconPath='assets/empty.svg'
+      text=(t 'components.projects_list.no_projects_query' query=query)
+    }}
+  {{else}}
+    {{#empty-content}}
+      {{inline-svg 'assets/empty.svg' class='icon'}}
+      {{t 'components.projects_list.no_projects'}}
+
+      <div class="link-section">
+        {{#link-to
+          'logged-in.projects.new'
+          class='link'
+        }}
+          {{t 'components.projects_list.maybe_create_one'}}
+        {{/link-to}}
+      </div>
+    {{/empty-content}}
+  {{/each}}
+</ul>

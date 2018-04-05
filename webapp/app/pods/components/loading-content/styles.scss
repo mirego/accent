@@ -1,0 +1,15 @@
+& {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+  padding: 40px 0;
+}
+
+.label {
+  color: $color-grey;
+  font-size: 14px;
+  font-style: italic;
+}

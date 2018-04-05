@@ -1,0 +1,213 @@
+& {
+  transition: $transition-speed $transition-easing;
+  transition-property: background, border-color;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-left: 2px solid transparent;
+
+  &:nth-child(even) {
+    background: $color-light-grey;
+  }
+
+  &:focus,
+  &:hover {
+    border-color: lighten($color-primary, 40%);
+    background: $color-light-grey;
+  }
+
+  &.active {
+    border-color: lighten($color-primary, 10%);
+    background: $color-light-grey;
+  }
+}
+
+&.fullscreen {
+  .item-details {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .item-details__column {
+    display: flex;
+    flex: 1 1 50%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-details__column:first-of-type {
+    margin-right: 15px;
+  }
+}
+
+&[class*='resolved'] {
+  padding: 5px 10px;
+  margin: 5px 0 15px;
+  background: lighten($color-primary, 48%);
+  border: 1px solid lighten($color-primary, 43%);
+  border-left: 2px solid $color-primary;
+  box-shadow: 0 1px 5px lighten($color-primary, 47%);
+
+  .item-key-prefix {
+    color: rgba($color-primary, 0.7);
+  }
+
+  .item-key {
+    font-size: 12px;
+    color: $color-primary;
+  }
+}
+
+&[class*='errored'] {
+  .textInput {
+    border-color: lighten($color-error, 30%);
+  }
+}
+
+.error {
+  font-size: 12px;
+  font-weight: bold;
+  color: $color-error;
+}
+
+.item-key-prefix {
+  display: block;
+  font-size: 11px;
+  color: #959595;
+  font-weight: 300;
+}
+
+.item-key {
+  display: block;
+  @extend %translationKeyBase;
+  transition: $transition-speed $transition-easing;
+  transition-property: color;
+  margin-right: 15px;
+  line-height: 1.5;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.key {
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    .item-key {
+      color: $color-primary;
+    }
+  }
+}
+
+.textResolved {
+  display: flex;
+  align-items: flex-start;
+}
+
+.textResolved-content {
+  flex-grow: 1;
+}
+
+.textResolved-text {
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.uncorrectButton,
+.correctButton {
+  flex-shrink: 0;
+}
+
+.textDiff,
+.textConflicted,
+.conflictedText-textReference {
+  padding: 8px 0;
+  font-size: 13px;
+  color: darken($color-grey, 15%);
+}
+
+.textDiff {
+  border-top: 1px dashed lighten($color-grey, 20%);
+  white-space: pre-wrap;
+
+  .added {
+    padding: 0 3px;
+    background: lighten($color-success, 42%);
+    color: $color-success;
+  }
+
+  .removed {
+    padding: 0 3px;
+    background: lighten($color-error, 42%);
+    color: $color-error;
+  }
+}
+
+.textConflicted {
+  font-size: 11px;
+  color: lighten($color-grey, 5%);
+}
+
+.textConflicted-empty {
+  font-size: 11px;
+  font-style: italic;
+  color: lighten($color-grey, 10%);
+}
+
+.textConflicted-content {
+  white-space: pre-wrap;
+}
+
+.conflictedText-textReference-language-icon {
+  position: relative;
+  top: -1px;
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+  opacity: 0.2;
+}
+
+.conflictedText-textReference-link {
+  margin-right: 4px;
+  color: rgba($color-black, 0.7);
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 12px;
+
+  &:focus,
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.conflictedText-textReference {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px dashed #eee;
+}
+
+.conflictedText-textReference-language {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.conflictedText-textReference-updatedAt {
+  font-size: 11px;
+  font-style: italic;
+  font-weight: normal;
+  color: lighten($color-grey, 10%);
+}
+
+.conflictedText-textReference-text-content {
+  display: block;
+  white-space: pre-wrap;
+  margin: 3px 0;
+  font-size: 12px;
+}
+
+.textInput {
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 100%;
+  margin: 0 0 5px;
+}

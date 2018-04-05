@@ -1,0 +1,48 @@
+& {
+  padding: 0;
+
+  &.button--loading {
+    cursor: default;
+
+    .label {
+      transform: translate3d(-100%, 0, 0);
+    }
+
+    .loading {
+      left: calc(50% - 10px);
+    }
+  }
+
+  &.button--filled {
+    .loading {
+      fill: $color-white;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.label {
+  transition: $transition-speed $transition-easing;
+  transition-property: transform;
+  transform: translate3d(0, 0, 0);
+  display: flex;
+  align-items: center;
+  padding: 5px 12px;
+}
+
+.loading {
+  transition: $transition-speed $transition-easing;
+  transition-property: left;
+  will-change: left;
+  width: 15px;
+  position: absolute;
+  top: -3px;
+  left: 100%;
+  fill: $color-black;
+}

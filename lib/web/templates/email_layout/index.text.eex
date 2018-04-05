@@ -1,0 +1,9 @@
+Accent
+-
+
+<%= render @view_module, @view_template, assigns %>
+
+-
+The Accent Team
+
+(<%= webapp_host() %>)

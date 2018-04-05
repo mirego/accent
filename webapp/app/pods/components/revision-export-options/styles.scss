@@ -1,0 +1,47 @@
+.subNavigation + & {
+  position: relative;
+  top: -1px;
+  z-index: 8;
+}
+
+.filters {
+  margin-top: 0;
+  border-radius: 0;
+  font-size: 12px;
+}
+
+.exportOptions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exportOptions-item {
+  flex: 1 1 auto;
+  margin: 0 5px;
+
+  .ember-power-select-trigger {
+    font-size: 13px;
+  }
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: (800px)) {
+  .exportOptions {
+    flex-direction: column;
+  }
+
+  .exportOptions-item {
+    margin-bottom: 10px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<strong class="title">
+  {{t 'components.project_settings.delete_form.title'}}
+</strong>
+
+<div class="zone">
+  <div class="zone-item">
+    <strong class="zone-title">{{t 'components.project_settings.delete_form.delete_project_title'}}</strong>
+    <div class="zone-content">
+      <p class="zone-text">{{t 'components.project_settings.delete_form.delete_project_text'}}</p>
+
+      {{#async-button
+        onClick=(action 'deleteProject')
+        class='button button--filled button--red'
+      }}
+        {{t 'components.project_settings.delete_form.delete_project_button'}}
+      {{/async-button}}
+    </div>
+  </div>
+</div>

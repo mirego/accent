@@ -1,0 +1,77 @@
+& {
+  margin-top: 30px;
+}
+
+.previousText {
+  margin-bottom: 15px;
+  color: $color-grey;
+  font-size: 12px;
+}
+
+.previousText-label {
+  color: darken($color-grey, 10%);
+  font-weight: bold;
+}
+
+.previousText-empty {
+  font-style: italic;
+}
+
+.previousText-text {
+  white-space: pre-wrap;
+  font-size: 11px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.actions-link {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+  color: $color-primary;
+  transition: $transition-speed $transition-easing;
+  transition-property: color;
+
+  &:focus,
+  &:hover {
+    color: darken($color-primary, 15%);
+
+    .actions-link-icon {
+      fill: darken($color-primary, 15%);
+    }
+  }
+}
+
+.actions-link-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 3px;
+  fill: $color-primary;
+  transition: $transition-speed $transition-easing;
+  transition-property: fill;
+}
+
+.actions-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  & > .button {
+    margin-left: 10px;
+  }
+}
+
+.actions-updatedAt {
+  margin-right: 10px;
+  color: $color-grey;
+  font-size: 11px;
+  font-style: italic;
+}

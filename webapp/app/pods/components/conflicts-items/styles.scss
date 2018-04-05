@@ -1,0 +1,19 @@
+& {
+  position: relative;
+  margin-top: 20px;
+  padding-top: 50px;
+}
+
+&.fullscreen {
+  padding: 50px 0 0;
+}
+
+.fullscreen-button {
+  padding: 5px 12px;
+}
+
+.actions {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

@@ -1,0 +1,17 @@
+& {
+  background: $color-white;
+  padding: 10px;
+  border-radius: 3px;
+  border: 2px solid #eee;
+}
+
+.title {
+  display: block;
+  padding: 0 0 5px;
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  color: $color-primary;
+  border-bottom: 1px solid #eee;
+}

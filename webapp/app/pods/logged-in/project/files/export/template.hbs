@@ -1,0 +1,55 @@
+{{#acc-modal onClose=(action 'closeModal')}}
+  {{#project-file-operation}}
+    <button {{action 'closeModal'}} class="closeButton">
+      <div class="closeButton-content">
+        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
+      </div>
+    </button>
+
+    <div class="title">
+      <div class="sectionType">
+        {{inline-svg '/assets/export.svg' class='sectionType-icon'}}
+        {{t 'components.project_file_operations.export'}}
+      </div>
+
+      {{document.path}}
+
+      <div class="subtitle">
+        <small class="subtitle-label">{{t 'components.project_file_operations.document_format'}}:</small>
+        {{document.format}}
+      </div>
+    </div>
+
+    {{revision-export-options
+      format=documentFormatFilter
+      orderBy=orderByFilter
+      revision=revisionFilter
+      revisions=revisions
+      onChangeRevision=(action (mut revisionFilter))
+      onChangeFormat=(action (mut documentFormatFilter))
+      onChangeOrderBy=(action (mut orderByFilter))
+    }}
+
+    {{#async-button
+      onClick=(action 'exportFile')
+      disabled=exportButtonDisabled
+      class='button button--filled render-export'
+    }}
+      {{t 'components.project_file_operations.export'}}
+    {{/async-button}}
+
+    {{#if exportLoading}}
+      {{skeleton-ui/progress-line}}
+    {{/if}}
+
+    <pre class="render">{{file-export
+      onFileLoaded=(action 'onFileLoaded')
+      project=project
+      revisions=revisions
+      revision=revision
+      document=document
+      documentFormat=documentFormatFilter
+      orderBy=orderByFilter
+    }}</pre>
+  {{/project-file-operation}}
+{{/acc-modal}}

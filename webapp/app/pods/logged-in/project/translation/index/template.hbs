@@ -1,0 +1,12 @@
+{{#unless translation.removed}}
+  {{translation-edit
+    translation=model.translation
+    project=model.project
+    permissions=permissions
+    onUpdateText=(action 'updateText')
+    onCorrectConflict=(action 'correctConflict')
+    onUncorrectConflict=(action 'uncorrectConflict')
+  }}
+{{else}}
+  {{removed-translation-edit translation=model.translation}}
+{{/unless}}

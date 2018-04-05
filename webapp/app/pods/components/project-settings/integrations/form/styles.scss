@@ -1,0 +1,61 @@
+& {
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 10px;
+}
+
+.form {
+  display: flex;
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 8px 10px;
+  margin-right: 10px;
+  min-width: 350px;
+  font-family: $font-primary;
+  font-size: 11px;
+}
+
+.checkbox-with-label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 10px;
+
+  input {
+    margin-right: 3px;
+  }
+}
+
+.events {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  font-size: 12px;
+}
+
+.events-title {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.ember-power-select-trigger {
+  min-width: 150px;
+  margin-right: 10px;
+  border-color: #eee;
+  background: #fff;
+  font-size: 12px;
+  box-shadow: 0 1px 5px rgba(#000, 0.06);
+}
+
+.ember-power-select-trigger[aria-disabled="true"] {
+  background: transparent;
+  box-shadow: none;
+}
+
+.button {
+  margin-right: 5px;
+}

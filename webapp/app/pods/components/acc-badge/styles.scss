@@ -1,0 +1,47 @@
+& {
+  transition: $transition-speed $transition-easing;
+  transition-property: background;
+  display: inline-block;
+  padding: 1px 6px 1px 5px;
+  background: lighten($color-grey, 28%);
+  border-radius: 3px;
+  color: darken($color-grey, 10%);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+&.primary {
+  background: $color-primary;
+  color: $color-white;
+}
+
+&.link {
+  padding: 0;
+
+  &:focus,
+  &:hover {
+    background: lighten($color-grey, 26%);
+  }
+}
+
+&.link.primary {
+  padding: 0;
+
+  &:focus,
+  &:hover {
+    background: darken($color-primary, 3%);
+  }
+}
+
+&.link a {
+  display: inline-block;
+  padding: 1px 6px 1px 5px;
+  color: lighten(#000, 50%);
+  text-decoration: none;
+}
+
+&.link.primary a {
+  color: $color-white;
+}

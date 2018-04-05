@@ -1,0 +1,53 @@
+<div class="filters filters--white">
+  <div class="filters-wrapper">
+    <div class="exportOptions">
+      {{#if showRevisions}}
+        <div class="exportOptions-item">
+          {{#power-select
+            searchEnabled=false
+            selected=revisionValue
+            options=mappedRevisions
+            onchange=(action 'revisionChanged' value='value') as |option|
+          }}
+            {{option.label}}
+          {{/power-select}}
+        </div>
+      {{/if}}
+
+      <div class="exportOptions-item">
+        {{#power-select
+          searchEnabled=false
+          selected=orderByValue
+          options=orderByOptions
+          onchange=(action 'orderByChanged' value='value') as |option|
+        }}
+          {{t option.label}}
+        {{/power-select}}
+      </div>
+
+      <div class="exportOptions-item">
+        {{#power-select
+          searchEnabled=false
+          selected=formatValue
+          options=formatOptions
+          onchange=(action 'formatChanged' value='value') as |option|
+        }}
+          {{option.label}}
+        {{/power-select}}
+      </div>
+
+      {{#if showDocuments}}
+        <div class="exportOptions-item">
+          {{#power-select
+            searchEnabled=false
+            selected=documentValue
+            options=mappedDocuments
+            onchange=(action 'documentChanged' value='value') as |option|
+          }}
+            {{option.label}}
+          {{/power-select}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+& {
+  margin-top: 25px;
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 10px;
+  margin-right: 25px;
+  min-width: 250px;
+  font-family: $font-primary;
+  font-size: 12px;
+}
+
+.lock {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.lock-text-helper {
+  font-size: 11px;
+  font-style: italic;
+  color: #555;
+}
+
+.lock-text {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid;
+  background: #fff;
+  border-bottom-width: 2px;
+  padding: 3px 12px 3px 5px;
+  border-radius: 3px;
+
+  &.lock-text--inactive {
+    color: #aaa;
+    border-color: #ddd;
+
+    &:hover {
+      color: $color-primary;
+      border-color: $color-primary;
+
+      .lock-icon {
+        fill: $color-primary;
+      }
+    }
+
+    .lock-icon {
+      fill: #aaa;
+    }
+  }
+
+  &.lock-text--active {
+    color: $color-error;
+    border-color: $color-error;
+
+    &:hover {
+      color: darken($color-error, 10%);
+      border-color: darken($color-error, 10%);
+
+      .lock-icon {
+        fill: darken($color-error, 10%);
+      }
+    }
+
+    .lock-icon {
+      fill: $color-error;
+    }
+  }
+}
+
+.lock-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}

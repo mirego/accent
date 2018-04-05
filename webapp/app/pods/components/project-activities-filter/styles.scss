@@ -1,0 +1,16 @@
+.filterList {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.filterList-item {
+  min-width: 150px;
+  margin-left: 20px;
+  font-size: 12px;
+}
+
+.label-text {
+  color: $color-grey;
+}

@@ -1,0 +1,14 @@
+& {
+  display: flex;
+  width: 100%;
+}
+
+.comments {
+  flex: 1 1 100%;
+}
+
+.subscriptions {
+  flex: 1 1 100%;
+  max-width: 250px;
+  margin: 30px 0 0 25px;
+}

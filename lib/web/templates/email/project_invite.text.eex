@@ -1,0 +1,5 @@
+<%= @user.email %> has invited you to collaborate on the project "<%= @project.name %>".
+
+If you already have an account (<%= @email %>), you can just login (<%= webapp_host() %>) and you’ll see the project.
+
+If not, creating an account is as simple as logging in with the invited Google account (<%= @email %>) on <%= webapp_host() %>

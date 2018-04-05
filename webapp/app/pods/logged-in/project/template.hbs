@@ -1,0 +1,37 @@
+{{projects-header
+  session=session
+  project=project
+}}
+
+<div class="wrapper">
+  <div class="wrapper-sidebar">
+    {{#if model.loading}}
+      {{skeleton-ui/project-navigation}}
+    {{else if showError}}
+      {{skeleton-ui/project-navigation}}
+    {{else}}
+      {{project-navigation
+        project=project
+        permissions=permissions
+        revisions=revisions
+      }}
+    {{/if}}
+  </div>
+
+  <div class="wrapper-content">
+    {{#unless model.loading}}
+      {{phoenix-channel-listener project=project}}
+    {{/unless}}
+
+    {{#if showError}}
+      {{error-section
+        status=(t 'pods.error.unauthorized.status')
+        title=(t 'pods.error.unauthorized.title')
+        text=(t 'pods.error.unauthorized.text')
+        isAuthenticated=false
+      }}
+    {{else}}
+      {{outlet}}
+    {{/if}}
+  </div>
+</div>

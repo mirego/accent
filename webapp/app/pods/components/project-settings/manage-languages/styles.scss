@@ -1,0 +1,51 @@
+& {
+  margin-top: 25px;
+}
+
+.titleText {
+  display: flex;
+  align-items: center;
+  margin: 15px 0 5px;
+  font-weight: 600;
+  font-size: 14px;
+  color: $color-black;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.explainText {
+  display: block;
+  max-width: 700px;
+  font-size: 14px;
+  color: rgba($color-black, 0.8);
+}
+
+.emptyLanguages {
+  font-size: 14px;
+  padding: 10px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  color: $color-grey;
+}
+
+.createSlaveForm {
+  margin-top: 20px;
+}
+
+.error {
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: $color-error;
+}
+
+.ember-power-select-trigger {
+  min-height: 31px;
+  max-width: 400px;
+  margin-bottom: 20px;
+  background: #fafafa;
+  border: 1px solid #eee;
+}

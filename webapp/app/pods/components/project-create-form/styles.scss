@@ -1,0 +1,60 @@
+& {
+  padding: 20px;
+  background: #fff;
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 27px;
+  font-weight: 300;
+  color: $color-primary;
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 10px;
+  margin-right: 25px;
+  min-width: 250px;
+  width: 100%;
+  font-size: 12px;
+  font-family: $font-primary;
+}
+
+.errors {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba($color-error, 0.3);
+}
+
+.error {
+  margin-bottom: 5px;
+  color: $color-error;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.formItem {
+  margin-bottom: 20px;
+}
+
+.formItem-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.formActions {
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.ember-power-select-trigger {
+  min-height: 31px;
+  border-color: #eee;
+  border: 1px solid #eee;
+  background: #fafafa;
+  box-shadow: 0 1px 5px rgba(#000, 0.06);
+}

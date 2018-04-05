@@ -1,0 +1,54 @@
+.subNavigation + & {
+  position: relative;
+  top: -1px;
+  z-index: 8;
+}
+
+.filters-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.filters-content {
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+.queryForm {
+  position: relative;
+  margin-right: 15px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  left: 7px;
+  width: 20px;
+  height: 20px;
+  fill: #bbb;
+}
+
+.input {
+  @extend %textInput;
+  width: 100%;
+  padding: 7px 7px 7px 30px;
+  font-family: $font-primary;
+  font-size: 14px;
+  color: $color-black;
+
+  &:focus {
+    box-shadow: inset 0 1px 2px #f6f6f6, 0 1px 2px rgba($color-black, 0.06);
+  }
+
+  &::placeholder {
+    color: $color-grey;
+  }
+}
+
+.totalEntries {
+  margin-top: 10px;
+  color: $color-grey;
+  font-size: 12px;
+}

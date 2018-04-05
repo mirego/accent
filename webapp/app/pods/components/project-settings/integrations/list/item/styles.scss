@@ -1,0 +1,45 @@
+& {
+  margin-bottom: 10px;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 3px;
+}
+
+.details-info {
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+  flex: 1 1 auto;
+}
+
+.details-service {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+}
+
+.details-url {
+  padding-right: 15px;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  margin-left: 10px;
+  font-size: 13px;
+  color: #ddd;
+}
+
+.details-logo {
+  flex: 0 0 22px;
+  margin-right: 4px;
+  width: 22px;
+  height: 22px;
+}
+
+.details-actions {
+  flex: 0 0 auto;
+}

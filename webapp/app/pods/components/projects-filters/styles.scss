@@ -1,0 +1,45 @@
+& {
+  margin: 40px auto 0;
+  max-width: $screen-lg;
+}
+
+.filters-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.queryFilter {
+  flex: 1;
+  margin-right: 15px;
+}
+
+.totalEntries {
+  margin-left: 20px;
+  color: $color-grey;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  left: 7px;
+  width: 20px;
+  height: 20px;
+  fill: #b7b7b7;
+}
+
+.input {
+  @extend %textInput;
+  width: 100%;
+  padding: 7px 7px 7px 30px;
+  font-size: 14px;
+  font-family: $font-primary;
+  color: $color-black;
+
+  &::placeholder {
+    color: $color-grey;
+  }
+}

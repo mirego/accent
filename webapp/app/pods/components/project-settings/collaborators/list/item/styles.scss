@@ -1,0 +1,71 @@
+& {
+  transition: $transition-speed $transition-easing;
+  transition-property: background;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 10px 15px 10px 10px;
+  border-bottom: 1px solid #eee;
+  overflow-x: hidden;
+
+  &.invited {
+    .user {
+      color: $color-grey;
+    }
+  }
+
+  &:focus,
+  &:hover {
+    background: #fafafa;
+
+    .button {
+      opacity: 1;
+    }
+  }
+}
+
+.role {
+  display: block;
+  margin-bottom: 4px;
+  color: $color-primary;
+  font-size: 12px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  color: $color-black;
+  font-size: 15px;
+}
+
+.user-picture {
+  width: 17px;
+  height: 17px;
+  margin-right: 6px;
+  border-radius: 3px;
+}
+
+.invite {
+  color: $color-grey;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.button {
+  flex: 0 0 auto;
+  transition: $transition-speed $transition-easing;
+  transition-property: opacity;
+  opacity: 0;
+  margin-left: 5px;
+  font-size: 11px;
+}
+
+.ember-power-select-trigger {
+  min-width: 150px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  background: #fff;
+  font-size: 12px;
+  box-shadow: 0 1px 5px rgba(#000, 0.06);
+}

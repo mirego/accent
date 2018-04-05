@@ -1,0 +1,13 @@
+{{project-settings/title title=(t 'components.project_manage_languages_overview.list_languages')}}
+
+<ul class="list">
+  {{#each revisions key='id' as |revision|}}
+    {{project-settings/manage-languages/overview/item
+      master=revision.isMaster
+      permissions=permissions
+      onPromoteMaster=onPromoteMaster
+      onDelete=onDelete
+      revision=revision
+    }}
+  {{/each}}
+</ul>

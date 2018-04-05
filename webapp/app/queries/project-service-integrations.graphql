@@ -1,0 +1,18 @@
+query ProjectServiceIntegrations($projectId: ID!) {
+  viewer {
+    project(id: $projectId) {
+      id
+      name
+
+      integrations {
+        id
+        service
+        events
+        data {
+          id
+          url
+        }
+      }
+    }
+  }
+}

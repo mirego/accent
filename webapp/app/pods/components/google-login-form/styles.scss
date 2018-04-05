@@ -1,0 +1,45 @@
+& {
+  max-width: 500px;
+  margin: 100px auto 30px;
+  padding: 20px;
+  box-shadow: 0 3px 21px rgba(#000, 0.07);
+  border: 1px solid #eee;
+  background: #fafafa;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 15px;
+  font-weight: 900;
+  font-size: 19px;
+}
+
+.subtitle {
+  margin: 0 15px 15px;
+  font-size: 14px;
+}
+
+.googleLogo {
+  width: 30px;
+  margin-right: 10px;
+}
+
+.googleLoginButton {
+  margin-top: 10px;
+  padding: 7px 40px 7px 20px;
+  background: #4d90fe;
+  border: 1px solid darken(#4d90fe, 5%);
+  font-family: arial, sans-serif;
+  font-size: 14px;
+
+  &:focus,
+  &:hover {
+    background: darken(#4d90fe, 8%);
+  }
+}
+
+@media (max-width: ($screen-sm)) {
+  & {
+    margin-top: 30px;
+  }
+}

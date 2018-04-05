@@ -1,0 +1,41 @@
+<div class="filters">
+  <div class="filters-wrapper">
+    <ul class="filterList">
+      {{#unless actionFilter}}
+        <li class="filterList-item">
+          <label class="label">
+            {{input
+              type='checkbox'
+              checked=batchFilter
+              change=(action 'batchFilterChange')
+            }}
+
+            <span class="label-text">{{t 'components.project_activities_filter.only_important_activities_text'}}</span>
+          </label>
+        </li>
+      {{/unless}}
+
+      <li class="filterList-item">
+        {{#power-select
+          searchEnabled=false
+          selected=actionFilterValue
+          options=mappedActions
+          onchange=(action "actionFilterChange" value='value') as |action|
+        }}
+          {{t action.label}}
+        {{/power-select}}
+      </li>
+
+      <li class="filterList-item">
+        {{#power-select
+          searchEnabled=false
+          selected=userFilterValue
+          options=mappedUsers
+          onchange=(action "userFilterChange" value='value') as |user|
+        }}
+          {{user.label}}
+        {{/power-select}}
+      </li>
+    </ul>
+  </div>
+</div>

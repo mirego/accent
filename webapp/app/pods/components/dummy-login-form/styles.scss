@@ -1,0 +1,62 @@
+& {
+  max-width: 500px;
+  margin: 100px auto 30px;
+  padding: 20px;
+  box-shadow: 0 3px 21px rgba(#000, 0.07);
+  border: 1px solid #eee;
+  background: #fafafa;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 15px;
+  font-weight: 900;
+  font-size: 19px;
+}
+
+.warning {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  background: lighten($color-error, 40%);
+  font-weight: bold;
+  font-size: 12px;
+  color: $color-error;
+}
+
+.subtitle {
+  margin: 0 15px 25px;
+  font-size: 13px;
+  font-style: italic;
+  color: #555;
+}
+
+.form {
+  display: flex;
+  align-items: stretch;
+}
+
+.textInput {
+  @extend %textInput;
+  flex: 1 1 auto;
+  padding: 10px;
+  margin: 0 0 0 0;
+  border-radius: 3px 0 0 3px;
+  border-right: 0;
+  font-size: 13px;
+
+  &:focus {
+    border-right: 0;
+  }
+}
+
+.dummyLoginButton {
+  flex: 0 1 auto;
+  border-radius: 0 3px 3px 0;
+}
+
+@media (max-width: ($screen-sm)) {
+  & {
+    margin-top: 30px;
+  }
+}

@@ -1,0 +1,49 @@
+{{#if isBooleanType}}
+  <span class="label">
+    The text should be either true or false
+  </span>
+
+  {{#radio-button
+    groupValue=value
+    value='true'
+  }}
+    {{t 'components.translation_edit.form.true_option'}}
+  {{/radio-button}}
+
+  {{#radio-button
+    groupValue=value
+    value='false'
+  }}
+    {{t 'components.translation_edit.form.false_option'}}
+  {{/radio-button}}
+{{else}}
+  {{#if showTypeHints}}
+    {{#if isIntegerType}}
+      <span class="label">
+        {{t 'components.translation_edit.form.integer_type_notice'}}
+      </span>
+    {{/if}}
+
+    {{#if isEmptyType}}
+      <span class="label">
+        {{t 'components.translation_edit.form.empty_type_notice'}}
+      </span>
+    {{/if}}
+
+    {{#if isNullType}}
+      <span class="label">
+        {{t 'components.translation_edit.form.null_type_notice'}}
+      </span>
+    {{/if}}
+  {{/if}}
+
+  {{quick-submit-textarea
+    rows=rows
+    disabled=disabled
+    value=value
+    class='inputText'
+    onFocus=onFocus
+    onBlur=onBlur
+    onSubmit=onSubmit
+  }}
+{{/if}}

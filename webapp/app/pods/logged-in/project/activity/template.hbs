@@ -1,0 +1,12 @@
+{{#if model.loading}}
+  {{loading-content label=(t 'pods.project.activities.show.loading_content')}}
+{{else}}
+  {{project-activity
+    permissions=permissions
+    showTranslationLink=true
+    componentTranslationPrefix='project_activities_list_item'
+    project=model.project
+    activity=model.activity
+    onRollback=(action 'rollback')
+  }}
+{{/if}}

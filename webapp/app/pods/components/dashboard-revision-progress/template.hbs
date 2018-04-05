@@ -1,0 +1,28 @@
+<div>
+  <span class="language">
+    {{#if (get permissions 'index_translations')}}
+      {{#link-to
+        'logged-in.project.revision.translations'
+        project.id
+        revision.id
+        class='language-name'
+      }}
+        {{revision.language.name}}
+        <span class="language-reviewedPercentage">{{correctedKeysPercentage}}%</span>
+      {{/link-to}}
+    {{else}}
+      <span class="language-name">
+        {{revision.language.name}}
+        <span class="language-reviewedPercentage">{{correctedKeysPercentage}}%</span>
+      </span>
+    {{/if}}
+
+    <span class="reviewedStats">
+      <span class="reviewedStats-reviewedCount">{{reviewsCount}}</span>
+      /
+      <span class="reviewedStats-translationsCount">{{revision.translationsCount}}</span>
+    </span>
+  </span>
+
+  {{review-progress-bar correctedKeysPercentage=correctedKeysPercentage}}
+</div>

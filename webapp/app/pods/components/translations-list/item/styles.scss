@@ -1,0 +1,155 @@
+& {
+  transition: $transition-speed $transition-easing;
+  transition-property: background;
+  display: block;
+  margin: 8px 0;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  &:focus,
+  &:hover {
+    background: $color-light-grey;
+
+    .item-edit {
+      transform: translateX(-40px);
+      opacity: 1;
+    }
+  }
+
+  &.item--editMode {
+    background: $color-light-grey;
+    border: 1px solid lighten($color-grey, 25%);
+
+    .item-edit {
+      transform: translateX(-40px);
+      opacity: 1;
+    }
+
+    .item-edit-icon {
+      &:focus,
+      &:hover {
+        fill: $color-error;
+      }
+    }
+  }
+}
+
+.item-link {
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    .item-key {
+      color: $color-primary;
+    }
+  }
+}
+
+.item-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.item-edit {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  padding: 2px 8px;
+  transform: translateX(-20px);
+  transition: 0.2s ease-in-out;
+  transition-property: opacity, transform;
+}
+
+.item-edit-icon {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  fill: $color-grey;
+
+  &:focus,
+  &:hover {
+    fill: $color-primary;
+  }
+}
+
+.item-key-prefix {
+  display: block;
+  font-size: 11px;
+  color: #959595;
+  font-weight: 300;
+}
+
+.item-key {
+  display: block;
+  @extend %translationKeyBase;
+  transition: $transition-speed $transition-easing;
+  transition-property: color;
+  margin-right: 15px;
+  line-height: 1.5;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.item-text {
+  @extend %translationTextBase;
+  display: block;
+  width: 100%;
+  font-size: 13px;
+  color: #b4b4b4;
+  background: $color-white;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 6px 10px;
+  cursor: text;
+  transition: $transition-speed $transition-easing;
+  transition-property: border-color;
+
+  &.item-text--empty {
+    font-style: italic;
+    font-size: 11px;
+    color: #ddd;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $color-primary;
+  }
+}
+
+.item-updatedAt {
+  color: $color-grey;
+  font-size: 11px;
+}
+
+.item-textEdit {
+  margin-top: 10px;
+}
+
+.item-textEdit-cancel {
+  margin-right: 20px;
+  color: $color-grey;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.item-textEdit-button {
+  padding: 1px 9px;
+}
+
+.item-textEdit-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+}
+
+@media (max-width: ($screen-sm)) {
+  .item-edit {
+    display: none;
+  }
+}

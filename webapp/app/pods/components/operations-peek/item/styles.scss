@@ -1,0 +1,104 @@
+& {
+  margin-bottom: 15px;
+}
+
+.languageHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.languageHeader-title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.languageHeader-displayOptions-button {
+  padding: 0 10px;
+  background: none;
+  border-right: 1px solid $color-border;
+  color: $color-grey;
+  font-size: 13px;
+
+  &:last-of-type {
+    border-right-color: transparent;
+  }
+}
+
+.languageHeader-displayOptions-button[disabled] {
+  color: $color-primary;
+}
+
+.statsList,
+.operationsList {
+  margin: 10px 0;
+  background: $color-white;
+  box-shadow: 0 0 7px rgba($color-black, 0.06);
+  border: 1px solid $color-border;
+}
+
+.stat {
+  padding: 5px 10px;
+
+  &:first-of-type {
+    padding-top: 10px;
+  }
+
+  &:last-of-type {
+    padding-bottom: 10px;
+    border-bottom-color: transparent;
+  }
+}
+
+.stat-count {
+  margin-right: 6px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.stat-action {
+  font-size: 13px;
+}
+
+.operation {
+  border-bottom: 1px solid $color-border;
+}
+
+.operation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.operation-content {
+  padding: 5px 10px 10px;
+}
+
+.operation-action {
+  font-size: 12px;
+  color: $color-grey;
+}
+
+.operation-key {
+  @extend %translationKeyBase;
+  font-size: 11px;
+}
+
+.operation-textLabel {
+  margin-right: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.operation-text {
+  display: inline-block;
+  font-size: 12px;
+}
+
+.noChanges {
+  padding: 20px 10px;
+  font-style: italic;
+  font-size: 12px;
+  color: $color-grey;
+}

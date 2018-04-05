@@ -1,0 +1,26 @@
+<div class="comments">
+  {{#if (get permissions 'create_comment')}}
+    {{#unless translation.isRemoved}}
+      {{translation-comment-form onSubmit=onSubmit}}
+    {{/unless}}
+  {{/if}}
+
+  {{translation-comments-list
+    comments=comments.entries
+    class='at-translation'
+  }}
+
+  {{resource-pagination
+    meta=comments.meta
+    onSelectPage=onSelectPage
+  }}
+</div>
+
+<div class="subscriptions">
+  {{translation-comments-subscriptions
+    collaborators=collaborators
+    subscriptions=subscriptions
+    onCreateSubscription=onCreateSubscription
+    onDeleteSubscription=onDeleteSubscription
+  }}
+</div>

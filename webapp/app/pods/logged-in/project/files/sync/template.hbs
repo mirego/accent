@@ -1,0 +1,50 @@
+{{#acc-modal onClose=(action 'closeModal')}}
+  {{#project-file-operation}}
+    <button {{action 'closeModal'}} class="closeButton">
+      <div class="closeButton-content">
+        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
+      </div>
+    </button>
+
+    <div class="title">
+      <div class="sectionType">
+        {{inline-svg '/assets/sync.svg' class='sectionType-icon'}}
+        {{t 'components.project_file_operations.sync'}}
+      </div>
+
+      {{document.path}}
+
+      <div class="subtitle">
+        <small class="subtitle-label">{{t 'components.project_file_operations.document_format'}}:</small>
+        {{document.format}}
+      </div>
+    </div>
+
+    <div class="sections">
+      <div class="sections-file">
+        {{commit-file
+          permissions=permissions
+          revisions=revisions
+          canCommit=true
+          commitAction='sync'
+          peekAction='peek_sync'
+          commitButtonText=(t 'components.commit_file.sync_button')
+          onFileCancel=(action 'cancelFile')
+          onPeek=(action 'peek')
+          onCommit=(action 'sync')
+        }}
+      </div>
+
+      <div class="sections-preview">
+        {{#if revisionOperations.length}}
+          {{operations-peek revisionOperations=revisionOperations}}
+        {{else}}
+          <h3 class="sections-preview-title">{{t 'components.project_file_operations.preview_title'}}</h3>
+          <div class="sections-preview-empty">
+            {{t 'components.project_file_operations.preview_text'}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  {{/project-file-operation}}
+{{/acc-modal}}

@@ -1,0 +1,49 @@
+<div class="list-item-header">
+  {{#link-to
+    'logged-in.project.revision.translations'
+    project.id
+    revision.id
+    class='list-link'
+  }}
+    {{revision.language.name}}
+  {{/link-to}}
+
+  {{#if revision.isMaster}}
+    {{#acc-badge class='masterBadge'}}
+      {{t 'components.project_manage_languages_overview.master_badge'}}
+    {{/acc-badge}}
+  {{/if}}
+</div>
+
+<div class="list-item-infos">
+  {{#unless revision.isMaster}}
+    <div class="list-item-infos-date">
+      {{t 'components.project_manage_languages_overview.revision_inserted_at_label'}}
+      {{time-ago-in-words-tag date=revision.insertedAt}}
+    </div>
+
+    <div class="list-item-actions">
+      {{#if (get permissions 'promote_slave')}}
+        {{#async-button
+          loading=isPromoting
+          class='button--grey'
+          onClick=(action 'promoteRevision')
+        }}
+          {{inline-svg '/assets/chevron-top.svg' class='button-icon'}}
+          {{t 'components.project_manage_languages_overview.promote_revision_master_button'}}
+        {{/async-button}}
+      {{/if}}
+
+      {{#if (get permissions 'delete_slave')}}
+        {{#async-button
+          loading=isDeleting
+          class='button--red button--filled'
+          onClick=(action 'deleteRevision')
+        }}
+          {{inline-svg '/assets/x.svg' class='button-icon'}}
+          {{t 'components.project_manage_languages_overview.delete_revision_button'}}
+        {{/async-button}}
+      {{/if}}
+    </div>
+  {{/unless}}
+</div>

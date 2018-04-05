@@ -1,0 +1,29 @@
+{{page-title
+  text=(t 'pods.project.versions.title')
+  icon='assets/tag.svg'
+}}
+
+{{#if model.loading}}
+  {{skeleton-ui/progress-line}}
+{{/if}}
+
+{{#if showSkeleton}}
+  {{skeleton-ui/versions-list}}
+{{else}}
+  {{versions-list
+    permissions=permissions
+    versions=model.versions.entries
+    project=model.project
+  }}
+
+  {{#if (get permissions 'create_version')}}
+    {{versions-add-button project=model.project}}
+  {{/if}}
+
+  {{resource-pagination
+    meta=model.versions.meta
+    onSelectPage=(action 'selectPage')
+  }}
+
+  {{outlet}}
+{{/if}}

@@ -1,0 +1,30 @@
+{{page-title
+  text=(t 'pods.project.files.title')
+  icon='assets/file.svg'
+}}
+
+{{#if model.loading}}
+  {{skeleton-ui/progress-line}}
+{{/if}}
+
+{{#if showSkeleton}}
+  {{skeleton-ui/documents-list}}
+{{else}}
+  {{documents-list
+    permissions=permissions
+    documents=model.documents.entries
+    project=model.project
+    onDelete=(action 'deleteDocument')
+  }}
+
+  {{#if (get permissions 'sync')}}
+    {{documents-add-button project=model.project}}
+  {{/if}}
+
+  {{resource-pagination
+    meta=model.documents.meta
+    onSelectPage=(action 'selectPage')
+  }}
+
+  {{outlet}}
+{{/if}}

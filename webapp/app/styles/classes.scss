@@ -1,0 +1,38 @@
+%centeredWrapper {
+  margin: 0 auto;
+  max-width: $screen-lg;
+}
+
+%translationKeyBase {
+  color: $color-black;
+  font-family: $font-monospace;
+  word-break: break-all;
+}
+
+%translationTextBase {
+  white-space: pre-wrap;
+  color: $color-grey;
+}
+
+%textInput {
+  transition: $transition-speed $transition-easing;
+  transition-property: border box-shadow;
+  resize: vertical;
+  outline: 0;
+  border-radius: 4px;
+  border: 2px solid lighten($color-grey, 20%);
+  background: $color-white;
+  font-family: $font-monospace;
+  line-height: 1.4;
+
+  &:focus {
+    border: 2px solid rgba($color-primary, 0.7);
+  }
+}
+
+@media (max-width: ($screen-lg + 40px)) {
+  %centeredWrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

@@ -1,0 +1,93 @@
+& {
+  width: 100%;
+  margin-top: 25px;
+}
+
+.item {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: 3px;
+
+  &:focus,
+  &:hover {
+    .deleteButton {
+      display: inline-block;
+    }
+  }
+}
+
+.item-title {
+  display: inline-block;
+  margin-bottom: 7px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.item-subtitle {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: normal;
+  color: #bbb;
+}
+
+.item-subtitle-label {
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.deleteButton {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  font-size: 11px;
+
+  .button-icon {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.stats {
+  position: relative;
+  left: -21px;
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 6px 10px 5px 20px;
+  border-radius: 3px 0 3px 0;
+  border: 1px solid #eee;
+  border-top: 0;
+  background: #fafafa;
+  font-size: 11px;
+  color: $color-grey;
+}
+
+.stats-item {
+  margin-right: 10px;
+  padding-left: 10px;
+  border-left: 1px solid #ddd;
+
+  &:first-of-type {
+    font-size: 12px;
+    border-color: transparent;
+    padding-left: 0;
+    color: darken($color-grey, 5%);
+  }
+}
+
+.links {
+  margin-top: 10px;
+
+  .button {
+    margin-right: 6px;
+
+    &.button--borderLess:first-of-type:last-of-type {
+      margin-left: -14px;
+    }
+  }
+}

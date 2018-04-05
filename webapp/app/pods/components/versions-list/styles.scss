@@ -1,0 +1,73 @@
+& {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.item {
+  position: relative;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  width: 100%;
+
+  &:focus,
+  &:hover {
+    .deleteButton {
+      display: inline-block;
+    }
+  }
+}
+
+.item-title {
+  display: flex;
+  align-items: center;
+  font-size: 23px;
+  color: $color-primary;
+}
+
+.item-title-link {
+  text-decoration: none;
+  color: $color-primary;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.item-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  font-family: $font-monospace;
+  font-size: 14px;
+  font-weight: normal;
+  color: #888;
+}
+
+.item-tag-icon {
+  width: 22px;
+  height: 22px;
+  fill: #bbb;
+}
+
+.item-meta {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #555;
+}
+
+.item-meta-date {
+  font-style: italic;
+  color: #bbb;
+}
+
+.links {
+  margin-top: 10px;
+
+  .button {
+    margin-right: 6px;
+
+    &.button--borderLess:first-of-type:last-of-type {
+      margin-left: -14px;
+    }
+  }
+}

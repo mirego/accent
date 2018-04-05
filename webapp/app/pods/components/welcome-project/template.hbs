@@ -1,0 +1,30 @@
+<h2 class="heroTitle">
+  <div class="heroTitle-title">
+    {{t 'components.welcome_project.welcome'}}
+  </div>
+
+  <div class="heroTitle-text">
+    {{t 'components.welcome_project.welcome_translations'}}
+  </div>
+</h2>
+
+<h3 class="subtitle">{{t 'components.welcome_project.first_step'}}:</h3>
+{{#link-to
+  'logged-in.project.files.new-sync'
+  project.id
+  class='link'
+}}
+  {{inline-svg 'assets/sync.svg' class='link-icon'}}
+  <span class="link-title">{{t 'components.welcome_project.sync_file'}}</span>
+{{/link-to}}
+
+<h3 class="subtitle">{{t 'components.welcome_project.after_steps'}}:</h3>
+<section class="section">
+  {{inline-svg 'assets/check.svg' class='section-icon'}}
+  <span class="section-title">{{t 'components.welcome_project.start_review'}}</span>
+</section>
+
+<section class="section">
+  {{inline-svg 'assets/export.svg' class='section-icon'}}
+  <span class="section-title">{{t 'components.welcome_project.export'}}</span>
+</section>

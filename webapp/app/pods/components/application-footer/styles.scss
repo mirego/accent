@@ -1,0 +1,37 @@
+& {
+  padding: 10px;
+  margin-top: 40px;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  color: $color-grey;
+  font-size: 12px;
+  text-align: right;
+}
+
+.inner {
+  @extend %centeredWrapper;
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  display: inline-block;
+  color: $color-grey;
+  text-decoration: none;
+  margin-right: 7px;
+
+  &:focus,
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.external-link {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+}

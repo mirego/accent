@@ -1,0 +1,74 @@
+<div>
+  <div>
+    {{#if isEditing}}
+      {{#power-select
+        searchEnabled=false
+        selected=roleValue
+        options=mappedPossibleRoles
+        onchange=(action (mut updatedRole) value='value') as |option|
+      }}
+        {{t option.label}}
+      {{/power-select}}
+    {{else}}
+      <span class="role">{{role}}</span>
+    {{/if}}
+
+    <span class="user">
+      {{#if collaborator.user.pictureUrl}}
+        <img class="user-picture" src="{{collaborator.user.pictureUrl}}" />
+      {{/if}}
+
+      {{fullnameWithFallback}}
+    </span>
+  </div>
+
+  <div>
+    <span class="invite">
+      {{#if hasJoined}}
+        {{t 'components.project_settings.collaborators_item.joined'}}
+        {{time-ago-in-words-tag date=collaborator.insertedAt}}
+      {{else}}
+        {{t 'components.project_settings.collaborators_item.invited'}}
+        {{time-ago-in-words-tag date=collaborator.insertedAt}}
+
+        {{#if collaborator.assigner}}
+          {{t 'components.project_settings.collaborators_item.by'}}
+          {{collaborator.assigner.fullname}}
+        {{/if}}
+      {{/if}}
+    </span>
+  </div>
+</div>
+
+<div>
+  {{#if isEditing}}
+    {{#if canUpdateCollaborator}}
+      <button {{action 'updateCollaborator'}} class="button button--filled">
+        {{inline-svg '/assets/check.svg' class='button-icon'}}
+        {{t 'components.project_settings.collaborators_item.save_role'}}
+      </button>
+    {{/if}}
+
+    <button {{action 'toggleUpdateCollaborator'}} class="button button--grey">
+      {{t 'components.project_settings.collaborators_item.cancel_save_role'}}
+    </button>
+  {{else}}
+    {{#if canUpdateCollaborator}}
+      <button {{action 'toggleUpdateCollaborator'}} class="button button--grey">
+        {{inline-svg '/assets/pencil.svg' class='button-icon'}}
+        {{t 'components.project_settings.collaborators_item.edit_role'}}
+      </button>
+    {{/if}}
+
+    {{#if canDeleteCollaborator}}
+      <button {{action 'deleteCollaborator'}} class="button button--red">
+        {{inline-svg '/assets/x.svg' class='button-icon'}}
+        {{#if hasJoined}}
+          {{t 'components.project_settings.collaborators_item.delete_button'}}
+        {{else}}
+          {{t 'components.project_settings.collaborators_item.uninvite_button'}}
+        {{/if}}
+      </button>
+    {{/if}}
+  {{/if}}
+</div>

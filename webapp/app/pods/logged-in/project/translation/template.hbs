@@ -1,0 +1,20 @@
+{{#if showSkeleton}}
+  {{skeleton-ui/translation-splash-title}}
+{{else}}
+  {{translation-splash-title
+    project=model.project
+    translation=model.translation
+  }}
+{{/if}}
+
+{{translation-navigation
+  project=model.project
+  permissions=permissions
+  translation=model.translation
+}}
+
+{{#if model.loading}}
+  {{skeleton-ui/progress-line}}
+{{/if}}
+
+{{outlet}}

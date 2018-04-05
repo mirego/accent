@@ -1,0 +1,18 @@
+linters:
+  CapitalizationInSelector:
+    enabled: false
+  PropertySortOrder:
+    enabled: false
+  LeadingZero:
+    enabled: false
+  BorderZero:
+    enabled: false
+  SelectorDepth:
+    enabled: true
+    max_depth: 4
+  DuplicateProperty:
+    enabled: false
+  MergeableSelector:
+    enabled: false
+  SelectorFormat:
+    convention: '[a-zA-Z0-9\-]+'

@@ -1,0 +1,22 @@
+{{projects-header session=session}}
+
+{{projects-filters
+  query=query
+  onChangeQuery=(action 'changeQuery')
+}}
+
+{{#if showLoading}}
+  {{loading-content label=(t 'pods.projects.loading_content')}}
+{{else}}
+  {{projects-list
+    projects=model.projects.entries
+    query=query
+  }}
+
+  {{resource-pagination
+    meta=model.projects.meta
+    onSelectPage=(action 'selectPage')
+  }}
+{{/if}}
+
+{{outlet}}

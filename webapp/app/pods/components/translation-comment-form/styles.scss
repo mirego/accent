@@ -1,0 +1,40 @@
+& {
+  margin-top: 30px;
+}
+
+.form-content {
+  display: flex;
+  align-items: flex-start;
+
+  .label {
+    padding: 10px 12px;
+  }
+}
+
+.error {
+  display: block;
+  margin-bottom: 10px;
+  color: $color-error;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.inputText {
+  @extend %textInput;
+  flex-grow: 1;
+  padding: 10px;
+  margin-right: 10px;
+  width: 100%;
+  font-family: $font-primary;
+  font-size: 13px;
+}
+
+@media (max-width: ($screen-sm)) {
+  .form-content {
+    flex-direction: column;
+  }
+
+  .inputText {
+    margin-bottom: 10px;
+  }
+}

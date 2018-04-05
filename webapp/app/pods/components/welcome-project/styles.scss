@@ -1,0 +1,71 @@
+& {
+  width: 100%;
+  margin: 0 30px;
+}
+
+.heroTitle {
+  display: block;
+  margin: 20px 0 40px;
+  max-width: 350px;
+  font-weight: 300;
+}
+
+.heroTitle-title {
+  font-size: 48px;
+  color: $color-primary;
+}
+
+.heroTitle-text {
+  font-size: 18px;
+  color: lighten($color-grey, 10%);
+}
+
+.subtitle {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.section,
+.link {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.link {
+  margin-bottom: 15px;
+  color: $color-primary;
+  text-decoration: none;
+}
+
+.section {
+  color: $color-grey;
+}
+
+.section-icon,
+.link-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.link-icon {
+  fill: $color-primary;
+}
+
+.section-icon {
+  fill: $color-grey;
+}
+
+.help {
+  margin: 20px 0;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.help-link {
+  color: $color-primary;
+}

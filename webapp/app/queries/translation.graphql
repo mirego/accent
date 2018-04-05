@@ -1,0 +1,36 @@
+query Translation($projectId: ID!, $translationId: ID!) {
+  viewer {
+    project(id: $projectId) {
+      id
+      translation(id: $translationId) {
+        id
+        key
+        isConflicted
+        isRemoved
+        valueType
+        commentsCount
+        correctedText
+        conflictedText
+        updatedAt
+
+        sourceTranslation {
+          id
+        }
+
+        version {
+          id
+          tag
+        }
+
+        revision {
+          id
+
+          language {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<ul>
+  {{#each translations key='id' as |translation|}}
+    {{translations-list/item
+      translation=translation
+      project=project
+      revisionId=revisionId
+      onUpdateText=onUpdateText
+    }}
+  {{else if query}}
+    {{empty-content
+      iconPath='assets/empty.svg'
+      text=(t 'components.translations_list.no_translations_query' query=query)
+    }}
+  {{else}}
+    {{#empty-content}}
+      {{inline-svg 'assets/empty.svg' class='icon'}}
+      {{t 'components.translations_list.no_translations'}}
+
+      <div>
+        {{t 'components.translations_list.maybe_sync_before'}}
+
+        {{#link-to 'logged-in.project.files' class='link'}}
+          {{t 'components.translations_list.maybe_sync_link'}}
+        {{/link-to}}
+      </div>
+    {{/empty-content}}
+  {{/each}}
+</ul>

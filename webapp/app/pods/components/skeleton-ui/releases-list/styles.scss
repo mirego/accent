@@ -1,0 +1,44 @@
+& {
+  margin-top: 25px;
+}
+
+.item {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #fafafa;
+
+  &:nth-child(2) {
+    opacity: 0.6;
+  }
+
+  &:nth-child(3) {
+    opacity: 0.2;
+  }
+}
+
+.item-meta {
+  height: 3px;
+  width: 160px;
+  margin-bottom: 20px;
+  background: #fafafa;
+}
+
+.item-document {
+  height: 4px;
+  width: 230px;
+  margin-bottom: 20px;
+  background: #eee;
+}
+
+.item-button {
+  display: inline-block;
+  height: 30px;
+  width: 80px;
+  border: 1px solid #eee;
+  margin-right: 10px;
+}
+
+.item-button--green {
+  border-color: rgba($color-primary, 0.3);
+  background: rgba($color-primary, 0.1);
+}

@@ -1,0 +1,34 @@
+{{translations-filter
+  query=query
+  document=document
+  documents=model.documents
+  version=version
+  versions=model.project.versions.entries
+  onChangeQuery=(action 'changeQuery')
+  onChangeDocument=(action 'changeDocument')
+  onChangeVersion=(action 'changeVersion')
+  meta=model.translations.meta
+}}
+
+{{#if model.loading}}
+  {{skeleton-ui/progress-line}}
+{{/if}}
+
+{{#if showSkeleton}}
+  {{skeleton-ui/translations-list}}
+{{else if showLoading}}
+  {{loading-content label=(t 'pods.project.translations.loading_content')}}
+{{else}}
+  {{translations-list
+    project=model.project
+    revisionId=model.revisionId
+    translations=model.translations.entries
+    query=query
+    onUpdateText=(action 'updateText')
+  }}
+
+  {{resource-pagination
+    meta=model.translations.meta
+    onSelectPage=(action 'selectPage')
+  }}
+{{/if}}

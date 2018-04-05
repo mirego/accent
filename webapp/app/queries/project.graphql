@@ -1,0 +1,39 @@
+query Project($projectId: ID!) {
+  roles {
+    slug
+  }
+
+  documentFormats {
+    slug
+    name
+    extension
+  }
+
+  viewer {
+    project(id: $projectId) {
+      id
+      name
+
+      viewerPermissions
+
+      documents {
+        entries {
+          id
+          path
+          format
+        }
+      }
+
+      revisions {
+        id
+        isMaster
+
+        language {
+          id
+          slug
+          name
+        }
+      }
+    }
+  }
+}

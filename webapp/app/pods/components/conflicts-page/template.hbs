@@ -1,0 +1,39 @@
+{{conflicts-filters
+  meta=translations.meta
+  conflicts=translations.entries
+  referenceRevisions=referenceRevisions
+  document=document
+  documents=documents
+  query=query
+  reference=reference
+  onChangeDocument=onChangeDocument
+  onChangeReference=onChangeReference
+  onChangeQuery=onChangeQuery
+}}
+
+{{#if isLoading}}
+  {{skeleton-ui/progress-line}}
+{{/if}}
+
+{{#if showSkeleton}}
+  {{skeleton-ui/conflicts-items}}
+{{else if showLoading}}
+  {{loading-content label=(t 'pods.project.conflicts.loading_content')}}
+{{else}}
+  {{conflicts-items
+    referenceRevision=referenceRevision
+    revision=revision
+    fullscreen=fullscreen
+    permissions=permissions
+    project=project
+    conflicts=translations.entries
+    query=query
+    onCorrect=onCorrect
+    onCorrectAll=onCorrectAll
+  }}
+
+  {{resource-pagination
+    meta=translations.meta
+    onSelectPage=onSelectPage
+  }}
+{{/if}}

@@ -1,0 +1,219 @@
+.activity-title {
+  font-size: 19px;
+  color: #666;
+}
+
+.activity-title-author {
+  font-weight: bold;
+  color: #333;
+}
+
+.activity-explanation {
+  margin: 20px 0 0;
+  font-weight: 300;
+  font-size: 14px;
+  color: #555;
+  padding: 10px 12px;
+  background: #fafafa;
+  border-radius: 3px;
+}
+
+.activity-explanation-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #111;
+}
+
+.activity-date {
+  display: block;
+  font-size: 12px;
+  font-style: italic;
+  color: #aaa;
+}
+
+.activity-meta {
+  display: flex;
+  align-items: baseline;
+}
+
+.rollbackButton {
+  font-size: 12px;
+  margin-left: 10px;
+  color: lighten($color-error, 25%);
+
+  &:focus,
+  &:hover {
+    color: $color-error;
+  }
+
+  .label {
+    padding: 0;
+  }
+
+  .loading {
+    top: -9px;
+  }
+}
+
+.details {
+  display: flex;
+}
+
+.details-states {
+  flex: 1 1 auto;
+  width: 45%;
+}
+
+.details-associations {
+  flex: 1 1 auto;
+  width: 55%;
+}
+
+.details-label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 15px;
+  color: $color-primary;
+}
+
+.details-associations-overflow {
+  max-height: 400px;
+  overflow-y: scroll;
+  border-radius: 3px;
+  padding: 5px 7px;
+  border: 1px solid #eee;
+}
+
+.stats,
+.details-associations,
+.translation-state {
+  margin-top: 20px;
+}
+
+.translation-state-items,
+.stats-items {
+  margin-right: 20px;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.translation-state-item,
+.stats-item {
+  padding-bottom: 7px;
+  margin-bottom: 7px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+
+  &:last-of-type {
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+}
+
+.translation-state-item {
+  margin-bottom: 5px;
+}
+
+.translation-state-label {
+  color: #444;
+}
+
+.translation-state-key {
+  display: block;
+  @extend %translationKeyBase;
+  padding: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+
+  &:focus,
+  &:hover {
+    color: $color-primary;
+    text-decoration: underline;
+  }
+}
+
+.translation-state-key-prefix {
+  display: block;
+  font-size: 11px;
+  color: #959595;
+  font-weight: 300;
+}
+
+.translation-state-document {
+  display: block;
+  padding: 5px;
+  font-size: 12px;
+  color: #333;
+}
+
+.translation-state-reviewed {
+  display: block;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.translation-state-value {
+  display: block;
+  padding: 5px;
+  white-space: pre-wrap;
+  font-size: 13px;
+  color: #adadad;
+}
+
+.translation-state-value--empty {
+  font-style: italic;
+  font-size: 12px;
+}
+
+.rollbackedBadge {
+  display: inline-block;
+  margin-left: 7px;
+  font-size: 12px;
+  font-style: italic;
+  color: $color-error;
+}
+
+.translation-state-label {
+  font-size: 12px;
+}
+
+.translation-state-value {
+  display: block;
+  font-weight: 400;
+}
+
+.textDiff {
+  white-space: pre-wrap;
+
+  .added {
+    background: lighten($color-success, 42%);
+    color: $color-success;
+  }
+
+  .removed {
+    background: lighten($color-error, 48%);
+    color: $color-error;
+  }
+}
+
+@media (max-width: ($screen-md)) {
+  .details {
+    flex-direction: column;
+  }
+
+  .translation-state-items,
+  .stats-items {
+    margin-right: 0;
+  }
+
+  .details-states,
+  .details-associations {
+    width: 100%;
+  }
+}

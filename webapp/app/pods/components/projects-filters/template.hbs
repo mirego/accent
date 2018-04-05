@@ -1,0 +1,22 @@
+<div class="filters">
+  <form {{action 'submitForm' on='submit'}} class="filters-wrapper">
+    <div class="queryFilter">
+      {{inline-svg '/assets/search.svg' class='search-icon'}}
+
+      {{input
+        class='input'
+        type='text'
+        placeholder=(t 'components.projects_filters.input_placeholder_text')
+        value=debouncedQuery
+      }}
+    </div>
+
+    {{#link-to
+      'logged-in.projects.new'
+      class='button button--filled'
+    }}
+      {{inline-svg '/assets/add.svg' class='button-icon'}}
+      {{t 'components.projects_filters.new_project'}}
+    {{/link-to}}
+  </form>
+</div>

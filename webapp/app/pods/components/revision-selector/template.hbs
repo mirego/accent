@@ -1,0 +1,13 @@
+{{#if hasManyRevisions}}
+  {{#power-select
+    searchEnabled=false
+    selected=revisionValue
+    options=mappedRevisions
+    onchange=(action 'selectRevision' value='value') as |revision|
+  }}
+    {{revision.label}}
+  {{/power-select}}
+  <span class="otherLanguages">
+    {{t 'components.revision_selector.languages_count' count=otherRevisionsCount}}
+  </span>
+{{/if}}

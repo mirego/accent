@@ -1,0 +1,55 @@
+<h2 class="titleText">
+  {{inline-svg '/assets/sync.svg' class='button-icon'}}
+  {{t 'components.project_manage_languages.sync_explain_title'}}
+</h2>
+
+<p class="explainText">
+  {{t 'components.project_manage_languages.sync_explain_text'}}
+</p>
+
+<h2 class="titleText">
+  {{inline-svg '/assets/merge.svg' class='button-icon'}}
+  {{t 'components.project_manage_languages.add_translations_explain_title'}}
+</h2>
+
+<p class="explainText">
+  {{t 'components.project_manage_languages.add_translations_explain_text'}}
+</p>
+
+<h2 class="titleText">
+  {{inline-svg '/assets/check.svg' class='button-icon'}}
+  {{t 'components.project_manage_languages.conflicts_explain_title'}}
+</h2>
+
+<p class="explainText">
+  {{t 'components.project_manage_languages.conflicts_explain_text'}}
+</p>
+
+<br />
+
+{{project-settings/manage-languages/overview
+  permissions=permissions
+  project=project
+  revisions=revisions
+  onPromoteMaster=onPromoteMaster
+  onDelete=onDelete
+}}
+
+{{#if (get permissions 'create_slave')}}
+  <div class="createSlaveForm">
+    {{#if errors}}
+      <div class="error">
+        {{#each errors as |error|}}
+          <li>{{error}}</li>
+        {{/each}}
+      </div>
+    {{/if}}
+
+    {{project-settings/manage-languages/create-form
+      permissions=permissions
+      project=project
+      languages=languages
+      onCreate=onCreate
+    }}
+  </div>
+{{/if}}

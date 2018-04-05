@@ -1,0 +1,41 @@
+{{page-title
+  text=(t 'components.project_activities_list.title')
+  icon='assets/activity.svg'
+}}
+
+{{#if showSkeleton}}
+  {{skeleton-ui/project-activities-filter}}
+
+  {{#if model.loading}}
+    {{skeleton-ui/progress-line}}
+  {{/if}}
+
+  {{skeleton-ui/activities-list showTranslationLink=true}}
+{{else}}
+  {{#if model.collaborators}}
+    {{project-activities-filter
+      collaborators=model.collaborators
+      batchFilter=batchFilter
+      actionFilter=actionFilter
+      userFilter=userFilter
+      userFilterChange=(action 'userFilterChange')
+      batchFilterChange=(action 'batchFilterChange')
+      actionFilterChange=(action 'actionFilterChange')
+    }}
+  {{/if}}
+
+  {{#if model.loading}}
+    {{skeleton-ui/progress-line}}
+  {{/if}}
+
+  {{project-activities-list
+    permissions=permissions
+    activities=model.activities.entries
+    project=model.project
+  }}
+
+  {{resource-pagination
+    meta=model.activities.meta
+    onSelectPage=(action 'selectPage')
+  }}
+{{/if}}

@@ -1,0 +1,56 @@
+& {
+  position: relative;
+  box-shadow: 0 2px 4px rgba(#000, 0.06);
+}
+
+.otherLanguages {
+  position: absolute;
+  bottom: 8px;
+  left: 13px;
+  font-size: 12px;
+  font-style: italic;
+  color: #ccc;
+  pointer-events: none;
+}
+
+.ember-power-select-selected-item {
+  margin-left: 22px;
+  font-weight: 900;
+  color: $color-black;
+
+  em {
+    margin-left: 1px;
+    font-size: 11px;
+    font-style: normal;
+    color: $color-primary;
+  }
+}
+
+.ember-power-select-trigger {
+  padding: 10px 10px 25px;
+  font-size: 20px;
+  flex-direction: row-reverse;
+  border: 1px solid #eee;
+
+  .ember-power-select-status-icon {
+    &:after {
+      content: 'Ξ';
+      transform: rotate(0);
+      bottom: -14px;
+      left: 0;
+      color: #ddd;
+    }
+  }
+
+  &[aria-expanded="true"] {
+    .ember-power-select-status-icon {
+      &:after {
+        transform: rotate(0);
+      }
+    }
+  }
+
+  &:hover {
+    background: #fafafa;
+  }
+}

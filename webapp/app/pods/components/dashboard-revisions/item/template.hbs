@@ -1,0 +1,60 @@
+<div class="slaveRevisions-item">
+  <span {{action 'toggleShowActions'}} class="actionsButton">
+    {{inline-svg 'assets/gear.svg' class='actionsButton-icon'}}
+  </span>
+
+  <span class="language">
+    {{#if (get permissions 'index_translations')}}
+      {{#link-to
+        'logged-in.project.revision.translations'
+        project.id
+        revision.id
+        class='language-name'
+      }}
+        {{revision.language.name}}
+        <span class="language-reviewedPercentage">{{correctedKeysPercentage}}%</span>
+      {{/link-to}}
+    {{else}}
+      <span class="language-name">
+        {{revision.language.name}}
+        <span class="language-reviewedPercentage">{{correctedKeysPercentage}}%</span>
+      </span>
+    {{/if}}
+
+    <span class="reviewedStats">
+      <span class="reviewedStats-reviewedCount">{{reviewsCount}}</span>
+      /
+      <span class="reviewedStats-translationsCount">{{revision.translationsCount}}</span>
+    </span>
+  </span>
+
+  {{review-progress-bar correctedKeysPercentage=correctedKeysPercentage}}
+
+  {{#if showActions}}
+    <div class="actions">
+      {{#if showCorrectAllAction}}
+        {{#async-button
+          onClick=(action 'correctAllConflicts')
+          loading=isCorrectAllConflictLoading
+          disabled=isAnyActionsLoading
+          class='button button--green actionItem-button'
+        }}
+          {{inline-svg '/assets/check.svg' class='button-icon'}}
+          {{t 'components.dashboard_revisions.item.correct_all_button'}}
+        {{/async-button}}
+      {{/if}}
+
+      {{#if showUncorrectAllAction}}
+        {{#async-button
+          onClick=(action 'uncorrectAllConflicts')
+          loading=isUncorrectAllConflictLoading
+          disabled=isAnyActionsLoading
+          class='button button--red actionItem-button'
+        }}
+          {{inline-svg '/assets/revert.svg' class='button-icon'}}
+          {{t 'components.dashboard_revisions.item.uncorrect_all_button'}}
+        {{/async-button}}
+      {{/if}}
+    </div>
+  {{/if}}
+</div>

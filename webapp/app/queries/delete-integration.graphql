@@ -1,0 +1,9 @@
+mutation IntegrationDelete($integrationId: ID!) {
+  deleteIntegration(id: $integrationId) {
+    integration {
+      id
+    }
+
+    errors
+  }
+}

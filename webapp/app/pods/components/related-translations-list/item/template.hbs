@@ -1,0 +1,90 @@
+{{#if showEditButton}}
+  <span class="editButton">
+    <span {{action 'toggleEdit'}}>
+      {{#if isInEditMode}}
+        {{inline-svg 'assets/x.svg' class='editButton-icon'}}
+      {{else}}
+        {{inline-svg 'assets/pencil.svg' class='editButton-icon'}}
+      {{/if}}
+    </span>
+  </span>
+{{/if}}
+
+<div class="header">
+  <div>
+    {{#link-to
+      'logged-in.project.translation'
+      project.id
+      translation.id
+      class='key'
+    }}
+      {{inline-svg 'assets/language.svg' class='language-icon'}}
+
+      {{translation.revision.language.name}}
+
+      <span class="updatedAt">
+        {{t 'components.related_translations_list.last_updated_label'}}
+        {{time-ago-in-words-tag date=translation.updatedAt}}
+      </span>
+    {{/link-to}}
+  </div>
+
+  <div>
+    {{#unless translation.isRemoved}}
+      {{#if translation.commentsCount}}
+        {{#acc-badge link=true}}
+          {{#link-to
+            'logged-in.project.translation.comments'
+            project.id
+            translation.id
+          }}
+            {{t 'components.related_translations_list.comments_label' count=translation.commentsCount}}
+          {{/link-to}}
+        {{/acc-badge}}
+      {{/if}}
+      {{#if translation.isConflicted}}
+        {{#acc-badge link=true primary=true}}
+          {{#link-to
+            'logged-in.project.revision.conflicts'
+            project.id
+            translation.revision.id
+            (query-params query=translation.key)
+          }}
+            {{t 'components.related_translations_list.conflicted_label'}}
+          {{/link-to}}
+        {{/acc-badge}}
+      {{/if}}
+    {{/unless}}
+  </div>
+</div>
+
+{{#if isInEditMode}}
+  <div class="textEdit">
+    {{translation-edit/form
+      disabled=translation.isRemoved
+      valueType=translation.valueType
+      value=editText
+      onSubmit=(action 'save')
+    }}
+
+    <div class="textEdit-actions">
+      {{#unless translation.isConflicted}}
+        <span class="textEdit-actions-warning">You’re editing an already reviewed string.</span>
+      {{/unless}}
+
+      {{#if showEditButton}}
+        <span {{action 'toggleEdit'}} class="textEdit-cancel">Cancel</span>
+      {{/if}}
+
+      {{#async-button
+        onClick=(action 'save')
+        loading=isSaving
+        class='button button--filled button--iconOnly textEdit-button'
+      }}
+        Save
+      {{/async-button}}
+    </div>
+  </div>
+{{else}}
+  <div {{action 'toggleEdit'}} class="text">{{translation.correctedText}}</div>
+{{/if}}

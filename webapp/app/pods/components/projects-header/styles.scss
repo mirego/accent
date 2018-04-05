@@ -1,0 +1,123 @@
+& {
+  padding: 14px 0;
+  box-shadow: 0 3px 10px rgba(#000, 0.1);
+  background: #041e14;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: $screen-lg;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.content-right,
+.content-left {
+  display: flex;
+  align-items: center;
+}
+
+.project {
+  margin-left: 30px;
+  padding-left: 20px;
+  border-left: 1px solid rgba(#fff, 0.2);
+  font-size: 13px;
+  color: $color-grey;
+  text-shadow: 0 1px 3px rgba(#000, 0.6);
+}
+
+.applicationLogo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    .applicationLogo-image--linked {
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.link.active .link-image {
+  &:focus,
+  &:hover {
+    transform: rotate(0);
+  }
+}
+
+.applicationLogo-image {
+  display: block;
+  transition: 1s $transition-easing;
+  transition-property: transform;
+  width: 25px;
+  height: 25px;
+  text-decoration: none;
+}
+
+.applicationLogo-name {
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: 700;
+  color: $color-white;
+  text-shadow: 0 1px 3px rgba(#000, 0.6);
+}
+
+.picture {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #000;
+}
+
+.username {
+  margin-right: 15px;
+  font-size: 12px;
+  color: $color-white;
+}
+
+@media (max-width: ($screen-sm)) {
+  & {
+    padding: 9px 0;
+    margin-bottom: 10px;
+  }
+
+  .applicationLogo-image {
+    width: 18px;
+    height: 18px;
+  }
+
+  .project {
+    margin-left: 20px;
+  }
+
+  .username {
+    font-size: 11px;
+  }
+
+  .button {
+    padding: 3px 7px 4px;
+    font-size: 11px;
+  }
+
+  .applicationLogo-name {
+    display: none;
+  }
+
+  .project {
+    border: 0;
+    margin: 0 0 0 10px;
+    padding: 0;
+    font-weight: bold;
+    font-size: 14px;
+    color: $color-white;
+  }
+
+  .content {
+    padding: 0 10px;
+  }
+}

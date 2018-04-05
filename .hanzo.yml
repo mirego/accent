@@ -1,0 +1,5 @@
+remotes:
+  qa: mirego-accent-api-v2-qa
+  production: mirego-accent-api-v2-prod
+after_deploy:
+  - mix ecto.migrate

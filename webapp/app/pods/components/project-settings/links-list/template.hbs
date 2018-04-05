@@ -1,0 +1,41 @@
+<div class="list">
+  {{#link-to
+    'logged-in.project.edit.collaborators'
+    class='link'
+  }}
+    {{inline-svg 'assets/users.svg' class='link-icon'}}
+    {{t 'components.project_settings.links_list.collaborators'}}
+  {{/link-to}}
+
+  {{#link-to
+    'logged-in.project.edit.badges'
+    class='link'
+  }}
+    {{inline-svg 'assets/badge.svg' class='link-icon'}}
+    {{t 'components.project_settings.links_list.badges'}}
+  {{/link-to}}
+
+  {{#link-to
+    'logged-in.project.edit.api-token'
+    class='link'
+  }}
+    {{inline-svg 'assets/bot.svg' class='link-icon'}}
+    {{t 'components.project_settings.links_list.api_token'}}
+  {{/link-to}}
+
+  {{#link-to
+    'logged-in.project.edit.service-integrations'
+    class='link'
+  }}
+    {{inline-svg 'assets/share.svg' class='link-icon'}}
+    {{t 'components.project_settings.links_list.service_integrations'}}
+  {{/link-to}}
+
+  {{#link-to
+    'logged-in.project.edit.manage-languages'
+    class='link'
+  }}
+    {{inline-svg 'assets/language.svg' class='link-icon'}}
+    {{t 'components.project_settings.links_list.manage_languages'}}
+  {{/link-to}}
+</div>

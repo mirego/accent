@@ -1,0 +1,26 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  color: $color-primary;
+  font-weight: normal;
+  font-size: 18px;
+
+  &:focus,
+  &:hover {
+    background: lighten($color-primary, 50%);
+  }
+}
+
+.button-icon {
+  margin: 0 0 10px;
+  width: 30px;
+  height: 30px;
+  fill: $color-primary;
+}
