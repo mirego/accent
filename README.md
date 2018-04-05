@@ -11,10 +11,7 @@ The Accent API provides a powerful abstraction around the process of translating
 * **Collaboration**. Centralize your discussions around translations.
 * **History**. Full history control and actions rollback. _Who_ did _what_, _when_.
 * **UI**. Simple yet powerful UI to enable translator and developer to be productive.
-* **In-Context Editor**. Pluggable with any frontend/backend frameworks.
 * **GraphQL**. The API that powers the UI is open and documented. It’s easy to build plugin/cli/librairy around Accent.
-
-_See the webapp to deploy your own Accent stack: [GitHub Repo](https://github.com/mirego/accent-webapp-v2)_
 
 ## Contents
 
