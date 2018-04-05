@@ -4,7 +4,7 @@
 
 [Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
 
-[![Build Status](https://travis-ci.com/mirego/accent-web-v2.svg?token=ySqXG5pmHqKKGyP2ECxE&branch=master)](https://travis-ci.com/mirego/accent-web-v2)
+[![Build Status](https://travis-ci.org/mirego/accent.svg?branch=master)](https://travis-ci.org/mirego/accent)
 
 **The first developer oriented translation tool**. Accent’s engine coupled with the asynchronous flow between the translator and the developer is what makes Accent the most awesome tool of all.
 
