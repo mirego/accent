@@ -1,4 +1,6 @@
-<img width="160" src="logo.svg" style="padding: 0 0 30px 0;" />
+<h3 align="center">
+  <img src="logo.svg" alt="Accent Logo" width=500 />
+</h3>
 
 [Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
 
