@@ -57,3 +57,5 @@ if [ ${error_status} -ne 0 ]; then
 else
   header "${success_emoji}   Everything looks good!"
 fi
+
+exit $error_status
