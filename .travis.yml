@@ -33,6 +33,7 @@ before_install:
   - 'echo `curl --verbose http://jsonip.com`'
   - npm config set spin false
   - npm --prefix webapp install
+  - npm --prefix webapp run build-production
 
 # Create database and prepare the application
 before_script:
