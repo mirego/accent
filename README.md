@@ -14,7 +14,7 @@ The Accent API provides a powerful abstraction around the process of translating
 * **Collaboration**. Centralize your discussions around translations.
 * **History**. Full history control and actions rollback. _Who_ did _what_, _when_.
 * **UI**. Simple yet powerful UI to enable translator and developer to be productive.
-* **GraphQL**. The API that powers the UI is open and documented. It’s easy to build plugin/cli/librairy around Accent.
+* **GraphQL**. The API that powers the UI is open and documented. It’s easy to build a plugin/cli/library around Accent.
 
 ## Contents
 
