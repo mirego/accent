@@ -89,7 +89,11 @@ This app provides default value for every env var. This means that with the righ
 
 This app provides default value for every env var required in test. This means that with the right PostgreSQL setup, you can just run `mix test`.
 
-- `mix test`
+```shell
+$ npm --prefix webapp run build
+$ mix run ./priv/repo/seeds.exs
+$ mix test
+```
 
 ## Deploy on Heroku
 
@@ -107,15 +111,9 @@ $ heroku buildpacks:add --index 3 https://github.com/gjaldon/heroku-buildpack-ph
 
 Before opening a pull request, please open an issue first.
 
-```shell
-$ git clone https://github.com/mirego/accent-web-v2.git
-$ cd accent-web-v2
-$ mix deps.get
-$ mix test
-```
-
 Once you've made your additions and the test suite passes, go ahead and open a PR!
-Don’t forget to run the `./priv/scripts/ci-check.sh` script to make sure that the CI will pass :)
+
+Don’t forget to run the `./priv/scripts/ci-check.sh` script to make sure that the CI build will pass :)
 
 ## About Mirego
 
