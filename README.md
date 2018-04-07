@@ -101,15 +101,11 @@ $ mix test
 
 ## Deploy on Heroku
 
-To successfully deploy Accent on Heroku, you must use these buildpacks:
+An Heroku-compatible `app.json` makes it easy to deploy the application on Heroku.
 
-_The first buildpack is to use the Aptfile to install libyaml._
-
-```
-$ heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-apt#usr-local-paths
-$ heroku buildpacks:add --index 2 https://github.com/HashNuke/heroku-buildpack-elixir
-$ heroku buildpacks:add --index 3 https://github.com/gjaldon/heroku-buildpack-phoenix-static
-```
+<a href="https://heroku.com/deploy">
+  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy on Heroku" />
+</a>
 
 ## Contribute
 
