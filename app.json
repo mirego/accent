@@ -1,0 +1,36 @@
+{
+  "name": "Accent",
+  "description": "▴ Open source, self hosted, developer oriented translation tool",
+  "keywords": [
+    "elixir",
+    "ember.js"
+    "i18n",
+    "translations"
+  ],
+  "website": "https://www.accent.reviews",
+  "repository": "https://github.com/mirego/accent",
+  "logo": "https://raw.githubusercontent.com/mirego/accent/master/logo.svg",
+  "success_url": "/",
+  "scripts": {
+    "postdeploy": "mix run ./priv/repo/seeds.exs"
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-apt#usr-local-paths"
+    },
+    {
+      "url": "https://github.com/HashNuke/heroku-buildpack-elixir"
+    },
+    {
+      "url": "https://github.com/gjaldon/heroku-buildpack-phoenix-static"
+    }
+  ]
+}
