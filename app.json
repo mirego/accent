@@ -12,7 +12,7 @@
   "logo": "https://raw.githubusercontent.com/mirego/accent/master/logo.svg",
   "success_url": "/",
   "scripts": {
-    "postdeploy": "mix run ./priv/repo/seeds.exs"
+    "postdeploy": "mix do ecto.migrate, run ./priv/repo/seeds.exs"
   },
   "addons": [
     {
