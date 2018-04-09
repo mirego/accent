@@ -3,7 +3,7 @@
   "description": "▴ Open source, self hosted, developer oriented translation tool",
   "keywords": [
     "elixir",
-    "ember.js"
+    "ember.js",
     "i18n",
     "translations"
   ],
