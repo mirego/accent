@@ -12,9 +12,9 @@ defmodule Accent do
       # Start the Ecto repository
       worker(Accent.Repo, []),
       worker(Accent.Hook.Producers.Email, []),
-      worker(Accent.Hook.Consumers.Email, []),
+      worker(Accent.Hook.Consumers.Email, mailer: Accent.Mailer),
       worker(Accent.Hook.Producers.Websocket, []),
-      worker(Accent.Hook.Consumers.Websocket, []),
+      worker(Accent.Hook.Consumers.Websocket, endpoint: Accent.Endpoint),
       worker(Accent.Hook.Producers.Slack, []),
       worker(Accent.Hook.Consumers.Slack, http_client: HTTPoison)
     ]

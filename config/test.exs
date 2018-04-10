@@ -21,6 +21,6 @@ config :accent, Accent.Mailer,
   webapp_host: "http://example.com",
   mailer_from: "accent-test@example.com",
   x_smtpapi_header: ~s({"category": ["test", "accent-api-test"]}),
-  adapter: Bamboo.LocalAdapter
+  adapter: Bamboo.TestAdapter
 
 config :accent, hook_broadcaster: Accent.Hook.BroadcasterMock
