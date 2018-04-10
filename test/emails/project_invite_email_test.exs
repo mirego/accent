@@ -1,6 +1,5 @@
 defmodule AccentTest.ProjectInviteEmail do
   use ExUnit.Case
-  use Bamboo.Test
 
   test "create" do
     user = %Accent.User{email: "test@test.com"}

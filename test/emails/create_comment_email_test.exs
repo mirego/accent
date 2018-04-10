@@ -1,6 +1,5 @@
 defmodule AccentTest.CreateCommentEmail do
   use ExUnit.Case
-  use Bamboo.Test
 
   test "create" do
     project = %Accent.Project{id: "ec44dc76-9c55-4f64-bb9b-4cf5ff0123ac", name: "My project name"}

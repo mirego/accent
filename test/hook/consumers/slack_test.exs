@@ -7,9 +7,17 @@ end
 defmodule AccentTest.Hook.Consumers.Slack do
   use Accent.RepoCase
 
-  alias Accent.{Repo, Project, User, Integration}
+  alias Accent.{
+    Repo,
+    Project,
+    User,
+    Integration,
+    Hook.Consumers.Slack
+  }
 
   setup do
+    Process.register(self(), :slack_consumer)
+
     project = %Project{name: "Test"} |> Repo.insert!()
     user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()
 
@@ -26,13 +34,11 @@ defmodule AccentTest.Hook.Consumers.Slack do
   end
 
   test "single event with single integration", %{project: project, user: user} do
-    Process.register(self(), :slack_consumer)
-
     payload = %{document_path: "foo.json", batch_operation_stats: [%{action: "new", count: 4}, %{action: "conflict_on_proposed", count: 10}]}
     event = %Accent.Hook.Context{project: project, user: user, event: "sync", payload: payload}
     events = [event]
 
-    Accent.Hook.Consumers.Slack.handle_events(events, nil, {:http_client, MockHttpClient})
+    Slack.handle_events(events, nil, {:http_client, MockHttpClient})
 
     post_body = """
     *Test* just synced a file: _foo.json_
@@ -48,13 +54,11 @@ defmodule AccentTest.Hook.Consumers.Slack do
   end
 
   test "unknown event", %{project: project, user: user} do
-    Process.register(self(), :slack_consumer)
-
     payload = %{document_path: "foo.json", batch_operation_stats: [%{action: "new", count: 4}]}
     event = %Accent.Hook.Context{project: project, user: user, event: "merge", payload: payload}
     events = [event]
 
-    Accent.Hook.Consumers.Slack.handle_events(events, nil, {:http_client, MockHttpClient})
+    Slack.handle_events(events, nil, {:http_client, MockHttpClient})
 
     refute_received {:post, []}
   end

@@ -3,7 +3,6 @@ defmodule Accent.Hook.Consumers.Email do
 
   alias Accent.{
     Repo,
-    Mailer,
     ProjectInviteEmail,
     CreateCommentEmail,
     Hook
@@ -11,14 +10,14 @@ defmodule Accent.Hook.Consumers.Email do
 
   @supported_events ~w(create_collaborator create_comment)
 
-  def handle_events(events, _from, state) do
+  def handle_events(events, _from, state = {:mailer, mailer}) do
     events
     |> Enum.filter(&filter_event/1)
     |> Enum.each(fn event ->
       event
       |> fetch_emails()
       |> build_email(event)
-      |> Mailer.deliver_later()
+      |> mailer.deliver_later()
     end)
 
     {:noreply, [], state}
