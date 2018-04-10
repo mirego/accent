@@ -6,6 +6,10 @@ defmodule Accent.GraphQL.Types.Viewer do
   object :viewer do
     field(:user, :user)
 
+    field :permissions, list_of(:string) do
+      resolve(viewer_authorize(:index_permissions, &Accent.GraphQL.Resolvers.Permission.list_viewer/3))
+    end
+
     field :projects, :projects do
       arg(:page, :integer)
       arg(:query, :string)

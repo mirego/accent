@@ -10,7 +10,7 @@ defmodule Accent.GraphQL.Mutations.Project do
       arg(:name, non_null(:string))
       arg(:language_id, non_null(:id))
 
-      resolve(&Accent.GraphQL.Resolvers.Project.create/3)
+      resolve(viewer_authorize(:create_project, &Accent.GraphQL.Resolvers.Project.create/3))
     end
 
     field :update_project, :mutated_project do

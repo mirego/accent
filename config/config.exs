@@ -6,6 +6,9 @@ defmodule Utilities do
   def string_to_boolean(_), do: false
 end
 
+# Used to extract schema json with the absinthe’s mix task
+config :absinthe, :schema, Accent.GraphQL.Schema
+
 # Configures the endpoint
 config :accent, Accent.Endpoint,
   root: Path.expand("..", __DIR__),
@@ -23,43 +26,38 @@ config :accent, Accent.Repo,
   timeout: 30000,
   url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 
-config :phoenix, :format_encoders, "json-api": Poison
-config :phoenix, Accent.Router, host: System.get_env("CANONICAL_HOST")
+config :accent,
+  force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
+  hook_broadcaster: Accent.Hook.Broadcaster,
+  dummy_provider_enabled: true,
+  restricted_domain: System.get_env("RESTRICTED_DOMAIN")
 
-config :accent, force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL"))
-
-config :accent, hook_broadcaster: Accent.Hook.Broadcaster
-
-config :accent, dummy_provider_enabled: true
+# Configures canary custom handlers and repo
+config :canary,
+  repo: Accent.Repo,
+  unauthorized_handler: {Accent.ErrorController, :handle_unauthorized},
+  not_found_handler: {Accent.ErrorController, :handle_not_found}
 
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :canary,
-  repo: Accent.Repo,
-  unauthorized_handler: {Accent.ErrorController, :handle_unauthorized},
-  not_found_handler: {Accent.ErrorController, :handle_not_found}
+# Configure Phoenix
+config :phoenix, Accent.Router, host: System.get_env("CANONICAL_HOST")
 
+config :phoenix, :generators,
+  migration: true,
+  binary_id: false
+
+# Configures sentry to report errors
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
   included_environments: [:prod],
   environment_name: Mix.env(),
   root_source_code_path: File.cwd!()
 
-# Used to extract schema json with the absinthe’s mix task
-config :absinthe, :schema, Accent.GraphQL.Schema
-
-# Configure phoenix generators
-config :phoenix, :generators,
-  migration: true,
-  binary_id: false
-
-config :mime, :types, %{
-  "application/vnd.api+json" => ["json-api"]
-}
-
+# Configure mailer
 import_config "mailer.exs"
 
 # Import environment specific config. This must remain at the bottom

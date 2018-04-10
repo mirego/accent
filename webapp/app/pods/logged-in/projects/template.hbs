@@ -1,6 +1,7 @@
 {{projects-header session=session}}
 
 {{projects-filters
+  permissions=permissions
   query=query
   onChangeQuery=(action 'changeQuery')
 }}
@@ -9,6 +10,7 @@
   {{loading-content label=(t 'pods.projects.loading_content')}}
 {{else}}
   {{projects-list
+    permissions=permissions
     projects=model.projects.entries
     query=query
   }}

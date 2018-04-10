@@ -3,6 +3,10 @@
   max-width: $screen-lg;
 }
 
+.filters {
+  padding: 15px 15px 10px;
+}
+
 .filters-wrapper {
   display: flex;
   align-items: center;
@@ -11,7 +15,6 @@
 
 .queryFilter {
   flex: 1;
-  margin-right: 15px;
 }
 
 .totalEntries {
@@ -31,6 +34,10 @@
   fill: #b7b7b7;
 }
 
+.createProjectButton {
+  margin-left: 15px;
+}
+
 .input {
   @extend %textInput;
   width: 100%;
@@ -42,4 +49,15 @@
   &::placeholder {
     color: $color-grey;
   }
+}
+
+.filters-meta {
+  margin-top: 7px;
+  font-size: 14px;
+  color: $color-grey;
+}
+
+.filters-meta-keyword {
+  font-style: italic;
+  color: darken($color-primary, 15%);
 }

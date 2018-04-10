@@ -11,12 +11,23 @@
       }}
     </div>
 
-    {{#link-to
-      'logged-in.projects.new'
-      class='button button--filled'
-    }}
-      {{inline-svg '/assets/add.svg' class='button-icon'}}
-      {{t 'components.projects_filters.new_project'}}
-    {{/link-to}}
+    {{#unless debouncedQuery}}
+      {{#if (get permissions 'create_project')}}
+        {{#link-to
+          'logged-in.projects.new'
+          class='button button--filled createProjectButton'
+        }}
+          {{inline-svg '/assets/add.svg' class='button-icon'}}
+          {{t 'components.projects_filters.new_project'}}
+        {{/link-to}}
+      {{/if}}
+    {{/unless}}
   </form>
+
+  <div class="filters-meta">
+    {{#if query}}
+      {{t 'components.projects_filters.searching_for'}}
+      <em class="filters-meta-keyword">{{query}}</em>
+    {{/if}}
+  </div>
 </div>
