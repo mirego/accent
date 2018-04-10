@@ -36,14 +36,16 @@
       {{inline-svg 'assets/empty.svg' class='icon'}}
       {{t 'components.projects_list.no_projects'}}
 
-      <div class="link-section">
-        {{#link-to
-          'logged-in.projects.new'
-          class='link'
-        }}
-          {{t 'components.projects_list.maybe_create_one'}}
-        {{/link-to}}
-      </div>
+      {{#if (get permissions 'create_project')}}
+        <div class="link-section">
+          {{#link-to
+            'logged-in.projects.new'
+            class='link'
+          }}
+            {{t 'components.projects_list.maybe_create_one'}}
+          {{/link-to}}
+        </div>
+      {{/if}}
     {{/empty-content}}
   {{/each}}
 </ul>

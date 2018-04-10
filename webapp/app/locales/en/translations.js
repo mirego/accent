@@ -520,6 +520,7 @@ export default {
       title: 'Manage languages'
     },
     projects_filters: {
+      searching_for: 'Searching for:',
       input_placeholder_text: 'Search for a project',
       new_project: 'New project'
     },

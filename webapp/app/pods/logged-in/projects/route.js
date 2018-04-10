@@ -4,6 +4,15 @@ import AuthenticatedRoute from 'accent-webapp/mixins/authenticated-route';
 
 import projectsQuery from 'accent-webapp/queries/projects';
 
+const props = data => {
+  const permissions = data.viewer.permissions.reduce((memo, permission) => {
+    memo[permission] = true;
+    return memo;
+  }, {});
+
+  return {projects: data.viewer.projects, languages: data.languages.entries, permissions};
+};
+
 export default Route.extend(ApolloRoute, AuthenticatedRoute, {
   queryParams: {
     query: {
@@ -22,10 +31,7 @@ export default Route.extend(ApolloRoute, AuthenticatedRoute, {
           return (window.location = '/');
         }
 
-        return {
-          projects: data.viewer.projects,
-          languages: data.languages.entries
-        };
+        return props(data);
       },
       options: {
         fetchPolicy: 'network-only',

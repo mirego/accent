@@ -47,10 +47,21 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   test "authorized viewer", %{user: user} do
     root = %{user: user}
     args = %{}
-    context = %{conn: %{}}
+    context = %{context: %{conn: %{assigns: %{current_user: user}}}}
     resolver = fn _, _, _ -> send(self(), :ok) end
 
     Authorization.viewer_authorize(:index_permissions, resolver).(root, args, context)
+
+    assert_receive :ok
+  end
+
+  test "authorized viewer to create project", %{user: user} do
+    root = %{user: user}
+    args = %{}
+    context = %{context: %{conn: %{assigns: %{current_user: user}}}}
+    resolver = fn _, _, _ -> send(self(), :ok) end
+
+    Authorization.viewer_authorize(:create_project, resolver).(root, args, context)
 
     assert_receive :ok
   end

@@ -1,8 +1,9 @@
 import {inject as service} from '@ember/service';
-import {equal, and} from '@ember/object/computed';
+import {equal, and, readOnly} from '@ember/object/computed';
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+  globalState: service('global-state'),
   session: service('session'),
 
   queryParams: ['query', 'page'],
@@ -10,6 +11,7 @@ export default Controller.extend({
   query: '',
   page: 1,
 
+  permissions: readOnly('model.permissions'),
   emptyEntries: equal('model.projects.entries', undefined),
   showLoading: and('emptyEntries', 'model.loading'),
 

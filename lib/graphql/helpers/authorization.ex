@@ -14,13 +14,13 @@ defmodule Accent.GraphQL.Helpers.Authorization do
     Repo
   }
 
-  def viewer_authorize(_action, func) do
+  def viewer_authorize(action, func) do
     fn
       %{user: nil}, _args, _info ->
         {:ok, nil}
 
       user, args, info ->
-        func.(user, args, info)
+        authorize(action, nil, info, do: func.(user, args, info))
     end
   end
 
