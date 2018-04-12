@@ -5,6 +5,10 @@ defmodule Movement.Persisters.Base do
   alias Movement.Mappers.OperationsStats, as: StatMapper
   alias Accent.{Repo, Operation}
 
+  # Inserts operations by batch of 500 to prevent parameters
+  # overflow in database adapter
+  @operations_inserts_chunk 500
+
   @spec execute(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}
   def execute(context = %Movement.Context{operations: []}), do: {context, []}
 
@@ -44,7 +48,8 @@ defmodule Movement.Persisters.Base do
 
   defp persist_operations(context = %Movement.Context{assigns: assigns}) do
     operations =
-      Enum.map(context.operations, fn operation ->
+      context.operations
+      |> Enum.map(fn operation ->
         operation
         |> Map.put(:user_id, assigns[:user_id])
         |> Map.put(:inserted_at, NaiveDateTime.utc_now())
@@ -56,10 +61,14 @@ defmodule Movement.Persisters.Base do
         |> assign_version(assigns[:version])
         |> Map.from_struct()
       end)
-
-    {_count, operations} = Repo.insert_all(Operation, operations, returning: true)
-
-    operations = Repo.preload(operations, :translation)
+      |> Enum.chunk_every(@operations_inserts_chunk)
+      |> Enum.reduce([], fn operations, acc ->
+        Operation
+        |> Repo.insert_all(operations, returning: true)
+        |> elem(1)
+        |> Repo.preload(:translation)
+        |> Kernel.++(acc)
+      end)
 
     %{context | operations: operations}
   end
