@@ -25,7 +25,7 @@ defmodule Accent.PeekView do
       text: operation.text,
       key: operation.key,
       action: operation.action,
-      "previous-text": operation.previous_translation["corrected_text"] || operation.previous_translation["proposed_text"]
+      "previous-text": operation.previous_translation.corrected_text || operation.previous_translation.proposed_text
     }
   end
 

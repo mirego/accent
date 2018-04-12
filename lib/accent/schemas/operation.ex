@@ -32,9 +32,10 @@ defmodule Accent.Operation do
 
     field(:value_type, :string)
 
-    field(:previous_translation, :map)
     field(:rollbacked, :boolean, default: false)
     field(:stats, {:array, :map}, default: [])
+
+    embeds_one(:previous_translation, Accent.PreviousTranslation)
 
     belongs_to(:document, Accent.Document)
     belongs_to(:revision, Accent.Revision)

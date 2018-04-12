@@ -3,8 +3,6 @@ defmodule Movement.Migration.Rollback do
 
   import Movement.EctoMigrationHelper
 
-  alias Accent.PreviousTranslation
-
   def call(:new, operation) do
     update(operation, %{rollbacked: true})
     update(operation.translation, %{removed: true})
@@ -17,11 +15,11 @@ defmodule Movement.Migration.Rollback do
 
   def call(:restore, operation) do
     update(operation, %{rollbacked: true})
-    update(operation.translation, PreviousTranslation.to_translation(operation.previous_translation))
+    update(operation.translation, Map.from_struct(operation.previous_translation))
   end
 
   def call(:rollback, operation) do
     update(operation, %{rollbacked: false})
-    update(operation.translation, PreviousTranslation.to_translation(operation.previous_translation))
+    update(operation.translation, Map.from_struct(operation.previous_translation))
   end
 end

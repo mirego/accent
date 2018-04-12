@@ -1,38 +1,39 @@
 defmodule Accent.PreviousTranslation do
+  use Ecto.Schema
+
+  @fields ~w(
+    proposed_text
+    corrected_text
+    conflicted_text
+    conflicted
+    removed
+    value_type
+  )a
+
+  @primary_key false
+  embedded_schema do
+    field(:proposed_text, :string, default: "")
+    field(:corrected_text, :string, default: "")
+    field(:conflicted_text, :string, default: "")
+    field(:conflicted, :boolean, default: false)
+    field(:removed, :boolean, default: false)
+    field(:value_type, :string)
+  end
+
   @doc """
     ## Examples
 
     iex> Accent.PreviousTranslation.from_translation(nil)
-    %{}
+    %Accent.PreviousTranslation{}
     iex> Accent.PreviousTranslation.from_translation(%{})
-    %{}
+    %Accent.PreviousTranslation{}
     iex> Accent.PreviousTranslation.from_translation(%Accent.Translation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "text"})
-    %{"proposed_text" => "a", "corrected_text" => "b", "conflicted_text" => "c", "conflicted" => true, "removed" => false, "value_type" => "text"}
-    iex> Accent.PreviousTranslation.to_translation(%{"proposed_text" => "a", "corrected_text" => "b", "conflicted_text" => "c", "conflicted" => true, "removed" => false, "value_type" => "text"})
-    %{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "text"}
+    %Accent.PreviousTranslation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "text"}
   """
-  def from_translation(nil), do: %{}
-  def from_translation(translation) when map_size(translation) == 0, do: %{}
+  def from_translation(nil), do: from_translation(%{})
 
   def from_translation(translation) do
-    %{
-      "proposed_text" => translation.proposed_text,
-      "corrected_text" => translation.corrected_text,
-      "conflicted_text" => translation.conflicted_text,
-      "conflicted" => translation.conflicted,
-      "removed" => translation.removed,
-      "value_type" => translation.value_type
-    }
-  end
-
-  def to_translation(translation) do
-    %{
-      proposed_text: translation["proposed_text"],
-      corrected_text: translation["corrected_text"],
-      conflicted_text: translation["conflicted_text"],
-      conflicted: translation["conflicted"],
-      removed: translation["removed"],
-      value_type: translation["value_type"]
-    }
+    fields = Map.take(translation, @fields)
+    struct(__MODULE__, fields)
   end
 end
