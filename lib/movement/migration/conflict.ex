@@ -13,7 +13,7 @@ defmodule Movement.Migration.Conflict do
 
   def call(:uncorrect, operation) do
     update(operation.translation, %{
-      conflicted_text: operation.previous_translation["conflicted_text"],
+      conflicted_text: operation.previous_translation && operation.previous_translation.conflicted_text,
       conflicted: true
     })
   end
@@ -25,7 +25,7 @@ defmodule Movement.Migration.Conflict do
       file_index: operation.file_index,
       proposed_text: operation.text,
       corrected_text: operation.text,
-      conflicted_text: operation.previous_translation["corrected_text"],
+      conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text,
       conflicted: true
     })
   end
@@ -36,7 +36,7 @@ defmodule Movement.Migration.Conflict do
       file_comment: operation.file_comment,
       file_index: operation.file_index,
       corrected_text: operation.text,
-      conflicted_text: operation.previous_translation["conflicted_text"],
+      conflicted_text: operation.previous_translation && operation.previous_translation.conflicted_text,
       conflicted: true
     })
   end
@@ -48,7 +48,7 @@ defmodule Movement.Migration.Conflict do
       file_index: operation.file_index,
       proposed_text: operation.text,
       corrected_text: operation.text,
-      conflicted_text: operation.previous_translation["corrected_text"],
+      conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text,
       conflicted: true
     })
   end

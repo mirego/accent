@@ -161,13 +161,13 @@ defmodule AccentTest.PeekController do
              %{
                "action" => "new",
                "key" => "test2",
-               "previous-text" => nil,
+               "previous-text" => "",
                "text" => "D"
              },
              %{
                "action" => "new",
                "key" => "test3",
-               "previous-text" => nil,
+               "previous-text" => "",
                "text" => "New history please"
              }
            ]

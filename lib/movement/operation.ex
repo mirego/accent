@@ -13,7 +13,7 @@ defmodule Movement.Operation do
             version_id: nil,
             document_id: nil,
             project_id: nil,
-            previous_translation: %{}
+            previous_translation: nil
 
   @type t :: %__MODULE__{}
 end

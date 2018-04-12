@@ -22,17 +22,16 @@ defmodule Accent.GraphQL.Types.Activity do
       end)
     end
 
-    field(:is_removed, :boolean, resolve: field_alias("removed"))
-    field(:is_conflicted, :boolean, resolve: field_alias("conflicted"))
-    field(:proposed_text, :string, resolve: field_alias("proposed_text"))
+    field(:is_removed, :boolean, resolve: field_alias(:removed))
+    field(:is_conflicted, :boolean, resolve: field_alias(:conflicted))
+    field(:proposed_text, :string)
+    field(:conflicted_text, :string)
 
     field :text, :string do
       resolve(fn previous_translation, _, _ ->
-        {:ok, previous_translation["corrected_text"] || previous_translation["proposed_text"]}
+        {:ok, previous_translation.corrected_text || previous_translation.proposed_text}
       end)
     end
-
-    field(:conflicted_text, :string, resolve: field_alias("conflicted_text"))
   end
 
   object :activity do

@@ -6,6 +6,7 @@ defmodule AccentTest.Movement.Builders.Rollback do
   alias Accent.{
     Repo,
     Translation,
+    PreviousTranslation,
     Operation,
     User,
     Language,
@@ -85,13 +86,13 @@ defmodule AccentTest.Movement.Builders.Rollback do
     assert new_operation.project_id === operation.project_id
     assert new_operation.document_id === operation.document_id
 
-    assert new_operation.previous_translation === %{
-             "value_type" => translation.value_type,
-             "proposed_text" => translation.proposed_text,
-             "corrected_text" => translation.corrected_text,
-             "conflicted_text" => translation.conflicted_text,
-             "conflicted" => translation.conflicted,
-             "removed" => translation.removed
+    assert new_operation.previous_translation === %PreviousTranslation{
+             value_type: translation.value_type,
+             proposed_text: translation.proposed_text,
+             corrected_text: translation.corrected_text,
+             conflicted_text: translation.conflicted_text,
+             conflicted: translation.conflicted,
+             removed: translation.removed
            }
   end
 end

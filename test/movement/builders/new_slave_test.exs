@@ -7,6 +7,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
   alias Accent.{
     Repo,
     Translation,
+    PreviousTranslation,
     User,
     Language,
     Document
@@ -91,13 +92,13 @@ defmodule AccentTest.Movement.Builders.NewSlave do
                document_id: document.id,
                file_index: 2,
                file_comment: "comment",
-               previous_translation: %{
-                 "value_type" => nil,
-                 "removed" => true,
-                 "conflicted" => false,
-                 "conflicted_text" => "",
-                 "corrected_text" => "A",
-                 "proposed_text" => "A"
+               previous_translation: %PreviousTranslation{
+                 value_type: nil,
+                 removed: true,
+                 conflicted: false,
+                 conflicted_text: "",
+                 corrected_text: "A",
+                 proposed_text: "A"
                }
              }
            ]

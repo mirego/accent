@@ -3,7 +3,7 @@ defmodule Movement.Migration.Translation do
 
   import Movement.EctoMigrationHelper
 
-  alias Accent.{PreviousTranslation, Translation, Operation}
+  alias Accent.{Translation, Operation}
 
   def call(:update_proposed, operation) do
     operation.translation
@@ -19,7 +19,7 @@ defmodule Movement.Migration.Translation do
     |> update(%{
       value_type: operation.value_type,
       corrected_text: operation.text,
-      conflicted_text: operation.previous_translation["corrected_text"]
+      conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text
     })
   end
 
@@ -51,7 +51,7 @@ defmodule Movement.Migration.Translation do
       value_type: operation.value_type,
       file_index: operation.file_index,
       file_comment: operation.file_comment,
-      removed: Map.get(operation.previous_translation, "removed", false),
+      removed: operation.previous_translation && operation.previous_translation.removed,
       revision_id: operation.revision_id,
       document_id: operation.document_id,
       version_id: operation.version_id
@@ -73,7 +73,7 @@ defmodule Movement.Migration.Translation do
       value_type: operation.value_type,
       file_index: operation.file_index,
       file_comment: operation.file_comment,
-      removed: Map.get(operation.previous_translation, "removed", false),
+      removed: operation.previous_translation && operation.previous_translation.removed,
       revision_id: operation.revision_id,
       document_id: operation.document_id,
       version_id: operation.version_id,
@@ -88,6 +88,6 @@ defmodule Movement.Migration.Translation do
 
   def call(:restore, operation) do
     update(operation, %{rollbacked: false})
-    update(operation.translation, PreviousTranslation.to_translation(operation.previous_translation))
+    update(operation.translation, Map.from_struct(operation.previous_translation))
   end
 end

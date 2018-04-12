@@ -1,4 +1,6 @@
 defmodule Movement.Mappers.Operation do
+  alias Accent.PreviousTranslation
+
   @spec map(binary, map, map) :: Movement.Operation.t()
   def map(action = "new", current_translation, suggested_translation) do
     %Movement.Operation{
@@ -11,7 +13,7 @@ defmodule Movement.Mappers.Operation do
       revision_id: Map.get(suggested_translation, :revision_id),
       document_id: Map.get(suggested_translation, :document_id),
       version_id: Map.get(suggested_translation, :version_id),
-      previous_translation: from_translation(current_translation)
+      previous_translation: PreviousTranslation.from_translation(current_translation)
     }
   end
 
@@ -27,21 +29,7 @@ defmodule Movement.Mappers.Operation do
       version_id: Map.get(suggested_translation, :version_id, current_translation.version_id),
       value_type: Map.get(suggested_translation, :value_type, current_translation.value_type),
       translation_id: Map.get(current_translation, :id),
-      previous_translation: from_translation(current_translation)
-    }
-  end
-
-  defp from_translation(nil), do: %{}
-  defp from_translation(translation) when map_size(translation) == 0, do: %{}
-
-  defp from_translation(translation) do
-    %{
-      "proposed_text" => translation.proposed_text,
-      "corrected_text" => translation.corrected_text,
-      "conflicted_text" => translation.conflicted_text,
-      "conflicted" => translation.conflicted,
-      "removed" => translation.removed,
-      "value_type" => translation.value_type
+      previous_translation: PreviousTranslation.from_translation(current_translation)
     }
   end
 end

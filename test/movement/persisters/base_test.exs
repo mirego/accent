@@ -8,6 +8,7 @@ defmodule AccentTest.Movement.Persisters.Base do
   alias Accent.{
     Repo,
     Translation,
+    PreviousTranslation,
     Revision,
     Operation
   }
@@ -109,8 +110,8 @@ defmodule AccentTest.Movement.Persisters.Base do
         action: "new",
         key: "a",
         text: "B",
-        previous_translation: %{
-          "removed" => true
+        previous_translation: %PreviousTranslation{
+          removed: true
         }
       }
     ]
