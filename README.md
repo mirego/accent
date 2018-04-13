@@ -86,6 +86,7 @@ Accent provides a default value for every required environment variable. This me
 | `SENTRY_DSN`           | _none_  | The *secret* Sentry DSN used to collect API runtime errors                                                                                                                                  |
 | `WEBAPP_SENTRY_DSN`    | _none_  | The *public* Sentry DSN used to collect Webapp runtime errors                                                                                                                               |
 | `GOOGLE_API_CLIENT_ID` | _none_  | When deploying in a `prod` environment, the Google login is the only way to authenticate user. In `dev` environment, a fake login provider is used so you don’t have to setup a Google app. |
+| `RESTRICTED_DOMAIN`    | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
 
 ## Tests
 
