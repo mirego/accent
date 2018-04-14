@@ -9,7 +9,7 @@
 
 **The first developer-oriented translation tool**. Accent’s engine coupled with the asynchronous flow between the translator and the developer is what makes Accent the most awesome tool of all.
 
-The Accent API provides a powerful abstraction around the process of translating and maintaing the translations of an app.
+The Accent API provides a powerful abstraction around the process of translating and maintaining the translations of an app.
 
 * **Collaboration**. Centralize your discussions around translations.
 * **History**. Full history control and actions rollback. _Who_ did _what_, _when_.
