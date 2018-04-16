@@ -116,6 +116,15 @@ Once you’ve made your additions and the test suite passes, go ahead and open a
 
 Don’t forget to run the `./priv/scripts/ci-check.sh` script to make sure that the CI build will pass :)
 
+## Contributors
+
+* [@simonprev](https://github.com/simonprev)
+* [@loboulet](https://github.com/loboulet)
+* [@remiprev](https://github.com/remiprev)
+* [@charlesdemers](https://github.com/charlesdemers)
+* [@ddrmanxbxfr](https://github.com/ddrmanxbxfr)
+* [@thermech](https://github.com/thermech)
+
 ## About Mirego
 
 [Mirego](https://www.mirego.com) is a team of passionate people who believe that work is a place where you can innovate and have fun. We’re a team of [talented people](https://life.mirego.com) who imagine and build beautiful Web and mobile applications. We come together to share ideas and [change the world](http://www.mirego.org).
