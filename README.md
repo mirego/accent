@@ -58,7 +58,7 @@ $ nv .env mix <mix command>
 1. If you don’t already have it, install `elixir` with `brew install elixir`
 2. If you don’t already have it, install `libyaml` with `brew install libyaml`
 2. If you don’t already have it, install `postgres` with `brew install postgres` or the [macOS app](https://postgresapp.com/)
-3. Install dependencies with `mix deps.get` and `npm --prefix webapp install`.
+3. Install dependencies with `mix deps.get` and `npm --prefix webapp install`
 4. Create and migrate your database with `mix ecto.setup`
 5. Start Phoenix endpoint with `mix phx.server`
 5. Start Ember server with `npm --prefix webapp run start`
