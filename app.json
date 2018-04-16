@@ -9,7 +9,7 @@
   ],
   "website": "https://www.accent.reviews",
   "repository": "https://github.com/mirego/accent",
-  "logo": "https://raw.githubusercontent.com/mirego/accent/master/logo.svg",
+  "logo": "https://raw.githubusercontent.com/mirego/accent/master/priv/static/images/accent.png",
   "success_url": "/",
   "scripts": {
     "postdeploy": "mix do ecto.migrate, run ./priv/repo/seeds.exs"
