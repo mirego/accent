@@ -10,6 +10,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     Plugs.GraphQLContext,
     Project,
     Repo,
+    Operation,
     Translation
   }
 
@@ -24,6 +25,15 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     |> Query.where([o, r], r.project_id == ^project.id or o.project_id == ^project.id)
     |> OperationScope.order_last_to_first()
     |> Repo.paginate(page: args[:page], page_size: args[:page_size])
+    |> Paginated.format()
+    |> (&{:ok, &1}).()
+  end
+
+  @spec list_operations(Operation.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Operation.t())}
+  def list_operations(operation, args, _) do
+    operation
+    |> Ecto.assoc(:operations)
+    |> Repo.paginate(page: args[:page])
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end

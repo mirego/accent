@@ -6,8 +6,14 @@ defmodule Langue.Formatter.JavaPropertiesXml.Serializer do
   def serialize(%{entries: entries}) do
     render =
       entries
-      |> LineByLineHelper.serialize_lines(xml_template(), &prop_line/1)
-      |> Kernel.<>("</properties>\n")
+      |> LineByLineHelper.Serializer.lines(&prop_line/1)
+
+    render = [xml_template() | render]
+
+    render =
+      render
+      |> Enum.concat(["</properties>\n"])
+      |> Enum.join("")
 
     %Langue.Formatter.SerializerResult{render: render}
   end

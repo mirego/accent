@@ -10,7 +10,7 @@ export default Controller.extend({
   page: 1,
 
   permissions: readOnly('globalState.permissions'),
-  emptyEntries: equal('model.entries', undefined),
+  emptyEntries: equal('model.activities.entries', undefined),
   showSkeleton: and('emptyEntries', 'model.loading'),
 
   actions: {

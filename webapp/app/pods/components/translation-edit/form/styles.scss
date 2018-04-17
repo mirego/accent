@@ -38,4 +38,10 @@
   height: 100%;
   padding: 10px;
   font-size: 12px;
+
+  &::placeholder {
+    opacity: 0.2;
+    font-style: italic;
+    font-family: $font-primary;
+  }
 }

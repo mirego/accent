@@ -1,14 +1,16 @@
 {{#if conflicts}}
   <div class="actions">
-    {{#async-button
-      onClick=(action 'correctAllConflicts')
-      loading=isCorrectAllConflictLoading
-      disabled=isCorrectAllConflictLoading
-      class='button button--green'
-    }}
-      {{inline-svg '/assets/check.svg' class='button-icon'}}
-      {{t 'components.conflicts_items.correct_all_button'}}
-    {{/async-button}}
+    {{#unless query}}
+      {{#async-button
+        onClick=(action 'correctAllConflicts')
+        loading=isCorrectAllConflictLoading
+        disabled=isCorrectAllConflictLoading
+        class='button button--green'
+      }}
+        {{inline-svg '/assets/check.svg' class='button-icon'}}
+        {{t 'components.conflicts_items.correct_all_button'}}
+      {{/async-button}}
+    {{/unless}}
 
     {{#link-to
       'logged-in.project.revision.conflicts'

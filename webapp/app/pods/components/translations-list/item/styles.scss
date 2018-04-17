@@ -107,7 +107,7 @@
   padding: 6px 10px;
   cursor: text;
   transition: $transition-speed $transition-easing;
-  transition-property: border-color;
+  transition-property: border-color, color;
 
   &.item-text--empty {
     font-style: italic;
@@ -117,7 +117,8 @@
 
   &:hover,
   &:focus {
-    border-color: $color-primary;
+    border-color: darken(#eee, 5%);
+    color: darken(#b4b4b4, 10%);
   }
 }
 

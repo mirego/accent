@@ -4,7 +4,10 @@ defmodule Langue.Formatter.Strings.Serializer do
   alias Langue.Utils.LineByLineHelper
 
   def serialize(%{entries: entries}) do
-    render = LineByLineHelper.serialize_lines(entries, "", &prop_line/1)
+    render =
+      entries
+      |> LineByLineHelper.Serializer.lines(&prop_line/1)
+      |> Enum.join("")
 
     %Langue.Formatter.SerializerResult{render: render}
   end

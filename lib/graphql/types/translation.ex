@@ -17,20 +17,8 @@ defmodule Accent.GraphQL.Types.Translation do
 
   object :translation do
     field(:id, non_null(:id))
-
-    field :key, non_null(:string) do
-      resolve(fn %{key: key}, _, _ ->
-        {:ok, String.replace(key, ~r/__KEY__(\d)/, "[\\1]")}
-      end)
-    end
-
-    field :value_type, non_null(:translation_value_type) do
-      resolve(fn
-        %{value_type: ""}, _, _ -> {:ok, "string"}
-        %{value_type: nil}, _, _ -> {:ok, "string"}
-        %{value_type: value_type}, _, _ -> {:ok, value_type}
-      end)
-    end
+    field(:key, non_null(:string), resolve: &Accent.GraphQL.Resolvers.Translation.key/3)
+    field(:value_type, non_null(:translation_value_type))
 
     field(:proposed_text, :string)
     field(:corrected_text, :string)

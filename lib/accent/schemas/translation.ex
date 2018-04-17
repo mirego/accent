@@ -13,7 +13,7 @@ defmodule Accent.Translation do
     field(:file_comment, :string)
     field(:file_index, :integer)
 
-    field(:value_type, :string)
+    field(:value_type, :string, default: "string")
 
     belongs_to(:document, Accent.Document)
     belongs_to(:revision, Accent.Revision)
