@@ -30,6 +30,22 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
     {:ok, [user: user, project: project, revision: revision, translation: translation]}
   end
 
+  test "list activities", %{user: user, project: project, translation: translation, revision: revision} do
+    operation = %Operation{user_id: user.id, project_id: project.id, action: "sync"} |> Repo.insert!()
+
+    %Operation{user_id: user.id, translation_id: translation.id, revision_id: revision.id, key: translation.key, text: "foo", action: "update", batch_operation_id: operation.id}
+    |> Repo.insert!()
+
+    {:ok, %{entries: entries, meta: meta}} = Resolver.list_operations(operation, %{}, %{})
+
+    assert entries |> Enum.count() == 1
+    assert meta.current_page == 1
+    assert meta.total_pages == 1
+    assert meta.total_entries == 1
+    assert meta.next_page == nil
+    assert meta.previous_page == nil
+  end
+
   test "list project", %{user: user, project: project, translation: translation, revision: revision} do
     %Operation{user_id: user.id, translation_id: translation.id, revision_id: revision.id, key: translation.key, text: "foo", action: "update"} |> Repo.insert!()
     %Operation{user_id: user.id, project_id: project.id, action: "sync"} |> Repo.insert!()

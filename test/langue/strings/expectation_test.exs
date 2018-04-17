@@ -31,7 +31,7 @@ defmodule AccentTest.Formatter.Strings.Expectation do
 
     def entries do
       [
-        %Entry{key: "greeting", value: "", comment: "", index: 1},
+        %Entry{key: "greeting", value: "", comment: "", index: 1, value_type: "empty"},
         %Entry{key: "goodbye", value: "Bye bye", comment: "", index: 2}
       ]
     end

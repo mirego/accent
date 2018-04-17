@@ -23,7 +23,9 @@ defmodule Langue.Formatter.Json.Serializer do
   end
 
   def encode_json(content) do
-    {content}
+    content
+    |> Enum.map(&add_extra/1)
+    |> (&{&1}).()
     |> :jiffy.encode([:pretty])
     |> String.replace(~r/\" : (\"|{|\[|null|false|true|\d)/, "\": \\1")
   end

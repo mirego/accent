@@ -626,6 +626,7 @@ export default {
         false_option: 'false',
         integer_type_notice: 'This should only contains integer.',
         empty_type_notice: 'The text has been set to an empty string',
+        empty_type_placeholder: 'Empty text',
         null_type_notice: 'The text has been set to null'
       }
     },

@@ -123,18 +123,25 @@
   color: #444;
 }
 
+.translation-state-key,
+.translation-state-document,
+.translation-state-reviewed,
+.translation-state-value {
+  padding: 5px 10px;
+}
+
 .translation-state-key {
   display: block;
   @extend %translationKeyBase;
-  padding: 5px;
   text-decoration: none;
   font-weight: 600;
   font-size: 12px;
+  transition: $transition-speed $transition-easing;
+  transition-property: color;
 
   &:focus,
   &:hover {
     color: $color-primary;
-    text-decoration: underline;
   }
 }
 
@@ -147,20 +154,17 @@
 
 .translation-state-document {
   display: block;
-  padding: 5px;
   font-size: 12px;
   color: #333;
 }
 
 .translation-state-reviewed {
   display: block;
-  padding: 5px;
   font-size: 12px;
 }
 
 .translation-state-value {
   display: block;
-  padding: 5px;
   white-space: pre-wrap;
   font-size: 13px;
   color: #adadad;

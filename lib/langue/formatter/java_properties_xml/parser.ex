@@ -3,17 +3,18 @@ defmodule Langue.Formatter.JavaPropertiesXml.Parser do
 
   alias Langue.Utils.LineByLineHelper
 
+  @header """
+  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+  <properties>
+  """
+
   @prop_line_regex ~r/^ +<entry key="(?<key>.+)">(?<value>.*)<\/entry>$/
 
   def parse(%{render: render}) do
-    entries = LineByLineHelper.parse_lines(render, &parse_line/2)
+    render = String.replace(render, @header, "")
+    entries = LineByLineHelper.Parser.lines(render, @prop_line_regex)
 
     %Langue.Formatter.ParserResult{entries: entries}
   end
-
-  defp parse_line("<?xml" <> _rest, acc), do: acc
-  defp parse_line("<!DOCTYPE" <> _rest, acc), do: acc
-  defp parse_line("<properties>", acc), do: acc
-  defp parse_line("</properties>", acc), do: acc
-  defp parse_line(line, acc), do: LineByLineHelper.parse_line(line, @prop_line_regex, acc)
 end

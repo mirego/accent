@@ -2,6 +2,11 @@
   margin-bottom: 45px;
 }
 
+.translationCommentsList {
+  background: #fafafa;
+  border-radius: 5px;
+}
+
 .item-link {
   transition: $transition-speed $transition-easing;
   transition-property: color;
@@ -19,7 +24,7 @@
 }
 
 .item-header {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .item-key-prefix {
@@ -34,7 +39,7 @@
   transition: $transition-speed $transition-easing;
   transition-property: color;
   display: block;
-  font-size: 14px;
+  font-size: 12px;
   text-decoration: none;
   color: $color-black;
 }

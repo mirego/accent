@@ -61,7 +61,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
 
     operations = context.operations |> Enum.map(&Map.take(&1, [:value_type]))
 
-    assert operations === [%{value_type: ""}]
+    assert operations === [%{value_type: "string"}]
   end
 
   test "builder value type empty to nothing" do
@@ -80,7 +80,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
 
     operations = context.operations |> Enum.map(&Map.take(&1, [:value_type]))
 
-    assert operations === [%{value_type: ""}]
+    assert operations === [%{value_type: "string"}]
   end
 
   test "builder value type nothing to empty" do

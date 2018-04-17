@@ -2,26 +2,6 @@
   position: relative;
   box-shadow: 0 1px 5px rgba($color-black, 0.04);
   border: 1px solid $color-border;
-
-  &:before,
-  &:after {
-    position: absolute;
-    top: -16px;
-    left: 9px;
-    content: ' ';
-    width: 1px;
-    height: 1px;
-    border: 8px solid transparent;
-  }
-
-  &:before {
-    top: -17px;
-    border-bottom-color: darken($color-border, 4%);
-  }
-
-  &:after {
-    border-bottom-color: #fff;
-  }
 }
 
 &.translationRemoved {

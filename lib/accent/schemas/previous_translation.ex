@@ -25,10 +25,8 @@ defmodule Accent.PreviousTranslation do
 
     iex> Accent.PreviousTranslation.from_translation(nil)
     %Accent.PreviousTranslation{}
-    iex> Accent.PreviousTranslation.from_translation(%{})
-    %Accent.PreviousTranslation{}
-    iex> Accent.PreviousTranslation.from_translation(%Accent.Translation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "text"})
-    %Accent.PreviousTranslation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "text"}
+    iex> Accent.PreviousTranslation.from_translation(%Accent.Translation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string"})
+    %Accent.PreviousTranslation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string"}
   """
   def from_translation(nil), do: from_translation(%{})
 

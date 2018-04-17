@@ -93,7 +93,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
                file_index: 2,
                file_comment: "comment",
                previous_translation: %PreviousTranslation{
-                 value_type: nil,
+                 value_type: "string",
                  removed: true,
                  conflicted: false,
                  conflicted_text: "",

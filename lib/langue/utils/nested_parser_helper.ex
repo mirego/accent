@@ -35,9 +35,9 @@ defmodule Langue.Utils.NestedParserHelper do
     |> Enum.map(fn {entry, index} -> %{entry | index: index} end)
   end
 
-  defp flattenize_array({key, value, index}), do: flattenize_tuple({"#{key}#{@nested_separator}__KEY__#{index}", value, ""})
+  defp flattenize_array({key, value, index}), do: flattenize_tuple({"#{key}#{@nested_separator}__KEY__#{index}", value, "string"})
 
-  defp flattenize_tuple({key, value}), do: flattenize_tuple({key, value, ""})
+  defp flattenize_tuple({key, value}), do: flattenize_tuple({key, value, "string"})
   defp flattenize_tuple({key, value, type}) when is_tuple(value), do: flattenize_tuple({key, elem(value, 0), type})
 
   defp flattenize_tuple({key, value, _type}) when is_boolean(value) or value == "false" or value == "true" do
