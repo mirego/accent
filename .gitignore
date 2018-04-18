@@ -24,3 +24,4 @@ test.json
 
 priv/static/webapp
 /webapp/node_modules
+/webapp/tmp
