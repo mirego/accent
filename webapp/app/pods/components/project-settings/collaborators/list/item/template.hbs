@@ -18,7 +18,18 @@
         <img class="user-picture" src="{{collaborator.user.pictureUrl}}" />
       {{/if}}
 
-      {{fullnameWithFallback}}
+      <span class="user-name">
+        {{#if hasJoined}}
+          {{#if collaborator.user.fullname}}
+            {{collaborator.user.fullname}}
+            <small class="user-email">{{collaborator.email}}</small>
+          {{else}}
+            {{collaborator.email}}
+          {{/if}}
+        {{else}}
+          {{collaborator.email}}
+        {{/if}}
+      </span>
     </span>
   </div>
 

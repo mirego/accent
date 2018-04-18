@@ -50,14 +50,6 @@ export default Component.extend({
     return this.i18n.t(`general.roles.${this.collaborator.role}`);
   }),
 
-  fullnameWithFallback: computed('hasJoined', function() {
-    if (this.hasJoined) {
-      return this.collaborator.user.fullname;
-    } else {
-      return this.collaborator.email;
-    }
-  }),
-
   actions: {
     deleteCollaborator() {
       this.onDelete(this.collaborator);
