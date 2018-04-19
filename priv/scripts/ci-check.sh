@@ -46,6 +46,13 @@ run mix format --dry-run --check-formatted
 header "API code lint…"
 run mix credo --strict
 
+header "API dialyzer…"
+if [ -z ${PLT_LOCATION+x} ]; then
+  run mix dialyzer --plt
+else
+  run mix dialyzer --no_check_plt --plt $PLT_LOCATION --no_native _build/test/lib/accent/ebin
+fi
+
 header "Webapp code auto-formatting…"
 run npm --prefix webapp run prettier-check
 

@@ -10,8 +10,9 @@ node_js: 9.5.0
 
 cache:
   directories:
-  - _build
-  - deps
+    - _build
+    - deps
+    - .plts
 
 # Make sure PostgreSQL is running
 addons:
@@ -37,6 +38,9 @@ before_install:
 
 # Create database and prepare the application
 before_script:
+  - export PLT_FILENAME=elixir-${TRAVIS_ELIXIR_VERSION}_${TRAVIS_OTP_RELEASE}.plt
+  - export PLT_LOCATION=/home/travis/$PLT_FILENAME
+  - wget -O $PLT_LOCATION https://raw.github.com/danielberkompas/travis_elixir_plts/master/$PLT_FILENAME
   - mix compile
   - mix ecto.setup
 
