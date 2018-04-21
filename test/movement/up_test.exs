@@ -119,6 +119,7 @@ defmodule AccentTest.Movement.Migrator.Up do
       action: "conflict_on_corrected",
       translation: translation,
       text: "new proposed text",
+      value_type: "string",
       previous_translation: PreviousTranslation.from_translation(translation)
     })
 

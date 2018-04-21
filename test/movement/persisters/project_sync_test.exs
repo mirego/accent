@@ -43,7 +43,8 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
         action: "conflict_on_corrected",
         key: "a",
         text: "B",
-        translation_id: translation.id
+        translation_id: translation.id,
+        value_type: "string"
       }
     ]
 
