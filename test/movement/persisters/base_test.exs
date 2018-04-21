@@ -71,7 +71,8 @@ defmodule AccentTest.Movement.Persisters.Base do
         action: "update",
         key: "a",
         text: "B",
-        translation_id: translation.id
+        translation_id: translation.id,
+        value_type: "string"
       }
     ]
 
