@@ -64,6 +64,42 @@ defmodule AccentTest.Formatter.Json.Expectation do
     end
   end
 
+  defmodule FloatValue do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": 7.8
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{comment: "", index: 1, key: "test", value: "7.8", value_type: "float"}
+      ]
+    end
+  end
+
+  defmodule IntegerValue do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": 7
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{comment: "", index: 1, key: "test", value: "7", value_type: "integer"}
+      ]
+    end
+  end
+
   defmodule Simple do
     use Langue.Expectation.Case
 

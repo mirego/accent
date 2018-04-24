@@ -8,6 +8,7 @@ export default Component.extend({
   isStringType: equal('valueType', 'STRING'),
   isBooleanType: equal('valueType', 'BOOLEAN'),
   isIntegerType: equal('valueType', 'INTEGER'),
+  isFloatType: equal('valueType', 'FLOAT'),
   isEmptyType: equal('valueType', 'EMPTY'),
   isNullType: equal('valueType', 'NULL')
 });

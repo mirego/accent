@@ -24,6 +24,12 @@
       </span>
     {{/if}}
 
+    {{#if isFloatType}}
+      <span class="label">
+        {{t 'components.translation_edit.form.float_type_notice'}}
+      </span>
+    {{/if}}
+
     {{#if isEmptyType}}
       <span class="label">
         {{t 'components.translation_edit.form.empty_type_notice'}}

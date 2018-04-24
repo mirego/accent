@@ -624,7 +624,8 @@ export default {
       form: {
         true_option: 'true',
         false_option: 'false',
-        integer_type_notice: 'This should only contains integer.',
+        integer_type_notice: 'The text has been set with an integer value.',
+        float_type_notice: 'The text has been set with a float value.',
         empty_type_notice: 'The text has been set to an empty string',
         empty_type_placeholder: 'Empty text',
         null_type_notice: 'The text has been set to null'

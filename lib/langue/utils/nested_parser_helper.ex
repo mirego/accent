@@ -56,6 +56,10 @@ defmodule Langue.Utils.NestedParserHelper do
     %Entry{key: key, value: entry_value_to_string(to_string(value)), value_type: "integer", comment: ""}
   end
 
+  defp flattenize_tuple({key, value, _type}) when is_float(value) do
+    %Entry{key: key, value: entry_value_to_string(to_string(value)), value_type: "float", comment: ""}
+  end
+
   defp flattenize_tuple({key, value, ""}), do: flattenize_tuple({key, value, nil})
 
   defp flattenize_tuple({key, value, type}) when is_binary(value) do

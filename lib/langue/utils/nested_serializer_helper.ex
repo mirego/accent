@@ -25,6 +25,7 @@ defmodule Langue.Utils.NestedSerializerHelper do
   defp extract_single_value([boolean | _rest]) when is_boolean(boolean), do: boolean
   defp extract_single_value([string | _rest]) when is_binary(string), do: string
   defp extract_single_value([integer | _rest]) when is_integer(integer), do: integer
+  defp extract_single_value([float | _rest]) when is_float(float), do: float
   defp extract_single_value(values), do: values
 
   def entry_value_to_string("true", "boolean"), do: true
@@ -35,6 +36,13 @@ defmodule Langue.Utils.NestedSerializerHelper do
     case Integer.parse(integer) do
       {parsed, _rest} -> parsed
       :error -> integer
+    end
+  end
+
+  def entry_value_to_string(float, "float") do
+    case Float.parse(float) do
+      {parsed, _rest} -> parsed
+      :error -> float
     end
   end
 

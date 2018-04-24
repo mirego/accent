@@ -3,7 +3,7 @@ defmodule AccentTest.Formatter.Json.Parser do
 
   Code.require_file("expectation_test.exs", __DIR__)
 
-  alias AccentTest.Formatter.Json.Expectation.{Empty, NilValue, EmptyValue, BooleanValue, Simple, Nested, Complexe}
+  alias AccentTest.Formatter.Json.Expectation.{Empty, NilValue, EmptyValue, BooleanValue, IntegerValue, FloatValue, Simple, Nested, Complexe}
   alias Langue.Formatter.Json.{Parser, Serializer}
 
   @tests [
@@ -11,6 +11,8 @@ defmodule AccentTest.Formatter.Json.Parser do
     NilValue,
     EmptyValue,
     BooleanValue,
+    IntegerValue,
+    FloatValue,
     Simple,
     Nested,
     Complexe

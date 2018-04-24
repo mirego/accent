@@ -13,6 +13,7 @@ defmodule Accent.GraphQL.Types.Translation do
     value(:array, as: "array")
     value(:empty, as: "empty")
     value(:integer, as: "integer")
+    value(:float, as: "float")
   end
 
   object :translation do
