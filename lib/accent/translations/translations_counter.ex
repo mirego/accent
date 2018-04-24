@@ -26,16 +26,16 @@ defmodule Accent.TranslationsCounter do
       |> Scope.active()
       |> Scope.no_version()
 
-    active =
-      scope
-      |> select([t], %{id: field(t, ^assoc_name), active: count(t.id)})
-      |> group_items(associations, assoc_name, scope_filter_ids)
-      |> Repo.all()
-
     conflicted =
       scope
       |> Scope.conflicted()
       |> select([t], %{id: field(t, ^assoc_name), conflicted: count(t.id)})
+      |> group_items(associations, assoc_name, scope_filter_ids)
+      |> Repo.all()
+
+    active =
+      scope
+      |> select([t], %{id: field(t, ^assoc_name), active: count(t.id)})
       |> group_items(associations, assoc_name, scope_filter_ids)
       |> Repo.all()
 

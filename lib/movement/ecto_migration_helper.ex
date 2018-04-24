@@ -7,8 +7,6 @@ defmodule Movement.EctoMigrationHelper do
   """
   @spec update(model :: map, params :: map()) :: Migration.t()
   def update(model, params) do
-    params = Map.put(params, :updated_at, NaiveDateTime.utc_now())
-
     model
     |> model.__struct__.changeset(params)
     |> Repo.update()
