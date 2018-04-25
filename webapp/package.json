@@ -45,7 +45,6 @@
     "ember-cli-htmlbars-inline-precompile": "1.0.2",
     "ember-cli-inject-live-reload": "1.7.0",
     "ember-cli-mocha": "0.15.0",
-    "ember-cli-node-assets": "0.1.6",
     "ember-cli-sass": "7.1.7",
     "ember-cli-shims": "1.2.0",
     "ember-cli-uglify": "2.0.2",
