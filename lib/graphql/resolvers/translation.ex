@@ -103,6 +103,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     translations =
       Translation
       |> TranslationScope.active()
+      |> TranslationScope.not_locked()
       |> TranslationScope.from_revision(revision.id)
       |> TranslationScope.from_search(args[:query])
       |> TranslationScope.from_document(args[:document] || :all)

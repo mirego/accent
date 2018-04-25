@@ -53,6 +53,15 @@ defmodule Accent.Scopes.Translation do
   @doc """
   ## Examples
 
+    iex> Accent.Scopes.Translation.not_locked(Accent.Translation)
+    #Ecto.Query<from t in Accent.Translation, where: t.locked == false>
+  """
+  @spec not_locked(Ecto.Queryable.t()) :: Ecto.Queryable.t()
+  def not_locked(query), do: from(t in query, where: [locked: false])
+
+  @doc """
+  ## Examples
+
     iex> Accent.Scopes.Translation.parse_conflicted(Accent.Translation, nil)
     Accent.Translation
     iex> Accent.Scopes.Translation.parse_conflicted(Accent.Translation, false)

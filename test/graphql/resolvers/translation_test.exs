@@ -88,6 +88,7 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
 
   test "list revision", %{revision: revision, context: context} do
     translation = %Translation{revision_id: revision.id, conflicted: true, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
+    %Translation{revision_id: revision.id, conflicted: true, key: "hidden", corrected_text: "bar", proposed_text: "bar", locked: true} |> Repo.insert!()
 
     {:ok, result} = Resolver.list_revision(revision, %{}, context)
 

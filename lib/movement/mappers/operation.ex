@@ -9,7 +9,9 @@ defmodule Movement.Mappers.Operation do
       key: suggested_translation.key,
       file_comment: suggested_translation.file_comment,
       file_index: suggested_translation.file_index,
-      value_type: Map.get(suggested_translation, :value_type),
+      value_type: suggested_translation.value_type,
+      plural: suggested_translation.plural,
+      locked: suggested_translation.locked,
       revision_id: Map.get(suggested_translation, :revision_id),
       document_id: Map.get(suggested_translation, :document_id),
       version_id: Map.get(suggested_translation, :version_id),
@@ -28,6 +30,8 @@ defmodule Movement.Mappers.Operation do
       revision_id: Map.get(suggested_translation, :revision_id, current_translation.revision_id),
       version_id: Map.get(suggested_translation, :version_id, current_translation.version_id),
       value_type: Map.get(suggested_translation, :value_type, current_translation.value_type),
+      plural: Map.get(suggested_translation, :plural, current_translation.plural),
+      locked: Map.get(suggested_translation, :locked, current_translation.locked),
       translation_id: Map.get(current_translation, :id),
       previous_translation: PreviousTranslation.from_translation(current_translation)
     }

@@ -24,6 +24,21 @@
     {{/acc-badge}}
   {{/if}}
 
+  {{#if translation.plural}}
+    {{#acc-badge
+      link=true
+    }}
+      {{#link-to
+        'logged-in.project.revision.translations'
+        project.id
+        translation.revision.id
+        (query-params query=pluralBaseKey)
+      }}
+        {{t 'components.translation_splash_title.plural_label'}}
+      {{/link-to}}
+    {{/acc-badge}}
+  {{/if}}
+
   {{#if translation.isRemoved}}
     <div class="removedBadge">
       {{t 'components.translation_splash_title.removed_label' removedAt=(time-ago-in-words translation.updatedAt)}}

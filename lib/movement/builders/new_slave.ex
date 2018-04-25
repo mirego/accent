@@ -27,7 +27,9 @@ defmodule Movement.Builders.NewSlave do
           file_index: translation.file_index,
           document_id: translation.document_id,
           version_id: translation.version_id,
-          value_type: translation.value_type
+          value_type: translation.value_type,
+          plural: translation.plural,
+          locked: translation.locked
         })
       end)
 

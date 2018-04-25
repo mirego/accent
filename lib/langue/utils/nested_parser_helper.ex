@@ -2,6 +2,7 @@ defmodule Langue.Utils.NestedParserHelper do
   alias Langue.Entry
 
   @nested_separator "."
+  @plural_suffixes ~w(.zero .one .two .few .many .other)
 
   def group_by_key_with_index(entries, index, nested_separator \\ @nested_separator) do
     grouped_entries =
@@ -33,53 +34,34 @@ defmodule Langue.Utils.NestedParserHelper do
     |> List.flatten()
     |> Enum.with_index(1)
     |> Enum.map(fn {entry, index} -> %{entry | index: index} end)
+    |> Enum.map(&parse_plural/1)
   end
 
-  defp flattenize_array({key, value, index}), do: flattenize_tuple({"#{key}#{@nested_separator}__KEY__#{index}", value, "string"})
-
-  defp flattenize_tuple({key, value}), do: flattenize_tuple({key, value, "string"})
-  defp flattenize_tuple({key, value, type}) when is_tuple(value), do: flattenize_tuple({key, elem(value, 0), type})
-
-  defp flattenize_tuple({key, value, _type}) when is_boolean(value) or value == "false" or value == "true" do
-    %Entry{key: key, value: entry_value_to_string(value), value_type: "boolean", comment: ""}
+  defp parse_plural(entry) do
+    if Enum.any?(@plural_suffixes, &String.ends_with?(entry.key, &1)) do
+      %{entry | plural: true}
+    else
+      entry
+    end
   end
 
-  defp flattenize_tuple({key, value, _type}) when value == "" do
-    %Entry{key: key, value: entry_value_to_string(value), value_type: "empty", comment: ""}
-  end
+  defp flattenize_array({key, value, index}), do: flattenize_tuple({"#{key}#{@nested_separator}__KEY__#{index}", value})
 
-  defp flattenize_tuple({key, value, _type}) when value == :null or value == "nil" do
-    %Entry{key: key, value: entry_value_to_string(value), value_type: "null", comment: ""}
-  end
+  defp flattenize_tuple({key, value}) when is_tuple(value), do: flattenize_tuple({key, elem(value, 0)})
 
-  defp flattenize_tuple({key, value, _type}) when is_integer(value) do
-    %Entry{key: key, value: entry_value_to_string(to_string(value)), value_type: "integer", comment: ""}
-  end
-
-  defp flattenize_tuple({key, value, _type}) when is_float(value) do
-    %Entry{key: key, value: entry_value_to_string(to_string(value)), value_type: "float", comment: ""}
-  end
-
-  defp flattenize_tuple({key, value, ""}), do: flattenize_tuple({key, value, nil})
-
-  defp flattenize_tuple({key, value, type}) when is_binary(value) do
-    %Entry{key: key, value: entry_value_to_string(value), value_type: type, comment: ""}
-  end
-
-  defp flattenize_tuple({key, value, type}) when is_list(value) do
+  defp flattenize_tuple({key, value}) when is_list(value) do
     value
     |> Enum.with_index()
     |> Enum.map(fn {item, index} ->
       if is_tuple(item) && !is_list(elem(item, 0)) do
-        flattenize_tuple({"#{key}#{@nested_separator}#{elem(item, 0)}", elem(item, 1), type})
+        flattenize_tuple({"#{key}#{@nested_separator}#{elem(item, 0)}", elem(item, 1)})
       else
         flattenize_array({key, item, index})
       end
     end)
   end
 
-  defp entry_value_to_string(true), do: "true"
-  defp entry_value_to_string(false), do: "false"
-  defp entry_value_to_string(:null), do: "null"
-  defp entry_value_to_string(value), do: value
+  defp flattenize_tuple({key, value}) do
+    %Entry{key: key, value: to_string(value), value_type: Langue.ValueType.parse(value), comment: ""}
+  end
 end

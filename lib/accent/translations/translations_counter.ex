@@ -24,6 +24,7 @@ defmodule Accent.TranslationsCounter do
     scope =
       Translation
       |> Scope.active()
+      |> Scope.not_locked()
       |> Scope.no_version()
 
     conflicted =

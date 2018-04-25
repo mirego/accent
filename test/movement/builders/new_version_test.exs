@@ -33,6 +33,8 @@ defmodule AccentTest.Movement.Builders.NewVersion do
         corrected_text: "A",
         file_index: 2,
         file_comment: "comment",
+        plural: true,
+        locked: true,
         revision_id: revision.id,
         document_id: document.id
       }
@@ -44,7 +46,7 @@ defmodule AccentTest.Movement.Builders.NewVersion do
       |> NewVersionBuilder.build()
 
     translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index]))
+    operations = context.operations |> Enum.map(&Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index, :plural, :locked]))
 
     assert translation_ids === [translation.id]
 
@@ -55,7 +57,9 @@ defmodule AccentTest.Movement.Builders.NewVersion do
                text: "A",
                document_id: document.id,
                file_index: 2,
-               file_comment: "comment"
+               file_comment: "comment",
+               plural: true,
+               locked: true
              }
            ]
   end

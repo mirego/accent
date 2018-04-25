@@ -14,6 +14,8 @@ defmodule Accent.Translation do
     field(:file_index, :integer)
 
     field(:value_type, :string, default: "string")
+    field(:plural, :boolean, default: false)
+    field(:locked, :boolean, default: false)
 
     belongs_to(:document, Accent.Document)
     belongs_to(:revision, Accent.Revision)

@@ -20,6 +20,7 @@ defmodule Accent.GraphQL.Types.Translation do
     field(:id, non_null(:id))
     field(:key, non_null(:string), resolve: &Accent.GraphQL.Resolvers.Translation.key/3)
     field(:value_type, non_null(:translation_value_type))
+    field(:plural, non_null(:boolean))
 
     field(:proposed_text, :string)
     field(:corrected_text, :string)
