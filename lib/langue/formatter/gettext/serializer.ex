@@ -71,5 +71,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
 
   defp remove_key_suffix(string), do: String.replace(string, ".__KEY___", "")
 
-  defp replace_language_header(string, locale), do: String.replace(string, ~r/Language: [a-zA-Z]+/, "Language: #{locale}")
+  defp replace_language_header(string, locale) do
+    String.replace(string, ~r/Language: [^\n]*/, "Language: #{locale}")
+  end
 end
