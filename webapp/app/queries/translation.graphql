@@ -8,6 +8,7 @@ query Translation($projectId: ID!, $translationId: ID!) {
         isConflicted
         isRemoved
         valueType
+        plural
         commentsCount
         correctedText
         conflictedText

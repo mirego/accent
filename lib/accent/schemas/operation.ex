@@ -31,6 +31,8 @@ defmodule Accent.Operation do
     field(:file_index, :integer)
 
     field(:value_type, :string)
+    field(:plural, :boolean, default: false)
+    field(:locked, :boolean, default: false)
 
     field(:rollbacked, :boolean, default: false)
     field(:stats, {:array, :map}, default: [])
@@ -49,8 +51,6 @@ defmodule Accent.Operation do
 
     has_one(:rollback_operation, Accent.Operation, foreign_key: :rollbacked_operation_id)
     has_many(:operations, Accent.Operation, foreign_key: :batch_operation_id)
-
-    field(:language_id, :string, virtual: true)
 
     timestamps()
   end

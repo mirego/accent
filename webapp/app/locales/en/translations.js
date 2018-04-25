@@ -643,6 +643,7 @@ export default {
       related_translations_link_title: 'Translations'
     },
     translation_splash_title: {
+      plural_label: 'plural',
       conflicted_label: 'in review',
       removed_label: 'This string was removed {{removedAt}}'
     },

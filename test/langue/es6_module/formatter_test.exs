@@ -3,18 +3,21 @@ defmodule AccentTest.Formatter.Es6Module.Formatter do
 
   Code.require_file("expectation_test.exs", __DIR__)
 
-  alias AccentTest.Formatter.Es6Module.Expectation.{Simple}
+  alias AccentTest.Formatter.Es6Module.Expectation.{Simple, Plural}
   alias Langue.Formatter.Es6Module.{Parser, Serializer}
 
   @tests [
-    {:test_parse, Simple, Parser},
-    {:test_serialize, Simple, Serializer}
+    Simple,
+    Plural
   ]
 
   test "es6 module" do
-    Enum.each(@tests, fn {fun, ex, mo} ->
-      {expected, result} = apply(Accent.FormatterTestHelper, fun, [ex, mo])
-      assert expected == result
+    Enum.each(@tests, fn ex ->
+      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(ex, Parser)
+      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(ex, Serializer)
+
+      assert expected_parse == result_parse
+      assert expected_serialize == result_serialize
     end)
   end
 end

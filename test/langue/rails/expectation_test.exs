@@ -59,6 +59,28 @@ defmodule AccentTest.Formatter.Rails.Expectation do
     end
   end
 
+  defmodule PluralValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      "fr":
+        "count_something":
+          "one": "1 item"
+          "other": "%{count} items"
+          "zero": "No items"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{comment: "", index: 1, key: "count_something.one", value: "1 item", value_type: "string", plural: true},
+        %Entry{comment: "", index: 2, key: "count_something.other", value: "%{count} items", value_type: "string", plural: true},
+        %Entry{comment: "", index: 3, key: "count_something.zero", value: "No items", value_type: "string", plural: true}
+      ]
+    end
+  end
+
   defmodule ArrayValues do
     use Langue.Expectation.Case
 

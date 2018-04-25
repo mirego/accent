@@ -28,6 +28,7 @@ defmodule Movement.Builders.RevisionUncorrectAll do
     translations =
       Translation
       |> TranslationScope.active()
+      |> TranslationScope.not_locked()
       |> TranslationScope.not_conflicted()
       |> TranslationScope.from_revision(assigns[:revision].id)
       |> Repo.all()
