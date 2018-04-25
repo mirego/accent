@@ -63,9 +63,11 @@ defmodule Langue.Formatter.Gettext.Serializer do
     }
   end
 
-  defp split_string(""), do: []
-  defp split_string(nil), do: []
-  defp split_string(string), do: String.split(string, "\n")
+  defp split_string(""), do: [""]
+  defp split_string(nil), do: [""]
+  defp split_string(string) do
+    Regex.split(~r/[^\n]*\n/, string, include_captures: true, trim: true)
+  end
 
   defp remove_key_suffix(string), do: String.replace(string, ".__KEY___", "")
 
