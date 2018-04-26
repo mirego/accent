@@ -22,7 +22,7 @@
     "prettier": "prettier --single-quote --no-bracket-spacing --print-width 130 --write './app/**/*.{js,gql}'",
     "prettier-check": "prettier --single-quote --list-different --no-bracket-spacing --print-width 130 './app/**/*.{js,gql}'"
   },
-  "repository": "https://github.com/mirego/",
+  "repository": "https://github.com/mirego/accent",
   "engines": {
     "node": ">= 8.5.0"
   },

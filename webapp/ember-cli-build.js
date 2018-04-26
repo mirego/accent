@@ -1,6 +1,9 @@
 /* eslint-env node */
 
+'use strict';
+
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const target = require('./config/targets');
 
 module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
@@ -9,10 +12,7 @@ module.exports = function(defaults) {
       'jquery.js': null,
     },
     autoprefixer: {
-      browsers: [
-        'ie >= 10',
-        'last 2 versions'
-      ]
+      browsers: target.browsers
     },
     babel: {
       sourceMaps: 'inline',
