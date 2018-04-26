@@ -21,39 +21,21 @@ defmodule Accent.TranslationsCounter do
   end
 
   defp from_assoc(associations, assoc_name, scope_filter_ids) do
-    scope =
-      Translation
-      |> Scope.active()
-      |> Scope.not_locked()
-      |> Scope.no_version()
-
-    conflicted =
-      scope
-      |> Scope.conflicted()
-      |> select([t], %{id: field(t, ^assoc_name), conflicted: count(t.id)})
-      |> group_items(associations, assoc_name, scope_filter_ids)
-      |> Repo.all()
-
-    active =
-      scope
-      |> select([t], %{id: field(t, ^assoc_name), active: count(t.id)})
-      |> group_items(associations, assoc_name, scope_filter_ids)
-      |> Repo.all()
-
-    active
-    |> Kernel.++(conflicted)
-    |> Enum.group_by(&Map.get(&1, :id))
-    |> Enum.reduce(%{}, &count_from_items/2)
-  end
-
-  defp count_from_items({key, items}, acc) do
-    case items do
-      [%{active: active}, %{conflicted: conflicted}] ->
-        Map.put_new(acc, key, %{conflicted: conflicted, active: active})
-
-      [%{active: active}] ->
-        Map.put_new(acc, key, %{conflicted: 0, active: active})
-    end
+    Translation
+    |> Scope.active()
+    |> Scope.not_locked()
+    |> Scope.no_version()
+    |> group_items(associations, assoc_name, scope_filter_ids)
+    |> select(
+      [entry],
+      {field(entry, ^assoc_name),
+       %{
+         conflicted: count(fragment("NULLIF(?, false)", entry.conflicted)),
+         active: count(entry.id)
+       }}
+    )
+    |> Repo.all()
+    |> Enum.into(%{})
   end
 
   defp group_items(query, associations, assoc_name, scope_filter_ids) do

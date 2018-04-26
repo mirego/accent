@@ -6,6 +6,7 @@ defmodule Accent.Repo.Migrations.AddTrigramIndicesOnSearchableFields do
 
     create index(:languages, ["name gin_trgm_ops"], using: :gin)
     create index(:projects, ["name gin_trgm_ops"], using: :gin)
-    create index(:translations, ["key gin_trgm_ops", "corrected_text gin_trgm_ops"], using: :gin)
+    create index(:translations, ["key gin_trgm_ops"], using: :gin)
+    create index(:translations, ["corrected_text gin_trgm_ops"], using: :gin)
   end
 end
