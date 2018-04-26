@@ -1,52 +1,49 @@
-import { expect } from 'chai';
-import {
-  describeModule,
-  it,
-  beforeEach,
-  afterEach
-} from 'ember-mocha';
+import {expect} from 'chai';
+import {describe, it, beforeEach, afterEach} from 'mocha';
+import {setupTest} from 'ember-mocha';
 import sinon from 'sinon';
 
+import config from 'accent-webapp/config/environment';
+
 const HTTP_STATUS = {
-  'ok': 200
+  ok: 200
 };
 
-describeModule(
-  'service:session/creator',
-  'service:session/creator',
-  {
-    needs: []
-  },
-  () => {
-    let xhr;
-    let requests;
-    let service;
+describe('Unit | Services | Session | creator', () => {
+  setupTest('service:session/creator');
 
-    beforeEach(() => {
-      xhr = sinon.useFakeXMLHttpRequest();
-      requests = [];
-      xhr.onCreate = (request) => requests.push(request);
+  let server;
+  let service;
 
-      service = this.subject();
-    });
+  beforeEach(function() {
+    server = sinon.createFakeServer();
+    server.autoRespond = true;
+    server.respondImmediately = true;
 
-    afterEach(() => {
-      xhr.restore();
-    });
+    service = this.subject();
+  });
 
-    it('should return a promise', () => {
-      expect(service.createSession({username: 'test@mirego.com'})).to.respondTo('then');
-    });
+  afterEach(() => {
+    server.restore();
+  });
 
-    it('should resolve with the credentials returned from the API', (done) => {
-      const credentialsJSON = '{"user":{"email":"test@mirego.com"},"token":"abc123"}';
+  it('should return a promise', async () => {
+    server.respondWith(config.API.AUTHENTICATION_PATH, [HTTP_STATUS.ok, {'Content-Type': 'application/json'}, '']);
 
-      service.createSession({username: 'test@mirego.com'}).then((credentials) => {
-        expect(credentials).to.deep.equal(JSON.parse(credentialsJSON));
-        done();
-      });
+    const result = service.createSession({username: 'test@mirego.com'})
 
-      requests[0].respond(HTTP_STATUS.ok, {'Content-Type': 'application/json'}, credentialsJSON);
-    });
-  }
-);
+    expect(result).to.respondTo('then');
+
+    await result;
+  });
+
+  it('should resolve with the credentials returned from the API', async () => {
+    const credentialsJSON = '{"user":{"email":"test@mirego.com"},"token":"abc123"}';
+
+    server.respondWith(config.API.AUTHENTICATION_PATH, [HTTP_STATUS.ok, {'Content-Type': 'application/json'}, credentialsJSON]);
+
+    const credentials = await service.createSession({username: 'test@mirego.com'});
+
+    expect(credentials).to.deep.equal(JSON.parse(credentialsJSON));
+  });
+});

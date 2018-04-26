@@ -1,8 +1,5 @@
-import resolver from './helpers/resolver';
-import './helpers/flash-message';
+import Application from '../app';
+import config from '../config/environment';
+import {setApplication} from '@ember/test-helpers';
 
-import registerSelectHelper from './helpers/register-select-helper';
-registerSelectHelper();
-import { setResolver } from 'ember-mocha';
-
-setResolver(resolver);
+setApplication(Application.create(config.APP));

@@ -5,7 +5,7 @@ export default Mixin.create({
   session: service(),
 
   redirect() {
-    if (!this.session.credentials) {
+    if (!this.session.isAuthenticated) {
       this.transitionTo('login');
     }
   }

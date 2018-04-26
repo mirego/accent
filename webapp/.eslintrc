@@ -1,55 +1,21 @@
 
 {
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": 1
-    }
+  "globals": {
+    "JsDiff": true,
+    "Spinner": true
+  },
+  "plugins": [
+    "ember",
+    "mirego"
+  ],
+  "extends": [
+    "plugin:mirego/recommended",
+    "prettier"
+  ],
+  "env": {
+    "es6": true
   },
   "rules": {
-    "camelcase": [2, {"properties": "always"}],
-    "complexity": [2, 10],
-    "consistent-this": [0, "self"],
-    "dot-notation": 2,
-    "eqeqeq": [2, "smart"],
-    "func-style": [2, "expression"],
-    "linebreak-style": [2, "unix"],
-    "no-alert": 2,
-    "no-console": 2,
-    "no-dupe-args": 2,
-    "no-dupe-keys": 2,
-    "no-duplicate-case": 2,
-    "no-empty": 2,
-    "no-empty-character-class": 2,
-    "no-eval": 2,
-    "no-ex-assign": 2,
-    "no-inner-declarations": [2, "both"],
-    "no-magic-numbers": [2, {"enforceConst": true, ignore: [-1, 0, 1, 2, 100]}],
-    "no-nested-ternary": 2,
-    "no-obj-calls": 2,
-    "no-sparse-arrays": 2,
-    "no-throw-literal": 2,
-    "no-undef": 2,
-    "no-unreachable": 2,
-    "no-unused-vars": [2, {"args": "all", "argsIgnorePattern": "^_", "vars": "all", "varsIgnorePattern": "^_"}],
-    "no-useless-call": 2,
-    "no-useless-concat": 2,
-    "no-var": 2,
-    "no-void": 2,
-    "object-shorthand": 2,
-    "operator-linebreak": 0,
-    "padded-blocks": 0,
-    "prefer-arrow-callback": 2,
-    "prefer-const": 2,
-    "prefer-template": 2,
-    "quotes": [2, "single", "avoid-escape"],
-    "radix": 2,
-    "space-before-function-paren": 0,
-    "space-in-brackets": 0,
-    "spaced-comment": 2,
-    "strict": 0,
-
     "ember/jquery-ember-run": 2,
     "ember/use-brace-expansion": 2,
     "ember/no-side-effects": 2,
@@ -58,19 +24,5 @@
     "ember/order-in-controllers": 2,
     "ember/no-empty-attrs": 2,
     "ember/closure-actions": 2
-  },
-  "plugins": [
-    "ember"
-  ],
-  "extends": [
-    "prettier"
-  ],
-  "env": {
-    "browser": true,
-    "es6": true
-  },
-  "globals": {
-    "JsDiff": true,
-    "Spinner": true
   }
 }

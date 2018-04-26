@@ -6,6 +6,7 @@ const Router = EmberRouter.extend({
   rootURL: config.rootURL
 });
 
+/* eslint-disable max-nested-callbacks */
 export default Router.map(function() {
   this.route('login', {path: ''});
 

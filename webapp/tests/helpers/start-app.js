@@ -1,22 +1,14 @@
-/* eslint func-style:0 */
-
-import { run } from '@ember/runloop';
-
-import { merge } from '@ember/polyfills';
 import Application from '../../app';
 import config from '../../config/environment';
+import {run} from '@ember/runloop';
 
 export default function startApp(attrs) {
-  let application;
+  const attributes = {...config.APP, autoboot: false, ...attrs};
 
-  let attributes = merge({}, config.APP);
-  attributes = merge(attributes, attrs); // use defaults, but you can override;
-
-  run(() => {
-    application = Application.create(attributes);
+  return run(() => {
+    const application = Application.create(attributes);
     application.setupForTesting();
     application.injectTestHelpers();
+    return application;
   });
-
-  return application;
 }
