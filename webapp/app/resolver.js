@@ -1,3 +1,1 @@
-import Resolver from 'ember-resolver';
-
-export default Resolver;
+export {default} from 'ember-resolver';

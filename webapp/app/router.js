@@ -6,7 +6,6 @@ const Router = EmberRouter.extend({
   rootURL: config.rootURL
 });
 
-/* eslint-disable prefer-arrow-callback */
 export default Router.map(function() {
   this.route('login', {path: ''});
 
@@ -54,4 +53,3 @@ export default Router.map(function() {
 
   this.route('not-found', {path: '/*path'});
 });
-/* eslint-enable prefer-arrow-callback */
