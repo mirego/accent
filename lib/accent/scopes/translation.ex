@@ -135,13 +135,13 @@ defmodule Accent.Scopes.Translation do
   ## Examples
 
     iex> Accent.Scopes.Translation.from_project(Accent.Translation, "test")
-    #Ecto.Query<from t in Accent.Translation, left_join: p in assoc(t, :project), where: p.id == ^"test">
+    #Ecto.Query<from t in Accent.Translation, join: p in assoc(t, :project), where: p.id == ^"test">
   """
   @spec from_project(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_project(query, project_id) do
     from(
       translation in query,
-      left_join: project in assoc(translation, :project),
+      inner_join: project in assoc(translation, :project),
       where: project.id == ^project_id
     )
   end

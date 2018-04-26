@@ -20,7 +20,7 @@ defmodule Accent.UserAuthFetcher do
   defp fetch_user("Bearer " <> token) when is_binary(token) do
     from(
       user in User,
-      left_join: access_token in assoc(user, :access_tokens),
+      inner_join: access_token in assoc(user, :access_tokens),
       where: access_token.token == ^token,
       where: is_nil(access_token.revoked_at)
     )
