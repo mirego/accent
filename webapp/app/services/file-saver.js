@@ -72,6 +72,7 @@ const fileSaver = view => {
     const dispatchAll = () => dispatch(filesaver, 'writestart progress write writeend'.split(' '));
 
     // on any filesys errors revert to saving with object URLs
+    /* eslint-disable complexity */
     const fsError = () => {
       if ((isChromeIos || (force && isSafari)) && view.FileReader) {
         // Safari doesn't allow downloading of blob urls
@@ -103,6 +104,7 @@ const fileSaver = view => {
           view.location.href = objectURL;
         }
       }
+      /* eslint-enable complexity */
 
       filesaver.readyState = filesaver.DONE;
       dispatchAll();

@@ -1,38 +1,31 @@
-import { expect } from 'chai';
-import {
-  describeModule,
-  it,
-  beforeEach,
-  afterEach
-} from 'ember-mocha';
+import {expect} from 'chai';
+import {describe, it, beforeEach, afterEach} from 'mocha';
+import {setupTest} from 'ember-mocha';
+
 import config from 'accent-webapp/config/environment';
 
-describeModule(
-  'service:session/fetcher',
-  'service:session/fetcher',
-  {
-    needs: []
-  },
-  () => {
-    let service;
-    const credentials = {
-      user: {email: 'test@mirego.com'},
-      token: 'abc123'
-    };
+describe('Unit | Services | Session | fetcher', () => {
+  setupTest('service:session/fetcher');
 
-    beforeEach(() => {
-      service = this.subject();
+  let service;
 
-      // Fake a previous login
-      localStorage.setItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE, JSON.stringify(credentials));
-    });
+  const credentials = {
+    user: {email: 'test@mirego.com'},
+    token: 'abc123'
+  };
 
-    afterEach(() => {
-      localStorage.removeItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE);
-    });
+  beforeEach(function() {
+    service = this.subject();
 
-    it('should read the session credentials from localStorage', () => {
-      expect(service.fetch()).to.deep.equal(credentials);
-    });
-  }
-);
+    // Fake a previous login
+    localStorage.setItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE, JSON.stringify(credentials));
+  });
+
+  afterEach(() => {
+    localStorage.removeItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE);
+  });
+
+  it('should read the session credentials from localStorage', () => {
+    expect(service.fetch()).to.deep.equal(credentials);
+  });
+});

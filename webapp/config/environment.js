@@ -82,13 +82,13 @@ module.exports = function(environment) {
   };
 
   if (environment === 'test') {
-    ENV.baseURL = '/';
     ENV.locationType = 'none';
 
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
 
     ENV.APP.LOCAL_STORAGE.SESSION_NAMESPACE = 'accent-session-test';
   }

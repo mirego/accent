@@ -12,6 +12,7 @@ export default Component.extend({
   }),
 
   percentageReviewedBadgeCode: computed('percentageReviewedBadgeUrl', 'projectUrl', function() {
+    // eslint-disable-next-line no-irregular-whitespace
     return htmlSafe(`![strings reviewed status](${this.percentageReviewedBadgeUrl})](${this.projectUrl})`);
   }),
 

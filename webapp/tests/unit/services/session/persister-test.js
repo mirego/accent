@@ -1,37 +1,30 @@
-import { expect } from 'chai';
-import {
-  describeModule,
-  it,
-  beforeEach,
-  afterEach
-} from 'ember-mocha';
+import {expect} from 'chai';
+import {describe, it, beforeEach, afterEach} from 'mocha';
+import {setupTest} from 'ember-mocha';
+
 import config from 'accent-webapp/config/environment';
 
-describeModule(
-  'service:session/persister',
-  'service:session/persister',
-  {
-    needs: []
-  },
-  () => {
-    let service;
-    const credentials = {
-      user: {email: 'test@mirego.com'},
-      token: 'abc123'
-    };
+describe('Unit | Services | Session | persister', () => {
+  setupTest('service:session/persister');
 
-    beforeEach(() => {
-      service = this.subject();
-    });
+  let service;
 
-    afterEach(() => {
-      localStorage.removeItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE);
-    });
+  const credentials = {
+    user: {email: 'test@mirego.com'},
+    token: 'abc123'
+  };
 
-    it('should persist the session credentials to localStorage', () => {
-      service.persist(credentials);
+  beforeEach(function() {
+    service = this.subject();
+  });
 
-      expect(localStorage.getItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE)).to.equal(JSON.stringify(credentials));
-    });
-  }
-);
+  afterEach(() => {
+    localStorage.removeItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE);
+  });
+
+  it('should persist the session credentials to localStorage', () => {
+    service.persist(credentials);
+
+    expect(localStorage.getItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE)).to.equal(JSON.stringify(credentials));
+  });
+});

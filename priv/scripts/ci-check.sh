@@ -52,6 +52,9 @@ run npm --prefix webapp run prettier-check
 header "Webapp code lint…"
 run npm --prefix webapp run lint
 
+header "Webapp tests…"
+run npm --prefix webapp test
+
 if [ ${error_status} -ne 0 ]; then
   header "${fail_emoji}   Something went wrong. Please fix it before committing."
 else

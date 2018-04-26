@@ -1,57 +1,33 @@
-import EmberObject from '@ember/object';
-import { expect } from 'chai';
-import {
-  describeModule,
-  it,
-  beforeEach,
-  afterEach
-} from 'ember-mocha';
+import {expect} from 'chai';
+import {describe, it, beforeEach, afterEach} from 'mocha';
+import {setupTest} from 'ember-mocha';
+
 import config from 'accent-webapp/config/environment';
 
-describeModule(
-  'service:session/destroyer',
-  'service:session/destroyer',
-  {
-    needs: []
-  },
-  () => {
-    let service;
+describe('Unit | Services | Session | destroyer', () => {
+  setupTest('service:session/destroyer');
 
-    const credentials = {
-      user: {email: 'test@mirego.com'},
-      token: 'abc123'
-    };
+  let service;
 
-    const sessionStub = EmberObject.extend({
-      credentials: {
-        user: {email: 'test@mirego.com'},
-        token: 'abc123'
-      }
-    });
+  const credentials = {
+    user: {email: 'test@mirego.com'},
+    token: 'abc123'
+  };
 
-    beforeEach(() => {
-      service = this.subject({session: sessionStub.create()});
+  beforeEach(function() {
+    service = this.subject();
 
-      // Fake a previous login
-      localStorage.setItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE, service.get('session.credentials'));
+    // Fake a previous login
+    localStorage.setItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE, JSON.stringify(credentials));
+  });
 
-      expect(service.get('session.credentials')).to.deep.equal(credentials);
-    });
+  afterEach(() => {
+    localStorage.removeItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE);
+  });
 
-    afterEach(() => {
-      localStorage.removeItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE);
-    });
+  it('should remove the credentials from localStorage', () => {
+    service.destroySession();
 
-    it('should nullify the session’s credentials', () => {
-      service.destroySession();
-
-      expect(service.get('session.credentials')).to.be.null;
-    });
-
-    it('should remove the credentials from localStorage', () => {
-      service.destroySession();
-
-      expect(localStorage.getItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE)).to.be.null;
-    });
-  }
-);
+    expect(localStorage.getItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE)).to.be.null;
+  });
+});
