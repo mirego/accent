@@ -26,4 +26,28 @@ defmodule AccentTest.Formatter.Es6Module.Expectation do
       ]
     end
   end
+
+  defmodule Plural do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      export default {
+        "count_something": {
+          "one": "1 item",
+          "other": "%{count} items",
+          "zero": "No items"
+        }
+      };
+      """
+    end
+
+    def entries do
+      [
+        %Entry{comment: "", index: 1, key: "count_something.one", value: "1 item", value_type: "string", plural: true},
+        %Entry{comment: "", index: 2, key: "count_something.other", value: "%{count} items", value_type: "string", plural: true},
+        %Entry{comment: "", index: 3, key: "count_something.zero", value: "No items", value_type: "string", plural: true}
+      ]
+    end
+  end
 end

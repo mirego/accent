@@ -5,6 +5,8 @@ defmodule Movement.Operation do
             file_comment: nil,
             file_index: 0,
             value_type: nil,
+            plural: false,
+            locked: false,
             batch: false,
             translation_id: nil,
             rollbacked_operation_id: nil,

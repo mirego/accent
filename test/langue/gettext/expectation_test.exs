@@ -64,9 +64,9 @@ defmodule AccentTest.Formatter.Gettext.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "has already been taken", value: "est déjà pris"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY___", value: "should be at least %{count} character(s)", value_type: "plural"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", value_type: "plural"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY__1", value: "should be at least %{count} character(s)", value_type: "plural"}
+        %Entry{index: 2, key: "should be at least n character(s).__KEY___", value: "should be at least %{count} character(s)", plural: true, locked: true, value_type: "string"},
+        %Entry{index: 2, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", plural: true, value_type: "string"},
+        %Entry{index: 2, key: "should be at least n character(s).__KEY__1", value: "should be at least %{count} character(s)", plural: true, value_type: "string"}
       ]
     end
   end

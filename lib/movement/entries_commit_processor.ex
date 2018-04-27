@@ -24,6 +24,8 @@ defmodule Movement.EntriesCommitProcessor do
           file_comment: entry.comment,
           file_index: entry.index,
           value_type: entry.value_type,
+          plural: entry.plural,
+          locked: entry.locked,
           revision_id: Map.get(assigns[:revision], :id)
         }
 

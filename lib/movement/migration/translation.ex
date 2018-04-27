@@ -49,6 +49,8 @@ defmodule Movement.Migration.Translation do
       corrected_text: operation.text,
       conflicted: is_nil(operation.version_id),
       value_type: operation.value_type,
+      plural: operation.plural,
+      locked: operation.locked,
       file_index: operation.file_index,
       file_comment: operation.file_comment,
       removed: operation.previous_translation && operation.previous_translation.removed,

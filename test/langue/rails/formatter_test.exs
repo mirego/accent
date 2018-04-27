@@ -3,13 +3,14 @@ defmodule AccentTest.Formatter.Rails.Formatter do
 
   Code.require_file("expectation_test.exs", __DIR__)
 
-  alias AccentTest.Formatter.Rails.Expectation.{EmptyValue, NestedValues, ArrayValues, IntegerValues}
+  alias AccentTest.Formatter.Rails.Expectation.{EmptyValue, NestedValues, ArrayValues, IntegerValues, PluralValues}
   alias Langue.Formatter.Rails.{Parser, Serializer}
 
   @tests [
     EmptyValue,
     NestedValues,
     ArrayValues,
+    PluralValues,
     IntegerValues
   ]
 
