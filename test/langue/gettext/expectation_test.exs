@@ -91,4 +91,48 @@ defmodule AccentTest.Formatter.Gettext.Expectation do
       ]
     end
   end
+
+  defmodule LanguageHeader do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid ""
+      msgstr ""
+      #{header()}
+      msgid "has already been taken"
+      msgstr "est déjà pris"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "has already been taken", value: "est déjà pris"}
+      ]
+    end
+
+    def header do
+      ~S"""
+      "Language: "
+      """
+    end
+  end
+
+  defmodule NewLines do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid "test"
+      msgstr "a\\n"
+      "a\\n"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test", value: "a\na\n"}
+      ]
+    end
+  end
 end

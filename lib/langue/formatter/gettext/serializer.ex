@@ -7,16 +7,14 @@ defmodule Langue.Formatter.Gettext.Serializer do
     comments =
       top_of_the_file_comment
       |> String.trim()
-      |> split_string()
-      |> Enum.filter(fn item -> item != "" end)
+      |> String.split("\n", trim: true)
 
     headers =
       header
       |> String.trim()
       |> String.replace("\"", "")
       |> replace_language_header(locale)
-      |> split_string()
-      |> Enum.filter(fn item -> item != "" end)
+      |> String.split("\n", trim: true)
 
     render =
       %Gettext.PO{
@@ -38,7 +36,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
 
   defp do_parse_entries({_key, [entry]}) do
     %Gettext.PO.Translation{
-      comments: split_string(entry.comment),
+      comments: split_string(entry.comment, []),
       msgid: split_string(entry.key),
       msgstr: split_string(entry.value)
     }
@@ -51,21 +49,21 @@ defmodule Langue.Formatter.Gettext.Serializer do
       |> split_string()
 
     %Gettext.PO.PluralTranslation{
-      comments: split_string(plural_entry.comment),
+      comments: split_string(plural_entry.comment, []),
       msgid: msgid,
       msgid_plural: split_string(plural_entry.value),
       msgstr:
-        Enum.reduce(Enum.with_index(entries, 0), %{}, fn {entry, index}, acc ->
-          value = split_string(entry.value)
-
-          Map.put(acc, index, value)
-        end)
+        for {entry, index} <- Enum.with_index(entries, 0), into: %{} do
+          {index, split_string(entry.value)}
+        end
     }
   end
 
-  defp split_string(""), do: [""]
-  defp split_string(nil), do: [""]
-  defp split_string(string) do
+  defp split_string(str, empty \\ [""])
+  defp split_string("", empty), do: empty
+  defp split_string(nil, empty), do: empty
+
+  defp split_string(string, _empty) do
     Regex.split(~r/[^\n]*\n/, string, include_captures: true, trim: true)
   end
 
