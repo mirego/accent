@@ -25,6 +25,11 @@ defmodule Langue.Expectation.Case do
       def top_of_the_file_comment, do: ""
       def header, do: ""
 
+      @callback header() :: binary()
+      @callback top_of_the_file_comment() :: binary()
+      @callback render() :: binary()
+      @callback entries() :: [Language.Entry.t()]
+
       defoverridable top_of_the_file_comment: 0, header: 0
     end
   end
