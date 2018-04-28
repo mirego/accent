@@ -3,6 +3,8 @@ defmodule Langue.Formatter.Rails.Parser do
 
   alias Langue.Utils.NestedParserHelper
 
+  def name, do: "rails_yml"
+
   def parse(%{render: render}) do
     {:ok, [content]} = :fast_yaml.decode(render)
 

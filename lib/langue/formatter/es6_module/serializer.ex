@@ -3,6 +3,8 @@ defmodule Langue.Formatter.Es6Module.Serializer do
 
   alias Langue.Formatter.Json.Serializer, as: JsonSerializer
 
+  def name, do: "es_module"
+
   def serialize(%{entries: entries}) do
     content = JsonSerializer.serialize_json(entries)
     render = "export default " <> content <> ";\n"

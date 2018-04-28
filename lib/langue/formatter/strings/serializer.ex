@@ -3,6 +3,8 @@ defmodule Langue.Formatter.Strings.Serializer do
 
   alias Langue.Utils.LineByLineHelper
 
+  def name, do: "strings"
+
   def serialize(%{entries: entries}) do
     render =
       entries
