@@ -3,6 +3,8 @@ defmodule Langue.Formatter.Android.Parser do
 
   alias Langue.Entry
 
+  def name, do: "android_xml"
+
   def parse(%{render: render}) do
     case :mochiweb_html.parse(render) do
       {"resources", _options, strings} ->

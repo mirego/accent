@@ -1,3 +1,9 @@
 defmodule Langue.Formatter.Serializer do
-  @callback serialize(Langue.Formatter.ParserResult.t()) :: Langue.Formatter.SerializerResult.t()
+  alias Langue.Formatter.ParserResult, as: Input
+  alias Langue.Formatter.SerializerResult, as: Output
+
+  @type result :: {:ok, Output.t()} | {:error, any()}
+
+  @callback name() :: binary()
+  @callback serialize(Input.t()) :: result
 end

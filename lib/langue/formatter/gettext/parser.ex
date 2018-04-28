@@ -3,6 +3,8 @@ defmodule Langue.Formatter.Gettext.Parser do
 
   alias Langue.Entry
 
+  def name, do: "gettext"
+
   def parse(%{render: render}) do
     {:ok, po} = Gettext.PO.parse_string(render)
     entries = parse_translations(po)

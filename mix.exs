@@ -61,6 +61,7 @@ defmodule Accent.Mixfile do
       {:mochiweb_html, "~> 2.13"},
       {:httpoison, "~> 1.1.0"},
       {:gettext, "~> 0.11"},
+      {:csv, "~> 2.0"},
 
       # Errors
       {:sentry, "~> 6.0"},

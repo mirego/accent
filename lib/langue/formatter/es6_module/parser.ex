@@ -3,6 +3,8 @@ defmodule Langue.Formatter.Es6Module.Parser do
 
   alias Langue.Formatter.Json.Parser, as: JsonParser
 
+  def name, do: "es_module"
+
   def parse(%{render: render}) do
     # Remove the first "export default" line
     # Reverse the list to have quick access to bottom of the file

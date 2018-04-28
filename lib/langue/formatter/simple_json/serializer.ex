@@ -4,6 +4,8 @@ defmodule Langue.Formatter.SimpleJson.Serializer do
   alias Langue.Utils.NestedSerializerHelper
   alias Langue.Formatter.Json.Serializer, as: JsonSerializer
 
+  def name, do: "simple_json"
+
   def serialize(%{entries: entries}) do
     render =
       entries

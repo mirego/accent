@@ -1,17 +1,9 @@
 defmodule Accent.Plugs.MovementContextParser do
   use Plug.Builder
 
+  alias Langue
   alias Accent.{Repo, Document}
   alias Accent.Scopes.Document, as: DocumentScope
-  alias Langue.Formatter.Strings.Parser, as: StringsParser
-  alias Langue.Formatter.Rails.Parser, as: RailsParser
-  alias Langue.Formatter.Json.Parser, as: JsonParser
-  alias Langue.Formatter.SimpleJson.Parser, as: SimpleJsonParser
-  alias Langue.Formatter.Es6Module.Parser, as: Es6ModuleParser
-  alias Langue.Formatter.Android.Parser, as: AndroidParser
-  alias Langue.Formatter.JavaProperties.Parser, as: JavaPropertiesParser
-  alias Langue.Formatter.JavaPropertiesXml.Parser, as: JavaPropertiesXmlParser
-  alias Langue.Formatter.Gettext.Parser, as: GettextParser
   alias Movement.Context
 
   plug(:validate_params)
@@ -27,7 +19,7 @@ defmodule Accent.Plugs.MovementContextParser do
   def validate_params(conn, _), do: conn |> send_resp(:unprocessable_entity, "file, language and document_format are required") |> halt
 
   def assign_document_parser(conn = %{params: %{"document_format" => document_format}}, _) do
-    case parser_from_format(document_format) do
+    case Langue.parser_from_format(document_format) do
       {:ok, parser} -> assign(conn, :document_parser, parser)
       {:error, _reason} -> conn |> send_resp(:unprocessable_entity, "document_format is invalid") |> halt
     end
@@ -106,15 +98,4 @@ defmodule Accent.Plugs.MovementContextParser do
     |> String.split(".", parts: 2)
     |> Enum.at(0)
   end
-
-  defp parser_from_format("strings"), do: {:ok, &StringsParser.parse/1}
-  defp parser_from_format("rails_yml"), do: {:ok, &RailsParser.parse/1}
-  defp parser_from_format("json"), do: {:ok, &JsonParser.parse/1}
-  defp parser_from_format("simple_json"), do: {:ok, &SimpleJsonParser.parse/1}
-  defp parser_from_format("android_xml"), do: {:ok, &AndroidParser.parse/1}
-  defp parser_from_format("es6_module"), do: {:ok, &Es6ModuleParser.parse/1}
-  defp parser_from_format("java_properties"), do: {:ok, &JavaPropertiesParser.parse/1}
-  defp parser_from_format("java_properties_xml"), do: {:ok, &JavaPropertiesXmlParser.parse/1}
-  defp parser_from_format("gettext"), do: {:ok, &GettextParser.parse/1}
-  defp parser_from_format(_), do: {:error, :unknown_parser}
 end
