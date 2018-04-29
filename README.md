@@ -125,6 +125,10 @@ Don’t forget to run the `./priv/scripts/ci-check.sh` script to make sure that 
 * [@ddrmanxbxfr](https://github.com/ddrmanxbxfr)
 * [@thermech](https://github.com/thermech)
 
+## License
+
+Accent is © 2015-2018 [Mirego](https://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See the [`LICENSE.md`](https://github.com/mirego/accent/blob/master/LICENSE.md) file.
+
 ## About Mirego
 
 [Mirego](https://www.mirego.com) is a team of passionate people who believe that work is a place where you can innovate and have fun. We’re a team of [talented people](https://life.mirego.com) who imagine and build beautiful Web and mobile applications. We come together to share ideas and [change the world](http://www.mirego.org).
