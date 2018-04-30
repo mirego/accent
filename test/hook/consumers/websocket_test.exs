@@ -1,6 +1,6 @@
 defmodule MockEndpoint do
   def broadcast(channel, event, payload) do
-    send(:endpoint_consumer, {:delivered_socket, channel, event, payload})
+    send(self(), {:delivered_socket, channel, event, payload})
   end
 end
 
@@ -20,8 +20,6 @@ defmodule AccentTest.Hook.Consumers.Websocket do
   }
 
   setup do
-    Process.register(self(), :endpoint_consumer)
-
     language = %Language{name: "Test"} |> Repo.insert!()
     project = %Project{name: "Test"} |> Repo.insert!()
     user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()

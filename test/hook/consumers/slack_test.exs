@@ -1,6 +1,6 @@
 defmodule MockHttpClient do
   def post(url, body, header) do
-    send(:slack_consumer, {:post, %{url: url, body: body, header: header}})
+    send(self(), {:post, %{url: url, body: body, header: header}})
   end
 end
 
@@ -16,8 +16,6 @@ defmodule AccentTest.Hook.Consumers.Slack do
   }
 
   setup do
-    Process.register(self(), :slack_consumer)
-
     project = %Project{name: "Test"} |> Repo.insert!()
     user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()
 
