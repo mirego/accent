@@ -2,7 +2,7 @@ defmodule MockMailer do
   def deliver_later(%{to: []}), do: :ok
 
   def deliver_later(email) do
-    send(:mail_consumer, {:delivered_email, normalize_for_testing(email)})
+    send(self(), {:delivered_email, normalize_for_testing(email)})
   end
 
   def normalize_for_testing(email) do
@@ -31,8 +31,6 @@ defmodule AccentTest.Hook.Consumers.Email do
   }
 
   setup do
-    Process.register(self(), :mail_consumer)
-
     language = %Language{name: "Test"} |> Repo.insert!()
     project = %Project{name: "Test"} |> Repo.insert!()
     user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()
