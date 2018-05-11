@@ -1,4 +1,4 @@
-defmodule AccentTest.Formatter.JavaPropertiesXml.Expectation do
+defmodule LangueTest.Formatter.JavaPropertiesXml.Expectation do
   alias Langue.Entry
 
   defmodule Simple do

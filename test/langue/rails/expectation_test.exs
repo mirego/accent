@@ -1,4 +1,4 @@
-defmodule AccentTest.Formatter.Rails.Expectation do
+defmodule LangueTest.Formatter.Rails.Expectation do
   alias Langue.Entry
 
   defmodule NestedValues do

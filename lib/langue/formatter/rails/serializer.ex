@@ -5,8 +5,6 @@ defmodule Langue.Formatter.Rails.Serializer do
 
   @white_space_regex ~r/(:|-) \n/
 
-  def name, do: "rails_yml"
-
   def serialize(%{entries: entries, locale: locale}) do
     render =
       %{locale => entries}

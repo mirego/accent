@@ -13,7 +13,8 @@ defmodule Accent.DocumentFormat do
     %{name: "ES6 module", slug: "es6_module", extension: "js"},
     %{name: "Android XML", slug: "android_xml", extension: "xml"},
     %{name: "Java properties", slug: "java_properties", extension: "properties"},
-    %{name: "Java properties XML", slug: "java_properties_xml", extension: "xml"}
+    %{name: "Java properties XML", slug: "java_properties_xml", extension: "xml"},
+    %{name: "CSV", slug: "csv", extension: "csv"}
   ]
 
   @doc """
@@ -21,7 +22,7 @@ defmodule Accent.DocumentFormat do
 
   ## Examples
     iex> Accent.DocumentFormat.slugs()
-    ["simple_json", "json", "strings", "gettext", "rails_yml", "es6_module", "android_xml", "java_properties", "java_properties_xml"]
+    ["simple_json", "json", "strings", "gettext", "rails_yml", "es6_module", "android_xml", "java_properties", "java_properties_xml", "csv"]
   """
   defmacro slugs, do: Enum.map(@all, &Map.get(&1, :slug))
 
@@ -38,7 +39,8 @@ defmodule Accent.DocumentFormat do
       %Accent.DocumentFormat{extension: "js", name: "ES6 module", slug: "es6_module"},
       %Accent.DocumentFormat{extension: "xml", name: "Android XML", slug: "android_xml"},
       %Accent.DocumentFormat{extension: "properties", name: "Java properties", slug: "java_properties"},
-      %Accent.DocumentFormat{extension: "xml", name: "Java properties XML", slug: "java_properties_xml"}
+      %Accent.DocumentFormat{extension: "xml", name: "Java properties XML", slug: "java_properties_xml"},
+      %Accent.DocumentFormat{extension: "csv", name: "CSV", slug: "csv"}
     ]
   """
   def all, do: Enum.map(@all, &struct(__MODULE__, &1))

@@ -1,10 +1,8 @@
-defmodule Langue.Formatter.Csv.Parser do
+defmodule Langue.Formatter.CSV.Parser do
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Formatter.SerializerResult, as: Input
   alias Langue.Formatter.ParserResult, as: Output
-
-  def name, do: "csv"
 
   @spec parse(Input.t()) :: Output.t()
   def parse(%Input{render: input}) do
@@ -18,7 +16,7 @@ defmodule Langue.Formatter.Csv.Parser do
     %Output{entries: entries}
   end
 
-  defp to_entry({[key, value], idx}) do
-    %Langue.Entry{index: idx, key: key, value: value}
+  defp to_entry({[key, value], index}) do
+    %Langue.Entry{index: index, key: key, value: value}
   end
 end

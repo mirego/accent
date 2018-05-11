@@ -3,8 +3,6 @@ defmodule Langue.Formatter.Gettext.Serializer do
 
   alias Langue.Utils.NestedParserHelper
 
-  def name, do: "gettext"
-
   def serialize(%{entries: entries, top_of_the_file_comment: top_of_the_file_comment, header: header, locale: locale}) do
     comments =
       top_of_the_file_comment

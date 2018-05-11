@@ -1,4 +1,4 @@
-defmodule AccentTest.Formatter.Es6Module.Expectation do
+defmodule LangueTest.Formatter.Es6Module.Expectation do
   alias Langue.Entry
 
   defmodule Simple do

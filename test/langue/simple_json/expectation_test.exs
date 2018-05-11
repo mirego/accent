@@ -1,4 +1,4 @@
-defmodule AccentTest.Formatter.SimpleJson.Expectation do
+defmodule LangueTest.Formatter.SimpleJson.Expectation do
   alias Langue.Entry
 
   defmodule Empty do

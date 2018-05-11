@@ -3,8 +3,6 @@ defmodule Langue.Formatter.JavaProperties.Parser do
 
   alias Langue.Utils.LineByLineHelper
 
-  def name, do: "java_properties"
-
   @prop_line_regex ~r/^(?<key>.+)=(?<value>.*)$/
 
   def parse(%{render: render}) do

@@ -1,10 +1,9 @@
-defmodule AccentTest.Formatter.Json.Parser do
+defmodule LangueTest.Formatter.Json do
   use ExUnit.Case, async: true
 
   Code.require_file("expectation_test.exs", __DIR__)
 
-  alias AccentTest.Formatter.Json.Expectation.{Empty, NilValue, EmptyValue, BooleanValue, IntegerValue, FloatValue, Simple, Nested, Complexe}
-  alias Langue.Formatter.Json.{Parser, Serializer}
+  alias Langue.Formatter.Json
 
   @tests [
     Empty,
@@ -18,13 +17,13 @@ defmodule AccentTest.Formatter.Json.Parser do
     Complexe
   ]
 
-  test "json" do
-    Enum.each(@tests, fn ex ->
-      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(ex, Parser)
-      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(ex, Serializer)
+  for test <- @tests, module = Module.concat(LangueTest.Formatter.Json.Expectation, test) do
+    test "json #{test}" do
+      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), Json)
+      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(unquote(module), Json)
 
       assert expected_parse == result_parse
       assert expected_serialize == result_serialize
-    end)
+    end
   end
 end

@@ -1,4 +1,4 @@
-defmodule Langue.Csv.ExpectationTest do
+defmodule Langue.Formatter.CSV.ExpectationTest do
   alias Langue.Entry
 
   defmodule Simple do

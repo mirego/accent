@@ -1,33 +1,33 @@
-defmodule AccentTest.Formatter.SimpleJson.Parser do
+defmodule LangueTest.Formatter.SimpleJson do
   use ExUnit.Case, async: true
 
   Code.require_file("expectation_test.exs", __DIR__)
 
+  alias LangueTest.Formatter.SimpleJson.Expectation.{SimpleParse, SimpleSerialize}
+  alias Langue.Formatter.SimpleJson
   alias Accent.FormatterTestHelper
-  alias AccentTest.Formatter.SimpleJson.Expectation.{Empty, SimpleParse, SimpleSerialize}
-  alias Langue.Formatter.SimpleJson.{Parser, Serializer}
 
   @tests [
     Empty
   ]
 
   test "simple json parse" do
-    {expected, result} = FormatterTestHelper.test_parse(SimpleParse, Parser)
+    {expected, result} = FormatterTestHelper.test_parse(SimpleParse, SimpleJson)
     assert expected == result
   end
 
   test "simple json serialize" do
-    {expected, result} = FormatterTestHelper.test_serialize(SimpleSerialize, Serializer)
+    {expected, result} = FormatterTestHelper.test_serialize(SimpleSerialize, SimpleJson)
     assert expected == result
   end
 
-  test "simple json" do
-    Enum.each(@tests, fn ex ->
-      {expected_parse, result_parse} = FormatterTestHelper.test_parse(ex, Parser)
-      {expected_serialize, result_serialize} = FormatterTestHelper.test_serialize(ex, Serializer)
+  for test <- @tests, module = Module.concat(LangueTest.Formatter.SimpleJson.Expectation, test) do
+    test "simple json #{test}" do
+      {expected_parse, result_parse} = FormatterTestHelper.test_parse(unquote(module), SimpleJson)
+      {expected_serialize, result_serialize} = FormatterTestHelper.test_serialize(unquote(module), SimpleJson)
 
       assert expected_parse == result_parse
       assert expected_serialize == result_serialize
-    end)
+    end
   end
 end
