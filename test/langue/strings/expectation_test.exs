@@ -1,4 +1,4 @@
-defmodule AccentTest.Formatter.Strings.Expectation do
+defmodule LangueTest.Formatter.Strings.Expectation do
   alias Langue.Entry
 
   defmodule Simple do

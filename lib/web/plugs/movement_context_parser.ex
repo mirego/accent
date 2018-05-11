@@ -1,7 +1,6 @@
 defmodule Accent.Plugs.MovementContextParser do
   use Plug.Builder
 
-  alias Langue
   alias Accent.{Repo, Document}
   alias Accent.Scopes.Document, as: DocumentScope
   alias Movement.Context
@@ -70,7 +69,7 @@ defmodule Accent.Plugs.MovementContextParser do
     conn
     |> serializer_result(render)
     |> case do
-      %Langue.Formatter.ParserResult{entries: entries, top_of_the_file_comment: comment, header: header} ->
+      %{entries: entries, top_of_the_file_comment: comment, header: header} ->
         document = %{context.assigns[:document] | top_of_the_file_comment: comment, header: header}
 
         context =

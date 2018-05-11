@@ -1,10 +1,9 @@
-defmodule AccentTest.Formatter.Strings.Formatter do
+defmodule LangueTest.Formatter.Strings do
   use ExUnit.Case, async: true
 
   Code.require_file("expectation_test.exs", __DIR__)
 
-  alias AccentTest.Formatter.Strings.Expectation.{Simple, Commented, Multiline, EmptyValue}
-  alias Langue.Formatter.Strings.{Parser, Serializer}
+  alias Langue.Formatter.Strings
 
   @tests [
     Simple,
@@ -13,13 +12,13 @@ defmodule AccentTest.Formatter.Strings.Formatter do
     Multiline
   ]
 
-  test "strings" do
-    Enum.each(@tests, fn ex ->
-      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(ex, Parser)
-      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(ex, Serializer)
+  for test <- @tests, module = Module.concat(LangueTest.Formatter.Strings.Expectation, test) do
+    test "strings #{test}" do
+      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), Strings)
+      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(unquote(module), Strings)
 
       assert expected_parse == result_parse
       assert expected_serialize == result_serialize
-    end)
+    end
   end
 end

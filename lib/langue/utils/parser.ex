@@ -4,6 +4,5 @@ defmodule Langue.Formatter.Parser do
 
   @type result :: {:ok, Output.t()} | {:error, any()}
 
-  @callback name() :: binary()
   @callback parse(Input.t()) :: result
 end

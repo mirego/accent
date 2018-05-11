@@ -3,8 +3,6 @@ defmodule Langue.Formatter.Json.Parser do
 
   alias Langue.Utils.NestedParserHelper
 
-  def name, do: "json"
-
   def parse(%{render: render}) do
     entries = parse_json(render)
 

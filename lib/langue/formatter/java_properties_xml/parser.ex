@@ -3,8 +3,6 @@ defmodule Langue.Formatter.JavaPropertiesXml.Parser do
 
   alias Langue.Utils.LineByLineHelper
 
-  def name, do: "java_properties_xml"
-
   @header """
   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">

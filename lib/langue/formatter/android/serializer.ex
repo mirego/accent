@@ -5,8 +5,6 @@ defmodule Langue.Formatter.Android.Serializer do
   <?xml version="1.0" encoding="utf-8"?>
   """
 
-  def name, do: "android_xml"
-
   def serialize(%{entries: entries}) do
     resources =
       entries

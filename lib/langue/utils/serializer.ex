@@ -4,6 +4,5 @@ defmodule Langue.Formatter.Serializer do
 
   @type result :: {:ok, Output.t()} | {:error, any()}
 
-  @callback name() :: binary()
   @callback serialize(Input.t()) :: result
 end

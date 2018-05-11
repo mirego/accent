@@ -74,7 +74,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
-    assert conn.assigns[:document_parser] == (&Langue.Formatter.Json.Parser.parse/1)
+    assert conn.assigns[:document_parser] == (&Langue.Formatter.Json.parse/1)
     assert conn.state == :unset
   end
 

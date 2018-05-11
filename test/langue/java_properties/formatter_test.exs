@@ -1,22 +1,21 @@
-defmodule AccentTest.Formatter.JavaProperties.Formatter do
+defmodule LangueTest.Formatter.JavaProperties do
   Code.require_file("expectation_test.exs", __DIR__)
 
   use ExUnit.Case, async: true
 
-  alias AccentTest.Formatter.JavaProperties.Expectation.{Simple}
-  alias Langue.Formatter.JavaProperties.{Parser, Serializer}
+  alias Langue.Formatter.JavaProperties
 
   @tests [
     Simple
   ]
 
-  test "java properties" do
-    Enum.each(@tests, fn ex ->
-      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(ex, Parser)
-      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(ex, Serializer)
+  for test <- @tests, module = Module.concat(LangueTest.Formatter.JavaProperties.Expectation, test) do
+    test "java properties #{test}" do
+      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), JavaProperties)
+      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(unquote(module), JavaProperties)
 
       assert expected_parse == result_parse
       assert expected_serialize == result_serialize
-    end)
+    end
   end
 end

@@ -3,8 +3,6 @@ defmodule Langue.Formatter.JavaProperties.Serializer do
 
   alias Langue.Utils.LineByLineHelper
 
-  def name, do: "java_properties"
-
   def serialize(%{entries: entries}) do
     render =
       entries

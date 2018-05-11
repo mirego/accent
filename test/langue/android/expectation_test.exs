@@ -1,4 +1,4 @@
-defmodule AccentTest.Formatter.Android.Expectation do
+defmodule LangueTest.Formatter.Android.Expectation do
   alias Langue.Entry
 
   defmodule Simple do

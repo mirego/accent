@@ -1,10 +1,9 @@
-defmodule AccentTest.Formatter.Rails.Formatter do
+defmodule LangueTest.Formatter.Rails do
   use ExUnit.Case, async: true
 
   Code.require_file("expectation_test.exs", __DIR__)
 
-  alias AccentTest.Formatter.Rails.Expectation.{EmptyValue, NestedValues, ArrayValues, IntegerValues, PluralValues}
-  alias Langue.Formatter.Rails.{Parser, Serializer}
+  alias Langue.Formatter.Rails
 
   @tests [
     EmptyValue,
@@ -14,13 +13,13 @@ defmodule AccentTest.Formatter.Rails.Formatter do
     IntegerValues
   ]
 
-  test "rails_yaml" do
-    Enum.each(@tests, fn ex ->
-      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(ex, Parser)
-      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(ex, Serializer)
+  for test <- @tests, module = Module.concat(LangueTest.Formatter.Rails.Expectation, test) do
+    test "json #{test}" do
+      {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), Rails)
+      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(unquote(module), Rails)
 
       assert expected_parse == result_parse
       assert expected_serialize == result_serialize
-    end)
+    end
   end
 end
