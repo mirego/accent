@@ -6,8 +6,7 @@ defmodule LangueTest.Formatter.Laravel do
   alias Langue.Formatter.Laravel
 
   @tests [
-    ParsesAnyQuotation,
-    Renders
+    ParsesDoubleQuotations
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Laravel.Expectation, test) do
