@@ -33,22 +33,22 @@ defmodule Langue.Formatter.Laravel.Parser do
   end
 
   @spec as_tuples(file_content, [entry]) :: [entry]
-  def as_tuples(entries, tuples) when length(tuples) == length(entries), do: tuples
-  def as_tuples(entries, tuples) do
+  defp as_tuples(entries, tuples) when length(tuples) == length(entries), do: tuples
+  defp as_tuples(entries, tuples) do
     current_index = length(tuples)
     new_tuples = tuples ++ [entry_to_tuple(Enum.at(entries, current_index))]
     as_tuples(entries, new_tuples)
   end
 
   @spec entry_to_tuple(raw_entry) :: entry
-  def entry_to_tuple(entry) do
+  defp entry_to_tuple(entry) do
     key = Enum.at(entry, @assoc_key_index)
     value = Enum.at(entry, @assoc_value_index)
     {key, value}
   end
 
   @spec split_file(String.t()) :: file_content
-  def split_file(content) do
+  defp split_file(content) do
     Regex.scan(@php_assoc_regex, content)
   end
 end
