@@ -14,7 +14,8 @@ defmodule Accent.DocumentFormat do
     %{name: "Android XML", slug: "android_xml", extension: "xml"},
     %{name: "Java properties", slug: "java_properties", extension: "properties"},
     %{name: "Java properties XML", slug: "java_properties_xml", extension: "xml"},
-    %{name: "CSV", slug: "csv", extension: "csv"}
+    %{name: "CSV", slug: "csv", extension: "csv"},
+    %{name: "Laravel's PHP", slug: "laravel_php", extension: "php"}
   ]
 
   @doc """
