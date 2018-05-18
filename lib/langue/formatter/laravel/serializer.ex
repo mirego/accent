@@ -18,7 +18,7 @@ defmodule Langue.Formatter.Laravel.Serializer do
   @spec escape_value(String.t()) :: String.t()
   defp escape_value(value) do
     value
-    |> String.replace(\\\"","\"")
+    |> String.replace("\\\"","\"")
     |> String.replace("\"", "\\\"")
     |> String.replace("\\'", "'")
   end
