@@ -8,7 +8,8 @@ defmodule LangueTest.Formatter.Gettext do
   @tests [
     Simple,
     DotKeys,
-    Pluralization
+    Pluralization,
+    InterpolationValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Gettext.Expectation, test) do

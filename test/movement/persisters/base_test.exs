@@ -72,7 +72,8 @@ defmodule AccentTest.Movement.Persisters.Base do
         key: "a",
         text: "B",
         translation_id: translation.id,
-        value_type: "string"
+        value_type: "string",
+        interpolations: []
       }
     ]
 

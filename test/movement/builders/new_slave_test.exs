@@ -98,7 +98,8 @@ defmodule AccentTest.Movement.Builders.NewSlave do
                  conflicted: false,
                  conflicted_text: "",
                  corrected_text: "A",
-                 proposed_text: "A"
+                 proposed_text: "A",
+                 interpolations: []
                }
              }
            ]

@@ -16,6 +16,7 @@ defmodule Accent.Translation do
     field(:value_type, :string, default: "string")
     field(:plural, :boolean, default: false)
     field(:locked, :boolean, default: false)
+    field(:interpolations, {:array, :string}, default: [])
 
     belongs_to(:document, Accent.Document)
     belongs_to(:revision, Accent.Revision)
@@ -42,7 +43,8 @@ defmodule Accent.Translation do
     :file_index,
     :file_comment,
     :value_type,
-    :document_id
+    :document_id,
+    :interpolations
   ]
   def changeset(model, params) do
     model

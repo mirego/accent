@@ -16,8 +16,8 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "activity_open_in_chrome", value: "Ouvrir avec Chrome", comment: ""},
-        %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari", comment: ""}
+        %Entry{index: 1, key: "activity_open_in_chrome", value: "Ouvrir avec Chrome"},
+        %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari"}
       ]
     end
   end
@@ -36,7 +36,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "activity_open_in_chrome", value: "", comment: "", value_type: "empty"}
+        %Entry{index: 1, key: "activity_open_in_chrome", value: "", value_type: "empty"}
       ]
     end
   end
@@ -90,7 +90,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "activity_open_in_chrome", value: "Ouvrir avec Chrome", comment: " Comment "},
-        %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari", comment: ""}
+        %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari"}
       ]
     end
   end
@@ -112,8 +112,8 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "drawer_menu_array.__KEY__0", value: "@string/browse_profile_view_title", comment: "", value_type: "array"},
-        %Entry{index: 2, key: "drawer_menu_array.__KEY__1", value: "@string/find_a_user", comment: "", value_type: "array"}
+        %Entry{index: 1, key: "drawer_menu_array.__KEY__0", value: "@string/browse_profile_view_title", value_type: "array"},
+        %Entry{index: 2, key: "drawer_menu_array.__KEY__1", value: "@string/find_a_user", value_type: "array"}
       ]
     end
   end
@@ -133,8 +133,8 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "height", value: "Height (%@)"},
-        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@."}
+        %Entry{index: 1, key: "height", value: "Height (%@)", interpolations: ~w(%@)},
+        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@.", interpolations: ~w(%1$@ %2$@)}
       ]
     end
   end
@@ -154,6 +154,29 @@ defmodule LangueTest.Formatter.Android.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "a", value: "Test & 1,2,4 < > j'appelle"}
+      ]
+    end
+  end
+
+  defmodule InterpolationValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      <?xml version="1.0" encoding="utf-8"?>
+      <resources>
+        <string name="single">Hello, %s.</string>
+        <string name="multiple">Hello, %1$s %2$s.</string>
+        <string name="duplicate">Hello, %1$s %2$s. Welcome back %1$s %2$s.</string>
+      </resources>
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "single", value: "Hello, %@.", interpolations: ~w(%@)},
+        %Entry{index: 2, key: "multiple", value: "Hello, %1$@ %2$@.", interpolations: ~w(%1$@ %2$@)},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %1$@ %2$@. Welcome back %1$@ %2$@.", interpolations: ~w(%1$@ %2$@ %1$@ %2$@)}
       ]
     end
   end

@@ -6,7 +6,8 @@ defmodule LangueTest.Formatter.JavaProperties do
   alias Langue.Formatter.JavaProperties
 
   @tests [
-    Simple
+    Simple,
+    InterpolationValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.JavaProperties.Expectation, test) do

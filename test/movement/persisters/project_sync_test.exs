@@ -44,7 +44,8 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
         key: "a",
         text: "B",
         translation_id: translation.id,
-        value_type: "string"
+        value_type: "string",
+        interpolations: []
       }
     ]
 

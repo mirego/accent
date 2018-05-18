@@ -41,14 +41,14 @@ defmodule LangueTest.Formatter.GoI18nJson.Expectation do
 
     def entries do
       [
-        %Entry{key: "empty_string_translation", value: "", value_type: "empty", comment: "", index: 1},
-        %Entry{key: "key_with_description", value: "Check it out!", comment: "", index: 2},
-        %Entry{key: "key_with_line-break", value: "This translations contains\na line-break.", comment: "", index: 3},
-        %Entry{key: "nested.key", value: "This key is nested inside a namespace.", comment: "", index: 4},
-        %Entry{key: "null_translation", value: "null", value_type: "null", comment: "", index: 5},
-        %Entry{key: "pluralized_key.one", value: "Only one pluralization found.", comment: "", index: 6, plural: true},
-        %Entry{key: "pluralized_key.other", value: "Wow, you have %s pluralizations!", comment: "", index: 7, plural: true},
-        %Entry{key: "pluralized_key.zero", value: "You have no pluralization.", comment: "", index: 8, plural: true}
+        %Entry{key: "empty_string_translation", value: "", value_type: "empty", index: 1},
+        %Entry{key: "key_with_description", value: "Check it out!", index: 2},
+        %Entry{key: "key_with_line-break", value: "This translations contains\na line-break.", index: 3},
+        %Entry{key: "nested.key", value: "This key is nested inside a namespace.", index: 4},
+        %Entry{key: "null_translation", value: "null", value_type: "null", index: 5},
+        %Entry{key: "pluralized_key.one", value: "Only one pluralization found.", index: 6, plural: true},
+        %Entry{key: "pluralized_key.other", value: "Wow, you have %s pluralizations!", index: 7, plural: true},
+        %Entry{key: "pluralized_key.zero", value: "You have no pluralization.", index: 8, plural: true}
       ]
     end
   end

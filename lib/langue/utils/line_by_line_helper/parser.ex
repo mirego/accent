@@ -21,13 +21,15 @@ defmodule Langue.Utils.LineByLineHelper.Parser do
   end
 
   defp build_entry(acc = %{captures: %{"key" => key, "value" => value, "comment" => comment}}) do
-    entry = %Entry{key: key, value: value, index: acc.index, comment: String.trim_trailing(comment, "\n")}
+    comment = if(comment !== "", do: String.trim_trailing(comment, "\n"), else: nil)
+    entry = %Entry{key: key, value: value, index: acc.index, comment: comment}
 
     %{acc | entry: entry}
   end
 
   defp build_entry(acc = %{comments: comments, captures: %{"key" => key, "value" => value}}) do
-    entry = %Entry{key: key, value: value, index: acc.index, comment: Enum.join(comments, "\n")}
+    comment = if(comments !== [], do: Enum.join(comments, "\n"), else: nil)
+    entry = %Entry{key: key, value: value, index: acc.index, comment: comment}
 
     %{acc | entry: entry, comments: []}
   end

@@ -75,7 +75,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "count_something.one", value: "1 item", value_type: "string", plural: true},
-        %Entry{index: 2, key: "count_something.other", value: "%{count} items", value_type: "string", plural: true},
+        %Entry{index: 2, key: "count_something.other", value: "%{count} items", value_type: "string", plural: true, interpolations: ~w(%{count})},
         %Entry{index: 3, key: "count_something.zero", value: "No items", value_type: "string", plural: true}
       ]
     end
@@ -109,6 +109,30 @@ defmodule LangueTest.Formatter.Rails.Expectation do
         %Entry{index: 4, key: "errors.__KEY__2.nested.__KEY__1.nested_agin.__KEY__0", value: "ok"},
         %Entry{index: 5, key: "errors.__KEY__2.nested.__KEY__2", value: "it works"},
         %Entry{index: 6, key: "root", value: "AWESOME"}
+      ]
+    end
+  end
+
+  defmodule InterpolationValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      "fr":
+        "interpolations":
+          "single": "Hello, %{username}."
+          "multiple": "Hello, %{firstname} %{lastname}."
+          "duplicate": "Hello, %{username}. Welcome back %{username}."
+          "empty": "Hello, %{}."
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "interpolations.single", value: "Hello, %{username}.", interpolations: ~w(%{username})},
+        %Entry{index: 2, key: "interpolations.multiple", value: "Hello, %{firstname} %{lastname}.", interpolations: ~w(%{firstname} %{lastname})},
+        %Entry{index: 3, key: "interpolations.duplicate", value: "Hello, %{username}. Welcome back %{username}.", interpolations: ~w(%{username} %{username})},
+        %Entry{index: 4, key: "interpolations.empty", value: "Hello, %{}.", interpolations: ~w(%{})}
       ]
     end
   end

@@ -18,6 +18,7 @@ defmodule Accent.PreviousTranslation do
     field(:conflicted, :boolean, default: false)
     field(:removed, :boolean, default: false)
     field(:value_type, :string)
+    field(:interpolations, {:array, :string}, default: [])
   end
 
   @doc """

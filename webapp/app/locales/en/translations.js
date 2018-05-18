@@ -642,7 +642,12 @@ export default {
         float_type_notice: 'The text has been set with a float value.',
         empty_type_notice: 'The text has been set to an empty string',
         empty_type_placeholder: 'Empty text',
-        null_type_notice: 'The text has been set to null'
+        null_type_notice: 'The text has been set to null',
+        interpolations: {
+          title: 'Interpolations',
+          text:
+            'These custom expressions mark special strings that will be replaced by dynamic values. You do not have to review or translate them.'
+        }
       }
     },
     translation_navigation: {

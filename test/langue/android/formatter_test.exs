@@ -10,11 +10,13 @@ defmodule LangueTest.Formatter.Android do
     EmptyValue,
     Commented,
     Array,
-    ValueEscaping
+    StringsFormatEscape,
+    ValueEscaping,
+    InterpolationValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Android.Expectation, test) do
-    test "gettext #{test}" do
+    test "android #{test}" do
       {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), Android)
       {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(unquote(module), Android)
 

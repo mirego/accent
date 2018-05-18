@@ -144,6 +144,35 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     {:ok, translations}
   end
 
+  def master_translation(translation, _, _) do
+    translation
+    |> Ecto.assoc(:revision)
+    |> Repo.one()
+    |> case do
+      %{master_revision_id: nil, id: id} ->
+        id
+
+      %{master_revision_id: revision_id} ->
+        revision_id
+
+      _ ->
+        nil
+    end
+    |> case do
+      nil ->
+        {:ok, nil}
+
+      revision_id ->
+        Translation
+        |> TranslationScope.from_revision(revision_id)
+        |> TranslationScope.from_key(translation.key)
+        |> TranslationScope.from_document(translation.document_id)
+        |> TranslationScope.from_version(translation.version_id)
+        |> Repo.one()
+        |> (&{:ok, &1}).()
+    end
+  end
+
   defp add_related_translations(entries, nil, _), do: entries
 
   defp add_related_translations(entries, reference_revision, version) do

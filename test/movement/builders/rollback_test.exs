@@ -55,7 +55,8 @@ defmodule AccentTest.Movement.Builders.Rollback do
         corrected_text: "LOL",
         removed: false,
         revision_id: revision.id,
-        value_type: "string"
+        value_type: "string",
+        interpolations: []
       }
       |> Repo.insert!()
 
@@ -92,7 +93,8 @@ defmodule AccentTest.Movement.Builders.Rollback do
              corrected_text: translation.corrected_text,
              conflicted_text: translation.conflicted_text,
              conflicted: translation.conflicted,
-             removed: translation.removed
+             removed: translation.removed,
+             interpolations: translation.interpolations
            }
   end
 end
