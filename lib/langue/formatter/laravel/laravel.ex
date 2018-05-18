@@ -1,10 +1,8 @@
-defmodule Langue.Formatter.Laravel.Parser do
-  @behaviour Langue.Formatter.Parser
+defmodule Langue.Formatter.Laravel do
+  alias Langue.Formatter.Laravel.{Parser, Serializer}
 
-  alias Langue.Utils.NestedParserHelper
+  def name, do: "laravel_php"
 
-  def parse(%{render: render}) do
-    entries = []
-    %Langue.Formatter.ParserResult{entries: entries}
-  end
+  defdelegate parse(map), to: Parser
+  defdelegate serialize(map), to: Serializer
 end
