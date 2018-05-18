@@ -1,7 +1,7 @@
 defmodule LangueTest.Formatter.Laravel.Expectation do
   alias Langue.Entry
 
-  defmodule AnyQuotation do
+  defmodule ParsesAnyQuotation do
     use Langue.Expectation.Case
 
     def render do
