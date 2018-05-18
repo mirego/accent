@@ -33,14 +33,9 @@ defmodule Langue.Formatter.Laravel.Parser do
   end
 
   @spec as_tuples(file_content, [entry]) :: [entry]
-<<<<<<< HEAD
   def as_tuples(entries, tuples) when length(tuples) == length(entries), do: tuples
 
   def as_tuples(entries, tuples) do
-=======
-  defp as_tuples(entries, tuples) when length(tuples) == length(entries), do: tuples
-  defp as_tuples(entries, tuples) do
->>>>>>> 08bf7dd44863ca0238b122810ff6390182b88307
     current_index = length(tuples)
     new_tuples = tuples ++ [entry_to_tuple(Enum.at(entries, current_index))]
     as_tuples(entries, new_tuples)
