@@ -1,7 +1,7 @@
 defmodule Langue.Formatter.Laravel.Parser do
   @behaviour Langue.Formatter.Parser
 
-  @php_assoc_regex ~r{["'](.*?)["']=>["'](.*?)["']}
+  @php_assoc_regex ~r{["|'](.*?)["|']\s*=>\s*["|'](.*?)["|'][\n|,]}
   @assoc_key_index 1
   @assoc_value_index 2
 
