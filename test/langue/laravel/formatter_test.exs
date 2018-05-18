@@ -10,7 +10,7 @@ defmodule LangueTest.Formatter.Laravel do
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Laravel.Expectation, test) do
-    test "json #{test}" do
+    test "laravel #{test}" do
       {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), Laravel)
       {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(unquote(module), Laravel)
 

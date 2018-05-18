@@ -1,19 +1,12 @@
 defmodule LangueTest.Formatter.Laravel.Expectation do
   alias Langue.Entry
 
-  defmodule AnyQuotation do
+  defmodule ParsesDoubleQuotations do
     use Langue.Expectation.Case
 
     def render do
       """
-      <?php
-
-      return [
-        "some_double_quoted_key" => "Some double quoted value",
-        "another_double_quoted_key" => 'A single quoted value',
-        'some_single_quoted_key' => "With a double quoted value",
-        'another_single_quoted_key' => 'With a single quoted value'
-      ];
+      <?php\n\nreturn [\n\t"some_double_quoted_key" => "Some double quoted value",\n\t"another_double_quoted_key" => "A single quoted value",\n\t"some_single_quoted_key" => "With a double quoted value",\n\t"another_single_quoted_key" => "With a single quoted value"\n];
       """
     end
 
