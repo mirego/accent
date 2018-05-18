@@ -23,7 +23,7 @@ defmodule Accent.DocumentFormat do
 
   ## Examples
     iex> Accent.DocumentFormat.slugs()
-    ["simple_json", "json", "strings", "gettext", "rails_yml", "es6_module", "android_xml", "java_properties", "java_properties_xml", "csv"]
+    ["simple_json", "json", "strings", "gettext", "rails_yml", "es6_module", "android_xml", "java_properties", "java_properties_xml", "csv", "laravel_php"]
   """
   defmacro slugs, do: Enum.map(@all, &Map.get(&1, :slug))
 
@@ -41,7 +41,8 @@ defmodule Accent.DocumentFormat do
       %Accent.DocumentFormat{extension: "xml", name: "Android XML", slug: "android_xml"},
       %Accent.DocumentFormat{extension: "properties", name: "Java properties", slug: "java_properties"},
       %Accent.DocumentFormat{extension: "xml", name: "Java properties XML", slug: "java_properties_xml"},
-      %Accent.DocumentFormat{extension: "csv", name: "CSV", slug: "csv"}
+      %Accent.DocumentFormat{extension: "csv", name: "CSV", slug: "csv"},
+      %Accent.DocumentFormat{extension: "php", name: "Laravel's PHP", slug: "laravel_php"}
     ]
   """
   def all, do: Enum.map(@all, &struct(__MODULE__, &1))
