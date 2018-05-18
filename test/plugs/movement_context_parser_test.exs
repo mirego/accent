@@ -170,9 +170,9 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> Map.get(:movement_context)
 
     assert context.entries == [
-             %Langue.Entry{comment: "", index: 1, key: "test", value: "F"},
-             %Langue.Entry{comment: "", index: 2, key: "test2", value: "D"},
-             %Langue.Entry{comment: "", index: 3, key: "test3", value: "New history please"}
+             %Langue.Entry{index: 1, key: "test", value: "F"},
+             %Langue.Entry{index: 2, key: "test2", value: "D"},
+             %Langue.Entry{index: 3, key: "test3", value: "New history please"}
            ]
   end
 

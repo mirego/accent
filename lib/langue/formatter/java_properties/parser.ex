@@ -1,12 +1,15 @@
 defmodule Langue.Formatter.JavaProperties.Parser do
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Utils.LineByLineHelper
+  alias Langue.Utils.{Interpolations, LineByLineHelper}
 
   @prop_line_regex ~r/^(?<key>.+)=(?<value>.*)$/
 
   def parse(%{render: render}) do
-    entries = LineByLineHelper.Parser.lines(render, @prop_line_regex)
+    entries =
+      render
+      |> LineByLineHelper.Parser.lines(@prop_line_regex)
+      |> Interpolations.parse(Langue.Formatter.JavaProperties.interpolation_regex())
 
     %Langue.Formatter.ParserResult{entries: entries}
   end

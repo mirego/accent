@@ -63,6 +63,6 @@ defmodule Langue.Utils.NestedParserHelper do
   end
 
   defp flattenize_tuple({key, value}) do
-    %Entry{key: key, value: to_string(value), value_type: Langue.ValueType.parse(value), comment: ""}
+    %Entry{key: key, value: to_string(value), value_type: Langue.ValueType.parse(value), interpolations: []}
   end
 end

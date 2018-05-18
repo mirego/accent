@@ -177,4 +177,16 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
 
     assert get_in(result, [Access.all(), Access.key(:id)]) == [other_translation.id]
   end
+
+  test "master translation", %{project: project, revision: revision, context: context} do
+    english_language = %Language{name: "english"} |> Repo.insert!()
+    other_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: revision.id} |> Repo.insert!()
+
+    translation = %Translation{revision_id: revision.id, conflicted: true, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
+    other_translation = %Translation{revision_id: other_revision.id, conflicted: true, key: "ok", corrected_text: "foo", proposed_text: "foo"} |> Repo.insert!()
+
+    {:ok, result} = Resolver.master_translation(other_translation, %{}, context)
+
+    assert result.id == translation.id
+  end
 end

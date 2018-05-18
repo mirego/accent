@@ -64,9 +64,24 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "has already been taken", value: "est déjà pris"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY___", value: "should be at least %{count} character(s)", plural: true, locked: true, value_type: "string"},
+        %Entry{
+          index: 2,
+          key: "should be at least n character(s).__KEY___",
+          value: "should be at least %{count} character(s)",
+          plural: true,
+          locked: true,
+          value_type: "string",
+          interpolations: ~w(%{count})
+        },
         %Entry{index: 3, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", plural: true, value_type: "string"},
-        %Entry{index: 4, key: "should be at least n character(s).__KEY__1", value: "should be at least %{count} character(s)", plural: true, value_type: "string"}
+        %Entry{
+          index: 4,
+          key: "should be at least n character(s).__KEY__1",
+          value: "should be at least %{count} character(s)",
+          plural: true,
+          value_type: "string",
+          interpolations: ~w(%{count})
+        }
       ]
     end
   end
@@ -158,6 +173,35 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "test", value: "a\na\n"}
+      ]
+    end
+  end
+
+  defmodule InterpolationValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid "single"
+      msgstr "Hello, %{username}."
+
+      msgid "multiple"
+      msgstr "Hello, %{firstname} %{lastname}."
+
+      msgid "duplicate"
+      msgstr "Hello, %{username}. Welcome back %{username}."
+
+      msgid "empty"
+      msgstr "Hello, %{}."
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "single", value: "Hello, %{username}.", interpolations: ~w(%{username})},
+        %Entry{index: 2, key: "multiple", value: "Hello, %{firstname} %{lastname}.", interpolations: ~w(%{firstname} %{lastname})},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %{username}. Welcome back %{username}.", interpolations: ~w(%{username} %{username})},
+        %Entry{index: 4, key: "empty", value: "Hello, %{}.", interpolations: ~w(%{})}
       ]
     end
   end

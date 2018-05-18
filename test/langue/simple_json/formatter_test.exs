@@ -8,7 +8,8 @@ defmodule LangueTest.Formatter.SimpleJson do
   alias LangueTest.Formatter.SimpleJson.Expectation.{SimpleParse, SimpleSerialize}
 
   @tests [
-    Empty
+    Empty,
+    InterpolationValues
   ]
 
   test "simple json parse" do

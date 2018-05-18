@@ -15,7 +15,8 @@ defmodule Movement.Operation do
             version_id: nil,
             document_id: nil,
             project_id: nil,
-            previous_translation: nil
+            previous_translation: nil,
+            interpolations: []
 
   @type t :: %__MODULE__{}
 end

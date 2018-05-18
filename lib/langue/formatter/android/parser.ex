@@ -2,6 +2,7 @@ defmodule Langue.Formatter.Android.Parser do
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Entry
+  alias Langue.Utils.Interpolations
 
   def parse(%{render: render}) do
     case :mochiweb_html.parse(render) do
@@ -10,6 +11,7 @@ defmodule Langue.Formatter.Android.Parser do
           strings
           |> Enum.reduce(%{comment: [], entries: [], index: 1}, &parse_line(&1, &2))
           |> Map.get(:entries)
+          |> Interpolations.parse(Langue.Formatter.Android.interpolation_regex())
 
         %Langue.Formatter.ParserResult{entries: entries}
 
@@ -28,9 +30,10 @@ defmodule Langue.Formatter.Android.Parser do
       Enum.concat(acc.entries, [
         %Entry{
           value: sanitize_value_to_string(value),
+          value_type: Langue.ValueType.parse(value),
           key: key,
           index: acc.index,
-          comment: Enum.join(acc.comment, "\n")
+          comment: serialize_comment(acc.comment)
         }
       ])
     )
@@ -38,25 +41,7 @@ defmodule Langue.Formatter.Android.Parser do
     |> Map.put(:index, acc.index + 1)
   end
 
-  defp parse_line({"string", attributes, []}, acc) do
-    [key] = for {k, v} <- attributes, k == "name", do: v
-
-    acc
-    |> Map.put(
-      :entries,
-      Enum.concat(acc.entries, [
-        %Entry{
-          value: sanitize_value_to_string(""),
-          value_type: "empty",
-          key: key,
-          index: acc.index,
-          comment: Enum.join(acc.comment, "\n")
-        }
-      ])
-    )
-    |> Map.put(:comment, [])
-    |> Map.put(:index, acc.index + 1)
-  end
+  defp parse_line({"string", attributes, []}, acc), do: parse_line({"string", attributes, [""]}, acc)
 
   # string-array element contains sub elements which are identified by index
   defp parse_line({"string-array", attributes, items}, acc) do
@@ -86,7 +71,7 @@ defmodule Langue.Formatter.Android.Parser do
           key: "#{key}.__KEY__#{index}",
           value: sanitize_value_to_string(value),
           index: acc.index,
-          comment: Enum.join(acc.comment, "\n"),
+          comment: serialize_comment(acc.comment),
           value_type: "array"
         }
       ])
@@ -104,4 +89,7 @@ defmodule Langue.Formatter.Android.Parser do
     |> String.replace("&gt;", ">")
     |> String.replace("\\'", "'")
   end
+
+  defp serialize_comment([]), do: nil
+  defp serialize_comment(comment), do: Enum.join(comment, "\n")
 end

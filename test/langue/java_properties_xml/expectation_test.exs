@@ -27,4 +27,25 @@ defmodule LangueTest.Formatter.JavaPropertiesXml.Expectation do
       ]
     end
   end
+
+  defmodule InterpolationValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+      <properties>
+        <entry key="single">${const:java.awt.event.KeyEvent.VK_CANCEL}</entry>
+        <entry key="multiple">${single}, ${sys:user.home}/settings.xml</entry>
+        <entry key="duplicate">${env:JAVA_HOME}, ${env:JAVA_HOME}!</entry>
+        <entry key="empty">Hello, ${}.</entry>
+      </properties>
+      """
+    end
+
+    def entries do
+      LangueTest.Formatter.JavaProperties.Expectation.InterpolationValues.entries()
+    end
+  end
 end

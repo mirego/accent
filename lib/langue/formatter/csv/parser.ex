@@ -3,6 +3,7 @@ defmodule Langue.Formatter.CSV.Parser do
 
   alias Langue.Formatter.ParserResult, as: Output
   alias Langue.Formatter.SerializerResult, as: Input
+  alias Langue.Utils.Interpolations
 
   @spec parse(Input.t()) :: Output.t()
   def parse(%Input{render: input}) do
@@ -12,6 +13,7 @@ defmodule Langue.Formatter.CSV.Parser do
       |> CSV.decode!()
       |> Stream.with_index(1)
       |> Enum.map(&to_entry/1)
+      |> Interpolations.parse(Langue.Formatter.CSV.interpolation_regex())
 
     %Output{entries: entries}
   end

@@ -50,7 +50,8 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       key: "a",
       proposed_text: "null",
       corrected_text: "null",
-      value_type: "null"
+      value_type: "null",
+      interpolations: []
     }
 
     context =
@@ -69,7 +70,8 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       key: "a",
       proposed_text: "",
       corrected_text: "",
-      value_type: "empty"
+      value_type: "empty",
+      interpolations: []
     }
 
     context =
@@ -88,7 +90,8 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       key: "a",
       proposed_text: "hello!",
       corrected_text: "hello!",
-      value_type: ""
+      value_type: "",
+      interpolations: []
     }
 
     context =
