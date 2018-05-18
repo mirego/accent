@@ -10,7 +10,11 @@ defmodule Langue.Formatter.Laravel.Serializer do
   end
 
   def map_entry(%Langue.Entry{key: key, value: value}) do
-    "\n\t\"#{key}\" => \"#{value}\","
+    "\n\t\"#{key}\" => \"#{escape_value(value)}\","
+  end
+
+  def escape_value(value) do
+    String.replace value, "\"", "\\\""
   end
 
   def wrap_values(values) do
