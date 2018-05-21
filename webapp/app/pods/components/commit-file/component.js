@@ -72,10 +72,11 @@ export default Component.extend({
 
   existingDocumentPath: computed('documentPath', 'documents.[].path', function() {
     if (!this.documentPath) return false;
+    if (!this.documents) return false;
 
     const path = this.documentPath.replace(/\..+/, '');
 
-    return this.documents.find((document) => document.path === path);
+    return this.documents.find(document => document.path === path);
   }),
 
   actions: {

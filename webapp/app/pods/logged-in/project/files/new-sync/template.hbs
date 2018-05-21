@@ -31,16 +31,11 @@
         }}
       </div>
 
-      <div class="sections-preview">
-        {{#if revisionOperations.length}}
+      {{#if revisionOperations.length}}
+        <div class="sections-preview">
           {{operations-peek revisionOperations=revisionOperations}}
-        {{else}}
-          <h3 class="sections-preview-title">{{t 'components.project_file_operations.preview_title'}}</h3>
-          <div class="sections-preview-empty">
-            {{t 'components.project_file_operations.preview_text'}}
-          </div>
-        {{/if}}
-      </div>
+        </div>
+      {{/if}}
     </div>
   {{/project-file-operation}}
 {{/acc-modal}}
