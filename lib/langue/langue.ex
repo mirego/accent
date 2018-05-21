@@ -9,7 +9,7 @@ defmodule Langue do
     Json,
     Rails,
     SimpleJson,
-    Laravel,
+    Php,
     Strings
   ]
 
