@@ -14,6 +14,7 @@ export default Controller.extend({
 
   project: readOnly('model.project'),
   revisions: readOnly('project.revisions'),
+  documents: readOnly('project.documents.entries'),
   permissions: readOnly('globalState.permissions'),
 
   actions: {
@@ -26,11 +27,10 @@ export default Controller.extend({
       this.set('revisionOperations', null);
     },
 
-    peek({fileSource, documentFormat, revision}) {
+    peek({fileSource, documentFormat, documentPath, revision}) {
       const file = fileSource;
       const project = this.project;
       const revisions = this.revisions;
-      const documentPath = file.name + Math.random();
 
       return this.peeker
         .sync({
@@ -44,10 +44,9 @@ export default Controller.extend({
         .then(revisionOperations => this.set('revisionOperations', revisionOperations));
     },
 
-    sync({fileSource, documentFormat, revision}) {
+    sync({fileSource, documentFormat, documentPath, revision}) {
       const file = fileSource;
       const project = this.project;
-      const documentPath = file.name + Math.random();
 
       return this.syncer
         .sync({project, revision, file, documentPath, documentFormat})

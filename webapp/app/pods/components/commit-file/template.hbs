@@ -39,7 +39,18 @@
     <div>
       <div class="option">
         <p class="textHelper">{{t 'components.commit_file.file_source'}}</p>
-        <span class="fileSourceName">{{fileSource.name}}</span>
+        <p>
+          {{#if existingDocumentPath}}
+            <span class="documentHelper">
+              The changes will be applied to the already existing file.
+            </span>
+          {{else}}
+            <span class="documentHelper">
+              The changes will create a new file.
+            </span>
+          {{/if}}
+        </p>
+        {{input value=documentPath class='fileSourceName'}}
       </div>
 
       <div class="option">
