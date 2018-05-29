@@ -11,19 +11,9 @@ defmodule Langue.Formatter.Php.Serializer do
       |> Enum.at(0)
       |> elem(1)
       |> PhpAssocMap.from_tuple
-      |> PhpAssocMap.Utils.explode
-      # |> escape_value
-    IO.inspect render
+      |> PhpAssocMap.Exploder.explode()
 
     %Langue.Formatter.SerializerResult{render: wrap_values(render)}
-  end
-
-  @spec escape_value(String.t()) :: String.t()
-  defp escape_value(value) do
-    value
-    |> String.replace("\\\"", "\"")
-    |> String.replace("\"", "\\\"")
-    |> String.replace("\\'", "'")
   end
 
   @spec wrap_values(String.t()) :: String.t()
