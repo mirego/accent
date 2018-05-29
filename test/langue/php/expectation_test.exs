@@ -6,17 +6,31 @@ defmodule LangueTest.Formatter.Php.Expectation do
 
     def render do
       """
-      <?php\n\nreturn [\n\t"some_double_quoted_key" => "Some double quoted value",\n\t"another_double_quoted_key" => "A single quoted value",\n\t"some_single_quoted_key" => "With a double quoted value",\n\t"sub_key" => ["nested_key" => "nested value"],\n\t"another_single_quoted_key" => "With a single quoted value"\n];
+      <?php
+
+      return [
+        'required'=>'Le champ :attribute est obligatoire.',
+        'required_if'=>'Le champ :attribute est obligatoire quand la valeur de :other est :value.',
+        'required_with'=>'Le champ :attribute est obligatoire quand :values est présent.',
+        'same'=>'Les champs :attribute et :other doivent être identiques.',
+        'size'=>[
+          'numeric'=>'La taille de la valeur de :attribute doit être :size.',
+          'file'=>'La taille du fichier de :attribute doit être de :size kilobytes.',
+          'string'=>'Le texte de :attribute doit contenir :size caractères.'
+          ]
+        ];
       """
     end
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "some_double_quoted_key", value: "Some double quoted value"},
-        %Entry{comment: "", index: 2, key: "another_double_quoted_key", value: "A single quoted value"},
-        %Entry{comment: "", index: 3, key: "some_single_quoted_key", value: "With a double quoted value"},
-        %Entry{comment: "", index: 4, key: "sub_key.nested_key", value: "nested value"},
-        %Entry{comment: "", index: 5, key: "another_single_quoted_key", value: "With a single quoted value"}
+        %Entry{comment: "", index: 1, key: "required", value: "Le champ :attribute est obligatoire."},
+        %Entry{comment: "", index: 2, key: "required_if", value: "Le champ :attribute est obligatoire quand la valeur de :other est :value."},
+        %Entry{comment: "", index: 3, key: "required_with", value: "Le champ :attribute est obligatoire quand :values est présent."},
+        %Entry{comment: "", index: 4, key: "same", value: "Les champs :attribute et :other doivent être identiques."},
+        %Entry{comment: "", index: 5, key: "size.numeric", value: "La taille de la valeur de :attribute doit être :size."},
+        %Entry{comment: "", index: 6, key: "size.file", value: "La taille du fichier de :attribute doit être de :size kilobytes."},
+        %Entry{comment: "", index: 7, key: "size.string", value: "Le texte de :attribute doit contenir :size caractères."},
       ]
     end
   end
