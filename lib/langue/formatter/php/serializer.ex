@@ -10,7 +10,7 @@ defmodule Langue.Formatter.Php.Serializer do
       |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
       |> Enum.at(0)
       |> elem(1)
-      |> PhpAssocMap.from_tuple
+      |> PhpAssocMap.from_tuple()
       |> PhpAssocMap.Exploder.explode()
 
     %Langue.Formatter.SerializerResult{render: wrap_values(render)}

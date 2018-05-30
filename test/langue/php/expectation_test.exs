@@ -30,7 +30,7 @@ defmodule LangueTest.Formatter.Php.Expectation do
         %Entry{comment: "", index: 4, key: "same", value: "Les champs :attribute et :other doivent être identiques."},
         %Entry{comment: "", index: 5, key: "size.numeric", value: "La taille de la valeur de :attribute doit être :size."},
         %Entry{comment: "", index: 6, key: "size.file", value: "La taille du fichier de :attribute doit être de :size kilobytes."},
-        %Entry{comment: "", index: 7, key: "size.string", value: "Le texte de :attribute doit contenir :size caractères."},
+        %Entry{comment: "", index: 7, key: "size.string", value: "Le texte de :attribute doit contenir :size caractères."}
       ]
     end
   end
