@@ -15,12 +15,14 @@ const DEFAULT_PROPERTIES = {
 
   file: null,
   fileSource: null,
+  documentPath: null,
   documentFormat: 'json'
 };
 
 // Attributes
 // permissions: Ember Object containing <permission>
 // revisions: Array of <revision>
+// documents: Array of <document>
 // commitButtonText: String
 // onFileCancel: Function
 // onPeek: Function
@@ -68,6 +70,15 @@ export default Component.extend({
     }));
   }),
 
+  existingDocumentPath: computed('documentPath', 'documents.[].path', function() {
+    if (!this.documentPath) return false;
+    if (!this.documents) return false;
+
+    const path = this.documentPath.replace(/\..+/, '');
+
+    return this.documents.find(document => document.path === path);
+  }),
+
   actions: {
     onSelectMergeType(mergeType) {
       this.set('mergeType', mergeType);
@@ -81,7 +92,7 @@ export default Component.extend({
     commit() {
       this._onCommiting();
 
-      this.onCommit(this.getProperties('fileSource', 'documentFormat', 'revision', 'mergeType'))
+      this.onCommit(this.getProperties('fileSource', 'documentPath', 'documentFormat', 'revision', 'mergeType'))
         .then(this._onCommitingDone.bind(this))
         .catch(this._onCommitingError.bind(this));
     },
@@ -89,20 +100,22 @@ export default Component.extend({
     peek() {
       this._onPeeking();
 
-      this.onPeek(this.getProperties('fileSource', 'documentFormat', 'revision', 'mergeType'))
+      this.onPeek(this.getProperties('fileSource', 'documentPath', 'documentFormat', 'revision', 'mergeType'))
         .then(this._onPeekingDone.bind(this))
         .catch(this._onPeekingError.bind(this));
     },
 
     fileChange(files) {
       const fileSource = files[0];
-      const documentFormat = this._formatFromExtension(fileSource.name.split('.').pop());
+      const documentPath = fileSource.name;
+      const documentFormat = this._formatFromExtension(documentPath.split('.').pop());
       const isFileReading = true;
       const isFileRead = false;
       const reader = new FileReader();
 
       this.setProperties({
         fileSource,
+        documentPath,
         isFileReading,
         isFileRead,
         documentFormat
@@ -143,6 +156,8 @@ export default Component.extend({
       isFileRead,
       file
     });
+
+    this.send('peek');
   },
 
   _onCommiting() {

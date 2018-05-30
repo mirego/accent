@@ -61,20 +61,41 @@ export default {
     },
     commit_file: {
       cancel_button: 'Cancel',
+      file_input_button: 'Choose a file',
       commit_error: 'An error occured while uploading the file',
       document_format: 'Format of the file',
       document_path: 'Name of the file',
       language: 'Language',
       merge_type: 'Mode',
-      file_source: 'Choosen file',
+      file_source: 'Document path',
       merge_button: 'Add translations',
       pattern_help: 'You need to specify the pattern of the files included in the zip that will be imported, eg: **/*.strings',
+      new_document_warning: 'The changes will create a new file.',
+      existing_document_warning: 'The changes will be applied to the already existing file.',
       peek_button: 'Preview sync',
       peek_error: 'An error occured while previewing the file',
       peek_help:
         'You can preview the effect of your file(s) on the project. This action won’t do anything to your project, you’re safe to preview whatever you want ;)',
       sync_button: 'Sync',
-      upload_help: 'After choosing a file you will be able to preview the changes on your project'
+      upload_help: 'After choosing a file you will be able to preview the changes on your project',
+      upload_title: 'Select a file',
+      tips: {
+        formats: {
+          title: 'Supported formats',
+          text:
+            'From Ruby on Rails YAML to Java Properties XML, many formats are supported by Accent. <a href="https://www.accent.reviews/guides/formats.html">See all formats →</a>'
+        },
+        mix: {
+          title: 'Mix and match',
+          text:
+            'You can upload .strings format on Android XML file and vice-versa. This makes it easy to share localization files between platforms.'
+        },
+        cli: {
+          title: 'Have many files to upload?',
+          text:
+            'Use accent-cli to upload many files at once and write back the changes locally. <a href="https://github.com/mirego/accent-cli">See how to install →</a>'
+        }
+      }
     },
     conflict_item: {
       correct_button_text: 'Mark as reviewed',

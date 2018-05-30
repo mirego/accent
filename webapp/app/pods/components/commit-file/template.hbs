@@ -8,39 +8,54 @@
   {{/if}}
 
   {{#if isMerge}}
-    <div class="options">
-      <div class="option option--borderless">
-        <p class="textHelper">{{t 'components.commit_file.language'}}:</p>
-        {{#power-select
-          searchEnabled=false
-          selected=revisionValue
-          options=mappedRevisions
-          onchange=(action 'onSelectRevision') as |option|
-        }}
-          {{option.label}}
-        {{/power-select}}
-      </div>
+    {{#if file}}
+      <div class="options">
+        <div class="option option--borderless">
+          <p class="textHelper">{{t 'components.commit_file.language'}}:</p>
+          {{#power-select
+            searchEnabled=false
+            selected=revisionValue
+            options=mappedRevisions
+            onchange=(action 'onSelectRevision') as |option|
+          }}
+            {{option.label}}
+          {{/power-select}}
+        </div>
 
-      <div class="option option--borderless">
-        <p class="textHelper">{{t 'components.commit_file.merge_type'}}:</p>
-        {{#power-select
-          searchEnabled=false
-          selected=mergeType
-          options=mergeTypes
-          onchange=(action 'onSelectMergeType') as |option|
-        }}
-          {{option}}
-        {{/power-select}}
+        <div class="option option--borderless">
+          <p class="textHelper">{{t 'components.commit_file.merge_type'}}:</p>
+          {{#power-select
+            searchEnabled=false
+            selected=mergeType
+            options=mergeTypes
+            onchange=(action 'onSelectMergeType') as |option|
+          }}
+            {{option}}
+          {{/power-select}}
+        </div>
       </div>
-    </div>
+    {{/if}}
   {{/if}}
 
   {{#if file}}
     <div>
-      <div class="option">
-        <p class="textHelper">{{t 'components.commit_file.file_source'}}</p>
-        <span class="fileSourceName">{{fileSource.name}}</span>
-      </div>
+      {{#unless document}}
+        <div class="option">
+          <p class="textHelper">{{t 'components.commit_file.file_source'}}</p>
+          <p>
+            {{#if existingDocumentPath}}
+              <span class="documentHelper">
+                {{t 'components.commit_file.existing_document_warning'}}
+              </span>
+            {{else}}
+              <span class="documentHelper">
+                {{t 'components.commit_file.new_document_warning'}}
+              </span>
+            {{/if}}
+          </p>
+          {{input value=documentPath class='fileSourceName'}}
+        </div>
+      {{/unless}}
 
       <div class="option">
         <p class="textHelper">{{t 'components.commit_file.document_format'}}</p>
@@ -94,12 +109,50 @@
       {{/if}}
     </div>
   {{else}}
-    <div class="option option--borderless">
-      <p class="textHelper">{{t 'components.commit_file.upload_help'}}</p>
-      {{file-input
-        onChange=(action 'fileChange')
-        class='fileInput'
-      }}
+    <div class="emptyFile">
+      <div class="emptyFile-upload">
+        {{file-input
+          name='file-input'
+          id='file-input'
+          onChange=(action 'fileChange')
+          class='fileInput'
+        }}
+
+
+        <strong class="fileInputTitle">
+          {{inline-svg '/assets/folder.svg' class='fileInputIcon'}}
+          {{t 'components.commit_file.upload_title'}}
+        </strong>
+
+        <p class="fileInputHelper">{{t 'components.commit_file.upload_help'}}</p>
+
+        <label for="file-input" class="button button--filled fileButton">
+          {{inline-svg '/assets/import.svg' class='button-icon'}}
+          {{t 'components.commit_file.file_input_button'}}
+        </label>
+      </div>
+      <div>
+        <h3 class="emptyFile-title">
+          {{t 'components.commit_file.tips.cli.title'}}
+        </h3>
+        <p class="emptyFile-text">
+          {{t 'components.commit_file.tips.cli.text'}}
+        </p>
+
+        <h3 class="emptyFile-title">
+          {{t 'components.commit_file.tips.formats.title'}}
+        </h3>
+        <p class="emptyFile-text">
+          {{t 'components.commit_file.tips.formats.text'}}
+        </p>
+
+        <h3 class="emptyFile-title">
+          {{t 'components.commit_file.tips.mix.title'}}
+        </h3>
+        <p class="emptyFile-text">
+          {{t 'components.commit_file.tips.mix.text'}}
+        </p>
+      </div>
     </div>
   {{/if}}
 </div>

@@ -25,6 +25,7 @@
         {{commit-file
           permissions=permissions
           revisions=revisions
+          document=document
           canCommit=true
           commitAction='merge'
           peekAction='peek_merge'
@@ -35,16 +36,11 @@
         }}
       </div>
 
-      <div class="sections-preview">
-        {{#if revisionOperations.length}}
+      {{#if revisionOperations.length}}
+        <div class="sections-preview">
           {{operations-peek revisionOperations=revisionOperations}}
-        {{else}}
-          <h3 class="sections-preview-title">Preview</h3>
-          <div class="sections-preview-empty">
-            {{t 'components.project_file_operations.preview_text'}}
-          </div>
-        {{/if}}
-      </div>
+        </div>
+      {{/if}}
     </div>
   {{/project-file-operation}}
 {{/acc-modal}}

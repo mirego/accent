@@ -13,6 +13,16 @@
   font-size: 12px;
 }
 
+.documentHelper {
+  display: inline-block;
+  margin-bottom: 7px;
+  padding: 2px 4px 3px;
+  border-radius: 4px;
+  background: lighten($color-primary, 48%);
+  color: $color-primary;
+  font-size: 11px;
+}
+
 .textInput {
   margin-bottom: 8px;
   padding: 5px;
@@ -26,7 +36,6 @@
 
 .options {
   display: flex;
-  border-bottom: 1px solid #eee;
   padding: 0;
   margin: 0;
   font-size: 13px;
@@ -39,7 +48,6 @@
 .option {
   flex: 1 1 auto;
   width: 100%;
-  border-bottom: 1px solid #eee;
   padding: 9px 0;
   margin: 0;
 
@@ -56,8 +64,86 @@
   margin-top: 15px;
 }
 
-.peekButton,
 .fileInput {
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.fileInputIcon {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  fill: $color-black;
+}
+
+.fileInputTitle {
+  display: flex;
+  align-items: center;
+  margin: 0 0 6px;
+  color: $color-black;
+}
+
+.fileInputHelper {
+  max-width: 300px;
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba($color-black, 0.7);
+}
+
+.fileButton {
+  margin-top: 7px;
+  padding: 9px 30px;
+
+  .button-icon {
+    margin-right: 10px;
+  }
+}
+
+.emptyFile {
+  display: flex;
+
+  & > div {
+    width: 50%;
+  }
+}
+
+.emptyFile-upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.emptyFile-title {
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: bold;
+  color: darken($color-black, 5%);
+}
+
+.emptyFile-text {
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: rgba($color-black, 0.5);
+
+  & > a {
+    text-decoration: none;
+    font-style: italic;
+    color: rgba($color-primary, 0.8);
+
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.peekButton {
   margin-top: 7px;
 }
 
@@ -69,8 +155,20 @@
 }
 
 .fileSourceName {
-  font-size: 14px;
+  transition: $transition-speed $transition-easing;
+  transition-property: border box-shadow;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 2px solid lighten($color-grey, 20%);
+  background: $color-white;
+  font-family: $font-monospace;
+  line-height: 1.4;
   color: #444;
+
+  &:focus {
+    border: 2px solid rgba($color-primary, 0.7);
+  }
 }
 
 .ember-power-select-trigger {
