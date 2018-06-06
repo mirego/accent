@@ -1,4 +1,4 @@
-defmodule Langue.Formatter.Php.Parser do
+defmodule Langue.Formatter.LaravelPhp.Parser do
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Utils.NestedParserHelper

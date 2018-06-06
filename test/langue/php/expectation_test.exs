@@ -1,4 +1,4 @@
-defmodule LangueTest.Formatter.Php.Expectation do
+defmodule LangueTest.Formatter.LaravelPhp.Expectation do
   alias Langue.Entry
 
   defmodule ParsesDoubleQuotations do
