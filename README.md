@@ -5,7 +5,7 @@
 [Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
 
 [![Build Status](https://travis-ci.org/mirego/accent.svg?branch=master)](https://travis-ci.org/mirego/accent)
-[![Coverage Status](https://coveralls.io/repos/github/mirego/accent/badge.svg?branch=master)](https://coveralls.io/github/mirego/accent?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/mirego/accent/badge.svg?branch=master)](https://coveralls.io/github/mirego/accent?branch=master) [![Join the chat at https://gitter.im/mirego/accent](https://badges.gitter.im/mirego/accent.svg)](https://gitter.im/mirego/accent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 **The first developer-oriented translation tool**. Accent’s engine coupled with the asynchronous flow between the translator and the developer is what makes Accent the most awesome tool of all.
 
