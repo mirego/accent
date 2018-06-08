@@ -9,7 +9,8 @@ defmodule Langue do
     Json,
     Rails,
     SimpleJson,
-    Strings
+    Strings,
+    LaravelPhp
   ]
 
   for format <- @formats, module = Module.concat([Langue, Formatter, format]), name = module.name() do
