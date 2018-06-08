@@ -62,6 +62,7 @@ defmodule Accent.Mixfile do
       {:httpoison, "~> 1.1.0"},
       {:gettext, "~> 0.11"},
       {:csv, "~> 2.0"},
+      {:php_assoc_map, "~> 0.5"},
 
       # Errors
       {:sentry, "~> 6.0"},
