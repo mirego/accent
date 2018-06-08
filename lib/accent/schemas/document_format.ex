@@ -15,7 +15,7 @@ defmodule Accent.DocumentFormat do
     %{name: "Java properties", slug: "java_properties", extension: "properties"},
     %{name: "Java properties XML", slug: "java_properties_xml", extension: "xml"},
     %{name: "CSV", slug: "csv", extension: "csv"},
-    %{name: "Laravel's PHP", slug: "laravel_php", extension: "php"}
+    %{name: "Laravel PHP", slug: "laravel_php", extension: "php"}
   ]
 
   @doc """
@@ -42,7 +42,7 @@ defmodule Accent.DocumentFormat do
       %Accent.DocumentFormat{extension: "properties", name: "Java properties", slug: "java_properties"},
       %Accent.DocumentFormat{extension: "xml", name: "Java properties XML", slug: "java_properties_xml"},
       %Accent.DocumentFormat{extension: "csv", name: "CSV", slug: "csv"},
-      %Accent.DocumentFormat{extension: "php", name: "Laravel's PHP", slug: "laravel_php"}
+      %Accent.DocumentFormat{extension: "php", name: "Laravel PHP", slug: "laravel_php"}
     ]
   """
   def all, do: Enum.map(@all, &struct(__MODULE__, &1))
