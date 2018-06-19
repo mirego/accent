@@ -57,7 +57,7 @@ defmodule Langue.Formatter.Gettext.Parser do
     ]
   end
 
-  defp join_string([]), do: nil
+  defp join_string([]), do: ""
   defp join_string(list), do: Enum.join(list, "\n")
 
   defp key_suffix(id), do: ".__KEY__#{id}"

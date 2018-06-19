@@ -10,7 +10,8 @@ defmodule Langue do
     Rails,
     SimpleJson,
     Strings,
-    LaravelPhp
+    LaravelPhp,
+    GoI18nJson
   ]
 
   for format <- @formats, module = Module.concat([Langue, Formatter, format]), name = module.name() do

@@ -18,7 +18,6 @@ defmodule Langue.Formatter.Json.Serializer do
     |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
     |> List.first()
     |> elem(1)
-    |> Enum.map(&add_extra/1)
     |> encode_json()
   end
 
@@ -27,6 +26,11 @@ defmodule Langue.Formatter.Json.Serializer do
     |> Enum.map(&add_extra/1)
     |> (&{&1}).()
     |> :jiffy.encode([:pretty])
+    |> prettify_json()
+  end
+
+  def prettify_json(string) do
+    string
     |> String.replace(~r/\" : (\"|{|\[|null|false|true|\d)/, "\": \\1")
   end
 
