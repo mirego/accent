@@ -114,7 +114,7 @@ export default {
         other: '{{count}} strings to review',
         zero: 'No strings to review'
       },
-      reference_default_option_text: 'No reference langugage',
+      reference_default_option_text: 'No reference language',
       document_default_option_text: 'All documents',
       input_placeholder_text: 'Search for a string'
     },
