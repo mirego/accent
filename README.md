@@ -76,9 +76,6 @@ Accent provides a default value for every required environment variable. This me
 | `WEBAPP_PORT`       | `4200`                                    | A PORT to run the Webapp on (only used in `dev` environment)                                                                                               |
 | `API_HOST`          | `http://localhost:4000`                   | The API host                                                                                                                                               |
 | `API_WS_HOST`       | `ws://localhost:4000`                     | The API Websocket host                                                                                                                                     |
-| `WEBAPP_EMAIL_HOST` | _none_                                    | The Web client’s hostname. Used in the sent emails to link to the right URL. There is no default value, please provide a value if you want to send emails. |
-| `MAILER_FROM`       | _none_                                    | The email address used to send emails. There is no default value, please provide a value if you want to send emails.                                       |
-
 ### Production setup
 
 | Variable               | Default | Description |
@@ -87,6 +84,19 @@ Accent provides a default value for every required environment variable. This me
 | `WEBAPP_SENTRY_DSN`    | _none_  | The *public* Sentry DSN used to collect Webapp runtime errors                                                                                                                               |
 | `GOOGLE_API_CLIENT_ID` | _none_  | When deploying in a `prod` environment, the Google login is the only way to authenticate user. In `dev` environment, a fake login provider is used so you don’t have to setup a Google app. |
 | `RESTRICTED_DOMAIN`    | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
+
+### Email setup
+If you want to send emails, you'll have to configure the following environment variables:
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `WEBAPP_EMAIL_HOST` | _none_ | The Web client’s hostname. Used in the sent emails to link to the right URL. |
+| `MAILER_FROM` | _none_ | The email address used to send emails. |
+| `SMTP_ADDRESS` | _none_ | The SMTP server address you want to use to send your emails. |
+| `SMTP_PORT` | _none_ | The port ex: (25, 465, 587). |
+| `SMTP_USERNAME` | _none_ | The username for authentification. |
+| `SMTP_PASSWORD` | _none_ | The password for authentification.  |
+| `SMTP_API_HEADER` | _none_ | An optional API header that will be added to sent emails. |
 
 ## Tests
 
