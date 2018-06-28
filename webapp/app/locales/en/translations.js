@@ -333,7 +333,8 @@ export default {
         title: 'Danger zone',
         delete_project_title: 'Delete this project',
         delete_project_text: 'Once you delete a project, there is no going back.',
-        delete_project_button: 'Delete this project'
+        delete_project_button: 'Delete this project',
+        delete_project_confirm: 'Are you sure you want to delete this project? This action cannot be undone.'
       },
       form: {
         update_button: 'Update project',
