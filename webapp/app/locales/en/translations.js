@@ -38,14 +38,6 @@ export default {
         'You can use any email to be automatically logged in the platform. Be sure that the API you’re connecting to is in dev mode and not built for production. <strong>The fake login setup is disabled in production.</strong>',
       login_button: 'Login with any email'
     },
-    hero_header: {
-      nav: {
-        why: 'Why?',
-        features: 'Features',
-        login_or_signup: 'Login / signup',
-        projects: 'My projects'
-      }
-    },
     activity_item: {
       rollbacked: 'Rollbacked',
       details: 'Details',
