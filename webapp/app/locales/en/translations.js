@@ -222,8 +222,8 @@ export default {
       rollbacked_label: 'Rollbacked',
       file_label: 'File:',
       details_label: 'Details:',
-      explanation_label: 'Why did this happened?',
-      rollback_confirm: 'Are you sure you want to rollback this activity? This activity cannot be rollbacked.',
+      explanation_label: 'Why did this happen?',
+      rollback_confirm: 'Are you sure you want to rollback this activity? You cannot undo a rollback.',
       rollback: 'Rollback',
       stats_label_text: 'Activities performed:',
       stats_text: {
@@ -313,9 +313,9 @@ export default {
         merge: 'added translations for some strings'
       },
       label_text: {
-        conflict_on_corrected: 'The text has been move to review and is now:',
+        conflict_on_corrected: 'The text has been moved to review and is now:',
         conflict_on_proposed: 'The text is still in review and is now:',
-        conflict_on_slave: 'The text has been move to review and is now:'
+        conflict_on_slave: 'The text has been moved to review and is now:'
       }
     },
     project_settings: {
@@ -358,7 +358,7 @@ export default {
         admin_text: 'Can add languages, update the project and add/remove collaborators.',
         developer_text: 'Can make file operations: Sync, add translations and preview those operations in the UI.',
         owner_text: 'With the same roles as the admin, the owners are people who the project belongs to.',
-        reviewer_text: 'Can do every others tasks not present in the above roles. Review, update strings, comments, etc.',
+        reviewer_text: 'Can do every tasks except those listed in the above roles. Review, update strings, comments, etc.',
         title: 'Collaborators'
       },
       collaborators_item: {
@@ -464,9 +464,9 @@ export default {
         update_proposed: 'updated the uploaded text reference:'
       },
       label_text: {
-        conflict_on_corrected: 'The text has been move to review and is now:',
+        conflict_on_corrected: 'The text has been moved to review and is now:',
         conflict_on_proposed: 'The text is still in review and is now:',
-        conflict_on_slave: 'The text has been move to review and is now:'
+        conflict_on_slave: 'The text has been moved to review and is now:'
       }
     },
     project_comments_list: {
@@ -522,7 +522,7 @@ export default {
       create_error: 'Language can not be added right now. Try again later.',
       conflicts_explain_title: 'On conflicts',
       conflicts_explain_text:
-        'Every string addition or deletion will be reflected in the language. And when a text changes in the master revision, the string in the language will be mark as in review.',
+        'Every string addition or deletion will be reflected in the language. When a text changes in the master revision, the string in the language will be marked as in review.',
       sync_explain_title: 'On sync',
       sync_explain_text:
         'The master language will be the default source when syncing a file. The other languages are never "synced", they just follow the master language.',
@@ -613,9 +613,9 @@ export default {
         update_proposed: 'updated the uploaded text reference'
       },
       label_text: {
-        conflict_on_corrected: 'The text has been move to review and is now:',
+        conflict_on_corrected: 'The text has been moved to review and is now:',
         conflict_on_proposed: 'The text is still in review and is now:',
-        conflict_on_slave: 'The text has been move to review and is now:'
+        conflict_on_slave: 'The text has been moved to review and is now:'
       }
     },
     translation_comment_form: {
@@ -631,7 +631,7 @@ export default {
       correct_button: 'Update and mark as reviewed',
       previous_text: 'Previous text:',
       uncorrect_button: 'Put back to review',
-      uneditable: 'The text is not editable because it as been mark as reviewed',
+      uneditable: 'The text is not editable because it has been marked as reviewed',
       update_text: 'Update text',
       last_updated_label: 'Last updated:',
       form: {
@@ -761,9 +761,9 @@ export default {
       index: {
         loading_content: 'Fetching dashboard…',
         flash_messages: {
-          revision_correct_success: 'All strings in the language has been mark as reviewed',
+          revision_correct_success: 'All strings in the language have been marked as reviewed',
           revision_correct_error: 'An error has occured when marking all the strings in that language as reviewed',
-          revision_uncorrect_success: 'All strings in the language has been mark to be reviewed',
+          revision_uncorrect_success: 'All strings in the language have been marked to be reviewed',
           revision_uncorrect_error: 'An error has occured when marking all the strings in that language to be reviewed'
         }
       },
@@ -783,7 +783,7 @@ export default {
       conflicts: {
         loading_content: 'Searching the strings in review…',
         flash_messages: {
-          revision_correct_success: 'All strings in the language has been mark as reviewed',
+          revision_correct_success: 'All strings in the language have been marked as reviewed',
           revision_correct_error: 'An error has occured when marking all the strings in that language as reviewed',
           correct_error: 'The string could not be marked as reviewed',
           correct_success: 'The string as been marked as reviewed with success'
