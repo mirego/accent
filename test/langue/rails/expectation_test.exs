@@ -18,9 +18,9 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "errors.model.user", value: "Utilisateur"},
-        %Entry{comment: "", index: 2, key: "errors.messages.invalid_email", value: "n’est pas une adresse courriel valide"},
-        %Entry{comment: "", index: 3, key: "errors.messages.invalid_url", value: "n’est pas un URL valide"}
+        %Entry{index: 1, key: "errors.model.user", value: "Utilisateur"},
+        %Entry{index: 2, key: "errors.messages.invalid_email", value: "n’est pas une adresse courriel valide"},
+        %Entry{index: 3, key: "errors.messages.invalid_url", value: "n’est pas un URL valide"}
       ]
     end
   end
@@ -37,7 +37,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "", value_type: "empty"}
+        %Entry{index: 1, key: "test", value: "", value_type: "empty"}
       ]
     end
   end
@@ -54,7 +54,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "count_somehting", value: "282", value_type: "integer"}
+        %Entry{index: 1, key: "count_somehting", value: "282", value_type: "integer"}
       ]
     end
   end
@@ -74,9 +74,9 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "count_something.one", value: "1 item", value_type: "string", plural: true},
-        %Entry{comment: "", index: 2, key: "count_something.other", value: "%{count} items", value_type: "string", plural: true},
-        %Entry{comment: "", index: 3, key: "count_something.zero", value: "No items", value_type: "string", plural: true}
+        %Entry{index: 1, key: "count_something.one", value: "1 item", value_type: "string", plural: true},
+        %Entry{index: 2, key: "count_something.other", value: "%{count} items", value_type: "string", plural: true},
+        %Entry{index: 3, key: "count_something.zero", value: "No items", value_type: "string", plural: true}
       ]
     end
   end
@@ -103,12 +103,12 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "errors.__KEY__0", value: "First error"},
-        %Entry{comment: "", index: 2, key: "errors.__KEY__1", value: "Second error"},
-        %Entry{comment: "", index: 3, key: "errors.__KEY__2.nested.__KEY__0", value: "of course"},
-        %Entry{comment: "", index: 4, key: "errors.__KEY__2.nested.__KEY__1.nested_agin.__KEY__0", value: "ok"},
-        %Entry{comment: "", index: 5, key: "errors.__KEY__2.nested.__KEY__2", value: "it works"},
-        %Entry{comment: "", index: 6, key: "root", value: "AWESOME"}
+        %Entry{index: 1, key: "errors.__KEY__0", value: "First error"},
+        %Entry{index: 2, key: "errors.__KEY__1", value: "Second error"},
+        %Entry{index: 3, key: "errors.__KEY__2.nested.__KEY__0", value: "of course"},
+        %Entry{index: 4, key: "errors.__KEY__2.nested.__KEY__1.nested_agin.__KEY__0", value: "ok"},
+        %Entry{index: 5, key: "errors.__KEY__2.nested.__KEY__2", value: "it works"},
+        %Entry{index: 6, key: "root", value: "AWESOME"}
       ]
     end
   end
