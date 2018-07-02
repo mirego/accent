@@ -87,7 +87,7 @@ Accent provides a default value for every required environment variable. This me
 | `RESTRICTED_DOMAIN`    | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
 
 ### Email setup
-If you want to send emails, you'll have to configure the following environment variables:
+If you want to send emails, you’ll have to configure the following environment variables:
 
 | Variable | Default | Description |
 | --- | --- | --- |
