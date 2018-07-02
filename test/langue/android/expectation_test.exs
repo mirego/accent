@@ -133,8 +133,8 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "height", value: "Height (%@)", comment: ""},
-        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@.", comment: ""}
+        %Entry{index: 1, key: "height", value: "Height (%@)"},
+        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@."}
       ]
     end
   end
@@ -153,7 +153,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "a", value: "Test & 1,2,4 < > j'appelle", comment: ""}
+        %Entry{index: 1, key: "a", value: "Test & 1,2,4 < > j'appelle"}
       ]
     end
   end

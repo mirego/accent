@@ -26,10 +26,10 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "F"},
-        %Entry{comment: "", index: 2, key: "test2", value: "D"},
-        %Entry{comment: "", index: 3, key: "test3", value: "New history please"},
-        %Entry{comment: "", index: 4, key: "test4.key", value: "value"}
+        %Entry{index: 1, key: "test", value: "F"},
+        %Entry{index: 2, key: "test2", value: "D"},
+        %Entry{index: 3, key: "test3", value: "New history please"},
+        %Entry{index: 4, key: "test4.key", value: "value"}
       ]
     end
   end
@@ -50,10 +50,10 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "F"},
-        %Entry{comment: "", index: 2, key: "test2", value: "D"},
-        %Entry{comment: "", index: 3, key: "test3", value: "New history please"},
-        %Entry{comment: "", index: 4, key: "test4.key", value: "value"}
+        %Entry{index: 1, key: "test", value: "F"},
+        %Entry{index: 2, key: "test2", value: "D"},
+        %Entry{index: 3, key: "test3", value: "New history please"},
+        %Entry{index: 4, key: "test4.key", value: "value"}
       ]
     end
   end

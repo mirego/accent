@@ -21,9 +21,9 @@ defmodule LangueTest.Formatter.JavaPropertiesXml.Expectation do
     def entries do
       [
         %Entry{key: "yes", value: "Oui", comment: "  <!-- XML COMMENT -->", index: 1},
-        %Entry{key: "url.hello", value: "Bonjour", comment: "", index: 2},
-        %Entry{key: "url.nested.ultra", value: "I’m so nested", comment: "", index: 3},
-        %Entry{key: "url.normal", value: "Normal string", comment: "", index: 4}
+        %Entry{key: "url.hello", value: "Bonjour", index: 2},
+        %Entry{key: "url.nested.ultra", value: "I’m so nested", index: 3},
+        %Entry{key: "url.normal", value: "Normal string", index: 4}
       ]
     end
   end
