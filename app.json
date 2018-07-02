@@ -23,6 +23,10 @@
       "description": "The URL to which the Web application will connect for Websocket sessions",
       "value": "wss://this-heroku-app-name.herokuapp.com"
     },
+    "CANONICAL_HOST": {
+      "description": "The host that will be used to build internal URLs",
+      "value": "this-heroku-app-name.herokuapp.com"
+    },
     "FORCE_SSL": {
       "description": "Whether to force HTTPS requests to the Web application and the API",
       "value": "true"
