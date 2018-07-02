@@ -42,7 +42,7 @@ defmodule LangueTest.Formatter.GoI18nJson.Expectation do
     def entries do
       [
         %Entry{key: "empty_string_translation", value: "", value_type: "empty", comment: "", index: 1},
-        %Entry{key: "key_with_description", value: "Check it out! This key has a description! (At least in some formats)", comment: "", index: 2},
+        %Entry{key: "key_with_description", value: "Check it out!", comment: "", index: 2},
         %Entry{key: "key_with_line-break", value: "This translations contains\na line-break.", comment: "", index: 3},
         %Entry{key: "nested.key", value: "This key is nested inside a namespace.", comment: "", index: 4},
         %Entry{key: "null_translation", value: "null", value_type: "null", comment: "", index: 5},
