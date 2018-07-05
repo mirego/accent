@@ -5,9 +5,9 @@ defmodule Langue.Formatter.Rails.Serializer do
 
   @white_space_regex ~r/(:|-) \n/
 
-  def serialize(%{entries: entries, locale: locale}) do
+  def serialize(%{entries: entries, language: language}) do
     render =
-      %{locale => entries}
+      %{language.slug => entries}
       |> Enum.with_index(-1)
       |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
       |> :fast_yaml.encode()

@@ -3,21 +3,30 @@ defmodule LangueTest.Formatter.Gettext.Header do
 
   Code.require_file("expectation_test.exs", __DIR__)
 
+  alias Accent.FormatterTestHelper
   alias Langue.Formatter.Gettext
 
   alias LangueTest.Formatter.Gettext.Expectation.{
     Simple,
-    LanguageHeader
+    LanguageHeader,
+    PluralFormsHeader
   }
 
   test "language in header" do
-    {_, result_serialize} = Accent.FormatterTestHelper.test_serialize(Simple, Gettext, "en")
+    {_, result_serialize} = FormatterTestHelper.test_serialize(Simple, Gettext, %Accent.Language{slug: "en"})
 
     assert result_serialize =~ "Language: en"
   end
 
+  test "plural forms in header" do
+    plural_forms = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);"
+    {_, result_serialize} = FormatterTestHelper.test_serialize(PluralFormsHeader, Gettext, %Accent.Language{slug: "en", plural_forms: plural_forms})
+
+    assert result_serialize =~ "Plural-Forms: #{plural_forms}"
+  end
+
   test "language in header when previously empty" do
-    {_, result_serialize} = Accent.FormatterTestHelper.test_serialize(LanguageHeader, Gettext, "en")
+    {_, result_serialize} = FormatterTestHelper.test_serialize(LanguageHeader, Gettext, %Accent.Language{slug: "en"})
 
     assert result_serialize =~ "Language: en"
   end

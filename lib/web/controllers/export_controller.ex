@@ -121,10 +121,10 @@ defmodule Accent.ExportController do
     %{render: render} =
       Accent.TranslationsRenderer.render(%{
         translations: translations,
+        language: revision.language,
         document_format: document.format,
         document_top_of_the_file_comment: document.top_of_the_file_comment,
-        document_header: document.header,
-        document_locale: revision.language.slug
+        document_header: document.header
       })
 
     document = Map.put(document, :render, render)

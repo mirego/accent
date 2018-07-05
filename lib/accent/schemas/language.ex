@@ -11,6 +11,7 @@ defmodule Accent.Language do
     field(:android_code, :string)
     field(:osx_code, :string)
     field(:osx_locale, :string)
+    field(:plural_forms, :string)
 
     timestamps()
   end

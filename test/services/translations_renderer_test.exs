@@ -45,7 +45,7 @@ defmodule AccentTest.TranslationsRenderer do
       TranslationsRenderer.render(%{
         translations: [translation],
         document_format: document.format,
-        document_locale: revision.language.slug
+        language: revision.language
       })
 
     expected_render = """
@@ -83,7 +83,7 @@ defmodule AccentTest.TranslationsRenderer do
       TranslationsRenderer.render(%{
         translations: translations,
         document_format: document.format,
-        document_locale: revision.language.slug
+        language: revision.language
       })
 
     assert render == ""
@@ -106,7 +106,7 @@ defmodule AccentTest.TranslationsRenderer do
       TranslationsRenderer.render(%{
         translations: [translation],
         document_format: document.format,
-        document_locale: "fr"
+        language: %Language{slug: "fr"}
       })
 
     expected_render = """
