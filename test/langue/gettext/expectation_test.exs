@@ -65,8 +65,8 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
       [
         %Entry{index: 1, key: "has already been taken", value: "est déjà pris"},
         %Entry{index: 2, key: "should be at least n character(s).__KEY___", value: "should be at least %{count} character(s)", plural: true, locked: true, value_type: "string"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", plural: true, value_type: "string"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY__1", value: "should be at least %{count} character(s)", plural: true, value_type: "string"}
+        %Entry{index: 3, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", plural: true, value_type: "string"},
+        %Entry{index: 4, key: "should be at least n character(s).__KEY__1", value: "should be at least %{count} character(s)", plural: true, value_type: "string"}
       ]
     end
   end
@@ -114,6 +114,32 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     def header do
       ~S"""
       "Language: "
+      """
+    end
+  end
+
+  defmodule PluralFormsHeader do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid ""
+      msgstr ""
+      #{header()}
+      msgid "has already been taken"
+      msgstr "est déjà pris"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "has already been taken", value: "est déjà pris"}
+      ]
+    end
+
+    def header do
+      ~S"""
+      "Plural-Forms: nplurals=2; plural=(n > 1);"
       """
     end
   end

@@ -9,7 +9,6 @@ defmodule Accent.Plugs.MovementContextParser do
   plug(:assign_document_parser)
   plug(:assign_document_path)
   plug(:assign_document_format)
-  plug(:assign_document_locale)
   plug(:assign_movement_context)
   plug(:assign_movement_document)
   plug(:assign_movement_entries)
@@ -22,10 +21,6 @@ defmodule Accent.Plugs.MovementContextParser do
       {:ok, parser} -> assign(conn, :document_parser, parser)
       {:error, _reason} -> conn |> send_resp(:unprocessable_entity, "document_format is invalid") |> halt
     end
-  end
-
-  def assign_document_locale(conn = %{params: %{"language" => language}}, _) do
-    assign(conn, :document_locale, language)
   end
 
   def assign_document_format(conn = %{params: %{"document_format" => format}}, _) do

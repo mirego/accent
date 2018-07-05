@@ -18,13 +18,13 @@ defmodule Langue.Formatter.Gettext.Parser do
 
   defp parse_translations(%{translations: translations}) do
     translations
-    |> Enum.with_index(1)
     |> Enum.flat_map(&parse_translation/1)
+    |> Enum.with_index(1)
+    |> Enum.map(fn {entry, index} -> %{entry | index: index} end)
   end
 
-  defp parse_translation({translation = %{msgid_plural: _}, index}) do
+  defp parse_translation(translation = %{msgid_plural: _}) do
     plural_entry = %Entry{
-      index: index,
       comment: join_string(translation.comments),
       key: join_string(translation.msgid) <> key_suffix("_"),
       value: join_string(translation.msgid_plural),
@@ -36,7 +36,6 @@ defmodule Langue.Formatter.Gettext.Parser do
     |> Enum.reduce([plural_entry], fn {plural_index, value}, acc ->
       Enum.concat(acc, [
         %Entry{
-          index: index,
           key: join_string(translation.msgid) <> key_suffix(plural_index),
           value: join_string(value),
           plural: true,
@@ -46,10 +45,9 @@ defmodule Langue.Formatter.Gettext.Parser do
     end)
   end
 
-  defp parse_translation({translation, index}) do
+  defp parse_translation(translation) do
     [
       %Entry{
-        index: index,
         comment: join_string(translation.comments),
         key: join_string(translation.msgid),
         value: join_string(translation.msgstr)
