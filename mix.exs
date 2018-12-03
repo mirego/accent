@@ -5,7 +5,7 @@ defmodule Accent.Mixfile do
     [
       app: :accent,
       version: "0.0.1",
-      elixir: "~> 1.7.0",
+      elixir: "~> 1.6.0",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
