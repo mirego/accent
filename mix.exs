@@ -33,6 +33,9 @@ defmodule Accent.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      # Release
+      {:distillery, "~> 2.0"},
+
       # Framework
       {:phoenix, "~> 1.3"},
       {:phoenix_html, "~> 2.10"},
