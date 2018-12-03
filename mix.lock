@@ -58,6 +58,7 @@
   "php_assoc_map": {:hex, :php_assoc_map, "0.5.2", "8b55283c2ffa762f8703cb30ef40085bf5c06ee08d5a82e38405fa4b949b2a6b", [:mix], [], "hexpm"},
   "plug": {:hex, :plug, "1.7.1", "8516d565fb84a6a8b2ca722e74e2cd25ca0fc9d64f364ec9dbec09d33eb78ccd", [:mix], [{:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}, {:plug_crypto, "~> 1.0", [hex: :plug_crypto, repo: "hexpm", optional: false]}], "hexpm"},
   "plug_assign": {:hex, :plug_assign, "1.0.0", "368688e6acd30796237d0a2f25cd30391d28932bfcbaa7f15d7a6549c661d64b", [:mix], [{:plug, "~> 1.0.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
+  "plug_cowboy": {:hex, :plug_cowboy, "1.0.0", "2e2a7d3409746d335f451218b8bb0858301c3de6d668c3052716c909936eb57a", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, repo: "hexpm", optional: false]}, {:plug, "~> 1.7", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "plug_crypto": {:hex, :plug_crypto, "1.0.0", "18e49317d3fa343f24620ed22795ec29d4a5e602d52d1513ccea0b07d8ea7d4d", [:mix], [], "hexpm"},
   "poison": {:hex, :poison, "3.1.0", "d9eb636610e096f86f25d9a46f35a9facac35609a7591b3be3326e99a0484665", [:mix], [], "hexpm"},
   "poolboy": {:hex, :poolboy, "1.5.1", "6b46163901cfd0a1b43d692657ed9d7e599853b3b21b95ae5ae0a777cf9b6ca8", [:rebar], [], "hexpm"},

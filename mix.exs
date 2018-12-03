@@ -42,6 +42,7 @@ defmodule Accent.Mixfile do
       {:postgrex, "~> 0.13"},
 
       # Plugs
+      {:plug_cowboy, "~> 1.0"},
       {:plug_assign, "~> 1.0.0"},
       {:plug, "~> 1.4", override: true},
       {:canary, "~> 1.1.0"},
