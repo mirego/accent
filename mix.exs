@@ -69,6 +69,7 @@ defmodule Accent.Mixfile do
 
       # Errors
       {:sentry, "~> 7.0"},
+      {:jason, "~> 1.1"},
 
       # Mails
       {:bamboo, "~> 0.8"},
