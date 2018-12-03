@@ -5,7 +5,7 @@ defmodule Accent.Mixfile do
     [
       app: :accent,
       version: "0.0.1",
-      elixir: "~> 1.6",
+      elixir: "~> 1.7.0",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
@@ -54,7 +54,7 @@ defmodule Accent.Mixfile do
       {:dataloader, "~> 1.0"},
 
       # GraphQL
-      {:absinthe, "~> 1.4"},
+      {:absinthe, "~> 1.4.13"},
       {:absinthe_plug, "~> 1.4"},
 
       # Utils
