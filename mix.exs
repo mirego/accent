@@ -21,7 +21,7 @@ defmodule Accent.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Accent, []}, extra_applications: [:logger, :canada]]
+    [mod: {Accent, []}, extra_applications: [:jiffy, :logger, :canada]]
   end
 
   # Specifies which paths to compile per environment.
