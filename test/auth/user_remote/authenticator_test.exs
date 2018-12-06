@@ -22,7 +22,7 @@ defmodule AccentTest.UserRemote.Authenticator do
     {:ok, user, _token} = Authenticator.authenticate("dummy", "test@example.com")
     {:ok, existing_user, _token} = Authenticator.authenticate("dummy", "test@example.com")
 
-    assert user == existing_user
+    assert user.id == existing_user.id
   end
 
   test "normalize collaborators with email" do

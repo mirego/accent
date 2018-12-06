@@ -8,7 +8,7 @@ defmodule AccentTest.ProjectDeleter do
     project = %Project{name: "french"} |> Repo.insert!()
     collaborator = %Collaborator{project_id: project.id} |> Repo.insert!()
 
-    assert Repo.all(Ecto.assoc(project, :collaborators)) === [collaborator]
+    assert Repo.all(Ecto.assoc(project, :collaborators)) |> Enum.map(& &1.id) === [collaborator.id]
 
     {:ok, project} = ProjectDeleter.delete(project: project)
 

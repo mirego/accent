@@ -12,8 +12,8 @@ defmodule AccentTest.UserRemote.Persister do
   test "persist with new user" do
     {:ok, user, provider} = Persister.persist(@user)
 
-    assert user === Repo.get_by!(User, email: "test@test.com")
-    assert provider === Repo.get_by!(AuthProvider, uid: "1234", name: "google", user_id: user.id)
+    assert user.id === Repo.get_by!(User, email: "test@test.com").id
+    assert provider.id === Repo.get_by!(AuthProvider, uid: "1234", name: "google", user_id: user.id).id
   end
 
   test "persist with existing user existing provider" do
@@ -22,8 +22,8 @@ defmodule AccentTest.UserRemote.Persister do
 
     {:ok, user, provider} = Persister.persist(@user)
 
-    assert user === existing_user
-    assert provider === existing_provider
+    assert user.id === existing_user.id
+    assert provider.id === existing_provider.id
   end
 
   test "persist with existing user new provider" do
@@ -32,7 +32,7 @@ defmodule AccentTest.UserRemote.Persister do
 
     {:ok, user, provider} = Persister.persist(@user)
 
-    assert user === existing_user
-    assert provider === Repo.get_by!(AuthProvider, uid: "1234", name: "google", user_id: user.id)
+    assert user.id === existing_user.id
+    assert provider.id === Repo.get_by!(AuthProvider, uid: "1234", name: "google", user_id: user.id).id
   end
 end
