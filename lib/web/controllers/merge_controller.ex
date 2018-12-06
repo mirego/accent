@@ -6,7 +6,6 @@ defmodule Accent.MergeController do
 
   alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
   alias Movement.Persisters.RevisionMerge, as: RevisionMergePersister
-  alias Movement.Comparers.{MergeSmart, MergeForce, MergePassive}
 
   alias Accent.{
     Project,
@@ -81,26 +80,9 @@ defmodule Accent.MergeController do
     end
   end
 
-  defp assign_comparer(conn = %{params: %{"merge_type" => "force"}}, _) do
-    context =
-      conn.assigns[:movement_context]
-      |> Movement.Context.assign(:comparer, &MergeForce.compare/2)
-
-    assign(conn, :movement_context, context)
-  end
-
-  defp assign_comparer(conn = %{params: %{"merge_type" => "passive"}}, _) do
-    context =
-      conn.assigns[:movement_context]
-      |> Movement.Context.assign(:comparer, &MergePassive.compare/2)
-
-    assign(conn, :movement_context, context)
-  end
-
   defp assign_comparer(conn, _) do
-    context =
-      conn.assigns[:movement_context]
-      |> Movement.Context.assign(:comparer, &MergeSmart.compare/2)
+    comparer = Movement.Comparer.comparer(:merge, conn.params["merge_type"])
+    context = Movement.Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)
   end
