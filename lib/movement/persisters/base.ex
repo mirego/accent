@@ -52,8 +52,8 @@ defmodule Movement.Persisters.Base do
       |> Enum.map(fn operation ->
         operation
         |> Map.put(:user_id, assigns[:user_id])
-        |> Map.put(:inserted_at, NaiveDateTime.utc_now())
-        |> Map.put(:updated_at, NaiveDateTime.utc_now())
+        |> Map.put(:inserted_at, DateTime.utc_now())
+        |> Map.put(:updated_at, DateTime.utc_now())
         |> assign_project(assigns[:project])
         |> assign_batch_operation(assigns[:batch_operation])
         |> assign_document(assigns[:document])

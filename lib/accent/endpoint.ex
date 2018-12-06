@@ -1,7 +1,7 @@
 defmodule Accent.Endpoint do
   use Phoenix.Endpoint, otp_app: :accent
 
-  socket("/socket", Accent.UserSocket)
+  socket("/socket", Accent.UserSocket, websocket: true)
 
   if Application.get_env(:accent, :force_ssl) do
     plug(Plug.SSL, rewrite_on: [:x_forwarded_proto])

@@ -34,20 +34,25 @@ defmodule Accent.Mixfile do
   defp deps do
     [
       # Framework
-      {:phoenix, "~> 1.3"},
+      {:phoenix, "~> 1.4"},
       {:phoenix_html, "~> 2.10"},
-      {:postgrex, "~> 0.13"},
 
       # Plugs
       {:plug_assign, "~> 1.0.0"},
-      {:plug, "~> 1.4", override: true},
       {:canary, "~> 1.1.0"},
       {:corsica, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:cowboy, "~> 2.0", override: true},
+      {:plug, "~> 1.7", override: true},
+
+      # Database
+      {:ecto, "~> 3.0", override: true},
+      {:ecto_sql, "~> 3.0"},
+      {:postgrex, "~> 0.14"},
 
       # Phoenix data helpers
-      {:ecto, "~> 2.2", override: true},
-      {:phoenix_ecto, "~> 3.2", override: true},
-      {:scrivener_ecto, "~> 1.0"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:scrivener_ecto, "~> 2.0"},
       {:dataloader, "~> 1.0"},
 
       # GraphQL
@@ -57,12 +62,13 @@ defmodule Accent.Mixfile do
       # Utils
       {:p1_utils, github: "processone/p1_utils", override: true},
       {:fast_yaml, "~> 1.0.0"},
-      {:jiffy, github: "davisp/jiffy"},
+      {:jiffy, "~> 0.15"},
       {:mochiweb_html, "~> 2.13"},
       {:httpoison, "~> 1.1.0"},
       {:gettext, "~> 0.11"},
       {:csv, "~> 2.0"},
       {:php_assoc_map, "~> 0.5"},
+      {:jason, "~> 1.0"},
 
       # Errors
       {:sentry, "~> 6.0"},

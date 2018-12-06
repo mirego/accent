@@ -3,7 +3,7 @@ defmodule Accent.ProjectUpdater do
 
   import Canada, only: [can?: 2]
 
-  @optional_fields ~w(name)
+  @optional_fields ~w(name)a
 
   def update(project: project, params: params, user: user) do
     project
@@ -14,7 +14,7 @@ defmodule Accent.ProjectUpdater do
   def cast_changeset(model, params, user) do
     fields =
       if user |> can?(locked_file_operations(model)) do
-        @optional_fields ++ ["locked_file_operations"]
+        [:locked_file_operations | @optional_fields]
       else
         @optional_fields
       end

@@ -45,6 +45,7 @@ config :logger, :console,
 
 # Configure Phoenix
 config :phoenix, Accent.Router, host: System.get_env("CANONICAL_HOST")
+config :phoenix, :json_library, Jason
 
 config :phoenix, :generators,
   migration: true,
