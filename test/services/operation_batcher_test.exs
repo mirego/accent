@@ -90,7 +90,7 @@ defmodule AccentTest.OperationBatcher do
         user_id: user.id,
         revision_id: revision.id,
         stats: [%{"count" => 2, "action" => "correct_conflict"}],
-        inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-960, :second)
+        inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-960, :second) |> DateTime.from_naive!("Etc/UTC")
       }
       |> Repo.insert!()
 
@@ -104,7 +104,7 @@ defmodule AccentTest.OperationBatcher do
           user_id: user.id,
           revision_id: revision.id,
           batch_operation_id: batch_operation.id,
-          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-960, :second)
+          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-960, :second) |> DateTime.from_naive!("Etc/UTC")
         },
         %Operation{
           action: "correct_conflict",
@@ -159,7 +159,7 @@ defmodule AccentTest.OperationBatcher do
           translation_id: translation_one.id,
           user_id: user.id,
           revision_id: revision.id,
-          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-3960, :second)
+          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-3960, :second) |> DateTime.from_naive!("Etc/UTC")
         },
         %Operation{
           action: "correct_conflict",
@@ -168,7 +168,7 @@ defmodule AccentTest.OperationBatcher do
           translation_id: translation_two.id,
           user_id: user.id,
           revision_id: revision.id,
-          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-3960, :second)
+          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-3960, :second) |> DateTime.from_naive!("Etc/UTC")
         }
       ]
       |> Enum.map(&Repo.insert!/1)

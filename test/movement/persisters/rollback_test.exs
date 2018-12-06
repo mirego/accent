@@ -44,8 +44,8 @@ defmodule AccentTest.Movement.Persisters.Rollback do
     operation =
       %Accent.Operation{
         text: "B",
-        inserted_at: NaiveDateTime.utc_now(),
-        updated_at: NaiveDateTime.utc_now(),
+        inserted_at: DateTime.utc_now(),
+        updated_at: DateTime.utc_now(),
         action: "correct_conflict",
         translation: translation,
         previous_translation: PreviousTranslation.from_translation(translation),

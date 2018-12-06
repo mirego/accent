@@ -6,8 +6,6 @@ defmodule Accent.GraphQL.DatetimeScalar do
   To use: `import_types Absinthe.Type.Extensions`.
   """
 
-  @utc_timezone "Etc/UTC"
-
   scalar :datetime, name: "DateTime" do
     description("""
     The `DateTime` scalar type represents a date and time in the UTC
@@ -21,7 +19,7 @@ defmodule Accent.GraphQL.DatetimeScalar do
 
   @spec parse_datetime(any) :: {:ok, DateTime.t()} | :error
   defp parse_datetime(value) when is_binary(value) do
-    NaiveDateTime.from_iso8601(value)
+    DateTime.from_iso8601(value)
   end
 
   defp parse_datetime(_) do
@@ -29,9 +27,8 @@ defmodule Accent.GraphQL.DatetimeScalar do
   end
 
   @spec serialize_datetime(any) :: {:ok, String.t()} | :error
-  defp serialize_datetime(datetime = %NaiveDateTime{}) do
+  defp serialize_datetime(datetime = %DateTime{}) do
     datetime
-    |> DateTime.from_naive!(@utc_timezone)
     |> DateTime.to_iso8601()
   end
 
@@ -43,7 +40,7 @@ defmodule Accent.GraphQL.DatetimeScalar do
   defp parse_with(node_types, coercion) do
     fn
       %{__struct__: str, value: value} ->
-        if Enum.member?(node_types, str) do
+        if str in node_types do
           coercion.(value)
         else
           :error
