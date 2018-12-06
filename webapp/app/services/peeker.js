@@ -6,8 +6,8 @@ import config from 'accent-webapp/config/environment';
 export default Service.extend({
   authenticatedRequest: service('authenticated-request'),
 
-  sync({project, revision, revisions, file, documentPath, documentFormat}) {
-    const url = fmt(config.API.SYNC_PEEK_PROJECT_PATH, project.id, revision.language.slug);
+  sync({project, revision, revisions, file, documentPath, documentFormat, syncType}) {
+    const url = fmt(config.API.SYNC_PEEK_PROJECT_PATH, project.id, revision.language.slug, syncType);
     documentFormat = documentFormat.toLowerCase();
 
     return this.authenticatedRequest.peek(url, {file, documentPath, documentFormat}).then(({data: {operations, stats}}) => {

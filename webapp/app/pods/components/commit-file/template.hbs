@@ -23,7 +23,7 @@
         </div>
 
         <div class="option option--borderless">
-          <p class="textHelper">{{t 'components.commit_file.merge_type'}}:</p>
+          <p class="textHelper">{{t 'components.commit_file.commit_type'}}:</p>
           {{#power-select
             searchEnabled=false
             selected=mergeType
@@ -33,6 +33,25 @@
             {{option}}
           {{/power-select}}
         </div>
+      </div>
+    {{/if}}
+  {{/if}}
+
+  {{#if isSync}}
+    {{#if file}}
+      <div class="options">
+        <div class="option option--borderless">
+          <p class="textHelper">{{t 'components.commit_file.commit_type'}}:</p>
+          {{#power-select
+            searchEnabled=false
+            selected=syncType
+            options=syncTypes
+            onchange=(action 'onSelectSyncType') as |option|
+          }}
+            {{option}}
+          {{/power-select}}
+        </div>
+        <div class="option option--borderless"></div>
       </div>
     {{/if}}
   {{/if}}

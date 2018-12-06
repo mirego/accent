@@ -5,7 +5,6 @@ defmodule Accent.SyncController do
 
   alias Movement.Builders.ProjectSync, as: SyncBuilder
   alias Movement.Persisters.ProjectSync, as: SyncPersister
-  alias Movement.Comparers.Sync, as: SyncComparer
   alias Accent.Project
   alias Accent.Hook.Context, as: HookContext
 
@@ -30,6 +29,9 @@ defmodule Accent.SyncController do
     - `file`
     - `document_path`
     - `document_format`
+
+  ### Optional params
+    - `sync_type` (smart or passive), default: smart.
 
   ### Response
 
@@ -68,9 +70,8 @@ defmodule Accent.SyncController do
   end
 
   defp assign_comparer(conn, _) do
-    context =
-      conn.assigns[:movement_context]
-      |> Movement.Context.assign(:comparer, &SyncComparer.compare/2)
+    comparer = Movement.Comparer.comparer(:sync, conn.params["merge_type"])
+    context = Movement.Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)
   end

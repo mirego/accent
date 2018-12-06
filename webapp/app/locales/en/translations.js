@@ -58,7 +58,7 @@ export default {
       document_format: 'Format of the file',
       document_path: 'Name of the file',
       language: 'Language',
-      merge_type: 'Mode',
+      commit_type: 'Mode',
       file_source: 'Document path',
       merge_button: 'Add translations',
       pattern_help: 'You need to specify the pattern of the files included in the zip that will be imported, eg: **/*.strings',
