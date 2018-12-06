@@ -19,7 +19,7 @@ defmodule Accent do
       worker(Accent.Hook.Consumers.Slack, http_client: HTTPoison)
     ]
 
-    :ok = :error_logger.add_report_handler(Sentry.Logger)
+    {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options

@@ -1,7 +1,6 @@
 defmodule Accent.Router do
   use Phoenix.Router
-  use Plug.ErrorHandler
-  use Sentry.Plug
+  use Sentry.Phoenix.Endpoint
 
   if Mix.env() == :dev do
     forward("/emails", Bamboo.EmailPreviewPlug)
