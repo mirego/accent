@@ -31,7 +31,7 @@ defmodule AccentTest.Plugs.AssignCurrentUser do
       |> Map.get(:assigns)
       |> Map.get(:current_user)
 
-    assert assigned_user == user
+    assert assigned_user.id == user.id
   end
 
   test "unknown current_user" do

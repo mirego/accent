@@ -154,7 +154,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
       conn.assigns
       |> Map.get(:movement_context)
 
-    assert context.assigns[:document] == document
+    assert context.assigns[:document].id == document.id
     assert conn.state == :unset
   end
 
