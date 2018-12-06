@@ -56,7 +56,7 @@ defmodule Accent.Hook.Consumers.Slack do
 
   defp post_urls(http_client, urls, body) do
     for url <- urls do
-      http_client.post(url, Poison.encode!(body), @headers)
+      http_client.post(url, Jason.encode!(body), @headers)
     end
 
     :ok

@@ -47,7 +47,7 @@ defmodule AccentTest.Hook.Consumers.Slack do
 
     """
 
-    post_message = %{body: Poison.encode!(%{text: post_body}), header: [{"Content-Type", "application/json"}], url: "http://example.com"}
+    post_message = %{body: Jason.encode!(%{text: post_body}), header: [{"Content-Type", "application/json"}], url: "http://example.com"}
     assert_receive {:post, ^post_message}
   end
 
