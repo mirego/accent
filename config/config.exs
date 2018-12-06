@@ -54,8 +54,8 @@ config :phoenix, :generators,
 # Configures sentry to report errors
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
+  environment_name: System.get_env("SENTRY_ENVIRONMENT_NAME") || Mix.env(),
   included_environments: [:prod],
-  environment_name: Mix.env(),
   root_source_code_path: File.cwd!()
 
 # Configure mailer
