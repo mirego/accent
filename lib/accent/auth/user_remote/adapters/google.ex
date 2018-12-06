@@ -16,7 +16,7 @@ defmodule Accent.UserRemote.Adapters.Google do
 
     def process_url(token), do: @base_url <> token
 
-    def process_response_body(body), do: Poison.decode!(body)
+    def process_response_body(body), do: Jason.decode!(body)
   end
 
   def fetch(token) when token === "", do: {:error, "invalid token"}
