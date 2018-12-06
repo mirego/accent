@@ -23,7 +23,7 @@ defmodule Movement.Comparers.SyncPassive do
     iex> Movement.Comparers.SyncPassive.compare(translation, suggested_translation).action
     "noop"
   """
-  def compare(%{marked_as_removed: true} = translation, _), do: %Operation{action: "noop", key: translation.key}
+  def compare(%{key: key, marked_as_removed: true}, _), do: %Operation{action: "noop", key: key}
 
   def compare(translation, suggested_translation) do
     case TranslationComparer.compare(translation, suggested_translation.text) do
