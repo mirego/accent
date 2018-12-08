@@ -12,6 +12,7 @@ cache:
   directories:
   - _build
   - deps
+  - webapp/node_modules
 
 # Make sure PostgreSQL is running
 addons:
