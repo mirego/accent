@@ -11,8 +11,8 @@ defmodule Movement.Builders.RevisionUncorrectAll do
 
   def build(context) do
     context
-    |> assign_translations
-    |> process_operations
+    |> assign_translations()
+    |> process_operations()
   end
 
   defp process_operations(context = %Movement.Context{assigns: assigns, operations: operations}) do

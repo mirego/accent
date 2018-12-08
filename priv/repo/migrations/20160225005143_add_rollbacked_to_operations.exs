@@ -3,7 +3,7 @@ defmodule Accent.Repo.Migrations.AddRollbackedToOperations do
 
   def change do
     alter table(:operations) do
-      add :rollbacked, :boolean, default: false
+      add(:rollbacked, :boolean, default: false)
     end
   end
 end

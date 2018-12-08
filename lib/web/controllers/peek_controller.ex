@@ -25,8 +25,6 @@ defmodule Accent.PeekController do
   plug(:assign_merge_comparer when action in [:merge])
   plug(:assign_sync_comparer when action in [:sync])
 
-  @broadcaster Application.get_env(:accent, :hook_broadcaster)
-
   @doc """
   Peek operations that would be created when doing a sync
 
@@ -60,7 +58,7 @@ defmodule Accent.PeekController do
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
 
-    @broadcaster.fanout(%HookContext{
+    Accent.Hook.fanout(%HookContext{
       event: "peek_sync",
       project: conn.assigns[:project],
       user: conn.assigns[:current_user]
@@ -104,7 +102,7 @@ defmodule Accent.PeekController do
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
 
-    @broadcaster.fanout(%HookContext{
+    Accent.Hook.fanout(%HookContext{
       event: "peek_merge",
       project: conn.assigns[:project],
       user: conn.assigns[:current_user],

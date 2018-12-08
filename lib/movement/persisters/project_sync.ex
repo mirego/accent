@@ -20,7 +20,7 @@ defmodule Movement.Persisters.ProjectSync do
       |> case do
         {context, operations} ->
           context.assigns[:project]
-          |> Project.changeset(%{"last_synced_at" => DateTime.utc_now()})
+          |> Project.changeset(%{last_synced_at: DateTime.utc_now()})
           |> Repo.update()
 
           {context, operations}

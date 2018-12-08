@@ -25,8 +25,6 @@ defmodule Accent.MergeController do
   plug(:assign_comparer)
   plug(:create)
 
-  @broadcaster Application.get_env(:accent, :hook_broadcaster)
-
   @doc """
   Create new merge for a project and a language
 
@@ -63,7 +61,7 @@ defmodule Accent.MergeController do
         send_resp(conn, :ok, "")
 
       {:ok, _} ->
-        @broadcaster.fanout(%HookContext{
+        Accent.Hook.fanout(%HookContext{
           event: "merge",
           project: conn.assigns[:project],
           user: conn.assigns[:current_user],

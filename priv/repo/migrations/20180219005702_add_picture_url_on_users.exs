@@ -3,7 +3,7 @@ defmodule Accent.Repo.Migrations.AddPictureUrlOnUsers do
 
   def change do
     alter table(:users) do
-      add :picture_url, :text
+      add(:picture_url, :text)
     end
   end
 end

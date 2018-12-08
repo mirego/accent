@@ -3,10 +3,7 @@ defmodule Accent.Endpoint do
 
   socket("/socket", Accent.UserSocket, websocket: true)
 
-  if Application.get_env(:accent, :force_ssl) do
-    plug(Plug.SSL, rewrite_on: [:x_forwarded_proto])
-  end
-
+  plug(:force_ssl)
   plug(Corsica, origins: "*", allow_headers: ~w(Accept Content-Type Authorization origin))
 
   # Serve at "/" the static files from "priv/static" directory.
@@ -19,7 +16,7 @@ defmodule Accent.Endpoint do
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket)
+    socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket, websocket: true)
     plug(Phoenix.LiveReloader)
     plug(Phoenix.CodeReloader)
   end
@@ -37,9 +34,29 @@ defmodule Accent.Endpoint do
   plug(Plug.MethodOverride)
   plug(Plug.Head)
 
-  if Application.get_env(:accent, :sql_sandbox) do
-    plug(Phoenix.Ecto.SQL.Sandbox)
+  plug(Accent.Router)
+
+  defp force_ssl(conn, _opts) do
+    if Application.get_env(:accent, :force_ssl) do
+      opts = Plug.SSL.init(rewrite_on: [:x_forwarded_proto])
+
+      Plug.SSL.call(conn, opts)
+    else
+      conn
+    end
   end
 
-  plug(Accent.Router)
+  @doc """
+  Callback invoked for dynamically configuring the endpoint.
+  It receives the endpoint configuration and checks if
+  configuration should be loaded from the system environment.
+  """
+  def init(_key, config) do
+    if config[:load_from_system_env] do
+      port = Application.get_env(:accent, Accent.Endpoint)[:http][:port] || raise "expected the PORT environment variable to be set"
+      {:ok, Keyword.put(config, :http, [:inet6, port: port])}
+    else
+      {:ok, config}
+    end
+  end
 end

@@ -12,10 +12,10 @@ defmodule Movement.Builders.SlaveConflictSync do
 
   def build(context = %Movement.Context{}) do
     context
-    |> assign_revision_ids
-    |> assign_operation_keys
-    |> assign_translations
-    |> process_operations
+    |> assign_revision_ids()
+    |> assign_operation_keys()
+    |> assign_translations()
+    |> process_operations()
   end
 
   defp process_operations(context = %Movement.Context{assigns: assigns}) do

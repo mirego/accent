@@ -49,7 +49,7 @@ defmodule Movement.Persisters.Base do
   defp persist_operations(context = %Movement.Context{assigns: assigns}) do
     operations =
       context.operations
-      |> Enum.map(fn operation ->
+      |> Stream.map(fn operation ->
         operation
         |> Map.put(:user_id, assigns[:user_id])
         |> Map.put(:inserted_at, DateTime.utc_now())
@@ -61,14 +61,14 @@ defmodule Movement.Persisters.Base do
         |> assign_version(assigns[:version])
         |> Map.from_struct()
       end)
-      |> Enum.chunk_every(@operations_inserts_chunk)
-      |> Enum.reduce([], fn operations, acc ->
+      |> Stream.chunk_every(@operations_inserts_chunk)
+      |> Stream.flat_map(fn operations ->
         Operation
         |> Repo.insert_all(operations, returning: true)
         |> elem(1)
         |> Repo.preload(:translation)
-        |> Kernel.++(acc)
       end)
+      |> Enum.to_list()
 
     %{context | operations: operations}
   end

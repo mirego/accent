@@ -8,8 +8,12 @@ defmodule Accent.UserRemote.Fetcher do
   def fetch(_provider, ""), do: {:error, %{value: "empty"}}
   def fetch(_provider, nil), do: {:error, %{value: "empty"}}
 
-  if Application.get_env(:accent, :dummy_provider_enabled) do
-    def fetch("dummy", value), do: Accent.UserRemote.Adapters.Dummy.fetch(value)
+  def fetch("dummy", value) do
+    if Application.get_env(:accent, :dummy_provider_enabled) do
+      Accent.UserRemote.Adapters.Dummy.fetch(value)
+    else
+      fetch(nil, value)
+    end
   end
 
   def fetch("google", value), do: Google.fetch(value)

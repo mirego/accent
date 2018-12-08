@@ -11,9 +11,9 @@ defmodule Movement.Builders.DocumentDelete do
 
   def build(context) do
     context
-    |> assign_translations
-    |> assign_project
-    |> process_operations
+    |> assign_translations()
+    |> assign_project()
+    |> process_operations()
   end
 
   defp assign_translations(context) do

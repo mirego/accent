@@ -21,11 +21,12 @@ defmodule Langue.Utils.NestedParserHelper do
         key_entries = grouped_entries[key]
 
         acc
-        |> Map.put(:results, List.insert_at(acc.results, -1, {key, key_entries}))
+        |> Map.put(:results, [{key, key_entries} | acc.results])
         |> Map.put(:keys, MapSet.put(acc.keys, key))
       end
     end)
     |> Map.get(:results)
+    |> Enum.reverse()
   end
 
   def parse(data) do

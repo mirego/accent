@@ -3,7 +3,7 @@ defmodule Accent.Repo.Migrations.AddLockFileOperationsForProjects do
 
   def change do
     alter table(:projects) do
-      add :locked_file_operations, :boolean, default: false
+      add(:locked_file_operations, :boolean, default: false)
     end
   end
 end

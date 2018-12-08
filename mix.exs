@@ -87,6 +87,7 @@ defmodule Accent.Mixfile do
       # Dev
       {:dialyxir, "~> 0.5", only: ~w(dev test)a, runtime: false},
       {:credo, ">= 0.0.0", only: ~w(dev test)a},
+      {:credo_envvar, "~> 0.1.0", only: ~w(dev test)a, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
       {:phoenix_live_reload, "~> 1.0", only: :dev}
     ]

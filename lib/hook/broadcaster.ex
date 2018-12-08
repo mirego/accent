@@ -6,10 +6,11 @@ defmodule Accent.Hook.Broadcaster do
   ]
 
   @callback fanout(Accent.Hook.Context.t()) :: no_return()
+  @timeout 10_000
 
-  def fanout(context = %Accent.Hook.Context{}, timeout \\ 5000) do
+  def fanout(context = %Accent.Hook.Context{}) do
     for producer <- @producers do
-      GenStage.call(producer, {:notify, context}, timeout)
+      GenStage.call(producer, {:notify, context}, @timeout)
     end
   end
 end

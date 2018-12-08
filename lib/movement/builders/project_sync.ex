@@ -14,7 +14,7 @@ defmodule Movement.Builders.ProjectSync do
     # Don’t keep track of the last used revision to prevent error on further steps
     context
     |> Map.put(:operations, [])
-    |> generate_operations
+    |> generate_operations()
     |> assign(:revision, nil)
   end
 

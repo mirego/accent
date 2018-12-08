@@ -3,7 +3,7 @@ defmodule Accent.Repo.Migrations.ChangeLengthOfUidForAuthProvider do
 
   def change do
     alter table(:auth_providers) do
-      modify :uid, :string, size: 3000
+      modify(:uid, :string, size: 3000)
     end
   end
 end

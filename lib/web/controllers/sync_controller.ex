@@ -3,10 +3,10 @@ defmodule Accent.SyncController do
 
   import Canary.Plugs
 
+  alias Accent.Hook.Context, as: HookContext
+  alias Accent.Project
   alias Movement.Builders.ProjectSync, as: SyncBuilder
   alias Movement.Persisters.ProjectSync, as: SyncPersister
-  alias Accent.Project
-  alias Accent.Hook.Context, as: HookContext
 
   plug(Plug.Assign, canary_action: :sync)
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
@@ -14,8 +14,6 @@ defmodule Accent.SyncController do
   plug(Accent.Plugs.MovementContextParser)
   plug(:assign_comparer)
   plug(:create)
-
-  @broadcaster Application.get_env(:accent, :hook_broadcaster)
 
   @doc """
   Create new sync for a project
@@ -52,7 +50,7 @@ defmodule Accent.SyncController do
         send_resp(conn, :ok, "")
 
       {:ok, {context, _operations}} ->
-        @broadcaster.fanout(%HookContext{
+        Accent.Hook.fanout(%HookContext{
           event: "sync",
           project: conn.assigns[:project],
           user: conn.assigns[:current_user],

@@ -23,7 +23,7 @@ config :accent, :ecto_repos, [Accent.Repo]
 
 config :accent, Accent.Repo,
   adapter: Ecto.Adapters.Postgres,
-  timeout: 30000,
+  timeout: 30_000,
   url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 
 config :accent,
