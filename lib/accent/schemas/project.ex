@@ -3,7 +3,7 @@ defmodule Accent.Project do
 
   schema "projects" do
     field(:name, :string)
-    field(:last_synced_at, :naive_datetime)
+    field(:last_synced_at, :utc_datetime)
     field(:locked_file_operations, :boolean, default: false)
 
     has_many(:integrations, Accent.Integration)
