@@ -1,4 +1,4 @@
-defmodule Movement.Comparers.Sync do
+defmodule Movement.Comparers.SyncSmart do
   @behaviour Movement.Comparer
 
   alias Movement.Mappers.Operation, as: OperationMapper
@@ -13,22 +13,22 @@ defmodule Movement.Comparers.Sync do
 
     iex> translation = %Accent.Translation{key: "a", proposed_text: "foo", corrected_text: "bar"}
     iex> suggested_translation = %Movement.SuggestedTranslation{key: "a", text: "foo"}
-    iex> Movement.Comparers.Sync.compare(translation, suggested_translation) |> Map.get(:action)
+    iex> Movement.Comparers.SyncSmart.compare(translation, suggested_translation).action
     "autocorrect"
 
     iex> translation = %Accent.Translation{key: "a", proposed_text: "bar", corrected_text: "foo"}
     iex> suggested_translation = %Movement.SuggestedTranslation{key: "a", text: "foo"}
-    iex> Movement.Comparers.Sync.compare(translation, suggested_translation) |> Map.get(:action)
+    iex> Movement.Comparers.SyncSmart.compare(translation, suggested_translation).action
     "update_proposed"
 
     iex> translation = %Accent.Translation{key: "a", proposed_text: "bar", corrected_text: "baz"}
     iex> suggested_translation = %Movement.SuggestedTranslation{key: "a", text: "foo"}
-    iex> Movement.Comparers.Sync.compare(translation, suggested_translation) |> Map.get(:action)
+    iex> Movement.Comparers.SyncSmart.compare(translation, suggested_translation).action
     "conflict_on_corrected"
 
     iex> translation = %Accent.Translation{key: "a", proposed_text: "bar", corrected_text: "baz"}
     iex> suggested_translation = %Movement.SuggestedTranslation{key: "a", text: "foo"}
-    iex> Movement.Comparers.Sync.compare(translation, suggested_translation) |> Map.get(:text)
+    iex> Movement.Comparers.SyncSmart.compare(translation, suggested_translation).text
     "foo"
   """
   def compare(translation, suggested_translation) do

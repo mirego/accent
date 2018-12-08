@@ -10,7 +10,7 @@ defmodule Movement.Builders.RevisionSync do
 
   def build(context) do
     context
-    |> assign_translations
+    |> assign_translations()
     |> EntriesCommitProcessor.process()
     |> EntriesCommitProcessor.process_for_remove()
   end

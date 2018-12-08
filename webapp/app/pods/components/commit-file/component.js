@@ -39,6 +39,8 @@ export default Component.extend({
 
   mergeTypes: ['smart', 'passive', 'force'],
   mergeType: 'smart',
+  syncTypes: ['smart', 'passive'],
+  syncType: 'smart',
 
   revisionValue: computed('revision', 'revisions.[]', function() {
     return this.mappedRevisions.find(({value}) => value === this.revision) || this.mappedRevisions[0];
@@ -56,6 +58,7 @@ export default Component.extend({
   }),
 
   isMerge: equal('commitAction', 'merge'),
+  isSync: equal('commitAction', 'sync'),
 
   documentFormatValue: computed('documentFormat', 'documentFormatOptions', function() {
     return this.documentFormatOptions.find(({value}) => value === this.documentFormat);
@@ -84,6 +87,10 @@ export default Component.extend({
       this.set('mergeType', mergeType);
     },
 
+    onSelectSyncType(syncType) {
+      this.set('syncType', syncType);
+    },
+
     onSelectRevision(revision) {
       this.set('revision', this.revisions.find(({id}) => id === revision.value));
       this.set('revisionValue', revision);
@@ -92,7 +99,7 @@ export default Component.extend({
     commit() {
       this._onCommiting();
 
-      this.onCommit(this.getProperties('fileSource', 'documentPath', 'documentFormat', 'revision', 'mergeType'))
+      this.onCommit(this.getProperties('fileSource', 'documentPath', 'documentFormat', 'revision', 'mergeType', 'syncType'))
         .then(this._onCommitingDone.bind(this))
         .catch(this._onCommitingError.bind(this));
     },
@@ -100,7 +107,7 @@ export default Component.extend({
     peek() {
       this._onPeeking();
 
-      this.onPeek(this.getProperties('fileSource', 'documentPath', 'documentFormat', 'revision', 'mergeType'))
+      this.onPeek(this.getProperties('fileSource', 'documentPath', 'documentFormat', 'revision', 'mergeType', 'syncType'))
         .then(this._onPeekingDone.bind(this))
         .catch(this._onPeekingError.bind(this));
     },
