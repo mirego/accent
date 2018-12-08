@@ -58,7 +58,7 @@ defmodule Accent.ExportController do
     file =
       [
         System.tmp_dir(),
-        Accent.Utils.SecureRandom.urlsafe_base64()
+        Accent.Utils.SecureRandom.urlsafe_base64(16)
       ]
       |> Path.join()
 

@@ -7,6 +7,8 @@ defmodule Accent.Operation do
     :text,
     :conflicted,
     :value_type,
+    :plural,
+    :locked,
     :file_index,
     :file_comment,
     :removed,
