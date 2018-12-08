@@ -18,13 +18,15 @@ The Accent API provides a powerful abstraction around the process of translating
 
 ## Contents
 
-* [Requirements](#requirements)
-* [Mix commands](#executing-mix-commands)
-* [Quickstart](#quickstart)
-* [Environment variables](#environment-variables)
-* [Tests](#tests)
-* [Heroku](#deploy-on-heroku)
-* [Contribute](#contribute)
+| Section                                                  | Description                                                            |
+|----------------------------------------------------------|------------------------------------------------------------------------|
+| [🚧 Requirements](#-requirements)                        | Dependencies required to run Accent’ stack                             |
+| [🎛 Mix commands](#-executing-mix-commands)              | How to execute mix task with the Twelve-Factor pattern                 |
+| [🏎 Quickstart](#-quickstart)                            | Steps to run the project, from API to webapp                           |
+| [🌳 Environment variables](#-environment-variables)      | Required and optional env var used                                     |
+| [✅ Tests](#-tests)                                      | How to run the extensive tests suite                                   |
+| [🚀 Heroku](#-heroku)                                    | Easy deployment setup with Heroku                                      |
+| [🌎 Contribute](#-contribute)                            | How to contribute to this repo                                         |
 
 ## Requirements
 
@@ -48,21 +50,21 @@ But Accent can be run with default environment variables if you have a PostgreSQ
 
 With `nv` you inject the environment keys in the context with:
 
-```
+```shell
 $ nv .env mix <mix command>
 ```
 
 ## Quickstart
 
 1. If you don’t already have it, install `nodejs` with `brew install nodejs`
-1. If you don’t already have it, install `elixir` with `brew install elixir`
-2. If you don’t already have it, install `libyaml` with `brew install libyaml`
-2. If you don’t already have it, install `postgres` with `brew install postgres` or the [macOS app](https://postgresapp.com/)
-3. Install dependencies with `mix deps.get` and `npm --prefix webapp install`
-4. Create and migrate your database with `mix ecto.setup`
-5. Start Phoenix endpoint with `mix phx.server`
-5. Start Ember server with `npm --prefix webapp run start`
-6. That’s it!
+2. If you don’t already have it, install `elixir` with `brew install elixir`
+3. If you don’t already have it, install `libyaml` with `brew install libyaml`
+4. If you don’t already have it, install `postgres` with `brew install postgres` or the [macOS app](https://postgresapp.com/)
+5. Install dependencies with `mix deps.get` and `npm --prefix webapp install`
+6. Create and migrate your database with `mix ecto.setup`
+7. Start Phoenix endpoint with `mix phx.server`
+8. Start Ember server with `npm --prefix webapp run start`
+9. That’s it!
 
 ## Environment variables
 
@@ -105,11 +107,13 @@ If you want to send emails, you’ll have to configure the following environment
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup (and a few setup commands), you can just run `mix test`.
 
-```
+```shell
 $ npm --prefix webapp run build
 $ mix run ./priv/repo/seeds.exs
 $ mix test
 ```
+
+The full check that runs in the CI environment can be executed with `./priv/scripts/ci-check.sh`.
 
 ## Deploy on Heroku
 
