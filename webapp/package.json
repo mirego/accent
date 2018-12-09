@@ -31,6 +31,7 @@
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "broccoli-asset-rev": "2.6.0",
     "cached-path-relative": "1.0.2",
+    "cryptiles": "4.1.2",
     "date-fns": "1.29.0",
     "diff": "3.5.0",
     "ember-browserify": "1.2.1",
