@@ -18,15 +18,15 @@ The Accent API provides a powerful abstraction around the process of translating
 
 ## Contents
 
-| Section                                                  | Description                                                            |
-|----------------------------------------------------------|------------------------------------------------------------------------|
-| [🚧 Requirements](#-requirements)                        | Dependencies required to run Accent’ stack                             |
-| [🎛 Mix commands](#-executing-mix-commands)              | How to execute mix task with the Twelve-Factor pattern                 |
-| [🏎 Quickstart](#-quickstart)                            | Steps to run the project, from API to webapp                           |
-| [🌳 Environment variables](#-environment-variables)      | Required and optional env var used                                     |
-| [✅ Tests](#-tests)                                      | How to run the extensive tests suite                                   |
-| [🚀 Heroku](#-heroku)                                    | Easy deployment setup with Heroku                                      |
-| [🌎 Contribute](#-contribute)                            | How to contribute to this repo                                         |
+| Section                                                 | Description                                                            |
+|---------------------------------------------------------|------------------------------------------------------------------------|
+| [🚧 Requirements](#requirements)                        | Dependencies required to run Accent’ stack                             |
+| [🎛 Mix commands](#executing-mix-commands)              | How to execute mix task with the Twelve-Factor pattern                 |
+| [🏎 Quickstart](#quickstart)                            | Steps to run the project, from API to webapp                           |
+| [🌳 Environment variables](#environment-variables)      | Required and optional env var used                                     |
+| [✅ Tests](#tests)                                      | How to run the extensive tests suite                                   |
+| [🚀 Heroku](#heroku)                                    | Easy deployment setup with Heroku                                      |
+| [🌎 Contribute](#contribute)                            | How to contribute to this repo                                         |
 
 ## Requirements
 
