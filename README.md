@@ -28,7 +28,7 @@ The Accent API provides a powerful abstraction around the process of translating
 | [🚀 Heroku](#heroku)                                    | Easy deployment setup with Heroku                                      |
 | [🌎 Contribute](#contribute)                            | How to contribute to this repo                                         |
 
-## Requirements
+## 🚧 Requirements
 
 - `erlang ~> 20.1`
 - `elixir ~> 1.6.0`
@@ -36,7 +36,7 @@ The Accent API provides a powerful abstraction around the process of translating
 - `node.js >= 8.5.0`
 - `libyaml >= 0.1.7`
 
-## Executing mix commands
+## 🎛 Executing mix commands
 
 The app is modeled with the [_Twelve-Factor App_](https://12factor.net/) architecture, all configurations are stored in the environment.
 
@@ -54,7 +54,7 @@ With `nv` you inject the environment keys in the context with:
 $ nv .env mix <mix command>
 ```
 
-## Quickstart
+## 🏎 Quickstart
 
 1. If you don’t already have it, install `nodejs` with `brew install nodejs`
 2. If you don’t already have it, install `elixir` with `brew install elixir`
@@ -66,7 +66,7 @@ $ nv .env mix <mix command>
 8. Start Ember server with `npm --prefix webapp run start`
 9. That’s it!
 
-## Environment variables
+## 🌳 Environment variables
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup, you can just run `mix phx.server`.
 
@@ -101,7 +101,7 @@ If you want to send emails, you’ll have to configure the following environment
 | `SMTP_PASSWORD` | _none_ | The password for authentification.  |
 | `SMTP_API_HEADER` | _none_ | An optional API header that will be added to sent emails. |
 
-## Tests
+## ✅ Tests
 
 ### API
 
@@ -115,7 +115,7 @@ $ mix test
 
 The full check that runs in the CI environment can be executed with `./priv/scripts/ci-check.sh`.
 
-## Deploy on Heroku
+## 🚀 Deploy on Heroku
 
 An Heroku-compatible `app.json` makes it easy to deploy the application on Heroku.
 
@@ -123,7 +123,7 @@ An Heroku-compatible `app.json` makes it easy to deploy the application on Herok
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy on Heroku" />
 </a>
 
-## Contribute
+## 🌎 Contribute
 
 Before opening a pull request, please open an issue first.
 
