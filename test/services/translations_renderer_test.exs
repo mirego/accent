@@ -2,13 +2,13 @@ defmodule AccentTest.TranslationsRenderer do
   use Accent.RepoCase
 
   alias Accent.{
-    Repo,
-    User,
-    ProjectCreator,
-    Language,
-    Translation,
     Document,
-    TranslationsRenderer
+    Language,
+    ProjectCreator,
+    Repo,
+    Translation,
+    TranslationsRenderer,
+    User
   }
 
   @user %User{email: "test@test.com"}

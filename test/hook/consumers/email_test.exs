@@ -16,18 +16,18 @@ defmodule AccentTest.Hook.Consumers.Email do
   use Accent.RepoCase
 
   alias Accent.{
-    Repo,
+    Collaborator,
+    Comment,
+    CreateCommentEmail,
+    Hook.Consumers.Email,
     Language,
     Project,
-    Revision,
-    User,
-    Translation,
-    Comment,
-    Collaborator,
-    TranslationCommentsSubscription,
-    CreateCommentEmail,
     ProjectInviteEmail,
-    Hook.Consumers.Email
+    Repo,
+    Revision,
+    Translation,
+    TranslationCommentsSubscription,
+    User
   }
 
   setup do

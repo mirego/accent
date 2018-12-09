@@ -4,12 +4,12 @@ defmodule AccentTest.Movement.Migrator.Up do
   alias Movement.Migrator
 
   alias Accent.{
-    Repo,
-    Translation,
-    User,
-    Revision,
+    Operation,
     PreviousTranslation,
-    Operation
+    Repo,
+    Revision,
+    Translation,
+    User
   }
 
   test ":noop" do

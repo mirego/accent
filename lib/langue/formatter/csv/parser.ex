@@ -1,8 +1,8 @@
 defmodule Langue.Formatter.CSV.Parser do
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Formatter.SerializerResult, as: Input
   alias Langue.Formatter.ParserResult, as: Output
+  alias Langue.Formatter.SerializerResult, as: Input
 
   @spec parse(Input.t()) :: Output.t()
   def parse(%Input{render: input}) do

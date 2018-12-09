@@ -20,7 +20,8 @@ defmodule Movement.Migrator do
   """
 
   import Movement.Migrator.Macros
-  alias Movement.Migration.{Conflict, Translation, Rollback}
+
+  alias Movement.Migration.{Conflict, Rollback, Translation}
 
   def up(operations) when is_list(operations), do: Enum.map(operations, &up/1)
   def down(operations) when is_list(operations), do: Enum.map(operations, &down/1)

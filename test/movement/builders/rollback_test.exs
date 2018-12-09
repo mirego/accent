@@ -4,14 +4,14 @@ defmodule AccentTest.Movement.Builders.Rollback do
   alias Movement.Builders.Rollback, as: RollbackBuilder
 
   alias Accent.{
+    Document,
+    Language,
+    Operation,
+    PreviousTranslation,
+    ProjectCreator,
     Repo,
     Translation,
-    PreviousTranslation,
-    Operation,
-    User,
-    Language,
-    ProjectCreator,
-    Document
+    User
   }
 
   @user %User{email: "test@test.com"}

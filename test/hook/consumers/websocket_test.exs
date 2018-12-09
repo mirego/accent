@@ -8,15 +8,15 @@ defmodule AccentTest.Hook.Consumers.Websocket do
   use Accent.RepoCase
 
   alias Accent.{
-    Repo,
+    Collaborator,
+    Comment,
+    Hook.Consumers.Websocket,
     Language,
     Project,
+    Repo,
     Revision,
-    User,
     Translation,
-    Comment,
-    Collaborator,
-    Hook.Consumers.Websocket
+    User
   }
 
   setup do

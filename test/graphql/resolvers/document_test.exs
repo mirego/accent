@@ -4,13 +4,13 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   alias Accent.GraphQL.Resolvers.Document, as: Resolver
 
   alias Accent.{
-    Repo,
-    Project,
     Document,
-    Translation,
+    Language,
+    Project,
+    Repo,
     Revision,
-    User,
-    Language
+    Translation,
+    User
   }
 
   defmodule PlugConn do

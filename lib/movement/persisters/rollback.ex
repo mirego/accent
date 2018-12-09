@@ -1,9 +1,8 @@
 defmodule Movement.Persisters.Rollback do
   @behaviour Movement.Persister
 
-  alias Accent.Repo
+  alias Accent.{Operation, Repo}
   alias Movement.Persisters.Base, as: BasePersister
-  alias Accent.{Repo, Operation}
 
   def persist(%Movement.Context{operations: []}), do: {:ok, []}
 

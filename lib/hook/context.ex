@@ -1,5 +1,5 @@
 defmodule Accent.Hook.Context do
-  alias Accent.{User, Project}
+  alias Accent.{Project, User}
 
   defstruct project: %Project{}, event: "", user: %User{}, payload: %{}
 

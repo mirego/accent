@@ -1,5 +1,6 @@
 defmodule Movement.Migration.Conflict do
   @behaviour Movement.Migration
+
   import Movement.EctoMigrationHelper
 
   def call(:correct, operation) do

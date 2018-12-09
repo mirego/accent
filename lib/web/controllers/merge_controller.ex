@@ -8,8 +8,8 @@ defmodule Accent.MergeController do
   alias Movement.Persisters.RevisionMerge, as: RevisionMergePersister
 
   alias Accent.{
-    Project,
     Language,
+    Project,
     Revision
   }
 

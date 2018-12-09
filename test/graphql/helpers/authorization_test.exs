@@ -2,18 +2,18 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   use Accent.RepoCase
 
   alias Accent.{
-    Repo,
-    ProjectCreator,
     Collaborator,
-    User,
-    Language,
     Document,
+    GraphQL.Helpers.Authorization,
     Integration,
+    Language,
+    Operation,
+    ProjectCreator,
+    Repo,
     Translation,
     TranslationCommentsSubscription,
-    Version,
-    Operation,
-    GraphQL.Helpers.Authorization
+    User,
+    Version
   }
 
   @user %User{email: "test@test.com"}

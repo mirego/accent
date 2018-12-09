@@ -4,13 +4,13 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
   alias Movement.Builders.SlaveConflictSync, as: SlaveConflictSyncBuilder
 
   alias Accent.{
-    Repo,
-    ProjectCreator,
-    Translation,
-    User,
+    Document,
     Language,
+    ProjectCreator,
+    Repo,
     Revision,
-    Document
+    Translation,
+    User
   }
 
   @user %User{email: "test@test.com"}

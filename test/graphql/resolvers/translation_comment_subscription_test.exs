@@ -7,13 +7,13 @@ defmodule AccentTest.GraphQL.Resolvers.TranslationCommentSubscription do
   alias Accent.GraphQL.Resolvers.TranslationCommentSubscription, as: Resolver
 
   alias Accent.{
-    Repo,
+    Language,
     Project,
-    TranslationCommentsSubscription,
-    Translation,
+    Repo,
     Revision,
-    User,
-    Language
+    Translation,
+    TranslationCommentsSubscription,
+    User
   }
 
   defmodule PlugConn do

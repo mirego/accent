@@ -4,16 +4,15 @@ defmodule Accent.PeekController do
   import Canary.Plugs
   import Accent.Plugs.RevisionIdFromProjectLanguage
 
-  alias Movement.Builders.ProjectSync, as: ProjectSyncBuilder
-  alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
-
   alias Accent.{
+    Language,
     Project,
-    Revision,
-    Language
+    Revision
   }
 
   alias Accent.Hook.Context, as: HookContext
+  alias Movement.Builders.ProjectSync, as: ProjectSyncBuilder
+  alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
 
   plug(Plug.Assign, [canary_action: :peek_merge] when action === :merge)
   plug(Plug.Assign, [canary_action: :peek_sync] when action === :sync)

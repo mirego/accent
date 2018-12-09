@@ -1,8 +1,7 @@
 defmodule AccentTest.OperationBatcher do
   use Accent.RepoCase
 
-  require Ecto.Query
-  alias Ecto.Query
+  import Ecto.Query
 
   alias Accent.{
     Operation,
@@ -70,8 +69,8 @@ defmodule AccentTest.OperationBatcher do
 
     updated_operations =
       Operation
-      |> Query.where([o], o.id in ^operations)
-      |> Query.or_where(id: ^operation.id)
+      |> where([o], o.id in ^operations)
+      |> or_where(id: ^operation.id)
       |> Repo.all()
       |> Enum.map(&Map.get(&1, :batch_operation_id))
       |> Enum.uniq()
@@ -136,8 +135,8 @@ defmodule AccentTest.OperationBatcher do
 
     updated_operations =
       Operation
-      |> Query.where([o], o.id in ^operations)
-      |> Query.or_where(id: ^operation.id)
+      |> where([o], o.id in ^operations)
+      |> or_where(id: ^operation.id)
       |> Repo.all()
       |> Enum.map(&Map.get(&1, :batch_operation_id))
       |> Enum.uniq()
@@ -190,8 +189,8 @@ defmodule AccentTest.OperationBatcher do
 
     updated_operations =
       Operation
-      |> Query.where([o], o.id in ^operations)
-      |> Query.or_where(id: ^operation.id)
+      |> where([o], o.id in ^operations)
+      |> or_where(id: ^operation.id)
       |> Repo.all()
       |> Enum.map(&Map.get(&1, :batch_operation_id))
       |> Enum.uniq()

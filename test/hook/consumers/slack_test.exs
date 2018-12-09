@@ -8,11 +8,11 @@ defmodule AccentTest.Hook.Consumers.Slack do
   use Accent.RepoCase
 
   alias Accent.{
-    Repo,
-    Project,
-    User,
+    Hook.Consumers.Slack,
     Integration,
-    Hook.Consumers.Slack
+    Project,
+    Repo,
+    User
   }
 
   setup do

@@ -1,15 +1,15 @@
 defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
   use Accent.RepoCase
 
-  alias Movement.Builders.RevisionCorrectAll, as: RevisionCorrectAllBuilder
-
   alias Accent.{
-    Repo,
+    Language,
     ProjectCreator,
+    Repo,
     Translation,
-    User,
-    Language
+    User
   }
+
+  alias Movement.Builders.RevisionCorrectAll, as: RevisionCorrectAllBuilder
 
   @user %User{email: "test@test.com"}
 

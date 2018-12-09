@@ -1,7 +1,7 @@
 defmodule Accent.OperationBatcher do
   import Ecto.Query, only: [from: 2]
 
-  alias Accent.{Repo, Operation}
+  alias Accent.{Operation, Repo}
 
   @time_limit 60
   @time_unit "minute"

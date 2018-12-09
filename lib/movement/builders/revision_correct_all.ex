@@ -3,9 +3,9 @@ defmodule Movement.Builders.RevisionCorrectAll do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Movement.Mappers.Operation, as: OperationMapper
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.{Repo, Translation}
+  alias Movement.Mappers.Operation, as: OperationMapper
 
   @action "correct_conflict"
 

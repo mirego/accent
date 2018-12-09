@@ -1,14 +1,14 @@
 defmodule AccentTest.Migrator.Down do
   use Accent.RepoCase
 
-  alias Movement.Migrator
-
   alias Accent.{
-    Repo,
-    Translation,
+    Operation,
     PreviousTranslation,
-    Operation
+    Repo,
+    Translation
   }
+
+  alias Movement.Migrator
 
   test ":noop" do
     assert {:ok, :noop} == Migrator.down(%{action: "noop"})

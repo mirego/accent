@@ -1,5 +1,5 @@
 defmodule Movement.Comparer do
-  alias Movement.Comparers.{SyncSmart, SyncPassive, MergeSmart, MergeForce, MergePassive}
+  alias Movement.Comparers.{MergeForce, MergePassive, MergeSmart, SyncPassive, SyncSmart}
 
   @callback compare(map, map) :: Movement.Operation.t()
 

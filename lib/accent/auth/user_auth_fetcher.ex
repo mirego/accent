@@ -2,8 +2,8 @@ defmodule Accent.UserAuthFetcher do
   import Ecto.Query, only: [from: 2]
 
   alias Accent.{
-    Repo,
     Collaborator,
+    Repo,
     User
   }
 

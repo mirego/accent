@@ -1,7 +1,7 @@
 defmodule Accent.Plugs.MovementContextParser do
   use Plug.Builder
 
-  alias Accent.{Repo, Document}
+  alias Accent.{Document, Repo}
   alias Accent.Scopes.Document, as: DocumentScope
   alias Movement.Context
 

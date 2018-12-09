@@ -1,7 +1,7 @@
 defmodule AccentTest.CollaboratorUpdater do
   use Accent.RepoCase
 
-  alias Accent.{Repo, User, Project, Collaborator, CollaboratorUpdater}
+  alias Accent.{Collaborator, CollaboratorUpdater, Project, Repo, User}
 
   test "update" do
     email = "test@test.com"

@@ -1,9 +1,9 @@
 defmodule Movement.Persisters.Base do
   require Ecto.Query
 
-  alias Movement.Migrator
+  alias Accent.{Operation, Repo}
   alias Movement.Mappers.OperationsStats, as: StatMapper
-  alias Accent.{Repo, Operation}
+  alias Movement.Migrator
 
   # Inserts operations by batch of 500 to prevent parameters
   # overflow in database adapter

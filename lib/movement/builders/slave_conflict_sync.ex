@@ -3,9 +3,9 @@ defmodule Movement.Builders.SlaveConflictSync do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Movement.Mappers.Operation, as: OperationMapper
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.{Repo, Translation}
+  alias Movement.Mappers.Operation, as: OperationMapper
 
   @included_actions ~w(conflict_on_corrected conflict_on_proposed)
   @action "conflict_on_slave"

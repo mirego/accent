@@ -17,7 +17,7 @@
         {Credo.Check.Design.DuplicatedCode, excluded_macros: []},
         {Credo.Check.Design.TagTODO},
         {Credo.Check.Design.TagFIXME},
-        {Credo.Check.Readability.AliasOrder, false},
+        {Credo.Check.Readability.AliasOrder},
         {Credo.Check.Readability.FunctionNames},
         {Credo.Check.Readability.LargeNumbers},
         {Credo.Check.Readability.MaxLineLength, max_length: 200},
@@ -40,9 +40,8 @@
         {Credo.Check.Refactor.NegatedConditionsWithElse},
         {Credo.Check.Refactor.Nesting},
         {Credo.Check.Refactor.UnlessWithElse},
-        {CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime},
         {Credo.Check.Warning.IExPry},
-        {Credo.Check.Warning.IoInspect, false},
+        {Credo.Check.Warning.IoInspect},
         {Credo.Check.Warning.OperationOnSameValues},
         {Credo.Check.Warning.BoolOperationOnSameValues},
         {Credo.Check.Warning.UnusedEnumOperation},
@@ -50,7 +49,8 @@
         {Credo.Check.Warning.UnusedListOperation},
         {Credo.Check.Warning.UnusedStringOperation},
         {Credo.Check.Warning.UnusedTupleOperation},
-        {Credo.Check.Warning.OperationWithConstantResult}
+        {Credo.Check.Warning.OperationWithConstantResult},
+        {CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime}
       ]
     }
   ]

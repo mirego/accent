@@ -2,7 +2,7 @@ defmodule AccentTest.ProjectCreator do
   use Accent.RepoCase
   require Ecto.Query
 
-  alias Accent.{Repo, Language, User, ProjectCreator}
+  alias Accent.{Language, ProjectCreator, Repo, User}
 
   test "create with language and user" do
     language = %Language{name: "french"} |> Repo.insert!()

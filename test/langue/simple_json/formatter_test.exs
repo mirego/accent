@@ -3,9 +3,9 @@ defmodule LangueTest.Formatter.SimpleJson do
 
   Code.require_file("expectation_test.exs", __DIR__)
 
-  alias LangueTest.Formatter.SimpleJson.Expectation.{SimpleParse, SimpleSerialize}
-  alias Langue.Formatter.SimpleJson
   alias Accent.FormatterTestHelper
+  alias Langue.Formatter.SimpleJson
+  alias LangueTest.Formatter.SimpleJson.Expectation.{SimpleParse, SimpleSerialize}
 
   @tests [
     Empty

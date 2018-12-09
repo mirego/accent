@@ -1,9 +1,9 @@
 defmodule AccentTest.UserRemote.TokenGiver do
   use Accent.RepoCase
 
+  alias Accent.AccessToken
   alias Accent.Repo
   alias Accent.User
-  alias Accent.AccessToken
   alias Accent.UserRemote.TokenGiver
 
   @user %User{email: "test@test.com"}

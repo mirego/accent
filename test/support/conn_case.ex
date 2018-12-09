@@ -15,10 +15,10 @@ defmodule Accent.ConnCase do
 
   use ExUnit.CaseTemplate
 
-  alias Ecto.{Adapters.SQL.Sandbox}
-  alias Phoenix.ConnTest
   alias Accent.Endpoint
   alias Accent.Repo
+  alias Ecto.{Adapters.SQL.Sandbox}
+  alias Phoenix.ConnTest
 
   using do
     quote do

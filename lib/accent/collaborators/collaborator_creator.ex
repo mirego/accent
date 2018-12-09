@@ -1,5 +1,5 @@
 defmodule Accent.CollaboratorCreator do
-  alias Accent.{Repo, Collaborator, User}
+  alias Accent.{Collaborator, Repo, User}
 
   def create(params) do
     %Collaborator{}

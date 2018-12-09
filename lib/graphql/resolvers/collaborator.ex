@@ -1,12 +1,12 @@
 defmodule Accent.GraphQL.Resolvers.Collaborator do
   alias Accent.{
-    Repo,
-    Project,
     Collaborator,
     CollaboratorCreator,
     CollaboratorUpdater,
     Hook,
-    Plugs.GraphQLContext
+    Plugs.GraphQLContext,
+    Project,
+    Repo
   }
 
   @typep collaborator_operation :: {:ok, %{collaborator: Collaborator.t() | nil, errors: [String.t()] | nil}}

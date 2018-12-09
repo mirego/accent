@@ -1,8 +1,8 @@
 defmodule Movement.Builders.Rollback do
   @behaviour Movement.Builder
 
-  alias Movement.Operation
   alias Accent.PreviousTranslation
+  alias Movement.Operation
 
   @action "rollback"
 

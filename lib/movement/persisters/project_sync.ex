@@ -3,9 +3,8 @@ defmodule Movement.Persisters.ProjectSync do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Accent.Repo
+  alias Accent.{Project, Repo}
   alias Movement.Persisters.Base, as: BasePersister
-  alias Accent.{Repo, Project}
 
   @batch_action "sync"
 

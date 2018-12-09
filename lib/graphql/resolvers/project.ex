@@ -4,14 +4,14 @@ defmodule Accent.GraphQL.Resolvers.Project do
   alias Accent.Scopes.Project, as: ProjectScope
 
   alias Accent.{
-    Repo,
+    GraphQL.Paginated,
+    Plugs.GraphQLContext,
     Project,
     ProjectCreator,
-    ProjectUpdater,
     ProjectDeleter,
-    User,
-    GraphQL.Paginated,
-    Plugs.GraphQLContext
+    ProjectUpdater,
+    Repo,
+    User
   }
 
   alias Ecto.Query

@@ -4,8 +4,8 @@ defmodule AccentTest.BadgeController do
   import Mock
 
   alias Accent.{
-    Repo,
-    Project
+    Project,
+    Repo
   }
 
   defp behave_like_valid_response(response) do

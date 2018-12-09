@@ -6,15 +6,15 @@ defmodule AccentTest.SyncController do
   setup :verify_on_exit!
 
   alias Accent.{
-    Repo,
-    Project,
-    Revision,
-    Document,
-    User,
     AccessToken,
     Collaborator,
+    Document,
+    Language,
     Operation,
-    Language
+    Project,
+    Repo,
+    Revision,
+    User
   }
 
   @user %User{email: "test@test.com"}

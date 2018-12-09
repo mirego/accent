@@ -1,5 +1,5 @@
 defmodule Accent.CollaboratorUpdater do
-  alias Accent.{Repo, Collaborator}
+  alias Accent.{Collaborator, Repo}
 
   def update(collaborator, params) do
     collaborator

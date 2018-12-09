@@ -4,11 +4,11 @@ defmodule AccentTest.GraphQL.Resolvers.AccessToken do
   alias Accent.GraphQL.Resolvers.AccessToken, as: Resolver
 
   alias Accent.{
-    Repo,
-    Project,
-    User,
+    AccessToken,
     Collaborator,
-    AccessToken
+    Project,
+    Repo,
+    User
   }
 
   test "show project" do

@@ -1,5 +1,5 @@
 defmodule Accent.IntegrationManager do
-  alias Accent.{Repo, Integration}
+  alias Accent.{Integration, Repo}
 
   import Ecto.Changeset
 

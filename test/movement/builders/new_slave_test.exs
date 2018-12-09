@@ -1,17 +1,17 @@
 defmodule AccentTest.Movement.Builders.NewSlave do
   use Accent.RepoCase
 
-  alias Movement.Builders.NewSlave, as: NewSlaveBuilder
-  alias Accent.ProjectCreator
-
   alias Accent.{
+    Document,
+    Language,
+    PreviousTranslation,
+    ProjectCreator,
     Repo,
     Translation,
-    PreviousTranslation,
-    User,
-    Language,
-    Document
+    User
   }
+
+  alias Movement.Builders.NewSlave, as: NewSlaveBuilder
 
   @user %User{email: "test@test.com"}
 

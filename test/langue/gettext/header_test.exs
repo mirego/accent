@@ -7,9 +7,9 @@ defmodule LangueTest.Formatter.Gettext.Header do
   alias Langue.Formatter.Gettext
 
   alias LangueTest.Formatter.Gettext.Expectation.{
-    Simple,
     LanguageHeader,
-    PluralFormsHeader
+    PluralFormsHeader,
+    Simple
   }
 
   test "language in header" do

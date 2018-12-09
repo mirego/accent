@@ -1,17 +1,17 @@
 defmodule AccentTest.Movement.Builders.NewVersion do
   use Accent.RepoCase
 
-  alias Movement.Builders.NewVersion, as: NewVersionBuilder
-  alias Accent.ProjectCreator
-
   alias Accent.{
+    Document,
+    Language,
+    ProjectCreator,
     Repo,
     Translation,
     User,
-    Language,
-    Version,
-    Document
+    Version
   }
+
+  alias Movement.Builders.NewVersion, as: NewVersionBuilder
 
   @user %User{email: "test@test.com"}
 

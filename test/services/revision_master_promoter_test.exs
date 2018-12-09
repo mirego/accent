@@ -1,8 +1,7 @@
 defmodule AccentTest.RevisionMasterPromoter do
   use Accent.RepoCase
-  require Ecto.Query
 
-  alias Accent.{Repo, Language, Revision, Project, RevisionMasterPromoter}
+  alias Accent.{Language, Project, Repo, Revision, RevisionMasterPromoter}
 
   setup do
     french_language = %Language{name: "french"} |> Repo.insert!()

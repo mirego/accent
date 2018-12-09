@@ -3,15 +3,15 @@ defmodule AccentTest.Movement.Persisters.Base do
 
   import Ecto.Query
 
-  alias Movement.Persisters.Base, as: BasePersister
-
   alias Accent.{
-    Repo,
-    Translation,
+    Operation,
     PreviousTranslation,
+    Repo,
     Revision,
-    Operation
+    Translation
   }
+
+  alias Movement.Persisters.Base, as: BasePersister
 
   test "don’t overwrite revision" do
     revision = %Revision{} |> Repo.insert!()

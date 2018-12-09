@@ -4,10 +4,10 @@ defmodule AccentTest.UserRemote.Authenticator do
   alias Accent.UserRemote.Authenticator
 
   alias Accent.{
-    Repo,
     Collaborator,
     Language,
     Project,
+    Repo,
     User
   }
 

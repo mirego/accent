@@ -2,16 +2,16 @@ defmodule Accent.GraphQL.Helpers.Authorization do
   import Accent.GraphQL.Plugins.Authorization
 
   alias Accent.{
-    Project,
-    Version,
-    Translation,
-    Revision,
     Collaborator,
-    TranslationCommentsSubscription,
     Document,
-    Operation,
     Integration,
-    Repo
+    Operation,
+    Project,
+    Repo,
+    Revision,
+    Translation,
+    TranslationCommentsSubscription,
+    Version
   }
 
   def viewer_authorize(action, func) do

@@ -1,14 +1,14 @@
 defmodule AccentTest.Plugs.MovementContextParser do
   use Accent.RepoCase
   use Plug.Test
-  alias Accent.Plugs.MovementContextParser
 
   alias Accent.{
-    Repo,
-    ProjectCreator,
+    Document,
     Language,
-    User,
-    Document
+    Plugs.MovementContextParser,
+    ProjectCreator,
+    Repo,
+    User
   }
 
   def file(filename \\ "simple.json") do

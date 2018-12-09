@@ -4,11 +4,11 @@ defmodule AccentTest.Movement.Builders.RevisionUncorrectAll do
   alias Movement.Builders.RevisionUncorrectAll, as: RevisionUncorrectAllBuilder
 
   alias Accent.{
+    Language,
     ProjectCreator,
     Repo,
     Translation,
-    User,
-    Language
+    User
   }
 
   @user %User{email: "test@test.com"}

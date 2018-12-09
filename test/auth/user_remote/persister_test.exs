@@ -1,11 +1,11 @@
 defmodule AccentTest.UserRemote.Persister do
   use Accent.RepoCase
 
+  alias Accent.AuthProvider
   alias Accent.Repo
   alias Accent.User
-  alias Accent.AuthProvider
-  alias Accent.UserRemote.Persister
   alias Accent.UserRemote.Adapter.User, as: UserFromFetcher
+  alias Accent.UserRemote.Persister
 
   @user %UserFromFetcher{email: "test@test.com", provider: "google", uid: "1234"}
 

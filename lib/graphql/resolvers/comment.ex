@@ -2,13 +2,13 @@ defmodule Accent.GraphQL.Resolvers.Comment do
   alias Accent.Scopes.Comment, as: CommentScope
 
   alias Accent.{
-    Repo,
     Comment,
-    Translation,
-    Project,
-    Hook,
     GraphQL.Paginated,
-    Plugs.GraphQLContext
+    Hook,
+    Plugs.GraphQLContext,
+    Project,
+    Repo,
+    Translation
   }
 
   @typep comment_operation :: {:ok, %{comment: Comment.t() | nil, errors: [String.t()] | nil}}

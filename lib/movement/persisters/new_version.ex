@@ -1,9 +1,8 @@
 defmodule Movement.Persisters.NewVersion do
   @behaviour Movement.Persister
 
-  alias Accent.Repo
-  alias Movement.Persisters.Base, as: BasePersister
   alias Accent.{Repo, Version}
+  alias Movement.Persisters.Base, as: BasePersister
 
   @batch_action "create_version"
 

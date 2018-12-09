@@ -1,16 +1,14 @@
 defmodule AccentTest.Movement.Persisters.NewSlave do
   use Accent.RepoCase
 
-  require Ecto.Query
+  alias Accent.{
+    Language,
+    ProjectCreator,
+    Repo,
+    User
+  }
 
   alias Movement.Persisters.NewSlave, as: NewSlavePersister
-
-  alias Accent.{
-    Repo,
-    ProjectCreator,
-    User,
-    Language
-  }
 
   @user %User{email: "test@test.com"}
 

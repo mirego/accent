@@ -7,9 +7,9 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
   alias Accent.GraphQL.Resolvers.Collaborator, as: Resolver
 
   alias Accent.{
-    Repo,
-    Project,
     Collaborator,
+    Project,
+    Repo,
     User
   }
 

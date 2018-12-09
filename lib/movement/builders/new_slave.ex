@@ -3,10 +3,10 @@ defmodule Movement.Builders.NewSlave do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Movement.Mappers.Operation, as: OperationMapper
-  alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.Scopes.Revision, as: RevisionScope
-  alias Accent.{Translation, Revision, Repo}
+  alias Accent.Scopes.Translation, as: TranslationScope
+  alias Accent.{Repo, Revision, Translation}
+  alias Movement.Mappers.Operation, as: OperationMapper
 
   @action "new"
 

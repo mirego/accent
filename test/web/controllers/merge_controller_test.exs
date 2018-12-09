@@ -6,16 +6,16 @@ defmodule AccentTest.MergeController do
   setup :verify_on_exit!
 
   alias Accent.{
-    Repo,
-    Project,
-    Revision,
-    Document,
-    User,
     AccessToken,
     Collaborator,
-    Translation,
+    Document,
+    Language,
     Operation,
-    Language
+    Project,
+    Repo,
+    Revision,
+    Translation,
+    User
   }
 
   @user %User{email: "test@test.com"}

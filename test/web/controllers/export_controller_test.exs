@@ -2,14 +2,14 @@ defmodule AccentTest.ExportController do
   use Accent.ConnCase
 
   alias Accent.{
-    Repo,
-    Project,
-    Translation,
-    Revision,
     Document,
-    Version,
+    Language,
+    Project,
+    Repo,
+    Revision,
+    Translation,
     User,
-    Language
+    Version
   }
 
   @user %User{email: "test@test.com"}

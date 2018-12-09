@@ -3,7 +3,7 @@ defmodule Movement.Migration.Translation do
 
   import Movement.EctoMigrationHelper
 
-  alias Accent.{Translation, Operation}
+  alias Accent.{Operation, Translation}
 
   def call(:update_proposed, operation) do
     operation.translation
