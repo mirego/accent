@@ -22,7 +22,7 @@ defmodule AccentTest.TranslationsRenderer do
       project
       |> Repo.preload(:revisions)
       |> Map.get(:revisions)
-      |> Enum.at(0)
+      |> hd()
       |> Repo.preload(:language)
 
     {:ok, [project: project, revision: revision]}

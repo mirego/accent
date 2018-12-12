@@ -33,19 +33,19 @@ defmodule Accent.Translation do
     timestamps()
   end
 
-  @optional_fields [
-    :proposed_text,
-    :corrected_text,
-    :conflicted_text,
-    :conflicted,
-    :removed,
-    :comments_count,
-    :file_index,
-    :file_comment,
-    :value_type,
-    :document_id,
-    :placeholders
-  ]
+  @optional_fields ~w(
+    proposed_text
+    corrected_text
+    conflicted_text
+    conflicted
+    removed
+    comments_count
+    file_index
+    file_comment
+    value_type
+    document_id
+    placeholders
+  )a
   def changeset(model, params) do
     model
     |> cast(params, @optional_fields)

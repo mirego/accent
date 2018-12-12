@@ -146,6 +146,6 @@ defmodule Accent.ExportController do
   defp extract_path_from_filename(filename) do
     filename
     |> String.split(".", parts: 2)
-    |> Enum.at(0)
+    |> hd()
   end
 end

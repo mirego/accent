@@ -9,7 +9,7 @@ defmodule Accent.Scopes.Comment do
   """
   @spec default_order(Ecto.Queryable.t()) :: Ecto.Queryable.t()
   def default_order(query) do
-    from(c in query, order_by: [desc: :inserted_at])
+    from(query, order_by: [desc: :inserted_at])
   end
 
   @doc """

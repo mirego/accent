@@ -32,7 +32,8 @@ defmodule Accent.PreviousTranslation do
   def from_translation(nil), do: from_translation(%{})
 
   def from_translation(translation) do
-    fields = Map.take(translation, @fields)
-    struct(__MODULE__, fields)
+    translation
+    |> Map.take(@fields)
+    |> (&struct(__MODULE__, &1)).()
   end
 end

@@ -16,11 +16,11 @@ defmodule Accent.Project do
     timestamps()
   end
 
-  @optional_fields [
-    :name,
-    :last_synced_at,
-    :locked_file_operations
-  ]
+  @optional_fields ~w(
+    name
+    last_synced_at
+    locked_file_operations
+  )a
   def changeset(model, params) do
     model
     |> cast(params, @optional_fields)

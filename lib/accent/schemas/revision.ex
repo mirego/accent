@@ -20,7 +20,7 @@ defmodule Accent.Revision do
     timestamps()
   end
 
-  @required_fields [:language_id, :project_id, :master_revision_id, :master]
+  @required_fields ~w(language_id project_id master_revision_id master)a
 
   def changeset(model, params) do
     model

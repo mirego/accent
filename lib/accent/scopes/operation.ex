@@ -13,7 +13,7 @@ defmodule Accent.Scopes.Operation do
   def filter_from_user(query, nil), do: query
 
   def filter_from_user(query, user_id) do
-    from(o in query, where: [user_id: ^user_id])
+    from(query, where: [user_id: ^user_id])
   end
 
   @doc """
@@ -28,7 +28,7 @@ defmodule Accent.Scopes.Operation do
   def filter_from_action(query, nil), do: query
 
   def filter_from_action(query, action) do
-    from(o in query, where: [action: ^action])
+    from(query, where: [action: ^action])
   end
 
   @doc """
@@ -46,7 +46,7 @@ defmodule Accent.Scopes.Operation do
   def filter_from_batch(query, batch) when not is_boolean(batch), do: query
 
   def filter_from_batch(query, batch) do
-    from(o in query, where: [batch: ^batch])
+    from(query, where: [batch: ^batch])
   end
 
   @doc """
@@ -57,7 +57,7 @@ defmodule Accent.Scopes.Operation do
   """
   @spec order_last_to_first(Ecto.Queryable.t()) :: Ecto.Queryable.t()
   def order_last_to_first(query) do
-    from(o in query, order_by: [desc: :inserted_at, asc: :batch])
+    from(query, order_by: [desc: :inserted_at, asc: :batch])
   end
 
   @doc """

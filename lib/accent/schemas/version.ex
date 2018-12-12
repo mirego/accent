@@ -14,7 +14,7 @@ defmodule Accent.Version do
     timestamps()
   end
 
-  @required_fields [:project_id, :user_id, :name, :tag]
+  @required_fields ~w(project_id user_id name tag)a
 
   def changeset(model, params) do
     model

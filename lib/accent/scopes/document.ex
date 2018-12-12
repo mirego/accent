@@ -9,7 +9,7 @@ defmodule Accent.Scopes.Document do
   """
   @spec from_project(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_project(query, project_id) do
-    from(d in query, where: [project_id: ^project_id])
+    from(query, where: [project_id: ^project_id])
   end
 
   @doc """
@@ -20,6 +20,6 @@ defmodule Accent.Scopes.Document do
   """
   @spec from_path(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_path(query, path) do
-    from(d in query, where: [path: ^path])
+    from(query, where: [path: ^path])
   end
 end

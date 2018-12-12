@@ -4,8 +4,7 @@ defmodule Accent.PeekView do
   def render("index.json", %{operations: operations}) do
     data =
       Enum.reduce(operations, %{}, fn {revision_id, operations}, acc ->
-        acc
-        |> Map.put(revision_id, render_many(operations, Accent.PeekView, "operation.json"))
+        Map.put(acc, revision_id, render_many(operations, Accent.PeekView, "operation.json"))
       end)
 
     stats =
@@ -13,8 +12,7 @@ defmodule Accent.PeekView do
       |> Enum.reduce(%{}, fn {revision_id, operations}, acc ->
         stat = fetch_stats(operations)
 
-        acc
-        |> Map.put(revision_id, stat)
+        Map.put(acc, revision_id, stat)
       end)
 
     %{data: %{operations: data, stats: stats}}

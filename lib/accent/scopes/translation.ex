@@ -33,13 +33,13 @@ defmodule Accent.Scopes.Translation do
     #Ecto.Query<from t in Accent.Translation, order_by: [desc: t.file_index]>
   """
   @spec parse_order(Ecto.Queryable.t(), any()) :: Ecto.Queryable.t()
-  def parse_order(query, "index"), do: from(t in query, order_by: [asc: :file_index])
-  def parse_order(query, "-index"), do: from(t in query, order_by: [desc: :file_index])
-  def parse_order(query, "key"), do: from(t in query, order_by: [asc: :key])
-  def parse_order(query, "-key"), do: from(t in query, order_by: [desc: :key])
-  def parse_order(query, "updated"), do: from(t in query, order_by: [asc: :updated_at])
-  def parse_order(query, "-updated"), do: from(t in query, order_by: [desc: :updated_at])
-  def parse_order(query, _), do: from(t in query, order_by: [asc: :key])
+  def parse_order(query, "index"), do: from(query, order_by: [asc: :file_index])
+  def parse_order(query, "-index"), do: from(query, order_by: [desc: :file_index])
+  def parse_order(query, "key"), do: from(query, order_by: [asc: :key])
+  def parse_order(query, "-key"), do: from(query, order_by: [desc: :key])
+  def parse_order(query, "updated"), do: from(query, order_by: [asc: :updated_at])
+  def parse_order(query, "-updated"), do: from(query, order_by: [desc: :updated_at])
+  def parse_order(query, _), do: from(query, order_by: [asc: :key])
 
   @doc """
   ## Examples
@@ -48,7 +48,7 @@ defmodule Accent.Scopes.Translation do
     #Ecto.Query<from t in Accent.Translation, where: t.removed == false>
   """
   @spec active(Ecto.Queryable.t()) :: Ecto.Queryable.t()
-  def active(query), do: from(t in query, where: [removed: false])
+  def active(query), do: from(query, where: [removed: false])
 
   @doc """
   ## Examples
@@ -57,7 +57,7 @@ defmodule Accent.Scopes.Translation do
     #Ecto.Query<from t in Accent.Translation, where: t.locked == false>
   """
   @spec not_locked(Ecto.Queryable.t()) :: Ecto.Queryable.t()
-  def not_locked(query), do: from(t in query, where: [locked: false])
+  def not_locked(query), do: from(query, where: [locked: false])
 
   @doc """
   ## Examples
@@ -81,7 +81,7 @@ defmodule Accent.Scopes.Translation do
     #Ecto.Query<from t in Accent.Translation, where: t.conflicted == true>
   """
   @spec conflicted(Ecto.Queryable.t()) :: Ecto.Queryable.t()
-  def conflicted(query), do: from(t in query, where: [conflicted: true])
+  def conflicted(query), do: from(query, where: [conflicted: true])
 
   @doc """
   ## Examples
@@ -90,7 +90,7 @@ defmodule Accent.Scopes.Translation do
     #Ecto.Query<from t in Accent.Translation, where: t.conflicted == false>
   """
   @spec not_conflicted(Ecto.Queryable.t()) :: Ecto.Queryable.t()
-  def not_conflicted(query), do: from(t in query, where: [conflicted: false])
+  def not_conflicted(query), do: from(query, where: [conflicted: false])
 
   @doc """
   ## Examples
@@ -111,7 +111,7 @@ defmodule Accent.Scopes.Translation do
   """
   @spec from_version(Ecto.Queryable.t(), any()) :: Ecto.Queryable.t()
   def from_version(query, nil), do: from(t in query, where: is_nil(t.version_id))
-  def from_version(query, version_id), do: from(t in query, where: [version_id: ^version_id])
+  def from_version(query, version_id), do: from(query, where: [version_id: ^version_id])
 
   @doc """
   ## Examples
@@ -120,7 +120,7 @@ defmodule Accent.Scopes.Translation do
     #Ecto.Query<from t in Accent.Translation, where: t.revision_id == ^"test">
   """
   @spec from_revision(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
-  def from_revision(query, revision_id), do: from(t in query, where: [revision_id: ^revision_id])
+  def from_revision(query, revision_id), do: from(query, where: [revision_id: ^revision_id])
 
   @doc """
   ## Examples
@@ -159,7 +159,7 @@ defmodule Accent.Scopes.Translation do
   @spec from_document(Ecto.Queryable.t(), any()) :: Ecto.Queryable.t()
   def from_document(query, nil), do: from(t in query, where: is_nil(t.document_id))
   def from_document(query, :all), do: query
-  def from_document(query, document_id), do: from(t in query, where: [document_id: ^document_id])
+  def from_document(query, document_id), do: from(query, where: [document_id: ^document_id])
 
   @doc """
   ## Examples
@@ -177,7 +177,7 @@ defmodule Accent.Scopes.Translation do
     #Ecto.Query<from t in Accent.Translation, where: t.key == ^"test">
   """
   @spec from_key(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
-  def from_key(query, key), do: from(t in query, where: [key: ^key])
+  def from_key(query, key), do: from(query, where: [key: ^key])
 
   @doc """
   ## Examples

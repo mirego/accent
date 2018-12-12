@@ -13,7 +13,7 @@ defmodule Accent.Scopes.Version do
   def from_project(query, nil), do: query
 
   def from_project(query, project_id) do
-    from(v in query, where: [project_id: ^project_id])
+    from(query, where: [project_id: ^project_id])
   end
 
   @doc """
@@ -28,6 +28,6 @@ defmodule Accent.Scopes.Version do
   def from_tag(query, nil), do: query
 
   def from_tag(query, tag) do
-    from(v in query, where: [tag: ^tag])
+    from(query, where: [tag: ^tag])
   end
 end

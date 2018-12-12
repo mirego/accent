@@ -8,7 +8,7 @@ defmodule Langue.Formatter.LaravelPhp.Serializer do
       %{language.slug => entries}
       |> Enum.with_index(-1)
       |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
-      |> Enum.at(0)
+      |> hd()
       |> elem(1)
       |> PhpAssocMap.from_tuple()
       |> PhpAssocMap.Exploder.explode()

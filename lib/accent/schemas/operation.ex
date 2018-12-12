@@ -58,11 +58,11 @@ defmodule Accent.Operation do
     timestamps()
   end
 
-  @optional_fields [
-    :rollbacked,
-    :translation_id,
-    :comment_id
-  ]
+  @optional_fields ~w(
+    rollbacked
+    translation_id
+    comment_id
+  )a
   def changeset(model, params) do
     model
     |> cast(params, [] ++ @optional_fields)

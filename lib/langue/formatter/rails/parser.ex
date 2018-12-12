@@ -8,7 +8,7 @@ defmodule Langue.Formatter.Rails.Parser do
 
     entries =
       content
-      |> Enum.at(0)
+      |> hd()
       |> elem(1)
       |> NestedParserHelper.parse()
       |> Placeholders.parse(Langue.Formatter.Rails.placeholder_regex())

@@ -48,7 +48,7 @@ defmodule Movement.EntriesCommitProcessor do
 
     new_operations =
       assigns[:translations]
-      |> Enum.filter(fn translation -> !translation.removed && translation.key not in grouped_entries_keys end)
+      |> Enum.filter(&(!&1.removed && &1.key not in grouped_entries_keys))
       |> Enum.map(fn current_translation ->
         suggested_translation = %{current_translation | marked_as_removed: true}
 
@@ -58,7 +58,7 @@ defmodule Movement.EntriesCommitProcessor do
     %{context | operations: Enum.concat(operations, new_operations)}
   end
 
-  defp group_by_key(list), do: Enum.group_by(list, &Map.get(&1, :key))
+  defp group_by_key(list), do: Enum.group_by(list, & &1.key)
 
   defp fetch_current_translation(grouped_translations, key) do
     grouped_translations

@@ -40,18 +40,16 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   def assign_movement_document(conn = %{assigns: %{project: project, movement_context: context, document_path: path, document_format: format}}, _opts) do
-    document =
-      Document
-      |> DocumentScope.from_path(path)
-      |> DocumentScope.from_project(project.id)
-      |> Repo.one()
-
-    case document do
+    Document
+    |> DocumentScope.from_path(path)
+    |> DocumentScope.from_project(project.id)
+    |> Repo.one()
+    |> case do
       nil ->
         context = Context.assign(context, :document, %Document{project_id: project.id, path: path, format: format})
         assign(conn, :movement_context, context)
 
-      _ ->
+      document ->
         document = %{document | format: format}
         context = Context.assign(context, :document, document)
         assign(conn, :movement_context, context)
@@ -90,6 +88,6 @@ defmodule Accent.Plugs.MovementContextParser do
   defp extract_path_from_filename(filename) do
     filename
     |> String.split(".", parts: 2)
-    |> Enum.at(0)
+    |> hd()
   end
 end

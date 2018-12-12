@@ -8,8 +8,10 @@ defmodule Accent.Plugs.BotParamsInjector do
   This makes the param not required in the URL when making calls such as `sync` or `merge`.
   """
   def assign_project_id(conn = %{assigns: %{current_user: user = %{bot: true}}}, _) do
-    case Enum.at(user.permissions, 0) do
-      {project_id, _} ->
+    user.permissions
+    |> Map.to_list()
+    |> case do
+      [{project_id, _} | _] ->
         project = %{"project_id" => project_id}
 
         conn

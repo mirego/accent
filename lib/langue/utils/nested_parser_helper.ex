@@ -5,15 +5,11 @@ defmodule Langue.Utils.NestedParserHelper do
   @plural_suffixes ~w(.zero .one .two .few .many .other)
 
   def group_by_key_with_index(entries, index, nested_separator \\ @nested_separator) do
-    grouped_entries =
-      entries
-      |> Enum.group_by(fn entry ->
-        entry.key |> String.split(nested_separator) |> Enum.at(index)
-      end)
+    grouped_entries = Enum.group_by(entries, &key_at(&1, nested_separator, index))
 
     entries
     |> Enum.reduce(%{keys: MapSet.new(), results: []}, fn entry, acc ->
-      key = entry.key |> String.split(nested_separator) |> Enum.at(index)
+      key = key_at(entry, nested_separator, index)
 
       if MapSet.member?(acc.keys, key) do
         acc
@@ -36,6 +32,12 @@ defmodule Langue.Utils.NestedParserHelper do
     |> Enum.with_index(1)
     |> Enum.map(fn {entry, index} -> %{entry | index: index} end)
     |> Enum.map(&parse_plural/1)
+  end
+
+  defp key_at(entry, nested_separator, index) do
+    entry.key
+    |> String.split(nested_separator)
+    |> Enum.at(index)
   end
 
   defp parse_plural(entry) do
