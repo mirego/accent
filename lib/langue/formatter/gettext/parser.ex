@@ -2,7 +2,7 @@ defmodule Langue.Formatter.Gettext.Parser do
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Entry
-  alias Langue.Utils.Interpolations
+  alias Langue.Utils.Placeholders
 
   def parse(%{render: render}) do
     {:ok, po} = Gettext.PO.parse_string(render)
@@ -22,7 +22,7 @@ defmodule Langue.Formatter.Gettext.Parser do
     |> Enum.flat_map(&parse_translation/1)
     |> Enum.with_index(1)
     |> Enum.map(fn {entry, index} -> %{entry | index: index} end)
-    |> Interpolations.parse(Langue.Formatter.Gettext.interpolation_regex())
+    |> Placeholders.parse(Langue.Formatter.Gettext.placeholder_regex())
   end
 
   defp parse_translation(translation = %{msgid_plural: _}) do

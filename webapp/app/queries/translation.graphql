@@ -20,7 +20,7 @@ query Translation($projectId: ID!, $translationId: ID!) {
 
         masterTranslation {
           id
-          interpolations
+          placeholders
         }
 
         version {

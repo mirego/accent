@@ -58,7 +58,7 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
     end
   end
 
-  defmodule InterpolationValues do
+  defmodule PlaceholderValues do
     use Langue.Expectation.Case
 
     def render do
@@ -74,10 +74,10 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, {{username}}.", interpolations: ~w({{username}})},
-        %Entry{index: 2, key: "multiple", value: "Hello, {{firstname}} {{lastname}}.", interpolations: ~w({{firstname}} {{lastname}})},
-        %Entry{index: 3, key: "duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", interpolations: ~w({{username}} {{username}})},
-        %Entry{index: 4, key: "empty", value: "Hello, {{}}.", interpolations: ~w({{}})}
+        %Entry{index: 1, key: "single", value: "Hello, {{username}}.", placeholders: ~w({{username}})},
+        %Entry{index: 2, key: "multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}})},
+        %Entry{index: 3, key: "duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", placeholders: ~w({{username}} {{username}})},
+        %Entry{index: 4, key: "empty", value: "Hello, {{}}.", placeholders: ~w({{}})}
       ]
     end
   end

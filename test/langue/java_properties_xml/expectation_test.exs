@@ -28,7 +28,7 @@ defmodule LangueTest.Formatter.JavaPropertiesXml.Expectation do
     end
   end
 
-  defmodule InterpolationValues do
+  defmodule PlaceholderValues do
     use Langue.Expectation.Case
 
     def render do
@@ -45,7 +45,7 @@ defmodule LangueTest.Formatter.JavaPropertiesXml.Expectation do
     end
 
     def entries do
-      LangueTest.Formatter.JavaProperties.Expectation.InterpolationValues.entries()
+      LangueTest.Formatter.JavaProperties.Expectation.PlaceholderValues.entries()
     end
   end
 end

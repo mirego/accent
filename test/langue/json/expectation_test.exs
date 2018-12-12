@@ -236,13 +236,13 @@ defmodule LangueTest.Formatter.Json.Expectation do
     end
   end
 
-  defmodule InterpolationValues do
+  defmodule PlaceholderValues do
     use Langue.Expectation.Case
 
     def render do
       """
       {
-        "interpolations": {
+        "placeholders": {
           "single": "Hello, {{username}}.",
           "multiple": "Hello, {{firstname}} {{lastname}}.",
           "duplicate": "Hello, {{username}}. Welcome back {{username}}.",
@@ -254,10 +254,10 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "interpolations.single", value: "Hello, {{username}}.", interpolations: ~w({{username}})},
-        %Entry{index: 2, key: "interpolations.multiple", value: "Hello, {{firstname}} {{lastname}}.", interpolations: ~w({{firstname}} {{lastname}})},
-        %Entry{index: 3, key: "interpolations.duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", interpolations: ~w({{username}} {{username}})},
-        %Entry{index: 4, key: "interpolations.empty", value: "Hello, {{}}.", interpolations: ~w({{}})}
+        %Entry{index: 1, key: "placeholders.single", value: "Hello, {{username}}.", placeholders: ~w({{username}})},
+        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}})},
+        %Entry{index: 3, key: "placeholders.duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", placeholders: ~w({{username}} {{username}})},
+        %Entry{index: 4, key: "placeholders.empty", value: "Hello, {{}}.", placeholders: ~w({{}})}
       ]
     end
   end

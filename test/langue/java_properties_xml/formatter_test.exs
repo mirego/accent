@@ -7,7 +7,7 @@ defmodule LangueTest.Formatter.JavaPropertiesXml do
 
   @tests [
     Simple,
-    InterpolationValues
+    PlaceholderValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.JavaPropertiesXml.Expectation, test) do

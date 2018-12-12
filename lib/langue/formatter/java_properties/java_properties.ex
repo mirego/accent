@@ -4,7 +4,7 @@ defmodule Langue.Formatter.JavaProperties do
   alias Langue.Formatter.JavaProperties.{Parser, Serializer}
 
   def name, do: "java_properties"
-  def interpolation_regex, do: ~r/\${[^}]*}/
+  def placeholder_regex, do: ~r/\${[^}]*}/
 
   defdelegate parse(map), to: Parser
   defdelegate serialize(map), to: Serializer

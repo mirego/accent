@@ -1,13 +1,13 @@
-defmodule Accent.Repo.Migrations.AddInterpolationsForTranslations do
+defmodule Accent.Repo.Migrations.AddPlaceholdersForTranslations do
   use Ecto.Migration
 
   def change do
     alter table(:translations) do
-      add(:interpolations, {:array, :string}, null: false, default: [])
+      add(:placeholders, {:array, :string}, null: false, default: [])
     end
 
     alter table(:operations) do
-      add(:interpolations, {:array, :string}, null: false, default: [])
+      add(:placeholders, {:array, :string}, null: false, default: [])
     end
   end
 end

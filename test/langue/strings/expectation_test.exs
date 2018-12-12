@@ -90,7 +90,7 @@ defmodule LangueTest.Formatter.Strings.Expectation do
     end
   end
 
-  defmodule InterpolationValues do
+  defmodule PlaceholderValues do
     use Langue.Expectation.Case
 
     def render do
@@ -103,9 +103,9 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, %s.", interpolations: ~w(%s)},
-        %Entry{index: 2, key: "multiple", value: "Hello, %1$s %2$s.", interpolations: ~w(%1$s %2$s)},
-        %Entry{index: 3, key: "duplicate", value: "Hello, %1$s %2$s. Welcome back %1$s %2$s.", interpolations: ~w(%1$s %2$s %1$s %2$s)}
+        %Entry{index: 1, key: "single", value: "Hello, %s.", placeholders: ~w(%s)},
+        %Entry{index: 2, key: "multiple", value: "Hello, %1$s %2$s.", placeholders: ~w(%1$s %2$s)},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %1$s %2$s. Welcome back %1$s %2$s.", placeholders: ~w(%1$s %2$s %1$s %2$s)}
       ]
     end
   end

@@ -43,22 +43,22 @@
     {{/if}}
   {{/if}}
 
-  {{#if interpolations}}
-    <div class="interpolations">
-      <span class="interpolations-title">
-        {{inline-svg 'assets/code.svg' class='interpolations-title-icon'}}
-        {{t 'components.translation_edit.form.interpolations.title'}}
+  {{#if placeholders}}
+    <div class="placeholders">
+      <span class="placeholders-title">
+        {{inline-svg 'assets/code.svg' class='placeholders-title-icon'}}
+        {{t 'components.translation_edit.form.placeholders.title'}}
       </span>
-      <div class="interpolations-text">
-        <p class="interpolations-text-content">
-          {{t 'components.translation_edit.form.interpolations.text'}}
+      <div class="placeholders-text">
+        <p class="placeholders-text-content">
+          {{t 'components.translation_edit.form.placeholders.text'}}
         </p>
       </div>
 
       <ul>
-        {{#each interpolations as |interpolation|}}
-          <li class="interpolations-item {{if (get unusedInterpolations interpolation) 'interpolations-item--warning'}}">
-            <code>{{interpolation}}</code>
+        {{#each placeholders as |placeholder|}}
+          <li class="placeholders-item {{if (get unusedPlaceholders placeholder) 'placeholders-item--warning'}}">
+            <code>{{placeholder}}</code>
           </li>
         {{/each}}
       </ul>
