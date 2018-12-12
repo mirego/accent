@@ -56,7 +56,7 @@ defmodule AccentTest.Movement.Builders.Rollback do
         removed: false,
         revision_id: revision.id,
         value_type: "string",
-        interpolations: []
+        placeholders: []
       }
       |> Repo.insert!()
 
@@ -94,7 +94,7 @@ defmodule AccentTest.Movement.Builders.Rollback do
              conflicted_text: translation.conflicted_text,
              conflicted: translation.conflicted,
              removed: translation.removed,
-             interpolations: translation.interpolations
+             placeholders: translation.placeholders
            }
   end
 end

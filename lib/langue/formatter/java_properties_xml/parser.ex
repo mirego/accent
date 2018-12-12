@@ -1,7 +1,7 @@
 defmodule Langue.Formatter.JavaPropertiesXml.Parser do
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Utils.{Interpolations, LineByLineHelper}
+  alias Langue.Utils.{LineByLineHelper, Placeholders}
 
   @header """
   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -16,7 +16,7 @@ defmodule Langue.Formatter.JavaPropertiesXml.Parser do
       render
       |> String.replace(@header, "")
       |> LineByLineHelper.Parser.lines(@prop_line_regex)
-      |> Interpolations.parse(Langue.Formatter.JavaPropertiesXml.interpolation_regex())
+      |> Placeholders.parse(Langue.Formatter.JavaPropertiesXml.placeholder_regex())
 
     %Langue.Formatter.ParserResult{entries: entries}
   end

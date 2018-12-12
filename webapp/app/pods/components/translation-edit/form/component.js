@@ -13,9 +13,9 @@ export default Component.extend({
   isEmptyType: equal('valueType', 'EMPTY'),
   isNullType: equal('valueType', 'NULL'),
 
-  unusedInterpolations: computed('value', 'interpolations', function() {
-    return this.interpolations.reduce((memo, interpolation) => {
-      if (!this.value.includes(interpolation)) memo[interpolation] = true;
+  unusedPlaceholders: computed('value', 'placeholders', function() {
+    return this.placeholders.reduce((memo, placeholder) => {
+      if (!this.value.includes(placeholder)) memo[placeholder] = true;
       return memo;
     }, {});
   })

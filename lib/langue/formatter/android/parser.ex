@@ -2,7 +2,7 @@ defmodule Langue.Formatter.Android.Parser do
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Entry
-  alias Langue.Utils.Interpolations
+  alias Langue.Utils.Placeholders
 
   def parse(%{render: render}) do
     case :mochiweb_html.parse(render) do
@@ -11,7 +11,7 @@ defmodule Langue.Formatter.Android.Parser do
           strings
           |> Enum.reduce(%{comment: [], entries: [], index: 1}, &parse_line(&1, &2))
           |> Map.get(:entries)
-          |> Interpolations.parse(Langue.Formatter.Android.interpolation_regex())
+          |> Placeholders.parse(Langue.Formatter.Android.placeholder_regex())
 
         %Langue.Formatter.ParserResult{entries: entries}
 

@@ -1,8 +1,7 @@
 defmodule Langue.Formatter.LaravelPhp.Parser do
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Utils.Interpolations
-  alias Langue.Utils.NestedParserHelper
+  alias Langue.Utils.{NestedParserHelper, Placeholders}
   alias PhpAssocMap.Utils
 
   def parse(%{render: render}) do
@@ -11,7 +10,7 @@ defmodule Langue.Formatter.LaravelPhp.Parser do
       |> Utils.clean_up()
       |> PhpAssocMap.to_tuple()
       |> NestedParserHelper.parse()
-      |> Interpolations.parse(Langue.Formatter.LaravelPhp.interpolation_regex())
+      |> Placeholders.parse(Langue.Formatter.LaravelPhp.placeholder_regex())
 
     %Langue.Formatter.ParserResult{entries: entries}
   end

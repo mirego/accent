@@ -30,7 +30,7 @@ defmodule Movement.Builders.NewSlave do
           value_type: translation.value_type,
           plural: translation.plural,
           locked: translation.locked,
-          interpolations: translation.interpolations
+          placeholders: translation.placeholders
         })
       end)
 

@@ -71,7 +71,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
           plural: true,
           locked: true,
           value_type: "string",
-          interpolations: ~w(%{count})
+          placeholders: ~w(%{count})
         },
         %Entry{index: 3, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", plural: true, value_type: "string"},
         %Entry{
@@ -80,7 +80,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
           value: "should be at least %{count} character(s)",
           plural: true,
           value_type: "string",
-          interpolations: ~w(%{count})
+          placeholders: ~w(%{count})
         }
       ]
     end
@@ -177,7 +177,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     end
   end
 
-  defmodule InterpolationValues do
+  defmodule PlaceholderValues do
     use Langue.Expectation.Case
 
     def render do
@@ -198,10 +198,10 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, %{username}.", interpolations: ~w(%{username})},
-        %Entry{index: 2, key: "multiple", value: "Hello, %{firstname} %{lastname}.", interpolations: ~w(%{firstname} %{lastname})},
-        %Entry{index: 3, key: "duplicate", value: "Hello, %{username}. Welcome back %{username}.", interpolations: ~w(%{username} %{username})},
-        %Entry{index: 4, key: "empty", value: "Hello, %{}.", interpolations: ~w(%{})}
+        %Entry{index: 1, key: "single", value: "Hello, %{username}.", placeholders: ~w(%{username})},
+        %Entry{index: 2, key: "multiple", value: "Hello, %{firstname} %{lastname}.", placeholders: ~w(%{firstname} %{lastname})},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %{username}. Welcome back %{username}.", placeholders: ~w(%{username} %{username})},
+        %Entry{index: 4, key: "empty", value: "Hello, %{}.", placeholders: ~w(%{})}
       ]
     end
   end

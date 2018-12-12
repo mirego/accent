@@ -46,12 +46,12 @@
   }
 }
 
-.interpolations {
+.placeholders {
   margin: 0 0 15px;
   font-size: 12px;
 }
 
-.interpolations-title {
+.placeholders-title {
   display: flex;
   align-items: center;
   padding: 10px 10px 0;
@@ -62,7 +62,7 @@
   color: $color-blue;
 }
 
-.interpolations-text {
+.placeholders-text {
   margin-bottom: 6px;
   padding: 5px 10px 8px;
   background: lighten($color-blue, 46%);
@@ -70,11 +70,11 @@
   color: darken($color-blue, 15%);
 }
 
-.interpolations-text-content {
+.placeholders-text-content {
   max-width: 500px;
 }
 
-.interpolations-item {
+.placeholders-item {
   display: flex;
   align-items: center;
   padding-left: 12px;
@@ -82,20 +82,20 @@
   font-size: 14px;
   color: darken($color-blue, 15%);
 
-  &.interpolations-item--warning {
+  &.placeholders-item--warning {
     border-color: lighten($color-error, 20%);
     color: lighten($color-error, 10%);
   }
 }
 
-.interpolations-item-icon {
+.placeholders-item-icon {
   margin-right: 5px;
   width: 14px;
   height: 14px;
   fill: lighten($color-error, 15%);
 }
 
-.interpolations-title-icon {
+.placeholders-title-icon {
   width: 14px;
   height: 14px;
   margin-right: 6px;

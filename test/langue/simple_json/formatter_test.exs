@@ -9,7 +9,7 @@ defmodule LangueTest.Formatter.SimpleJson do
 
   @tests [
     Empty,
-    InterpolationValues
+    PlaceholderValues
   ]
 
   test "simple json parse" do

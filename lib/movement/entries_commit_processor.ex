@@ -27,7 +27,7 @@ defmodule Movement.EntriesCommitProcessor do
           plural: entry.plural,
           locked: entry.locked,
           revision_id: Map.get(assigns[:revision], :id),
-          interpolations: entry.interpolations
+          placeholders: entry.placeholders
         }
 
         assigns[:comparer].(current_translation, suggested_translation)

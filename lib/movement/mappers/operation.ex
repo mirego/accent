@@ -16,7 +16,7 @@ defmodule Movement.Mappers.Operation do
       document_id: Map.get(suggested_translation, :document_id),
       version_id: Map.get(suggested_translation, :version_id),
       previous_translation: PreviousTranslation.from_translation(current_translation),
-      interpolations: suggested_translation.interpolations
+      placeholders: suggested_translation.placeholders
     }
   end
 
@@ -35,7 +35,7 @@ defmodule Movement.Mappers.Operation do
       locked: Map.get(suggested_translation, :locked, current_translation.locked),
       translation_id: Map.get(current_translation, :id),
       previous_translation: PreviousTranslation.from_translation(current_translation),
-      interpolations: Map.get(suggested_translation, :interpolations, current_translation.interpolations)
+      placeholders: Map.get(suggested_translation, :placeholders, current_translation.placeholders)
     }
   end
 end

@@ -15,7 +15,7 @@ defmodule LangueTest.Formatter.Json do
     Simple,
     Nested,
     Complexe,
-    InterpolationValues
+    PlaceholderValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Json.Expectation, test) do

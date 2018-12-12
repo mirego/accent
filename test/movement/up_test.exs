@@ -121,7 +121,7 @@ defmodule AccentTest.Movement.Migrator.Up do
       text: "new proposed text",
       value_type: "string",
       previous_translation: PreviousTranslation.from_translation(translation),
-      interpolations: []
+      placeholders: []
     })
 
     new_translation = Repo.get!(Translation, translation.id)
@@ -163,7 +163,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         proposed_text: "proposed_text",
         conflicted: true,
         removed: false,
-        interpolations: []
+        placeholders: []
       })
 
     Migrator.up(%{
@@ -174,7 +174,7 @@ defmodule AccentTest.Movement.Migrator.Up do
       text: "conflict",
       translation: translation,
       previous_translation: PreviousTranslation.from_translation(translation),
-      interpolations: []
+      placeholders: []
     })
 
     new_translation = Repo.get!(Translation, translation.id)

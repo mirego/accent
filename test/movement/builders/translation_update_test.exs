@@ -51,7 +51,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       proposed_text: "null",
       corrected_text: "null",
       value_type: "null",
-      interpolations: []
+      placeholders: []
     }
 
     context =
@@ -71,7 +71,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       proposed_text: "",
       corrected_text: "",
       value_type: "empty",
-      interpolations: []
+      placeholders: []
     }
 
     context =
@@ -91,7 +91,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       proposed_text: "hello!",
       corrected_text: "hello!",
       value_type: "",
-      interpolations: []
+      placeholders: []
     }
 
     context =

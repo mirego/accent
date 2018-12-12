@@ -23,7 +23,7 @@ defmodule LangueTest.Formatter.JavaProperties.Expectation do
     end
   end
 
-  defmodule InterpolationValues do
+  defmodule PlaceholderValues do
     use Langue.Expectation.Case
 
     def render do
@@ -37,10 +37,10 @@ defmodule LangueTest.Formatter.JavaProperties.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "${const:java.awt.event.KeyEvent.VK_CANCEL}", interpolations: ~w(${const:java.awt.event.KeyEvent.VK_CANCEL})},
-        %Entry{index: 2, key: "multiple", value: "${single}, ${sys:user.home}/settings.xml", interpolations: ~w(${single} ${sys:user.home})},
-        %Entry{index: 3, key: "duplicate", value: "${env:JAVA_HOME}, ${env:JAVA_HOME}!", interpolations: ~w(${env:JAVA_HOME} ${env:JAVA_HOME})},
-        %Entry{index: 4, key: "empty", value: "Hello, ${}.", interpolations: ~w(${})}
+        %Entry{index: 1, key: "single", value: "${const:java.awt.event.KeyEvent.VK_CANCEL}", placeholders: ~w(${const:java.awt.event.KeyEvent.VK_CANCEL})},
+        %Entry{index: 2, key: "multiple", value: "${single}, ${sys:user.home}/settings.xml", placeholders: ~w(${single} ${sys:user.home})},
+        %Entry{index: 3, key: "duplicate", value: "${env:JAVA_HOME}, ${env:JAVA_HOME}!", placeholders: ~w(${env:JAVA_HOME} ${env:JAVA_HOME})},
+        %Entry{index: 4, key: "empty", value: "Hello, ${}.", placeholders: ~w(${})}
       ]
     end
   end

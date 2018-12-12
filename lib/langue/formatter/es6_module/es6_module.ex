@@ -4,7 +4,7 @@ defmodule Langue.Formatter.Es6Module do
   alias Langue.Formatter.Es6Module.{Parser, Serializer}
 
   def name, do: "es6_module"
-  def interpolation_regex, do: ~r/{{[^}]*}}/
+  def placeholder_regex, do: ~r/{{[^}]*}}/
 
   defdelegate parse(map), to: Parser
   defdelegate serialize(map), to: Serializer

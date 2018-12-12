@@ -10,7 +10,7 @@ defmodule LangueTest.Formatter.Strings do
     EmptyValue,
     Commented,
     Multiline,
-    InterpolationValues
+    PlaceholderValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Strings.Expectation, test) do

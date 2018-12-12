@@ -22,7 +22,7 @@ defmodule AccentTest.Migrator.Down do
       conflicted_text: nil,
       conflicted: false,
       removed: false,
-      interpolations: []
+      placeholders: []
     }
 
     translation =
@@ -59,7 +59,7 @@ defmodule AccentTest.Migrator.Down do
       conflicted_text: nil,
       conflicted: true,
       removed: false,
-      interpolations: []
+      placeholders: []
     }
 
     translation =
@@ -120,7 +120,7 @@ defmodule AccentTest.Migrator.Down do
         proposed_text: "new text",
         conflicted_text: nil,
         conflicted: true,
-        interpolations: []
+        placeholders: []
       })
 
     Migrator.down(

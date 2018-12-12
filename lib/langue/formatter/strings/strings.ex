@@ -4,7 +4,7 @@ defmodule Langue.Formatter.Strings do
   alias Langue.Formatter.Strings.{Parser, Serializer}
 
   def name, do: "strings"
-  def interpolation_regex, do: ~r/%(\d\$)?s/
+  def placeholder_regex, do: ~r/%(\d\$)?s/
 
   defdelegate parse(map), to: Parser
   defdelegate serialize(map), to: Serializer

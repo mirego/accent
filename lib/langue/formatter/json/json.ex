@@ -4,7 +4,7 @@ defmodule Langue.Formatter.Json do
   alias Langue.Formatter.Json.{Parser, Serializer}
 
   def name, do: "json"
-  def interpolation_regex, do: ~r/{{[^}]*}}/
+  def placeholder_regex, do: ~r/{{[^}]*}}/
 
   defdelegate parse(map), to: Parser
   defdelegate serialize(map), to: Serializer

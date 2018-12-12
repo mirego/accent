@@ -4,7 +4,7 @@ defmodule Langue.Formatter.SimpleJson do
   alias Langue.Formatter.SimpleJson.{Parser, Serializer}
 
   def name, do: "simple_json"
-  def interpolation_regex, do: ~r/{{[^}]*}}/
+  def placeholder_regex, do: ~r/{{[^}]*}}/
 
   defdelegate parse(map), to: Parser
   defdelegate serialize(map), to: Serializer

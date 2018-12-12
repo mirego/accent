@@ -643,8 +643,8 @@ export default {
         empty_type_notice: 'The text has been set to an empty string',
         empty_type_placeholder: 'Empty text',
         null_type_notice: 'The text has been set to null',
-        interpolations: {
-          title: 'Interpolations',
+        placeholders: {
+          title: 'Placeholders',
           text:
             'These custom expressions mark special strings that will be replaced by dynamic values. You do not have to review or translate them.'
         }

@@ -133,8 +133,8 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "height", value: "Height (%@)", interpolations: ~w(%@)},
-        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@.", interpolations: ~w(%1$@ %2$@)}
+        %Entry{index: 1, key: "height", value: "Height (%@)", placeholders: ~w(%@)},
+        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@.", placeholders: ~w(%1$@ %2$@)}
       ]
     end
   end
@@ -158,7 +158,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
     end
   end
 
-  defmodule InterpolationValues do
+  defmodule PlaceholderValues do
     use Langue.Expectation.Case
 
     def render do
@@ -174,9 +174,9 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, %@.", interpolations: ~w(%@)},
-        %Entry{index: 2, key: "multiple", value: "Hello, %1$@ %2$@.", interpolations: ~w(%1$@ %2$@)},
-        %Entry{index: 3, key: "duplicate", value: "Hello, %1$@ %2$@. Welcome back %1$@ %2$@.", interpolations: ~w(%1$@ %2$@ %1$@ %2$@)}
+        %Entry{index: 1, key: "single", value: "Hello, %@.", placeholders: ~w(%@)},
+        %Entry{index: 2, key: "multiple", value: "Hello, %1$@ %2$@.", placeholders: ~w(%1$@ %2$@)},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %1$@ %2$@. Welcome back %1$@ %2$@.", placeholders: ~w(%1$@ %2$@ %1$@ %2$@)}
       ]
     end
   end

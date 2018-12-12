@@ -73,7 +73,7 @@ defmodule AccentTest.Movement.Persisters.Base do
         text: "B",
         translation_id: translation.id,
         value_type: "string",
-        interpolations: []
+        placeholders: []
       }
     ]
 
