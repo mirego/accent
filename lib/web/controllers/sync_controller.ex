@@ -68,7 +68,7 @@ defmodule Accent.SyncController do
   end
 
   defp assign_comparer(conn, _) do
-    comparer = Movement.Comparer.comparer(:sync, conn.params["merge_type"])
+    comparer = Movement.Comparer.comparer(:sync, conn.params["sync_type"])
     context = Movement.Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)

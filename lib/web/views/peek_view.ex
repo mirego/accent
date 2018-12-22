@@ -23,8 +23,14 @@ defmodule Accent.PeekView do
       text: operation.text,
       key: operation.key,
       action: operation.action,
-      "previous-text": operation.previous_translation.corrected_text || operation.previous_translation.proposed_text
+      "previous-text": previous_text(operation)
     }
+  end
+
+  defp previous_text(%{previous_translation: nil}), do: nil
+
+  defp previous_text(%{previous_translation: previous_translation}) do
+    previous_translation.corrected_text || previous_translation.proposed_text
   end
 
   defp fetch_stats(operations) do

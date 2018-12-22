@@ -10,13 +10,13 @@
   .ember-power-select-trigger {
     background: darken($color-light-background, 2%);
     box-shadow: none;
-    border: 1px solid rgba($color-black, 0.07);
+    border: 1px solid transparent;
     color: rgba($color-black, 0.8);
 
     &:focus,
     &.ember-power-select-trigger--active {
       background: darken($color-light-background, 7%);
-      border: 1px solid rgba($color-black, 0.1);
+      border: 1px solid transparent;
     }
   }
 }

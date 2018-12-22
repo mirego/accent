@@ -22,8 +22,7 @@
 
 .subtitle {
   padding-bottom: 5px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  margin: 20px 0 10px;
   font-weight: bold;
   font-size: 16px;
 }
@@ -31,14 +30,37 @@
 .section,
 .link {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 5px 0;
 }
 
 .link {
-  margin-bottom: 15px;
+  padding: 20px;
+  margin-bottom: 11px;
+  box-shadow: 0 2px 10px rgba($color-primary, 0.2);
+  border-radius: 4px;
   color: $color-primary;
   text-decoration: none;
+  transition: $transition-speed $transition-easing;
+  transition-property: background;
+
+  &:focus,
+  &:hover {
+    background: rgba($color-primary, 0.1);
+
+    .link-subtitle {
+      color: rgba(darken($color-primary, 20%), 0.5);
+    }
+  }
+}
+
+.link-subtitle {
+  display: block;
+  font-size: 12px;
+  opacity: 0.8;
+  color: $color-grey;
+  transition: $transition-speed $transition-easing;
+  transition-property: color;
 }
 
 .section {
@@ -47,9 +69,11 @@
 
 .section-icon,
 .link-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 5px;
+  width: 22px;
+  height: 22px;
+  margin-right: 9px;
+  margin-top: 2px;
+  opacity: 0.7;
 }
 
 .link-icon {

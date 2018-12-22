@@ -102,9 +102,10 @@
 .empty-slaves-button {
   display: block;
   width: 100%;
+  max-width: 340px;
   padding: 15px;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(#000, 0.15);
+  box-shadow: 0 2px 6px rgba(#000, 0.09);
   border-radius: 2px;
   border-left: 2px solid lighten($color-primary, 30%);
   color: $color-primary;
@@ -120,7 +121,8 @@
 .empty-slaves-button-action {
   display: flex;
   align-items: center;
-  font-size: 13px;
+  font-weight: bold;
+  font-size: 12px;
 }
 
 .empty-slaves-button-icon {
@@ -134,7 +136,7 @@
   display: block;
   margin-top: 10px;
   font-size: 11px;
-  color: #aaa;
+  color: rgba(darken($color-primary, 20%), 0.5);
 }
 
 .master {

@@ -27,6 +27,8 @@ query Project($projectId: ID!) {
       revisions {
         id
         isMaster
+        translationsCount
+        conflictsCount
 
         language {
           id

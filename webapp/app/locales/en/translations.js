@@ -155,8 +155,7 @@ export default {
     dashboard_revisions: {
       manage_languages_link_title: 'Manage languages',
       new_language_link_title: 'New language',
-      new_language_link_text:
-        'With another language, you can keep track of translation based on the master language. A conflict in the master will flag the associated string in all slaves languages.',
+      new_language_link_text: 'With another language, you can keep track of translation based on the master language.',
       view_more_activities: 'View more activities →',
       title: 'Dashboard',
       master: 'Master language',
@@ -697,6 +696,9 @@ export default {
       first_step: 'First step',
       after_steps: 'After this, you will be able to',
       sync_file: 'Sync a new file',
+      sync_file_text: 'Add strings from multiple formats',
+      add_collaborator: 'Add collaborator',
+      add_collaborator_text: 'Translators, developers, etc.',
       start_review: 'Start to review and translate',
       export: 'Export the corrected file',
       help: 'Help?'
