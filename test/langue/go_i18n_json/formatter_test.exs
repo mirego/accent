@@ -6,7 +6,8 @@ defmodule LangueTest.Formatter.GoI18nJson do
   alias Langue.Formatter.GoI18nJson
 
   @tests [
-    Simple
+    Simple,
+    UTF8
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.GoI18nJson.Expectation, test) do

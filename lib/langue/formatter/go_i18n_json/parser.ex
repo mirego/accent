@@ -6,7 +6,7 @@ defmodule Langue.Formatter.GoI18nJson.Parser do
   def parse(%{render: render}) do
     entries =
       render
-      |> :jiffy.decode()
+      |> :jsone.decode(object_format: :tuple)
       |> Enum.flat_map(&parse_element/1)
       |> Enum.with_index(1)
       |> Enum.map(fn {entry, index} -> %{entry | index: index} end)

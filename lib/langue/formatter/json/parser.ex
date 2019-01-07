@@ -4,16 +4,18 @@ defmodule Langue.Formatter.Json.Parser do
   alias Langue.Utils.{NestedParserHelper, Placeholders}
 
   def parse(%{render: render}) do
-    entries = parse_json(render)
+    entries =
+      render
+      |> parse_json()
+      |> Placeholders.parse(Langue.Formatter.Json.placeholder_regex())
 
     %Langue.Formatter.ParserResult{entries: entries}
   end
 
   def parse_json(render) do
     render
-    |> :jiffy.decode()
+    |> :jsone.decode(object_format: :tuple)
     |> elem(0)
     |> NestedParserHelper.parse()
-    |> Placeholders.parse(Langue.Formatter.Json.placeholder_regex())
   end
 end

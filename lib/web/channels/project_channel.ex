@@ -3,13 +3,15 @@ defmodule Accent.ProjectChannel do
 
   alias Accent.Project
 
-  import Canada, only: [can?: 2]
-
-  def join("projects:" <> project_id, _params, socket) do
-    if socket.assigns[:user] |> can?(show_project(%Project{id: project_id})) do
+  def join("projects:" <> project_id, _params, socket = %{assigns: %{user: user}}) do
+    if Canada.Can.can?(user, :show_project, %Project{id: project_id}) do
       {:ok, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
+  end
+
+  def join(_, _, _) do
+    {:error, %{reason: "unauthorized"}}
   end
 end

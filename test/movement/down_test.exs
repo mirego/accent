@@ -11,7 +11,7 @@ defmodule AccentTest.Migrator.Down do
   alias Movement.Migrator
 
   test ":noop" do
-    assert {:ok, :noop} == Migrator.down(%{action: "noop"})
+    assert nil == Migrator.down(%{action: "noop"})
   end
 
   test ":conflict_on_corrected" do
@@ -101,6 +101,29 @@ defmodule AccentTest.Migrator.Down do
     Migrator.down(
       %Operation{
         action: "new",
+        translation: translation
+      }
+      |> Repo.insert!()
+    )
+
+    new_translation = Repo.get!(Translation, translation.id)
+
+    assert new_translation.removed == true
+  end
+
+  test ":renew" do
+    translation =
+      Repo.insert!(%Translation{
+        key: "to_be_added_down",
+        corrected_text: nil,
+        proposed_text: "new text",
+        conflicted_text: nil,
+        conflicted: true
+      })
+
+    Migrator.down(
+      %Operation{
+        action: "renew",
         translation: translation
       }
       |> Repo.insert!()

@@ -24,7 +24,7 @@ defmodule Langue.Formatter.GoI18nJson.Serializer do
       |> Enum.reduce(%{plurals: [], entries: []}, &process_entry/2)
       |> append_plurals()
       |> Map.get(:entries)
-      |> :jiffy.encode([:pretty])
+      |> :jsone.encode([:native_utf8, {:indent, 2}, {:space, 1}, {:float_format, [{:decimals, 4}, :compact]}])
       |> Langue.Formatter.Json.Serializer.prettify_json()
       |> Kernel.<>("\n")
 

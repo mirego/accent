@@ -52,4 +52,25 @@ defmodule LangueTest.Formatter.GoI18nJson.Expectation do
       ]
     end
   end
+
+  defmodule UTF8 do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      [
+        {
+          "id": "çà’èÈ",
+          "translation": "àèéäâÇçò"
+        }
+      ]
+      """
+    end
+
+    def entries do
+      [
+        %Entry{key: "çà’èÈ", value: "àèéäâÇçò", index: 1}
+      ]
+    end
+  end
 end

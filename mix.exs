@@ -5,14 +5,13 @@ defmodule Accent.Mixfile do
     [
       app: :accent,
       version: "0.0.1",
-      elixir: "~> 1.6",
+      elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
-      docs: [extras: ["API_DOC.md"]],
       test_coverage: [tool: ExCoveralls]
     ]
   end
@@ -62,8 +61,8 @@ defmodule Accent.Mixfile do
       # Utils
       {:p1_utils, github: "processone/p1_utils", override: true},
       {:fast_yaml, "~> 1.0.0"},
-      {:jiffy, "~> 0.15"},
-      {:mochiweb_html, "~> 2.13"},
+      {:jsone, "~> 1.4"},
+      {:mochiweb, "~> 2.18"},
       {:httpoison, "~> 1.1.0"},
       {:gettext, "~> 0.11"},
       {:csv, "~> 2.0"},

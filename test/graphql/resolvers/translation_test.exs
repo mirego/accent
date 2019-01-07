@@ -31,6 +31,14 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
     {:ok, [user: user, project: project, revision: revision, context: context]}
   end
 
+  test "key", %{revision: revision, context: context} do
+    {:ok, key} = Resolver.key(%Translation{revision_id: revision.id, key: "Foo", proposed_text: "bar"}, %{}, context)
+    assert key === "Foo"
+
+    {:ok, key} = Resolver.key(%Translation{revision_id: revision.id, key: "Foo.__KEY__1.Bar", proposed_text: "bar"}, %{}, context)
+    assert key === "Foo.[1].Bar"
+  end
+
   test "correct", %{revision: revision, context: context} do
     translation = %Translation{revision_id: revision.id, conflicted: true, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
 
@@ -186,6 +194,18 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
     other_translation = %Translation{revision_id: other_revision.id, conflicted: true, key: "ok", corrected_text: "foo", proposed_text: "foo"} |> Repo.insert!()
 
     {:ok, result} = Resolver.master_translation(other_translation, %{}, context)
+
+    assert result.id == translation.id
+  end
+
+  test "master translation as master", %{project: project, revision: revision, context: context} do
+    english_language = %Language{name: "english"} |> Repo.insert!()
+    other_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: revision.id} |> Repo.insert!()
+
+    translation = %Translation{revision_id: revision.id, conflicted: true, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
+    %Translation{revision_id: other_revision.id, conflicted: true, key: "ok", corrected_text: "foo", proposed_text: "foo"} |> Repo.insert!()
+
+    {:ok, result} = Resolver.master_translation(translation, %{}, context)
 
     assert result.id == translation.id
   end

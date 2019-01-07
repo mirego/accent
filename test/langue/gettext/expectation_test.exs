@@ -177,6 +177,23 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     end
   end
 
+  defmodule EmptyComment do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid "test"
+      msgstr "a"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test", value: "a", comment: ""}
+      ]
+    end
+  end
+
   defmodule PlaceholderValues do
     use Langue.Expectation.Case
 

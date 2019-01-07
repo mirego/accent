@@ -81,7 +81,7 @@ defmodule Accent.Plugs.MovementContextParser do
 
   defp serializer_result(conn, render) do
     conn.assigns[:document_parser].(%Langue.Formatter.SerializerResult{render: render})
-  catch
+  rescue
     _ -> {:error, :invalid_file}
   end
 

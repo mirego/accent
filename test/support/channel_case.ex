@@ -1,0 +1,28 @@
+defmodule Accent.ChannelCase do
+  use ExUnit.CaseTemplate
+
+  alias Accent.Endpoint
+  alias Accent.Repo
+  alias Ecto.{Adapters.SQL.Sandbox}
+
+  using do
+    quote do
+      # Import conveniences for testing with connections
+      use Phoenix.ChannelTest
+      import Accent.Router.Helpers
+
+      # The default endpoint for testing
+      @endpoint Endpoint
+    end
+  end
+
+  setup tags do
+    :ok = Sandbox.checkout(Repo)
+
+    unless tags[:async] do
+      Sandbox.mode(Repo, {:shared, self()})
+    end
+
+    {:ok, []}
+  end
+end

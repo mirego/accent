@@ -27,6 +27,11 @@ defmodule Accent.Router do
     plug(Accent.Plugs.BotParamsInjector)
   end
 
+  pipeline :browser do
+    plug :accepts, ~w(json html)
+    plug :put_secure_browser_headers
+  end
+
   scope "/", Accent do
     pipe_through(:authenticate)
 
@@ -51,7 +56,11 @@ defmodule Accent.Router do
     get("/:id/translations_badge.svg", BadgeController, :translations_count)
   end
 
-  # Catch all route to serve the webapp from static dir
-  get("/", Accent.WebAppController, [])
-  get("/app*path", Accent.WebAppController, [])
+  scope "/", Accent do
+    pipe_through(:browser)
+
+    # Catch all route to serve the webapp from static dir
+    get("/", WebAppController, [])
+    get("/app*path", WebAppController, [])
+  end
 end

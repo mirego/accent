@@ -14,7 +14,7 @@ defmodule Accent.TranslationsRenderer do
 
     try do
       serializer.(parser_result)
-    catch
+    rescue
       _ -> Langue.Formatter.SerializerResult.empty()
     end
   end
