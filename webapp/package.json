@@ -15,7 +15,7 @@
   "scripts": {
     "start": "ember server --port $WEBAPP_PORT",
     "build": "ember build",
-    "build-production": "ember build --prod",
+    "build-production": "ember build --prod --output-path=../priv/static/webapp",
     "test": "ember test",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",

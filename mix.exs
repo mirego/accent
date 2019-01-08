@@ -80,7 +80,7 @@ defmodule Accent.Mixfile do
       {:gen_stage, "~> 0.11"},
 
       # Mock testing
-      {:mox, "~> 0.3"},
+      {:mox, "~> 0.3", only: :test},
       {:mock, "~> 0.3.0", only: :test},
 
       # Dev
@@ -88,7 +88,10 @@ defmodule Accent.Mixfile do
       {:credo, ">= 0.0.0", only: ~w(dev test)a},
       {:credo_envvar, "~> 0.1.0", only: ~w(dev test)a, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
-      {:phoenix_live_reload, "~> 1.0", only: :dev}
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+
+      # OTP Release
+      {:distillery, "~> 2.0", runtime: false}
     ]
   end
 
