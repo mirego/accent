@@ -1,0 +1,12 @@
+_build/
+.git/
+webapp/node_modules/
+priv/static/webapp
+deps/
+test/
+
+.*
+docker-compose.yml
+Makefile
+README.md
+Dockerfile

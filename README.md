@@ -18,15 +18,15 @@ The Accent API provides a powerful abstraction around the process of translating
 
 ## Contents
 
-| Section                                                 | Description                                                            |
-|---------------------------------------------------------|------------------------------------------------------------------------|
-| [🚧 Requirements](#-requirements)                        | Dependencies required to run Accent’ stack                             |
-| [🎛 Mix commands](#-executing-mix-commands)              | How to execute mix task with the Twelve-Factor pattern                 |
-| [🏎 Quickstart](#-quickstart)                            | Steps to run the project, from API to webapp                           |
-| [🌳 Environment variables](#-environment-variables)      | Required and optional env var used                                     |
-| [✅ Tests](#-tests)                                      | How to run the extensive tests suite                                   |
-| [🚀 Heroku](#-heroku)                                    | Easy deployment setup with Heroku                                      |
-| [🌎 Contribute](#-contribute)                            | How to contribute to this repo                                         |
+| Section                                                 | Description                                                               |
+|---------------------------------------------------------|---------------------------------------------------------------------------|
+| [🚧 Requirements](#-requirements)                        | Dependencies required to run Accent’ stack                               |
+| [🎛 Mix commands](#-executing-mix-commands)              | How to execute mix task with the Twelve-Factor pattern                   |
+| [🏎 Quickstart](#-quickstart)                            | Steps to run the project, from API to webapp, with or without Docker     |
+| [🌳 Environment variables](#-environment-variables)      | Required and optional env var used                                       |
+| [✅ Tests](#-tests)                                      | How to run the extensive tests suite                                     |
+| [🚀 Heroku](#-heroku)                                    | Easy deployment setup with Heroku                                        |
+| [🌎 Contribute](#-contribute)                            | How to contribute to this repo                                           |
 
 ## 🚧 Requirements
 
@@ -56,15 +56,34 @@ $ nv .env mix <mix command>
 
 ## 🏎 Quickstart
 
+_This is the full developpement setup. To simply run the app, see the *Docker* instructions_
+
 1. If you don’t already have it, install `nodejs` with `brew install nodejs`
 2. If you don’t already have it, install `elixir` with `brew install elixir`
 3. If you don’t already have it, install `libyaml` with `brew install libyaml`
 4. If you don’t already have it, install `postgres` with `brew install postgres` or the [macOS app](https://postgresapp.com/)
-5. Install dependencies with `mix deps.get` and `npm --prefix webapp install`
+5. Install dependencies with `make dependencies`
 6. Create and migrate your database with `mix ecto.setup`
 7. Start Phoenix endpoint with `mix phx.server`
-8. Start Ember server with `npm --prefix webapp run start`
-9. That’s it!
+8. Start Ember server with `npm run start --prefix webapp`
+
+*That’s it!*
+
+### Makefile
+
+The Makefile should be the main entry for common tasks such as tests, linting, Docker, etc. This simplify the developpement process since you don’t have to search for which service provides which command. `mix`, `npm`, `prettier`, `docker`, `stylelint`, etc are all used in the Makefile.
+
+### Docker
+
+For the production setup, we use Docker to build an OTP release of the app. With docker-compose, you can run the image locally. Here are the steps to have a working app running locally with Docker:
+
+_When running the production env, you need to provide a valid GOOGLE_API_CLIENT_ID in the `docker-compose.yml` file._
+
+1. Run `make build` to build the OTP release with Docker
+2. Run `make dev-start-postgresql` to start an instance of Postgresql. The instance will run on port 5432 with the `postgres` user. You can change those values in the `docker-compose.yml` file.
+3. Run `make dev-start-application` to start the app! The release hook of the release will execute migrations and seeds before starting the webserver on port 4000 (again you can change the settings in `docker-compose.yml`)
+
+*That’s it! You now have a working Accent instance without installing Elixir or Node!*
 
 ## 🌳 Environment variables
 

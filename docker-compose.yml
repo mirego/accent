@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  application:
+    image: accent
+    container_name: accent
+    ports:
+      - 4000:4000
+    depends_on:
+      - postgresql
+    environment:
+      - PORT=4000
+      - DATABASE_URL=postgres://postgres@postgresql:5432/accent_development
+      - GOOGLE_API_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com
+  postgresql:
+    image: postgres:10.3
+    container_name: accent-postgres
+    environment:
+      - POSTGRES_DB=accent_development
+    ports:
+      - 5432:5432
+    volumes:
+      - accent_psql:/var/lib/postgresql/data
+volumes:
+  accent_psql:
