@@ -14,16 +14,7 @@ defmodule Accent.GraphQL.DatetimeScalar do
     """)
 
     serialize(&serialize_datetime/1)
-    parse(parse_with([Absinthe.Blueprint.Input.DateTime], &parse_datetime/1))
-  end
-
-  @spec parse_datetime(any) :: {:ok, DateTime.t()} | :error
-  defp parse_datetime(value) when is_binary(value) do
-    DateTime.from_iso8601(value)
-  end
-
-  defp parse_datetime(_) do
-    :error
+    parse(fn _ -> :error end)
   end
 
   @spec serialize_datetime(any) :: {:ok, String.t()} | :error
@@ -34,20 +25,5 @@ defmodule Accent.GraphQL.DatetimeScalar do
 
   defp serialize_datetime(_) do
     :error
-  end
-
-  # Parse, supporting pulling values out of blueprint Input nodes
-  defp parse_with(node_types, coercion) do
-    fn
-      %{__struct__: str, value: value} ->
-        if str in node_types do
-          coercion.(value)
-        else
-          :error
-        end
-
-      other ->
-        coercion.(other)
-    end
   end
 end

@@ -100,6 +100,72 @@ defmodule LangueTest.Formatter.Json.Expectation do
     end
   end
 
+  defmodule InvalidIntegerValue do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": "something bad, fallback to string"
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test", value: "something bad, fallback to string", value_type: "integer"}
+      ]
+    end
+  end
+
+  defmodule InvalidFloatValue do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": "something bad, fallback to string"
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test", value: "something bad, fallback to string", value_type: "float"}
+      ]
+    end
+  end
+
+  defmodule Array do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": [
+          {
+            "a": "value-a"
+          },
+          {
+            "b": "value-b"
+          },
+          {
+            "c": "value-c"
+          }
+        ]
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test.__KEY__0.a", value: "value-a"},
+        %Entry{index: 2, key: "test.__KEY__1.b", value: "value-b"},
+        %Entry{index: 3, key: "test.__KEY__2.c", value: "value-c"}
+      ]
+    end
+  end
+
   defmodule Simple do
     use Langue.Expectation.Case
 

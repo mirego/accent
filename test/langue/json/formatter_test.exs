@@ -6,6 +6,7 @@ defmodule LangueTest.Formatter.Json do
   alias Langue.Formatter.Json
 
   @tests [
+    Array,
     Empty,
     NilValue,
     EmptyValue,

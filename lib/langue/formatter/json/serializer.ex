@@ -36,10 +36,8 @@ defmodule Langue.Formatter.Json.Serializer do
 
   defp add_extra({key, [{_, _} | _] = values}), do: {key, {Enum.map(values, &add_extra/1)}}
   defp add_extra({key, values}) when is_list(values), do: {key, Enum.map(values, &add_extra/1)}
-  defp add_extra({key, nil}), do: {key, :null}
-  defp add_extra({key, values}), do: {key, values}
+  defp add_extra({key, values}), do: {key, add_extra(values)}
   defp add_extra(values = [{_key, _} | _]), do: {Enum.map(values, &add_extra/1)}
-  defp add_extra(values) when is_list(values), do: Enum.map(values, &add_extra/1)
   defp add_extra(nil), do: :null
   defp add_extra(value), do: value
 end

@@ -17,9 +17,4 @@ defmodule Movement.Migration.Rollback do
     update(operation, %{rollbacked: true})
     update(operation.translation, Map.from_struct(operation.previous_translation))
   end
-
-  def call(:rollback, operation) do
-    update(operation, %{rollbacked: false})
-    update(operation.translation, Map.from_struct(operation.previous_translation))
-  end
 end

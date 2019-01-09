@@ -22,6 +22,10 @@ defmodule Movement.Comparers.SyncPassive do
     iex> suggested_translation = %Movement.SuggestedTranslation{key: "a", text: "foo"}
     iex> Movement.Comparers.SyncPassive.compare(translation, suggested_translation).action
     "remove"
+    iex> translation = %Accent.Translation{key: "a", proposed_text: "bar", corrected_text: "baz"}
+    iex> suggested_translation = %Movement.SuggestedTranslation{key: "a", text: "foo"}
+    iex> Movement.Comparers.SyncPassive.compare(translation, suggested_translation).action
+    "noop"
   """
   def compare(translation, suggested_translation) do
     case TranslationComparer.compare(translation, suggested_translation.text) do

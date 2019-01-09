@@ -22,6 +22,17 @@ defmodule AccentTest.BadgeController do
     {:ok, %{project: project, badge_generate_mock: badge_generate_mock}}
   end
 
+  test "internal error on generator", %{conn: conn, project: project} do
+    with_mock Accent.BadgeGenerator, generate: fn _, _ -> {:error, "oops"} end do
+      response =
+        conn
+        |> get(badge_path(conn, :percentage_reviewed_count, project))
+
+      assert response.status == 500
+      assert response.resp_body == "internal server error"
+    end
+  end
+
   test "percentage_reviewed_count", %{conn: conn, project: project, badge_generate_mock: badge_generate_mock} do
     with_mock Accent.BadgeGenerator, badge_generate_mock do
       response =

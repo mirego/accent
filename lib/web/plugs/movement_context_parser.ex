@@ -86,8 +86,6 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   defp extract_path_from_filename(filename) do
-    filename
-    |> String.split(".", parts: 2)
-    |> hd()
+    Regex.replace(~r/(\w)(\.\w+)$/, filename, "\\1")
   end
 end

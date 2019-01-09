@@ -67,6 +67,28 @@ defmodule AccentTest.Plugs.MovementContextParser do
     assert conn.state == :unset
   end
 
+  test "fetch document path with file param containing multiple dots", %{project: project} do
+    conn =
+      :get
+      |> conn("/foo", %{document_path: "admin.common.test.json", document_format: "json", file: file("foo.json"), language: "fr"})
+      |> assign(:project, project)
+      |> MovementContextParser.call([])
+
+    assert conn.assigns[:document_path] == "admin.common.test"
+    assert conn.state == :unset
+  end
+
+  test "fetch document path with file param containing no dots", %{project: project} do
+    conn =
+      :get
+      |> conn("/foo", %{document_path: "admin", document_format: "json", file: file("foo.json"), language: "fr"})
+      |> assign(:project, project)
+      |> MovementContextParser.call([])
+
+    assert conn.assigns[:document_path] == "admin"
+    assert conn.state == :unset
+  end
+
   test "fetch document parser", %{project: project} do
     conn =
       :get

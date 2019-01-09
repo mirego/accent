@@ -44,7 +44,6 @@ defmodule Langue.Utils.LineByLineHelper.Parser do
     %{acc | entries: Enum.concat(entries, [map_entry(entry)]), entry: nil, index: index + 1}
   end
 
-  defp map_entry(entry = %{value: nil}), do: %{entry | value_type: "null"}
   defp map_entry(entry = %{value: ""}), do: %{entry | value_type: "empty"}
   defp map_entry(entry), do: %{entry | value_type: "string"}
 end
