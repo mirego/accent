@@ -56,7 +56,7 @@ $ nv .env mix <mix command>
 
 ## 🏎 Quickstart
 
-_This is the full developpement setup. To simply run the app, see the *Docker* instructions_
+_This is the full development setup. To simply run the app, see the *Docker* instructions_
 
 1. If you don’t already have it, install `nodejs` with `brew install nodejs`
 2. If you don’t already have it, install `elixir` with `brew install elixir`
