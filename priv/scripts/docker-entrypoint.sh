@@ -6,7 +6,8 @@ set -e
 
 # Since an EmberJs app can't be built without its environment, we build it here instead of the Dockerfile.
 # This makes the image completly dependent of the deployed instance’s environment.
-cd webapp && ./node_modules/ember-cli/bin/ember build --prod --output-path=/opt/$APP_NAME/lib/$APP_NAME-$APP_VERSION/priv/static/webapp
+cd webapp
+./node_modules/ember-cli/bin/ember build --prod --output-path=/opt/$APP_NAME/lib/$APP_NAME-$APP_VERSION/priv/static/webapp &
 cd ..
 
 # Launch the OTP release and replace the caller as Process #1 in the container
