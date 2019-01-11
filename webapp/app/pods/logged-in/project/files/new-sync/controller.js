@@ -27,7 +27,7 @@ export default Controller.extend({
       this.set('revisionOperations', null);
     },
 
-    peek({fileSource, documentFormat, documentPath, revision}) {
+    peek({fileSource, documentFormat, documentPath, revision, syncType}) {
       const file = fileSource;
       const project = this.project;
       const revisions = this.revisions;
@@ -39,17 +39,18 @@ export default Controller.extend({
           revisions,
           file,
           documentPath,
-          documentFormat
+          documentFormat,
+          syncType
         })
         .then(revisionOperations => this.set('revisionOperations', revisionOperations));
     },
 
-    sync({fileSource, documentFormat, documentPath, revision}) {
+    sync({fileSource, documentFormat, documentPath, revision, syncType}) {
       const file = fileSource;
       const project = this.project;
 
       return this.syncer
-        .sync({project, revision, file, documentPath, documentFormat})
+        .sync({project, revision, file, documentPath, documentFormat, syncType})
         .then(() => this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_CREATE_SUCCESS)))
         .then(() => this.send('closeModal'))
         .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_CREATE_ERROR)));

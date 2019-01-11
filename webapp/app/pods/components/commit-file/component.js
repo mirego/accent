@@ -114,8 +114,11 @@ export default Component.extend({
 
     fileChange(files) {
       const fileSource = files[0];
-      const documentPath = fileSource.name;
-      const documentFormat = this._formatFromExtension(documentPath.split('.').pop());
+      const filename = fileSource.name.split('.');
+      const fileExtension = filename.pop();
+
+      const documentPath = filename.join('.');
+      const documentFormat = this._formatFromExtension(fileExtension);
       const isFileReading = true;
       const isFileRead = false;
       const reader = new FileReader();
