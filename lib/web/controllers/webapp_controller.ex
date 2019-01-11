@@ -30,6 +30,7 @@ defmodule Accent.WebAppController do
         conn
         |> put_view(WebappView)
         |> render("maintenance.html")
+        |> halt()
 
       _ ->
         assign(conn, :file, file)
