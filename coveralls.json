@@ -1,10 +1,6 @@
 {
   "skip_files": [
-<<<<<<< HEAD
     "lib/accent/release_tasks.ex",
     "test/support"
-=======
-    "lib/accent/release_tasks.ex"
->>>>>>> Add distillery and docker setup
   ]
 }
