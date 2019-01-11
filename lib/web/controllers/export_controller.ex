@@ -98,7 +98,7 @@ defmodule Accent.ExportController do
   defp fetch_document(conn = %{params: params, assigns: %{project: project}}, _) do
     Document
     |> DocumentScope.from_project(project.id)
-    |> DocumentScope.from_path(extract_path_from_filename(params["document_path"]))
+    |> DocumentScope.from_path(params["document_path"])
     |> Repo.one()
     |> case do
       document = %Document{} ->
@@ -139,13 +139,5 @@ defmodule Accent.ExportController do
     document = Map.put(document, :render, render)
 
     assign(conn, :document, document)
-  end
-
-  defp extract_path_from_filename(nil), do: nil
-
-  defp extract_path_from_filename(filename) do
-    filename
-    |> String.split(".", parts: 2)
-    |> hd()
   end
 end

@@ -28,7 +28,7 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   def assign_document_path(conn = %{params: %{"document_path" => path}}, _) when path !== "" and not is_nil(path) do
-    assign(conn, :document_path, extract_path_from_filename(path))
+    assign(conn, :document_path, path)
   end
 
   def assign_document_path(conn = %{params: %{"file" => file}}, _) do
