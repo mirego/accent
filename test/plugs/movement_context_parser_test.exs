@@ -70,7 +70,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
   test "fetch document path with file param containing multiple dots", %{project: project} do
     conn =
       :get
-      |> conn("/foo", %{document_path: "admin.common.test.json", document_format: "json", file: file("foo.json"), language: "fr"})
+      |> conn("/foo", %{document_path: "admin.common.test", document_format: "json", file: file("foo.json"), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
@@ -130,7 +130,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
   test "fetch new document resource", %{project: project} do
     conn =
       :get
-      |> conn("/foo", %{document_path: "hello.json", document_format: "json", file: file(), language: "fr"})
+      |> conn("/foo", %{document_path: "hello", document_format: "json", file: file(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
@@ -145,7 +145,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
   test "assign document top_of_the_file_comment and header", %{project: project} do
     conn =
       :get
-      |> conn("/foo", %{document_path: "hello.po", document_format: "gettext", file: file_with_header(), language: "fr"})
+      |> conn("/foo", %{document_path: "hello", document_format: "gettext", file: file_with_header(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
