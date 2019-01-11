@@ -61,7 +61,7 @@ _This is the full development setup. To simply run the app, see the *Docker* ins
 1. If you don’t already have it, install `nodejs` with `brew install nodejs`
 2. If you don’t already have it, install `elixir` with `brew install elixir`
 3. If you don’t already have it, install `libyaml` with `brew install libyaml`
-4. If you don’t already have it, install `postgres` with `brew install postgres` or the [macOS app](https://postgresapp.com/)
+4. If you don’t already have it, install `postgres` with `brew install postgres` or the Docker setup as described below.
 5. Install dependencies with `make dependencies`
 6. Create and migrate your database with `mix ecto.setup`
 7. Start Phoenix endpoint with `mix phx.server`
