@@ -5,7 +5,7 @@ defmodule Accent.Scopes.Version do
   ## Examples
 
     iex> Accent.Scopes.Version.from_project(Accent.Version, "test")
-    #Ecto.Query<from v in Accent.Version, where: v.project_id == ^"test">
+    #Ecto.Query<from v0 in Accent.Version, where: v0.project_id == ^"test">
     iex> Accent.Scopes.Version.from_project(Accent.Version, nil)
     Accent.Version
   """
@@ -20,7 +20,7 @@ defmodule Accent.Scopes.Version do
   ## Examples
 
     iex> Accent.Scopes.Version.from_tag(Accent.Version, "test")
-    #Ecto.Query<from v in Accent.Version, where: v.tag == ^"test">
+    #Ecto.Query<from v0 in Accent.Version, where: v0.tag == ^"test">
     iex> Accent.Scopes.Version.from_tag(Accent.Version, nil)
     Accent.Version
   """

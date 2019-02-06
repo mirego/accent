@@ -11,7 +11,8 @@ defmodule LangueTest.Formatter.Rails do
     ArrayValues,
     PluralValues,
     IntegerValues,
-    PlaceholderValues
+    PlaceholderValues,
+    UnicodeValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Rails.Expectation, test) do

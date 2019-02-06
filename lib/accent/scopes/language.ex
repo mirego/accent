@@ -9,7 +9,7 @@ defmodule Accent.Scopes.Language do
     iex> Accent.Scopes.Language.from_search(Accent.Language, 1234)
     Accent.Language
     iex> Accent.Scopes.Language.from_search(Accent.Language, "test")
-    #Ecto.Query<from l in Accent.Language, where: ilike(l.name, ^"%test%")>
+    #Ecto.Query<from l0 in Accent.Language, where: ilike(l0.name, ^"%test%")>
   """
   @spec from_search(Ecto.Queryable.t(), any()) :: Ecto.Queryable.t()
   def from_search(query, term) do

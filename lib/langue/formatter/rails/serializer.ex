@@ -11,7 +11,7 @@ defmodule Langue.Formatter.Rails.Serializer do
       |> Enum.with_index(-1)
       |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
       |> :fast_yaml.encode()
-      |> IO.iodata_to_binary()
+      |> IO.chardata_to_string()
       |> String.replace(@white_space_regex, "\\1\n")
       |> Kernel.<>("\n")
 

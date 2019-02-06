@@ -5,7 +5,7 @@ defmodule Accent.Scopes.Document do
   ## Examples
 
     iex> Accent.Scopes.Document.from_project(Accent.Document, "test")
-    #Ecto.Query<from d in Accent.Document, where: d.project_id == ^\"test\">
+    #Ecto.Query<from d0 in Accent.Document, where: d0.project_id == ^\"test\">
   """
   @spec from_project(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_project(query, project_id) do
@@ -16,7 +16,7 @@ defmodule Accent.Scopes.Document do
   ## Examples
 
     iex> Accent.Scopes.Document.from_path(Accent.Document, "test")
-    #Ecto.Query<from d in Accent.Document, where: d.path == ^\"test\">
+    #Ecto.Query<from d0 in Accent.Document, where: d0.path == ^\"test\">
   """
   @spec from_path(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_path(query, path) do

@@ -1,19 +1,23 @@
-<p align="center">
-  <img src="logo.svg" alt="Accent Logo" width="500" />
-</p>
+<div align="center">
+  <img src="logo.svg" width="300" />
+  <p>
+    <br /><strong>The first developer-oriented translation tool</strong>
+    <br />True asynchronous flow between translators and your team.
+    <br />
+  </p>
+</div>
 
 [Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
 
 [![Build Status](https://travis-ci.org/mirego/accent.svg?branch=master)](https://travis-ci.org/mirego/accent)
 [![Coverage Status](https://coveralls.io/repos/github/mirego/accent/badge.svg?branch=master)](https://coveralls.io/github/mirego/accent?branch=master) [![Join the chat at https://gitter.im/mirego/accent](https://badges.gitter.im/mirego/accent.svg)](https://gitter.im/mirego/accent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**The first developer-oriented translation tool**. Accent’s engine coupled with the asynchronous flow between the translator and the developer is what makes Accent the most awesome tool of all.
+Accent provides a powerful abstraction around the process maintaining translations in a web/native app.
 
-The Accent API provides a powerful abstraction around the process of translating and maintaining the translations of an app.
-
-* **Collaboration**. Centralize your discussions around translations.
 * **History**. Full history control and actions rollback. _Who_ did _what_, _when_.
 * **UI**. Simple yet powerful UI to enable translator and developer to be productive.
+* **CLI**. [Command line tool](https://github.com/mirego/accent-cli) to easily add Accent to your developer flow.
+* **Collaboration**. Centralize your discussions around translations.
 * **GraphQL**. The API that powers the UI is open and documented. It’s easy to build a plugin/cli/library around Accent.
 
 ## Contents
@@ -30,8 +34,8 @@ The Accent API provides a powerful abstraction around the process of translating
 
 ## 🚧 Requirements
 
-- `erlang ~> 20.1`
-- `elixir ~> 1.6.0`
+- `erlang ~> 21.2`
+- `elixir ~> 1.8`
 - `postgres >= 9.4`
 - `node.js >= 8.5.0`
 - `libyaml >= 0.1.7`

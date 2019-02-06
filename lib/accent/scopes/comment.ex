@@ -5,7 +5,7 @@ defmodule Accent.Scopes.Comment do
   ## Examples
 
     iex> Accent.Scopes.Comment.default_order(Accent.Comment)
-    #Ecto.Query<from c in Accent.Comment, order_by: [desc: c.inserted_at]>
+    #Ecto.Query<from c0 in Accent.Comment, order_by: [desc: c0.inserted_at]>
   """
   @spec default_order(Ecto.Queryable.t()) :: Ecto.Queryable.t()
   def default_order(query) do
@@ -16,7 +16,7 @@ defmodule Accent.Scopes.Comment do
   ## Examples
 
     iex> Accent.Scopes.Comment.from_project(Accent.Comment, "test")
-    #Ecto.Query<from c in Accent.Comment, join: t in assoc(c, :translation), join: r in assoc(t, :revision), join: p in assoc(r, :project), where: p.id == ^\"test\", order_by: [desc: c.inserted_at], select: c>
+    #Ecto.Query<from c0 in Accent.Comment, join: t1 in assoc(c0, :translation), join: r2 in assoc(t1, :revision), join: p3 in assoc(r2, :project), where: p3.id == ^\"test\", order_by: [desc: c0.inserted_at], select: c0>
   """
   @spec from_project(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_project(query, project_id) do

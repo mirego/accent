@@ -5,7 +5,7 @@ defmodule Accent.Scopes.Revision do
   ## Examples
 
     iex> Accent.Scopes.Revision.from_project(Accent.Revision, "test")
-    #Ecto.Query<from r in Accent.Revision, join: l in assoc(r, :language), where: r.project_id == ^\"test\", order_by: [desc: r.master, asc: l.name]>
+    #Ecto.Query<from r0 in Accent.Revision, join: l1 in assoc(r0, :language), where: r0.project_id == ^\"test\", order_by: [desc: r0.master, asc: l1.name]>
   """
   @spec from_project(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_project(query, project_id) do
@@ -21,7 +21,7 @@ defmodule Accent.Scopes.Revision do
   ## Examples
 
     iex> Accent.Scopes.Revision.from_language(Accent.Revision, "test")
-    #Ecto.Query<from r in Accent.Revision, where: r.language_id == ^\"test\">
+    #Ecto.Query<from r0 in Accent.Revision, where: r0.language_id == ^\"test\">
   """
   @spec from_language(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_language(query, language_id) do
@@ -32,7 +32,7 @@ defmodule Accent.Scopes.Revision do
   ## Examples
 
     iex> Accent.Scopes.Revision.master(Accent.Revision)
-    #Ecto.Query<from r in Accent.Revision, where: r.master == true>
+    #Ecto.Query<from r0 in Accent.Revision, where: r0.master == true>
   """
   @spec master(Ecto.Queryable.t()) :: Ecto.Queryable.t()
   def master(query) do
@@ -43,7 +43,7 @@ defmodule Accent.Scopes.Revision do
   ## Examples
 
     iex> Accent.Scopes.Revision.slaves(Accent.Revision)
-    #Ecto.Query<from r in Accent.Revision, where: r.master == false>
+    #Ecto.Query<from r0 in Accent.Revision, where: r0.master == false>
   """
   @spec slaves(Ecto.Queryable.t()) :: Ecto.Queryable.t()
   def slaves(query) do

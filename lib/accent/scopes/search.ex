@@ -11,7 +11,7 @@ defmodule Accent.Scopes.Search do
     iex> Accent.Scopes.Search.from_search(Accent.Project, 1234, :name)
     Accent.ProjectSearch
     iex> Accent.Scopes.Search.from_search(Accent.Project, "test", :name)
-    #Ecto.Query<from p in Accent.Project, where: ilike(p.name, ^"%test%")>
+    #Ecto.Query<from p0 in Accent.Project, where: ilike(p0.name, ^"%test%")>
   """
   @spec from_search(Ecto.Queryable.t(), any(), atom()) :: Ecto.Queryable.t()
   def from_search(query, nil, _), do: query

@@ -11,16 +11,35 @@ defmodule LangueTest.Formatter.Rails.Expectation do
           "model":
             "user": "Utilisateur"
           "messages":
-            "invalid_email": "n’est pas une adresse courriel valide"
-            "invalid_url": "n’est pas un URL valide"
+            "invalid_email": "n'est pas une adresse courriel valide"
+            "invalid_url": "n'est pas un URL valide"
       """
     end
 
     def entries do
       [
         %Entry{index: 1, key: "errors.model.user", value: "Utilisateur"},
-        %Entry{index: 2, key: "errors.messages.invalid_email", value: "n’est pas une adresse courriel valide"},
-        %Entry{index: 3, key: "errors.messages.invalid_url", value: "n’est pas un URL valide"}
+        %Entry{index: 2, key: "errors.messages.invalid_email", value: "n'est pas une adresse courriel valide"},
+        %Entry{index: 3, key: "errors.messages.invalid_url", value: "n'est pas un URL valide"}
+      ]
+    end
+  end
+
+  defmodule UnicodeValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      "fr":
+        "errors":
+          "model":
+            "user": "éèàãô’ æ“"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "errors.model.user", value: "éèàãô’ æ“"}
       ]
     end
   end
