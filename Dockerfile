@@ -46,7 +46,7 @@ RUN cd /opt/build && \
 #
 # Step 2 - Build a lean runtime container
 #
-FROM alpine:3.8
+FROM alpine:3.9
 
 ARG APP_NAME
 ARG APP_VERSION
@@ -56,7 +56,7 @@ ENV APP_NAME=${APP_NAME} \
 # Update kernel and install runtime dependencies
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add bash openssl yaml-dev nodejs npm
+    apk --no-cache add bash openssl ca-certificates erlang-crypto yaml-dev nodejs npm
 
 WORKDIR /opt/accent
 
