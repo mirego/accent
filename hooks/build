@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+echo "------ HOOK START - BUILD -------"
+APP_NAME=`grep 'app:' mix.exs | sed -e 's/\[//g' -e 's/ //g' -e 's/app://' -e 's/[:,]//g'`
+APP_VERSION=`grep 'version:' mix.exs | cut -d '"' -f2`
+DOCKER_IMAGE_TAG=latest
+
+docker build --build-arg APP_NAME=$APP_NAME --build-arg APP_VERSION=$APP_VERSION --rm --tag $APP_NAME:$DOCKER_IMAGE_TAG .
+
+echo "------ HOOK END - BUILD -------"
