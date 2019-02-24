@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  API_HOST: {{ .Values.API_HOST }}
+  API_WS_HOST: {{ .Values.API_WS_HOST }}
+  CANONICAL_HOST: {{ .Values.CANONICAL_HOST }}
+  DATABASE_URL: {{ .Values.DATABASE_URL }}
+  GOOGLE_API_CLIENT_ID: {{ .Values.GOOGLE_API_CLIENT_ID }}
+  MAILER_FROM: {{ .Values.MAILER_FROM }}
+  MIX_ENV: {{ .Values.MIX_ENV }}
+  PORT: "{{ .Values.PORT }}"
+  RESTRICTED_DOMAIN: {{ .Values.RESTRICTED_DOMAIN }}
+  SENTRY_DSN: {{ .Values.SENTRY_DSN }}
+  SMTP_ADDRESS: {{ .Values.SMTP_ADDRESS }}
+  SMTP_PASSWORD: {{ .Values.SMTP_PASSWORD }}
+  SMTP_PORT: "{{ .Values.SMTP_PORT }}"
+  SMTP_USERNAME: {{ .Values.SMTP_USERNAME }}
+  WEBAPP_EMAIL_HOST: {{ .Values.WEBAPP_EMAIL_HOST }}
+  WEBAPP_SENTRY_DSN: {{ .Values.WEBAPP_SENTRY_DSN }}

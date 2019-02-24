@@ -1,0 +1,132 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "accent-chart.fullname" . }}
+  labels:
+    app: {{ template "accent-chart.name" . }}
+    chart: {{ template "accent-chart.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "accent-chart.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "accent-chart.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 4000
+              protocol: TCP
+          env:
+            - name: RESTRICTED_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  key: RESTRICTED_DOMAIN
+                  name: {{ .Release.Name }}-config
+            - name: WEBAPP_SENTRY_DSN
+              valueFrom:
+                configMapKeyRef:
+                  key: WEBAPP_SENTRY_DSN
+                  name: {{ .Release.Name }}-config
+            - name: SENTRY_DSN
+              valueFrom:
+                configMapKeyRef:
+                  key: SENTRY_DSN
+                  name: {{ .Release.Name }}-config
+            - name: API_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: API_HOST
+                  name: {{ .Release.Name }}-config
+            - name: API_WS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: API_WS_HOST
+                  name: {{ .Release.Name }}-config
+            - name: CANONICAL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: CANONICAL_HOST
+                  name: {{ .Release.Name }}-config
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_URL
+                  name: {{ .Release.Name }}-config
+            - name: GOOGLE_API_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: GOOGLE_API_CLIENT_ID
+                  name: {{ .Release.Name }}-config
+            - name: MIX_ENV
+              valueFrom:
+                configMapKeyRef:
+                  key: MIX_ENV
+                  name: {{ .Release.Name }}-config
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORT
+                  name: {{ .Release.Name }}-config
+            - name: WEBAPP_EMAIL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: WEBAPP_EMAIL_HOST
+                  name: {{ .Release.Name }}-config
+            - name: MAILER_FROM
+              valueFrom:
+                configMapKeyRef:
+                  key: MAILER_FROM
+                  name: {{ .Release.Name }}-config
+            - name: SMTP_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  key: SMTP_ADDRESS
+                  name: {{ .Release.Name }}-config
+            - name: SMTP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: SMTP_PORT
+                  name: {{ .Release.Name }}-config
+            - name: SMTP_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SMTP_USERNAME
+                  name: {{ .Release.Name }}-config
+            - name: SMTP_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: SMTP_PASSWORD
+                  name: {{ .Release.Name }}-config
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
