@@ -107,6 +107,9 @@ Accent provides a default value for every required environment variable. This me
 | `GOOGLE_API_CLIENT_ID` | _none_  | When deploying in a `prod` environment, the Google login is the only way to authenticate user. In `dev` environment, a fake login provider is used so you don’t have to setup a Google app. |
 | `RESTRICTED_DOMAIN`    | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
 
+### Start as kubernetes helm chart
+You can up project with [this helm chart](https://github.com/andreymaznyak/accent-helm-chart)
+
 ### Email setup
 If you want to send emails, you’ll have to configure the following environment variables:
 
