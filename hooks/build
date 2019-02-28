@@ -5,6 +5,6 @@ APP_NAME=`grep 'app:' mix.exs | sed -e 's/\[//g' -e 's/ //g' -e 's/app://' -e 's
 APP_VERSION=`grep 'version:' mix.exs | cut -d '"' -f2`
 DOCKER_IMAGE_TAG=latest
 
-docker build --build-arg APP_NAME=$APP_NAME --build-arg APP_VERSION=$APP_VERSION --rm --tag andreymaznyak/accent:$DOCKER_IMAGE_TAG .
+docker build --build-arg APP_NAME=$APP_NAME --build-arg APP_VERSION=$APP_VERSION --rm --tag mirego/accent:$DOCKER_IMAGE_TAG .
 
 echo "------ HOOK END - BUILD -------"
