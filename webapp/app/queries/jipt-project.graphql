@@ -1,0 +1,36 @@
+query Project($projectId: ID!, $revisionId: ID) {
+  viewer {
+    project(id: $projectId) {
+      id
+      name
+
+      viewerPermissions
+
+      revisions {
+        id
+        isMaster
+
+        language {
+          id
+          slug
+          name
+        }
+      }
+
+      revision(id: $revisionId) {
+        id
+        translations(pageSize: 1000) {
+          entries {
+            id
+            key
+            correctedText
+            document {
+              id
+              path
+            }
+          }
+        }
+      }
+    }
+  }
+}

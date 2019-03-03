@@ -1,9 +1,13 @@
-{{projects-header session=session}}
+<div>
+  {{projects-header session=session}}
 
-{{#if googleLoginEnabled}}
-  {{google-login-form onGoogleLogin=(action 'googleLogin')}}
-{{/if}}
+  {{#if googleLoginEnabled}}
+    {{google-login-form onGoogleLogin=(action 'googleLogin')}}
+  {{/if}}
 
-{{#if dummyLoginEnabled}}
-  {{dummy-login-form onDummyLogin=(action 'dummyLogin')}}
-{{/if}}
+  {{#if dummyLoginEnabled}}
+    {{dummy-login-form onDummyLogin=(action 'dummyLogin')}}
+  {{/if}}
+</div>
+
+{{application-footer}}

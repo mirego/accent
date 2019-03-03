@@ -4,9 +4,14 @@ import Controller from '@ember/controller';
 import config from 'accent-webapp/config/environment';
 
 export default Controller.extend({
+  jipt: service('jipt'),
   session: service('session'),
 
   username: '',
+
+  init() {
+    this.jipt.login();
+  },
 
   googleLoginEnabled: computed(() => config.GOOGLE_LOGIN_ENABLED),
   dummyLoginEnabled: computed(() => config.DUMMY_LOGIN_ENABLED),
@@ -26,6 +31,7 @@ export default Controller.extend({
   _login({token, provider}) {
     this.session.login({token, provider}).then(data => {
       if (data && data.token) {
+        this.jipt.loggedIn();
         this.transitionToRoute('logged-in.projects');
       }
     });

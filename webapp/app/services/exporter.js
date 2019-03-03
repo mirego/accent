@@ -24,6 +24,24 @@ export default Service.extend({
     /* eslint-enable camelcase */
   },
 
+  jipt({project, document, version}) {
+    const url = config.API.JIPT_EXPORT_DOCUMENT;
+    const documentFormat = document.format.toLowerCase();
+
+    /* eslint-disable camelcase */
+    return this.authenticatedRequest.export(
+      `${url}?${this.queryParams({
+        inline_render: true,
+        project_id: project.id,
+        version,
+        document_path: document.path,
+        document_format: documentFormat
+      })}`,
+      {}
+    );
+    /* eslint-enable camelcase */
+  },
+
   queryParams(params) {
     return Object.keys(params)
       .map(k => {

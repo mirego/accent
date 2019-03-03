@@ -10,5 +10,9 @@ cd webapp
 ./node_modules/ember-cli/bin/ember build --prod --output-path=/opt/$APP_NAME/lib/$APP_NAME-$APP_VERSION/priv/static/webapp &
 cd ..
 
+cd jipt
+./node_modules/parcel-bundler/bin/cli.js build index.ts --experimental-scope-hoisting --out-dir=/opt/$APP_NAME/lib/$APP_NAME-$APP_VERSION/priv/static/jipt &
+cd ..
+
 # Launch the OTP release and replace the caller as Process #1 in the container
 exec /opt/$APP_NAME/bin/$APP_NAME "$@"

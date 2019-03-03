@@ -44,6 +44,7 @@ defmodule Accent.Router do
 
     # File export
     get("/export", ExportController, [])
+    get("/jipt-export", ExportJIPTController, [])
   end
 
   scope "/", Accent do

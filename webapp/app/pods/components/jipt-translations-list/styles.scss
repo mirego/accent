@@ -1,0 +1,25 @@
+& {
+  margin: 20px 0;
+  border-top: 1px solid #eee;
+}
+
+.item {
+  display: block;
+  border-bottom: 1px solid #eee;
+  padding: 7px 15px;
+  color: $color-true-black;
+  font-size: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: $transition-speed $transition-easing;
+  transition-property: padding, background;
+
+  &:focus,
+  &:hover {
+    background: $color-light-background;
+    color: $color-black;
+    color: var(--color-black);
+  }
+}

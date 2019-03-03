@@ -9,6 +9,17 @@ export default {
     }
   },
   components: {
+    jipt: {
+      back_to_translations: {
+        back: 'Back'
+      },
+      translations_filtered_title: {
+        title_count: {
+          one: 'This element contains 1 string',
+          other: 'This element contains {{count}} strings'
+        }
+      }
+    },
     documents_add_button: {
       link: 'Synchronize a new file'
     },
@@ -185,6 +196,7 @@ export default {
       sync: 'Sync',
       merge: 'Add translations',
       export: 'Export',
+      export_jipt: 'Just in place translations',
       no_strings: 'No strings',
       total_strings_count: {
         zero: 'No strings',
@@ -326,7 +338,8 @@ export default {
         badges: 'Badges',
         api_token: 'API Token',
         service_integrations: 'Service & integrations',
-        manage_languages: 'Manage languages'
+        manage_languages: 'Manage languages',
+        jipt: 'Just In Place Translations'
       },
       delete_form: {
         title: 'Danger zone',
@@ -342,6 +355,20 @@ export default {
           remove_lock_button: 'Unlock file operations',
           add_lock_button: 'Lock file operations'
         }
+      },
+      jipt: {
+        title: 'Just In Place Translations',
+        integration_help:
+          'This steps will walk you throught the setup you need to have in your project to translate your strings in your browser, inside your project.',
+        script_title: 'Add the script at the root of your app',
+        add_language_title: 'Add the pseudo language to your project',
+        add_language_image_1: 'Here is a language like you already have in your project:',
+        add_language_image_2: 'Here is the pseudo language named "accent" that act as a normal translsation in your project:',
+        use_language_title: 'Use the pseudo language',
+        pseudo_language_text:
+          'The Accent script parses the DOM for strings that match the Just In Place Translations export. Go in the "Files" section to export the file or use the CLI to add the pseudo language to your project.',
+        use_language_text:
+          'By switching to the Accent language using your favorite framework i18n tool, the page will display the strings in the pseudo language files and the Accent script will replace those by the strings in Accent. It will also bind click event on the elements so that you can select strings directly in your app and edit them via Accent.'
       },
       api_token: {
         title: 'API token',

@@ -1,0 +1,27 @@
+.language {
+  display: block;
+  margin-bottom: 6px;
+  color: lighten($color-black, 20%);
+  font-size: 14px;
+  text-decoration: none;
+  transition: $transition-speed $transition-easing;
+  transition-property: color;
+
+  &:focus,
+  &:hover {
+    color: $color-black;
+
+    .back-icon {
+      fill: $color-black;
+      transform: translateX(-2px);
+    }
+  }
+}
+
+.back-icon {
+  width: 11px;
+  height: 11px;
+  fill: lighten($color-black, 20%);
+  transition: $transition-speed $transition-easing;
+  transition-property: fill transform;
+}

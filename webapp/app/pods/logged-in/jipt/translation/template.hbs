@@ -1,0 +1,19 @@
+{{#jipt-translation}}
+  {{#if showSkeleton}}
+    {{skeleton-ui/translation-splash-title}}
+  {{else}}
+    {{jipt-back-to-translations}}
+
+    {{translation-splash-title
+      project=model.project
+      translation=model.translation
+      withRevisionLink=false
+    }}
+  {{/if}}
+
+  {{#if model.loading}}
+    {{skeleton-ui/progress-line}}
+  {{/if}}
+
+  {{outlet}}
+{{/jipt-translation}}

@@ -35,7 +35,9 @@ module.exports = function(environment) {
     MERGE_PEEK_PROJECT_PATH: `${host}/merge/peek?project_id={0}&language={1}&merge_type={2}`,
     MERGE_REVISION_PATH: `${host}/merge?project_id={0}&language={1}&merge_type={2}`,
     EXPORT_DOCUMENT: `${host}/export`,
-    PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`
+    JIPT_EXPORT_DOCUMENT: `${host}/jipt-export`,
+    PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`,
+    JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`
   },
 
   ENV.GOOGLE_API = {

@@ -57,7 +57,7 @@ build: ## Build the Docker image for the OTP release
 # ----------
 
 .PHONY: lint
-lint: lint-compile lint-format lint-credo lint-eslint lint-stylelint lint-prettier ## Run lint tools on the code
+lint: lint-compile lint-format lint-credo lint-eslint lint-prettier ## Run lint tools on the code
 
 .PHONY: lint-compile
 lint-compile:
@@ -73,15 +73,11 @@ lint-credo:
 
 .PHONY: lint-eslint
 lint-eslint:
-	./assets/node_modules/.bin/eslint --ignore-path webapp/.eslintignore --config webapp/.eslintrc webapp
-
-.PHONY: lint-stylelint
-lint-stylelint:
-	./assets/node_modules/.bin/stylelint --syntax scss --config webapp/.stylelintrc webapp/css
+	./webapp/node_modules/.bin/eslint --ignore-path webapp/.eslintignore webapp
 
 .PHONY: lint-prettier
 lint-prettier:
-	./assets/node_modules/.bin/prettier --single-quote --list-different --no-bracket-spacing --print-width 130 './webapp/app/**/*.{js,gql}'
+	./webapp/node_modules/.bin/prettier --single-quote --list-different --no-bracket-spacing --print-width 130 './webapp/app/**/*.{js,gql}'
 
 .PHONY: test
 test: ## Run the test suite
@@ -100,7 +96,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	./assets/node_modules/.bin/prettier --single-quote --write --no-bracket-spacing --print-width 130 './webapp/app/**/*.{js,gql}'
+	./webapp/node_modules/.bin/prettier --single-quote --write --no-bracket-spacing --print-width 130 './webapp/app/**/*.{js,gql}'
 
 # Development targets
 # -------------------

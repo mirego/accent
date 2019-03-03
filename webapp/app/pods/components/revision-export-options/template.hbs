@@ -14,16 +14,18 @@
         </div>
       {{/if}}
 
-      <div class="exportOptions-item">
-        {{#power-select
-          searchEnabled=false
-          selected=orderByValue
-          options=orderByOptions
-          onchange=(action 'orderByChanged' value='value') as |option|
-        }}
-          {{t option.label}}
-        {{/power-select}}
-      </div>
+      {{#if showOrders}}
+        <div class="exportOptions-item">
+          {{#power-select
+            searchEnabled=false
+            selected=orderByValue
+            options=orderByOptions
+            onchange=(action 'orderByChanged' value='value') as |option|
+          }}
+            {{t option.label}}
+          {{/power-select}}
+        </div>
+      {{/if}}
 
       <div class="exportOptions-item">
         {{#power-select
