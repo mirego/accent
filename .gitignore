@@ -23,7 +23,11 @@ test.json
 .env*
 
 priv/static/webapp
+priv/static/jipt
 /webapp/node_modules
 /webapp/tmp
 /webapp/dist
+/jipt/node_modules
+/jipt/.cache
+/jipt/dist
 .elixir_ls

@@ -50,6 +50,10 @@
   }
 }
 
+&.with-revisions-count .ember-power-select-trigger {
+  padding-bottom: 25px;
+}
+
 .ember-power-select-trigger {
   padding: 10px;
   font-size: 20px;

@@ -1,0 +1,17 @@
+<html>
+  <body>
+    <div id="sample">
+      <h1>{^demo-accent.foo@session}</h1>
+    </div>
+
+    <script>
+      window.accent =
+        window.accent ||
+        function() {
+          (accent.q = accent.q || []).push(arguments);
+        };
+      accent('init', {h: 'http://localhost:8001', i: '07f82329-a4c4-43d1-88f8-07a699bf3466'});
+    </script>
+    <script async src="./index.ts"></script>
+  </body>
+</html>

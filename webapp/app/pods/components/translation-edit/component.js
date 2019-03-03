@@ -24,6 +24,14 @@ export default Component.extend({
     return this.text === this.translation.correctedText;
   }),
 
+  didUpdateAttrs() {
+    this._super(...arguments);
+
+    if (this.translation) {
+      this.set('text', this.translation.correctedText);
+    }
+  },
+
   actions: {
     correctConflict() {
       this.set('isCorrectingConflict', true);
@@ -41,6 +49,12 @@ export default Component.extend({
       this.set('isUpdatingText', true);
 
       this.onUpdateText(this.text).then(() => this.set('isUpdatingText', false));
+    },
+
+    changeText() {
+      if (!this.onChangeText) return;
+
+      this.onChangeText(this.text);
     }
   }
 });

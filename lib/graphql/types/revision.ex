@@ -18,6 +18,7 @@ defmodule Accent.GraphQL.Types.Revision do
 
     field :translations, non_null(:translations) do
       arg(:page, :integer)
+      arg(:page_size, :integer)
       arg(:order, :string)
       arg(:document, :id)
       arg(:version, :id)

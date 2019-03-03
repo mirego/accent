@@ -1,0 +1,28 @@
+& {
+  position: sticky;
+  top: 0;
+  z-index: 5000;
+  display: flex;
+  padding: 14px 10px;
+  box-shadow: 0 3px 10px rgba(#000, 0.1);
+  background: #041e14;
+}
+
+.project {
+  margin: 0 0 0 10px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(#000, 0.6);
+}
+
+.applicationLogo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.applicationLogo-image {
+  width: 18px;
+  height: 18px;
+}

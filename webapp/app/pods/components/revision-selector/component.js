@@ -10,6 +10,10 @@ export default Component.extend({
   i18n: service(),
   globalState: service('global-state'),
 
+  classNameBindings: ['withRevisionsCount:with-revisions-count'],
+
+  withRevisionsCount: true,
+
   hasManyRevisions: computed('revisions.[]', function() {
     return this.revisions && this.revisions.length > 1;
   }),

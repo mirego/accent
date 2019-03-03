@@ -111,6 +111,15 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> (&{:ok, &1}).()
   end
 
+  def show_project(project, _, _) do
+    Revision
+    |> RevisionScope.from_project(project.id)
+    |> RevisionScope.master()
+    |> Repo.one()
+    |> merge_stats()
+    |> (&{:ok, &1}).()
+  end
+
   @spec list_project(Project.t(), any(), GraphQLContext.t()) :: {:ok, [Revision.t()]}
   def list_project(project, _, _) do
     project

@@ -3,6 +3,7 @@ import {equal, and, readOnly} from '@ember/object/computed';
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+  jipt: service('jipt'),
   globalState: service('global-state'),
   session: service('session'),
 
@@ -10,6 +11,10 @@ export default Controller.extend({
 
   query: '',
   page: 1,
+
+  init() {
+    this.jipt.redirectIfEmbedded();
+  },
 
   permissions: readOnly('model.permissions'),
   emptyEntries: equal('model.projects.entries', undefined),
