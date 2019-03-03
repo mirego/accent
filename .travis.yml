@@ -4,8 +4,8 @@ sudo: false
 # Elixir baby!
 language: 'elixir'
 
-elixir: 1.7.4
-otp_release: 20.2.1
+elixir: 1.8.1
+otp_release: 21.2.5
 node_js: 9.5.0
 
 cache:
