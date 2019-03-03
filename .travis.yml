@@ -42,5 +42,5 @@ before_script:
   - mix ecto.setup
 
 script:
-  - ./priv/scripts/ci-check.sh
+  - make lint
   - mix coveralls.travis
