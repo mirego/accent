@@ -61,6 +61,10 @@
       "@oclif/plugin-not-found"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mirego/accent.git"
+  },
   "scripts": {
     "build": "rm -rf lib && tsc",
     "clean": "rm -f .oclif.manifest.json",
