@@ -1,0 +1,6 @@
+{
+  "nav": {
+    "organizations": "{^nav.organizations@admin}",
+    "reservations": "{^nav.reservations@admin}"
+  }
+}

@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aigu (1.2)
+      nokogiri (~> 1.6)
+    mini_portile2 (2.3.0)
+    nokogiri (1.8.5)
+      mini_portile2 (~> 2.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aigu
+
+BUNDLED WITH
+   1.16.2

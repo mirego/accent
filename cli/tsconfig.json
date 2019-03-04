@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowUnreachableCode": false,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "outDir": "./lib",
+    "pretty": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "rootDirs": [
+      "./src"
+    ],
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2017"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules/**/*"
+  ]
+}

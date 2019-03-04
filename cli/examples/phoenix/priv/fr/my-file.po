@@ -1,0 +1,6 @@
+msgid ""
+msgstr ""
+"Language: fr"
+
+msgid "key"
+msgstr "Valeur"

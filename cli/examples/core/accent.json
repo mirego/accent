@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "language": "fr",
+      "format": "json",
+      "source": "core/*.json",
+      "target": "core/%original_file_name%-%slug%.json",
+      "hooks": {
+        "beforeSync": [
+          "rm -rf core",
+          "mkdir -p core",
+          "ruby core.rb unmerge translations.json fr > core/core-is-awesome.json"
+        ],
+        "beforeAddTranslations": [
+          "ruby core.rb unmerge translations.json en > core/core-is-awesome-en.json"
+        ],
+        "afterExport": [
+          "ruby core.rb merge core/core-is-awesome-en.json core/core-is-awesome-fr.json > translations.json",
+          "rm -rf core"
+        ]
+      }
+    }
+  ]
+}
