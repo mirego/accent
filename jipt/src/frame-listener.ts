@@ -98,9 +98,9 @@ export default class FrameListener {
     if (!ref) return;
 
     ref.elements.forEach((meta, node: HTMLElement) => {
-      if (this.liveNode.isLive(node)) {
-        Mutation.nodeChange(node, meta, event.data.payload.text);
-      }
+      if (!this.liveNode.isLive(node)) return;
+
+      Mutation.nodeChange(node, meta, event.data.payload.text);
     });
   }
 }
