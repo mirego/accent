@@ -18,7 +18,6 @@ defmodule Langue.Formatter.Json.Serializer do
     |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
     |> List.first()
     |> elem(1)
-    |> Enum.map(&add_extra/1)
     |> encode_json()
   end
 
@@ -26,16 +25,19 @@ defmodule Langue.Formatter.Json.Serializer do
     content
     |> Enum.map(&add_extra/1)
     |> (&{&1}).()
-    |> :jiffy.encode([:pretty])
+    |> :jsone.encode([:native_utf8, {:indent, 2}, {:space, 1}, {:float_format, [{:decimals, 4}, :compact]}])
+    |> prettify_json()
+  end
+
+  def prettify_json(string) do
+    string
     |> String.replace(~r/\" : (\"|{|\[|null|false|true|\d)/, "\": \\1")
   end
 
   defp add_extra({key, [{_, _} | _] = values}), do: {key, {Enum.map(values, &add_extra/1)}}
   defp add_extra({key, values}) when is_list(values), do: {key, Enum.map(values, &add_extra/1)}
-  defp add_extra({key, nil}), do: {key, :null}
-  defp add_extra({key, values}), do: {key, values}
+  defp add_extra({key, values}), do: {key, add_extra(values)}
   defp add_extra(values = [{_key, _} | _]), do: {Enum.map(values, &add_extra/1)}
-  defp add_extra(values) when is_list(values), do: Enum.map(values, &add_extra/1)
   defp add_extra(nil), do: :null
   defp add_extra(value), do: value
 end

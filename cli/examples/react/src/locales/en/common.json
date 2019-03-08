@@ -1,0 +1,239 @@
+{
+  "appTitle": "vHub",
+  "fatalError": "An unexpected error has happened. Please try again later.",
+  "navigation": {
+    "admin": {
+      "organizations": "Organizations",
+      "reservations": "Reservations",
+      "title": "Admin"
+    },
+    "owner": {
+      "equipments": "Equipments",
+      "parkingLots": "Parking Lots",
+      "reservations": "Reservations",
+      "title": "Owner"
+    },
+    "renter": {
+      "reservations": "Reservations",
+      "title": "Renter"
+    },
+    "account": {
+      "administration": "Administration",
+      "organization": "Manage Organization"
+    },
+    "login": "Login",
+    "logout": "Logout",
+    "switchLanguage": {
+      "en": "English",
+      "fr": "Français"
+    },
+    "search": "Search"
+  },
+  "languages": {
+    "english": {
+      "title": "English",
+      "code": "en"
+    },
+    "french": {
+      "title": "French",
+      "code": "fr"
+    }
+  },
+  "mileage": {
+    "KILOMETERS": "km",
+    "MILES": "mi"
+  },
+  "notFound": {
+    "goHome": "Go back to homepage",
+    "message": "The page you are trying to reach is not available or does not exist.",
+    "title": "Page Not Found"
+  },
+  "reservations": {
+    "activities": {
+      "chronology": {
+        "application": "Device time",
+        "date": "{{date, DD-MM-YYYY, H:mm}}",
+        "synchronization": "Synchronized at",
+        "title": "Chronology"
+      },
+      "damages": {
+        "date": "{{date, D MMMM YYYY, H:mm}}",
+        "noDamages": "No damage declared",
+        "title": "Damages"
+      },
+      "inspection": {
+        "noConditionReports": "No condition reports declared",
+        "title": "Inspection"
+      },
+      "licencePlate": {
+        "title": "License Plate"
+      },
+      "location": {
+        "addressTitle": "Driver’s position",
+        "error": "Cannot resolve the address. Try again later.",
+        "notFound": "No addresses were found at this location",
+        "notProvided": "Not provided",
+        "title": "Location"
+      },
+      "odometer": {
+        "notProdived": "No information was provided.",
+        "title": "Odometer"
+      },
+      "review": {
+        "reasons": {
+          "alreadyPacked": "Not empty",
+          "dirty": "Dirty interior",
+          "damaged": "Severely damaged",
+          "snow": "Covered with snow",
+          "copled": "Coupled or inaccessible",
+          "notCompliant": "Not road compliant",
+          "other": "Other"
+        },
+        "title": "Review"
+      }
+    },
+    "assignees": {
+      "invitationList": {
+        "empty": "No invitations were sent yet"
+      },
+      "sendInvite": {
+        "form": {
+          "actions": {
+            "submit": {
+              "caption": "Send"
+            }
+          },
+          "errors": {
+            "failed": "We cannot send the SMS at the moment. Try again later."
+          },
+          "fields": {
+            "driverName": {
+              "errors": {
+                "required": "You must enter a name"
+              },
+              "label": "Name",
+              "placeholder": "John Doe"
+            },
+            "phoneNumber": {
+              "errors": {
+                "invalid": "Must be in the form of: +15553219876",
+                "required": "You must enter a phone number"
+              },
+              "label": "Phone Number",
+              "placeholder": "+15553219876"
+            }
+          }
+        }
+      }
+    },
+    "stateFilter": {
+      "all": "All",
+      "current": "In Progress",
+      "cancelled": "Cancelled",
+      "done": "Done",
+      "upcoming": "Upcoming",
+      "late_activation": "Late activation",
+      "late_deactivation": "Late deactivation"
+    },
+    "statusBadge": {
+      "activated": "Activated at {{date, DD/MM/YYYY HH:mm}}",
+      "deactivated": "Deactivated at {{date, DD/MM/YYYY HH:mm}}",
+      "lateActivation": "Late activation {{date, DD/MM/YYYY}}",
+      "lateDeactivation": "Late deactivation {{date, DD/MM/YYYY}}",
+      "upcoming": "Upcoming"
+    }
+  },
+  "search": "Search",
+  "searchMap": {
+    "departure": "Departure"
+  },
+  "timeAgo": "{{distance}} ago",
+  "errors": {
+    "overlap_availabilities": "Selected dates overlap an existing availability",
+    "overlap_reservations": "Selected dates overlap an existing reservation",
+    "equipment_not_available": "The equipment is not available for those dates"
+  },
+  "form": {
+    "actions": {
+      "delete": {
+        "caption": "Delete"
+      },
+      "cancel": {
+        "caption": "Cancel"
+      }
+    }
+  },
+  "currency": {
+    "prefixSymbol": "$",
+    "suffixSymbol": ""
+  },
+  "trailerTypes": {
+    "dry_van": "Dry Van",
+    "plate_dry_van": "Plate Dry Van",
+    "storage_van": "Storage Van",
+    "reefer_van": "Reefer Van",
+    "heated_van": "Heated Van",
+    "flatbed": "Flatbed",
+    "dropdeck": "Dropdeck"
+  },
+  "country": {
+    "canada": {
+      "title": "Canada",
+      "code": "CA",
+      "province": {
+        "ontario": {
+          "title": "Ontario",
+          "code": "ON"
+        },
+        "quebec": {
+          "title": "Quebec",
+          "code": "QC"
+        },
+        "britishColumbia": {
+          "title": "British Columbia",
+          "code": "BC"
+        },
+        "alberta": {
+          "title": "Alberta",
+          "code": "AB"
+        },
+        "manitoba": {
+          "title": "Manitoba",
+          "code": "MB"
+        },
+        "saskatchewan": {
+          "title": "Saskatchewan",
+          "code": "SK"
+        },
+        "novaScotia": {
+          "title": "Nova Scotia",
+          "code": "NS"
+        },
+        "newBrunswick": {
+          "title": "New Brunswick",
+          "code": "NB"
+        },
+        "newfoundlandAndLabrador": {
+          "title": "Newfoundland and Labrador",
+          "code": "NL"
+        },
+        "princeEdwardIsland": {
+          "title": "Prince Edward Island",
+          "code": "PE"
+        },
+        "northwestTerritories": {
+          "title": "Northwest Territories",
+          "code": "NT"
+        },
+        "nunavut": {
+          "title": "Nunavut",
+          "code": "NU"
+        },
+        "yukon": {
+          "title": "Yukon",
+          "code": "YT"
+        }
+      }
+    }
+  }
+}

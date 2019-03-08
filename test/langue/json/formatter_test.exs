@@ -6,6 +6,7 @@ defmodule LangueTest.Formatter.Json do
   alias Langue.Formatter.Json
 
   @tests [
+    Array,
     Empty,
     NilValue,
     EmptyValue,
@@ -14,7 +15,8 @@ defmodule LangueTest.Formatter.Json do
     FloatValue,
     Simple,
     Nested,
-    Complexe
+    Complexe,
+    PlaceholderValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Json.Expectation, test) do

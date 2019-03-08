@@ -21,6 +21,7 @@ defmodule Accent.GraphQL.Types.Translation do
     field(:key, non_null(:string), resolve: &Accent.GraphQL.Resolvers.Translation.key/3)
     field(:value_type, non_null(:translation_value_type))
     field(:plural, non_null(:boolean))
+    field(:placeholders, non_null(list_of(non_null(:string))))
 
     field(:proposed_text, :string)
     field(:corrected_text, :string)
@@ -35,6 +36,10 @@ defmodule Accent.GraphQL.Types.Translation do
     field(:revision, :revision, resolve: dataloader(Accent.Revision))
     field(:version, :version, resolve: dataloader(Accent.Version))
     field(:source_translation, :translation, resolve: dataloader(Accent.Translation, :source_translation))
+
+    field(:master_translation, :translation) do
+      resolve(&Accent.GraphQL.Resolvers.Translation.master_translation/3)
+    end
 
     field :comments_subscriptions, list_of(:translation_comments_subscription) do
       resolve(translation_authorize(:index_translation_comments_subscriptions, dataloader(Accent.TranslationCommentsSubscription, :comments_subscriptions)))

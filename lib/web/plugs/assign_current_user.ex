@@ -13,7 +13,7 @@ defmodule Accent.Plugs.AssignCurrentUser do
     user =
       conn
       |> get_req_header("authorization")
-      |> Enum.at(0)
+      |> List.first()
       |> UserAuthFetcher.fetch()
 
     assign(conn, :current_user, user)

@@ -1,7 +1,7 @@
 defmodule Accent.GraphQL.Resolvers.Viewer do
   alias Accent.{
-    User,
-    Plugs.GraphQLContext
+    Plugs.GraphQLContext,
+    User
   }
 
   @spec show(nil, map(), GraphQLContext.t()) :: {:ok, User.t() | nil}

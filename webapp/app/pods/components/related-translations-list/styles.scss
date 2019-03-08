@@ -3,12 +3,7 @@
 }
 
 .emptyItem {
-  padding: 25px 10px;
-  margin-bottom: 15px;
-  background: $color-white;
-  box-shadow: 0 1px 5px rgba($color-black, 0.04);
-  border: 1px solid $color-border;
-  border-radius: 3px;
+  margin: 60px 0 15px;
   color: $color-grey;
   font-size: 13px;
   font-style: italic;
@@ -16,5 +11,6 @@
 }
 
 .emptyItem-text {
-  margin-bottom: 15px;
+  max-width: 330px;
+  margin: 0 auto 15px;
 }

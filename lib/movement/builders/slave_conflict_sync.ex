@@ -3,19 +3,19 @@ defmodule Movement.Builders.SlaveConflictSync do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Movement.Mappers.Operation, as: OperationMapper
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.{Repo, Translation}
+  alias Movement.Mappers.Operation, as: OperationMapper
 
   @included_actions ~w(conflict_on_corrected conflict_on_proposed)
   @action "conflict_on_slave"
 
   def build(context = %Movement.Context{}) do
     context
-    |> assign_revision_ids
-    |> assign_operation_keys
-    |> assign_translations
-    |> process_operations
+    |> assign_revision_ids()
+    |> assign_operation_keys()
+    |> assign_translations()
+    |> process_operations()
   end
 
   defp process_operations(context = %Movement.Context{assigns: assigns}) do

@@ -1,0 +1,239 @@
+{
+  "appTitle": "vHub",
+  "fatalError": "Une erreur inattendue est survenue. Veuillez réessayer plus tard.",
+  "navigation": {
+    "admin": {
+      "organizations": "Organisations",
+      "reservations": "Réservations",
+      "title": "Admin"
+    },
+    "owner": {
+      "equipments": "Équipements",
+      "parkingLots": "Cours de stationnement",
+      "reservations": "Réservations",
+      "title": "Propriétaire"
+    },
+    "renter": {
+      "reservations": "Réservations",
+      "title": "Locataire"
+    },
+    "account": {
+      "administration": "Administration",
+      "organization": "Gérer mon organisation"
+    },
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "switchLanguage": {
+      "en": "English",
+      "fr": "Français"
+    },
+    "search": "Rechercher"
+  },
+  "languages": {
+    "english": {
+      "title": "Anglais",
+      "code": "en"
+    },
+    "french": {
+      "title": "Français",
+      "code": "fr"
+    }
+  },
+  "mileage": {
+    "KILOMETERS": "km",
+    "MILES": "mi"
+  },
+  "notFound": {
+    "goHome": "Retourner à la page d’accueil",
+    "message": "La page que vous tentiez d’atteindre n’est pas disponible ou n’existe pas.",
+    "title": "Page introuvable"
+  },
+  "reservations": {
+    "activities": {
+      "chronology": {
+        "application": "Heure de l’appareil",
+        "date": "{{date, DD-MM-YYYY, H:mm}}",
+        "synchronization": "Synchronisé à",
+        "title": "Chronologie"
+      },
+      "damages": {
+        "date": "{{date, D MMMM YYYY, H:mm}}",
+        "noDamages": "Aucun dommage déclaré",
+        "title": "Dommages"
+      },
+      "inspection": {
+        "noConditionReports": "Aucun rapport de condition déclaré",
+        "title": "Inspection"
+      },
+      "licencePlate": {
+        "title": "Plaque d’immatriculation"
+      },
+      "location": {
+        "addressTitle": "Position du conducteur",
+        "error": "Impossible de résoudre l’adresse. Réessayez plus tard.",
+        "notFound": "Aucune adresse trouvée à cet emplacement",
+        "notProvided": "Non fourni",
+        "title": "Emplacement"
+      },
+      "odometer": {
+        "notProdived": "Aucune information fournie.",
+        "title": "Odomètre"
+      },
+      "review": {
+        "reasons": {
+          "alreadyPacked": "Pas vide",
+          "dirty": "Intérieur sale",
+          "damaged": "Très endommagé",
+          "snow": "Couverte de neige",
+          "copled": "Couplée ou inaccessible",
+          "notCompliant": "Non conforme pour circuler",
+          "other": "Autre"
+        },
+        "title": "Critique"
+      }
+    },
+    "assignees": {
+      "invitationList": {
+        "empty": "Aucune invitation n’a encore été envoyée"
+      },
+      "sendInvite": {
+        "form": {
+          "actions": {
+            "submit": {
+              "caption": "Envoyer"
+            }
+          },
+          "errors": {
+            "failed": "Impossible d’envoyer un SMS pour le moment, veuillez réessayer plus tard."
+          },
+          "fields": {
+            "driverName": {
+              "errors": {
+                "required": "Vous devez entrer un nom"
+              },
+              "label": "Nom",
+              "placeholder": "Jean Tremblay"
+            },
+            "phoneNumber": {
+              "errors": {
+                "invalid": "Doit respecter le format suivant: +15553219876",
+                "required": "Vous devez entrer un numéro de téléphone"
+              },
+              "label": "Numéro de téléphone",
+              "placeholder": "+15553219876"
+            }
+          }
+        }
+      }
+    },
+    "stateFilter": {
+      "all": "Toutes",
+      "current": "En cours",
+      "cancelled": "Annulées",
+      "done": "Terminées",
+      "upcoming": "À venir",
+      "late_activation": "Non activées",
+      "late_deactivation": "Non désactivées"
+    },
+    "statusBadge": {
+      "activated": "Activée le {{date, DD\/MM\/YYYY HH:mm}}",
+      "deactivated": "Désactivée le {{date, DD\/MM\/YYYY HH:mm}}",
+      "lateActivation": "Activation en retard {{date, DD\/MM\/YYYY}}",
+      "lateDeactivation": "Désactivation en retard {{date, DD\/MM\/YYYY}}",
+      "upcoming": "À venir"
+    }
+  },
+  "search": "Rechercher",
+  "searchMap": {
+    "departure": "Départ"
+  },
+  "timeAgo": "Il y a {{distance}}",
+  "errors": {
+    "overlap_availabilities": "Les dates sélectionnées chevauchent une autre disponibilité",
+    "overlap_reservations": "Les dates sélectionnées chevauchent une réservation",
+    "equipment_not_available": "L’équipement n'est pas disponible pour ces dates"
+  },
+  "form": {
+    "actions": {
+      "delete": {
+        "caption": "Supprimer"
+      },
+      "cancel": {
+        "caption": "Annuler"
+      }
+    }
+  },
+  "currency": {
+    "prefixSymbol": "",
+    "suffixSymbol": " $"
+  },
+  "trailerTypes": {
+    "dry_van": "Fourgon sec",
+    "plate_dry_van": "Fourgon sec plate",
+    "storage_van": "Fourgon d'entreposage",
+    "reefer_van": "Fourgon réfrigéré",
+    "heated_van": "Fourgon chauffé",
+    "flatbed": "Plateforme",
+    "dropdeck": "Plateforme surbaissée"
+  },
+  "country": {
+    "canada": {
+      "title": "Canada",
+      "code": "CA",
+      "province": {
+        "ontario": {
+          "title": "Ontario",
+          "code": "ON"
+        },
+        "quebec": {
+          "title": "Québec",
+          "code": "QC"
+        },
+        "britishColumbia": {
+          "title": "Colombie-Britannique",
+          "code": "BC"
+        },
+        "alberta": {
+          "title": "Alberta",
+          "code": "AB"
+        },
+        "manitoba": {
+          "title": "Manitoba",
+          "code": "MB"
+        },
+        "saskatchewan": {
+          "title": "Saskatchewan",
+          "code": "SK"
+        },
+        "novaScotia": {
+          "title": "Nouvelle-Écosse",
+          "code": "NS"
+        },
+        "newBrunswick": {
+          "title": "Nouveau-Brunswick",
+          "code": "NB"
+        },
+        "newfoundlandAndLabrador": {
+          "title": "Terre-Neuve-et-Labrador",
+          "code": "NL"
+        },
+        "princeEdwardIsland": {
+          "title": "Île-du-Prince-Édouard",
+          "code": "PE"
+        },
+        "northwestTerritories": {
+          "title": "Territoires du Nord-Ouest",
+          "code": "NT"
+        },
+        "nunavut": {
+          "title": "Nunavut",
+          "code": "NU"
+        },
+        "yukon": {
+          "title": "Yukon",
+          "code": "YT"
+        }
+      }
+    }
+  }
+}

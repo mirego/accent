@@ -4,13 +4,13 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
   alias Movement.Builders.SlaveConflictSync, as: SlaveConflictSyncBuilder
 
   alias Accent.{
-    Repo,
-    ProjectCreator,
-    Translation,
-    User,
+    Document,
     Language,
+    ProjectCreator,
+    Repo,
     Revision,
-    Document
+    Translation,
+    User
   }
 
   @user %User{email: "test@test.com"}
@@ -20,7 +20,7 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
     other_language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
     {:ok, project} = ProjectCreator.create(params: %{name: "My project", language_id: language.id}, user: user)
-    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> Enum.at(0)
+    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     other_revision = Repo.insert!(%Revision{project_id: project.id, language_id: other_language.id})
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 

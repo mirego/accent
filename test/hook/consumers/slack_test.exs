@@ -8,11 +8,11 @@ defmodule AccentTest.Hook.Consumers.Slack do
   use Accent.RepoCase
 
   alias Accent.{
-    Repo,
-    Project,
-    User,
+    Hook.Consumers.Slack,
     Integration,
-    Hook.Consumers.Slack
+    Project,
+    Repo,
+    User
   }
 
   setup do
@@ -47,7 +47,7 @@ defmodule AccentTest.Hook.Consumers.Slack do
 
     """
 
-    post_message = %{body: Poison.encode!(%{text: post_body}), header: [{"Content-Type", "application/json"}], url: "http://example.com"}
+    post_message = %{body: Jason.encode!(%{text: post_body}), header: [{"Content-Type", "application/json"}], url: "http://example.com"}
     assert_receive {:post, ^post_message}
   end
 

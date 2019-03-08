@@ -4,8 +4,8 @@ defmodule AccentTest.GraphQL.Resolvers.Version do
   alias Accent.GraphQL.Resolvers.Version, as: Resolver
 
   alias Accent.{
-    Repo,
     Project,
+    Repo,
     User,
     Version
   }

@@ -5,12 +5,12 @@ defmodule AccentTest.BadgeGenerator do
 
   alias Accent.{
     BadgeGenerator,
-    Repo,
+    Document,
     Language,
     Project,
-    Document,
-    Translation,
-    Revision
+    Repo,
+    Revision,
+    Translation
   }
 
   setup do

@@ -3,7 +3,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
 
   alias Langue.Utils.NestedParserHelper
 
-  def serialize(%{entries: entries, top_of_the_file_comment: top_of_the_file_comment, header: header, locale: locale}) do
+  def serialize(%{entries: entries, top_of_the_file_comment: top_of_the_file_comment, header: header, language: language}) do
     comments =
       top_of_the_file_comment
       |> String.trim()
@@ -13,7 +13,8 @@ defmodule Langue.Formatter.Gettext.Serializer do
       header
       |> String.trim()
       |> String.replace("\"", "")
-      |> replace_language_header(locale)
+      |> replace_language_header(language)
+      |> replace_plural_forms_header(language)
       |> String.split("\n", trim: true)
 
     render =
@@ -69,7 +70,11 @@ defmodule Langue.Formatter.Gettext.Serializer do
 
   defp remove_key_suffix(string), do: String.replace(string, ".__KEY___", "")
 
-  defp replace_language_header(string, locale) do
-    String.replace(string, ~r/Language: [^\n]*/, "Language: #{locale}")
+  defp replace_language_header(string, language) do
+    String.replace(string, ~r/Language: [^\n]*/, "Language: #{language.slug}")
+  end
+
+  defp replace_plural_forms_header(string, language) do
+    String.replace(string, ~r/Plural-Forms: [^\n]*/, "Plural-Forms: #{language.plural_forms}")
   end
 end

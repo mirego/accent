@@ -4,7 +4,7 @@ import distanceInWordsToNow from 'npm:date-fns/distance_in_words_to_now';
 
 const OPTIONS = {
   addSuffix: true,
-  includeSeconds: true
+  includeSeconds: false
 };
 
 const timeAgoInWords = ([date]) => {

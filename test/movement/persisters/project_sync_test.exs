@@ -22,7 +22,7 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
     {:ok, project} = ProjectCreator.create(params: %{name: "My project", language_id: language.id}, user: user)
-    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> Enum.at(0)
+    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
     {:ok, [project: project, document: document, revision: revision, user: user]}
@@ -44,7 +44,8 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
         key: "a",
         text: "B",
         translation_id: translation.id,
-        value_type: "string"
+        value_type: "string",
+        placeholders: []
       }
     ]
 

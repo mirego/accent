@@ -3,8 +3,8 @@ defmodule AccentTest.UserRemote.Fetcher do
 
   import Mock
 
-  alias Accent.UserRemote.Fetcher
   alias Accent.UserRemote.Adapter.User
+  alias Accent.UserRemote.Fetcher
 
   defp mock_response(status, body) do
     %HTTPoison.Response{status_code: status, body: body}

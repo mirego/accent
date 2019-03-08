@@ -8,6 +8,7 @@ defmodule Accent.PreviousTranslation do
     conflicted
     removed
     value_type
+    placeholders
   )a
 
   @primary_key false
@@ -18,6 +19,7 @@ defmodule Accent.PreviousTranslation do
     field(:conflicted, :boolean, default: false)
     field(:removed, :boolean, default: false)
     field(:value_type, :string)
+    field(:placeholders, {:array, :string}, default: [])
   end
 
   @doc """
@@ -25,13 +27,14 @@ defmodule Accent.PreviousTranslation do
 
     iex> Accent.PreviousTranslation.from_translation(nil)
     %Accent.PreviousTranslation{}
-    iex> Accent.PreviousTranslation.from_translation(%Accent.Translation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string"})
-    %Accent.PreviousTranslation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string"}
+    iex> Accent.PreviousTranslation.from_translation(%Accent.Translation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string", placeholders: ["foo"]})
+    %Accent.PreviousTranslation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string", placeholders: ["foo"]}
   """
   def from_translation(nil), do: from_translation(%{})
 
   def from_translation(translation) do
-    fields = Map.take(translation, @fields)
-    struct(__MODULE__, fields)
+    translation
+    |> Map.take(@fields)
+    |> (&struct(__MODULE__, &1)).()
   end
 end

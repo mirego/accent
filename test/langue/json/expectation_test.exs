@@ -21,7 +21,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "null", value_type: "null"}
+        %Entry{index: 1, key: "test", value: "null", value_type: "null"}
       ]
     end
   end
@@ -39,7 +39,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "", value_type: "empty"}
+        %Entry{index: 1, key: "test", value: "", value_type: "empty"}
       ]
     end
   end
@@ -58,8 +58,8 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "false", value_type: "boolean"},
-        %Entry{comment: "", index: 2, key: "test2", value: "true", value_type: "boolean"}
+        %Entry{index: 1, key: "test", value: "false", value_type: "boolean"},
+        %Entry{index: 2, key: "test2", value: "true", value_type: "boolean"}
       ]
     end
   end
@@ -77,7 +77,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "7.8", value_type: "float"}
+        %Entry{index: 1, key: "test", value: "7.8", value_type: "float"}
       ]
     end
   end
@@ -95,7 +95,73 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "7", value_type: "integer"}
+        %Entry{index: 1, key: "test", value: "7", value_type: "integer"}
+      ]
+    end
+  end
+
+  defmodule InvalidIntegerValue do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": "something bad, fallback to string"
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test", value: "something bad, fallback to string", value_type: "integer"}
+      ]
+    end
+  end
+
+  defmodule InvalidFloatValue do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": "something bad, fallback to string"
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test", value: "something bad, fallback to string", value_type: "float"}
+      ]
+    end
+  end
+
+  defmodule Array do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": [
+          {
+            "a": "value-a"
+          },
+          {
+            "b": "value-b"
+          },
+          {
+            "c": "value-c"
+          }
+        ]
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test.__KEY__0.a", value: "value-a"},
+        %Entry{index: 2, key: "test.__KEY__1.b", value: "value-b"},
+        %Entry{index: 3, key: "test.__KEY__2.c", value: "value-c"}
       ]
     end
   end
@@ -115,9 +181,9 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test", value: "F"},
-        %Entry{comment: "", index: 2, key: "test2", value: "D"},
-        %Entry{comment: "", index: 3, key: "test3", value: "New history please"}
+        %Entry{index: 1, key: "test", value: "F"},
+        %Entry{index: 2, key: "test2", value: "D"},
+        %Entry{index: 3, key: "test3", value: "New history please"}
       ]
     end
   end
@@ -143,9 +209,9 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "test.nested", value: "A"},
-        %Entry{comment: "", index: 2, key: "test2.full.nested", value: "B"},
-        %Entry{comment: "", index: 3, key: "test2.normal", value: "C"}
+        %Entry{index: 1, key: "test.nested", value: "A"},
+        %Entry{index: 2, key: "test2.full.nested", value: "B"},
+        %Entry{index: 3, key: "test2.normal", value: "C"}
       ]
     end
   end
@@ -169,7 +235,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
               "season": {
                 "attributes": {
                   "base": {
-                    "current_season_must_be_unique": "Les saisons ne doivent pas se chevaucher. Une seule saison à la fois."
+                    "current_season_must_be_unique": "Les saisons"
                   },
                   "starts_at": {
                     "cant_be_changed": "ne peut pas être changé"
@@ -213,30 +279,51 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{comment: "", index: 1, key: "activerecord.errors.models.result.attributes.video_url.invalid_url", value: "n’est pas valide"},
-        %Entry{
-          comment: "",
-          index: 2,
-          key: "activerecord.errors.models.season.attributes.base.current_season_must_be_unique",
-          value: "Les saisons ne doivent pas se chevaucher. Une seule saison à la fois."
-        },
-        %Entry{comment: "", index: 3, key: "activerecord.errors.models.season.attributes.starts_at.cant_be_changed", value: "ne peut pas être changé"},
-        %Entry{comment: "", index: 4, key: "activerecord.errors.models.season.attributes.workouts_count.cant_be_changed", value: "ne peut pas être changé"},
-        %Entry{comment: "", index: 5, key: "attributes.country_code", value: "Pays"},
-        %Entry{comment: "", index: 6, key: "attributes.credit_card", value: "Carte de crédit"},
-        %Entry{comment: "", index: 7, key: "attributes.email", value: "Courriel"},
-        %Entry{comment: "", index: 8, key: "attributes.first_name", value: "Prénom"},
-        %Entry{comment: "", index: 9, key: "attributes.last_name", value: "Nom"},
-        %Entry{comment: "", index: 10, key: "attributes.package", value: "Forfait"},
-        %Entry{comment: "", index: 11, key: "attributes.password", value: "Mot de passe"},
-        %Entry{comment: "", index: 12, key: "attributes.seasons", value: "Saisons"},
-        %Entry{comment: "", index: 13, key: "array_type.__KEY__0", value: "foo"},
-        %Entry{comment: "", index: 14, key: "array_type.__KEY__1.bar", value: "baz"},
-        %Entry{comment: "", index: 15, key: "array_type.__KEY__1.aux", value: "zoo"},
-        %Entry{comment: "", index: 16, key: "array_type.__KEY__2.aa", value: "bb"},
-        %Entry{comment: "", index: 17, key: "array_type.__KEY__2.cc", value: "dd"},
-        %Entry{comment: "", index: 18, key: "array_type.__KEY__2.nested_array.__KEY__0", value: "null", value_type: "null"},
-        %Entry{comment: "", index: 19, key: "array_type.__KEY__2.nested_array.__KEY__1", value: "two"}
+        %Entry{index: 1, key: "activerecord.errors.models.result.attributes.video_url.invalid_url", value: "n’est pas valide"},
+        %Entry{index: 2, key: "activerecord.errors.models.season.attributes.base.current_season_must_be_unique", value: "Les saisons"},
+        %Entry{index: 3, key: "activerecord.errors.models.season.attributes.starts_at.cant_be_changed", value: "ne peut pas être changé"},
+        %Entry{index: 4, key: "activerecord.errors.models.season.attributes.workouts_count.cant_be_changed", value: "ne peut pas être changé"},
+        %Entry{index: 5, key: "attributes.country_code", value: "Pays"},
+        %Entry{index: 6, key: "attributes.credit_card", value: "Carte de crédit"},
+        %Entry{index: 7, key: "attributes.email", value: "Courriel"},
+        %Entry{index: 8, key: "attributes.first_name", value: "Prénom"},
+        %Entry{index: 9, key: "attributes.last_name", value: "Nom"},
+        %Entry{index: 10, key: "attributes.package", value: "Forfait"},
+        %Entry{index: 11, key: "attributes.password", value: "Mot de passe"},
+        %Entry{index: 12, key: "attributes.seasons", value: "Saisons"},
+        %Entry{index: 13, key: "array_type.__KEY__0", value: "foo"},
+        %Entry{index: 14, key: "array_type.__KEY__1.bar", value: "baz"},
+        %Entry{index: 15, key: "array_type.__KEY__1.aux", value: "zoo"},
+        %Entry{index: 16, key: "array_type.__KEY__2.aa", value: "bb"},
+        %Entry{index: 17, key: "array_type.__KEY__2.cc", value: "dd"},
+        %Entry{index: 18, key: "array_type.__KEY__2.nested_array.__KEY__0", value: "null", value_type: "null"},
+        %Entry{index: 19, key: "array_type.__KEY__2.nested_array.__KEY__1", value: "two"}
+      ]
+    end
+  end
+
+  defmodule PlaceholderValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "placeholders": {
+          "single": "Hello, {{username}}.",
+          "multiple": "Hello, {{firstname}} {{lastname}}.",
+          "duplicate": "Hello, {{username}}. Welcome back {{username}}.",
+          "empty": "Hello, {{}}."
+        }
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "placeholders.single", value: "Hello, {{username}}.", placeholders: ~w({{username}})},
+        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}})},
+        %Entry{index: 3, key: "placeholders.duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", placeholders: ~w({{username}} {{username}})},
+        %Entry{index: 4, key: "placeholders.empty", value: "Hello, {{}}.", placeholders: ~w({{}})}
       ]
     end
   end

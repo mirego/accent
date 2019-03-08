@@ -13,7 +13,6 @@ config :logger, level: :warn
 config :accent, sql_sandbox: true
 
 config :accent, Accent.Repo,
-  adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_test",
   pool: Ecto.Adapters.SQL.Sandbox
 

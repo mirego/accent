@@ -2,10 +2,6 @@
   position: relative;
   padding: 10px;
   margin-bottom: 15px;
-  background: $color-white;
-  box-shadow: 0 1px 5px rgba($color-black, 0.04);
-  border: 1px solid $color-border;
-  border-radius: 3px;
 
   &.empty {
     padding: 35px 10px;
@@ -17,7 +13,6 @@
 
   &.item--editMode {
     background: $color-light-grey;
-    border: 1px solid lighten($color-grey, 25%);
 
     .editButton {
       opacity: 1;
@@ -54,7 +49,7 @@
 
 .key {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   margin-right: 4px;
   color: rgba($color-black, 0.7);
   text-decoration: none;

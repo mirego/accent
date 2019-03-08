@@ -18,6 +18,11 @@ query Translation($projectId: ID!, $translationId: ID!) {
           id
         }
 
+        masterTranslation {
+          id
+          placeholders
+        }
+
         version {
           id
           tag

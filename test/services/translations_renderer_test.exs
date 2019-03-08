@@ -2,13 +2,13 @@ defmodule AccentTest.TranslationsRenderer do
   use Accent.RepoCase
 
   alias Accent.{
-    Repo,
-    User,
-    ProjectCreator,
-    Language,
-    Translation,
     Document,
-    TranslationsRenderer
+    Language,
+    ProjectCreator,
+    Repo,
+    Translation,
+    TranslationsRenderer,
+    User
   }
 
   @user %User{email: "test@test.com"}
@@ -22,7 +22,7 @@ defmodule AccentTest.TranslationsRenderer do
       project
       |> Repo.preload(:revisions)
       |> Map.get(:revisions)
-      |> Enum.at(0)
+      |> hd()
       |> Repo.preload(:language)
 
     {:ok, [project: project, revision: revision]}
@@ -45,7 +45,7 @@ defmodule AccentTest.TranslationsRenderer do
       TranslationsRenderer.render(%{
         translations: [translation],
         document_format: document.format,
-        document_locale: revision.language.slug
+        language: revision.language
       })
 
     expected_render = """
@@ -83,7 +83,7 @@ defmodule AccentTest.TranslationsRenderer do
       TranslationsRenderer.render(%{
         translations: translations,
         document_format: document.format,
-        document_locale: revision.language.slug
+        language: revision.language
       })
 
     assert render == ""
@@ -106,7 +106,7 @@ defmodule AccentTest.TranslationsRenderer do
       TranslationsRenderer.render(%{
         translations: [translation],
         document_format: document.format,
-        document_locale: "fr"
+        language: %Language{slug: "fr"}
       })
 
     expected_render = """

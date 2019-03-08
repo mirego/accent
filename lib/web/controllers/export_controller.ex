@@ -4,10 +4,19 @@ defmodule Accent.ExportController do
   import Canary.Plugs
   import Accent.Plugs.RevisionIdFromProjectLanguage
 
-  alias Accent.Scopes.Translation, as: Scope
   alias Accent.Scopes.Document, as: DocumentScope
+  alias Accent.Scopes.Translation, as: Scope
   alias Accent.Scopes.Version, as: VersionScope
-  alias Accent.{Repo, Project, Language, Document, Revision, Translation, Version}
+
+  alias Accent.{
+    Document,
+    Language,
+    Project,
+    Repo,
+    Revision,
+    Translation,
+    Version
+  }
 
   plug(Plug.Assign, %{canary_action: :export_revision})
   plug(:load_resource, model: Project, id_name: "project_id")
@@ -58,7 +67,7 @@ defmodule Accent.ExportController do
     file =
       [
         System.tmp_dir(),
-        Accent.Utils.SecureRandom.urlsafe_base64()
+        Accent.Utils.SecureRandom.urlsafe_base64(16)
       ]
       |> Path.join()
 
@@ -89,7 +98,7 @@ defmodule Accent.ExportController do
   defp fetch_document(conn = %{params: params, assigns: %{project: project}}, _) do
     Document
     |> DocumentScope.from_project(project.id)
-    |> DocumentScope.from_path(extract_path_from_filename(params["document_path"]))
+    |> DocumentScope.from_path(params["document_path"])
     |> Repo.one()
     |> case do
       document = %Document{} ->
@@ -121,22 +130,14 @@ defmodule Accent.ExportController do
     %{render: render} =
       Accent.TranslationsRenderer.render(%{
         translations: translations,
+        language: revision.language,
         document_format: document.format,
         document_top_of_the_file_comment: document.top_of_the_file_comment,
-        document_header: document.header,
-        document_locale: revision.language.slug
+        document_header: document.header
       })
 
     document = Map.put(document, :render, render)
 
     assign(conn, :document, document)
-  end
-
-  defp extract_path_from_filename(nil), do: nil
-
-  defp extract_path_from_filename(filename) do
-    filename
-    |> String.split(".", parts: 2)
-    |> Enum.at(0)
   end
 end

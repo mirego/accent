@@ -1,9 +1,9 @@
 defmodule Movement.Persisters.Base do
   require Ecto.Query
 
-  alias Movement.Migrator
+  alias Accent.{Operation, Repo}
   alias Movement.Mappers.OperationsStats, as: StatMapper
-  alias Accent.{Repo, Operation}
+  alias Movement.Migrator
 
   # Inserts operations by batch of 500 to prevent parameters
   # overflow in database adapter
@@ -49,11 +49,11 @@ defmodule Movement.Persisters.Base do
   defp persist_operations(context = %Movement.Context{assigns: assigns}) do
     operations =
       context.operations
-      |> Enum.map(fn operation ->
+      |> Stream.map(fn operation ->
         operation
         |> Map.put(:user_id, assigns[:user_id])
-        |> Map.put(:inserted_at, NaiveDateTime.utc_now())
-        |> Map.put(:updated_at, NaiveDateTime.utc_now())
+        |> Map.put(:inserted_at, DateTime.utc_now())
+        |> Map.put(:updated_at, DateTime.utc_now())
         |> assign_project(assigns[:project])
         |> assign_batch_operation(assigns[:batch_operation])
         |> assign_document(assigns[:document])
@@ -61,14 +61,14 @@ defmodule Movement.Persisters.Base do
         |> assign_version(assigns[:version])
         |> Map.from_struct()
       end)
-      |> Enum.chunk_every(@operations_inserts_chunk)
-      |> Enum.reduce([], fn operations, acc ->
+      |> Stream.chunk_every(@operations_inserts_chunk)
+      |> Stream.flat_map(fn operations ->
         Operation
         |> Repo.insert_all(operations, returning: true)
         |> elem(1)
         |> Repo.preload(:translation)
-        |> Kernel.++(acc)
       end)
+      |> Enum.to_list()
 
     %{context | operations: operations}
   end

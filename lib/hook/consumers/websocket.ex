@@ -1,8 +1,8 @@
 defmodule Accent.Hook.Consumers.Websocket do
   use Accent.Hook.EventConsumer, subscribe_to: [Accent.Hook.Producers.Websocket]
 
-  alias Accent.User
   alias Accent.Hook
+  alias Accent.User
 
   @channel "projects:"
   @supported_events ~w(sync create_collaborator create_comment)

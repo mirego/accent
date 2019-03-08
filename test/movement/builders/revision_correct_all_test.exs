@@ -1,15 +1,15 @@
 defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
   use Accent.RepoCase
 
-  alias Movement.Builders.RevisionCorrectAll, as: RevisionCorrectAllBuilder
-
   alias Accent.{
-    Repo,
+    Language,
     ProjectCreator,
+    Repo,
     Translation,
-    User,
-    Language
+    User
   }
+
+  alias Movement.Builders.RevisionCorrectAll, as: RevisionCorrectAllBuilder
 
   @user %User{email: "test@test.com"}
 
@@ -17,7 +17,7 @@ defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
     {:ok, project} = ProjectCreator.create(params: %{name: "My project", language_id: language.id}, user: user)
-    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> Enum.at(0)
+    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
 
     {:ok, [revision: revision]}
   end

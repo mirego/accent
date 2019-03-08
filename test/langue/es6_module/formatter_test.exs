@@ -7,7 +7,8 @@ defmodule LangueTest.Formatter.Es6Module do
 
   @tests [
     Simple,
-    Plural
+    Plural,
+    PlaceholderValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Es6Module.Expectation, test) do

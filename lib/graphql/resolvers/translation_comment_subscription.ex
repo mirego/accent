@@ -1,9 +1,9 @@
 defmodule Accent.GraphQL.Resolvers.TranslationCommentSubscription do
   alias Accent.{
+    Plugs.GraphQLContext,
     Repo,
     Translation,
-    TranslationCommentsSubscription,
-    Plugs.GraphQLContext
+    TranslationCommentsSubscription
   }
 
   @typep translation_comments_subscription_operation :: {:ok, %{translation_comments_subscription: TranslationCommentsSubscription.t() | nil, errors: [String.t()] | nil}}

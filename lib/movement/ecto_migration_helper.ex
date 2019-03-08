@@ -1,6 +1,6 @@
 defmodule Movement.EctoMigrationHelper do
-  alias Movement.Migration
   alias Accent.Repo
+  alias Movement.Migration
 
   @doc """
   Update given model by merging the existing parameters and the arguments.

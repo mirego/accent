@@ -76,13 +76,15 @@
         <span {{action 'toggleEdit'}} class="textEdit-cancel">Cancel</span>
       {{/if}}
 
-      {{#async-button
-        onClick=(action 'save')
-        loading=isSaving
-        class='button button--filled button--iconOnly textEdit-button'
-      }}
-        Save
-      {{/async-button}}
+      {{#if showSaveButton}}
+        {{#async-button
+          onClick=(action 'save')
+          loading=isSaving
+          class='button button--filled button--iconOnly textEdit-button'
+        }}
+          Save
+        {{/async-button}}
+      {{/if}}
     </div>
   </div>
 {{else}}

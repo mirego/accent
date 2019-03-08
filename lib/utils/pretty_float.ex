@@ -15,6 +15,7 @@ defmodule Accent.PrettyFloat do
     28
   """
 
+  def convert(integer) when is_integer(integer), do: integer
   def convert(float) when trunc(float) == float, do: trunc(float)
   def convert(float), do: float
 end

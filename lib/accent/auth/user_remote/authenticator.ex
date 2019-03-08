@@ -1,5 +1,5 @@
 defmodule Accent.UserRemote.Authenticator do
-  alias Accent.UserRemote.{Fetcher, Persister, TokenGiver, CollaboratorNormalizer}
+  alias Accent.UserRemote.{CollaboratorNormalizer, Fetcher, Persister, TokenGiver}
 
   def authenticate(provider, uid) do
     provider

@@ -2,18 +2,16 @@ defmodule Accent.GraphQL.Resolvers.Comment do
   alias Accent.Scopes.Comment, as: CommentScope
 
   alias Accent.{
-    Repo,
     Comment,
-    Translation,
-    Project,
-    Hook,
     GraphQL.Paginated,
-    Plugs.GraphQLContext
+    Hook,
+    Plugs.GraphQLContext,
+    Project,
+    Repo,
+    Translation
   }
 
   @typep comment_operation :: {:ok, %{comment: Comment.t() | nil, errors: [String.t()] | nil}}
-
-  @broadcaster Application.get_env(:accent, :hook_broadcaster)
 
   @spec create(Translation.t(), %{text: String.t()}, GraphQLContext.t()) :: comment_operation
   def create(translation, args, info) do
@@ -29,7 +27,7 @@ defmodule Accent.GraphQL.Resolvers.Comment do
       {:ok, comment} ->
         comment = Repo.preload(comment, [:user, translation: [revision: :project]])
 
-        @broadcaster.fanout(%Hook.Context{
+        Accent.Hook.fanout(%Hook.Context{
           event: "create_comment",
           project: comment.translation.revision.project,
           user: info.context[:conn].assigns[:current_user],

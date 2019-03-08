@@ -5,15 +5,11 @@ defmodule Langue.Utils.NestedParserHelper do
   @plural_suffixes ~w(.zero .one .two .few .many .other)
 
   def group_by_key_with_index(entries, index, nested_separator \\ @nested_separator) do
-    grouped_entries =
-      entries
-      |> Enum.group_by(fn entry ->
-        entry.key |> String.split(nested_separator) |> Enum.at(index)
-      end)
+    grouped_entries = Enum.group_by(entries, &key_at(&1, nested_separator, index))
 
     entries
     |> Enum.reduce(%{keys: MapSet.new(), results: []}, fn entry, acc ->
-      key = entry.key |> String.split(nested_separator) |> Enum.at(index)
+      key = key_at(entry, nested_separator, index)
 
       if MapSet.member?(acc.keys, key) do
         acc
@@ -21,11 +17,12 @@ defmodule Langue.Utils.NestedParserHelper do
         key_entries = grouped_entries[key]
 
         acc
-        |> Map.put(:results, List.insert_at(acc.results, -1, {key, key_entries}))
+        |> Map.put(:results, [{key, key_entries} | acc.results])
         |> Map.put(:keys, MapSet.put(acc.keys, key))
       end
     end)
     |> Map.get(:results)
+    |> Enum.reverse()
   end
 
   def parse(data) do
@@ -35,6 +32,12 @@ defmodule Langue.Utils.NestedParserHelper do
     |> Enum.with_index(1)
     |> Enum.map(fn {entry, index} -> %{entry | index: index} end)
     |> Enum.map(&parse_plural/1)
+  end
+
+  defp key_at(entry, nested_separator, index) do
+    entry.key
+    |> String.split(nested_separator)
+    |> Enum.at(index)
   end
 
   defp parse_plural(entry) do
@@ -62,6 +65,6 @@ defmodule Langue.Utils.NestedParserHelper do
   end
 
   defp flattenize_tuple({key, value}) do
-    %Entry{key: key, value: to_string(value), value_type: Langue.ValueType.parse(value), comment: ""}
+    %Entry{key: key, value: to_string(value), value_type: Langue.ValueType.parse(value), placeholders: []}
   end
 end

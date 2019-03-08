@@ -1,6 +1,6 @@
 defmodule Accent.RevisionDeleter do
-  alias Ecto.Multi
   alias Accent.Repo
+  alias Ecto.Multi
 
   def delete(revision: %{master: true}), do: {:error, "can't delete master language"}
 

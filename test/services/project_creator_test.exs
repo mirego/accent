@@ -2,7 +2,7 @@ defmodule AccentTest.ProjectCreator do
   use Accent.RepoCase
   require Ecto.Query
 
-  alias Accent.{Repo, Language, User, ProjectCreator}
+  alias Accent.{Language, ProjectCreator, Repo, User}
 
   test "create with language and user" do
     language = %Language{name: "french"} |> Repo.insert!()
@@ -12,9 +12,9 @@ defmodule AccentTest.ProjectCreator do
     {:ok, project} = ProjectCreator.create(params: params, user: user)
 
     assert project.name === "OK"
-    assert Enum.at(project.revisions, 0).project_id === project.id
-    assert Enum.at(project.revisions, 0).language_id === language.id
-    assert Enum.at(project.revisions, 0).master === true
+    assert hd(project.revisions).project_id === project.id
+    assert hd(project.revisions).language_id === language.id
+    assert hd(project.revisions).master === true
   end
 
   test "create owner collaborator" do
@@ -36,7 +36,7 @@ defmodule AccentTest.ProjectCreator do
     {:ok, project} = ProjectCreator.create(params: params, user: user)
     bot_collaborator = project |> Ecto.assoc(:collaborators) |> Ecto.Query.where([c], c.role == "bot") |> Repo.one()
     bot_user = Repo.preload(bot_collaborator, :user).user
-    bot_access = Repo.preload(bot_collaborator, user: :access_tokens).user.access_tokens |> Enum.at(0)
+    bot_access = Repo.preload(bot_collaborator, user: :access_tokens).user.access_tokens |> hd()
 
     refute is_nil(bot_collaborator.user_id)
     refute is_nil(bot_access.token)

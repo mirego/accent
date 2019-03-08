@@ -1,17 +1,17 @@
 defmodule AccentTest.Migrator.Down do
   use Accent.RepoCase
 
-  alias Movement.Migrator
-
   alias Accent.{
-    Repo,
-    Translation,
+    Operation,
     PreviousTranslation,
-    Operation
+    Repo,
+    Translation
   }
 
+  alias Movement.Migrator
+
   test ":noop" do
-    assert {:ok, :noop} == Migrator.down(%{action: "noop"})
+    assert nil == Migrator.down(%{action: "noop"})
   end
 
   test ":conflict_on_corrected" do
@@ -21,7 +21,8 @@ defmodule AccentTest.Migrator.Down do
       proposed_text: "proposed_text",
       conflicted_text: nil,
       conflicted: false,
-      removed: false
+      removed: false,
+      placeholders: []
     }
 
     translation =
@@ -57,7 +58,8 @@ defmodule AccentTest.Migrator.Down do
       proposed_text: "proposed_text",
       conflicted_text: nil,
       conflicted: true,
-      removed: false
+      removed: false,
+      placeholders: []
     }
 
     translation =
@@ -109,6 +111,29 @@ defmodule AccentTest.Migrator.Down do
     assert new_translation.removed == true
   end
 
+  test ":renew" do
+    translation =
+      Repo.insert!(%Translation{
+        key: "to_be_added_down",
+        corrected_text: nil,
+        proposed_text: "new text",
+        conflicted_text: nil,
+        conflicted: true
+      })
+
+    Migrator.down(
+      %Operation{
+        action: "renew",
+        translation: translation
+      }
+      |> Repo.insert!()
+    )
+
+    new_translation = Repo.get!(Translation, translation.id)
+
+    assert new_translation.removed == true
+  end
+
   test ":remove" do
     translation =
       Repo.insert!(%Translation{
@@ -117,7 +142,8 @@ defmodule AccentTest.Migrator.Down do
         corrected_text: nil,
         proposed_text: "new text",
         conflicted_text: nil,
-        conflicted: true
+        conflicted: true,
+        placeholders: []
       })
 
     Migrator.down(

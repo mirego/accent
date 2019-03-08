@@ -3,9 +3,8 @@ defmodule Movement.Persisters.ProjectSync do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Accent.Repo
+  alias Accent.{Project, Repo}
   alias Movement.Persisters.Base, as: BasePersister
-  alias Accent.{Repo, Project}
 
   @batch_action "sync"
 
@@ -20,7 +19,7 @@ defmodule Movement.Persisters.ProjectSync do
       |> case do
         {context, operations} ->
           context.assigns[:project]
-          |> Project.changeset(%{"last_synced_at" => NaiveDateTime.utc_now()})
+          |> Project.changeset(%{last_synced_at: DateTime.utc_now()})
           |> Repo.update()
 
           {context, operations}

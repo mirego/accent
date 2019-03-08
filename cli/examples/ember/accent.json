@@ -1,0 +1,10 @@
+{
+  "files": [
+    {
+      "language": "en",
+      "format": "json",
+      "source": "translations/en.json",
+      "target": "translations/%slug%.json"
+    }
+  ]
+}

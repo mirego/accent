@@ -1,9 +1,8 @@
 defmodule Movement.Persisters.NewSlave do
   @behaviour Movement.Persister
 
-  alias Accent.Repo
-  alias Movement.Persisters.Base, as: BasePersister
   alias Accent.{Repo, Revision}
+  alias Movement.Persisters.Base, as: BasePersister
 
   @batch_action "new_slave"
 

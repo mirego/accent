@@ -1,0 +1,239 @@
+{
+  "navigation": {
+    "switchLanguage": {
+      "en": "{acc:navigation.switchLanguage.en@common}",
+      "fr": "{acc:navigation.switchLanguage.fr@common}"
+    },
+    "search": "{acc:navigation.search@common}",
+    "admin": {
+      "organizations": "{acc:navigation.admin.organizations@common}",
+      "reservations": "{acc:navigation.admin.reservations@common}",
+      "title": "{acc:navigation.admin.title@common}"
+    },
+    "owner": {
+      "equipments": "{acc:navigation.owner.equipments@common}",
+      "parkingLots": "{acc:navigation.owner.parkingLots@common}",
+      "reservations": "{acc:navigation.owner.reservations@common}",
+      "title": "{acc:navigation.owner.title@common}"
+    },
+    "renter": {
+      "reservations": "{acc:navigation.renter.reservations@common}",
+      "title": "{acc:navigation.renter.title@common}"
+    },
+    "account": {
+      "administration": "{acc:navigation.account.administration@common}",
+      "organization": "{acc:navigation.account.organization@common}"
+    },
+    "logout": "{acc:navigation.logout@common}",
+    "login": "{acc:navigation.login@common}"
+  },
+  "languages": {
+    "english": {
+      "title": "{acc:languages.english.title@common}",
+      "code": "{acc:languages.english.code@common}"
+    },
+    "french": {
+      "title": "{acc:languages.french.title@common}",
+      "code": "{acc:languages.french.code@common}"
+    }
+  },
+  "mileage": {
+    "KILOMETERS": "{acc:mileage.KILOMETERS@common}",
+    "MILES": "{acc:mileage.MILES@common}"
+  },
+  "notFound": {
+    "goHome": "{acc:notFound.goHome@common}",
+    "message": "{acc:notFound.message@common}",
+    "title": "{acc:notFound.title@common}"
+  },
+  "reservations": {
+    "activities": {
+      "chronology": {
+        "application": "{acc:reservations.activities.chronology.application@common}",
+        "date": "{acc:reservations.activities.chronology.date@common}",
+        "synchronization": "{acc:reservations.activities.chronology.synchronization@common}",
+        "title": "{acc:reservations.activities.chronology.title@common}"
+      },
+      "damages": {
+        "date": "{acc:reservations.activities.damages.date@common}",
+        "noDamages": "{acc:reservations.activities.damages.noDamages@common}",
+        "title": "{acc:reservations.activities.damages.title@common}"
+      },
+      "inspection": {
+        "noConditionReports": "{acc:reservations.activities.inspection.noConditionReports@common}",
+        "title": "{acc:reservations.activities.inspection.title@common}"
+      },
+      "licencePlate": {
+        "title": "{acc:reservations.activities.licencePlate.title@common}"
+      },
+      "location": {
+        "addressTitle": "{acc:reservations.activities.location.addressTitle@common}",
+        "error": "{acc:reservations.activities.location.error@common}",
+        "notFound": "{acc:reservations.activities.location.notFound@common}",
+        "notProvided": "{acc:reservations.activities.location.notProvided@common}",
+        "title": "{acc:reservations.activities.location.title@common}"
+      },
+      "odometer": {
+        "notProdived": "{acc:reservations.activities.odometer.notProdived@common}",
+        "title": "{acc:reservations.activities.odometer.title@common}"
+      },
+      "review": {
+        "reasons": {
+          "alreadyPacked": "{acc:reservations.activities.review.reasons.alreadyPacked@common}",
+          "dirty": "{acc:reservations.activities.review.reasons.dirty@common}",
+          "damaged": "{acc:reservations.activities.review.reasons.damaged@common}",
+          "snow": "{acc:reservations.activities.review.reasons.snow@common}",
+          "copled": "{acc:reservations.activities.review.reasons.copled@common}",
+          "notCompliant": "{acc:reservations.activities.review.reasons.notCompliant@common}",
+          "other": "{acc:reservations.activities.review.reasons.other@common}"
+        },
+        "title": "{acc:reservations.activities.review.title@common}"
+      }
+    },
+    "assignees": {
+      "invitationList": {
+        "empty": "{acc:reservations.assignees.invitationList.empty@common}"
+      },
+      "sendInvite": {
+        "form": {
+          "actions": {
+            "submit": {
+              "caption": "{acc:reservations.assignees.sendInvite.form.actions.submit.caption@common}"
+            }
+          },
+          "errors": {
+            "failed": "{acc:reservations.assignees.sendInvite.form.errors.failed@common}"
+          },
+          "fields": {
+            "driverName": {
+              "errors": {
+                "required": "{acc:reservations.assignees.sendInvite.form.fields.driverName.errors.required@common}"
+              },
+              "label": "{acc:reservations.assignees.sendInvite.form.fields.driverName.label@common}",
+              "placeholder": "{acc:reservations.assignees.sendInvite.form.fields.driverName.placeholder@common}"
+            },
+            "phoneNumber": {
+              "errors": {
+                "invalid": "{acc:reservations.assignees.sendInvite.form.fields.phoneNumber.errors.invalid@common}",
+                "required": "{acc:reservations.assignees.sendInvite.form.fields.phoneNumber.errors.required@common}"
+              },
+              "label": "{acc:reservations.assignees.sendInvite.form.fields.phoneNumber.label@common}",
+              "placeholder": "{acc:reservations.assignees.sendInvite.form.fields.phoneNumber.placeholder@common}"
+            }
+          }
+        }
+      }
+    },
+    "stateFilter": {
+      "all": "{acc:reservations.stateFilter.all@common}",
+      "current": "{acc:reservations.stateFilter.current@common}",
+      "cancelled": "{acc:reservations.stateFilter.cancelled@common}",
+      "done": "{acc:reservations.stateFilter.done@common}",
+      "upcoming": "{acc:reservations.stateFilter.upcoming@common}",
+      "late_activation": "{acc:reservations.stateFilter.late_activation@common}",
+      "late_deactivation": "{acc:reservations.stateFilter.late_deactivation@common}"
+    },
+    "statusBadge": {
+      "activated": "{acc:reservations.statusBadge.activated@common}",
+      "deactivated": "{acc:reservations.statusBadge.deactivated@common}",
+      "lateActivation": "{acc:reservations.statusBadge.lateActivation@common}",
+      "lateDeactivation": "{acc:reservations.statusBadge.lateDeactivation@common}",
+      "upcoming": "{acc:reservations.statusBadge.upcoming@common}"
+    }
+  },
+  "search": "{acc:search@common}",
+  "searchMap": {
+    "departure": "{acc:searchMap.departure@common}"
+  },
+  "timeAgo": "{acc:timeAgo@common}",
+  "errors": {
+    "overlap_availabilities": "{acc:errors.overlap_availabilities@common}",
+    "overlap_reservations": "{acc:errors.overlap_reservations@common}",
+    "equipment_not_available": "{acc:errors.equipment_not_available@common}"
+  },
+  "form": {
+    "actions": {
+      "delete": {
+        "caption": "{acc:form.actions.delete.caption@common}"
+      },
+      "cancel": {
+        "caption": "{acc:form.actions.cancel.caption@common}"
+      }
+    }
+  },
+  "currency": {
+    "prefixSymbol": "{acc:currency.prefixSymbol@common}",
+    "suffixSymbol": "{acc:currency.suffixSymbol@common}"
+  },
+  "trailerTypes": {
+    "dry_van": "{acc:trailerTypes.dry_van@common}",
+    "plate_dry_van": "{acc:trailerTypes.plate_dry_van@common}",
+    "storage_van": "{acc:trailerTypes.storage_van@common}",
+    "reefer_van": "{acc:trailerTypes.reefer_van@common}",
+    "heated_van": "{acc:trailerTypes.heated_van@common}",
+    "flatbed": "{acc:trailerTypes.flatbed@common}",
+    "dropdeck": "{acc:trailerTypes.dropdeck@common}"
+  },
+  "country": {
+    "canada": {
+      "title": "{acc:country.canada.title@common}",
+      "code": "{acc:country.canada.code@common}",
+      "province": {
+        "ontario": {
+          "title": "{acc:country.canada.province.ontario.title@common}",
+          "code": "{acc:country.canada.province.ontario.code@common}"
+        },
+        "quebec": {
+          "title": "{acc:country.canada.province.quebec.title@common}",
+          "code": "{acc:country.canada.province.quebec.code@common}"
+        },
+        "britishColumbia": {
+          "title": "{acc:country.canada.province.britishColumbia.title@common}",
+          "code": "{acc:country.canada.province.britishColumbia.code@common}"
+        },
+        "alberta": {
+          "title": "{acc:country.canada.province.alberta.title@common}",
+          "code": "{acc:country.canada.province.alberta.code@common}"
+        },
+        "manitoba": {
+          "title": "{acc:country.canada.province.manitoba.title@common}",
+          "code": "{acc:country.canada.province.manitoba.code@common}"
+        },
+        "saskatchewan": {
+          "title": "{acc:country.canada.province.saskatchewan.title@common}",
+          "code": "{acc:country.canada.province.saskatchewan.code@common}"
+        },
+        "novaScotia": {
+          "title": "{acc:country.canada.province.novaScotia.title@common}",
+          "code": "{acc:country.canada.province.novaScotia.code@common}"
+        },
+        "newBrunswick": {
+          "title": "{acc:country.canada.province.newBrunswick.title@common}",
+          "code": "{acc:country.canada.province.newBrunswick.code@common}"
+        },
+        "newfoundlandAndLabrador": {
+          "title": "{acc:country.canada.province.newfoundlandAndLabrador.title@common}",
+          "code": "{acc:country.canada.province.newfoundlandAndLabrador.code@common}"
+        },
+        "princeEdwardIsland": {
+          "title": "{acc:country.canada.province.princeEdwardIsland.title@common}",
+          "code": "{acc:country.canada.province.princeEdwardIsland.code@common}"
+        },
+        "northwestTerritories": {
+          "title": "{acc:country.canada.province.northwestTerritories.title@common}",
+          "code": "{acc:country.canada.province.northwestTerritories.code@common}"
+        },
+        "nunavut": {
+          "title": "{acc:country.canada.province.nunavut.title@common}",
+          "code": "{acc:country.canada.province.nunavut.code@common}"
+        },
+        "yukon": {
+          "title": "{acc:country.canada.province.yukon.title@common}",
+          "code": "{acc:country.canada.province.yukon.code@common}"
+        }
+      }
+    }
+  },
+  "appTitle": "{acc:appTitle@common}",
+  "fatalError": "{acc:fatalError@common}"
+}

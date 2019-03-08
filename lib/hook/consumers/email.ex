@@ -2,10 +2,10 @@ defmodule Accent.Hook.Consumers.Email do
   use Accent.Hook.EventConsumer, subscribe_to: [Accent.Hook.Producers.Email]
 
   alias Accent.{
-    Repo,
-    ProjectInviteEmail,
     CreateCommentEmail,
-    Hook
+    Hook,
+    ProjectInviteEmail,
+    Repo
   }
 
   @supported_events ~w(create_collaborator create_comment)

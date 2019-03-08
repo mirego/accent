@@ -21,10 +21,31 @@ defmodule LangueTest.Formatter.JavaPropertiesXml.Expectation do
     def entries do
       [
         %Entry{key: "yes", value: "Oui", comment: "  <!-- XML COMMENT -->", index: 1},
-        %Entry{key: "url.hello", value: "Bonjour", comment: "", index: 2},
-        %Entry{key: "url.nested.ultra", value: "I’m so nested", comment: "", index: 3},
-        %Entry{key: "url.normal", value: "Normal string", comment: "", index: 4}
+        %Entry{key: "url.hello", value: "Bonjour", index: 2},
+        %Entry{key: "url.nested.ultra", value: "I’m so nested", index: 3},
+        %Entry{key: "url.normal", value: "Normal string", index: 4}
       ]
+    end
+  end
+
+  defmodule PlaceholderValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+      <properties>
+        <entry key="single">${const:java.awt.event.KeyEvent.VK_CANCEL}</entry>
+        <entry key="multiple">${single}, ${sys:user.home}/settings.xml</entry>
+        <entry key="duplicate">${env:JAVA_HOME}, ${env:JAVA_HOME}!</entry>
+        <entry key="empty">Hello, ${}.</entry>
+      </properties>
+      """
+    end
+
+    def entries do
+      LangueTest.Formatter.JavaProperties.Expectation.PlaceholderValues.entries()
     end
   end
 end

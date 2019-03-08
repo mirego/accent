@@ -7,14 +7,14 @@ defmodule Accent.TranslationsRenderer do
 
     parser_result = %Langue.Formatter.ParserResult{
       entries: entries,
-      locale: args[:document_locale],
+      language: args[:language],
       top_of_the_file_comment: args[:document_top_of_the_file_comment],
       header: args[:document_header]
     }
 
     try do
       serializer.(parser_result)
-    catch
+    rescue
       _ -> Langue.Formatter.SerializerResult.empty()
     end
   end

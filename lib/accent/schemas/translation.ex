@@ -16,6 +16,7 @@ defmodule Accent.Translation do
     field(:value_type, :string, default: "string")
     field(:plural, :boolean, default: false)
     field(:locked, :boolean, default: false)
+    field(:placeholders, {:array, :string}, default: [])
 
     belongs_to(:document, Accent.Document)
     belongs_to(:revision, Accent.Revision)
@@ -32,18 +33,19 @@ defmodule Accent.Translation do
     timestamps()
   end
 
-  @optional_fields [
-    :proposed_text,
-    :corrected_text,
-    :conflicted_text,
-    :conflicted,
-    :removed,
-    :comments_count,
-    :file_index,
-    :file_comment,
-    :value_type,
-    :document_id
-  ]
+  @optional_fields ~w(
+    proposed_text
+    corrected_text
+    conflicted_text
+    conflicted
+    removed
+    comments_count
+    file_index
+    file_comment
+    value_type
+    document_id
+    placeholders
+  )a
   def changeset(model, params) do
     model
     |> cast(params, @optional_fields)

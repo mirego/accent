@@ -23,7 +23,7 @@ defmodule AccentTest.Movement.Persisters.Rollback do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
     {:ok, project} = ProjectCreator.create(params: %{name: "My project", language_id: language.id}, user: user)
-    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> Enum.at(0)
+    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
     {:ok, [project: project, document: document, revision: revision, user: user]}
@@ -44,8 +44,8 @@ defmodule AccentTest.Movement.Persisters.Rollback do
     operation =
       %Accent.Operation{
         text: "B",
-        inserted_at: NaiveDateTime.utc_now(),
-        updated_at: NaiveDateTime.utc_now(),
+        inserted_at: DateTime.utc_now(),
+        updated_at: DateTime.utc_now(),
         action: "correct_conflict",
         translation: translation,
         previous_translation: PreviousTranslation.from_translation(translation),

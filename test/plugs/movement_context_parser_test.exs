@@ -1,14 +1,14 @@
 defmodule AccentTest.Plugs.MovementContextParser do
   use Accent.RepoCase
   use Plug.Test
-  alias Accent.Plugs.MovementContextParser
 
   alias Accent.{
-    Repo,
-    ProjectCreator,
+    Document,
     Language,
-    User,
-    Document
+    Plugs.MovementContextParser,
+    ProjectCreator,
+    Repo,
+    User
   }
 
   def file(filename \\ "simple.json") do
@@ -28,7 +28,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
     {:ok, project} = ProjectCreator.create(params: %{name: "My project", language_id: language.id}, user: user)
-    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> Enum.at(0)
+    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
     {:ok, [project: project, document: document, revision: revision, language: language, user: user]}
@@ -64,6 +64,28 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> MovementContextParser.call([])
 
     assert conn.assigns[:document_path] == "foo"
+    assert conn.state == :unset
+  end
+
+  test "fetch document path with file param containing multiple dots", %{project: project} do
+    conn =
+      :get
+      |> conn("/foo", %{document_path: "admin.common.test", document_format: "json", file: file("foo.json"), language: "fr"})
+      |> assign(:project, project)
+      |> MovementContextParser.call([])
+
+    assert conn.assigns[:document_path] == "admin.common.test"
+    assert conn.state == :unset
+  end
+
+  test "fetch document path with file param containing no dots", %{project: project} do
+    conn =
+      :get
+      |> conn("/foo", %{document_path: "admin", document_format: "json", file: file("foo.json"), language: "fr"})
+      |> assign(:project, project)
+      |> MovementContextParser.call([])
+
+    assert conn.assigns[:document_path] == "admin"
     assert conn.state == :unset
   end
 
@@ -108,7 +130,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
   test "fetch new document resource", %{project: project} do
     conn =
       :get
-      |> conn("/foo", %{document_path: "hello.json", document_format: "json", file: file(), language: "fr"})
+      |> conn("/foo", %{document_path: "hello", document_format: "json", file: file(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
@@ -123,7 +145,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
   test "assign document top_of_the_file_comment and header", %{project: project} do
     conn =
       :get
-      |> conn("/foo", %{document_path: "hello.po", document_format: "gettext", file: file_with_header(), language: "fr"})
+      |> conn("/foo", %{document_path: "hello", document_format: "gettext", file: file_with_header(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
@@ -154,7 +176,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
       conn.assigns
       |> Map.get(:movement_context)
 
-    assert context.assigns[:document] == document
+    assert context.assigns[:document].id == document.id
     assert conn.state == :unset
   end
 
@@ -170,9 +192,9 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> Map.get(:movement_context)
 
     assert context.entries == [
-             %Langue.Entry{comment: "", index: 1, key: "test", value: "F"},
-             %Langue.Entry{comment: "", index: 2, key: "test2", value: "D"},
-             %Langue.Entry{comment: "", index: 3, key: "test3", value: "New history please"}
+             %Langue.Entry{index: 1, key: "test", value: "F"},
+             %Langue.Entry{index: 2, key: "test2", value: "D"},
+             %Langue.Entry{index: 3, key: "test3", value: "New history please"}
            ]
   end
 

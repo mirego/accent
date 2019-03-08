@@ -8,7 +8,6 @@ defmodule Accent.Plugs.GraphQLContext do
   def init(opts), do: opts
 
   def call(conn, _) do
-    conn
-    |> put_private(:absinthe, %{context: %{conn: conn}})
+    put_private(conn, :absinthe, %{context: %{conn: conn}})
   end
 end

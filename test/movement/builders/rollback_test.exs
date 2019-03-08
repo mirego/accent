@@ -4,14 +4,14 @@ defmodule AccentTest.Movement.Builders.Rollback do
   alias Movement.Builders.Rollback, as: RollbackBuilder
 
   alias Accent.{
+    Document,
+    Language,
+    Operation,
+    PreviousTranslation,
+    ProjectCreator,
     Repo,
     Translation,
-    PreviousTranslation,
-    Operation,
-    User,
-    Language,
-    ProjectCreator,
-    Document
+    User
   }
 
   @user %User{email: "test@test.com"}
@@ -20,7 +20,7 @@ defmodule AccentTest.Movement.Builders.Rollback do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
     {:ok, project} = ProjectCreator.create(params: %{name: "My project", language_id: language.id}, user: user)
-    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> Enum.at(0)
+    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
     {:ok, [revision: revision, document: document, project: project]}
@@ -55,7 +55,8 @@ defmodule AccentTest.Movement.Builders.Rollback do
         corrected_text: "LOL",
         removed: false,
         revision_id: revision.id,
-        value_type: "string"
+        value_type: "string",
+        placeholders: []
       }
       |> Repo.insert!()
 
@@ -92,7 +93,8 @@ defmodule AccentTest.Movement.Builders.Rollback do
              corrected_text: translation.corrected_text,
              conflicted_text: translation.conflicted_text,
              conflicted: translation.conflicted,
-             removed: translation.removed
+             removed: translation.removed,
+             placeholders: translation.placeholders
            }
   end
 end

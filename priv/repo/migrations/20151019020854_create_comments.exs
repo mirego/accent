@@ -3,12 +3,12 @@ defmodule Accent.Repo.Migrations.CreateComments do
 
   def change do
     create table(:comments, primary_key: false) do
-      add :id, :uuid, primary_key: true
-      add :text, :text
+      add(:id, :uuid, primary_key: true)
+      add(:text, :text)
 
-      add :translation_id, references(:translations, type: :uuid)
+      add(:translation_id, references(:translations, type: :uuid))
 
-      timestamps
+      timestamps()
     end
   end
 end

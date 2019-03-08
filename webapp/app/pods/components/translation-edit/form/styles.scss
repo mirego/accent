@@ -25,9 +25,9 @@
 .label {
   width: 100%;
   padding: 5px 5px 5px 8px;
-  border-left: 2px solid #eee;
+  border-left: 2px solid lighten($color-blue, 40%);
   margin-bottom: 5px;
-  background: #fafafa;
+  background: lighten($color-blue, 46%);
   font-size: 12px;
   color: #888;
 }
@@ -44,4 +44,60 @@
     font-style: italic;
     font-family: $font-primary;
   }
+}
+
+.placeholders {
+  margin: 0 0 15px;
+  font-size: 12px;
+}
+
+.placeholders-title {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 0;
+  background: lighten($color-blue, 46%);
+  border-left: 2px solid lighten($color-blue, 40%);
+  font-size: 13px;
+  font-weight: bold;
+  color: $color-blue;
+}
+
+.placeholders-text {
+  margin-bottom: 6px;
+  padding: 5px 10px 8px;
+  background: lighten($color-blue, 46%);
+  border-left: 2px solid lighten($color-blue, 40%);
+  color: darken($color-blue, 15%);
+}
+
+.placeholders-text-content {
+  max-width: 500px;
+}
+
+.placeholders-item {
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  border-left: 2px solid lighten($color-true-black, 80%);
+  font-size: 14px;
+  color: darken($color-blue, 15%);
+
+  &.placeholders-item--warning {
+    border-color: lighten($color-error, 20%);
+    color: lighten($color-error, 10%);
+  }
+}
+
+.placeholders-item-icon {
+  margin-right: 5px;
+  width: 14px;
+  height: 14px;
+  fill: lighten($color-error, 15%);
+}
+
+.placeholders-title-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  fill: darken($color-blue, 10%);
 }

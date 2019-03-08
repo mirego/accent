@@ -4,7 +4,6 @@ defmodule Accent.UserSocket do
   alias Accent.{User, UserAuthFetcher}
 
   channel("projects:*", Accent.ProjectChannel)
-  transport(:websocket, Phoenix.Transports.WebSocket, timeout: 45_000)
 
   def connect(%{"token" => token}, socket) do
     case UserAuthFetcher.fetch(token) do

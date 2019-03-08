@@ -15,7 +15,27 @@
   class='link'
 }}
   {{inline-svg 'assets/sync.svg' class='link-icon'}}
-  <span class="link-title">{{t 'components.welcome_project.sync_file'}}</span>
+  <span class="link-title">
+    {{t 'components.welcome_project.sync_file'}}
+    <span class="link-subtitle">
+      {{t 'components.welcome_project.sync_file_text'}}
+    </span>
+  </span>
+{{/link-to}}
+
+{{#link-to
+  'logged-in.project.edit.collaborators'
+  project.id
+  class='link'
+}}
+  {{inline-svg 'assets/users.svg' class='link-icon'}}
+  <span class="link-title">
+    {{t 'components.welcome_project.add_collaborator'}}
+
+    <span class="link-subtitle">
+      {{t 'components.welcome_project.add_collaborator_text'}}
+    </span>
+  </span>
 {{/link-to}}
 
 <h3 class="subtitle">{{t 'components.welcome_project.after_steps'}}:</h3>

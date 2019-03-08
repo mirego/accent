@@ -3,8 +3,8 @@ defmodule LangueTest.Formatter.Android.Exception do
 
   Code.require_file("expectation_test.exs", __DIR__)
 
-  alias LangueTest.Formatter.Android.Expectation.{UnsupportedTag, RuntimeError}
   alias Langue.Formatter.Android
+  alias LangueTest.Formatter.Android.Expectation.{RuntimeError, UnsupportedTag}
 
   test "android XML unsupported tag" do
     {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(UnsupportedTag, Android)

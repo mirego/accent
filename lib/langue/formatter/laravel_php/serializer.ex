@@ -3,12 +3,12 @@ defmodule Langue.Formatter.LaravelPhp.Serializer do
 
   alias Langue.Utils.NestedSerializerHelper
 
-  def serialize(%{entries: entries, locale: locale}) do
+  def serialize(%{entries: entries, language: language}) do
     render =
-      %{locale => entries}
+      %{language.slug => entries}
       |> Enum.with_index(-1)
       |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
-      |> Enum.at(0)
+      |> hd()
       |> elem(1)
       |> PhpAssocMap.from_tuple()
       |> PhpAssocMap.Exploder.explode()
@@ -20,7 +20,6 @@ defmodule Langue.Formatter.LaravelPhp.Serializer do
   defp wrap_values(values) do
     """
     <?php
-
     return #{values};
     """
   end

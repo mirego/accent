@@ -1,7 +1,7 @@
 defmodule Accent.Plugs.MovementContextParser do
   use Plug.Builder
 
-  alias Accent.{Repo, Document}
+  alias Accent.{Document, Repo}
   alias Accent.Scopes.Document, as: DocumentScope
   alias Movement.Context
 
@@ -9,7 +9,6 @@ defmodule Accent.Plugs.MovementContextParser do
   plug(:assign_document_parser)
   plug(:assign_document_path)
   plug(:assign_document_format)
-  plug(:assign_document_locale)
   plug(:assign_movement_context)
   plug(:assign_movement_document)
   plug(:assign_movement_entries)
@@ -24,16 +23,12 @@ defmodule Accent.Plugs.MovementContextParser do
     end
   end
 
-  def assign_document_locale(conn = %{params: %{"language" => language}}, _) do
-    assign(conn, :document_locale, language)
-  end
-
   def assign_document_format(conn = %{params: %{"document_format" => format}}, _) do
     assign(conn, :document_format, format)
   end
 
   def assign_document_path(conn = %{params: %{"document_path" => path}}, _) when path !== "" and not is_nil(path) do
-    assign(conn, :document_path, extract_path_from_filename(path))
+    assign(conn, :document_path, path)
   end
 
   def assign_document_path(conn = %{params: %{"file" => file}}, _) do
@@ -45,18 +40,16 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   def assign_movement_document(conn = %{assigns: %{project: project, movement_context: context, document_path: path, document_format: format}}, _opts) do
-    document =
-      Document
-      |> DocumentScope.from_path(path)
-      |> DocumentScope.from_project(project.id)
-      |> Repo.one()
-
-    case document do
+    Document
+    |> DocumentScope.from_path(path)
+    |> DocumentScope.from_project(project.id)
+    |> Repo.one()
+    |> case do
       nil ->
         context = Context.assign(context, :document, %Document{project_id: project.id, path: path, format: format})
         assign(conn, :movement_context, context)
 
-      _ ->
+      document ->
         document = %{document | format: format}
         context = Context.assign(context, :document, document)
         assign(conn, :movement_context, context)
@@ -88,13 +81,11 @@ defmodule Accent.Plugs.MovementContextParser do
 
   defp serializer_result(conn, render) do
     conn.assigns[:document_parser].(%Langue.Formatter.SerializerResult{render: render})
-  catch
+  rescue
     _ -> {:error, :invalid_file}
   end
 
   defp extract_path_from_filename(filename) do
-    filename
-    |> String.split(".", parts: 2)
-    |> Enum.at(0)
+    Regex.replace(~r/(\w)(\.\w+)$/, filename, "\\1")
   end
 end

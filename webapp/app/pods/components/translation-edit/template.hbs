@@ -11,6 +11,7 @@
     {{/if}}
 
     {{translation-edit/form
+      placeholders=translation.masterTranslation.placeholders
       disabled=translation.isRemoved
       valueType=translation.valueType
       value=text
@@ -66,6 +67,7 @@
 
   {{else}}
     {{translation-edit/form
+      placeholders=translation.masterTranslation.placeholders
       disabled=translation.isRemoved
       valueType=translation.valueType
       value=text

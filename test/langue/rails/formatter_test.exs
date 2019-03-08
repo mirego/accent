@@ -10,11 +10,13 @@ defmodule LangueTest.Formatter.Rails do
     NestedValues,
     ArrayValues,
     PluralValues,
-    IntegerValues
+    IntegerValues,
+    PlaceholderValues,
+    UnicodeValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Rails.Expectation, test) do
-    test "json #{test}" do
+    test "rails #{test}" do
       {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), Rails)
       {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(unquote(module), Rails)
 

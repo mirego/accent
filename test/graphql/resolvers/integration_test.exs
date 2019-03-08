@@ -4,9 +4,9 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
   alias Accent.GraphQL.Resolvers.Integration, as: Resolver
 
   alias Accent.{
-    Repo,
-    Project,
     Integration,
+    Project,
+    Repo,
     User
   }
 

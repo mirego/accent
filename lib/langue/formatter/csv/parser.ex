@@ -1,8 +1,9 @@
 defmodule Langue.Formatter.CSV.Parser do
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Formatter.SerializerResult, as: Input
   alias Langue.Formatter.ParserResult, as: Output
+  alias Langue.Formatter.SerializerResult, as: Input
+  alias Langue.Utils.Placeholders
 
   @spec parse(Input.t()) :: Output.t()
   def parse(%Input{render: input}) do
@@ -12,6 +13,7 @@ defmodule Langue.Formatter.CSV.Parser do
       |> CSV.decode!()
       |> Stream.with_index(1)
       |> Enum.map(&to_entry/1)
+      |> Placeholders.parse(Langue.Formatter.CSV.placeholder_regex())
 
     %Output{entries: entries}
   end

@@ -3,7 +3,6 @@ defmodule AccentTest.Plugs.EnsureUnlockedFileOperations do
   use Plug.Test
 
   alias Accent.Plugs.EnsureUnlockedFileOperations
-
   alias Accent.Project
 
   test "no halt conn" do

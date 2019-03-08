@@ -5,11 +5,11 @@ defmodule Accent.FormatterTestHelper do
     {variant.entries, context.entries}
   end
 
-  def test_serialize(variant, serializer, locale \\ "fr") do
+  def test_serialize(variant, serializer, language \\ %Accent.Language{slug: "fr"}) do
     context =
       %Langue.Formatter.ParserResult{
         entries: variant.entries,
-        locale: locale,
+        language: language,
         top_of_the_file_comment: variant.top_of_the_file_comment,
         header: variant.header
       }

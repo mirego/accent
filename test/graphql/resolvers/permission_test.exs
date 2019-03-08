@@ -4,8 +4,8 @@ defmodule AccentTest.GraphQL.Resolvers.Permission do
   alias Accent.GraphQL.Resolvers.Permission, as: Resolver
 
   alias Accent.{
-    Repo,
     Project,
+    Repo,
     User
   }
 

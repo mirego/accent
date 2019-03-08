@@ -1,17 +1,15 @@
 defmodule Accent.GraphQL.Resolvers.Collaborator do
   alias Accent.{
-    Repo,
-    Project,
     Collaborator,
     CollaboratorCreator,
     CollaboratorUpdater,
     Hook,
-    Plugs.GraphQLContext
+    Plugs.GraphQLContext,
+    Project,
+    Repo
   }
 
   @typep collaborator_operation :: {:ok, %{collaborator: Collaborator.t() | nil, errors: [String.t()] | nil}}
-
-  @broadcaster Application.get_env(:accent, :hook_broadcaster)
 
   @spec create(Project.t(), %{email: String.t(), role: String.t()}, GraphQLContext.t()) :: collaborator_operation
   def create(project, %{email: email, role: role}, info) do
@@ -24,7 +22,7 @@ defmodule Accent.GraphQL.Resolvers.Collaborator do
 
     case CollaboratorCreator.create(params) do
       {:ok, collaborator} ->
-        @broadcaster.fanout(%Hook.Context{
+        Accent.Hook.fanout(%Hook.Context{
           event: "create_collaborator",
           project: project,
           user: info.context[:conn].assigns[:current_user],

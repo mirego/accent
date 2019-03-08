@@ -1,6 +1,4 @@
 defmodule Accent.Scopes.Language do
-  import Ecto.Query, only: [from: 2]
-
   @doc """
   ## Examples
 
@@ -11,16 +9,10 @@ defmodule Accent.Scopes.Language do
     iex> Accent.Scopes.Language.from_search(Accent.Language, 1234)
     Accent.Language
     iex> Accent.Scopes.Language.from_search(Accent.Language, "test")
-    #Ecto.Query<from l in Accent.Language, where: ilike(l.name, ^"%test%")>
+    #Ecto.Query<from l0 in Accent.Language, where: ilike(l0.name, ^"%test%")>
   """
   @spec from_search(Ecto.Queryable.t(), any()) :: Ecto.Queryable.t()
-  def from_search(query, nil), do: query
-  def from_search(query, term) when term === "", do: query
-  def from_search(query, term) when not is_binary(term), do: query
-
   def from_search(query, term) do
-    term = "%" <> term <> "%"
-
-    from(l in query, where: ilike(l.name, ^term))
+    Accent.Scopes.Search.from_search(query, term, :name)
   end
 end

@@ -2,8 +2,8 @@ defmodule AccentTest.Plugs.BotParamsInjector do
   use ExUnit.Case, async: true
   use Plug.Test
 
-  alias Accent.User
   alias Accent.Plugs.BotParamsInjector
+  alias Accent.User
 
   defp call_plug(user, query_params \\ %{}) do
     :get

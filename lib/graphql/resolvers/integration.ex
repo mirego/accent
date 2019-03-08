@@ -1,9 +1,9 @@
 defmodule Accent.GraphQL.Resolvers.Integration do
   alias Accent.{
-    Project,
     Integration,
     IntegrationManager,
-    Plugs.GraphQLContext
+    Plugs.GraphQLContext,
+    Project
   }
 
   @typep integration_operation :: {:ok, %{integration: Integration.t() | nil, errors: [String.t()] | nil}}

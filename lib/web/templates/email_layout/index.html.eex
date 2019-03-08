@@ -7,7 +7,7 @@
 
           <%= render @view_module, @view_template, assigns %>
 
-          <hr style="<%= style(background: "#f3f3f3", color: "#f3f3f3", "border": "1px solid #f3f3f3", margin: "10px 0") %>" />
+          <hr style="<%= style(background: "#f3f3f3", color: "#f3f3f3", border: "1px solid #f3f3f3", margin: "10px 0") %>" />
 
           <span style="<%= paragraph_style("font-size": "13px", color: "#555") %>">The Accent Team</span>
 

@@ -1,8 +1,7 @@
 defmodule AccentTest.RevisionDeleter do
   use Accent.RepoCase
-  require Ecto.Query
 
-  alias Accent.{Repo, Language, Revision, Project, Operation, Translation, RevisionDeleter}
+  alias Accent.{Language, Operation, Project, Repo, Revision, RevisionDeleter, Translation}
 
   setup do
     project = %Project{name: "My project"} |> Repo.insert!()

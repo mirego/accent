@@ -1,7 +1,7 @@
 defmodule Accent.GraphQL.Resolvers.Role do
   alias Accent.{
-    Role,
-    Plugs.GraphQLContext
+    Plugs.GraphQLContext,
+    Role
   }
 
   @spec list(any(), map(), GraphQLContext.t()) :: {:ok, list(Role.t())}

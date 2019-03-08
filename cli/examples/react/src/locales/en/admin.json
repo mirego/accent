@@ -1,0 +1,70 @@
+{
+  "edit": {
+    "actions": {
+      "actAsOrganization": "Manage"
+    },
+    "errors": {
+      "organizationNotFound": "The organization doesn’t exist"
+    },
+    "title": "Edit Organization"
+  },
+  "form": {
+    "actions": {
+      "submit": {
+        "caption": "Submit"
+      }
+    },
+    "fields": {
+      "email": {
+        "errors": {
+          "invalid": "Must be a valid email address"
+        },
+        "label": "Email Address"
+      },
+      "isOwner": {
+        "label": "Owner"
+      },
+      "isRenter": {
+        "label": "Renter"
+      },
+      "name": {
+        "errors": {
+          "required": "You must enter a name"
+        },
+        "label": "Name"
+      },
+      "phoneNumber": {
+        "errors": {
+          "invalid": "Must be in the form of: +15553219876"
+        },
+        "label": "Phone Number"
+      }
+    },
+    "sections": {
+      "informations": {
+        "title": "Informations"
+      }
+    }
+  },
+  "index": {
+    "actions": {
+      "new": "New Organization"
+    },
+    "alerts": {
+      "editOrganizationSuccess": "The organization was updated with success",
+      "newOrganizationSuccess": "The organization was created with success",
+      "noOrganization": "There are currently no organizations"
+    },
+    "organizationList": {
+      "header": {
+        "email": "Email Address",
+        "name": "Name",
+        "phoneNumber": "Phone Number"
+      }
+    },
+    "title": "Organizations"
+  },
+  "new": {
+    "title": "New Organization"
+  }
+}

@@ -64,9 +64,24 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "has already been taken", value: "est déjà pris"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY___", value: "should be at least %{count} character(s)", plural: true, locked: true, value_type: "string"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", plural: true, value_type: "string"},
-        %Entry{index: 2, key: "should be at least n character(s).__KEY__1", value: "should be at least %{count} character(s)", plural: true, value_type: "string"}
+        %Entry{
+          index: 2,
+          key: "should be at least n character(s).__KEY___",
+          value: "should be at least %{count} character(s)",
+          plural: true,
+          locked: true,
+          value_type: "string",
+          placeholders: ~w(%{count})
+        },
+        %Entry{index: 3, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", plural: true, value_type: "string"},
+        %Entry{
+          index: 4,
+          key: "should be at least n character(s).__KEY__1",
+          value: "should be at least %{count} character(s)",
+          plural: true,
+          value_type: "string",
+          placeholders: ~w(%{count})
+        }
       ]
     end
   end
@@ -118,6 +133,32 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     end
   end
 
+  defmodule PluralFormsHeader do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid ""
+      msgstr ""
+      #{header()}
+      msgid "has already been taken"
+      msgstr "est déjà pris"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "has already been taken", value: "est déjà pris"}
+      ]
+    end
+
+    def header do
+      ~S"""
+      "Plural-Forms: nplurals=2; plural=(n > 1);"
+      """
+    end
+  end
+
   defmodule NewLines do
     use Langue.Expectation.Case
 
@@ -132,6 +173,52 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "test", value: "a\na\n"}
+      ]
+    end
+  end
+
+  defmodule EmptyComment do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid "test"
+      msgstr "a"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test", value: "a", comment: ""}
+      ]
+    end
+  end
+
+  defmodule PlaceholderValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid "single"
+      msgstr "Hello, %{username}."
+
+      msgid "multiple"
+      msgstr "Hello, %{firstname} %{lastname}."
+
+      msgid "duplicate"
+      msgstr "Hello, %{username}. Welcome back %{username}."
+
+      msgid "empty"
+      msgstr "Hello, %{}."
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "single", value: "Hello, %{username}.", placeholders: ~w(%{username})},
+        %Entry{index: 2, key: "multiple", value: "Hello, %{firstname} %{lastname}.", placeholders: ~w(%{firstname} %{lastname})},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %{username}. Welcome back %{username}.", placeholders: ~w(%{username} %{username})},
+        %Entry{index: 4, key: "empty", value: "Hello, %{}.", placeholders: ~w(%{})}
       ]
     end
   end

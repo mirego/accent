@@ -2,10 +2,12 @@ defmodule AccentTest.Plugs.AssignCurrentUser do
   use Accent.RepoCase
   use Plug.Test
 
-  alias Accent.Repo
-  alias Accent.User
-  alias Accent.AccessToken
-  alias Accent.Plugs.AssignCurrentUser
+  alias Accent.{
+    AccessToken,
+    Plugs.AssignCurrentUser,
+    Repo,
+    User
+  }
 
   @user %User{email: "test@test.com"}
   @token %AccessToken{revoked_at: nil, token: "1234"}
@@ -31,7 +33,7 @@ defmodule AccentTest.Plugs.AssignCurrentUser do
       |> Map.get(:assigns)
       |> Map.get(:current_user)
 
-    assert assigned_user == user
+    assert assigned_user.id == user.id
   end
 
   test "unknown current_user" do

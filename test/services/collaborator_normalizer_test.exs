@@ -1,8 +1,9 @@
 defmodule AccentTest.CollaboratorNormalizer do
   use Accent.RepoCase
-  require Ecto.Query
 
-  alias Accent.{Repo, Project, User, Collaborator, UserRemote.CollaboratorNormalizer}
+  import Ecto.Query
+
+  alias Accent.{Collaborator, Project, Repo, User, UserRemote.CollaboratorNormalizer}
 
   test "create with many collaborations" do
     project = %Project{name: "Ha"} |> Repo.insert!()
@@ -24,7 +25,7 @@ defmodule AccentTest.CollaboratorNormalizer do
 
     :ok = CollaboratorNormalizer.normalize(new_user)
 
-    new_collaborators = Collaborator |> Ecto.Query.where([c], c.id in ^collaborator_ids) |> Repo.all()
+    new_collaborators = Collaborator |> where([c], c.id in ^collaborator_ids) |> Repo.all()
 
     assert new_collaborators |> Enum.map(&Map.get(&1, :user_id)) |> Enum.uniq() === [new_user.id]
   end
@@ -49,7 +50,7 @@ defmodule AccentTest.CollaboratorNormalizer do
 
     :ok = CollaboratorNormalizer.normalize(new_user)
 
-    new_collaborators = Collaborator |> Ecto.Query.where([c], c.id in ^collaborator_ids) |> Repo.all()
+    new_collaborators = Collaborator |> where([c], c.id in ^collaborator_ids) |> Repo.all()
 
     assert new_collaborators |> Enum.map(&Map.get(&1, :user_id)) |> Enum.uniq() === [new_user.id]
   end

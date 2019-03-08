@@ -30,8 +30,8 @@ module.exports = function(environment) {
     HOST: host,
     AUTHENTICATION_PATH: `${host}/auth`,
     PROJECT_PATH: `${host}/projects/{0}`,
-    SYNC_PEEK_PROJECT_PATH: `${host}/sync/peek?project_id={0}&language={1}`,
-    SYNC_PROJECT_PATH: `${host}/sync?project_id={0}&language={1}`,
+    SYNC_PEEK_PROJECT_PATH: `${host}/sync/peek?project_id={0}&language={1}&sync_type={2}`,
+    SYNC_PROJECT_PATH: `${host}/sync?project_id={0}&language={1}&sync_type={2}`,
     MERGE_PEEK_PROJECT_PATH: `${host}/merge/peek?project_id={0}&language={1}&merge_type={2}`,
     MERGE_REVISION_PATH: `${host}/merge?project_id={0}&language={1}&merge_type={2}`,
     EXPORT_DOCUMENT: `${host}/export`,
@@ -42,8 +42,8 @@ module.exports = function(environment) {
     CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID
   };
 
-  ENV.GOOGLE_LOGIN_ENABLED = Boolean(process.env.GOOGLE_API_CLIENT_ID);
-  ENV.DUMMY_LOGIN_ENABLED = !Boolean(process.env.GOOGLE_API_CLIENT_ID);
+  ENV.GOOGLE_LOGIN_ENABLED = environment === 'production';
+  ENV.DUMMY_LOGIN_ENABLED = environment !== 'production';
 
   ENV.SENTRY = {
     DSN: process.env.WEBAPP_SENTRY_DSN

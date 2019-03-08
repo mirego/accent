@@ -38,14 +38,6 @@ export default {
         'You can use any email to be automatically logged in the platform. Be sure that the API you’re connecting to is in dev mode and not built for production. <strong>The fake login setup is disabled in production.</strong>',
       login_button: 'Login with any email'
     },
-    hero_header: {
-      nav: {
-        why: 'Why?',
-        features: 'Features',
-        login_or_signup: 'Login / signup',
-        projects: 'My projects'
-      }
-    },
     activity_item: {
       rollbacked: 'Rollbacked',
       details: 'Details',
@@ -66,7 +58,7 @@ export default {
       document_format: 'Format of the file',
       document_path: 'Name of the file',
       language: 'Language',
-      merge_type: 'Mode',
+      commit_type: 'Mode',
       file_source: 'Document path',
       merge_button: 'Add translations',
       pattern_help: 'You need to specify the pattern of the files included in the zip that will be imported, eg: **/*.strings',
@@ -114,7 +106,7 @@ export default {
         other: '{{count}} strings to review',
         zero: 'No strings to review'
       },
-      reference_default_option_text: 'No reference langugage',
+      reference_default_option_text: 'No reference language',
       document_default_option_text: 'All documents',
       input_placeholder_text: 'Search for a string'
     },
@@ -163,8 +155,7 @@ export default {
     dashboard_revisions: {
       manage_languages_link_title: 'Manage languages',
       new_language_link_title: 'New language',
-      new_language_link_text:
-        'With another language, you can keep track of translation based on the master language. A conflict in the master will flag the associated string in all slaves languages.',
+      new_language_link_text: 'With another language, you can keep track of translation based on the master language.',
       view_more_activities: 'View more activities →',
       title: 'Dashboard',
       master: 'Master language',
@@ -230,8 +221,8 @@ export default {
       rollbacked_label: 'Rollbacked',
       file_label: 'File:',
       details_label: 'Details:',
-      explanation_label: 'Why did this happened?',
-      rollback_confirm: 'Are you sure you want to rollback this activity? This activity cannot be rollbacked.',
+      explanation_label: 'Why did this happen?',
+      rollback_confirm: 'Are you sure you want to rollback this activity? You cannot undo a rollback.',
       rollback: 'Rollback',
       stats_label_text: 'Activities performed:',
       stats_text: {
@@ -321,9 +312,9 @@ export default {
         merge: 'added translations for some strings'
       },
       label_text: {
-        conflict_on_corrected: 'The text has been move to review and is now:',
+        conflict_on_corrected: 'The text has been moved to review and is now:',
         conflict_on_proposed: 'The text is still in review and is now:',
-        conflict_on_slave: 'The text has been move to review and is now:'
+        conflict_on_slave: 'The text has been moved to review and is now:'
       }
     },
     project_settings: {
@@ -341,7 +332,8 @@ export default {
         title: 'Danger zone',
         delete_project_title: 'Delete this project',
         delete_project_text: 'Once you delete a project, there is no going back.',
-        delete_project_button: 'Delete this project'
+        delete_project_button: 'Delete this project',
+        delete_project_confirm: 'Are you sure you want to delete this project? This action cannot be undone.'
       },
       form: {
         update_button: 'Update project',
@@ -366,7 +358,7 @@ export default {
         admin_text: 'Can add languages, update the project and add/remove collaborators.',
         developer_text: 'Can make file operations: Sync, add translations and preview those operations in the UI.',
         owner_text: 'With the same roles as the admin, the owners are people who the project belongs to.',
-        reviewer_text: 'Can do every others tasks not present in the above roles. Review, update strings, comments, etc.',
+        reviewer_text: 'Can do every tasks except those listed in the above roles. Review, update strings, comments, etc.',
         title: 'Collaborators'
       },
       collaborators_item: {
@@ -472,9 +464,9 @@ export default {
         update_proposed: 'updated the uploaded text reference:'
       },
       label_text: {
-        conflict_on_corrected: 'The text has been move to review and is now:',
+        conflict_on_corrected: 'The text has been moved to review and is now:',
         conflict_on_proposed: 'The text is still in review and is now:',
-        conflict_on_slave: 'The text has been move to review and is now:'
+        conflict_on_slave: 'The text has been moved to review and is now:'
       }
     },
     project_comments_list: {
@@ -530,7 +522,7 @@ export default {
       create_error: 'Language can not be added right now. Try again later.',
       conflicts_explain_title: 'On conflicts',
       conflicts_explain_text:
-        'Every string addition or deletion will be reflected in the language. And when a text changes in the master revision, the string in the language will be mark as in review.',
+        'Every string addition or deletion will be reflected in the language. When a text changes in the master revision, the string in the language will be marked as in review.',
       sync_explain_title: 'On sync',
       sync_explain_text:
         'The master language will be the default source when syncing a file. The other languages are never "synced", they just follow the master language.',
@@ -621,9 +613,9 @@ export default {
         update_proposed: 'updated the uploaded text reference'
       },
       label_text: {
-        conflict_on_corrected: 'The text has been move to review and is now:',
+        conflict_on_corrected: 'The text has been moved to review and is now:',
         conflict_on_proposed: 'The text is still in review and is now:',
-        conflict_on_slave: 'The text has been move to review and is now:'
+        conflict_on_slave: 'The text has been moved to review and is now:'
       }
     },
     translation_comment_form: {
@@ -639,7 +631,7 @@ export default {
       correct_button: 'Update and mark as reviewed',
       previous_text: 'Previous text:',
       uncorrect_button: 'Put back to review',
-      uneditable: 'The text is not editable because it as been mark as reviewed',
+      uneditable: 'The text is not editable because it has been marked as reviewed',
       update_text: 'Update text',
       last_updated_label: 'Last updated:',
       form: {
@@ -649,7 +641,12 @@ export default {
         float_type_notice: 'The text has been set with a float value.',
         empty_type_notice: 'The text has been set to an empty string',
         empty_type_placeholder: 'Empty text',
-        null_type_notice: 'The text has been set to null'
+        null_type_notice: 'The text has been set to null',
+        placeholders: {
+          title: 'Placeholders',
+          text:
+            'These custom expressions mark special strings that will be replaced by dynamic values. You do not have to review or translate them.'
+        }
       }
     },
     translation_navigation: {
@@ -699,6 +696,9 @@ export default {
       first_step: 'First step',
       after_steps: 'After this, you will be able to',
       sync_file: 'Sync a new file',
+      sync_file_text: 'Add strings from multiple formats',
+      add_collaborator: 'Add collaborator',
+      add_collaborator_text: 'Translators, developers, etc.',
       start_review: 'Start to review and translate',
       export: 'Export the corrected file',
       help: 'Help?'
@@ -769,9 +769,9 @@ export default {
       index: {
         loading_content: 'Fetching dashboard…',
         flash_messages: {
-          revision_correct_success: 'All strings in the language has been mark as reviewed',
+          revision_correct_success: 'All strings in the language have been marked as reviewed',
           revision_correct_error: 'An error has occured when marking all the strings in that language as reviewed',
-          revision_uncorrect_success: 'All strings in the language has been mark to be reviewed',
+          revision_uncorrect_success: 'All strings in the language have been marked to be reviewed',
           revision_uncorrect_error: 'An error has occured when marking all the strings in that language to be reviewed'
         }
       },
@@ -791,7 +791,7 @@ export default {
       conflicts: {
         loading_content: 'Searching the strings in review…',
         flash_messages: {
-          revision_correct_success: 'All strings in the language has been mark as reviewed',
+          revision_correct_success: 'All strings in the language have been marked as reviewed',
           revision_correct_error: 'An error has occured when marking all the strings in that language as reviewed',
           correct_error: 'The string could not be marked as reviewed',
           correct_success: 'The string as been marked as reviewed with success'

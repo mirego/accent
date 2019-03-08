@@ -3,7 +3,7 @@ defmodule Movement.Migration.Translation do
 
   import Movement.EctoMigrationHelper
 
-  alias Accent.{Translation, Operation}
+  alias Accent.{Operation, Translation}
 
   def call(:update_proposed, operation) do
     operation.translation
@@ -19,7 +19,8 @@ defmodule Movement.Migration.Translation do
     |> update(%{
       value_type: operation.value_type,
       corrected_text: operation.text,
-      conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text
+      conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text,
+      placeholders: operation.placeholders
     })
   end
 
@@ -56,7 +57,8 @@ defmodule Movement.Migration.Translation do
       removed: operation.previous_translation && operation.previous_translation.removed,
       revision_id: operation.revision_id,
       document_id: operation.document_id,
-      version_id: operation.version_id
+      version_id: operation.version_id,
+      placeholders: operation.placeholders
     }
 
     insert(translation)
@@ -79,7 +81,8 @@ defmodule Movement.Migration.Translation do
       revision_id: operation.revision_id,
       document_id: operation.document_id,
       version_id: operation.version_id,
-      source_translation_id: operation.translation_id
+      source_translation_id: operation.translation_id,
+      placeholders: operation.placeholders
     }
 
     version_operation = Operation.copy(operation, %{action: "add_to_version", translation_id: id})

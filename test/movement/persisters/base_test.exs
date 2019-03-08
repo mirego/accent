@@ -3,15 +3,18 @@ defmodule AccentTest.Movement.Persisters.Base do
 
   import Ecto.Query
 
-  alias Movement.Persisters.Base, as: BasePersister
-
   alias Accent.{
-    Repo,
-    Translation,
+    Operation,
     PreviousTranslation,
+    Project,
+    Repo,
     Revision,
-    Operation
+    Translation,
+    User,
+    Version
   }
+
+  alias Movement.Persisters.Base, as: BasePersister
 
   test "don’t overwrite revision" do
     revision = %Revision{} |> Repo.insert!()
@@ -72,7 +75,8 @@ defmodule AccentTest.Movement.Persisters.Base do
         key: "a",
         text: "B",
         translation_id: translation.id,
-        value_type: "string"
+        value_type: "string",
+        placeholders: []
       }
     ]
 
@@ -191,5 +195,44 @@ defmodule AccentTest.Movement.Persisters.Base do
       |> Repo.one()
 
     assert new_operation.translation_id == new_translation.id
+  end
+
+  test "update operation add operation on version source translation" do
+    user = %User{email: "user@example.com"} |> Repo.insert!()
+    project = %Project{name: "project"} |> Repo.insert!()
+    version = %Version{name: "foo", tag: "0.1", project: project, user: user} |> Repo.insert!()
+
+    translation =
+      %Translation{
+        key: "a",
+        proposed_text: "A",
+        conflicted: true,
+        removed: true,
+        version: version
+      }
+      |> Repo.insert!()
+
+    operations = [
+      %Movement.Operation{
+        action: "update",
+        key: "a",
+        text: "B",
+        value_type: "string",
+        translation_id: translation.id,
+        version_id: version.id
+      }
+    ]
+
+    %Movement.Context{operations: operations}
+    |> Movement.Context.assign(:version, version)
+    |> BasePersister.execute()
+
+    updated_translation =
+      Translation
+      |> where([t], t.id == ^translation.id)
+      |> Repo.one()
+
+    assert updated_translation.corrected_text === "B"
+    assert updated_translation.proposed_text === "A"
   end
 end

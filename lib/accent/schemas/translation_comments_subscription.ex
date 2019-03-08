@@ -8,10 +8,10 @@ defmodule Accent.TranslationCommentsSubscription do
     timestamps()
   end
 
-  @required_fields [
-    :user_id,
-    :translation_id
-  ]
+  @required_fields ~w(
+    user_id
+    translation_id
+  )a
   def changeset(model, params) do
     model
     |> cast(params, @required_fields)

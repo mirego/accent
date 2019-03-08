@@ -3,12 +3,8 @@ defmodule AccentTest.Movement.Builders.TranslationUncorrectConflict do
 
   alias Movement.Builders.TranslationUncorrectConflict, as: TranslationUncorrectConflictBuilder
 
-  alias Accent.{
-    Translation
-  }
-
   test "builder" do
-    translation = %Translation{
+    translation = %Accent.Translation{
       key: "a",
       proposed_text: "A"
     }

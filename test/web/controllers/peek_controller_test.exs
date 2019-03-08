@@ -5,15 +5,15 @@ defmodule AccentTest.PeekController do
   setup :verify_on_exit!
 
   alias Accent.{
-    Repo,
-    Project,
-    Revision,
-    Document,
-    User,
     AccessToken,
     Collaborator,
+    Document,
+    Language,
+    Project,
+    Repo,
+    Revision,
     Translation,
-    Language
+    User
   }
 
   @user %User{email: "test@test.com"}

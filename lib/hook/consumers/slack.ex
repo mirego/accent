@@ -1,9 +1,12 @@
 defmodule Accent.Hook.Consumers.Slack do
   use Accent.Hook.EventConsumer, subscribe_to: [Accent.Hook.Producers.Slack]
 
-  require Ecto.Query
+  import Ecto.Query
 
-  alias Accent.{Repo, Hook}
+  alias Accent.{
+    Hook.Context,
+    Repo
+  }
 
   @headers [{"Content-Type", "application/json"}]
   @service "slack"
@@ -19,9 +22,9 @@ defmodule Accent.Hook.Consumers.Slack do
     {:noreply, [], state}
   end
 
-  defp filter_event(%Hook.Context{event: event}), do: event in @supported_events
+  defp filter_event(%Context{event: event}), do: event in @supported_events
 
-  defp handle_event(context = %Hook.Context{event: event, project: project}, {:http_client, http_client}) do
+  defp handle_event(context = %Context{event: event, project: project}, {:http_client, http_client}) do
     with integrations <- filter_service_integration_events(project, event, @service),
          urls <- Enum.map(integrations, fn integration -> integration.data.url end),
          body <- build_body(context) do
@@ -29,7 +32,7 @@ defmodule Accent.Hook.Consumers.Slack do
     end
   end
 
-  defp build_body(%Hook.Context{event: "sync", user: user, payload: %{document_path: document_path, batch_operation_stats: stats}}) do
+  defp build_body(%Context{event: "sync", user: user, payload: %{document_path: document_path, batch_operation_stats: stats}}) do
     %{
       text: """
       *#{user.fullname}* just synced a file: _#{document_path}_
@@ -49,14 +52,14 @@ defmodule Accent.Hook.Consumers.Slack do
   defp filter_service_integration_events(project, event, service) do
     project
     |> Ecto.assoc(:integrations)
-    |> Ecto.Query.where(service: ^service)
+    |> where(service: ^service)
     |> Repo.all()
     |> Enum.filter(fn integration -> event in integration.events end)
   end
 
   defp post_urls(http_client, urls, body) do
     for url <- urls do
-      http_client.post(url, Poison.encode!(body), @headers)
+      http_client.post(url, Jason.encode!(body), @headers)
     end
 
     :ok

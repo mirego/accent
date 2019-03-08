@@ -4,12 +4,13 @@ defmodule Accent.GraphQL.Resolvers.Operation do
 
   alias Accent.{
     Operation,
-    Plugs.GraphQLContext
+    Plugs.GraphQLContext,
+    Repo
   }
 
   @spec rollback(Operation.t(), any(), GraphQLContext.t()) :: {:ok, %{operation: boolean(), errors: [String.t()] | nil}}
   def rollback(operation, _, info) do
-    operation = Accent.Repo.preload(operation, :batch_operation)
+    operation = Repo.preload(operation, :batch_operation)
 
     %Movement.Context{}
     |> Movement.Context.assign(:operation, operation)

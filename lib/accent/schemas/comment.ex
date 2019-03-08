@@ -1,7 +1,7 @@
 defmodule Accent.Comment do
   use Accent.Schema
 
-  import Ecto.Query, only: [from: 2]
+  import Ecto.Query, only: [where: 2]
 
   schema "comments" do
     field(:text, :string)
@@ -21,7 +21,8 @@ defmodule Accent.Comment do
     |> assoc_constraint(:user)
     |> assoc_constraint(:translation)
     |> prepare_changes(fn changeset ->
-      from(t in Accent.Translation, where: t.id == ^changeset.changes[:translation_id])
+      Accent.Translation
+      |> where(id: ^changeset.changes[:translation_id])
       |> changeset.repo.update_all(inc: [comments_count: 1])
 
       changeset

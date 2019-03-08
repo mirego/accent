@@ -3,16 +3,16 @@ defmodule Movement.Builders.NewVersion do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Movement.Mappers.Operation, as: OperationMapper
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Translation, Repo}
+  alias Accent.{Repo, Translation}
+  alias Movement.Mappers.Operation, as: OperationMapper
 
   @action "version_new"
 
   def build(context) do
     context
-    |> assign_translations
-    |> process_operations
+    |> assign_translations()
+    |> process_operations()
   end
 
   defp process_operations(context = %Movement.Context{assigns: assigns, operations: operations}) do

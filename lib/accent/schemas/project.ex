@@ -3,7 +3,7 @@ defmodule Accent.Project do
 
   schema "projects" do
     field(:name, :string)
-    field(:last_synced_at, :naive_datetime)
+    field(:last_synced_at, :utc_datetime)
     field(:locked_file_operations, :boolean, default: false)
 
     has_many(:integrations, Accent.Integration)
@@ -16,11 +16,11 @@ defmodule Accent.Project do
     timestamps()
   end
 
-  @optional_fields [
-    :name,
-    :last_synced_at,
-    :locked_file_operations
-  ]
+  @optional_fields ~w(
+    name
+    last_synced_at
+    locked_file_operations
+  )a
   def changeset(model, params) do
     model
     |> cast(params, @optional_fields)

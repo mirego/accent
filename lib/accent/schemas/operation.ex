@@ -7,6 +7,8 @@ defmodule Accent.Operation do
     :text,
     :conflicted,
     :value_type,
+    :plural,
+    :locked,
     :file_index,
     :file_comment,
     :removed,
@@ -33,6 +35,7 @@ defmodule Accent.Operation do
     field(:value_type, :string)
     field(:plural, :boolean, default: false)
     field(:locked, :boolean, default: false)
+    field(:placeholders, {:array, :string}, default: [])
 
     field(:rollbacked, :boolean, default: false)
     field(:stats, {:array, :map}, default: [])
@@ -55,11 +58,11 @@ defmodule Accent.Operation do
     timestamps()
   end
 
-  @optional_fields [
-    :rollbacked,
-    :translation_id,
-    :comment_id
-  ]
+  @optional_fields ~w(
+    rollbacked
+    translation_id
+    comment_id
+  )a
   def changeset(model, params) do
     model
     |> cast(params, [] ++ @optional_fields)

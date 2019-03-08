@@ -1,7 +1,7 @@
 defmodule Accent.BadgeGenerator do
   alias Accent.{
-    Revision,
     PrettyFloat,
+    Revision,
     TranslationsCounter
   }
 

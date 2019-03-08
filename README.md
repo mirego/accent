@@ -1,40 +1,46 @@
-<p align="center">
-  <img src="logo.svg" alt="Accent Logo" width="500" />
-</p>
+<div align="center">
+  <img src="logo.svg" width="300" />
+  <p>
+    <br /><strong>The first developer-oriented translation tool</strong>
+    <br />True asynchronous flow between translators and your team.
+    <br />
+  </p>
+</div>
 
 [Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
 
 [![Build Status](https://travis-ci.org/mirego/accent.svg?branch=master)](https://travis-ci.org/mirego/accent)
-[![Coverage Status](https://coveralls.io/repos/github/mirego/accent/badge.svg?branch=master)](https://coveralls.io/github/mirego/accent?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/mirego/accent/badge.svg?branch=master)](https://coveralls.io/github/mirego/accent?branch=master) [![Join the chat at https://gitter.im/mirego/accent](https://badges.gitter.im/mirego/accent.svg)](https://gitter.im/mirego/accent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-**The first developer-oriented translation tool**. Accent’s engine coupled with the asynchronous flow between the translator and the developer is what makes Accent the most awesome tool of all.
+Accent provides a powerful abstraction around the process maintaining translations in a web/native app.
 
-The Accent API provides a powerful abstraction around the process of translating and maintaining the translations of an app.
-
-* **Collaboration**. Centralize your discussions around translations.
 * **History**. Full history control and actions rollback. _Who_ did _what_, _when_.
 * **UI**. Simple yet powerful UI to enable translator and developer to be productive.
+* **CLI**. [Command line tool](https://github.com/mirego/accent-cli) to easily add Accent to your developer flow.
+* **Collaboration**. Centralize your discussions around translations.
 * **GraphQL**. The API that powers the UI is open and documented. It’s easy to build a plugin/cli/library around Accent.
 
 ## Contents
 
-* [Requirements](#requirements)
-* [Mix commands](#executing-mix-commands)
-* [Quickstart](#quickstart)
-* [Environment variables](#environment-variables)
-* [Tests](#tests)
-* [Heroku](#deploy-on-heroku)
-* [Contribute](#contribute)
+| Section                                                 | Description                                                               |
+|---------------------------------------------------------|---------------------------------------------------------------------------|
+| [🚧 Requirements](#-requirements)                        | Dependencies required to run Accent’ stack                               |
+| [🎛 Mix commands](#-executing-mix-commands)              | How to execute mix task with the Twelve-Factor pattern                   |
+| [🏎 Quickstart](#-quickstart)                            | Steps to run the project, from API to webapp, with or without Docker     |
+| [🌳 Environment variables](#-environment-variables)      | Required and optional env var used                                       |
+| [✅ Tests](#-tests)                                      | How to run the extensive tests suite                                     |
+| [🚀 Heroku](#-heroku)                                    | Easy deployment setup with Heroku                                        |
+| [🌎 Contribute](#-contribute)                            | How to contribute to this repo                                           |
 
-## Requirements
+## 🚧 Requirements
 
-- `erlang ~> 20.1`
-- `elixir ~> 1.6.0`
+- `erlang ~> 21.2`
+- `elixir ~> 1.8`
 - `postgres >= 9.4`
 - `node.js >= 8.5.0`
 - `libyaml >= 0.1.7`
 
-## Executing mix commands
+## 🎛 Executing mix commands
 
 The app is modeled with the [_Twelve-Factor App_](https://12factor.net/) architecture, all configurations are stored in the environment.
 
@@ -48,23 +54,42 @@ But Accent can be run with default environment variables if you have a PostgreSQ
 
 With `nv` you inject the environment keys in the context with:
 
-```
+```shell
 $ nv .env mix <mix command>
 ```
 
-## Quickstart
+## 🏎 Quickstart
+
+_This is the full development setup. To simply run the app, see the *Docker* instructions_
 
 1. If you don’t already have it, install `nodejs` with `brew install nodejs`
-1. If you don’t already have it, install `elixir` with `brew install elixir`
-2. If you don’t already have it, install `libyaml` with `brew install libyaml`
-2. If you don’t already have it, install `postgres` with `brew install postgres` or the [macOS app](https://postgresapp.com/)
-3. Install dependencies with `mix deps.get` and `npm --prefix webapp install`
-4. Create and migrate your database with `mix ecto.setup`
-5. Start Phoenix endpoint with `mix phx.server`
-5. Start Ember server with `npm --prefix webapp run start`
-6. That’s it!
+2. If you don’t already have it, install `elixir` with `brew install elixir`
+3. If you don’t already have it, install `libyaml` with `brew install libyaml`
+4. If you don’t already have it, install `postgres` with `brew install postgres` or the Docker setup as described below.
+5. Install dependencies with `make dependencies`
+6. Create and migrate your database with `mix ecto.setup`
+7. Start Phoenix endpoint with `mix phx.server`
+8. Start Ember server with `npm run start --prefix webapp`
 
-## Environment variables
+*That’s it!*
+
+### Makefile
+
+The Makefile should be the main entry for common tasks such as tests, linting, Docker, etc. This simplify the developpement process since you don’t have to search for which service provides which command. `mix`, `npm`, `prettier`, `docker`, `stylelint`, etc are all used in the Makefile.
+
+### Docker
+
+For the production setup, we use Docker to build an OTP release of the app. With docker-compose, you can run the image locally. Here are the steps to have a working app running locally with Docker:
+
+_When running the production env, you need to provide a valid GOOGLE_API_CLIENT_ID in the `docker-compose.yml` file._
+
+1. Run `make build` to build the OTP release with Docker
+2. Run `make dev-start-postgresql` to start an instance of Postgresql. The instance will run on port 5432 with the `postgres` user. You can change those values in the `docker-compose.yml` file.
+3. Run `make dev-start-application` to start the app! The release hook of the release will execute migrations and seeds before starting the webserver on port 4000 (again you can change the settings in `docker-compose.yml`)
+
+*That’s it! You now have a working Accent instance without installing Elixir or Node!*
+
+## 🌳 Environment variables
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup, you can just run `mix phx.server`.
 
@@ -72,13 +97,11 @@ Accent provides a default value for every required environment variable. This me
 |---------------------|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `MIX_ENV`           | `dev`                                     | The application environment (`dev`, `prod`, or `test`)                                                                                                     |
 | `DATABASE_URL`      | `postgres://localhost/accent_development` | A valid database URL                                                                                                                                       |
-| `PORT`              | `4000`                                    | A PORT to run the API on                                                                                                                                   |
-| `WEBAPP_PORT`       | `4200`                                    | A PORT to run the Webapp on (only used in `dev` environment)                                                                                               |
+| `CANONICAL_HOST`    | `localhost`                               | The host that will be used to build internal URLs                                                                                                          |
+| `PORT`              | `4000`                                    | A port to run the API on                                                                                                                                   |
+| `WEBAPP_PORT`       | `4200`                                    | A port to run the Webapp on (only used in `dev` environment)                                                                                               |
 | `API_HOST`          | `http://localhost:4000`                   | The API host                                                                                                                                               |
 | `API_WS_HOST`       | `ws://localhost:4000`                     | The API Websocket host                                                                                                                                     |
-| `WEBAPP_EMAIL_HOST` | _none_                                    | The Web client’s hostname. Used in the sent emails to link to the right URL. There is no default value, please provide a value if you want to send emails. |
-| `MAILER_FROM`       | _none_                                    | The email address used to send emails. There is no default value, please provide a value if you want to send emails.                                       |
-
 ### Production setup
 
 | Variable               | Default | Description |
@@ -88,19 +111,34 @@ Accent provides a default value for every required environment variable. This me
 | `GOOGLE_API_CLIENT_ID` | _none_  | When deploying in a `prod` environment, the Google login is the only way to authenticate user. In `dev` environment, a fake login provider is used so you don’t have to setup a Google app. |
 | `RESTRICTED_DOMAIN`    | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
 
-## Tests
+### Email setup
+If you want to send emails, you’ll have to configure the following environment variables:
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `WEBAPP_EMAIL_HOST` | _none_ | The Web client’s hostname. Used in the sent emails to link to the right URL. |
+| `MAILER_FROM` | _none_ | The email address used to send emails. |
+| `SMTP_ADDRESS` | _none_ | The SMTP server address you want to use to send your emails. |
+| `SMTP_PORT` | _none_ | The port ex: (25, 465, 587). |
+| `SMTP_USERNAME` | _none_ | The username for authentification. |
+| `SMTP_PASSWORD` | _none_ | The password for authentification.  |
+| `SMTP_API_HEADER` | _none_ | An optional API header that will be added to sent emails. |
+
+## ✅ Tests
 
 ### API
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup (and a few setup commands), you can just run `mix test`.
 
-```
+```shell
 $ npm --prefix webapp run build
 $ mix run ./priv/repo/seeds.exs
 $ mix test
 ```
 
-## Deploy on Heroku
+The full check that runs in the CI environment can be executed with `./priv/scripts/ci-check.sh`.
+
+## 🚀 Deploy on Heroku
 
 An Heroku-compatible `app.json` makes it easy to deploy the application on Heroku.
 
@@ -108,7 +146,7 @@ An Heroku-compatible `app.json` makes it easy to deploy the application on Herok
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy on Heroku" />
 </a>
 
-## Contribute
+## 🌎 Contribute
 
 Before opening a pull request, please open an issue first.
 

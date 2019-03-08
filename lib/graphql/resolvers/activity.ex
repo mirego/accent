@@ -10,7 +10,6 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     Plugs.GraphQLContext,
     Project,
     Repo,
-    Operation,
     Translation
   }
 

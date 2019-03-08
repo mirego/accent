@@ -1,9 +1,9 @@
 defmodule Accent.GraphQL.Resolvers.Language do
   alias Accent.{
-    Repo,
-    Language,
     GraphQL.Paginated,
-    Plugs.GraphQLContext
+    Language,
+    Plugs.GraphQLContext,
+    Repo
   }
 
   alias Accent.Scopes.Language, as: LanguageScope

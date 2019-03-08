@@ -1,6 +1,6 @@
 defmodule Langue.Formatter.Parser do
-  alias Langue.Formatter.SerializerResult, as: Input
   alias Langue.Formatter.ParserResult, as: Output
+  alias Langue.Formatter.SerializerResult, as: Input
 
   @type result :: {:ok, Output.t()} | {:error, any()}
 

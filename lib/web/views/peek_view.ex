@@ -4,8 +4,7 @@ defmodule Accent.PeekView do
   def render("index.json", %{operations: operations}) do
     data =
       Enum.reduce(operations, %{}, fn {revision_id, operations}, acc ->
-        acc
-        |> Map.put(revision_id, render_many(operations, Accent.PeekView, "operation.json"))
+        Map.put(acc, revision_id, render_many(operations, Accent.PeekView, "operation.json"))
       end)
 
     stats =
@@ -13,8 +12,7 @@ defmodule Accent.PeekView do
       |> Enum.reduce(%{}, fn {revision_id, operations}, acc ->
         stat = fetch_stats(operations)
 
-        acc
-        |> Map.put(revision_id, stat)
+        Map.put(acc, revision_id, stat)
       end)
 
     %{data: %{operations: data, stats: stats}}
@@ -25,8 +23,14 @@ defmodule Accent.PeekView do
       text: operation.text,
       key: operation.key,
       action: operation.action,
-      "previous-text": operation.previous_translation.corrected_text || operation.previous_translation.proposed_text
+      "previous-text": previous_text(operation)
     }
+  end
+
+  defp previous_text(%{previous_translation: nil}), do: nil
+
+  defp previous_text(%{previous_translation: previous_translation}) do
+    previous_translation.corrected_text || previous_translation.proposed_text
   end
 
   defp fetch_stats(operations) do

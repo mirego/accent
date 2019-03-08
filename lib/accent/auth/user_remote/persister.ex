@@ -12,8 +12,8 @@ defmodule Accent.UserRemote.Persister do
   - Existing user but with a different provider. (Login with a different provider)
 
   """
-  alias Accent.Repo
   alias Accent.AuthProvider
+  alias Accent.Repo
   alias Accent.User, as: RepoUser
   alias Accent.UserRemote.Adapter.User, as: FetchedUser
   alias Ecto.Changeset

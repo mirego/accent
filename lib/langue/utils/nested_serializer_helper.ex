@@ -18,7 +18,7 @@ defmodule Langue.Utils.NestedSerializerHelper do
   defp parse_children(entries, index) do
     entries
     |> Enum.map(&map_value(&1, index))
-    |> extract_single_value
+    |> extract_single_value()
   end
 
   defp extract_single_value([null_value | _rest]) when is_nil(null_value), do: null_value

@@ -41,7 +41,7 @@ defmodule Accent.TranslationsCounter do
   defp group_items(query, associations, assoc_name, scope_filter_ids) do
     association_ids = Enum.map(associations, &Map.get(&1, :id))
 
-    from(t in query)
+    query
     |> scope_filter_ids.(association_ids)
     |> group_by([t], field(t, ^assoc_name))
   end

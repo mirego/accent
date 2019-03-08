@@ -277,6 +277,12 @@
   background: transparent;
   box-shadow: none;
 
+  &:last-of-type {
+    .item-content {
+      border-bottom: 0;
+    }
+  }
+
   .item-stats {
     display: none;
   }
@@ -390,6 +396,17 @@
 .item-content {
   flex: 1 1 100%;
   font-size: 13px;
+}
+
+&.compact {
+  .item-header {
+    flex-direction: column;
+  }
+
+  .item-actions {
+    min-width: none;
+    text-align: left;
+  }
 }
 
 .item-header {

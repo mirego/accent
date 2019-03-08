@@ -9,8 +9,8 @@ defmodule Accent.GraphQL.Resolvers.Version do
     Version
   }
 
-  alias Movement.Context
   alias Movement.Builders.NewVersion, as: NewVersionBuilder
+  alias Movement.Context
   alias Movement.Persisters.NewVersion, as: NewVersionPersister
 
   @typep version_operation :: {:ok, %{version: Version.t() | nil, errors: [String.t()] | nil}}
