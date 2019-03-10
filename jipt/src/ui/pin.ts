@@ -55,9 +55,9 @@ export default class Pin {
   }
 
   private showFor(target: HTMLElement) {
-    const {x, y, height} = target.getBoundingClientRect() as DOMRect;
+    const {left, top, height} = target.getBoundingClientRect();
     const keys: string[] = Array.from(this.state.nodes.get(target).keys.values());
-    styles.set(this.element, `top: ${y + height - 6}px; left: ${x - 6}px; ${styles.pin}`);
+    styles.set(this.element, `top: ${top + height - 6}px; left: ${left - 6}px; ${styles.pin}`);
 
     const ids = keys
       .map((key: string) => this.state.projectTranslations[key].id)
