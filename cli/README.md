@@ -19,7 +19,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.6.0 darwin-x64 node-v9.5.0
+accent-cli/0.6.1 darwin-x64 node-v9.5.0
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -93,6 +93,8 @@ EXAMPLE
   $ accent export
 ```
 
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.6.1/src/commands/export.ts)_
+
 ## `accent help [COMMAND]`
 
 display help for accent
@@ -125,6 +127,8 @@ EXAMPLE
   $ accent jipt
 ```
 
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.6.1/src/commands/jipt.ts)_
+
 ## `accent stats`
 
 Fetch stats from the API and display it beautifully
@@ -136,6 +140,8 @@ USAGE
 EXAMPLE
   $ accent stats
 ```
+
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.6.1/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -160,6 +166,8 @@ OPTIONS
 EXAMPLE
   $ accent sync
 ```
+
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.6.1/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # License
