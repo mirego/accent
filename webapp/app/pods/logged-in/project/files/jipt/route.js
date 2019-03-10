@@ -5,6 +5,12 @@ import RSVP from 'rsvp';
 export default Route.extend({
   exporter: service('exporter'),
 
+  queryParams: {
+    documentFormatFilter: {
+      refreshModel: true
+    }
+  },
+
   model({fileId}) {
     return RSVP.hash({
       projectModel: this.modelFor('logged-in.project'),

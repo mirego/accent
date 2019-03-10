@@ -17,7 +17,7 @@ const translationNodeUpdated =
 // Frame
 const frameBase =
   'position: fixed; z-index: 10001; bottom: 0; right: 10px; background: #fff; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); transition: transform 0.2s ease-in-out;';
-const frameCollapsed = `${frameBase} transform: translate3d(0, 551px, 0);`;
+const frameCollapsed = `${frameBase} transform: translate3d(0, 558px, 0);`;
 const frameExpanded = `${frameBase} transform: translate3d(0, 0, 0);`;
 const frameCentered =
   'position: fixed; z-index: 10003; top: calc(50% - 300px); right: calc(50% - 300px); background: #fff; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);';

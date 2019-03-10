@@ -3,6 +3,7 @@ query Project($projectId: ID!, $revisionId: ID) {
     project(id: $projectId) {
       id
       name
+      mainColor
 
       viewerPermissions
 

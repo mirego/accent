@@ -117,10 +117,16 @@
   line-height: 1.7;
 }
 
-.render-export {
+.renderExport {
   position: absolute;
   top: 10px;
   right: 50px;
+}
+
+.toggleJiptExport {
+  position: absolute;
+  top: 13px;
+  right: 140px;
 }
 
 .sections {
