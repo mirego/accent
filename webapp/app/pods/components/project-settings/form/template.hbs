@@ -1,17 +1,23 @@
 {{#if (get permissions 'update_project')}}
-  <div>
+  <div class="field">
     {{input
-      value=name
+      value=this.name
       class='textInput'
     }}
-
-    {{#async-button
-      onClick=(action 'updateProject')
-      class='button button--filled'
+    {{input
+      type="color"
+      value=this.mainColor
+      class='colorInput'
     }}
-      {{t 'components.project_settings.form.update_button'}}
-    {{/async-button}}
   </div>
+
+  {{#async-button
+    disabled=this.unchangedForm
+    onClick=(action 'updateProject')
+    class='button button--filled'
+  }}
+    {{t 'components.project_settings.form.update_button'}}
+  {{/async-button}}
 {{/if}}
 
 {{#if (get permissions 'lock_project_file_operations')}}

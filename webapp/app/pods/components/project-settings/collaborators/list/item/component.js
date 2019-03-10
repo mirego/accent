@@ -10,7 +10,7 @@ import Component from '@ember/component';
 // onUpdate: Function
 export default Component.extend({
   tagName: 'li',
-  classNameBindings: ['hasJoined:joined:invited'],
+  classNameBindings: ['hasJoined:joined:invited', 'collaborator.user.pictureUrl:withPicture'],
 
   session: service('session'),
   i18n: service('i18n'),

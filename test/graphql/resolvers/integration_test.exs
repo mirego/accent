@@ -18,7 +18,7 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
 
   setup do
     user = Repo.insert!(@user)
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     {:ok, [user: user, project: project]}
   end

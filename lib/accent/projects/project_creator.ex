@@ -4,7 +4,7 @@ defmodule Accent.ProjectCreator do
   alias Accent.{Project, Repo, User, UserRemote.TokenGiver}
   alias Ecto.Changeset
 
-  @required_fields ~w(name language_id)a
+  @required_fields ~w(name main_color language_id)a
   @bot %User{fullname: "API Client", bot: true}
 
   def create(params: params, user: user) do

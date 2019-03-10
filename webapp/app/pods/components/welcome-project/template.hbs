@@ -9,42 +9,63 @@
 </h2>
 
 <h3 class="subtitle">{{t 'components.welcome_project.first_step'}}:</h3>
-{{#link-to
-  'logged-in.project.files.new-sync'
-  project.id
-  class='link'
-}}
-  {{inline-svg 'assets/sync.svg' class='link-icon'}}
-  <span class="link-title">
-    {{t 'components.welcome_project.sync_file'}}
-    <span class="link-subtitle">
-      {{t 'components.welcome_project.sync_file_text'}}
+
+<div class="links">
+  {{#link-to
+    'logged-in.project.files.new-sync'
+    project.id
+    class='link'
+  }}
+    {{inline-svg 'assets/sync.svg' class='link-icon'}}
+    <span class="link-title">
+      {{t 'components.welcome_project.sync_file'}}
+      <span class="link-subtitle">
+        {{t 'components.welcome_project.sync_file_text'}}
+      </span>
     </span>
-  </span>
-{{/link-to}}
+  {{/link-to}}
 
-{{#link-to
-  'logged-in.project.edit.collaborators'
-  project.id
-  class='link'
-}}
-  {{inline-svg 'assets/users.svg' class='link-icon'}}
-  <span class="link-title">
-    {{t 'components.welcome_project.add_collaborator'}}
-
-    <span class="link-subtitle">
-      {{t 'components.welcome_project.add_collaborator_text'}}
+  {{#link-to
+    'logged-in.project.edit.manage-languages'
+    project.id
+    class='link'
+  }}
+    {{inline-svg 'assets/language.svg' class='link-icon'}}
+    <span class="link-title">
+      {{t 'components.welcome_project.manage_languages'}}
+      <span class="link-subtitle">
+        {{t 'components.welcome_project.manage_languages_text'}}
+      </span>
     </span>
-  </span>
-{{/link-to}}
+  {{/link-to}}
 
-<h3 class="subtitle">{{t 'components.welcome_project.after_steps'}}:</h3>
-<section class="section">
-  {{inline-svg 'assets/check.svg' class='section-icon'}}
-  <span class="section-title">{{t 'components.welcome_project.start_review'}}</span>
-</section>
+  {{#link-to
+    'logged-in.project.edit.collaborators'
+    project.id
+    class='link'
+  }}
+    {{inline-svg 'assets/users.svg' class='link-icon'}}
+    <span class="link-title">
+      {{t 'components.welcome_project.add_collaborator'}}
 
-<section class="section">
-  {{inline-svg 'assets/export.svg' class='section-icon'}}
-  <span class="section-title">{{t 'components.welcome_project.export'}}</span>
-</section>
+      <span class="link-subtitle">
+        {{t 'components.welcome_project.add_collaborator_text'}}
+      </span>
+    </span>
+  {{/link-to}}
+
+  {{#link-to
+    'logged-in.project.edit.api-token'
+    project.id
+    class='link'
+  }}
+    {{inline-svg 'assets/bot.svg' class='link-icon'}}
+    <span class="link-title">
+      {{t 'components.welcome_project.api_token'}}
+
+      <span class="link-subtitle">
+        {{t 'components.welcome_project.api_token_text'}}
+      </span>
+    </span>
+  {{/link-to}}
+</div>

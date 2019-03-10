@@ -199,7 +199,7 @@ defmodule AccentTest.Movement.Persisters.Base do
 
   test "update operation add operation on version source translation" do
     user = %User{email: "user@example.com"} |> Repo.insert!()
-    project = %Project{name: "project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "project"} |> Repo.insert!()
     version = %Version{name: "foo", tag: "0.1", project: project, user: user} |> Repo.insert!()
 
     translation =

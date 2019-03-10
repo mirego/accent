@@ -7,7 +7,7 @@ defmodule AccentTest.ProjectCreator do
   test "create with language and user" do
     language = %Language{name: "french"} |> Repo.insert!()
     user = %User{email: "lol@test.com"} |> Repo.insert!()
-    params = %{"name" => "OK", "language_id" => language.id}
+    params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
 
@@ -20,7 +20,7 @@ defmodule AccentTest.ProjectCreator do
   test "create owner collaborator" do
     language = %Language{name: "french"} |> Repo.insert!()
     user = %User{email: "lol@test.com"} |> Repo.insert!()
-    params = %{"name" => "OK", "language_id" => language.id}
+    params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
     owner_collaborator = project |> Ecto.assoc(:collaborators) |> Ecto.Query.where([c], c.role == "owner") |> Repo.one()
@@ -31,7 +31,7 @@ defmodule AccentTest.ProjectCreator do
   test "create bot collaborator" do
     language = %Language{name: "french"} |> Repo.insert!()
     user = %User{email: "lol@test.com"} |> Repo.insert!()
-    params = %{"name" => "OK", "language_id" => language.id}
+    params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
     bot_collaborator = project |> Ecto.assoc(:collaborators) |> Ecto.Query.where([c], c.role == "bot") |> Repo.one()

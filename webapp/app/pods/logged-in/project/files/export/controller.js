@@ -33,6 +33,12 @@ export default Controller.extend({
     return this.documents.find(({id}) => id === this.model.fileId);
   }),
 
+  documentFormatItem: computed('document.format', function() {
+    if (!this.globalState.documentFormats) return {};
+
+    return this.globalState.documentFormats.find(({slug}) => slug === this.document.format);
+  }),
+
   fileExtension: computed('documentFormatFilter', 'document.format', function() {
     if (!this.globalState.documentFormats) return '';
 

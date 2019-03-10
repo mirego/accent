@@ -19,6 +19,8 @@ query ProjectDocuments($projectId: ID!, $page: Int) {
           id
           path
           format
+          conflictsCount
+          reviewedCount
           translationsCount
         }
       }

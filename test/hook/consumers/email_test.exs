@@ -32,7 +32,7 @@ defmodule AccentTest.Hook.Consumers.Email do
 
   setup do
     language = %Language{name: "Test"} |> Repo.insert!()
-    project = %Project{name: "Test"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "Test"} |> Repo.insert!()
     user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()
     revision = %Revision{project_id: project.id, language_id: language.id, master: true} |> Repo.insert!()
     translation = %Translation{key: "foo", corrected_text: "bar", proposed_text: "bar", revision_id: revision.id} |> Repo.insert!()

@@ -8,7 +8,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
 
-    if (!this.session.credentials.isAuthenticated || !this.project) return;
+    if (!this.session.credentials.token || !this.project) return;
 
     const phoenixService = this.phoenix;
     const token = `Bearer ${this.session.credentials.token}`;

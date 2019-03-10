@@ -15,7 +15,17 @@
 
   &.button--filled {
     .loading {
-      fill: $color-white;
+      fill: #fff;
+    }
+  }
+
+  &.button--small {
+    &.button--loading {
+      .loading {
+        width: 10px;
+        top: -8px;
+        left: calc(50% - 5px);
+      }
     }
   }
 }
@@ -25,6 +35,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
+  line-height: 1.3;
 }
 
 .label {

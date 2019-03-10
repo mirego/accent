@@ -18,7 +18,15 @@ export default Controller.extend({
   revisions: reads('project.revisions'),
   documents: reads('model.fileModel.documents.entries'),
 
+  documentFormatItem: computed('document.format', function() {
+    if (!this.globalState.documentFormats) return {};
+
+    return this.globalState.documentFormats.find(({slug}) => slug === this.document.format);
+  }),
+
   document: computed('documents', 'model.fileId', function() {
+    if (!this.documents) return;
+
     return this.documents.find(({id}) => id === this.model.fileId);
   }),
 

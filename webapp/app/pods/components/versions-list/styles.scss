@@ -1,6 +1,5 @@
 & {
   width: 100%;
-  margin-top: 15px;
 }
 
 .item {
@@ -21,12 +20,14 @@
   display: flex;
   align-items: center;
   font-size: 23px;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
 }
 
 .item-title-link {
   text-decoration: none;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
 
   &:hover {
     text-decoration: underline;

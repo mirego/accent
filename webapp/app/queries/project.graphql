@@ -13,6 +13,7 @@ query Project($projectId: ID!) {
     project(id: $projectId) {
       id
       name
+      mainColor
 
       viewerPermissions
 

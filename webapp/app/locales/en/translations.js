@@ -10,7 +10,7 @@ export default {
   },
   components: {
     documents_add_button: {
-      link: 'Add new file'
+      link: 'Synchronize a new file'
     },
     versions_add_button: {
       link: 'Create new version'
@@ -693,12 +693,16 @@ export default {
     welcome_project: {
       welcome: 'Welcome!',
       welcome_translations: 'Bienvenue Bienvenido 환영 欢迎 тавтай морилно уу Welkom Tervetuloa',
-      first_step: 'First step',
+      first_step: 'First steps',
       after_steps: 'After this, you will be able to',
       sync_file: 'Sync a new file',
-      sync_file_text: 'Add strings from multiple formats',
+      sync_file_text: 'Add strings from multiple file formats to review them',
+      manage_languages: 'Add languages',
+      manage_languages_text: 'Target languages follow your master language strings and conflicts',
       add_collaborator: 'Add collaborator',
       add_collaborator_text: 'Translators, developers, etc.',
+      api_token: 'Get your API Token',
+      api_token_text: 'Interact with the API from your project',
       start_review: 'Start to review and translate',
       export: 'Export the corrected file',
       help: 'Help?'
@@ -715,7 +719,8 @@ export default {
     },
     integration_services: {
       SLACK: 'Slack'
-    }
+    },
+    search_input_placeholder_text: 'Search for a string…'
   },
   pods: {
     login: {
@@ -739,9 +744,6 @@ export default {
       }
     },
     document: {
-      new_sync: {
-        document_path: 'New file'
-      },
       sync: {
         flash_messages: {
           create_error: 'The document could not be synced with the uploaded file',

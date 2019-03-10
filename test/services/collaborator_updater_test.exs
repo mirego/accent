@@ -5,7 +5,7 @@ defmodule AccentTest.CollaboratorUpdater do
 
   test "update" do
     email = "test@test.com"
-    project = %Project{name: "com"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "com"} |> Repo.insert!()
     assigner = %User{email: "lol@test.com"} |> Repo.insert!()
     role = "admin"
     collaborator = %Collaborator{role: role, assigner: assigner, project: project, email: email} |> Repo.insert!()

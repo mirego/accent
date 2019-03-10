@@ -3,6 +3,7 @@ query ProjectEdit($projectId: ID!) {
     project(id: $projectId) {
       id
       name
+      mainColor
       isFileOperationsLocked
     }
   }

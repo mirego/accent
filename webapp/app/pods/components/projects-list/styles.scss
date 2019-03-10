@@ -12,14 +12,15 @@
   transition: $transition-speed $transition-easing;
   transition-property: background, color;
   padding: 10px 10px 12px;
+  margin: 0 5px;
   border-bottom: 1px solid #f5f5f5;
   text-decoration: none;
   color: $color-black;
 
   &:hover,
   &:focus {
-    color: $color-primary;
-    background: $color-light-grey;
+    color: $color-green;
+    background: $color-light-background;
   }
 }
 

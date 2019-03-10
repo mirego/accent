@@ -4,7 +4,7 @@ defmodule AccentTest.ProjectDeleter do
   alias Accent.{Collaborator, Project, ProjectDeleter, Repo}
 
   test "create with language and user" do
-    project = %Project{name: "french"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "french"} |> Repo.insert!()
     collaborator = %Collaborator{project_id: project.id} |> Repo.insert!()
 
     assert project

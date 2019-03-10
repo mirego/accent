@@ -6,15 +6,16 @@
   width: 100%;
   padding: 20px;
   background: #fff;
-  border: 1px solid #eee;
+  box-shadow: 0 1px 4px rgba(#000, 0.15);
   border-radius: 3px;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
   font-weight: normal;
   font-size: 18px;
 
   &:focus,
   &:hover {
-    background: lighten($color-primary, 50%);
+    background: $color-light-background;
   }
 }
 
@@ -22,5 +23,6 @@
   margin: 0 0 10px;
   width: 30px;
   height: 30px;
-  fill: $color-primary;
+  fill: $color-green;
+  fill: var(--color-primary);
 }

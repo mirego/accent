@@ -28,7 +28,7 @@ defmodule AccentTest.UserRemote.Authenticator do
   test "normalize collaborators with email" do
     assigner = %User{email: "foo@example.com"} |> Repo.insert!()
     language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{name: "My project", language_id: language.id} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project", language_id: language.id} |> Repo.insert!()
     collaborator = %Collaborator{project_id: project.id, role: "admin", assigner_id: assigner.id, email: "test@example.com"} |> Repo.insert!()
 
     {:ok, user, _token} = Authenticator.authenticate("dummy", "test@example.com")
@@ -40,7 +40,7 @@ defmodule AccentTest.UserRemote.Authenticator do
   test "normalize collaborators with uppercased email" do
     assigner = %User{email: "foo@example.com"} |> Repo.insert!()
     language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{name: "My project", language_id: language.id} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project", language_id: language.id} |> Repo.insert!()
     collaborator = %Collaborator{project_id: project.id, role: "admin", assigner_id: assigner.id, email: "test@example.com"} |> Repo.insert!()
 
     {:ok, user, _token} = Authenticator.authenticate("dummy", "TeSt@eXamPle.com")

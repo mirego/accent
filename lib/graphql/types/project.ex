@@ -13,6 +13,7 @@ defmodule Accent.GraphQL.Types.Project do
   object :project do
     field(:id, :id)
     field(:name, :string)
+    field(:main_color, :string)
     field(:last_synced_at, :datetime)
     field(:is_file_operations_locked, non_null(:boolean), resolve: field_alias(:locked_file_operations))
 

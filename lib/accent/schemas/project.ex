@@ -3,6 +3,7 @@ defmodule Accent.Project do
 
   schema "projects" do
     field(:name, :string)
+    field(:main_color, :string)
     field(:last_synced_at, :utc_datetime)
     field(:locked_file_operations, :boolean, default: false)
 
@@ -18,12 +19,13 @@ defmodule Accent.Project do
 
   @optional_fields ~w(
     name
+    main_color
     last_synced_at
     locked_file_operations
   )a
   def changeset(model, params) do
     model
     |> cast(params, @optional_fields)
-    |> validate_required([:name])
+    |> validate_required([:name, :main_color])
   end
 end

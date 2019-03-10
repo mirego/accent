@@ -28,30 +28,30 @@
 
   &:hover,
   &:focus {
-    background: lighten($color-primary, 48%);
+    background: $color-light-background;
 
     .list-item-link-icon {
       transform: scale(1);
-      fill: rgba($color-primary, 0.9);
+      fill: $color-green;
+      fill: var(--color-primary)
     }
 
     .list-item-link-text {
-      color: rgba($color-primary, 0.9);
+      color: var(--color-primary)
     }
   }
 
   &.active {
-    background: lighten($color-primary, 46%);
-  }
+    background: lighten($color-green, 46%);
+    background: var(--color-primary);
 
-  &.active {
     .list-item-link-icon {
       transform: scale(1);
-      fill: $color-primary;
+      fill: #fff;
     }
 
     .list-item-link-text {
-      color: $color-primary;
+      color: #fff;
     }
   }
 }
@@ -59,7 +59,7 @@
 .list-item-link-text {
   width: 127px;
   padding: 0 0 0 12px;
-  color: rgba($color-black, 0.4);
+  color: $color-grey;
   transition: $transition-speed $transition-easing;
   transition-property: color;
 }
@@ -70,7 +70,7 @@
   display: inline-block;
   width: 19px;
   height: 19px;
-  fill: rgba($color-black, 0.3);
+  fill: rgba($color-grey, 0.8);
 }
 
 @media (max-width: 800px) {

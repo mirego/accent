@@ -3,13 +3,27 @@
   <h3 class="item-subtitle">.{{documentFormatItem.extension}}</h3>
 </div>
 
+<div class="stat">
+  <span class="reviewedPercentage">{{correctedKeysPercentage}}%</span>
+
+  <span class="reviewedStats">
+    <span class="reviewedStats-reviewedCount">{{reviewsCount}}</span>
+    /
+    <span class="reviewedStats-translationsCount">{{document.translationsCount}}</span>
+  </span>
+</div>
+
+<div class="stat-progress">
+  {{review-progress-bar correctedKeysPercentage=correctedKeysPercentage}}
+</div>
+
 <div class="links">
   {{#if (get permissions 'sync')}}
     {{#link-to
       'logged-in.project.files.sync'
       project.id
       document.id
-      class='button button--filled'
+      class='button button--small button--filled button--black'
     }}
       {{inline-svg '/assets/sync.svg' class='button-icon'}}
       {{t 'components.documents_list.sync'}}
@@ -21,7 +35,7 @@
       'logged-in.project.files.add-translations'
       project.id
       document.id
-      class='button button--borderLess button--filled button--white'
+      class='button button--small button--filled button--white'
     }}
       {{inline-svg '/assets/merge.svg' class='button-icon'}}
       {{t 'components.documents_list.merge'}}
@@ -32,7 +46,7 @@
     'logged-in.project.files.export'
     project.id
     document.id
-    class='button button--borderLess button--filled button--white'
+    class='button button--small button--filled button--white'
   }}
     {{inline-svg '/assets/export.svg' class='button-icon'}}
     {{t 'components.documents_list.export'}}
@@ -43,7 +57,7 @@
       {{#async-button
         onClick=(action 'deleteFile' document)
         loading=isDeleting
-        class='button button--red deleteButton'
+        class='button button--small button--filled button--red'
       }}
         {{inline-svg '/assets/x.svg' class='button-icon'}}
         {{t 'components.documents_list.delete_document'}}
