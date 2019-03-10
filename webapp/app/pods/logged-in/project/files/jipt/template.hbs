@@ -8,15 +8,15 @@
 
     <div class="title">
       <div class="sectionType">
-        {{inline-svg '/assets/export.svg' class='sectionType-icon'}}
-        {{t 'components.project_file_operations.export'}}
+        {{inline-svg '/assets/edit-in-place.svg' class='sectionType-icon'}}
+        {{t 'components.project_file_operations.export_jipt'}}
       </div>
 
-      {{document.path}}
-
-      <div class="subtitle">
-        <small class="subtitle-label">{{t 'components.project_file_operations.document_format'}}:</small>
-        {{document.format}}
+      <div class="title-document">
+        {{document.path}}
+        <span class="title-documentExtension">
+          .{{documentFormatItem.extension}}
+        </span>
       </div>
     </div>
 
@@ -25,10 +25,20 @@
       onChangeFormat=(action (mut documentFormatFilter))
     }}
 
+    {{#link-to
+      'logged-in.project.files.export'
+      project.id
+      document.id
+      class='button button--filled button--white button--small toggleJiptExport'
+    }}
+      {{inline-svg '/assets/export.svg' class='button-icon'}}
+      {{t 'components.project_file_operations.export'}}
+    {{/link-to}}
+
     {{#async-button
       onClick=(action 'exportFile')
       disabled=exportButtonDisabled
-      class='button button--filled render-export'
+      class='button button--filled renderExport'
     }}
       {{t 'components.project_file_operations.export'}}
     {{/async-button}}
@@ -41,6 +51,7 @@
       onFileLoaded=(action 'onFileLoaded')
       project=project
       document=document
+      documentFormat=documentFormatFilter
     }}</pre>
   {{/project-file-operation}}
 {{/acc-modal}}

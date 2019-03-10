@@ -7,16 +7,15 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "module": "commonjs",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "./lib",
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
-    "noEmit": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
     "rootDirs": [
       "./src"
     ],
-    "skipLibCheck": true,
     "strict": true,
     "target": "es2017"
   },

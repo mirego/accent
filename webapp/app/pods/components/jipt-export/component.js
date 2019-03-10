@@ -11,7 +11,7 @@ export default Component.extend({
 
     this.exporter
       .jipt({
-        ...this.getProperties('project', 'document', 'version')
+        ...this.getProperties('project', 'document', 'version', 'documentFormat')
       })
       .then(data => this.set('content', data))
       .then(data => this.onFileLoaded(data));

@@ -16,8 +16,8 @@
   "devDependencies": {
     "parcel-bundler": "1.11.0",
     "prettier": "1.16.4",
-    "typescript": "3.3.1",
     "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.17.0"
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "3.3.1"
   }
 }

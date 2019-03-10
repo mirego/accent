@@ -7,6 +7,8 @@ export default Controller.extend({
   fileSaver: service('file-saver'),
   globalState: service('global-state'),
 
+  queryParams: ['documentFormatFilter'],
+
   documentFormatFilter: null,
   exportLoading: true,
   fileRender: null,
@@ -21,6 +23,12 @@ export default Controller.extend({
     if (!this.documents) return;
 
     return this.documents.find(({id}) => id === this.model.fileId);
+  }),
+
+  documentFormatItem: computed('document.format', function() {
+    if (!this.globalState.documentFormats) return {};
+
+    return this.globalState.documentFormats.find(({slug}) => slug === this.document.format);
   }),
 
   fileExtension: computed('documentFormatFilter', 'document.format', function() {

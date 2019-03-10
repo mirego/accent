@@ -24,9 +24,9 @@ export default Service.extend({
     /* eslint-enable camelcase */
   },
 
-  jipt({project, document, version}) {
+  jipt({project, document, version, documentFormat}) {
     const url = config.API.JIPT_EXPORT_DOCUMENT;
-    const documentFormat = document.format.toLowerCase();
+    documentFormat = (documentFormat || document.format).toLowerCase();
 
     /* eslint-disable camelcase */
     return this.authenticatedRequest.export(

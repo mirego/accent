@@ -533,7 +533,8 @@ export default {
       export: 'Export',
       document_format: 'Format',
       preview_title: 'Preview',
-      preview_text: 'You must choose a file, then click on the Preview button.'
+      preview_text: 'You must choose a file, then click on the Preview button.',
+      export_jipt: 'Just In Place Translation'
     },
     project_navigation: {
       activities_link_title: 'Activities',
