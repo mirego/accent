@@ -16,7 +16,7 @@ defmodule AccentTest.ExportJIPTController do
   setup do
     user = Repo.insert!(@user)
     french_language = %Language{name: "french", slug: Ecto.UUID.generate()} |> Repo.insert!()
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
 
