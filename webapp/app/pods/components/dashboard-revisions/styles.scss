@@ -27,7 +27,6 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  width: 60%;
   margin-right: 40px;
 }
 
@@ -41,18 +40,14 @@
 }
 
 .numberStat-reviewPercentage {
-  font-size: 42px;
+  line-height: 1;
+  font-size: 82px;
   font-weight: 400;
-}
-
-.numberStat-reviewPercentage-label {
-  margin-left: -5px;
-  font-size: 12px;
 }
 
 .numberStat-totalKeys {
   display: block;
-  font-size: 15px;
+  font-size: 20px;
   font-family: $font-monospace;
   color: #ccc;
 }
@@ -91,6 +86,7 @@
   font-size: 14px;
   font-weight: bold;
   color: $color-black;
+  color: var(--color-black);
 }
 
 .slaves {
@@ -107,8 +103,8 @@
   background: #fff;
   box-shadow: 0 2px 6px rgba(#000, 0.09);
   border-radius: 2px;
-  border-left: 2px solid lighten($color-primary, 30%);
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
   text-decoration: none;
   transition: box-shadow 0.2s ease-in-out;
 
@@ -129,14 +125,16 @@
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  fill: $color-primary;
+  fill: $color-green;
+  fill: var(--color-primary);
 }
 
 .empty-slaves-button-text {
   display: block;
   margin-top: 10px;
   font-size: 11px;
-  color: rgba(darken($color-primary, 20%), 0.5);
+  color: rgba(darken($color-green, 20%), 0.5);
+  color: var(--color-black);
 }
 
 .master {
@@ -156,7 +154,8 @@
 .activities {
   display: flex;
   flex-direction: column;
-  max-width: 380px;
+  max-width: 430px;
+  width: 100%;
 }
 
 .activities-title {

@@ -23,7 +23,7 @@ defmodule AccentTest.SyncControllerMock do
     user = Repo.insert!(@user)
     access_token = %AccessToken{user_id: user.id, token: "test-token"} |> Repo.insert!()
     french_language = %Language{name: "french", slug: Ecto.UUID.generate()} |> Repo.insert!()
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     %Collaborator{project_id: project.id, user_id: user.id, role: "admin"} |> Repo.insert!()
     %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()

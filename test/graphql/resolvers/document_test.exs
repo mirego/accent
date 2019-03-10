@@ -22,7 +22,7 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   setup do
     user = Repo.insert!(@user)
     french_language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
     document = %Document{project_id: project.id, path: "test", format: "json", updated_at: DateTime.from_unix!(1_432_560_368_868_569, :microsecond)} |> Repo.insert!()

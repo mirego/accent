@@ -1,5 +1,12 @@
-::-moz-selection { background: lighten($color-primary, 45%); }
-::selection { background: lighten($color-primary, 45%); }
+::-moz-selection {
+  background: lighten($color-green, 45%);
+  background: var(--color-primary-opacity-10);
+}
+
+::selection {
+  background: lighten($color-green, 45%);
+  background: var(--color-primary-opacity-10);
+}
 
 body {
   font-family: $font-primary;

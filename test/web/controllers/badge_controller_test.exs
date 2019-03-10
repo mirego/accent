@@ -16,7 +16,7 @@ defmodule AccentTest.BadgeController do
 
   setup do
     id = Ecto.UUID.generate()
-    project = %Project{id: id, name: "project"} |> Repo.insert!()
+    project = %Project{id: id, name: "project", main_color: "#f00"} |> Repo.insert!()
     badge_generate_mock = [generate: fn _, _ -> {:ok, "<svg></svg>"} end]
 
     {:ok, %{project: project, badge_generate_mock: badge_generate_mock}}

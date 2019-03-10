@@ -1,13 +1,18 @@
-{{#if hasManyRevisions}}
-  {{#power-select
-    searchEnabled=false
-    selected=revisionValue
-    options=mappedRevisions
-    onchange=(action 'selectRevision' value='value') as |revision|
-  }}
-    {{revision.label}}
-  {{/power-select}}
-  <span class="otherLanguages">
-    {{t 'components.revision_selector.languages_count' count=otherRevisionsCount}}
-  </span>
+{{#if revisions.length}}
+  <div class="{{if hasManyRevisions 'many'}}">
+    {{#power-select
+      searchEnabled=false
+      selected=revisionValue
+      options=mappedRevisions
+      onchange=(action 'selectRevision' value='value') as |revision|
+    }}
+      {{revision.label}}
+    {{/power-select}}
+
+    {{#if hasManyRevisions}}
+      <span class="otherLanguages">
+        {{t 'components.revision_selector.languages_count' count=otherRevisionsCount}}
+      </span>
+    {{/if}}
+  </div>
 {{/if}}

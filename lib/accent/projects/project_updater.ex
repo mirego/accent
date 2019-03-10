@@ -3,7 +3,7 @@ defmodule Accent.ProjectUpdater do
 
   import Canada, only: [can?: 2]
 
-  @optional_fields ~w(name)a
+  @optional_fields ~w(name main_color)a
 
   def update(project: project, params: params, user: user) do
     project

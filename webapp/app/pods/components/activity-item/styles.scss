@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   margin: 25px 0;
-  border-radius: 3px;
+  border-radius: 0 3px 3px 0;
   z-index: 10;
 }
 
@@ -15,7 +15,7 @@
   left: 9px;
   width: calc(100% + -9px);
   padding: 5px 10px;
-  background: $color-white;
+  background: #fff;
   border: 1px solid rgba($color-border, 0.5);
 
   .item-iconContainer {
@@ -27,66 +27,106 @@
   .item-content {
     padding: 5px 0 0;
     margin-left: -21px;
-    background: $color-white;
+    background: #fff;
     border-bottom: 0;
   }
 }
 
 &.sync {
   padding: 6px 10px 5px;
-  background: lighten($color-primary, 50%);
-  border-color: rgba($color-primary, 0.1);
+  background: $color-light-background;
+  border-color: transparent;
+  border-left-color: $color-green;
+  border-left-color: var(--color-primary);
 
   .item-iconContainer {
-    background: $color-primary;
-    border-color: rgba($color-primary, 0.3);
+    background: $color-green;
+    background: var(--color-primary);
+    border-color: transparent;
     box-shadow: none;
   }
 
   .item-iconContainer-icon {
-    fill: $color-white;
+    fill: #fff;
   }
 
   .item-stats {
-    background: lighten($color-primary, 46%);
-    color: darken($color-primary, 25%);
+    padding: 0 0 0 28px;
+    background: lighten($color-green, 46%);
+    background: var(--color-primary-lighten-99);
+    color: darken($color-green, 25%);
+    color: var(--color-primary-darken-50);
   }
 
   .item-date {
-    color: rgba($color-primary, 0.6);
+    color: $color-grey;
   }
 
   .item-details-link {
-    color: $color-primary;
+    color: $color-green;
+    color: var(--color-primary);
   }
 
   .item-content {
-    background: lighten($color-primary, 50%);
+    background: var(--color-primary-lighten-95);
     font-size: 14px;
   }
 
   .item-documentPath {
-    color: darken($color-primary, 25%);
+    color: darken($color-green, 25%);
+    color: var(--color-primary-darken-30);
+    font-size: 13px;
   }
 
   .item-user,
   .item-header-content {
-    color: darken($color-primary, 25%);
+    color: darken($color-green, 25%);
+    color: var(--color-primary-darken-30);
+    font-size: 13px;
+  }
+
+  .item-user.item-user--bot,
+  .item-user.item-user--pictureUrl {
+    padding-left: 28px;
   }
 
   .item-user-icon {
-    fill: darken($color-primary, 25%);
+    fill: darken($color-green, 25%);
+    fill: var(--color-primary-darken-30);
+    width: 21px;
+    height: 21px
+  }
+
+  .item-user-picture {
+    top: -1px;
+    width: 21px;
+    height: 21px
   }
 
   &.compact {
     .item-iconContainer-icon {
-      fill: $color-primary;
+      fill: $color-success;
+      fill: var(--color-success);
+    }
+
+   .item-user--bot {
+     padding-left: 20px;
+   }
+
+   .item-user,
+   .item-header-content {
+     font-size: 12px;
+    }
+
+    .item-user-icon {
+      width: 14px;
+      height: 14px;
     }
   }
 }
 
 &.rollback {
-  background: #fafafa;
+  background: $color-light-background;
   border: 1px solid rgba($color-border, 0.3);
 
   .item-header {
@@ -104,31 +144,34 @@
   .item-content {
     padding: 5px 0 0;
     margin: 0;
-    background: #fafafa;
+    background: $color-light-background;
     border-bottom: 0;
   }
 }
 
-
 &.uncorrect-all {
-  border-color: lighten($color-error, 35%);
-
   .item-iconContainer {
     background: $color-error;
     border-color: transparent;
   }
 
   .item-iconContainer-icon {
-    fill: $color-white;
+    fill: #fff;
   }
 
-  .item-header-content {
-    color: darken($color-error, 25%);
+  &.compact {
+    .item-iconContainer-icon {
+      fill: $color-error;
+    }
   }
 }
 
 &.correct-all {
-  border-color: lighten($color-success, 30%);
+  &.compact {
+    .item-iconContainer-icon {
+      fill: $color-success;
+    }
+  }
 
   .item-iconContainer {
     background: $color-success;
@@ -136,11 +179,7 @@
   }
 
   .item-iconContainer-icon {
-    fill: $color-white;
-  }
-
-  .item-header-content {
-    color: darken($color-success, 25%);
+    fill: #fff;
   }
 }
 
@@ -153,11 +192,7 @@
   }
 
   .item-iconContainer-icon {
-    fill: $color-white;
-  }
-
-  .item-header-content {
-    color: darken($color-error, 25%);
+    fill: #fff;
   }
 
   &.compact {
@@ -250,7 +285,7 @@
   }
 
   &.sync {
-    border-color: rgba($color-primary, 0.1);
+    border-color: rgba($color-green, 0.1);
 
     .item-iconContainer {
       left: -19px;
@@ -340,11 +375,13 @@
   }
 
   .item-user.item-user--pictureUrl {
-    padding-left: 0;
+    padding-left: 20px;
   }
 
   .item-user-picture {
-    display: none;
+    top: 1px;
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -382,8 +419,8 @@
   margin-right: 10px;
   border-radius: 50%;
   border: 1px solid $color-grey;
-  box-shadow: 0 0 0 5px $color-white;
-  background: $color-white;
+  box-shadow: 0 0 0 5px #fff;
+  background: #fff;
 }
 
 .item-iconContainer-icon {
@@ -433,12 +470,12 @@
 
   &.item-user--bot {
     position: relative;
-    margin-left: 17px;
+    padding-left: 20px;
 
     .item-user-icon {
       position: absolute;
-      left: -19px;
-      top: 2px;
+      left: 0;
+      top: 1px;
     }
   }
 }
@@ -464,7 +501,7 @@
 .item-translationText {
   margin: 5px 0 10px;
   padding: 8px;
-  background: #fafafa;
+  background: $color-light-background;
   font-size: 12px;
   font-style: italic;
 }
@@ -495,6 +532,7 @@
 .item-documentPath {
   display: inline-block;
   color: $color-black;
+  color: var(--color-black);
   font-weight: bold;
   font-size: 12px;
   text-decoration: none;
@@ -517,7 +555,8 @@
 
   &:hover,
   &:focus {
-    color: $color-primary;
+    color: $color-green;
+    color: var(--color-primary);
   }
 
   &.item-translationLink--removed {
@@ -535,7 +574,8 @@
 .item-revisionLink {
   display: inline-block;
   text-decoration: none;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
 
   &:hover,
   &:focus {
@@ -581,7 +621,7 @@
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  background: $color-white;
+  background: #fff;
   font-size: 12px;
   font-style: italic;
   color: #5d6863;
@@ -611,7 +651,8 @@
   &:focus,
   &:hover {
     text-decoration: underline;
-    color: $color-primary;
+    color: $color-green;
+    color: var(--color-primary);
   }
 }
 

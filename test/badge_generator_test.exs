@@ -15,7 +15,7 @@ defmodule AccentTest.BadgeGenerator do
 
   setup do
     french_language = %Language{name: "french", slug: Ecto.UUID.generate()} |> Repo.insert!()
-    project = %Project{name: "My project", language_id: french_language.id} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project", language_id: french_language.id} |> Repo.insert!()
     revision = %Revision{language_id: french_language.id, master: true, project_id: project.id} |> Repo.insert!()
     document = %Document{project_id: project.id, path: "test2", format: "json"} |> Repo.insert!()
 

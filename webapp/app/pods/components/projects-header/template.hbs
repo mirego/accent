@@ -6,12 +6,25 @@
         class='applicationLogo'
       }}
         {{inline-svg 'assets/logo.svg' class='applicationLogo-image applicationLogo-image--linked'}}
-
-        <span class="applicationLogo-name">{{t 'general.application_name'}}</span>
       {{/link-to}}
 
-      <div class="project">
+      {{#link-to
+        'logged-in.project.index'
+        project.id
+        class='project'
+      }}
         {{project.name}}
+      {{/link-to}}
+
+      <div class="search">
+        {{inline-svg '/assets/search.svg' class='search-icon'}}
+
+        {{input
+          class='search-input'
+          type='text'
+          placeholder=(t 'general.search_input_placeholder_text')
+          value=debouncedQuery
+        }}
       </div>
     {{else}}
       <div class="applicationLogo">
@@ -29,7 +42,9 @@
       {{/if}}
 
       <span class="username">{{session.credentials.user.fullname}}</span>
-      <button {{action 'logout'}} class="button button--black button--filled">{{t 'general.logout_button'}}</button>
+      {{#unless project}}
+        <button {{action 'logout'}} class="button button--white">{{t 'general.logout_button'}}</button>
+      {{/unless}}
     </div>
   {{/if}}
 </div>

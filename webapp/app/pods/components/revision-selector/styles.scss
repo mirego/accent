@@ -3,6 +3,28 @@
   box-shadow: 0 2px 4px rgba(#000, 0.06);
 }
 
+.many {
+  .ember-power-select-selected-item {
+    margin-left: 22px;
+  }
+
+  .ember-power-select-trigger {
+    padding-bottom: 25px;
+    cursor: pointer;
+    pointer-events: all;
+
+    &:hover {
+      background: $color-light-background;
+    }
+
+    .ember-power-select-status-icon {
+      &:after {
+        display: block;
+      }
+    }
+  }
+}
+
 .otherLanguages {
   position: absolute;
   bottom: 8px;
@@ -14,26 +36,31 @@
 }
 
 .ember-power-select-selected-item {
-  margin-left: 22px;
+  margin-left: 10px;
   font-weight: 900;
   color: $color-black;
+  color: var(--color-black);
 
   em {
     margin-left: 1px;
     font-size: 11px;
     font-style: normal;
-    color: $color-primary;
+    color: $color-green;
+    color: var(--color-primary);
   }
 }
 
 .ember-power-select-trigger {
-  padding: 10px 10px 25px;
+  padding: 10px;
   font-size: 20px;
   flex-direction: row-reverse;
   border: 1px solid #eee;
+  cursor: default;
+  pointer-events: none;
 
   .ember-power-select-status-icon {
     &:after {
+      display: none;
       content: 'Ξ';
       transform: rotate(0);
       bottom: -14px;
@@ -48,9 +75,5 @@
         transform: rotate(0);
       }
     }
-  }
-
-  &:hover {
-    background: #fafafa;
   }
 }

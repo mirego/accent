@@ -13,8 +13,8 @@
   color: #444;
 
   &.checked {
-    background: lighten($color-primary, 45%);
-    color: darken($color-primary, 25%);
+    background: lighten($color-green, 45%);
+    color: darken($color-green, 25%);
   }
 
   input {

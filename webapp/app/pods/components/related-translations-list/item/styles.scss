@@ -12,7 +12,7 @@
   }
 
   &.item--editMode {
-    background: $color-light-grey;
+    background: $color-light-background;
 
     .editButton {
       opacity: 1;
@@ -58,7 +58,7 @@
 
   &:focus,
   &:hover {
-    color: $color-primary;
+    color: $color-green;
   }
 }
 
@@ -79,7 +79,7 @@
   @extend %translationTextBase;
   padding-top: 10px;
   margin: 10px 0 0;
-  border-top: 1px solid $color-light-grey;
+  border-top: 1px solid $color-light-background;
   font-size: 13px;
 }
 

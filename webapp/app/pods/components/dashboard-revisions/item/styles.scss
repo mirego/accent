@@ -9,7 +9,7 @@
   margin-right: 10px;
   padding: 8px 15px 12px;
   border-radius: 3px;
-  box-shadow: 0 2px 4px rgba(#000, 0.15);
+  box-shadow: 0 2px 4px rgba($color-black, 0.15);
 
   &:nth-child(even) {
     flex: 1 1 50%;
@@ -27,14 +27,8 @@
 }
 
 &.low-percentage {
-  .language-reviewedPercentage,
-  .reviewedStats {
+  .language-reviewedPercentage {
     color: $color-error;
-  }
-
-  .container {
-    border-color: lighten($color-error, 47%);
-    background: lighten($color-error, 53%);
   }
 
   .progress {
@@ -43,14 +37,8 @@
 }
 
 &.medium-percentage {
-  .language-reviewedPercentage,
-  .reviewedStats {
+  .language-reviewedPercentage {
     color: $color-warning;
-  }
-
-  .container {
-    border-color: lighten($color-warning, 30%);
-    background: lighten($color-warning, 45%);
   }
 
   .progress {
@@ -59,14 +47,8 @@
 }
 
 &.high-percentage {
-  .language-reviewedPercentage,
-  .reviewedStats {
+  .language-reviewedPercentage {
     color: $color-success;
-  }
-
-  .container {
-    border-color: lighten($color-success, 45%);
-    background: lighten($color-success, 53%);
   }
 
   .progress {
@@ -100,7 +82,8 @@
 
   &:focus,
   &:hover {
-    color: $color-primary;
+    color: $color-green;
+    color: var(--color-primary);
   }
 }
 
@@ -113,6 +96,10 @@
 }
 
 .reviewedStats {
+  padding: 2px 7px 1px;
+  border-radius: 3px;
+  background: lighten($color-grey, 25%);
+  color: $color-grey;
   font-size: 12px;
   font-family: $font-monospace;
 }
@@ -135,7 +122,8 @@
   &:focus,
   &:hover {
     .actionsButton-icon {
-      fill: $color-primary;
+      fill: $color-green;
+      fill: var(--color-primary);
     }
   }
 }
@@ -149,6 +137,7 @@
 
 .actions {
   margin-top: 10px;
+  border-top: 1px solid #eee;
 }
 
 .actionItem-text {
@@ -158,11 +147,7 @@
 }
 
 .actionItem-button {
-  margin-bottom: 10px;
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
+  margin-top: 10px;
 }
 
 @media (max-width: ($screen-sm)) {

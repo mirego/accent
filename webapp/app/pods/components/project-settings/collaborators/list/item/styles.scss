@@ -15,9 +15,15 @@
     }
   }
 
+  &.withPicture {
+    .invite {
+      margin-left: 21px;
+    }
+  }
+
   &:focus,
   &:hover {
-    background: #fafafa;
+    background: $color-light-background;
 
     .button {
       opacity: 1;
@@ -28,13 +34,13 @@
 .role {
   display: block;
   margin-bottom: 4px;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
   font-size: 12px;
 }
 
 .user {
   display: flex;
-  align-items: center;
   color: $color-black;
   font-size: 15px;
 }
@@ -48,6 +54,7 @@
   width: 17px;
   height: 17px;
   margin-right: 6px;
+  margin-top: 3px;
   border-radius: 3px;
 }
 
@@ -62,8 +69,15 @@
   transition: $transition-speed $transition-easing;
   transition-property: opacity;
   opacity: 0;
+  padding: 6px 7px;
   margin-left: 5px;
   font-size: 11px;
+
+  .button-icon {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .ember-power-select-trigger {

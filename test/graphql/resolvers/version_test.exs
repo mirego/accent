@@ -18,7 +18,7 @@ defmodule AccentTest.GraphQL.Resolvers.Version do
 
   setup do
     user = Repo.insert!(@user)
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     version = %Version{name: "version1", tag: "v1", project_id: project.id, user_id: user.id} |> Repo.insert!()
 

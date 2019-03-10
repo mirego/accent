@@ -12,11 +12,11 @@
         {{t 'components.project_file_operations.export'}}
       </div>
 
-      {{document.path}}
-
-      <div class="subtitle">
-        <small class="subtitle-label">{{t 'components.project_file_operations.document_format'}}:</small>
-        {{document.format}}
+      <div class="title-document">
+        {{document.path}}
+        <span class="title-documentExtension">
+          .{{documentFormatItem.extension}}
+        </span>
       </div>
     </div>
 

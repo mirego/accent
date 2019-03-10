@@ -26,7 +26,7 @@
       {{#if (get permissions 'promote_slave')}}
         {{#async-button
           loading=isPromoting
-          class='button--grey'
+          class='button--grey button--small promoteSlaveButton'
           onClick=(action 'promoteRevision')
         }}
           {{inline-svg '/assets/chevron-top.svg' class='button-icon'}}
@@ -37,7 +37,7 @@
       {{#if (get permissions 'delete_slave')}}
         {{#async-button
           loading=isDeleting
-          class='button--red button--filled'
+          class='button--red button--filled button--small'
           onClick=(action 'deleteRevision')
         }}
           {{inline-svg '/assets/x.svg' class='button-icon'}}

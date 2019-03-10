@@ -9,29 +9,29 @@
 
   &.item--highlight .item-link {
     padding: 10px 15px 12px;
-    background: lighten($color-primary, 47%);
-    border-left: 2px solid $color-primary;
+    background: lighten($color-green, 47%);
+    border-left: 2px solid $color-green;
 
     .item-icon {
-      fill: $color-primary;
+      fill: $color-green;
     }
 
     .item-text {
-      color: darken($color-primary, 25%);
+      color: darken($color-green, 25%);
     }
 
     .item-title {
-      color: $color-primary;
+      color: $color-green;
     }
 
     &:focus,
     &:hover {
       .item-title {
-        color: darken($color-primary, 10%);
+        color: darken($color-green, 10%);
       }
 
       .item-text {
-        color: darken($color-primary, 35%);
+        color: darken($color-green, 35%);
       }
     }
   }
@@ -45,11 +45,11 @@
   &:focus,
   &:hover {
     .item-title {
-      color: $color-primary;
+      color: $color-green;
     }
 
     .item-icon {
-      fill: $color-primary;
+      fill: $color-green;
     }
 
     .item-text {

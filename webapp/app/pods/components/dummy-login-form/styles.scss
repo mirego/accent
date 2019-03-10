@@ -4,7 +4,7 @@
   padding: 20px;
   box-shadow: 0 3px 21px rgba(#000, 0.07);
   border: 1px solid #eee;
-  background: #fafafa;
+  background: $color-light-background;
   text-align: center;
 }
 
@@ -27,7 +27,6 @@
 .subtitle {
   margin: 0 15px 25px;
   font-size: 13px;
-  font-style: italic;
   color: #555;
 }
 
@@ -47,6 +46,7 @@
 
   &:focus {
     border-right: 0;
+    border-color: $color-green;
   }
 }
 

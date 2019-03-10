@@ -22,7 +22,7 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   setup do
     user = Repo.insert!(@user)
     language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     revision = %Revision{language_id: language.id, project_id: project.id, master: true} |> Repo.insert!()
     translation = %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()

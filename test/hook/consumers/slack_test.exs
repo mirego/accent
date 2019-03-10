@@ -16,7 +16,7 @@ defmodule AccentTest.Hook.Consumers.Slack do
   }
 
   setup do
-    project = %Project{name: "Test"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "Test"} |> Repo.insert!()
     user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()
 
     %Integration{

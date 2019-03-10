@@ -1,23 +1,24 @@
 & {
   transition: $transition-speed $transition-easing;
-  transition-property: background, border-color;
+  transition-property: background, border-color, transform;
   padding: 10px;
   margin-bottom: 15px;
   border-left: 2px solid transparent;
 
   &:nth-child(even) {
-    background: $color-light-grey;
+    background: $color-light-background;
   }
 
   &:focus,
   &:hover {
-    border-color: lighten($color-primary, 40%);
-    background: $color-light-grey;
+    border-color: lighten($color-green, 40%);
+    border-color: var(--color-primary-opacity-10);
+    background: $color-light-background;
   }
 
   &.active {
-    border-color: lighten($color-primary, 10%);
-    background: $color-light-grey;
+    background: $color-light-background;
+    transform: scale(1.02);
   }
 }
 
@@ -42,18 +43,21 @@
 &[class*='resolved'] {
   padding: 5px 10px;
   margin: 5px 0 15px;
-  background: lighten($color-primary, 48%);
-  border: 1px solid lighten($color-primary, 43%);
-  border-left: 2px solid $color-primary;
-  box-shadow: 0 1px 5px lighten($color-primary, 47%);
+  background: lighten($color-green, 48%);
+  background: var(--color-primary-opacity-10);
+  border-left: 2px solid $color-green;
+  border-left-color: var(--color-primary);
+  box-shadow: 0 1px 5px lighten($color-grey, 25%);
 
   .item-key-prefix {
-    color: rgba($color-primary, 0.7);
+    color: rgba($color-green, 0.7);
+    color: var(--color-primary-opacity-70);
   }
 
   .item-key {
     font-size: 12px;
-    color: $color-primary;
+    color: $color-green;
+    color: var(--color-primary);
   }
 }
 
@@ -85,17 +89,12 @@
   line-height: 1.5;
   font-size: 12px;
   font-weight: bold;
+  color: $color-green;
+  color: var(--color-primary);
 }
 
 .key {
   text-decoration: none;
-
-  &:focus,
-  &:hover {
-    .item-key {
-      color: $color-primary;
-    }
-  }
 }
 
 .textResolved {
@@ -157,15 +156,6 @@
   white-space: pre-wrap;
 }
 
-.conflictedText-textReference-language-icon {
-  position: relative;
-  top: -1px;
-  width: 15px;
-  height: 15px;
-  margin-right: 6px;
-  opacity: 0.2;
-}
-
 .conflictedText-textReference-link {
   margin-right: 4px;
   color: rgba($color-black, 0.7);
@@ -175,7 +165,8 @@
 
   &:focus,
   &:hover {
-    color: $color-primary;
+    color: $color-green;
+    color: var(--color-primary);
   }
 }
 

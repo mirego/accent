@@ -4,7 +4,7 @@ defmodule AccentTest.RevisionDeleter do
   alias Accent.{Language, Operation, Project, Repo, Revision, RevisionDeleter, Translation}
 
   setup do
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
     french_language = %Language{name: "french"} |> Repo.insert!()
     english_language = %Language{name: "english"} |> Repo.insert!()
 

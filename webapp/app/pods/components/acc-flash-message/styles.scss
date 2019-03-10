@@ -1,35 +1,30 @@
 & {
   position: relative;
-  margin-bottom: 20px;
-  min-width: 300px;
-  max-width: 600px;
-  background: $color-white;
-  border: 1px solid $color-border;
+  margin-bottom: 10px;
+  width: 400px;
+  background: #fff;
   border-radius: 3px;
-  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
-  color: $color-grey;
+  box-shadow: 0 1px 12px rgba(#000, 0.1);
+  text-shadow: 0 1px 1px rgba(#000, 0.1);
+  color: #fff;
   font-weight: bold;
   animation: 0.3s flash-message-in ease;
 
   &.is-exiting {
-    animation: 0.3s flash-message-out forwards ease;
+    animation: 0.3s flash-message-out forwards ease-in-out;
   }
 }
 
 &.success {
-  border-color: lighten($color-primary, 35%);
-  border-bottom: 3px solid $color-primary;
-  color: $color-primary;
+  background: $color-green;
 
   .icon {
-    fill: lighten($color-primary, 35%)
+    fill: lighten($color-green, 35%)
   }
 }
 
 &.socket {
-  border-color: lighten($color-socket, 35%);
-  border-bottom: 3px solid $color-socket;
-  color: $color-socket;
+  background: $color-socket;
 
   .icon {
     fill: lighten($color-socket, 35%)
@@ -37,9 +32,7 @@
 }
 
 &.error {
-  border-color: lighten($color-error, 35%);
-  border-bottom: 3px solid $color-error;
-  color: $color-error;
+  background: $color-error;
 
   .icon {
     fill: lighten($color-error, 35%)
@@ -48,56 +41,65 @@
 
 .content {
   display: flex;
-  align-items: center;
-  padding: 20px;
+  align-items: flex-start;
+  padding: 15px 25px 15px 15px;
 }
 
 .text {
   flex: 1 1 auto;
-  line-height: 1.7;
-  font-size: 13px;
+  margin-top: 2px;
+  line-height: 1.4;
+  font-size: 11px;
 }
 
 .icon {
   width: 20px;
   height: 20px;
-  margin-right: 20px;
+  margin-right: 14px;
 }
 
 .deleteButton {
   position: absolute;
-  top: 2px;
+  top: 6px;
   right: 0;
   background: none;
   text-align: center;
+
+  &:focus {
+    outline: none;
+
+    .deleteButton-icon {
+      fill: #fff;
+    }
+  }
 }
 
 .deleteButton-icon {
   width: 13px;
   height: 13px;
-  fill: $color-grey;
+  fill: rgba(#fff, 0.6);
 }
 
 @keyframes flash-message-in {
   0% {
-    transform: translateY(30px);
+    margin-top: -30px;
     opacity: 0;
   }
 
   100% {
-    transform: translateY(0);
+    margin-top: 0;
     opacity: 1;
   }
 }
 
 @keyframes flash-message-out {
   0% {
-    transform: translateY(0);
+    margin-top: 0;
     opacity: 1;
   }
 
   100% {
-    transform: translateY(30px);
+    margin-top: -30px;
     opacity: 0;
   }
 }

@@ -20,7 +20,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{name: "My project", language_id: language.id}, user: user)
+    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
     user = %{user | permissions: %{project.id => "owner"}}
 
     {:ok,
@@ -32,7 +32,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer", %{user: user, project: project} do
-    Repo.insert!(%Project{name: "Other project"})
+    Repo.insert!(%Project{main_color: "#f00", name: "Other project"})
 
     {:ok, result} = Resolver.list_viewer(user, %{}, %{})
 
@@ -45,9 +45,9 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer search", %{user: user, language: language} do
-    Repo.insert!(%Project{name: "Other project"})
-    {:ok, project_two} = ProjectCreator.create(params: %{name: "My second project", language_id: language.id}, user: user)
-    ProjectCreator.create(params: %{name: "My third project", language_id: language.id}, user: user)
+    Repo.insert!(%Project{main_color: "#f00", name: "Other project"})
+    {:ok, project_two} = ProjectCreator.create(params: %{main_color: "#f00", name: "My second project", language_id: language.id}, user: user)
+    ProjectCreator.create(params: %{main_color: "#f00", name: "My third project", language_id: language.id}, user: user)
 
     {:ok, result} = Resolver.list_viewer(user, %{query: "second"}, %{})
 
@@ -67,7 +67,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "list viewer paginated", %{user: user, language: language} do
     for index <- 1..50 do
-      ProjectCreator.create(params: %{name: "My project #{index}", language_id: language.id}, user: user)
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project #{index}", language_id: language.id}, user: user)
     end
 
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_viewer(user, %{}, %{})
@@ -82,7 +82,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "list viewer paginated page 2", %{user: user, language: language} do
     for index <- 1..50 do
-      ProjectCreator.create(params: %{name: "My project #{index}", language_id: language.id}, user: user)
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project #{index}", language_id: language.id}, user: user)
     end
 
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_viewer(user, %{page: 2}, %{})
@@ -96,9 +96,9 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer ordering", %{user: user, language: language, project: project_one} do
-    Repo.insert!(%Project{name: "Other project"})
-    {:ok, project_two} = ProjectCreator.create(params: %{name: "X - My second project", language_id: language.id}, user: user)
-    {:ok, project_three} = ProjectCreator.create(params: %{name: "A - My third project", language_id: language.id}, user: user)
+    Repo.insert!(%Project{main_color: "#f00", name: "Other project"})
+    {:ok, project_two} = ProjectCreator.create(params: %{main_color: "#f00", name: "X - My second project", language_id: language.id}, user: user)
+    {:ok, project_three} = ProjectCreator.create(params: %{main_color: "#f00", name: "A - My third project", language_id: language.id}, user: user)
 
     {:ok, result} = Resolver.list_viewer(user, %{}, %{})
 
@@ -114,7 +114,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "create", %{user: user, language: language} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.create(nil, %{language_id: language.id, name: "Foo bar"}, context)
+    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: language.id, name: "Foo bar"}, context)
 
     assert get_in(result, [:project, Access.key(:name)]) == "Foo bar"
   end
@@ -122,7 +122,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "create without name", %{user: user, language: language} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.create(nil, %{language_id: language.id, name: ""}, context)
+    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: language.id, name: ""}, context)
 
     assert get_in(result, [:project]) == nil
     assert get_in(result, [:errors]) == ["unprocessable_entity"]
@@ -131,7 +131,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "create without language", %{user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.create(nil, %{language_id: nil, name: "FOO"}, context)
+    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: nil, name: "FOO"}, context)
 
     assert get_in(result, [:project]) == nil
     assert get_in(result, [:errors]) == ["unprocessable_entity"]
@@ -149,7 +149,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "update", %{user: user, project: project} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.update(project, %{name: "Foo bar"}, context)
+    {:ok, result} = Resolver.update(project, %{main_color: "#f00", name: "Foo bar"}, context)
 
     assert get_in(result, [:project, Access.key(:name)]) == "Foo bar"
   end
@@ -157,7 +157,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "update with file operation locked", %{user: user, project: project} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.update(project, %{name: project.name, is_file_operations_locked: true}, context)
+    {:ok, result} = Resolver.update(project, %{main_color: project.main_color, name: project.name, is_file_operations_locked: true}, context)
 
     assert get_in(result, [:project, Access.key(:locked_file_operations)]) == true
   end

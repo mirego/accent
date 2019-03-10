@@ -1,18 +1,25 @@
 & {
   margin-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .item {
+  width: 50%;
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid #fafafa;
 
-  &:nth-child(2) {
+  &:nth-child(3) {
     opacity: 0.6;
   }
 
-  &:nth-child(3) {
-    opacity: 0.2;
+  &:nth-child(4) {
+    opacity: 0.6;
+  }
+
+  &:nth-child(5) {
+    opacity: 0.4;
   }
 }
 
@@ -20,7 +27,7 @@
   height: 3px;
   width: 160px;
   margin-bottom: 20px;
-  background: #fafafa;
+  background: $color-light-background;
 }
 
 .item-document {
@@ -39,6 +46,6 @@
 }
 
 .item-button--green {
-  border-color: rgba($color-primary, 0.3);
-  background: rgba($color-primary, 0.1);
+  border-color: rgba($color-green, 0.3);
+  background: rgba($color-green, 0.1);
 }

@@ -45,7 +45,6 @@
         {{#if conflict.relatedTranslation.id}}
           <div class="conflictedText-textReference">
             <strong class="conflictedText-textReference-language">
-              {{inline-svg 'assets/language.svg' class='conflictedText-textReference-language-icon'}}
               {{#link-to 'logged-in.project.translation' project.id conflict.relatedTranslation.id class='conflictedText-textReference-link'}}{{revision.language.name}}{{/link-to}}
 
               <span class="conflictedText-textReference-updatedAt">
@@ -84,7 +83,7 @@
           {{#async-button
             onClick=(action 'correct')
             loading=loading
-            class='button button--filled'
+            class='button button--filled button--white'
           }}
             {{inline-svg '/assets/check.svg' class='button-icon'}}
             {{t 'components.conflict_item.correct_button_text'}}

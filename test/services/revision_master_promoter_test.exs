@@ -6,7 +6,7 @@ defmodule AccentTest.RevisionMasterPromoter do
   setup do
     french_language = %Language{name: "french"} |> Repo.insert!()
     english_language = %Language{name: "english"} |> Repo.insert!()
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     master_revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
     slave_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: master_revision.id} |> Repo.insert!()

@@ -61,7 +61,8 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
 
   &:focus,
   &:hover {
@@ -79,4 +80,8 @@
 
 .masterBadge {
   margin-left: 10px;
+}
+
+.promoteSlaveButton {
+  margin-right: 10px;
 }

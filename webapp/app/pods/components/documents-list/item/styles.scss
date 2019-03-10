@@ -1,0 +1,53 @@
+&.low-percentage {
+  .reviewedPercentage {
+    color: $color-error;
+  }
+
+  .progress {
+    background: $color-error;
+  }
+}
+
+&.medium-percentage {
+  .reviewedPercentage {
+    color: $color-warning;
+  }
+
+  .progress {
+    background: $color-warning;
+  }
+}
+
+&.high-percentage {
+  .reviewedPercentage {
+    color: $color-success;
+  }
+
+  .progress {
+    background: $color-success;
+  }
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.stat-progress {
+  margin-top: 3px;
+}
+
+.reviewedStats {
+  padding: 2px 7px 1px;
+  border-radius: 3px;
+  background: lighten($color-grey, 25%);
+  color: $color-grey;
+  font-family: $font-monospace;
+}
+
+.reviewedPercentage {
+  margin-right: 10px;
+  font-size: 18px;
+}

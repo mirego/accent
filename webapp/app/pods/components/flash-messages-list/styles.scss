@@ -1,6 +1,11 @@
 & {
   position: fixed;
-  bottom: 10px;
-  right: 30px;
+  top: 20px;
+  right: 20px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
   z-index: 12;
 }
