@@ -6,7 +6,7 @@ language: 'elixir'
 
 elixir: 1.8.1
 otp_release: 21.2.5
-node_js: 9.5.0
+node_js: 10.14.1
 
 cache:
   directories:
@@ -24,7 +24,7 @@ addons:
 # Set global environment variables
 env:
   global:
-    - NODE_VERSION: '9.5.0'
+    - NODE_VERSION: '10.14.1'
     - MIX_ENV: 'test'
     - SECRET_KEY_BASE: 'lolwut'
     - DATABASE_URL: 'postgres://localhost/accent_web_test'
