@@ -1,6 +1,6 @@
 _build/
 .git/
-webapp/node_modules/
+.elixir_ls
 priv/static/webapp
 deps/
 test/
@@ -10,3 +10,18 @@ docker-compose.yml
 Makefile
 README.md
 Dockerfile
+
+webapp/node_modules
+webapp/tmp
+webapp/dist
+jipt/node_modules
+jipt/.cache
+jipt/dist
+cli/node_modules
+cli/.cache
+cli/dist
+cli/tmp
+cli/lib
+cli/*-debug.log
+cli/*-error.log
+cli/.oclif.manifest.json

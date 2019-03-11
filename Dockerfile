@@ -16,7 +16,7 @@ WORKDIR /build
 # This step installs all the build tools we'll need
 RUN apk update && \
     apk upgrade --no-cache && \
-    apk add --no-cache nodejs npm git build-base python yaml-dev
+    apk add --no-cache git make g++ alpine-sdk openssl ncurses-libs wget ca-certificates yaml-dev python nodejs-npm bash erlang-crypto libssl1.1
 
 RUN mix local.rebar --force && \
     mix local.hex --force
@@ -42,12 +42,13 @@ COPY webapp /opt/build/webapp
 COPY jipt /opt/build/jipt
 
 RUN cd /opt/build && \
-    npm ci --prefix webapp --no-audit --no-color
+    npm ci --prefix webapp --no-audit --no-color && \
+    npm ci --prefix jipt --no-audit --no-color
 
 #
 # Step 2 - Build a lean runtime container
 #
-FROM elixir:1.8.1-alpine
+FROM alpine:3.9
 
 ARG APP_NAME
 ARG APP_VERSION
@@ -57,7 +58,7 @@ ENV APP_NAME=${APP_NAME} \
 # Update kernel and install runtime dependencies
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add bash yaml-dev nodejs
+    apk --no-cache add ncurses-libs openssl bash erlang-crypto libssl1.1 yaml-dev nodejs
 
 WORKDIR /opt/accent
 
@@ -69,8 +70,7 @@ COPY priv/scripts/docker-entrypoint.sh /usr/local/bin
 RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
 # Create a non-root user
-RUN adduser -D accent && \
-    chown -R accent: /opt/accent
+RUN adduser -D accent && chown -R accent: /opt/accent
 
 USER accent
 
