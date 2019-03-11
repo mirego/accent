@@ -25,7 +25,7 @@ module.exports = function(environment) {
     }
   };
 
-  ENV.API = {
+  (ENV.API = {
     WS_HOST: wsHost,
     HOST: host,
     AUTHENTICATION_PATH: `${host}/auth`,
@@ -38,11 +38,10 @@ module.exports = function(environment) {
     JIPT_EXPORT_DOCUMENT: `${host}/jipt-export`,
     PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`,
     JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`
-  },
-
-  ENV.GOOGLE_API = {
-    CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID
-  };
+  }),
+    (ENV.GOOGLE_API = {
+      CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID
+    });
 
   ENV.GOOGLE_LOGIN_ENABLED = environment === 'production';
   ENV.DUMMY_LOGIN_ENABLED = environment !== 'production';
@@ -53,7 +52,8 @@ module.exports = function(environment) {
 
   ENV.contentSecurityPolicy = {
     'default-src': "'none'",
-    'script-src': "'self' 'unsafe-inline' 'unsafe-eval' apis.google.com cdn.ravenjs.com",
+    'script-src':
+      "'self' 'unsafe-inline' 'unsafe-eval' apis.google.com cdn.ravenjs.com",
     // Allow fonts to be loaded from http://fonts.gstatic.com
     'font-src': "'self' http://fonts.gstatic.com",
     // Allow data (ajax/websocket)

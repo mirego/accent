@@ -10,7 +10,10 @@ import Component from '@ember/component';
 // onUpdate: Function
 export default Component.extend({
   tagName: 'li',
-  classNameBindings: ['hasJoined:joined:invited', 'collaborator.user.pictureUrl:withPicture'],
+  classNameBindings: [
+    'hasJoined:joined:invited',
+    'collaborator.user.pictureUrl:withPicture'
+  ],
 
   session: service('session'),
   i18n: service('i18n'),
@@ -21,30 +24,47 @@ export default Component.extend({
   hasJoined: notEmpty('collaborator.user.id'),
 
   possibleRoles: map('globalState.roles', ({slug}) => slug),
-  mappedPossibleRoles: map('possibleRoles', value => ({label: `general.roles.${value}`, value})),
+  mappedPossibleRoles: map('possibleRoles', value => ({
+    label: `general.roles.${value}`,
+    value
+  })),
 
   updatedRole: reads('collaborator.role'),
 
   roleValue: computed('updatedRole', 'mappedPossibleRoles.[]', function() {
-    return this.mappedPossibleRoles.find(({value}) => value === this.updatedRole);
-  }),
-
-  canDeleteCollaborator: computed('permissions', 'session.credentials.user.id', 'collaborator.user.id', function() {
-    return (
-      this.permissions &&
-      this.permissions.create_collaborator &&
-      (!this.collaborator.user || (this.collaborator.user && this.session.credentials.user.id !== this.collaborator.user.id))
+    return this.mappedPossibleRoles.find(
+      ({value}) => value === this.updatedRole
     );
   }),
 
-  canUpdateCollaborator: computed('permissions', 'session.credentials.user.id', 'collaborator.user.id', function() {
-    return (
-      this.permissions &&
-      this.permissions.update_collaborator &&
-      this.collaborator.user &&
-      this.session.credentials.user.id !== this.collaborator.user.id
-    );
-  }),
+  canDeleteCollaborator: computed(
+    'permissions',
+    'session.credentials.user.id',
+    'collaborator.user.id',
+    function() {
+      return (
+        this.permissions &&
+        this.permissions.create_collaborator &&
+        (!this.collaborator.user ||
+          (this.collaborator.user &&
+            this.session.credentials.user.id !== this.collaborator.user.id))
+      );
+    }
+  ),
+
+  canUpdateCollaborator: computed(
+    'permissions',
+    'session.credentials.user.id',
+    'collaborator.user.id',
+    function() {
+      return (
+        this.permissions &&
+        this.permissions.update_collaborator &&
+        this.collaborator.user &&
+        this.session.credentials.user.id !== this.collaborator.user.id
+      );
+    }
+  ),
 
   role: computed('collaborator.role', function() {
     return this.i18n.t(`general.roles.${this.collaborator.role}`);
@@ -56,7 +76,9 @@ export default Component.extend({
     },
 
     updateCollaborator() {
-      this.onUpdate(this.collaborator, {role: this.updatedRole}).then(() => this.set('isEditing', false));
+      this.onUpdate(this.collaborator, {role: this.updatedRole}).then(() =>
+        this.set('isEditing', false)
+      );
     },
 
     toggleUpdateCollaborator() {

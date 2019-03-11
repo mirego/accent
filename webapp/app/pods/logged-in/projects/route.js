@@ -10,7 +10,11 @@ const props = data => {
     return memo;
   }, {});
 
-  return {projects: data.viewer.projects, languages: data.languages.entries, permissions};
+  return {
+    projects: data.viewer.projects,
+    languages: data.languages.entries,
+    permissions
+  };
 };
 
 export default Route.extend(ApolloRoute, AuthenticatedRoute, {

@@ -286,7 +286,9 @@ class Push {
    * @private
    */
   matchReceive({status, response, ref}) {
-    this.recHooks.filter(h => h.status === status).forEach(h => h.callback(response));
+    this.recHooks
+      .filter(h => h.status === status)
+      .forEach(h => h.callback(response));
   }
 
   /**
@@ -360,9 +362,17 @@ export class Channel {
     this.bindingRef = 0;
     this.timeout = this.socket.timeout;
     this.joinedOnce = false;
-    this.joinPush = new Push(this, CHANNEL_EVENTS.join, this.params, this.timeout);
+    this.joinPush = new Push(
+      this,
+      CHANNEL_EVENTS.join,
+      this.params,
+      this.timeout
+    );
     this.pushBuffer = [];
-    this.rejoinTimer = new Timer(() => this.rejoinUntilConnected(), this.socket.reconnectAfterMs);
+    this.rejoinTimer = new Timer(
+      () => this.rejoinUntilConnected(),
+      this.socket.reconnectAfterMs
+    );
     this.joinPush.receive('ok', () => {
       this.state = CHANNEL_STATES.joined;
       this.rejoinTimer.reset();
@@ -387,7 +397,11 @@ export class Channel {
       if (!this.isJoining()) {
         return;
       }
-      this.socket.log('channel', `timeout ${this.topic} (${this.joinRef()})`, this.joinPush.timeout);
+      this.socket.log(
+        'channel',
+        `timeout ${this.topic} (${this.joinRef()})`,
+        this.joinPush.timeout
+      );
       let leavePush = new Push(this, CHANNEL_EVENTS.leave, {}, this.timeout);
       leavePush.send();
       this.state = CHANNEL_STATES.errored;
@@ -468,7 +482,10 @@ export class Channel {
    */
   off(event, ref) {
     this.bindings = this.bindings.filter(bind => {
-      return !(bind.event === event && (typeof ref === 'undefined' || ref === bind.ref));
+      return !(
+        bind.event === event &&
+        (typeof ref === 'undefined' || ref === bind.ref)
+      );
     });
   }
 
@@ -486,7 +503,9 @@ export class Channel {
    */
   push(event, payload, timeout = this.timeout) {
     if (!this.joinedOnce) {
-      throw `tried to push '${event}' to '${this.topic}' before joining. Use channel.join() before pushing events`;
+      throw `tried to push '${event}' to '${
+        this.topic
+      }' before joining. Use channel.join() before pushing events`;
     }
     let pushEvent = new Push(this, event, payload, timeout);
     if (this.canPush()) {
@@ -522,7 +541,9 @@ export class Channel {
       this.trigger(CHANNEL_EVENTS.close, 'leave');
     };
     let leavePush = new Push(this, CHANNEL_EVENTS.leave, {}, timeout);
-    leavePush.receive('ok', () => onClose()).receive('timeout', () => onClose());
+    leavePush
+      .receive('ok', () => onClose())
+      .receive('timeout', () => onClose());
     leavePush.send();
     if (!this.canPush()) {
       leavePush.trigger('ok', {});
@@ -556,7 +577,12 @@ export class Channel {
     let isLifecycleEvent = CHANNEL_LIFECYCLE_EVENTS.indexOf(event) >= 0;
 
     if (joinRef && isLifecycleEvent && joinRef !== this.joinRef()) {
-      this.socket.log('channel', 'dropping outdated message', {topic, event, payload, joinRef});
+      this.socket.log('channel', 'dropping outdated message', {
+        topic,
+        event,
+        payload,
+        joinRef
+      });
       return false;
     } else {
       return true;
@@ -597,7 +623,11 @@ export class Channel {
       throw 'channel onMessage callbacks must return the payload, modified or unmodified';
     }
 
-    this.bindings.filter(bind => bind.event === event).map(bind => bind.callback(handledPayload, ref, joinRef || this.joinRef()));
+    this.bindings
+      .filter(bind => bind.event === event)
+      .map(bind =>
+        bind.callback(handledPayload, ref, joinRef || this.joinRef())
+      );
   }
 
   /**
@@ -761,7 +791,9 @@ export class Socket {
    * @returns {string}
    */
   endPointURL() {
-    let uri = Ajax.appendParams(Ajax.appendParams(this.endPoint, this.params), {vsn: VSN});
+    let uri = Ajax.appendParams(Ajax.appendParams(this.endPoint, this.params), {
+      vsn: VSN
+    });
     if (uri.charAt(0) !== '/') {
       return uri;
     }
@@ -796,7 +828,10 @@ export class Socket {
    */
   connect(params) {
     if (params) {
-      console && console.log('passing params to connect is deprecated. Instead pass :params to the Socket constructor');
+      console &&
+        console.log(
+          'passing params to connect is deprecated. Instead pass :params to the Socket constructor'
+        );
       this.params = params;
     }
     if (this.conn) {
@@ -868,7 +903,10 @@ export class Socket {
     this.reconnectTimer.reset();
     if (!this.conn.skipHeartbeat) {
       clearInterval(this.heartbeatTimer);
-      this.heartbeatTimer = setInterval(() => this.sendHeartbeat(), this.heartbeatIntervalMs);
+      this.heartbeatTimer = setInterval(
+        () => this.sendHeartbeat(),
+        this.heartbeatIntervalMs
+      );
     }
     this.stateChangeCallbacks.open.forEach(callback => callback());
   }
@@ -927,7 +965,9 @@ export class Socket {
    * @param {Channel}
    */
   remove(channel) {
-    this.channels = this.channels.filter(c => c.joinRef() !== channel.joinRef());
+    this.channels = this.channels.filter(
+      c => c.joinRef() !== channel.joinRef()
+    );
   }
 
   /**
@@ -982,12 +1022,20 @@ export class Socket {
     }
     if (this.pendingHeartbeatRef) {
       this.pendingHeartbeatRef = null;
-      this.log('transport', 'heartbeat timeout. Attempting to re-establish connection');
+      this.log(
+        'transport',
+        'heartbeat timeout. Attempting to re-establish connection'
+      );
       this.conn.close(WS_CLOSE_NORMAL, 'hearbeat timeout');
       return;
     }
     this.pendingHeartbeatRef = this.makeRef();
-    this.push({topic: 'phoenix', event: 'heartbeat', payload: {}, ref: this.pendingHeartbeatRef});
+    this.push({
+      topic: 'phoenix',
+      event: 'heartbeat',
+      payload: {},
+      ref: this.pendingHeartbeatRef
+    });
   }
 
   flushSendBuffer() {
@@ -1004,7 +1052,12 @@ export class Socket {
         this.pendingHeartbeatRef = null;
       }
 
-      this.log('receive', `${payload.status || ''} ${topic} ${event} ${(ref && '(' + ref + ')') || ''}`, payload);
+      this.log(
+        'receive',
+        `${payload.status || ''} ${topic} ${event} ${(ref && '(' + ref + ')') ||
+          ''}`,
+        payload
+      );
       this.channels
         .filter(channel => channel.isMember(topic, event, payload, join_ref))
         .forEach(channel => channel.trigger(event, payload, ref, join_ref));
@@ -1032,7 +1085,10 @@ export class LongPoll {
     return endPoint
       .replace('ws://', 'http://')
       .replace('wss://', 'https://')
-      .replace(new RegExp('(.*)/' + TRANSPORTS.websocket), '$1/' + TRANSPORTS.longpoll);
+      .replace(
+        new RegExp('(.*)/' + TRANSPORTS.websocket),
+        '$1/' + TRANSPORTS.longpoll
+      );
   }
 
   endpointURL() {
@@ -1050,49 +1106,70 @@ export class LongPoll {
   }
 
   poll() {
-    if (!(this.readyState === SOCKET_STATES.open || this.readyState === SOCKET_STATES.connecting)) {
+    if (
+      !(
+        this.readyState === SOCKET_STATES.open ||
+        this.readyState === SOCKET_STATES.connecting
+      )
+    ) {
       return;
     }
 
-    Ajax.request('GET', this.endpointURL(), 'application/json', null, this.timeout, this.ontimeout.bind(this), resp => {
-      if (resp) {
-        var {status, token, messages} = resp;
-        this.token = token;
-      } else {
-        var status = 0;
-      }
+    Ajax.request(
+      'GET',
+      this.endpointURL(),
+      'application/json',
+      null,
+      this.timeout,
+      this.ontimeout.bind(this),
+      resp => {
+        if (resp) {
+          var {status, token, messages} = resp;
+          this.token = token;
+        } else {
+          var status = 0;
+        }
 
-      switch (status) {
-        case 200:
-          messages.forEach(msg => this.onmessage({data: msg}));
-          this.poll();
-          break;
-        case 204:
-          this.poll();
-          break;
-        case 410:
-          this.readyState = SOCKET_STATES.open;
-          this.onopen();
-          this.poll();
-          break;
-        case 0:
-        case 500:
-          this.onerror();
-          this.closeAndRetry();
-          break;
-        default:
-          throw `unhandled poll status ${status}`;
+        switch (status) {
+          case 200:
+            messages.forEach(msg => this.onmessage({data: msg}));
+            this.poll();
+            break;
+          case 204:
+            this.poll();
+            break;
+          case 410:
+            this.readyState = SOCKET_STATES.open;
+            this.onopen();
+            this.poll();
+            break;
+          case 0:
+          case 500:
+            this.onerror();
+            this.closeAndRetry();
+            break;
+          default:
+            throw `unhandled poll status ${status}`;
+        }
       }
-    });
+    );
   }
 
   send(body) {
-    Ajax.request('POST', this.endpointURL(), 'application/json', body, this.timeout, this.onerror.bind(this, 'timeout'), resp => {
-      if (!resp || resp.status !== 200) {
-        this.onerror(resp && resp.status);
-        this.closeAndRetry();
+    Ajax.request(
+      'POST',
+      this.endpointURL(),
+      'application/json',
+      body,
+      this.timeout,
+      this.onerror.bind(this, 'timeout'),
+      resp => {
+        if (!resp || resp.status !== 200) {
+          this.onerror(resp && resp.status);
+          this.closeAndRetry();
+        }
       }
-    });
+    );
   }
 
   close(code, reason) {
@@ -1105,16 +1182,41 @@ export class Ajax {
   static request(method, endPoint, accept, body, timeout, ontimeout, callback) {
     if (window.XDomainRequest) {
       let req = new XDomainRequest(); // IE8, IE9
-      this.xdomainRequest(req, method, endPoint, body, timeout, ontimeout, callback);
+      this.xdomainRequest(
+        req,
+        method,
+        endPoint,
+        body,
+        timeout,
+        ontimeout,
+        callback
+      );
     } else {
       let req = window.XMLHttpRequest
         ? new window.XMLHttpRequest() // IE7+, Firefox, Chrome, Opera, Safari
         : new ActiveXObject('Microsoft.XMLHTTP'); // IE6, IE5
-      this.xhrRequest(req, method, endPoint, accept, body, timeout, ontimeout, callback);
+      this.xhrRequest(
+        req,
+        method,
+        endPoint,
+        accept,
+        body,
+        timeout,
+        ontimeout,
+        callback
+      );
     }
   }
 
-  static xdomainRequest(req, method, endPoint, body, timeout, ontimeout, callback) {
+  static xdomainRequest(
+    req,
+    method,
+    endPoint,
+    body,
+    timeout,
+    ontimeout,
+    callback
+  ) {
     req.timeout = timeout;
     req.open(method, endPoint);
     req.onload = () => {
@@ -1131,7 +1233,16 @@ export class Ajax {
     req.send(body);
   }
 
-  static xhrRequest(req, method, endPoint, accept, body, timeout, ontimeout, callback) {
+  static xhrRequest(
+    req,
+    method,
+    endPoint,
+    accept,
+    body,
+    timeout,
+    ontimeout,
+    callback
+  ) {
     req.open(method, endPoint, true);
     req.timeout = timeout;
     req.setRequestHeader('Content-Type', accept);
@@ -1175,7 +1286,9 @@ export class Ajax {
       if (typeof paramVal === 'object') {
         queryStr.push(this.serialize(paramVal, paramKey));
       } else {
-        queryStr.push(encodeURIComponent(paramKey) + '=' + encodeURIComponent(paramVal));
+        queryStr.push(
+          encodeURIComponent(paramKey) + '=' + encodeURIComponent(paramVal)
+        );
       }
     }
     return queryStr.join('&');
@@ -1209,8 +1322,12 @@ export var Presence = {
       if (currentPresence) {
         let newRefs = newPresence.metas.map(m => m.phx_ref);
         let curRefs = currentPresence.metas.map(m => m.phx_ref);
-        let joinedMetas = newPresence.metas.filter(m => curRefs.indexOf(m.phx_ref) < 0);
-        let leftMetas = currentPresence.metas.filter(m => newRefs.indexOf(m.phx_ref) < 0);
+        let joinedMetas = newPresence.metas.filter(
+          m => curRefs.indexOf(m.phx_ref) < 0
+        );
+        let leftMetas = currentPresence.metas.filter(
+          m => newRefs.indexOf(m.phx_ref) < 0
+        );
         if (joinedMetas.length > 0) {
           joins[key] = newPresence;
           joins[key].metas = joinedMetas;
@@ -1223,7 +1340,12 @@ export var Presence = {
         joins[key] = newPresence;
       }
     });
-    return this.syncDiff(state, {joins: joins, leaves: leaves}, onJoin, onLeave);
+    return this.syncDiff(
+      state,
+      {joins: joins, leaves: leaves},
+      onJoin,
+      onLeave
+    );
   },
 
   syncDiff(currentState, {joins, leaves}, onJoin, onLeave) {
@@ -1240,7 +1362,9 @@ export var Presence = {
       state[key] = newPresence;
       if (currentPresence) {
         let joinedRefs = state[key].metas.map(m => m.phx_ref);
-        let curMetas = currentPresence.metas.filter(m => joinedRefs.indexOf(m.phx_ref) < 0);
+        let curMetas = currentPresence.metas.filter(
+          m => joinedRefs.indexOf(m.phx_ref) < 0
+        );
         state[key].metas.unshift(...curMetas);
       }
       onJoin(key, currentPresence, newPresence);

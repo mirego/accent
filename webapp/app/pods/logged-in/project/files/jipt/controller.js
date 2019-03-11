@@ -28,18 +28,26 @@ export default Controller.extend({
   documentFormatItem: computed('document.format', function() {
     if (!this.globalState.documentFormats) return {};
 
-    return this.globalState.documentFormats.find(({slug}) => slug === this.document.format);
+    return this.globalState.documentFormats.find(
+      ({slug}) => slug === this.document.format
+    );
   }),
 
-  fileExtension: computed('documentFormatFilter', 'document.format', function() {
-    if (!this.globalState.documentFormats) return '';
+  fileExtension: computed(
+    'documentFormatFilter',
+    'document.format',
+    function() {
+      if (!this.globalState.documentFormats) return '';
 
-    const format = this.documentFormatFilter || this.document.format;
-    const documentFormatItem = this.globalState.documentFormats.find(({slug}) => slug === format);
-    if (!documentFormatItem) return '';
+      const format = this.documentFormatFilter || this.document.format;
+      const documentFormatItem = this.globalState.documentFormats.find(
+        ({slug}) => slug === format
+      );
+      if (!documentFormatItem) return '';
 
-    return documentFormatItem.extension;
-  }),
+      return documentFormatItem.extension;
+    }
+  ),
 
   actions: {
     closeModal() {

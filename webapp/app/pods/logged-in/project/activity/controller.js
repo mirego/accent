@@ -4,8 +4,10 @@ import Controller from '@ember/controller';
 
 import operationRollbackQuery from 'accent-webapp/queries/rollback-operation';
 
-const FLASH_MESSAGE_OPERATION_ROLLBACK_SUCCESS = 'pods.project.activities.flash_messages.rollback_success';
-const FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR = 'pods.project.activities.flash_messages.rollback_error';
+const FLASH_MESSAGE_OPERATION_ROLLBACK_SUCCESS =
+  'pods.project.activities.flash_messages.rollback_success';
+const FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR =
+  'pods.project.activities.flash_messages.rollback_error';
 
 export default Controller.extend({
   i18n: service(),
@@ -27,10 +29,16 @@ export default Controller.extend({
           }
         })
         .then(() => {
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_OPERATION_ROLLBACK_SUCCESS));
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_OPERATION_ROLLBACK_SUCCESS)
+          );
           this.send('onRefresh');
         })
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR)));
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR)
+          )
+        );
     }
   }
 });

@@ -9,7 +9,7 @@ module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
     hinting: false,
     vendorFiles: {
-      'jquery.js': null,
+      'jquery.js': null
     },
     autoprefixer: {
       browsers: target.browsers
@@ -22,9 +22,7 @@ module.exports = function(defaults) {
       includePolyfill: true
     },
     svg: {
-      paths: [
-        'public'
-      ]
+      paths: ['public']
     }
   });
 

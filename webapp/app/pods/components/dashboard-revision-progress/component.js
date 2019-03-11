@@ -16,17 +16,28 @@ export default Component.extend({
   mediumPercentage: gte('correctedKeysPercentage', LOW_PERCENTAGE), // higher or equal than low percentage
   highPercentage: gte('correctedKeysPercentage', HIGH_PERCENTAGE), // higher or equal than high percentage
 
-  classNameBindings: ['master', 'lowPercentage', 'mediumPercentage', 'highPercentage'],
+  classNameBindings: [
+    'master',
+    'lowPercentage',
+    'mediumPercentage',
+    'highPercentage'
+  ],
 
-  correctedKeysPercentage: computed('revision.{conflictsCount,translationsCount}', function() {
-    const {conflictsCount, translationsCount} = this.revision;
+  correctedKeysPercentage: computed(
+    'revision.{conflictsCount,translationsCount}',
+    function() {
+      const {conflictsCount, translationsCount} = this.revision;
 
-    return percentage(conflictsCount, translationsCount);
-  }),
+      return percentage(conflictsCount, translationsCount);
+    }
+  ),
 
-  reviewsCount: computed('revision.{conflictsCount,translationsCount}', function() {
-    const {conflictsCount, translationsCount} = this.revision;
+  reviewsCount: computed(
+    'revision.{conflictsCount,translationsCount}',
+    function() {
+      const {conflictsCount, translationsCount} = this.revision;
 
-    return translationsCount - conflictsCount;
-  })
+      return translationsCount - conflictsCount;
+    }
+  )
 });

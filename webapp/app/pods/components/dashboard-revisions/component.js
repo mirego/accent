@@ -49,10 +49,16 @@ export default Component.extend({
   reviewCompleted: gte('reviewedPercentage', 100),
 
   reviewedPercentage: computed('totalConflicts', 'totalStrings', function() {
-    return percentage(this.totalStrings - this.totalConflicts, this.totalStrings);
+    return percentage(
+      this.totalStrings - this.totalConflicts,
+      this.totalStrings
+    );
   }),
 
   conflictedPercentage: computed('totalReviewed', 'totalStrings', function() {
-    return percentage(this.totalStrings - this.totalReviewed, this.totalStrings);
+    return percentage(
+      this.totalStrings - this.totalReviewed,
+      this.totalStrings
+    );
   })
 });

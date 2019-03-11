@@ -55,7 +55,9 @@ describe('Unit | Routes | login', () => {
         route.redirect();
 
         expect(route.transitionTo).to.have.been.calledOnce;
-        expect(route.transitionTo).to.have.been.calledWith('logged-in.projects');
+        expect(route.transitionTo).to.have.been.calledWith(
+          'logged-in.projects'
+        );
       });
     });
   });

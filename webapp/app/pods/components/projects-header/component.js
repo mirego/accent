@@ -16,16 +16,23 @@ export default Component.extend({
 
   debouncedQuery: '',
 
-  selectedRevision: computed('globalState.revision', 'project.revisions.[]', function() {
-    const selected = this.globalState.revision;
+  selectedRevision: computed(
+    'globalState.revision',
+    'project.revisions.[]',
+    function() {
+      const selected = this.globalState.revision;
 
-    if (selected && this.project.revisions.map(({id}) => id).includes(selected)) {
-      return selected;
+      if (
+        selected &&
+        this.project.revisions.map(({id}) => id).includes(selected)
+      ) {
+        return selected;
+      }
+
+      if (!this.project.revisions) return;
+      return this.project.revisions[0].id;
     }
-
-    if (!this.project.revisions) return;
-    return this.project.revisions[0].id;
-  }),
+  ),
 
   queryDidChanges: observer('debouncedQuery', function() {
     if (!this.debouncedQuery) return;
@@ -38,9 +45,14 @@ export default Component.extend({
     const input = this.element.getElementsByTagName('input')[0];
     input && input.blur();
 
-    this.router.transitionTo('logged-in.project.revision.translations', this.project.id, this.selectedRevision, {
-      queryParams: {query}
-    });
+    this.router.transitionTo(
+      'logged-in.project.revision.translations',
+      this.project.id,
+      this.selectedRevision,
+      {
+        queryParams: {query}
+      }
+    );
   },
 
   actions: {

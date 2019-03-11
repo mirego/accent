@@ -1,5 +1,9 @@
 import Ember from 'ember';
-const {Handlebars: {Utils: {escapeExpression}}} = Ember;
+const {
+  Handlebars: {
+    Utils: {escapeExpression}
+  }
+} = Ember;
 
 import {helper} from '@ember/component/helper';
 import {htmlSafe} from '@ember/string';

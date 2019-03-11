@@ -19,10 +19,15 @@ export default Controller.extend({
       'message',
       payload => {
         if (payload.data.jipt && payload.data.selectId) {
-          this.router.transitionTo('logged-in.jipt.translation', payload.data.selectId);
+          this.router.transitionTo(
+            'logged-in.jipt.translation',
+            payload.data.selectId
+          );
         }
         if (payload.data.jipt && payload.data.selectIds) {
-          this.router.transitionTo('logged-in.jipt.index', {queryParams: {translationIds: payload.data.selectIds}});
+          this.router.transitionTo('logged-in.jipt.index', {
+            queryParams: {translationIds: payload.data.selectIds}
+          });
         }
       },
       false
@@ -48,11 +53,17 @@ export default Controller.extend({
     `;
   }),
 
-  translationsObserver: observer('model.project.revision.translations.entries', function() {
-    if (!this.model.project) return;
+  translationsObserver: observer(
+    'model.project.revision.translations.entries',
+    function() {
+      if (!this.model.project) return;
 
-    this.jipt.listTranslations(this.model.project.revision.translations.entries, this.model.project.revision);
-  }),
+      this.jipt.listTranslations(
+        this.model.project.revision.translations.entries,
+        this.model.project.revision
+      );
+    }
+  ),
 
   permissionsObserver: observer('model.permissions', function() {
     this.globalState.set('permissions', this.model.permissions);

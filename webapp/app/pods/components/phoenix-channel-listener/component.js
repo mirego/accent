@@ -16,7 +16,12 @@ export default Component.extend({
     phoenixService
       .getChannel(`projects:${this.project.id}`, {token})
       .then(phoenixService.joinChannel)
-      .then(channel => phoenixService.bindChannelEvents(channel, this.session.credentials.user.id))
+      .then(channel =>
+        phoenixService.bindChannelEvents(
+          channel,
+          this.session.credentials.user.id
+        )
+      )
       .then(channel => this.set('channel', channel));
   },
 

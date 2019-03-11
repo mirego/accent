@@ -14,9 +14,12 @@ export default Component.extend({
   isUpdatingText: false,
 
   text: reads('translation.correctedText'),
-  samePreviousText: computed('translation.{conflictedText,correctedText}', function() {
-    return this.translation.conflictedText === this.translation.correctedText;
-  }),
+  samePreviousText: computed(
+    'translation.{conflictedText,correctedText}',
+    function() {
+      return this.translation.conflictedText === this.translation.correctedText;
+    }
+  ),
 
   hasTextNotChanged: computed('text', 'translation.correctedText', function() {
     if (!this.translation) return false;
@@ -36,19 +39,25 @@ export default Component.extend({
     correctConflict() {
       this.set('isCorrectingConflict', true);
 
-      this.onCorrectConflict(this.text).then(() => this.set('isCorrectingConflict', false));
+      this.onCorrectConflict(this.text).then(() =>
+        this.set('isCorrectingConflict', false)
+      );
     },
 
     uncorrectConflict() {
       this.set('isUncorrectingConflict', true);
 
-      this.onUncorrectConflict().then(() => this.set('isUncorrectingConflict', false));
+      this.onUncorrectConflict().then(() =>
+        this.set('isUncorrectingConflict', false)
+      );
     },
 
     updateText() {
       this.set('isUpdatingText', true);
 
-      this.onUpdateText(this.text).then(() => this.set('isUpdatingText', false));
+      this.onUpdateText(this.text).then(() =>
+        this.set('isUpdatingText', false)
+      );
     },
 
     changeText() {

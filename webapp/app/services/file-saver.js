@@ -53,7 +53,11 @@ const fileSaver = view => {
   const autoBom = blob => {
     // prepend BOM for UTF-8 XML and text/* types (including HTML)
     // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
-    if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+    if (
+      /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(
+        blob.type
+      )
+    ) {
       return new Blob([String.fromCharCode(bomCharCode), blob], {
         type: blob.type
       });
@@ -69,7 +73,8 @@ const fileSaver = view => {
     const type = blob.type;
     const force = type === forceSaveableType;
     let objectURL;
-    const dispatchAll = () => dispatch(filesaver, 'writestart progress write writeend'.split(' '));
+    const dispatchAll = () =>
+      dispatch(filesaver, 'writestart progress write writeend'.split(' '));
 
     // on any filesys errors revert to saving with object URLs
     /* eslint-disable complexity */
@@ -79,7 +84,9 @@ const fileSaver = view => {
         const reader = new FileReader();
 
         reader.onloadend = () => {
-          let url = isChromeIos ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+          let url = isChromeIos
+            ? reader.result
+            : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
           const popup = view.open(url, '_blank');
           if (!popup) view.location.href = url;
           url = undefined; // version reference before dispatching
@@ -148,7 +155,8 @@ const fileSaver = view => {
 
   FSproto.error = FSproto.onwritestart = FSproto.onprogress = FSproto.onwrite = FSproto.onabort = FSproto.onerror = FSproto.onwriteend = null;
 
-  return (blob, name, noAutoBom) => new FileSaver(blob, name || blob.name || 'download', noAutoBom);
+  return (blob, name, noAutoBom) =>
+    new FileSaver(blob, name || blob.name || 'download', noAutoBom);
 };
 
 export default Service.extend({

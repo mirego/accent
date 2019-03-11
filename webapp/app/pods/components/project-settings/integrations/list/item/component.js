@@ -21,7 +21,9 @@ export default Component.extend({
   }),
 
   mappedService: computed('integration.service', function() {
-    return this.i18n.t(`general.integration_services.${this.integration.service}`);
+    return this.i18n.t(
+      `general.integration_services.${this.integration.service}`
+    );
   }),
 
   actions: {
@@ -36,7 +38,9 @@ export default Component.extend({
     delete() {
       this.set('isDeleting', true);
 
-      this.onDelete({id: this.integration.id}).then(() => this.set('isDeleting', false));
+      this.onDelete({id: this.integration.id}).then(() =>
+        this.set('isDeleting', false)
+      );
     }
   }
 });

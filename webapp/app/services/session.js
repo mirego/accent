@@ -24,7 +24,9 @@ export default Service.extend({
   }),
 
   login(...args) {
-    return this.sessionCreator.createSession(...args).then(credentials => this.set('credentials', credentials));
+    return this.sessionCreator
+      .createSession(...args)
+      .then(credentials => this.set('credentials', credentials));
   },
 
   logout() {

@@ -1,7 +1,16 @@
 import Component from '@ember/component';
 import Evented from '@ember/object/evented';
 
-const attributeBindings = ['name', 'disabled', 'form', 'type', 'accept', 'autofocus', 'required', 'multiple'];
+const attributeBindings = [
+  'name',
+  'disabled',
+  'form',
+  'type',
+  'accept',
+  'autofocus',
+  'required',
+  'multiple'
+];
 
 // Attributes
 // onChange: Function

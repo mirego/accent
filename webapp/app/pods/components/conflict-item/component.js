@@ -15,9 +15,12 @@ export default Component.extend({
 
   emptyPreviousText: empty('conflict.conflictedText'),
   textInput: reads('conflict.correctedText'),
-  samePreviousText: computed('conflict.{conflictedText,correctedText}', function() {
-    return this.conflict.conflictedText === this.conflict.correctedText;
-  }),
+  samePreviousText: computed(
+    'conflict.{conflictedText,correctedText}',
+    function() {
+      return this.conflict.conflictedText === this.conflict.correctedText;
+    }
+  ),
 
   loading: false,
   error: false,

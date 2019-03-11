@@ -24,7 +24,12 @@ export default Component.extend({
 
   mappedRevisions: computed('revisions.[]', function() {
     return this.revisions.map(({id, isMaster, language}) => {
-      const masterLabel = name => htmlSafe(`${name} <em>${this.i18n.t('components.revision_selector.master')}</em>`);
+      const masterLabel = name =>
+        htmlSafe(
+          `${name} <em>${this.i18n.t(
+            'components.revision_selector.master'
+          )}</em>`
+        );
       const label = isMaster ? masterLabel(language.name) : language.name;
 
       return {label, value: id};

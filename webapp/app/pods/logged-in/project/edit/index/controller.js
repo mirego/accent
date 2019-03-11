@@ -36,10 +36,16 @@ export default Controller.extend({
           }
         })
         .then(() => {
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_SUCCESS));
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_SUCCESS)
+          );
           this.transitionToRoute('logged-in.projects');
         })
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_ERROR)));
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_ERROR)
+          )
+        );
     },
 
     updateProject(projectAttributes) {

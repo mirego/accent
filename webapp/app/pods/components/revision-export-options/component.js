@@ -57,7 +57,10 @@ export default Component.extend({
   }),
 
   revisionValue: computed('revision', 'mappedRevisions.[]', function() {
-    return this.mappedRevisions.find(({value}) => value === this.revision) || this.mappedRevisions[0];
+    return (
+      this.mappedRevisions.find(({value}) => value === this.revision) ||
+      this.mappedRevisions[0]
+    );
   }),
 
   mappedRevisions: computed('revisions.[]', function() {
@@ -70,7 +73,10 @@ export default Component.extend({
   }),
 
   documentValue: computed('document', 'mappedDocuments.[]', function() {
-    return this.mappedDocuments.find(({value}) => value === this.document) || this.mappedDocuments[0];
+    return (
+      this.mappedDocuments.find(({value}) => value === this.document) ||
+      this.mappedDocuments[0]
+    );
   }),
 
   mappedDocuments: computed('documents.[]', function() {

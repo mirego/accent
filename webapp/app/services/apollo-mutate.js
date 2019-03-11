@@ -12,7 +12,9 @@ export default Service.extend({
     return new RSVP.Promise((resolve, reject) => {
       const operationName = Object.keys(data)[0];
 
-      data[operationName].errors ? reject(data[operationName].errors) : resolve(data[operationName]);
+      data[operationName].errors
+        ? reject(data[operationName].errors)
+        : resolve(data[operationName]);
     });
   }
 });

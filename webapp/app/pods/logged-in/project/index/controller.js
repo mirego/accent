@@ -5,10 +5,14 @@ import Controller from '@ember/controller';
 import correctAllRevisionQuery from 'accent-webapp/queries/correct-all-revision';
 import uncorrectAllRevisionQuery from 'accent-webapp/queries/uncorrect-all-revision';
 
-const FLASH_MESSAGE_REVISION_CORRECT_SUCCESS = 'pods.project.index.flash_messages.revision_correct_success';
-const FLASH_MESSAGE_REVISION_CORRECT_ERROR = 'pods.project.index.flash_messages.revision_correct_error';
-const FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS = 'pods.project.index.flash_messages.revision_uncorrect_success';
-const FLASH_MESSAGE_REVISION_UNCORRECT_ERROR = 'pods.project.index.flash_messages.revision_uncorrect_error';
+const FLASH_MESSAGE_REVISION_CORRECT_SUCCESS =
+  'pods.project.index.flash_messages.revision_correct_success';
+const FLASH_MESSAGE_REVISION_CORRECT_ERROR =
+  'pods.project.index.flash_messages.revision_correct_error';
+const FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS =
+  'pods.project.index.flash_messages.revision_uncorrect_success';
+const FLASH_MESSAGE_REVISION_UNCORRECT_ERROR =
+  'pods.project.index.flash_messages.revision_uncorrect_error';
 
 export default Controller.extend({
   globalState: service('global-state'),
@@ -33,8 +37,16 @@ export default Controller.extend({
           mutation: correctAllRevisionQuery,
           variables: {revisionId: revision.id}
         })
-        .then(() => this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)))
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)));
+        .then(() =>
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)
+          )
+        )
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)
+          )
+        );
     },
 
     uncorrectAllConflicts(revision) {
@@ -43,8 +55,16 @@ export default Controller.extend({
           mutation: uncorrectAllRevisionQuery,
           variables: {revisionId: revision.id}
         })
-        .then(() => this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS)))
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_REVISION_UNCORRECT_ERROR)));
+        .then(() =>
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS)
+          )
+        )
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_REVISION_UNCORRECT_ERROR)
+          )
+        );
     }
   }
 });

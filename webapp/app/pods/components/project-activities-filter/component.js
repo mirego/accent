@@ -54,7 +54,9 @@ export default Component.extend({
       .map(({user: {fullname, id}}) => ({label: fullname, value: id}));
 
     users.unshift({
-      label: this.i18n.t('components.project_activities_filter.collaborators_default_option_text'),
+      label: this.i18n.t(
+        'components.project_activities_filter.collaborators_default_option_text'
+      ),
       value: null
     });
 

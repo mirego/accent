@@ -25,6 +25,8 @@ describe('Unit | Services | Session | persister', () => {
   it('should persist the session credentials to localStorage', () => {
     service.persist(credentials);
 
-    expect(localStorage.getItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE)).to.equal(JSON.stringify(credentials));
+    expect(
+      localStorage.getItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE)
+    ).to.equal(JSON.stringify(credentials));
   });
 });

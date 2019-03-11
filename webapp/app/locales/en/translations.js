@@ -2,8 +2,10 @@ export default {
   addon: {
     channel: {
       handle_in: {
-        create_collaborator: '{{user}} invited {{collaboratorEmail}} on the project',
-        create_comment: '{{user}} commented on {{translationKey}}: {{commentText}}',
+        create_collaborator:
+          '{{user}} invited {{collaboratorEmail}} on the project',
+        create_comment:
+          '{{user}} commented on {{translationKey}}: {{commentText}}',
         sync: '{{user}} synced a file: {{documentPath}}'
       }
     }
@@ -72,15 +74,18 @@ export default {
       commit_type: 'Mode',
       file_source: 'Document path',
       merge_button: 'Add translations',
-      pattern_help: 'You need to specify the pattern of the files included in the zip that will be imported, eg: **/*.strings',
+      pattern_help:
+        'You need to specify the pattern of the files included in the zip that will be imported, eg: **/*.strings',
       new_document_warning: 'The changes will create a new file.',
-      existing_document_warning: 'The changes will be applied to the already existing file.',
+      existing_document_warning:
+        'The changes will be applied to the already existing file.',
       peek_button: 'Preview sync',
       peek_error: 'An error occured while previewing the file',
       peek_help:
         'You can preview the effect of your file(s) on the project. This action won’t do anything to your project, you’re safe to preview whatever you want ;)',
       sync_button: 'Sync',
-      upload_help: 'After choosing a file you will be able to preview the changes on your project',
+      upload_help:
+        'After choosing a file you will be able to preview the changes on your project',
       upload_title: 'Select a file',
       tips: {
         formats: {
@@ -130,7 +135,8 @@ export default {
     dashboard_master_revision: {
       features: {
         documents: {
-          text: 'Manage your files, view a preview of the exported content, and finally, save your file on your machine.',
+          text:
+            'Manage your files, view a preview of the exported content, and finally, save your file on your machine.',
           title: 'Files'
         },
         export: {
@@ -143,7 +149,8 @@ export default {
           title: 'Review'
         },
         sync: {
-          text: 'Upload your localization files to add, remove and update strings.',
+          text:
+            'Upload your localization files to add, remove and update strings.',
           title: 'Sync'
         },
         translations: {
@@ -166,7 +173,8 @@ export default {
     dashboard_revisions: {
       manage_languages_link_title: 'Manage languages',
       new_language_link_title: 'New language',
-      new_language_link_text: 'With another language, you can keep track of translation based on the master language.',
+      new_language_link_text:
+        'With another language, you can keep track of translation based on the master language.',
       view_more_activities: 'View more activities →',
       title: 'Dashboard',
       master: 'Master language',
@@ -234,7 +242,8 @@ export default {
       file_label: 'File:',
       details_label: 'Details:',
       explanation_label: 'Why did this happen?',
-      rollback_confirm: 'Are you sure you want to rollback this activity? You cannot undo a rollback.',
+      rollback_confirm:
+        'Are you sure you want to rollback this activity? You cannot undo a rollback.',
       rollback: 'Rollback',
       stats_label_text: 'Activities performed:',
       stats_text: {
@@ -270,7 +279,8 @@ export default {
           'When the activity "conflict on proposed" or "conflict on corrected" happens on a string, the matching keys in other languages apply this activity. The goal of this activity is to flag a change of meaning in the master language in the translations. The string will be flagged as "in review"',
         correct_all: 'When all the strings are manually marked as reviewed.',
         correct_conflict: 'When a string is manually marked as reviewed.',
-        batch_correct_conflict: 'When multiple strings were marked as reviewed in a short lapse of time.',
+        batch_correct_conflict:
+          'When multiple strings were marked as reviewed in a short lapse of time.',
         document_delete: 'When a file has been deleted.',
         merge:
           'When strings are updated with new translations from a file upload. This applies the same logic as the sync activity but without removing strings.',
@@ -283,8 +293,10 @@ export default {
         merge_on_proposed_force:
           'When the uploaded text is different than the last synced text and the last synced text is equal to the current text. This happens if the text has not been touched by a user in Accent. It is uselful to identify a conflict that is only caused by the sync upload and not a human intervention.',
         remove: 'When the synced file does not contain the key.',
-        new: 'When the synced file contains a key that is not present in the file.',
-        renew: 'When the synced file contains a key that was previously removed.',
+        new:
+          'When the synced file contains a key that is not present in the file.',
+        renew:
+          'When the synced file contains a key that was previously removed.',
         new_slave: 'When a new language is added to the project.',
         rollback: 'When a user manually rollback an activity.',
         sync: 'When a document is synced with a file.',
@@ -301,13 +313,16 @@ export default {
         create_version: 'created a new version',
         conflict_on_corrected: '’s sync activity created a conflict',
         conflict_on_proposed: '’s sync activity created a conflict',
-        conflict_on_slave: '’s sync activity created a conflict reflected in another language',
+        conflict_on_slave:
+          '’s sync activity created a conflict reflected in another language',
         correct_conflict: 'marked the string as reviewed',
         batch_correct_conflict: 'marked multiple strings as reviewed',
         merge_on_corrected: '’s translations additions modified the string',
         merge_on_proposed: '’s translations additions modified the string',
-        merge_on_corrected_force: '’s translations additions (force) modified the string:',
-        merge_on_proposed_force: '’s translations additions (force) modified the string:',
+        merge_on_corrected_force:
+          '’s translations additions (force) modified the string:',
+        merge_on_proposed_force:
+          '’s translations additions (force) modified the string:',
         new: 'added a string',
         renew: 're-added a string',
         remove: 'removed a string',
@@ -344,14 +359,17 @@ export default {
       delete_form: {
         title: 'Danger zone',
         delete_project_title: 'Delete this project',
-        delete_project_text: 'Once you delete a project, there is no going back.',
+        delete_project_text:
+          'Once you delete a project, there is no going back.',
         delete_project_button: 'Delete this project',
-        delete_project_confirm: 'Are you sure you want to delete this project? This action cannot be undone.'
+        delete_project_confirm:
+          'Are you sure you want to delete this project? This action cannot be undone.'
       },
       form: {
         update_button: 'Update project',
         lock_file_operations: {
-          text_1: 'When the file operations are locked, syncing and adding translations will be disabled.',
+          text_1:
+            'When the file operations are locked, syncing and adding translations will be disabled.',
           remove_lock_button: 'Unlock file operations',
           add_lock_button: 'Lock file operations'
         }
@@ -362,8 +380,10 @@ export default {
           'This steps will walk you throught the setup you need to have in your project to translate your strings in your browser, inside your project.',
         script_title: 'Add the script at the root of your app',
         add_language_title: 'Add the pseudo language to your project',
-        add_language_image_1: 'Here is a language like you already have in your project:',
-        add_language_image_2: 'Here is the pseudo language named "accent" that act as a normal translsation in your project:',
+        add_language_image_1:
+          'Here is a language like you already have in your project:',
+        add_language_image_2:
+          'Here is the pseudo language named "accent" that act as a normal translsation in your project:',
         use_language_title: 'Use the pseudo language',
         pseudo_language_text:
           'The Accent script parses the DOM for strings that match the Just In Place Translations export. Go in the "Files" section to export the file or use the CLI to add the pseudo language to your project.',
@@ -374,18 +394,24 @@ export default {
         title: 'API token',
         text_1:
           'With this token, you can make authentified calls to Accent’s API. All operations will be flagged as "made by the API client".',
-        text_2: 'Typically, this is used to sync and add translations the localization files in a deploy script.'
+        text_2:
+          'Typically, this is used to sync and add translations the localization files in a deploy script.'
       },
       badges: {
         title: 'Badges',
-        text: 'Can be embedded in markdown files or displayed on a web page to show public stats for a given project.',
+        text:
+          'Can be embedded in markdown files or displayed on a web page to show public stats for a given project.',
         percentage_reviewed: 'Percentage reviewed:'
       },
       collaborators: {
-        admin_text: 'Can add languages, update the project and add/remove collaborators.',
-        developer_text: 'Can make file operations: Sync, add translations and preview those operations in the UI.',
-        owner_text: 'With the same roles as the admin, the owners are people who the project belongs to.',
-        reviewer_text: 'Can do every tasks except those listed in the above roles. Review, update strings, comments, etc.',
+        admin_text:
+          'Can add languages, update the project and add/remove collaborators.',
+        developer_text:
+          'Can make file operations: Sync, add translations and preview those operations in the UI.',
+        owner_text:
+          'With the same roles as the admin, the owners are people who the project belongs to.',
+        reviewer_text:
+          'Can do every tasks except those listed in the above roles. Review, update strings, comments, etc.',
         title: 'Collaborators'
       },
       collaborators_item: {
@@ -400,7 +426,8 @@ export default {
       },
       integrations: {
         title: 'Service & integrations',
-        help: 'Services are pre-built integrations that perform certain actions when events occur on Accent.',
+        help:
+          'Services are pre-built integrations that perform certain actions when events occur on Accent.',
         save: 'Save',
         edit: 'Edit',
         delete: 'Delete',
@@ -470,7 +497,8 @@ export default {
         new: 'added the string:',
         conflict_on_corrected: 'last sync activity created a conflict:',
         conflict_on_proposed: 'last sync activity created a conflict:',
-        conflict_on_slave: 'last sync activity created a conflict reflected in another language:',
+        conflict_on_slave:
+          'last sync activity created a conflict reflected in another language:',
         correct_all: 'marked all strings as reviewed',
         correct_conflict: 'marked a string as reviewed:',
         batch_correct_conflict: 'marked multiple strings as reviewed:',
@@ -478,8 +506,10 @@ export default {
         merge: 'added translations for some strings',
         merge_on_corrected: 'last translations additions modified a string:',
         merge_on_proposed: 'last translations additions modified a string:',
-        merge_on_corrected_force: 'last translations additions (force) modified a string:',
-        merge_on_proposed_force: 'last translations additions (force) modified a string:',
+        merge_on_corrected_force:
+          'last translations additions (force) modified a string:',
+        merge_on_proposed_force:
+          'last translations additions (force) modified a string:',
         new_comment: 'added a new comment:',
         new_slave: 'added a new language',
         rollback: 'rollbacked an operation:',
@@ -557,7 +587,8 @@ export default {
       add_translations_explain_title: 'On add translations',
       add_translations_explain_text:
         'Every languages can have strings "merged" into it by adding translations. Conflict resolution will work the same but will never add or remove strings.',
-      main_text: 'You can add a new language that will follow the master language.',
+      main_text:
+        'You can add a new language that will follow the master language.',
       title: 'Manage languages'
     },
     projects_filters: {
@@ -581,7 +612,8 @@ export default {
       conflicted_label: 'in review',
       last_updated_label: 'Last updated: ',
       new_language_link: 'New language',
-      no_related_translations: 'No translations yet. You need to add another language to your project.'
+      no_related_translations:
+        'No translations yet. You need to add another language to your project.'
     },
     removed_translation_edit: {
       cant_edit: 'This string can’t be edited because it has been removed.'
@@ -597,7 +629,8 @@ export default {
       delete_revision_confirm:
         'Are you sure you want to remove this language from your project? This action cannot be rollbacked.',
       delete_revision_button: 'Remove this language',
-      promote_revision_master_confirm: 'Are you sure you want to use this language as the master language from your project?',
+      promote_revision_master_confirm:
+        'Are you sure you want to use this language as the master language from your project?',
       promote_revision_master_button: 'Use as master'
     },
     revision_export_options: {
@@ -625,12 +658,15 @@ export default {
         create_version: 'created a new version',
         conflict_on_corrected: 'last sync activity created a conflict',
         conflict_on_proposed: 'last sync activity created a conflict',
-        conflict_on_slave: 'last sync activity created a conflict reflected in another language',
+        conflict_on_slave:
+          'last sync activity created a conflict reflected in another language',
         correct_conflict: 'marked the string as reviewed',
         merge_on_corrected: 'last translations additions modified the string',
         merge_on_proposed: 'last translations additions modified the string',
-        merge_on_corrected_force: 'last translations additions (force) modified the string:',
-        merge_on_proposed_force: 'last translations additions (force) modified the string:',
+        merge_on_corrected_force:
+          'last translations additions (force) modified the string:',
+        merge_on_proposed_force:
+          'last translations additions (force) modified the string:',
         new: 'added the string',
         renew: 're-added the string',
         new_comment: 'added a new comment:',
@@ -649,7 +685,8 @@ export default {
     translation_comment_form: {
       comment_button: 'Comment',
       comment_placeholder: 'Leave a comment…',
-      submit_error: 'Your comment submission was not successful, try again later.'
+      submit_error:
+        'Your comment submission was not successful, try again later.'
     },
     translation_comments_list: {
       no_comments: 'No comments'
@@ -659,7 +696,8 @@ export default {
       correct_button: 'Update and mark as reviewed',
       previous_text: 'Previous text:',
       uncorrect_button: 'Put back to review',
-      uneditable: 'The text is not editable because it has been marked as reviewed',
+      uneditable:
+        'The text is not editable because it has been marked as reviewed',
       update_text: 'Update text',
       last_updated_label: 'Last updated:',
       form: {
@@ -720,13 +758,15 @@ export default {
     },
     welcome_project: {
       welcome: 'Welcome!',
-      welcome_translations: 'Bienvenue Bienvenido 환영 欢迎 тавтай морилно уу Welkom Tervetuloa',
+      welcome_translations:
+        'Bienvenue Bienvenido 환영 欢迎 тавтай морилно уу Welkom Tervetuloa',
       first_step: 'First steps',
       after_steps: 'After this, you will be able to',
       sync_file: 'Sync a new file',
       sync_file_text: 'Add strings from multiple file formats to review them',
       manage_languages: 'Add languages',
-      manage_languages_text: 'Target languages follow your master language strings and conflicts',
+      manage_languages_text:
+        'Target languages follow your master language strings and conflicts',
       add_collaborator: 'Add collaborator',
       add_collaborator_text: 'Translators, developers, etc.',
       api_token: 'Get your API Token',
@@ -774,20 +814,23 @@ export default {
     document: {
       sync: {
         flash_messages: {
-          create_error: 'The document could not be synced with the uploaded file',
+          create_error:
+            'The document could not be synced with the uploaded file',
           create_success: 'The document has been synced with success'
         }
       },
       merge: {
         flash_messages: {
-          create_error: 'The document could not be uploaded with the uploaded file',
+          create_error:
+            'The document could not be uploaded with the uploaded file',
           create_success: 'The document has been uploaded with success'
         }
       },
       index: {
         flash_messages: {
           delete_error: 'The document could not be removed from the project',
-          delete_success: 'The document has been removed from the project with success'
+          delete_success:
+            'The document has been removed from the project with success'
         }
       }
     },
@@ -799,10 +842,14 @@ export default {
       index: {
         loading_content: 'Fetching dashboard…',
         flash_messages: {
-          revision_correct_success: 'All strings in the language have been marked as reviewed',
-          revision_correct_error: 'An error has occured when marking all the strings in that language as reviewed',
-          revision_uncorrect_success: 'All strings in the language have been marked to be reviewed',
-          revision_uncorrect_error: 'An error has occured when marking all the strings in that language to be reviewed'
+          revision_correct_success:
+            'All strings in the language have been marked as reviewed',
+          revision_correct_error:
+            'An error has occured when marking all the strings in that language as reviewed',
+          revision_uncorrect_success:
+            'All strings in the language have been marked to be reviewed',
+          revision_uncorrect_error:
+            'An error has occured when marking all the strings in that language to be reviewed'
         }
       },
       activities: {
@@ -821,8 +868,10 @@ export default {
       conflicts: {
         loading_content: 'Searching the strings in review…',
         flash_messages: {
-          revision_correct_success: 'All strings in the language have been marked as reviewed',
-          revision_correct_error: 'An error has occured when marking all the strings in that language as reviewed',
+          revision_correct_success:
+            'All strings in the language have been marked as reviewed',
+          revision_correct_error:
+            'An error has occured when marking all the strings in that language as reviewed',
           correct_error: 'The string could not be marked as reviewed',
           correct_success: 'The string as been marked as reviewed with success'
         }
@@ -832,17 +881,23 @@ export default {
         loading_content: 'Fetching project’s settings…',
         flash_messages: {
           collaborator_add_error: 'The collaborator could not be added',
-          collaborator_add_success: 'The collaborator has been added with success',
+          collaborator_add_success:
+            'The collaborator has been added with success',
           collaborator_remove_error: 'The collaborator could not be removed',
-          collaborator_remove_success: 'The collaborator has been removed with success',
+          collaborator_remove_success:
+            'The collaborator has been removed with success',
           collaborator_update_error: 'The collaborator could not be updated',
-          collaborator_update_success: 'The collaborator has been updated with success',
+          collaborator_update_success:
+            'The collaborator has been updated with success',
           integration_add_error: 'The integration could not be added',
-          integration_add_success: 'The integration has been added with success',
+          integration_add_success:
+            'The integration has been added with success',
           integration_update_error: 'The integration could not be updated',
-          integration_update_success: 'The integration has been updated with success',
+          integration_update_success:
+            'The integration has been updated with success',
           integration_remove_error: 'The integration could not be removed',
-          integration_remove_success: 'The integration has been removed with success',
+          integration_remove_success:
+            'The integration has been removed with success',
           update_error: 'The project could not be updated',
           update_success: 'The project has been updated with success',
           delete_error: 'The project could not be deleted',
@@ -876,11 +931,14 @@ export default {
         loading_content: 'Fetching languages…',
         flash_messages: {
           add_revision_failure: 'The new language could not be created',
-          add_revision_success: 'The new language has been created with success',
+          add_revision_success:
+            'The new language has been created with success',
           delete_revision_failure: 'The language could not be deleted',
           delete_revision_success: 'The language has been deleted with success',
-          promote_master_revision_failure: 'The language could not be promoted as master',
-          promote_master_revision_success: 'The language has been promoted as master with success'
+          promote_master_revision_failure:
+            'The language could not be promoted as master',
+          promote_master_revision_success:
+            'The language has been promoted as master with success'
         }
       }
     },

@@ -33,7 +33,9 @@ export default Component.extend({
     }));
 
     documents.unshift({
-      label: this.i18n.t('components.conflicts_filters.document_default_option_text'),
+      label: this.i18n.t(
+        'components.conflicts_filters.document_default_option_text'
+      ),
       value: null
     });
 
@@ -47,7 +49,9 @@ export default Component.extend({
     }));
 
     revisions.unshift({
-      label: this.i18n.t('components.conflicts_filters.reference_default_option_text'),
+      label: this.i18n.t(
+        'components.conflicts_filters.reference_default_option_text'
+      ),
       value: null
     });
 
@@ -58,9 +62,15 @@ export default Component.extend({
     return this.mappedDocuments.find(({value}) => value === this.document);
   }),
 
-  referenceValue: computed('reference', 'mappedReferenceRevisions.[]', function() {
-    return this.mappedReferenceRevisions.find(({value}) => value === this.reference);
-  }),
+  referenceValue: computed(
+    'reference',
+    'mappedReferenceRevisions.[]',
+    function() {
+      return this.mappedReferenceRevisions.find(
+        ({value}) => value === this.reference
+      );
+    }
+  ),
 
   _debounceQuery() {
     this.onChangeQuery(this.debouncedQuery);

@@ -18,13 +18,19 @@ export default Controller.extend({
 
   withSelectedTranslations: readOnly('model.selectedTranslationIds'),
 
-  filteredTranslations: computed('withSelectedTranslations', 'model.project.revision.translations.entries', function() {
-    if (!this.withSelectedTranslations) return this.translations;
+  filteredTranslations: computed(
+    'withSelectedTranslations',
+    'model.project.revision.translations.entries',
+    function() {
+      if (!this.withSelectedTranslations) return this.translations;
 
-    const ids = this.withSelectedTranslations.split(',');
+      const ids = this.withSelectedTranslations.split(',');
 
-    return this.translations.filter(translation => ids.includes(translation.id));
-  }),
+      return this.translations.filter(translation =>
+        ids.includes(translation.id)
+      );
+    }
+  ),
 
   actions: {
     changeQuery(query) {

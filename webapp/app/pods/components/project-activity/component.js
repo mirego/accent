@@ -33,7 +33,10 @@ export default Component.extend({
   showStats: reads('activity.stats'),
   isRollbacked: reads('activity.isRollbacked'),
   isEmptyType: equal('activity.valueType', 'EMPTY'),
-  previousTranslationIsEmptyType: equal('activity.previousTranslation.valueType', 'EMPTY'),
+  previousTranslationIsEmptyType: equal(
+    'activity.previousTranslation.valueType',
+    'EMPTY'
+  ),
   operationsLoading: false,
 
   translationKey: parsedKeyProperty('activity.translation.key'),
@@ -48,7 +51,9 @@ export default Component.extend({
 
   localizedStats: computed('activity.stats.[]', function() {
     return this.activity.stats.map(stat => {
-      const text = this.i18n.t(`components.project_activity.stats_text.${underscore(stat.action)}`);
+      const text = this.i18n.t(
+        `components.project_activity.stats_text.${underscore(stat.action)}`
+      );
       const count = stat.count;
 
       return {text, count};
@@ -62,39 +67,63 @@ export default Component.extend({
   actionExplanation: computed('activity.action', function() {
     if (!this.activity.action) return;
 
-    return this.i18n.t(`components.project_activity.action_explanation.${this.activity.action}`);
+    return this.i18n.t(
+      `components.project_activity.action_explanation.${this.activity.action}`
+    );
   }),
 
   actionText: computed('activity.action', function() {
     if (!this.activity.action) return;
 
-    return this.i18n.t(`components.project_activity.action_text.${this.activity.action}`);
-  }),
-
-  showTextDifferences: computed('activity.{text,previousTranslation.text}', function() {
-    return (
-      this.activity.previousTranslation &&
-      this.activity.previousTranslation.text &&
-      this.activity.text !== this.activity.previousTranslation.text &&
-      this.activity.text !== null
+    return this.i18n.t(
+      `components.project_activity.action_text.${this.activity.action}`
     );
   }),
 
-  showPreviousTranslationText: computed('activity.previousTranslation.{text,valueType}', function() {
-    return this.activity.previousTranslation.text || this.activity.previousTranslation.valueType === 'EMPTY';
-  }),
+  showTextDifferences: computed(
+    'activity.{text,previousTranslation.text}',
+    function() {
+      return (
+        this.activity.previousTranslation &&
+        this.activity.previousTranslation.text &&
+        this.activity.text !== this.activity.previousTranslation.text &&
+        this.activity.text !== null
+      );
+    }
+  ),
 
-  showLastSyncedText: computed('activity.previousTranslation.{text,proposedText}', function() {
-    return this.activity.previousTranslation.proposedText !== this.activity.previousTranslation.text;
-  }),
+  showPreviousTranslationText: computed(
+    'activity.previousTranslation.{text,valueType}',
+    function() {
+      return (
+        this.activity.previousTranslation.text ||
+        this.activity.previousTranslation.valueType === 'EMPTY'
+      );
+    }
+  ),
 
-  isRollbackable: computed('isRollbacked', 'activity.action', 'canRollback', function() {
-    if (!this.onRollback) return false;
-    if (!this.canRollback) return false;
-    if (this.isRollbacked) return false;
+  showLastSyncedText: computed(
+    'activity.previousTranslation.{text,proposedText}',
+    function() {
+      return (
+        this.activity.previousTranslation.proposedText !==
+        this.activity.previousTranslation.text
+      );
+    }
+  ),
 
-    return ROLLBACKABLE_ACTIONS.indexOf(this.activity.action) !== -1;
-  }),
+  isRollbackable: computed(
+    'isRollbacked',
+    'activity.action',
+    'canRollback',
+    function() {
+      if (!this.onRollback) return false;
+      if (!this.canRollback) return false;
+      if (this.isRollbacked) return false;
+
+      return ROLLBACKABLE_ACTIONS.indexOf(this.activity.action) !== -1;
+    }
+  ),
 
   actions: {
     refreshActivities(page) {
@@ -103,7 +132,12 @@ export default Component.extend({
 
     rollback() {
       /* eslint-disable no-alert */
-      if (!window.confirm(this.i18n.t('components.project_activity.rollback_confirm'))) return;
+      if (
+        !window.confirm(
+          this.i18n.t('components.project_activity.rollback_confirm')
+        )
+      )
+        return;
       /* eslint-enable no-alert */
 
       this.set('isRollbacking', true);

@@ -6,22 +6,46 @@ import config from 'accent-webapp/config/environment';
 export default Service.extend({
   authenticatedRequest: service('authenticated-request'),
 
-  sync({project, revision, revisions, file, documentPath, documentFormat, syncType}) {
-    const url = fmt(config.API.SYNC_PEEK_PROJECT_PATH, project.id, revision.language.slug, syncType);
-    documentFormat = documentFormat.toLowerCase();
-
-    return this.authenticatedRequest.peek(url, {file, documentPath, documentFormat}).then(({data: {operations, stats}}) => {
-      return revisions.map(revision => this._mapOperations(revision, operations, stats));
-    });
-  },
-
-  merge({revision, project, file, mergeType, documentPath, documentFormat}) {
-    const url = fmt(config.API.MERGE_PEEK_PROJECT_PATH, project.id, revision.language.slug, mergeType);
+  sync({
+    project,
+    revision,
+    revisions,
+    file,
+    documentPath,
+    documentFormat,
+    syncType
+  }) {
+    const url = fmt(
+      config.API.SYNC_PEEK_PROJECT_PATH,
+      project.id,
+      revision.language.slug,
+      syncType
+    );
     documentFormat = documentFormat.toLowerCase();
 
     return this.authenticatedRequest
       .peek(url, {file, documentPath, documentFormat})
-      .then(({data: {operations, stats}}) => [this._mapOperations(revision, operations, stats)]);
+      .then(({data: {operations, stats}}) => {
+        return revisions.map(revision =>
+          this._mapOperations(revision, operations, stats)
+        );
+      });
+  },
+
+  merge({revision, project, file, mergeType, documentPath, documentFormat}) {
+    const url = fmt(
+      config.API.MERGE_PEEK_PROJECT_PATH,
+      project.id,
+      revision.language.slug,
+      mergeType
+    );
+    documentFormat = documentFormat.toLowerCase();
+
+    return this.authenticatedRequest
+      .peek(url, {file, documentPath, documentFormat})
+      .then(({data: {operations, stats}}) => [
+        this._mapOperations(revision, operations, stats)
+      ]);
   },
 
   _mapOperations(revision, operations, stats) {

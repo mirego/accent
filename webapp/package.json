@@ -16,6 +16,8 @@
     "start": "ember server --port $WEBAPP_PORT",
     "build": "ember build",
     "build-production": "ember build --prod --output-path=../priv/static/webapp",
+    "prettier": "prettier --loglevel warn --single-quote --no-bracket-spacing --write './**/*.{js,json,gql}'",
+    "prettier-check": "prettier --check --single-quote --no-bracket-spacing './**/*.{js,json,gql}'",
     "test": "ember test"
   },
   "repository": "https://github.com/mirego/accent",
@@ -75,7 +77,7 @@
     "eslint-config-prettier": "2.9.0",
     "eslint-plugin-ember": "5.1.0",
     "eslint-plugin-mirego": "0.0.1",
-    "prettier": "1.11.1",
+    "prettier": "1.16.4",
     "sinon-chai": "3.0.0"
   }
 }

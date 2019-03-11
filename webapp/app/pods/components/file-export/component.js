@@ -23,7 +23,13 @@ export default Component.extend({
     this.exporter
       .export({
         revision,
-        ...this.getProperties('project', 'document', 'version', 'documentFormat', 'orderBy')
+        ...this.getProperties(
+          'project',
+          'document',
+          'version',
+          'documentFormat',
+          'orderBy'
+        )
       })
       .then(data => this.set('content', data))
       .then(data => this.onFileLoaded(data));

@@ -16,7 +16,9 @@ export default Component.extend({
     },
 
     create(args) {
-      return this.onCreateIntegration(args).then(() => this.set('showCreateForm', false));
+      return this.onCreateIntegration(args).then(() =>
+        this.set('showCreateForm', false)
+      );
     }
   }
 });

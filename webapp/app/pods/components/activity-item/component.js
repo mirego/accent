@@ -41,7 +41,10 @@ export default Component.extend({
 
   action: readOnly('activity.action'),
   rollbacked: reads('activity.isRollbacked'),
-  rollbackedOperationHasEmptyText: equal('activity.rollbackedOperation.valueType', 'EMPTY'),
+  rollbackedOperationHasEmptyText: equal(
+    'activity.rollbackedOperation.valueType',
+    'EMPTY'
+  ),
   hasEmptyText: equal('activity.valueType', 'EMPTY'),
 
   translationKey: parsedKeyProperty('activity.translation.key'),
@@ -54,18 +57,25 @@ export default Component.extend({
     return this._getActionText(this.action);
   }),
 
-  rollbackedOperationActionText: computed('activity.rollbackedOperation.action', function() {
-    return this._getActionText(this.activity.rollbackedOperation.action);
-  }),
+  rollbackedOperationActionText: computed(
+    'activity.rollbackedOperation.action',
+    function() {
+      return this._getActionText(this.activity.rollbackedOperation.action);
+    }
+  ),
 
-  showFromOperationTranslationLink: computed('showTranslationLink', 'activity.rollbackedOperation.translation.id', function() {
-    return (
-      this.showTranslationLink &&
-      this.activity.rollbackedOperation &&
-      this.activity.rollbackedOperation.translation &&
-      this.activity.rollbackedOperation.translation.id
-    );
-  }),
+  showFromOperationTranslationLink: computed(
+    'showTranslationLink',
+    'activity.rollbackedOperation.translation.id',
+    function() {
+      return (
+        this.showTranslationLink &&
+        this.activity.rollbackedOperation &&
+        this.activity.rollbackedOperation.translation &&
+        this.activity.rollbackedOperation.translation.id
+      );
+    }
+  ),
 
   showStats: computed('activity.stats.[]', function() {
     return this.activity.stats;
@@ -73,7 +83,11 @@ export default Component.extend({
 
   localizedStats: computed('activity.stats.[]', function() {
     return this.activity.stats.map(stat => {
-      const text = this.i18n.t(`components.${this.componentTranslationPrefix}.stats_text.${underscore(stat.action)}`);
+      const text = this.i18n.t(
+        `components.${this.componentTranslationPrefix}.stats_text.${underscore(
+          stat.action
+        )}`
+      );
       const count = stat.count;
 
       return {text, count};
@@ -81,54 +95,81 @@ export default Component.extend({
   }),
 
   statsLabel: computed('componentTranslationPrefix', function() {
-    return this.i18n.t(`components.${this.componentTranslationPrefix}.stats_label_text`);
+    return this.i18n.t(
+      `components.${this.componentTranslationPrefix}.stats_label_text`
+    );
   }),
 
   showDocumentInfo: computed('action', 'activity.document.path', function() {
     const action = this.action;
     const actionsWithDocument = ['sync', 'document_delete', 'merge'];
 
-    return actionsWithDocument.includes(action) && readOnly('activity.document.path');
+    return (
+      actionsWithDocument.includes(action) && readOnly('activity.document.path')
+    );
   }),
 
   showVersionInfo: readOnly('activity.version.id'),
 
-  showRevisionInfo: computed('action', 'activity.revision.language.name', function() {
-    if (!this.activity.revision) return false;
+  showRevisionInfo: computed(
+    'action',
+    'activity.revision.language.name',
+    function() {
+      if (!this.activity.revision) return false;
 
-    const action = this.action;
-    const actionsWithRevision = [
-      'new',
-      'remove',
-      'renew',
-      'new_slave',
-      'merge',
-      'uncorrect_all',
-      'correct_all',
-      'batch_correct_conflict',
-      'batch_update',
-      'conflict_on_slave'
-    ];
+      const action = this.action;
+      const actionsWithRevision = [
+        'new',
+        'remove',
+        'renew',
+        'new_slave',
+        'merge',
+        'uncorrect_all',
+        'correct_all',
+        'batch_correct_conflict',
+        'batch_update',
+        'conflict_on_slave'
+      ];
 
-    return actionsWithRevision.includes(action) && this.activity.revision.language.name;
-  }),
+      return (
+        actionsWithRevision.includes(action) &&
+        this.activity.revision.language.name
+      );
+    }
+  ),
 
-  showFromOperationDocumentInfo: computed('activity.rollbackedOperation.{action,document.path}', function() {
-    const action = this.activity.rollbackedOperation.action;
-    const actionsWithDocument = ['sync', 'document_delete', 'merge'];
+  showFromOperationDocumentInfo: computed(
+    'activity.rollbackedOperation.{action,document.path}',
+    function() {
+      const action = this.activity.rollbackedOperation.action;
+      const actionsWithDocument = ['sync', 'document_delete', 'merge'];
 
-    return actionsWithDocument.includes(action) && readOnly('activity.rollbackedOperation.document.path');
-  }),
+      return (
+        actionsWithDocument.includes(action) &&
+        readOnly('activity.rollbackedOperation.document.path')
+      );
+    }
+  ),
 
-  isShowingTranslationLink: computed('showTranslationLink', 'activity.{action,translation}', function() {
-    return this.showTranslationLink && this.activity.translation && this.activity.action !== 'rollback';
-  }),
+  isShowingTranslationLink: computed(
+    'showTranslationLink',
+    'activity.{action,translation}',
+    function() {
+      return (
+        this.showTranslationLink &&
+        this.activity.translation &&
+        this.activity.action !== 'rollback'
+      );
+    }
+  ),
 
   iconPath: computed('action', function() {
     return ACTIONS_ICON_PATHS[this.action] || 'assets/add.svg';
   }),
 
   _getActionText(action) {
-    return this.i18n.t(`components.${this.componentTranslationPrefix}.action_text.${action}`);
+    return this.i18n.t(
+      `components.${this.componentTranslationPrefix}.action_text.${action}`
+    );
   }
 });

@@ -31,18 +31,29 @@ export default Component.extend({
   documentFormatItem: computed('document.format', function() {
     if (!this.globalState.documentFormats) return {};
 
-    return this.globalState.documentFormats.find(({slug}) => slug === this.document.format);
+    return this.globalState.documentFormats.find(
+      ({slug}) => slug === this.document.format
+    );
   }),
 
-  correctedKeysPercentage: computed('document.{conflictsCount,translationsCount}', function() {
-    return percentage(this.document.translationsCount - this.document.conflictsCount, this.document.translationsCount);
-  }),
+  correctedKeysPercentage: computed(
+    'document.{conflictsCount,translationsCount}',
+    function() {
+      return percentage(
+        this.document.translationsCount - this.document.conflictsCount,
+        this.document.translationsCount
+      );
+    }
+  ),
 
-  reviewsCount: computed('document.{conflictsCount,translationsCount}', function() {
-    const {conflictsCount, translationsCount} = this.document;
+  reviewsCount: computed(
+    'document.{conflictsCount,translationsCount}',
+    function() {
+      const {conflictsCount, translationsCount} = this.document;
 
-    return translationsCount - conflictsCount;
-  }),
+      return translationsCount - conflictsCount;
+    }
+  ),
 
   actions: {
     deleteFile() {

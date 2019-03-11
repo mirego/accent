@@ -3,8 +3,10 @@ import {inject as service} from '@ember/service';
 import {readOnly, reads} from '@ember/object/computed';
 import Controller from '@ember/controller';
 
-const FLASH_MESSAGE_CREATE_SUCCESS = 'pods.document.merge.flash_messages.create_success';
-const FLASH_MESSAGE_CREATE_ERROR = 'pods.document.merge.flash_messages.create_error';
+const FLASH_MESSAGE_CREATE_SUCCESS =
+  'pods.document.merge.flash_messages.create_success';
+const FLASH_MESSAGE_CREATE_ERROR =
+  'pods.document.merge.flash_messages.create_error';
 
 export default Controller.extend({
   peeker: service('peeker'),
@@ -23,7 +25,9 @@ export default Controller.extend({
   documentFormatItem: computed('document.format', function() {
     if (!this.globalState.documentFormats) return {};
 
-    return this.globalState.documentFormats.find(({slug}) => slug === this.document.format);
+    return this.globalState.documentFormats.find(
+      ({slug}) => slug === this.document.format
+    );
   }),
 
   document: computed('documents', 'model.fileId', function() {
@@ -56,7 +60,9 @@ export default Controller.extend({
           documentFormat,
           mergeType
         })
-        .then(revisionOperations => this.set('revisionOperations', revisionOperations));
+        .then(revisionOperations =>
+          this.set('revisionOperations', revisionOperations)
+        );
     },
 
     merge({fileSource, revision, documentFormat, mergeType}) {
@@ -73,9 +79,13 @@ export default Controller.extend({
           documentFormat,
           mergeType
         })
-        .then(() => this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_CREATE_SUCCESS)))
+        .then(() =>
+          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_CREATE_SUCCESS))
+        )
         .then(() => this.send('closeModal'))
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_CREATE_ERROR)));
+        .catch(() =>
+          this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_CREATE_ERROR))
+        );
     }
   }
 });

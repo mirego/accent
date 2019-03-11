@@ -43,7 +43,10 @@ export default Component.extend({
   syncType: 'smart',
 
   revisionValue: computed('revision', 'revisions.[]', function() {
-    return this.mappedRevisions.find(({value}) => value === this.revision) || this.mappedRevisions[0];
+    return (
+      this.mappedRevisions.find(({value}) => value === this.revision) ||
+      this.mappedRevisions[0]
+    );
   }),
 
   mappedRevisions: computed('revisions.[]', function() {
@@ -60,9 +63,15 @@ export default Component.extend({
   isMerge: equal('commitAction', 'merge'),
   isSync: equal('commitAction', 'sync'),
 
-  documentFormatValue: computed('documentFormat', 'documentFormatOptions', function() {
-    return this.documentFormatOptions.find(({value}) => value === this.documentFormat);
-  }),
+  documentFormatValue: computed(
+    'documentFormat',
+    'documentFormatOptions',
+    function() {
+      return this.documentFormatOptions.find(
+        ({value}) => value === this.documentFormat
+      );
+    }
+  ),
 
   documentFormatOptions: computed('globalState.documentFormats', function() {
     if (!this.globalState.documentFormats) return [];
@@ -73,14 +82,18 @@ export default Component.extend({
     }));
   }),
 
-  existingDocumentPath: computed('documentPath', 'documents.[].path', function() {
-    if (!this.documentPath) return false;
-    if (!this.documents) return false;
+  existingDocumentPath: computed(
+    'documentPath',
+    'documents.[].path',
+    function() {
+      if (!this.documentPath) return false;
+      if (!this.documents) return false;
 
-    const path = this.documentPath.replace(/\..+/, '');
+      const path = this.documentPath.replace(/\..+/, '');
 
-    return this.documents.find(document => document.path === path);
-  }),
+      return this.documents.find(document => document.path === path);
+    }
+  ),
 
   actions: {
     onSelectMergeType(mergeType) {
@@ -92,14 +105,26 @@ export default Component.extend({
     },
 
     onSelectRevision(revision) {
-      this.set('revision', this.revisions.find(({id}) => id === revision.value));
+      this.set(
+        'revision',
+        this.revisions.find(({id}) => id === revision.value)
+      );
       this.set('revisionValue', revision);
     },
 
     commit() {
       this._onCommiting();
 
-      this.onCommit(this.getProperties('fileSource', 'documentPath', 'documentFormat', 'revision', 'mergeType', 'syncType'))
+      this.onCommit(
+        this.getProperties(
+          'fileSource',
+          'documentPath',
+          'documentFormat',
+          'revision',
+          'mergeType',
+          'syncType'
+        )
+      )
         .then(this._onCommitingDone.bind(this))
         .catch(this._onCommitingError.bind(this));
     },
@@ -107,7 +132,16 @@ export default Component.extend({
     peek() {
       this._onPeeking();
 
-      this.onPeek(this.getProperties('fileSource', 'documentPath', 'documentFormat', 'revision', 'mergeType', 'syncType'))
+      this.onPeek(
+        this.getProperties(
+          'fileSource',
+          'documentPath',
+          'documentFormat',
+          'revision',
+          'mergeType',
+          'syncType'
+        )
+      )
         .then(this._onPeekingDone.bind(this))
         .catch(this._onPeekingError.bind(this));
     },
@@ -145,9 +179,13 @@ export default Component.extend({
   _formatFromExtension(fileExtension) {
     if (!this.globalState.documentFormats) return null;
 
-    const documentFormatItem = this.globalState.documentFormats.find(({extension}) => extension === fileExtension);
+    const documentFormatItem = this.globalState.documentFormats.find(
+      ({extension}) => extension === fileExtension
+    );
 
-    return documentFormatItem ? documentFormatItem.slug : this.globalState.documentFormats[0].slug;
+    return documentFormatItem
+      ? documentFormatItem.slug
+      : this.globalState.documentFormats[0].slug;
   },
 
   /**

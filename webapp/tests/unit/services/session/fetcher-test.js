@@ -18,7 +18,10 @@ describe('Unit | Services | Session | fetcher', () => {
     service = this.subject();
 
     // Fake a previous login
-    localStorage.setItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE, JSON.stringify(credentials));
+    localStorage.setItem(
+      config.APP.LOCAL_STORAGE.SESSION_NAMESPACE,
+      JSON.stringify(credentials)
+    );
   });
 
   afterEach(() => {

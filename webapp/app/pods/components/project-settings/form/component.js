@@ -19,17 +19,24 @@ export default Component.extend({
   }),
 
   unchangedForm: computed('project', 'mainColor', 'name', function() {
-    return this.mainColor === this.project.mainColor && this.name === this.project.name;
+    return (
+      this.mainColor === this.project.mainColor &&
+      this.name === this.project.name
+    );
   }),
 
   actions: {
     setLockedFileOperations() {
       this.toggleProperty('isFileOperationsLocked');
-      this.onUpdateProject(this.getProperties('isFileOperationsLocked', 'name', 'mainColor'));
+      this.onUpdateProject(
+        this.getProperties('isFileOperationsLocked', 'name', 'mainColor')
+      );
     },
 
     updateProject() {
-      this.onUpdateProject(this.getProperties('isFileOperationsLocked', 'name', 'mainColor'));
+      this.onUpdateProject(
+        this.getProperties('isFileOperationsLocked', 'name', 'mainColor')
+      );
     }
   }
 });

@@ -26,7 +26,9 @@ export default Controller.extend({
             ...projectAttributes
           }
         })
-        .then(createProject => this.transitionToRoute('logged-in.project', createProject.project.id))
+        .then(createProject =>
+          this.transitionToRoute('logged-in.project', createProject.project.id)
+        )
         .catch(() => this.set('error', true));
     }
   }

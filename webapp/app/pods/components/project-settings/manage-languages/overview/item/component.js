@@ -24,18 +24,33 @@ export default Component.extend({
   actions: {
     promoteRevision() {
       /* eslint-disable no-alert */
-      if (!window.confirm(this.i18n.t('components.project_manage_languages_overview.promote_revision_master_confirm'))) {
+      if (
+        !window.confirm(
+          this.i18n.t(
+            'components.project_manage_languages_overview.promote_revision_master_confirm'
+          )
+        )
+      ) {
         return;
       }
       /* eslint-enable no-alert */
 
       this.set('isPromoting', true);
-      this.onPromoteMaster(this.revision).then(() => this.set('isPromoting', false));
+      this.onPromoteMaster(this.revision).then(() =>
+        this.set('isPromoting', false)
+      );
     },
 
     deleteRevision() {
       /* eslint-disable no-alert */
-      if (!window.confirm(this.i18n.t('components.project_manage_languages_overview.delete_revision_confirm'))) return;
+      if (
+        !window.confirm(
+          this.i18n.t(
+            'components.project_manage_languages_overview.delete_revision_confirm'
+          )
+        )
+      )
+        return;
       /* eslint-enable no-alert */
 
       this.set('isDeleting', true);

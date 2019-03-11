@@ -12,7 +12,10 @@ export default Service.extend({
 
     const payload = {translations, revisionId: revision.id};
 
-    window.parent.postMessage({jipt: true, action: 'listTranslations', payload}, '*');
+    window.parent.postMessage(
+      {jipt: true, action: 'listTranslations', payload},
+      '*'
+    );
   },
 
   changeText(translationId, text) {
@@ -26,7 +29,9 @@ export default Service.extend({
 
   redirectIfEmbedded() {
     window.addEventListener('message', payload => {
-      payload.data.jipt && payload.data.projectId && this.router.transitionTo('logged-in.jipt', payload.data.projectId);
+      payload.data.jipt &&
+        payload.data.projectId &&
+        this.router.transitionTo('logged-in.jipt', payload.data.projectId);
     });
     window.parent.postMessage({jipt: true, action: 'redirectIfEmbedded'}, '*');
   },

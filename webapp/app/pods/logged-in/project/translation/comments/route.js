@@ -19,13 +19,17 @@ export default Route.extend(ApolloRoute, {
         translation: get(data, 'viewer.project.translation'),
         comments: get(data, 'viewer.project.translation.comments'),
         collaborators: get(data, 'viewer.project.collaborators'),
-        commentsSubscriptions: get(data, 'viewer.project.translation.commentsSubscriptions')
+        commentsSubscriptions: get(
+          data,
+          'viewer.project.translation.commentsSubscriptions'
+        )
       }),
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
           projectId: transition.params['logged-in.project'].projectId,
-          translationId: transition.params['logged-in.project.translation'].translationId,
+          translationId:
+            transition.params['logged-in.project.translation'].translationId,
           page
         }
       }

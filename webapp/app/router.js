@@ -12,9 +12,13 @@ export default Router.map(function() {
 
   this.route('logged-in', {path: 'app'}, function() {
     this.route('jipt', {path: 'projects/:projectId/jipt'}, function() {
-      this.route('translation', {path: 'translations/:translationId'}, function() {
-        this.route('_');
-      });
+      this.route(
+        'translation',
+        {path: 'translations/:translationId'},
+        function() {
+          this.route('_');
+        }
+      );
     });
 
     this.route('projects', function() {
@@ -52,11 +56,15 @@ export default Router.map(function() {
         this.route('conflicts');
       });
 
-      this.route('translation', {path: 'translations/:translationId'}, function() {
-        this.route('activities');
-        this.route('related-translations');
-        this.route('comments', {path: 'conversation'});
-      });
+      this.route(
+        'translation',
+        {path: 'translations/:translationId'},
+        function() {
+          this.route('activities');
+          this.route('related-translations');
+          this.route('comments', {path: 'conversation'});
+        }
+      );
     });
   });
 
