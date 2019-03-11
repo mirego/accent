@@ -39,6 +39,7 @@ RUN cd /opt/build && \
     rm ${APP_NAME}.tar.gz
 
 COPY webapp /opt/build/webapp
+COPY jipt /opt/build/jipt
 
 RUN cd /opt/build && \
     npm ci --prefix webapp --no-audit --no-color
@@ -46,7 +47,7 @@ RUN cd /opt/build && \
 #
 # Step 2 - Build a lean runtime container
 #
-FROM alpine:3.9
+FROM elixir:1.8.1-alpine
 
 ARG APP_NAME
 ARG APP_VERSION
@@ -56,7 +57,7 @@ ENV APP_NAME=${APP_NAME} \
 # Update kernel and install runtime dependencies
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add bash openssl ca-certificates erlang-crypto yaml-dev nodejs npm
+    apk --no-cache add bash yaml-dev nodejs
 
 WORKDIR /opt/accent
 
