@@ -4,7 +4,7 @@ import Mutation from './mutation/mutation';
 import State from './state';
 import UI from './ui/ui';
 
-enum ACTIONS {
+const enum ACTIONS {
   listTranslations = 'listTranslations',
   redirectIfEmbedded = 'redirectIfEmbedded',
   login = 'login',
@@ -39,7 +39,11 @@ export default class FrameListener {
   }
 
   bindEvents() {
-    window.addEventListener('message', this.handleAccentMessage.bind(this), false);
+    window.addEventListener(
+      'message',
+      this.handleAccentMessage.bind(this),
+      false
+    );
   }
 
   private handleAccentMessage({data}) {

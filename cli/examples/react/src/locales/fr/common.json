@@ -136,10 +136,10 @@
       "late_deactivation": "Non désactivées"
     },
     "statusBadge": {
-      "activated": "Activée le {{date, DD\/MM\/YYYY HH:mm}}",
-      "deactivated": "Désactivée le {{date, DD\/MM\/YYYY HH:mm}}",
-      "lateActivation": "Activation en retard {{date, DD\/MM\/YYYY}}",
-      "lateDeactivation": "Désactivation en retard {{date, DD\/MM\/YYYY}}",
+      "activated": "Activée le {{date, DD/MM/YYYY HH:mm}}",
+      "deactivated": "Désactivée le {{date, DD/MM/YYYY HH:mm}}",
+      "lateActivation": "Activation en retard {{date, DD/MM/YYYY}}",
+      "lateDeactivation": "Désactivation en retard {{date, DD/MM/YYYY}}",
       "upcoming": "À venir"
     }
   },

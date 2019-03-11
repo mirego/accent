@@ -46,8 +46,23 @@ dependencies-mix:
 	mix deps.get --force
 
 .PHONY: dependencies-npm
-dependencies-npm:
+dependencies-npm: dependencies-npm-root dependencies-npm-webapp dependencies-npm-cli dependencies-npm-jipt
+
+.PHONY: dependencies-npm-root
+dependencies-npm-root:
+	npm install
+
+.PHONY: dependencies-npm-webapp
+dependencies-npm-webapp:
 	npm install --prefix webapp
+
+.PHONY: dependencies-npm-cli
+dependencies-npm-cli:
+	npm install --prefix cli
+
+.PHONY: dependencies-npm-jipt
+dependencies-npm-jipt:
+	npm install --prefix jipt
 
 .PHONY: build
 build: ## Build the Docker image for the OTP release
@@ -57,7 +72,7 @@ build: ## Build the Docker image for the OTP release
 # ----------
 
 .PHONY: lint
-lint: lint-compile lint-format lint-credo lint-eslint lint-prettier ## Run lint tools on the code
+lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-tslint ## Run lint tools on the code
 
 .PHONY: lint-compile
 lint-compile:
@@ -73,11 +88,15 @@ lint-credo:
 
 .PHONY: lint-eslint
 lint-eslint:
-	./webapp/node_modules/.bin/eslint --ignore-path webapp/.eslintignore webapp
+	./node_modules/.bin/eslint webapp/. cli/. jipt/.
+
+.PHONY: lint-tslint
+lint-tslint:
+	./node_modules/.bin/tslint -c tslint.json '{cli,jipt}/src/**/*.{js,ts,json}'
 
 .PHONY: lint-prettier
 lint-prettier:
-	./webapp/node_modules/.bin/prettier --single-quote --list-different --no-bracket-spacing --print-width 130 './webapp/app/**/*.{js,gql}'
+	./node_modules/.bin/prettier --check --single-quote --no-bracket-spacing './{webapp,jipt,cli}/**/*.{js,ts,json,gql}'
 
 .PHONY: test
 test: ## Run the test suite
@@ -96,7 +115,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	./webapp/node_modules/.bin/prettier --single-quote --write --no-bracket-spacing --print-width 130 './webapp/app/**/*.{js,gql}'
+	./node_modules/.bin/prettier --write --single-quote --no-bracket-spacing './{webapp,jipt,cli}/**/*.{js,ts,json,gql}'
 
 # Development targets
 # -------------------

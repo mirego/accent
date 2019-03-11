@@ -45,7 +45,11 @@ export default class UI {
   }
 
   bindEvents() {
-    this.editor.addEventListener('click', this.handleEditorToggle.bind(this), false);
+    this.editor.addEventListener(
+      'click',
+      this.handleEditorToggle.bind(this),
+      false
+    );
   }
 
   hideOverlay() {
@@ -104,7 +108,9 @@ export default class UI {
 
   private buildFrame(config) {
     const element = document.createElement('iframe');
-    const query = this.state.getCurrentRevision() ? `?revisionId=${this.state.getCurrentRevision()}` : '';
+    const query = this.state.getCurrentRevision()
+      ? `?revisionId=${this.state.getCurrentRevision()}`
+      : '';
 
     element.src = `${config.h}/app/projects/${config.i}/jipt${query}`;
     element.frameBorder = '0';
@@ -117,7 +123,9 @@ export default class UI {
     const element = document.createElement('div');
     element.innerHTML = `
       <div class="${EXPAND_CLASS}" style="${styles.frameExpandButton}"></div>
-      <div class="${COLLAPSE_CLASS}" style="${styles.frameCollapseButton}">×</div>
+      <div class="${COLLAPSE_CLASS}" style="${
+      styles.frameCollapseButton
+    }">×</div>
     `;
 
     return element;

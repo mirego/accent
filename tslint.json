@@ -14,7 +14,7 @@
     "newline-before-return": true,
     "no-arg": true,
     "no-conditional-assignment": true,
-    "no-console": true,
+    "no-console": false,
     "no-consecutive-blank-lines": true,
     "no-debugger": true,
     "no-duplicate-imports": true,
@@ -25,7 +25,7 @@
     "no-empty": false,
     "no-eval": true,
     "no-implicit-dependencies": false,
-    "no-non-null-assertion": true,
+    "no-non-null-assertion": false,
     "no-parameter-reassignment": true,
     "no-return-await": true,
     "no-shadowed-variable": false,
@@ -66,6 +66,12 @@
     ],
     "unified-signatures": true,
     "use-isnan": true,
-    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ]
   }
 }

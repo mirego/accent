@@ -57,7 +57,9 @@ export default class Mutation {
 
   handleNodeMutation(node) {
     if (node.nodeType === Node.TEXT_NODE) this.liveNode.matchText(node.target);
-    if (node.type === 'childList') node.addedNodes.forEach((node: Element) => this.liveNode.evaluate(node));
+    if (node.type === 'childList') {
+      node.addedNodes.forEach((node: Element) => this.liveNode.evaluate(node));
+    }
     if (node.type === 'attributes') this.liveNode.matchAttributes(node.target);
     if (node.type === 'characterData') this.liveNode.matchText(node.target);
   }

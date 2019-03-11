@@ -1,16 +1,19 @@
 /* Inline styles are used everywhere so that it does not conflict with parent window styles */
 
-const set = (element: Element, style: string) => element.setAttribute('style', style);
+const set = (element: Element, style: string) =>
+  element.setAttribute('style', style);
 const hide = (element: Element) => set(element, 'display: none;');
 
 // Pin
 const pin = 'position: fixed; z-index: 10000; min-width: 150px;';
 const pinList =
   'color: #fff; cursor: pointer; margin: 0; padding: 5px; list-style: none; background: hsl(158, 74%, 46%); font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; line-height: 1.5; font-size: 12px;';
-const pinIcon = 'box-sizing: border-box; width: 18px; height: 18px; cursor: pointer;';
+const pinIcon =
+  'box-sizing: border-box; width: 18px; height: 18px; cursor: pointer;';
 
 // Node
-const translationNode = 'outline: 1px #1ecc8c solid; outline-offset: -1px;transition: outline-color 0.2s ease-in-out;';
+const translationNode =
+  'outline: 1px #1ecc8c solid; outline-offset: -1px;transition: outline-color 0.2s ease-in-out;';
 const translationNodeUpdated =
   'outline: 1px #c8f5e4 solid; outline-offset: -1px;transition: outline-color 0.2s ease-in-out;';
 

@@ -1,32 +1,32 @@
 // Vendor
-import {execSync} from 'child_process'
+import {execSync} from 'child_process';
 
 // Formatters
-import Formatter from './formatters/hook-runner'
+import Formatter from './formatters/hook-runner';
 
 // Types
-import {HookConfig, Hooks} from '../types/document-config'
-import Document from './document'
+import {HookConfig, Hooks} from '../types/document-config';
+import Document from './document';
 
 export default class HookRunner {
-  public readonly hooks?: HookConfig
-  private readonly document: Document
+  readonly hooks?: HookConfig;
+  private readonly document: Document;
 
   constructor(document: Document) {
-    this.document = document
-    this.hooks = document.config.hooks
+    this.document = document;
+    this.hooks = document.config.hooks;
   }
 
-  public async run(name: Hooks) {
-    if (!this.hooks) return null
-    const hooks = this.hooks[name]
+  async run(name: Hooks) {
+    if (!this.hooks) return null;
+    const hooks = this.hooks[name];
 
     if (hooks) {
-      new Formatter().log(name, hooks)
+      new Formatter().log(name, hooks);
 
-      hooks.forEach(execSync)
+      hooks.forEach(execSync);
     }
 
-    return this.document.refreshPaths()
+    return this.document.refreshPaths();
   }
 }

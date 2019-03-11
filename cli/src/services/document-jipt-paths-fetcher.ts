@@ -1,10 +1,10 @@
 // Types
-import {DocumentPath} from '../types/document-path'
-import {Project} from '../types/project'
-import Document from './document'
+import {DocumentPath} from '../types/document-path';
+import {Project} from '../types/project';
+import Document from './document';
 
 export default class DocumentJiptPathsFetcher {
-  public fetch(
+  fetch(
     project: Project,
     document: Document,
     pseudoLanguageName: string
@@ -14,13 +14,13 @@ export default class DocumentJiptPathsFetcher {
       .map(path => {
         const parsedTarget = document.target
           .replace('%slug%', pseudoLanguageName)
-          .replace('%original_file_name%', path)
+          .replace('%original_file_name%', path);
 
         return {
           documentPath: path,
           language: pseudoLanguageName,
           path: parsedTarget
-        }
-      })
+        };
+      });
   }
 }

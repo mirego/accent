@@ -14,10 +14,7 @@
         "beforeAddTranslations": [
           "aigu rails-export --locale=fr --output-file=aigu/aigu-is-awesome-fr.json >/dev/null 2>&1"
         ],
-        "beforeExport": [
-          "rm -rf aigu",
-          "mkdir -p aigu"
-        ],
+        "beforeExport": ["rm -rf aigu", "mkdir -p aigu"],
         "afterExport": [
           "aigu rails-import --locale=en --input-file=aigu/aigu-is-awesome-en.json >/dev/null 2>&1",
           "aigu rails-import --locale=fr --input-file=aigu/aigu-is-awesome-fr.json >/dev/null 2>&1",

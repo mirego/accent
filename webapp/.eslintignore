@@ -1,8 +1,0 @@
-node_modules/*
-**/vendor/*.js
-vendor/**/*.js
-bower_components/**/*.js
-dist/**/*.js
-tmp/**/*.js
-app/locales/*/translations.js
-app/utils/phoenix.js

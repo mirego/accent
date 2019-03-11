@@ -33,7 +33,9 @@ env:
 before_install:
   - 'echo `curl --verbose http://jsonip.com`'
   - npm config set spin false
-  - npm --prefix webapp install
+  - npm ci --prefix webapp --no-audit --no-color
+  - npm ci --prefix cli --no-audit --no-color
+  - npm ci --prefix jipt --no-audit --no-color
   - npm --prefix webapp run build-production
 
 # Create database and prepare the application
@@ -42,5 +44,7 @@ before_script:
   - mix ecto.setup
 
 script:
-  - make lint
+  - ./priv/script/ci-check.sh
+  - npm --prefix cli run build
+  - npm --prefix jipt run build-production
   - mix coveralls.travis

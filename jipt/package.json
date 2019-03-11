@@ -6,18 +6,13 @@
   "scripts": {
     "build": "parcel index.html",
     "build-production": "parcel build index.ts -d ../priv/static/jipt --target browser --experimental-scope-hoisting",
-    "prettier": "prettier --write  '**/*.{ts,html,json}'",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint-scripts": "tslint -c tslint.json 'src/**/*.{js,ts}'"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "parcel-bundler": "1.11.0",
-    "prettier": "1.16.4",
-    "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.17.0",
     "typescript": "3.3.1"
   }
 }

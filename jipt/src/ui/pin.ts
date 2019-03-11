@@ -56,15 +56,22 @@ export default class Pin {
 
   private showFor(target: HTMLElement) {
     const {left, top, height} = target.getBoundingClientRect();
-    const keys: string[] = Array.from(this.state.nodes.get(target).keys.values());
-    styles.set(this.element, `top: ${top + height - 6}px; left: ${left - 6}px; ${styles.pin}`);
+    const keys: string[] = Array.from(
+      this.state.nodes.get(target).keys.values()
+    );
+    styles.set(
+      this.element,
+      `top: ${top + height - 6}px; left: ${left - 6}px; ${styles.pin}`
+    );
 
     const ids = keys
       .map((key: string) => this.state.projectTranslations[key].id)
       .filter(Boolean)
       .join(',');
 
-    this.element.innerHTML = this.pinContent(`data-id${keys.length > 1 ? 's' : ''}="${ids}"`);
+    this.element.innerHTML = this.pinContent(
+      `data-id${keys.length > 1 ? 's' : ''}="${ids}"`
+    );
   }
 
   private pinContent(id) {

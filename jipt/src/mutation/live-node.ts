@@ -32,7 +32,9 @@ export default class LiveNode {
       const newAttribute = this.replaceValue(attribute.value, translation.text);
       attribute.value = newAttribute;
 
-      this.state.addReference(node, translation, {attributeName: attribute.name});
+      this.state.addReference(node, translation, {
+        attributeName: attribute.name
+      });
     });
   }
 

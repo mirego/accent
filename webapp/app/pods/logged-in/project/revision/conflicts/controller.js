@@ -37,6 +37,8 @@ export default Controller.extend({
   emptyDocument: empty('document'),
   emptyQuery: equal('query', ''),
 
+  showLoading: and('emptyEntries', 'model.loading'),
+
   showSkeleton: and(
     'emptyEntries',
     'model.loading',
@@ -44,8 +46,6 @@ export default Controller.extend({
     'emptyReference',
     'emptyDocument'
   ),
-  showLoading: and('emptyEntries', 'model.loading'),
-
   referenceRevisions: computed('model.revisionId', 'revisions', function() {
     if (!this.revisions) return [];
 
