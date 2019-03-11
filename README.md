@@ -9,7 +9,7 @@
 
 [Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
 
-[![Build Status](https://travis-ci.org/mirego/accent.svg?branch=master)](https://travis-ci.org/mirego/accent)
+[![Build Status](https://travis-ci.com/mirego/accent.svg?branch=master)](https://travis-ci.com/mirego/accent)
 [![Coverage Status](https://coveralls.io/repos/github/mirego/accent/badge.svg?branch=master)](https://coveralls.io/github/mirego/accent?branch=master) [![Join the chat at https://gitter.im/mirego/accent](https://badges.gitter.im/mirego/accent.svg)](https://gitter.im/mirego/accent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Accent provides a powerful abstraction around the process maintaining translations in a web/native app.
