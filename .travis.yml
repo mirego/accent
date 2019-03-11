@@ -44,7 +44,7 @@ before_script:
   - mix ecto.setup
 
 script:
-  - ./priv/script/ci-check.sh
+  - ./priv/scripts/ci-check.sh
   - npm --prefix cli run build
   - npm --prefix jipt run build-production
   - mix coveralls.travis
