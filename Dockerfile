@@ -16,7 +16,7 @@ WORKDIR /build
 # This step installs all the build tools we'll need
 RUN apk update && \
     apk upgrade --no-cache && \
-    apk add --no-cache git make g++ alpine-sdk openssl ncurses-libs wget ca-certificates yaml-dev python nodejs-npm bash erlang-crypto libssl1.1
+    apk add --no-cache make g++ git openssl-dev nodejs-npm python yaml-dev
 
 RUN mix local.rebar --force && \
     mix local.hex --force
@@ -58,7 +58,7 @@ ENV APP_NAME=${APP_NAME} \
 # Update kernel and install runtime dependencies
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add ncurses-libs openssl bash erlang-crypto libssl1.1 yaml-dev nodejs
+    apk --no-cache add bash openssl erlang-crypto nodejs yaml-dev
 
 WORKDIR /opt/accent
 
