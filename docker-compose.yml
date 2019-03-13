@@ -1,8 +1,9 @@
 version: '3.3'
 services:
   application:
-    image: accent
+    image: mirego/accent
     container_name: accent
+    build: .
     ports:
       - 4000:4000
     depends_on:
