@@ -1,6 +1,8 @@
 jipt/dist
 jipt/.cache
+jipt/node_modules
 cli/lib
+cli/node_modules
 webapp/dist
 webapp/.cache
 webapp/node_modules
