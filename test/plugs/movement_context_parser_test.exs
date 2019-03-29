@@ -156,7 +156,10 @@ defmodule AccentTest.Plugs.MovementContextParser do
     assert context.assigns[:document] == %Document{
              project_id: project.id,
              path: "hello",
-             format: "gettext",
+             format: "gettext"
+           }
+
+    assert context.assigns[:document_update] == %{
              top_of_the_file_comment:
                "## Do not add, change, or remove `msgid`s manually here as\n## they're tied to the ones in the corresponding POT file\n## (with the same domain).\n##\n## Use `mix gettext.extract --merge` or `mix gettext.merge`\n## to merge POT files into PO files.",
              header: "\nLanguage: fr\n"

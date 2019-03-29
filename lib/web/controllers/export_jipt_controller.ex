@@ -114,11 +114,11 @@ defmodule Accent.ExportJIPTController do
 
     %{render: render} =
       Accent.TranslationsRenderer.render(%{
+        master_translations: [],
         translations: translations,
+        master_revision: Enum.at(project.revisions, 0),
         language: Enum.at(project.revisions, 0).language,
-        document_format: document.format,
-        document_top_of_the_file_comment: document.top_of_the_file_comment,
-        document_header: document.header,
+        document: document,
         value_map: &"{^#{&1.key}@#{document.path}}"
       })
 

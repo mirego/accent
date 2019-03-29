@@ -5,6 +5,7 @@ defmodule Accent.ExportController do
   import Accent.Plugs.RevisionIdFromProjectLanguage
 
   alias Accent.Scopes.Document, as: DocumentScope
+  alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: Scope
   alias Accent.Scopes.Version, as: VersionScope
 
@@ -28,6 +29,8 @@ defmodule Accent.ExportController do
   plug(:fetch_document)
   plug(:fetch_version)
   plug(:fetch_translations)
+  plug(:fetch_master_revision)
+  plug(:fetch_master_translations)
   plug(:fetch_rendered_document)
 
   plug(:index)
@@ -95,6 +98,33 @@ defmodule Accent.ExportController do
     assign(conn, :translations, translations)
   end
 
+  defp fetch_master_revision(conn = %{assigns: %{project: project}}, _) do
+    revision =
+      project
+      |> Ecto.assoc(:revisions)
+      |> RevisionScope.master()
+      |> Repo.one()
+      |> Repo.preload(:language)
+
+    assign(conn, :master_revision, revision)
+  end
+
+  defp fetch_master_translations(conn = %{assigns: %{revision: %{master: true}, translations: translations}}, _) do
+    assign(conn, :master_translations, translations)
+  end
+
+  defp fetch_master_translations(conn = %{assigns: %{document: document, version: version, master_revision: master_revision}}, _) do
+    translations =
+      Translation
+      |> Scope.active()
+      |> Scope.from_document(document.id)
+      |> Scope.from_revision(master_revision.id)
+      |> Scope.from_version(version && version.id)
+      |> Repo.all()
+
+    assign(conn, :master_translations, translations)
+  end
+
   defp fetch_document(conn = %{params: params, assigns: %{project: project}}, _) do
     Document
     |> DocumentScope.from_project(project.id)
@@ -126,14 +156,17 @@ defmodule Accent.ExportController do
 
   defp fetch_version(conn, _), do: assign(conn, :version, nil)
 
-  defp fetch_rendered_document(conn = %{assigns: %{translations: translations, revision: revision, document: document}}, _) do
+  defp fetch_rendered_document(
+         conn = %{assigns: %{master_revision: master_revision, master_translations: master_translations, translations: translations, revision: revision, document: document}},
+         _
+       ) do
     %{render: render} =
       Accent.TranslationsRenderer.render(%{
+        master_translations: master_translations,
+        master_revision: master_revision,
         translations: translations,
         language: revision.language,
-        document_format: document.format,
-        document_top_of_the_file_comment: document.top_of_the_file_comment,
-        document_header: document.header
+        document: document
       })
 
     document = Map.put(document, :render, render)

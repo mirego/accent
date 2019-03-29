@@ -3,18 +3,26 @@ defmodule Accent.TranslationsRenderer do
 
   def render(args) do
     value_map = Map.get(args, :value_map, & &1.corrected_text)
-    serializer = fetch_serializer(args[:document_format])
-    entries = fetch_entries(args[:translations], value_map)
+    serializer = fetch_serializer(args[:document].format)
+    master_translations = Enum.group_by(args[:master_translations], & &1.key)
+    entries = fetch_entries(args[:translations], master_translations, value_map)
 
-    parser_result = %Langue.Formatter.ParserResult{
+    serialzier_input = %Langue.Formatter.ParserResult{
       entries: entries,
-      language: args[:language],
-      top_of_the_file_comment: args[:document_top_of_the_file_comment],
-      header: args[:document_header]
+      language: %Langue.Language{
+        slug: args[:language].slug,
+        plural_forms: args[:language].plural_forms
+      },
+      document: %Langue.Document{
+        path: args[:document].path,
+        master_language: args[:master_revision].language.slug,
+        top_of_the_file_comment: args[:document].top_of_the_file_comment,
+        header: args[:document].header
+      }
     }
 
     try do
-      serializer.(parser_result)
+      serializer.(serialzier_input)
     rescue
       _ -> Langue.Formatter.SerializerResult.empty()
     end
@@ -26,9 +34,12 @@ defmodule Accent.TranslationsRenderer do
     end
   end
 
-  defp fetch_entries(translations, value_map) do
+  defp fetch_entries(translations, master_translations, value_map) do
     Enum.map(translations, fn translation ->
+      master_translation = Map.get(master_translations, translation.key)
+
       %Langue.Entry{
+        master_value: fetch_master_value(master_translation, value_map),
         key: translation.key,
         value: value_map.(translation),
         comment: translation.file_comment,
@@ -36,5 +47,12 @@ defmodule Accent.TranslationsRenderer do
         value_type: translation.value_type
       }
     end)
+  end
+
+  defp fetch_master_value(nil, _), do: nil
+  defp fetch_master_value([], _), do: nil
+
+  defp fetch_master_value([master_translation], value_map) do
+    value_map.(master_translation)
   end
 end
