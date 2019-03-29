@@ -10,7 +10,7 @@ export default Component.extend({
   i18n: service(),
   globalState: service('global-state'),
 
-  classNameBindings: ['withRevisionsCount:with-revisions-count'],
+  classNameBindings: ['hasManyRevisions:with-many-revisions'],
 
   withRevisionsCount: true,
 

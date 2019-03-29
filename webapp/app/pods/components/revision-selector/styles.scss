@@ -3,7 +3,7 @@
   box-shadow: 0 2px 4px rgba(#000, 0.06);
 }
 
-.many {
+&.with-many-revisions {
   .ember-power-select-selected-item {
     margin-left: 22px;
   }
@@ -48,10 +48,6 @@
     color: $color-green;
     color: var(--color-primary);
   }
-}
-
-&.with-revisions-count .ember-power-select-trigger {
-  padding-bottom: 25px;
 }
 
 .ember-power-select-trigger {
