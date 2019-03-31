@@ -43,8 +43,10 @@ defmodule AccentTest.TranslationsRenderer do
 
     %{render: render} =
       TranslationsRenderer.render(%{
+        master_translations: [],
+        master_revision: revision,
         translations: [translation],
-        document_format: document.format,
+        document: document,
         language: revision.language
       })
 
@@ -81,8 +83,10 @@ defmodule AccentTest.TranslationsRenderer do
 
     %{render: render} =
       TranslationsRenderer.render(%{
+        master_translations: [],
+        master_revision: revision,
         translations: translations,
-        document_format: document.format,
+        document: document,
         language: revision.language
       })
 
@@ -104,8 +108,10 @@ defmodule AccentTest.TranslationsRenderer do
 
     %{render: render} =
       TranslationsRenderer.render(%{
+        master_translations: [],
+        master_revision: revision,
         translations: [translation],
-        document_format: document.format,
+        document: document,
         language: %Language{slug: "fr"}
       })
 

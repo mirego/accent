@@ -60,27 +60,38 @@ defmodule Accent.Plugs.MovementContextParser do
     render = File.read!(file.path)
 
     conn
-    |> serializer_result(render)
+    |> parser_result(render)
     |> case do
-      %{entries: entries, top_of_the_file_comment: comment, header: header} ->
-        document = %{context.assigns[:document] | top_of_the_file_comment: comment, header: header}
-
+      %{entries: entries, document: document} ->
         context =
           context
-          |> Context.assign(:document, document)
-          |> Context.assign(:document_update, %{top_of_the_file_comment: comment, header: header})
+          |> Context.assign(:document, context.assigns[:document])
+          |> Context.assign(:document_update, document && %{top_of_the_file_comment: document.top_of_the_file_comment, header: document.header})
           |> Map.put(:render, render)
           |> Map.put(:entries, entries)
 
         assign(conn, :movement_context, context)
 
       {:error, :invalid_file} ->
-        conn |> send_resp(:unprocessable_entity, "file cannot be parsed") |> halt
+        conn
+        |> send_resp(:unprocessable_entity, "file cannot be parsed")
+        |> halt()
     end
   end
 
-  defp serializer_result(conn, render) do
-    conn.assigns[:document_parser].(%Langue.Formatter.SerializerResult{render: render})
+  defp parser_result(conn, render) do
+    document = conn.assigns[:movement_context].assigns[:document]
+
+    parser_input = %Langue.Formatter.SerializerResult{
+      render: render,
+      document: %Langue.Document{
+        path: document.path,
+        top_of_the_file_comment: document.top_of_the_file_comment,
+        header: document.header
+      }
+    }
+
+    conn.assigns[:document_parser].(parser_input)
   rescue
     _ -> {:error, :invalid_file}
   end

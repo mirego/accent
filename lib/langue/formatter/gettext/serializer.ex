@@ -3,14 +3,14 @@ defmodule Langue.Formatter.Gettext.Serializer do
 
   alias Langue.Utils.NestedParserHelper
 
-  def serialize(%{entries: entries, top_of_the_file_comment: top_of_the_file_comment, header: header, language: language}) do
+  def serialize(%{entries: entries, document: document, language: language}) do
     comments =
-      top_of_the_file_comment
+      document.top_of_the_file_comment
       |> String.trim()
       |> String.split("\n", trim: true)
 
     headers =
-      header
+      document.header
       |> String.trim()
       |> String.replace("\"", "")
       |> replace_language_header(language)

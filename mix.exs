@@ -68,6 +68,8 @@ defmodule Accent.Mixfile do
       {:csv, "~> 2.0"},
       {:php_assoc_map, "~> 0.5"},
       {:jason, "~> 1.0"},
+      {:erlsom, "~> 1.5"},
+      {:xml_builder, "~> 2.0"},
 
       # Errors
       {:sentry, "~> 7.0"},

@@ -3,7 +3,7 @@ defmodule Movement.Persisters.ProjectSync do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Accent.{Project, Repo}
+  alias Accent.{Document, Project, Repo}
   alias Movement.Persisters.Base, as: BasePersister
 
   @batch_action "sync"
@@ -27,10 +27,12 @@ defmodule Movement.Persisters.ProjectSync do
     end)
   end
 
+  defp persist_document(context = %Movement.Context{assigns: %{document_update: nil, document: %{id: id}}}) when not is_nil(id), do: context
+
   defp persist_document(context = %Movement.Context{assigns: %{document_update: document_update, document: document = %{id: id}}}) when not is_nil(id) do
     document =
       document
-      |> Accent.Document.changeset(document_update)
+      |> Document.changeset(document_update)
       |> Repo.update!()
 
     assign(context, :document, document)
@@ -41,7 +43,7 @@ defmodule Movement.Persisters.ProjectSync do
   defp persist_document(context = %Movement.Context{assigns: %{document: document}}) do
     document =
       document
-      |> Accent.Document.changeset(%{})
+      |> Document.changeset(%{})
       |> Repo.insert!()
 
     assign(context, :document, document)
