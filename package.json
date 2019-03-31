@@ -4,8 +4,8 @@
   "description": "The new new Accent Web app",
   "private": true,
   "scripts": {
-    "prettier": "prettier --single-quote --no-bracket-spacing --write './{webapp,jipt,cli}/**/*.{js,ts,json,gql}'",
-    "prettier-check": "prettier --check --single-quote --no-bracket-spacing './{webapp,jipt,cli}/**/*.{js,ts,json,gql}'",
+    "prettier": "prettier --single-quote --no-bracket-spacing --write './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql}'",
+    "prettier-check": "prettier --check --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql}'",
     "lint-scripts": "eslint webapp/. cli/. jipt/.",
     "lint-scripts-fix": "eslint --fix webapp/.",
     "tslint-scripts": "tslint -c tslint.json '{cli,jipt}/src/**/*.{js,ts,json}'",

@@ -25,6 +25,7 @@
 }
 
 .googleLoginButton {
+  opacity: 0.3;
   margin-top: 10px;
   padding: 7px 40px 7px 20px;
   background: #4d90fe;
@@ -32,9 +33,13 @@
   font-family: arial, sans-serif;
   font-size: 14px;
 
-  &:focus,
-  &:hover {
-    background: darken(#4d90fe, 8%);
+  &.googleLoginButton--enabled {
+    opacity: 1;
+
+    &:focus,
+    &:hover {
+      background: darken(#4d90fe, 8%);
+    }
   }
 }
 

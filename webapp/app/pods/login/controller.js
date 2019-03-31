@@ -19,21 +19,12 @@ export default Controller.extend({
   actions: {
     dummyLogin(token) {
       this._login({token, provider: 'dummy'});
-    },
-
-    googleLogin(googleUser) {
-      const token = googleUser.getAuthResponse().id_token;
-
-      this._login({token, provider: 'google'});
     }
   },
 
   _login({token, provider}) {
     this.session.login({token, provider}).then(data => {
-      if (data && data.token) {
-        this.jipt.loggedIn();
-        this.transitionToRoute('logged-in.projects');
-      }
+      if (data && data.token) this.transitionToRoute('logged-in.projects');
     });
   }
 });

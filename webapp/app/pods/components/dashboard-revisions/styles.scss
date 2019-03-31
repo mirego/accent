@@ -41,9 +41,14 @@
 }
 
 .numberStat-reviewPercentage {
+  letter-spacing: -3px;
   line-height: 1;
   font-size: 82px;
   font-weight: 400;
+}
+.numberStat-reviewPercentage-unit {
+  font-size: 62px;
+  opacity: 0.7;
 }
 
 .numberStat-totalKeys {

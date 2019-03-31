@@ -7,6 +7,7 @@ export default Service.extend({
   sessionPersister: service('session/persister'),
   sessionCreator: service('session/creator'),
   sessionDestroyer: service('session/destroyer'),
+  jipt: service('jipt'),
 
   googleAuth: null,
 
@@ -26,7 +27,12 @@ export default Service.extend({
   login(...args) {
     return this.sessionCreator
       .createSession(...args)
-      .then(credentials => this.set('credentials', credentials));
+      .then(credentials => this.set('credentials', credentials))
+      .then(credentials => {
+        if (credentials && credentials.token) this.jipt.loggedIn();
+
+        return credentials;
+      });
   },
 
   logout() {

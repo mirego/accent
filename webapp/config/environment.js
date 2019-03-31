@@ -2,6 +2,7 @@
 
 'use strict';
 
+// eslint-disable-next-line complexity
 module.exports = function(environment) {
   const wsHost = process.env.API_WS_HOST || 'ws://localhost:4000';
   const host = process.env.API_HOST || 'http://localhost:4000';
@@ -43,8 +44,9 @@ module.exports = function(environment) {
       CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID
     });
 
-  ENV.GOOGLE_LOGIN_ENABLED = environment === 'production';
-  ENV.DUMMY_LOGIN_ENABLED = environment !== 'production';
+  ENV.GOOGLE_LOGIN_ENABLED =
+    environment === 'production' || Boolean(process.env.GOOGLE_API_CLIENT_ID);
+  ENV.DUMMY_LOGIN_ENABLED = !ENV.GOOGLE_LOGIN_ENABLED;
 
   ENV.SENTRY = {
     DSN: process.env.WEBAPP_SENTRY_DSN
@@ -54,13 +56,10 @@ module.exports = function(environment) {
     'default-src': "'none'",
     'script-src':
       "'self' 'unsafe-inline' 'unsafe-eval' apis.google.com cdn.ravenjs.com",
-    // Allow fonts to be loaded from http://fonts.gstatic.com
-    'font-src': "'self' http://fonts.gstatic.com",
-    // Allow data (ajax/websocket)
-    'connect-src': `'self' https://www.googleapis.com ${wsHost} ${host} https://sentry.io`,
+    'font-src': "'self'",
+    'connect-src': `'self' ${wsHost} ${host} https://www.googleapis.com https://sentry.io`,
     'img-src': '*',
-    // Allow inline styles and loaded CSS from http://fonts.googleapis.com
-    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
+    'style-src': "'self' 'unsafe-inline'",
     'media-src': "'self'",
     'frame-src': 'accounts.google.com'
   };

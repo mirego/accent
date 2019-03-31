@@ -1,6 +1,5 @@
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
-import RSVP from 'rsvp';
 import raven from 'npm:raven-js';
 import config from 'accent-webapp/config/environment';
 
@@ -10,18 +9,22 @@ export default Route.extend({
   beforeModel() {
     raven.config(config.SENTRY.DSN).install();
 
-    return new RSVP.Promise(resolve => {
-      if (!window.gapi || !config.GOOGLE_LOGIN_ENABLED) return resolve();
+    this._tryGoogleLoginAfterRedirect();
+  },
 
-      window.gapi.load('auth2', () => {
-        const auth2 = window.gapi.auth2.init({
-          client_id: config.GOOGLE_API.CLIENT_ID, // eslint-disable-line camelcase
-          cookiepolicy: 'single_host_origin'
-        });
+  _tryGoogleLoginAfterRedirect() {
+    if (!config.GOOGLE_LOGIN_ENABLED) return;
 
-        this.set('session.googleAuth', auth2);
-        resolve();
-      });
+    const match = window.location.href
+      .substring(window.location.href.indexOf('#') + 1)
+      .split('&')
+      .find(segment => segment.split('=')[0] === 'id_token');
+    const token = match && match.split('=')[1];
+
+    if (!token) return;
+
+    this.session.login({token, provider: 'google'}).then(data => {
+      if (data && data.token) this.transitionTo('logged-in.projects');
     });
   }
 });

@@ -67,6 +67,7 @@
   text-shadow: 0 1px 1px rgba($color-true-black, 0.4);
   color: #fff;
 
+  &.button--loading svg.loading,
   .button-icon {
     fill: #fff;
   }
@@ -213,6 +214,11 @@
     color: darken($color-grey, 20%);
     text-shadow: none;
 
+    &.button--loading svg.loading,
+    .button-icon {
+      fill: $color-black;
+    }
+
     &:focus {
       box-shadow: 0 0 10px lighten($color-grey, 27%);
     }
@@ -306,6 +312,7 @@
   color: #8a8a8a;
   border-color: #dbdbdb;
 
+  &.button--loading svg.loading,
   .button-icon {
     fill: #8a8a8a;
   }
@@ -321,6 +328,7 @@
 .button--green {
   color: $color-success;
 
+  &.button--loading svg.loading,
   .button-icon {
     fill: $color-success;
   }
@@ -335,6 +343,7 @@
 .button--red {
   color: $color-error;
 
+  &.button--loading svg.loading,
   .button-icon {
     fill: $color-error;
   }
@@ -350,6 +359,7 @@
   color: $color-green;
   color: var(--color-primary);
 
+  &.button--loading svg.loading,
   .button-icon {
     fill: $color-green;
     fill: var(--color-primary);

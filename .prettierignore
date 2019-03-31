@@ -1,9 +1,9 @@
 jipt/dist
 jipt/.cache
-jipt/node_modules
+jipt/package-lock.json
 cli/lib
-cli/node_modules
+cli/package-lock.json
 webapp/dist
 webapp/.cache
-webapp/node_modules
 webapp/tmp
+webapp/package-lock.json

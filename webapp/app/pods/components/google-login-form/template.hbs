@@ -1,7 +1,7 @@
 <h1 class="title">{{t 'components.google_login_form.title'}}</h1>
 <h2 class="subtitle">{{t 'components.google_login_form.subtitle'}}</h2>
 
-<button class="button button--filled googleLoginButton">
+<button class="button button--filled googleLoginButton {{if loginEnabled 'googleLoginButton--enabled'}}">
   <img src="assets/google-logo.png" class="googleLogo" />
   {{t 'components.google_login_form.login_button'}}
 </button>

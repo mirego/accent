@@ -96,7 +96,7 @@ lint-tslint:
 
 .PHONY: lint-prettier
 lint-prettier:
-	./node_modules/.bin/prettier --check --single-quote --no-bracket-spacing './{webapp,jipt,cli}/**/*.{js,ts,json,gql}'
+	./node_modules/.bin/prettier --check --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql}'
 
 .PHONY: test
 test: ## Run the test suite

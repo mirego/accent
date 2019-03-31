@@ -4,6 +4,7 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const target = require('./config/targets');
+const sass = require('sass');
 
 module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
@@ -23,6 +24,9 @@ module.exports = function(defaults) {
     },
     svg: {
       paths: ['public']
+    },
+    sassOptions: {
+      implementation: sass
     }
   });
 
