@@ -51,7 +51,7 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   end
 
   test "list project", %{document: document, project: project, revision: revision} do
-    other_document = %Document{project_id: project.id, path: "test2", format: "json", updated_at: DateTime.from_unix!(1_432_560_368_868_570, :microsecond)} |> Repo.insert!()
+    other_document = %Document{project_id: project.id, path: "test2", format: "json", updated_at: DateTime.add(document.updated_at, 3600, :second)} |> Repo.insert!()
     _empty_document = %Document{project_id: project.id, path: "test3", format: "json"} |> Repo.insert!()
 
     %Translation{revision_id: revision.id, document_id: document.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: false} |> Repo.insert!()

@@ -1,1 +1,12 @@
-<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M27.008 30L11.454 14.446c-.55-.55-.55-1.442 0-1.992s1.442-.55 1.992 0L29 28.01l15.554-15.556c.55-.55 1.442-.55 1.992 0s.55 1.442 0 1.992L30.992 30l15.554 15.555c.55.55.55 1.44 0 1.99-.275.276-.635.414-.996.414-.36 0-.72-.14-.996-.416L29 31.992 13.446 47.546c-.275.275-.635.413-.996.413-.36 0-.72-.14-.996-.416-.55-.55-.55-1.442 0-1.99L27.008 30z"/></svg>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="18" y1="6" x2="6" y2="18"></line>
+  <line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>

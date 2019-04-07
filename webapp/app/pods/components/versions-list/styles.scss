@@ -37,7 +37,7 @@
 .item-tag {
   display: inline-flex;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 12px;
   font-family: $font-monospace;
   font-size: 14px;
   font-weight: normal;
@@ -45,9 +45,10 @@
 }
 
 .item-tag-icon {
-  width: 22px;
-  height: 22px;
-  fill: #bbb;
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+  stroke: #aaa;
 }
 
 .item-meta {

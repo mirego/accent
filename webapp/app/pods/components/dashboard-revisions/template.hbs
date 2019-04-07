@@ -8,7 +8,9 @@
         </span>
       {{else}}
         <span class="numberStat-reviewPercentage">
-          {{reviewedPercentage}}<span class="numberStat-reviewPercentage-unit">%</span>
+          {{reviewedPercentage}}<span class="numberStat-reviewPercentage-unit">
+          {{inline-svg '/assets/percent.svg' class='numberStat-reviewPercentage-icon'}}
+          </span>
         </span>
       {{/if}}
 

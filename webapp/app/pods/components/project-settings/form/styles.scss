@@ -59,12 +59,12 @@
       border-color: $color-green;
 
       .lock-icon {
-        fill: $color-green;
+        stroke: $color-green;
       }
     }
 
     .lock-icon {
-      fill: #aaa;
+      stroke: #aaa;
     }
   }
 
@@ -77,18 +77,18 @@
       border-color: darken($color-error, 10%);
 
       .lock-icon {
-        fill: darken($color-error, 10%);
+        stroke: darken($color-error, 10%);
       }
     }
 
     .lock-icon {
-      fill: $color-error;
+      stroke: $color-error;
     }
   }
 }
 
 .lock-icon {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   margin-right: 6px;
 }

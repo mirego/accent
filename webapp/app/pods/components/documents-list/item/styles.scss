@@ -51,3 +51,22 @@
   margin-right: 10px;
   font-size: 18px;
 }
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  .button {
+    margin-right: 6px;
+
+    &.button--borderLess:first-of-type:last-of-type {
+      margin-left: -14px;
+    }
+  }
+}
+
+.deleteDocumentButton {
+  opacity: 0;
+}

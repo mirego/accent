@@ -5,6 +5,7 @@ import styles from './styles';
 
 const EXPAND_CLASS = randomClass();
 const COLLAPSE_CLASS = randomClass();
+const DISABLE_CLASS = randomClass();
 
 interface Props {
   root: Element;
@@ -26,6 +27,7 @@ export default class UI {
   private readonly state: State;
   private readonly expandButton: Element;
   private readonly collapseButton: Element;
+  private readonly disableButton: Element;
 
   constructor(props: Props) {
     this.state = props.state;
@@ -40,8 +42,10 @@ export default class UI {
 
     this.expandButton = this.editor.getElementsByClassName(EXPAND_CLASS)[0];
     this.collapseButton = this.editor.getElementsByClassName(COLLAPSE_CLASS)[0];
+    this.disableButton = this.editor.getElementsByClassName(DISABLE_CLASS)[0];
 
     this.collapse();
+    if (localStorage.getItem('accent-disabled')) this.hideOverlay();
   }
 
   bindEvents() {
@@ -54,15 +58,26 @@ export default class UI {
 
   hideOverlay() {
     this.overlay.remove();
+    styles.hide(this.disableButton);
   }
 
   showLogin() {
+    if (localStorage.getItem('accent-disabled')) return;
+
     styles.hide(this.expandButton);
     styles.set(this.editor, styles.frameCentered);
+    styles.set(this.disableButton, styles.frameDisableButton);
   }
 
   postMessage(message: object) {
     this.frame.contentWindow.postMessage({jipt: true, ...message}, '*');
+  }
+
+  disable() {
+    this.hideOverlay();
+    this.collapse();
+    styles.hide(this.disableButton);
+    localStorage.setItem('accent-disabled', '1');
   }
 
   collapse() {
@@ -75,6 +90,7 @@ export default class UI {
     styles.set(this.editor, styles.frameExpanded);
     styles.hide(this.expandButton);
     styles.set(this.collapseButton, styles.frameCollapseButton);
+    localStorage.removeItem('accent-disabled');
   }
 
   handleEditorToggle(event: MouseEvent) {
@@ -86,6 +102,10 @@ export default class UI {
 
     if (target === this.expandButton) {
       return this.expand();
+    }
+
+    if (target === this.disableButton) {
+      return this.disable();
     }
   }
 
@@ -122,6 +142,7 @@ export default class UI {
   private buildContainer() {
     const element = document.createElement('div');
     element.innerHTML = `
+      <div class="${DISABLE_CLASS}" style="${styles.frameDisableButton}">×</div>
       <div class="${EXPAND_CLASS}" style="${styles.frameExpandButton}"></div>
       <div class="${COLLAPSE_CLASS}" style="${
       styles.frameCollapseButton

@@ -29,7 +29,7 @@
     .item-edit-icon {
       &:focus,
       &:hover {
-        fill: $color-error;
+        stroke: $color-error;
       }
     }
   }
@@ -70,14 +70,14 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
-  fill: $color-grey;
+  stroke: $color-grey;
   transition: $transition-speed $transition-easing;
-  transition-property: fill;
+  transition-property: stroke;
 
   &:focus,
   &:hover {
-    fill: $color-green;
-    fill: var(--color-primary);
+    stroke: $color-green;
+    stroke: var(--color-primary);
   }
 }
 

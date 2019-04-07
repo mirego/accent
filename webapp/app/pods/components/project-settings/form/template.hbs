@@ -24,7 +24,7 @@
   <div class="lock">
     {{#if isFileOperationsLocked}}
       <div class="lock-text lock-text--active" {{action 'setLockedFileOperations' on='click'}}>
-        {{inline-svg 'assets/lock--unlocked'onPath class='lock-icon lock-icon--unlocked'}}
+        {{inline-svg 'assets/lock--unlocked' class='lock-icon lock-icon--unlocked'}}
         {{t 'components.project_settings.form.lock_file_operations.remove_lock_button'}}
       </div>
     {{else}}

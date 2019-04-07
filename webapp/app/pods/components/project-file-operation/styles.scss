@@ -13,7 +13,7 @@
   &:focus,
   &:hover {
     .closeButton-icon {
-      fill: $color-error;
+      stroke: $color-error;
     }
   }
 }
@@ -25,7 +25,7 @@
 .closeButton-icon {
   width: 25px;
   height: 25px;
-  fill: #777;
+  stroke: #777;
 }
 
 .sectionType {
@@ -41,8 +41,8 @@
   width: 18px;
   height: 18px;
   margin-right: 4px;
-  fill: $color-green;
-  fill: var(--color-primary);
+  stroke: $color-green;
+  stroke: var(--color-primary);
 }
 
 .versionTitle {
@@ -51,11 +51,8 @@
 }
 
 .versionTitle-name {
-  display: inline-block;
-  font-size: 23px;
   color: $color-green;
   color: var(--color-primary);
-  font-weight: normal;
 }
 
 .versionTitle-tag {
@@ -69,9 +66,9 @@
 }
 
 .versionTitle-tag-icon {
-  width: 22px;
-  height: 22px;
-  fill: #bbb;
+  width: 12px;
+  height: 12px;
+  stroke: #bbb;
 }
 
 .title {

@@ -11,6 +11,8 @@
 body {
   font-family: $font-primary;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 textarea,
@@ -19,6 +21,8 @@ button,
 input[type="submit"],
 input[type="text"] {
   font-family: $font-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 dl,

@@ -20,7 +20,7 @@ query Translations($projectId: ID! $revisionId: ID, $query: String, $page: Int, 
 
       revision(id: $revisionId) {
         id
-        translations(query: $query, page: $page, pageSize: 1000, document: $document, version: $version) {
+        translations(query: $query, page: $page, pageSize: 10000, document: $document, version: $version) {
           meta {
             totalEntries
             totalPages

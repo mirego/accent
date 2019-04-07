@@ -22,9 +22,23 @@ query Projects($query: String, $page: Int) {
         id
         name
         lastSyncedAt
-        language {
+        mainColor
+
+        lastActivity {
           id
-          name
+          insertedAt
+        }
+
+        revisions {
+          id
+          translationsCount
+          conflictsCount
+
+          language {
+            id
+            slug
+            name
+          }
         }
       }
     }

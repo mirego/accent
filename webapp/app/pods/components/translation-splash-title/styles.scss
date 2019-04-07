@@ -25,10 +25,10 @@
 .back-icon {
   width: 11px;
   height: 11px;
-  fill: $color-black;
-  fill: var(--color-black);
+  stroke: $color-black;
+  stroke: var(--color-black);
   transition: $transition-speed $transition-easing;
-  transition-property: fill transform;
+  transition-property: stroke transform;
 }
 
 .key {

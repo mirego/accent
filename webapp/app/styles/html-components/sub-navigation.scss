@@ -55,8 +55,8 @@
     color: var(--color-primary);
 
     .subNavigation-list-item-link-icon {
-      fill: $color-green;
-      fill: var(--color-primary);
+      stroke: $color-green;
+      stroke: var(--color-primary);
     }
   }
 
@@ -66,19 +66,19 @@
 
   &.active {
     .subNavigation-list-item-link-icon {
-      fill: $color-green;
-      fill: var(--color-primary);
+      stroke: $color-green;
+      stroke: var(--color-primary);
     }
   }
 }
 
 .subNavigation-list-item-link-icon {
   transition: $transition-speed $transition-easing;
-  transition-property: fill;
+  transition-property: stroke;
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  fill: rgba($color-grey, 0.8);
+  stroke: rgba($color-grey, 0.8);
 }
 
 @media (max-width: ($screen-md)) {

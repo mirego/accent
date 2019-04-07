@@ -28,6 +28,7 @@ query Dashboard($projectId: ID!) {
           id
           action
           insertedAt
+          updatedAt
           isBatch
           isRollbacked
           activityType

@@ -79,8 +79,8 @@
   width: 15px;
   height: 15px;
   margin-right: 10px;
-  fill: $color-black;
-  fill: var(--color-black);
+  stroke: $color-black;
+  stroke: var(--color-black);
 }
 
 .fileInputTitle {

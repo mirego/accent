@@ -6,7 +6,9 @@
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
+  class="feather feather-percent"
 >
-  <polyline points="23 4 23 10 17 10"></polyline>
-  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+  <line x1="19" y1="5" x2="5" y2="19"></line>
+  <circle cx="6.5" cy="6.5" r="2.5"></circle>
+  <circle cx="17.5" cy="17.5" r="2.5"></circle>
 </svg>

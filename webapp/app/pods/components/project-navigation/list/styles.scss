@@ -25,29 +25,29 @@
   font-weight: 600;
   font-size: 13px;
   border-radius: 3px;
+  color: $color-grey;
 
   &:hover,
   &:focus {
     background: $color-light-background;
+    color: var(--color-primary);
 
     .list-item-link-icon {
       transform: scale(1);
-      fill: $color-green;
-      fill: var(--color-primary)
     }
 
     .list-item-link-text {
-      color: var(--color-primary)
+      color: var(--color-primary);
     }
   }
 
   &.active {
     background: lighten($color-green, 46%);
     background: var(--color-primary);
+    color: #fff;
 
     .list-item-link-icon {
       transform: scale(1);
-      fill: #fff;
     }
 
     .list-item-link-text {
@@ -70,7 +70,6 @@
   display: inline-block;
   width: 19px;
   height: 19px;
-  fill: rgba($color-grey, 0.8);
 }
 
 @media (max-width: 800px) {
@@ -81,26 +80,7 @@
 
 @media (max-width: ($screen-sm)) {
   & {
-    background: #fff;
-  }
-
-  .list-item-link {
-    left: 0;
-    border-radius: 0;
-    font-size: 14px;
-    padding-left: 8px;
-  }
-
-  .list-item-link-text {
-    display: block;
-    position: static;
-    padding: 0;
-    opacity: 1;
-    text-align: left;
-    width: auto;
-  }
-
-  .list-item-link-icon {
-    margin-right: 6px;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }

@@ -5,6 +5,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
   alias Accent.{
     GraphQL.Paginated,
+    Operation,
     Plugs.GraphQLContext,
     Project,
     ProjectCreator,
@@ -77,6 +78,17 @@ defmodule Accent.GraphQL.Resolvers.Project do
   def show_viewer(_, %{id: id}, _) do
     Project
     |> Repo.get(id)
+    |> (&{:ok, &1}).()
+  end
+
+  @spec last_activity(Project.t(), any(), GraphQLContext.t()) :: {:ok, Operation.t() | nil}
+  def last_activity(project, _, _) do
+    Operation
+    |> Query.join(:left, [o], r in assoc(o, :revision))
+    |> Query.where([o, r], r.project_id == ^project.id or o.project_id == ^project.id)
+    |> Query.order_by([o], desc: o.inserted_at)
+    |> Query.limit(1)
+    |> Repo.one()
     |> (&{:ok, &1}).()
   end
 end

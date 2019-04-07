@@ -39,21 +39,3 @@
 .modalList {
   display: none;
 }
-
-@media (max-width: ($screen-sm)) {
-  & {
-    padding-top: 10px;
-  }
-
-  .list {
-    display: none;
-  }
-
-  .modalList {
-    display: block;
-  }
-
-  .listTrigger {
-    display: flex;
-  }
-}

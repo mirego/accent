@@ -54,7 +54,7 @@
   will-change: left;
   width: 15px;
   position: absolute;
-  top: -3px;
+  top: calc(50% - 8px);
   left: 100%;
   fill: $color-black;
 }

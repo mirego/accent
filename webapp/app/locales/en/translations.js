@@ -598,6 +598,7 @@ export default {
     },
     projects_list: {
       last_synced_at_label: 'Last sync:',
+      last_activity_at_label: 'Last activity:',
       never_synced: 'Project was never synced',
       no_projects: 'You have no projects yet',
       no_projects_query: 'No projects found for: {{query}}',

@@ -1,1 +1,14 @@
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>iconmonstr-resize-5</title><path d="M24 1v7.585c0 .553-.448 1-1 1-.265 0-.52-.105-.707-.292L20.62 7.62l-3.67 3.673c-.39.39-1.025.39-1.415 0l-2.828-2.828c-.39-.39-.39-1.024 0-1.414l3.672-3.67-1.673-1.673c-.39-.39-.39-1.024 0-1.414.188-.188.442-.293.707-.293H23c.552 0 1 .448 1 1zM7.176 12.6L3.38 16.38l-1.673-1.673c-.39-.39-1.024-.39-1.414 0-.188.188-.293.443-.293.708V23c0 .552.448 1 1 1h7.586c.552 0 1-.448 1-1 0-.265-.106-.52-.293-.707L7.62 20.62l3.795-3.775c.39-.39.393-1.023.003-1.414h-.002L8.588 12.6c-.39-.388-1.02-.39-1.412 0z" fill-rule="nonzero" fill="#000"/></svg>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="15 3 21 3 21 9"></polyline>
+  <polyline points="9 21 3 21 3 15"></polyline>
+  <line x1="21" y1="3" x2="14" y2="10"></line>
+  <line x1="3" y1="21" x2="10" y2="14"></line>
+</svg>

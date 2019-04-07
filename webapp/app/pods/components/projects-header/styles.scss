@@ -96,7 +96,7 @@
   left: 7px;
   width: 18px;
   height: 18px;
-  fill: lighten($color-grey, 15%);
+  stroke: #b7b7b7;
 }
 
 .search-input {
@@ -125,14 +125,13 @@
 
 @media (max-width: ($screen-md)) {
   & {
-    padding: 20px 0;
+    padding: 10px 0;
   }
 }
 
 @media (max-width: ($screen-sm)) {
   & {
     padding: 9px 0;
-    margin-bottom: 10px;
   }
 
   .applicationLogo-image {

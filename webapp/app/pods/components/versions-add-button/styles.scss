@@ -1,10 +1,7 @@
 .button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  padding: 20px;
+  padding: 15px 20px;
   background: #fff;
   box-shadow: 0 1px 4px rgba(#000, 0.15);
   border-radius: 3px;
@@ -20,9 +17,9 @@
 }
 
 .button-icon {
-  margin: 0 0 10px;
-  width: 30px;
-  height: 30px;
+  margin-right: 5px;
+  width: 25px;
+  height: 25px;
   fill: $color-green;
   fill: var(--color-primary);
 }

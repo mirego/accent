@@ -24,21 +24,5 @@ export default Component.extend({
       if (!this.revisions) return;
       return this.revisions[0].id;
     }
-  ),
-
-  actions: {
-    toggleMenu() {
-      this.set(
-        'globalState.isProjectNavigationListShowing',
-        !this.globalState.isProjectNavigationListShowing
-      );
-    },
-
-    closeModal() {
-      this.set(
-        'globalState.isProjectNavigationListShowing',
-        !this.globalState.isProjectNavigationListShowing
-      );
-    }
-  }
+  )
 });

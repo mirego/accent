@@ -47,7 +47,7 @@
   }
 
   .item-iconContainer-icon {
-    fill: #fff;
+    stroke: #fff;
   }
 
   .item-stats {
@@ -91,8 +91,8 @@
   }
 
   .item-user-icon {
-    fill: darken($color-green, 25%);
-    fill: var(--color-primary-darken-30);
+    stroke: darken($color-green, 25%);
+    stroke: var(--color-primary-darken-30);
     width: 21px;
     height: 21px
   }
@@ -105,8 +105,7 @@
 
   &.compact {
     .item-iconContainer-icon {
-      fill: $color-success;
-      fill: var(--color-success);
+      stroke: $color-success;
     }
 
    .item-user--bot {
@@ -156,12 +155,12 @@
   }
 
   .item-iconContainer-icon {
-    fill: #fff;
+    stroke: #fff;
   }
 
   &.compact {
     .item-iconContainer-icon {
-      fill: $color-error;
+      stroke: $color-error;
     }
   }
 }
@@ -169,7 +168,7 @@
 &.correct-all {
   &.compact {
     .item-iconContainer-icon {
-      fill: $color-success;
+      stroke: $color-success;
     }
   }
 
@@ -179,7 +178,7 @@
   }
 
   .item-iconContainer-icon {
-    fill: #fff;
+    stroke: #fff;
   }
 }
 
@@ -192,12 +191,12 @@
   }
 
   .item-iconContainer-icon {
-    fill: #fff;
+    stroke: #fff;
   }
 
   &.compact {
     .item-iconContainer-icon {
-      fill: $color-error;
+      stroke: $color-error;
     }
   }
 }
@@ -208,7 +207,7 @@
   }
 
   .item-iconContainer-icon {
-    fill: $color-success;
+    stroke: $color-success;
   }
 }
 
@@ -218,7 +217,7 @@
   }
 
   .item-iconContainer-icon {
-    fill: $color-error;
+    stroke: $color-error;
   }
 }
 
@@ -228,7 +227,7 @@
   }
 
   .item-iconContainer-icon {
-    fill: $color-error;
+    stroke: $color-error;
   }
 }
 
@@ -238,7 +237,7 @@
   }
 
   .item-iconContainer-icon {
-    fill: $color-warning;
+    stroke: $color-warning;
   }
 }
 
@@ -257,10 +256,6 @@
   }
 
   .item-iconContainer {
-    flex: 0 0 16px;
-    height: 16px;
-    left: 2px;
-    top: 1px;
     background: #fff;
     border-color: rgba($color-grey, 0.4);
   }
@@ -268,7 +263,7 @@
   .item-iconContainer-icon {
     width: 11px;
     height: 11px;
-    fill: rgba($color-grey, 0.5);
+    stroke: rgba($color-grey, 0.5);
   }
 
   &.rollback,
@@ -296,6 +291,8 @@
 
 &.rollback.compact {
   .item-iconContainer {
+    top: -2px;
+    left: -17px;
     display: block;
   }
 
@@ -336,7 +333,6 @@
   .item-content {
     padding-top: 2px;
     background: transparent;
-    border-bottom: 1px solid #eee;
   }
 
   .item-iconContainer {
@@ -353,7 +349,8 @@
   }
 
   .item-content-rollbacked {
-    margin-bottom: 0;
+    margin-bottom: 1px;
+    font-size: 11px;
   }
 
   .item-translationText {
@@ -398,24 +395,15 @@
   color: #aaa;
 }
 
-.item-version-icon {
-  position: relative;
-  top: 4px;
-  margin-right: 1px;
-  width: 16px;
-  height: 16px;
-  fill: #aaa;
-}
-
 .item-iconContainer {
   display: flex;
   position: relative;
   top: 0;
-  flex: 0 0 20px;
+  flex: 0 0 21px;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 21px;
+  height: 21px;
   margin-right: 10px;
   border-radius: 50%;
   border: 1px solid $color-grey;
@@ -424,10 +412,10 @@
 }
 
 .item-iconContainer-icon {
-  width: 13px;
-  height: 13px;
-  flex: 0 0 13px;
-  fill: $color-grey;
+  width: 11px;
+  height: 11px;
+  flex: 0 0 11px;
+  stroke: $color-grey;
 }
 
 .item-content {
@@ -441,7 +429,7 @@
   }
 
   .item-actions {
-    min-width: none;
+    min-width: 0;
     text-align: left;
   }
 }
@@ -491,9 +479,11 @@
 }
 
 .item-user-icon {
-  margin-right: 3px;
-  width: 17px;
-  height: 17px;
+  margin-right: 0;
+  margin-left: 2px;
+  width: 14px;
+  height: 14px;
+  color: #565656;
 }
 
 .item-translationFromOperationText,

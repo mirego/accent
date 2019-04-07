@@ -29,11 +29,11 @@ export default class State {
   }
 
   getCurrentRevision() {
-    return localStorage.getItem('current-revision');
+    return localStorage.getItem('accent-current-revision');
   }
 
   setCurrentRevision(id: string) {
-    localStorage.setItem('current-revision', id);
+    localStorage.setItem('accent-current-revision', id);
   }
 
   addReference(node, translation, meta = {}) {

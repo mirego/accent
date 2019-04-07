@@ -20,7 +20,7 @@ query Project($projectId: ID!, $revisionId: ID) {
 
       revision(id: $revisionId) {
         id
-        translations(pageSize: 1000) {
+        translations(pageSize: 10000) {
           entries {
             id
             key

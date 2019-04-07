@@ -122,17 +122,17 @@
   &:focus,
   &:hover {
     .actionsButton-icon {
-      fill: $color-green;
-      fill: var(--color-primary);
+      stroke: $color-green;
+      stroke: var(--color-primary);
     }
   }
 }
 
 .actionsButton-icon {
   transition: $transition-speed $transition-easing;
-  transition-property: fill;
-  width: 20px;
-  height: 20px;
+  transition-property: stroke;
+  width: 15px;
+  height: 15px;
 }
 
 .actions {

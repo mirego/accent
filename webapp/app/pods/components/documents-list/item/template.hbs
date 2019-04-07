@@ -18,50 +18,54 @@
 </div>
 
 <div class="links">
-  {{#if (get permissions 'sync')}}
-    {{#link-to
-      'logged-in.project.files.sync'
-      project.id
-      document.id
-      class='button button--small button--filled button--black'
-    }}
-      {{inline-svg '/assets/sync.svg' class='button-icon'}}
-      {{t 'components.documents_list.sync'}}
-    {{/link-to}}
-  {{/if}}
+  <div>
+    {{#if (get permissions 'sync')}}
+      {{#link-to
+        'logged-in.project.files.sync'
+        project.id
+        document.id
+        class='button button--small button--filled button--black'
+      }}
+        {{inline-svg '/assets/sync.svg' class='button-icon'}}
+        {{t 'components.documents_list.sync'}}
+      {{/link-to}}
+    {{/if}}
 
-  {{#if (get permissions 'merge')}}
+    {{#if (get permissions 'merge')}}
+      {{#link-to
+        'logged-in.project.files.add-translations'
+        project.id
+        document.id
+        class='button button--small button--filled button--white'
+      }}
+        {{inline-svg '/assets/merge.svg' class='button-icon'}}
+        {{t 'components.documents_list.merge'}}
+      {{/link-to}}
+    {{/if}}
+
     {{#link-to
-      'logged-in.project.files.add-translations'
+      'logged-in.project.files.export'
       project.id
       document.id
       class='button button--small button--filled button--white'
     }}
-      {{inline-svg '/assets/merge.svg' class='button-icon'}}
-      {{t 'components.documents_list.merge'}}
+      {{inline-svg '/assets/export.svg' class='button-icon'}}
+      {{t 'components.documents_list.export'}}
     {{/link-to}}
-  {{/if}}
+  </div>
 
-  {{#link-to
-    'logged-in.project.files.export'
-    project.id
-    document.id
-    class='button button--small button--filled button--white'
-  }}
-    {{inline-svg '/assets/export.svg' class='button-icon'}}
-    {{t 'components.documents_list.export'}}
-  {{/link-to}}
-
-  {{#if (get permissions 'delete_document')}}
-    {{#if canDeleteFile}}
-      {{#async-button
-        onClick=(action 'deleteFile' document)
-        loading=isDeleting
-        class='button button--small button--filled button--red'
-      }}
-        {{inline-svg '/assets/x.svg' class='button-icon'}}
-        {{t 'components.documents_list.delete_document'}}
-      {{/async-button}}
+  <div>
+    {{#if (get permissions 'delete_document')}}
+      {{#if canDeleteFile}}
+        {{#async-button
+          onClick=(action 'deleteFile' document)
+          loading=isDeleting
+          class='button button--small button--red button--borderless deleteDocumentButton'
+        }}
+          {{inline-svg '/assets/x.svg' class='button-icon'}}
+          {{t 'components.documents_list.delete_document'}}
+        {{/async-button}}
+      {{/if}}
     {{/if}}
-  {{/if}}
+  </div>
 </div>

@@ -67,8 +67,7 @@
   text-shadow: 0 1px 1px rgba($color-true-black, 0.4);
   color: #fff;
 
-  &.button--loading svg.loading,
-  .button-icon {
+  &.button--loading svg.loading {
     fill: #fff;
   }
 
@@ -92,10 +91,6 @@
     border: 1px solid darken($color-error, 4%);
     color: #fff;
 
-    .button-icon {
-      fill: #fff;
-    }
-
     &:focus {
       box-shadow: 0 0 10px lighten($color-error, 20%);
     }
@@ -116,10 +111,6 @@
     border: 1px solid darken($color-green, 4%);
     color: #fff;
 
-    .button-icon {
-      fill: #fff;
-    }
-
     &:focus {
       box-shadow: 0 0 10px lighten($color-green, 20%);
     }
@@ -139,10 +130,6 @@
     background: $color-success;
     border: 1px solid darken($color-success, 4%);
     color: #fff;
-
-    .button-icon {
-      fill: #fff;
-    }
 
     &:focus {
       box-shadow: 0 0 10px lighten($color-success, 20%);
@@ -214,8 +201,7 @@
     color: darken($color-grey, 20%);
     text-shadow: none;
 
-    &.button--loading svg.loading,
-    .button-icon {
+    &.button--loading svg.loading {
       fill: $color-black;
     }
 
@@ -225,11 +211,6 @@
 
     &:hover,
     &:focus {
-      .button-icon {
-        fill: $color-black;
-        fill: var(--color-black);
-      }
-
       background: darken(#fff, 4%);
       background: var(--color-primary-lighten-99);
       color: $color-black;
@@ -239,10 +220,6 @@
     &[disabled] {
       &:hover,
       &:focus {
-        .button-icon {
-          fill: $color-grey;
-        }
-
         background: #fff;
         color: darken($color-grey, 20%);
       }
@@ -250,10 +227,6 @@
 
     .loading {
       fill: darken($color-grey, 50%);
-    }
-
-    .button-icon {
-      fill: darken($color-grey, 10%);
     }
   }
 }
@@ -312,8 +285,7 @@
   color: #8a8a8a;
   border-color: #dbdbdb;
 
-  &.button--loading svg.loading,
-  .button-icon {
+  &.button--loading svg.loading {
     fill: #8a8a8a;
   }
 
@@ -328,8 +300,7 @@
 .button--green {
   color: $color-success;
 
-  &.button--loading svg.loading,
-  .button-icon {
+  &.button--loading svg.loading {
     fill: $color-success;
   }
 
@@ -343,8 +314,7 @@
 .button--red {
   color: $color-error;
 
-  &.button--loading svg.loading,
-  .button-icon {
+  &.button--loading svg.loading {
     fill: $color-error;
   }
 
@@ -359,8 +329,7 @@
   color: $color-green;
   color: var(--color-primary);
 
-  &.button--loading svg.loading,
-  .button-icon {
+  &.button--loading svg.loading {
     fill: $color-green;
     fill: var(--color-primary);
   }
@@ -376,4 +345,8 @@
   background: transparent;
   font-size: 12px;
   font-weight: 400;
+}
+
+.button--borderless {
+  border-color: transparent;
 }

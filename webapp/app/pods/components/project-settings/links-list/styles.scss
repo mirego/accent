@@ -29,7 +29,7 @@
   transition-property: background, border-color, color;
 
   .link-icon {
-    fill: #999;
+    stroke: #999;
   }
 
   &:focus,
@@ -39,8 +39,8 @@
     background: $color-light-background;
 
     .link-icon {
-      fill: $color-green;
-      fill: var(--color-primary);
+      stroke: $color-green;
+      stroke: var(--color-primary);
     }
   }
 }
@@ -49,7 +49,19 @@
   width: 20px;
   height: 20px;
   margin-bottom: 3px;
-  fill: $color-green;
   transition: $transition-speed $transition-easing;
-  transition-property: fill;
+  transition-property: stroke;
+}
+
+@media (max-width: ($screen-sm)) {
+  &,
+  .list {
+    margin: 0;
+  }
+
+  .link {
+    width: calc(50% - 20px);
+    min-width: 0;
+    margin: 0 10px 20px;
+  }
 }

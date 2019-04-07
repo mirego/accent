@@ -29,7 +29,7 @@ defmodule Accent.Router do
 
   pipeline :browser do
     plug :accepts, ~w(json html)
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers, %{"x-frame-options" => ""}
   end
 
   scope "/", Accent do

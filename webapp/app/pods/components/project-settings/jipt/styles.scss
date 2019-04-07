@@ -9,34 +9,13 @@
   font-style: italic;
 }
 
-.list {
-  margin: 20px 0 0 0;
-  list-style: none;
-}
-
-.list-text {
-  margin: 10px 0 20px;
-  font-size: 15px;
-}
-
-.list-title {
+.title {
   margin-top: 30px;
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
   font-size: 16px;
   font-weight: 300;
   color: $color-black;
-}
-
-.image {
-  margin: 0 -55px -55px;
-}
-
-.image-title {
-  margin-top: 30px;
-  font-size: 17px;
-  font-weight: bold;
-  color: lighten($color-black, 15%);
 }
 
 .code {
@@ -71,11 +50,5 @@
       background: lighten($color-green, 45%);
       background: var(--color-primary-opacity-10);
     }
-  }
-}
-
-@media (max-width: ($screen-md)) {
-  .image {
-    margin: 0 -25px;
   }
 }

@@ -5,6 +5,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   alias Accent.{
     Language,
+    Operation,
     Project,
     ProjectCreator,
     Repo,
@@ -160,5 +161,14 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     {:ok, result} = Resolver.update(project, %{main_color: project.main_color, name: project.name, is_file_operations_locked: true}, context)
 
     assert get_in(result, [:project, Access.key(:locked_file_operations)]) == true
+  end
+
+  test "get latest activity", %{user: user, project: project} do
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+    operation = %Operation{user_id: user.id, project_id: project.id, action: "sync"} |> Repo.insert!()
+
+    {:ok, latest_activity} = Resolver.last_activity(project, %{}, context)
+
+    assert latest_activity.id === operation.id
   end
 end
