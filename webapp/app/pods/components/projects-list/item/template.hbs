@@ -15,14 +15,6 @@
           class='lastSyncedAt-date'
         }}
       </span>
-
-      <span class="projectUpdate">
-        {{t 'components.projects_list.last_activity_at_label'}}
-        {{time-ago-in-words-tag
-          date=project.lastActivity.insertedAt
-          class='lastSyncedAt-date'
-        }}
-      </span>
     {{else}}
       {{t 'components.projects_list.never_synced'}}
     {{/if}}

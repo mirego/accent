@@ -24,11 +24,6 @@ query Projects($query: String, $page: Int) {
         lastSyncedAt
         mainColor
 
-        lastActivity {
-          id
-          insertedAt
-        }
-
         revisions {
           id
           translationsCount
