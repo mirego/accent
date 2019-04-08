@@ -22,3 +22,11 @@
   text-decoration: none;
   margin: 0 10px 30px;
 }
+
+@media (max-width: ($screen-md)) {
+  .item {
+    max-width: none;
+    width: 100%;
+    flex: 1 1 auto;
+  }
+}

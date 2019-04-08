@@ -64,6 +64,7 @@
 }
 
 .project,
+.applicationLogo-accent,
 .applicationLogo-name {
   margin-left: 15px;
   text-decoration: none;
@@ -130,10 +131,6 @@
 }
 
 @media (max-width: ($screen-sm)) {
-  & {
-    padding: 9px 0;
-  }
-
   .applicationLogo-image {
     width: 18px;
     height: 18px;
@@ -157,6 +154,6 @@
   }
 
   .content {
-    padding: 0 10px;
+    padding: 0 15px;
   }
 }

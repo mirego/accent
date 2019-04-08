@@ -52,3 +52,15 @@
   color: $color-grey;
   font-size: 12px;
 }
+
+@media (max-width: ($screen-sm)) {
+  .filters-wrapper {
+    flex-direction: column;
+  }
+
+  .queryForm,
+  .filters-content {
+    width: 100%;
+    margin-right: 0;
+  }
+}

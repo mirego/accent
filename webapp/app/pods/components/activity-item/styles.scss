@@ -14,7 +14,7 @@
 &.sync {
   left: 9px;
   width: calc(100% + -9px);
-  padding: 5px 10px;
+  padding: 5px;
   background: #fff;
   border: 1px solid rgba($color-border, 0.5);
 
@@ -25,7 +25,8 @@
   }
 
   .item-content {
-    padding: 5px 0 0;
+    width: 100%;
+    padding: 5px 5px 0;
     margin-left: -21px;
     background: #fff;
     border-bottom: 0;
@@ -51,7 +52,7 @@
   }
 
   .item-stats {
-    padding: 0 0 0 28px;
+    padding: 0;
     background: lighten($color-green, 46%);
     background: var(--color-primary-lighten-99);
     color: darken($color-green, 25%);
@@ -85,7 +86,10 @@
     font-size: 13px;
   }
 
-  .item-user.item-user--bot,
+  .item-user.item-user--bot {
+    padding-left: 23px;
+  }
+
   .item-user.item-user--pictureUrl {
     padding-left: 28px;
   }
@@ -93,8 +97,8 @@
   .item-user-icon {
     stroke: darken($color-green, 25%);
     stroke: var(--color-primary-darken-30);
-    width: 21px;
-    height: 21px
+    width: 17px;
+    height: 17px
   }
 
   .item-user-picture {
@@ -109,7 +113,7 @@
     }
 
    .item-user--bot {
-     padding-left: 20px;
+     padding-left: 18px;
    }
 
    .item-user,
@@ -462,7 +466,7 @@
 
     .item-user-icon {
       position: absolute;
-      left: 0;
+      left: -4px;
       top: 1px;
     }
   }

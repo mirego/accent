@@ -65,3 +65,9 @@
   font-size: 12px;
   color: #bbb;
 }
+
+@media (max-width: ($screen-sm)) {
+  & {
+    margin-top: 40px;
+  }
+}

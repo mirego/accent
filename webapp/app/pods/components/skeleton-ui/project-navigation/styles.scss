@@ -34,3 +34,16 @@
     opacity: 0.05;
   }
 }
+
+@media (max-width: ($screen-sm)) {
+  & {
+    flex-direction: row;
+    width: 100%;
+    padding-left: 15px;
+  }
+
+  .item {
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
+}

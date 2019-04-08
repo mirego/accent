@@ -1,11 +1,10 @@
 & {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .list {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20px;
 }
 
 .link {
@@ -53,7 +52,7 @@
   transition-property: stroke;
 }
 
-@media (max-width: ($screen-sm)) {
+@media (max-width: ($screen-md)) {
   &,
   .list {
     margin: 0;

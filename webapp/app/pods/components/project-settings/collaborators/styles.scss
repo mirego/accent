@@ -65,7 +65,7 @@
   font-size: 12px;
 }
 
-@media (max-width: ($screen-sm)) {
+@media (max-width: ($screen-md)) {
   .rolesList {
     display: none;
   }

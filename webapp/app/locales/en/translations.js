@@ -101,7 +101,7 @@ export default {
         cli: {
           title: 'Have many files to upload?',
           text:
-            'Use accent-cli to upload many files at once and write back the changes locally. <a href="https://github.com/mirego/accent-cli">See how to install →</a>'
+            'Use accent-cli to upload many files at once and write back the changes locally. <a href="https://github.com/mirego/accent/tree/master/cli">See how to install →</a>'
         }
       }
     },
