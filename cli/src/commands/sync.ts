@@ -69,6 +69,8 @@ export default class Sync extends Command {
 
       await new HookRunner(document).run(Hooks.afterSync);
     }
+    // After syncing (and writing) the files in Accent, the list of documents could have changed.
+    if (flags.write) await this.refreshProject();
 
     if (flags['add-translations']) {
       new AddTranslationsFormatter().log();
@@ -83,8 +85,6 @@ export default class Sync extends Command {
     }
 
     if (!flags.write) return;
-    // After syncing the files in Accent, the list of documents could have changed.
-    await this.refreshProject();
 
     const formatter = new DocumentExportFormatter();
 
