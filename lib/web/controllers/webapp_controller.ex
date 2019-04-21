@@ -17,7 +17,7 @@ defmodule Accent.WebAppController do
   def index(conn, _) do
     conn
     |> put_resp_header("content-type", "text/html; charset=utf-8")
-    |> send_file(200, conn.assigns[:file])
+    |> send_file(:ok, conn.assigns[:file])
   end
 
   def ensure_file_exists(conn, _) do

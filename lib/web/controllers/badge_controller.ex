@@ -28,6 +28,6 @@ defmodule Accent.BadgeController do
   defp send_badge_resp(conn) do
     conn
     |> put_resp_content_type(@svg_content_type)
-    |> send_resp(200, conn.assigns[:badge])
+    |> send_resp(:ok, conn.assigns[:badge])
   end
 end

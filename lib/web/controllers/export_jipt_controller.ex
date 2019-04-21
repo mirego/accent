@@ -64,7 +64,7 @@ defmodule Accent.ExportJIPTController do
 
     conn
     |> put_resp_header("content-disposition", "inline; filename=\"#{conn.params["document_path"]}\"")
-    |> send_file(200, file)
+    |> send_file(:ok, file)
   end
 
   defp fetch_translations(conn = %{assigns: %{document: document, version: version}}, _) do

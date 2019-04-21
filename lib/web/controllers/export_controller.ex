@@ -78,7 +78,7 @@ defmodule Accent.ExportController do
 
     conn
     |> put_resp_header("content-disposition", "inline; filename=\"#{conn.params["document_path"]}\"")
-    |> send_file(200, file)
+    |> send_file(:ok, file)
   end
 
   defp fetch_order(conn = %{params: %{"order_by" => ""}}, _), do: assign(conn, :order, "index")
