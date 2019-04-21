@@ -8,12 +8,12 @@ defmodule Accent.Hook.GitHubController do
   alias Accent.{Integration, Project, Repo}
   alias Accent.Scopes.Integration, as: IntegrationScope
 
-  plug(Plug.Assign, canary_action: :hook_sync)
+  plug(Plug.Assign, canary_action: :hook_update)
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
   plug(:assign_payload)
-  plug(:sync)
+  plug(:update)
 
-  def sync(conn, _) do
+  def update(conn, _) do
     Accent.Hook.external_document_update(:github, %HookContext{
       event: "push",
       payload: conn.assigns[:payload],
