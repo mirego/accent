@@ -27,7 +27,7 @@ defmodule Accent.Scopes.Integration do
   ## Examples
 
     iex> Accent.Scopes.Integration.from_data_repository(Accent.Integration, "test")
-    #Ecto.Query<from i0 in Accent.Integration, where: i0.service == ^\"test\">
+    #Ecto.Query<from i0 in Accent.Integration, where: fragment(\"?->>'repository' = ?\", i0.data, ^\"test\")>
   """
   @spec from_data_repository(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
   def from_data_repository(query, repository) do
