@@ -50,20 +50,12 @@
 
 .version-tag {
   position: relative;
-  padding-left: 17px;
+  display: flex;
+  align-items: center;
   text-transform: none;
   font-family: $font-monospace;
   font-weight: normal;
   color: #888;
-}
-
-.version-icon {
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 15px;
-  height: 15px;
-  fill: #888;
 }
 
 .removedBadge {

@@ -92,12 +92,12 @@
   margin-right: 5px;
   width: 14px;
   height: 14px;
-  fill: lighten($color-error, 15%);
+  stroke: lighten($color-error, 15%);
 }
 
 .placeholders-title-icon {
   width: 14px;
   height: 14px;
   margin-right: 6px;
-  fill: darken($color-blue, 10%);
+  stroke: darken($color-blue, 10%);
 }
