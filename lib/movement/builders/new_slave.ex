@@ -41,6 +41,7 @@ defmodule Movement.Builders.NewSlave do
     translations =
       Translation
       |> TranslationScope.from_revision(assigns[:master_revision].id)
+      |> TranslationScope.no_version()
       |> Repo.all()
 
     assign(context, :translations, translations)
