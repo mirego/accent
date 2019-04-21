@@ -23,9 +23,11 @@ defmodule Accent.Plugs.AssignCurrentUser do
   end
 
   defp fallback_query_param_token(token, _) when not is_nil(token), do: token
+
   defp fallback_query_param_token(nil, %{params: %{"authorization" => token}}) when is_binary(token) do
     "Bearer " <> token
   end
+
   defp fallback_query_param_token(_, _) do
     nil
   end
