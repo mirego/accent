@@ -19,7 +19,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     [project: project, document: document, user: user]
   end
 
-  def file(value) do
+  def file do
     Base.encode64(~S(
       msgid "key"
       msgstr "value"
