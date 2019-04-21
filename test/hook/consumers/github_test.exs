@@ -19,6 +19,13 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     [project: project, document: document, user: user]
   end
 
+  def file(value) do
+    Base.encode64(~S(
+      msgid "key"
+      msgstr "value"
+      ))
+  end
+
   test "sync default version on default_ref develop", %{project: project, user: user} do
     config =
       %{
@@ -31,13 +38,6 @@ defmodule AccentTest.Hook.Consumers.GitHub do
         ]
       }
       |> Jason.encode!()
-      |> Base.encode64()
-
-    file =
-      """
-      msgid "key"
-      msgstr "value"
-      """
       |> Base.encode64()
 
     FileServerMock
@@ -60,7 +60,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
        }}
     end)
     |> expect(:get, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
-      {:ok, %{body: %{"content" => file}}}
+      {:ok, %{body: %{"content" => file()}}}
     end)
 
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
@@ -139,13 +139,6 @@ defmodule AccentTest.Hook.Consumers.GitHub do
       |> Jason.encode!()
       |> Base.encode64()
 
-    file =
-      """
-      msgid "key"
-      msgstr "value"
-      """
-      |> Base.encode64()
-
     FileServerMock
     |> expect(:get, fn "accent/test-repo/contents/accent.json?ref=v1.0.0", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => config}}}
@@ -166,7 +159,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
        }}
     end)
     |> expect(:get, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
-      {:ok, %{body: %{"content" => file}}}
+      {:ok, %{body: %{"content" => file()}}}
     end)
 
     version = Repo.insert!(%Version{project_id: project.id, user_id: user.id, tag: "v1.0.0", name: "First release"})
@@ -227,13 +220,6 @@ defmodule AccentTest.Hook.Consumers.GitHub do
       |> Jason.encode!()
       |> Base.encode64()
 
-    file =
-      """
-      msgid "key"
-      msgstr "valeur"
-      """
-      |> Base.encode64()
-
     FileServerMock
     |> expect(:get, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => config}}}
@@ -252,7 +238,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
        }}
     end)
     |> expect(:get, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
-      {:ok, %{body: %{"content" => file}}}
+      {:ok, %{body: %{"content" => file()}}}
     end)
 
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
@@ -297,6 +283,6 @@ defmodule AccentTest.Hook.Consumers.GitHub do
            }
 
     assert updated_translation.conflicted_text === "a"
-    assert updated_translation.proposed_text === "valeur"
+    assert updated_translation.proposed_text === "value"
   end
 end
