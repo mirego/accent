@@ -84,10 +84,6 @@ defmodule Accent.Hook.Consumers.GitHub do
     end
   end
 
-  def url_to_path(url) do
-    String.replace_prefix(url, file_server().base_url, "")
-  end
-
   def ref_to_version(ref, default_ref, project) do
     default_version(ref, default_ref) || version_from_ref(ref, project)
   end
