@@ -32,8 +32,6 @@ defmodule Accent.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:ex_minimatch, "~> 0.0.1"},
-
       # Framework
       {:phoenix, "~> 1.4"},
       {:phoenix_html, "~> 2.10"},
@@ -72,6 +70,7 @@ defmodule Accent.Mixfile do
       {:jason, "~> 1.0"},
       {:erlsom, "~> 1.5"},
       {:xml_builder, "~> 2.0"},
+      {:ex_minimatch, "~> 0.0.1"},
 
       # Errors
       {:sentry, "~> 7.0"},
