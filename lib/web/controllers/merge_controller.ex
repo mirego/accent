@@ -61,7 +61,7 @@ defmodule Accent.MergeController do
         send_resp(conn, :ok, "")
 
       {:ok, _} ->
-        Accent.Hook.fanout(%HookContext{
+        Accent.Hook.notify(%HookContext{
           event: "merge",
           project: conn.assigns[:project],
           user: conn.assigns[:current_user],

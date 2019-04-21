@@ -30,6 +30,7 @@ config :accent, Accent.Repo,
 config :accent,
   force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
   hook_broadcaster: Accent.Hook.Broadcaster,
+  hook_github_file_server: Accent.Hook.Consumers.GitHub.FileServer.HTTP,
   dummy_provider_enabled: true,
   restricted_domain: System.get_env("RESTRICTED_DOMAIN")
 

@@ -11,6 +11,8 @@ defmodule Accent do
       supervisor(Accent.Endpoint, []),
       # Start the Ecto repository
       worker(Accent.Repo, []),
+      worker(Accent.Hook.Producers.GitHub, []),
+      worker(Accent.Hook.Consumers.GitHub, []),
       worker(Accent.Hook.Producers.Email, []),
       worker(Accent.Hook.Consumers.Email, mailer: Accent.Mailer),
       worker(Accent.Hook.Producers.Websocket, []),

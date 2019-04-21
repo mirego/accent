@@ -22,7 +22,7 @@ defmodule Accent.GraphQL.Resolvers.Collaborator do
 
     case CollaboratorCreator.create(params) do
       {:ok, collaborator} ->
-        Accent.Hook.fanout(%Hook.Context{
+        Accent.Hook.notify(%Hook.Context{
           event: "create_collaborator",
           project: project,
           user: info.context[:conn].assigns[:current_user],

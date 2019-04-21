@@ -23,3 +23,4 @@ config :accent, Accent.Mailer,
   adapter: Bamboo.TestAdapter
 
 config :accent, hook_broadcaster: Accent.Hook.BroadcasterMock
+config :accent, hook_github_file_server: Accent.Hook.Consumers.GitHub.FileServerMock

@@ -41,7 +41,7 @@ defmodule AccentTest.PeekController do
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn %{event: "peek_merge"} -> :ok end)
+    |> expect(:notify, fn %{event: "peek_merge"} -> :ok end)
 
     response =
       conn
@@ -68,7 +68,7 @@ defmodule AccentTest.PeekController do
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn %{event: "peek_merge"} -> :ok end)
+    |> expect(:notify, fn %{event: "peek_merge"} -> :ok end)
 
     response =
       conn
@@ -95,7 +95,7 @@ defmodule AccentTest.PeekController do
     body = %{file: file(), merge_type: "passive", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn %{event: "peek_merge"} -> :ok end)
+    |> expect(:notify, fn %{event: "peek_merge"} -> :ok end)
 
     response =
       conn
@@ -114,7 +114,7 @@ defmodule AccentTest.PeekController do
     body = %{file: file(), merge_type: "force", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn %{event: "peek_merge"} -> :ok end)
+    |> expect(:notify, fn %{event: "peek_merge"} -> :ok end)
 
     response =
       conn
@@ -141,7 +141,7 @@ defmodule AccentTest.PeekController do
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn %{event: "peek_sync"} -> :ok end)
+    |> expect(:notify, fn %{event: "peek_sync"} -> :ok end)
 
     response =
       conn
