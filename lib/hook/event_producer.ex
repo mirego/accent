@@ -11,7 +11,7 @@ defmodule Accent.Hook.EventProducer do
         {:producer, {:queue.new(), 0}, dispatcher: GenStage.BroadcastDispatcher}
       end
 
-      def handle_call({:notify, event}, from, {queue, demand}) do
+      def handle_call({_, event}, from, {queue, demand}) do
         dispatch_events(:queue.in({from, event}, queue), demand, [])
       end
 
