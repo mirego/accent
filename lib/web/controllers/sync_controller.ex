@@ -50,7 +50,7 @@ defmodule Accent.SyncController do
         send_resp(conn, :ok, "")
 
       {:ok, {context, _operations}} ->
-        Accent.Hook.fanout(%HookContext{
+        Accent.Hook.notify(%HookContext{
           event: "sync",
           project: conn.assigns[:project],
           user: conn.assigns[:current_user],

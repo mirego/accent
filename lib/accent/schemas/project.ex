@@ -9,6 +9,7 @@ defmodule Accent.Project do
 
     has_many(:integrations, Accent.Integration)
     has_many(:revisions, Accent.Revision)
+    has_many(:target_revisions, Accent.Revision, where: [master: false])
     has_many(:versions, Accent.Version)
     has_many(:operations, Accent.Operation)
     has_many(:collaborators, Accent.Collaborator)

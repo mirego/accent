@@ -43,7 +43,7 @@ defmodule AccentTest.MergeController do
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn %{event: "merge"} -> :ok end)
+    |> expect(:notify, fn %{event: "merge"} -> :ok end)
 
     response =
       conn
@@ -87,7 +87,7 @@ defmodule AccentTest.MergeController do
     body = %{file: file(), merge_type: "force", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn %{event: "merge"} -> :ok end)
+    |> expect(:notify, fn %{event: "merge"} -> :ok end)
 
     response =
       conn
@@ -112,7 +112,7 @@ defmodule AccentTest.MergeController do
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn %{event: "merge"} -> :ok end)
+    |> expect(:notify, fn %{event: "merge"} -> :ok end)
 
     response =
       conn

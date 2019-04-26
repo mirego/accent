@@ -57,7 +57,7 @@ defmodule Accent.PeekController do
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
 
-    Accent.Hook.fanout(%HookContext{
+    Accent.Hook.notify(%HookContext{
       event: "peek_sync",
       project: conn.assigns[:project],
       user: conn.assigns[:current_user]
@@ -101,7 +101,7 @@ defmodule Accent.PeekController do
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
 
-    Accent.Hook.fanout(%HookContext{
+    Accent.Hook.notify(%HookContext{
       event: "peek_merge",
       project: conn.assigns[:project],
       user: conn.assigns[:current_user],

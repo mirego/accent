@@ -37,7 +37,7 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn _ -> :ok end)
+    |> expect(:notify, fn _ -> :ok end)
 
     {:ok, result} = Resolver.create(translation, %{text: "First comment"}, context)
 

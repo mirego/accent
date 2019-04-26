@@ -39,7 +39,7 @@ defmodule AccentTest.SyncController do
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: "json", document_path: "simple"}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn _ -> :ok end)
+    |> expect(:notify, fn _ -> :ok end)
 
     response =
       conn

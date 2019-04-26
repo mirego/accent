@@ -27,7 +27,7 @@ defmodule Accent.GraphQL.Resolvers.Comment do
       {:ok, comment} ->
         comment = Repo.preload(comment, [:user, translation: [revision: :project]])
 
-        Accent.Hook.fanout(%Hook.Context{
+        Accent.Hook.notify(%Hook.Context{
           event: "create_comment",
           project: comment.translation.revision.project,
           user: info.context[:conn].assigns[:current_user],

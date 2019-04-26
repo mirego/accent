@@ -41,6 +41,7 @@ defmodule Accent.RoleAbilities do
     peek_merge
     merge
     sync
+    hook_update
   )a ++ @any_actions
 
   @developer_actions ~w(
