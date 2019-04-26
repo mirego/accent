@@ -8,6 +8,7 @@ defmodule Accent.Hook.GitHubController do
   alias Accent.{Integration, Project, Repo}
   alias Accent.Scopes.Integration, as: IntegrationScope
 
+  plug(:filter_event_type)
   plug(Plug.Assign, canary_action: :hook_update)
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
   plug(:assign_payload)
@@ -15,7 +16,6 @@ defmodule Accent.Hook.GitHubController do
 
   def update(conn, _) do
     Accent.Hook.external_document_update(:github, %HookContext{
-      event: "push",
       payload: conn.assigns[:payload],
       project: conn.assigns[:project],
       user: conn.assigns[:current_user]
@@ -49,5 +49,19 @@ defmodule Accent.Hook.GitHubController do
     |> IntegrationScope.from_data_repository(repository)
     |> first()
     |> Repo.one()
+  end
+
+  defp filter_event_type(conn, _) do
+    conn
+    |> get_req_header("x-github-event")
+    |> case do
+      ["push"] ->
+        conn
+
+      _ ->
+        conn
+        |> send_resp(:not_implemented, "")
+        |> halt()
+    end
   end
 end

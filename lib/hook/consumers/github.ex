@@ -20,7 +20,7 @@ defmodule Accent.Hook.Consumers.GitHub do
     {:noreply, [], state}
   end
 
-  defp handle_event(%Context{user: user, project: project, event: "push", payload: payload}) do
+  defp handle_event(%Context{user: user, project: project, payload: payload}) do
     payload[:ref]
     |> ref_to_version(payload[:default_ref], project)
     |> sync_and_add_translations(project, user, payload)
