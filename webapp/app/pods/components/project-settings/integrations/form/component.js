@@ -10,7 +10,7 @@ export default Component.extend({
   isSubmiting: false,
   emptyUrl: not('url'),
   url: reads('integration.data.url'),
-  services: ['SLACK'],
+  services: ['SLACK', 'DISCORD'],
 
   service: computed('services.[]', function() {
     return this.services[0];

@@ -2,7 +2,8 @@ defmodule Accent.Hook.Broadcaster do
   @notifiers [
     Accent.Hook.Producers.Email,
     Accent.Hook.Producers.Websocket,
-    Accent.Hook.Producers.Slack
+    Accent.Hook.Producers.Slack,
+    Accent.Hook.Producers.Discord
   ]
 
   @callback notify(Accent.Hook.Context.t()) :: no_return()

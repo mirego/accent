@@ -18,7 +18,9 @@ defmodule Accent do
       worker(Accent.Hook.Producers.Websocket, []),
       worker(Accent.Hook.Consumers.Websocket, endpoint: Accent.Endpoint),
       worker(Accent.Hook.Producers.Slack, []),
-      worker(Accent.Hook.Consumers.Slack, http_client: HTTPoison)
+      worker(Accent.Hook.Consumers.Slack, http_client: HTTPoison),
+      worker(Accent.Hook.Producers.Discord, []),
+      worker(Accent.Hook.Consumers.Discord, http_client: HTTPoison)
     ]
 
     {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
