@@ -30,7 +30,6 @@ module.exports = function(defaults) {
     }
   });
 
-  app.import('node_modules/spin.js/spin.js');
   app.import('node_modules/diff/dist/diff.js');
 
   return app.toTree();

@@ -1,7 +1,6 @@
 {
   "globals": {
-    "JsDiff": true,
-    "Spinner": true
+    "JsDiff": true
   },
   "plugins": [
     "ember",
