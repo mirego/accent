@@ -1,9 +1,0 @@
-mutation RevisionMasterPromote($revisionId: ID!) {
-  promoteRevisionMaster(id: $revisionId) {
-    revision {
-      id
-    }
-
-    errors
-  }
-}

@@ -1,9 +1,0 @@
-query ProjectApiToken($projectId: ID!) {
-  viewer {
-    project(id: $projectId) {
-      id
-      name
-      accessToken
-    }
-  }
-}

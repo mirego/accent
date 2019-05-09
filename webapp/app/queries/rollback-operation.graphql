@@ -1,6 +1,0 @@
-mutation OperationRollback($operationId: ID!) {
-  rollbackOperation(id: $operationId) {
-    operation
-    errors
-  }
-}
