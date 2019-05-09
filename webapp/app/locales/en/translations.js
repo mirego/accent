@@ -431,6 +431,12 @@ export default {
         save: 'Save',
         edit: 'Edit',
         delete: 'Delete',
+        data: {
+          default_ref: 'Default ref',
+          repository: 'Repository',
+          token: 'Token',
+          url: 'URL'
+        },
         events: {
           title: 'Which events would you like to trigger this webhook?',
           options: {
@@ -787,8 +793,9 @@ export default {
       REVIEWER: 'Reviewer'
     },
     integration_services: {
-      SLACK: 'Slack',
       DISCORD: 'Discord',
+      GITHUB: 'GitHub',
+      SLACK: 'Slack'
     },
     search_input_placeholder_text: 'Search for a string…'
   },

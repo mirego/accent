@@ -24,20 +24,20 @@
   color: #333;
 }
 
-.details-url {
+.details-preview {
   padding-right: 15px;
   text-overflow: ellipsis;
   overflow-x: hidden;
   margin-left: 10px;
   font-size: 13px;
-  color: #ddd;
+  color: #ccc;
 }
 
 .details-logo {
-  flex: 0 0 22px;
-  margin-right: 4px;
-  width: 22px;
-  height: 22px;
+  flex: 0 0 20px;
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
 }
 
 .details-actions {

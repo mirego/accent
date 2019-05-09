@@ -1,5 +1,7 @@
 & {
-  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 3px;
 }
 
 .form {
@@ -21,32 +23,56 @@
   display: inline-flex;
   align-items: center;
   margin-right: 10px;
+  border: 1px solid #eee;
+  padding: 3px 6px;
+  border-radius: 3px;
+  background: #f7f7f7;
 
   input {
-    margin-right: 3px;
+    margin-right: 5px;
   }
 }
 
-.events {
+.data {
   margin-top: 10px;
-  padding: 10px;
-  border-top: 1px solid #eee;
   font-size: 12px;
 }
 
-.events-title {
-  margin-bottom: 8px;
+.data-control {
+  margin-bottom: 15px;
+}
+
+.error-control {
+ @extend %errorControl;
+}
+
+.data-title {
+  display: block;
+  margin-bottom: 5px;
   font-size: 13px;
   font-weight: bold;
+}
+
+.service-logo {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
 }
 
 .ember-power-select-trigger {
   min-width: 150px;
   margin-right: 10px;
-  border-color: #eee;
+  border: 1px solid #eee;
   background: #fff;
   font-size: 12px;
+  font-weight: bold;
   box-shadow: 0 1px 5px rgba(#000, 0.06);
+}
+
+.ember-power-select-option,
+.ember-power-select-selected-item {
+  display: flex;
+  align-items: center;
 }
 
 .ember-power-select-trigger[aria-disabled="true"] {
@@ -56,4 +82,8 @@
 
 .button {
   margin-right: 5px;
+}
+
+.actions {
+  text-align: right;
 }

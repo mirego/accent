@@ -51,10 +51,10 @@ defmodule Accent.RoleAbilities do
     sync
     delete_document
     show_project_access_token
-    index_integrations
-    create_integration
-    update_integration
-    delete_integration
+    index_project_integrations
+    create_project_integration
+    update_project_integration
+    delete_project_integration
   )a ++ @any_actions
 
   @admin_actions ~w(

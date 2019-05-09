@@ -1,45 +1,38 @@
-<div>
-  <div class="form">
-    {{#power-select
-      disabled=false
-      searchEnabled=false
-      selected=serviceValue
-      options=mappedServices
-      onchange=(action (mut service) value='value') as |option|
-    }}
-      {{t option.label}}
-    {{/power-select}}
+<div class="form">
+  {{#power-select
+    searchEnabled=false
+    selected=serviceValue
+    renderInPlace=true
+    options=mappedServices
+    onchange=(action (mut service) value='value') as |option|
+  }}
+    {{inline-svg option.logo class='service-logo'}}
+    {{t option.label}}
+  {{/power-select}}
+</div>
 
-    {{input
-      value=url
-      class='textInput'
-    }}
+{{component
+  dataFormComponent
+  repository=repository
+  defaultRef=defaultRef
+  token=token
+  errors=errors
+  url=url
+  syncChecked=syncChecked
+}}
 
-    {{#async-button
-      onClick=(action 'submit')
-      loading=isCreating
-      disabled=emptyUrl
-      class='button button--filled'
-    }}
-      {{t 'components.project_settings.integrations.save'}}
-    {{/async-button}}
+<div class="actions">
+  {{#async-button
+    onClick=(action 'submit')
+    loading=isCreating
+    class='button button--filled'
+  }}
+    {{t 'components.project_settings.integrations.save'}}
+  {{/async-button}}
 
-    {{#if onCancel}}
-      <button {{action onCancel}} class="button button--filled button--white">
-        Cancel
-      </button>
-    {{/if}}
-  </div>
-
-  <div class="events">
-    <h3 class="events-title">
-      {{t 'components.project_settings.integrations.events.title'}}
-    </h3>
-
-    {{checkbox-with-label
-      checked=syncChecked
-      text=(t 'components.project_settings.integrations.events.options.sync')
-      update=(action (mut syncChecked))
-    }}
-  </div>
+  {{#if onCancel}}
+    <button {{action onCancel}} class="button button--filled button--white">
+      Cancel
+    </button>
+  {{/if}}
 </div>

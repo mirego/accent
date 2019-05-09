@@ -31,7 +31,7 @@ defmodule Accent.GraphQL.Types.Project do
     end
 
     field(:language, :language, resolve: dataloader(Accent.Language))
-    field(:integrations, list_of(:integration), resolve: dataloader(Accent.Integration))
+    field(:integrations, list_of(:project_integration), resolve: dataloader(Accent.Integration))
 
     field :document, :document do
       arg(:id, non_null(:id))

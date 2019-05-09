@@ -39,7 +39,7 @@ defmodule AccentTest.CollaboratorCreator do
 
     {:error, collaborator} = CollaboratorCreator.create(%{"email" => email, "assigner_id" => assigner.id, "role" => role, "project_id" => project.id})
 
-    assert collaborator.errors === [role: {"is invalid", [validation: :inclusion]}]
+    assert collaborator.errors === [role: {"is invalid", [validation: :inclusion, enum: ["owner", "admin", "developer", "reviewer"]]}]
   end
 
   test "create with insensitive email" do

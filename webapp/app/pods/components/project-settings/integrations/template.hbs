@@ -1,6 +1,6 @@
 {{project-settings/title title=(t 'components.project_settings.integrations.title')}}
 
-{{#if (get permissions 'create_integration')}}
+{{#if (get permissions 'create_project_integration')}}
   <button {{action 'toggleCreateForm'}} class="toggleCreateFormButton button button--iconOnly {{if showCreateForm 'button--filled button--white' 'button--filled'}}">
     {{#if showCreateForm}}
       {{inline-svg '/assets/x.svg' class='button-icon'}}

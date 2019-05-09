@@ -1,0 +1,28 @@
+  <div class="data">
+    <div class="data-control {{if repositoryError 'error-control'}}">
+      <label class="data-title">{{t 'components.project_settings.integrations.data.repository'}}</label>
+      {{input
+        placeholder="mirego/accent"
+        value=repository
+        class='textInput'
+      }}
+    </div>
+
+    <div class="data-control {{if tokenError 'error-control'}}">
+      <label class="data-title">{{t 'components.project_settings.integrations.data.token'}}</label>
+      {{input
+        placeholder="aaaa-bbbb-cccc"
+        value=token
+        class='textInput'
+      }}
+    </div>
+
+    <div class="data-control {{if defaultRefError 'error-control'}}">
+      <label class="data-title">{{t 'components.project_settings.integrations.data.default_ref'}}</label>
+      {{input
+        placeholder="master"
+        value=defaultRef
+        class='textInput'
+      }}
+    </div>
+  </div>

@@ -1,9 +1,13 @@
 mutation IntegrationDelete($integrationId: ID!) {
-  deleteIntegration(id: $integrationId) {
-    integration {
+  deleteProjectIntegration(id: $integrationId) {
+    projectIntegration: result {
       id
     }
 
-    errors
+    successful
+    errors: messages {
+      code
+      field
+    }
   }
 }

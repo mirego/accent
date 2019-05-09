@@ -9,7 +9,7 @@ defmodule Accent.Integration do
       field(:url)
       field(:repository)
       field(:token)
-      field(:default_ref, :string, default: "master")
+      field(:default_ref)
     end
 
     belongs_to(:project, Accent.Project)

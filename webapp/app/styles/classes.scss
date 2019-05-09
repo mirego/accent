@@ -15,6 +15,16 @@
   color: $color-grey;
 }
 
+%errorControl {
+  label {
+    color: $color-error;
+  }
+
+  input {
+    border-color: $color-error;
+  }
+}
+
 %textInput {
   transition: $transition-speed $transition-easing;
   transition-property: border box-shadow;

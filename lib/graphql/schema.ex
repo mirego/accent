@@ -7,6 +7,7 @@ defmodule Accent.GraphQL.Schema do
   import_types(Accent.GraphQL.DatetimeScalar)
 
   # Types
+  import_types(AbsintheErrorPayload.ValidationMessageTypes)
   import_types(Accent.GraphQL.Types.DocumentFormat)
   import_types(Accent.GraphQL.Types.Role)
   import_types(Accent.GraphQL.Types.Viewer)

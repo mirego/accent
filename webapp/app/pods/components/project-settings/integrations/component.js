@@ -16,9 +16,10 @@ export default Component.extend({
     },
 
     create(args) {
-      return this.onCreateIntegration(args).then(() =>
-        this.set('showCreateForm', false)
-      );
+      return this.onCreateIntegration(args).then(({errors}) => {
+        this.set('showCreateForm', errors && errors.length > 0);
+        return {errors};
+      });
     }
   }
 });

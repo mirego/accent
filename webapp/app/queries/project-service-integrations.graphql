@@ -7,10 +7,22 @@ query ProjectServiceIntegrations($projectId: ID!) {
       integrations {
         id
         service
-        events
-        data {
-          id
-          url
+
+        ... on ProjectIntegrationSlack {
+          events
+          data {
+            id
+            url
+          }
+        }
+
+        ... on ProjectIntegrationGitHub {
+          data {
+            id
+            repository
+            token
+            defaultRef
+          }
         }
       }
     }

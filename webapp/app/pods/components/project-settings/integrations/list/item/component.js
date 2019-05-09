@@ -2,8 +2,9 @@ import {computed} from '@ember/object';
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 const LOGOS = {
-  SLACK: 'assets/services/slack.svg',
-  DISCORD: 'assets/services/discord.svg'
+  DISCORD: 'assets/services/discord.svg',
+  GITHUB: 'assets/services/github.svg',
+  SLACK: 'assets/services/slack.svg'
 };
 
 // Attributes
@@ -14,6 +15,7 @@ export default Component.extend({
   i18n: service(),
 
   tagName: 'li',
+  errors: [],
 
   isEditing: false,
 
@@ -29,19 +31,24 @@ export default Component.extend({
 
   actions: {
     toggleEdit() {
+      this.set('errors', []);
       this.set('isEditing', !this.isEditing);
     },
 
     update(args) {
-      return this.onUpdate(args).then(() => this.set('isEditing', false));
+      this.onUpdate(args).then(({errors}) => {
+        this.set('errors', errors);
+        this.set('isEditing', errors && errors.length > 0);
+      });
     },
 
     delete() {
       this.set('isDeleting', true);
 
-      this.onDelete({id: this.integration.id}).then(() =>
-        this.set('isDeleting', false)
-      );
+      this.onDelete({id: this.integration.id}).then(({errors}) => {
+        this.set('errors', errors);
+        this.set('isEditing', errors && errors.length > 0);
+      });
     }
   }
 });

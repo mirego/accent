@@ -45,8 +45,8 @@ defmodule Accent.Mixfile do
       {:plug, "~> 1.7", override: true},
 
       # Database
-      {:ecto, "~> 3.0", override: true},
-      {:ecto_sql, "~> 3.0"},
+      {:ecto, "~> 3.1", override: true},
+      {:ecto_sql, "~> 3.1"},
       {:postgrex, "~> 0.14"},
 
       # Phoenix data helpers
@@ -57,6 +57,7 @@ defmodule Accent.Mixfile do
       # GraphQL
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
+      {:absinthe_error_payload, "~> 1.0"},
 
       # Utils
       {:p1_utils, github: "processone/p1_utils", override: true},
