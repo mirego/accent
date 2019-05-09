@@ -787,7 +787,8 @@ export default {
       REVIEWER: 'Reviewer'
     },
     integration_services: {
-      SLACK: 'Slack'
+      SLACK: 'Slack',
+      DISCORD: 'Discord',
     },
     search_input_placeholder_text: 'Search for a string…'
   },

@@ -3,6 +3,7 @@ defmodule Accent.GraphQL.Types.Integration do
 
   enum :integration_service do
     value(:slack, as: "slack")
+    value(:discord, as: "discord")
   end
 
   enum :integration_event do

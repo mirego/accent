@@ -2,7 +2,8 @@ import {computed} from '@ember/object';
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 const LOGOS = {
-  SLACK: 'assets/services/slack.svg'
+  SLACK: 'assets/services/slack.svg',
+  DISCORD: 'assets/services/discord.svg'
 };
 
 // Attributes
