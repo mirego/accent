@@ -16,6 +16,14 @@ query ProjectServiceIntegrations($projectId: ID!) {
           }
         }
 
+        ... on ProjectIntegrationDiscord {
+          events
+          data {
+            id
+            url
+          }
+        }
+
         ... on ProjectIntegrationGitHub {
           data {
             id
