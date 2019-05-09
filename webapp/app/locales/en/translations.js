@@ -630,7 +630,7 @@ export default {
       save_button: 'Add language'
     },
     project_manage_languages_overview: {
-      list_languages: 'Here is a list of the project’s languages:',
+      list_languages: 'Languages:',
       revision_inserted_at_label: 'Created',
       master_badge: 'master',
       delete_revision_confirm:
