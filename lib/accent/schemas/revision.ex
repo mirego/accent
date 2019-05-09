@@ -4,6 +4,16 @@ defmodule Accent.Revision do
   schema "revisions" do
     field(:master, :boolean, default: true)
 
+    field(:name, :string)
+    field(:slug, :string)
+    field(:iso_639_1, :string)
+    field(:iso_639_3, :string)
+    field(:locale, :string)
+    field(:android_code, :string)
+    field(:osx_code, :string)
+    field(:osx_locale, :string)
+    field(:plural_forms, :string)
+
     belongs_to(:master_revision, Accent.Revision)
     belongs_to(:project, Accent.Project)
     belongs_to(:language, Accent.Language)
@@ -35,5 +45,30 @@ defmodule Accent.Revision do
     reviewed_count = translations_count - conflicts_count
 
     %{revision | translations_count: translations_count, conflicts_count: conflicts_count, reviewed_count: reviewed_count}
+  end
+
+  def language(revision = %{language: %Ecto.Association.NotLoaded{}}) do
+    revision
+    |> Accent.Repo.preload(:language)
+    |> language()
+  end
+
+  def language(revision) do
+    language_override =
+      Map.take(revision, ~w(
+      name
+      slug
+      iso_639_1
+      iso_639_3
+      locale
+      android_code
+      osx_code
+      osx_locale
+      plural_forms
+    )a)
+      |> Enum.reject(fn {_key, value} -> value in [nil, ""] end)
+      |> Enum.into(%{})
+
+    Map.merge(revision.language, language_override)
   end
 end

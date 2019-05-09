@@ -26,7 +26,7 @@ defmodule Accent.Hook.Consumers.GitHub.AddTranslations do
       target =
         config["target"]
         |> Kernel.||("")
-        |> String.replace("%slug%", revision.language.slug)
+        |> String.replace("%slug%", Accent.Revision.language(revision).slug)
         |> String.replace("%original_file_name%", "*")
 
       Map.put(config, "matcher", ExMinimatch.compile(target))

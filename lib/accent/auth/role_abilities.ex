@@ -61,6 +61,7 @@ defmodule Accent.RoleAbilities do
     create_slave
     delete_slave
     promote_slave
+    update_slave
     update_project
     delete_collaborator
     create_collaborator

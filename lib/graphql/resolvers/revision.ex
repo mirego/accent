@@ -9,6 +9,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     Project,
     Repo,
     Revision,
+    RevisionManager,
     TranslationsCounter
   }
 
@@ -24,8 +25,19 @@ defmodule Accent.GraphQL.Resolvers.Revision do
 
   @spec delete(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
   def delete(revision, _, _) do
-    case Accent.RevisionDeleter.delete(revision: revision) do
+    case RevisionManager.delete(revision) do
       {:ok, %{revision: revision}} ->
+        {:ok, %{revision: revision, errors: nil}}
+
+      {:error, _} ->
+        {:ok, %{revision: revision, errors: ["unprocessable_entity"]}}
+    end
+  end
+
+  @spec update(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
+  def update(revision, args, _) do
+    case RevisionManager.update(revision, args) do
+      {:ok, revision} ->
         {:ok, %{revision: revision, errors: nil}}
 
       {:error, _} ->
@@ -35,7 +47,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
 
   @spec promote_master(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
   def promote_master(revision, _, _) do
-    case Accent.RevisionMasterPromoter.promote(revision: revision) do
+    case RevisionManager.promote(revision) do
       {:ok, revision} ->
         {:ok, %{revision: revision, errors: nil}}
 

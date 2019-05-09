@@ -165,7 +165,7 @@ defmodule Accent.ExportController do
         master_translations: master_translations,
         master_revision: master_revision,
         translations: translations,
-        language: revision.language,
+        language: Accent.Revision.language(revision),
         document: document
       })
 

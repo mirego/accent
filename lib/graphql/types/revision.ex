@@ -7,12 +7,14 @@ defmodule Accent.GraphQL.Types.Revision do
 
   object :revision do
     field(:id, :id)
-    field(:name, non_null(:string))
     field(:is_master, non_null(:boolean), resolve: field_alias(:master))
     field(:translations_count, non_null(:integer))
     field(:conflicts_count, non_null(:integer))
     field(:reviewed_count, non_null(:integer))
     field(:inserted_at, non_null(:datetime))
+
+    field(:name, :string)
+    field(:slug, :string)
 
     field(:language, non_null(:language), resolve: dataloader(Accent.Language))
 

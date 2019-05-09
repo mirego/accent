@@ -52,6 +52,20 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
     assert get_in(result, [:errors]) == nil
   end
 
+  test "update", %{slave_revision: revision} do
+    {:ok, result} = Resolver.update(revision, %{name: "foo", slug: "bar"}, %{})
+
+    assert get_in(result, [:revision, Access.key(:name)]) == "foo"
+    assert get_in(result, [:revision, Access.key(:slug)]) == "bar"
+  end
+
+  test "update with null values", %{slave_revision: revision} do
+    {:ok, result} = Resolver.update(revision, %{name: nil, slug: nil}, %{})
+
+    assert get_in(result, [:revision, Access.key(:name)]) == nil
+    assert get_in(result, [:revision, Access.key(:slug)]) == nil
+  end
+
   test "correct all", %{master_revision: revision, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
     %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: true} |> Repo.insert!()

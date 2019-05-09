@@ -285,4 +285,91 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     assert updated_translation.conflicted_text === "a"
     assert updated_translation.proposed_text === "value"
   end
+
+  test "add translations with language overrides", %{project: project, document: document, user: user} do
+    language_override = Ecto.UUID.generate()
+    language_slug = Ecto.UUID.generate()
+    language = Repo.insert!(%Language{name: "Other french", slug: language_slug})
+    revision = Repo.insert!(%Revision{project_id: project.id, master: false, language: language, slug: language_override})
+    translation = Repo.insert!(%Translation{revision_id: revision.id, document_id: document.id, key: "key", proposed_text: "a", corrected_text: "a"})
+
+    config =
+      %{
+        "files" => [
+          %{
+            "format" => "gettext",
+            "language" => "fr",
+            "source" => "priv/fr/**/*.po",
+            "target" => "priv/%slug%/**/%original_file_name%.po"
+          }
+        ]
+      }
+      |> Jason.encode!()
+      |> Base.encode64()
+
+    FileServerMock
+    |> expect(:get, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
+      {:ok, %{body: %{"content" => config}}}
+    end)
+    |> expect(:get, fn "accent/test-repo/git/trees/develop?recursive=1", [{"Authorization", "token 1234"}] ->
+      {:ok,
+       %{
+         body: %{
+           "tree" => [
+             %{"path" => "accent.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"},
+             %{"path" => "Dockerfile", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"},
+             %{"path" => "priv/#{language_override}", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"},
+             %{"path" => "priv/#{language_override}/admin.po", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"}
+           ]
+         }
+       }}
+    end)
+    |> expect(:get, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
+      {:ok, %{body: %{"content" => file()}}}
+    end)
+
+    data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
+    Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
+
+    event = %Accent.Hook.Context{
+      project: project,
+      event: "push",
+      payload: %{
+        default_ref: data.default_ref,
+        ref: "refs/heads/develop",
+        repository: data.repository,
+        token: data.token
+      }
+    }
+
+    Consumer.handle_events([event], nil, [])
+
+    batch_operation =
+      Operation
+      |> where([o], o.batch == true)
+      |> Repo.one()
+
+    operation =
+      Operation
+      |> where([o], o.batch == false)
+      |> Repo.one()
+
+    updated_translation =
+      Translation
+      |> where([t], t.key == ^"key")
+      |> Repo.one()
+
+    assert batch_operation.action === "merge"
+    assert operation.action === "merge_on_proposed"
+    assert operation.translation_id === translation.id
+
+    assert operation.previous_translation === %Accent.PreviousTranslation{
+             corrected_text: "a",
+             proposed_text: "a",
+             value_type: "string"
+           }
+
+    assert updated_translation.conflicted_text === "a"
+    assert updated_translation.proposed_text === "value"
+  end
 end

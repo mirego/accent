@@ -1,7 +1,7 @@
 defmodule AccentTest.RevisionMasterPromoter do
   use Accent.RepoCase
 
-  alias Accent.{Language, Project, Repo, Revision, RevisionMasterPromoter}
+  alias Accent.{Language, Project, Repo, Revision, RevisionManager}
 
   setup do
     french_language = %Language{name: "french"} |> Repo.insert!()
@@ -15,7 +15,7 @@ defmodule AccentTest.RevisionMasterPromoter do
   end
 
   test "promote slave", %{slave_revision: revision, master_revision: master_revision} do
-    {:ok, revision} = RevisionMasterPromoter.promote(revision: revision)
+    {:ok, revision} = RevisionManager.promote(revision)
 
     old_master_revision = Repo.get(Revision, master_revision.id)
 
@@ -26,7 +26,7 @@ defmodule AccentTest.RevisionMasterPromoter do
   end
 
   test "promote master", %{master_revision: revision} do
-    {:error, changeset} = RevisionMasterPromoter.promote(revision: revision)
+    {:error, changeset} = RevisionManager.promote(revision)
 
     assert changeset.errors == [master: {"invalid", []}]
   end

@@ -111,14 +111,15 @@ defmodule Accent.ExportJIPTController do
 
   defp fetch_rendered_document(conn = %{assigns: %{project: project, translations: translations, document: document}}, _) do
     project = Repo.preload(project, revisions: :language)
+    revision = Enum.at(project.revisions, 0)
 
     %{render: render} =
       Accent.TranslationsRenderer.render(%{
         master_translations: [],
         translations: translations,
-        master_revision: Enum.at(project.revisions, 0),
-        language: Enum.at(project.revisions, 0).language,
+        master_revision: revision,
         document: document,
+        language: Accent.Revision.language(revision),
         value_map: &"{^#{&1.key}@#{document.path}}"
       })
 

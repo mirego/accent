@@ -122,4 +122,46 @@ defmodule AccentTest.TranslationsRenderer do
 
     assert render == expected_render
   end
+
+  test "render xliff and revision overrides on source revision", %{project: project, revision: revision} do
+    revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
+    document = Repo.insert!(%Document{project_id: project.id, path: "my-test", format: "xliff_1_2"})
+
+    translation =
+      %Translation{
+        key: "a",
+        proposed_text: "A",
+        corrected_text: "A",
+        revision_id: revision.id,
+        document_id: document.id
+      }
+      |> Repo.insert!()
+
+    %{render: render} =
+      TranslationsRenderer.render(%{
+        master_translations: [
+          %Translation{
+            key: "a",
+            corrected_text: "master A"
+          }
+        ],
+        master_revision: revision,
+        translations: [translation],
+        document: document,
+        language: %Language{slug: "fr"}
+      })
+
+    expected_render = """
+    <file original=\"my-test\" datatype=\"plaintext\" source-language=\"testtest\" target-language=\"fr\">
+      <body>
+        <trans-unit id=\"a\">
+          <source>master A</source>
+          <target>A</target>
+        </trans-unit>
+      </body>
+    </file>
+    """
+
+    assert render == expected_render
+  end
 end
