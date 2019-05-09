@@ -1,31 +1,31 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query RelatedTranslations($projectId: ID!, $translationId: ID!) {
-  viewer {
-    project(id: $projectId) {
-      id
-      translation(id: $translationId) {
+  query RelatedTranslations($projectId: ID!, $translationId: ID!) {
+    viewer {
+      project(id: $projectId) {
         id
-        relatedTranslations {
+        translation(id: $translationId) {
           id
-          key
-          correctedText
-          isConflicted
-          isRemoved
-          updatedAt
-
-          revision {
+          relatedTranslations {
             id
+            key
+            correctedText
+            isConflicted
+            isRemoved
+            updatedAt
 
-            language {
+            revision {
               id
-              name
+
+              language {
+                id
+                name
+              }
             }
           }
         }
       }
     }
   }
-}
 `;

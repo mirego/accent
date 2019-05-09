@@ -1,94 +1,94 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query ProjectActivity($projectId: ID!, $activityId: ID!) {
-  viewer {
-    project(id: $projectId) {
-      id
+  query ProjectActivity($projectId: ID!, $activityId: ID!) {
+    viewer {
+      project(id: $projectId) {
+        id
 
-      activity(id: $activityId) {
-        ...activityFields
-
-        isBatch
-        isRollbacked
-        activityType
-
-        document {
-          id
-          path
-          format
-        }
-
-        previousTranslation {
-          proposedText
-          text
-          isConflicted
-          isRemoved
-          valueType
-        }
-
-        translation {
-          id
-          key
-          correctedText
-          isConflicted
-          isRemoved
-        }
-
-        version {
-          id
-          tag
-        }
-
-        batchOperation {
+        activity(id: $activityId) {
           ...activityFields
-        }
 
-        rollbackedOperation {
-          ...activityFields
-        }
+          isBatch
+          isRollbacked
+          activityType
 
-        rollbackOperation {
-          ...activityFields
+          document {
+            id
+            path
+            format
+          }
+
+          previousTranslation {
+            proposedText
+            text
+            isConflicted
+            isRemoved
+            valueType
+          }
+
+          translation {
+            id
+            key
+            correctedText
+            isConflicted
+            isRemoved
+          }
+
+          version {
+            id
+            tag
+          }
+
+          batchOperation {
+            ...activityFields
+          }
+
+          rollbackedOperation {
+            ...activityFields
+          }
+
+          rollbackOperation {
+            ...activityFields
+          }
         }
       }
     }
   }
-}
 
-fragment activityFields on Activity {
-  id
-  action
-  text
-  insertedAt
-  updatedAt
-  valueType
-
-  user {
+  fragment activityFields on Activity {
     id
-    fullname
-    pictureUrl
-    isBot
-  }
-
-  translation {
-    id
-    key
-  }
-
-  stats {
     action
-    count
-  }
+    text
+    insertedAt
+    updatedAt
+    valueType
 
-  document {
-    id
-    path
-  }
+    user {
+      id
+      fullname
+      pictureUrl
+      isBot
+    }
 
-  version {
-    id
-    tag
+    translation {
+      id
+      key
+    }
+
+    stats {
+      action
+      count
+    }
+
+    document {
+      id
+      path
+    }
+
+    version {
+      id
+      tag
+    }
   }
-}
 `;

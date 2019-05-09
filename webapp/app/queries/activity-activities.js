@@ -1,31 +1,32 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query ActivityActivities($projectId: ID!, $activityId: ID!, $page: Int) {
-  viewer {
-    project(id: $projectId) {
-      id
-
-      activity(id: $activityId) {
+  query ActivityActivities($projectId: ID!, $activityId: ID!, $page: Int) {
+    viewer {
+      project(id: $projectId) {
         id
 
-        operations(page: $page) {
-          meta {
-            totalEntries
-            totalPages
-            currentPage
-            nextPage
-            previousPage
-          }
+        activity(id: $activityId) {
+          id
 
-          entries {
-            ...activitiesActivityFields
+          operations(page: $page) {
+            meta {
+              totalEntries
+              totalPages
+              currentPage
+              nextPage
+              previousPage
+            }
 
-            revision {
-              id
-              language {
+            entries {
+              ...activitiesActivityFields
+
+              revision {
                 id
-                name
+                language {
+                  id
+                  name
+                }
               }
             }
           }
@@ -33,39 +34,38 @@ query ActivityActivities($projectId: ID!, $activityId: ID!, $page: Int) {
       }
     }
   }
-}
 
-fragment activitiesActivityFields on Activity {
-  id
-  action
-  text
-  insertedAt
-
-  user {
+  fragment activitiesActivityFields on Activity {
     id
-    fullname
-    pictureUrl
-    isBot
-  }
-
-  translation {
-    id
-    key
-  }
-
-  stats {
     action
-    count
-  }
+    text
+    insertedAt
 
-  document {
-    id
-    path
-  }
+    user {
+      id
+      fullname
+      pictureUrl
+      isBot
+    }
 
-  version {
-    id
-    tag
+    translation {
+      id
+      key
+    }
+
+    stats {
+      action
+      count
+    }
+
+    document {
+      id
+      path
+    }
+
+    version {
+      id
+      tag
+    }
   }
-}
 `;

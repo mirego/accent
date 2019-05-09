@@ -1,33 +1,33 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query ProjectDocuments($projectId: ID!, $page: Int) {
-  viewer {
-    project(id: $projectId) {
-      id
-
-      revisions {
+  query ProjectDocuments($projectId: ID!, $page: Int) {
+    viewer {
+      project(id: $projectId) {
         id
-      }
 
-      documents(page: $page) {
-        meta {
-          totalEntries
-          totalPages
-          currentPage
-          nextPage
-          previousPage
-        }
-        entries {
+        revisions {
           id
-          path
-          format
-          conflictsCount
-          reviewedCount
-          translationsCount
+        }
+
+        documents(page: $page) {
+          meta {
+            totalEntries
+            totalPages
+            currentPage
+            nextPage
+            previousPage
+          }
+          entries {
+            id
+            path
+            format
+            conflictsCount
+            reviewedCount
+            translationsCount
+          }
         }
       }
     }
   }
-}
 `;

@@ -1,45 +1,45 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query Projects($query: String, $page: Int) {
-  languages {
-    entries {
-      id
-      name
-      slug
-    }
-  }
-
-  viewer {
-    permissions
-
-    projects(query: $query, page: $page) {
-      meta {
-        totalEntries
-        totalPages
-        currentPage
-        nextPage
-        previousPage
-      }
+  query Projects($query: String, $page: Int) {
+    languages {
       entries {
         id
         name
-        lastSyncedAt
-        mainColor
+        slug
+      }
+    }
 
-        revisions {
+    viewer {
+      permissions
+
+      projects(query: $query, page: $page) {
+        meta {
+          totalEntries
+          totalPages
+          currentPage
+          nextPage
+          previousPage
+        }
+        entries {
           id
-          translationsCount
-          conflictsCount
+          name
+          lastSyncedAt
+          mainColor
 
-          language {
+          revisions {
             id
-            slug
-            name
+            translationsCount
+            conflictsCount
+
+            language {
+              id
+              slug
+              name
+            }
           }
         }
       }
     }
   }
-}
 `;

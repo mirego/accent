@@ -1,61 +1,61 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query TranslationComments($projectId: ID!, $translationId: ID!, $page: Int) {
-  viewer {
-    project(id: $projectId) {
-      id
-
-      collaborators {
+  query TranslationComments($projectId: ID!, $translationId: ID!, $page: Int) {
+    viewer {
+      project(id: $projectId) {
         id
-        email
-        isPending
-        role
 
-        user {
+        collaborators {
           id
-          fullname
           email
-        }
-      }
+          isPending
+          role
 
-      translation(id: $translationId) {
-        id
-        commentsCount
-        isRemoved
-
-        commentsSubscriptions {
-          id
           user {
             id
-            email
             fullname
+            email
           }
         }
 
-        comments(page: $page) {
-          meta {
-            totalEntries
-            totalPages
-            currentPage
-            nextPage
-            previousPage
-          }
+        translation(id: $translationId) {
+          id
+          commentsCount
+          isRemoved
 
-          entries {
+          commentsSubscriptions {
             id
-            text
-            insertedAt
             user {
               id
               email
               fullname
-              pictureUrl
+            }
+          }
+
+          comments(page: $page) {
+            meta {
+              totalEntries
+              totalPages
+              currentPage
+              nextPage
+              previousPage
+            }
+
+            entries {
+              id
+              text
+              insertedAt
+              user {
+                id
+                email
+                fullname
+                pictureUrl
+              }
             }
           }
         }
       }
     }
   }
-}
 `;

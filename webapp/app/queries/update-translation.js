@@ -1,17 +1,17 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-mutation TranslationUpdate($translationId: ID!, $text: String!) {
-  updateTranslation(id: $translationId, text: $text) {
-    translation {
-      id
-      correctedText
-      conflictedText
-      valueType
-      updatedAt
-    }
+  mutation TranslationUpdate($translationId: ID!, $text: String!) {
+    updateTranslation(id: $translationId, text: $text) {
+      translation {
+        id
+        correctedText
+        conflictedText
+        valueType
+        updatedAt
+      }
 
-    errors
+      errors
+    }
   }
-}
 `;

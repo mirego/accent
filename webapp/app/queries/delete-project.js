@@ -1,13 +1,13 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-mutation ProjectDelete($projectId: ID!) {
-  deleteProject(id: $projectId) {
-    project {
-      id
-    }
+  mutation ProjectDelete($projectId: ID!) {
+    deleteProject(id: $projectId) {
+      project {
+        id
+      }
 
-    errors
+      errors
+    }
   }
-}
 `;

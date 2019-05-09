@@ -1,103 +1,103 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query Dashboard($projectId: ID!) {
-  viewer {
-    project(id: $projectId) {
-      id
-      name
-      lastSyncedAt
-
-      documents {
-        entries {
-          id
-        }
-      }
-
-      revisions {
+  query Dashboard($projectId: ID!) {
+    viewer {
+      project(id: $projectId) {
         id
-        conflictsCount
-        reviewedCount
-        translationsCount
-        isMaster
-        language {
-          id
-          name
+        name
+        lastSyncedAt
+
+        documents {
+          entries {
+            id
+          }
         }
-      }
 
-      activities(pageSize: 7) {
-        entries {
+        revisions {
           id
-          action
-          insertedAt
-          updatedAt
-          isBatch
-          isRollbacked
-          activityType
-          text
-
-          stats {
-            action
-            count
-          }
-
-          user {
+          conflictsCount
+          reviewedCount
+          translationsCount
+          isMaster
+          language {
             id
-            pictureUrl
-            fullname
-            isBot
+            name
           }
+        }
 
-          document {
-            id
-            path
-          }
-
-          translation {
-            id
-            key
-            correctedText
-            isRemoved
-          }
-
-          revision {
-            id
-            language {
-              id
-              name
-            }
-          }
-
-          version {
-            id
-            tag
-          }
-
-          rollbackedOperation {
+        activities(pageSize: 7) {
+          entries {
             id
             action
+            insertedAt
+            updatedAt
+            isBatch
+            isRollbacked
+            activityType
             text
+
+            stats {
+              action
+              count
+            }
 
             user {
               id
+              pictureUrl
               fullname
               isBot
-            }
-
-            translation {
-              id
-              key
             }
 
             document {
               id
               path
             }
+
+            translation {
+              id
+              key
+              correctedText
+              isRemoved
+            }
+
+            revision {
+              id
+              language {
+                id
+                name
+              }
+            }
+
+            version {
+              id
+              tag
+            }
+
+            rollbackedOperation {
+              id
+              action
+              text
+
+              user {
+                id
+                fullname
+                isBot
+              }
+
+              translation {
+                id
+                key
+              }
+
+              document {
+                id
+                path
+              }
+            }
           }
         }
       }
     }
   }
-}
 `;

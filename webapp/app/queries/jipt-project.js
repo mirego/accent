@@ -1,41 +1,41 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query Project($projectId: ID!, $revisionId: ID) {
-  viewer {
-    project(id: $projectId) {
-      id
-      name
-      mainColor
-
-      viewerPermissions
-
-      revisions {
+  query Project($projectId: ID!, $revisionId: ID) {
+    viewer {
+      project(id: $projectId) {
         id
-        isMaster
+        name
+        mainColor
 
-        language {
+        viewerPermissions
+
+        revisions {
           id
-          slug
-          name
-        }
-      }
+          isMaster
 
-      revision(id: $revisionId) {
-        id
-        translations(pageSize: 10000) {
-          entries {
+          language {
             id
-            key
-            correctedText
-            document {
+            slug
+            name
+          }
+        }
+
+        revision(id: $revisionId) {
+          id
+          translations(pageSize: 10000) {
+            entries {
               id
-              path
+              key
+              correctedText
+              document {
+                id
+                path
+              }
             }
           }
         }
       }
     }
   }
-}
 `;

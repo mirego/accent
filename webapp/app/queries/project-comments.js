@@ -1,36 +1,37 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query ProjectComments($projectId: ID!, $page: Int) {
-  viewer {
-    project(id: $projectId) {
-      id
-      comments(page: $page) {
-        meta {
-          totalEntries
-          totalPages
-          currentPage
-          nextPage
-          previousPage
-        }
-        entries {
-          id
-          text
-          insertedAt
-          user {
-            id
-            email
-            fullname
-            pictureUrl
+  query ProjectComments($projectId: ID!, $page: Int) {
+    viewer {
+      project(id: $projectId) {
+        id
+        comments(page: $page) {
+          meta {
+            totalEntries
+            totalPages
+            currentPage
+            nextPage
+            previousPage
           }
-          translation {
+          entries {
             id
-            key
-            revision {
+            text
+            insertedAt
+            user {
               id
-              language {
+              email
+              fullname
+              pictureUrl
+            }
+            translation {
+              id
+              key
+              revision {
                 id
-                name
+                language {
+                  id
+                  name
+                }
               }
             }
           }
@@ -38,5 +39,4 @@ query ProjectComments($projectId: ID!, $page: Int) {
       }
     }
   }
-}
 `;

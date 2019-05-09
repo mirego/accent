@@ -1,30 +1,30 @@
 import gql from 'npm:graphql-tag';
 
 export default gql`
-query ProjectNewLanguage ($projectId: ID!) {
-  languages {
-    entries {
-      id
-      name
-      slug
-    }
-  }
-
-  viewer {
-    project(id: $projectId) {
-      id
-      revisions {
+  query ProjectNewLanguage($projectId: ID!) {
+    languages {
+      entries {
         id
-        isMaster
-        insertedAt
+        name
+        slug
+      }
+    }
 
-        language {
+    viewer {
+      project(id: $projectId) {
+        id
+        revisions {
           id
-          slug
-          name
+          isMaster
+          insertedAt
+
+          language {
+            id
+            slug
+            name
+          }
         }
       }
     }
   }
-}
 `;
