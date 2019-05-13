@@ -1,16 +1,16 @@
-<svg viewBox="0 0 20 18" xmlns="http://www.w3.org/2000/svg">
-  <g
-    stroke-width="2"
-    fill="none"
-    fill-rule="evenodd"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path
-      d="M10.81 2l-1.5 2.716L2 12.17M12 2H0M16 13h-4M13.84 7.866l-3.564 8.025M14.276 7.866l3.565 8.025M6 0v2"
-    />
-    <path
-      d="M8 10.229L5.576 7.773C4.894 7.21 4.47 6.78 4.3 6.483 4.13 6.185 4.03 5.69 4 5"
-    />
-  </g>
+<svg
+  viewBox="0 0 20 18"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path
+    d="M10.81 2l-1.5 2.716L2 12.17M12 2H0M16 13h-4M13.84 7.866l-3.564 8.025M14.276 7.866l3.565 8.025M6 0v2"
+  />
+  <path
+    d="M8 10.229L5.576 7.773C4.894 7.21 4.47 6.78 4.3 6.483 4.13 6.185 4.03 5.69 4 5"
+  />
 </svg>
