@@ -106,8 +106,8 @@ defmodule AccentTest.ExportJIPTController do
 
     assert response.resp_body == """
            "testtest":
-             "test": "{^test@test2}"
              "ok": "{^ok@test2}"
+             "test": "{^test@test2}"
            """
   end
 end

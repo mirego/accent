@@ -73,6 +73,7 @@ defmodule Accent.ExportJIPTController do
       |> Scope.active()
       |> Scope.from_document(document.id)
       |> Scope.from_version(version && version.id)
+      |> Scope.parse_order(nil)
       |> Repo.all()
 
     assign(conn, :translations, translations)
