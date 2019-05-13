@@ -1,3 +1,4 @@
+import {computed} from '@ember/object';
 import {reads, not} from '@ember/object/computed';
 import Component from '@ember/component';
 import {run} from '@ember/runloop';
@@ -15,6 +16,16 @@ export default Component.extend({
   showEditButton: not('translation.isRemoved'),
   showSaveButton: not('translation.isRemoved'),
   editText: reads('translation.correctedText'),
+
+  revisionName: computed(
+    'translation.revision.{name,language.name}',
+    function() {
+      return (
+        this.translation.revision.name ||
+        this.translation.revision.language.name
+      );
+    }
+  ),
 
   actions: {
     save() {

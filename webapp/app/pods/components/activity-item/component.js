@@ -111,13 +111,16 @@ export default Component.extend({
 
   showVersionInfo: readOnly('activity.version.id'),
 
+  revisionName: computed('activity.revision.{name,language.name}', function() {
+    return this.activity.revision.name || this.activity.revision.language.name;
+  }),
+
   showRevisionInfo: computed(
     'action',
-    'activity.revision.language.name',
+    'activity.revision.language.id',
     function() {
       if (!this.activity.revision) return false;
 
-      const action = this.action;
       const actionsWithRevision = [
         'new',
         'remove',
@@ -132,8 +135,8 @@ export default Component.extend({
       ];
 
       return (
-        actionsWithRevision.includes(action) &&
-        this.activity.revision.language.name
+        actionsWithRevision.includes(this.action) &&
+        this.activity.revision.language.id
       );
     }
   ),

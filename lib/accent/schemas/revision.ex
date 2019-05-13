@@ -55,7 +55,8 @@ defmodule Accent.Revision do
 
   def language(revision) do
     language_override =
-      Map.take(revision, ~w(
+      revision
+      |> Map.take(~w(
       name
       slug
       iso_639_1

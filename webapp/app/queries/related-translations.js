@@ -17,6 +17,7 @@ export default gql`
 
             revision {
               id
+              name
 
               language {
                 id

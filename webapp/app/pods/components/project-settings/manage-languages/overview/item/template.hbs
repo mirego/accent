@@ -1,11 +1,21 @@
 <div class="list-item-header">
   {{#link-to
+    'logged-in.project.edit.manage-languages.edit'
+    project.id
+    revision.id
+    class='list-item-header-edit'
+  }}
+    {{inline-svg 'assets/pencil.svg' class='item-edit-icon'}}
+  {{/link-to}}
+
+  {{#link-to
     'logged-in.project.revision.translations'
     project.id
     revision.id
     class='list-link'
   }}
-    {{revision.language.name}}
+    {{this.name}}
+    <small class="list-link-small">{{this.slug}}</small>
   {{/link-to}}
 
   {{#if revision.isMaster}}

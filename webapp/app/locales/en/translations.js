@@ -545,6 +545,14 @@ export default {
       name_label: 'Name:',
       save_button: 'Create'
     },
+    revision_update_form: {
+      title: 'Edit language',
+      error: 'Invalid language',
+      cancel_button: 'Cancel',
+      name_label: 'Name:',
+      slug_label: 'Slug:',
+      save_button: 'Update'
+    },
     version_create_form: {
       title: 'New version',
       text:

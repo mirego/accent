@@ -4,6 +4,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
   alias Accent.Hook.Consumers.GitHub, as: Consumer
   alias Accent.Hook.Consumers.GitHub.FileServerMock
   alias Accent.{Document, Integration, Language, Operation, ProjectCreator, Repo, Revision, Translation, User, Version}
+  alias Ecto.UUID
 
   import Ecto.Query
 
@@ -12,7 +13,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
 
   setup do
     user = Repo.insert!(%User{email: "test@test.com"})
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    language = Repo.insert!(%Language{name: "English", slug: UUID.generate()})
     {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
     document = Repo.insert!(%Document{project_id: project.id, path: "admin", format: "json"})
 
@@ -201,7 +202,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
   end
 
   test "add translations default version on default_ref develop", %{project: project, document: document, user: user} do
-    language_slug = Ecto.UUID.generate()
+    language_slug = UUID.generate()
     language = Repo.insert!(%Language{name: "Other french", slug: language_slug})
     revision = Repo.insert!(%Revision{project_id: project.id, master: false, language: language})
     translation = Repo.insert!(%Translation{revision_id: revision.id, document_id: document.id, key: "key", proposed_text: "a", corrected_text: "a"})
@@ -287,8 +288,8 @@ defmodule AccentTest.Hook.Consumers.GitHub do
   end
 
   test "add translations with language overrides", %{project: project, document: document, user: user} do
-    language_override = Ecto.UUID.generate()
-    language_slug = Ecto.UUID.generate()
+    language_override = UUID.generate()
+    language_slug = UUID.generate()
     language = Repo.insert!(%Language{name: "Other french", slug: language_slug})
     revision = Repo.insert!(%Revision{project_id: project.id, master: false, language: language, slug: language_override})
     translation = Repo.insert!(%Translation{revision_id: revision.id, document_id: document.id, key: "key", proposed_text: "a", corrected_text: "a"})

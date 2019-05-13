@@ -1,3 +1,4 @@
+import {computed} from '@ember/object';
 import {inject as service} from '@ember/service';
 import Component from '@ember/component';
 
@@ -16,6 +17,14 @@ export default Component.extend({
     'isDeleting:list-item--deleting',
     'deleted:list-item--deleted'
   ],
+
+  name: computed('revision.{name,language.name}', function() {
+    return this.revision.name || this.revision.language.name;
+  }),
+
+  slug: computed('revision.{slug,language.slug}', function() {
+    return this.revision.slug || this.revision.language.slug;
+  }),
 
   isPromoting: false,
   isDeleting: false,

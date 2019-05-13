@@ -15,6 +15,8 @@ export default gql`
         id
         revisions {
           id
+          name
+          slug
           isMaster
           insertedAt
 

@@ -50,6 +50,7 @@
   &:focus,
   &:hover {
     color: $color-green;
+    color: var(--color-primary);
   }
 }
 

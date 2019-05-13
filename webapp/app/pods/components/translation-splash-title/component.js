@@ -13,6 +13,16 @@ export default Component.extend({
 
   translationKey: parsedKeyProperty('translation.key'),
 
+  revisionName: computed(
+    'translation.revision.{name,language.name}',
+    function() {
+      return (
+        this.translation.revision.name ||
+        this.translation.revision.language.name
+      );
+    }
+  ),
+
   versionParam: computed('translation.version.id', function() {
     return this.getWithDefault('translation.version.id', null);
   }),

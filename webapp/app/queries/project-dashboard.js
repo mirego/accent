@@ -20,6 +20,7 @@ export default gql`
           reviewedCount
           translationsCount
           isMaster
+          name
           language {
             id
             name
@@ -63,6 +64,7 @@ export default gql`
 
             revision {
               id
+              name
               language {
                 id
                 name

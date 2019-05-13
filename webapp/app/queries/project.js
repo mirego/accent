@@ -30,6 +30,7 @@ export default gql`
 
         revisions {
           id
+          name
           isMaster
           translationsCount
           conflictsCount
