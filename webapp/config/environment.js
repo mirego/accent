@@ -26,7 +26,7 @@ module.exports = function(environment) {
     }
   };
 
-  (ENV.API = {
+  ENV.API = {
     WS_HOST: wsHost,
     HOST: host,
     AUTHENTICATION_PATH: `${host}/auth`,
@@ -39,14 +39,15 @@ module.exports = function(environment) {
     JIPT_EXPORT_DOCUMENT: `${host}/jipt-export`,
     PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`,
     JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`
-  }),
-    (ENV.GOOGLE_API = {
-      CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID
-    });
+  };
 
-  ENV.GOOGLE_LOGIN_ENABLED =
-    environment === 'production' || Boolean(process.env.GOOGLE_API_CLIENT_ID);
-  ENV.DUMMY_LOGIN_ENABLED = !ENV.GOOGLE_LOGIN_ENABLED;
+  ENV.GOOGLE_API = {
+    CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID
+  };
+
+  ENV.GOOGLE_LOGIN_ENABLED = Boolean(ENV.GOOGLE_API.CLIENT_ID);
+  ENV.DUMMY_LOGIN_ENABLED =
+    Boolean(process.env.DUMMY_LOGIN_ENABLED) || !ENV.GOOGLE_LOGIN_ENABLED;
 
   ENV.SENTRY = {
     DSN: process.env.WEBAPP_SENTRY_DSN
