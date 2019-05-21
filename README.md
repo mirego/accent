@@ -14,23 +14,23 @@
 
 Accent provides a powerful abstraction around the process maintaining translations in a web/native app.
 
-* **History**. Full history control and actions rollback. _Who_ did _what_, _when_.
-* **UI**. Simple yet powerful UI to enable translator and developer to be productive.
-* **CLI**. [Command line tool](https://github.com/mirego/accent-cli) to easily add Accent to your developer flow.
-* **Collaboration**. Centralize your discussions around translations.
-* **GraphQL**. The API that powers the UI is open and documented. It’s easy to build a plugin/cli/library around Accent.
+- **History**. Full history control and actions rollback. _Who_ did _what_, _when_.
+- **UI**. Simple yet powerful UI to enable translator and developer to be productive.
+- **CLI**. [Command line tool](https://github.com/mirego/accent-cli) to easily add Accent to your developer flow.
+- **Collaboration**. Centralize your discussions around translations.
+- **GraphQL**. The API that powers the UI is open and documented. It’s easy to build a plugin/cli/library around Accent.
 
 ## Contents
 
-| Section                                                 | Description                                                               |
-|---------------------------------------------------------|---------------------------------------------------------------------------|
-| [🚧 Requirements](#-requirements)                        | Dependencies required to run Accent’ stack                               |
-| [🎛 Mix commands](#-executing-mix-commands)              | How to execute mix task with the Twelve-Factor pattern                   |
-| [🏎 Quickstart](#-quickstart)                            | Steps to run the project, from API to webapp, with or without Docker     |
-| [🌳 Environment variables](#-environment-variables)      | Required and optional env var used                                       |
-| [✅ Tests](#-tests)                                      | How to run the extensive tests suite                                     |
-| [🚀 Heroku](#-heroku)                                    | Easy deployment setup with Heroku                                        |
-| [🌎 Contribute](#-contribute)                            | How to contribute to this repo                                           |
+| Section                                             | Description                                                          |
+| --------------------------------------------------- | -------------------------------------------------------------------- |
+| [🚧 Requirements](#-requirements)                   | Dependencies required to run Accent’ stack                           |
+| [🎛 Mix commands](#-executing-mix-commands)          | How to execute mix task with the Twelve-Factor pattern               |
+| [🏎 Quickstart](#-quickstart)                        | Steps to run the project, from API to webapp, with or without Docker |
+| [🌳 Environment variables](#-environment-variables) | Required and optional env var used                                   |
+| [✅ Tests](#-tests)                                 | How to run the extensive tests suite                                 |
+| [🚀 Heroku](#-heroku)                               | Easy deployment setup with Heroku                                    |
+| [🌎 Contribute](#-contribute)                       | How to contribute to this repo                                       |
 
 ## 🚧 Requirements
 
@@ -71,7 +71,7 @@ _This is the full development setup. To simply run the app, see the *Docker* ins
 7. Start Phoenix endpoint with `mix phx.server`
 8. Start Ember server with `npm run start --prefix webapp`
 
-*That’s it!*
+_That’s it!_
 
 ### Makefile
 
@@ -87,43 +87,58 @@ _When running the production env, you need to provide a valid GOOGLE_API_CLIENT_
 2. Run `make dev-start-postgresql` to start an instance of Postgresql. The instance will run on port 5432 with the `postgres` user. You can change those values in the `docker-compose.yml` file.
 3. Run `make dev-start-application` to start the app! The release hook of the release will execute migrations and seeds before starting the webserver on port 4000 (again you can change the settings in `docker-compose.yml`)
 
-*That’s it! You now have a working Accent instance without installing Elixir or Node!*
+_That’s it! You now have a working Accent instance without installing Elixir or Node!_
 
 ## 🌳 Environment variables
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup, you can just run `mix phx.server`.
 
-| Variable            | Default                                   | Description                                                                                                                                                |
-|---------------------|-------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `MIX_ENV`           | `dev`                                     | The application environment (`dev`, `prod`, or `test`)                                                                                                     |
-| `DATABASE_URL`      | `postgres://localhost/accent_development` | A valid database URL                                                                                                                                       |
-| `CANONICAL_HOST`    | `localhost`                               | The host that will be used to build internal URLs                                                                                                          |
-| `PORT`              | `4000`                                    | A port to run the API on                                                                                                                                   |
-| `WEBAPP_PORT`       | `4200`                                    | A port to run the Webapp on (only used in `dev` environment)                                                                                               |
-| `API_HOST`          | `http://localhost:4000`                   | The API host                                                                                                                                               |
-| `API_WS_HOST`       | `ws://localhost:4000`                     | The API Websocket host                                                                                                                                     |
+| Variable         | Default                                   | Description                                                                           |
+| ---------------- | ----------------------------------------- | ------------------------------------------------------------------------------------- |
+| `MIX_ENV`        | `dev`                                     | The application environment (`dev`, `prod`, or `test`)                                |
+| `DATABASE_URL`   | `postgres://localhost/accent_development` | A valid database URL                                                                  |
+| `CANONICAL_HOST` | `localhost`                               | The host that will be used to build internal URLs                                     |
+| `PORT`           | `4000`                                    | A port to run the API on                                                              |
+| `WEBAPP_PORT`    | `4200`                                    | A port to run the Webapp on (only used in `dev` environment)                          |
+| `API_HOST`       | `http://localhost:4000`                   | The API host                                                                          |
+| `API_WS_HOST`    | `ws://localhost:4000`                     | The API Websocket host                                                                |
+| `WEBAPP_URL`     | `http://localhost:4000`                   | The Web client’s endpoint. Used in the authentication process and in the sent emails. |
+
 ### Production setup
 
-| Variable               | Default | Description |
-|------------------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `SENTRY_DSN`           | _none_  | The *secret* Sentry DSN used to collect API runtime errors                                                                                                                                  |
-| `WEBAPP_SENTRY_DSN`    | _none_  | The *public* Sentry DSN used to collect Webapp runtime errors                                                                                                                               |
-| `GOOGLE_API_CLIENT_ID` | _none_  | When deploying in a `prod` environment, the Google login is the only way to authenticate user. In `dev` environment, a fake login provider is used so you don’t have to setup a Google app. |
-| `RESTRICTED_DOMAIN`    | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
-| `DUMMY_LOGIN_ENABLED`  | _none_  | If specified, the password-less authentication (with only the email) will be available.           |
+| Variable            | Default | Description                                                                                       |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `SENTRY_DSN`        | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
+| `WEBAPP_SENTRY_DSN` | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
+| `RESTRICTED_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
+
+### Authentication setup
+
+Various login providers are included in Accent using the awesomer Uberauth library to abstract services.
+
+| Variable                   | Default | Description                                                                                                                               |
+| -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `DUMMY_LOGIN_ENABLED`      | _none_  | If specified (or no other authentication configs are provided), the password-less authentication (with only the email) will be available. |
+| `GOOGLE_API_CLIENT_ID`     | _none_  |                                                                                                                                           |
+| `GOOGLE_API_CLIENT_SECRET` | _none_  |                                                                                                                                           |
+| `GITHUB_CLIENT_ID`         | _none_  |                                                                                                                                           |
+| `GITHUB_CLIENT_SECRET`     | _none_  |                                                                                                                                           |
+| `SLACK_CLIENT_ID`          | _none_  |                                                                                                                                           |
+| `SLACK_CLIENT_SECRET`      | _none_  |                                                                                                                                           |
+| `SLACK_TEAM_ID`            | _none_  |                                                                                                                                           |
 
 ### Email setup
+
 If you want to send emails, you’ll have to configure the following environment variables:
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `WEBAPP_EMAIL_HOST` | _none_ | The Web client’s hostname. Used in the sent emails to link to the right URL. |
-| `MAILER_FROM` | _none_ | The email address used to send emails. |
-| `SMTP_ADDRESS` | _none_ | The SMTP server address you want to use to send your emails. |
-| `SMTP_PORT` | _none_ | The port ex: (25, 465, 587). |
-| `SMTP_USERNAME` | _none_ | The username for authentification. |
-| `SMTP_PASSWORD` | _none_ | The password for authentification.  |
-| `SMTP_API_HEADER` | _none_ | An optional API header that will be added to sent emails. |
+| Variable          | Default | Description                                                  |
+| ----------------- | ------- | ------------------------------------------------------------ |
+| `MAILER_FROM`     | _none_  | The email address used to send emails.                       |
+| `SMTP_ADDRESS`    | _none_  | The SMTP server address you want to use to send your emails. |
+| `SMTP_PORT`       | _none_  | The port ex: (25, 465, 587).                                 |
+| `SMTP_USERNAME`   | _none_  | The username for authentification.                           |
+| `SMTP_PASSWORD`   | _none_  | The password for authentification.                           |
+| `SMTP_API_HEADER` | _none_  | An optional API header that will be added to sent emails.    |
 
 ## ✅ Tests
 
@@ -157,16 +172,16 @@ Don’t forget to run the `./priv/scripts/ci-check.sh` script to make sure that 
 
 ## Contributors
 
-* [@simonprev](https://github.com/simonprev)
-* [@loboulet](https://github.com/loboulet)
-* [@remiprev](https://github.com/remiprev)
-* [@charlesdemers](https://github.com/charlesdemers)
-* [@ddrmanxbxfr](https://github.com/ddrmanxbxfr)
-* [@thermech](https://github.com/thermech)
+- [@simonprev](https://github.com/simonprev)
+- [@loboulet](https://github.com/loboulet)
+- [@remiprev](https://github.com/remiprev)
+- [@charlesdemers](https://github.com/charlesdemers)
+- [@ddrmanxbxfr](https://github.com/ddrmanxbxfr)
+- [@thermech](https://github.com/thermech)
 
 ## License
 
-Accent is © 2015-2018 [Mirego](https://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See the [`LICENSE.md`](https://github.com/mirego/accent/blob/master/LICENSE.md) file.
+Accent is © 2015-2019 [Mirego](https://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See the [`LICENSE.md`](https://github.com/mirego/accent/blob/master/LICENSE.md) file.
 
 ## About Mirego
 

@@ -24,19 +24,18 @@ export default Service.extend({
     }
   }),
 
-  login(...args) {
-    return this.sessionCreator
-      .createSession(...args)
-      .then(credentials => this.set('credentials', credentials))
-      .then(credentials => {
-        if (credentials && credentials.token) this.jipt.loggedIn();
+  login({token}) {
+    return this.sessionCreator.createSession({token}).then(credentials => {
+      if (!credentials || !credentials.viewer) return;
 
-        return credentials;
-      });
+      this.set('credentials', {token, ...credentials.viewer});
+      this.jipt.loggedIn();
+
+      return credentials.viewer;
+    });
   },
 
   logout() {
     this.sessionDestroyer.destroySession();
-    if (this.googleAuth) this.googleAuth.disconnect();
   }
 });

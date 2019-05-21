@@ -23,7 +23,7 @@ defmodule AccentTest.CollaboratorNormalizer do
 
     new_user = %User{email: "test@test.com"} |> Repo.insert!()
 
-    :ok = CollaboratorNormalizer.normalize(new_user)
+    %User{} = CollaboratorNormalizer.normalize(new_user)
 
     new_collaborators = Collaborator |> where([c], c.id in ^collaborator_ids) |> Repo.all()
 
@@ -48,7 +48,7 @@ defmodule AccentTest.CollaboratorNormalizer do
 
     new_user = %User{email: "Test@test.com"} |> Repo.insert!()
 
-    :ok = CollaboratorNormalizer.normalize(new_user)
+    %User{} = CollaboratorNormalizer.normalize(new_user)
 
     new_collaborators = Collaborator |> where([c], c.id in ^collaborator_ids) |> Repo.all()
 
@@ -58,7 +58,7 @@ defmodule AccentTest.CollaboratorNormalizer do
   test "create without collaborations" do
     new_user = %User{email: "Test@test.com"} |> Repo.insert!()
 
-    :ok = CollaboratorNormalizer.normalize(new_user)
+    %User{} = CollaboratorNormalizer.normalize(new_user)
 
     new_collaborators = Collaborator |> Repo.all()
 

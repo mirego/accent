@@ -1,13 +1,3 @@
-<div>
-  {{projects-header session=session}}
-
-  {{#if googleLoginEnabled}}
-    {{google-login-form}}
-  {{/if}}
-
-  {{#if dummyLoginEnabled}}
-    {{dummy-login-form onDummyLogin=(action 'dummyLogin')}}
-  {{/if}}
-</div>
+{{login-forms}}
 
 {{application-footer}}

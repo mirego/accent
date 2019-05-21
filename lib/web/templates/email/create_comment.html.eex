@@ -1,4 +1,4 @@
 <p style="<%= paragraph_style("font-size": "14px", color: "#444") %>"><%= @commenter.email %> has commented on <code><%= @translation.key %><code>:</p>
 <p style="<%= paragraph_style("font-size": "18px", color: "#222", "border-left": "3px solid #ddd", "padding-left": "10px") %>"><%= @comment.text %></p>
 
-<p style="<%= paragraph_style("font-size": "15px") %>">You can reply <a style="<%= link_style() %>" href="<%= webapp_host() %><%= @translation_path %>">here</a></p>
+<p style="<%= paragraph_style("font-size": "15px") %>">You can reply <a style="<%= link_style() %>" href="<%= webapp_url() %><%= @translation_path %>">here</a></p>

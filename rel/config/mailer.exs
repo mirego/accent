@@ -2,7 +2,7 @@ use Mix.Config
 
 if System.get_env("SMTP_ADDRESS") do
   config :accent, Accent.Mailer,
-    webapp_host: System.get_env("WEBAPP_EMAIL_HOST"),
+    webapp_url: System.get_env("WEBAPP_URL"),
     mailer_from: System.get_env("MAILER_FROM"),
     adapter: Bamboo.SMTPAdapter,
     server: System.get_env("SMTP_ADDRESS"),
@@ -12,7 +12,7 @@ if System.get_env("SMTP_ADDRESS") do
     x_smtpapi_header: System.get_env("SMTP_API_HEADER")
 else
   config :accent, Accent.Mailer,
-    webapp_host: System.get_env("WEBAPP_EMAIL_HOST"),
+    webapp_url: System.get_env("WEBAPP_URL"),
     mailer_from: System.get_env("MAILER_FROM"),
     adapter: Bamboo.LocalAdapter
 end

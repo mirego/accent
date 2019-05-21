@@ -51,12 +51,19 @@ defmodule Accent.Router do
 
   scope "/", Accent do
     # Users
-    post("/auth", AuthenticationController, :create)
+    # post("/auth", AuthenticationController, :create)
 
     get("/:id/percentage_reviewed_badge.svg", BadgeController, :percentage_reviewed_count)
     get("/:id/reviewed_badge.svg", BadgeController, :reviewed_count)
     get("/:id/conflicts_badge.svg", BadgeController, :conflicts_count)
     get("/:id/translations_badge.svg", BadgeController, :translations_count)
+  end
+
+  scope "/auth", Accent do
+    pipe_through [:browser]
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
 
   scope "/", Accent do

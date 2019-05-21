@@ -15,28 +15,31 @@ defmodule Accent.UserRemote.Persister do
   alias Accent.AuthProvider
   alias Accent.Repo
   alias Accent.User, as: RepoUser
-  alias Accent.UserRemote.Adapter.User, as: FetchedUser
+  alias Accent.UserRemote.User, as: FetchedUser
   alias Ecto.Changeset
 
-  @spec persist(FetchedUser.t()) :: {:ok, RepoUser.t(), AuthProvider.t()}
+  @spec persist(FetchedUser.t()) :: RepoUser.t()
   def persist(user = %FetchedUser{provider: provider, uid: uid}) do
-    user = find_user(user)
-    provider = find_provider(user, provider, uid)
-
-    {:ok, user, provider}
+    user
+    |> find_or_create_user()
+    |> find_or_create_provider(provider, uid)
   end
 
-  defp find_user(fetched_user) do
+  defp find_or_create_user(fetched_user) do
     case Repo.get_by(RepoUser, email: fetched_user.email) do
-      user = %RepoUser{} -> update_user(user, fetched_user)
-      _ -> create_user(fetched_user)
+      nil -> create_user(fetched_user)
+      user -> update_user(user, fetched_user)
     end
   end
 
-  defp find_provider(user, provider_name, uid) do
+  defp find_or_create_provider(user, provider_name, uid) do
     case Repo.get_by(AuthProvider, name: provider_name, uid: uid) do
-      provider = %AuthProvider{} -> provider
-      _ -> create_provider(user, provider_name, uid)
+      nil ->
+        create_provider(user, provider_name, uid)
+        user
+
+      _ ->
+        user
     end
   end
 

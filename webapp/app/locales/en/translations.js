@@ -38,11 +38,20 @@ export default {
     translation_comments_subscriptions: {
       title: 'Notify on new messages'
     },
-    google_login_form: {
-      title: 'Google authentication',
-      subtitle:
-        'We use your Google account for authentication only, we will not spam you or access any of your sensitive informations.',
-      login_button: 'Login with Google'
+    login_header: {
+      text: 'Login with any service below,',
+      subtext:
+        'Your email address will be used to identify you uniquely through all services.'
+    },
+    login_footer: {
+      text: 'Nothing to hide, check the source code:',
+      link: 'mirego/accent'
+    },
+    login_forms: {
+      github: 'Login with GitHub →',
+      google: 'Login with Google →',
+      slack: 'Login with Slack →',
+      dummy: 'Enter an email and login →'
     },
     dummy_login_form: {
       title: 'Fake authentication',

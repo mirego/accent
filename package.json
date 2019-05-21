@@ -4,8 +4,8 @@
   "description": "The new new Accent Web app",
   "private": true,
   "scripts": {
-    "prettier": "prettier --write './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql,svg}'",
-    "prettier-check": "prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql,svg}'",
+    "prettier": "prettier --write './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql,svg,md}' '*.md'",
+    "prettier-check": "prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql,svg,md}' '*.md'",
     "lint-scripts": "eslint webapp/. cli/. jipt/.",
     "lint-scripts-fix": "eslint --fix webapp/.",
     "tslint-scripts": "tslint -c tslint.json '{cli,jipt}/src/**/*.{js,ts,json}'",

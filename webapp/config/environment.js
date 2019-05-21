@@ -6,6 +6,7 @@
 module.exports = function(environment) {
   const wsHost = process.env.API_WS_HOST || 'ws://localhost:4000';
   const host = process.env.API_HOST || 'http://localhost:4000';
+  const providers = (process.env.WEBAPP_AUTH_PROVIDERS || 'dummy').split(',');
 
   const ENV = {
     modulePrefix: 'accent-webapp',
@@ -41,13 +42,7 @@ module.exports = function(environment) {
     JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`
   };
 
-  ENV.GOOGLE_API = {
-    CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID
-  };
-
-  ENV.GOOGLE_LOGIN_ENABLED = Boolean(ENV.GOOGLE_API.CLIENT_ID);
-  ENV.DUMMY_LOGIN_ENABLED =
-    Boolean(process.env.DUMMY_LOGIN_ENABLED) || !ENV.GOOGLE_LOGIN_ENABLED;
+  ENV.AUTH_PROVIDERS = providers;
 
   ENV.SENTRY = {
     DSN: process.env.WEBAPP_SENTRY_DSN

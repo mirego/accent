@@ -3,20 +3,35 @@ import RSVP from 'rsvp';
 import config from 'accent-webapp/config/environment';
 import fetch from 'fetch';
 
+const uri = `${config.API.HOST}/graphql`;
+
 export default Service.extend({
-  createSession({token, provider}) {
+  createSession({token}) {
     return new RSVP.Promise((resolve, reject) => {
-      const uid = token;
       const options = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({uid, provider})
+        body: JSON.stringify({
+          query: `
+        query Viewer {
+          viewer {
+            user {
+              id
+              email
+              pictureUrl
+              fullname
+            }
+          }
+        }
+        `
+        })
       };
 
-      fetch(config.API.AUTHENTICATION_PATH, options)
-        .then(data => data.json().then(resolve))
+      fetch(uri, options)
+        .then(data => data.json().then(({data}) => resolve(data)))
         .catch((_jqXHR, _textStatus, error) => reject(error));
     });
   }

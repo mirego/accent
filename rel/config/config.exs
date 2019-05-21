@@ -28,10 +28,10 @@ config :accent, Accent.Repo,
   url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 
 config :accent,
+  webapp_url: System.get_env("WEBAPP_URL") || "http://localhost:4000",
   force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
   hook_broadcaster: Accent.Hook.Broadcaster,
   hook_github_file_server: Accent.Hook.Consumers.GitHub.FileServer.HTTP,
-  dummy_provider_enabled: true,
   restricted_domain: System.get_env("RESTRICTED_DOMAIN")
 
 # Configures canary custom handlers and repo
@@ -39,6 +39,26 @@ config :canary,
   repo: Accent.Repo,
   unauthorized_handler: {Accent.ErrorController, :handle_unauthorized},
   not_found_handler: {Accent.ErrorController, :handle_not_found}
+
+providers = []
+providers = if System.get_env("GOOGLE_API_CLIENT_ID"), do: [{:google, {Ueberauth.Strategy.Google, [scope: "email openid"]}} | providers], else: providers
+providers = if System.get_env("SLACK_CLIENT_ID"), do: [{:slack, {Ueberauth.Strategy.Slack, [team: System.get_env("SLACK_TEAM_ID")]}} | providers], else: providers
+providers = if System.get_env("GITHUB_CLIENT_ID"), do: [{:github, {Ueberauth.Strategy.Github, []}} | providers], else: providers
+providers = if System.get_env("DUMMY_LOGIN_ENABLED") || providers === [], do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers], else: providers
+
+config :ueberauth, Ueberauth, providers: providers
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_API_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_API_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: System.get_env("GITHUB_CLIENT_ID"),
+  client_secret: System.get_env("GITHUB_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
+  client_id: System.get_env("SLACK_CLIENT_ID"),
+  client_secret: System.get_env("SLACK_CLIENT_SECRET")
 
 # Configures Elixir's Logger
 config :logger, :console,

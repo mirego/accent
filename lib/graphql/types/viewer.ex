@@ -4,7 +4,7 @@ defmodule Accent.GraphQL.Types.Viewer do
   import Accent.GraphQL.Helpers.Authorization
 
   object :viewer do
-    field(:user, :user)
+    field(:user, :user, resolve: fn user, _, _ -> {:ok, user} end)
 
     field :permissions, list_of(:string) do
       resolve(viewer_authorize(:index_permissions, &Accent.GraphQL.Resolvers.Permission.list_viewer/3))
