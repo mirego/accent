@@ -95,22 +95,22 @@ Accent provides a default value for every required environment variable. This me
 
 | Variable         | Default                                   | Description                                                                           |
 | ---------------- | ----------------------------------------- | ------------------------------------------------------------------------------------- |
-| `MIX_ENV`        | `dev`                                     | The application environment (`dev`, `prod`, or `test`)                                |
-| `DATABASE_URL`   | `postgres://localhost/accent_development` | A valid database URL                                                                  |
-| `CANONICAL_HOST` | `localhost`                               | The host that will be used to build internal URLs                                     |
-| `PORT`           | `4000`                                    | A port to run the API on                                                              |
-| `WEBAPP_PORT`    | `4200`                                    | A port to run the Webapp on (only used in `dev` environment)                          |
 | `API_HOST`       | `http://localhost:4000`                   | The API host                                                                          |
 | `API_WS_HOST`    | `ws://localhost:4000`                     | The API Websocket host                                                                |
+| `CANONICAL_HOST` | `localhost`                               | The host that will be used to build internal URLs                                     |
+| `DATABASE_URL`   | `postgres://localhost/accent_development` | A valid database URL                                                                  |
+| `MIX_ENV`        | `dev`                                     | The application environment (`dev`, `prod`, or `test`)                                |
+| `PORT`           | `4000`                                    | A port to run the API on                                                              |
+| `WEBAPP_PORT`    | `4200`                                    | A port to run the Webapp on (only used in `dev` environment)                          |
 | `WEBAPP_URL`     | `http://localhost:4000`                   | The Web client’s endpoint. Used in the authentication process and in the sent emails. |
 
 ### Production setup
 
 | Variable            | Default | Description                                                                                       |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `RESTRICTED_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
 | `SENTRY_DSN`        | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
 | `WEBAPP_SENTRY_DSN` | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
-| `RESTRICTED_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
 
 ### Authentication setup
 
@@ -119,10 +119,10 @@ Various login providers are included in Accent using the awesomer Uberauth libra
 | Variable                   | Default | Description                                                                                                                               |
 | -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `DUMMY_LOGIN_ENABLED`      | _none_  | If specified (or no other authentication configs are provided), the password-less authentication (with only the email) will be available. |
-| `GOOGLE_API_CLIENT_ID`     | _none_  |                                                                                                                                           |
-| `GOOGLE_API_CLIENT_SECRET` | _none_  |                                                                                                                                           |
 | `GITHUB_CLIENT_ID`         | _none_  |                                                                                                                                           |
 | `GITHUB_CLIENT_SECRET`     | _none_  |                                                                                                                                           |
+| `GOOGLE_API_CLIENT_ID`     | _none_  |                                                                                                                                           |
+| `GOOGLE_API_CLIENT_SECRET` | _none_  |                                                                                                                                           |
 | `SLACK_CLIENT_ID`          | _none_  |                                                                                                                                           |
 | `SLACK_CLIENT_SECRET`      | _none_  |                                                                                                                                           |
 | `SLACK_TEAM_ID`            | _none_  |                                                                                                                                           |
@@ -135,10 +135,10 @@ If you want to send emails, you’ll have to configure the following environment
 | ----------------- | ------- | ------------------------------------------------------------ |
 | `MAILER_FROM`     | _none_  | The email address used to send emails.                       |
 | `SMTP_ADDRESS`    | _none_  | The SMTP server address you want to use to send your emails. |
-| `SMTP_PORT`       | _none_  | The port ex: (25, 465, 587).                                 |
-| `SMTP_USERNAME`   | _none_  | The username for authentification.                           |
-| `SMTP_PASSWORD`   | _none_  | The password for authentification.                           |
 | `SMTP_API_HEADER` | _none_  | An optional API header that will be added to sent emails.    |
+| `SMTP_PORT`       | _none_  | The port ex: (25, 465, 587).                                 |
+| `SMTP_PASSWORD`   | _none_  | The password for authentification.                           |
+| `SMTP_USERNAME`   | _none_  | The username for authentification.                           |
 
 ## ✅ Tests
 
@@ -169,15 +169,6 @@ Before opening a pull request, please open an issue first.
 Once you’ve made your additions and the test suite passes, go ahead and open a PR!
 
 Don’t forget to run the `./priv/scripts/ci-check.sh` script to make sure that the CI build will pass :)
-
-## Contributors
-
-- [@simonprev](https://github.com/simonprev)
-- [@loboulet](https://github.com/loboulet)
-- [@remiprev](https://github.com/remiprev)
-- [@charlesdemers](https://github.com/charlesdemers)
-- [@ddrmanxbxfr](https://github.com/ddrmanxbxfr)
-- [@thermech](https://github.com/thermech)
 
 ## License
 
