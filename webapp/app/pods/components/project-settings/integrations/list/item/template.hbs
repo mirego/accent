@@ -1,6 +1,7 @@
 {{#if isEditing}}
   {{project-settings/integrations/form
     integration=integration
+    project=project
     errors=errors
     onSubmit=(action 'update')
     onCancel=(action 'toggleEdit')

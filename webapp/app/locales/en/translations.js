@@ -446,6 +446,13 @@ export default {
           token: 'Token',
           url: 'URL'
         },
+        token_how: 'How?',
+        github_webhook_url_how: 'How?',
+        github_webhook_accent_cli_1: 'You need to have a valid <a target="_blank" rel="noopener noreferrer" href="https://github.com/mirego/accent/tree/master/cli">accent-cli</a> setup for the hook to work.',
+        github_webhook_accent_cli_2: 'The <a target="_blank" rel="noopener noreferrer" href="https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json">accent.json </a> file at the root of your project will be used.',
+        github_webhook_url:
+          'Make sure to add the webhook in your project’s settings',
+        webhook_url_how: 'How to obtain a webhook URL?',
         events: {
           title: 'Which events would you like to trigger this webhook?',
           options: {

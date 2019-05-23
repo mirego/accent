@@ -31,6 +31,7 @@ module.exports = function(environment) {
     WS_HOST: wsHost,
     HOST: host,
     AUTHENTICATION_PATH: `${host}/auth`,
+    HOOKS_PATH: `${host}/hooks/{0}?project_id={1}&authorization={2}`,
     PROJECT_PATH: `${host}/projects/{0}`,
     SYNC_PEEK_PROJECT_PATH: `${host}/sync/peek?project_id={0}&language={1}&sync_type={2}`,
     SYNC_PROJECT_PATH: `${host}/sync?project_id={0}&language={1}&sync_type={2}`,

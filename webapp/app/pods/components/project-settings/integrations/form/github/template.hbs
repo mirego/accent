@@ -9,7 +9,12 @@
     </div>
 
     <div class="data-control {{if tokenError 'error-control'}}">
-      <label class="data-title">{{t 'components.project_settings.integrations.data.token'}}</label>
+      <label class="data-title">
+        {{t 'components.project_settings.integrations.data.token'}}
+        <a class="data-title-help" target="_blank" rel="noopener noreferrer" href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line">
+          {{t 'components.project_settings.integrations.token_how'}}
+        </a>
+      </label>
       {{input
         placeholder="aaaa-bbbb-cccc"
         value=token
@@ -25,4 +30,22 @@
         class='textInput'
       }}
     </div>
+
+    {{#if webhookUrl}}
+      <div class="instructions">
+        <label class="data-title">
+          {{t 'components.project_settings.integrations.github_webhook_url'}}
+          <a class="data-title-help" target="_blank" rel="noopener noreferrer" href="https://developer.github.com/webhooks/creating">
+            {{t 'components.project_settings.integrations.github_webhook_url_how'}}
+          </a>
+        </label>
+
+        <input readonly="" onClick="this.select();" class="textInput" value={{webhookUrl}} />
+
+        <div class="instructions-text">
+          <p>{{t 'components.project_settings.integrations.github_webhook_accent_cli_1'}}</p>
+          <p>{{t 'components.project_settings.integrations.github_webhook_accent_cli_2'}}</p>
+        </div>
+      </div>
+    {{/if}}
   </div>

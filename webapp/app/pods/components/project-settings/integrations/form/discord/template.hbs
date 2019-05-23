@@ -1,6 +1,11 @@
   <div class="data">
     <div class="data-control {{if urlError 'error-control'}}">
-      <label class="data-title">{{t 'components.project_settings.integrations.data.url'}}</label>
+      <label class="data-title">
+        {{t 'components.project_settings.integrations.data.url'}}
+        <a class="data-title-help" target="_blank" rel="noopener noreferrer" href="https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks">
+          {{t 'components.project_settings.integrations.webhook_url_how'}}
+        </a>
+      </label>
       {{input
         placeholder="https://discordapp.com/api/webhooks/aaaa/bbbb/cccc"
         value=url
