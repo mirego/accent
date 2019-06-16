@@ -1,6 +1,7 @@
 import {computed} from '@ember/object';
-import {not, lt, gte} from '@ember/object/computed';
+import {not, lt, gte, reads} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
+import {scheduleOnce} from '@ember/runloop';
 import Component from '@ember/component';
 import percentage from 'accent-webapp/component-helpers/percentage';
 
@@ -12,6 +13,7 @@ const HIGH_PERCENTAGE = 90;
 // permissions: Ember Object containing <permission>
 // document: Object <revision>
 // onDelete: Function
+// onRename: Function
 export default Component.extend({
   lowPercentage: lt('correctedKeysPercentage', LOW_PERCENTAGE), // Lower than low percentage
   mediumPercentage: gte('correctedKeysPercentage', LOW_PERCENTAGE), // higher or equal than low percentage
@@ -25,16 +27,23 @@ export default Component.extend({
 
   classNames: ['item'],
 
+  isEditing: false,
   isDeleting: false,
+  isUpdating: false,
+  renamedDocumentPath: reads('document.path'),
   canDeleteFile: not('project.lockedFileOperations'),
 
-  documentFormatItem: computed('document.format', function() {
-    if (!this.globalState.documentFormats) return {};
+  documentFormatItem: computed(
+    'document.format',
+    'globalState.documentFormats',
+    function() {
+      if (!this.globalState.documentFormats) return {};
 
-    return this.globalState.documentFormats.find(
-      ({slug}) => slug === this.document.format
-    );
-  }),
+      return this.globalState.documentFormats.find(
+        ({slug}) => slug === this.document.format
+      );
+    }
+  ),
 
   correctedKeysPercentage: computed(
     'document.{conflictsCount,translationsCount}',
@@ -60,6 +69,20 @@ export default Component.extend({
       this.set('isDeleting', true);
 
       this.onDelete(this.document).then(() => this.set('isDeleting', false));
+    },
+
+    toggleEdit() {
+      this.set('isEditing', !this.isEditing);
+      scheduleOnce('afterRender', this, function() {
+        this.element.querySelector('.textInput').focus();
+      });
+    },
+
+    updateDocument() {
+      this.set('isUpdating', true);
+      this.onUpdate(this.document, this.renamedDocumentPath).then(() =>
+        this.setProperties({isUpdating: false, isEditing: false})
+      );
     }
   }
 });

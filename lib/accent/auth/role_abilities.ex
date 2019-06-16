@@ -50,6 +50,7 @@ defmodule Accent.RoleAbilities do
     merge
     sync
     delete_document
+    update_document
     show_project_access_token
     index_project_integrations
     create_project_integration

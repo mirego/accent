@@ -96,7 +96,7 @@ lint-tslint:
 
 .PHONY: lint-prettier
 lint-prettier:
-	./node_modules/.bin/prettier --check --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql}'
+	./node_modules/.bin/prettier --check --single-quote --no-bracket-spacing '{webapp,jipt,cli}/*.{js,json}' 'webapp/{app,config}/**/*.{js,ts,json,gql}' 'jipt/src/**/*.{js,ts,json,gql}' 'cli/{examples,src}/**/*.{js,ts,json,gql}'
 
 .PHONY: test
 test: ## Run the test suite
@@ -115,7 +115,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	./node_modules/.bin/prettier --write --single-quote --no-bracket-spacing './{webapp,jipt,cli}/**/*.{js,ts,json,gql}'
+	./node_modules/.bin/prettier --write --single-quote --no-bracket-spacing '{webapp,jipt,cli}/*.{js,json}' 'webapp/{app,config}/**/*.{js,ts,json,gql}' 'jipt/src/**/*.{js,ts,json,gql}' 'cli/{examples,src}/**/*.{js,ts,json,gql}'
 
 # Development targets
 # -------------------

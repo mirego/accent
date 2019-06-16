@@ -52,6 +52,45 @@
   font-size: 18px;
 }
 
+.textInput {
+  @extend %textInput;
+  padding: 5px 10px;
+  width: 100%;
+  font-size: 12px;
+  font-family: $font-primary;
+}
+
+
+.item-toggle-edit {
+  position: relative;
+  left: -40px;
+  padding-left: 40px;
+  margin-right: -40px;
+
+  &:focus,
+  &:hover {
+    .item-edit-icon {
+      opacity: 1;
+    }
+  }
+}
+.item-edit-icon {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  stroke: #ccc;
+  transition: $transition-speed $transition-easing;
+  transition-property: opacity, stroke;
+
+  &:focus,
+  &:hover {
+    stroke: #aaa;
+  }
+}
+
 .links {
   display: flex;
   flex-wrap: wrap;

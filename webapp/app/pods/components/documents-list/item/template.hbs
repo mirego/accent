@@ -1,71 +1,105 @@
-<div>
-  <h2 class="item-title">{{document.path}}</h2>
-  <h3 class="item-subtitle">.{{documentFormatItem.extension}}</h3>
-</div>
-
-<div class="stat">
-  <span class="reviewedPercentage">{{correctedKeysPercentage}}%</span>
-
-  <span class="reviewedStats">
-    <span class="reviewedStats-reviewedCount">{{reviewsCount}}</span>
-    /
-    <span class="reviewedStats-translationsCount">{{document.translationsCount}}</span>
-  </span>
-</div>
-
-<div class="stat-progress">
-  {{review-progress-bar correctedKeysPercentage=correctedKeysPercentage}}
-</div>
-
-<div class="links">
+<form {{action 'updateDocument' on='submit'}}>
   <div>
-    {{#if (get permissions 'sync')}}
-      {{#link-to
-        'logged-in.project.files.sync'
-        project.id
-        document.id
-        class='button button--small button--filled button--black'
-      }}
-        {{inline-svg '/assets/sync.svg' class='button-icon'}}
-        {{t 'components.documents_list.sync'}}
-      {{/link-to}}
-    {{/if}}
-
-    {{#if (get permissions 'merge')}}
-      {{#link-to
-        'logged-in.project.files.add-translations'
-        project.id
-        document.id
-        class='button button--small button--filled button--white'
-      }}
-        {{inline-svg '/assets/merge.svg' class='button-icon'}}
-        {{t 'components.documents_list.merge'}}
-      {{/link-to}}
-    {{/if}}
-
-    {{#link-to
-      'logged-in.project.files.export'
-      project.id
-      document.id
-      class='button button--small button--filled button--white'
-    }}
-      {{inline-svg '/assets/export.svg' class='button-icon'}}
-      {{t 'components.documents_list.export'}}
-    {{/link-to}}
-  </div>
-
-  <div>
-    {{#if (get permissions 'delete_document')}}
-      {{#if canDeleteFile}}
-        {{#async-button
-          onClick=(action 'deleteFile' document)
-          loading=isDeleting
-          class='button button--small button--red button--borderless deleteDocumentButton'
+    <h2 class="item-title">
+      {{#if isEditing}}
+        {{quick-submit-textfield
+          onSubmit=(action 'updateDocument')
+          value=renamedDocumentPath
+          class='textInput'
         }}
-          {{inline-svg '/assets/x.svg' class='button-icon'}}
-          {{t 'components.documents_list.delete_document'}}
-        {{/async-button}}
+      {{else}}
+        <span class="item-toggle-edit" {{action 'toggleEdit'}}>
+          {{inline-svg 'assets/pencil.svg' class='item-edit-icon'}}
+          {{document.path}}
+        </span>
       {{/if}}
+    </h2>
+    <h3 class="item-subtitle">.{{documentFormatItem.extension}}</h3>
+  </div>
+
+  {{#unless isEditing}}
+    <div class="stat">
+      <span class="reviewedPercentage">{{correctedKeysPercentage}}%</span>
+
+      <span class="reviewedStats">
+        <span class="reviewedStats-reviewedCount">{{reviewsCount}}</span>
+        /
+        <span class="reviewedStats-translationsCount">{{document.translationsCount}}</span>
+      </span>
+    </div>
+
+    <div class="stat-progress">
+      {{review-progress-bar correctedKeysPercentage=correctedKeysPercentage}}
+    </div>
+  {{/unless}}
+
+  <div class="links">
+    {{#if isEditing}}
+      <div></div>
+      <div>
+        <button {{action 'toggleEdit'}} class="button button--filled button--white">
+          {{t 'components.documents_list.cancel_button'}}
+        </button>
+
+        {{#async-button
+          class='button button--filled'
+          loading=isUpdating
+          onClick=(action 'updateDocument')
+        }}
+          {{t 'components.documents_list.save_button'}}
+        {{/async-button}}
+      </div>
+    {{else}}
+      <div>
+        {{#if (get permissions 'sync')}}
+          {{#link-to
+            'logged-in.project.files.sync'
+            project.id
+            document.id
+            class='button button--small button--filled button--black'
+          }}
+            {{inline-svg '/assets/sync.svg' class='button-icon'}}
+            {{t 'components.documents_list.sync'}}
+          {{/link-to}}
+        {{/if}}
+
+        {{#if (get permissions 'merge')}}
+          {{#link-to
+            'logged-in.project.files.add-translations'
+            project.id
+            document.id
+            class='button button--small button--filled button--white'
+          }}
+            {{inline-svg '/assets/merge.svg' class='button-icon'}}
+            {{t 'components.documents_list.merge'}}
+          {{/link-to}}
+        {{/if}}
+
+        {{#link-to
+          'logged-in.project.files.export'
+          project.id
+          document.id
+          class='button button--small button--filled button--white'
+        }}
+          {{inline-svg '/assets/export.svg' class='button-icon'}}
+          {{t 'components.documents_list.export'}}
+        {{/link-to}}
+      </div>
+
+      <div>
+        {{#if (get permissions 'delete_document')}}
+          {{#if canDeleteFile}}
+            {{#async-button
+              onClick=(action 'deleteFile' document)
+              loading=isDeleting
+              class='button button--small button--red button--borderless deleteDocumentButton'
+            }}
+              {{inline-svg '/assets/x.svg' class='button-icon'}}
+              {{t 'components.documents_list.delete_document'}}
+            {{/async-button}}
+          {{/if}}
+        {{/if}}
+      </div>
     {{/if}}
   </div>
-</div>
+</form>

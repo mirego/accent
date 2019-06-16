@@ -10,6 +10,7 @@
     documents=model.documents.entries
     project=model.project
     onDelete=(action 'deleteDocument')
+    onUpdate=(action 'updateDocument')
   }}
 
   {{#if (get permissions 'sync')}}

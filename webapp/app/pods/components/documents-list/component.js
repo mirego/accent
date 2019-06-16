@@ -5,6 +5,7 @@ import Component from '@ember/component';
 // permissions: Ember Object containing <permission>
 // documents: Array of <revision>
 // onDelete: Function
+// onRename: Function
 export default Component.extend({
   tagName: 'ul'
 });

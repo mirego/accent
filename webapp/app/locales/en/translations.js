@@ -225,7 +225,9 @@ export default {
         one: '1 string per language',
         other: '{{count}} strings per language'
       },
-      delete_document: 'Remove this file'
+      delete_document: 'Remove this file',
+      save_button: 'Save',
+      cancel_button: 'Cancel'
     },
     error_section: {
       logout: 'Logout',
@@ -863,6 +865,8 @@ export default {
       },
       index: {
         flash_messages: {
+          update_error: 'The document could not be updated',
+          update_success: 'The document has been updated with success',
           delete_error: 'The document could not be removed from the project',
           delete_success:
             'The document has been removed from the project with success'
