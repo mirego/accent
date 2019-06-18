@@ -28,6 +28,7 @@ export default gql`
               id
               key
               correctedText
+              isConflicted
               document {
                 id
                 path

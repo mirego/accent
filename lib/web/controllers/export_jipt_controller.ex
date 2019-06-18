@@ -4,6 +4,7 @@ defmodule Accent.ExportJIPTController do
   import Canary.Plugs
 
   alias Accent.Scopes.Document, as: DocumentScope
+  alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: Scope
   alias Accent.Scopes.Version, as: VersionScope
 
@@ -67,11 +68,18 @@ defmodule Accent.ExportJIPTController do
     |> send_file(:ok, file)
   end
 
-  defp fetch_translations(conn = %{assigns: %{document: document, version: version}}, _) do
+  defp fetch_translations(conn = %{assigns: %{document: document, version: version, project: project}}, _) do
+    revision =
+      project
+      |> Ecto.assoc(:revisions)
+      |> RevisionScope.master()
+      |> Repo.one()
+
     translations =
       Translation
       |> Scope.active()
       |> Scope.from_document(document.id)
+      |> Scope.from_revision(revision.id)
       |> Scope.from_version(version && version.id)
       |> Scope.parse_order(nil)
       |> Repo.all()

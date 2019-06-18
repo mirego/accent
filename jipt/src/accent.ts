@@ -6,8 +6,9 @@ import Pin from './ui/pin';
 import UI from './ui/ui';
 
 export interface Config {
-  i: string;
-  h: string;
+  i: string; // Project’s ID
+  h: string; // Accent API’s URL
+  o: boolean; // Hide black screen overlay on script loading, default: false
 }
 
 const state = new State({

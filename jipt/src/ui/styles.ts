@@ -13,6 +13,8 @@ const pinIcon =
 
 // Node
 const translationNode =
+  'outline: 1px #b3e4d2 solid; outline-offset: -1px;transition: outline-color 0.2s ease-in-out;';
+const translationNodeConflicted =
   'outline: 1px #1ecc8c solid; outline-offset: -1px;transition: outline-color 0.2s ease-in-out;';
 const translationNodeUpdated =
   'outline: 1px #c8f5e4 solid; outline-offset: -1px;transition: outline-color 0.2s ease-in-out;';
@@ -49,5 +51,6 @@ export default {
   pinList,
   set,
   translationNode,
+  translationNodeConflicted,
   translationNodeUpdated
 };

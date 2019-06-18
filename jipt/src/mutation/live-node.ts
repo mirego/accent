@@ -1,6 +1,7 @@
 import State from '../state';
 import randomClass from '../ui/random-class';
 import styles from '../ui/styles';
+import Mutation from './mutation';
 
 const ACCENT_REGEX = /{\^(.+)}/;
 const ACCENT_CLASS = randomClass();
@@ -60,8 +61,7 @@ export default class LiveNode {
 
     parentNode.innerHTML = this.replaceValue(parentNode.innerHTML, newContent);
     const newNode = parentNode.getElementsByClassName(ACCENT_CLASS)[0];
-    styles.set(newNode, styles.translationNode);
-    newNode.removeAttribute('class');
+    Mutation.nodeStyleRefresh(newNode, translation);
 
     this.state.addReference(newNode, translation);
   }

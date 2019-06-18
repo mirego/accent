@@ -45,9 +45,15 @@ export default Controller.extend({
             text
           }
         })
-        .then(() =>
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_CORRECT_SUCCESS))
-        )
+        .then(() => {
+          this.jipt.updateTranslation(
+            this.model.translation.id,
+            this.model.translation
+          );
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_CORRECT_SUCCESS)
+          );
+        })
         .catch(() =>
           this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_CORRECT_ERROR))
         );
@@ -63,11 +69,15 @@ export default Controller.extend({
             translationId: conflict.id
           }
         })
-        .then(() =>
+        .then(() => {
+          this.jipt.updateTranslation(
+            this.model.translation.id,
+            this.model.translation
+          );
           this.flashMessages.success(
             this.i18n.t(FLASH_MESSAGE_UNCORRECT_SUCCESS)
-          )
-        )
+          );
+        })
         .catch(() =>
           this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_UNCORRECT_ERROR))
         );

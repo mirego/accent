@@ -32,7 +32,7 @@ export default class UI {
   constructor(props: Props) {
     this.state = props.state;
 
-    this.overlay = this.buildOverlay();
+    this.overlay = this.buildOverlay(props.config);
     this.editor = this.buildContainer();
     this.frame = this.buildFrame(props.config);
 
@@ -119,9 +119,9 @@ export default class UI {
     this.postMessage({selectIds: ids});
   }
 
-  private buildOverlay() {
+  private buildOverlay(config: Config) {
     const element = document.createElement('div');
-    styles.set(element, styles.overlay);
+    if (!config.o) styles.set(element, styles.overlay);
 
     return element;
   }

@@ -5,6 +5,7 @@ import State from './state';
 import UI from './ui/ui';
 
 const enum ACTIONS {
+  updateTranslation = 'updateTranslation',
   listTranslations = 'listTranslations',
   redirectIfEmbedded = 'redirectIfEmbedded',
   login = 'login',
@@ -69,6 +70,10 @@ export default class FrameListener {
     if (action === ACTIONS.changeText) {
       return this.handleChangeText(event);
     }
+
+    if (action === ACTIONS.updateTranslation) {
+      return this.handleUpdateTranslation(event);
+    }
   }
 
   private handleListTranslations(event) {
@@ -105,6 +110,17 @@ export default class FrameListener {
       if (!this.liveNode.isLive(node)) return;
 
       Mutation.nodeChange(node, meta, event.data.payload.text);
+    });
+  }
+
+  private handleUpdateTranslation(event) {
+    const ref = this.state.refs.get(event.data.payload.translationId);
+    if (!ref) return;
+
+    ref.elements.forEach((meta, node: HTMLElement) => {
+      if (!this.liveNode.isLive(node)) return;
+
+      Mutation.nodeStyleRefresh(node, event.data.payload);
     });
   }
 }

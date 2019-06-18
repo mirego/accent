@@ -3,6 +3,10 @@ import LiveNode from './live-node';
 
 const NODE_UPDATE_STYLE_TIMEOUT = 600;
 
+interface Translation {
+  isConflicted: boolean;
+}
+
 /*
   The Mutation component listens to DOM changes and is responsible of updating parent
   window nodes on mutation and messages FROM the Accent client.
@@ -11,6 +15,16 @@ export default class Mutation {
   static nodeChange(node: Element, meta: any, text: string) {
     this.textNodeChange(node, meta, text);
     this.attributeNodeChange(node, meta, text);
+  }
+
+  static nodeStyleRefresh(node: Element, translation: Translation) {
+    node.removeAttribute('class');
+
+    if (translation.isConflicted) {
+      styles.set(node, styles.translationNodeConflicted);
+    } else {
+      styles.set(node, styles.translationNode);
+    }
   }
 
   private static textNodeChange(node: Element, meta: any, text: string) {
@@ -29,9 +43,11 @@ export default class Mutation {
   }
 
   private static handleUpdatedNodeStyles(node: Element) {
+    const originalStyles = node.getAttribute('style');
+
     styles.set(node, styles.translationNodeUpdated);
     setTimeout(() => {
-      styles.set(node, styles.translationNode);
+      styles.set(node, originalStyles);
     }, NODE_UPDATE_STYLE_TIMEOUT);
   }
 

@@ -6,7 +6,12 @@ export default Service.extend({
   listTranslations(translationsEntries, revision) {
     const translations = translationsEntries.reduce((memo, translation) => {
       const key = `${translation.key}@${translation.document.path}`;
-      memo[key] = {text: translation.correctedText, id: translation.id, key};
+      memo[key] = {
+        text: translation.correctedText,
+        id: translation.id,
+        key,
+        isConflicted: translation.isConflicted
+      };
       return memo;
     }, {});
 
@@ -25,6 +30,18 @@ export default Service.extend({
     };
 
     window.parent.postMessage({jipt: true, action: 'changeText', payload}, '*');
+  },
+
+  updateTranslation(translationId, translation) {
+    const payload = {
+      translationId,
+      ...translation
+    };
+
+    window.parent.postMessage(
+      {jipt: true, action: 'updateTranslation', payload},
+      '*'
+    );
   },
 
   redirectIfEmbedded() {
