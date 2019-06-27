@@ -441,6 +441,16 @@
   },
   {
     "name": "Chinese Simplified",
+    "slug": "zh-Hans",
+    "iso_639_1": "zh",
+    "iso_639_3": "zho",
+    "locale": "zh-Hans",
+    "android_code": "zh-rCN",
+    "osx_code": "zh-Hans.lproj",
+    "osx_locale": "zh-Hans"
+  },
+  {
+    "name": "Chinese Simplified, China",
     "slug": "zh-CN",
     "iso_639_1": "zh",
     "iso_639_3": "zho",
@@ -451,6 +461,16 @@
   },
   {
     "name": "Chinese Traditional",
+    "slug": "zh-Hant",
+    "iso_639_1": "zh",
+    "iso_639_3": "zho",
+    "locale": "zh-Hant",
+    "android_code": "zh-rTW",
+    "osx_code": "zh-Hant.lproj",
+    "osx_locale": "zh-Hant"
+  },
+  {
+    "name": "Chinese Traditional, Taiwan",
     "slug": "zh-TW",
     "iso_639_1": "zh",
     "iso_639_3": "zho",
