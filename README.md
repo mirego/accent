@@ -111,6 +111,7 @@ Accent provides a default value for every required environment variable. This me
 | `RESTRICTED_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
 | `SENTRY_DSN`        | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
 | `WEBAPP_SENTRY_DSN` | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
+| `COOKIE`            | _none_  | The _erlang_ cookie
 
 ### Authentication setup
 
