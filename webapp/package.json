@@ -14,8 +14,8 @@
   },
   "scripts": {
     "start": "ember server --port $WEBAPP_PORT",
-    "build": "ember build",
-    "build-production": "ember build --prod --output-path=../priv/static/webapp",
+    "build": "ember build --output-path=../priv/static/webapp",
+    "build-production": "ember build --prod --output-path=webapp-dist",
     "test": "ember test"
   },
   "repository": "https://github.com/mirego/accent",

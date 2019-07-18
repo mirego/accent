@@ -39,12 +39,19 @@ RUN cd /opt/build && \
     rm ${APP_NAME}.tar.gz
 
 COPY webapp /opt/build/webapp
+
+RUN cd /opt/build && npm ci --prefix webapp --no-audit --no-color
+RUN cd /opt/build && npm run build-production --prefix webapp
+
 COPY jipt /opt/build/jipt
 
-RUN cd /opt/build && \
-    npm ci --prefix webapp --no-audit --no-color && \
-    npm ci --prefix jipt --no-audit --no-color
+RUN cd /opt/build && npm ci --prefix jipt --no-audit --no-color
+RUN cd /opt/build && npm run build-production --prefix jipt
 
+RUN mv /opt/build/webapp/webapp-dist /opt/build
+RUN rm -rf /opt/build/webapp
+RUN mv /opt/build/jipt/jipt-dist /opt/build
+RUN rm -rf /opt/build/jipt
 #
 # Step 2 - Build a lean runtime container
 #
@@ -58,21 +65,24 @@ ENV APP_NAME=${APP_NAME} \
 # Update kernel and install runtime dependencies
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add bash openssl erlang-crypto nodejs yaml-dev
+    apk --no-cache add bash openssl erlang-crypto yaml-dev
 
-WORKDIR /opt/accent
+WORKDIR /opt/$APP_NAME
 
 # Copy the OTP binary from the build step
 COPY --from=builder /opt/build .
+
+RUN cp -r /opt/$APP_NAME/webapp-dist /opt/$APP_NAME/lib/$APP_NAME-$APP_VERSION/priv/static/webapp
+RUN cp -r /opt/$APP_NAME/jipt-dist /opt/$APP_NAME/lib/$APP_NAME-$APP_VERSION/priv/static/jipt
 
 # Copy the entrypoint script
 COPY priv/scripts/docker-entrypoint.sh /usr/local/bin
 RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
 # Create a non-root user
-RUN adduser -D accent && chown -R accent: /opt/accent
+RUN adduser -D $APP_NAME && chown -R accent: /opt/$APP_NAME
 
-USER accent
+USER $APP_NAME
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["foreground"]
