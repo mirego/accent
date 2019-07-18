@@ -74,7 +74,8 @@ export default Component.extend({
     toggleEdit() {
       this.set('isEditing', !this.isEditing);
       scheduleOnce('afterRender', this, function() {
-        this.element.querySelector('.textInput').focus();
+        const input = this.element.querySelector('.textInput');
+        input && input.focus();
       });
     },
 
