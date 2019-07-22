@@ -17,7 +17,7 @@ defmodule Accent.WebAppController do
   def index(conn, _) do
     conn
     |> put_resp_header("content-type", "text/html; charset=utf-8")
-    |> send_file(:ok, conn.assigns[:file])
+    |> send_resp(:ok, conn.assigns[:file])
   end
 
   def ensure_file_exists(conn, _) do
@@ -32,8 +32,13 @@ defmodule Accent.WebAppController do
         |> render("maintenance.html")
         |> halt()
 
-      _ ->
-        assign(conn, :file, file)
+      {:ok, content} ->
+        content = content
+        |> String.replace("__WEBAPP_AUTH_PROVIDERS__", "dummy")
+        |> String.replace("__API_HOST__", "http://localhost:4008")
+        |> String.replace("__API_WS_HOST__", "ws://localhost:4008")
+
+        assign(conn, :file, content)
     end
   end
 end

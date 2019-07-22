@@ -6,10 +6,18 @@ import config from 'accent-webapp/config/environment';
 export default Component.extend({
   username: '',
 
-  googleLoginEnabled: computed(() => config.AUTH_PROVIDERS.includes('google')),
-  dummyLoginEnabled: computed(() => config.AUTH_PROVIDERS.includes('dummy')),
-  githubLoginEnabled: computed(() => config.AUTH_PROVIDERS.includes('github')),
-  slackLoginEnabled: computed(() => config.AUTH_PROVIDERS.includes('slack')),
+  googleLoginEnabled: computed(() =>
+    config.AUTH_PROVIDERS.split(',').includes('google')
+  ),
+  dummyLoginEnabled: computed(() =>
+    config.AUTH_PROVIDERS.split(',').includes('dummy')
+  ),
+  githubLoginEnabled: computed(() =>
+    config.AUTH_PROVIDERS.split(',').includes('github')
+  ),
+  slackLoginEnabled: computed(() =>
+    config.AUTH_PROVIDERS.split(',').includes('slack')
+  ),
 
   googleUrl: computed(() => `${config.API.AUTHENTICATION_PATH}/google`),
   githubUrl: computed(() => `${config.API.AUTHENTICATION_PATH}/github`),
