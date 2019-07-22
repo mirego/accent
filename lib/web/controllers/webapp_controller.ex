@@ -33,10 +33,11 @@ defmodule Accent.WebAppController do
         |> halt()
 
       {:ok, content} ->
-        content = content
-        |> String.replace("__WEBAPP_AUTH_PROVIDERS__", "dummy")
-        |> String.replace("__API_HOST__", "http://localhost:4008")
-        |> String.replace("__API_WS_HOST__", "ws://localhost:4008")
+        content =
+          content
+          |> String.replace("__WEBAPP_AUTH_PROVIDERS__", "dummy")
+          |> String.replace("__API_HOST__", "http://localhost:4008")
+          |> String.replace("__API_WS_HOST__", "ws://localhost:4008")
 
         assign(conn, :file, content)
     end

@@ -7,7 +7,7 @@ defmodule AccentTest.WebappController do
       |> get(web_app_path(conn, []))
 
     assert response.status == 200
-    assert response.state == :file
+    assert response.state == :sent
     assert get_resp_header(response, "content-type") == ["text/html; charset=utf-8"]
   end
 
@@ -17,7 +17,7 @@ defmodule AccentTest.WebappController do
       |> get("/app/foo")
 
     assert response.status == 200
-    assert response.state == :file
+    assert response.state == :sent
     assert get_resp_header(response, "content-type") == ["text/html; charset=utf-8"]
   end
 end
