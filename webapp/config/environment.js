@@ -4,9 +4,10 @@
 
 // eslint-disable-next-line complexity
 module.exports = function(environment) {
-  const wsHost = process.env.API_WS_HOST || '__API_WS_HOST__'
-  const host = process.env.API_HOST || '__API_HOST__'
-  const providers = process.env.WEBAPP_AUTH_PROVIDERS || '__WEBAPP_AUTH_PROVIDERS__'
+  const wsHost = process.env.API_WS_HOST || '__API_WS_HOST__';
+  const host = process.env.API_HOST || '__API_HOST__';
+  const providers =
+    process.env.WEBAPP_AUTH_PROVIDERS || '__WEBAPP_AUTH_PROVIDERS__';
 
   const ENV = {
     modulePrefix: 'accent-webapp',

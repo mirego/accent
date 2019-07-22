@@ -106,11 +106,13 @@ Accent provides a default value for every required environment variable. This me
 
 ### Production setup
 
-| Variable            | Default | Description                                                                                       |
-| ------------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| `RESTRICTED_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
-| `SENTRY_DSN`        | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
-| `WEBAPP_SENTRY_DSN` | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
+| Variable                | Default | Description                                                                                       |
+| ----------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `RESTRICTED_DOMAIN`     | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
+| `SENTRY_DSN`            | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
+| `ERLANG_COOKIE`         | _none_  | The _erlang_ cookie required for starting the release                                             |
+| `WEBAPP_SENTRY_DSN`     | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
+| `WEBAPP_AUTH_PROVIDERS` | _dummy_ | List of login services to use in the webapp "google,slack,github,dummy"                           |
 
 ### Authentication setup
 
