@@ -28,9 +28,11 @@ priv/static/jipt
 webapp/node_modules
 webapp/tmp
 webapp/dist
+webapp/webapp-dist
 jipt/node_modules
 jipt/.cache
 jipt/dist
+jipt/jipt-dist
 cli/node_modules
 cli/.cache
 cli/dist
