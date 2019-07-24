@@ -6,6 +6,7 @@
 module.exports = function(environment) {
   const wsHost = process.env.API_WS_HOST || '__API_WS_HOST__';
   const host = process.env.API_HOST || '__API_HOST__';
+  const sentryDsn = process.env.WEBAPP_SENTRY_DSN || '__WEBAPP_SENTRY_DSN__';
   const providers =
     process.env.WEBAPP_AUTH_PROVIDERS || '__WEBAPP_AUTH_PROVIDERS__';
 
@@ -15,6 +16,10 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto'
+  };
+
+  ENV.SENTRY = {
+    DSN: sentryDsn
   };
 
   ENV.EmberENV = {
@@ -45,10 +50,6 @@ module.exports = function(environment) {
   };
 
   ENV.AUTH_PROVIDERS = providers;
-
-  ENV.SENTRY = {
-    DSN: process.env.WEBAPP_SENTRY_DSN
-  };
 
   ENV.contentSecurityPolicy = {
     'default-src': "'none'",
