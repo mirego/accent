@@ -6,6 +6,7 @@
   "scripts": {
     "build": "parcel index.html",
     "build-production": "parcel build index.ts --out-dir=jipt-dist --target browser --experimental-scope-hoisting",
+    "build-heroku": "parcel build index.ts --out-dir=../priv/static/jipt --target browser --experimental-scope-hoisting",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
