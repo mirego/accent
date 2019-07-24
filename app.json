@@ -46,6 +46,10 @@
     "RESTRICTED_DOMAIN": {
       "description": "If specified, only authenticated users from this domain name will be able to create projects",
       "required": false
+    },
+    "WEBAPP_URL": {
+      "description": "The URL of the app. Used in sent emails and to redirect from external service to the app for authentication",
+      "required": true
     }
   },
   "addons": [
