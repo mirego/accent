@@ -1,3 +1,4 @@
 cd $phoenix_dir
-npm --prefix ./webapp run build-heroku
-npm --prefix ./jipt run build-heroku
+npm --prefix ./webapp run build-production-inline
+npm --prefix ./jipt ci --no-audit --no-color
+npm --prefix ./jipt run build-production-inline

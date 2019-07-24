@@ -15,7 +15,7 @@
   "scripts": {
     "start": "ember server --port $WEBAPP_PORT",
     "build": "ember build --output-path=../priv/static/webapp",
-    "build-heroku": "ember build --prod --output-path=../priv/static/webapp",
+    "build-production-inline": "ember build --prod --output-path=../priv/static/webapp",
     "build-production": "ember build --prod --output-path=webapp-dist",
     "test": "ember test"
   },
