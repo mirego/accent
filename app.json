@@ -35,6 +35,10 @@
       "description": "The Google API OAuth client ID that will be used to authenticate users. You can create a “Web application”-type credential at https://console.developers.google.com/apis/credentials",
       "value": "google-api-client-id.apps.googleusercontent.com"
     },
+    "GOOGLE_API_CLIENT_SECRET": {
+      "description": "The Google API OAuth client secret that will be used to authenticate users. You can create a “Web application”-type credential at https://console.developers.google.com/apis/credentials",
+      "value": "2IIY1nMmohzaml3Z9a1xD3Ic"
+    },
     "MIX_ENV": {
       "description": "The environment in which Elixir code will run",
       "value": "prod"
@@ -42,6 +46,10 @@
     "RESTRICTED_DOMAIN": {
       "description": "If specified, only authenticated users from this domain name will be able to create projects",
       "required": false
+    },
+    "WEBAPP_URL": {
+      "description": "The URL of the app. Used in sent emails and to redirect from external service to the app for authentication",
+      "required": true
     }
   },
   "addons": [

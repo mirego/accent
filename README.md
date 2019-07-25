@@ -108,15 +108,14 @@ Accent provides a default value for every required environment variable. This me
 
 | Variable                | Default | Description                                                                                       |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `ERLANG_COOKIE`         | _none_  | The _erlang_ cookie required for starting the release                                             |
 | `RESTRICTED_DOMAIN`     | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
 | `SENTRY_DSN`            | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
-| `ERLANG_COOKIE`         | _none_  | The _erlang_ cookie required for starting the release                                             |
 | `WEBAPP_SENTRY_DSN`     | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
-| `WEBAPP_AUTH_PROVIDERS` | _dummy_ | List of login services to use in the webapp "google,slack,github,dummy"                           |
 
 ### Authentication setup
 
-Various login providers are included in Accent using the awesomer Uberauth library to abstract services.
+Various login providers are included in Accent using Uberauth to abstract services.
 
 | Variable                   | Default | Description                                                                                                                               |
 | -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
