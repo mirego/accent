@@ -40,7 +40,7 @@ before_install:
   - npm i --prefix webapp --no-audit --no-color
   - npm i --prefix cli --no-audit --no-color
   - npm i --prefix jipt --no-audit --no-color
-  - npm --prefix webapp run build-production
+  - npm --prefix webapp run build-production-inline
 
 # Create database and prepare the application
 before_script:
@@ -50,5 +50,5 @@ before_script:
 script:
   - ./priv/scripts/ci-check.sh
   - npm --prefix cli run build
-  - npm --prefix jipt run build-production
+  - npm --prefix jipt run build-production-inline
   - mix coveralls.travis

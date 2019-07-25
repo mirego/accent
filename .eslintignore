@@ -2,6 +2,7 @@ webapp/node_modules/*
 webapp/**/vendor/*.js
 webapp/vendor/**/*.js
 webapp/bower_components/**/*.js
+webapp/webapp-dist/**/*.js
 webapp/dist/**/*.js
 webapp/tmp/**/*.js
 webapp/app/locales/*/translations.js

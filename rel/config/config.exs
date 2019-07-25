@@ -46,6 +46,11 @@ providers = if System.get_env("SLACK_CLIENT_ID"), do: [{:slack, {Ueberauth.Strat
 providers = if System.get_env("GITHUB_CLIENT_ID"), do: [{:github, {Ueberauth.Strategy.Github, []}} | providers], else: providers
 providers = if System.get_env("DUMMY_LOGIN_ENABLED") || providers === [], do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers], else: providers
 
+webapp_auth_providers =
+  providers
+  |> Enum.map(&elem(&1, 0))
+  |> Enum.join(",")
+
 config :ueberauth, Ueberauth, providers: providers
 
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
@@ -59,6 +64,13 @@ config :ueberauth, Ueberauth.Strategy.Github.OAuth,
 config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
   client_id: System.get_env("SLACK_CLIENT_ID"),
   client_secret: System.get_env("SLACK_CLIENT_SECRET")
+
+config :accent, Accent.WebappView,
+  path: "priv/static/webapp/index.html",
+  api_host: System.get_env("API_HOST") || "http://localhost:4000",
+  api_ws_host: System.get_env("API_WS_HOST") || "ws://localhost:4000",
+  sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN") || "",
+  auth_providers: webapp_auth_providers
 
 # Configures Elixir's Logger
 config :logger, :console,
