@@ -6,9 +6,10 @@ defmodule LangueTest.Formatter.XLIFF12 do
   alias Langue.Formatter.XLIFF12
 
   @tests [
-    Simple
+    Simple,
+    MultipleFile
   ]
-
+require IEx
   for test <- @tests, module = Module.concat(LangueTest.Formatter.XLIFF12.Expectation, test) do
     test "xliff 1.2 #{test}" do
       {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), XLIFF12)
