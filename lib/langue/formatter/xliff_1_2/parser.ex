@@ -4,8 +4,6 @@ defmodule Langue.Formatter.XLIFF12.Parser do
   alias Langue.Entry
   alias Langue.Utils.Placeholders
 
-  require IEx
-
   def parse(%{render: render}) do
     render
     |> :erlsom.simple_form([{:nameFun, fn(name, _namespace, _prefix) -> name end}])
