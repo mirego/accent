@@ -3,7 +3,7 @@ defmodule Accent.AuthController do
 
   alias Accent.UserRemote.Authenticator
 
-  plug Ueberauth
+  plug :ueberauth
 
   def callback(conn = %{assigns: %{ueberauth_auth: auth}}, _) do
     case Authenticator.authenticate(auth) do
@@ -17,6 +17,10 @@ defmodule Accent.AuthController do
 
   def callback(conn, _) do
     redirect(conn, external: webapp_url())
+  end
+
+  def ueberauth(conn, _) do
+    Ueberauth.call(conn, Ueberauth.init())
   end
 
   defp webapp_url do

@@ -2,7 +2,7 @@
 # -------------
 
 APP_NAME ?= `grep 'app:' mix.exs | sed -e 's/\[//g' -e 's/ //g' -e 's/app://' -e 's/[:,]//g'`
-APP_VERSION ?= `grep 'version:' mix.exs | cut -d '"' -f2`
+APP_VERSION ?= `grep -E '@version "([0-9\.]*)"' mix.exs | cut -d '"' -f2`
 DOCKER_IMAGE_TAG ?= latest
 GIT_REVISION ?= `git rev-parse HEAD`
 

@@ -1,17 +1,20 @@
 defmodule Accent.Mixfile do
   use Mix.Project
 
+  @version "1.2.0"
+
   def project do
     [
       app: :accent,
-      version: "1.1.0",
-      elixir: "~> 1.8",
+      version: @version,
+      elixir: "~> 1.9",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+      releases: releases(),
       test_coverage: [tool: ExCoveralls]
     ]
   end
@@ -99,24 +102,24 @@ defmodule Accent.Mixfile do
       {:credo, ">= 0.0.0", only: ~w(dev test)a},
       {:credo_envvar, "~> 0.1.0", only: ~w(dev test)a, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
-
-      # OTP Release
-      {:distillery, "~> 2.0", runtime: false}
+      {:phoenix_live_reload, "~> 1.0", only: :dev}
     ]
   end
 
-  # Aliases are shortcut or tasks specific to the current project.
-  # For example, to create, migrate and run the seeds file at once:
-  #
-  #     $ mix ecto.setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
+    ]
+  end
+
+  defp releases do
+    [
+      accent: [
+        version: @version,
+        applications: [accent: :permanent]
+      ]
     ]
   end
 end

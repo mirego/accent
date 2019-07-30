@@ -97,7 +97,6 @@ Accent provides a default value for every required environment variable. This me
 | ---------------- | ----------------------------------------- | ------------------------------------------------------------------------------------- |
 | `API_HOST`       | `http://localhost:4000`                   | The API host                                                                          |
 | `API_WS_HOST`    | `ws://localhost:4000`                     | The API Websocket host                                                                |
-| `CANONICAL_HOST` | `localhost`                               | The host that will be used to build internal URLs                                     |
 | `DATABASE_URL`   | `postgres://localhost/accent_development` | A valid database URL                                                                  |
 | `MIX_ENV`        | `dev`                                     | The application environment (`dev`, `prod`, or `test`)                                |
 | `PORT`           | `4000`                                    | A port to run the API on                                                              |
@@ -106,16 +105,16 @@ Accent provides a default value for every required environment variable. This me
 
 ### Production setup
 
-| Variable                | Default | Description                                                                                       |
-| ----------------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| `ERLANG_COOKIE`         | _none_  | The _erlang_ cookie required for starting the release                                             |
-| `RESTRICTED_DOMAIN`     | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
-| `SENTRY_DSN`            | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
-| `WEBAPP_SENTRY_DSN`     | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
+| Variable            | Default | Description                                                                                       |
+| ------------------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `ERLANG_COOKIE`     | _none_  | The _erlang_ cookie required for starting the release                                             |
+| `RESTRICTED_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
+| `SENTRY_DSN`        | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
+| `WEBAPP_SENTRY_DSN` | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
 
 ### Authentication setup
 
-Various login providers are included in Accent using Uberauth to abstract services.
+Various login providers are included in Accent using Ueberauth to abstract services.
 
 | Variable                   | Default | Description                                                                                                                               |
 | -------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |

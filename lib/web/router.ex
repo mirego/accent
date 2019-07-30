@@ -2,10 +2,6 @@ defmodule Accent.Router do
   use Phoenix.Router
   use Sentry.Phoenix.Endpoint
 
-  if Mix.env() == :dev do
-    forward("/emails", Bamboo.EmailPreviewPlug)
-  end
-
   pipeline :graphql do
     plug(Accent.Plugs.AssignCurrentUser)
     plug(Accent.Plugs.SentryUserContext)

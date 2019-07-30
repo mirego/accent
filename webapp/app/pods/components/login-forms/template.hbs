@@ -1,32 +1,30 @@
-{{login-header}}
+{{#if providers}}
+  {{#if dummyLoginEnabled}}
+    {{input value=username class="input"}}
+    <a href={{dummyUrl}} class="button button--filled loginButton loginButton--dummy">
+      <img src="assets/auth_providers/dummy.svg" class="loginButton-logo" />
+      {{t 'components.login_forms.dummy'}}
+    </a>
+  {{/if}}
 
-{{#if dummyLoginEnabled}}
-  {{input value=username class="input"}}
-  <a href={{dummyUrl}} class="button button--filled loginButton loginButton--dummy">
-    <img src="assets/auth_providers/dummy.svg" class="loginButton-logo" />
-    {{t 'components.login_forms.dummy'}}
-  </a>
+  {{#if googleLoginEnabled}}
+    <a href={{googleUrl}} class="button button--filled loginButton loginButton--google">
+      <img src="assets/auth_providers/google.svg" class="loginButton-logo" />
+      {{t 'components.login_forms.google'}}
+    </a>
+  {{/if}}
+
+  {{#if githubLoginEnabled}}
+    <a href={{githubUrl}} class="button button--filled loginButton loginButton--github">
+      <img src="assets/auth_providers/github.svg" class="loginButton-logo" />
+      {{t 'components.login_forms.github'}}
+    </a>
+  {{/if}}
+
+  {{#if slackLoginEnabled}}
+    <a href={{slackUrl}} class="button button--filled loginButton loginButton--slack">
+      <img src="assets/auth_providers/slack.svg" class="loginButton-logo" />
+      {{t 'components.login_forms.slack'}}
+    </a>
+  {{/if}}
 {{/if}}
-
-{{#if googleLoginEnabled}}
-  <a href={{googleUrl}} class="button button--filled loginButton loginButton--google">
-    <img src="assets/auth_providers/google.svg" class="loginButton-logo" />
-    {{t 'components.login_forms.google'}}
-  </a>
-{{/if}}
-
-{{#if githubLoginEnabled}}
-  <a href={{githubUrl}} class="button button--filled loginButton loginButton--github">
-    <img src="assets/auth_providers/github.svg" class="loginButton-logo" />
-    {{t 'components.login_forms.github'}}
-  </a>
-{{/if}}
-
-{{#if slackLoginEnabled}}
-  <a href={{slackUrl}} class="button button--filled loginButton loginButton--slack">
-    <img src="assets/auth_providers/slack.svg" class="loginButton-logo" />
-    {{t 'components.login_forms.slack'}}
-  </a>
-{{/if}}
-
-{{login-footer}}

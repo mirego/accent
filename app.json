@@ -15,6 +15,11 @@
     "postdeploy": "mix do ecto.migrate, run ./priv/repo/seeds.exs"
   },
   "env": {
+    "WEBAPP_URL": {
+      "description": "The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow",
+      "value": "https://this-heroku-app-name.herokuapp.com",
+      "required": true
+    },
     "API_HOST": {
       "description": "The URL to which the Web application will connect for API requests",
       "value": "https://this-heroku-app-name.herokuapp.com"
@@ -22,10 +27,6 @@
     "API_WS_HOST": {
       "description": "The URL to which the Web application will connect for Websocket sessions",
       "value": "wss://this-heroku-app-name.herokuapp.com"
-    },
-    "CANONICAL_HOST": {
-      "description": "The host that will be used to build internal URLs",
-      "value": "this-heroku-app-name.herokuapp.com"
     },
     "FORCE_SSL": {
       "description": "Whether to force HTTPS requests to the Web application and the API",
@@ -46,10 +47,6 @@
     "RESTRICTED_DOMAIN": {
       "description": "If specified, only authenticated users from this domain name will be able to create projects",
       "required": false
-    },
-    "WEBAPP_URL": {
-      "description": "The URL of the app. Used in sent emails and to redirect from external service to the app for authentication",
-      "required": true
     }
   },
   "addons": [

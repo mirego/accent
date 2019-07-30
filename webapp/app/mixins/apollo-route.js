@@ -5,7 +5,7 @@ import EmberObject, {setProperties} from '@ember/object';
 const PROPS_FN = data => data;
 
 export default Mixin.create({
-  apollo: service(),
+  apollo: service('apollo'),
 
   graphql(query, {options, props}) {
     props = props || PROPS_FN;

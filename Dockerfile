@@ -1,7 +1,7 @@
 #
 # Step 1 - Build the OTP binary
 #
-FROM elixir:1.8.1-alpine AS builder
+FROM elixir:1.9-alpine AS builder
 
 ARG APP_NAME
 ARG APP_VERSION
@@ -26,15 +26,10 @@ RUN mix deps.compile
 
 COPY . .
 RUN mix compile
-RUN mix phx.digest
 
 RUN mkdir -p /opt/build && \
-    mix release --verbose && \
-    cp _build/${MIX_ENV}/rel/${APP_NAME}/releases/${APP_VERSION}/${APP_NAME}.tar.gz /opt/build
-
-RUN cd /opt/build && \
-    tar -xzf ${APP_NAME}.tar.gz && \
-    rm ${APP_NAME}.tar.gz
+    mix release && \
+    cp -R _build/${MIX_ENV}/rel/${APP_NAME}/* /opt/build
 
 #
 # Step 2 - Build webapp and jipt deps
@@ -90,4 +85,4 @@ RUN adduser -D $APP_NAME && chown -R $APP_NAME: /opt/$APP_NAME
 USER $APP_NAME
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["foreground"]
+CMD ["start"]

@@ -10,7 +10,6 @@ defmodule Accent.WebappView do
 
   defp replace_env_var(file, config) do
     file
-    |> String.replace("__WEBAPP_AUTH_PROVIDERS__", config[:auth_providers])
     |> String.replace("__API_HOST__", config[:api_host])
     |> String.replace("__API_WS_HOST__", config[:api_ws_host])
     |> String.replace("__WEBAPP_SENTRY_DSN__", config[:sentry_dsn])

@@ -6,9 +6,10 @@
 module.exports = function(environment) {
   const wsHost = process.env.API_WS_HOST || '__API_WS_HOST__';
   const host = process.env.API_HOST || '__API_HOST__';
-  const sentryDsn = process.env.WEBAPP_SENTRY_DSN || '__WEBAPP_SENTRY_DSN__';
-  const providers =
-    process.env.WEBAPP_AUTH_PROVIDERS || '__WEBAPP_AUTH_PROVIDERS__';
+  const sentryDsn =
+    process.env.NODE_ENV === 'prod'
+      ? process.env.WEBAPP_SENTRY_DSN || '__WEBAPP_SENTRY_DSN__'
+      : process.env.WEBAPP_SENTRY_DSN;
 
   const ENV = {
     modulePrefix: 'accent-webapp',
@@ -48,8 +49,6 @@ module.exports = function(environment) {
     PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`,
     JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`
   };
-
-  ENV.AUTH_PROVIDERS = providers;
 
   ENV.contentSecurityPolicy = {
     'default-src': "'none'",
