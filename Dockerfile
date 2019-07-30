@@ -24,7 +24,11 @@ COPY mix.* ./
 RUN mix deps.get --only ${MIX_ENV}
 RUN mix deps.compile
 
-COPY . .
+COPY lib lib
+COPY priv priv
+COPY config config
+COPY mix.exs .
+COPY mix.lock .
 RUN mix compile
 
 RUN mkdir -p /opt/build && \
