@@ -19,7 +19,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.6.1 darwin-x64 node-v9.5.0
+accent-cli/0.7.0 darwin-x64 node-v10.14.2
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -93,7 +93,7 @@ EXAMPLE
   $ accent export
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.6.1/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.7.0/src/commands/export.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -127,7 +127,7 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.6.1/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.7.0/src/commands/jipt.ts)_
 
 ## `accent stats`
 
@@ -141,7 +141,7 @@ EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.6.1/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.7.0/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -167,7 +167,7 @@ EXAMPLE
   $ accent sync
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.6.1/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.7.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # License
