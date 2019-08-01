@@ -1,4 +1,5 @@
 import {get} from '@ember/object';
+import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import ResetScroll from 'accent-webapp/mixins/reset-scroll';
 import ApolloRoute from 'accent-webapp/mixins/apollo-route';
@@ -6,6 +7,8 @@ import ApolloRoute from 'accent-webapp/mixins/apollo-route';
 import translationsQuery from 'accent-webapp/queries/translations';
 
 export default Route.extend(ResetScroll, ApolloRoute, {
+  routeParams: service(),
+
   queryParams: {
     query: {
       refreshModel: true
@@ -24,7 +27,7 @@ export default Route.extend(ResetScroll, ApolloRoute, {
   model({query, page, document, version}, transition) {
     return this.graphql(translationsQuery, {
       props: data => ({
-        revisionId: transition.params['logged-in.project.revision'].revisionId,
+        revisionId: this.routeParams.fetch(transition, 'logged-in.project.revision').revisionId,
         project: get(data, 'viewer.project'),
         documents: get(data, 'viewer.project.documents.entries'),
         versions: get(data, 'viewer.project.versions.entries'),
@@ -33,9 +36,9 @@ export default Route.extend(ResetScroll, ApolloRoute, {
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
-          projectId: transition.params['logged-in.project'].projectId,
+          projectId: this.routeParams.fetch(transition, 'logged-in.project').projectId,
           revisionId:
-            transition.params['logged-in.project.revision'].revisionId,
+            this.routeParams.fetch(transition, 'logged-in.project.revision').revisionId,
           query,
           page,
           document,

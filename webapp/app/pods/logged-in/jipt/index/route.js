@@ -1,4 +1,5 @@
 import {get} from '@ember/object';
+import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import ResetScroll from 'accent-webapp/mixins/reset-scroll';
 import ApolloRoute from 'accent-webapp/mixins/apollo-route';
@@ -6,6 +7,8 @@ import ApolloRoute from 'accent-webapp/mixins/apollo-route';
 import translationsQuery from 'accent-webapp/queries/jipt-translations';
 
 export default Route.extend(ResetScroll, ApolloRoute, {
+  routeParams: service(),
+
   queryParams: {
     query: {
       refreshModel: true
@@ -33,7 +36,7 @@ export default Route.extend(ResetScroll, ApolloRoute, {
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
-          projectId: transition.params['logged-in.jipt'].projectId,
+          projectId: this.routeParams.fetch(transition, 'logged-in.jipt').projectId,
           revisionId: transition.queryParams.revisionId,
           query,
           page,

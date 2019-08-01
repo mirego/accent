@@ -1,10 +1,13 @@
 import {get} from '@ember/object';
+import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import ApolloRoute from 'accent-webapp/mixins/apollo-route';
 
 import translationQuery from 'accent-webapp/queries/translation';
 
 export default Route.extend(ApolloRoute, {
+  routeParams: service(),
+
   model({translationId}, transition) {
     return this.graphql(translationQuery, {
       props: data => ({
@@ -14,7 +17,7 @@ export default Route.extend(ApolloRoute, {
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
-          projectId: transition.params['logged-in.jipt'].projectId,
+          projectId: this.routeParams.fetch(transition, 'logged-in.jipt').projectId,
           translationId
         }
       }

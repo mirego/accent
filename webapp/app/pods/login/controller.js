@@ -5,6 +5,7 @@ export default Controller.extend({
   jipt: service('jipt'),
 
   init() {
+    this._super(...arguments);
     this.jipt.login();
   }
 });

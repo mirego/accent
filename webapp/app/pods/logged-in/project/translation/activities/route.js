@@ -7,6 +7,7 @@ import translationActivitiesQuery from 'accent-webapp/queries/translation-activi
 
 export default Route.extend(ApolloRoute, {
   apollo: service(),
+  routeParams: service(),
 
   queryParams: {
     page: {
@@ -23,9 +24,9 @@ export default Route.extend(ApolloRoute, {
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
-          projectId: transition.params['logged-in.project'].projectId,
+          projectId: this.routeParams.fetch(transition, 'logged-in.project').projectId,
           translationId:
-            transition.params['logged-in.project.translation'].translationId,
+            this.routeParams.fetch(transition, 'logged-in.project.translation').translationId,
           page
         }
       }
