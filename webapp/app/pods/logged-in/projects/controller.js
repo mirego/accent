@@ -13,6 +13,7 @@ export default Controller.extend({
   page: 1,
 
   init() {
+    this._super(...arguments);
     this.jipt.redirectIfEmbedded();
   },
 

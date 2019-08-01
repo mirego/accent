@@ -35,6 +35,8 @@ export default Service.extend({
   session: service('session'),
 
   init() {
+    this._super(...arguments);
+
     const client = new ApolloClient({
       uri,
       cache,

@@ -15,6 +15,8 @@ export default Controller.extend({
   defaultColor: '#25ba7c',
 
   init() {
+    this._super(...arguments);
+
     window.addEventListener(
       'message',
       payload => {
