@@ -56,7 +56,7 @@ This will start the webserver on port 4000, migrate the database to have an up a
 ## 🚧 Requirements
 
 - `erlang ~> 21.2`
-- `elixir ~> 1.8`
+- `elixir ~> 1.9`
 - `postgres >= 9.4`
 - `node.js >= 8.5.0`
 - `libyaml >= 0.1.7`
