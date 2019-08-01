@@ -7,7 +7,7 @@
   </p>
 </div>
 
-[Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
+[Demo](http://demo.accent.reviews) • [Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
 
 [![Build Status](https://travis-ci.com/mirego/accent.svg?branch=master)](https://travis-ci.com/mirego/accent)
 [![Coverage Status](https://coveralls.io/repos/github/mirego/accent/badge.svg?branch=master)](https://coveralls.io/github/mirego/accent?branch=master) [![Join the chat at https://gitter.im/mirego/accent](https://badges.gitter.im/mirego/accent.svg)](https://gitter.im/mirego/accent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -16,7 +16,7 @@ Accent provides a powerful abstraction around the process maintaining translatio
 
 - **History**. Full history control and actions rollback. _Who_ did _what_, _when_.
 - **UI**. Simple yet powerful UI to enable translator and developer to be productive.
-- **CLI**. [Command line tool](https://github.com/mirego/accent-cli) to easily add Accent to your developer flow.
+- **CLI**. [Command line tool](https://github.com/mirego/accent/tree/master/cli) to easily add Accent to your developer flow.
 - **Collaboration**. Centralize your discussions around translations.
 - **GraphQL**. The API that powers the UI is open and documented. It’s easy to build a plugin/cli/library around Accent.
 
@@ -24,6 +24,7 @@ Accent provides a powerful abstraction around the process maintaining translatio
 
 | Section                                             | Description                                                          |
 | --------------------------------------------------- | -------------------------------------------------------------------- |
+| [🚀 Getting started](#-getting-started)             | Quickly setup a working app                                          |
 | [🚧 Requirements](#-requirements)                   | Dependencies required to run Accent’ stack                           |
 | [🎛 Mix commands](#-executing-mix-commands)          | How to execute mix task with the Twelve-Factor pattern               |
 | [🏎 Quickstart](#-quickstart)                        | Steps to run the project, from API to webapp, with or without Docker |
@@ -31,6 +32,26 @@ Accent provides a powerful abstraction around the process maintaining translatio
 | [✅ Tests](#-tests)                                 | How to run the extensive tests suite                                 |
 | [🚀 Heroku](#-heroku)                               | Easy deployment setup with Heroku                                    |
 | [🌎 Contribute](#-contribute)                       | How to contribute to this repo                                       |
+
+## 🚀 Getting started
+
+Easiest way to run an instance of Accent is by using the offical docker image: https://hub.docker.com/r/mirego/accent
+
+1. The only external dependancy is a PostgreSQL database.
+2. Create a `.env` file. Example:
+
+```
+DATABASE_URL=postgresql://postgres@docker.for.mac.host.internal/accent_development
+DUMMY_LOGIN_ENABLED=1
+```
+
+3. Run the image
+
+```shell
+$ docker run --env-file .env -p 4000:4000 mirego/accent
+```
+
+This will start the webserver on port 4000, migrate the database to have an up and running Accent instance!
 
 ## 🚧 Requirements
 
@@ -60,7 +81,7 @@ $ nv .env mix <mix command>
 
 ## 🏎 Quickstart
 
-_This is the full development setup. To simply run the app, see the *Docker* instructions_
+_This is the full development setup. To simply run the app, see the *Getting started* instructions_
 
 1. If you don’t already have it, install `nodejs` with `brew install nodejs`
 2. If you don’t already have it, install `elixir` with `brew install elixir`
@@ -93,22 +114,21 @@ _That’s it! You now have a working Accent instance without installing Elixir o
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup, you can just run `mix phx.server`.
 
-| Variable         | Default                                   | Description                                                                           |
-| ---------------- | ----------------------------------------- | ------------------------------------------------------------------------------------- |
-| `API_HOST`       | `http://localhost:4000`                   | The API host                                                                          |
-| `API_WS_HOST`    | `ws://localhost:4000`                     | The API Websocket host                                                                |
-| `DATABASE_URL`   | `postgres://localhost/accent_development` | A valid database URL                                                                  |
-| `MIX_ENV`        | `dev`                                     | The application environment (`dev`, `prod`, or `test`)                                |
-| `PORT`           | `4000`                                    | A port to run the API on                                                              |
-| `WEBAPP_PORT`    | `4200`                                    | A port to run the Webapp on (only used in `dev` environment)                          |
-| `WEBAPP_URL`     | `http://localhost:4000`                   | The Web client’s endpoint. Used in the authentication process and in the sent emails. |
+| Variable       | Default                                   | Description                                                                                                                                                                |
+| -------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `API_HOST`     | _none_                                    | The API host, if the API is hosted by the same host as the webapp (like in a production setup) it should not be included in env var. It is required for the webapp in dev. |
+| `API_WS_HOST`  | _none_                                    | The API Websocket host, same requirements and defaults as `API_HOST`                                                                                                       |
+| `DATABASE_URL` | `postgres://localhost/accent_development` | A valid database URL                                                                                                                                                       |
+| `PORT`         | `4000`                                    | A port to run the API on                                                                                                                                                   |
+| `WEBAPP_PORT`  | `4200`                                    | A port to run the Webapp on (only used in `dev` environment)                                                                                                               |
+| `WEBAPP_URL`   | `http://localhost:4000`                   | The Web client’s endpoint. Used in the authentication process and in the sent emails.                                                                                      |
 
 ### Production setup
 
 | Variable            | Default | Description                                                                                       |
 | ------------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| `ERLANG_COOKIE`     | _none_  | The _erlang_ cookie required for starting the release                                             |
 | `RESTRICTED_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects. |
+| `FORCE_SSL`         | _false_ | If the app should always be served by https (and wss for websocket)                               |
 | `SENTRY_DSN`        | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                        |
 | `WEBAPP_SENTRY_DSN` | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                     |
 

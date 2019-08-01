@@ -12,6 +12,6 @@ defmodule Accent.WebAppController do
   def index(conn, _) do
     conn
     |> put_resp_header("content-type", "text/html; charset=utf-8")
-    |> send_resp(:ok, Accent.WebappView.render())
+    |> send_resp(:ok, Accent.WebappView.render(conn))
   end
 end

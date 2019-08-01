@@ -36,8 +36,9 @@ config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
   client_secret: System.get_env("SLACK_CLIENT_SECRET")
 
 config :accent, Accent.WebappView,
-  api_host: System.get_env("API_HOST") || "http://localhost:4000",
-  api_ws_host: System.get_env("API_WS_HOST") || "ws://localhost:4000",
+  force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
+  api_host: System.get_env("API_HOST"),
+  api_ws_host: System.get_env("API_WS_HOST"),
   sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN") || ""
 
 config :sentry,
