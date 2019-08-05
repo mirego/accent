@@ -3,7 +3,7 @@ import {observer, computed} from '@ember/object';
 import {inject as service} from '@ember/service';
 import {reads, readOnly, not, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
-import Color from 'npm:color';
+import Color from 'color';
 
 export default Controller.extend({
   session: service(),

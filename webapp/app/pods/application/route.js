@@ -1,6 +1,6 @@
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
-import raven from 'npm:raven-js';
+import raven from 'raven-js';
 import config from 'accent-webapp/config/environment';
 
 export default Route.extend({

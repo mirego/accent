@@ -1,8 +1,7 @@
 import Service, {inject as service} from '@ember/service';
-import apollo from 'npm:apollo-boost';
+import ApolloClient, {IntrospectionFragmentMatcher, InMemoryCache} from 'apollo-boost';
 import config from 'accent-webapp/config/environment';
 
-const ApolloClient = apollo.default;
 const uri = `${config.API.HOST}/graphql`;
 
 const dataIdFromObject = result => {
@@ -13,7 +12,8 @@ const dataIdFromObject = result => {
   return null;
 };
 
-const fragmentMatcher = new apollo.IntrospectionFragmentMatcher({
+debugger;
+const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData: {
     __schema: {
       types: [
@@ -27,7 +27,7 @@ const fragmentMatcher = new apollo.IntrospectionFragmentMatcher({
   }
 });
 
-const cache = new apollo.InMemoryCache({dataIdFromObject, fragmentMatcher});
+const cache = new InMemoryCache({dataIdFromObject, fragmentMatcher});
 
 // Simple one-to-one interface to the apollo client query function.
 export default Service.extend({

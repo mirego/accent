@@ -1,6 +1,6 @@
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
-import Raven from 'npm:raven-js';
+import Raven from 'raven-js';
 import AuthenticatedRoute from 'accent-webapp/mixins/authenticated-route';
 
 export default Route.extend(AuthenticatedRoute, {
