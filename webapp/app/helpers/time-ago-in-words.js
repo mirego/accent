@@ -1,6 +1,6 @@
 import {isBlank} from '@ember/utils';
 import {helper} from '@ember/component/helper';
-import distanceInWordsToNow from 'npm:date-fns/distance_in_words_to_now';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 const OPTIONS = {
   addSuffix: true,

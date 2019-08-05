@@ -1,4 +1,4 @@
-import fmt from 'npm:simple-fmt';
+import fmt from 'simple-fmt';
 import Component from '@ember/component';
 import {computed} from '@ember/object';
 import {htmlSafe} from '@ember/string';

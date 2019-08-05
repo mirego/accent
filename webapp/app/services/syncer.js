@@ -1,4 +1,4 @@
-import fmt from 'npm:simple-fmt';
+import fmt from 'simple-fmt';
 import Service, {inject as service} from '@ember/service';
 import config from 'accent-webapp/config/environment';
 

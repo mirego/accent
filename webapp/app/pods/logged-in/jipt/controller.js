@@ -3,7 +3,7 @@ import {inject as service} from '@ember/service';
 import {observer, computed} from '@ember/object';
 import Controller from '@ember/controller';
 import {readOnly} from '@ember/object/computed';
-import Color from 'npm:color';
+import Color from 'color';
 
 export default Controller.extend({
   jipt: service('jipt'),

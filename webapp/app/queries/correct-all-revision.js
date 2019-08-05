@@ -1,4 +1,4 @@
-import gql from 'npm:graphql-tag';
+import gql from 'graphql-tag';
 
 export default gql`
   mutation CorrectAll($revisionId: ID!) {
