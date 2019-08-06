@@ -36,7 +36,8 @@ export default Route.extend(ResetScroll, ApolloRoute, {
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
-          projectId: this.routeParams.fetch(transition, 'logged-in.jipt').projectId,
+          projectId: this.routeParams.fetch(transition, 'logged-in.jipt')
+            .projectId,
           revisionId: transition.queryParams.revisionId,
           query,
           page,

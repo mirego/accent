@@ -7,28 +7,28 @@ export default Service.extend({
 
   permissions: computed({
     get() {
-      return this._permissions ? this._permissions : {}
+      return this._permissions ? this._permissions : {};
     },
     set(_key, value) {
-      return this._permissions = value;
+      return (this._permissions = value);
     }
   }),
 
   roles: computed({
     get() {
-      return this._roles ? this._roles : []
+      return this._roles ? this._roles : [];
     },
     set(_key, value) {
-      return this._roles = value;
+      return (this._roles = value);
     }
   }),
 
   documentFormats: computed({
     get() {
-      return this._documentFormats ? this._documentFormats : []
+      return this._documentFormats ? this._documentFormats : [];
     },
     set(_key, value) {
-      return this._documentFormats = value;
+      return (this._documentFormats = value);
     }
   }),
 

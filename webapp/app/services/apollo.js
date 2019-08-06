@@ -1,5 +1,8 @@
 import Service, {inject as service} from '@ember/service';
-import ApolloClient, {IntrospectionFragmentMatcher, InMemoryCache} from 'apollo-boost';
+import ApolloClient, {
+  IntrospectionFragmentMatcher,
+  InMemoryCache
+} from 'apollo-boost';
 import config from 'accent-webapp/config/environment';
 
 const uri = `${config.API.HOST}/graphql`;

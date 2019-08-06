@@ -33,7 +33,8 @@ export default Route.extend(ApolloRoute, {
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
-          projectId: this.routeParams.fetch(transition, 'logged-in.project').projectId,
+          projectId: this.routeParams.fetch(transition, 'logged-in.project')
+            .projectId,
           isBatch: batchFilter ? true : null,
           action: actionFilter,
           userId: userFilter,

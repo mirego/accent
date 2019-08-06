@@ -30,7 +30,10 @@ export default Route.extend(ResetScroll, ApolloRoute, {
   model({query, page, reference, document}, transition) {
     return this.graphql(translationsQuery, {
       props: data => ({
-        revisionId: this.routeParams.fetch(transition, 'logged-in.project.revision').revisionId,
+        revisionId: this.routeParams.fetch(
+          transition,
+          'logged-in.project.revision'
+        ).revisionId,
         referenceRevisionId: reference,
         revisionModel: this.modelFor('logged-in.project.revision'),
         documents: get(data, 'viewer.project.documents.entries'),
@@ -40,9 +43,12 @@ export default Route.extend(ResetScroll, ApolloRoute, {
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
-          projectId: this.routeParams.fetch(transition, 'logged-in.project').projectId,
-          revisionId:
-            this.routeParams.fetch(transition, 'logged-in.project.revision').revisionId,
+          projectId: this.routeParams.fetch(transition, 'logged-in.project')
+            .projectId,
+          revisionId: this.routeParams.fetch(
+            transition,
+            'logged-in.project.revision'
+          ).revisionId,
           query,
           page,
           document,
