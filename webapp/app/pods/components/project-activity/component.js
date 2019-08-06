@@ -25,7 +25,7 @@ const ROLLBACKABLE_ACTIONS = [
 
 // componentTranslationPrefix: String
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
   apollo: service(),
 
   isRollbacking: false,
@@ -51,7 +51,7 @@ export default Component.extend({
 
   localizedStats: computed('activity.stats.[]', function() {
     return this.activity.stats.map(stat => {
-      const text = this.i18n.t(
+      const text = this.intl.t(
         `components.project_activity.stats_text.${underscore(stat.action)}`
       );
       const count = stat.count;
@@ -61,13 +61,13 @@ export default Component.extend({
   }),
 
   statsLabel: computed(function() {
-    return this.i18n.t('components.project_activity.stats_label_text');
+    return this.intl.t('components.project_activity.stats_label_text');
   }),
 
   actionExplanation: computed('activity.action', function() {
     if (!this.activity.action) return;
 
-    return this.i18n.t(
+    return this.intl.t(
       `components.project_activity.action_explanation.${this.activity.action}`
     );
   }),
@@ -75,7 +75,7 @@ export default Component.extend({
   actionText: computed('activity.action', function() {
     if (!this.activity.action) return;
 
-    return this.i18n.t(
+    return this.intl.t(
       `components.project_activity.action_text.${this.activity.action}`
     );
   }),
@@ -134,7 +134,7 @@ export default Component.extend({
       /* eslint-disable no-alert */
       if (
         !window.confirm(
-          this.i18n.t('components.project_activity.rollback_confirm')
+          this.intl.t('components.project_activity.rollback_confirm')
         )
       )
         return;

@@ -10,7 +10,7 @@ const FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR =
   'pods.project.activities.flash_messages.rollback_error';
 
 export default Controller.extend({
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
   apolloMutate: service('apollo-mutate'),
   globalState: service('global-state'),
@@ -30,13 +30,13 @@ export default Controller.extend({
         })
         .then(() => {
           this.flashMessages.success(
-            this.i18n.t(FLASH_MESSAGE_OPERATION_ROLLBACK_SUCCESS)
+            this.intl.t(FLASH_MESSAGE_OPERATION_ROLLBACK_SUCCESS)
           );
           this.send('onRefresh');
         })
         .catch(() =>
           this.flashMessages.error(
-            this.i18n.t(FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR)
+            this.intl.t(FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR)
           )
         );
     }

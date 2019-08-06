@@ -7,7 +7,7 @@ import Component from '@ember/component';
 // revision: Object <revision>
 // onSelect: Function
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
   globalState: service('global-state'),
 
   classNameBindings: ['hasManyRevisions:with-many-revisions'],
@@ -26,7 +26,7 @@ export default Component.extend({
     return this.revisions.map(({id, name, isMaster, language}) => {
       const masterLabel = name =>
         htmlSafe(
-          `${name} <em>${this.i18n.t(
+          `${name} <em>${this.intl.t(
             'components.revision_selector.master'
           )}</em>`
         );

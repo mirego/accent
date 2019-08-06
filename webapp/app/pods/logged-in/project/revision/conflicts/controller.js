@@ -15,7 +15,7 @@ const FLASH_MESSAGE_CORRECT_ERROR =
   'pods.project.conflicts.flash_messages.correct_error';
 
 export default Controller.extend({
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
   apolloMutate: service('apollo-mutate'),
   globalState: service('global-state'),
@@ -81,10 +81,10 @@ export default Controller.extend({
           }
         })
         .then(() =>
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_CORRECT_SUCCESS))
+          this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CORRECT_SUCCESS))
         )
         .catch(() =>
-          this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_CORRECT_ERROR))
+          this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CORRECT_ERROR))
         );
     },
 
@@ -96,13 +96,13 @@ export default Controller.extend({
         })
         .then(() => {
           this.flashMessages.success(
-            this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)
+            this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)
           );
           return this.send('refresh');
         })
         .catch(() =>
           this.flashMessages.error(
-            this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)
+            this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)
           )
         );
     },

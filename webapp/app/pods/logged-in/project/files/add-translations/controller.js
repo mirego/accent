@@ -12,7 +12,7 @@ export default Controller.extend({
   peeker: service('peeker'),
   merger: service('merger'),
   globalState: service('global-state'),
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
 
   revisionOperations: null,
@@ -80,11 +80,11 @@ export default Controller.extend({
           mergeType
         })
         .then(() =>
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_CREATE_SUCCESS))
+          this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CREATE_SUCCESS))
         )
         .then(() => this.send('closeModal'))
         .catch(() =>
-          this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_CREATE_ERROR))
+          this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CREATE_ERROR))
         );
     }
   }

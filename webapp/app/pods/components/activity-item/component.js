@@ -35,7 +35,7 @@ const ACTIONS_ICON_PATHS = {
 // activity: Object <project-activity>
 // componentTranslationPrefix: String
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
 
   classNameBindings: ['compact', 'activityItemClassName', 'rollbacked'],
 
@@ -83,7 +83,7 @@ export default Component.extend({
 
   localizedStats: computed('activity.stats.[]', function() {
     return this.activity.stats.map(stat => {
-      const text = this.i18n.t(
+      const text = this.intl.t(
         `components.${this.componentTranslationPrefix}.stats_text.${underscore(
           stat.action
         )}`
@@ -95,7 +95,7 @@ export default Component.extend({
   }),
 
   statsLabel: computed('componentTranslationPrefix', function() {
-    return this.i18n.t(
+    return this.intl.t(
       `components.${this.componentTranslationPrefix}.stats_label_text`
     );
   }),
@@ -171,7 +171,7 @@ export default Component.extend({
   }),
 
   _getActionText(action) {
-    return this.i18n.t(
+    return this.intl.t(
       `components.${this.componentTranslationPrefix}.action_text.${action}`
     );
   }

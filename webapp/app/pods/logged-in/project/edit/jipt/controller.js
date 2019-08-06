@@ -3,7 +3,7 @@ import {reads, readOnly, equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  i18n: service(),
+  intl: service('intl'),
   globalState: service('global-state'),
 
   project: reads('model.project'),

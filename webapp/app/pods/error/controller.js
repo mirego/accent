@@ -8,12 +8,12 @@ const INTERNAL_ERROR = 'internal_error';
 
 const translationAttribute = attribute => {
   return computed('translationPrefix', function() {
-    return this.i18n.t(`pods.error.${this.translationPrefix}.${attribute}`);
+    return this.intl.t(`pods.error.${this.translationPrefix}.${attribute}`);
   });
 };
 
 export default Controller.extend({
-  i18n: service('i18n'),
+  intl: service('intl'),
   session: service('session'),
 
   isUnauthorized: equal('firstError.status', '401'),

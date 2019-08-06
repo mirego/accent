@@ -16,7 +16,7 @@ const DEBOUNCE_OFFSET = 500; // ms
 // onChangeReference: Function
 // onChangeDocument: Function
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
 
   showReferenceRevisionsSelect: notEmpty('referenceRevisions'),
   showDocumentsSelect: gt('documents.length', 1),
@@ -33,7 +33,7 @@ export default Component.extend({
     }));
 
     documents.unshift({
-      label: this.i18n.t(
+      label: this.intl.t(
         'components.conflicts_filters.document_default_option_text'
       ),
       value: null
@@ -49,7 +49,7 @@ export default Component.extend({
     }));
 
     revisions.unshift({
-      label: this.i18n.t(
+      label: this.intl.t(
         'components.conflicts_filters.reference_default_option_text'
       ),
       value: null

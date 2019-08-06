@@ -12,7 +12,7 @@ const FLASH_MESSAGE_DELETE_PROJECT_SUCCESS = `${FLASH_MESSAGE_PREFIX}delete_succ
 const FLASH_MESSAGE_DELETE_PROJECT_ERROR = `${FLASH_MESSAGE_PREFIX}delete_error`;
 
 export default Controller.extend({
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
   apolloMutate: service('apollo-mutate'),
   globalState: service('global-state'),
@@ -37,13 +37,13 @@ export default Controller.extend({
         })
         .then(() => {
           this.flashMessages.success(
-            this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_SUCCESS)
+            this.intl.t(FLASH_MESSAGE_DELETE_PROJECT_SUCCESS)
           );
           this.transitionToRoute('logged-in.projects');
         })
         .catch(() =>
           this.flashMessages.error(
-            this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_ERROR)
+            this.intl.t(FLASH_MESSAGE_DELETE_PROJECT_ERROR)
           )
         );
     },
@@ -70,7 +70,7 @@ export default Controller.extend({
         variables,
         refetchQueries: ['ProjectEdit']
       })
-      .then(() => this.flashMessages.success(this.i18n.t(successMessage)))
-      .catch(() => this.flashMessages.error(this.i18n.t(errorMessage)));
+      .then(() => this.flashMessages.success(this.intl.t(successMessage)))
+      .catch(() => this.flashMessages.error(this.intl.t(errorMessage)));
   }
 });

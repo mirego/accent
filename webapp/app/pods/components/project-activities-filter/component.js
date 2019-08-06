@@ -12,7 +12,7 @@ const ACTIONS_PREFIX = 'components.project_activities_filter.actions.';
 // actionFilterChange: Function
 // userFilterChange: Function
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
 
   keys: [
     'new',
@@ -54,7 +54,7 @@ export default Component.extend({
       .map(({user: {fullname, id}}) => ({label: fullname, value: id}));
 
     users.unshift({
-      label: this.i18n.t(
+      label: this.intl.t(
         'components.project_activities_filter.collaborators_default_option_text'
       ),
       value: null
