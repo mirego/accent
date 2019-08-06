@@ -12,7 +12,7 @@ const FLASH_MESSAGE_UPDATE_ERROR =
 export default Controller.extend({
   apolloMutate: service('apollo-mutate'),
   flashMessages: service(),
-  i18n: service(),
+  intl: service('intl'),
   globalState: service('global-state'),
 
   permissions: readOnly('globalState.permissions'),
@@ -30,10 +30,10 @@ export default Controller.extend({
           }
         })
         .then(() =>
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_UPDATE_SUCCESS))
+          this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS))
         )
         .catch(() =>
-          this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_UPDATE_ERROR))
+          this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR))
         );
     }
   }

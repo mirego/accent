@@ -28,7 +28,7 @@ const DEFAULT_PROPERTIES = {
 // onPeek: Function
 // onCommit: Function
 export default Component.extend({
-  i18n: service('i18n'),
+  intl: service('intl'),
   globalState: service('global-state'),
 
   init(...args) {

@@ -22,7 +22,7 @@ const FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR =
 
 export default Controller.extend({
   flashMessages: service(),
-  i18n: service(),
+  intl: service('intl'),
   apolloMutate: service('apollo-mutate'),
   globalState: service('global-state'),
 
@@ -56,13 +56,13 @@ export default Controller.extend({
         })
         .then(() => {
           this.flashMessages.success(
-            this.i18n.t(FLASH_MESSAGE_REVISION_DELETED_SUCCESS)
+            this.intl.t(FLASH_MESSAGE_REVISION_DELETED_SUCCESS)
           );
           this.send('onRefresh');
         })
         .catch(() =>
           this.flashMessages.error(
-            this.i18n.t(FLASH_MESSAGE_REVISION_DELETED_ERROR)
+            this.intl.t(FLASH_MESSAGE_REVISION_DELETED_ERROR)
           )
         );
     },
@@ -77,13 +77,13 @@ export default Controller.extend({
         })
         .then(() => {
           this.flashMessages.success(
-            this.i18n.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_SUCCESS)
+            this.intl.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_SUCCESS)
           );
           this.send('onRefresh');
         })
         .catch(() =>
           this.flashMessages.error(
-            this.i18n.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR)
+            this.intl.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR)
           )
         );
     },
@@ -103,13 +103,13 @@ export default Controller.extend({
         })
         .then(() => {
           this.flashMessages.success(
-            this.i18n.t(FLASH_MESSAGE_NEW_LANGUAGE_SUCCESS)
+            this.intl.t(FLASH_MESSAGE_NEW_LANGUAGE_SUCCESS)
           );
           this.transitionToRoute('logged-in.project.index', project.id);
         })
         .catch(() =>
           this.flashMessages.error(
-            this.i18n.t(FLASH_MESSAGE_NEW_LANGUAGE_FAILURE)
+            this.intl.t(FLASH_MESSAGE_NEW_LANGUAGE_FAILURE)
           )
         );
     }

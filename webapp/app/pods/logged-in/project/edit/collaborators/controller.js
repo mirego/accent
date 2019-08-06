@@ -15,7 +15,7 @@ const FLASH_MESSAGE_COLLABORATOR_UPDATE_SUCCESS = `${FLASH_MESSAGE_PREFIX}collab
 const FLASH_MESSAGE_COLLABORATOR_UPDATE_ERROR = `${FLASH_MESSAGE_PREFIX}collaborator_update_error`;
 
 export default Controller.extend({
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
   apolloMutate: service('apollo-mutate'),
   globalState: service('global-state'),
@@ -75,7 +75,7 @@ export default Controller.extend({
         variables,
         refetchQueries: ['ProjectCollaborators']
       })
-      .then(() => this.flashMessages.success(this.i18n.t(successMessage)))
-      .catch(() => this.flashMessages.error(this.i18n.t(errorMessage)));
+      .then(() => this.flashMessages.success(this.intl.t(successMessage)))
+      .catch(() => this.flashMessages.error(this.intl.t(errorMessage)));
   }
 });

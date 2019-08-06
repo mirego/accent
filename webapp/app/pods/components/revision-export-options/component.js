@@ -13,7 +13,7 @@ import Component from '@ember/component';
 // onChangeRevision: Function
 // onChangeDocument: Function
 export default Component.extend({
-  i18n: service('i18n'),
+  intl: service('intl'),
   globalState: service('global-state'),
 
   showOrders: notEmpty('onChangeOrderBy'),
@@ -51,7 +51,7 @@ export default Component.extend({
     return [
       {
         value: null,
-        label: this.i18n.t('components.revision_export_options.default_format')
+        label: this.intl.t('components.revision_export_options.default_format')
       }
     ].concat(this.formattedDocumentFormats);
   }),

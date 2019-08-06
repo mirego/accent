@@ -5,14 +5,14 @@ import {inject as service} from '@ember/service';
 // project: Object <project>
 // onSubmit: Function
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
 
   actions: {
     deleteProject() {
       /* eslint-disable no-alert */
       if (
         !window.confirm(
-          this.i18n.t(
+          this.intl.t(
             'components.project_settings.delete_form.delete_project_confirm'
           )
         )

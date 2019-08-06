@@ -16,7 +16,7 @@ const DEBOUNCE_OFFSET = 500; // ms
 // onChangeDocument: Function
 // onChangeVersion: Function
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
 
   debouncedQuery: reads('query'),
   showDocumentsSelect: gt('documents.length', 1),
@@ -29,7 +29,7 @@ export default Component.extend({
     }));
 
     documents.unshift({
-      label: this.i18n.t(
+      label: this.intl.t(
         'components.translations_filter.document_default_option_text'
       ),
       value: null
@@ -49,7 +49,7 @@ export default Component.extend({
     }));
 
     versions.unshift({
-      label: this.i18n.t(
+      label: this.intl.t(
         'components.translations_filter.version_default_option_text'
       ),
       value: null

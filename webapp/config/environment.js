@@ -62,10 +62,6 @@ module.exports = function(environment) {
     'frame-src': 'accounts.google.com'
   };
 
-  ENV.i18n = {
-    defaultLocale: 'en'
-  };
-
   ENV.flashMessageDefaults = {
     timeout: 5000,
     destroyOnClick: false,

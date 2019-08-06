@@ -5,8 +5,12 @@ import config from 'accent-webapp/config/environment';
 
 export default Route.extend({
   session: service('session'),
+  intl: service('intl'),
 
   beforeModel() {
+    this._super(...arguments);
+    this.intl.setLocale(['en-us']);
+
     raven.config(config.SENTRY.DSN).install();
 
     this._tryLoginAfterRedirect();

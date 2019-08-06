@@ -15,7 +15,7 @@ const FLASH_MESSAGE_INTEGRATION_REMOVE_SUCCESS = `${FLASH_MESSAGE_PREFIX}integra
 const FLASH_MESSAGE_INTEGRATION_REMOVE_ERROR = `${FLASH_MESSAGE_PREFIX}integration_remove_error`;
 
 export default Controller.extend({
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
   apolloMutate: service('apollo-mutate'),
   globalState: service('global-state'),
@@ -77,9 +77,9 @@ export default Controller.extend({
         variables,
         refetchQueries: ['ProjectServiceIntegrations']
       })
-      .then(() => this.flashMessages.success(this.i18n.t(successMessage)))
+      .then(() => this.flashMessages.success(this.intl.t(successMessage)))
       .catch(errors => {
-        this.flashMessages.error(this.i18n.t(errorMessage));
+        this.flashMessages.error(this.intl.t(errorMessage));
         return {errors};
       });
   }

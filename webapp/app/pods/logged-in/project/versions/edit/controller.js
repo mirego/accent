@@ -12,7 +12,7 @@ const FLASH_MESSAGE_UPDATE_ERROR =
 
 export default Controller.extend({
   apolloMutate: service('apollo-mutate'),
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
 
   project: reads('model.projectModel.project'),
@@ -50,12 +50,12 @@ export default Controller.extend({
           this.transitionToRoute('logged-in.project.versions', this.project.id)
         )
         .then(() =>
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_UPDATE_SUCCESS))
+          this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS))
         )
         .then(() => this.send('closeModal'))
         .catch(() => {
           this.set('error', true);
-          this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_UPDATE_ERROR));
+          this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
         });
     }
   }

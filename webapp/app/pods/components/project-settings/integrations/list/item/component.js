@@ -12,7 +12,7 @@ const LOGOS = {
 // onUpdate: Function
 // onDelete: Function
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
 
   tagName: 'li',
   errors: [],
@@ -24,7 +24,7 @@ export default Component.extend({
   }),
 
   mappedService: computed('integration.service', function() {
-    return this.i18n.t(
+    return this.intl.t(
       `general.integration_services.${this.integration.service}`
     );
   }),

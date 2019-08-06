@@ -18,7 +18,7 @@ export default Controller.extend({
   globalState: service('global-state'),
   apolloMutate: service('apollo-mutate'),
   flashMessages: service(),
-  i18n: service(),
+  intl: service('intl'),
 
   permissions: readOnly('globalState.permissions'),
   project: reads('model.project'),
@@ -39,12 +39,12 @@ export default Controller.extend({
         })
         .then(() =>
           this.flashMessages.success(
-            this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)
+            this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)
           )
         )
         .catch(() =>
           this.flashMessages.error(
-            this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)
+            this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)
           )
         );
     },
@@ -57,12 +57,12 @@ export default Controller.extend({
         })
         .then(() =>
           this.flashMessages.success(
-            this.i18n.t(FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS)
+            this.intl.t(FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS)
           )
         )
         .catch(() =>
           this.flashMessages.error(
-            this.i18n.t(FLASH_MESSAGE_REVISION_UNCORRECT_ERROR)
+            this.intl.t(FLASH_MESSAGE_REVISION_UNCORRECT_ERROR)
           )
         );
     }

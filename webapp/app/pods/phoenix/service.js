@@ -4,7 +4,7 @@ import config from 'accent-webapp/config/environment';
 import {Socket} from 'accent-webapp/utils/phoenix';
 
 export default Service.extend({
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
 
   socket({token}) {
@@ -91,7 +91,7 @@ export default Service.extend({
 
   _showFlashMessage(event, options) {
     this.flashMessages.socket(
-      this.i18n.t(`addon.channel.handle_in.${event}`, options)
+      this.intl.t(`addon.channel.handle_in.${event}`, options)
     );
   }
 });

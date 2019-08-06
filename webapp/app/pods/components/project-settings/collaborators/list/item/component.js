@@ -16,7 +16,7 @@ export default Component.extend({
   ],
 
   session: service('session'),
-  i18n: service('i18n'),
+  intl: service('intl'),
   globalState: service('global-state'),
 
   isEditing: false,
@@ -67,7 +67,7 @@ export default Component.extend({
   ),
 
   role: computed('collaborator.role', function() {
-    return this.i18n.t(`general.roles.${this.collaborator.role}`);
+    return this.intl.t(`general.roles.${this.collaborator.role}`);
   }),
 
   actions: {

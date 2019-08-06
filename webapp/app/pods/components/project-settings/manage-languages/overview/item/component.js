@@ -8,7 +8,7 @@ import Component from '@ember/component';
 // onPromoteMaster: Function
 // onDelete: Function
 export default Component.extend({
-  i18n: service(),
+  intl: service('intl'),
 
   classNames: ['list-item'],
   classNameBindings: [
@@ -35,7 +35,7 @@ export default Component.extend({
       /* eslint-disable no-alert */
       if (
         !window.confirm(
-          this.i18n.t(
+          this.intl.t(
             'components.project_manage_languages_overview.promote_revision_master_confirm'
           )
         )
@@ -54,7 +54,7 @@ export default Component.extend({
       /* eslint-disable no-alert */
       if (
         !window.confirm(
-          this.i18n.t(
+          this.intl.t(
             'components.project_manage_languages_overview.delete_revision_confirm'
           )
         )

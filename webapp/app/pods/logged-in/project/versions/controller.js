@@ -3,7 +3,7 @@ import {not, readOnly, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  i18n: service(),
+  intl: service('intl'),
   flashMessages: service(),
   globalState: service('global-state'),
 
