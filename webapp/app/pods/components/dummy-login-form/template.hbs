@@ -2,7 +2,7 @@
 
 <div class="warning">{{t 'components.dummy_login_form.warning'}}</div>
 
-<h2 class="subtitle">{{t 'components.dummy_login_form.subtitle'}}</h2>
+<h2 class="subtitle">{{t 'components.dummy_login_form.subtitle' htmlSafe=true}}</h2>
 
 <form class="form" {{action 'submit' on='submit'}}>
   {{input
