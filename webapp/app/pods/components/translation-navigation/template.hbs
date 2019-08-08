@@ -35,11 +35,7 @@
           class='subNavigation-list-item-link'
         }}
           {{inline-svg 'assets/bubble.svg' class='subNavigation-list-item-link-icon'}}
-          {{#if translation.commentsCount}}
-            <span class="subNavigation-list-item-link-text">{{t 'components.translation_navigation.comments_link_title' count=translation.commentsCount}}</span>
-          {{else}}
-            <span class="subNavigation-list-item-link-text">{{t 'components.translation_navigation.comments_link_title.zero'}}</span>
-          {{/if}}
+          <span class="subNavigation-list-item-link-text">{{t 'components.translation_navigation.comments_link_title' count=translation.commentsCount}}</span>
         {{/link-to}}
       </li>
     {{/if}}
