@@ -1,8 +1,3 @@
-<span {{action 'toggleMenu'}} class="listTrigger">
-  {{inline-svg '/assets/burger.svg' class='listTrigger-icon'}}
-  Menu
-</span>
-
 <div class="list">
   {{project-navigation/list
     selectedRevision=selectedRevision
@@ -10,15 +5,3 @@
     project=project
   }}
 </div>
-
-{{#if isListShowing}}
-  {{#acc-modal onClose=(action 'closeModal')}}
-    <div class="modalList">
-      {{project-navigation/list
-        selectedRevision=selectedRevision
-        permissions=permissions
-        project=project
-      }}
-    </div>
-  {{/acc-modal}}
-{{/if}}

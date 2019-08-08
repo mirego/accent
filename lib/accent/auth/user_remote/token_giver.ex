@@ -4,10 +4,7 @@ defmodule Accent.UserRemote.TokenGiver do
 
   def grant_token(user) do
     invalidate_tokens(user)
-
-    token = create_token(user)
-
-    {:ok, user, token}
+    create_token(user)
   end
 
   defp invalidate_tokens(user) do
@@ -17,9 +14,9 @@ defmodule Accent.UserRemote.TokenGiver do
   end
 
   defp create_token(user) do
-    user
-    |> Ecto.build_assoc(:access_tokens)
-    |> Map.put(:token, SecureRandom.urlsafe_base64(70))
-    |> Repo.insert!()
+    token = Ecto.build_assoc(user, :access_tokens)
+    token = %{token | token: SecureRandom.urlsafe_base64(70)}
+
+    Repo.insert(token)
   end
 end

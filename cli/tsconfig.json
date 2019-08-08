@@ -7,23 +7,16 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "module": "commonjs",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "./lib",
     "pretty": true,
     "noFallthroughCasesInSwitch": true,
-    "noEmit": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "rootDirs": [
-      "./src"
-    ],
-    "skipLibCheck": true,
+    "rootDirs": ["./src"],
     "strict": true,
     "target": "es2017"
   },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "node_modules/**/*"
-  ]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules/**/*"]
 }

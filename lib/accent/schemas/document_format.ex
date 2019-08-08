@@ -16,7 +16,8 @@ defmodule Accent.DocumentFormat do
     %{name: "Java properties XML", slug: "java_properties_xml", extension: "xml"},
     %{name: "CSV", slug: "csv", extension: "csv"},
     %{name: "Laravel PHP", slug: "laravel_php", extension: "php"},
-    %{name: "Go I18n JSON", slug: "go_i18n_json", extension: "json"}
+    %{name: "Go I18n JSON", slug: "go_i18n_json", extension: "json"},
+    %{name: "XLIFF 1.2", slug: "xliff_1_2", extension: "xlf"}
   ]
 
   @doc """
@@ -24,7 +25,7 @@ defmodule Accent.DocumentFormat do
 
   ## Examples
     iex> Accent.DocumentFormat.slugs()
-    ["simple_json", "json", "strings", "gettext", "rails_yml", "es6_module", "android_xml", "java_properties", "java_properties_xml", "csv", "laravel_php", "go_i18n_json"]
+    ["simple_json", "json", "strings", "gettext", "rails_yml", "es6_module", "android_xml", "java_properties", "java_properties_xml", "csv", "laravel_php", "go_i18n_json", "xliff_1_2"]
   """
   defmacro slugs, do: Enum.map(@all, &Map.get(&1, :slug))
 
@@ -44,7 +45,8 @@ defmodule Accent.DocumentFormat do
       %Accent.DocumentFormat{extension: "xml", name: "Java properties XML", slug: "java_properties_xml"},
       %Accent.DocumentFormat{extension: "csv", name: "CSV", slug: "csv"},
       %Accent.DocumentFormat{extension: "php", name: "Laravel PHP", slug: "laravel_php"},
-      %Accent.DocumentFormat{extension: "json", name: "Go I18n JSON", slug: "go_i18n_json"}
+      %Accent.DocumentFormat{extension: "json", name: "Go I18n JSON", slug: "go_i18n_json"},
+      %Accent.DocumentFormat{extension: "xlf", name: "XLIFF 1.2", slug: "xliff_1_2"}
     ]
   """
   def all, do: Enum.map(@all, &struct(__MODULE__, &1))

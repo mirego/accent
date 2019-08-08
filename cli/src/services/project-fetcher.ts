@@ -1,21 +1,21 @@
 // Vendor
-import {error} from '@oclif/errors'
-import fetch from 'node-fetch'
+import {error} from '@oclif/errors';
+import fetch from 'node-fetch';
 
 // Types
-import {Config} from '../types/config'
-import {Project} from '../types/project'
+import {Config} from '../types/config';
+import {Project} from '../types/project';
 
 export default class ProjectFetcher {
-  public async fetch(config: Config): Promise<Project> {
-    const response = await this.graphql(config)
-    const data = await response.json()
+  async fetch(config: Config): Promise<Project> {
+    const response = await this.graphql(config);
+    const data = await response.json();
 
     if (!data.data) {
-      error(`Can not find the project for the key: ${config.apiKey}`)
+      error(`Can not find the project for the key: ${config.apiKey}`);
     }
 
-    return data.data && data.data.viewer.project
+    return data.data && data.data.viewer.project;
   }
 
   private graphql(config: Config) {
@@ -51,7 +51,7 @@ export default class ProjectFetcher {
           }
         }
       }
-    }`
+    }`;
 
     return fetch(`${config.apiUrl}/graphql`, {
       body: JSON.stringify({query}),
@@ -60,6 +60,6 @@ export default class ProjectFetcher {
         authorization: `Bearer ${config.apiKey}`
       },
       method: 'POST'
-    })
+    });
   }
 }

@@ -4,7 +4,7 @@ defmodule Accent.ProjectCreator do
   alias Accent.{Project, Repo, User, UserRemote.TokenGiver}
   alias Ecto.Changeset
 
-  @required_fields ~w(name language_id)a
+  @required_fields ~w(name main_color language_id)a
   @bot %User{fullname: "API Client", bot: true}
 
   def create(params: params, user: user) do
@@ -43,11 +43,9 @@ defmodule Accent.ProjectCreator do
   end
 
   def generate_bot_user_with_access do
-    {:ok, bot_user, _token} =
-      @bot
-      |> Repo.insert!()
-      |> TokenGiver.grant_token()
+    user = Repo.insert!(@bot)
+    {:ok, _token} = TokenGiver.grant_token(user)
 
-    bot_user
+    user
   end
 end

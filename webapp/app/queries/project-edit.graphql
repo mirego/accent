@@ -1,9 +1,0 @@
-query ProjectEdit($projectId: ID!) {
-  viewer {
-    project(id: $projectId) {
-      id
-      name
-      isFileOperationsLocked
-    }
-  }
-}

@@ -5,10 +5,14 @@ import Controller from '@ember/controller';
 import translationCorrectQuery from 'accent-webapp/queries/correct-translation';
 import correctAllRevisionQuery from 'accent-webapp/queries/correct-all-revision';
 
-const FLASH_MESSAGE_REVISION_CORRECT_SUCCESS = 'pods.project.conflicts.flash_messages.revision_correct_success';
-const FLASH_MESSAGE_REVISION_CORRECT_ERROR = 'pods.project.conflicts.flash_messages.revision_correct_error';
-const FLASH_MESSAGE_CORRECT_SUCCESS = 'pods.project.conflicts.flash_messages.correct_success';
-const FLASH_MESSAGE_CORRECT_ERROR = 'pods.project.conflicts.flash_messages.correct_error';
+const FLASH_MESSAGE_REVISION_CORRECT_SUCCESS =
+  'pods.project.conflicts.flash_messages.revision_correct_success';
+const FLASH_MESSAGE_REVISION_CORRECT_ERROR =
+  'pods.project.conflicts.flash_messages.revision_correct_error';
+const FLASH_MESSAGE_CORRECT_SUCCESS =
+  'pods.project.conflicts.flash_messages.correct_success';
+const FLASH_MESSAGE_CORRECT_ERROR =
+  'pods.project.conflicts.flash_messages.correct_error';
 
 export default Controller.extend({
   i18n: service(),
@@ -33,20 +37,34 @@ export default Controller.extend({
   emptyDocument: empty('document'),
   emptyQuery: equal('query', ''),
 
-  showSkeleton: and('emptyEntries', 'model.loading', 'emptyQuery', 'emptyReference', 'emptyDocument'),
   showLoading: and('emptyEntries', 'model.loading'),
 
+  showSkeleton: and(
+    'emptyEntries',
+    'model.loading',
+    'emptyQuery',
+    'emptyReference',
+    'emptyDocument'
+  ),
   referenceRevisions: computed('model.revisionId', 'revisions', function() {
     if (!this.revisions) return [];
 
-    return this.revisions.filter(revision => revision.id !== this.model.revisionId);
+    return this.revisions.filter(
+      revision => revision.id !== this.model.revisionId
+    );
   }),
 
-  referenceRevision: computed('model.referenceRevisionId', 'revisions', function() {
-    if (!this.revisions || !this.model.referenceRevisionId) return;
+  referenceRevision: computed(
+    'model.referenceRevisionId',
+    'revisions',
+    function() {
+      if (!this.revisions || !this.model.referenceRevisionId) return;
 
-    return this.revisions.find(revision => revision.id === this.model.referenceRevisionId);
-  }),
+      return this.revisions.find(
+        revision => revision.id === this.model.referenceRevisionId
+      );
+    }
+  ),
 
   actions: {
     deactivateFullscreen() {
@@ -62,8 +80,12 @@ export default Controller.extend({
             text
           }
         })
-        .then(() => this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_CORRECT_SUCCESS)))
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_CORRECT_ERROR)));
+        .then(() =>
+          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_CORRECT_SUCCESS))
+        )
+        .catch(() =>
+          this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_CORRECT_ERROR))
+        );
     },
 
     correctAllConflicts() {
@@ -73,10 +95,16 @@ export default Controller.extend({
           variables: {revisionId: this.revision.id}
         })
         .then(() => {
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS));
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)
+          );
           return this.send('refresh');
         })
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)));
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)
+          )
+        );
     },
 
     changeQuery(query) {

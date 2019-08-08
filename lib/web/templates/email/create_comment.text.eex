@@ -3,4 +3,4 @@
 ---
 <%= @comment.text %>
 
-You can reply here (<%= webapp_host() %><%= @translation_path %>)
+You can reply here (<%= webapp_url() %><%= @translation_path %>)

@@ -11,6 +11,16 @@ export default Router.map(function() {
   this.route('login', {path: ''});
 
   this.route('logged-in', {path: 'app'}, function() {
+    this.route('jipt', {path: 'projects/:projectId/jipt'}, function() {
+      this.route(
+        'translation',
+        {path: 'translations/:translationId'},
+        function() {
+          this.route('_');
+        }
+      );
+    });
+
     this.route('projects', function() {
       this.route('new');
     });
@@ -21,7 +31,10 @@ export default Router.map(function() {
         this.route('api-token');
         this.route('collaborators');
         this.route('service-integrations');
-        this.route('manage-languages');
+        this.route('manage-languages', function() {
+          this.route('edit', {path: '/:revisionId'});
+        });
+        this.route('jipt');
       });
 
       this.route('activity', {path: 'activities/:activityId'});
@@ -31,6 +44,7 @@ export default Router.map(function() {
         this.route('sync', {path: ':fileId/sync'});
         this.route('add-translations', {path: ':fileId/add-translations'});
         this.route('export', {path: ':fileId/export'});
+        this.route('jipt', {path: ':fileId/jipt'});
       });
       this.route('versions', function() {
         this.route('new');
@@ -44,11 +58,15 @@ export default Router.map(function() {
         this.route('conflicts');
       });
 
-      this.route('translation', {path: 'translations/:translationId'}, function() {
-        this.route('activities');
-        this.route('related-translations');
-        this.route('comments', {path: 'conversation'});
-      });
+      this.route(
+        'translation',
+        {path: 'translations/:translationId'},
+        function() {
+          this.route('activities');
+          this.route('related-translations');
+          this.route('comments', {path: 'conversation'});
+        }
+      );
     });
   });
 

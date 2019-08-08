@@ -19,25 +19,42 @@ export default Component.extend({
   mediumPercentage: gte('correctedKeysPercentage', LOW_PERCENTAGE), // higher or equal than low percentage
   highPercentage: gte('correctedKeysPercentage', HIGH_PERCENTAGE), // higher or equal than high percentage
 
-  classNameBindings: ['master', 'lowPercentage', 'mediumPercentage', 'highPercentage'],
+  classNameBindings: [
+    'master',
+    'lowPercentage',
+    'mediumPercentage',
+    'highPercentage'
+  ],
 
   isCorrectAllConflictLoading: false,
   isUncorrectAllConflictLoading: false,
 
-  isAnyActionsLoading: or('isCorrectAllConflictLoading', 'isUncorrectAllConflictLoading'),
+  isAnyActionsLoading: or(
+    'isCorrectAllConflictLoading',
+    'isUncorrectAllConflictLoading'
+  ),
 
   showCorrectAllAction: lt('correctedKeysPercentage', 100),
   showUncorrectAllAction: gt('correctedKeysPercentage', 0),
 
-  correctedKeysPercentage: computed('revision.{conflictsCount,translationsCount}', function() {
-    return percentage(this.revision.translationsCount - this.revision.conflictsCount, this.revision.translationsCount);
-  }),
+  correctedKeysPercentage: computed(
+    'revision.{conflictsCount,translationsCount}',
+    function() {
+      return percentage(
+        this.revision.translationsCount - this.revision.conflictsCount,
+        this.revision.translationsCount
+      );
+    }
+  ),
 
-  reviewsCount: computed('revision.{conflictsCount,translationsCount}', function() {
-    const {conflictsCount, translationsCount} = this.revision;
+  reviewsCount: computed(
+    'revision.{conflictsCount,translationsCount}',
+    function() {
+      const {conflictsCount, translationsCount} = this.revision;
 
-    return translationsCount - conflictsCount;
-  }),
+      return translationsCount - conflictsCount;
+    }
+  ),
 
   actions: {
     toggleShowActions() {
@@ -47,13 +64,17 @@ export default Component.extend({
     correctAllConflicts() {
       this.set('isCorrectAllConflictLoading', true);
 
-      this.onCorrectAllConflicts(this.revision).then(() => this._onCorrectAllConflictsDone());
+      this.onCorrectAllConflicts(this.revision).then(() =>
+        this._onCorrectAllConflictsDone()
+      );
     },
 
     uncorrectAllConflicts() {
       this.set('isUncorrectAllConflictLoading', true);
 
-      this.onUncorrectAllConflicts(this.revision).then(() => this._onUncorrectAllConflictsDone());
+      this.onUncorrectAllConflicts(this.revision).then(() =>
+        this._onUncorrectAllConflictsDone()
+      );
     }
   },
 

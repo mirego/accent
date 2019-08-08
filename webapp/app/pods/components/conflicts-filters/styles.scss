@@ -26,7 +26,7 @@
   left: 7px;
   width: 20px;
   height: 20px;
-  fill: #b7b7b7;
+  stroke: #b7b7b7;
 }
 
 .input {
@@ -61,6 +61,7 @@
 
   .queryForm,
   .filters-content {
+    width: 100%;
     margin-right: 0;
   }
 }

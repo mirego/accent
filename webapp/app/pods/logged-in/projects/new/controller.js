@@ -14,19 +14,21 @@ export default Controller.extend({
       this.transitionToRoute('logged-in.projects');
     },
 
-    create({languageId, name}) {
+    create(projectAttributes) {
       this.set('error', false);
-      name = name || '';
+      name = projectAttributes.name || '';
 
       return this.apolloMutate
         .mutate({
           mutation: projectCreateQuery,
           variables: {
             name,
-            languageId
+            ...projectAttributes
           }
         })
-        .then(createProject => this.transitionToRoute('logged-in.project', createProject.project.id))
+        .then(createProject =>
+          this.transitionToRoute('logged-in.project', createProject.project.id)
+        )
         .catch(() => this.set('error', true));
     }
   }

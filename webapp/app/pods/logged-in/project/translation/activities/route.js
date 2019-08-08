@@ -24,7 +24,8 @@ export default Route.extend(ApolloRoute, {
         fetchPolicy: 'cache-and-network',
         variables: {
           projectId: transition.params['logged-in.project'].projectId,
-          translationId: transition.params['logged-in.project.translation'].translationId,
+          translationId:
+            transition.params['logged-in.project.translation'].translationId,
           page
         }
       }

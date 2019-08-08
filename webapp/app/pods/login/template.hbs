@@ -1,9 +1,7 @@
-{{projects-header session=session}}
+<div>
+  {{login-header}}
+  {{login-forms providers=model.authenticationProviders}}
+  {{login-footer}}
+</div>
 
-{{#if googleLoginEnabled}}
-  {{google-login-form onGoogleLogin=(action 'googleLogin')}}
-{{/if}}
-
-{{#if dummyLoginEnabled}}
-  {{dummy-login-form onDummyLogin=(action 'dummyLogin')}}
-{{/if}}
+{{application-footer}}

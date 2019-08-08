@@ -1,5 +1,5 @@
 <p style="<%= paragraph_style("font-size": "17px", color: "#444") %>"><%= @user.email %> has invited you to collaborate on the project "<%= @project.name %>"</p>
 
-<p style="<%= paragraph_style("font-size": "15px") %>">If you already have an account (<%= @email %>), you can just <a style="<%= link_style() %>" href="<%= webapp_host() %>">login</a> and you’ll see the project.</p>
+<p style="<%= paragraph_style("font-size": "15px") %>">If you already have an account (<%= @email %>), you can just <a style="<%= link_style() %>" href="<%= webapp_url() %>">login</a> and you’ll see the project.</p>
 
-<p style="<%= paragraph_style("font-size": "15px") %>">If not, creating an account is as simple as logging in with the invited Google account (<%= @email %>) on <a style="<%= link_style() %>" href="<%= webapp_host() %>"><%= webapp_host() %></a></p>
+<p style="<%= paragraph_style("font-size": "15px") %>">If not, creating an account is as simple as logging in with the invited Google account (<%= @email %>) on <a style="<%= link_style() %>" href="<%= webapp_url() %>"><%= webapp_url() %></a></p>

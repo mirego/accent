@@ -27,7 +27,7 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  width: 60%;
+  width: 100%;
   margin-right: 40px;
 }
 
@@ -41,18 +41,25 @@
 }
 
 .numberStat-reviewPercentage {
-  font-size: 42px;
+  letter-spacing: -3px;
+  line-height: 1;
+  font-size: 82px;
   font-weight: 400;
 }
 
-.numberStat-reviewPercentage-label {
-  margin-left: -5px;
-  font-size: 12px;
+.numberStat-reviewPercentage-icon {
+  width: 35px;
+  height: 35px;
+}
+
+.numberStat-reviewPercentage-unit {
+  font-size: 62px;
+  opacity: 0.7;
 }
 
 .numberStat-totalKeys {
   display: block;
-  font-size: 15px;
+  font-size: 20px;
   font-family: $font-monospace;
   color: #ccc;
 }
@@ -71,9 +78,10 @@
 
 .numberStat-reviewCompleted-successIcon {
   display: block;
-  fill: rgba($color-success, 0.6);
-  width: 38px;
-  height: 38px;
+  stroke: rgba($color-success, 0.8);
+  width: 52px;
+  height: 52px;
+  margin-bottom: 10px;
 }
 
 .stats {
@@ -91,6 +99,7 @@
   font-size: 14px;
   font-weight: bold;
   color: $color-black;
+  color: var(--color-black);
 }
 
 .slaves {
@@ -107,8 +116,8 @@
   background: #fff;
   box-shadow: 0 2px 6px rgba(#000, 0.09);
   border-radius: 2px;
-  border-left: 2px solid lighten($color-primary, 30%);
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
   text-decoration: none;
   transition: box-shadow 0.2s ease-in-out;
 
@@ -129,14 +138,16 @@
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  fill: $color-primary;
+  fill: $color-green;
+  fill: var(--color-primary);
 }
 
 .empty-slaves-button-text {
   display: block;
   margin-top: 10px;
   font-size: 11px;
-  color: rgba(darken($color-primary, 20%), 0.5);
+  color: rgba(darken($color-green, 20%), 0.5);
+  color: var(--color-black);
 }
 
 .master {
@@ -156,7 +167,8 @@
 .activities {
   display: flex;
   flex-direction: column;
-  max-width: 380px;
+  max-width: 430px;
+  width: 100%;
 }
 
 .activities-title {
@@ -169,7 +181,7 @@
 }
 
 .activities-title-icon {
-  fill: #bbb;
+  stroke: #bbb;
   width: 15px;
   height: 15px;
   margin-right: 6px;

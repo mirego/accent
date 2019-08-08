@@ -26,8 +26,8 @@ defmodule Accent.GraphQL.Types.MutationResult do
     field(:errors, list_of(:string))
   end
 
-  object :mutated_integration do
-    field(:integration, :integration)
+  object :mutated_project_integration do
+    field(:project_integration, :project_integration)
     field(:errors, list_of(:string))
   end
 

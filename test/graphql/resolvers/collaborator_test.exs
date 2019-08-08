@@ -21,7 +21,7 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
 
   setup do
     user = Repo.insert!(@user)
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     {:ok, [user: user, project: project]}
   end
@@ -30,7 +30,7 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn _ -> :ok end)
+    |> expect(:notify, fn _ -> :ok end)
 
     {:ok, result} = Resolver.create(project, %{email: "test@example.com", role: "admin"}, context)
 

@@ -1,1 +1,11 @@
-<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M40.21 28.68c.493.49.65 1.193.472 1.818-.08.3-.24.586-.477.823l-2.62 2.62c-.05.05-.1.096-.154.14L25.035 46.475c-.723.723-1.896.723-2.62 0l-2.618-2.62c-.723-.72-.723-1.895 0-2.617L31.03 30 19.79 18.76c-.724-.72-.724-1.895 0-2.617l2.618-2.62c.722-.722 1.896-.722 2.62 0L37.382 25.88c.073.054.143.114.21.18l2.618 2.62z"/></svg>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="9 18 15 12 9 6"></polyline>
+</svg>

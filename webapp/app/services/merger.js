@@ -7,7 +7,12 @@ export default Service.extend({
 
   merge({project, revision, file, documentPath, documentFormat, mergeType}) {
     const language = revision.language;
-    const url = fmt(config.API.MERGE_REVISION_PATH, project.id, language.slug, mergeType);
+    const url = fmt(
+      config.API.MERGE_REVISION_PATH,
+      project.id,
+      language.slug,
+      mergeType
+    );
     documentFormat = documentFormat.toLowerCase();
 
     return this.authenticatedRequest.commit(url, {

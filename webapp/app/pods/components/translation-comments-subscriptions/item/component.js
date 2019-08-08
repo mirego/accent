@@ -21,9 +21,15 @@ export default Component.extend({
 
   isSubscribed: bool('subscription'),
 
-  subscription: computed('subscriptions.[]', 'collaborator.user.id', function() {
-    return this.subscriptions.find(subscription => subscription.user.id === this.collaborator.user.id);
-  }),
+  subscription: computed(
+    'subscriptions.[]',
+    'collaborator.user.id',
+    function() {
+      return this.subscriptions.find(
+        subscription => subscription.user.id === this.collaborator.user.id
+      );
+    }
+  ),
 
   click() {
     if (this.isSubscribed) {

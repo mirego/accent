@@ -11,6 +11,10 @@ export default TextArea.extend({
     if (this.onBlur) this.onBlur();
   },
 
+  keyUp(_event) {
+    if (this.onKeyUp) this.onKeyUp();
+  },
+
   keyDown(event) {
     if (event.which === ENTER_KEY && (event.metaKey || event.ctrlKey)) {
       if (this.onSubmit) this.onSubmit();

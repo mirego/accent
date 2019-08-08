@@ -1,9 +1,18 @@
-::-moz-selection { background: lighten($color-primary, 45%); }
-::selection { background: lighten($color-primary, 45%); }
+::-moz-selection {
+  background: lighten($color-green, 45%);
+  background: var(--color-primary-opacity-10);
+}
+
+::selection {
+  background: lighten($color-green, 45%);
+  background: var(--color-primary-opacity-10);
+}
 
 body {
   font-family: $font-primary;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 textarea,
@@ -12,6 +21,8 @@ button,
 input[type="submit"],
 input[type="text"] {
   font-family: $font-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 dl,
@@ -24,8 +35,5 @@ dd {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-}
-
-.app-content {
-  flex: 1;
+  justify-content: space-between;
 }

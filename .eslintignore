@@ -1,0 +1,17 @@
+webapp/node_modules/*
+webapp/**/vendor/*.js
+webapp/vendor/**/*.js
+webapp/bower_components/**/*.js
+webapp/webapp-dist/**/*.js
+webapp/dist/**/*.js
+webapp/tmp/**/*.js
+webapp/app/locales/*/translations.js
+webapp/app/utils/phoenix.js
+
+cli/lib
+cli/node_modules
+cli/bin
+
+jipt/node_modules
+jipt/dist
+jipt/.cache

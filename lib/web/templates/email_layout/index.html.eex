@@ -13,7 +13,7 @@
 
           <br />
 
-          <a style="<%= link_style("font-size": "13px", "text-decoration": "underline") %>" href="<%= webapp_host() %>"><%= webapp_host() %></a>
+          <a style="<%= link_style("font-size": "13px", "text-decoration": "underline") %>" href="<%= webapp_url() %>"><%= webapp_url() %></a>
         </td>
       </tr>
     </table>

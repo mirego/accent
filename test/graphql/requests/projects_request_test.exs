@@ -15,7 +15,7 @@ defmodule AccentTest.GraphQL.Requests.Projects do
   setup do
     user = Repo.insert!(@user)
     french_language = %Language{name: "french", slug: Ecto.UUID.generate()} |> Repo.insert!()
-    project = %Project{name: "My project", last_synced_at: DateTime.from_naive!(~N[2017-01-01T00:00:00], "Etc/UTC")} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project", last_synced_at: DateTime.from_naive!(~N[2017-01-01T00:00:00], "Etc/UTC")} |> Repo.insert!()
 
     %Collaborator{project_id: project.id, user_id: user.id, role: "admin"} |> Repo.insert!()
     %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()

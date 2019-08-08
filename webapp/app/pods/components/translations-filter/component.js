@@ -29,7 +29,9 @@ export default Component.extend({
     }));
 
     documents.unshift({
-      label: this.i18n.t('components.translations_filter.document_default_option_text'),
+      label: this.i18n.t(
+        'components.translations_filter.document_default_option_text'
+      ),
       value: null
     });
 
@@ -47,7 +49,9 @@ export default Component.extend({
     }));
 
     versions.unshift({
-      label: this.i18n.t('components.translations_filter.version_default_option_text'),
+      label: this.i18n.t(
+        'components.translations_filter.version_default_option_text'
+      ),
       value: null
     });
 

@@ -1,6 +1,6 @@
 import {computed} from '@ember/object';
 import {inject as service} from '@ember/service';
-import {gt} from '@ember/object/computed';
+import {gt, notEmpty} from '@ember/object/computed';
 import Component from '@ember/component';
 
 // Attributes:
@@ -16,6 +16,7 @@ export default Component.extend({
   i18n: service('i18n'),
   globalState: service('global-state'),
 
+  showOrders: notEmpty('onChangeOrderBy'),
   showRevisions: gt('mappedRevisions.length', 1),
   showDocuments: gt('mappedDocuments.length', 1),
 
@@ -56,7 +57,10 @@ export default Component.extend({
   }),
 
   revisionValue: computed('revision', 'mappedRevisions.[]', function() {
-    return this.mappedRevisions.find(({value}) => value === this.revision) || this.mappedRevisions[0];
+    return (
+      this.mappedRevisions.find(({value}) => value === this.revision) ||
+      this.mappedRevisions[0]
+    );
   }),
 
   mappedRevisions: computed('revisions.[]', function() {
@@ -69,7 +73,10 @@ export default Component.extend({
   }),
 
   documentValue: computed('document', 'mappedDocuments.[]', function() {
-    return this.mappedDocuments.find(({value}) => value === this.document) || this.mappedDocuments[0];
+    return (
+      this.mappedDocuments.find(({value}) => value === this.document) ||
+      this.mappedDocuments[0]
+    );
   }),
 
   mappedDocuments: computed('documents.[]', function() {

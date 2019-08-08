@@ -1,11 +1,10 @@
-use Mix.Config
+import Config
 
 config :accent, Accent.Endpoint,
   check_origin: false,
-  server: true,
-  root: ".",
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  server: true
 
-config :accent, dummy_provider_enabled: false
-
-config :logger, level: :info
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  level: :info,
+  metadata: ~w(request_id)a

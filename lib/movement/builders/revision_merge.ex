@@ -19,6 +19,7 @@ defmodule Movement.Builders.RevisionMerge do
       |> TranslationScope.active()
       |> TranslationScope.from_revision(context.assigns[:revision].id)
       |> TranslationScope.from_document(context.assigns[:document].id)
+      |> TranslationScope.from_version(context.assigns[:version] && context.assigns[:version].id)
       |> Repo.all()
 
     assign(context, :translations, translations)

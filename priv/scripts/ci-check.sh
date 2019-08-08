@@ -29,19 +29,22 @@ header "API tests…"
 run mix test
 
 header "Compilation without warnings…"
-run mix compile --warnings-as-errors --force
+run make lint-compile
 
 header "API code auto-formatting…"
-run mix format --dry-run --check-formatted
+run make lint-format
 
 header "API code lint…"
-run mix credo --strict
+run make lint-credo
 
-header "Webapp code auto-formatting…"
-run npm --prefix webapp run prettier-check
+header "Prettier auto-formatting…"
+run make lint-prettier
 
-header "Webapp code lint…"
-run npm --prefix webapp run lint
+header "Eslint code lint…"
+run make lint-eslint
+
+header "Tslint code lint…"
+run make lint-tslint
 
 header "Webapp tests…"
 run npm --prefix webapp test

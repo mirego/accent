@@ -1,11 +1,10 @@
 & {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .list {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 20px;
 }
 
 .link {
@@ -15,7 +14,7 @@
   flex-direction: column;
   padding: 30px;
   margin: 0 30px 30px 0;
-  min-width: 200px;
+  min-width: 225px;
   text-align: center;
   background: #fff;
   border-radius: 3px;
@@ -29,17 +28,18 @@
   transition-property: background, border-color, color;
 
   .link-icon {
-    fill: #999;
+    stroke: #999;
   }
 
   &:focus,
   &:hover {
-    color: lighten($color-primary, 5%);
-    border-color: lighten($color-primary, 45%);
-    background: lighten($color-primary, 51%);
+    color: $color-green;
+    color: var(--color-primary);
+    background: $color-light-background;
 
     .link-icon {
-      fill: $color-primary;
+      stroke: $color-green;
+      stroke: var(--color-primary);
     }
   }
 }
@@ -48,7 +48,19 @@
   width: 20px;
   height: 20px;
   margin-bottom: 3px;
-  fill: $color-primary;
   transition: $transition-speed $transition-easing;
-  transition-property: fill;
+  transition-property: stroke;
+}
+
+@media (max-width: ($screen-md)) {
+  &,
+  .list {
+    margin: 0;
+  }
+
+  .link {
+    width: calc(50% - 20px);
+    min-width: 0;
+    margin: 0 10px 20px;
+  }
 }

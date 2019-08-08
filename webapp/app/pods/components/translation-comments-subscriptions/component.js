@@ -10,6 +10,8 @@ export default Component.extend({
   tagName: 'ul',
 
   filteredCollaborators: computed('collaborators', function() {
-    return this.collaborators.filter(collaborator => !collaborator.isPending).filter(collaborator => collaborator.role !== 'BOT');
+    return this.collaborators
+      .filter(collaborator => !collaborator.isPending)
+      .filter(collaborator => collaborator.role !== 'BOT');
   })
 });

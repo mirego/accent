@@ -1,17 +1,20 @@
 defmodule Accent.Mixfile do
   use Mix.Project
 
+  @version "1.2.0"
+
   def project do
     [
       app: :accent,
-      version: "0.0.2",
-      elixir: "~> 1.8",
+      version: @version,
+      elixir: "~> 1.9",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
+      releases: releases(),
       test_coverage: [tool: ExCoveralls]
     ]
   end
@@ -45,8 +48,8 @@ defmodule Accent.Mixfile do
       {:plug, "~> 1.7", override: true},
 
       # Database
-      {:ecto, "~> 3.0", override: true},
-      {:ecto_sql, "~> 3.0"},
+      {:ecto, "~> 3.1", override: true},
+      {:ecto_sql, "~> 3.1"},
       {:postgrex, "~> 0.14"},
 
       # Phoenix data helpers
@@ -57,6 +60,7 @@ defmodule Accent.Mixfile do
       # GraphQL
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
+      {:absinthe_error_payload, "~> 1.0"},
 
       # Utils
       {:p1_utils, github: "processone/p1_utils", override: true},
@@ -68,6 +72,16 @@ defmodule Accent.Mixfile do
       {:csv, "~> 2.0"},
       {:php_assoc_map, "~> 0.5"},
       {:jason, "~> 1.0"},
+      {:erlsom, "~> 1.5"},
+      {:xml_builder, "~> 2.0"},
+      {:ex_minimatch, "~> 0.0.1"},
+
+      # Auth
+      {:oauth2, "~> 0.9", override: true},
+      {:ueberauth, "~> 0.6"},
+      {:ueberauth_google, "~> 0.6"},
+      {:ueberauth_github, "~> 0.7"},
+      {:ueberauth_slack, github: "ueberauth/ueberauth_slack", ref: "525594c870f959ab"},
 
       # Errors
       {:sentry, "~> 7.0"},
@@ -88,24 +102,24 @@ defmodule Accent.Mixfile do
       {:credo, ">= 0.0.0", only: ~w(dev test)a},
       {:credo_envvar, "~> 0.1.0", only: ~w(dev test)a, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
-
-      # OTP Release
-      {:distillery, "~> 2.0", runtime: false}
+      {:phoenix_live_reload, "~> 1.0", only: :dev}
     ]
   end
 
-  # Aliases are shortcut or tasks specific to the current project.
-  # For example, to create, migrate and run the seeds file at once:
-  #
-  #     $ mix ecto.setup
-  #
-  # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
+    ]
+  end
+
+  defp releases do
+    [
+      accent: [
+        version: @version,
+        applications: [accent: :permanent]
+      ]
     ]
   end
 end

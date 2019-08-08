@@ -12,5 +12,6 @@
 .translation {
   height: 4px;
   width: 180px;
-  background: rgba($color-primary, 0.2);
+  background: $color-green;
+  background: var(--color-primary);
 }

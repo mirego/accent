@@ -36,17 +36,14 @@
   font-size: 13px;
   font-weight: bold;
   text-decoration: none;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
   transition: $transition-speed $transition-easing;
-  transition-property: color;
+  transition-property: color, opacity;
 
   &:focus,
   &:hover {
-    color: darken($color-primary, 15%);
-
-    .actions-link-icon {
-      fill: darken($color-primary, 15%);
-    }
+    opacity: 0.7;
   }
 }
 
@@ -54,9 +51,10 @@
   width: 18px;
   height: 18px;
   margin-right: 3px;
-  fill: $color-primary;
+  stroke: $color-green;
+  stroke: var(--color-primary);
   transition: $transition-speed $transition-easing;
-  transition-property: fill;
+  transition-property: stroke;
 }
 
 .actions-buttons {

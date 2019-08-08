@@ -1,27 +1,34 @@
 defmodule Accent.UserRemote.Authenticator do
-  alias Accent.UserRemote.{CollaboratorNormalizer, Fetcher, Persister, TokenGiver}
+  alias Accent.UserRemote.{CollaboratorNormalizer, Persister, TokenGiver, User}
 
-  def authenticate(provider, uid) do
-    provider
-    |> fetch(uid)
-    |> persist
-    |> normalize_collaborators
-    |> grant_token
+  def authenticate(%{provider: provider, info: info}) do
+    info
+    |> map_user(provider)
+    |> Persister.persist()
+    |> CollaboratorNormalizer.normalize()
+    |> TokenGiver.grant_token()
   end
 
-  defp fetch(provider, uid), do: Fetcher.fetch(provider, uid)
-
-  defp persist({:error, error}), do: {:error, error}
-  defp persist({:ok, user}), do: Persister.persist(user)
-
-  defp normalize_collaborators({:error, error}), do: {:error, error}
-
-  defp normalize_collaborators({:ok, user, provider}) do
-    CollaboratorNormalizer.normalize(user)
-
-    {:ok, user, provider}
+  defp map_user(info, :dummy) do
+    %User{
+      provider: "dummy",
+      fullname: info.email,
+      email: normalize_email(info.email),
+      uid: normalize_email(info.email)
+    }
   end
 
-  defp grant_token({:error, error}), do: {:error, error}
-  defp grant_token({:ok, user, _provider}), do: TokenGiver.grant_token(user)
+  defp map_user(info, provider) do
+    %User{
+      provider: to_string(provider),
+      fullname: info.name,
+      picture_url: info.image,
+      email: normalize_email(info.email),
+      uid: normalize_email(info.email)
+    }
+  end
+
+  defp normalize_email(email) do
+    String.downcase(email)
+  end
 end

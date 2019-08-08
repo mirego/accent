@@ -8,7 +8,7 @@
   text-align: center;
   font-size: 27px;
   font-weight: 300;
-  color: $color-primary;
+  color: $color-green;
 }
 
 .textInput {
@@ -18,9 +18,20 @@
   padding: 10px;
   margin-right: 25px;
   min-width: 250px;
-  width: 100%;
+  width: calc(100% - 100px);
   font-size: 12px;
   font-family: $font-primary;
+
+  &:focus {
+    border: 2px solid rgba($color-green, 0.7);
+  }
+}
+
+.colorInput {
+  @extend %textInput;
+  width: 48px;
+  height: 40px;
+  padding: 2px 5px;
 }
 
 .errors {
@@ -55,6 +66,6 @@
   min-height: 31px;
   border-color: #eee;
   border: 1px solid #eee;
-  background: #fafafa;
+  background: $color-light-background;
   box-shadow: 0 1px 5px rgba(#000, 0.06);
 }

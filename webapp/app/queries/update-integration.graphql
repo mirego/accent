@@ -1,9 +1,0 @@
-mutation IntegrationUpdate($events: [IntegrationEvent!]!, $service: IntegrationService, $integrationId: ID!, $data: IntegrationDataInput!) {
-  updateIntegration(id: $integrationId, events: $events, service: $service, data: $data) {
-    integration {
-      id
-    }
-
-    errors
-  }
-}

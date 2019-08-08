@@ -6,24 +6,7 @@
         project.id
         class='item-link'
       }}
-        <span>
-          <span class="projectName">{{project.name}}</span>
-          <span class="projectSyncedAt">
-            {{#if project.lastSyncedAt}}
-              {{t 'components.projects_list.last_synced_at_label'}}
-              {{time-ago-in-words-tag
-                date=project.lastSyncedAt
-                class='lastSyncedAt-date'
-              }}
-            {{else}}
-              {{t 'components.projects_list.never_synced'}}
-            {{/if}}
-          </span>
-        </span>
-
-        <span class="projectLanguage">
-          {{project.language.name}}
-        </span>
+        {{projects-list/item project=project}}
       {{/link-to}}
     </li>
   {{else if query}}

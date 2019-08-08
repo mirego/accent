@@ -3,6 +3,7 @@ defmodule Accent.GraphQL.Resolvers.Document do
 
   alias Accent.{
     Document,
+    DocumentManager,
     GraphQL.Paginated,
     Plugs.GraphQLContext,
     Project,
@@ -31,6 +32,17 @@ defmodule Accent.GraphQL.Resolvers.Document do
 
       {:error, _reason} ->
         {:ok, %{document: nil, errors: ["unprocessable_entity"]}}
+    end
+  end
+
+  @spec update(Document.t(), %{path: String.t()}, GraphQLContext.t()) :: document_operation
+  def update(document, args, _info) do
+    case DocumentManager.update(document, args) do
+      {:ok, document} ->
+        {:ok, %{document: document, errors: nil}}
+
+      {:error, _} ->
+        {:ok, %{document: document, errors: ["unprocessable_entity"]}}
     end
   end
 

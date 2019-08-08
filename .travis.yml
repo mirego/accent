@@ -4,15 +4,18 @@ sudo: false
 # Elixir baby!
 language: 'elixir'
 
-elixir: 1.8.1
+elixir: 1.9
 otp_release: 21.2.5
-node_js: 9.5.0
+node_js: 10.14.1
 
 cache:
   directories:
   - _build
   - deps
+  - node_modules
   - webapp/node_modules
+  - cli/node_modules
+  - jipt/node_modules
 
 # Make sure PostgreSQL is running
 addons:
@@ -24,7 +27,7 @@ addons:
 # Set global environment variables
 env:
   global:
-    - NODE_VERSION: '9.5.0'
+    - NODE_VERSION: '10.14.1'
     - MIX_ENV: 'test'
     - SECRET_KEY_BASE: 'lolwut'
     - DATABASE_URL: 'postgres://localhost/accent_web_test'
@@ -33,8 +36,11 @@ env:
 before_install:
   - 'echo `curl --verbose http://jsonip.com`'
   - npm config set spin false
-  - npm --prefix webapp install
-  - npm --prefix webapp run build-production
+  - npm i --no-audit --no-color
+  - npm i --prefix webapp --no-audit --no-color
+  - npm i --prefix cli --no-audit --no-color
+  - npm i --prefix jipt --no-audit --no-color
+  - npm --prefix webapp run build-production-inline
 
 # Create database and prepare the application
 before_script:
@@ -43,4 +49,6 @@ before_script:
 
 script:
   - ./priv/scripts/ci-check.sh
+  - npm --prefix cli run build
+  - npm --prefix jipt run build-production-inline
   - mix coveralls.travis

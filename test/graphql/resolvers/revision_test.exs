@@ -22,7 +22,7 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
     user = Repo.insert!(@user)
     french_language = %Language{name: "french"} |> Repo.insert!()
     english_language = %Language{name: "english"} |> Repo.insert!()
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     master_revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
     slave_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: master_revision.id} |> Repo.insert!()
@@ -50,6 +50,20 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
 
     assert get_in(result, [:revision, Access.key(:language_id)]) == language.id
     assert get_in(result, [:errors]) == nil
+  end
+
+  test "update", %{slave_revision: revision} do
+    {:ok, result} = Resolver.update(revision, %{name: "foo", slug: "bar"}, %{})
+
+    assert get_in(result, [:revision, Access.key(:name)]) == "foo"
+    assert get_in(result, [:revision, Access.key(:slug)]) == "bar"
+  end
+
+  test "update with null values", %{slave_revision: revision} do
+    {:ok, result} = Resolver.update(revision, %{name: nil, slug: nil}, %{})
+
+    assert get_in(result, [:revision, Access.key(:name)]) == nil
+    assert get_in(result, [:revision, Access.key(:slug)]) == nil
   end
 
   test "correct all", %{master_revision: revision, user: user} do

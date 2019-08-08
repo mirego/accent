@@ -36,14 +36,11 @@ defmodule Accent.UserAuthFetcher do
       from(
         collaborator in Collaborator,
         where: [user_id: ^user.id],
-        select: %{project_id: collaborator.project_id, role: collaborator.role}
+        select: {collaborator.project_id, collaborator.role}
       )
       |> Repo.all()
-      |> Enum.reduce(Map.new(), fn %{project_id: project_id, role: role}, acc ->
-        Map.put(acc, project_id, role)
-      end)
+      |> Enum.into(%{})
 
-    user
-    |> Map.put(:permissions, permissions)
+    %{user | permissions: permissions}
   end
 end

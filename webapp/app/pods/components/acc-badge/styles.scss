@@ -13,8 +13,9 @@
 }
 
 &.primary {
-  background: $color-primary;
-  color: $color-white;
+  background: $color-green;
+  background: var(--color-primary);
+  color: #fff;
 }
 
 &.link {
@@ -31,7 +32,8 @@
 
   &:focus,
   &:hover {
-    background: darken($color-primary, 3%);
+    background: darken($color-green, 3%);
+    background: var(--color-primary-darken-10);
   }
 }
 
@@ -43,5 +45,5 @@
 }
 
 &.link.primary a {
-  color: $color-white;
+  color: #fff;
 }

@@ -1,6 +1,5 @@
 & {
   width: 100%;
-  margin-top: 15px;
 }
 
 .item {
@@ -21,12 +20,14 @@
   display: flex;
   align-items: center;
   font-size: 23px;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
 }
 
 .item-title-link {
   text-decoration: none;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
 
   &:hover {
     text-decoration: underline;
@@ -36,7 +37,7 @@
 .item-tag {
   display: inline-flex;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 12px;
   font-family: $font-monospace;
   font-size: 14px;
   font-weight: normal;
@@ -44,9 +45,10 @@
 }
 
 .item-tag-icon {
-  width: 22px;
-  height: 22px;
-  fill: #bbb;
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+  stroke: #aaa;
 }
 
 .item-meta {

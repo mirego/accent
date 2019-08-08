@@ -38,7 +38,8 @@ export default Route.extend(ResetScroll, ApolloRoute, {
         fetchPolicy: 'cache-and-network',
         variables: {
           projectId: transition.params['logged-in.project'].projectId,
-          revisionId: transition.params['logged-in.project.revision'].revisionId,
+          revisionId:
+            transition.params['logged-in.project.revision'].revisionId,
           query,
           page,
           document,
@@ -71,7 +72,11 @@ export default Route.extend(ResetScroll, ApolloRoute, {
     onRevisionChange({revisionId}) {
       const {project} = this.modelFor('logged-in.project');
 
-      this.transitionTo('logged-in.project.revision.conflicts', project.id, revisionId);
+      this.transitionTo(
+        'logged-in.project.revision.conflicts',
+        project.id,
+        revisionId
+      );
     },
 
     refresh() {

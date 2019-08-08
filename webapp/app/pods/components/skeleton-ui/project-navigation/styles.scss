@@ -3,9 +3,8 @@
   flex-direction: column;
   align-items: flex-end;
   width: 100%;
-  padding-top: 64px;
+  padding-top: 24px;
   padding-right: 15px;
-  background: linear-gradient(65deg, rgba(#fff, 1) 60%, rgba(#000, 0.02) 100%);
 }
 
 .item {
@@ -33,5 +32,18 @@
 
   &:nth-child(6) {
     opacity: 0.05;
+  }
+}
+
+@media (max-width: ($screen-sm)) {
+  & {
+    flex-direction: row;
+    width: 100%;
+    padding-left: 15px;
+  }
+
+  .item {
+    margin-right: 20px;
+    margin-bottom: 0;
   }
 }

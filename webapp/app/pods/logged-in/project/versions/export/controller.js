@@ -7,7 +7,12 @@ export default Controller.extend({
   fileSaver: service('file-saver'),
   globalState: service('global-state'),
 
-  queryParams: ['revisionFilter', 'documentFilter', 'documentFormatFilter', 'orderByFilter'],
+  queryParams: [
+    'revisionFilter',
+    'documentFilter',
+    'documentFormatFilter',
+    'orderByFilter'
+  ],
 
   exportLoading: true,
   fileRender: null,
@@ -38,18 +43,27 @@ export default Controller.extend({
   document: computed('documents.[]', 'documentFilter', function() {
     if (!this.documents) return;
 
-    return this.documents.find(({id}) => id === this.documentFilter) || this.documents[0];
+    return (
+      this.documents.find(({id}) => id === this.documentFilter) ||
+      this.documents[0]
+    );
   }),
 
-  fileExtension: computed('documentFormatFilter', 'document.format', function() {
-    if (!this.globalState.documentFormats) return '';
+  fileExtension: computed(
+    'documentFormatFilter',
+    'document.format',
+    function() {
+      if (!this.globalState.documentFormats) return '';
 
-    const format = this.documentFormatFilter || this.document.format;
-    const documentFormatItem = this.globalState.documentFormats.find(({slug}) => slug === format);
-    if (!documentFormatItem) return '';
+      const format = this.documentFormatFilter || this.document.format;
+      const documentFormatItem = this.globalState.documentFormats.find(
+        ({slug}) => slug === format
+      );
+      if (!documentFormatItem) return '';
 
-    return documentFormatItem.extension;
-  }),
+      return documentFormatItem.extension;
+    }
+  ),
 
   actions: {
     closeModal() {

@@ -1,9 +1,0 @@
-mutation IntegrationCreate($events: [IntegrationEvent!]!, $service: IntegrationService!, $projectId: ID!, $data: IntegrationDataInput!) {
-  createIntegration(events: $events, service: $service, projectId: $projectId, data: $data) {
-    integration {
-      id
-    }
-
-    errors
-  }
-}

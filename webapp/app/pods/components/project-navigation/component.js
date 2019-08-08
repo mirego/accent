@@ -11,24 +11,18 @@ export default Component.extend({
 
   isListShowing: reads('globalState.isProjectNavigationListShowing'),
 
-  selectedRevision: computed('globalState.revision', 'revisions.[]', function() {
-    const selected = this.globalState.revision;
+  selectedRevision: computed(
+    'globalState.revision',
+    'revisions.[]',
+    function() {
+      const selected = this.globalState.revision;
 
-    if (selected && this.revisions.map(({id}) => id).includes(selected)) {
-      return selected;
+      if (selected && this.revisions.map(({id}) => id).includes(selected)) {
+        return selected;
+      }
+
+      if (!this.revisions) return;
+      return this.revisions[0].id;
     }
-
-    if (!this.revisions) return;
-    return this.revisions[0].id;
-  }),
-
-  actions: {
-    toggleMenu() {
-      this.set('globalState.isProjectNavigationListShowing', !this.globalState.isProjectNavigationListShowing);
-    },
-
-    closeModal() {
-      this.set('globalState.isProjectNavigationListShowing', !this.globalState.isProjectNavigationListShowing);
-    }
-  }
+  )
 });

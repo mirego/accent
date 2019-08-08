@@ -1,0 +1,7 @@
+{{#if showLoading}}
+  {{loading-content label=(t 'pods.project.edit.jipt.loading_content')}}
+{{else}}
+  {{project-settings/back-link project=project}}
+
+  {{project-settings/jipt project=project}}
+{{/if}}

@@ -6,7 +6,9 @@ export const initialize = application => {
     Raven.config(config.SENTRY.DSN).install();
 
     const lookupName = 'service:raven';
-    const service = application.lookup ? application.lookup(lookupName) : application.container.lookup(lookupName);
+    const service = application.lookup
+      ? application.lookup(lookupName)
+      : application.container.lookup(lookupName);
     service.enableGlobalErrorCatching();
   }
 };

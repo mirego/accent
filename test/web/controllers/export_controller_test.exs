@@ -17,7 +17,7 @@ defmodule AccentTest.ExportController do
   setup do
     user = Repo.insert!(@user)
     french_language = %Language{name: "french", slug: Ecto.UUID.generate()} |> Repo.insert!()
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
 
@@ -191,6 +191,25 @@ defmodule AccentTest.ExportController do
              "test": "foo",
              "ok": "bar"
            }
+           """
+  end
+
+  test "export with language overrides", %{conn: conn, project: project, revision: revision, language: language} do
+    revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
+    document = %Document{project_id: project.id, path: "test2", format: "rails_yml"} |> Repo.insert!()
+    %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar", document_id: document.id, file_index: 2} |> Repo.insert!()
+    %Translation{revision_id: revision.id, key: "test", corrected_text: "foo", proposed_text: "foo", document_id: document.id, file_index: 1} |> Repo.insert!()
+
+    params = %{order_by: "", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
+
+    response =
+      conn
+      |> get(export_path(conn, [], params))
+
+    assert response.resp_body == """
+           "testtest":
+             "test": "foo"
+             "ok": "bar"
            """
   end
 end

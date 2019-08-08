@@ -31,6 +31,7 @@ defmodule Movement.Builders.RevisionUncorrectAll do
       |> TranslationScope.not_locked()
       |> TranslationScope.not_conflicted()
       |> TranslationScope.from_revision(assigns[:revision].id)
+      |> TranslationScope.no_version()
       |> Repo.all()
 
     assign(context, :translations, translations)

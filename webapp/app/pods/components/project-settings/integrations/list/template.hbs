@@ -1,5 +1,6 @@
 {{#each integrations key='id' as |integration|}}
   {{project-settings/integrations/list/item
+    project=project
     permissions=permissions
     integration=integration
     onUpdate=onUpdate

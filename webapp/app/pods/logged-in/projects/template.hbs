@@ -1,24 +1,28 @@
-{{projects-header session=session}}
+<div>
+  {{projects-header session=session}}
 
-{{projects-filters
-  permissions=permissions
-  query=query
-  onChangeQuery=(action 'changeQuery')
-}}
-
-{{#if showLoading}}
-  {{loading-content label=(t 'pods.projects.loading_content')}}
-{{else}}
-  {{projects-list
+  {{projects-filters
     permissions=permissions
-    projects=model.projects.entries
     query=query
+    onChangeQuery=(action 'changeQuery')
   }}
 
-  {{resource-pagination
-    meta=model.projects.meta
-    onSelectPage=(action 'selectPage')
-  }}
-{{/if}}
+  {{#if showLoading}}
+    {{loading-content label=(t 'pods.projects.loading_content')}}
+  {{else}}
+    {{projects-list
+      permissions=permissions
+      projects=model.projects.entries
+      query=query
+    }}
 
-{{outlet}}
+    {{resource-pagination
+      meta=model.projects.meta
+      onSelectPage=(action 'selectPage')
+    }}
+  {{/if}}
+
+  {{outlet}}
+</div>
+
+{{application-footer}}

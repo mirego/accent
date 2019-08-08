@@ -19,19 +19,25 @@
   color: $color-grey;
   font-size: 13px;
 
+  &:focus {
+    outline: none;
+    opacity: 0.6;
+  }
+
   &:last-of-type {
     border-right-color: transparent;
   }
 }
 
 .languageHeader-displayOptions-button[disabled] {
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
 }
 
 .statsList,
 .operationsList {
   margin: 10px 0;
-  background: $color-white;
+  background: #fff;
   box-shadow: 0 2px 10px rgba($color-black, 0.06);
 }
 
@@ -58,16 +64,12 @@
   font-size: 13px;
 }
 
-.operation {
-  border-bottom: 1px solid $color-border;
-}
-
 .operation-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background: #fafafa;
+  background: $color-light-background;
 }
 
 .operation-content {

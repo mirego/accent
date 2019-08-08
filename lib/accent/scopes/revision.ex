@@ -31,6 +31,17 @@ defmodule Accent.Scopes.Revision do
   @doc """
   ## Examples
 
+    iex> Accent.Scopes.Revision.from_language_slug(Accent.Revision, "en-US")
+    #Ecto.Query<from r0 in Accent.Revision, join: l1 in assoc(r0, :language), where: l1.slug == ^\"en-US\">
+  """
+  @spec from_language_slug(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
+  def from_language_slug(query, language_slug) do
+    from(r in query, join: l in assoc(r, :language), where: l.slug == ^language_slug)
+  end
+
+  @doc """
+  ## Examples
+
     iex> Accent.Scopes.Revision.master(Accent.Revision)
     #Ecto.Query<from r0 in Accent.Revision, where: r0.master == true>
   """

@@ -1,14 +1,15 @@
 & {
-  margin-top: 20px;
+  margin-top: 60px;
 }
 
 .item {
-  padding: 10px 7px 20px;
+  padding: 15px 10px 20px;
   margin-bottom: 15px;
-  background: #fff;
+  background: #fbfbfb;
 
   &:nth-child(2) {
     opacity: 0.6;
+    background: #fff;
   }
 
   &:nth-child(3) {
@@ -20,7 +21,8 @@
   height: 5px;
   width: 120px;
   margin-bottom: 20px;
-  background: #ddd;
+  background: rgba($color-green, 0.1);
+  background: var(--color-primary-opacity-10);
 }
 
 .item-conflict {
@@ -45,12 +47,7 @@
   height: 3px;
   width: 250px;
   margin-bottom: 5px;
-  background: rgba($color-primary, 0.1);
-}
-
-.item-actions {
-  display: flex;
-  justify-content: space-between;
+  background: rgba($color-success, 0.1);
 }
 
 .item-textarea  {
@@ -61,7 +58,8 @@
 }
 
 .item-button {
-  height: 40px;
-  width: 50px;
-  background: rgba($color-primary, 0.3);
+  height: 30px;
+  width: 130px;
+  border: 1px solid #fafafa;
+  background: #fff;
 }

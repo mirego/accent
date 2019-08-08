@@ -7,10 +7,20 @@
   flex-grow: 1;
   flex-shrink: 0;
   padding: 10px;
-  margin-right: 25px;
   min-width: 250px;
   font-family: $font-primary;
   font-size: 12px;
+}
+
+.colorInput {
+  @extend %textInput;
+  width: 48px;
+  height: 40px;
+  padding: 2px 5px;
+}
+
+.field {
+  margin-bottom: 5px;
 }
 
 .lock {
@@ -18,7 +28,7 @@
   align-items: center;
   margin: 20px 0;
   padding: 10px;
-  background: #fafafa;
+  background: $color-light-background;
 }
 
 .lock-text-helper {
@@ -45,16 +55,16 @@
     border-color: #ddd;
 
     &:hover {
-      color: $color-primary;
-      border-color: $color-primary;
+      color: $color-green;
+      border-color: $color-green;
 
       .lock-icon {
-        fill: $color-primary;
+        stroke: $color-green;
       }
     }
 
     .lock-icon {
-      fill: #aaa;
+      stroke: #aaa;
     }
   }
 
@@ -67,18 +77,18 @@
       border-color: darken($color-error, 10%);
 
       .lock-icon {
-        fill: darken($color-error, 10%);
+        stroke: darken($color-error, 10%);
       }
     }
 
     .lock-icon {
-      fill: $color-error;
+      stroke: $color-error;
     }
   }
 }
 
 .lock-icon {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   margin-right: 6px;
 }

@@ -8,7 +8,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
 
-    if (!this.session.credentials.isAuthenticated || !this.project) return;
+    if (!this.session.credentials.token || !this.project) return;
 
     const phoenixService = this.phoenix;
     const token = `Bearer ${this.session.credentials.token}`;
@@ -16,7 +16,12 @@ export default Component.extend({
     phoenixService
       .getChannel(`projects:${this.project.id}`, {token})
       .then(phoenixService.joinChannel)
-      .then(channel => phoenixService.bindChannelEvents(channel, this.session.credentials.user.id))
+      .then(channel =>
+        phoenixService.bindChannelEvents(
+          channel,
+          this.session.credentials.user.id
+        )
+      )
       .then(channel => this.set('channel', channel));
   },
 

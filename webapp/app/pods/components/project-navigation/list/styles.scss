@@ -25,33 +25,33 @@
   font-weight: 600;
   font-size: 13px;
   border-radius: 3px;
+  color: $color-grey;
 
   &:hover,
   &:focus {
-    background: lighten($color-primary, 48%);
+    background: $color-light-background;
+    color: var(--color-primary);
 
     .list-item-link-icon {
       transform: scale(1);
-      fill: rgba($color-primary, 0.9);
     }
 
     .list-item-link-text {
-      color: rgba($color-primary, 0.9);
+      color: var(--color-primary);
     }
   }
 
   &.active {
-    background: lighten($color-primary, 46%);
-  }
+    background: lighten($color-green, 46%);
+    background: var(--color-primary);
+    color: #fff;
 
-  &.active {
     .list-item-link-icon {
       transform: scale(1);
-      fill: $color-primary;
     }
 
     .list-item-link-text {
-      color: $color-primary;
+      color: #fff;
     }
   }
 }
@@ -59,7 +59,7 @@
 .list-item-link-text {
   width: 127px;
   padding: 0 0 0 12px;
-  color: rgba($color-black, 0.4);
+  color: $color-grey;
   transition: $transition-speed $transition-easing;
   transition-property: color;
 }
@@ -70,7 +70,6 @@
   display: inline-block;
   width: 19px;
   height: 19px;
-  fill: rgba($color-black, 0.3);
 }
 
 @media (max-width: 800px) {
@@ -81,26 +80,7 @@
 
 @media (max-width: ($screen-sm)) {
   & {
-    background: #fff;
-  }
-
-  .list-item-link {
-    left: 0;
-    border-radius: 0;
-    font-size: 14px;
-    padding-left: 8px;
-  }
-
-  .list-item-link-text {
-    display: block;
-    position: static;
-    padding: 0;
-    opacity: 1;
-    text-align: left;
-    width: auto;
-  }
-
-  .list-item-link-icon {
-    margin-right: 6px;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }

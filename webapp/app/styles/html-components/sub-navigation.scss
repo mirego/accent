@@ -14,8 +14,8 @@
     padding: 10px 15px 10px 10px;
 
     &.active {
-      background: darken(#f3f9f6, 3%);
-      color: $color-primary;
+      color: $color-green;
+      color: var(--color-primary);
     }
   }
 }
@@ -51,10 +51,12 @@
   color: $color-grey;
 
   &:focus {
-    color: $color-primary;
+    color: $color-green;
+    color: var(--color-primary);
 
     .subNavigation-list-item-link-icon {
-      fill: $color-primary;
+      stroke: $color-green;
+      stroke: var(--color-primary);
     }
   }
 
@@ -64,18 +66,19 @@
 
   &.active {
     .subNavigation-list-item-link-icon {
-      fill: $color-primary;
+      stroke: $color-green;
+      stroke: var(--color-primary);
     }
   }
 }
 
 .subNavigation-list-item-link-icon {
   transition: $transition-speed $transition-easing;
-  transition-property: fill;
+  transition-property: stroke;
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  fill: rgba($color-black, 0.3);
+  stroke: rgba($color-grey, 0.8);
 }
 
 @media (max-width: ($screen-md)) {

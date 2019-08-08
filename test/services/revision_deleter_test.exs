@@ -1,10 +1,10 @@
 defmodule AccentTest.RevisionDeleter do
   use Accent.RepoCase
 
-  alias Accent.{Language, Operation, Project, Repo, Revision, RevisionDeleter, Translation}
+  alias Accent.{Language, Operation, Project, Repo, Revision, RevisionManager, Translation}
 
   setup do
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
     french_language = %Language{name: "french"} |> Repo.insert!()
     english_language = %Language{name: "english"} |> Repo.insert!()
 
@@ -15,21 +15,21 @@ defmodule AccentTest.RevisionDeleter do
   end
 
   test "delete slave", %{slave_revision: revision} do
-    {:ok, _revision} = RevisionDeleter.delete(revision: revision)
+    {:ok, _revision} = RevisionManager.delete(revision)
 
     assert Repo.get(Revision, revision.id) == nil
   end
 
   test "delete master", %{master_revision: revision} do
-    error = RevisionDeleter.delete(revision: revision)
+    {:error, changeset} = RevisionManager.delete(revision)
 
-    assert error == {:error, "can't delete master language"}
+    assert changeset.errors == [master: {"can't delete master language", []}]
   end
 
   test "delete operations", %{slave_revision: revision} do
     operation = %Operation{action: "new", key: "a", revision_id: revision.id} |> Repo.insert!()
 
-    {:ok, _revision} = RevisionDeleter.delete(revision: revision)
+    {:ok, _revision} = RevisionManager.delete(revision)
 
     assert Repo.get(Operation, operation.id) == nil
   end
@@ -37,7 +37,7 @@ defmodule AccentTest.RevisionDeleter do
   test "delete translations", %{slave_revision: revision} do
     translation = %Translation{key: "a", revision_id: revision.id} |> Repo.insert!()
 
-    {:ok, _revision} = RevisionDeleter.delete(revision: revision)
+    {:ok, _revision} = RevisionManager.delete(revision)
 
     assert Repo.get(Translation, translation.id) == nil
   end

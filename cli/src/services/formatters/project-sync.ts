@@ -1,10 +1,10 @@
 // Vendor
-import chalk from 'chalk'
+import chalk from 'chalk';
 
 export default class ProjectSyncFormatter {
-  public log() {
-    console.log(chalk.magenta('Syncing sources'))
+  log() {
+    console.log(chalk.magenta('Syncing sources'));
 
-    console.log('')
+    console.log('');
   }
 }

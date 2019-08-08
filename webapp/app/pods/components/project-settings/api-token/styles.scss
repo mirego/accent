@@ -25,11 +25,20 @@
   transition: 0.3s ease-in-out;
 
   &:focus {
-    border-color: lighten($color-primary, 20%);
-    box-shadow: 0 0 3px 2px rgba($color-primary, 0.3);
+    outline: none;
+    border-color: lighten($color-green, 20%);
+    border-color: var(--color-primary-opacity-70);
+    box-shadow: 0 0 3px 2px rgba($color-green, 0.3);
+    box-shadow: 0 0 3px 2px var(--color-primary-opacity-10);
+
+    &::-moz-selection {
+      background: lighten($color-green, 45%);
+      background: var(--color-primary-opacity-10);
+    }
 
     &::selection {
-      background: lighten($color-primary, 35%);
+      background: lighten($color-green, 45%);
+      background: var(--color-primary-opacity-10);
     }
   }
 }

@@ -36,13 +36,19 @@ export default Controller.extend({
           }
         })
         .then(() => {
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_SUCCESS));
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_SUCCESS)
+          );
           this.transitionToRoute('logged-in.projects');
         })
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_ERROR)));
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_DELETE_PROJECT_ERROR)
+          )
+        );
     },
 
-    updateProject({name, isFileOperationsLocked}) {
+    updateProject(projectAttributes) {
       const project = this.project;
 
       return this._mutateResource({
@@ -51,8 +57,7 @@ export default Controller.extend({
         errorMessage: FLASH_MESSAGE_PROJECT_ERROR,
         variables: {
           projectId: project.id,
-          name,
-          isFileOperationsLocked
+          ...projectAttributes
         }
       });
     }

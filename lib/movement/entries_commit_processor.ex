@@ -27,6 +27,7 @@ defmodule Movement.EntriesCommitProcessor do
           plural: entry.plural,
           locked: entry.locked,
           revision_id: Map.get(assigns[:revision], :id),
+          version_id: assigns[:version] && Map.get(assigns[:version], :id),
           placeholders: entry.placeholders
         }
 

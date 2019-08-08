@@ -27,7 +27,8 @@
   height: 5px;
   width: 180px;
   margin-bottom: 15px;
-  background: rgba($color-primary, 0.3);
+  background: rgba($color-green, 0.3);
+  background: var(--color-primary-opacity-70);
 }
 
 .item-comments {

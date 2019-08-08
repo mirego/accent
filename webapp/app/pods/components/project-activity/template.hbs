@@ -201,7 +201,7 @@
 
     {{#if operationsLoading}}
       {{loading-content label=(t 'pods.project.activities.show.loading_activities')}}
-    {{else if operations}}
+    {{else if operations.entries}}
       <span class="details-label">
         {{t 'components.project_activity.operations_label'}}
       </span>

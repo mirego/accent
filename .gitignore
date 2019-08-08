@@ -1,11 +1,12 @@
 # App artifacts
-/_build
-/db
-/tmp
-/doc
-/deps
-/*.ez
-/cover
+_build
+db
+tmp
+doc
+deps
+*.ez
+cover
+node_modules
 
 # Generate on crash by the VM
 erl_crash.dump
@@ -23,7 +24,21 @@ test.json
 .env*
 
 priv/static/webapp
-/webapp/node_modules
-/webapp/tmp
-/webapp/dist
+priv/static/jipt
+webapp/node_modules
+webapp/tmp
+webapp/dist
+webapp/webapp-dist
+jipt/node_modules
+jipt/.cache
+jipt/dist
+jipt/jipt-dist
+cli/node_modules
+cli/.cache
+cli/dist
+cli/tmp
+cli/lib
+cli/*-debug.log
+cli/*-error.log
+cli/.oclif.manifest.json
 .elixir_ls

@@ -3,35 +3,30 @@
   max-width: $screen-lg;
   position: relative;
   margin-top: 20px;
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 5px;
+  }
+}
+
+.item {
+  flex: 1 1 calc(50% - 10px);
+  max-width: 50%;
 }
 
 .item-link {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: $transition-speed $transition-easing;
-  transition-property: background, color;
-  padding: 10px 10px 12px;
-  border-bottom: 1px solid #f5f5f5;
+  flex-direction: column;
   text-decoration: none;
-  color: $color-black;
+  margin: 0 10px 30px;
+}
 
-  &:hover,
-  &:focus {
-    color: $color-primary;
-    background: $color-light-grey;
+@media (max-width: ($screen-md)) {
+  .item {
+    max-width: none;
+    width: 100%;
+    flex: 1 1 auto;
   }
-}
-
-.projectSyncedAt {
-  display: block;
-  margin-top: 4px;
-  color: $color-grey;
-  font-style: italic;
-  font-size: 11px;
-}
-
-.projectLanguage {
-  color: $color-grey;
-  font-size: 12px;
 }

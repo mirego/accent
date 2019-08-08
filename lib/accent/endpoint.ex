@@ -10,8 +10,8 @@ defmodule Accent.Endpoint do
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
-  plug(Plug.Static, at: "/static", from: {:accent, "priv/static"}, gzip: true, only: ~w(images))
-  plug(Plug.Static, at: "/", from: {:accent, "priv/static/webapp"}, gzip: true, only: ~w(assets index.html))
+  plug(Plug.Static, at: "/static", from: {:accent, "priv/static"}, gzip: true, only: ~w(jipt images))
+  plug(Plug.Static, at: "/", from: {:accent, "priv/static/webapp"}, gzip: true, only: ~w(favicon.ico assets index.html robot.txt))
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

@@ -1,0 +1,54 @@
+<h1 class="title">
+  {{t 'components.revision_update_form.title'}}
+</h1>
+
+{{#if error}}
+  <div class="errors">
+    <div class="error">
+      {{t 'components.revision_update_form.error'}}
+    </div>
+  </div>
+{{/if}}
+
+<form onSubmit={{action 'submit'}}>
+  <div class="formItem">
+    <label class="formItem-label">
+      {{t 'components.revision_update_form.name_label'}}
+    </label>
+    {{input
+      placeholder=namePlaceholder
+      value=name
+      class='textInput'
+    }}
+  </div>
+
+  <div class="formItem">
+    <label class="formItem-label">
+      {{t 'components.revision_update_form.slug_label'}}
+    </label>
+    {{input
+      placeholder=slugPlaceholder
+      value=slug
+      class='textInput'
+    }}
+  </div>
+
+  <div class="formActions">
+    {{#link-to
+      'logged-in.project.edit.manage-languages'
+      project.id
+      class='button
+      button--filled button--white'
+    }}
+      {{t 'components.revision_update_form.cancel_button'}}
+    {{/link-to}}
+
+    {{#async-button
+      class='button button--filled'
+      loading=isUpdating
+      onClick=(action 'submit')
+    }}
+      {{t 'components.revision_update_form.save_button'}}
+    {{/async-button}}
+  </div>
+</form>

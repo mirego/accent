@@ -9,7 +9,19 @@ const PLURAL_SUFFIX = /\.(\w)+$/;
 // project: Object <project>
 // translation: Object <translation>
 export default Component.extend({
+  withRevisionLink: true,
+
   translationKey: parsedKeyProperty('translation.key'),
+
+  revisionName: computed(
+    'translation.revision.{name,language.name}',
+    function() {
+      return (
+        this.translation.revision.name ||
+        this.translation.revision.language.name
+      );
+    }
+  ),
 
   versionParam: computed('translation.version.id', function() {
     return this.getWithDefault('translation.version.id', null);

@@ -61,7 +61,8 @@ export default Service.extend({
   },
 
   _handleEvent(func, {payload, currentUserId}) {
-    if (payload.user && payload.user.id !== currentUserId) return func({payload});
+    if (payload.user && payload.user.id !== currentUserId)
+      return func({payload});
   },
 
   _handleSync({payload}) {
@@ -89,6 +90,8 @@ export default Service.extend({
   },
 
   _showFlashMessage(event, options) {
-    this.flashMessages.socket(this.i18n.t(`addon.channel.handle_in.${event}`, options));
+    this.flashMessages.socket(
+      this.i18n.t(`addon.channel.handle_in.${event}`, options)
+    );
   }
 });

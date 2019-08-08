@@ -1,1 +1,13 @@
-<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M45.865 45.763c.822 0 1.487-.667 1.487-1.488V41.3c0-.822-.666-1.49-1.487-1.49H10.123c-.82 0-1.488.668-1.488 1.49v2.975c0 .82.667 1.488 1.488 1.488h35.742zM49.866 19.19c.82 0 1.486-.668 1.486-1.49v-2.975c0-.82-.665-1.488-1.486-1.488H10.124c-.82 0-1.488.667-1.488 1.488V17.7c0 .822.667 1.49 1.488 1.49h39.742zM39.866 32.52c.82 0 1.487-.666 1.487-1.487v-2.976c0-.82-.666-1.488-1.487-1.488H10.124c-.82 0-1.488.666-1.488 1.487v2.976c0 .82.667 1.488 1.488 1.488h29.742z"/></svg>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <line x1="3" y1="12" x2="21" y2="12"></line>
+  <line x1="3" y1="6" x2="21" y2="6"></line>
+  <line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>

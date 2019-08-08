@@ -2,9 +2,14 @@
 
 'use strict';
 
+// eslint-disable-next-line complexity
 module.exports = function(environment) {
-  const wsHost = process.env.API_WS_HOST || 'ws://localhost:4000';
-  const host = process.env.API_HOST || 'http://localhost:4000';
+  const wsHost = process.env.API_WS_HOST || '__API_WS_HOST__';
+  const host = process.env.API_HOST || '__API_HOST__';
+  const sentryDsn =
+    process.env.NODE_ENV === 'prod'
+      ? process.env.WEBAPP_SENTRY_DSN || '__WEBAPP_SENTRY_DSN__'
+      : process.env.WEBAPP_SENTRY_DSN;
 
   const ENV = {
     modulePrefix: 'accent-webapp',
@@ -12,6 +17,10 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto'
+  };
+
+  ENV.SENTRY = {
+    DSN: sentryDsn
   };
 
   ENV.EmberENV = {
@@ -29,36 +38,26 @@ module.exports = function(environment) {
     WS_HOST: wsHost,
     HOST: host,
     AUTHENTICATION_PATH: `${host}/auth`,
+    HOOKS_PATH: `${host}/hooks/{0}?project_id={1}&authorization={2}`,
     PROJECT_PATH: `${host}/projects/{0}`,
     SYNC_PEEK_PROJECT_PATH: `${host}/sync/peek?project_id={0}&language={1}&sync_type={2}`,
     SYNC_PROJECT_PATH: `${host}/sync?project_id={0}&language={1}&sync_type={2}`,
     MERGE_PEEK_PROJECT_PATH: `${host}/merge/peek?project_id={0}&language={1}&merge_type={2}`,
     MERGE_REVISION_PATH: `${host}/merge?project_id={0}&language={1}&merge_type={2}`,
     EXPORT_DOCUMENT: `${host}/export`,
-    PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`
-  },
-
-  ENV.GOOGLE_API = {
-    CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID
-  };
-
-  ENV.GOOGLE_LOGIN_ENABLED = environment === 'production';
-  ENV.DUMMY_LOGIN_ENABLED = environment !== 'production';
-
-  ENV.SENTRY = {
-    DSN: process.env.WEBAPP_SENTRY_DSN
+    JIPT_EXPORT_DOCUMENT: `${host}/jipt-export`,
+    PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`,
+    JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`
   };
 
   ENV.contentSecurityPolicy = {
     'default-src': "'none'",
-    'script-src': "'self' 'unsafe-inline' 'unsafe-eval' apis.google.com cdn.ravenjs.com",
-    // Allow fonts to be loaded from http://fonts.gstatic.com
-    'font-src': "'self' http://fonts.gstatic.com",
-    // Allow data (ajax/websocket)
-    'connect-src': `'self' https://www.googleapis.com ${wsHost} ${host} https://sentry.io`,
+    'script-src':
+      "'self' 'unsafe-inline' 'unsafe-eval' apis.google.com cdn.ravenjs.com",
+    'font-src': "'self'",
+    'connect-src': `'self' ${wsHost} ${host} https://www.googleapis.com https://sentry.io`,
     'img-src': '*',
-    // Allow inline styles and loaded CSS from http://fonts.googleapis.com
-    'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
+    'style-src': "'self' 'unsafe-inline'",
     'media-src': "'self'",
     'frame-src': 'accounts.google.com'
   };

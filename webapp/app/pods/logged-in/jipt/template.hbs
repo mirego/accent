@@ -1,0 +1,18 @@
+<style>
+  body {
+    {{{this.colors}}}
+  }
+</style>
+
+<div>
+  {{jipt-header project=model.project}}
+
+  {{revision-selector
+    revisions=revisions
+    revision=revision.id
+    withRevisionsCount=false
+    onSelect=(action 'selectRevision')
+  }}
+
+  {{outlet}}
+</div>

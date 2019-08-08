@@ -5,6 +5,7 @@
 
 %translationKeyBase {
   color: $color-black;
+  color: var(--color-black);
   font-family: $font-monospace;
   word-break: break-all;
 }
@@ -14,6 +15,16 @@
   color: $color-grey;
 }
 
+%errorControl {
+  label {
+    color: $color-error;
+  }
+
+  input {
+    border-color: $color-error;
+  }
+}
+
 %textInput {
   transition: $transition-speed $transition-easing;
   transition-property: border box-shadow;
@@ -21,12 +32,13 @@
   outline: 0;
   border-radius: 4px;
   border: 2px solid lighten($color-grey, 20%);
-  background: $color-white;
+  background: #fff;
   font-family: $font-monospace;
   line-height: 1.4;
 
   &:focus {
-    border: 2px solid rgba($color-primary, 0.7);
+    border: 2px solid rgba($color-green, 0.7);
+    border-color: var(--color-primary-opacity-70);
   }
 }
 

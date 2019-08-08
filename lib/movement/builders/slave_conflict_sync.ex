@@ -39,6 +39,7 @@ defmodule Movement.Builders.SlaveConflictSync do
       |> TranslationScope.not_locked()
       |> TranslationScope.from_revisions(assigns[:revision_ids])
       |> TranslationScope.from_keys(assigns[:translation_keys])
+      |> TranslationScope.from_version(assigns[:version] && assigns[:version].id)
       |> Repo.all()
       |> Repo.preload(:revision)
 

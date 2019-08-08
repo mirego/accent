@@ -28,9 +28,13 @@ describe('Unit | Services | Session | creator', () => {
   });
 
   it('should return a promise', async () => {
-    server.respondWith(config.API.AUTHENTICATION_PATH, [HTTP_STATUS.ok, {'Content-Type': 'application/json'}, '']);
+    server.respondWith(config.API.AUTHENTICATION_PATH, [
+      HTTP_STATUS.ok,
+      {'Content-Type': 'application/json'},
+      ''
+    ]);
 
-    const result = service.createSession({username: 'test@mirego.com'})
+    const result = service.createSession({username: 'test@mirego.com'});
 
     expect(result).to.respondTo('then');
 
@@ -38,11 +42,18 @@ describe('Unit | Services | Session | creator', () => {
   });
 
   it('should resolve with the credentials returned from the API', async () => {
-    const credentialsJSON = '{"user":{"email":"test@mirego.com"},"token":"abc123"}';
+    const credentialsJSON =
+      '{"user":{"email":"test@mirego.com"},"token":"abc123"}';
 
-    server.respondWith(config.API.AUTHENTICATION_PATH, [HTTP_STATUS.ok, {'Content-Type': 'application/json'}, credentialsJSON]);
+    server.respondWith(config.API.AUTHENTICATION_PATH, [
+      HTTP_STATUS.ok,
+      {'Content-Type': 'application/json'},
+      credentialsJSON
+    ]);
 
-    const credentials = await service.createSession({username: 'test@mirego.com'});
+    const credentials = await service.createSession({
+      username: 'test@mirego.com'
+    });
 
     expect(credentials).to.deep.equal(JSON.parse(credentialsJSON));
   });

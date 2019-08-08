@@ -1,0 +1,82 @@
+& {
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+.input {
+  @extend %textInput;
+  max-width: 300px;
+  padding: 10px;
+  width: 100%;
+  font-family: $font-primary;
+  font-size: 13px;
+  border: 2px solid darken($color-green, 5%);
+
+  &:focus {
+    border-color: $color-green;
+  }
+}
+
+.loginButton {
+  max-width: 300px;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  background: #fff;
+  border: 2px solid #888;
+  font-size: 13px;
+
+  &.loginButton--google {
+    border: 2px solid darken(#4d90fe, 5%);
+    text-shadow: none;
+    color: #4d90fe;
+
+    &:focus,
+    &:hover {
+      background: lighten(#4d90fe, 30%);
+    }
+  }
+
+  &.loginButton--dummy {
+    border: 2px solid darken($color-green, 5%);
+    background: $color-green;
+    border-radius: 0 0 4px 4px;
+    margin-top: -3px;
+  }
+
+  &.loginButton--github {
+    text-shadow: none;
+    color: #000;
+
+    &:focus,
+    &:hover {
+      background: #eee;
+    }
+  }
+
+  &.loginButton--slack {
+    border: 2px solid #3f0f3f;
+    text-shadow: none;
+    color: #3f0f3f;
+
+    &:focus,
+    &:hover {
+      background: lighten(#3f0f3f, 79%);
+    }
+  }
+}
+
+.loginButton-logo {
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  width: 26px;
+  margin-right: 10px;
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+}

@@ -17,9 +17,11 @@ export default Service.extend({
     return new RSVP.Promise(resolve => {
       if (term.length < MINIMUM_TERM_LENGTH) return resolve([]);
 
-      return this.apollo.client.query(searchQuery).then(({data: {languages: {entries}}}) => {
-        return resolve(entries);
-      });
+      return this.apollo.client
+        .query(searchQuery)
+        .then(({data: {languages: {entries}}}) => {
+          return resolve(entries);
+        });
     });
   }
 });

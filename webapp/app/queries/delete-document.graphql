@@ -1,9 +1,0 @@
-mutation DocumentDelete($documentId: ID!) {
-  deleteDocument(id: $documentId) {
-    document {
-      id
-    }
-
-    errors
-  }
-}

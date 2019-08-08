@@ -78,6 +78,9 @@ export default Controller.extend({
         refetchQueries: ['ProjectServiceIntegrations']
       })
       .then(() => this.flashMessages.success(this.i18n.t(successMessage)))
-      .catch(() => this.flashMessages.error(this.i18n.t(errorMessage)));
+      .catch(errors => {
+        this.flashMessages.error(this.i18n.t(errorMessage));
+        return {errors};
+      });
   }
 });

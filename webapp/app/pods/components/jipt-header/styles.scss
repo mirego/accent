@@ -1,0 +1,36 @@
+& {
+  position: sticky;
+  top: 0;
+  z-index: 5000;
+  display: flex;
+  padding: 14px 10px;
+  box-shadow: 0 3px 10px rgba(#000, 0.1);
+  background: #fff;
+}
+
+.project {
+  margin: 0 0 0 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: $color-black;
+}
+
+.applicationLogo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+
+  circle {
+    fill: #fff;
+  }
+
+  path {
+    fill: $color-green;
+    fill: var(--color-primary);
+  }
+}
+
+.applicationLogo-image {
+  width: 18px;
+  height: 18px;
+}

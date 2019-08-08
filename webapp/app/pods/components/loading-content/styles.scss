@@ -8,8 +8,47 @@
   padding: 40px 0;
 }
 
+svg {
+  position:relative;
+  left: -4px;
+  width: 3.75em;
+  margin-bottom: 30px;
+  transform-origin: center;
+  animation: loading-content-rotate 2s ease-in infinite;
+}
+
+circle {
+  fill: none;
+  stroke: $color-grey;
+  stroke-width: 2;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: loading-content-dash 1s ease-in infinite;
+}
+
 .label {
   color: $color-grey;
   font-size: 14px;
   font-style: italic;
+}
+
+@keyframes loading-content-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-content-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dashoffset: -125px;
+  }
 }

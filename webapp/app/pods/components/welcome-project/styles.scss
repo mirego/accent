@@ -5,14 +5,17 @@
 
 .heroTitle {
   display: block;
-  margin: 20px 0 40px;
+  margin: 0 0 40px;
   max-width: 350px;
   font-weight: 300;
 }
 
 .heroTitle-title {
+  margin-bottom: 15px;
+  line-height: 1;
   font-size: 48px;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
 }
 
 .heroTitle-text {
@@ -25,6 +28,14 @@
   margin: 20px 0 10px;
   font-weight: bold;
   font-size: 16px;
+  color: $color-black;
+  color: var(--color-black);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 700px;
 }
 
 .section,
@@ -35,39 +46,32 @@
 }
 
 .link {
+  max-width: 300px;
+  min-width: 200px;
+  width: 100%;
   padding: 20px;
-  margin-bottom: 11px;
-  box-shadow: 0 2px 10px rgba($color-primary, 0.2);
+  margin-bottom: 10px;
+  margin-right: 10px;
+  box-shadow: 0 2px 4px rgba($color-black, 0.15);
   border-radius: 4px;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
   text-decoration: none;
   transition: $transition-speed $transition-easing;
   transition-property: background;
 
   &:focus,
   &:hover {
-    background: rgba($color-primary, 0.1);
-
-    .link-subtitle {
-      color: rgba(darken($color-primary, 20%), 0.5);
-    }
+    background: $color-light-background;
   }
 }
 
 .link-subtitle {
   display: block;
   font-size: 12px;
-  opacity: 0.8;
-  color: $color-grey;
-  transition: $transition-speed $transition-easing;
-  transition-property: color;
+  color: rgba($color-grey, 0.8);
 }
 
-.section {
-  color: $color-grey;
-}
-
-.section-icon,
 .link-icon {
   width: 22px;
   height: 22px;
@@ -77,19 +81,6 @@
 }
 
 .link-icon {
-  fill: $color-primary;
-}
-
-.section-icon {
-  fill: $color-grey;
-}
-
-.help {
-  margin: 20px 0;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.help-link {
-  color: $color-primary;
+  stroke: $color-green;
+  stroke: var(--color-primary);
 }

@@ -2,18 +2,31 @@ import {computed} from '@ember/object';
 import {not, reads} from '@ember/object/computed';
 import Component from '@ember/component';
 
+const LOGOS = {
+  DISCORD: 'assets/services/discord.svg',
+  SLACK: 'assets/services/slack.svg',
+  GITHUB: 'assets/services/github.svg'
+};
+
 // Attributes:
 // project: Object <project>
 // integration: Object <integration>
 // onSubmit: Function
 export default Component.extend({
   isSubmiting: false,
+
+  errors: [],
+
   emptyUrl: not('url'),
   url: reads('integration.data.url'),
-  services: ['SLACK'],
+  repository: reads('integration.data.repository'),
+  defaultRef: reads('integration.data.defaultRef'),
+  token: reads('integration.data.token'),
 
-  service: computed('services.[]', function() {
-    return this.services[0];
+  services: ['DISCORD', 'SLACK', 'GITHUB'],
+
+  service: computed('integration', 'services.[]', function() {
+    return this.integration.service || this.services[0];
   }),
 
   serviceValue: computed('service', 'mappedServices', function() {
@@ -22,12 +35,22 @@ export default Component.extend({
 
   mappedServices: computed('services', function() {
     return this.services.map(value => {
-      return {label: `general.integration_services.${value}`, value};
+      return {
+        logo: LOGOS[value],
+        label: `general.integration_services.${value}`,
+        value
+      };
     });
   }),
 
   syncChecked: computed('integration.events.[]', function() {
+    if (!this.integration.events) return;
+
     return this.integration.events.includes('SYNC');
+  }),
+
+  dataFormComponent: computed('service', function() {
+    return `project-settings/integrations/form/${this.service}`;
   }),
 
   events: computed('syncChecked', function() {
@@ -47,7 +70,10 @@ export default Component.extend({
         service: this.services[0],
         events: [],
         data: {
-          url: ''
+          url: '',
+          repository: '',
+          token: '',
+          defaultRef: ''
         }
       });
     }
@@ -62,18 +88,25 @@ export default Component.extend({
         events: this.events,
         integration: this.integration.newRecord ? null : this.integration,
         data: {
-          url: this.url
+          url: this.url,
+          repository: this.repository,
+          token: this.token,
+          defaultRef: this.defaultRef
         }
-      })
-        .then(() => this.set('isSubmiting', false))
-        .then(() => {
+      }).then(({errors}) => {
+        this.set('isSubmiting', false);
+
+        if (errors && errors.length > 0) {
+          this.set('errors', errors);
+        } else {
           if (this.integration.newRecord) {
             this.setProperties({
               syncChecked: false,
               url: ''
             });
           }
-        });
+        }
+      });
     }
   }
 });

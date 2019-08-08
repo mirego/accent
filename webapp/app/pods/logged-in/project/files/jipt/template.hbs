@@ -1,0 +1,57 @@
+{{#acc-modal onClose=(action 'closeModal')}}
+  {{#project-file-operation}}
+    <button {{action 'closeModal'}} class="closeButton">
+      <div class="closeButton-content">
+        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
+      </div>
+    </button>
+
+    <div class="title">
+      <div class="sectionType">
+        {{inline-svg '/assets/edit-in-place.svg' class='sectionType-icon'}}
+        {{t 'components.project_file_operations.export_jipt'}}
+      </div>
+
+      <div class="title-document">
+        {{document.path}}
+        <span class="title-documentExtension">
+          .{{documentFormatItem.extension}}
+        </span>
+      </div>
+    </div>
+
+    {{revision-export-options
+      format=documentFormatFilter
+      onChangeFormat=(action (mut documentFormatFilter))
+    }}
+
+    {{#link-to
+      'logged-in.project.files.export'
+      project.id
+      document.id
+      class='button button--filled button--white button--small toggleJiptExport'
+    }}
+      {{inline-svg '/assets/export.svg' class='button-icon'}}
+      {{t 'components.project_file_operations.export'}}
+    {{/link-to}}
+
+    {{#async-button
+      onClick=(action 'exportFile')
+      disabled=exportButtonDisabled
+      class='button button--filled renderExport'
+    }}
+      {{t 'components.project_file_operations.export'}}
+    {{/async-button}}
+
+    {{#if exportLoading}}
+      {{skeleton-ui/progress-line}}
+    {{/if}}
+
+    <pre class="render">{{jipt-export
+      onFileLoaded=(action 'onFileLoaded')
+      project=project
+      document=document
+      documentFormat=documentFormatFilter
+    }}</pre>
+  {{/project-file-operation}}
+{{/acc-modal}}

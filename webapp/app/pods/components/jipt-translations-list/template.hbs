@@ -1,0 +1,9 @@
+{{#each translations key="id" as |translation|}}
+  {{#link-to
+    'logged-in.jipt.translation'
+    translation.id
+    class='item'
+  }}
+    {{translation.correctedText}}
+  {{/link-to}}
+{{/each}}

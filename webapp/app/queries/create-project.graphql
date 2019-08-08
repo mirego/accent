@@ -1,9 +1,0 @@
-mutation ProjectCreate($name: String!, $languageId: ID!) {
-  createProject(name: $name, languageId: $languageId) {
-    project {
-      id
-    }
-
-    errors
-  }
-}

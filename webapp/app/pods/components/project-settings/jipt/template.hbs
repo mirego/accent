@@ -1,0 +1,15 @@
+{{project-settings/title title=(t 'components.project_settings.jipt.title')}}
+
+<p class="text">
+  {{t 'components.project_settings.jipt.integration_help'}}
+</p>
+
+<a class="button button--filled" href="https://www.accent.reviews/guides/live-editing.html">
+  See official guides on how to integrate live editing in your website
+</a>
+
+<h2 class="title">{{t 'components.project_settings.jipt.script_title'}}</h2>
+<textarea
+  readonly=""
+  onClick="this.select();"
+  class="code">{{this.scriptContent}}</textarea>

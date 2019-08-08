@@ -19,6 +19,11 @@
     value=name
     class='textInput'
   }}
+  {{input
+    type="color"
+    value=mainColor
+    class='colorInput'
+  }}
 </div>
 
 <div class="formItem">
@@ -48,7 +53,7 @@
 
   {{#async-button
     disabled=emptyLanguage
-    class='button button--filled'
+    class='button button--filled button--green'
     loading=isCreating
     onClick=(action 'submit')
   }}

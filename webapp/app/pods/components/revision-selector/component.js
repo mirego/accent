@@ -10,6 +10,10 @@ export default Component.extend({
   i18n: service(),
   globalState: service('global-state'),
 
+  classNameBindings: ['hasManyRevisions:with-many-revisions'],
+
+  withRevisionsCount: true,
+
   hasManyRevisions: computed('revisions.[]', function() {
     return this.revisions && this.revisions.length > 1;
   }),
@@ -19,9 +23,15 @@ export default Component.extend({
   }),
 
   mappedRevisions: computed('revisions.[]', function() {
-    return this.revisions.map(({id, isMaster, language}) => {
-      const masterLabel = name => htmlSafe(`${name} <em>${this.i18n.t('components.revision_selector.master')}</em>`);
-      const label = isMaster ? masterLabel(language.name) : language.name;
+    return this.revisions.map(({id, name, isMaster, language}) => {
+      const masterLabel = name =>
+        htmlSafe(
+          `${name} <em>${this.i18n.t(
+            'components.revision_selector.master'
+          )}</em>`
+        );
+      const displayName = name || language.name;
+      const label = isMaster ? masterLabel(displayName) : displayName;
 
       return {label, value: id};
     });

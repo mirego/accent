@@ -12,7 +12,7 @@ defmodule AccentTest.ProjectChannel do
 
   setup do
     user = Repo.insert!(%User{email: "test@test.com"})
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
     access_token = %AccessToken{user_id: user.id, token: "test-token"} |> Repo.insert!()
     %Collaborator{project_id: project.id, user_id: user.id, role: "admin"} |> Repo.insert!()
 

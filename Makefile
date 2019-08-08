@@ -2,7 +2,7 @@
 # -------------
 
 APP_NAME ?= `grep 'app:' mix.exs | sed -e 's/\[//g' -e 's/ //g' -e 's/app://' -e 's/[:,]//g'`
-APP_VERSION ?= `grep 'version:' mix.exs | cut -d '"' -f2`
+APP_VERSION ?= `grep -E '@version "([0-9\.]*)"' mix.exs | cut -d '"' -f2`
 DOCKER_IMAGE_TAG ?= latest
 GIT_REVISION ?= `git rev-parse HEAD`
 
@@ -46,8 +46,23 @@ dependencies-mix:
 	mix deps.get --force
 
 .PHONY: dependencies-npm
-dependencies-npm:
+dependencies-npm: dependencies-npm-root dependencies-npm-webapp dependencies-npm-cli dependencies-npm-jipt
+
+.PHONY: dependencies-npm-root
+dependencies-npm-root:
+	npm install
+
+.PHONY: dependencies-npm-webapp
+dependencies-npm-webapp:
 	npm install --prefix webapp
+
+.PHONY: dependencies-npm-cli
+dependencies-npm-cli:
+	npm install --prefix cli
+
+.PHONY: dependencies-npm-jipt
+dependencies-npm-jipt:
+	npm install --prefix jipt
 
 .PHONY: build
 build: ## Build the Docker image for the OTP release
@@ -57,7 +72,7 @@ build: ## Build the Docker image for the OTP release
 # ----------
 
 .PHONY: lint
-lint: lint-compile lint-format lint-credo lint-eslint lint-stylelint lint-prettier ## Run lint tools on the code
+lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-tslint ## Run lint tools on the code
 
 .PHONY: lint-compile
 lint-compile:
@@ -73,15 +88,15 @@ lint-credo:
 
 .PHONY: lint-eslint
 lint-eslint:
-	./assets/node_modules/.bin/eslint --ignore-path webapp/.eslintignore --config webapp/.eslintrc webapp
+	./node_modules/.bin/eslint webapp/. cli/. jipt/.
 
-.PHONY: lint-stylelint
-lint-stylelint:
-	./assets/node_modules/.bin/stylelint --syntax scss --config webapp/.stylelintrc webapp/css
+.PHONY: lint-tslint
+lint-tslint:
+	./node_modules/.bin/tslint -c tslint.json '{cli,jipt}/src/**/*.{js,ts,json}'
 
 .PHONY: lint-prettier
 lint-prettier:
-	./assets/node_modules/.bin/prettier --single-quote --list-different --no-bracket-spacing --print-width 130 './webapp/app/**/*.{js,gql}'
+	./node_modules/.bin/prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql,svg,md}' '*.md'
 
 .PHONY: test
 test: ## Run the test suite
@@ -100,7 +115,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	./assets/node_modules/.bin/prettier --single-quote --write --no-bracket-spacing --print-width 130 './webapp/app/**/*.{js,gql}'
+	./node_modules/.bin/prettier --write --single-quote --no-bracket-spacing '{webapp,jipt,cli}/*.{js,json}' 'webapp/{app,config}/**/*.{js,ts,json,gql}' 'jipt/src/**/*.{js,ts,json,gql}' 'cli/{examples,src}/**/*.{js,ts,json,gql}'
 
 # Development targets
 # -------------------

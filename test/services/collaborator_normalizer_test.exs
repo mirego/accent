@@ -6,8 +6,8 @@ defmodule AccentTest.CollaboratorNormalizer do
   alias Accent.{Collaborator, Project, Repo, User, UserRemote.CollaboratorNormalizer}
 
   test "create with many collaborations" do
-    project = %Project{name: "Ha"} |> Repo.insert!()
-    project2 = %Project{name: "Oh"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "Ha"} |> Repo.insert!()
+    project2 = %Project{main_color: "#f00", name: "Oh"} |> Repo.insert!()
     assigner = %User{email: "assigner@test.com"} |> Repo.insert!()
 
     collaborators = [
@@ -23,7 +23,7 @@ defmodule AccentTest.CollaboratorNormalizer do
 
     new_user = %User{email: "test@test.com"} |> Repo.insert!()
 
-    :ok = CollaboratorNormalizer.normalize(new_user)
+    %User{} = CollaboratorNormalizer.normalize(new_user)
 
     new_collaborators = Collaborator |> where([c], c.id in ^collaborator_ids) |> Repo.all()
 
@@ -31,8 +31,8 @@ defmodule AccentTest.CollaboratorNormalizer do
   end
 
   test "create with case insensitive email" do
-    project = %Project{name: "Ha"} |> Repo.insert!()
-    project2 = %Project{name: "Oh"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "Ha"} |> Repo.insert!()
+    project2 = %Project{main_color: "#f00", name: "Oh"} |> Repo.insert!()
     assigner = %User{email: "assigner@test.com"} |> Repo.insert!()
 
     collaborators = [
@@ -48,7 +48,7 @@ defmodule AccentTest.CollaboratorNormalizer do
 
     new_user = %User{email: "Test@test.com"} |> Repo.insert!()
 
-    :ok = CollaboratorNormalizer.normalize(new_user)
+    %User{} = CollaboratorNormalizer.normalize(new_user)
 
     new_collaborators = Collaborator |> where([c], c.id in ^collaborator_ids) |> Repo.all()
 
@@ -58,7 +58,7 @@ defmodule AccentTest.CollaboratorNormalizer do
   test "create without collaborations" do
     new_user = %User{email: "Test@test.com"} |> Repo.insert!()
 
-    :ok = CollaboratorNormalizer.normalize(new_user)
+    %User{} = CollaboratorNormalizer.normalize(new_user)
 
     new_collaborators = Collaborator |> Repo.all()
 

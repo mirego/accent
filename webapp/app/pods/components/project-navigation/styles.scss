@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 40px;
 }
 
 .nameLink {
@@ -39,22 +38,4 @@
 
 .modalList {
   display: none;
-}
-
-@media (max-width: ($screen-sm)) {
-  & {
-    padding-top: 10px;
-  }
-
-  .list {
-    display: none;
-  }
-
-  .modalList {
-    display: block;
-  }
-
-  .listTrigger {
-    display: flex;
-  }
 }

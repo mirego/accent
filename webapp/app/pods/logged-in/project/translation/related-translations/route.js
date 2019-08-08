@@ -9,13 +9,17 @@ export default Route.extend(ApolloRoute, {
     return this.graphql(relatedTranslationsQuery, {
       props: data => ({
         project: get(data, 'viewer.project'),
-        relatedTranslations: get(data, 'viewer.project.translation.relatedTranslations')
+        relatedTranslations: get(
+          data,
+          'viewer.project.translation.relatedTranslations'
+        )
       }),
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
           projectId: transition.params['logged-in.project'].projectId,
-          translationId: transition.params['logged-in.project.translation'].translationId
+          translationId:
+            transition.params['logged-in.project.translation'].translationId
         }
       }
     });

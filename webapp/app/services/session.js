@@ -7,6 +7,7 @@ export default Service.extend({
   sessionPersister: service('session/persister'),
   sessionCreator: service('session/creator'),
   sessionDestroyer: service('session/destroyer'),
+  jipt: service('jipt'),
 
   googleAuth: null,
 
@@ -23,12 +24,18 @@ export default Service.extend({
     }
   }),
 
-  login(...args) {
-    return this.sessionCreator.createSession(...args).then(credentials => this.set('credentials', credentials));
+  login({token}) {
+    return this.sessionCreator.createSession({token}).then(credentials => {
+      if (!credentials || !credentials.viewer) return;
+
+      this.set('credentials', {token, ...credentials.viewer});
+      this.jipt.loggedIn();
+
+      return credentials.viewer;
+    });
   },
 
   logout() {
     this.sessionDestroyer.destroySession();
-    if (this.googleAuth) this.googleAuth.disconnect();
   }
 });

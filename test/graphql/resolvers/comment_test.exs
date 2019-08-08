@@ -25,7 +25,7 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
   setup do
     user = Repo.insert!(@user)
     french_language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{name: "My project"} |> Repo.insert!()
+    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
     revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
     translation = %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
@@ -37,7 +37,7 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     Accent.Hook.BroadcasterMock
-    |> expect(:fanout, fn _ -> :ok end)
+    |> expect(:notify, fn _ -> :ok end)
 
     {:ok, result} = Resolver.create(translation, %{text: "First comment"}, context)
 

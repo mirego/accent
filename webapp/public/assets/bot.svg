@@ -1,1 +1,16 @@
-<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M24.928 46.755v2.534H14.783V36.61H9.71V26.467h2.535v7.606h2.538v-2.538h2.54v15.22h7.605zm22.827-20.29v7.607h-2.538v-2.538h-2.54v15.22h-7.605v2.535h10.145V36.61h5.072V26.467h-2.536zm-2.538 0h2.538v-12.68h-2.538v12.682zm0 0h-2.54V29h2.54v-2.534zM37.61 29v-2.534h-2.538V29h-2.538v-2.534H30V29h-2.534v-2.534h-2.538V29h-7.606v2.534h25.356V29H37.61zm-2.538 15.217h2.54V36.61h-2.54v7.607zm2.54-25.362h-2.54v5.073h2.54v-5.073zM24.927 44.217v2.538H35.07v-2.538H24.93zM35.07 36.61v-2.537H24.93v2.54h10.144zm-10.143 0h-2.54v7.608h2.54V36.61zm0-17.754h-2.54v5.073h2.54v-5.074zm20.29-5.072v-2.538h-5.073V8.71H37.61v2.535H22.39V8.71h-2.535v2.535h-5.072v2.538h30.434zM14.782 26.466V29h2.54v-2.534h-2.54zm0-12.683h-2.538v12.683h2.538V13.783z" fill-rule="nonzero"/></svg>
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <g
+    stroke-width="2"
+    fill="none"
+    stroke="currentColor"
+    fill-rule="evenodd"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <g transform="translate(1 1)">
+      <rect y="5" width="20" height="15" rx="2" />
+      <path d="M15 0l-5 5-5-5" />
+    </g>
+    <path d="M9 11v1.089M13 11v1.089M9 17h3.967" />
+  </g>
+</svg>

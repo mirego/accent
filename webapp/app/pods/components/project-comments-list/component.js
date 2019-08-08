@@ -8,11 +8,13 @@ export default Component.extend({
   tagName: 'ul',
 
   translationsById: computed('comments', function() {
-    return this.comments.map(comment => comment.translation).reduce((memo, translation) => {
-      if (!memo[translation.id]) memo[translation.id] = translation;
+    return this.comments
+      .map(comment => comment.translation)
+      .reduce((memo, translation) => {
+        if (!memo[translation.id]) memo[translation.id] = translation;
 
-      return memo;
-    }, {});
+        return memo;
+      }, {});
   }),
 
   commentsByTranslationId: computed('comments', function() {
@@ -24,12 +26,16 @@ export default Component.extend({
     }, {});
   }),
 
-  commentsByTranslation: computed('commentsByTranslationId', 'translationsById', function() {
-    return Object.keys(this.commentsByTranslationId).map(translationId => {
-      return {
-        items: this.commentsByTranslationId[translationId],
-        value: this.translationsById[translationId]
-      };
-    });
-  })
+  commentsByTranslation: computed(
+    'commentsByTranslationId',
+    'translationsById',
+    function() {
+      return Object.keys(this.commentsByTranslationId).map(translationId => {
+        return {
+          items: this.commentsByTranslationId[translationId],
+          value: this.translationsById[translationId]
+        };
+      });
+    }
+  )
 });

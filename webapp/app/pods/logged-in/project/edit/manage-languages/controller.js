@@ -7,10 +7,14 @@ import revisionCreateQuery from 'accent-webapp/queries/create-revision';
 import revisionDeleteQuery from 'accent-webapp/queries/delete-revision';
 import revisionMasterPromoteQuery from 'accent-webapp/queries/promote-master-revision';
 
-const FLASH_MESSAGE_NEW_LANGUAGE_SUCCESS = 'pods.project.manage_languages.flash_messages.add_revision_success';
-const FLASH_MESSAGE_NEW_LANGUAGE_FAILURE = 'pods.project.manage_languages.flash_messages.add_revision_failure';
-const FLASH_MESSAGE_REVISION_DELETED_SUCCESS = 'pods.project.manage_languages.flash_messages.delete_revision_success';
-const FLASH_MESSAGE_REVISION_DELETED_ERROR = 'pods.project.manage_languages.flash_messages.delete_revision_failure';
+const FLASH_MESSAGE_NEW_LANGUAGE_SUCCESS =
+  'pods.project.manage_languages.flash_messages.add_revision_success';
+const FLASH_MESSAGE_NEW_LANGUAGE_FAILURE =
+  'pods.project.manage_languages.flash_messages.add_revision_failure';
+const FLASH_MESSAGE_REVISION_DELETED_SUCCESS =
+  'pods.project.manage_languages.flash_messages.delete_revision_success';
+const FLASH_MESSAGE_REVISION_DELETED_ERROR =
+  'pods.project.manage_languages.flash_messages.delete_revision_failure';
 const FLASH_MESSAGE_REVISION_MASTER_PROMOTED_SUCCESS =
   'pods.project.manage_languages.flash_messages.promote_master_revision_success';
 const FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR =
@@ -28,11 +32,18 @@ export default Controller.extend({
 
   errors: computed(() => []),
 
-  filteredLanguages: computed('model.{languages.[],project.revisions}', function() {
-    const projectLanguages = this.model.project.revisions.map(revision => revision.language.id);
+  filteredLanguages: computed(
+    'model.{languages.[],project.revisions}',
+    function() {
+      const projectLanguages = this.model.project.revisions.map(
+        revision => revision.language.id
+      );
 
-    return this.model.languages.filter(({id}) => !projectLanguages.includes(id));
-  }),
+      return this.model.languages.filter(
+        ({id}) => !projectLanguages.includes(id)
+      );
+    }
+  ),
 
   actions: {
     deleteRevision(revision) {
@@ -44,10 +55,16 @@ export default Controller.extend({
           }
         })
         .then(() => {
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_REVISION_DELETED_SUCCESS));
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_REVISION_DELETED_SUCCESS)
+          );
           this.send('onRefresh');
         })
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_REVISION_DELETED_ERROR)));
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_REVISION_DELETED_ERROR)
+          )
+        );
     },
 
     promoteRevisionMaster(revision) {
@@ -59,10 +76,16 @@ export default Controller.extend({
           }
         })
         .then(() => {
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_SUCCESS));
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_SUCCESS)
+          );
           this.send('onRefresh');
         })
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR)));
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR)
+          )
+        );
     },
 
     create(languageId) {
@@ -79,10 +102,16 @@ export default Controller.extend({
           }
         })
         .then(() => {
-          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_NEW_LANGUAGE_SUCCESS));
+          this.flashMessages.success(
+            this.i18n.t(FLASH_MESSAGE_NEW_LANGUAGE_SUCCESS)
+          );
           this.transitionToRoute('logged-in.project.index', project.id);
         })
-        .catch(() => this.flashMessages.error(this.i18n.t(FLASH_MESSAGE_NEW_LANGUAGE_FAILURE)));
+        .catch(() =>
+          this.flashMessages.error(
+            this.i18n.t(FLASH_MESSAGE_NEW_LANGUAGE_FAILURE)
+          )
+        );
     }
   }
 });

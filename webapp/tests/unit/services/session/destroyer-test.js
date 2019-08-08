@@ -18,7 +18,10 @@ describe('Unit | Services | Session | destroyer', () => {
     service = this.subject();
 
     // Fake a previous login
-    localStorage.setItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE, JSON.stringify(credentials));
+    localStorage.setItem(
+      config.APP.LOCAL_STORAGE.SESSION_NAMESPACE,
+      JSON.stringify(credentials)
+    );
   });
 
   afterEach(() => {
@@ -28,6 +31,7 @@ describe('Unit | Services | Session | destroyer', () => {
   it('should remove the credentials from localStorage', () => {
     service.destroySession();
 
-    expect(localStorage.getItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE)).to.be.null;
+    expect(localStorage.getItem(config.APP.LOCAL_STORAGE.SESSION_NAMESPACE)).to
+      .be.null;
   });
 });

@@ -3,6 +3,7 @@
   align-items: flex-start;
   margin: 0 auto;
   max-width: $screen-lg;
+  width: 100%;
 }
 
 .wrapper-loading {
@@ -12,6 +13,7 @@
 
 .wrapper-sidebar {
   flex: 0 0 225px;
+  margin-top: 40px;
 }
 
 .wrapper-content {
@@ -23,10 +25,12 @@
 
 @media (max-width: 800px) {
   .wrapper-content {
+    margin-top: 5px;
     padding-left: 5px;
   }
 
   .wrapper-sidebar {
+    margin-top: 5px;
     flex: 0 0 55px;
   }
 }

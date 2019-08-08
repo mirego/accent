@@ -4,12 +4,13 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const target = require('./config/targets');
+const sass = require('sass');
 
 module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
     hinting: false,
     vendorFiles: {
-      'jquery.js': null,
+      'jquery.js': null
     },
     autoprefixer: {
       browsers: target.browsers
@@ -22,13 +23,13 @@ module.exports = function(defaults) {
       includePolyfill: true
     },
     svg: {
-      paths: [
-        'public'
-      ]
+      paths: ['public']
+    },
+    sassOptions: {
+      implementation: sass
     }
   });
 
-  app.import('node_modules/spin.js/spin.js');
   app.import('node_modules/diff/dist/diff.js');
 
   return app.toTree();

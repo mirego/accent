@@ -1,1 +1,14 @@
-<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M30 9.734c11.185 0 20.266 9.08 20.266 20.266 0 11.185-9.08 20.266-20.266 20.266-11.185 0-20.266-9.08-20.266-20.266 0-11.185 9.08-20.266 20.266-20.266zm0 2.48c9.816 0 17.786 7.97 17.786 17.786 0 9.816-7.97 17.786-17.786 17.786-9.816 0-17.786-7.97-17.786-17.786 0-9.816 7.97-17.786 17.786-17.786z"/><path d="M12.756 48.062c.225.226.59.226.817 0l34.49-34.49c.225-.225.225-.59 0-.816l-.82-.818c-.224-.226-.59-.226-.816 0l-34.49 34.49c-.225.225-.225.59 0 .816l.82.818z"/></svg>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10"></circle>
+  <path d="M16 16s-1.5-2-4-2-4 2-4 2"></path>
+  <line x1="9" y1="9" x2="9.01" y2="9"></line>
+  <line x1="15" y1="9" x2="15.01" y2="9"></line>
+</svg>

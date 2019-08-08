@@ -7,6 +7,9 @@ defmodule Accent.Integration do
 
     embeds_one(:data, IntegrationData, on_replace: :update) do
       field(:url)
+      field(:repository)
+      field(:token)
+      field(:default_ref)
     end
 
     belongs_to(:project, Accent.Project)

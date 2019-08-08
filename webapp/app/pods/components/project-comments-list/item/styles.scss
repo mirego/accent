@@ -3,7 +3,7 @@
 }
 
 .translationCommentsList {
-  background: #fafafa;
+  background: $color-light-background;
   border-radius: 3px;
 }
 
@@ -12,14 +12,16 @@
   transition-property: color;
   @extend %translationKeyBase;
   display: inline-block;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
   font-size: 12px;
   font-weight: bold;
   text-decoration: none;
 
   &:focus,
   &:hover {
-    color: darken($color-primary, 15%);
+    color: darken($color-green, 15%);
+    color: var(--color-primary-darken-10);
   }
 }
 
@@ -42,11 +44,13 @@
   font-size: 12px;
   text-decoration: none;
   color: $color-black;
+  color: var(--color-black);
 }
 
 .item-badge {
   font-size: 12px;
-  color: $color-primary;
+  color: $color-green;
+  color: var(--color-primary);
   text-decoration: none;
 }
 

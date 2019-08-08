@@ -27,7 +27,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{name: "My project", language_id: language.id}, user: user)
+    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -156,7 +156,10 @@ defmodule AccentTest.Plugs.MovementContextParser do
     assert context.assigns[:document] == %Document{
              project_id: project.id,
              path: "hello",
-             format: "gettext",
+             format: "gettext"
+           }
+
+    assert context.assigns[:document_update] == %{
              top_of_the_file_comment:
                "## Do not add, change, or remove `msgid`s manually here as\n## they're tied to the ones in the corresponding POT file\n## (with the same domain).\n##\n## Use `mix gettext.extract --merge` or `mix gettext.merge`\n## to merge POT files into PO files.",
              header: "\nLanguage: fr\n"

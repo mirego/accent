@@ -4,19 +4,22 @@
   background: $color-light-background;
 
   &.filters--white {
-    background: $color-white;
+    background: #fff;
   }
 
   .ember-power-select-trigger {
-    background: darken($color-light-background, 2%);
+    padding: 5px 10px;
+    background: #fff;
     box-shadow: none;
     border: 1px solid transparent;
+    border-color: rgba($color-black, 0.1);
     color: rgba($color-black, 0.8);
+    color: var(--color-black-opacity-70);
 
     &:focus,
     &.ember-power-select-trigger--active {
-      background: darken($color-light-background, 7%);
-      border: 1px solid transparent;
+      background: $color-light-background;
+      border: 1px solid rgba($color-black, 0.1);
     }
   }
 }

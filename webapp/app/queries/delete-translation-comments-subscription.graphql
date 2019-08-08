@@ -1,9 +1,0 @@
-mutation TranslationCommentsSubscriptionDelete($translationCommentsSubscripitionId: ID!) {
-  deleteTranslationCommentsSubscription(id: $translationCommentsSubscripitionId) {
-    translationCommentsSubscription {
-      id
-    }
-
-    errors
-  }
-}

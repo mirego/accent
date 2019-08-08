@@ -1,5 +1,14 @@
 & {
+  display: flex;
   margin-top: 25px;
+}
+
+.overview {
+  width: 80%;
+}
+
+.help {
+  margin: 60px 0 0 50px;
 }
 
 .titleText {
@@ -7,7 +16,7 @@
   align-items: center;
   margin: 15px 0 5px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   color: $color-black;
 
   &:first-of-type {
@@ -18,14 +27,14 @@
 .explainText {
   display: block;
   max-width: 700px;
-  font-size: 14px;
+  font-size: 12px;
   color: rgba($color-black, 0.8);
 }
 
 .emptyLanguages {
   font-size: 14px;
   padding: 10px;
-  background: #fafafa;
+  background: $color-light-background;
   border: 1px solid #eee;
   border-radius: 3px;
   color: $color-grey;
@@ -46,6 +55,16 @@
   min-height: 31px;
   max-width: 400px;
   margin-bottom: 20px;
-  background: #fafafa;
+  background: $color-light-background;
   border: 1px solid #eee;
+}
+
+@media (max-width: ($screen-md)) {
+  & {
+    flex-direction: column;
+  }
+
+  .help {
+    margin: 40px 0 0;
+  }
 }

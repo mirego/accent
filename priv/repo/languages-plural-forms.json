@@ -141,6 +141,5 @@
   {"locale": "wa", "plural_forms": "nplurals=2; plural=(n > 1);"},
   {"locale": "wo", "plural_forms": "nplurals=1; plural=0;"},
   {"locale": "yo", "plural_forms": "nplurals=2; plural=(n != 1);"},
-  {"locale": "zh", "plural_forms": "nplurals=1; plural=0;"},
   {"locale": "zh", "plural_forms": "nplurals=2; plural=(n > 1);"}
 ]

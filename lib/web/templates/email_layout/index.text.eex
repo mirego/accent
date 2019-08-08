@@ -6,4 +6,4 @@ Accent
 -
 The Accent Team
 
-(<%= webapp_host() %>)
+(<%= webapp_url() %>)

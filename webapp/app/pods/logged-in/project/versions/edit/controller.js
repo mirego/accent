@@ -5,8 +5,10 @@ import Controller from '@ember/controller';
 
 import versionUpdateQuery from 'accent-webapp/queries/update-version';
 
-const FLASH_MESSAGE_UPDATE_SUCCESS = 'pods.versions.edit.flash_messages.update_success';
-const FLASH_MESSAGE_UPDATE_ERROR = 'pods.versions.edit.flash_messages.update_error';
+const FLASH_MESSAGE_UPDATE_SUCCESS =
+  'pods.versions.edit.flash_messages.update_success';
+const FLASH_MESSAGE_UPDATE_ERROR =
+  'pods.versions.edit.flash_messages.update_error';
 
 export default Controller.extend({
   apolloMutate: service('apollo-mutate'),
@@ -44,8 +46,12 @@ export default Controller.extend({
             tag
           }
         })
-        .then(() => this.transitionToRoute('logged-in.project.versions', this.project.id))
-        .then(() => this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_UPDATE_SUCCESS)))
+        .then(() =>
+          this.transitionToRoute('logged-in.project.versions', this.project.id)
+        )
+        .then(() =>
+          this.flashMessages.success(this.i18n.t(FLASH_MESSAGE_UPDATE_SUCCESS))
+        )
         .then(() => this.send('closeModal'))
         .catch(() => {
           this.set('error', true);
