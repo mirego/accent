@@ -1,13 +1,11 @@
 {{#if revisions.length}}
   <div>
-    {{#power-select
+    {{acc-select
       searchEnabled=false
       selected=revisionValue
       options=mappedRevisions
-      onchange=(action 'selectRevision' value='value') as |revision|
+      onchange=(action 'selectRevision' value='value')
     }}
-      {{revision.label}}
-    {{/power-select}}
 
     {{#if hasManyRevisions}}
       <span class="otherLanguages">

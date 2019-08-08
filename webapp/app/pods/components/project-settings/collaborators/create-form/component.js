@@ -7,6 +7,7 @@ import Component from '@ember/component';
 // project: Object <project>
 // onCreate: Function
 export default Component.extend({
+  intl: service('intl'),
   globalState: service('global-state'),
 
   isCreating: false,
@@ -14,10 +15,12 @@ export default Component.extend({
   emptyEmail: not('email'),
 
   possibleRoles: map('globalState.roles', ({slug}) => slug),
-  mappedPossibleRoles: map('possibleRoles', value => ({
-    label: `general.roles.${value}`,
-    value
-  })),
+  mappedPossibleRoles: computed('possibleRoles.[].value', function() {
+    return this.possibleRoles.map(value => ({
+      label: this.intl.t(`general.roles.${value}`),
+      value
+    }));
+  }),
 
   roleValue: computed('role', 'mappedPossibleRoles.[]', function() {
     return this.mappedPossibleRoles.find(({value}) => value === this.role);

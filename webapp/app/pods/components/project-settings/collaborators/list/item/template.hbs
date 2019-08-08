@@ -1,14 +1,12 @@
 <div>
   <div>
     {{#if isEditing}}
-      {{#power-select
+      {{acc-select
         searchEnabled=false
         selected=roleValue
         options=mappedPossibleRoles
-        onchange=(action (mut updatedRole) value='value') as |option|
+        onchange=(action (mut updatedRole) value='value')
       }}
-        {{t option.label}}
-      {{/power-select}}
     {{else}}
       <span class="role">{{role}}</span>
     {{/if}}

@@ -75,7 +75,13 @@ export default Controller.extend({
         variables,
         refetchQueries: ['ProjectCollaborators']
       })
-      .then(() => this.flashMessages.success(this.intl.t(successMessage)))
-      .catch(() => this.flashMessages.error(this.intl.t(errorMessage)));
+      .then(result => {
+        this.flashMessages.success(this.intl.t(successMessage));
+        return result;
+      })
+      .catch(result => {
+        this.flashMessages.error(this.intl.t(errorMessage));
+        return result;
+      });
   }
 });

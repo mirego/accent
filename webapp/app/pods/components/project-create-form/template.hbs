@@ -31,15 +31,13 @@
     {{t 'components.project_create_form.language_label'}}
   </label>
 
-  {{#power-select
+  {{acc-select
     search=(action 'searchLanguages')
     options=mappedLanguages
     selected=languageValue
     searchPlaceholder=(t 'components.project_create_form.language_search_placeholder')
-    onchange=(action (mut language) value='value') as |option|
+    onchange=(action (mut language) value='value')
   }}
-    {{option.label}}
-  {{/power-select}}
 </div>
 
 <div class="formActions">

@@ -15,7 +15,6 @@ const dataIdFromObject = result => {
   return null;
 };
 
-debugger;
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData: {
     __schema: {

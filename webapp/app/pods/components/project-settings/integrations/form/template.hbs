@@ -1,14 +1,11 @@
 <div class="form">
-  {{#power-select
+  {{acc-select
     searchEnabled=false
     selected=serviceValue
     renderInPlace=true
     options=mappedServices
-    onchange=(action (mut service) value='value') as |option|
+    onchange=(action (mut service) value='value')
   }}
-    {{inline-svg option.logo class='service-logo'}}
-    {{t option.label}}
-  {{/power-select}}
 </div>
 
 {{component
