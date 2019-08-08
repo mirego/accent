@@ -16,25 +16,21 @@
       {{/unless}}
 
       <li class="filterList-item">
-        {{#power-select
+        {{acc-select
           searchEnabled=false
           selected=actionFilterValue
           options=mappedActions
-          onchange=(action "actionFilterChange" value='value') as |action|
+          onchange=(action "actionFilterChange" value='value')
         }}
-          {{t action.label}}
-        {{/power-select}}
       </li>
 
       <li class="filterList-item">
-        {{#power-select
+        {{acc-select
           searchEnabled=false
           selected=userFilterValue
           options=mappedUsers
-          onchange=(action "userFilterChange" value='value') as |user|
+          onchange=(action "userFilterChange" value='value')
         }}
-          {{user.label}}
-        {{/power-select}}
       </li>
     </ul>
   </div>

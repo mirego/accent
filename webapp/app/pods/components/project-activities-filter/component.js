@@ -36,12 +36,14 @@ export default Component.extend({
     const actions = this.keys.map(key => {
       return {
         value: key,
-        label: `${ACTIONS_PREFIX}${key}`
+        label: this.intl.t(`${ACTIONS_PREFIX}${key}`)
       };
     });
 
     actions.unshift({
-      label: 'components.project_activities_filter.actions_default_option_text',
+      label: this.intl.t(
+        'components.project_activities_filter.actions_default_option_text'
+      ),
       value: null
     });
 

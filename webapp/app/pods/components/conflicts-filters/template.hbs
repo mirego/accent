@@ -16,15 +16,13 @@
         {{#if showDocumentsSelect}}
           <div class="queryForm-filter">
             <div class="queryForm-filter-select">
-              {{#power-select
+              {{acc-select
                 matchTriggerWidth=false
                 searchEnabled=false
                 selected=documentValue
                 options=mappedDocuments
-                onchange=(action onChangeDocument value='value') as |document|
+                onchange=(action onChangeDocument value='value')
               }}
-                {{document.label}}
-              {{/power-select}}
             </div>
           </div>
         {{/if}}
@@ -32,15 +30,13 @@
         {{#if showReferenceRevisionsSelect}}
           <div class="queryForm-filter">
             <div class="queryForm-filter-select">
-              {{#power-select
+              {{acc-select
                 matchTriggerWidth=false
                 searchEnabled=false
                 selected=referenceValue
                 options=mappedReferenceRevisions
-                onchange=(action onChangeReference value='value') as |reference|
+                onchange=(action onChangeReference value='value')
               }}
-                {{reference.label}}
-              {{/power-select}}
             </div>
           </div>
         {{/if}}

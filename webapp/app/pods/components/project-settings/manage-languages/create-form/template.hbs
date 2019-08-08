@@ -1,13 +1,12 @@
-{{#power-select
+{{acc-select
   search=(action 'searchLanguages')
+  searchEnabled=true
   options=mappedLanguages
   selected=languageValue
   placeholder=(t 'components.project_manage_languages_create_form.language_search_placeholder')
   searchPlaceholder=(t 'components.project_manage_languages_create_form.language_search_placeholder')
-  onchange=(action (mut language) value='value') as |option|
+  onchange=(action (mut language) value='value')
 }}
-  {{option.label}}
-{{/power-select}}
 
 {{#async-button
   onClick=(action 'submit')

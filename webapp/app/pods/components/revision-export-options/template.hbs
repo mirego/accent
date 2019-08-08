@@ -3,51 +3,43 @@
     <div class="exportOptions">
       {{#if showRevisions}}
         <div class="exportOptions-item">
-          {{#power-select
+          {{acc-select
             searchEnabled=false
             selected=revisionValue
             options=mappedRevisions
-            onchange=(action 'revisionChanged' value='value') as |option|
+            onchange=(action 'revisionChanged' value='value')
           }}
-            {{option.label}}
-          {{/power-select}}
         </div>
       {{/if}}
 
       {{#if showOrders}}
         <div class="exportOptions-item">
-          {{#power-select
+          {{acc-select
             searchEnabled=false
             selected=orderByValue
             options=orderByOptions
-            onchange=(action 'orderByChanged' value='value') as |option|
+            onchange=(action 'orderByChanged' value='value')
           }}
-            {{t option.label}}
-          {{/power-select}}
         </div>
       {{/if}}
 
       <div class="exportOptions-item">
-        {{#power-select
+        {{acc-select
           searchEnabled=false
           selected=formatValue
           options=formatOptions
-          onchange=(action 'formatChanged' value='value') as |option|
+          onchange=(action 'formatChanged' value='value')
         }}
-          {{option.label}}
-        {{/power-select}}
       </div>
 
       {{#if showDocuments}}
         <div class="exportOptions-item">
-          {{#power-select
+          {{acc-select
             searchEnabled=false
             selected=documentValue
             options=mappedDocuments
-            onchange=(action 'documentChanged' value='value') as |option|
+            onchange=(action 'documentChanged' value='value')
           }}
-            {{option.label}}
-          {{/power-select}}
         </div>
       {{/if}}
     </div>

@@ -24,13 +24,16 @@ export default Component.extend({
     return this.orderByOptions.find(({value}) => value === this.orderBy);
   }),
 
-  orderByOptions: computed(() => {
+  orderByOptions: computed(function() {
     return [
       {
         value: null,
-        label: 'components.revision_export_options.orders.original'
+        label: this.intl.t('components.revision_export_options.orders.original')
       },
-      {value: 'key', label: 'components.revision_export_options.orders.az'}
+      {
+        value: 'key',
+        label: this.intl.t('components.revision_export_options.orders.az')
+      }
     ];
   }),
 
