@@ -1,9 +1,9 @@
-{{#each documents key='id' as |document|}}
-  {{documents-list/item
-    permissions=permissions
-    document=document
-    onDelete=onDelete
-    onUpdate=onUpdate
-    project=project
-  }}
+{{#each documents key="id" as |document|}}
+  <DocumentsList::Item
+    @permissions={{permissions}}
+    @document={{document}}
+    @onDelete={{onDelete}}
+    @onUpdate={{onUpdate}}
+    @project={{project}}
+  />
 {{/each}}

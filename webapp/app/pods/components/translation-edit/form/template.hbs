@@ -3,42 +3,36 @@
     The text should be either true or false
   </span>
 
-  {{#radio-button
-    groupValue=value
-    value='true'
-  }}
-    {{t 'components.translation_edit.form.true_option'}}
-  {{/radio-button}}
+  <RadioButton @groupValue={{value}} @value="true">
+    {{t "components.translation_edit.form.true_option"}}
+  </RadioButton>
 
-  {{#radio-button
-    groupValue=value
-    value='false'
-  }}
-    {{t 'components.translation_edit.form.false_option'}}
-  {{/radio-button}}
+  <RadioButton @groupValue={{value}} @value="false">
+    {{t "components.translation_edit.form.false_option"}}
+  </RadioButton>
 {{else}}
   {{#if showTypeHints}}
     {{#if isIntegerType}}
       <span class="label">
-        {{t 'components.translation_edit.form.integer_type_notice'}}
+        {{t "components.translation_edit.form.integer_type_notice"}}
       </span>
     {{/if}}
 
     {{#if isFloatType}}
       <span class="label">
-        {{t 'components.translation_edit.form.float_type_notice'}}
+        {{t "components.translation_edit.form.float_type_notice"}}
       </span>
     {{/if}}
 
     {{#if isEmptyType}}
       <span class="label">
-        {{t 'components.translation_edit.form.empty_type_notice'}}
+        {{t "components.translation_edit.form.empty_type_notice"}}
       </span>
     {{/if}}
 
     {{#if isNullType}}
       <span class="label">
-        {{t 'components.translation_edit.form.null_type_notice'}}
+        {{t "components.translation_edit.form.null_type_notice"}}
       </span>
     {{/if}}
   {{/if}}
@@ -46,34 +40,43 @@
   {{#if placeholders}}
     <div class="placeholders">
       <span class="placeholders-title">
-        {{inline-svg 'assets/code.svg' class='placeholders-title-icon'}}
-        {{t 'components.translation_edit.form.placeholders.title'}}
+        {{inline-svg "assets/code.svg" class="placeholders-title-icon"}}
+        {{t "components.translation_edit.form.placeholders.title"}}
       </span>
+
       <div class="placeholders-text">
         <p class="placeholders-text-content">
-          {{t 'components.translation_edit.form.placeholders.text'}}
+          {{t "components.translation_edit.form.placeholders.text"}}
         </p>
       </div>
 
       <ul>
         {{#each placeholders as |placeholder|}}
-          <li class="placeholders-item {{if (get unusedPlaceholders placeholder) 'placeholders-item--warning'}}">
-            <code>{{placeholder}}</code>
+          <li
+            class="placeholders-item
+              {{if
+                (get unusedPlaceholders placeholder)
+                "placeholders-item--warning"
+              }}"
+          >
+            <code>
+              {{placeholder}}
+            </code>
           </li>
         {{/each}}
       </ul>
     </div>
   {{/if}}
 
-  {{quick-submit-textarea
-    placeholder=(t 'components.translation_edit.form.empty_type_placeholder')
-    rows=rows
-    disabled=disabled
-    value=value
-    class='inputText'
-    onFocus=onFocus
-    onBlur=onBlur
-    onKeyUp=onKeyUp
-    onSubmit=onSubmit
-  }}
+  <QuickSubmitTextarea
+    placeholder={{t "components.translation_edit.form.empty_type_placeholder"}}
+    @rows={{rows}}
+    @disabled={{disabled}}
+    @value={{value}}
+    class="inputText"
+    @onFocus={{onFocus}}
+    @onBlur={{onBlur}}
+    @onKeyUp={{onKeyUp}}
+    @onSubmit={{onSubmit}}
+  />
 {{/if}}

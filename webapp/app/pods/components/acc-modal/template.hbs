@@ -1,9 +1,8 @@
-{{#ember-wormhole to='modals'}}
+<EmberWormhole @to="modals">
   <div class="acc-modal__wrapper">
-    <div class="acc-modal__overlay" {{action 'close'}}></div>
-
-    <div class="acc-modal__container {{if small 'acc-modal__container--small'}}">
+    <div class="acc-modal__overlay" {{action "close"}}></div>
+    <div class="acc-modal__container {{if small "acc-modal__container--small"}}">
       {{yield}}
     </div>
   </div>
-{{/ember-wormhole}}
+</EmberWormhole>

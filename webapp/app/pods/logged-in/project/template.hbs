@@ -1,47 +1,42 @@
 <div>
-  {{projects-header
-    session=session
-    project=project
-  }}
-
+  <ProjectsHeader @session={{session}} @project={{project}} />
   <style>
     body {
-      {{{this.colors}}}
+    {{{this.colors}}}
     }
   </style>
 
   <div class="wrapper">
     <div class="wrapper-sidebar">
       {{#if model.loading}}
-        {{skeleton-ui/project-navigation}}
+        <SkeletonUi::ProjectNavigation />
       {{else if showError}}
-        {{skeleton-ui/project-navigation}}
+        <SkeletonUi::ProjectNavigation />
       {{else}}
-        {{project-navigation
-          project=project
-          permissions=permissions
-          revisions=revisions
-        }}
+        <ProjectNavigation
+          @project={{project}}
+          @permissions={{permissions}}
+          @revisions={{revisions}}
+        />
       {{/if}}
     </div>
 
     <div class="wrapper-content">
       {{#unless model.loading}}
-        {{phoenix-channel-listener project=project}}
+        <PhoenixChannelListener @project={{project}} />
       {{/unless}}
 
       {{#if showError}}
-        {{error-section
-          status=(t 'pods.error.unauthorized.status')
-          title=(t 'pods.error.unauthorized.title')
-          text=(t 'pods.error.unauthorized.text')
-          isAuthenticated=false
-        }}
+        <ErrorSection
+          @status={{t "pods.error.unauthorized.status"}}
+          @title={{t "pods.error.unauthorized.title"}}
+          @text={{t "pods.error.unauthorized.text"}}
+          @isAuthenticated={{false}}
+        />
       {{else}}
         {{outlet}}
       {{/if}}
     </div>
   </div>
 </div>
-
-{{application-footer}}
+<ApplicationFooter />

@@ -1,60 +1,54 @@
 <h1 class="title">
-  {{t 'components.project_create_form.title'}}
+  {{t "components.project_create_form.title"}}
 </h1>
 
 {{#if error}}
   <div class="errors">
     <div class="error">
-      {{t 'components.project_create_form.error'}}
+      {{t "components.project_create_form.error"}}
     </div>
   </div>
 {{/if}}
 
 <div class="formItem">
   <label class="formItem-label">
-    {{t 'components.project_create_form.name_label'}}
+    {{t "components.project_create_form.name_label"}}
   </label>
-
-  {{input
-    value=name
-    class='textInput'
-  }}
-  {{input
-    type="color"
-    value=mainColor
-    class='colorInput'
-  }}
+  <Input @value={{name}} class="textInput" />
+  <Input @type="color" @value={{mainColor}} class="colorInput" />
 </div>
 
 <div class="formItem">
   <label class="formItem-label">
-    {{t 'components.project_create_form.language_label'}}
+    {{t "components.project_create_form.language_label"}}
   </label>
 
-  {{acc-select
-    search=(action 'searchLanguages')
-    options=mappedLanguages
-    selected=languageValue
-    searchPlaceholder=(t 'components.project_create_form.language_search_placeholder')
-    onchange=(action (mut language) value='value')
-  }}
+  <AccSelect
+    @searchEnabled=true
+    @search={{action "searchLanguages"}}
+    @options={{mappedLanguages}}
+    @selected={{languageValue}}
+    @searchPlaceholder={{t
+      "components.project_create_form.language_search_placeholder"
+    }}
+    @onchange={{action (mut language) value="value"}}
+  />
 </div>
 
 <div class="formActions">
-  {{#link-to
-    'logged-in.projects'
-    class='button
-    button--filled button--white'
-  }}
-    {{t 'components.project_create_form.cancel_button'}}
-  {{/link-to}}
-
-  {{#async-button
-    disabled=emptyLanguage
-    class='button button--filled button--green'
-    loading=isCreating
-    onClick=(action 'submit')
-  }}
-    {{t 'components.project_create_form.save_button'}}
-  {{/async-button}}
+  <LinkTo
+    @route="logged-in.projects"
+    class="button
+    button--filled button--white"
+  >
+    {{t "components.project_create_form.cancel_button"}}
+  </LinkTo>
+  <AsyncButton
+    @disabled={{emptyLanguage}}
+    class="button button--filled button--green"
+    @loading={{isCreating}}
+    @onClick={{action "submit"}}
+  >
+    {{t "components.project_create_form.save_button"}}
+  </AsyncButton>
 </div>

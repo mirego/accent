@@ -1,8 +1,8 @@
-{{#acc-modal small=true onClose=(action 'closeModal')}}
-  {{version-update-form
-    version=version
-    error=error
-    project=project
-    onUpdate=(action 'update')
-  }}
-{{/acc-modal}}
+<AccModal @small={{true}} @onClose={{action "closeModal"}}>
+  <VersionUpdateForm
+    @version={{version}}
+    @error={{error}}
+    @project={{project}}
+    @onUpdate={{action "update"}}
+  />
+</AccModal>

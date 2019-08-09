@@ -8,28 +8,28 @@
   </h1>
 
   <div class="activity-meta">
-    {{time-ago-in-words-tag date=activity.insertedAt class='activity-date'}}
+    <TimeAgoInWordsTag @date={{activity.insertedAt}} class="activity-date" />
 
     {{#if isRollbacked}}
       <div class="rollbackedBadge">
-        {{t 'components.project_activity.rollbacked_label'}}
+        {{t "components.project_activity.rollbacked_label"}}
       </div>
-    {{else if (get permissions 'rollback')}}
+    {{else if (get permissions "rollback")}}
       {{#if isRollbackable}}
-        {{#async-button
-          onClick=(action 'rollback')
-          loading=isRollbacking
-          class='button button--red rollbackButton'
-        }}
-          {{t 'components.project_activity.rollback'}}
-        {{/async-button}}
+        <AsyncButton
+          @onClick={{action "rollback"}}
+          @loading={{isRollbacking}}
+          class="button button--red rollbackButton"
+        >
+          {{t "components.project_activity.rollback"}}
+        </AsyncButton>
       {{/if}}
     {{/if}}
   </div>
 
   <p class="activity-explanation">
     <span class="activity-explanation-label">
-      {{t 'components.project_activity.explanation_label'}}
+      {{t "components.project_activity.explanation_label"}}
     </span>
 
     {{actionExplanation}}
@@ -41,13 +41,17 @@
     {{#if showStats}}
       <div class="stats">
         <span class="details-label">
-          {{t 'components.project_activity.stats_label'}}
+          {{t "components.project_activity.stats_label"}}
         </span>
 
         <div class="stats-items">
           {{#each localizedStats as |stat|}}
             <div class="stats-item">
-              {{stat.text}}: <b>{{stat.count}}</b>
+              {{stat.text}}
+              :
+              <b>
+                {{stat.count}}
+              </b>
             </div>
           {{/each}}
         </div>
@@ -57,7 +61,7 @@
     {{#if activity.previousTranslation}}
       <div class="translation-state">
         <span class="details-label">
-          {{t 'components.project_activity.details_label'}}
+          {{t "components.project_activity.details_label"}}
         </span>
 
         <div class="translation-state-items">
@@ -66,39 +70,43 @@
               <span class="translation-state-label">
                 Key:
               </span>
-
-              {{#link-to
-                'logged-in.project.translation'
-                project.id
-                activity.translation.id
-                class='translation-state-key'
-              }}
-                <small class="translation-state-key-prefix">{{translationKey.prefix}}</small>
+              <LinkTo
+                @route="logged-in.project.translation"
+                @models={{array project.id activity.translation.id}}
+                class="translation-state-key"
+              >
+                <small class="translation-state-key-prefix">
+                  {{translationKey.prefix}}
+                </small>
                 {{translationKey.value}}
-              {{/link-to}}
+              </LinkTo>
             </div>
           {{/if}}
 
           {{#if activity.document}}
             <div class="translation-state-item">
               <span class="translation-state-label">
-                {{t 'components.project_activity.file_label'}}
+                {{t "components.project_activity.file_label"}}
               </span>
-
-              <strong class="translation-state-document">{{activity.document.path}} ({{activity.document.format}})</strong>
+              <strong class="translation-state-document">
+                {{activity.document.path}}
+                (
+                {{activity.document.format}}
+                )
+              </strong>
             </div>
           {{/if}}
 
           <div class="translation-state-item">
             <span class="translation-state-label">
-              {{t 'components.project_activity.review_label'}}
+              {{t "components.project_activity.review_label"}}
             </span>
 
             <strong class="translation-state-reviewed">
               {{#if activity.previousTranslation.isReviewed}}
-                {{t 'components.project_activity.reviewed_yes'}}
+                {{t "components.project_activity.reviewed_yes"}}
               {{else}}
-                {{t 'components.project_activity.reviewed_no'}}
+                {{t "components.project_activity.reviewed_no"}}
               {{/if}}
             </strong>
           </div>
@@ -106,11 +114,11 @@
           {{#if showLastSyncedText}}
             <div class="translation-state-item">
               <span class="translation-state-label">
-                {{t 'components.project_activity.last_synced_text_label'}}
+                {{t "components.project_activity.last_synced_text_label"}}
               </span>
 
               {{#if previousTranslationIsEmptyType}}
-                <strong class="translation-state-value translation-state-value--empty">{{t 'components.project_activity.empty_value'}}</strong>
+                <strong class="translation-state-value translation-state-value--empty">{{t "components.project_activity.empty_value"}}</strong>
               {{else}}
                 <strong class="translation-state-value">{{activity.previousTranslation.proposedText}}</strong>
               {{/if}}
@@ -120,11 +128,11 @@
           {{#if showPreviousTranslationText}}
             <div class="translation-state-item">
               <span class="translation-state-label">
-                {{t 'components.project_activity.text_before_action_label'}}
+                {{t "components.project_activity.text_before_action_label"}}
               </span>
 
               {{#if previousTranslationIsEmptyType}}
-                <strong class="translation-state-value translation-state-value--empty">{{t 'components.project_activity.empty_value'}}</strong>
+                <strong class="translation-state-value translation-state-value--empty">{{t "components.project_activity.empty_value"}}</strong>
               {{else}}
                 <strong class="translation-state-value">{{activity.previousTranslation.text}}</strong>
               {{/if}}
@@ -133,12 +141,11 @@
 
           <div class="translation-state-item">
             <span class="translation-state-label">
-              {{t 'components.project_activity.new_text_label'}}
+              {{t "components.project_activity.new_text_label"}}
             </span>
 
-
             {{#if isEmptyType}}
-              <strong class="translation-state-value translation-state-value--empty">{{t 'components.project_activity.empty_value'}}</strong>
+              <strong class="translation-state-value translation-state-value--empty">{{t "components.project_activity.empty_value"}}</strong>
             {{else}}
               <strong class="translation-state-value">{{activity.text}}</strong>
             {{/if}}
@@ -147,10 +154,11 @@
           {{#if showTextDifferences}}
             <div class="translation-state-item">
               <span class="translation-state-label">
-                {{t 'components.project_activity.text_differences_label'}}
+                {{t "components.project_activity.text_differences_label"}}
               </span>
-
-              <strong class="translation-state-value"><div class="textDiff">{{string-diff activity.text activity.previousTranslation.text}}</div></strong>
+              <strong class="translation-state-value">
+                <div class="textDiff">{{string-diff activity.text activity.previousTranslation.text}}</div>
+              </strong>
             </div>
           {{/if}}
         </div>
@@ -161,68 +169,69 @@
   <div class="details-associations">
     {{#if activity.rollbackedOperation}}
       <span class="details-label">
-        {{t 'components.project_activity.rollbacked_operation_label'}}
+        {{t "components.project_activity.rollbacked_operation_label"}}
       </span>
-      {{activity-item
-        permissions=permissions
-        showTranslationLink=true
-        componentTranslationPrefix='project_activities_list_item'
-        project=project
-        activity=activity.rollbackedOperation
-      }}
+      <ActivityItem
+        @permissions={{permissions}}
+        @showTranslationLink={{true}}
+        @componentTranslationPrefix="project_activities_list_item"
+        @project={{project}}
+        @activity={{activity.rollbackedOperation}}
+      />
     {{/if}}
 
     {{#if activity.rollbackOperation}}
       <span class="details-label">
-        {{t 'components.project_activity.rollback_operation_label'}}
+        {{t "components.project_activity.rollback_operation_label"}}
       </span>
-      {{activity-item
-        permissions=permissions
-        showTranslationLink=true
-        componentTranslationPrefix='translation_activities_list_item'
-        project=project
-        activity=activity.rollbackOperation
-      }}
+      <ActivityItem
+        @permissions={{permissions}}
+        @showTranslationLink={{true}}
+        @componentTranslationPrefix="translation_activities_list_item"
+        @project={{project}}
+        @activity={{activity.rollbackOperation}}
+      />
     {{/if}}
 
     {{#if activity.batchOperation}}
       <span class="details-label">
-        {{t 'components.project_activity.batch_operation_label'}}
+        {{t "components.project_activity.batch_operation_label"}}
       </span>
-      {{activity-item
-        compact=true
-        permissions=permissions
-        showTranslationLink=true
-        componentTranslationPrefix='project_activities_list_item'
-        project=project
-        activity=activity.batchOperation
-      }}
+      <ActivityItem
+        @compact={{true}}
+        @permissions={{permissions}}
+        @showTranslationLink={{true}}
+        @componentTranslationPrefix="project_activities_list_item"
+        @project={{project}}
+        @activity={{activity.batchOperation}}
+      />
     {{/if}}
 
     {{#if operationsLoading}}
-      {{loading-content label=(t 'pods.project.activities.show.loading_activities')}}
+      <LoadingContent
+        @label={{t "pods.project.activities.show.loading_activities"}}
+      />
     {{else if operations.entries}}
       <span class="details-label">
-        {{t 'components.project_activity.operations_label'}}
+        {{t "components.project_activity.operations_label"}}
       </span>
 
       <div class="details-associations-overflow">
-        {{#each operations.entries key='id' as |activity|}}
-          {{activity-item
-            compact=true
-            permissions=permissions
-            showTranslationLink=true
-            componentTranslationPrefix='project_activities_list_item'
-            project=project
-            activity=activity
-          }}
+        {{#each operations.entries key="id" as |activity|}}
+          <ActivityItem
+            @compact={{true}}
+            @permissions={{permissions}}
+            @showTranslationLink={{true}}
+            @componentTranslationPrefix="project_activities_list_item"
+            @project={{project}}
+            @activity={{activity}}
+          />
         {{/each}}
       </div>
-
-      {{resource-pagination
-        meta=operations.meta
-        onSelectPage=(action 'refreshActivities')
-      }}
+      <ResourcePagination
+        @meta={{operations.meta}}
+        @onSelectPage={{action "refreshActivities"}}
+      />
     {{/if}}
   </div>
 </div>

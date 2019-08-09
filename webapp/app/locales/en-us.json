@@ -332,6 +332,7 @@
       "jipt": {
         "title": "Just In Place Translations",
         "integration_help": "This steps will walk you throught the setup you need to have in your project to translate your strings in your browser, inside your project.",
+        "integration_link": "See official guides on how to integrate live editing in your website",
         "script_title": "Add the script at the root of your app",
         "add_language_title": "Add the pseudo language to your project",
         "add_language_image_1": "Here is a language like you already have in your project:",

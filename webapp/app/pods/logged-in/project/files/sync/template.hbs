@@ -1,46 +1,47 @@
-{{#acc-modal onClose=(action 'closeModal')}}
-  {{#project-file-operation}}
-    <button {{action 'closeModal'}} class="closeButton">
+<AccModal @onClose={{action "closeModal"}}>
+  <ProjectFileOperation>
+    <button class="closeButton" {{action "closeModal"}}>
       <div class="closeButton-content">
-        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
+        {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
       </div>
     </button>
 
     <div class="title">
       <div class="sectionType">
-        {{inline-svg '/assets/sync.svg' class='sectionType-icon'}}
-        {{t 'components.project_file_operations.sync'}}
+        {{inline-svg "/assets/sync.svg" class="sectionType-icon"}}
+        {{t "components.project_file_operations.sync"}}
       </div>
 
       <div class="title-document">
         {{document.path}}
         <span class="title-documentExtension">
-          .{{documentFormatItem.extension}}
+          .
+          {{documentFormatItem.extension}}
         </span>
       </div>
     </div>
 
     <div class="sections">
       <div class="sections-file">
-        {{commit-file
-          permissions=permissions
-          revisions=revisions
-          document=document
-          canCommit=true
-          commitAction='sync'
-          peekAction='peek_sync'
-          commitButtonText=(t 'components.commit_file.sync_button')
-          onFileCancel=(action 'cancelFile')
-          onPeek=(action 'peek')
-          onCommit=(action 'sync')
-        }}
+        <CommitFile
+          @permissions={{permissions}}
+          @revisions={{revisions}}
+          @document={{document}}
+          @canCommit={{true}}
+          @commitAction="sync"
+          @peekAction="peek_sync"
+          @commitButtonText={{t "components.commit_file.sync_button"}}
+          @onFileCancel={{action "cancelFile"}}
+          @onPeek={{action "peek"}}
+          @onCommit={{action "sync"}}
+        />
       </div>
 
       {{#if revisionOperations.length}}
         <div class="sections-preview">
-          {{operations-peek revisionOperations=revisionOperations}}
+          <OperationsPeek @revisionOperations={{revisionOperations}} />
         </div>
       {{/if}}
     </div>
-  {{/project-file-operation}}
-{{/acc-modal}}
+  </ProjectFileOperation>
+</AccModal>

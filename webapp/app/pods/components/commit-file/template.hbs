@@ -1,120 +1,134 @@
 <div>
   {{#if isPeekingError}}
-    <div class="errorMessage">{{t 'components.commit_file.peek_error'}}</div>
+    <div class="errorMessage">
+      {{t "components.commit_file.peek_error"}}
+    </div>
   {{/if}}
-
   {{#if isCommitingError}}
-    <div class="errorMessage">{{t 'components.commit_file.commit_error'}}</div>
+    <div class="errorMessage">
+      {{t "components.commit_file.commit_error"}}
+    </div>
   {{/if}}
-
   {{#if isMerge}}
     {{#if file}}
       <div class="options">
         <div class="option option--borderless">
-          <p class="textHelper">{{t 'components.commit_file.language'}}:</p>
-          {{acc-select
-            searchEnabled=false
-            selected=revisionValue
-            options=mappedRevisions
-            onchange=(action 'onSelectRevision')
-          }}
+          <p class="textHelper">
+            {{t "components.commit_file.language"}}
+            :
+          </p>
+          <AccSelect
+            @searchEnabled={{false}}
+            @selected={{revisionValue}}
+            @options={{mappedRevisions}}
+            @onchange={{action "onSelectRevision"}}
+          />
         </div>
-
         <div class="option option--borderless">
-          <p class="textHelper">{{t 'components.commit_file.commit_type'}}:</p>
-          {{acc-select
-            searchEnabled=false
-            selected=mergeType
-            options=mergeTypes
-            onchange=(action 'onSelectMergeType')
-          }}
+          <p class="textHelper">
+            {{t "components.commit_file.commit_type"}}
+            :
+          </p>
+          <AccSelect
+            @searchEnabled={{false}}
+            @selected={{mergeType}}
+            @options={{mergeTypes}}
+            @onchange={{action "onSelectMergeType"}}
+          />
         </div>
       </div>
     {{/if}}
   {{/if}}
-
   {{#if isSync}}
     {{#if file}}
       <div class="options">
         <div class="option option--borderless">
-          <p class="textHelper">{{t 'components.commit_file.commit_type'}}:</p>
-          {{acc-select
-            searchEnabled=false
-            selected=syncType
-            options=syncTypes
-            onchange=(action 'onSelectSyncType')
-          }}
+          <p class="textHelper">
+            {{t "components.commit_file.commit_type"}}
+            :
+          </p>
+          <AccSelect
+            @searchEnabled={{false}}
+            @selected={{syncType}}
+            @options={{syncTypes}}
+            @onchange={{action "onSelectSyncType"}}
+          />
         </div>
         <div class="option option--borderless"></div>
       </div>
     {{/if}}
   {{/if}}
-
   {{#if file}}
     <div>
       {{#unless document}}
         <div class="option">
-          <p class="textHelper">{{t 'components.commit_file.file_source'}}</p>
+          <p class="textHelper">
+            {{t "components.commit_file.file_source"}}
+          </p>
           <p>
             {{#if existingDocumentPath}}
               <span class="documentHelper">
-                {{t 'components.commit_file.existing_document_warning'}}
+                {{t "components.commit_file.existing_document_warning"}}
               </span>
             {{else}}
               <span class="documentHelper">
-                {{t 'components.commit_file.new_document_warning'}}
+                {{t "components.commit_file.new_document_warning"}}
               </span>
             {{/if}}
           </p>
-          {{input value=documentPath class='fileSourceName'}}
+          <Input @value={{documentPath}} class="fileSourceName" />
         </div>
       {{/unless}}
 
       <div class="option">
-        <p class="textHelper">{{t 'components.commit_file.document_format'}}</p>
-        {{acc-select
-          searchEnabled=false
-          selected=documentFormatValue
-          options=documentFormatOptions
-          onchange=(action (mut documentFormat) value='value')
-        }}
+        <p class="textHelper">
+          {{t "components.commit_file.document_format"}}
+        </p>
+        <AccSelect
+          @searchEnabled={{false}}
+          @selected={{documentFormatValue}}
+          @options={{documentFormatOptions}}
+          @onchange={{action (mut documentFormat) value="value"}}
+        />
       </div>
 
       {{#if (get permissions peekAction)}}
         <div class="option">
-          <p class="textHelper">{{t 'components.commit_file.peek_help'}}</p>
-
-          {{#async-button
-            onClick=(action 'peek')
-            loading=isPeeking
-            class='button
-            button--filled button--blue peekButton'
-          }}
-            {{t 'components.commit_file.peek_button'}}
-          {{/async-button}}
+          <p class="textHelper">
+            {{t "components.commit_file.peek_help"}}
+          </p>
+          <AsyncButton
+            @onClick={{action "peek"}}
+            @loading={{isPeeking}}
+            class="button
+            button--filled button--blue peekButton"
+          >
+            {{t "components.commit_file.peek_button"}}
+          </AsyncButton>
         </div>
       {{/if}}
 
       {{#if (get permissions commitAction)}}
         <div class="actions">
-          {{#async-button
-            onClick=(action 'fileCancel')
-            class='button button--filled button--white'
-          }}
-            {{t 'components.commit_file.cancel_button'}}
-          {{/async-button}}
+          <AsyncButton
+            @onClick={{action "fileCancel"}}
+            class="button button--filled button--white"
+          >
+            {{t "components.commit_file.cancel_button"}}
+          </AsyncButton>
 
           {{#if canCommit}}
-            {{#async-button
-              onClick=(action 'commit')
-              loading=isCommiting class='button button--filled'
-            }}
+            <AsyncButton
+              @onClick={{action "commit"}}
+              @loading={{isCommiting}}
+              class="button button--filled"
+            >
               {{commitButtonText}}
-            {{/async-button}}
+            </AsyncButton>
           {{else}}
-            {{#async-button class='button button--filled button--disabled'}}
+            <AsyncButton class="button button--filled button--disabled">
               {{commitButtonText}}
-            {{/async-button}}
+            </AsyncButton>
           {{/if}}
         </div>
       {{/if}}
@@ -122,46 +136,48 @@
   {{else}}
     <div class="emptyFile">
       <div class="emptyFile-upload">
-        {{file-input
-          name='file-input'
-          id='file-input'
-          onChange=(action 'fileChange')
-          class='fileInput'
-        }}
-
+        <FileInput
+          @name="file-input"
+          @id="file-input"
+          @onChange={{action "fileChange"}}
+          class="fileInput"
+        />
 
         <strong class="fileInputTitle">
-          {{inline-svg '/assets/folder.svg' class='fileInputIcon'}}
-          {{t 'components.commit_file.upload_title'}}
+          {{inline-svg "/assets/folder.svg" class="fileInputIcon"}}
+          {{t "components.commit_file.upload_title"}}
         </strong>
 
-        <p class="fileInputHelper">{{t 'components.commit_file.upload_help'}}</p>
+        <p class="fileInputHelper">
+          {{t "components.commit_file.upload_help"}}
+        </p>
 
         <label for="file-input" class="button button--filled fileButton">
-          {{inline-svg '/assets/import.svg' class='button-icon'}}
-          {{t 'components.commit_file.file_input_button'}}
+          {{inline-svg "/assets/import.svg" class="button-icon"}}
+          {{t "components.commit_file.file_input_button"}}
         </label>
       </div>
+
       <div>
         <h3 class="emptyFile-title">
-          {{t 'components.commit_file.tips.cli.title'}}
+          {{t "components.commit_file.tips.cli.title"}}
         </h3>
         <p class="emptyFile-text">
-          {{t 'components.commit_file.tips.cli.text' htmlSafe=true}}
+          {{t "components.commit_file.tips.cli.text" htmlSafe=true}}
         </p>
 
         <h3 class="emptyFile-title">
-          {{t 'components.commit_file.tips.formats.title'}}
+          {{t "components.commit_file.tips.formats.title"}}
         </h3>
         <p class="emptyFile-text">
-          {{t 'components.commit_file.tips.formats.text' htmlSafe=true}}
+          {{t "components.commit_file.tips.formats.text" htmlSafe=true}}
         </p>
 
         <h3 class="emptyFile-title">
-          {{t 'components.commit_file.tips.mix.title'}}
+          {{t "components.commit_file.tips.mix.title"}}
         </h3>
         <p class="emptyFile-text">
-          {{t 'components.commit_file.tips.mix.text' htmlSafe=true}}
+          {{t "components.commit_file.tips.mix.text" htmlSafe=true}}
         </p>
       </div>
     </div>

@@ -1,13 +1,14 @@
-<button {{action 'close'}} class="deleteButton">
-  {{inline-svg 'assets/x.svg' class='deleteButton-icon'}}
+<button class="deleteButton" {{action "close"}}>
+  {{inline-svg "assets/x.svg" class="deleteButton-icon"}}
 </button>
 
 <div class="content">
   {{#if iconPath}}
     <div class="icon">
-      {{inline-svg iconPath class='icon'}}
+      {{inline-svg iconPath class="icon"}}
     </div>
   {{/if}}
-
-  <p class="text">{{flash.message}}</p>
+  <p class="text">
+    {{flash.message}}
+  </p>
 </div>

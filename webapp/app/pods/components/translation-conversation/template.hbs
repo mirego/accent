@@ -1,26 +1,23 @@
 <div class="comments">
-  {{#if (get permissions 'create_comment')}}
+  {{#if (get permissions "create_comment")}}
     {{#unless translation.isRemoved}}
-      {{translation-comment-form onSubmit=onSubmit}}
+      <TranslationCommentForm @onSubmit={{onSubmit}} />
     {{/unless}}
   {{/if}}
 
-  {{translation-comments-list
-    comments=comments.entries
-    class='at-translation'
-  }}
+  <TranslationCommentsList
+    @comments={{comments.entries}}
+    class="at-translation"
+  />
 
-  {{resource-pagination
-    meta=comments.meta
-    onSelectPage=onSelectPage
-  }}
+  <ResourcePagination @meta={{comments.meta}} @onSelectPage={{onSelectPage}} />
 </div>
 
 <div class="subscriptions">
-  {{translation-comments-subscriptions
-    collaborators=collaborators
-    subscriptions=subscriptions
-    onCreateSubscription=onCreateSubscription
-    onDeleteSubscription=onDeleteSubscription
-  }}
+  <TranslationCommentsSubscriptions
+    @collaborators={{collaborators}}
+    @subscriptions={{subscriptions}}
+    @onCreateSubscription={{onCreateSubscription}}
+    @onDeleteSubscription={{onDeleteSubscription}}
+  />
 </div>

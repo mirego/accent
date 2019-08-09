@@ -1,65 +1,64 @@
-{{#acc-modal onClose=(action 'closeModal')}}
-  {{#project-file-operation}}
-    <button {{action 'closeModal'}} class="closeButton">
+<AccModal @onClose={{action "closeModal"}}>
+  <ProjectFileOperation>
+    <button class="closeButton" {{action "closeModal"}}>
       <div class="closeButton-content">
-        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
+        {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
       </div>
     </button>
 
     <div class="title">
       <div class="sectionType">
-        {{inline-svg '/assets/export.svg' class='sectionType-icon'}}
-        {{t 'components.project_file_operations.export'}}
+        {{inline-svg "/assets/export.svg" class="sectionType-icon"}}
+        {{t "components.project_file_operations.export"}}
       </div>
 
       <div class="title-document">
         {{document.path}}
         <span class="title-documentExtension">
-          .{{documentFormatItem.extension}}
+          .
+          {{documentFormatItem.extension}}
         </span>
       </div>
     </div>
+    <RevisionExportOptions
+      @format={{documentFormatFilter}}
+      @orderBy={{orderByFilter}}
+      @revision={{revisionFilter}}
+      @revisions={{revisions}}
+      @onChangeRevision={{action (mut revisionFilter)}}
+      @onChangeFormat={{action (mut documentFormatFilter)}}
+      @onChangeOrderBy={{action (mut orderByFilter)}}
+    />
+    <LinkTo
+      @route="logged-in.project.files.jipt"
+      @models={{array project.id document.id}}
+      class="button button--filled button--white button--small toggleJiptExport"
+    >
+      {{inline-svg "/assets/edit-in-place.svg" class="button-icon"}}
+      {{t "components.project_file_operations.export_jipt"}}
+    </LinkTo>
 
-    {{revision-export-options
-      format=documentFormatFilter
-      orderBy=orderByFilter
-      revision=revisionFilter
-      revisions=revisions
-      onChangeRevision=(action (mut revisionFilter))
-      onChangeFormat=(action (mut documentFormatFilter))
-      onChangeOrderBy=(action (mut orderByFilter))
-    }}
-
-    {{#link-to
-      'logged-in.project.files.jipt'
-      project.id
-      document.id
-      class='button button--filled button--white button--small toggleJiptExport'
-    }}
-      {{inline-svg '/assets/edit-in-place.svg' class='button-icon'}}
-      {{t 'components.project_file_operations.export_jipt'}}
-    {{/link-to}}
-
-    {{#async-button
-      onClick=(action 'exportFile')
-      disabled=exportButtonDisabled
-      class='button button--filled renderExport'
-    }}
-      {{t 'components.project_file_operations.export'}}
-    {{/async-button}}
+    <AsyncButton
+      @onClick={{action "exportFile"}}
+      @disabled={{exportButtonDisabled}}
+      class="button button--filled renderExport"
+    >
+      {{t "components.project_file_operations.export"}}
+    </AsyncButton>
 
     {{#if exportLoading}}
-      {{skeleton-ui/progress-line}}
+      <SkeletonUi::ProgressLine />
     {{/if}}
 
-    <pre class="render">{{file-export
-      onFileLoaded=(action 'onFileLoaded')
-      project=project
-      revisions=revisions
-      revision=revision
-      document=document
-      documentFormat=documentFormatFilter
-      orderBy=orderByFilter
-    }}</pre>
-  {{/project-file-operation}}
-{{/acc-modal}}
+    <FileExport
+      @class="render"
+      @onFileLoaded={{action "onFileLoaded"}}
+      @project={{project}}
+      @revisions={{revisions}}
+      @revision={{revision}}
+      @document={{document}}
+      @documentFormat={{documentFormatFilter}}
+      @orderBy={{orderByFilter}}
+    />
+  </ProjectFileOperation>
+</AccModal>

@@ -1,18 +1,15 @@
 import {computed} from '@ember/object';
+import {inject as service} from '@ember/service';
 import {not, reads} from '@ember/object/computed';
 import Component from '@ember/component';
-
-const LOGOS = {
-  DISCORD: 'assets/services/discord.svg',
-  SLACK: 'assets/services/slack.svg',
-  GITHUB: 'assets/services/github.svg'
-};
 
 // Attributes:
 // project: Object <project>
 // integration: Object <integration>
 // onSubmit: Function
 export default Component.extend({
+  intl: service('intl'),
+
   isSubmiting: false,
 
   errors: [],
@@ -36,8 +33,7 @@ export default Component.extend({
   mappedServices: computed('services', function() {
     return this.services.map(value => {
       return {
-        logo: LOGOS[value],
-        label: `general.integration_services.${value}`,
+        label: this.intl.t(`general.integration_services.${value}`),
         value
       };
     });

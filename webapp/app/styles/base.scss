@@ -18,8 +18,8 @@ body {
 textarea,
 select,
 button,
-input[type="submit"],
-input[type="text"] {
+input[type='submit'],
+input[type='text'] {
   font-family: $font-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

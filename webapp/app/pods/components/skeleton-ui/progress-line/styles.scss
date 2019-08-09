@@ -1,4 +1,5 @@
-&, &:before {
+&,
+&:before {
   height: 2px;
   width: 100%;
   margin: 0;
@@ -16,11 +17,21 @@
   background-color: lighten($color-green, 20%);
   background-color: var(--color-primary-lighten-20);
   content: '';
-  animation: progress-line-running-progress 1.8s cubic-bezier(0.5, 0, 0.1, 1) infinite;
+  animation: progress-line-running-progress 1.8s cubic-bezier(0.5, 0, 0.1, 1)
+    infinite;
 }
 
 @keyframes progress-line-running-progress {
-  0% { margin-left: 0; margin-right: 100%; }
-  50% { margin-left: 25%; margin-right: 0%; }
-  100% { margin-left: 100%; margin-right: 0; }
+  0% {
+    margin-left: 0;
+    margin-right: 100%;
+  }
+  50% {
+    margin-left: 25%;
+    margin-right: 0%;
+  }
+  100% {
+    margin-left: 100%;
+    margin-right: 0;
+  }
 }

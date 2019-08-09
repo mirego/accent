@@ -1,9 +1,9 @@
 {{#each translations key="id" as |translation|}}
-  {{#link-to
-    'logged-in.jipt.translation'
-    translation.id
-    class='item'
-  }}
+  <LinkTo
+    @route="logged-in.jipt.translation"
+    @model={{translation.id}}
+    class="item"
+  >
     {{translation.correctedText}}
-  {{/link-to}}
+  </LinkTo>
 {{/each}}

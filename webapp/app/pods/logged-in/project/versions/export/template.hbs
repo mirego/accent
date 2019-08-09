@@ -1,54 +1,59 @@
-{{#acc-modal onClose=(action 'closeModal')}}
-  {{#project-file-operation}}
-    <button {{action 'closeModal'}} class="closeButton">
+<AccModal @onClose={{action "closeModal"}}>
+  <ProjectFileOperation>
+    <button class="closeButton" {{action "closeModal"}}>
       <div class="closeButton-content">
-        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
+        {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
       </div>
     </button>
 
     <div class="title">
       <div class="sectionType">
         <div class="versionTitle">
-          <strong class="versionTitle-name">{{version.name}}</strong>
-          <span class="versionTitle-tag">{{version.tag}}</span>
+          <strong class="versionTitle-name">
+            {{version.name}}
+          </strong>
+          <span class="versionTitle-tag">
+            {{version.tag}}
+          </span>
         </div>
       </div>
     </div>
 
-    {{revision-export-options
-      format=documentFormatFilter
-      documents=documents
-      document=documentFilter
-      orderBy=orderByFilter
-      revision=revisionFilter
-      revisions=revisions
-      onChangeDocument=(action (mut documentFilter))
-      onChangeRevision=(action (mut revisionFilter))
-      onChangeFormat=(action (mut documentFormatFilter))
-      onChangeOrderBy=(action (mut orderByFilter))
-    }}
+    <RevisionExportOptions
+      @format={{documentFormatFilter}}
+      @documents={{documents}}
+      @document={{documentFilter}}
+      @orderBy={{orderByFilter}}
+      @revision={{revisionFilter}}
+      @revisions={{revisions}}
+      @onChangeDocument={{action (mut documentFilter)}}
+      @onChangeRevision={{action (mut revisionFilter)}}
+      @onChangeFormat={{action (mut documentFormatFilter)}}
+      @onChangeOrderBy={{action (mut orderByFilter)}}
+    />
 
-    {{#async-button
-      onClick=(action 'exportFile')
-      disabled=exportButtonDisabled
-      class='button button--filled renderExport'
-    }}
-      {{t 'components.project_file_operations.export'}}
-    {{/async-button}}
+    <AsyncButton
+      @onClick={{action "exportFile"}}
+      @disabled={{exportButtonDisabled}}
+      class="button button--filled renderExport"
+    >
+      {{t "components.project_file_operations.export"}}
+    </AsyncButton>
 
     {{#if exportLoading}}
-      {{skeleton-ui/progress-line}}
+      <SkeletonUi::ProgressLine />
     {{/if}}
 
-    <pre class="render">{{file-export
-        onFileLoaded=(action 'onFileLoaded')
-        project=project
-        revisions=revisions
-        revision=revision
-        document=document
-        version=version.tag
-        documentFormat=documentFormatFilter
-        orderBy=orderByFilter
-      }}</pre>
-  {{/project-file-operation}}
-{{/acc-modal}}
+    <FileExport
+      @class="render"
+      @onFileLoaded={{action "onFileLoaded"}}
+      @project={{project}}
+      @revisions={{revisions}}
+      @revision={{revision}}
+      @document={{document}}
+      @version={{version.tag}}
+      @documentFormat={{documentFormatFilter}}
+      @orderBy={{orderByFilter}}
+    />
+  </ProjectFileOperation>
+</AccModal>

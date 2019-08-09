@@ -1,24 +1,23 @@
 {{#if model.loading}}
-  {{skeleton-ui/progress-line}}
+  <SkeletonUi::ProgressLine />
 {{/if}}
 
 {{#if showSkeleton}}
-  {{skeleton-ui/versions-list}}
+  <SkeletonUi::VersionsList />
 {{else}}
-  {{versions-list
-    permissions=permissions
-    versions=model.versions.entries
-    project=model.project
-  }}
+  <VersionsList
+    @permissions={{permissions}}
+    @versions={{model.versions.entries}}
+    @project={{model.project}}
+  />
 
-  {{#if (get permissions 'create_version')}}
-    {{versions-add-button project=model.project}}
+  {{#if (get permissions "create_version")}}
+    <VersionsAddButton @project={{model.project}} />
   {{/if}}
 
-  {{resource-pagination
-    meta=model.versions.meta
-    onSelectPage=(action 'selectPage')
-  }}
-
+  <ResourcePagination
+    @meta={{model.versions.meta}}
+    @onSelectPage={{action "selectPage"}}
+  />
   {{outlet}}
 {{/if}}

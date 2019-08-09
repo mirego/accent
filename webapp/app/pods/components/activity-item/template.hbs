@@ -1,17 +1,15 @@
 <li class="item-wrapper">
   <span class="item-iconContainer">
-    {{inline-svg iconPath class='item-iconContainer-icon'}}
+    {{inline-svg iconPath class="item-iconContainer-icon"}}
   </span>
-
   <div class="item-content">
     {{#if activity.isRollbacked}}
       <div class="item-content-rollbacked">
-        {{t 'components.activity_item.rollbacked'}}
-
-        {{time-ago-in-words-tag
-          date=activity.updatedAt
-          class='item-rollbacked-date'
-        }}
+        {{t "components.activity_item.rollbacked"}}
+        <TimeAgoInWordsTag
+          @date={{activity.updatedAt}}
+          class="item-rollbacked-date"
+        />
       </div>
     {{/if}}
 
@@ -19,15 +17,20 @@
       <div class="item-header-content">
         {{#if activity.user.isBot}}
           <span class="item-user item-user--bot">
-            {{inline-svg 'assets/bot.svg' class='item-user-icon'}}
+            {{inline-svg "assets/bot.svg" class="item-user-icon"}}
             {{activity.user.fullname}}
           </span>
         {{else}}
-          <span class="item-user {{if activity.user.pictureUrl 'item-user--pictureUrl'}}">
+          <span
+            class="item-user
+              {{if activity.user.pictureUrl "item-user--pictureUrl"}}"
+          >
             {{#if activity.user.pictureUrl}}
-              <img class="item-user-picture" src="{{activity.user.pictureUrl}}" />
+              <img
+                class="item-user-picture"
+                src="{{activity.user.pictureUrl}}"
+              />
             {{/if}}
-
             {{activity.user.fullname}}
           </span>
         {{/if}}
@@ -35,14 +38,13 @@
         {{actionText}}
 
         {{#if showDocumentInfo}}
-          {{#link-to
-            'logged-in.project.files.export'
-            project.id
-            activity.document.id
-            class='item-documentPath'
-          }}
+          <LinkTo
+            @route="logged-in.project.files.export"
+            @models={{array project.id activity.document.id}}
+            class="item-documentPath"
+          >
             {{activity.document.path}}
-          {{/link-to}}
+          </LinkTo>
         {{/if}}
 
         {{#if showVersionInfo}}
@@ -52,84 +54,86 @@
         {{/if}}
 
         {{#if showRevisionInfo}}
-          {{#link-to
-            'logged-in.project.revision.translations'
-            project.id
-            activity.revision.id
-            class='item-revisionLink'
-          }}
+          <LinkTo
+            @route="logged-in.project.revision.translations"
+            @models={{array project.id activity.revision.id}}
+            class="item-revisionLink"
+          >
             {{revisionName}}
-          {{/link-to}}
+          </LinkTo>
         {{/if}}
 
         {{#if isShowingTranslationLink}}
           {{#if activity.translation.isRemoved}}
-            {{#link-to
-              'logged-in.project.translation'
-              project.id
-              activity.translation.id
-              class='item-translationLink
-              item-translationLink--removed'
-            }}
-              <small class="item-translationLink-prefix">{{translationKey.prefix}}</small>
+            <LinkTo
+              @route="logged-in.project.translation"
+              @models={{array project.id activity.translation.id}}
+              class="item-translationLink
+              item-translationLink--removed"
+            >
+              <small class="item-translationLink-prefix">
+                {{translationKey.prefix}}
+              </small>
               {{translationKey.value}}
-            {{/link-to}}
+            </LinkTo>
           {{else}}
-            {{#link-to
-              'logged-in.project.translation'
-              project.id
-              activity.translation.id
-              class='item-translationLink'
-            }}
-              <small class="item-translationLink-prefix">{{translationKey.prefix}}</small>
+            <LinkTo
+              @route="logged-in.project.translation"
+              @models={{array project.id activity.translation.id}}
+              class="item-translationLink"
+            >
+              <small class="item-translationLink-prefix">
+                {{translationKey.prefix}}
+              </small>
               {{translationKey.value}}
-            {{/link-to}}
+            </LinkTo>
           {{/if}}
         {{/if}}
       </div>
 
       <div class="item-actions">
-        {{time-ago-in-words-tag
-          date=activity.insertedAt
-          class='item-date'
-        }}
-
-        {{#link-to
-          'logged-in.project.activity'
-          project.id
-          activity.id
-          class='item-details-link'
-        }}
-          {{t 'components.activity_item.details'}}
-        {{/link-to}}
+        <TimeAgoInWordsTag @date={{activity.insertedAt}} class="item-date" />
+        <LinkTo
+          @route="logged-in.project.activity"
+          @models={{array project.id activity.id}}
+          class="item-details-link"
+        >
+          {{t "components.activity_item.details"}}
+        </LinkTo>
       </div>
     </div>
 
     {{#if activity.rollbackedOperation}}
       <div class="item-rollback-content">
         <div>
-          <span class="item-rollback-user">{{activity.rollbackedOperation.user.fullname}}</span>
+          <span class="item-rollback-user">
+            {{activity.rollbackedOperation.user.fullname}}
+          </span>
           {{rollbackedOperationActionText}}
 
           {{#if showFromOperationTranslationLink}}
             {{#if activity.rollbackedOperation.translation.isRemoved}}
-              {{#link-to
-                'logged-in.project.translation'
-                project.id
-                activity.rollbackedOperation.translation.id
-                class='item-translationLink--removed'
-              }}
+              <LinkTo
+                @route="logged-in.project.translation"
+                @models={{array
+                  project.id
+                  activity.rollbackedOperation.translation.id
+                }}
+                class="item-translationLink--removed"
+              >
                 {{activity.rollbackedOperation.translation.key}}
-              {{/link-to}}
+              </LinkTo>
             {{else}}
-              {{#link-to
-                'logged-in.project.translation'
-                project.id
-                activity.rollbackedOperation.translation.id
-                class='item-translationLink'
-              }}
+              <LinkTo
+                @route="logged-in.project.translation"
+                @models={{array
+                  project.id
+                  activity.rollbackedOperation.translation.id
+                }}
+                class="item-translationLink"
+              >
                 {{activity.rollbackedOperation.translation.key}}
-              {{/link-to}}
+              </LinkTo>
             {{/if}}
           {{/if}}
 
@@ -139,36 +143,38 @@
             </div>
           {{else if fromOperationHasEmptyText}}
             <div class="item-translationFromOperationText">
-              <span class="item-translationText-emptyText">{{t 'components.activity_item.empty_text'}}</span>
+              <span class="item-translationText-emptyText">
+                {{t "components.activity_item.empty_text"}}
+              </span>
             </div>
           {{/if}}
 
           {{#if showFromOperationDocumentInfo}}
-            {{#link-to
-              'logged-in.project.files.export'
-              project.id
-              activity.rollbackedOperation.document.id
-              class='item-documentPath'
-            }}
+            <LinkTo
+              @route="logged-in.project.files.export"
+              @models={{array
+                project.id
+                activity.rollbackedOperation.document.id
+              }}
+              class="item-documentPath"
+            >
               {{activity.rollbackedOperation.document.path}}
-            {{/link-to}}
+            </LinkTo>
           {{/if}}
         </div>
 
         {{#unless compact}}
-          {{time-ago-in-words-tag
-            date=activity.rollbackedOperation.insertedAt
-            class='item-date'
-          }}
-
-          {{#link-to
-            'logged-in.project.activity'
-            project.id
-            activity.rollbackedOperation.id
-            class='item-details-link'
-          }}
-            {{t 'components.activity_item.details'}}
-          {{/link-to}}
+          <TimeAgoInWordsTag
+            @date={{activity.rollbackedOperation.insertedAt}}
+            class="item-date"
+          />
+          <LinkTo
+            @route="logged-in.project.activity"
+            @models={{array project.id activity.rollbackedOperation.id}}
+            class="item-details-link"
+          >
+            {{t "components.activity_item.details"}}
+          </LinkTo>
         {{/unless}}
       </div>
     {{/if}}
@@ -179,16 +185,25 @@
       </div>
     {{else if hasEmptyText}}
       <div class="item-translationText">
-        <span class="item-translationText-emptyText">{{t 'components.activity_item.empty_text'}}</span>
+        <span class="item-translationText-emptyText">
+          {{t "components.activity_item.empty_text"}}
+        </span>
       </div>
     {{/if}}
 
     {{#if showStats}}
       <ul class="item-stats">
-        <span class="item-stats-label">{{statsLabel}}</span>
-
+        <span class="item-stats-label">
+          {{statsLabel}}
+        </span>
         {{#each localizedStats as |stat|}}
-          <li>{{stat.text}}: <b>{{stat.count}}</b></li>
+          <li>
+            {{stat.text}}
+            :
+            <b>
+              {{stat.count}}
+            </b>
+          </li>
         {{/each}}
       </ul>
     {{/if}}

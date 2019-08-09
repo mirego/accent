@@ -6,4 +6,6 @@ import Component from '@ember/component';
 // translations: Array of object <translation>
 // query: String
 // onUpdateText: Function
-export default Component.extend();
+export default Component.extend({
+  tagName: 'ul'
+});

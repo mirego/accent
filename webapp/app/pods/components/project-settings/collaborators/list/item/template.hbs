@@ -1,14 +1,16 @@
 <div>
   <div>
     {{#if isEditing}}
-      {{acc-select
-        searchEnabled=false
-        selected=roleValue
-        options=mappedPossibleRoles
-        onchange=(action (mut updatedRole) value='value')
-      }}
+      <AccSelect
+        @searchEnabled={{false}}
+        @selected={{roleValue}}
+        @options={{mappedPossibleRoles}}
+        @onchange={{action (mut updatedRole) value="value"}}
+      />
     {{else}}
-      <span class="role">{{role}}</span>
+      <span class="role">
+        {{role}}
+      </span>
     {{/if}}
 
     <span class="user">
@@ -20,7 +22,9 @@
         {{#if hasJoined}}
           {{#if collaborator.user.fullname}}
             {{collaborator.user.fullname}}
-            <small class="user-email">{{collaborator.email}}</small>
+            <small class="user-email">
+              {{collaborator.email}}
+            </small>
           {{else}}
             {{collaborator.email}}
           {{/if}}
@@ -34,14 +38,15 @@
   <div>
     <span class="invite">
       {{#if hasJoined}}
-        {{t 'components.project_settings.collaborators_item.joined'}}
-        {{time-ago-in-words-tag date=collaborator.insertedAt}}
+        {{t "components.project_settings.collaborators_item.joined"}}
+        <TimeAgoInWordsTag @date={{collaborator.insertedAt}} />
       {{else}}
-        {{t 'components.project_settings.collaborators_item.invited'}}
-        {{time-ago-in-words-tag date=collaborator.insertedAt}}
+        {{t "components.project_settings.collaborators_item.invited"}}
+
+        <TimeAgoInWordsTag @date={{collaborator.insertedAt}} />
 
         {{#if collaborator.assigner}}
-          {{t 'components.project_settings.collaborators_item.by'}}
+          {{t "components.project_settings.collaborators_item.by"}}
           {{collaborator.assigner.fullname}}
         {{/if}}
       {{/if}}
@@ -52,30 +57,31 @@
 <div>
   {{#if isEditing}}
     {{#if canUpdateCollaborator}}
-      <button {{action 'updateCollaborator'}} class="button button--filled">
-        {{inline-svg '/assets/check.svg' class='button-icon'}}
-        {{t 'components.project_settings.collaborators_item.save_role'}}
+      <button class="button button--filled" {{action "updateCollaborator"}}>
+        {{inline-svg "/assets/check.svg" class="button-icon"}}
+        {{t "components.project_settings.collaborators_item.save_role"}}
       </button>
     {{/if}}
 
-    <button {{action 'toggleUpdateCollaborator'}} class="button button--grey">
-      {{t 'components.project_settings.collaborators_item.cancel_save_role'}}
+    <button class="button button--grey" {{action "toggleUpdateCollaborator"}}>
+      {{t "components.project_settings.collaborators_item.cancel_save_role"}}
     </button>
   {{else}}
     {{#if canUpdateCollaborator}}
-      <button {{action 'toggleUpdateCollaborator'}} class="button button--grey">
-        {{inline-svg '/assets/pencil.svg' class='button-icon'}}
-        {{t 'components.project_settings.collaborators_item.edit_role'}}
+      <button class="button button--grey" {{action "toggleUpdateCollaborator"}}>
+        {{inline-svg "/assets/pencil.svg" class="button-icon"}}
+        {{t "components.project_settings.collaborators_item.edit_role"}}
       </button>
     {{/if}}
 
     {{#if canDeleteCollaborator}}
-      <button {{action 'deleteCollaborator'}} class="button button--red">
-        {{inline-svg '/assets/x.svg' class='button-icon'}}
+      <button class="button button--red" {{action "deleteCollaborator"}}>
+        {{inline-svg "/assets/x.svg" class="button-icon"}}
+
         {{#if hasJoined}}
-          {{t 'components.project_settings.collaborators_item.delete_button'}}
+          {{t "components.project_settings.collaborators_item.delete_button"}}
         {{else}}
-          {{t 'components.project_settings.collaborators_item.uninvite_button'}}
+          {{t "components.project_settings.collaborators_item.uninvite_button"}}
         {{/if}}
       </button>
     {{/if}}

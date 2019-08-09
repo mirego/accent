@@ -1,11 +1,11 @@
 <div class="form">
-  {{acc-select
-    searchEnabled=false
-    selected=serviceValue
-    renderInPlace=true
-    options=mappedServices
-    onchange=(action (mut service) value='value')
-  }}
+  <AccSelect
+    @searchEnabled={{false}}
+    @selected={{serviceValue}}
+    @renderInPlace={{true}}
+    @options={{mappedServices}}
+    @onchange={{action (mut service) value="value"}}
+  />
 </div>
 
 {{component
@@ -20,16 +20,16 @@
 }}
 
 <div class="actions">
-  {{#async-button
-    onClick=(action 'submit')
-    loading=isCreating
-    class='button button--filled'
-  }}
-    {{t 'components.project_settings.integrations.save'}}
-  {{/async-button}}
+  <AsyncButton
+    @onClick={{action "submit"}}
+    @loading={{isCreating}}
+    class="button button--filled"
+  >
+    {{t "components.project_settings.integrations.save"}}
+  </AsyncButton>
 
   {{#if onCancel}}
-    <button {{action onCancel}} class="button button--filled button--white">
+    <button class="button button--filled button--white" {{action onCancel}}>
       Cancel
     </button>
   {{/if}}

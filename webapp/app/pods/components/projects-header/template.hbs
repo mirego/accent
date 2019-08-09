@@ -1,36 +1,36 @@
 <div class="content">
   <div class="content-left">
     {{#if project}}
-      {{#link-to
-        'logged-in.projects'
-        class='applicationLogo'
-      }}
-        {{inline-svg 'assets/logo.svg' class='applicationLogo-image applicationLogo-image--linked'}}
-      {{/link-to}}
+      <LinkTo @route="logged-in.projects" class="applicationLogo">
+        {{inline-svg
+          "assets/logo.svg"
+          class="applicationLogo-image applicationLogo-image--linked"
+        }}
+      </LinkTo>
 
-      {{#link-to
-        'logged-in.project.index'
-        project.id
-        class='project'
-      }}
+      <LinkTo
+        @route="logged-in.project.index"
+        @model={{project.id}}
+        class="project"
+      >
         {{project.name}}
-      {{/link-to}}
+      </LinkTo>
 
       <div class="search">
-        {{inline-svg '/assets/search.svg' class='search-icon'}}
-
-        {{input
-          class='search-input'
-          type='text'
-          placeholder=(t 'general.search_input_placeholder_text')
-          value=debouncedQuery
-        }}
+        {{inline-svg "/assets/search.svg" class="search-icon"}}
+        <Input
+          class="search-input"
+          @type="text"
+          placeholder={{t "general.search_input_placeholder_text"}}
+          @value={{debouncedQuery}}
+        />
       </div>
     {{else}}
       <div class="applicationLogo">
-        {{inline-svg 'assets/logo.svg' class='applicationLogo-image'}}
-
-        <span class="applicationLogo-accent">{{t 'general.application_name'}}</span>
+        {{inline-svg "assets/logo.svg" class="applicationLogo-image"}}
+        <span class="applicationLogo-accent">
+          {{t "general.application_name"}}
+        </span>
       </div>
     {{/if}}
   </div>
@@ -41,9 +41,14 @@
         <img class="picture" src="{{session.credentials.user.pictureUrl}}" />
       {{/if}}
 
-      <span class="username">{{session.credentials.user.fullname}}</span>
+      <span class="username">
+        {{session.credentials.user.fullname}}
+      </span>
+
       {{#unless project}}
-        <button {{action 'logout'}} class="button button--white">{{t 'general.logout_button'}}</button>
+        <button class="button button--white" {{action "logout"}}>
+          {{t "general.logout_button"}}
+        </button>
       {{/unless}}
     </div>
   {{/if}}

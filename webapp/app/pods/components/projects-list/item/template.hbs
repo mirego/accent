@@ -1,5 +1,7 @@
 <div class="projectHeader projectId-{{project.id}}">
-  <span class="projectName">{{project.name}}</span>
+  <span class="projectName">
+    {{project.name}}
+  </span>
   <style>
     {{{this.colors}}}
   </style>
@@ -9,20 +11,21 @@
   <span class="projectUpdates">
     {{#if project.lastSyncedAt}}
       <span class="projectUpdate">
-        {{t 'components.projects_list.last_synced_at_label'}}
-        {{time-ago-in-words-tag
-          date=project.lastSyncedAt
-          class='lastSyncedAt-date'
-        }}
+        {{t "components.projects_list.last_synced_at_label"}}
+        <TimeAgoInWordsTag
+          @date={{project.lastSyncedAt}}
+          class="lastSyncedAt-date"
+        />
       </span>
     {{else}}
-      {{t 'components.projects_list.never_synced'}}
+      {{t "components.projects_list.never_synced"}}
     {{/if}}
   </span>
+
   <span class="numberStat-totals">
     {{totalStrings}}
-    {{t 'components.dashboard_revisions.strings'}}
+    {{t "components.dashboard_revisions.strings"}}
   </span>
 </div>
 
-{{review-progress-bar correctedKeysPercentage=correctedKeysPercentage}}
+<ReviewProgressBar @correctedKeysPercentage={{correctedKeysPercentage}} />

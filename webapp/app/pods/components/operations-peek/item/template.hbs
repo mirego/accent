@@ -1,11 +1,33 @@
 <div>
   <div class="languageHeader">
-    <strong class="languageHeader-title">{{revisionOperation.language.name}}</strong>
+    <strong class="languageHeader-title">
+      {{revisionOperation.language.name}}
+    </strong>
 
     <div class="languageHeader-displayOptions">
-      <button class="languageHeader-displayOptions-button" {{action 'showStats'}} disabled={{showStats}}>Overview</button>
-      <button class="languageHeader-displayOptions-button" {{action 'showOperations'}} disabled={{showOperations}}>Details</button>
-      <button class="languageHeader-displayOptions-button" {{action 'hideDetails'}} disabled={{hideDetails}}>Hide</button>
+      <button
+        class="languageHeader-displayOptions-button"
+        disabled={{showStats}}
+        {{action "showStats"}}
+      >
+        Overview
+      </button>
+
+      <button
+        class="languageHeader-displayOptions-button"
+        disabled={{showOperations}}
+        {{action "showOperations"}}
+      >
+        Details
+      </button>
+
+      <button
+        class="languageHeader-displayOptions-button"
+        disabled={{hideDetails}}
+        {{action "hideDetails"}}
+      >
+        Hide
+      </button>
     </div>
   </div>
 
@@ -13,39 +35,66 @@
     <ul class="statsList">
       {{#each revisionOperation.stats as |stat|}}
         <li class="stat">
-          <span class="stat-count">{{stat.count}}</span><span class="stat-action">{{stat.action}}</span>
+          <span class="stat-count">
+            {{stat.count}}
+          </span>
+
+          <span class="stat-action">
+            {{stat.action}}
+          </span>
         </li>
       {{else}}
-        <li class="noChanges">No changes on this language</li>
+        <li class="noChanges">
+          No changes on this language
+        </li>
       {{/each}}
     </ul>
   {{/if}}
 
   {{#if showOperations}}
     <ul class="operationsList">
-    {{#each revisionOperation.operations as |operation|}}
-      <li class="operation">
-        <div class="operation-header">
-          <span class="operation-key">{{operation.key}}</span>
-          <strong class="operation-action">{{operation.action}}</strong>
-        </div>
+      {{#each revisionOperation.operations as |operation|}}
+        <li class="operation">
+          <div class="operation-header">
+            <span class="operation-key">
+              {{operation.key}}
+            </span>
+            <strong class="operation-action">
+              {{operation.action}}
+            </strong>
+          </div>
 
-        <div class="operation-content">
-          {{#if operation.previousText}}
-            {{#if operation.text}}
-              <div><span class="operation-textLabel">Previous:</span><div class="operation-text">{{operation.previousText}}</div></div>
-              <div><span class="operation-textLabel">Text:</span><div class="operation-text">{{operation.text}}</div></div>
+          <div class="operation-content">
+            {{#if operation.previousText}}
+              {{#if operation.text}}
+                <div>
+                  <span class="operation-textLabel">
+                    Previous:
+                  </span>
+
+                  <div class="operation-text">{{operation.previousText}}</div>
+                </div>
+
+                <div>
+                  <span class="operation-textLabel">
+                    Text:
+                  </span>
+
+                  <div class="operation-text">{{operation.text}}</div>
+                </div>
+              {{else}}
+                <div class="operation-text">{{operation.previousText}}</div>
+              {{/if}}
             {{else}}
-              <div class="operation-text">{{operation.previousText}}</div>
+              <div class="operation-text">{{operation.text}}</div>
             {{/if}}
-          {{else}}
-            <div class="operation-text">{{operation.text}}</div>
-          {{/if}}
-        </div>
-      </li>
-    {{else}}
-      <li class="noChanges">No changes on this language</li>
-    {{/each}}
+          </div>
+        </li>
+      {{else}}
+        <li class="noChanges">
+          No changes on this language
+        </li>
+      {{/each}}
     </ul>
   {{/if}}
 </div>

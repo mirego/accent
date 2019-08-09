@@ -98,13 +98,13 @@
     stroke: darken($color-green, 25%);
     stroke: var(--color-primary-darken-30);
     width: 17px;
-    height: 17px
+    height: 17px;
   }
 
   .item-user-picture {
     top: -1px;
     width: 21px;
-    height: 21px
+    height: 21px;
   }
 
   &.compact {
@@ -112,13 +112,13 @@
       stroke: $color-success;
     }
 
-   .item-user--bot {
-     padding-left: 18px;
-   }
+    .item-user--bot {
+      padding-left: 18px;
+    }
 
-   .item-user,
-   .item-header-content {
-     font-size: 12px;
+    .item-user,
+    .item-header-content {
+      font-size: 12px;
     }
 
     .item-user-icon {

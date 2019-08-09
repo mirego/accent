@@ -1,26 +1,23 @@
 {{#unless this.withSelectedTranslations}}
-  {{translations-filter
-    query=query
-    document=document
-    documents=model.project.documents
-    version=version
-    versions=model.project.versions.entries
-    onChangeQuery=(action 'changeQuery')
-    onChangeDocument=(action 'changeDocument')
-    onChangeVersion=(action 'changeVersion')
-    meta=model.project.revision.translations.meta
-  }}
+  <TranslationsFilter
+    @query={{query}}
+    @document={{document}}
+    @documents={{model.project.documents}}
+    @version={{version}}
+    @versions={{model.project.versions.entries}}
+    @onChangeQuery={{action "changeQuery"}}
+    @onChangeDocument={{action "changeDocument"}}
+    @onChangeVersion={{action "changeVersion"}}
+    @meta={{model.project.revision.translations.meta}}
+  />
 {{/unless}}
-
 {{#if this.withSelectedTranslations}}
-  {{jipt-translations-filtered-title count=this.filteredTranslations.length}}
+  <JiptTranslationsFilteredTitle @count={{this.filteredTranslations.length}} />
 {{/if}}
-
-{{jipt-translations-list translations=this.filteredTranslations}}
-
+<JiptTranslationsList @translations={{this.filteredTranslations}} />
 {{#unless this.withSelectedTranslations}}
-  {{resource-pagination
-    meta=model.project.revision.translations.meta
-    onSelectPage=(action 'selectPage')
-  }}
+  <ResourcePagination
+    @meta={{model.project.revision.translations.meta}}
+    @onSelectPage={{action "selectPage"}}
+  />
 {{/unless}}

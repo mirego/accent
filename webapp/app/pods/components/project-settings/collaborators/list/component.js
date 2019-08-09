@@ -7,6 +7,8 @@ import Component from '@ember/component';
 // onDelete: Function
 // onUpdate: Function
 export default Component.extend({
+  tagName: 'ul',
+
   filteredCollaborators: computed('collaborators.[]', function() {
     return this.collaborators.filter(
       collaborator => collaborator.isPending || !collaborator.user.isBot

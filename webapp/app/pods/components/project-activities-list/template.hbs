@@ -1,19 +1,19 @@
 {{#if activities}}
   <ul class="list">
-    {{#each activities key='id' as |activity|}}
-      {{activity-item
-        compact=compact
-        permissions=permissions
-        showTranslationLink=true
-        componentTranslationPrefix='project_activities_list_item'
-        activity=activity
-        project=project
-      }}
+    {{#each activities key="id" as |activity|}}
+      <ActivityItem
+        @compact={{compact}}
+        @permissions={{permissions}}
+        @showTranslationLink={{true}}
+        @componentTranslationPrefix="project_activities_list_item"
+        @activity={{activity}}
+        @project={{project}}
+      />
     {{/each}}
   </ul>
 {{else}}
-  {{empty-content
-    iconPath='assets/empty.svg'
-    text=(t 'components.project_activities_list.empty_activities_text')
-  }}
+  <EmptyContent
+    @iconPath="assets/empty.svg"
+    @text={{t "components.project_activities_list.empty_activities_text"}}
+  />
 {{/if}}

@@ -1,58 +1,64 @@
 <div class="list-item-header">
-  {{#link-to
-    'logged-in.project.edit.manage-languages.edit'
-    project.id
-    revision.id
-    class='list-item-header-edit'
-  }}
-    {{inline-svg 'assets/pencil.svg' class='item-edit-icon'}}
-  {{/link-to}}
+  <LinkTo
+    @route="logged-in.project.edit.manage-languages.edit"
+    @models={{array project.id revision.id}}
+    class="list-item-header-edit"
+  >
+    {{inline-svg "assets/pencil.svg" class="item-edit-icon"}}
+  </LinkTo>
 
-  {{#link-to
-    'logged-in.project.revision.translations'
-    project.id
-    revision.id
-    class='list-link'
-  }}
+  <LinkTo
+    @route="logged-in.project.revision.translations"
+    @models={{array project.id revision.id}}
+    class="list-link"
+  >
     {{this.name}}
-    <small class="list-link-small">{{this.slug}}</small>
-  {{/link-to}}
+    <small class="list-link-small">
+      {{this.slug}}
+    </small>
+  </LinkTo>
 
   {{#if revision.isMaster}}
-    {{#acc-badge class='masterBadge'}}
-      {{t 'components.project_manage_languages_overview.master_badge'}}
-    {{/acc-badge}}
+    <AccBadge class="masterBadge">
+      {{t "components.project_manage_languages_overview.master_badge"}}
+    </AccBadge>
   {{/if}}
 </div>
 
 <div class="list-item-infos">
   {{#unless revision.isMaster}}
     <div class="list-item-infos-date">
-      {{t 'components.project_manage_languages_overview.revision_inserted_at_label'}}
-      {{time-ago-in-words-tag date=revision.insertedAt}}
+      {{t
+        "components.project_manage_languages_overview.revision_inserted_at_label"
+      }}
+      <TimeAgoInWordsTag @date={{revision.insertedAt}} />
     </div>
 
     <div class="list-item-actions">
-      {{#if (get permissions 'promote_slave')}}
-        {{#async-button
-          loading=isPromoting
-          class='button--grey button--small promoteSlaveButton'
-          onClick=(action 'promoteRevision')
-        }}
-          {{inline-svg '/assets/chevron-top.svg' class='button-icon'}}
-          {{t 'components.project_manage_languages_overview.promote_revision_master_button'}}
-        {{/async-button}}
+      {{#if (get permissions "promote_slave")}}
+        <AsyncButton
+          @loading={{isPromoting}}
+          class="button--grey button--small promoteSlaveButton"
+          @onClick={{action "promoteRevision"}}
+        >
+          {{inline-svg "/assets/chevron-top.svg" class="button-icon"}}
+          {{t
+            "components.project_manage_languages_overview.promote_revision_master_button"
+          }}
+        </AsyncButton>
       {{/if}}
 
-      {{#if (get permissions 'delete_slave')}}
-        {{#async-button
-          loading=isDeleting
-          class='button--red button--filled button--small'
-          onClick=(action 'deleteRevision')
-        }}
-          {{inline-svg '/assets/x.svg' class='button-icon'}}
-          {{t 'components.project_manage_languages_overview.delete_revision_button'}}
-        {{/async-button}}
+      {{#if (get permissions "delete_slave")}}
+        <AsyncButton
+          @loading={{isDeleting}}
+          class="button--red button--filled button--small"
+          @onClick={{action "deleteRevision"}}
+        >
+          {{inline-svg "/assets/x.svg" class="button-icon"}}
+          {{t
+            "components.project_manage_languages_overview.delete_revision_button"
+          }}
+        </AsyncButton>
       {{/if}}
     </div>
   {{/unless}}

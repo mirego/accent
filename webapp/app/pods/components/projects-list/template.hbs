@@ -1,34 +1,28 @@
-<ul>
-  {{#each projects key='id' as |project|}}
-    <li class="item">
-      {{#link-to
-        'logged-in.project'
-        project.id
-        class='item-link'
-      }}
-        {{projects-list/item project=project}}
-      {{/link-to}}
-    </li>
-  {{else if query}}
-    {{empty-content
-      iconPath='assets/empty.svg'
-      text=(t 'components.projects_list.no_projects_query' query=query)
-    }}
-  {{else}}
-    {{#empty-content}}
-      {{inline-svg 'assets/empty.svg' class='icon'}}
-      {{t 'components.projects_list.no_projects'}}
-
-      {{#if (get permissions 'create_project')}}
-        <div class="link-section">
-          {{#link-to
-            'logged-in.projects.new'
-            class='link'
-          }}
-            {{t 'components.projects_list.maybe_create_one'}}
-          {{/link-to}}
-        </div>
-      {{/if}}
-    {{/empty-content}}
-  {{/each}}
-</ul>
+{{#each projects key="id" as |project|}}
+  <li class="item">
+    <LinkTo
+      @route="logged-in.project"
+      @model={{project.id}}
+      class="item-link"
+    >
+      <ProjectsList::Item @project={{project}} />
+    </LinkTo>
+  </li>
+{{else if query}}
+  <EmptyContent
+    @iconPath="assets/empty.svg"
+    @text={{t "components.projects_list.no_projects_query" query=query}}
+  />
+{{else}}
+  <EmptyContent>
+    {{inline-svg "assets/empty.svg" class="icon"}}
+    {{t "components.projects_list.no_projects"}}
+    {{#if (get permissions "create_project")}}
+      <div class="link-section">
+        <LinkTo @route="logged-in.projects.new" class="link">
+          {{t "components.projects_list.maybe_create_one"}}
+        </LinkTo>
+      </div>
+    {{/if}}
+  </EmptyContent>
+{{/each}}

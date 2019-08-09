@@ -1,5 +1,3 @@
-<div>
-  {{#each flashMessages.queue as |flash|}}
-    {{acc-flash-message flash=flash}}
-  {{/each}}
-</div>
+{{#each flashMessages.queue as |flash|}}
+  <AccFlashMessage @flash={{flash}} />
+{{/each}}

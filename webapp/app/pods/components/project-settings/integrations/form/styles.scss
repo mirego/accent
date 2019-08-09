@@ -74,7 +74,7 @@
 }
 
 .error-control {
- @extend %errorControl;
+  @extend %errorControl;
 }
 
 .data-title {
@@ -119,7 +119,7 @@
   align-items: center;
 }
 
-.ember-power-select-trigger[aria-disabled="true"] {
+.ember-power-select-trigger[aria-disabled='true'] {
   background: transparent;
   box-shadow: none;
 }

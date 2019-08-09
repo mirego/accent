@@ -1,18 +1,22 @@
-{{acc-select
-  search=(action 'searchLanguages')
-  searchEnabled=true
-  options=mappedLanguages
-  selected=languageValue
-  placeholder=(t 'components.project_manage_languages_create_form.language_search_placeholder')
-  searchPlaceholder=(t 'components.project_manage_languages_create_form.language_search_placeholder')
-  onchange=(action (mut language) value='value')
-}}
+<AccSelect
+  @search={{action "searchLanguages"}}
+  @searchEnabled={{true}}
+  @options={{mappedLanguages}}
+  @selected={{languageValue}}
+  placeholder={{t
+    "components.project_manage_languages_create_form.language_search_placeholder"
+  }}
+  @searchPlaceholder={{t
+    "components.project_manage_languages_create_form.language_search_placeholder"
+  }}
+  @onchange={{action (mut language) value="value"}}
+/>
 
-{{#async-button
-  onClick=(action 'submit')
-  class='button button--filled'
-  loading=isLoading
-  disabled=emptyLanguage
-}}
-  {{t 'components.project_manage_languages_create_form.save_button'}}
-{{/async-button}}
+<AsyncButton
+  @onClick={{action "submit"}}
+  class="button button--filled"
+  @loading={{isLoading}}
+  @disabled={{emptyLanguage}}
+>
+  {{t "components.project_manage_languages_create_form.save_button"}}
+</AsyncButton>

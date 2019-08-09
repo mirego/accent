@@ -1,28 +1,29 @@
 <div class="filters">
-  <form {{action 'submitForm' on='submit'}} class="filters-wrapper">
+  <form class="filters-wrapper" {{action "submitForm" on="submit"}}>
     <div class="filters-content">
       <div class="queryForm">
-        {{inline-svg '/assets/search.svg' class='search-icon'}}
-
-        {{input
-          class='input'
-          type='text'
-          placeholder=(t 'components.translations_filter.input_placeholder_text')
-          value=debouncedQuery
-        }}
+        {{inline-svg "/assets/search.svg" class="search-icon"}}
+        <Input
+          class="input"
+          @type="text"
+          placeholder={{t
+            "components.translations_filter.input_placeholder_text"
+          }}
+          @value={{debouncedQuery}}
+        />
       </div>
 
       <div class="queryForm-filters">
         {{#if showDocumentsSelect}}
           <div class="queryForm-filter">
             <div class="queryForm-filter-select">
-              {{acc-select
-                matchTriggerWidth=false
-                searchEnabled=false
-                selected=documentValue
-                options=mappedDocuments
-                onchange=(action onChangeDocument value='value')
-              }}
+              <AccSelect
+                @matchTriggerWidth={{false}}
+                @searchEnabled={{false}}
+                @selected={{documentValue}}
+                @options={{mappedDocuments}}
+                @onchange={{action onChangeDocument value="value"}}
+              />
             </div>
           </div>
         {{/if}}
@@ -30,13 +31,13 @@
         {{#if showVersionsSelect}}
           <div class="queryForm-filter">
             <div class="queryForm-filter-select">
-              {{acc-select
-                matchTriggerWidth=false
-                searchEnabled=false
-                selected=versionValue
-                options=mappedVersions
-                onchange=(action onChangeVersion value='value')
-              }}
+              <AccSelect
+                @matchTriggerWidth={{false}}
+                @searchEnabled={{false}}
+                @selected={{versionValue}}
+                @options={{mappedVersions}}
+                @onchange={{action onChangeVersion value="value"}}
+              />
             </div>
           </div>
         {{/if}}
@@ -44,7 +45,12 @@
     </div>
 
     {{#if meta.totalEntries}}
-      <span class="totalEntries">{{t 'components.translations_filter.total_entries_count' count=meta.totalEntries}}</span>
+      <span class="totalEntries">
+        {{t
+          "components.translations_filter.total_entries_count"
+          count=meta.totalEntries
+        }}
+      </span>
     {{/if}}
   </form>
 </div>

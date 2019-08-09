@@ -1,9 +1,12 @@
-<strong class="title">{{t 'components.translation_comments_subscriptions.title'}}</strong>
-{{#each filteredCollaborators key='id' as |collaborator|}}
-  {{translation-comments-subscriptions/item
-    subscriptions=subscriptions
-    collaborator=collaborator
-    onCreateSubscription=onCreateSubscription
-    onDeleteSubscription=onDeleteSubscription
-  }}
+<strong class="title">
+  {{t "components.translation_comments_subscriptions.title"}}
+</strong>
+
+{{#each filteredCollaborators key="id" as |collaborator|}}
+  <TranslationCommentsSubscriptions::Item
+    @subscriptions={{subscriptions}}
+    @collaborator={{collaborator}}
+    @onCreateSubscription={{onCreateSubscription}}
+    @onDeleteSubscription={{onDeleteSubscription}}
+  />
 {{/each}}
