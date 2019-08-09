@@ -1,7 +1,5 @@
 & {
   margin-top: 25px;
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .item {
@@ -15,10 +13,6 @@
   }
 
   &:nth-child(4) {
-    opacity: 0.6;
-  }
-
-  &:nth-child(5) {
     opacity: 0.4;
   }
 }
@@ -43,9 +37,4 @@
   width: 80px;
   border: 1px solid #eee;
   margin-right: 10px;
-}
-
-.item-button--green {
-  border-color: rgba($color-green, 0.3);
-  background: rgba($color-green, 0.1);
 }
