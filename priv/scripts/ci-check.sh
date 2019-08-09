@@ -46,9 +46,6 @@ run make lint-eslint
 header "Tslint code lint…"
 run make lint-tslint
 
-header "Webapp tests…"
-run npm --prefix webapp test
-
 if [ ${error_status} -ne 0 ]; then
   echo "\n\n${YELLOW}▶▶ One of the checks ${RED_BOLD}failed${YELLOW}. Please fix it before committing.${NO_COLOR}"
 else
