@@ -69,7 +69,7 @@
     }
   }
 
-  &[aria-expanded="true"] {
+  &[aria-expanded='true'] {
     .ember-power-select-status-icon {
       &:after {
         transform: rotate(0);

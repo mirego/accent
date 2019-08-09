@@ -10,6 +10,7 @@ import Component from '@ember/component';
 export default Component.extend({
   exporter: service(),
 
+  tagName: 'pre',
   content: '',
 
   didReceiveAttrs() {

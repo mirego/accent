@@ -1,9 +1,9 @@
-{{error-section
-  status=status
-  title=title
-  text=text
-  onLogout=(action 'logout')
-  isAuthenticated=session.isAuthenticated
-}}
+<ErrorSection
+  @status={{status}}
+  @title={{title}}
+  @text={{text}}
+  @onLogout={{action "logout"}}
+  @isAuthenticated={{session.isAuthenticated}}
+/>
 
-{{application-footer}}
+<ApplicationFooter />

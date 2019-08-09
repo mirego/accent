@@ -1,33 +1,39 @@
-{{project-settings/title title=(t 'components.project_settings.integrations.title')}}
+<ProjectSettings::Title
+  @title={{t "components.project_settings.integrations.title"}}
+/>
 
-{{#if (get permissions 'create_project_integration')}}
-  <button {{action 'toggleCreateForm'}} class="toggleCreateFormButton button button--iconOnly {{if showCreateForm 'button--filled button--white' 'button--filled'}}">
+{{#if (get permissions "create_project_integration")}}
+  <button
+    class="toggleCreateFormButton button button--iconOnly
+      {{if showCreateForm "button--filled button--white" "button--filled"}}"
+    {{action "toggleCreateForm"}}
+  >
     {{#if showCreateForm}}
-      {{inline-svg '/assets/x.svg' class='button-icon'}}
+      {{inline-svg "/assets/x.svg" class="button-icon"}}
     {{else}}
-      {{inline-svg '/assets/add.svg' class='button-icon'}}
+      {{inline-svg "/assets/add.svg" class="button-icon"}}
     {{/if}}
   </button>
 {{/if}}
 
 <p class="help">
-  {{t 'components.project_settings.integrations.help'}}
+  {{t "components.project_settings.integrations.help"}}
 </p>
 
 {{#if showCreateForm}}
   <div class="createForm">
-    {{project-settings/integrations/form
-      project=project
-      onCancel=(action 'toggleCreateForm')
-      onSubmit=(action 'create')
-    }}
+    <ProjectSettings::Integrations::Form
+      @project={{project}}
+      @onCancel={{action "toggleCreateForm"}}
+      @onSubmit={{action "create"}}
+    />
   </div>
 {{/if}}
 
-{{project-settings/integrations/list
-  permissions=permissions
-  project=project
-  integrations=project.integrations
-  onUpdate=onUpdateIntegration
-  onDelete=onDeleteIntegration
-}}
+<ProjectSettings::Integrations::List
+  @permissions={{permissions}}
+  @project={{project}}
+  @integrations={{project.integrations}}
+  @onUpdate={{onUpdateIntegration}}
+  @onDelete={{onDeleteIntegration}}
+/>

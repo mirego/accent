@@ -1,7 +1,7 @@
 <div>
-  {{login-header}}
-  {{login-forms providers=model.authenticationProviders}}
-  {{login-footer}}
+  <LoginHeader />
+  <LoginForms @providers={{model.authenticationProviders}} />
+  <LoginFooter />
 </div>
 
-{{application-footer}}
+<ApplicationFooter />

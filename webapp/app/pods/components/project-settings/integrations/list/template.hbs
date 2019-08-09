@@ -1,9 +1,9 @@
-{{#each integrations key='id' as |integration|}}
-  {{project-settings/integrations/list/item
-    project=project
-    permissions=permissions
-    integration=integration
-    onUpdate=onUpdate
-    onDelete=onDelete
-  }}
+{{#each integrations key="id" as |integration|}}
+  <ProjectSettings::Integrations::List::Item
+    @project={{project}}
+    @permissions={{permissions}}
+    @integration={{integration}}
+    @onUpdate={{onUpdate}}
+    @onDelete={{onDelete}}
+  />
 {{/each}}

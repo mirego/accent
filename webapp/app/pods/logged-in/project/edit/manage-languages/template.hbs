@@ -1,22 +1,23 @@
 {{#if model.loading}}
-  {{skeleton-ui/progress-line}}
+  <SkeletonUi::ProgressLine />
 {{/if}}
 
 {{#if showLoading}}
-  {{loading-content label=(t 'pods.project.manage_languages.loading_content')}}
+  <LoadingContent
+    @label={{t "pods.project.manage_languages.loading_content"}}
+  />
 {{else}}
-  {{project-settings/back-link project=model.project}}
-
-  {{project-settings/manage-languages
-    project=model.project
-    revisions=model.project.revisions
-    permissions=permissions
-    languages=filteredLanguages
-    errors=errors
-    onPromoteMaster=(action 'promoteRevisionMaster')
-    onDelete=(action 'deleteRevision')
-    onCreate=(action 'create')
-  }}
+  <ProjectSettings::BackLink @project={{model.project}} />
+  <ProjectSettings::ManageLanguages
+    @project={{model.project}}
+    @revisions={{model.project.revisions}}
+    @permissions={{permissions}}
+    @languages={{filteredLanguages}}
+    @errors={{errors}}
+    @onPromoteMaster={{action "promoteRevisionMaster"}}
+    @onDelete={{action "deleteRevision"}}
+    @onCreate={{action "create"}}
+  />
 {{/if}}
 
 {{outlet}}

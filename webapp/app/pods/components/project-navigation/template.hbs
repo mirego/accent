@@ -1,7 +1,5 @@
-<div class="list">
-  {{project-navigation/list
-    selectedRevision=selectedRevision
-    permissions=permissions
-    project=project
-  }}
-</div>
+<ProjectNavigation::List
+  @selectedRevision={{selectedRevision}}
+  @permissions={{permissions}}
+  @project={{project}}
+/>

@@ -1,10 +1,9 @@
-{{input
-  type='checkbox'
-  class='checkbox'
-  checked=isSubscribed
-}}
+<Input @type="checkbox" class="checkbox" @checked={{isSubscribed}} />
 
 <span class="user">
   {{collaborator.user.fullname}}
-  <span class="user-email">{{collaborator.email}}</span>
+
+  <span class="user-email">
+    {{collaborator.email}}
+  </span>
 </span>

@@ -1,9 +1,9 @@
 {{#if this.revision}}
-  {{#acc-modal small=true onClose=(action 'closeModal')}}
-    {{revision-update-form
-      project=this.project
-      revision=this.revision
-      onUpdate=(action 'update')
-    }}
-  {{/acc-modal}}
+  <AccModal @small={{true}} @onClose={{action "closeModal"}}>
+    <RevisionUpdateForm
+      @project={{this.project}}
+      @revision={{this.revision}}
+      @onUpdate={{action "update"}}
+    />
+  </AccModal>
 {{/if}}

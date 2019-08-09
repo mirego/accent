@@ -1,10 +1,8 @@
-<ul>
-  {{#each filteredCollaborators key='id' as |collaborator|}}
-    {{project-settings/collaborators/list/item
-      collaborator=collaborator
-      permissions=permissions
-      onUpdate=(action 'updateCollaborator')
-      onDelete=(action 'deleteCollaborator')
-    }}
-  {{/each}}
-</ul>
+{{#each filteredCollaborators key="id" as |collaborator|}}
+  <ProjectSettings::Collaborators::List::Item
+    @collaborator={{collaborator}}
+    @permissions={{permissions}}
+    @onUpdate={{action "updateCollaborator"}}
+    @onDelete={{action "deleteCollaborator"}}
+  />
+{{/each}}

@@ -1,27 +1,33 @@
-  <div class="data">
-    <div class="data-control {{if urlError 'error-control'}}">
-      <label class="data-title">
-        {{t 'components.project_settings.integrations.data.url'}}
-        <a class="data-title-help" target="_blank" rel="noopener noreferrer" href="https://api.slack.com/incoming-webhooks">
-          {{t 'components.project_settings.integrations.webhook_url_how'}}
-        </a>
-      </label>
-      {{input
-        placeholder="https://hooks.slack.com/services/aaaa/bbbb/cccc"
-        value=url
-        class='textInput'
-      }}
-    </div>
+<div class="data">
+  <div class="data-control {{if urlError "error-control"}}">
+    <label class="data-title">
+      {{t "components.project_settings.integrations.data.url"}}
+      <a
+        class="data-title-help"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://api.slack.com/incoming-webhooks"
+      >
+        {{t "components.project_settings.integrations.webhook_url_how"}}
+      </a>
+    </label>
 
-    <div class="data-control">
-      <h3 class="data-title">
-        {{t 'components.project_settings.integrations.events.title'}}
-      </h3>
-
-      {{checkbox-with-label
-        checked=syncChecked
-        text=(t 'components.project_settings.integrations.events.options.sync')
-        update=(action (mut syncChecked))
-      }}
-    </div>
+    <Input
+      placeholder="https://hooks.slack.com/services/aaaa/bbbb/cccc"
+      @value={{url}}
+      class="textInput"
+    />
   </div>
+
+  <div class="data-control">
+    <h3 class="data-title">
+      {{t "components.project_settings.integrations.events.title"}}
+    </h3>
+
+    <CheckboxWithLabel
+      @checked={{syncChecked}}
+      @text={{t "components.project_settings.integrations.events.options.sync"}}
+      @update={{action (mut syncChecked)}}
+    />
+  </div>
+</div>

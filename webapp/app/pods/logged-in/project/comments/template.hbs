@@ -1,17 +1,16 @@
 {{#if model.loading}}
-  {{skeleton-ui/progress-line}}
+  <SkeletonUi::ProgressLine />
 {{/if}}
 
 {{#if showSkeleton}}
-  {{skeleton-ui/project-comments-list}}
+  <SkeletonUi::ProjectCommentsList />
 {{else}}
-  {{project-comments-list
-    project=model.project
-    comments=model.comments.entries
-  }}
-
-  {{resource-pagination
-    meta=model.comments.meta
-    onSelectPage=(action 'selectPage')
-  }}
+  <ProjectCommentsList
+    @project={{model.project}}
+    @comments={{model.comments.entries}}
+  />
+  <ResourcePagination
+    @meta={{model.comments.meta}}
+    @onSelectPage={{action "selectPage"}}
+  />
 {{/if}}

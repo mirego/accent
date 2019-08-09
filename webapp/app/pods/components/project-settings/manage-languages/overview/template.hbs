@@ -1,14 +1,16 @@
-{{project-settings/title title=(t 'components.project_manage_languages_overview.list_languages')}}
+<ProjectSettings::Title
+  @title={{t "components.project_manage_languages_overview.list_languages"}}
+/>
 
 <ul class="list">
-  {{#each revisions key='id' as |revision|}}
-    {{project-settings/manage-languages/overview/item
-      master=revision.isMaster
-      permissions=permissions
-      onPromoteMaster=onPromoteMaster
-      onDelete=onDelete
-      project=project
-      revision=revision
-    }}
+  {{#each revisions key="id" as |revision|}}
+    <ProjectSettings::ManageLanguages::Overview::Item
+      @master={{revision.isMaster}}
+      @permissions={{permissions}}
+      @onPromoteMaster={{onPromoteMaster}}
+      @onDelete={{onDelete}}
+      @project={{project}}
+      @revision={{revision}}
+    />
   {{/each}}
 </ul>

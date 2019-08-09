@@ -1,36 +1,35 @@
 {{#if showSkeleton}}
-  {{skeleton-ui/project-activities-filter}}
+  <SkeletonUi::ProjectActivitiesFilter />
 
   {{#if model.loading}}
-    {{skeleton-ui/progress-line}}
+    <SkeletonUi::ProgressLine />
   {{/if}}
-
-  {{skeleton-ui/activities-list showTranslationLink=true}}
+  <SkeletonUi::ActivitiesList @showTranslationLink={{true}} />
 {{else}}
   {{#if model.collaborators}}
-    {{project-activities-filter
-      collaborators=model.collaborators
-      batchFilter=batchFilter
-      actionFilter=actionFilter
-      userFilter=userFilter
-      userFilterChange=(action 'userFilterChange')
-      batchFilterChange=(action 'batchFilterChange')
-      actionFilterChange=(action 'actionFilterChange')
-    }}
+    <ProjectActivitiesFilter
+      @collaborators={{model.collaborators}}
+      @batchFilter={{batchFilter}}
+      @actionFilter={{actionFilter}}
+      @userFilter={{userFilter}}
+      @userFilterChange={{action "userFilterChange"}}
+      @batchFilterChange={{action "batchFilterChange"}}
+      @actionFilterChange={{action "actionFilterChange"}}
+    />
   {{/if}}
 
   {{#if model.loading}}
-    {{skeleton-ui/progress-line}}
+    <SkeletonUi::ProgressLine />
   {{/if}}
 
-  {{project-activities-list
-    permissions=permissions
-    activities=model.activities.entries
-    project=model.project
-  }}
+  <ProjectActivitiesList
+    @permissions={{permissions}}
+    @activities={{model.activities.entries}}
+    @project={{model.project}}
+  />
 
-  {{resource-pagination
-    meta=model.activities.meta
-    onSelectPage=(action 'selectPage')
-  }}
+  <ResourcePagination
+    @meta={{model.activities.meta}}
+    @onSelectPage={{action "selectPage"}}
+  />
 {{/if}}

@@ -1,22 +1,23 @@
 <li>
-  {{#link-to
-    'logged-in.project.translation'
-    project.id
-    conflict.id
-    class='key'
-  }}
+  <LinkTo
+    @route="logged-in.project.translation"
+    @models={{array project.id conflict.id}}
+    class="key"
+  >
     <strong class="item-key">
-      <small class="item-key-prefix">{{conflictKey.prefix}}</small>
+      <small class="item-key-prefix">
+        {{conflictKey.prefix}}
+      </small>
       {{conflictKey.value}}
     </strong>
-  {{/link-to}}
+  </LinkTo>
 
   {{#if resolved}}
     <div class="textResolved">
       <div class="textResolved-content">
         {{#if error}}
           <div class="error">
-            {{t 'components.conflict_item.uncorrect_error_text'}}
+            {{t "components.conflict_item.uncorrect_error_text"}}
           </div>
         {{/if}}
       </div>
@@ -26,9 +27,13 @@
       <div class="item-details__column">
         <div class="textConflicted">
           {{#if emptyPreviousText}}
-            <span class="textConflicted-empty">{{t 'components.conflict_item.no_previous_text'}}</span>
+            <span class="textConflicted-empty">
+              {{t "components.conflict_item.no_previous_text"}}
+            </span>
           {{else if samePreviousText}}
-            <span class="textConflicted-empty">{{t 'components.conflict_item.same_text'}}</span>
+            <span class="textConflicted-empty">
+              {{t "components.conflict_item.same_text"}}
+            </span>
           {{else}}
             <span class="textConflicted-content">{{conflict.conflictedText}}</span>
           {{/if}}
@@ -45,49 +50,52 @@
         {{#if conflict.relatedTranslation.id}}
           <div class="conflictedText-textReference">
             <strong class="conflictedText-textReference-language">
-              {{#link-to 'logged-in.project.translation' project.id conflict.relatedTranslation.id class='conflictedText-textReference-link'}}{{revision.language.name}}{{/link-to}}
-
+              <LinkTo
+                @route="logged-in.project.translation"
+                @models={{array project.id conflict.relatedTranslation.id}}
+                class="conflictedText-textReference-link"
+              >
+                {{revision.language.name}}
+              </LinkTo>
               <span class="conflictedText-textReference-updatedAt">
-                {{time-ago-in-words-tag date=conflict.relatedTranslation.updatedAt}}
+                <TimeAgoInWordsTag
+                  @date={{conflict.relatedTranslation.updatedAt}}
+                />
               </span>
             </strong>
-
             <div class="conflictedText-textReference-text">
               <span class="conflictedText-textReference-text-content">{{conflict.relatedTranslation.correctedText}}</span>
             </div>
           </div>
         {{/if}}
-
         {{#if error}}
           <div class="error">
-            {{t 'components.conflict_item.correct_error_text'}}
+            {{t "components.conflict_item.correct_error_text"}}
           </div>
         {{/if}}
       </div>
-
       <div class="item-details__column">
         <div class="textInput">
-          {{translation-edit/form
-            disabled=conflict.isRemoved
-            valueType=conflict.valueType
-            value=textInput
-            rows=3
-            showTypeHints=false
-            onFocus=(action 'inputFocus')
-            onBlur=(action 'inputBlur')
-            onSubmit=(action 'correct')
-          }}
+          <TranslationEdit::Form
+            @disabled={{conflict.isRemoved}}
+            @valueType={{conflict.valueType}}
+            @value={{textInput}}
+            @rows={{3}}
+            @showTypeHints={{false}}
+            @onFocus={{action "inputFocus"}}
+            @onBlur={{action "inputBlur"}}
+            @onSubmit={{action "correct"}}
+          />
         </div>
-
-        {{#if (get permissions 'correct_translation')}}
-          {{#async-button
-            onClick=(action 'correct')
-            loading=loading
-            class='button button--filled button--white'
-          }}
-            {{inline-svg '/assets/check.svg' class='button-icon'}}
-            {{t 'components.conflict_item.correct_button_text'}}
-          {{/async-button}}
+        {{#if (get permissions "correct_translation")}}
+          <AsyncButton
+            @onClick={{action "correct"}}
+            @loading={{loading}}
+            class="button button--filled button--white"
+          >
+            {{inline-svg "/assets/check.svg" class="button-icon"}}
+            {{t "components.conflict_item.correct_button_text"}}
+          </AsyncButton>
         {{/if}}
       </div>
     </div>

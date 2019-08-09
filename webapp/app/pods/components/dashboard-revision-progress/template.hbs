@@ -1,28 +1,36 @@
 <div>
   <span class="language">
-    {{#if (get permissions 'index_translations')}}
-      {{#link-to
-        'logged-in.project.revision.translations'
-        project.id
-        revision.id
-        class='language-name'
-      }}
+    {{#if (get permissions "index_translations")}}
+      <LinkTo
+        @route="logged-in.project.revision.translations"
+        @models={{array project.id revision.id}}
+        class="language-name"
+      >
         {{revision.language.name}}
-        <span class="language-reviewedPercentage">{{correctedKeysPercentage}}%</span>
-      {{/link-to}}
+        <span class="language-reviewedPercentage">
+          {{correctedKeysPercentage}}
+          %
+        </span>
+      </LinkTo>
     {{else}}
       <span class="language-name">
         {{revision.language.name}}
-        <span class="language-reviewedPercentage">{{correctedKeysPercentage}}%</span>
+        <span class="language-reviewedPercentage">
+          {{correctedKeysPercentage}}
+          %
+        </span>
       </span>
     {{/if}}
 
     <span class="reviewedStats">
-      <span class="reviewedStats-reviewedCount">{{reviewsCount}}</span>
+      <span class="reviewedStats-reviewedCount">
+        {{reviewsCount}}
+      </span>
       /
-      <span class="reviewedStats-translationsCount">{{revision.translationsCount}}</span>
+      <span class="reviewedStats-translationsCount">
+        {{revision.translationsCount}}
+      </span>
     </span>
   </span>
-
-  {{review-progress-bar correctedKeysPercentage=correctedKeysPercentage}}
+  <ReviewProgressBar @correctedKeysPercentage={{correctedKeysPercentage}} />
 </div>

@@ -1,26 +1,26 @@
 {{#if model.loading}}
-  {{skeleton-ui/progress-line}}
+  <SkeletonUi::ProgressLine />
 {{/if}}
 
 {{#if showSkeleton}}
-  {{skeleton-ui/documents-list}}
+  <SkeletonUi::DocumentsList />
 {{else}}
-  {{documents-list
-    permissions=permissions
-    documents=model.documents.entries
-    project=model.project
-    onDelete=(action 'deleteDocument')
-    onUpdate=(action 'updateDocument')
-  }}
+  <DocumentsList
+    @permissions={{permissions}}
+    @documents={{model.documents.entries}}
+    @project={{model.project}}
+    @onDelete={{action "deleteDocument"}}
+    @onUpdate={{action "updateDocument"}}
+  />
 
-  {{#if (get permissions 'sync')}}
-    {{documents-add-button project=model.project}}
+  {{#if (get permissions "sync")}}
+    <DocumentsAddButton @project={{model.project}} />
   {{/if}}
 
-  {{resource-pagination
-    meta=model.documents.meta
-    onSelectPage=(action 'selectPage')
-  }}
+  <ResourcePagination
+    @meta={{model.documents.meta}}
+    @onSelectPage={{action "selectPage"}}
+  />
 
   {{outlet}}
 {{/if}}

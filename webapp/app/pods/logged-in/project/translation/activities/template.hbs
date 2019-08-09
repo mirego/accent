@@ -1,18 +1,17 @@
 {{#if model.loading}}
-  {{skeleton-ui/progress-line}}
+  <SkeletonUi::ProgressLine />
 {{/if}}
 
 {{#if showSkeleton}}
-  {{skeleton-ui/activities-list showTranslationLink=false}}
+  <SkeletonUi::ActivitiesList @showTranslationLink={{false}} />
 {{else}}
-  {{translation-activities-list
-    permissions=permissions
-    project=model.project
-    activities=model.activities.entries
-  }}
-
-  {{resource-pagination
-    meta=model.activities.meta
-    onSelectPage=(action 'selectPage')
-  }}
+  <TranslationActivitiesList
+    @permissions={{permissions}}
+    @project={{model.project}}
+    @activities={{model.activities.entries}}
+  />
+  <ResourcePagination
+    @meta={{model.activities.meta}}
+    @onSelectPage={{action "selectPage"}}
+  />
 {{/if}}

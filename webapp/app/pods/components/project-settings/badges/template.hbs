@@ -1,14 +1,21 @@
-{{project-settings/title title=(t 'components.project_settings.badges.title')}}
+<ProjectSettings::Title
+  @title={{t "components.project_settings.badges.title"}}
+/>
 
 <p class="text">
-  {{t 'components.project_settings.badges.text'}}
+  {{t "components.project_settings.badges.text"}}
 </p>
 
 <div class="badge">
   <span class="badge-title">
-    {{t 'components.project_settings.badges.percentage_reviewed'}}
+    {{t "components.project_settings.badges.percentage_reviewed"}}
   </span>
   <img src="{{percentageReviewedBadgeUrlWithDigest}}" />
 </div>
 
-<input readonly="" onClick="this.select();" class="badge-code" value={{percentageReviewedBadgeCode}} />
+<input
+  readonly=""
+  onClick="this.select();"
+  class="badge-code"
+  value={{percentageReviewedBadgeCode}}
+/>

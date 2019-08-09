@@ -3,43 +3,43 @@
     <div class="exportOptions">
       {{#if showRevisions}}
         <div class="exportOptions-item">
-          {{acc-select
-            searchEnabled=false
-            selected=revisionValue
-            options=mappedRevisions
-            onchange=(action 'revisionChanged' value='value')
-          }}
+          <AccSelect
+            @searchEnabled={{false}}
+            @selected={{revisionValue}}
+            @options={{mappedRevisions}}
+            @onchange={{action "revisionChanged" value="value"}}
+          />
         </div>
       {{/if}}
 
       {{#if showOrders}}
         <div class="exportOptions-item">
-          {{acc-select
-            searchEnabled=false
-            selected=orderByValue
-            options=orderByOptions
-            onchange=(action 'orderByChanged' value='value')
-          }}
+          <AccSelect
+            @searchEnabled={{false}}
+            @selected={{orderByValue}}
+            @options={{orderByOptions}}
+            @onchange={{action "orderByChanged" value="value"}}
+          />
         </div>
       {{/if}}
 
       <div class="exportOptions-item">
-        {{acc-select
-          searchEnabled=false
-          selected=formatValue
-          options=formatOptions
-          onchange=(action 'formatChanged' value='value')
-        }}
+        <AccSelect
+          @searchEnabled={{false}}
+          @selected={{formatValue}}
+          @options={{formatOptions}}
+          @onchange={{action "formatChanged" value="value"}}
+        />
       </div>
 
       {{#if showDocuments}}
         <div class="exportOptions-item">
-          {{acc-select
-            searchEnabled=false
-            selected=documentValue
-            options=mappedDocuments
-            onchange=(action 'documentChanged' value='value')
-          }}
+          <AccSelect
+            @searchEnabled={{false}}
+            @selected={{documentValue}}
+            @options={{mappedDocuments}}
+            @onchange={{action "documentChanged" value="value"}}
+          />
         </div>
       {{/if}}
     </div>

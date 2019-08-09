@@ -1,41 +1,48 @@
-{{#if (get permissions 'update_project')}}
+{{#if (get permissions "update_project")}}
   <div class="field">
-    {{input
-      value=this.name
-      class='textInput'
-    }}
-    {{input
-      type="color"
-      value=this.mainColor
-      class='colorInput'
-    }}
+    <Input @value={{this.name}} class="textInput" />
+    <Input @type="color" @value={{this.mainColor}} class="colorInput" />
   </div>
 
-  {{#async-button
-    disabled=this.unchangedForm
-    onClick=(action 'updateProject')
-    class='button button--filled'
-  }}
-    {{t 'components.project_settings.form.update_button'}}
-  {{/async-button}}
+  <AsyncButton
+    @disabled={{this.unchangedForm}}
+    @onClick={{action "updateProject"}}
+    class="button button--filled"
+  >
+    {{t "components.project_settings.form.update_button"}}
+  </AsyncButton>
 {{/if}}
 
-{{#if (get permissions 'lock_project_file_operations')}}
+{{#if (get permissions "lock_project_file_operations")}}
   <div class="lock">
     {{#if isFileOperationsLocked}}
-      <div class="lock-text lock-text--active" {{action 'setLockedFileOperations' on='click'}}>
-        {{inline-svg 'assets/lock--unlocked' class='lock-icon lock-icon--unlocked'}}
-        {{t 'components.project_settings.form.lock_file_operations.remove_lock_button'}}
+      <div
+        class="lock-text lock-text--active"
+        {{action "setLockedFileOperations" on="click"}}
+      >
+        {{inline-svg
+          "assets/lock--unlocked"
+          class="lock-icon lock-icon--unlocked"
+        }}
+        {{t
+          "components.project_settings.form.lock_file_operations.remove_lock_button"
+        }}
       </div>
     {{else}}
-      <div class="lock-text lock-text--inactive" {{action 'setLockedFileOperations' on='click'}}>
-        {{inline-svg 'assets/lock--locked' class='lock-icon lock-icon--locked'}}
-        {{t 'components.project_settings.form.lock_file_operations.add_lock_button'}}
+      <div
+        class="lock-text lock-text--inactive"
+        {{action "setLockedFileOperations" on="click"}}
+      >
+        {{inline-svg "assets/lock--locked" class="lock-icon lock-icon--locked"}}
+
+        {{t
+          "components.project_settings.form.lock_file_operations.add_lock_button"
+        }}
       </div>
     {{/if}}
 
     <p class="lock-text-helper">
-      {{t 'components.project_settings.form.lock_file_operations.text_1'}}
+      {{t "components.project_settings.form.lock_file_operations.text_1"}}
     </p>
   </div>
 {{/if}}

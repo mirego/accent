@@ -1,3 +1,3 @@
 {{#each revisionOperations as |revisionOperation|}}
-  {{operations-peek/item revisionOperation=revisionOperation}}
+  <OperationsPeek::Item @revisionOperation={{revisionOperation}} />
 {{/each}}

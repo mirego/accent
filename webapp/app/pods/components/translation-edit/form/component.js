@@ -3,7 +3,7 @@ import {computed} from '@ember/object';
 import Component from '@ember/component';
 
 export default Component.extend({
-  rows: 10,
+  rows: 7,
   showTypeHints: true,
 
   isStringType: equal('valueType', 'STRING'),

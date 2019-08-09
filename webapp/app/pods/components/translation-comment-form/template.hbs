@@ -1,24 +1,21 @@
-<form {{action 'submit' on='submit'}} class="form">
+<form class="form" {{action "submit" on="submit"}}>
   {{#if error}}
     <span class="error">
-      {{t 'components.translation_comment_form.submit_error'}}
+      {{t "components.translation_comment_form.submit_error"}}
     </span>
   {{/if}}
 
   <div class="form-content">
-    {{quick-submit-textarea
-      onSubmit=(action 'submit')
-      rows=3
-      value=text
-      class='inputText'
-      placeholder=(t 'components.translation_comment_form.comment_placeholder')
-    }}
-
-    {{#async-button
-      loading=loading
-      class='button button--filled'
-    }}
-      {{t 'components.translation_comment_form.comment_button'}}
-    {{/async-button}}
+    <QuickSubmitTextarea
+      @onSubmit={{action "submit"}}
+      @rows={{3}}
+      @value={{text}}
+      class="inputText"
+      placeholder={{t "components.translation_comment_form.comment_placeholder"
+      }}
+    />
+    <AsyncButton @loading={{loading}} class="button button--filled">
+      {{t "components.translation_comment_form.comment_button"}}
+    </AsyncButton>
   </div>
 </form>

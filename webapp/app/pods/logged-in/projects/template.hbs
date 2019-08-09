@@ -1,28 +1,26 @@
 <div>
-  {{projects-header session=session}}
-
-  {{projects-filters
-    permissions=permissions
-    query=query
-    onChangeQuery=(action 'changeQuery')
-  }}
+  <ProjectsHeader @session={{session}} />
+  <ProjectsFilters
+    @permissions={{permissions}}
+    @query={{query}}
+    @onChangeQuery={{action "changeQuery"}}
+  />
 
   {{#if showLoading}}
-    {{loading-content label=(t 'pods.projects.loading_content')}}
+    <LoadingContent @label={{t "pods.projects.loading_content"}} />
   {{else}}
-    {{projects-list
-      permissions=permissions
-      projects=model.projects.entries
-      query=query
-    }}
-
-    {{resource-pagination
-      meta=model.projects.meta
-      onSelectPage=(action 'selectPage')
-    }}
+    <ProjectsList
+      @permissions={{permissions}}
+      @projects={{model.projects.entries}}
+      @query={{query}}
+    />
+    <ResourcePagination
+      @meta={{model.projects.meta}}
+      @onSelectPage={{action "selectPage"}}
+    />
   {{/if}}
 
   {{outlet}}
 </div>
 
-{{application-footer}}
+<ApplicationFooter />

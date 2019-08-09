@@ -1,15 +1,17 @@
 {{#if revisions.length}}
   <div>
-    {{acc-select
-      searchEnabled=false
-      selected=revisionValue
-      options=mappedRevisions
-      onchange=(action 'selectRevision' value='value')
-    }}
-
+    <AccSelect
+      @searchEnabled={{false}}
+      @selected={{revisionValue}}
+      @options={{mappedRevisions}}
+      @onchange={{action "selectRevision" value="value"}}
+    />
     {{#if hasManyRevisions}}
       <span class="otherLanguages">
-        {{t 'components.revision_selector.languages_count' count=otherRevisionsCount}}
+        {{t
+          "components.revision_selector.languages_count"
+          count=otherRevisionsCount
+        }}
       </span>
     {{/if}}
   </div>

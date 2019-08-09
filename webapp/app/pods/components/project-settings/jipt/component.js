@@ -7,10 +7,12 @@ export default Component.extend({
     const host = config.API.HOST;
     const url = config.API.JIPT_SCRIPT_PATH;
 
-    return `<script>
+    return `
+<script>
   window.accent=window.accent||function(){(accent.q=accent.q||[]).push(arguments);};
   accent('init',{h:'${host}',i:'${this.project.id}'});
 </script>
-<script async src="${url}"></script>`;
+<script async="" src="${url}"></script>
+`;
   })
 });

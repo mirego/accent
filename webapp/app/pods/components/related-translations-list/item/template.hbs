@@ -1,10 +1,10 @@
 {{#if showEditButton}}
   <span class="editButton">
-    <span {{action 'toggleEdit'}}>
+    <span {{action "toggleEdit"}}>
       {{#if isInEditMode}}
-        {{inline-svg 'assets/x.svg' class='editButton-icon'}}
+        {{inline-svg "assets/x.svg" class="editButton-icon"}}
       {{else}}
-        {{inline-svg 'assets/pencil.svg' class='editButton-icon'}}
+        {{inline-svg "assets/pencil.svg" class="editButton-icon"}}
       {{/if}}
     </span>
   </span>
@@ -12,45 +12,46 @@
 
 <div class="header">
   <div>
-    {{#link-to
-      'logged-in.project.translation'
-      project.id
-      translation.id
-      class='key'
-    }}
+    <LinkTo
+      @route="logged-in.project.translation"
+      @models={{array project.id translation.id}}
+      class="key"
+    >
       {{revisionName}}
 
       <span class="updatedAt">
-        {{t 'components.related_translations_list.last_updated_label'}}
-        {{time-ago-in-words-tag date=translation.updatedAt}}
+        {{t "components.related_translations_list.last_updated_label"}}
+        <TimeAgoInWordsTag @date={{translation.updatedAt}} />
       </span>
-    {{/link-to}}
+    </LinkTo>
   </div>
 
   <div>
     {{#unless translation.isRemoved}}
       {{#if translation.commentsCount}}
-        {{#acc-badge link=true}}
-          {{#link-to
-            'logged-in.project.translation.comments'
-            project.id
-            translation.id
-          }}
-            {{t 'components.related_translations_list.comments_label' count=translation.commentsCount}}
-          {{/link-to}}
-        {{/acc-badge}}
+        <AccBadge @link={{true}}>
+          <LinkTo
+            @route="logged-in.project.translation.comments"
+            @models={{array project.id translation.id}}
+          >
+            {{t
+              "components.related_translations_list.comments_label"
+              count=translation.commentsCount
+            }}
+          </LinkTo>
+        </AccBadge>
       {{/if}}
+
       {{#if translation.isConflicted}}
-        {{#acc-badge link=true primary=true}}
-          {{#link-to
-            'logged-in.project.revision.conflicts'
-            project.id
-            translation.revision.id
-            (query-params query=translation.key)
-          }}
-            {{t 'components.related_translations_list.conflicted_label'}}
-          {{/link-to}}
-        {{/acc-badge}}
+        <AccBadge @link={{true}} @primary={{true}}>
+          <LinkTo
+            @route="logged-in.project.revision.conflicts"
+            @model={{project.id}}
+            @query={{hash}}
+          >
+            {{t "components.related_translations_list.conflicted_label"}}
+          </LinkTo>
+        </AccBadge>
       {{/if}}
     {{/unless}}
   </div>
@@ -58,33 +59,38 @@
 
 {{#if isInEditMode}}
   <div class="textEdit">
-    {{translation-edit/form
-      disabled=translation.isRemoved
-      valueType=translation.valueType
-      value=editText
-      onSubmit=(action 'save')
-    }}
-
+    <TranslationEdit::Form
+      @disabled={{translation.isRemoved}}
+      @valueType={{translation.valueType}}
+      @value={{editText}}
+      @onSubmit={{action "save"}}
+    />
     <div class="textEdit-actions">
       {{#unless translation.isConflicted}}
-        <span class="textEdit-actions-warning">You’re editing an already reviewed string.</span>
+        <span class="textEdit-actions-warning">
+          You’re editing an already reviewed string.
+        </span>
       {{/unless}}
 
       {{#if showEditButton}}
-        <span {{action 'toggleEdit'}} class="textEdit-cancel">Cancel</span>
+        <span class="textEdit-cancel" {{action "toggleEdit"}}>
+          Cancel
+        </span>
       {{/if}}
 
       {{#if showSaveButton}}
-        {{#async-button
-          onClick=(action 'save')
-          loading=isSaving
-          class='button button--filled button--iconOnly textEdit-button'
-        }}
+        <AsyncButton
+          @onClick={{action "save"}}
+          @loading={{isSaving}}
+          class="button button--filled button--iconOnly textEdit-button"
+        >
           Save
-        {{/async-button}}
+        </AsyncButton>
       {{/if}}
     </div>
   </div>
 {{else}}
-  <div {{action 'toggleEdit'}} class="text">{{translation.correctedText}}</div>
+  <div class="text" {{action "toggleEdit"}}>
+    {{translation.correctedText}}
+  </div>
 {{/if}}

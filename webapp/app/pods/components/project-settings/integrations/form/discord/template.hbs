@@ -1,27 +1,32 @@
-  <div class="data">
-    <div class="data-control {{if urlError 'error-control'}}">
-      <label class="data-title">
-        {{t 'components.project_settings.integrations.data.url'}}
-        <a class="data-title-help" target="_blank" rel="noopener noreferrer" href="https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks">
-          {{t 'components.project_settings.integrations.webhook_url_how'}}
-        </a>
-      </label>
-      {{input
-        placeholder="https://discordapp.com/api/webhooks/aaaa/bbbb/cccc"
-        value=url
-        class='textInput'
-      }}
-    </div>
+<div class="data">
+  <div class="data-control {{if urlError "error-control"}}">
+    <label class="data-title">
+      {{t "components.project_settings.integrations.data.url"}}
+      <a
+        class="data-title-help"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks"
+      >
+        {{t "components.project_settings.integrations.webhook_url_how"}}
+      </a>
+    </label>
 
-    <div class="data-control">
-      <h3 class="data-title">
-        {{t 'components.project_settings.integrations.events.title'}}
-      </h3>
-
-      {{checkbox-with-label
-        checked=syncChecked
-        text=(t 'components.project_settings.integrations.events.options.sync')
-        update=(action (mut syncChecked))
-      }}
-    </div>
+    <Input
+      placeholder="https://discordapp.com/api/webhooks/aaaa/bbbb/cccc"
+      @value={{url}}
+      class="textInput"
+    />
   </div>
+
+  <div class="data-control">
+    <h3 class="data-title">
+      {{t "components.project_settings.integrations.events.title"}}
+    </h3>
+    <CheckboxWithLabel
+      @checked={{syncChecked}}
+      @text={{t "components.project_settings.integrations.events.options.sync"}}
+      @update={{action (mut syncChecked)}}
+    />
+  </div>
+</div>
