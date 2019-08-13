@@ -9,7 +9,8 @@ defmodule LangueTest.Formatter.Gettext do
     Simple,
     DotKeys,
     Pluralization,
-    PlaceholderValues
+    PlaceholderValues,
+    ContextValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Gettext.Expectation, test) do

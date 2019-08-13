@@ -36,11 +36,25 @@ defmodule Langue.Formatter.Gettext.Serializer do
   end
 
   defp do_parse_entries({_key, [entry]}) do
-    %Gettext.PO.Translation{
-      comments: split_string(entry.comment, []),
-      msgid: split_string(entry.key),
-      msgstr: split_string(entry.value)
-    }
+    if entry.context do
+      msgid =
+        entry.key
+        |> remove_key_suffix()
+        |> split_string()
+
+      %Gettext.PO.Translation{
+        comments: split_string(entry.comment, []),
+        msgid: msgid,
+        msgstr: split_string(entry.value),
+        msgctxt: split_string(entry.context)
+      }
+    else
+      %Gettext.PO.Translation{
+        comments: split_string(entry.comment, []),
+        msgid: split_string(entry.key),
+        msgstr: split_string(entry.value)
+      }
+    end
   end
 
   defp do_parse_entries({_key, [plural_entry | entries]}) do
@@ -68,7 +82,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
     Regex.split(~r/[^\n]*\n/, string, include_captures: true, trim: true)
   end
 
-  defp remove_key_suffix(string), do: String.replace(string, ".__KEY___", "")
+  defp remove_key_suffix(string), do: String.replace(string, ~r/\.__KEY__.*/, "")
 
   defp replace_language_header(string, language) do
     String.replace(string, ~r/Language: [^\n]*/, "Language: #{language.slug}")

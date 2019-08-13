@@ -68,7 +68,7 @@ defmodule Accent.Mixfile do
       {:jsone, "~> 1.4"},
       {:mochiweb, "~> 2.18"},
       {:httpoison, "~> 1.1.0"},
-      {:gettext, "~> 0.11"},
+      {:gettext, github: "olafura/gettext", branch: "add-support-for-msgctxt-dump"},
       {:csv, "~> 2.0"},
       {:php_assoc_map, "~> 0.5"},
       {:jason, "~> 1.0"},

@@ -50,12 +50,23 @@ defmodule Langue.Formatter.Gettext.Parser do
     end)
   end
 
-  defp parse_translation(translation) do
+  defp parse_translation(translation = %{msgctxt: nil}) do
     [
       %Entry{
         comment: join_string(translation.comments),
         key: join_string(translation.msgid),
         value: join_string(translation.msgstr)
+      }
+    ]
+  end
+
+  defp parse_translation(translation) do
+    [
+      %Entry{
+        comment: join_string(translation.comments),
+        key: join_string(translation.msgid) <> key_suffix(translation.msgctxt),
+        value: join_string(translation.msgstr),
+        context: join_string(translation.msgctxt)
       }
     ]
   end
