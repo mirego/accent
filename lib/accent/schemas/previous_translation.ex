@@ -9,6 +9,7 @@ defmodule Accent.PreviousTranslation do
     removed
     value_type
     placeholders
+    message_context
   )a
 
   @primary_key false
@@ -20,6 +21,7 @@ defmodule Accent.PreviousTranslation do
     field(:removed, :boolean, default: false)
     field(:value_type, :string)
     field(:placeholders, {:array, :string}, default: [])
+    field(:message_context, :string, default: "")
   end
 
   @doc """

@@ -66,7 +66,7 @@ defmodule Langue.Formatter.Gettext.Parser do
         comment: join_string(translation.comments),
         key: join_string(translation.msgid) <> key_suffix(translation.msgctxt),
         value: join_string(translation.msgstr),
-        context: join_string(translation.msgctxt)
+        message_context: join_string(translation.msgctxt)
       }
     ]
   end

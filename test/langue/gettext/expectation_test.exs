@@ -240,7 +240,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "test duplicate", value: "a"},
-        %Entry{index: 2, key: "test duplicate.__KEY__other", value: "a", context: "other"}
+        %Entry{index: 2, key: "test duplicate.__KEY__other", value: "a", message_context: "other"}
       ]
     end
   end

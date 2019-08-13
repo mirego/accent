@@ -301,7 +301,8 @@ defmodule AccentTest.Movement.Migrator.Up do
         proposed_text: "proposed_text",
         conflicted: true,
         removed: false,
-        placeholders: []
+        placeholders: [],
+        message_context: ""
       })
 
     Migrator.up(%{
@@ -312,7 +313,8 @@ defmodule AccentTest.Movement.Migrator.Up do
       text: "conflict",
       translation: translation,
       previous_translation: PreviousTranslation.from_translation(translation),
-      placeholders: []
+      placeholders: [],
+      message_context: ""
     })
 
     new_translation = Repo.get!(Translation, translation.id)

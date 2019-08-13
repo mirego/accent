@@ -28,7 +28,8 @@ defmodule Movement.EntriesCommitProcessor do
           locked: entry.locked,
           revision_id: Map.get(assigns[:revision], :id),
           version_id: assigns[:version] && Map.get(assigns[:version], :id),
-          placeholders: entry.placeholders
+          placeholders: entry.placeholders,
+          message_context: entry.message_context
         }
 
         assigns[:comparer].(current_translation, suggested_translation)

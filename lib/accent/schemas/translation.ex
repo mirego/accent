@@ -17,6 +17,7 @@ defmodule Accent.Translation do
     field(:plural, :boolean, default: false)
     field(:locked, :boolean, default: false)
     field(:placeholders, {:array, :string}, default: [])
+    field(:message_context, :string, default: "")
 
     belongs_to(:document, Accent.Document)
     belongs_to(:revision, Accent.Revision)
@@ -45,6 +46,7 @@ defmodule Accent.Translation do
     value_type
     document_id
     placeholders
+    message_context
   )a
   def changeset(model, params) do
     model

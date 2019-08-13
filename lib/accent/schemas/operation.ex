@@ -5,6 +5,7 @@ defmodule Accent.Operation do
     :action,
     :key,
     :text,
+    :message_context,
     :conflicted,
     :value_type,
     :plural,
@@ -27,6 +28,7 @@ defmodule Accent.Operation do
     field(:action, :string)
     field(:key, :string)
     field(:text, :string)
+    field(:message_context, :string, default: "")
     field(:batch, :boolean, default: false)
 
     field(:file_comment, :string)

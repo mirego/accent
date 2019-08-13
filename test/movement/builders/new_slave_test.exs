@@ -70,7 +70,8 @@ defmodule AccentTest.Movement.Builders.NewSlave do
         file_comment: "comment",
         revision_id: revision.id,
         document_id: document.id,
-        removed: true
+        removed: true,
+        message_context: ""
       }
       |> Repo.insert!()
 

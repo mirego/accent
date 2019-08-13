@@ -28,7 +28,8 @@ defmodule Movement.Migration.Conflict do
       corrected_text: operation.text,
       conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text,
       conflicted: true,
-      placeholders: operation.placeholders
+      placeholders: operation.placeholders,
+      message_context: operation.message_context
     })
   end
 
@@ -40,7 +41,8 @@ defmodule Movement.Migration.Conflict do
       corrected_text: operation.text,
       conflicted_text: operation.previous_translation && operation.previous_translation.conflicted_text,
       conflicted: true,
-      placeholders: operation.placeholders
+      placeholders: operation.placeholders,
+      message_context: operation.message_context
     })
   end
 
@@ -53,7 +55,8 @@ defmodule Movement.Migration.Conflict do
       corrected_text: operation.text,
       conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text,
       conflicted: true,
-      placeholders: operation.placeholders
+      placeholders: operation.placeholders,
+      message_context: operation.message_context
     })
   end
 end

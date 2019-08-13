@@ -36,7 +36,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
   end
 
   defp do_parse_entries({_key, [entry]}) do
-    if entry.context do
+    if entry.message_context do
       msgid =
         entry.key
         |> remove_key_suffix()
@@ -46,7 +46,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
         comments: split_string(entry.comment, []),
         msgid: msgid,
         msgstr: split_string(entry.value),
-        msgctxt: split_string(entry.context)
+        msgctxt: split_string(entry.message_context)
       }
     else
       %Gettext.PO.Translation{

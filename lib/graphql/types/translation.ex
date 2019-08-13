@@ -22,6 +22,7 @@ defmodule Accent.GraphQL.Types.Translation do
     field(:value_type, non_null(:translation_value_type))
     field(:plural, non_null(:boolean))
     field(:placeholders, non_null(list_of(non_null(:string))))
+    field(:message_context, :string)
 
     field(:proposed_text, :string)
     field(:corrected_text, :string)
