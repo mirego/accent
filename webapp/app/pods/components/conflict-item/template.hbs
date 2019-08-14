@@ -6,7 +6,11 @@
   >
     <strong class="item-key">
       <small class="item-key-prefix">
-        {{conflictKey.prefix}}
+        {{#if conflictKey.prefix}}
+          {{conflictKey.prefix}}
+        {{else}}
+          {{conflict.document.path}}
+        {{/if}}
       </small>
       {{conflictKey.value}}
     </strong>

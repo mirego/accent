@@ -16,7 +16,11 @@
     >
       <strong class="item-key">
         <small class="item-key-prefix">
-          {{translationKey.prefix}}
+          {{#if translationKey.prefix}}
+            {{translationKey.prefix}}
+          {{else}}
+            {{translation.document.path}}
+          {{/if}}
         </small>
         {{translationKey.value}}
       </strong>
@@ -28,8 +32,8 @@
       <AccBadge @link={{true}} @primary={{true}}>
         <LinkTo
           @route="logged-in.project.revision.conflicts"
-          @model={{project.id}}
-          @query={{hash}}
+          @models={{array project.id translation.revision.id}}
+          @query={{hash query=translation.id}}
         >
           {{t "components.translations_list.in_review_label"}}
         </LinkTo>

@@ -14,8 +14,8 @@
 
     <LinkTo
       @route="logged-in.project.revision.conflicts"
-      @model={{project.id}}
-      @query={{hash}}
+      @models={{array project.id revision.id}}
+      @query={{hash fullscreen=toggledFullscreen}}
       class="button button--grey fullscreen-button"
     >
       {{#if fullscreen}}

@@ -72,7 +72,11 @@
               item-translationLink--removed"
             >
               <small class="item-translationLink-prefix">
-                {{translationKey.prefix}}
+                {{#if translationKey.prefix}}
+                  {{translationKey.prefix}}
+                {{else}}
+                  {{translation.document.path}}
+                {{/if}}
               </small>
               {{translationKey.value}}
             </LinkTo>
@@ -83,7 +87,11 @@
               class="item-translationLink"
             >
               <small class="item-translationLink-prefix">
-                {{translationKey.prefix}}
+                {{#if translationKey.prefix}}
+                  {{translationKey.prefix}}
+                {{else}}
+                  {{translation.document.path}}
+                {{/if}}
               </small>
               {{translationKey.value}}
             </LinkTo>

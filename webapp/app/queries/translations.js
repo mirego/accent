@@ -51,6 +51,10 @@ export default gql`
               updatedAt
               commentsCount
               valueType
+              document {
+                id
+                path
+              }
             }
           }
         }

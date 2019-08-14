@@ -12,7 +12,11 @@
     class="item-link"
   >
     <small class="item-key-prefix">
-      {{translationKey.prefix}}
+      {{#if translationKey.prefix}}
+        {{translationKey.prefix}}
+      {{else}}
+        {{groupedComment.value.document.path}}
+      {{/if}}
     </small>
     {{translationKey.value}}
   </LinkTo>

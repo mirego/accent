@@ -72,6 +72,10 @@ export default gql`
               key
               correctedText
               isRemoved
+              document {
+                id
+                path
+              }
             }
 
             revision {

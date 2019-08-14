@@ -17,6 +17,11 @@ export default gql`
           conflictedText
           updatedAt
 
+          document {
+            id
+            path
+          }
+
           sourceTranslation {
             id
           }

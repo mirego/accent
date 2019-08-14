@@ -47,6 +47,10 @@ export default gql`
               translation {
                 id
                 correctedText
+                document {
+                  id
+                  path
+                }
               }
 
               version {

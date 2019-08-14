@@ -76,7 +76,11 @@
                 class="translation-state-key"
               >
                 <small class="translation-state-key-prefix">
-                  {{translationKey.prefix}}
+                  {{#if translationKey.prefix}}
+                    {{translationKey.prefix}}
+                  {{else}}
+                    {{translation.document.path}}
+                  {{/if}}
                 </small>
                 {{translationKey.value}}
               </LinkTo>
