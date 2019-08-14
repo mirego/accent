@@ -55,14 +55,14 @@ export default Component.extend({
   }),
 
   mappedMergeTypes: computed('mergeTypes.[]', function() {
-    return this.mergeTypes.map((name) => ({
+    return this.mergeTypes.map(name => ({
       label: name,
       value: name
     }));
   }),
 
   mappedSyncTypes: computed('syncTypes.[]', function() {
-    return this.syncTypes.map((name) => ({
+    return this.syncTypes.map(name => ({
       label: name,
       value: name
     }));

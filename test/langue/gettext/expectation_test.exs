@@ -9,6 +9,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
       #{top_of_the_file_comment()}msgid ""
       msgstr ""
       #{header()}
+
       ## From Ecto.Changeset.cast/4
       msgid "can't be blank"
       msgstr "ne peut être vide"
@@ -40,9 +41,9 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     end
 
     def header do
-      ~S"""
+      String.trim_trailing(~S"""
       "Language: fr"
-      """
+      """)
     end
   end
 
@@ -115,6 +116,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
       msgid ""
       msgstr ""
       #{header()}
+
       msgid "has already been taken"
       msgstr "est déjà pris"
       """
@@ -127,9 +129,9 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     end
 
     def header do
-      ~S"""
-      "Language: "
-      """
+      String.trim_trailing(~S"""
+      "Language: fr"
+      """)
     end
   end
 
@@ -141,6 +143,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
       msgid ""
       msgstr ""
       #{header()}
+
       msgid "has already been taken"
       msgstr "est déjà pris"
       """
@@ -153,9 +156,9 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     end
 
     def header do
-      ~S"""
+      String.trim_trailing(~S"""
       "Plural-Forms: nplurals=2; plural=(n > 1);"
-      """
+      """)
     end
   end
 
@@ -220,6 +223,51 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
         %Entry{index: 3, key: "duplicate", value: "Hello, %{username}. Welcome back %{username}.", placeholders: ~w(%{username} %{username})},
         %Entry{index: 4, key: "empty", value: "Hello, %{}.", placeholders: ~w(%{})}
       ]
+    end
+  end
+
+  defmodule HeaderLineBreak do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      #{top_of_the_file_comment()}msgid ""
+      msgstr ""
+      #{header()}
+
+      msgid "key"
+      msgstr "value"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "key", value: "value"}
+      ]
+    end
+
+    def top_of_the_file_comment do
+      ~S"""
+      # SOME DESCRIPTIVE TITLE.
+      # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+      # This file is distributed under the same license as the PACKAGE package.
+      # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+      #
+      """
+    end
+
+    def header do
+      String.trim_trailing(~S"""
+      "Project-Id-Version: PACKAGE VERSION\n"
+      "Report-Msgid-Bugs-To: \n"
+      "POT-Creation-Date: 2019-08-13 11:32+0200\n"
+      "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+      "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+      "Language-Team: LANGUAGE <LL@li.org>\n"
+      "MIME-Version: 1.0\n"
+      "Content-Type: text/plain; charset=UTF-8\n"
+      "Content-Transfer-Encoding: 8bit\n"
+      """)
     end
   end
 end

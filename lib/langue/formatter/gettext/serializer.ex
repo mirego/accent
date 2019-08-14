@@ -5,21 +5,30 @@ defmodule Langue.Formatter.Gettext.Serializer do
 
   def serialize(%{entries: entries, document: document, language: language}) do
     comments =
-      document.top_of_the_file_comment
-      |> String.trim()
-      |> String.split("\n", trim: true)
+      if document.top_of_the_file_comment do
+        document.top_of_the_file_comment
+        |> String.trim_leading()
+        |> String.split("\n", trim: true)
+      else
+        []
+      end
 
     headers =
-      document.header
-      |> String.trim()
-      |> String.replace("\"", "")
-      |> replace_language_header(language)
-      |> replace_plural_forms_header(language)
-      |> String.split("\n", trim: true)
+      if document.header do
+        document.header
+        |> String.trim_leading()
+        |> String.replace("\"", "")
+        |> replace_language_header(language)
+        |> replace_plural_forms_header(language)
+        |> String.replace(~r/\n(\w)/, "_\\1")
+        |> String.split("_", trim: true)
+      else
+        ""
+      end
 
     render =
       %Gettext.PO{
-        translations: parse_entries(entries, 0),
+        translations: parse_entries(entries),
         top_of_the_file_comments: comments,
         headers: headers
       }
@@ -29,9 +38,9 @@ defmodule Langue.Formatter.Gettext.Serializer do
     %Langue.Formatter.SerializerResult{render: render}
   end
 
-  defp parse_entries(entries, index) do
+  defp parse_entries(entries) do
     entries
-    |> NestedParserHelper.group_by_key_with_index(index, "__KEY__")
+    |> NestedParserHelper.group_by_key_with_index(0, "__KEY__")
     |> Enum.map(&do_parse_entries/1)
   end
 
