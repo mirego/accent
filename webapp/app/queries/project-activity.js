@@ -33,6 +33,10 @@ export default gql`
             correctedText
             isConflicted
             isRemoved
+            document {
+              id
+              path
+            }
           }
 
           version {

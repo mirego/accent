@@ -48,6 +48,10 @@ export default gql`
                 correctedText
                 updatedAt
               }
+              document {
+                id
+                path
+              }
             }
           }
         }

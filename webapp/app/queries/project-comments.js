@@ -26,6 +26,10 @@ export default gql`
             translation {
               id
               key
+              document {
+                id
+                path
+              }
               revision {
                 id
                 language {
