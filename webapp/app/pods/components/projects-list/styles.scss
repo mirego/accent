@@ -1,14 +1,11 @@
 & {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 5px;
   margin: 0 auto;
   max-width: $screen-lg;
   position: relative;
   margin-top: 20px;
-
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 5px;
-  }
 }
 
 .item {
