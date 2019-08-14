@@ -43,7 +43,7 @@ defmodule Movement.Persisters.ProjectSync do
   defp persist_document(context = %Movement.Context{assigns: %{document: document}}) do
     document =
       document
-      |> Document.changeset(%{})
+      |> Document.changeset(context.assigns[:document_update] || %{})
       |> Repo.insert!()
 
     assign(context, :document, document)

@@ -9,13 +9,18 @@ defmodule LangueTest.Formatter.Gettext do
     Simple,
     DotKeys,
     Pluralization,
-    PlaceholderValues
+    PlaceholderValues,
+    LanguageHeader,
+    PluralFormsHeader,
+    HeaderLineBreak
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Gettext.Expectation, test) do
     test "gettext #{test}" do
       {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), Gettext)
-      {expected_serialize, result_serialize} = Accent.FormatterTestHelper.test_serialize(unquote(module), Gettext)
+
+      {expected_serialize, result_serialize} =
+        Accent.FormatterTestHelper.test_serialize(unquote(module), Gettext, %Langue.Language{slug: "fr", plural_forms: "nplurals=2; plural=(n > 1);"})
 
       assert expected_parse == result_parse
       assert expected_serialize == result_serialize
