@@ -79,7 +79,7 @@
       "existing_document_warning": "The changes will be applied to the already existing file.",
       "peek_button": "Preview sync",
       "peek_error": "An error occured while previewing the file",
-      "peek_help": "You can preview the effect of your file(s) on the project. This action won’t do anything to your project, you’re safe to preview whatever you want ;)",
+      "peek_help": "This action will have no effects on your project.",
       "sync_button": "Sync",
       "upload_help": "After choosing a file you will be able to preview the changes on your project",
       "upload_title": "Select a file",

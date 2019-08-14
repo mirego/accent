@@ -32,7 +32,7 @@
           <AccSelect
             @searchEnabled={{false}}
             @selected={{mergeType}}
-            @options={{mergeTypes}}
+            @options={{mappedMergeTypes}}
             @onchange={{action "onSelectMergeType"}}
           />
         </div>
@@ -50,7 +50,7 @@
           <AccSelect
             @searchEnabled={{false}}
             @selected={{syncType}}
-            @options={{syncTypes}}
+            @options={{mappedSyncTypes}}
             @onchange={{action "onSelectSyncType"}}
           />
         </div>
@@ -71,7 +71,7 @@
                 {{t "components.commit_file.existing_document_warning"}}
               </span>
             {{else}}
-              <span class="documentHelper">
+              <span class="documentHelper documentHelper--new">
                 {{t "components.commit_file.new_document_warning"}}
               </span>
             {{/if}}

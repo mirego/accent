@@ -80,12 +80,13 @@
 }
 
 .title-document {
+  display: flex;
+  align-items: baseline;
   margin-left: 10px;
   font-size: 16px;
 }
 
 .title-documentExtension {
-  margin-left: -4px;
   font-size: 14px;
   color: $color-grey;
 }

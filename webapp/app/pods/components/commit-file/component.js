@@ -38,15 +38,34 @@ export default Component.extend({
   },
 
   mergeTypes: ['smart', 'passive', 'force'],
-  mergeType: 'smart',
   syncTypes: ['smart', 'passive'],
-  syncType: 'smart',
 
-  revisionValue: computed('revision', 'revisions.[]', function() {
+  syncType: computed('mappedSyncTypes.[]', function() {
+    return this.mappedSyncTypes[0];
+  }),
+  mergeType: computed('mappedMergeTypes.[]', function() {
+    return this.mappedMergeTypes[0];
+  }),
+
+  revisionValue: computed('revision', 'mappedRevisions.[]', function() {
     return (
       this.mappedRevisions.find(({value}) => value === this.revision) ||
       this.mappedRevisions[0]
     );
+  }),
+
+  mappedMergeTypes: computed('mergeTypes.[]', function() {
+    return this.mergeTypes.map((name) => ({
+      label: name,
+      value: name
+    }));
+  }),
+
+  mappedSyncTypes: computed('syncTypes.[]', function() {
+    return this.syncTypes.map((name) => ({
+      label: name,
+      value: name
+    }));
   }),
 
   mappedRevisions: computed('revisions.[]', function() {
