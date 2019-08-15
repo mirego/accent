@@ -27,4 +27,11 @@
       {{t 'components.login_forms.slack'}}
     </a>
   {{/if}}
+
+  {{#if discordLoginEnabled}}
+    <a href={{discordUrl}} class="button button--filled loginButton loginButton--discord">
+      <img src="assets/auth_providers/discord.svg" class="loginButton-logo" />
+      {{t 'components.login_forms.discord'}}
+    </a>
+  {{/if}}
 {{/if}}

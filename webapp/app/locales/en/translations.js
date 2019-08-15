@@ -51,6 +51,7 @@ export default {
       github: 'Login with GitHub →',
       google: 'Login with Google →',
       slack: 'Login with Slack →',
+      discord: 'Login with Discord →',
       dummy: 'Enter an email and login →'
     },
     dummy_login_form: {

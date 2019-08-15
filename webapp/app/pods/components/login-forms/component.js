@@ -21,10 +21,14 @@ export default Component.extend({
   slackLoginEnabled: computed('providerIds', function() {
     return this.providerIds.includes('slack');
   }),
+  discordLoginEnabled: computed('providerIds', function() {
+    return this.providerIds.includes('discord');
+  }),
 
   googleUrl: computed(() => `${config.API.AUTHENTICATION_PATH}/google`),
   githubUrl: computed(() => `${config.API.AUTHENTICATION_PATH}/github`),
   slackUrl: computed(() => `${config.API.AUTHENTICATION_PATH}/slack`),
+  discordUrl: computed(() => `${config.API.AUTHENTICATION_PATH}/discord`),
   dummyUrl: computed('username', function() {
     return `${
       config.API.AUTHENTICATION_PATH
