@@ -68,6 +68,17 @@
       background: lighten(#3f0f3f, 79%);
     }
   }
+
+  &.loginButton--discord {
+    border: 2px solid #7289DA;
+    text-shadow: none;
+    color: #7289DA;
+
+    &:focus,
+    &:hover {
+      background: lighten(#7289DA, 79%);
+    }
+  }
 }
 
 .loginButton-logo {
