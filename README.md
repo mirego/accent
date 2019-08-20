@@ -146,6 +146,8 @@ Various login providers are included in Accent using Ueberauth to abstract servi
 | `SLACK_CLIENT_ID`          | _none_  |                                                                                                                                           |
 | `SLACK_CLIENT_SECRET`      | _none_  |                                                                                                                                           |
 | `SLACK_TEAM_ID`            | _none_  |                                                                                                                                           |
+| `DISCORD_CLIENT_ID`        | _none_  |                                                                                                                                           |
+| `DISCORD_CLIENT_SECRET`    | _none_  |                                                                                                                                           |
 
 ### Email setup
 
