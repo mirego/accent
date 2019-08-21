@@ -12,7 +12,8 @@ defmodule LangueTest.Formatter.Gettext do
     PlaceholderValues,
     LanguageHeader,
     PluralFormsHeader,
-    HeaderLineBreak
+    HeaderLineBreak,
+    ContextValues
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Gettext.Expectation, test) do

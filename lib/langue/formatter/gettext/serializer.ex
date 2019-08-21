@@ -45,11 +45,22 @@ defmodule Langue.Formatter.Gettext.Serializer do
   end
 
   defp do_parse_entries({_key, [entry]}) do
-    %Gettext.PO.Translation{
-      comments: split_string(entry.comment, []),
-      msgid: split_string(entry.key),
-      msgstr: split_string(entry.value)
-    }
+    case Regex.named_captures(~r/(?<id>.*)\.__CONTEXT__(?<context>.*)/, entry.key) do
+      %{"id" => id, "context" => context} ->
+        %Gettext.PO.Translation{
+          comments: split_string(entry.comment, []),
+          msgid: split_string(id),
+          msgstr: split_string(entry.value),
+          msgctxt: split_string(context)
+        }
+
+      _ ->
+        %Gettext.PO.Translation{
+          comments: split_string(entry.comment, []),
+          msgid: split_string(entry.key),
+          msgstr: split_string(entry.value)
+        }
+    end
   end
 
   defp do_parse_entries({_key, [plural_entry | entries]}) do

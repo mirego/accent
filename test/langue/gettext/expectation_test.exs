@@ -270,4 +270,26 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
       """)
     end
   end
+
+  defmodule ContextValues do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      msgid "test duplicate"
+      msgstr "a"
+
+      msgctxt "other"
+      msgid "test duplicate"
+      msgstr "a"
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test duplicate", value: "a"},
+        %Entry{index: 2, key: "test duplicate.__CONTEXT__other", value: "a"}
+      ]
+    end
+  end
 end
