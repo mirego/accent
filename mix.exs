@@ -63,6 +63,7 @@ defmodule Accent.Mixfile do
       {:absinthe_error_payload, "~> 1.0"},
 
       # Utils
+      {:p1_utils, "1.0.15", override: true},
       {:fast_yaml, github: "processone/fast_yaml", ref: "e789f68895f71b7ad31057177810ca0161bf790e"},
       {:jsone, "~> 1.4"},
       {:mochiweb, "~> 2.18"},
