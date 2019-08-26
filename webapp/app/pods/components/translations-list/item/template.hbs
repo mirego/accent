@@ -84,9 +84,7 @@
     </div>
   </div>
 {{else if isTextEmpty}}
-  <span class="item-text item-text--empty" {{action "toggleEdit"}}>
-    {{t "components.translations_list.empty_text"}}
-  </span>
+  <span class="item-text item-text--empty" {{action "toggleEdit"}}>{{t "components.translations_list.empty_text"}}</span>
 {{else}}
   <span class="item-text" {{action "toggleEdit"}}>{{translation.correctedText}}</span>
 {{/if}}

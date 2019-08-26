@@ -14,33 +14,35 @@
       </div>
 
       <div class="queryForm-filters">
-        {{#if showDocumentsSelect}}
-          <div class="queryForm-filter">
-            <div class="queryForm-filter-select">
-              <AccSelect
-                @matchTriggerWidth={{false}}
-                @searchEnabled={{false}}
-                @selected={{documentValue}}
-                @options={{mappedDocuments}}
-                @onchange={{action onChangeDocument value="value"}}
-              />
+        <div class="queryForm-filters-column">
+          {{#if showDocumentsSelect}}
+            <div class="queryForm-filter">
+              <div class="queryForm-filter-select">
+                <AccSelect
+                  @matchTriggerWidth={{false}}
+                  @searchEnabled={{false}}
+                  @selected={{documentValue}}
+                  @options={{mappedDocuments}}
+                  @onchange={{action onChangeDocument value="value"}}
+                />
+              </div>
             </div>
-          </div>
-        {{/if}}
+          {{/if}}
 
-        {{#if showReferenceRevisionsSelect}}
-          <div class="queryForm-filter">
-            <div class="queryForm-filter-select">
-              <AccSelect
-                @matchTriggerWidth={{false}}
-                @searchEnabled={{false}}
-                @selected={{referenceValue}}
-                @options={{mappedReferenceRevisions}}
-                @onchange={{action onChangeReference value="value"}}
-              />
+          {{#if showReferenceRevisionsSelect}}
+            <div class="queryForm-filter">
+              <div class="queryForm-filter-select">
+                <AccSelect
+                  @matchTriggerWidth={{false}}
+                  @searchEnabled={{false}}
+                  @selected={{referenceValue}}
+                  @options={{mappedReferenceRevisions}}
+                  @onchange={{action onChangeReference value="value"}}
+                />
+              </div>
             </div>
-          </div>
-        {{/if}}
+          {{/if}}
+        </div>
       </div>
     </div>
 

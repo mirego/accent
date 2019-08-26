@@ -11,6 +11,11 @@
     @text={{t "components.translations_list.no_translations_query" query=query
     }}
   />
+{{else if withAdvancedFilters}}
+  <EmptyContent
+    @iconPath="assets/empty.svg"
+    @text={{t "components.translations_list.no_translations_filters"}}
+  />
 {{else}}
   <EmptyContent>
     {{inline-svg "assets/empty.svg" class="icon"}}

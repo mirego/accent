@@ -30,6 +30,13 @@
 
 .queryForm-filters {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.queryForm-filters-column {
+  display: flex;
+  flex-grow: 1;
 }
 
 .queryForm-filter {

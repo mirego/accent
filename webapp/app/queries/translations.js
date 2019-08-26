@@ -8,6 +8,10 @@ export default gql`
     $page: Int
     $document: ID
     $version: ID
+    $isTextEmpty: Boolean
+    $isTextNotEmpty: Boolean
+    $isAddedLastSync: Boolean
+    $isCommentedOn: Boolean
   ) {
     viewer {
       project(id: $projectId) {
@@ -35,6 +39,10 @@ export default gql`
             page: $page
             document: $document
             version: $version
+            isTextEmpty: $isTextEmpty
+            isTextNotEmpty: $isTextNotEmpty
+            isAddedLastSync: $isAddedLastSync
+            isCommentedOn: $isCommentedOn
           ) {
             meta {
               totalEntries

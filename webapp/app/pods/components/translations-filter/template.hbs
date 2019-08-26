@@ -14,34 +14,61 @@
       </div>
 
       <div class="queryForm-filters">
-        {{#if showDocumentsSelect}}
-          <div class="queryForm-filter">
-            <div class="queryForm-filter-select">
-              <AccSelect
-                @matchTriggerWidth={{false}}
-                @searchEnabled={{false}}
-                @selected={{documentValue}}
-                @options={{mappedDocuments}}
-                @onchange={{action onChangeDocument value="value"}}
-              />
+        <div class="queryForm-filters-column">
+          {{#if showDocumentsSelect}}
+            <div class="queryForm-filter">
+              <div class="queryForm-filter-select">
+                <AccSelect
+                  @matchTriggerWidth={{false}}
+                  @searchEnabled={{false}}
+                  @selected={{documentValue}}
+                  @options={{mappedDocuments}}
+                  @onchange={{action onChangeDocument value="value"}}
+                />
+              </div>
             </div>
-          </div>
-        {{/if}}
+          {{/if}}
 
-        {{#if showVersionsSelect}}
-          <div class="queryForm-filter">
-            <div class="queryForm-filter-select">
-              <AccSelect
-                @matchTriggerWidth={{false}}
-                @searchEnabled={{false}}
-                @selected={{versionValue}}
-                @options={{mappedVersions}}
-                @onchange={{action onChangeVersion value="value"}}
-              />
+          {{#if showVersionsSelect}}
+            <div class="queryForm-filter">
+              <div class="queryForm-filter-select">
+                <AccSelect
+                  @matchTriggerWidth={{false}}
+                  @searchEnabled={{false}}
+                  @selected={{versionValue}}
+                  @options={{mappedVersions}}
+                  @onchange={{action onChangeVersion value="value"}}
+                />
+              </div>
             </div>
+          {{/if}}
+        </div>
+
+        <button {{action 'toggleAdvancedFilters'}} class="advancedFilters">
+          <div class="advancedFilters-content">
+            {{inline-svg "assets/filter.svg" class="advancedFilters-icon"}}
+            {{t
+              "components.translations_filter.advanced_filters_button"
+            }}
+
+            {{#if this.withAdvancedFilters}}
+              <span class="advancedFilters-badge">
+                {{this.withAdvancedFilters}}
+              </span>
+            {{/if}}
           </div>
-        {{/if}}
+        </button>
       </div>
+
+      {{#if this.displayAdvancedFilters}}
+        <TranslationsFilter::AdvancedFilters
+          @isTextEmptyFilter={{isTextEmptyFilter}}
+          @isTextNotEmptyFilter={{isTextNotEmptyFilter}}
+          @isAddedLastSyncFilter={{isAddedLastSyncFilter}}
+          @isCommentedOnFilter={{isCommentedOnFilter}}
+          @onChangeAdvancedFilterBoolean={{onChangeAdvancedFilterBoolean}}
+        />
+      {{/if}}
     </div>
 
     {{#if meta.totalEntries}}

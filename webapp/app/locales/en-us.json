@@ -672,11 +672,19 @@
       "removed_label": "This string was removed {removedAt}"
     },
     "translations_filter": {
+      "advanced_filters_button": "Advanced filters",
       "input_placeholder_text": "Search for a string",
       "documents_label": "Filter from document:",
       "document_default_option_text": "All documents",
       "version_default_option_text": "Latest version",
-      "total_entries_count": "{count, plural, =0 {No strings found} =1 {1 string found} other {# strings found}}"
+      "total_entries_count": "{count, plural, =0 {No strings found} =1 {1 string found} other {# strings found}}",
+      "advanced_filters_title": "Advanced filters",
+      "advanced_filters": {
+        "empty": "Text is empty (\"\" or null value)",
+        "not_empty": "Text is not empty",
+        "added_last_sync": "Strings added last sync",
+        "commented_on": "Strings with comments"
+      }
     },
     "translations_list": {
       "comments_count": "{count, plural, =0 {No comments} =1 {1 comment} other {# comments}}",
@@ -686,7 +694,8 @@
       "maybe_sync_before": "Maybe try to",
       "maybe_sync_link": "sync some files →",
       "no_translations": "Looks like no strings were added for your project.",
-      "no_translations_query": "No strings found for: {query}"
+      "no_translations_query": "No strings found for: {query}",
+      "no_translations_filters": "No strings found for the given filters"
     },
     "welcome_project": {
       "welcome": "Welcome!",

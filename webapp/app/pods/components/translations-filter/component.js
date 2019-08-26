@@ -12,15 +12,21 @@ const DEBOUNCE_OFFSET = 500; // ms
 // documents: Array of <document>
 // version: Object <version>
 // versions: Array of <version>
+// isTextEmptyFilter: Boolean
+// isTextNotEmptyFilter: Boolean
+// isAddedLastSyncFilter: Boolean
+// isCommentedOnFilter: Boolean
 // onChangeQuery: Function
 // onChangeDocument: Function
 // onChangeVersion: Function
+// onChangeAdvancedFilterBoolean: Function
 export default Component.extend({
   intl: service('intl'),
 
   debouncedQuery: reads('query'),
   showDocumentsSelect: gt('documents.length', 1),
   showVersionsSelect: gt('versions.length', 0),
+  displayAdvancedFilters: reads('withAdvancedFilters'),
 
   mappedDocuments: computed('documents.[]', function() {
     const documents = this.documents.map(({id, path}) => ({
@@ -73,6 +79,10 @@ export default Component.extend({
   actions: {
     submitForm() {
       this._debounceQuery();
+    },
+
+    toggleAdvancedFilters() {
+      this.set('displayAdvancedFilters', !this.displayAdvancedFilters);
     }
   }
 });

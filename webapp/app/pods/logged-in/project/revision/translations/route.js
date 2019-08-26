@@ -21,10 +21,27 @@ export default Route.extend(ResetScroll, ApolloRoute, {
     },
     version: {
       refreshModel: true
+    },
+    isTextEmpty: {
+      refreshModel: true
+    },
+    isTextNotEmpty: {
+      refreshModel: true
+    },
+    isAddedLastSync: {
+      refreshModel: true
+    },
+    isCommentedOn: {
+      refreshModel: true
     }
   },
 
-  model({query, page, document, version}, transition) {
+  model(params, transition) {
+    params.isTextEmpty = params.isTextEmpty === 'true' ? true : null;
+    params.isTextNotEmpty = params.isTextNotEmpty === 'true' ? true : null;
+    params.isAddedLastSync = params.isAddedLastSync === 'true' ? true : null;
+    params.isCommentedOn = params.isCommentedOn === 'true' ? true : null;
+
     return this.graphql(translationsQuery, {
       props: data => ({
         revisionId: this.routeParams.fetch(
@@ -45,10 +62,7 @@ export default Route.extend(ResetScroll, ApolloRoute, {
             transition,
             'logged-in.project.revision'
           ).revisionId,
-          query,
-          page,
-          document,
-          version
+          ...params
         }
       }
     });
