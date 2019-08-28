@@ -84,7 +84,6 @@
             @disabled={{conflict.isRemoved}}
             @valueType={{conflict.valueType}}
             @value={{textInput}}
-            @rows={{3}}
             @showTypeHints={{false}}
             @onFocus={{action "inputFocus"}}
             @onBlur={{action "inputBlur"}}
@@ -95,7 +94,7 @@
           <AsyncButton
             @onClick={{action "correct"}}
             @loading={{loading}}
-            class="button button--filled button--white"
+            class="button button--filled button--green correctButton"
           >
             {{inline-svg "/assets/check.svg" class="button-icon"}}
             {{t "components.conflict_item.correct_button_text"}}

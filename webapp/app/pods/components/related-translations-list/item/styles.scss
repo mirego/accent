@@ -1,7 +1,6 @@
 & {
   position: relative;
   padding: 10px;
-  margin-bottom: 15px;
 
   &.empty {
     padding: 35px 10px;
@@ -12,8 +11,6 @@
   }
 
   &.item--editMode {
-    background: $color-light-background;
-
     .editButton {
       opacity: 1;
     }
@@ -55,7 +52,7 @@
 }
 
 .updatedAt {
-  margin-left: 6px;
+  margin: 0 6px;
   color: $color-grey;
   font-size: 11px;
   font-style: italic;
@@ -64,7 +61,6 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .text {
@@ -96,13 +92,15 @@
 
 .textEdit-button {
   padding: 1px 9px;
+  position: absolute;
+  bottom: 22px;
+  right: 24px;
 }
 
 .textEdit-actions {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-top: 10px;
 }
 
 .textEdit-actions-warning {

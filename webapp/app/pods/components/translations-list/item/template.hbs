@@ -69,19 +69,13 @@
       @value={{editText}}
       @onSubmit={{action "save"}}
     />
-    <div class="item-textEdit-actions">
-      <span class="item-textEdit-cancel" {{action "toggleEdit"}}>
-        Cancel
-      </span>
-
-      <AsyncButton
-        @onClick={{action "save"}}
-        @loading={{isSaving}}
-        class="button button--filled button--iconOnly item-textEdit-button"
-      >
-        Save
-      </AsyncButton>
-    </div>
+    <AsyncButton
+      @onClick={{action "save"}}
+      @loading={{isSaving}}
+      class="button button--filled button--iconOnly item-textEdit-button"
+    >
+      Save
+    </AsyncButton>
   </div>
 {{else if isTextEmpty}}
   <span class="item-text item-text--empty" {{action "toggleEdit"}}>{{t "components.translations_list.empty_text"}}</span>

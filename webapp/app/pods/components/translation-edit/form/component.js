@@ -3,7 +3,13 @@ import {computed} from '@ember/object';
 import Component from '@ember/component';
 
 export default Component.extend({
-  rows: 7,
+  rows: computed('value', function() {
+    if (!this.value) return 1;
+    if (this.value.length < 70) return 1;
+    if (this.value.length < 300) return 3;
+
+    return 7;
+  }),
   showTypeHints: true,
 
   isStringType: equal('valueType', 'STRING'),

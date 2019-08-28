@@ -12,7 +12,7 @@
     background: $color-light-background;
 
     .item-edit {
-      transform: translateX(-40px);
+      transform: translateX(-50px);
       opacity: 1;
     }
   }
@@ -22,7 +22,7 @@
     transform: scale(1.02);
 
     .item-edit {
-      transform: translateX(-40px);
+      transform: translateX(-50px);
       opacity: 1;
     }
 
@@ -51,7 +51,7 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
@@ -134,6 +134,7 @@
 
 .item-textEdit {
   margin-top: 10px;
+  position: relative;
 }
 
 .item-textEdit-cancel {
@@ -145,16 +146,12 @@
 
 .item-textEdit-button {
   padding: 1px 9px;
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
 }
 
-.item-textEdit-actions {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 10px;
-}
-
-@media (max-width: ($screen-sm)) {
+@media (max-width: 800px) {
   .item-edit {
     display: none;
   }
