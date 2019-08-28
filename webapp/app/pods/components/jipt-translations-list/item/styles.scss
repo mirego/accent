@@ -1,0 +1,12 @@
+.item-text {
+  display: block;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  color: $color-true-black;
+  font-size: 16px;
+
+  &.item-text--empty {
+    color: $color-grey;
+    font-style: italic;
+  }
+}

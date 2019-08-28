@@ -44,20 +44,22 @@
           {{/if}}
         </div>
 
-        <button {{action 'toggleAdvancedFilters'}} class="advancedFilters">
-          <div class="advancedFilters-content">
-            {{inline-svg "assets/filter.svg" class="advancedFilters-icon"}}
-            {{t
-              "components.translations_filter.advanced_filters_button"
-            }}
+        {{#if this.onChangeAdvancedFilterBoolean}}
+          <button {{action 'toggleAdvancedFilters'}} class="advancedFilters">
+            <div class="advancedFilters-content">
+              {{inline-svg "assets/filter.svg" class="advancedFilters-icon"}}
+              {{t
+                "components.translations_filter.advanced_filters_button"
+              }}
 
-            {{#if this.withAdvancedFilters}}
-              <span class="advancedFilters-badge">
-                {{this.withAdvancedFilters}}
-              </span>
-            {{/if}}
-          </div>
-        </button>
+              {{#if this.withAdvancedFilters}}
+                <span class="advancedFilters-badge">
+                  {{this.withAdvancedFilters}}
+                </span>
+              {{/if}}
+            </div>
+          </button>
+        {{/if}}
       </div>
 
       {{#if this.displayAdvancedFilters}}

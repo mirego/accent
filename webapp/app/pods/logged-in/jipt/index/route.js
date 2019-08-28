@@ -31,14 +31,17 @@ export default Route.extend(ResetScroll, ApolloRoute, {
         documents: get(data, 'viewer.project.documents.entries'),
         versions: get(data, 'viewer.project.versions.entries'),
         translations: get(data, 'viewer.project.revision.translations'),
-        selectedTranslationIds: transition.queryParams.translationIds
+        selectedTranslationIds: this.routeParams.fetch(
+          transition,
+          'logged-in.jipt'
+        ).transitionIds
       }),
       options: {
         fetchPolicy: 'cache-and-network',
         variables: {
           projectId: this.routeParams.fetch(transition, 'logged-in.jipt')
             .projectId,
-          revisionId: transition.queryParams.revisionId,
+          revisionId: transition.to.queryParams.revisionId,
           query,
           page,
           document,

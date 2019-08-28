@@ -48,7 +48,8 @@ export default class LiveNode {
   matchText(node: Element) {
     const translation = this.findTranslationByValue(node.nodeValue);
 
-    if (!translation || !translation.text) return;
+    if (!translation || translation.text === undefined) return;
+    if (translation.text === '') translation.text = '–';
 
     const parentNode = node.parentNode as Element;
 

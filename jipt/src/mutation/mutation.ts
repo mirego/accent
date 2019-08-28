@@ -29,8 +29,12 @@ export default class Mutation {
 
   private static textNodeChange(node: Element, meta: any, text: string) {
     if (node.innerHTML === text) return;
+    let updatedText = text;
 
-    node.innerHTML = text;
+    if (text.trim() === '') updatedText = '–';
+
+    node.innerHTML = updatedText;
+
     if (!meta.head) this.handleUpdatedNodeStyles(node);
   }
 

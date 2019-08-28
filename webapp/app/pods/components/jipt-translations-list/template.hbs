@@ -4,6 +4,6 @@
     @model={{translation.id}}
     class="item"
   >
-    {{translation.correctedText}}
-  </LinkTo>
+    <JiptTranslationsList::Item @translation={{translation}} />
+ </LinkTo>
 {{/each}}
