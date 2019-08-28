@@ -8,6 +8,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     GraphQL.Paginated,
     Operation,
     Plugs.GraphQLContext,
+    PreviousTranslation,
     Project,
     Repo,
     Translation
@@ -57,5 +58,39 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     |> Query.where(id: ^id)
     |> Repo.one()
     |> (&{:ok, &1}).()
+  end
+
+  @doc """
+    ## Examples:
+
+    iex> previous_translation_text(%{corrected_text: nil, proposed_text: "foo"}, %{}, %{})
+    {:ok, "foo"}
+    iex> previous_translation_text(%{corrected_text: "bar", proposed_text: "foo"}, %{}, %{})
+    {:ok, "bar"}
+    iex> previous_translation_text(%{corrected_text: nil, proposed_text: nil}, %{}, %{})
+    {:ok, nil}
+  """
+  @spec previous_translation_text(PreviousTranslation.t(), map(), GraphQLContext.t()) :: {:ok, String.t() | nil}
+  def previous_translation_text(translation, _, _) do
+    {:ok, translation.corrected_text || translation.proposed_text}
+  end
+
+  @doc """
+    ## Examples:
+
+    iex> activity_type(%{translation_id: 1, revision_id: nil}, %{}, %{})
+    {:ok, :translation}
+    iex> activity_type(%{translation_id: nil, revision_id: 1}, %{}, %{})
+    {:ok, :revision}
+    iex> activity_type(%{translation_id: nil, revision_id: nil, key: "foo"}, %{}, %{})
+    {:ok, :project}
+  """
+  @spec activity_type(Operation.t(), map(), GraphQLContext.t()) :: {:ok, :translation | :revision | :project}
+  def activity_type(operation, _, _) do
+    cond do
+      not is_nil(operation.translation_id) -> {:ok, :translation}
+      not is_nil(operation.revision_id) -> {:ok, :revision}
+      true -> {:ok, :project}
+    end
   end
 end

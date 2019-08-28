@@ -1,5 +1,6 @@
 defmodule AccentTest.GraphQL.Resolvers.Activity do
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
+  doctest Accent.GraphQL.Resolvers.Activity, import: true
 
   alias Accent.GraphQL.Resolvers.Activity, as: Resolver
 

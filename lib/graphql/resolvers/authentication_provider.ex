@@ -1,14 +1,10 @@
 defmodule Accent.GraphQL.Resolvers.AuthenticationProvider do
-  @spec list(any(), any(), GraphQLContext.t()) :: {:ok, list(%{id: String.t()})}
+  @spec list(any(), any(), GraphQLContext.t()) :: {:ok, list(%{id: atom()})}
   def list(_, _, _) do
-    {:ok, data()}
+    {:ok, Enum.map(config()[:providers], &%{id: elem(&1, 0)})}
   end
 
-  def data do
-    Enum.map(config()[:providers], fn {id, _} -> %{id: id} end)
-  end
-
-  def config do
+  defp config do
     Application.get_env(:ueberauth, Ueberauth)
   end
 end

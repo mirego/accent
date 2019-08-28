@@ -4,6 +4,8 @@ defmodule Accent.GraphQL.Types.Activity do
   import Absinthe.Resolution.Helpers, only: [dataloader: 1, dataloader: 2]
   import Accent.GraphQL.Helpers.Fields
 
+  alias Accent.GraphQL.Resolvers.Activity, as: Resolver
+
   object :activity_stat do
     field(:action, non_null(:string), resolve: field_alias("action"))
     field(:count, non_null(:integer), resolve: field_alias("count"))
@@ -16,11 +18,7 @@ defmodule Accent.GraphQL.Types.Activity do
     field(:conflicted_text, :string)
     field(:value_type, :translation_value_type)
 
-    field :text, :string do
-      resolve(fn previous_translation, _, _ ->
-        {:ok, previous_translation.corrected_text || previous_translation.proposed_text}
-      end)
-    end
+    field :text, :string, resolve: &Resolver.previous_translation_text/3
   end
 
   object :activity do
@@ -30,19 +28,7 @@ defmodule Accent.GraphQL.Types.Activity do
     field(:is_rollbacked, non_null(:boolean), resolve: field_alias(:rollbacked))
     field(:inserted_at, non_null(:datetime))
     field(:updated_at, non_null(:datetime))
-
-    field(
-      :activity_type,
-      :string,
-      resolve: fn activity, _, _ ->
-        case activity do
-          %{translation_id: id} when not is_nil(id) -> {:ok, :translation}
-          %{revision_id: id} when not is_nil(id) -> {:ok, :revision}
-          _ -> {:ok, :project}
-        end
-      end
-    )
-
+    field(:activity_type, :string, resolve: &Resolver.activity_type/3)
     field(:text, :string)
     field(:stats, list_of(:activity_stat))
     field(:value_type, :translation_value_type)
