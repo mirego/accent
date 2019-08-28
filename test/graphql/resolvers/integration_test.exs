@@ -36,6 +36,19 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     assert get_in(Repo.all(Integration), [Access.all(), Access.key(:events)]) == [["sync"]]
   end
 
+  test "create discord", %{project: project, user: user} do
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    {:ok, integration} = Resolver.create(project, %{service: "discord", events: ["sync"], data: %{url: "http://google.ca"}}, context)
+
+    assert integration.service == "discord"
+    assert integration.data.url == "http://google.ca"
+    assert integration.events == ["sync"]
+
+    assert get_in(Repo.all(Integration), [Access.all(), Access.key(:service)]) == ["discord"]
+    assert get_in(Repo.all(Integration), [Access.all(), Access.key(:events)]) == [["sync"]]
+  end
+
   test "create github", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
@@ -63,6 +76,16 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     {:ok, integration} = Resolver.create(project, %{service: "slack", data: %{url: ""}}, context)
+
+    assert integration.changes.data.errors == [url: {"can't be blank", [validation: :required]}]
+
+    assert Repo.all(Integration) == []
+  end
+
+  test "create discord error", %{project: project, user: user} do
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    {:ok, integration} = Resolver.create(project, %{service: "discord", data: %{url: ""}}, context)
 
     assert integration.changes.data.errors == [url: {"can't be blank", [validation: :required]}]
 
