@@ -2,13 +2,19 @@ import {equal} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
 
+const SMALL_INPUT_ROWS = 1;
+const MEDIUM_INPUT_ROWS = 3;
+const LARGE_INPUT_ROWS = 7;
+const SMALL_INPUT_VALUE = 70;
+const LARGE_INPUT_VALUE = 100;
+
 export default Component.extend({
   rows: computed('value', function() {
-    if (!this.value) return 1;
-    if (this.value.length < 70) return 1;
-    if (this.value.length < 300) return 3;
+    if (!this.value) return SMALL_INPUT_ROWS;
+    if (this.value.length < SMALL_INPUT_VALUE) return SMALL_INPUT_ROWS;
+    if (this.value.length < LARGE_INPUT_VALUE) return MEDIUM_INPUT_ROWS;
 
-    return 7;
+    return LARGE_INPUT_ROWS;
   }),
   showTypeHints: true,
 
