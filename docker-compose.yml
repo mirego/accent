@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 services:
   application:
     image: mirego/accent
@@ -11,7 +11,6 @@ services:
     environment:
       - PORT=4000
       - DATABASE_URL=postgres://postgres@postgresql:5432/accent_development
-      - GOOGLE_API_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com
   postgresql:
     image: postgres:10.3
     container_name: accent-postgres

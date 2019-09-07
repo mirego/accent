@@ -3,13 +3,9 @@
 #
 FROM elixir:1.9-alpine AS builder
 
-ARG APP_NAME
-ARG APP_VERSION
-ARG MIX_ENV=prod
-
-ENV APP_NAME=${APP_NAME} \
-    APP_VERSION=${APP_VERSION} \
-    MIX_ENV=${MIX_ENV}
+ARG APP_VERSION=latest
+ENV APP_VERSION=${APP_VERSION}
+ENV MIX_ENV=prod
 
 WORKDIR /build
 
@@ -21,19 +17,19 @@ RUN mix local.rebar --force && \
     mix local.hex --force
 
 COPY mix.* ./
-RUN mix deps.get --only ${MIX_ENV}
-RUN mix deps.compile
-
 COPY lib lib
 COPY priv priv
 COPY config config
 COPY mix.exs .
 COPY mix.lock .
-RUN mix compile
+
+RUN mix deps.get --only prod
+RUN mix deps.compile --only prod
+RUN mix compile --only prod
 
 RUN mkdir -p /opt/build && \
     mix release && \
-    cp -R _build/${MIX_ENV}/rel/${APP_NAME}/* /opt/build
+    cp -R _build/prod/rel/accent/* /opt/build
 
 #
 # Step 2 - Build webapp and jipt deps
@@ -60,33 +56,31 @@ RUN npm ci --no-audit --no-color && \
 #
 FROM alpine:3.9
 
-ARG APP_NAME
-ARG APP_VERSION
-ENV APP_NAME=${APP_NAME} \
-    APP_VERSION=${APP_VERSION}
+ARG APP_VERSION=latest
+ENV APP_VERSION=${APP_VERSION}
 
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
     apk --no-cache add bash openssl erlang-crypto yaml-dev
 
-WORKDIR /opt/$APP_NAME
+WORKDIR /opt/accent
 
 # Copy the OTP binary and assets deps from the build step
 COPY --from=builder /opt/build .
 COPY --from=webapp-builder /opt/build .
 COPY --from=jipt-builder /opt/build .
 
-RUN mv /opt/$APP_NAME/webapp-dist /opt/$APP_NAME/lib/$APP_NAME-$APP_VERSION/priv/static/webapp && \
-    mv /opt/$APP_NAME/jipt-dist /opt/$APP_NAME/lib/$APP_NAME-$APP_VERSION/priv/static/jipt
+RUN mv /opt/accent/webapp-dist /opt/accent/lib/accent-$APP_VERSION/priv/static/webapp && \
+    mv /opt/accent/jipt-dist /opt/accent/lib/accent-$APP_VERSION/priv/static/jipt
 
 # Copy the entrypoint script
 COPY priv/scripts/docker-entrypoint.sh /usr/local/bin
 RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
 # Create a non-root user
-RUN adduser -D $APP_NAME && chown -R $APP_NAME: /opt/$APP_NAME
+RUN adduser -D accent && chown -R accent: /opt/accent
 
-USER $APP_NAME
+USER accent
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["start"]

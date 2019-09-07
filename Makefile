@@ -1,7 +1,5 @@
 # Configuration
 # -------------
-
-APP_NAME ?= `grep 'app:' mix.exs | sed -e 's/\[//g' -e 's/ //g' -e 's/app://' -e 's/[:,]//g'`
 APP_VERSION ?= `grep -E '@version "([0-9\.]*)"' mix.exs | cut -d '"' -f2`
 DOCKER_IMAGE_TAG ?= latest
 GIT_REVISION ?= `git rev-parse HEAD`
@@ -16,9 +14,6 @@ help: header targets
 header:
 	@echo "\033[34mEnvironment\033[0m"
 	@echo "\033[34m---------------------------------------------------------------\033[0m"
-	@printf "\033[33m%-23s\033[0m" "APP_NAME"
-	@printf "\033[35m%s\033[0m" $(APP_NAME)
-	@echo ""
 	@printf "\033[33m%-23s\033[0m" "APP_VERSION"
 	@printf "\033[35m%s\033[0m" $(APP_VERSION)
 	@echo ""
@@ -66,7 +61,11 @@ dependencies-npm-jipt:
 
 .PHONY: build
 build: ## Build the Docker image for the OTP release
-	docker build --build-arg APP_NAME=$(APP_NAME) --build-arg APP_VERSION=$(APP_VERSION) --rm --tag $(APP_NAME):$(DOCKER_IMAGE_TAG) .
+	docker build --build-arg APP_VERSION=$(APP_VERSION) --rm --tag accent:$(DOCKER_IMAGE_TAG) .
+
+.PHONY: compose-build
+compose-build: ## Build the Docker image from the docker-compose.yml file
+	docker-compose build --build-arg APP_VERSION=$(APP_VERSION)
 
 # CI targets
 # ----------
