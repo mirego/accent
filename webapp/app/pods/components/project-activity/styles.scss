@@ -208,12 +208,13 @@
 
   .added {
     background: lighten($color-success, 42%);
-    color: $color-success;
+    color: darken($color-success, 10%);
   }
 
   .removed {
     background: lighten($color-error, 48%);
     color: $color-error;
+    text-decoration: line-through;
   }
 }
 

@@ -131,13 +131,14 @@
   .added {
     padding: 0 3px;
     background: lighten($color-success, 42%);
-    color: $color-success;
+    color: darken($color-success, 10%);
   }
 
   .removed {
     padding: 0 3px;
     background: lighten($color-error, 42%);
     color: $color-error;
+    text-decoration: line-through;
   }
 }
 
