@@ -2,10 +2,8 @@ defmodule Accent.TranslationsRenderer do
   alias Langue
 
   def render(args) do
-    value_map = Map.get(args, :value_map, & &1.corrected_text)
-    serializer = fetch_serializer(args[:document].format)
-    master_translations = Enum.group_by(args[:master_translations], & &1.key)
-    entries = fetch_entries(args[:translations], master_translations, value_map)
+    {:ok, serializer} = Langue.serializer_from_format(args[:document].format)
+    entries = entries(args)
 
     serialzier_input = %Langue.Formatter.ParserResult{
       entries: entries,
@@ -28,13 +26,11 @@ defmodule Accent.TranslationsRenderer do
     end
   end
 
-  defp fetch_serializer(format) do
-    case Langue.serializer_from_format(format) do
-      {:ok, serializer} -> serializer
-    end
-  end
+  def entries(args) do
+    translations = args[:translations]
+    master_translations = Enum.group_by(args[:master_translations], & &1.key)
+    value_map = Map.get(args, :value_map, & &1.corrected_text)
 
-  defp fetch_entries(translations, master_translations, value_map) do
     Enum.map(translations, fn translation ->
       master_translation = Map.get(master_translations, translation.key)
 
@@ -52,7 +48,7 @@ defmodule Accent.TranslationsRenderer do
   defp fetch_master_value(nil, _), do: nil
   defp fetch_master_value([], _), do: nil
 
-  defp fetch_master_value([master_translation], value_map) do
+  defp fetch_master_value([master_translation | _], value_map) do
     value_map.(master_translation)
   end
 end

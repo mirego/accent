@@ -9,26 +9,6 @@
     font-style: italic;
     text-align: center;
   }
-
-  &.item--editMode {
-    .editButton {
-      opacity: 1;
-    }
-
-    .editButton-icon {
-      &:focus,
-      &:hover {
-        fill: $color-error;
-      }
-    }
-  }
-
-  &:hover,
-  &:focus {
-    .editButton {
-      opacity: 1;
-    }
-  }
 }
 
 .textEmpty {
@@ -61,14 +41,7 @@
 .header {
   display: flex;
   align-items: center;
-}
-
-.text {
-  @extend %translationTextBase;
-  padding-top: 10px;
-  margin: 10px 0 0;
-  border-top: 1px solid $color-light-background;
-  font-size: 13px;
+  min-height: 25px;
 }
 
 .textEdit {
@@ -93,7 +66,7 @@
 .textEdit-button {
   padding: 1px 9px;
   position: absolute;
-  bottom: 22px;
+  top: 51px;
   right: 24px;
 }
 

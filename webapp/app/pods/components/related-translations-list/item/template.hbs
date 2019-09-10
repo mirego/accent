@@ -1,15 +1,3 @@
-{{#if showEditButton}}
-  <span class="editButton">
-    <span {{action "toggleEdit"}}>
-      {{#if isInEditMode}}
-        {{inline-svg "assets/x.svg" class="editButton-icon"}}
-      {{else}}
-        {{inline-svg "assets/pencil.svg" class="editButton-icon"}}
-      {{/if}}
-    </span>
-  </span>
-{{/if}}
-
 <div class="header">
   <div>
     <LinkTo
@@ -60,27 +48,23 @@
   </div>
 </div>
 
-{{#if isInEditMode}}
-  <div class="textEdit">
-    <TranslationEdit::Form
-      @disabled={{translation.isRemoved}}
-      @valueType={{translation.valueType}}
-      @value={{editText}}
-      @onSubmit={{action "save"}}
-    />
+<div class="textEdit">
+  <TranslationEdit::Form
+    @projectId={{project.id}}
+    @translationId={{translation.id}}
+    @disabled={{translation.isRemoved}}
+    @valueType={{translation.valueType}}
+    @value={{editText}}
+    @onSubmit={{action "save"}}
+  />
 
-    {{#if showSaveButton}}
-      <AsyncButton
-        @onClick={{action "save"}}
-        @loading={{isSaving}}
-        class="button button--filled button--iconOnly textEdit-button"
-      >
-        Save
-      </AsyncButton>
-    {{/if}}
-  </div>
-{{else}}
-  <div class="text" {{action "toggleEdit"}}>
-    {{translation.correctedText}}
-  </div>
-{{/if}}
+  {{#if showSaveButton}}
+    <AsyncButton
+      @onClick={{action "save"}}
+      @loading={{isSaving}}
+      class="button button--filled button--iconOnly textEdit-button"
+    >
+      Save
+    </AsyncButton>
+  {{/if}}
+</div>

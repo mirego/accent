@@ -1,43 +1,43 @@
-{{#if isBooleanType}}
+{{#if this.isBooleanType}}
   <span class="label">
     The text should be either true or false
   </span>
 
-  <RadioButton @groupValue={{value}} @value="true">
+  <RadioButton @groupValue={{@value}} @value="true">
     {{t "components.translation_edit.form.true_option"}}
   </RadioButton>
 
-  <RadioButton @groupValue={{value}} @value="false">
+  <RadioButton @groupValue={{@value}} @value="false">
     {{t "components.translation_edit.form.false_option"}}
   </RadioButton>
 {{else}}
-  {{#if showTypeHints}}
-    {{#if isIntegerType}}
+  {{#if this.showTypeHints}}
+    {{#if this.isIntegerType}}
       <span class="label">
         {{t "components.translation_edit.form.integer_type_notice"}}
       </span>
     {{/if}}
 
-    {{#if isFloatType}}
+    {{#if this.isFloatType}}
       <span class="label">
         {{t "components.translation_edit.form.float_type_notice"}}
       </span>
     {{/if}}
 
-    {{#if isEmptyType}}
+    {{#if this.isEmptyType}}
       <span class="label">
         {{t "components.translation_edit.form.empty_type_notice"}}
       </span>
     {{/if}}
 
-    {{#if isNullType}}
+    {{#if this.isNullType}}
       <span class="label">
         {{t "components.translation_edit.form.null_type_notice"}}
       </span>
     {{/if}}
   {{/if}}
 
-  {{#if placeholders}}
+  {{#if this.placeholders}}
     <div class="placeholders">
       <span class="placeholders-title">
         {{inline-svg "assets/code.svg" class="placeholders-title-icon"}}
@@ -51,7 +51,7 @@
       </div>
 
       <ul>
-        {{#each placeholders as |placeholder|}}
+        {{#each this.placeholders as |placeholder|}}
           <li
             class="placeholders-item
               {{if
@@ -68,15 +68,23 @@
     </div>
   {{/if}}
 
+
   <QuickSubmitTextarea
     placeholder={{t "components.translation_edit.form.empty_type_placeholder"}}
-    @rows={{rows}}
-    @disabled={{disabled}}
-    @value={{value}}
+    @rows={{this.rows}}
+    @disabled={{@disabled}}
+    @value={{@value}}
     class="inputText"
-    @onFocus={{onFocus}}
-    @onBlur={{onBlur}}
-    @onKeyUp={{onKeyUp}}
-    @onSubmit={{onSubmit}}
+    @onFocus={{@onFocus}}
+    @onBlur={{@onBlur}}
+    @onKeyUp={{action 'changeText'}}
+    @onSubmit={{@onSubmit}}
   />
 {{/if}}
+
+{{#each this.lintMessages as |message|}}
+  <TranslationEdit::LintMessage
+    @message={{message}}
+    @onReplaceText={{action 'replaceText'}}
+  />
+{{/each}}

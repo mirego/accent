@@ -24,6 +24,9 @@
   },
   "dependencies": {
     "apollo-boost": "0.4.3",
+    "apollo-client": "2.6.4",
+    "apollo-link-batch-http": "1.2.13",
+    "apollo-link-http": "1.5.16",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "broccoli-asset-rev": "3.0.0",
     "cached-path-relative": "1.0.2",
@@ -66,6 +69,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "0.7.0",
+    "@ember/render-modifiers": "1.0.1",
     "babel-eslint": "8.2.3",
     "ember-cli-chai": "0.5.0",
     "ember-cli-mocha": "0.15.0",

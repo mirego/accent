@@ -1,16 +1,19 @@
 import Service, {inject as service} from '@ember/service';
-import ApolloClient, {
+import {ApolloClient} from 'apollo-client';
+import {BatchHttpLink} from 'apollo-link-batch-http';
+import {
   IntrospectionFragmentMatcher,
-  InMemoryCache
+  InMemoryCache,
+  from,
+  ApolloLink
 } from 'apollo-boost';
+
 import config from 'accent-webapp/config/environment';
 
 const uri = `${config.API.HOST}/graphql`;
 
 const dataIdFromObject = result => {
-  if (result.id && result.__typename) {
-    return `${result.__typename}${result.id}`;
-  }
+  if (result.id && result.__typename) return `${result.__typename}${result.id}`;
 
   return null;
 };
@@ -22,7 +25,11 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
         {
           kind: 'INTERFACE',
           name: 'ProjectIntegration',
-          possibleTypes: ['ProjectIntegrationSlack', 'ProjectIntegrationGitHub']
+          possibleTypes: [
+            'ProjectIntegrationDiscord',
+            'ProjectIntegrationSlack',
+            'ProjectIntegrationGitHub'
+          ]
         }
       ]
     }
@@ -30,8 +37,26 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 });
 
 const cache = new InMemoryCache({dataIdFromObject, fragmentMatcher});
+const link = new BatchHttpLink({uri, batchInterval: 50, batchMax: 50});
+const absintheBatchLink = new ApolloLink((operation, forward) => {
+  return forward(operation).map(response => response.payload);
+});
+const authLink = (session, router) => {
+  return new ApolloLink((operation, forward) => {
+    const token = session.credentials.token;
+    if (!token) return router.transitionTo('login');
 
-// Simple one-to-one interface to the apollo client query function.
+    operation.setContext(({headers = {}}) => ({
+      headers: {
+        ...headers,
+        authorization: `Bearer ${token}`
+      }
+    }));
+
+    return forward(operation);
+  });
+};
+
 export default Service.extend({
   router: service('router'),
   session: service('session'),
@@ -41,17 +66,12 @@ export default Service.extend({
 
     const client = new ApolloClient({
       uri,
-      cache,
-      request: operation => {
-        const token = this.session.credentials.token;
-        if (!token) return this.router.transitionTo('login');
-
-        operation.setContext({
-          headers: {
-            authorization: `Bearer ${token}`
-          }
-        });
-      }
+      link: from([
+        absintheBatchLink,
+        authLink(this.session, this.router),
+        link
+      ]),
+      cache
     });
 
     this.set('client', client);

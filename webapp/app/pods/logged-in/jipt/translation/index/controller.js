@@ -21,6 +21,7 @@ const FLASH_MESSAGE_UPDATE_ERROR =
   'pods.translation.edit.flash_messages.update_error';
 
 export default Controller.extend({
+  apollo: service('apollo'),
   apolloMutate: service('apollo-mutate'),
   globalState: service('global-state'),
   intl: service('intl'),

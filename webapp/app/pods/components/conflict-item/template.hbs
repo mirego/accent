@@ -81,6 +81,8 @@
       <div class="item-details__column">
         <div class="textInput">
           <TranslationEdit::Form
+            @projectId={{project.id}}
+            @translationId={{conflict.id}}
             @disabled={{conflict.isRemoved}}
             @valueType={{conflict.valueType}}
             @value={{textInput}}

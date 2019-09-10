@@ -4,6 +4,7 @@ defmodule Langue.Entry do
   @type t :: %__MODULE__{
           key: binary() | nil,
           value: binary() | nil,
+          master_value: binary() | nil,
           comment: binary() | nil,
           index: integer(),
           value_type: binary(),
