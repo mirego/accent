@@ -37,6 +37,12 @@ defmodule Accent.GraphQL.Types.Translation do
     field(:version, :version, resolve: dataloader(Accent.Version))
     field(:source_translation, :translation, resolve: dataloader(Accent.Translation, :source_translation))
 
+    field :lint_messages, non_null(list_of(non_null(:lint_translation_message))) do
+      arg(:text, :string)
+
+      resolve(translation_authorize(:lint, &Accent.GraphQL.Resolvers.Lint.lint_translation/3))
+    end
+
     field(:master_translation, :translation) do
       resolve(&Accent.GraphQL.Resolvers.Translation.master_translation/3)
     end

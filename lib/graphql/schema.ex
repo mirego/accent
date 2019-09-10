@@ -25,6 +25,7 @@ defmodule Accent.GraphQL.Schema do
   import_types(Accent.GraphQL.Types.Language)
   import_types(Accent.GraphQL.Types.Version)
   import_types(Accent.GraphQL.Types.MutationResult)
+  import_types(Accent.GraphQL.Types.Lint)
 
   query do
     field :viewer, :viewer do

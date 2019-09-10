@@ -11,8 +11,8 @@ export default TextArea.extend({
     if (this.onBlur) this.onBlur();
   },
 
-  keyUp(_event) {
-    if (this.onKeyUp) this.onKeyUp();
+  keyUp(event) {
+    if (this.onKeyUp) this.onKeyUp(event);
   },
 
   keyDown(event) {

@@ -1,0 +1,24 @@
+<span class="description">{{@message.rule.description}}</span>
+<span class="text">{{@message.text}}</span>
+<span class="arrow">→</span>
+
+{{#if this.mappedReplacements}}
+  {{#if this.multipleReplacements}}
+    <AccSelect
+      @searchEnabled={{false}}
+      @selected={{this.selectedReplacement}}
+      @options={{this.mappedReplacements}}
+      @onchange={{action "replaceText" value="value"}}
+    />
+  {{else}}
+    <span class="single-replacement">
+      {{this.selectedReplacement.label}}
+    </span>
+  {{/if}}
+
+  <button
+    class="replaceButton button button--small button--filled"
+    {{action 'replaceTextSelected'}}>
+    Replace
+  </button>
+{{/if}}

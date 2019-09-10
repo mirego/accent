@@ -64,6 +64,8 @@
 {{#if isInEditMode}}
   <div class="item-textEdit">
     <TranslationEdit::Form
+      @projectId={{project.id}}
+      @translationId={{translation.id}}
       @disabled={{translation.isRemoved}}
       @valueType={{translation.valueType}}
       @value={{editText}}

@@ -27,14 +27,6 @@ export default Component.extend({
     return this.text === this.translation.correctedText;
   }),
 
-  didUpdateAttrs() {
-    this._super(...arguments);
-
-    if (this.translation) {
-      this.set('text', this.translation.correctedText);
-    }
-  },
-
   actions: {
     correctConflict() {
       this.set('isCorrectingConflict', true);

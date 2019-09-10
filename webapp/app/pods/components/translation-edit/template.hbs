@@ -9,7 +9,12 @@
       </div>
     {{/unless}}
   {{/if}}
+{{/if}}
+
+{{#if translation.id}}
   <TranslationEdit::Form
+    @projectId={{project.id}}
+    @translationId={{translation.id}}
     @placeholders={{translation.masterTranslation.placeholders}}
     @disabled={{translation.isRemoved}}
     @valueType={{translation.valueType}}
@@ -17,6 +22,9 @@
     @onKeyUp={{action "changeText"}}
     @onSubmit={{action "updateText"}}
   />
+{{/if}}
+
+{{#if translation.isConflicted}}
   {{#unless translation.isRemoved}}
     <div class="actions">
       <div class="actions-links">
@@ -59,14 +67,6 @@
     </div>
   {{/unless}}
 {{else}}
-  <TranslationEdit::Form
-    @placeholders={{translation.masterTranslation.placeholders}}
-    @disabled={{translation.isRemoved}}
-    @valueType={{translation.valueType}}
-    @value={{text}}
-    @onKeyUp={{action "changeText"}}
-    @onSubmit={{action "updateText"}}
-  />
   {{#unless translation.isRemoved}}
     <div class="actions">
       <div class="actions-links">
