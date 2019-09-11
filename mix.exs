@@ -88,8 +88,8 @@ defmodule Accent.Mixfile do
       {:sentry, "~> 7.0"},
 
       # Mails
-      {:bamboo, "~> 0.8"},
-      {:bamboo_smtp, "~> 1.4.0"},
+      {:bamboo, "~> 1.0"},
+      {:bamboo_smtp, "~> 2.0"},
 
       # Events handling
       {:gen_stage, "~> 0.11"},

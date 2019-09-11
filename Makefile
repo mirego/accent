@@ -114,7 +114,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	./node_modules/.bin/prettier --write --single-quote --no-bracket-spacing '{webapp,jipt,cli}/*.{js,json}' 'webapp/{app,config}/**/*.{js,ts,json,scss}' 'jipt/src/**/*.{js,ts,json,gql}' 'cli/{examples,src}/**/*.{js,ts,json,gql}'
+	./node_modules/.bin/prettier --write --single-quote --no-bracket-spacing '{webapp,jipt,cli}/*.{js,json}' 'webapp/{app,config}/**/*.{js,ts,json,scss}' 'jipt/src/**/*.{js,ts,json,gql}' 'cli/{examples,src}/**/*.{js,ts,json,gql}' 'README.md'
 
 # Development targets
 # -------------------

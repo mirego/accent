@@ -54,19 +54,36 @@ if !System.get_env("SENTRY_DSN") do
   config :sentry, included_environments: []
 end
 
-if System.get_env("SMTP_ADDRESS") do
-  config :accent, Accent.Mailer,
-    webapp_url: System.get_env("WEBAPP_URL"),
-    mailer_from: System.get_env("MAILER_FROM"),
-    adapter: Bamboo.SMTPAdapter,
-    server: System.get_env("SMTP_ADDRESS"),
-    port: System.get_env("SMTP_PORT"),
-    username: System.get_env("SMTP_USERNAME"),
-    password: System.get_env("SMTP_PASSWORD"),
-    x_smtpapi_header: System.get_env("SMTP_API_HEADER")
-else
-  config :accent, Accent.Mailer,
-    webapp_url: System.get_env("WEBAPP_URL"),
-    mailer_from: System.get_env("MAILER_FROM"),
-    adapter: Bamboo.LocalAdapter
+config :accent, Accent.Mailer,
+  webapp_url: System.get_env("WEBAPP_URL"),
+  mailer_from: System.get_env("MAILER_FROM"),
+  x_smtpapi_header: System.get_env("SMTP_API_HEADER")
+
+cond do
+  System.get_env("SENDGRID_API_KEY") ->
+    config :accent, Accent.Mailer,
+      adapter: Bamboo.SendGridAdapter,
+      api_key: System.get_env("SENDGRID_API_KEY")
+
+  System.get_env("MANDRILL_API_KEY") ->
+    config :accent, Accent.Mailer,
+      adapter: Bamboo.MandrillAdapter,
+      api_key: System.get_env("MANDRILL_API_KEY")
+
+  System.get_env("MAILGUN_API_KEY") ->
+    config :accent, Accent.Mailer,
+      adapter: Bamboo.MailgunAdapter,
+      api_key: System.get_env("MAILGUN_API_KEY"),
+      domain: System.get_env("MAILGUN_DOMAIN")
+
+  System.get_env("SMTP_ADDRESS") ->
+    config :accent, Accent.Mailer,
+      adapter: Bamboo.SMTPAdapter,
+      server: System.get_env("SMTP_ADDRESS"),
+      port: System.get_env("SMTP_PORT"),
+      username: System.get_env("SMTP_USERNAME"),
+      password: System.get_env("SMTP_PASSWORD")
+
+  true ->
+    config :accent, Accent.Mailer, adapter: Bamboo.LocalAdapter
 end

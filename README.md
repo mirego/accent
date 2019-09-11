@@ -153,14 +153,17 @@ Various login providers are included in Accent using Ueberauth to abstract servi
 
 If you want to send emails, you’ll have to configure the following environment variables:
 
-| Variable          | Default | Description                                                  |
-| ----------------- | ------- | ------------------------------------------------------------ |
-| `MAILER_FROM`     | _none_  | The email address used to send emails.                       |
-| `SMTP_ADDRESS`    | _none_  | The SMTP server address you want to use to send your emails. |
-| `SMTP_API_HEADER` | _none_  | An optional API header that will be added to sent emails.    |
-| `SMTP_PORT`       | _none_  | The port ex: (25, 465, 587).                                 |
-| `SMTP_PASSWORD`   | _none_  | The password for authentification.                           |
-| `SMTP_USERNAME`   | _none_  | The username for authentification.                           |
+| Variable           | Default | Description                                               |
+| ------------------ | ------- | --------------------------------------------------------- |
+| `MAILER_FROM`      | _none_  | The email address used to send emails.                    |
+| `SENDGRID_API_KEY` | _none_  | Use SendGrid to send emails                               |
+| `MANDRILL_API_KEY` | _none_  | Use Mandrill to send emails                               |
+| `MAILGUN_API_KEY`  | _none_  | Use Mailgun to send emails                                |
+| `SMTP_ADDRESS`     | _none_  | Use an SMTP server to send your emails.                   |
+| `SMTP_API_HEADER`  | _none_  | An optional API header that will be added to sent emails. |
+| `SMTP_PORT`        | _none_  | The port ex: (25, 465, 587).                              |
+| `SMTP_PASSWORD`    | _none_  | The password for authentification.                        |
+| `SMTP_USERNAME`    | _none_  | The username for authentification.                        |
 
 ## ✅ Tests
 
