@@ -77,7 +77,7 @@ defmodule Accent.Mixfile do
       {:ex_minimatch, "~> 0.0.1"},
 
       # Auth
-      {:oauth2, "~> 0.9", override: true},
+      {:oauth2, "~> 2.0", override: true},
       {:ueberauth, "~> 0.6"},
       {:ueberauth_google, "~> 0.6"},
       {:ueberauth_github, "~> 0.7"},

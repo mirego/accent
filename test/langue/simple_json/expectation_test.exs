@@ -4,7 +4,7 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
   defmodule Empty do
     use Langue.Expectation.Case
 
-    def render, do: "{\n  \n}\n"
+    def render, do: "{}\n"
     def entries, do: []
   end
 
