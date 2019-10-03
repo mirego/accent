@@ -165,6 +165,10 @@ If you want to send emails, you’ll have to configure the following environment
 | `SMTP_PASSWORD`    | _none_  | The password for authentification.                        |
 | `SMTP_USERNAME`    | _none_  | The username for authentification.                        |
 
+### Kubernetes helm chart setup
+
+You can setup the project with [a helm chart like this one](https://github.com/andreymaznyak/accent-helm-chart). This project uses [a fork by andreymaznyak](https://github.com/andreymaznyak/accent) and not this canonical repository. The specs and values may need to be updated if you use this repo.
+
 ## ✅ Tests
 
 ### API

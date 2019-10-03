@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+docker build --build-arg APP_VERSION=latest --rm --tag mirego/accent:latest .
