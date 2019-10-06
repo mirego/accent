@@ -12,10 +12,7 @@ cache:
   directories:
   - _build
   - deps
-  - node_modules
   - webapp/node_modules
-  - cli/node_modules
-  - jipt/node_modules
 
 # Make sure PostgreSQL is running
 addons:
@@ -36,10 +33,7 @@ env:
 before_install:
   - 'echo `curl --verbose http://jsonip.com`'
   - npm config set spin false
-  - npm i --no-audit --no-color
   - npm i --prefix webapp --no-audit --no-color
-  - npm i --prefix cli --no-audit --no-color
-  - npm i --prefix jipt --no-audit --no-color
   - npm --prefix webapp run build-production-inline
 
 # Create database and prepare the application
@@ -48,7 +42,4 @@ before_script:
   - mix ecto.setup
 
 script:
-  - ./priv/scripts/ci-check.sh
-  - npm --prefix cli run build
-  - npm --prefix jipt run build-production-inline
   - mix coveralls.travis
