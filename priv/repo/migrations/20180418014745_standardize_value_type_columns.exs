@@ -3,7 +3,7 @@ defmodule Accent.Repo.Migrations.StandardizeValueTypeColumns do
 
   def change do
     execute("""
-      UPDATE "operations" AS o0 SET "previous_translation" = replace(previous_translation::TEXT,'"value_type": ""','"value_type": "string"')::jsonb
+      UPDATE "operations" AS o0 SET "previous_translation" = replace(previous_translation::TEXT,'"value_type": ""','"value_type": "string"')::json
     """)
 
     execute("""
