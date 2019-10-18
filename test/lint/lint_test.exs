@@ -2,61 +2,85 @@ defmodule AccentTest.Lint do
   use ExUnit.Case, async: true
 
   alias Accent.Lint
+  alias Accent.Lint.Message
+  alias Accent.Lint.Rules.Spelling.GatewayMock
   alias Langue.Entry
+
+  import Mox
+  setup :verify_on_exit!
+
+  setup do
+    expect(GatewayMock, :check, fn _, _ -> [] end)
+
+    :ok
+  end
 
   test "lint valid entry" do
     entry = %Entry{value: "foo", master_value: "foo"}
-    [linted] = Lint.lint([entry])
+    [linted] = Lint.lint([entry], language: "en")
 
-    assert linted.entry === entry
     assert linted.messages === []
   end
 
   test "lint trailing space entry" do
     entry = %Entry{value: "foo ", master_value: "foo"}
-    [linted] = Lint.lint([entry])
+    [linted] = Lint.lint([entry], language: "en")
 
-    assert linted.entry.value === "foo"
-    assert linted.messages === [fix: ~s(Value contains trailing space: "foo " should be "foo")]
+    assert linted.messages === [
+             %Message{
+               replacements: [%Message.Replacement{value: "foo"}],
+               rule: %Message.Rule{
+                 description: "Value contains trailing space",
+                 id: "TRAILING_SPACES"
+               },
+               text: "foo "
+             }
+           ]
   end
 
   test "lint leading space entry" do
     entry = %Entry{value: " foo", master_value: "foo"}
-    [linted] = Lint.lint([entry])
+    [linted] = Lint.lint([entry], language: "en")
 
-    assert linted.entry.value === "foo"
-    assert linted.messages === [fix: ~s(Value contains leading space: " foo" should be "foo")]
+    assert linted.messages === [
+             %Message{
+               replacements: [%Message.Replacement{value: "foo"}],
+               rule: %Message.Rule{
+                 description: "Value contains leading space",
+                 id: "LEADING_SPACES"
+               },
+               text: " foo"
+             }
+           ]
   end
 
   test "lint placeholder count entry" do
     entry = %Entry{value: "foo", master_value: "foo %{bar}"}
-    [linted] = Lint.lint([entry])
+    [linted] = Lint.lint([entry], language: "en")
 
-    assert linted.entry.value === "foo"
-    assert linted.messages === [error: "Value contains a different number of placeholders (0) from the master value (1)"]
+    assert linted.messages === [
+             %Message{
+               rule: %Message.Rule{
+                 description: "Value contains a different number of placeholders (0) from the master value (1)",
+                 id: "PLACEHOLDER_COUNT"
+               },
+               text: "foo"
+             }
+           ]
   end
 
   test "lint url count entry" do
     entry = %Entry{value: "foo", master_value: "foo https://google.ca"}
-    [linted] = Lint.lint([entry])
+    [linted] = Lint.lint([entry], language: "en")
 
-    assert linted.entry.value === "foo"
-    assert linted.messages === [error: "Value contains a different number of URL (0) from the master value (1)"]
-  end
-
-  test "lint single quote entry for fr language" do
-    entry = %Entry{value: "J'arrive", master_value: "I'm coming"}
-    [linted] = Lint.lint([entry], language: "fr")
-
-    assert linted.entry.value === "J’arrive"
-    assert linted.messages === [fix: ~s(Value contains single quotes where an apostrophe should be used: "J'arrive" should be "J’arrive")]
-  end
-
-  test "lint space before punctuation entry for fr-CA language" do
-    entry = %Entry{value: "C’est magnifique !", master_value: "Cool"}
-    [linted] = Lint.lint([entry], language: "fr-CA")
-
-    assert linted.entry.value === "C’est magnifique!"
-    assert linted.messages === [fix: ~s(Value contains invalid space before punctuation: "C’est magnifique !" should be "C’est magnifique!")]
+    assert linted.messages === [
+             %Message{
+               rule: %Message.Rule{
+                 description: "Value contains a different number of URL (0) from the master value (1)",
+                 id: "URL_COUNT"
+               },
+               text: "foo"
+             }
+           ]
   end
 end
