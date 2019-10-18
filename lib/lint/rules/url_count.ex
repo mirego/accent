@@ -21,7 +21,7 @@ defmodule Accent.Lint.Rules.URLCount do
           text: text,
           replacements: [],
           rule: %Message.Rule{
-            id: "PLACEHOLDER_COUNT",
+            id: "URL_COUNT",
             description: ~s[Value contains a different number of URL (#{text_urls_lenght}) from the master value (#{master_urls_lenght})]
           }
         }

@@ -19,7 +19,7 @@ config :accent,
   hook_github_file_server: Accent.Hook.Consumers.GitHub.FileServerMock
 
 config :accent, Accent.Lint,
-  spelling_gateway: Accent.Lint.Rules.Spelling.LanguageToolMock,
+  spelling_gateway: Accent.Lint.Rules.Spelling.GatewayMock,
   spelling_gateway_url: "http://language-tool.test"
 
 config :logger, level: :warn
