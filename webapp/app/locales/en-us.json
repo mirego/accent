@@ -199,7 +199,7 @@
       "cancel_button": "Cancel",
       "item": {
         "path_label": "Path",
-        "path_help": "Used to scope your strings. The path will be used to export all your language (en/<em>path</em>.format, fr/<em>path</em>.format)"
+        "path_help": "Used to scope your strings. The path will be used to export all your languages (en/<em>path</em>.format, fr/<em>path</em>.format)"
       }
     },
     "error_section": {
