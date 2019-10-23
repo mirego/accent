@@ -96,7 +96,7 @@
           "title": "Common mistakes",
           "item_1": "Export Accent files locally before a sync. This will force you to resolve conflicts locally and potentially override reviewed texts or adding removed strings.",
           "item_2": "Sync a translated language (not your master language). This will effectively generates conflict for all your key, changing the text of the master language for your translated language.",
-          "item_3": "Sync one file per language. The purpose of the \"file\" in Accent is to be translated in X languages. Sync your master language and let the translated language be translated in the UI."
+          "item_3": "Sync one file per language. The purpose of the \"file\" in Accent is to be translated in X languages. Sync your master language and let the translated languages be translated in the UI."
         }
       }
     },
