@@ -90,7 +90,7 @@
         },
         "merge": {
           "title": "Add translations",
-          "text": "Merge translations present in the uploaded file with strings existing in Accent. The add translations is usually done when you translate the string directly in your project to save some times for the reviewer."
+          "text": "Merge translations present in the uploaded file with strings existing in Accent. The add translations is usually done when you translate the string directly in your project to save some times for reviewers."
         },
         "mistakes": {
           "title": "Common mistakes",
