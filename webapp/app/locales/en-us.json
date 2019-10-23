@@ -83,18 +83,20 @@
       "sync_button": "Sync",
       "upload_help": "After choosing a file you will be able to preview the changes on your project",
       "upload_title": "Select a file",
-      "tips": {
-        "formats": {
-          "title": "Supported formats",
-          "text": "From Ruby on Rails YAML to Java Properties XML, many formats are supported by Accent. <a href=\"https://www.accent.reviews/guides/formats.html\">See all formats →</a>"
+      "instructions": {
+        "sync": {
+          "title": "Sync",
+          "text": "Update the list of strings in accent, removing ones missing in the file and adding new ones.<em>The sync is always done in the master language.</em>New strings and removed strings changes will be reflected in all translated language."
         },
-        "mix": {
-          "title": "Mix and match",
-          "text": "You can upload .strings format on Android XML file and vice-versa. This makes it easy to share localization files between platforms."
+        "merge": {
+          "title": "Add translations",
+          "text": "Merge translations present in the uploaded file with strings existing in Accent. The add translations is usually done when you translate the string directly in your project to save some times for the reviewer."
         },
-        "cli": {
-          "title": "Have many files to upload?",
-          "text": "Use accent-cli to upload many files at once and write back the changes locally. <a href=\"https\"://github.com/mirego/accent/tree/master/cli\">See how to install →</a>"
+        "mistakes": {
+          "title": "Common mistakes",
+          "item_1": "Export Accent files locally before a sync. This will force you to resolve conflict locally and potentially override reviewed text or adding removed strings.",
+          "item_2": "Sync a translated language (not your master language). This will effectively generates conflict for all your key, changing the text of the master language for your translated language.",
+          "item_3": "Sync one file per language. The purpose of the \"file\" in Accent is to be translated in X languages. Sync your master language and let the translated language be translated in the UI."
         }
       }
     },
@@ -194,7 +196,11 @@
       "language_strings_count": "{count, plural, =0 {} =1 {1 string per language} other {# strings per language}}",
       "delete_document": "Remove this file",
       "save_button": "Save",
-      "cancel_button": "Cancel"
+      "cancel_button": "Cancel",
+      "item": {
+        "path_label": "Path",
+        "path_help": "Used to scope your strings. The path will be used to export all your language (en/<em>path</em>.format, fr/<em>path</em>.format)"
+      }
     },
     "error_section": {
       "logout": "Logout",

@@ -159,26 +159,28 @@
       </div>
 
       <div>
-        <h3 class="emptyFile-title">
-          {{t "components.commit_file.tips.cli.title"}}
-        </h3>
-        <p class="emptyFile-text">
-          {{t "components.commit_file.tips.cli.text" htmlSafe=true}}
+        <a class="instructions-title" rel="noopener noreferrer" href="https://www.accent.reviews/guides/glossary.html#sync" target="_blank">
+          {{t "components.commit_file.instructions.sync.title"}}
+        </a>
+        <p class="instructions-text">
+          {{{t "components.commit_file.instructions.sync.text"}}}
         </p>
 
-        <h3 class="emptyFile-title">
-          {{t "components.commit_file.tips.formats.title"}}
-        </h3>
-        <p class="emptyFile-text">
-          {{t "components.commit_file.tips.formats.text" htmlSafe=true}}
+        <a class="instructions-title" rel="noopener noreferrer" href="https://www.accent.reviews/guides/glossary.html#add-translations" target="_blank">
+          {{t "components.commit_file.instructions.merge.title"}}
+        </a>
+        <p class="instructions-text">
+          {{{t "components.commit_file.instructions.merge.text"}}}
         </p>
 
-        <h3 class="emptyFile-title">
-          {{t "components.commit_file.tips.mix.title"}}
+        <h3 class="instructions-title">
+          {{t "components.commit_file.instructions.mistakes.title"}}
         </h3>
-        <p class="emptyFile-text">
-          {{t "components.commit_file.tips.mix.text" htmlSafe=true}}
-        </p>
+        <ul class="instructions-list">
+          <li class="instructions-list-item">{{t "components.commit_file.instructions.mistakes.item_1"}}</li>
+          <li class="instructions-list-item">{{t "components.commit_file.instructions.mistakes.item_2"}}</li>
+          <li class="instructions-list-item">{{t "components.commit_file.instructions.mistakes.item_3"}}</li>
+        </ul>
       </div>
     </div>
   {{/if}}
