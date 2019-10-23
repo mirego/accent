@@ -25,8 +25,6 @@ export default Component.extend({
 
   tagName: 'li',
 
-  classNames: ['item'],
-
   isEditing: false,
   isDeleting: false,
   isUpdating: false,

@@ -130,7 +130,7 @@
   text-align: center;
 }
 
-.emptyFile-title {
+.instructions-title {
   margin-bottom: 5px;
   font-size: 13px;
   font-weight: bold;
@@ -138,23 +138,29 @@
   color: var(--color-black);
 }
 
-.emptyFile-text {
+.instructions-list,
+.instructions-text {
   margin-bottom: 18px;
   font-size: 13px;
   color: rgba($color-black, 0.5);
-  color: var(--color-black-opacity-50);
+  color: var(--color-black);
 
-  & > a {
-    text-decoration: none;
-    font-style: italic;
+  em {
+    font-style: normal;
+    font-weight: bold;
     color: rgba($color-green, 0.8);
-    color: var(--color-primary-opacity-80);
-
-    &:focus,
-    &:hover {
-      text-decoration: underline;
-    }
+    color: var(--color-primary);
   }
+}
+
+.instructions-list {
+  list-style: disc;
+  padding-left: 15px;
+}
+
+.instructions-list-item {
+  margin-bottom: 5px;
+  font-size: 12px;
 }
 
 .peekButton {

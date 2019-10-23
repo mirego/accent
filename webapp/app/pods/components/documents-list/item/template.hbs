@@ -1,23 +1,39 @@
-<form class="item-form" {{action "updateDocument" on="submit"}}>
-  <div>
+<form class="item-form {{if this.isEditing 'item-form--editing'}}" {{action "updateDocument" on="submit"}}>
+  <div class="item-form-inputs">
     <h2 class="item-title">
-      {{#if isEditing}}
-        <QuickSubmitTextfield
-          @onSubmit={{action "updateDocument"}}
-          @value={{renamedDocumentPath}}
-          class="textInput"
-        />
+      {{#if this.isEditing}}
+        <label class="item-form-label">
+          {{t "components.documents_list.item.path_label"}}
+          <small class="item-form-help">
+            {{{t "components.documents_list.item.path_help"}}}
+          </small>
+
+          <QuickSubmitTextfield
+            @onSubmit={{action "updateDocument"}}
+            @value={{renamedDocumentPath}}
+            class="textInput"
+          />
+        </label>
       {{else}}
-        <span class="item-toggle-edit" {{action "toggleEdit"}}>
-          {{inline-svg "assets/pencil.svg" class="item-edit-icon"}}
-          {{document.path}}
+        <span class="item-toggle-edit">
+          <button class="item-edit-button" {{action "toggleEdit"}}>
+            {{inline-svg "assets/pencil.svg" class="item-edit-icon"}}
+          </button>
+
+          <LinkTo
+            @route="logged-in.project.files.export"
+            @models={{array project.id document.id}}
+            class="item-document"
+          >
+            {{document.path}}
+            <span class="item-subtitle">.{{documentFormatItem.extension}}</span>
+          </LinkTo>
         </span>
       {{/if}}
     </h2>
-    <h3 class="item-subtitle">.{{documentFormatItem.extension}}</h3>
   </div>
 
-  {{#unless isEditing}}
+  {{#unless this.isEditing}}
     <div class="stat">
       <span class="reviewedPercentage">
         {{correctedKeysPercentage}}
@@ -40,8 +56,7 @@
   {{/unless}}
 
   <div class="links">
-    {{#if isEditing}}
-      <div></div>
+    {{#if this.isEditing}}
       <div>
         <button
           class="button button--filled button--white"
@@ -63,7 +78,7 @@
           <LinkTo
             @route="logged-in.project.files.sync"
             @models={{array project.id document.id}}
-            class="button button--small button--filled button--black"
+            class="button button--filled button--white"
           >
             {{inline-svg "/assets/sync.svg" class="button-icon"}}
             {{t "components.documents_list.sync"}}
@@ -73,7 +88,7 @@
           <LinkTo
             @route="logged-in.project.files.add-translations"
             @models={{array project.id document.id}}
-            class="button button--small button--filled button--white"
+            class="button button--filled button--white"
           >
             {{inline-svg "/assets/merge.svg" class="button-icon"}}
             {{t "components.documents_list.merge"}}
@@ -82,7 +97,7 @@
         <LinkTo
           @route="logged-in.project.files.export"
           @models={{array project.id document.id}}
-          class="button button--small button--filled button--white"
+          class="button button--filled button--white"
         >
           {{inline-svg "/assets/export.svg" class="button-icon"}}
           {{t "components.documents_list.export"}}
