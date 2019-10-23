@@ -86,7 +86,7 @@
       "instructions": {
         "sync": {
           "title": "Sync",
-          "text": "Update the list of strings in accent, removing ones missing in the file and adding new ones.<em>The sync is always done in the master language.</em>New strings and removed strings changes will be reflected in all translated language."
+          "text": "Update the list of strings in Accent, removing ones missing in the file and adding new ones.<em>The sync is always done in the master language.</em>New strings and removed strings changes will be reflected in all translated languages."
         },
         "merge": {
           "title": "Add translations",
