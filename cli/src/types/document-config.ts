@@ -7,6 +7,12 @@ export enum Hooks {
   afterSync = 'afterSync'
 }
 
+export enum NamePattern {
+  file = 'file',
+  parentDirectory = 'parentDirectory',
+  fullDirectory = 'fullDirectory'
+}
+
 export interface HookConfig {
   [Hooks.beforeAddTranslations]: string[];
   [Hooks.afterAddTranslations]: string[];
@@ -17,10 +23,9 @@ export interface HookConfig {
 }
 
 export interface DocumentConfig {
-  name: string;
-  language: string;
   format: string;
   source: string;
   target: string;
+  namePattern?: NamePattern;
   hooks?: HookConfig;
 }

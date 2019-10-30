@@ -6,7 +6,7 @@ export default class DocumentExportFormatter {
     console.log('  ', chalk.white(path));
     console.log(
       '  ',
-      chalk.green('✓ Successfully write the locale files from Accent')
+      chalk.green('↓ Successfully wrote local file from Accent')
     );
     console.log('');
   }

@@ -10,13 +10,25 @@ const MASTER_ONLY_ACTIONS = ['new', 'renew', 'remove'];
 export default class CommitOperationFormatter {
   logSync(path: string) {
     console.log('  ', chalk.white(path));
-    console.log('  ', chalk.green('✓ Successfully synced the files in Accent'));
+    console.log('  ', chalk.green('↑ Successfully synced in Accent'));
     console.log('');
   }
 
   logAddTranslations(path: string) {
     console.log('  ', chalk.white(path));
-    console.log('  ', chalk.green('✓ Successfully add translations in Accent'));
+    console.log('  ', chalk.green('↑ Successfully added translations'));
+    console.log('');
+  }
+
+  logEmptyExistingTarget(path: string) {
+    console.log('  ', chalk.white(path));
+    console.log('  ', chalk.gray('~~ No local file ~~'));
+    console.log('');
+  }
+
+  logEmptyTarget(path: string) {
+    console.log('  ', chalk.bold('Source:'), chalk.white(path));
+    console.log('  ', chalk.gray('~~ Translations will be added on write ~~'));
     console.log('');
   }
 
