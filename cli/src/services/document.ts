@@ -39,10 +39,13 @@ export default class Document {
   }
 
   async sync(project: Project, file: string, options: any) {
-    const masterLanguage = project!.language.slug
+    const masterLanguage = project!.language.slug;
     const formData = new FormData();
     formData.append('file', fs.createReadStream(file));
-    formData.append('document_path', this.parseDocumentName(file, this.config.namePattern));
+    formData.append(
+      'document_path',
+      this.parseDocumentName(file, this.config.namePattern)
+    );
     formData.append('document_format', this.config.format);
     formData.append('language', masterLanguage);
 
@@ -91,10 +94,12 @@ export default class Document {
 
   fetchLocalFile(documentPath: string, localPath: string) {
     return this.paths.reduce((memo: string | null, path: string) => {
-      if (this.parseDocumentName(path, this.config.namePattern) === documentPath) {
+      if (
+        this.parseDocumentName(path, this.config.namePattern) === documentPath
+      ) {
         return localPath;
       } else {
-        return memo
+        return memo;
       }
     }, null);
   }
@@ -110,7 +115,7 @@ export default class Document {
       ['document_format', this.config.format],
       ['order_by', options['order-by']],
       ['language', language]
-    ]
+    ];
 
     const url = `${this.apiUrl}/export?${this.encodeQuery(query)}`;
     const response = await fetch(url, {
@@ -124,7 +129,7 @@ export default class Document {
     const query = [
       ['document_path', documentPath],
       ['document_format', this.config.format]
-    ]
+    ];
 
     const url = `${this.apiUrl}/jipt-export?${this.encodeQuery(query)}`;
     const response = await fetch(url, {
@@ -135,33 +140,31 @@ export default class Document {
   }
 
   private encodeQuery(params: string[][]) {
-    return params
-      .map(([name, value]) => `${name}=${value}`)
-      .join('&');
+    return params.map(([name, value]) => `${name}=${value}`).join('&');
   }
 
   private authorizationHeader() {
     return {authorization: `Bearer ${this.apiKey}`};
   }
 
-  
   private resolveNamePattern(config: DocumentConfig) {
     if (config.namePattern) return config;
 
-    const pattern = config.target.match(/\%slug\%\//) ? NamePattern.file : NamePattern.parentDirectory;
+    const pattern = config.target.match(/\%slug\%\//)
+      ? NamePattern.file
+      : NamePattern.parentDirectory;
     config.namePattern = pattern;
 
     return config;
   }
 
-
   private parseDocumentName(file: string, pattern?: NamePattern): string {
     if (pattern === NamePattern.parentDirectory) {
-      return path.basename(path.dirname(file))
+      return path.basename(path.dirname(file));
     }
 
     if (pattern === NamePattern.fullDirectory) {
-      return path.dirname(file)
+      return path.dirname(file);
     }
 
     return path.basename(file).replace(path.extname(file), '');

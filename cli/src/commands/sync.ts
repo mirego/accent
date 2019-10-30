@@ -98,7 +98,7 @@ export default class Sync extends Command {
       await Promise.all(
         targets.map(({path, language, documentPath}) => {
           const localFile = document.fetchLocalFile(documentPath, path);
-          if (!localFile) return new Promise((resolve) => resolve());
+          if (!localFile) return new Promise(resolve => resolve());
 
           formatter.log(localFile);
 
@@ -131,7 +131,7 @@ export default class Sync extends Command {
 
     const targets = new DocumentPathsFetcher()
       .fetch(this.project!, document)
-      .filter(({language}) => language !== masterLanguage)
+      .filter(({language}) => language !== masterLanguage);
 
     const existingTargets = targets.filter(({path}) => existsSync(path));
 
@@ -139,7 +139,7 @@ export default class Sync extends Command {
       targets.forEach(({path}) => formatter.logEmptyExistingTarget(path));
     }
     if (targets.length === 0) {
-      formatter.logEmptyTarget(document.config.source)
+      formatter.logEmptyTarget(document.config.source);
     }
 
     return existingTargets.map(async ({path, language, documentPath}) => {
