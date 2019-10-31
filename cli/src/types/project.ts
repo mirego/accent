@@ -7,6 +7,7 @@ export interface Language {
 export interface Revision {
   id: string;
   language: Language;
+  isMaster: boolean;
   translationsCount: number;
   conflictsCount: number;
   reviewedCount: number;

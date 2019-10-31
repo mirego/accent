@@ -25,8 +25,16 @@ export default class ProjectStatsFormatter {
       0
     );
 
+    console.log(chalk.magenta('Name'));
+    console.log('  ', chalk.white.bold(this.project.name));
+    console.log('');
+
     console.log(chalk.magenta('Last synced'));
-    console.log('  ', chalk.white.bold(this.project.lastSyncedAt));
+    if (this.project.lastSyncedAt) {
+      console.log('  ', chalk.white.bold(this.project.lastSyncedAt));
+    } else {
+      console.log('  ', chalk.gray.bold('~~ Never synced ~~'));
+    }
 
     console.log('');
 
@@ -57,16 +65,18 @@ export default class ProjectStatsFormatter {
       });
     }
 
-    console.log(chalk.magenta('Documents'));
-    this.project.documents.entries.forEach((document: Document) => {
-      console.log(
-        '  ',
-        chalk.gray('Format:'),
-        chalk.white.bold(document.format)
-      );
-      console.log('  ', chalk.gray('Path:'), chalk.white.bold(document.path));
-      console.log('');
-    });
+    if (this.project.documents.entries.length !== 0) {
+      console.log(chalk.magenta('Documents'));
+      this.project.documents.entries.forEach((document: Document) => {
+        console.log(
+          '  ',
+          chalk.gray('Format:'),
+          chalk.white.bold(document.format)
+        );
+        console.log('  ', chalk.gray('Path:'), chalk.white.bold(document.path));
+        console.log('');
+      });
+    }
 
     console.log(chalk.magenta('Strings'));
     console.log(

@@ -56,11 +56,10 @@ export default class Sync extends Command {
 
   async run() {
     const {flags} = this.parse(Sync);
-
     const documents = this.projectConfig.files();
 
     // From all the documentConfigs, do the sync or peek operations and log the results.
-    new SyncFormatter().log();
+    new SyncFormatter().log(this.project!);
 
     for (const document of documents) {
       await new HookRunner(document).run(Hooks.beforeSync);
@@ -72,8 +71,8 @@ export default class Sync extends Command {
     // After syncing (and writing) the files in Accent, the list of documents could have changed.
     if (flags.write) await this.refreshProject();
 
-    if (flags['add-translations']) {
-      new AddTranslationsFormatter().log();
+    if (this.project!.revisions.length > 1 && flags['add-translations']) {
+      new AddTranslationsFormatter().log(this.project!);
 
       for (const document of documents) {
         await new HookRunner(document).run(Hooks.beforeAddTranslations);
@@ -98,9 +97,12 @@ export default class Sync extends Command {
 
       await Promise.all(
         targets.map(({path, language, documentPath}) => {
-          formatter.log(path);
+          const localFile = document.fetchLocalFile(documentPath, path);
+          if (!localFile) return new Promise(resolve => resolve());
 
-          return document.export(path, language, documentPath, flags);
+          formatter.log(localFile);
+
+          return document.export(localFile, language, documentPath, flags);
         })
       );
 
@@ -113,7 +115,7 @@ export default class Sync extends Command {
     const formatter = new CommitOperationFormatter();
 
     return document.paths.map(async path => {
-      const operations = await document.sync(path, flags);
+      const operations = await document.sync(this.project!, path, flags);
 
       if (operations.sync && !operations.peek) formatter.logSync(path);
       if (operations.peek) formatter.logPeek(path, operations.peek);
@@ -125,13 +127,22 @@ export default class Sync extends Command {
   private addTranslationsDocumentConfig(document: Document) {
     const {flags} = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
+    const masterLanguage = this.project!.language.slug;
 
     const targets = new DocumentPathsFetcher()
       .fetch(this.project!, document)
-      .filter(({language}) => language !== document.config.language)
-      .filter(({path}) => existsSync(path));
+      .filter(({language}) => language !== masterLanguage);
 
-    return targets.map(async ({path, language, documentPath}) => {
+    const existingTargets = targets.filter(({path}) => existsSync(path));
+
+    if (existingTargets.length === 0) {
+      targets.forEach(({path}) => formatter.logEmptyExistingTarget(path));
+    }
+    if (targets.length === 0) {
+      formatter.logEmptyTarget(document.config.source);
+    }
+
+    return existingTargets.map(async ({path, language, documentPath}) => {
       const operations = await document.addTranslations(
         path,
         language,

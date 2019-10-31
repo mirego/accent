@@ -1,10 +1,9 @@
 {
   "files": [
     {
-      "language": "en",
       "format": "gettext",
       "source": "priv/en/*.po",
-      "target": "priv/%slug%/%original_file_name%.po"
+      "target": "priv/%slug%/%document_path%.po"
     }
   ]
 }

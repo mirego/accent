@@ -1,10 +1,9 @@
 {
   "files": [
     {
-      "language": "fr",
       "format": "json",
-      "source": "src/locales/fr/*.json",
-      "target": "src/locales/%slug%/%original_file_name%.json"
+      "source": "src/locales/en/*.json",
+      "target": "src/locales/%slug%/%document_path%.json"
     }
   ]
 }

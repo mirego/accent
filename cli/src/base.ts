@@ -28,6 +28,7 @@ export default abstract class extends Command {
     await sleep(1000);
     const fetcher = new ProjectFetcher();
     this.project = await fetcher.fetch(config);
+    if (!this.project) error('Unable to fetch project');
     cli.action.stop(chalk.green('✓'));
     console.log('');
   }

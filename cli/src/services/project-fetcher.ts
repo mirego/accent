@@ -31,6 +31,7 @@ export default class ProjectFetcher {
             name
             slug
           }
+
           documents {
             entries {
               id
@@ -38,8 +39,10 @@ export default class ProjectFetcher {
               format
             }
           }
+
           revisions {
             id
+            isMaster
             translationsCount
             conflictsCount
             reviewedCount

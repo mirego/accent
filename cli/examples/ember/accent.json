@@ -1,9 +1,8 @@
 {
   "files": [
     {
-      "language": "en",
       "format": "json",
-      "source": "translations/en.json",
+      "source": "translations/fr.json",
       "target": "translations/%slug%.json"
     }
   ]

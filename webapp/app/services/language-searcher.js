@@ -3,7 +3,7 @@ import RSVP from 'rsvp';
 
 import searchLanguagesQuery from 'accent-webapp/queries/languages-search';
 
-const MINIMUM_TERM_LENGTH = 3;
+const MINIMUM_TERM_LENGTH = 2;
 
 export default Service.extend({
   apollo: service('apollo'),

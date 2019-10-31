@@ -44,9 +44,11 @@ export default class Export extends Command {
 
       await Promise.all(
         targets.map(({path, language, documentPath}) => {
-          formatter.log(path);
+          const localFile = document.fetchLocalFile(documentPath, path);
+          if (!localFile) return new Promise(resolve => resolve());
+          formatter.log(localFile);
 
-          return document.export(path, language, documentPath, flags);
+          return document.export(localFile, language, documentPath, flags);
         })
       );
 
