@@ -140,7 +140,9 @@ export default class Document {
   }
 
   private encodeQuery(params: string[][]) {
-    return params.map(([name, value]) => `${name}=${encodeURIComponent(value)}`).join('&');
+    return params
+      .map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
+      .join('&');
   }
 
   private authorizationHeader() {
