@@ -1,16 +1,16 @@
 // Vendor
 import * as FormData from 'form-data';
 import * as fs from 'fs-extra';
+import * as mkdirp from 'mkdirp';
 import fetch, {Response} from 'node-fetch';
 import * as path from 'path';
-import * as mkdirp from 'mkdirp';
 
 // Services
 import Tree from './tree';
 
 // Types
-import {Project} from '../types/project';
 import {Config} from '../types/config';
+import {Project} from '../types/project';
 import {DocumentConfig, NamePattern} from '../types/document-config';
 import {OperationResponse} from '../types/operation-response';
 
