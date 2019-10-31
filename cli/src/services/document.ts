@@ -10,9 +10,9 @@ import Tree from './tree';
 
 // Types
 import {Config} from '../types/config';
-import {Project} from '../types/project';
 import {DocumentConfig, NamePattern} from '../types/document-config';
 import {OperationResponse} from '../types/operation-response';
+import {Project} from '../types/project';
 
 const enum OperationName {
   Sync = 'sync',
