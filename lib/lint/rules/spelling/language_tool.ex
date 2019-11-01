@@ -59,6 +59,9 @@ defmodule Accent.Lint.Rules.Spelling.LanguageTool do
     end
   end
 
+  defp convert_language("de"), do: "de-DE"
+  defp convert_language("pt"), do: "pt-PT"
+  defp convert_language("en"), do: "en-US"
   defp convert_language(language) when language in @supported_languages, do: language
   defp convert_language(_), do: "auto"
 
