@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "format": "json",
+      "source": "localization.json",
+      "target": "%document_path%.json"
+    }
+  ]
+}
