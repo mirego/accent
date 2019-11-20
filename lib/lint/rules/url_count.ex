@@ -5,6 +5,8 @@ defmodule Accent.Lint.Rules.URLCount do
 
   @url_regex ~r/(https?:\/\/)?([0-9a-z]+\.)?[-_0-9a-z]+\.[0-9a-z]+/i
 
+  def lint(value = %{entry: %{is_master: true}}, _), do: value
+
   def lint(value, _) do
     text = value.entry.value
     master = value.entry.master_value

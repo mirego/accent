@@ -152,9 +152,10 @@ export default class Document {
   private resolveNamePattern(config: DocumentConfig) {
     if (config.namePattern) return config;
 
-    const pattern = config.target.match(/\%slug\%\//) || !config.source.match(/\//)
-      ? NamePattern.file
-      : NamePattern.parentDirectory;
+    const pattern =
+      config.target.match(/\%slug\%\//) || !config.source.match(/\//)
+        ? NamePattern.file
+        : NamePattern.parentDirectory;
 
     config.namePattern = pattern;
 

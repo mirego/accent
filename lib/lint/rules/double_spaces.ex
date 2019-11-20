@@ -1,9 +1,7 @@
-defmodule Accent.Lint.Rules.TrailingSpaces do
+defmodule Accent.Lint.Rules.DoubleSpaces do
   @behaviour Accent.Lint.Rule
 
   alias Accent.Lint.Message
-
-  defstruct description: nil
 
   def lint(value, _) do
     text = value.entry.value
@@ -16,8 +14,8 @@ defmodule Accent.Lint.Rules.TrailingSpaces do
           text: text,
           replacements: [%Message.Replacement{value: fixed_text}],
           rule: %Message.Rule{
-            id: "TRAILING_SPACES",
-            description: "Value contains trailing space"
+            id: "DOUBLE_SPACES",
+            description: "Value contains double spaces"
           }
         }
       )
@@ -27,6 +25,6 @@ defmodule Accent.Lint.Rules.TrailingSpaces do
   end
 
   defp fix_value(value) do
-    String.trim_trailing(value)
+    String.replace(value, ~r/  +/, " ")
   end
 end

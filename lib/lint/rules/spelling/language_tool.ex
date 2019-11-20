@@ -94,7 +94,7 @@ defmodule Accent.Lint.Rules.Spelling.LanguageTool do
     String.slice(context.text, context.offset, context.length)
   end
 
-  defp padded_text_from_context(%{offset: 0} = context), do: padded_text_from_context(%{context | offset: 1})
+  defp padded_text_from_context(context = %{offset: 0}), do: padded_text_from_context(%{context | offset: 1})
 
   defp padded_text_from_context(context) do
     String.slice(context.text, context.offset - 1, context.length + 1)

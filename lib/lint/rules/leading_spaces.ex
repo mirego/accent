@@ -12,11 +12,7 @@ defmodule Accent.Lint.Rules.LeadingSpaces do
         value,
         %Message{
           text: text,
-          replacements: [
-            %Message.Replacement{
-              value: fixed_text
-            }
-          ],
+          replacements: [%Message.Replacement{value: fixed_text}],
           rule: %Message.Rule{
             id: "LEADING_SPACES",
             description: "Value contains leading space"

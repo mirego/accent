@@ -5,6 +5,8 @@ defmodule Accent.Lint.Rules.PlaceholderCount do
 
   @placeholder_regex ~r/(\[\w+\])|(\{\w+\})|(\(\w+\))/
 
+  def lint(value = %{entry: %{is_master: true}}, _), do: value
+
   def lint(value, _) do
     text = value.entry.value
     master = value.entry.master_value
