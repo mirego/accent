@@ -18,7 +18,7 @@ defmodule Accent.GraphQL.Types.Lint do
 
   object :lint_translation_message do
     field(:text, non_null(:string))
-    field(:context, non_null(:lint_translation_message_context))
+    field(:context, :lint_translation_message_context)
     field(:rule, non_null(:lint_translation_message_rule))
     field(:replacements, non_null(list_of(non_null(:lint_translation_message_replacement))))
   end

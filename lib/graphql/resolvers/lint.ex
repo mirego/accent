@@ -1,8 +1,8 @@
 defmodule Accent.GraphQL.Resolvers.Lint do
   require Ecto.Query
 
-  alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.Scopes.Revision, as: RevisionScope
+  alias Accent.Scopes.Translation, as: TranslationScope
 
   alias Accent.{
     Plugs.GraphQLContext,
@@ -36,7 +36,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       |> TranslationScope.from_key(translation.key)
       |> Repo.one()
 
-    entry = Translation.to_langue_entry(translation, master_translation)
+    entry = Translation.to_langue_entry(translation, master_translation, translation.revision.master)
     [lint] = Accent.Lint.lint([entry], language: translation.revision.language.slug)
 
     {:ok, lint.messages}

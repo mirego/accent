@@ -1,13 +1,21 @@
 defmodule Accent.Lint do
-  alias Accent.Lint.Value
   alias Accent.Lint.Message
+  alias Accent.Lint.Rules, as: R
+  alias Accent.Lint.Value
 
   @rules [
-    &Accent.Lint.Rules.TrailingSpaces.lint/2,
-    &Accent.Lint.Rules.LeadingSpaces.lint/2,
-    &Accent.Lint.Rules.URLCount.lint/2,
-    &Accent.Lint.Rules.PlaceholderCount.lint/2,
-    &Accent.Lint.Rules.Spelling.lint/2
+    &R.DoubleSpaces.lint/2,
+    &R.LeadingSpaces.lint/2,
+    &R.PlaceholderCount.lint/2,
+    &R.Spelling.lint/2,
+    &R.ThreeDotsEllipsis.lint/2,
+    &R.TrailingColon.lint/2,
+    &R.TrailingEllipsis.lint/2,
+    &R.TrailingExclamation.lint/2,
+    &R.TrailingQuestionMark.lint/2,
+    &R.TrailingSpaces.lint/2,
+    &R.TrailingStop.lint/2,
+    &R.URLCount.lint/2
   ]
 
   @typep entry :: Langue.Entry.t()
@@ -29,5 +37,18 @@ defmodule Accent.Lint do
       value
       | messages: [message | value.messages]
     }
+  end
+
+  @spec display_trailing_text(String.t()) :: String.t()
+  def display_trailing_text(text) do
+    max_length = 12
+
+    if String.length(text) > max_length do
+      display_text = String.slice(text, (String.length(text) - max_length)..-1)
+
+      String.pad_leading(display_text, max_length + 1, "…")
+    else
+      text
+    end
   end
 end

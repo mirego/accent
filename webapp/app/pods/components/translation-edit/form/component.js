@@ -52,6 +52,7 @@ export default Component.extend({
 
       this.apollo.client
         .query({
+          fetchPolicy: 'network-only',
           query: translationLintQuery,
           variables: {
             text,

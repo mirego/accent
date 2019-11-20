@@ -1,8 +1,9 @@
 <span class="description">{{@message.rule.description}}</span>
 <span class="text">{{@message.text}}</span>
-<span class="arrow">→</span>
 
 {{#if this.mappedReplacements}}
+  <span class="arrow">→</span>
+
   {{#if this.multipleReplacements}}
     <AccSelect
       @searchEnabled={{false}}
@@ -16,9 +17,11 @@
     </span>
   {{/if}}
 
-  <button
-    class="replaceButton button button--small button--filled"
-    {{action 'replaceTextSelected'}}>
-    Replace
-  </button>
+  {{#if @message.context}}
+    <button
+      class="replaceButton button button--small button--filled"
+      {{action 'replaceTextSelected'}}>
+      Replace
+    </button>
+  {{/if}}
 {{/if}}
