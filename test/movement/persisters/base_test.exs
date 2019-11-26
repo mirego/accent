@@ -61,11 +61,14 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "persist and execute operations" do
+    user = Repo.insert!(%User{email: "test@test.com"})
+    revision = %Revision{} |> Repo.insert!()
     translation =
       %Translation{
         key: "a",
         proposed_text: "A",
-        conflicted: true
+        conflicted: true,
+        revision_id: revision.id
       }
       |> Repo.insert!()
 
@@ -75,12 +78,13 @@ defmodule AccentTest.Movement.Persisters.Base do
         key: "a",
         text: "B",
         translation_id: translation.id,
+        revision_id: revision.id,
         value_type: "string",
         placeholders: []
       }
     ]
 
-    %Movement.Context{operations: operations}
+    %Movement.Context{operations: operations, assigns: %{user_id: user.id}}
     |> BasePersister.execute()
 
     operation =
@@ -200,6 +204,7 @@ defmodule AccentTest.Movement.Persisters.Base do
   test "update operation add operation on version source translation" do
     user = %User{email: "user@example.com"} |> Repo.insert!()
     project = %Project{main_color: "#f00", name: "project"} |> Repo.insert!()
+    revision = %Revision{project_id: project.id} |> Repo.insert!()
     version = %Version{name: "foo", tag: "0.1", project: project, user: user} |> Repo.insert!()
 
     translation =
@@ -223,7 +228,7 @@ defmodule AccentTest.Movement.Persisters.Base do
       }
     ]
 
-    %Movement.Context{operations: operations}
+    %Movement.Context{operations: operations, assigns: %{user_id: user.id, revision: revision}}
     |> Movement.Context.assign(:version, version)
     |> BasePersister.execute()
 
