@@ -63,6 +63,7 @@ defmodule AccentTest.Movement.Persisters.Base do
   test "persist and execute operations" do
     user = Repo.insert!(%User{email: "test@test.com"})
     revision = %Revision{} |> Repo.insert!()
+
     translation =
       %Translation{
         key: "a",
