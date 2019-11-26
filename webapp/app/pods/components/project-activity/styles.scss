@@ -35,11 +35,12 @@
 
 .activity-meta {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .rollbackButton {
-  font-size: 11px;
+  font-size: 13px;
   margin-left: 10px;
   color: lighten($color-error, 25%);
 
@@ -51,10 +52,6 @@
   .label {
     padding: 1px 4px;
     font-weight: normal;
-  }
-
-  .loading {
-    top: -9px;
   }
 }
 

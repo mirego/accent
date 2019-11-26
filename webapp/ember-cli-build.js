@@ -9,22 +9,33 @@ const sass = require('sass');
 module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
     hinting: false,
+
     vendorFiles: {
       'jquery.js': null
     },
+
     autoprefixer: {
       browsers: target.browsers
     },
+
     babel: {
-      sourceMaps: 'inline',
-      plugins: ['transform-object-rest-spread']
+      plugins: ['graphql-tag', require('ember-auto-import/babel-plugin')],
+      sourceMaps: 'inline'
     },
-    'ember-cli-babel': {
-      includePolyfill: true
+
+    'ember-cli-babel-polyfills': {
+      evergreenTargets: [
+        'last 2 Edge versions',
+        'last 2 Chrome versions',
+        'last 2 Firefox versions',
+        'last 2 Safari versions'
+      ]
     },
+
     svg: {
       paths: ['public']
     },
+
     sassOptions: {
       implementation: sass
     }

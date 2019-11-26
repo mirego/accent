@@ -176,8 +176,8 @@
       }
     },
     "date_tag": {
-      "formatted_date_time_format": "YYYY-MM-DDTHH:mm:ss",
-      "humanized_date_title_format": "MMMM Do YYYY, HH:mm:ss"
+      "formatted_date_time_format": "yyyy-MM-ddTHH:mm:ss",
+      "humanized_date_title_format": "MMMM Do yyyy, HH:mm:ss"
     },
     "versions_list": {
       "export": "Export",
@@ -604,8 +604,8 @@
       "translations_link_title": "All strings"
     },
     "time_ago_in_words_tag": {
-      "formatted_date_time_format": "YYYY-MM-DDTHH:mm:ss",
-      "humanized_date_title_format": "dddd, MMMM Do YYYY, H:mm a"
+      "formatted_date_time_format": "yyyy-MM-ddTHH:mm:ss",
+      "humanized_date_title_format": "dddd, MMMM Do yyyy, H:mm a"
     },
     "translation_activities_list_item": {
       "action_text": {

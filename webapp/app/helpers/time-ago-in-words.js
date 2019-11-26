@@ -1,6 +1,6 @@
 import {isBlank} from '@ember/utils';
 import {helper} from '@ember/component/helper';
-import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const OPTIONS = {
   addSuffix: true,
@@ -10,7 +10,7 @@ const OPTIONS = {
 const timeAgoInWords = ([date]) => {
   if (isBlank(date)) return '';
 
-  return distanceInWordsToNow(new Date(date), OPTIONS);
+  return formatDistanceToNow(new Date(date), OPTIONS);
 };
 
 export default helper(timeAgoInWords);
