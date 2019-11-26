@@ -42,10 +42,10 @@ defmodule AccentTest.Hook.Consumers.GitHub do
       |> Base.encode64()
 
     FileServerMock
-    |> expect(:get, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => config}}}
     end)
-    |> expect(:get, fn "accent/test-repo/git/trees/develop?recursive=1", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "accent/test-repo/git/trees/develop?recursive=1", [{"Authorization", "token 1234"}] ->
       {:ok,
        %{
          body: %{
@@ -60,7 +60,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
          }
        }}
     end)
-    |> expect(:get, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => file()}}}
     end)
 
@@ -141,10 +141,10 @@ defmodule AccentTest.Hook.Consumers.GitHub do
       |> Base.encode64()
 
     FileServerMock
-    |> expect(:get, fn "accent/test-repo/contents/accent.json?ref=v1.0.0", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "accent/test-repo/contents/accent.json?ref=v1.0.0", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => config}}}
     end)
-    |> expect(:get, fn "accent/test-repo/git/trees/v1.0.0?recursive=1", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "accent/test-repo/git/trees/v1.0.0?recursive=1", [{"Authorization", "token 1234"}] ->
       {:ok,
        %{
          body: %{
@@ -159,7 +159,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
          }
        }}
     end)
-    |> expect(:get, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => file()}}}
     end)
 
@@ -222,10 +222,10 @@ defmodule AccentTest.Hook.Consumers.GitHub do
       |> Base.encode64()
 
     FileServerMock
-    |> expect(:get, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => config}}}
     end)
-    |> expect(:get, fn "accent/test-repo/git/trees/develop?recursive=1", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "accent/test-repo/git/trees/develop?recursive=1", [{"Authorization", "token 1234"}] ->
       {:ok,
        %{
          body: %{
@@ -238,7 +238,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
          }
        }}
     end)
-    |> expect(:get, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => file()}}}
     end)
 
@@ -309,10 +309,10 @@ defmodule AccentTest.Hook.Consumers.GitHub do
       |> Base.encode64()
 
     FileServerMock
-    |> expect(:get, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => config}}}
     end)
-    |> expect(:get, fn "accent/test-repo/git/trees/develop?recursive=1", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "accent/test-repo/git/trees/develop?recursive=1", [{"Authorization", "token 1234"}] ->
       {:ok,
        %{
          body: %{
@@ -325,7 +325,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
          }
        }}
     end)
-    |> expect(:get, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => file()}}}
     end)
 

@@ -48,8 +48,8 @@ defmodule Accent.Mixfile do
       {:plug, "~> 1.7", override: true},
 
       # Database
-      {:ecto, "~> 3.1", override: true},
-      {:ecto_sql, "~> 3.1"},
+      {:ecto, "~> 3.2", override: true},
+      {:ecto_sql, "~> 3.2"},
       {:postgrex, "~> 0.14"},
 
       # Phoenix data helpers
@@ -67,8 +67,8 @@ defmodule Accent.Mixfile do
       {:fast_yaml, github: "processone/fast_yaml", ref: "e789f68895f71b7ad31057177810ca0161bf790e"},
       {:jsone, "~> 1.4"},
       {:mochiweb, "~> 2.18"},
-      {:httpoison, "~> 1.1.0"},
-      {:gettext, github: "elixir-lang/gettext"},
+      {:httpoison, "~> 1.1"},
+      {:gettext, "~> 0.17"},
       {:csv, "~> 2.0"},
       {:php_assoc_map, "~> 0.5"},
       {:jason, "~> 1.0"},

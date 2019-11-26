@@ -67,7 +67,7 @@ defmodule Accent.Hook.Consumers.GitHub do
   end
 
   def fetch_content(path, token) do
-    with {:ok, %{body: %{"content" => content}}} <- file_server().get(path, headers(token)),
+    with {:ok, %{body: %{"content" => content}}} <- file_server().get_path(path, headers(token)),
          decoded_contents <-
            content
            |> String.split("\n")
@@ -121,7 +121,7 @@ defmodule Accent.Hook.Consumers.GitHub do
 
   defp fetch_trees(repo, token, ref) do
     with path <- Path.join([repo, "git", "trees", ref]) <> "?recursive=1",
-         {:ok, %{body: %{"tree" => tree}}} <- file_server().get(path, headers(token)) do
+         {:ok, %{body: %{"tree" => tree}}} <- file_server().get_path(path, headers(token)) do
       filter_blob_file_only(tree)
     else
       _ -> []

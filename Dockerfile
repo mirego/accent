@@ -34,19 +34,19 @@ RUN mkdir -p /opt/build && \
 #
 # Step 2 - Build webapp and jipt deps
 #
-FROM alpine:3.9 AS webapp-builder
+FROM node:10.16-alpine AS webapp-builder
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add make git nodejs-npm
+    apk --no-cache add git
 WORKDIR /opt/build
 COPY webapp .
 RUN npm ci --no-audit --no-color && \
     npm run build-production
 
-FROM alpine:3.9 AS jipt-builder
+FROM node:10.16-alpine AS jipt-builder
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add make git nodejs-npm
+    apk --no-cache add git
 WORKDIR /opt/build
 COPY jipt .
 RUN npm ci --no-audit --no-color && \

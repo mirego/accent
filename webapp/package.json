@@ -20,7 +20,7 @@
   },
   "repository": "https://github.com/mirego/accent",
   "engines": {
-    "node": ">= 10.14.0"
+    "node": ">= 10.16.0"
   },
   "dependencies": {
     "apollo-boost": "0.4.3",

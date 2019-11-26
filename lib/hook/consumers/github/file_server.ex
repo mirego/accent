@@ -1,3 +1,3 @@
 defmodule Accent.Hook.Consumers.GitHub.FileServer do
-  @callback get(String.t(), list()) :: {:ok, String.t()} | {:error, any()}
+  @callback get_path(String.t(), list()) :: {:ok, String.t()} | {:error, any()}
 end
