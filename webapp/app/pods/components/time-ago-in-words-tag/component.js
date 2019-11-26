@@ -14,6 +14,8 @@ export default Component.extend({
 
   // The follow property returns a formatted date like this: 2016-02-03T11:02:34
   formattedDatetime: computed('date', function() {
+    if (!this.date) return null;
+
     const format = this.intl
       .t('components.time_ago_in_words_tag.formatted_date_time_format')
       .toString();
@@ -22,6 +24,8 @@ export default Component.extend({
 
   // The follow property returns a formatted date like this: Wednesday, February 2 2016, 11:02 am
   humanizedDate: computed('date', function() {
+    if (!this.date) return null;
+
     const format = this.intl
       .t('components.time_ago_in_words_tag.humanized_date_title_format')
       .toString();

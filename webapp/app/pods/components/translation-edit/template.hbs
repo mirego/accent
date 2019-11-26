@@ -24,90 +24,92 @@
   />
 {{/if}}
 
-{{#if translation.isConflicted}}
-  {{#unless translation.isRemoved}}
-    <div class="actions">
-      <div class="actions-links">
-        {{#if translation.sourceTranslation}}
-          <LinkTo
-            @route="logged-in.project.translation"
-            @models={{array project.id translation.sourceTranslation.id}}
-            class="actions-link"
-          >
-            {{t "components.translation_edit.source_translation"}}
-          </LinkTo>
-        {{/if}}
-      </div>
-      <div class="actions-buttons">
-        <div class="actions-updatedAt">
-          {{t "components.translation_edit.last_updated_label"}}
-          <TimeAgoInWordsTag @date={{translation.updatedAt}} />
-        </div>
-        {{#if (get permissions "update_translation")}}
-          <AsyncButton
-            @loading={{isUpdatingText}}
-            @disabled={{hasTextNotChanged}}
-            class="button button--filled button--white"
-            @onClick={{action "updateText"}}
-          >
-            {{t "components.translation_edit.update_text"}}
-          </AsyncButton>
-        {{/if}}
-        {{#if (get permissions "correct_translation")}}
-          <AsyncButton
-            @loading={{isCorrectingConflict}}
-            class="button button--filled"
-            @onClick={{action "correctConflict"}}
-          >
-            {{inline-svg "/assets/check.svg" class="button-icon"}}
-            {{t "components.translation_edit.correct_button"}}
-          </AsyncButton>
-        {{/if}}
-      </div>
-    </div>
-  {{/unless}}
-{{else}}
-  {{#unless translation.isRemoved}}
-    <div class="actions">
-      <div class="actions-links">
-        {{#if translation.sourceTranslation}}
-          <LinkTo
-            @route="logged-in.project.translation"
-            @models={{array project.id translation.sourceTranslation.id}}
-            class="actions-link"
-          >
-            {{t "components.translation_edit.source_translation"}}
-          </LinkTo>
-        {{/if}}
-      </div>
-      <div class="actions-buttons">
-        <div class="actions-updatedAt">
-          {{t "components.translation_edit.last_updated_label"}}
-          <TimeAgoInWordsTag @date={{translation.updatedAt}} />
-        </div>
-        {{#if (get permissions "update_translation")}}
-          <AsyncButton
-            @loading={{isUpdatingText}}
-            @disabled={{hasTextNotChanged}}
-            class="button button--filled button--white"
-            @onClick={{action "updateText"}}
-          >
-            {{t "components.translation_edit.update_text"}}
-          </AsyncButton>
-        {{/if}}
-        {{#unless translation.version}}
-          {{#if (get permissions "uncorrect_translation")}}
-            <AsyncButton
-              @loading={{isUncorrectingConflict}}
-              class="button button--filled button--red"
-              @onClick={{action "uncorrectConflict"}}
+{{#if translation}}
+  {{#if translation.isConflicted}}
+    {{#unless translation.isRemoved}}
+      <div class="actions">
+        <div class="actions-links">
+          {{#if translation.sourceTranslation}}
+            <LinkTo
+              @route="logged-in.project.translation"
+              @models={{array project.id translation.sourceTranslation.id}}
+              class="actions-link"
             >
-              {{inline-svg "/assets/revert.svg" class="button-icon"}}
-              {{t "components.translation_edit.uncorrect_button"}}
+              {{t "components.translation_edit.source_translation"}}
+            </LinkTo>
+          {{/if}}
+        </div>
+        <div class="actions-buttons">
+          <div class="actions-updatedAt">
+            {{t "components.translation_edit.last_updated_label"}}
+            <TimeAgoInWordsTag @date={{translation.updatedAt}} />
+          </div>
+          {{#if (get permissions "update_translation")}}
+            <AsyncButton
+              @loading={{isUpdatingText}}
+              @disabled={{hasTextNotChanged}}
+              class="button button--filled button--white"
+              @onClick={{action "updateText"}}
+            >
+              {{t "components.translation_edit.update_text"}}
             </AsyncButton>
           {{/if}}
-        {{/unless}}
+          {{#if (get permissions "correct_translation")}}
+            <AsyncButton
+              @loading={{isCorrectingConflict}}
+              class="button button--filled"
+              @onClick={{action "correctConflict"}}
+            >
+              {{inline-svg "/assets/check.svg" class="button-icon"}}
+              {{t "components.translation_edit.correct_button"}}
+            </AsyncButton>
+          {{/if}}
+        </div>
       </div>
-    </div>
-  {{/unless}}
+    {{/unless}}
+  {{else}}
+    {{#unless translation.isRemoved}}
+      <div class="actions">
+        <div class="actions-links">
+          {{#if translation.sourceTranslation}}
+            <LinkTo
+              @route="logged-in.project.translation"
+              @models={{array project.id translation.sourceTranslation.id}}
+              class="actions-link"
+            >
+              {{t "components.translation_edit.source_translation"}}
+            </LinkTo>
+          {{/if}}
+        </div>
+        <div class="actions-buttons">
+          <div class="actions-updatedAt">
+            {{t "components.translation_edit.last_updated_label"}}
+            <TimeAgoInWordsTag @date={{translation.updatedAt}} />
+          </div>
+          {{#if (get permissions "update_translation")}}
+            <AsyncButton
+              @loading={{isUpdatingText}}
+              @disabled={{hasTextNotChanged}}
+              class="button button--filled button--white"
+              @onClick={{action "updateText"}}
+            >
+              {{t "components.translation_edit.update_text"}}
+            </AsyncButton>
+          {{/if}}
+          {{#unless translation.version}}
+            {{#if (get permissions "uncorrect_translation")}}
+              <AsyncButton
+                @loading={{isUncorrectingConflict}}
+                class="button button--filled button--red"
+                @onClick={{action "uncorrectConflict"}}
+              >
+                {{inline-svg "/assets/revert.svg" class="button-icon"}}
+                {{t "components.translation_edit.uncorrect_button"}}
+              </AsyncButton>
+            {{/if}}
+          {{/unless}}
+        </div>
+      </div>
+    {{/unless}}
+  {{/if}}
 {{/if}}

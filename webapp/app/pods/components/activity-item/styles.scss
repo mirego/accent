@@ -96,7 +96,7 @@
 
   .item-user-icon {
     stroke: darken($color-green, 25%);
-    stroke: var(--color-primary-darken-30);
+    stroke: var(--color-primary);
     width: 17px;
     height: 17px;
   }
@@ -109,7 +109,8 @@
 
   &.compact {
     .item-iconContainer-icon {
-      stroke: $color-success;
+      stroke: $color-green;
+      stroke: var(--color-primary);
     }
 
     .item-user--bot {

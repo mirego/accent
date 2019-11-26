@@ -9,8 +9,8 @@
     }
 
     .loading {
-      top: calc(50% - 8px);
-      left: calc(50% - 10px);
+      top: calc(50% - 7px);
+      left: calc(50% - 9px);
     }
   }
 
@@ -23,8 +23,8 @@
   &.button--small {
     &.button--loading {
       .loading {
-        width: 10px;
-        top: -8px;
+        width: 14px;
+        top: 0;
         left: calc(50% - 5px);
       }
     }
