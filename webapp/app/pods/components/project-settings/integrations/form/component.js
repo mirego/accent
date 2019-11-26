@@ -46,7 +46,7 @@ export default Component.extend({
   }),
 
   dataFormComponent: computed('service', function() {
-    return `project-settings/integrations/form/${this.service}`;
+    return `project-settings/integrations/form/${this.service.toLowerCase()}`;
   }),
 
   events: computed('syncChecked', function() {
