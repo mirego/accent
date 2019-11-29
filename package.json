@@ -3,20 +3,13 @@
   "version": "0.0.1",
   "description": "The new new Accent Web app",
   "private": true,
-  "scripts": {
-    "prettier": "prettier --write './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql,svg,md}' '*.md'",
-    "prettier-check": "prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,gql,svg,md}' '*.md'",
-    "lint-scripts": "eslint webapp/. cli/. jipt/.",
-    "lint-scripts-fix": "eslint --fix webapp/.",
-    "tslint-scripts": "tslint -c tslint.json '{cli,jipt}/src/**/*.{js,ts,json}'",
-    "tslint-scripts-fix": "tslint --fix -c tslint.json '{cli,jipt}/src/**/*.{js,ts,json}'"
-  },
   "repository": "https://github.com/mirego/accent",
   "engines": {
     "node": ">= 8.5.0"
   },
   "devDependencies": {
     "babel-eslint": "8.2.3",
+    "ember-template-lint": "1.8.2",
     "eslint": "4.19.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-plugin-ember": "5.1.0",

@@ -62,6 +62,7 @@
     },
     "collaborator_create_form": {
       "create_button": "Add collaborator",
+      "cancel_button": "Cancel",
       "email_placeholder": "Add a collaborator by email…"
     },
     "commit_file": {
@@ -207,6 +208,16 @@
       "or": "or",
       "return": "return to home"
     },
+    "operations_peek": {
+      "item": {
+        "overview": "Overview",
+        "details": "Details",
+        "hide": "Hide",
+        "empty_changes": "No changes on this language",
+        "text_label": "Text:",
+        "previous_label": "Text:"
+      }
+    },
     "project_activity": {
       "stats_label": "Activities performed:",
       "overview_label": "Overview:",
@@ -224,6 +235,7 @@
       "operations_label": "Generated these activities:",
       "rollbacked_label": "Rollbacked",
       "file_label": "File:",
+      "key_label": "Key:",
       "details_label": "Details:",
       "explanation_label": "Why did this happen?",
       "rollback_confirm": "Are you sure you want to rollback this activity? You cannot undo a rollback.",
@@ -379,6 +391,7 @@
         "title": "Service & integrations",
         "help": "Services are pre-built integrations that perform certain actions when events occur on Accent.",
         "save": "Save",
+        "cancel": "Cancel",
         "edit": "Edit",
         "delete": "Delete",
         "data": {
@@ -569,6 +582,7 @@
     "related_translations_list": {
       "comments_label": "{count, plural, =0 {No comments} =1 {1 comment} other {# comments}}",
       "conflicted_label": "in review",
+      "save_button": "Save",
       "last_updated_label": "Last updated: ",
       "new_language_link": "New language",
       "no_related_translations": "No translations yet. You need to add another language to your project."
@@ -654,6 +668,7 @@
       "form": {
         "true_option": "true",
         "false_option": "false",
+        "boolean_type_notice": "The text should be either true or false",
         "integer_type_notice": "The text has been set with an integer value.",
         "float_type_notice": "The text has been set with a float value.",
         "empty_type_notice": "The text has been set to an empty string",
@@ -663,6 +678,10 @@
           "title": "Placeholders",
           "text": "These custom expressions mark special strings that will be replaced by dynamic values. You do not have to review or translate them."
         }
+      },
+      "lint_message": {
+        "arrow": "→",
+        "replace": "Replace"
       }
     },
     "translation_navigation": {
@@ -694,6 +713,7 @@
     },
     "translations_list": {
       "comments_count": "{count, plural, =0 {No comments} =1 {1 comment} other {# comments}}",
+      "save": "Save",
       "empty_text": "Empty text",
       "in_review_label": "in review",
       "last_updated_label": "Last updated: ",
@@ -723,6 +743,7 @@
   },
   "general": {
     "application_name": "Accent",
+    "company_name": "Mirego",
     "logout_button": "Logout",
     "roles": {
       "ADMIN": "Admin",

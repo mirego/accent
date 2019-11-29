@@ -2,7 +2,9 @@
 <span class="text">{{@message.text}}</span>
 
 {{#if this.mappedReplacements}}
-  <span class="arrow">→</span>
+  <span class="arrow">
+    {{t "components.translation_edit.lint_message.arrow"}}
+  </span>
 
   {{#if this.multipleReplacements}}
     <AccSelect
@@ -21,7 +23,7 @@
     <button
       class="replaceButton button button--small button--filled"
       {{action "replaceTextSelected"}}>
-      Replace
+      {{t "components.translation_edit.lint_message.replace"}}
     </button>
   {{/if}}
 {{/if}}
