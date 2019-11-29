@@ -1,7 +1,7 @@
 <span class="item-header">
   <span>
     <span class="item-edit">
-      <span {{action "toggleEdit"}}>
+      <span role="button" {{action "toggleEdit"}}>
         {{#if isInEditMode}}
           {{inline-svg "assets/x.svg" class="item-edit-icon"}}
         {{else}}
@@ -80,7 +80,7 @@
     </AsyncButton>
   </div>
 {{else if isTextEmpty}}
-  <span class="item-text item-text--empty" {{action "toggleEdit"}}>{{t "components.translations_list.empty_text"}}</span>
+  <span role="button" class="item-text item-text--empty" {{action "toggleEdit"}}>{{t "components.translations_list.empty_text"}}</span>
 {{else}}
-  <span class="item-text" {{action "toggleEdit"}}>{{translation.correctedText}}</span>
+  <span role="button" class="item-text" {{action "toggleEdit"}}>{{translation.correctedText}}</span>
 {{/if}}

@@ -10,7 +10,7 @@
   </div>
 {{/if}}
 
-<form onSubmit={{action "submit"}}>
+<form {{action "submit" on="submit"}}>
   <div class="formItem">
     <label class="formItem-label">
       {{t "components.revision_update_form.name_label"}}

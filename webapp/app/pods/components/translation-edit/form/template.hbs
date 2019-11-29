@@ -77,7 +77,7 @@
     class="inputText"
     @onFocus={{@onFocus}}
     @onBlur={{@onBlur}}
-    @onKeyUp={{action 'changeText'}}
+    @onKeyUp={{action "changeText"}}
     @onSubmit={{@onSubmit}}
   />
 {{/if}}
@@ -85,6 +85,6 @@
 {{#each this.lintMessages as |message|}}
   <TranslationEdit::LintMessage
     @message={{message}}
-    @onReplaceText={{action 'replaceText'}}
+    @onReplaceText={{action "replaceText"}}
   />
 {{/each}}

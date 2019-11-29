@@ -1,7 +1,7 @@
 <EmberWormhole @to="modals">
   <div class="acc-modal__wrapper">
-    <div class="acc-modal__overlay" {{action "close"}}></div>
-    <div class="acc-modal__container {{if small "acc-modal__container--small"}}">
+    <div role="button" class="acc-modal__overlay" {{action "close"}}></div>
+    <div role="dialog" class="acc-modal__container {{if small "acc-modal__container--small"}}">
       {{yield}}
     </div>
   </div>
