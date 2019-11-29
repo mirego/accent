@@ -17,6 +17,7 @@
   <div class="lock">
     {{#if isFileOperationsLocked}}
       <div
+        role="button"
         class="lock-text lock-text--active"
         {{action "setLockedFileOperations" on="click"}}
       >
@@ -30,6 +31,7 @@
       </div>
     {{else}}
       <div
+        role="button"
         class="lock-text lock-text--inactive"
         {{action "setLockedFileOperations" on="click"}}
       >

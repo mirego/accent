@@ -18,18 +18,17 @@ module.exports = function(defaults) {
       browsers: target.browsers
     },
 
+    autoImport: {
+      exclude: ['graphql-tag']
+    },
+
     babel: {
       plugins: ['graphql-tag', require('ember-auto-import/babel-plugin')],
       sourceMaps: 'inline'
     },
 
     'ember-cli-babel-polyfills': {
-      evergreenTargets: [
-        'last 2 Edge versions',
-        'last 2 Chrome versions',
-        'last 2 Firefox versions',
-        'last 2 Safari versions'
-      ]
+      evergreenTargets: target.browsers
     },
 
     svg: {
