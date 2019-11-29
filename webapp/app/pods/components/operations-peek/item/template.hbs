@@ -10,7 +10,7 @@
         disabled={{showStats}}
         {{action "showStats"}}
       >
-        Overview
+        {{t "components.operations_peek.item.overview"}}
       </button>
 
       <button
@@ -18,7 +18,7 @@
         disabled={{showOperations}}
         {{action "showOperations"}}
       >
-        Details
+        {{t "components.operations_peek.item.details"}}
       </button>
 
       <button
@@ -26,7 +26,7 @@
         disabled={{hideDetails}}
         {{action "hideDetails"}}
       >
-        Hide
+        {{t "components.operations_peek.item.hide"}}
       </button>
     </div>
   </div>
@@ -45,7 +45,7 @@
         </li>
       {{else}}
         <li class="noChanges">
-          No changes on this language
+          {{t "components.operations_peek.item.empty_changes"}}
         </li>
       {{/each}}
     </ul>
@@ -69,7 +69,7 @@
               {{#if operation.text}}
                 <div>
                   <span class="operation-textLabel">
-                    Previous:
+                    {{t "components.operations_peek.item.previous_label"}}
                   </span>
 
                   <div class="operation-text">{{operation.previousText}}</div>
@@ -77,7 +77,7 @@
 
                 <div>
                   <span class="operation-textLabel">
-                    Text:
+                    {{t "components.operations_peek.item.text_label"}}
                   </span>
 
                   <div class="operation-text">{{operation.text}}</div>
@@ -92,7 +92,7 @@
         </li>
       {{else}}
         <li class="noChanges">
-          No changes on this language
+          {{t "components.operations_peek.item.empty_changes"}}
         </li>
       {{/each}}
     </ul>

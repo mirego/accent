@@ -71,7 +71,7 @@ compose-build: ## Build the Docker image from the docker-compose.yml file
 # ----------
 
 .PHONY: lint
-lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-tslint ## Run lint tools on the code
+lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-tslint lint-template-hbs ## Run lint tools on the code
 
 .PHONY: lint-compile
 lint-compile:
@@ -96,6 +96,10 @@ lint-tslint:
 .PHONY: lint-prettier
 lint-prettier:
 	./node_modules/.bin/prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md}' '*.md'
+
+.PHONY: lint-template-hbs
+lint-template-hbs:
+	./node_modules/.bin/ember-template-lint './webapp/app/**/*.hbs' --config-path './webapp/.template-lintrc'
 
 .PHONY: test
 test: ## Run the test suite

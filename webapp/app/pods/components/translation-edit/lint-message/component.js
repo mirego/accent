@@ -2,6 +2,8 @@ import Component from '@ember/component';
 import {computed} from '@ember/object';
 import {gt} from '@ember/object/computed';
 
+const REPLACEMENTS_LIMIT = 10;
+
 export default Component.extend({
   multipleReplacements: gt('mappedReplacements', 1),
 
@@ -15,12 +17,14 @@ export default Component.extend({
   }),
 
   mappedReplacements: computed('attrs.message.replacements', function() {
-    return this.attrs.message.replacements.slice(0, 10).map(replacement => {
-      return {
-        label: replacement.value,
-        value: replacement.value
-      };
-    });
+    return this.attrs.message.replacements
+      .slice(0, REPLACEMENTS_LIMIT)
+      .map(replacement => {
+        return {
+          label: replacement.value,
+          value: replacement.value
+        };
+      });
   }),
 
   actions: {
