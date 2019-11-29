@@ -74,6 +74,7 @@
     "ember-cli-bundle-analyzer": "0.1.0",
     "ember-cli-chai": "0.5.0",
     "ember-cli-mocha": "0.15.0",
+    "ember-cli-sri": "2.1.1",
     "ember-mocha": "0.16.2",
     "ember-native-dom-helpers": "0.6.3",
     "ember-sinon": "4.1.1",
