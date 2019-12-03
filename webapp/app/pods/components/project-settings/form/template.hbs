@@ -1,7 +1,30 @@
 {{#if (get permissions "update_project")}}
   <div class="field">
     <Input @value={{this.name}} class="textInput" />
+
     <Input @type="color" @value={{this.mainColor}} class="colorInput" />
+
+    <div class="logo-field">
+      <AccEmojiPicker
+        role="button"
+        class="logo"
+        @onPicked={{action "logoPicked"}}
+        >
+        <ProjectLogo @logo={{this.logo}} />
+      </AccEmojiPicker>
+
+      {{#if this.logo}}
+        <button
+          class="logoReset"
+          {{action "logoReset"}}
+        >
+          {{inline-svg
+            "assets/x"
+            class="logoReset-icon"
+          }}
+        </button>
+      {{/if}}
+    </div>
   </div>
 
   <AsyncButton

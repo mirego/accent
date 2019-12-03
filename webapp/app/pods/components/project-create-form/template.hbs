@@ -14,8 +14,19 @@
   <label class="formItem-label">
     {{t "components.project_create_form.name_label"}}
   </label>
-  <Input @value={{name}} class="textInput" />
-  <Input @type="color" @value={{mainColor}} class="colorInput" />
+
+  <div class="formItem-fields">
+    <Input @value={{name}} class="textInput" />
+    <Input @type="color" @value={{mainColor}} class="colorInput" />
+
+    <AccEmojiPicker
+      role="button"
+      class="logoInput"
+      @onPicked={{action "logoPicked"}}
+      >
+      <ProjectLogo @logo={{logo}} />
+    </AccEmojiPicker>
+  </div>
 </div>
 
 <div class="formItem">
@@ -23,16 +34,20 @@
     {{t "components.project_create_form.language_label"}}
   </label>
 
-  <AccSelect
-    @searchEnabled=true
-    @search={{action "searchLanguages"}}
-    @options={{mappedLanguages}}
-    @selected={{languageValue}}
-    @searchPlaceholder={{t
-      "components.project_create_form.language_search_placeholder"
-    }}
-    @onchange={{action (mut language) value="value"}}
-  />
+  {{#if mappedLanguages}}
+    <AccSelect
+      @searchEnabled=true
+      @search={{action "searchLanguages"}}
+      @options={{mappedLanguages}}
+      @selected={{languageValue}}
+      @searchPlaceholder={{t
+        "components.project_create_form.language_search_placeholder"
+      }}
+      @onchange={{action (mut language) value="value"}}
+    />
+  {{else}}
+    <LoadingContent class="formItem-loading" />
+  {{/if}}
 </div>
 
 <div class="formActions">

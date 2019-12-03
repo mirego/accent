@@ -11,14 +11,17 @@
   color: $color-green;
 }
 
+.formItem-fields {
+  display: flex;
+  align-items: center;
+}
+
 .textInput {
   @extend %textInput;
   flex-grow: 1;
   flex-shrink: 0;
   padding: 10px;
-  margin-right: 25px;
-  min-width: 250px;
-  width: calc(100% - 100px);
+  margin-right: 5px;
   font-size: 12px;
   font-family: $font-primary;
 
@@ -30,8 +33,29 @@
 .colorInput {
   @extend %textInput;
   width: 48px;
+  margin-right: 5px;
   height: 40px;
   padding: 2px 5px;
+  cursor: pointer;
+}
+
+.logoInput {
+  @extend %textInput;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 40px;
+  padding: 9px 5px 3px;
+  cursor: pointer;
+  font-size: 25px;
+
+  svg {
+    position: relative;
+    top: -2px;
+    width: 25px;
+    height: 21px;
+  }
 }
 
 .errors {
@@ -49,6 +73,17 @@
 
 .formItem {
   margin-bottom: 20px;
+}
+
+.formItem-loading {
+  margin: 0 10px 0 5px;
+  padding: 0;
+  align-items: flex-start;
+
+  svg {
+    width: 26px;
+    margin-bottom: 0;
+  }
 }
 
 .formItem-label {

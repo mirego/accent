@@ -41,6 +41,16 @@
   }
 }
 
+.item-form--deleting {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
+
+  .deleteDocumentButton {
+    opacity: 0;
+  }
+}
+
 .stat {
   display: flex;
   align-items: center;
@@ -92,6 +102,18 @@
   width: 100%;
   font-size: 15px;
   font-family: $font-primary;
+}
+
+.item-document-deleting-title {
+  display: flex;
+  color: $color-error;
+  font-size: 13px;
+}
+
+.item-document-deleting-title-loading {
+  width: 10px;
+  margin-right: 6px;
+  fill: $color-error;
 }
 
 .item-form {

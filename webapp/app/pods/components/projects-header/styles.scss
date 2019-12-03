@@ -1,20 +1,29 @@
 & {
   padding: 64px 0 20px;
-  background: $color-light-background;
+  background-image: linear-gradient(0, transparent, #eee);
 }
 
 &.withProject {
-  background: #fff;
+  padding-top: 59px;
 
-  .applicationLogo-image {
-    circle {
-      fill: #fff;
-    }
+  .applicationLogo {
+    position: absolute;
+    padding-right: 10px;
+    transition: $transition-speed $transition-easing;
+    transition-property: transform, opacity;
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
 
-    path {
-      fill: $color-green;
-      fill: var(--color-primary);
+  .content-left:hover {
+    .applicationLogo {
+      transform: translate3d(-30px, 0, 0);
+      opacity: 1;
     }
+  }
+
+  .content {
+    padding: 0 30px;
   }
 }
 
@@ -24,7 +33,7 @@
   justify-content: space-between;
   margin: 0 auto;
   max-width: $screen-lg;
-  padding: 0 20px;
+  padding: 0 15px;
   width: 100%;
 }
 
@@ -38,13 +47,6 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-
-  &:focus,
-  &:hover {
-    .applicationLogo-image--linked {
-      transform: rotate(-90deg);
-    }
-  }
 }
 
 .link.active .link-image {
@@ -54,6 +56,7 @@
   }
 }
 
+.applicationLogo-back,
 .applicationLogo-image {
   display: block;
   transition: 0.7s $transition-easing;
@@ -63,7 +66,15 @@
   text-decoration: none;
 }
 
-.project,
+.applicationLogo-back {
+  color: #bbb;
+
+  &:focus,
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .applicationLogo-accent,
 .applicationLogo-name {
   margin-left: 15px;
@@ -71,6 +82,33 @@
   font-size: 18px;
   font-weight: 700;
   color: $color-black;
+}
+
+.project {
+  margin-left: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: $color-black;
+  text-decoration: none;
+}
+
+.project-logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  top: 2px;
+  font-size: 25px;
+  margin-right: 10px;
+
+  svg {
+    position: relative;
+    top: -2px;
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .picture {
@@ -127,6 +165,18 @@
 @media (max-width: ($screen-md)) {
   & {
     padding: 10px 0;
+
+    .content {
+      padding: 0 30px;
+    }
+
+    &.withProject {
+      padding: 10px 0;
+    }
+  }
+
+  .search {
+    display: none;
   }
 }
 
@@ -154,6 +204,6 @@
   }
 
   .content {
-    padding: 0 15px;
+    padding: 0;
   }
 }

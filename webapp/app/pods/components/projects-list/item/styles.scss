@@ -47,6 +47,8 @@
 }
 
 .projectHeader {
+  display: flex;
+  align-items: center;
   margin-bottom: 4px;
 }
 
@@ -55,6 +57,19 @@
   transition-property: color;
   font-weight: 600;
   font-size: 18px;
+}
+
+.projectLogo {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  font-size: 21px;
+  line-height: 1;
+
+  svg {
+    width: 25px;
+    height: 20px;
+  }
 }
 
 .projectUpdates {

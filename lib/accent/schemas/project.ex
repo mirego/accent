@@ -4,6 +4,7 @@ defmodule Accent.Project do
   schema "projects" do
     field(:name, :string)
     field(:main_color, :string)
+    field(:logo, :string)
     field(:last_synced_at, :utc_datetime)
     field(:locked_file_operations, :boolean, default: false)
 
@@ -21,6 +22,7 @@ defmodule Accent.Project do
   @optional_fields ~w(
     name
     main_color
+    logo
     last_synced_at
     locked_file_operations
   )a

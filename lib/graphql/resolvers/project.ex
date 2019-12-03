@@ -24,6 +24,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
     params = %{
       "name" => args.name,
       "main_color" => args.main_color,
+      "logo" => args.logo,
       "language_id" => args.language_id
     }
 
@@ -43,12 +44,22 @@ defmodule Accent.GraphQL.Resolvers.Project do
     {:ok, %{project: project, errors: nil}}
   end
 
-  @spec update(Project.t(), %{name: String.t(), is_file_operations_locked: boolean() | nil}, GraphQLContext.t()) :: project_operation
-  def update(project, %{name: name, main_color: main_color, is_file_operations_locked: locked_file_operations}, info) do
+  @spec update(Project.t(), %{name: String.t(), main_color: String.t()}, GraphQLContext.t()) :: project_operation
+  def update(project, args, info) do
+    args =
+      Map.merge(
+        %{
+          is_file_operations_locked: nil,
+          logo: nil
+        },
+        args
+      )
+
     params = %{
-      "name" => name,
-      "main_color" => main_color,
-      "locked_file_operations" => locked_file_operations
+      "name" => args.name,
+      "main_color" => args.main_color,
+      "logo" => args.logo,
+      "locked_file_operations" => args.is_file_operations_locked
     }
 
     case ProjectUpdater.update(project: project, params: params, user: info.context[:conn].assigns[:current_user]) do
@@ -59,8 +70,6 @@ defmodule Accent.GraphQL.Resolvers.Project do
         {:ok, %{project: nil, errors: ["unprocessable_entity"]}}
     end
   end
-
-  def update(project, args, info), do: update(project, Map.put(args, :is_file_operations_locked, nil), info)
 
   @spec list_viewer(User.t(), %{query: String.t(), page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Project.t())}
   def list_viewer(viewer, args, _info) do

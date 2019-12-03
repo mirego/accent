@@ -1,4 +1,10 @@
 <div class="projectHeader projectId-{{project.id}}">
+  {{#if project.logo}}
+    <span class="projectLogo">
+      <ProjectLogo @logo={{project.logo}} />
+    </span>
+  {{/if}}
+
   <span class="projectName">
     {{project.name}}
   </span>

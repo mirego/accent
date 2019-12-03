@@ -1,4 +1,4 @@
-<form class="item-form {{if this.isEditing "item-form--editing"}}" {{action "updateDocument" on="submit"}}>
+<form class="item-form {{if this.isDeleting "item-form--deleting"}}" {{action "updateDocument" on="submit"}}>
   <div class="item-form-inputs">
     <h2 class="item-title">
       {{#if this.isEditing}}
@@ -16,18 +16,27 @@
         </label>
       {{else}}
         <span class="item-toggle-edit">
-          <button class="item-edit-button" {{action "toggleEdit"}}>
-            {{inline-svg "assets/pencil.svg" class="item-edit-icon"}}
-          </button>
+          {{#if this.isDeleting}}
+            <span class="item-document-deleting-title">
+              {{inline-svg "/assets/loading.svg" class="item-document-deleting-title-loading"}}
 
-          <LinkTo
-            @route="logged-in.project.files.export"
-            @models={{array project.id document.id}}
-            class="item-document"
-          >
-            {{document.path}}
-            <span class="item-subtitle">.{{documentFormatItem.extension}}</span>
-          </LinkTo>
+              {{t "components.documents_list.item.deleting_label"}}
+              {{document.path}}.{{documentFormatItem.extension}}…
+            </span>
+          {{else}}
+            <button class="item-edit-button" {{action "toggleEdit"}}>
+              {{inline-svg "assets/pencil.svg" class="item-edit-icon"}}
+            </button>
+
+            <LinkTo
+              @route="logged-in.project.files.export"
+              @models={{array project.id document.id}}
+              class="item-document"
+            >
+              {{document.path}}
+              <span class="item-subtitle">.{{documentFormatItem.extension}}</span>
+            </LinkTo>
+          {{/if}}
         </span>
       {{/if}}
     </h2>

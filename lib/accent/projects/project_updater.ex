@@ -3,7 +3,7 @@ defmodule Accent.ProjectUpdater do
 
   import Canada, only: [can?: 2]
 
-  @optional_fields ~w(name main_color)a
+  @optional_fields ~w(name main_color logo)a
 
   def update(project: project, params: params, user: user) do
     project
@@ -11,15 +11,14 @@ defmodule Accent.ProjectUpdater do
     |> Repo.update()
   end
 
-  def cast_changeset(model, params, user) do
+  def cast_changeset(schema, params, user) do
     fields =
-      if user |> can?(locked_file_operations(model)) do
+      if can?(user, locked_file_operations(schema)) do
         [:locked_file_operations | @optional_fields]
       else
         @optional_fields
       end
 
-    model
-    |> Ecto.Changeset.cast(params, fields)
+    Ecto.Changeset.cast(schema, params, fields)
   end
 end

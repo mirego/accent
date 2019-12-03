@@ -115,7 +115,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "create", %{user: user, language: language} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: language.id, name: "Foo bar"}, context)
+    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: language.id, name: "Foo bar", logo: nil}, context)
 
     assert get_in(result, [:project, Access.key(:name)]) == "Foo bar"
   end
@@ -123,7 +123,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "create without name", %{user: user, language: language} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: language.id, name: ""}, context)
+    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: language.id, name: "", logo: nil}, context)
 
     assert get_in(result, [:project]) == nil
     assert get_in(result, [:errors]) == ["unprocessable_entity"]
@@ -132,7 +132,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "create without language", %{user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: nil, name: "FOO"}, context)
+    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: nil, name: "FOO", logo: nil}, context)
 
     assert get_in(result, [:project]) == nil
     assert get_in(result, [:errors]) == ["unprocessable_entity"]
@@ -150,15 +150,17 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "update", %{user: user, project: project} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.update(project, %{main_color: "#f00", name: "Foo bar"}, context)
+    {:ok, result} = Resolver.update(project, %{main_color: "#f00", name: "Foo bar", logo: "😀"}, context)
 
     assert get_in(result, [:project, Access.key(:name)]) == "Foo bar"
+    assert get_in(result, [:project, Access.key(:main_color)]) == "#f00"
+    assert get_in(result, [:project, Access.key(:logo)]) == "😀"
   end
 
   test "update with file operation locked", %{user: user, project: project} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.update(project, %{main_color: project.main_color, name: project.name, is_file_operations_locked: true}, context)
+    {:ok, result} = Resolver.update(project, %{main_color: project.main_color, name: project.name, is_file_operations_locked: true, logo: nil}, context)
 
     assert get_in(result, [:project, Access.key(:locked_file_operations)]) == true
   end

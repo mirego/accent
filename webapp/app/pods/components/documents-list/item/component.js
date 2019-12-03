@@ -71,6 +71,7 @@ export default Component.extend({
 
     toggleEdit() {
       this.set('isEditing', !this.isEditing);
+
       scheduleOnce('afterRender', this, function() {
         const input = this.element.querySelector('.textInput');
         input && input.focus();
@@ -79,6 +80,7 @@ export default Component.extend({
 
     updateDocument() {
       this.set('isUpdating', true);
+
       this.onUpdate(this.document, this.renamedDocumentPath).then(() =>
         this.setProperties({isUpdating: false, isEditing: false})
       );

@@ -18,6 +18,11 @@
   color: #fff;
 }
 
+&.danger {
+  background: $color-error;
+  color: #fff;
+}
+
 &.link {
   padding: 0;
 

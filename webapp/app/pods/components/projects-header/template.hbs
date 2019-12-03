@@ -3,8 +3,8 @@
     {{#if project}}
       <LinkTo @route="logged-in.projects" class="applicationLogo">
         {{inline-svg
-          "assets/logo.svg"
-          class="applicationLogo-image applicationLogo-image--linked"
+          "assets/chevron-left.svg"
+          class="applicationLogo-back"
         }}
       </LinkTo>
 
@@ -13,6 +13,10 @@
         @model={{project.id}}
         class="project"
       >
+        <span class="project-logo">
+          <ProjectLogo @logo={{@project.logo}} />
+        </span>
+
         {{project.name}}
       </LinkTo>
 
