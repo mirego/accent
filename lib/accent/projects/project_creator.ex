@@ -5,6 +5,7 @@ defmodule Accent.ProjectCreator do
   alias Ecto.Changeset
 
   @required_fields ~w(name main_color language_id)a
+  @optional_fields ~w(logo)a
   @bot %User{fullname: "API Client", bot: true}
 
   def create(params: params, user: user) do
@@ -19,7 +20,7 @@ defmodule Accent.ProjectCreator do
 
   def cast_changeset(model, params) do
     model
-    |> cast(params, @required_fields ++ [])
+    |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
   end
 

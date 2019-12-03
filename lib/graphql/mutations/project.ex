@@ -9,15 +9,17 @@ defmodule Accent.GraphQL.Mutations.Project do
     field :create_project, :mutated_project do
       arg(:name, non_null(:string))
       arg(:main_color, non_null(:string))
+      arg(:logo, :string)
       arg(:language_id, non_null(:id))
 
-      resolve(viewer_authorize(:create_project, &Accent.GraphQL.Resolvers.Project.create/3))
+      resolve(viewer_authorize(:create_project, &ProjectResolver.create/3))
     end
 
     field :update_project, :mutated_project do
       arg(:id, non_null(:id))
       arg(:name, non_null(:string))
       arg(:main_color, non_null(:string))
+      arg(:logo, :string)
       arg(:is_file_operations_locked, :boolean)
 
       resolve(project_authorize(:update_project, &ProjectResolver.update/3))

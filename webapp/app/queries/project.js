@@ -17,6 +17,7 @@ export default gql`
         id
         name
         mainColor
+        logo
 
         viewerPermissions
 

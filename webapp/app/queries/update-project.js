@@ -5,12 +5,14 @@ export default gql`
     $projectId: ID!
     $name: String!
     $mainColor: String!
+    $logo: String
     $isFileOperationsLocked: Boolean
   ) {
     updateProject(
       id: $projectId
       name: $name
       mainColor: $mainColor
+      logo: $logo
       isFileOperationsLocked: $isFileOperationsLocked
     ) {
       project {

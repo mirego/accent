@@ -9,6 +9,7 @@
   color: #fff;
   font-weight: bold;
   animation: 0.3s flash-message-in ease;
+  pointer-events: all;
 
   &.is-exiting {
     animation: 0.3s flash-message-out forwards ease-in-out;

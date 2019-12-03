@@ -13,6 +13,7 @@ export default Component.extend({
   languageSearcher: service('language-searcher'),
 
   name: null,
+  logo: null,
   mainColor: '#28cb87',
   languagesCopy: reads('languages'),
   emptyLanguage: not('language'),
@@ -41,13 +42,18 @@ export default Component.extend({
   },
 
   actions: {
+    logoPicked(logo) {
+      this.set('logo', logo);
+    },
+
     submit() {
       this.set('isCreating', true);
       const languageId = this.language;
       const name = this.name;
       const mainColor = this.mainColor;
+      const logo = this.logo;
 
-      this.onCreate({languageId, name, mainColor}).then(() => {
+      this.onCreate({languageId, name, mainColor, logo}).then(() => {
         if (!this.isDestroyed) this.set('isCreating', false);
       });
     },

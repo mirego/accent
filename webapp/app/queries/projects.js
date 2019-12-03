@@ -26,6 +26,7 @@ export default gql`
           name
           lastSyncedAt
           mainColor
+          logo
 
           revisions {
             id

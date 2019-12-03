@@ -199,6 +199,7 @@
       "save_button": "Save",
       "cancel_button": "Cancel",
       "item": {
+        "deleting_label": "Deleting",
         "path_label": "Path",
         "path_help": "Used to scope your strings. The path will be used to export all your languages (en/<em>path</em>.format, fr/<em>path</em>.format)"
       }
@@ -342,6 +343,8 @@
       },
       "form": {
         "update_button": "Update project",
+        "unsupported_logo_type": "Only SVG files are supported as project logo.",
+        "reset_logo_button": "Reset logo",
         "lock_file_operations": {
           "text_1": "When the file operations are locked, syncing and adding translations will be disabled.",
           "remove_lock_button": "Unlock file operations",
