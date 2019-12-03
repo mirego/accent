@@ -77,7 +77,7 @@
 
   &:focus {
     box-shadow: 0 0 10px lighten($color-green, 20%);
-    box-shadow: 0 0 10px var(--color-primary-lighten-20);
+    box-shadow: 0 0 10px var(--color-primary-opacity-70);
   }
 
   &:hover,
@@ -212,7 +212,7 @@
     &:hover,
     &:focus {
       background: darken(#fff, 4%);
-      background: var(--color-primary-lighten-99);
+      background: var(--color-primary-opacity-10);
       color: $color-black;
       color: var(--color-black);
     }
