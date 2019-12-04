@@ -67,8 +67,8 @@ WORKDIR /opt/accent
 
 # Copy the OTP binary and assets deps from the build step
 COPY --from=builder /opt/build .
-COPY --from=webapp-builder /opt/build .
-COPY --from=jipt-builder /opt/build .
+COPY --from=webapp-builder /opt/build/webapp-dist ./webapp-dist
+COPY --from=jipt-builder /opt/build/jipt-dist ./jipt-dist
 
 RUN mv /opt/accent/webapp-dist /opt/accent/lib/accent-$APP_VERSION/priv/static/webapp && \
     mv /opt/accent/jipt-dist /opt/accent/lib/accent-$APP_VERSION/priv/static/jipt

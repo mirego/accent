@@ -26,7 +26,9 @@ webapp/node_modules
 webapp/tmp
 webapp/tests
 webapp/dist
+webapp/webapp-dist
 jipt/node_modules
 jipt/.cache
 jipt/dist
+jipt/webapp-dist
 cli
