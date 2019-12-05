@@ -61,11 +61,11 @@ dependencies-npm-jipt:
 
 .PHONY: build
 build: ## Build the Docker image for the OTP release
-	docker build --build-arg APP_VERSION=$(APP_VERSION) --rm --tag accent:$(DOCKER_IMAGE_TAG) .
+	docker build --rm --tag accent:$(DOCKER_IMAGE_TAG) .
 
 .PHONY: compose-build
 compose-build: ## Build the Docker image from the docker-compose.yml file
-	docker-compose build --build-arg APP_VERSION=$(APP_VERSION)
+	docker-compose build
 
 # CI targets
 # ----------

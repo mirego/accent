@@ -1,10 +1,29 @@
 #
-# Step 1 - Build the OTP binary
+# Step 1 - Build webapp and jipt deps
+#
+FROM node:10.16-alpine AS webapp-builder
+RUN apk --no-cache update && \
+    apk --no-cache upgrade && \
+    apk --no-cache add git
+WORKDIR /opt/build
+COPY webapp .
+RUN npm ci --no-audit --no-color && \
+    npm run build-production
+
+FROM node:10.16-alpine AS jipt-builder
+RUN apk --no-cache update && \
+    apk --no-cache upgrade && \
+    apk --no-cache add git
+WORKDIR /opt/build
+COPY jipt .
+RUN npm ci --no-audit --no-color && \
+    npm run build-production
+
+#
+# Step 2 - Build the OTP binary
 #
 FROM elixir:1.9-alpine AS builder
 
-ARG APP_VERSION=latest
-ENV APP_VERSION=${APP_VERSION}
 ENV MIX_ENV=prod
 
 WORKDIR /build
@@ -27,51 +46,29 @@ RUN mix deps.get --only prod
 RUN mix deps.compile --only prod
 RUN mix compile --only prod
 
+# Move static assets from other stages into the OTP release.
+# Those file will be served by the Elixir app.
+COPY --from=webapp-builder /opt/build/webapp-dist ./webapp-dist
+COPY --from=jipt-builder /opt/build/jipt-dist ./jipt-dist
+
+RUN mv webapp-dist priv/static/webapp && \
+    mv jipt-dist priv/static/jipt
+
 RUN mkdir -p /opt/build && \
     mix release && \
     cp -R _build/prod/rel/accent/* /opt/build
 
 #
-# Step 2 - Build webapp and jipt deps
-#
-FROM node:10.16-alpine AS webapp-builder
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk --no-cache add git
-WORKDIR /opt/build
-COPY webapp .
-RUN npm ci --no-audit --no-color && \
-    npm run build-production
-
-FROM node:10.16-alpine AS jipt-builder
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk --no-cache add git
-WORKDIR /opt/build
-COPY jipt .
-RUN npm ci --no-audit --no-color && \
-    npm run build-production
-#
 # Step 3 - Build a lean runtime container
 #
 FROM alpine:3.9
-
-ARG APP_VERSION=latest
-ENV APP_VERSION=${APP_VERSION}
 
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
     apk --no-cache add bash openssl erlang-crypto yaml-dev
 
 WORKDIR /opt/accent
-
-# Copy the OTP binary and assets deps from the build step
 COPY --from=builder /opt/build .
-COPY --from=webapp-builder /opt/build/webapp-dist ./webapp-dist
-COPY --from=jipt-builder /opt/build/jipt-dist ./jipt-dist
-
-RUN mv /opt/accent/webapp-dist /opt/accent/lib/accent-$APP_VERSION/priv/static/webapp && \
-    mv /opt/accent/jipt-dist /opt/accent/lib/accent-$APP_VERSION/priv/static/jipt
 
 # Copy the entrypoint script
 COPY priv/scripts/docker-entrypoint.sh /usr/local/bin
