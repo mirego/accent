@@ -41,7 +41,7 @@ const link = new BatchHttpLink({uri, batchInterval: 50, batchMax: 50});
 const absintheBatchLink = new ApolloLink((operation, forward) => {
   return forward(operation).map(response => response.payload);
 });
-const authLink = (session) => {
+const authLink = session => {
   return new ApolloLink((operation, forward) => {
     const token = session.credentials.token;
 
@@ -67,11 +67,7 @@ export default Service.extend({
 
     const client = new ApolloClient({
       uri,
-      link: from([
-        authLink(this.session),
-        absintheBatchLink,
-        link
-      ]),
+      link: from([authLink(this.session), absintheBatchLink, link]),
       cache
     });
 
