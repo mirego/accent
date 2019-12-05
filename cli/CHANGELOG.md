@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.0
+
+### Breaking changes
+
+- `write` option has been removed in favor of `dry-run` that does the opposite: write by default, `dry-run` to see a preview of changes.
+- `namePattern` option `fullDirectory` has been removed in favor of a better `parentDirectory` that can handle nested file structure.
+
 ## 0.8.0
 
 ### Breaking changes

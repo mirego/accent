@@ -44,13 +44,13 @@ export default class Document {
     formData.append('file', fs.createReadStream(file));
     formData.append(
       'document_path',
-      this.parseDocumentName(file, this.config.namePattern)
+      this.parseDocumentName(file, this.config)
     );
     formData.append('document_format', this.config.format);
     formData.append('language', masterLanguage);
 
     let url = `${this.apiUrl}/sync`;
-    if (!options.write) url = `${url}/peek`;
+    if (options['dry-run']) url = `${url}/peek`;
     if (options['sync-type']) {
       formData.append('sync_type', options['sync-type']);
     }
@@ -78,7 +78,7 @@ export default class Document {
     formData.append('language', language);
 
     let url = `${this.apiUrl}/add-translations`;
-    if (!options.write) url = `${url}/peek`;
+    if (options['dry-run']) url = `${url}/peek`;
     if (options['merge-type']) {
       formData.append('merge_type', options['merge-type']);
     }
@@ -95,7 +95,7 @@ export default class Document {
   fetchLocalFile(documentPath: string, localPath: string) {
     return this.paths.reduce((memo: string | null, path: string) => {
       if (
-        this.parseDocumentName(path, this.config.namePattern) === documentPath
+        this.parseDocumentName(path, this.config) === documentPath
       ) {
         return localPath;
       } else {
@@ -139,6 +139,20 @@ export default class Document {
     return this.writeResponseToFile(response, file);
   }
 
+  parseDocumentName(file: string, config: DocumentConfig): string {
+    if (config.namePattern === NamePattern.parentDirectory) {
+      const targetPrefixMatch = config.target.match(/(\w+\/)+/);
+
+      if (targetPrefixMatch) {
+        return path.dirname(file).replace(targetPrefixMatch[0], '')
+      } else {
+        return path.dirname(file);
+      }
+    }
+
+    return path.basename(file).replace(path.extname(file), '');
+  }
+
   private encodeQuery(params: string[][]) {
     return params
       .map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
@@ -162,22 +176,11 @@ export default class Document {
     return config;
   }
 
-  private parseDocumentName(file: string, pattern?: NamePattern): string {
-    if (pattern === NamePattern.parentDirectory) {
-      return path.basename(path.dirname(file));
-    }
-
-    if (pattern === NamePattern.fullDirectory) {
-      return path.dirname(file);
-    }
-
-    return path.basename(file).replace(path.extname(file), '');
-  }
-
   private writeResponseToFile(response: Response, file: string) {
     return new Promise((resolve, reject) => {
       mkdirp.sync(path.dirname(file));
 
+      console.log(response.body)
       const fileStream = fs.createWriteStream(file, {autoClose: true});
       response.body.pipe(fileStream);
       response.body.on('error', reject);
@@ -190,7 +193,7 @@ export default class Document {
     options: any,
     operationName: OperationName
   ): Promise<OperationResponse> {
-    if (options.write) {
+    if (!options['dry-run']) {
       if (response.status >= 400) {
         return {[operationName]: {success: false}, peek: false};
       }
