@@ -33,6 +33,10 @@ export default class Sync extends Command {
       description:
         'Add translations in Accent to help translators if you already have translated strings'
     }),
+    'dry-run': flags.boolean({
+      default: false,
+      description: 'Do not write the file from the export _after_ the operation'
+    }),
     'merge-type': flags.string({
       default: 'smart',
       description:
@@ -48,10 +52,6 @@ export default class Sync extends Command {
       default: 'smart',
       description: 'Will be used in the sync call as the "sync_type" param',
       options: ['smart', 'passive']
-    }),
-    'dry-run': flags.boolean({
-      default: false,
-      description: 'Do not write the file from the export _after_ the operation'
     })
   };
 
@@ -117,10 +117,12 @@ export default class Sync extends Command {
 
     return document.paths.map(async path => {
       const operations = await document.sync(this.project!, path, flags);
-      const documentPath = document.parseDocumentName(path, document.config)
+      const documentPath = document.parseDocumentName(path, document.config);
 
       if (operations.sync && !operations.peek) formatter.logSync(path);
-      if (operations.peek) formatter.logPeek(path, documentPath, operations.peek);
+      if (operations.peek) {
+        formatter.logPeek(path, documentPath, operations.peek);
+      }
 
       return operations;
     });

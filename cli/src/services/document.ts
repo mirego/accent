@@ -42,10 +42,7 @@ export default class Document {
     const masterLanguage = project!.language.slug;
     const formData = new FormData();
     formData.append('file', fs.createReadStream(file));
-    formData.append(
-      'document_path',
-      this.parseDocumentName(file, this.config)
-    );
+    formData.append('document_path', this.parseDocumentName(file, this.config));
     formData.append('document_format', this.config.format);
     formData.append('language', masterLanguage);
 
@@ -94,9 +91,7 @@ export default class Document {
 
   fetchLocalFile(documentPath: string, localPath: string) {
     return this.paths.reduce((memo: string | null, path: string) => {
-      if (
-        this.parseDocumentName(path, this.config) === documentPath
-      ) {
+      if (this.parseDocumentName(path, this.config) === documentPath) {
         return localPath;
       } else {
         return memo;
@@ -144,7 +139,7 @@ export default class Document {
       const targetPrefixMatch = config.target.match(/(\w+\/)+/);
 
       if (targetPrefixMatch) {
-        return path.dirname(file).replace(targetPrefixMatch[0], '')
+        return path.dirname(file).replace(targetPrefixMatch[0], '');
       } else {
         return path.dirname(file);
       }
@@ -180,7 +175,7 @@ export default class Document {
     return new Promise((resolve, reject) => {
       mkdirp.sync(path.dirname(file));
 
-      console.log(response.body)
+      console.log(response.body);
       const fileStream = fs.createWriteStream(file, {autoClose: true});
       response.body.pipe(fileStream);
       response.body.on('error', reject);
