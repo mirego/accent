@@ -9,8 +9,7 @@ export enum Hooks {
 
 export enum NamePattern {
   file = 'file',
-  parentDirectory = 'parentDirectory',
-  fullDirectory = 'fullDirectory'
+  parentDirectory = 'parentDirectory'
 }
 
 export interface HookConfig {

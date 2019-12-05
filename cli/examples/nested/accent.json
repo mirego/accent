@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "format": "json",
+      "source": "nested/**/*/fr.json",
+      "target": "nested/%document_path%/%slug%.json"
+    }
+  ]
+}

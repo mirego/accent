@@ -49,8 +49,9 @@ export default class Sync extends Command {
       description: 'Will be used in the sync call as the "sync_type" param',
       options: ['smart', 'passive']
     }),
-    write: flags.boolean({
-      description: 'Write the file from the export _after_ the operation'
+    'dry-run': flags.boolean({
+      default: false,
+      description: 'Do not write the file from the export _after_ the operation'
     })
   };
 
@@ -69,7 +70,7 @@ export default class Sync extends Command {
       await new HookRunner(document).run(Hooks.afterSync);
     }
     // After syncing (and writing) the files in Accent, the list of documents could have changed.
-    if (flags.write) await this.refreshProject();
+    if (!flags['dry-run']) await this.refreshProject();
 
     if (this.project!.revisions.length > 1 && flags['add-translations']) {
       new AddTranslationsFormatter().log(this.project!);
@@ -83,7 +84,7 @@ export default class Sync extends Command {
       }
     }
 
-    if (!flags.write) return;
+    if (flags['dry-run']) return;
 
     const formatter = new DocumentExportFormatter();
 
@@ -116,9 +117,10 @@ export default class Sync extends Command {
 
     return document.paths.map(async path => {
       const operations = await document.sync(this.project!, path, flags);
+      const documentPath = document.parseDocumentName(path, document.config)
 
       if (operations.sync && !operations.peek) formatter.logSync(path);
-      if (operations.peek) formatter.logPeek(path, operations.peek);
+      if (operations.peek) formatter.logPeek(path, documentPath, operations.peek);
 
       return operations;
     });

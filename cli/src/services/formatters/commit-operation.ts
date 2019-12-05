@@ -8,7 +8,8 @@ import {PeekOperation} from '../../types/operation';
 const MASTER_ONLY_ACTIONS = ['new', 'renew', 'remove'];
 
 export default class CommitOperationFormatter {
-  logSync(path: string) {
+  logSync(path: string, documentPath: string) {
+    console.log('  ', chalk.gray('Name in Accent:'), chalk.gray(documentPath));
     console.log('  ', chalk.white(path));
     console.log('  ', chalk.green('↑ Successfully synced in Accent'));
     console.log('');
@@ -32,7 +33,8 @@ export default class CommitOperationFormatter {
     console.log('');
   }
 
-  logPeek(path: string, operations: PeekOperation) {
+  logPeek(path: string, documentPath: string, operations: PeekOperation) {
+    console.log('  ', chalk.gray('Name in Accent:'), chalk.gray(documentPath));
     console.log('  ', chalk.white(path));
 
     if (!Object.keys(operations.stats).length) {
