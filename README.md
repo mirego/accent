@@ -96,7 +96,7 @@ _That’s it!_
 
 ### Makefile
 
-The Makefile should be the main entry for common tasks such as tests, linting, Docker, etc. This simplify the developpement process since you don’t have to search for which service provides which command. `mix`, `npm`, `prettier`, `docker`, `stylelint`, etc are all used in the Makefile.
+The Makefile should be the main entry for common tasks such as tests, linting, Docker, etc. This simplify the development process since you don’t have to search for which service provides which command. `mix`, `npm`, `prettier`, `docker`, `stylelint`, etc are all used in the Makefile.
 
 ### Docker
 
