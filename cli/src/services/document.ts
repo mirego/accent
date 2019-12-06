@@ -7,6 +7,7 @@ import * as path from 'path';
 
 // Services
 import Tree from './tree';
+import {fetchFromRevision} from './revision-slug-fetcher';
 
 // Types
 import {Config} from '../types/config';
@@ -39,7 +40,7 @@ export default class Document {
   }
 
   async sync(project: Project, file: string, options: any) {
-    const masterLanguage = project!.language.slug;
+    const masterLanguage = fetchFromRevision(project!.masterRevision);
     const formData = new FormData();
     formData.append('file', fs.createReadStream(file));
     formData.append('document_path', this.parseDocumentName(file, this.config));
@@ -175,7 +176,6 @@ export default class Document {
     return new Promise((resolve, reject) => {
       mkdirp.sync(path.dirname(file));
 
-      console.log(response.body);
       const fileStream = fs.createWriteStream(file, {autoClose: true});
       response.body.pipe(fileStream);
       response.body.on('error', reject);

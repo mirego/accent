@@ -4,6 +4,12 @@ import chalk from 'chalk';
 // Types
 import {Document, Project, Revision} from '../../types/project';
 
+// Services
+import {
+  fetchNameFromRevision,
+  fetchFromRevision
+} from '../revision-slug-fetcher';
+
 export default class ProjectStatsFormatter {
   private readonly project: Project;
 
@@ -41,9 +47,9 @@ export default class ProjectStatsFormatter {
     console.log(chalk.magenta('Master language'));
     console.log(
       '  ',
-      `${chalk.white.bold(this.project.language.name)} – ${
-        this.project.language.slug
-      }`
+      `${chalk.white.bold(
+        fetchNameFromRevision(this.project.masterRevision)
+      )} – ${fetchFromRevision(this.project.masterRevision)}`
     );
 
     console.log('');
@@ -53,12 +59,12 @@ export default class ProjectStatsFormatter {
         chalk.magenta(`Translations (${this.project.revisions.length - 1})`)
       );
       this.project.revisions.forEach((revision: Revision) => {
-        if (this.project.language.id !== revision.language.id) {
+        if (this.project.masterRevision.id !== revision.id) {
           console.log(
             '  ',
-            `${chalk.white.bold(revision.language.name)} – ${
-              revision.language.slug
-            }`
+            `${chalk.white.bold(
+              fetchNameFromRevision(revision)
+            )} – ${fetchFromRevision(revision)}`
           );
           console.log('');
         }
