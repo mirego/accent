@@ -75,11 +75,9 @@ defmodule Accent.GraphQL.Types.Project do
     end
 
     field :revision, :revision do
-      resolve(project_authorize(:show_revision, &Accent.GraphQL.Resolvers.Revision.show_project/3))
-    end
+      arg(:id, :id)
 
-    field :master_revision, :revision do
-      resolve(project_authorize(:show_revision, &Accent.GraphQL.Resolvers.Revision.show_master_project/3))
+      resolve(project_authorize(:show_revision, &Accent.GraphQL.Resolvers.Revision.show_project/3))
     end
 
     field :revisions, list_of(:revision) do
