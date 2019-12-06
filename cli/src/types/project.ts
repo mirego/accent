@@ -6,6 +6,8 @@ export interface Language {
 
 export interface Revision {
   id: string;
+  name: string;
+  slug: string | null;
   language: Language;
   isMaster: boolean;
   translationsCount: number;
@@ -26,7 +28,7 @@ export interface Project {
   id: string;
   name: string;
   lastSyncedAt: string;
-  language: Language;
+  masterRevision: Revision;
   revisions: Revision[];
   documents: PaginatedDocuments;
 }

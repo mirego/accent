@@ -12,6 +12,7 @@ import SyncFormatter from '../services/formatters/project-sync';
 
 // Services
 import Document from '../services/document';
+import {fetchFromRevision} from '../services/revision-slug-fetcher';
 import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import CommitOperationFormatter from '../services/formatters/commit-operation';
 import DocumentExportFormatter from '../services/formatters/document-export';
@@ -119,7 +120,10 @@ export default class Sync extends Command {
       const operations = await document.sync(this.project!, path, flags);
       const documentPath = document.parseDocumentName(path, document.config);
 
-      if (operations.sync && !operations.peek) formatter.logSync(path);
+      if (operations.sync && !operations.peek) {
+        formatter.logSync(path, documentPath);
+      }
+
       if (operations.peek) {
         formatter.logPeek(path, documentPath, operations.peek);
       }
@@ -131,7 +135,7 @@ export default class Sync extends Command {
   private addTranslationsDocumentConfig(document: Document) {
     const {flags} = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
-    const masterLanguage = this.project!.language.slug;
+    const masterLanguage = fetchFromRevision(this.project!.masterRevision);
 
     const targets = new DocumentPathsFetcher()
       .fetch(this.project!, document)

@@ -26,10 +26,16 @@ export default class ProjectFetcher {
           name
           lastSyncedAt
 
-          language {
+          masterRevision: revision {
             id
             name
             slug
+
+            language {
+              id
+              name
+              slug
+            }
           }
 
           documents {
@@ -46,6 +52,8 @@ export default class ProjectFetcher {
             translationsCount
             conflictsCount
             reviewedCount
+            name
+            slug
             language {
               id
               name
