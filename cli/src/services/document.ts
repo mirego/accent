@@ -6,8 +6,8 @@ import fetch, {Response} from 'node-fetch';
 import * as path from 'path';
 
 // Services
-import Tree from './tree';
 import {fetchFromRevision} from './revision-slug-fetcher';
+import Tree from './tree';
 
 // Types
 import {Config} from '../types/config';

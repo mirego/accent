@@ -12,11 +12,11 @@ import SyncFormatter from '../services/formatters/project-sync';
 
 // Services
 import Document from '../services/document';
-import {fetchFromRevision} from '../services/revision-slug-fetcher';
 import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import CommitOperationFormatter from '../services/formatters/commit-operation';
 import DocumentExportFormatter from '../services/formatters/document-export';
 import HookRunner from '../services/hook-runner';
+import {fetchFromRevision} from '../services/revision-slug-fetcher';
 
 // Types
 import {Hooks} from '../types/document-config';

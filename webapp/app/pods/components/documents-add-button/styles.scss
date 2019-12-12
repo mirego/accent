@@ -4,7 +4,7 @@
   padding: 15px 20px;
   margin-top: 20px;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(#000, 0.15);
+  box-shadow: 0 2px 4px rgba(#000, 0.09);
   border-radius: 3px;
   color: $color-green;
   color: var(--color-primary);
@@ -13,7 +13,12 @@
 
   &:focus,
   &:hover {
-    background: $color-light-background;
+    background: darken(#fff, 4%);
+    background: var(--color-primary-opacity-10);
+    border-color: darken(#fff, 4%);
+    border-color: var(--color-primary-opacity-10);
+    color: $color-black;
+    color: var(--color-black);
   }
 }
 

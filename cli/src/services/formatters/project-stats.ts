@@ -6,8 +6,8 @@ import {Document, Project, Revision} from '../../types/project';
 
 // Services
 import {
-  fetchNameFromRevision,
-  fetchFromRevision
+  fetchFromRevision,
+  fetchNameFromRevision
 } from '../revision-slug-fetcher';
 
 export default class ProjectStatsFormatter {

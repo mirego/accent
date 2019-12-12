@@ -213,6 +213,8 @@
     &:focus {
       background: darken(#fff, 4%);
       background: var(--color-primary-opacity-10);
+      border-color: darken(#fff, 4%);
+      border-color: var(--color-primary-opacity-10);
       color: $color-black;
       color: var(--color-black);
     }
