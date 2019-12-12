@@ -19,7 +19,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.8.0 darwin-x64 node-v10.14.2
+accent-cli/0.9.0 darwin-x64 node-v10.14.2
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -92,7 +92,7 @@ EXAMPLE
   $ accent export
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.8.0/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.9.0/src/commands/export.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -126,7 +126,7 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.8.0/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.9.0/src/commands/jipt.ts)_
 
 ## `accent stats`
 
@@ -140,7 +140,7 @@ EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.8.0/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.9.0/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -154,19 +154,19 @@ OPTIONS
   --add-translations                Add translations in Accent to help translators if you already have translated
                                     strings
 
+  --dry-run                         Do not write the file from the export _after_ the operation
+
   --merge-type=smart|passive|force  [default: smart] Will be used in the add translations call as the "merge_type" param
 
   --order-by=index|key-asc          [default: index] Will be used in the export call as the order of the keys
 
   --sync-type=smart|passive         [default: smart] Will be used in the sync call as the "sync_type" param
 
-  --write                           Write the file from the export _after_ the operation
-
 EXAMPLE
   $ accent sync
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.8.0/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.9.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # License
