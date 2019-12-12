@@ -15,5 +15,6 @@ export const fetchFromRevisions = (revisions: Revision[]): string[] => {
 
 export const fetchMasterFromProject = (project: Project): string => {
   const masterRevision = project.revisions.find(({isMaster}) => isMaster);
+
   return fetchFromRevision(masterRevision!);
 };

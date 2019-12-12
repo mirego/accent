@@ -29,10 +29,7 @@ defmodule AccentTest.ExportController do
     %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar", document_id: document.id} |> Repo.insert!()
 
     params = %{inline_render: true, project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    response = get(conn, export_path(conn, [], params))
 
     assert get_resp_header(response, "content-type") == ["text/plain"]
 
@@ -48,10 +45,7 @@ defmodule AccentTest.ExportController do
     %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar", document_id: document.id} |> Repo.insert!()
 
     params = %{project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    response = get(conn, export_path(conn, [], params))
 
     assert get_resp_header(response, "content-disposition") == ["inline; filename=\"#{document.path}\""]
 
@@ -67,10 +61,7 @@ defmodule AccentTest.ExportController do
     language = %Language{name: "chinese", slug: Ecto.UUID.generate()} |> Repo.insert!()
 
     params = %{project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    response = get(conn, export_path(conn, [], params))
 
     assert response.status == 404
   end
@@ -98,10 +89,7 @@ defmodule AccentTest.ExportController do
 
   test "export unknown document", %{conn: conn, project: project, language: language} do
     params = %{project_id: project.id, language: language.slug, document_format: "json", document_path: "foo"}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    response = get(conn, export_path(conn, [], params))
 
     assert response.status == 404
   end
@@ -132,10 +120,7 @@ defmodule AccentTest.ExportController do
     %Translation{revision_id: revision.id, key: "test", corrected_text: "foo", proposed_text: "foo", document_id: document.id, version_id: version.id} |> Repo.insert!()
 
     params = %{project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    response = get(conn, export_path(conn, [], params))
 
     assert response.resp_body == """
            {
@@ -148,10 +133,7 @@ defmodule AccentTest.ExportController do
     document = %Document{project_id: project.id, path: "test2", format: "json"} |> Repo.insert!()
 
     params = %{version: "foo", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    response = get(conn, export_path(conn, [], params))
 
     assert response.status == 404
   end
@@ -162,10 +144,7 @@ defmodule AccentTest.ExportController do
     %Translation{revision_id: revision.id, key: "test", corrected_text: "foo", proposed_text: "foo", document_id: document.id} |> Repo.insert!()
 
     params = %{order_by: "key", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    response = get(conn, export_path(conn, [], params))
 
     assert response.resp_body == """
            {
@@ -181,10 +160,7 @@ defmodule AccentTest.ExportController do
     %Translation{revision_id: revision.id, key: "test", corrected_text: "foo", proposed_text: "foo", document_id: document.id, file_index: 1} |> Repo.insert!()
 
     params = %{order_by: "", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    response = get(conn, export_path(conn, [], params))
 
     assert response.resp_body == """
            {
@@ -194,17 +170,14 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  test "export with language overrides", %{conn: conn, project: project, revision: revision, language: language} do
+  test "export with language overrides", %{conn: conn, project: project, revision: revision} do
     revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
     document = %Document{project_id: project.id, path: "test2", format: "rails_yml"} |> Repo.insert!()
     %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar", document_id: document.id, file_index: 2} |> Repo.insert!()
     %Translation{revision_id: revision.id, key: "test", corrected_text: "foo", proposed_text: "foo", document_id: document.id, file_index: 1} |> Repo.insert!()
 
-    params = %{order_by: "", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    response =
-      conn
-      |> get(export_path(conn, [], params))
+    params = %{order_by: "", project_id: project.id, language: revision.slug, document_format: document.format, document_path: document.path}
+    response = get(conn, export_path(conn, [], params))
 
     assert response.resp_body == """
            "testtest":

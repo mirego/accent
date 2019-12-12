@@ -2,7 +2,6 @@ defmodule Accent.ExportController do
   use Plug.Builder
 
   import Canary.Plugs
-  import Accent.Plugs.RevisionIdFromProjectLanguage
 
   alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Revision, as: RevisionScope
@@ -11,19 +10,15 @@ defmodule Accent.ExportController do
 
   alias Accent.{
     Document,
-    Language,
     Project,
     Repo,
-    Revision,
     Translation,
     Version
   }
 
   plug(Plug.Assign, %{canary_action: :export_revision})
   plug(:load_resource, model: Project, id_name: "project_id")
-  plug(:load_resource, model: Language, id_name: "language", id_field: "slug")
-  plug(:fetch_revision_id_from_project_language)
-  plug(:load_resource, model: Revision, id_name: "revision_id", preload: :language)
+  plug(Accent.Plugs.AssignRevisionLanguage)
 
   plug(:fetch_order)
   plug(:fetch_document)

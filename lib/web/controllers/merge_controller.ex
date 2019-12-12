@@ -2,25 +2,17 @@ defmodule Accent.MergeController do
   use Plug.Builder
 
   import Canary.Plugs
-  import Accent.Plugs.RevisionIdFromProjectLanguage
 
   alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
   alias Movement.Persisters.RevisionMerge, as: RevisionMergePersister
 
-  alias Accent.{
-    Language,
-    Project,
-    Revision
-  }
-
   alias Accent.Hook.Context, as: HookContext
+  alias Accent.Project
 
   plug(Plug.Assign, canary_action: :merge)
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
   plug(Accent.Plugs.EnsureUnlockedFileOperations)
-  plug(:load_resource, model: Language, id_name: "language", id_field: "slug")
-  plug(:fetch_revision_id_from_project_language)
-  plug(:load_and_authorize_resource, model: Revision, id_name: "revision_id", preload: :language)
+  plug(Accent.Plugs.AssignRevisionLanguage)
   plug(Accent.Plugs.MovementContextParser)
   plug(:assign_comparer)
   plug(:create)
