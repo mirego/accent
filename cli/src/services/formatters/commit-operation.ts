@@ -15,7 +15,8 @@ export default class CommitOperationFormatter {
     console.log('');
   }
 
-  logAddTranslations(path: string) {
+  logAddTranslations(path: string, documentPath: string) {
+    console.log('  ', chalk.gray('Name in Accent:'), chalk.gray(documentPath));
     console.log('  ', chalk.white(path));
     console.log('  ', chalk.green('↑ Successfully added translations'));
     console.log('');

@@ -150,7 +150,8 @@ export default class Sync extends Command {
       formatter.logEmptyTarget(document.config.source);
     }
 
-    return existingTargets.map(async ({path, language, documentPath}) => {
+    return existingTargets.map(async ({path, language}) => {
+      const documentPath = document.parseDocumentName(path, document.config);
       const operations = await document.addTranslations(
         path,
         language,
@@ -159,9 +160,11 @@ export default class Sync extends Command {
       );
 
       if (operations.addTranslations && !operations.peek) {
-        formatter.logAddTranslations(path);
+        formatter.logAddTranslations(path, documentPath);
       }
-      if (operations.peek) formatter.logPeek(path, operations.peek);
+      if (operations.peek) {
+        formatter.logPeek(path, documentPath, operations.peek);
+      }
 
       return operations;
     });

@@ -16,7 +16,9 @@ export default class DocumentPathsFetcher {
           .replace('%original_file_name%', path)
           .replace('%document_path%', path);
 
-        memo.push({documentPath: path, path: parsedTarget, language: slug});
+        if (!memo.find(({path}) => path === parsedTarget)) {
+          memo.push({documentPath: path, path: parsedTarget, language: slug});
+        }
       });
 
       return memo;
