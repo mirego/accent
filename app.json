@@ -16,37 +16,17 @@
   },
   "env": {
     "WEBAPP_URL": {
-      "description": "The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow",
+      "description": "The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.",
       "value": "https://this-heroku-app-name.herokuapp.com",
       "required": true
     },
-    "API_HOST": {
-      "description": "The URL to which the Web application will connect for API requests",
-      "value": "https://this-heroku-app-name.herokuapp.com"
-    },
-    "API_WS_HOST": {
-      "description": "The URL to which the Web application will connect for Websocket sessions",
-      "value": "wss://this-heroku-app-name.herokuapp.com"
-    },
-    "FORCE_SSL": {
-      "description": "Whether to force HTTPS requests to the Web application and the API",
+    "DUMMY_LOGIN_ENABLED": {
+      "description": "The default login to quickly test the instance. It only requires the user to enter a valid email to login.",
       "value": "true"
-    },
-    "GOOGLE_API_CLIENT_ID": {
-      "description": "The Google API OAuth client ID that will be used to authenticate users. You can create a “Web application”-type credential at https://console.developers.google.com/apis/credentials",
-      "value": "google-api-client-id.apps.googleusercontent.com"
-    },
-    "GOOGLE_API_CLIENT_SECRET": {
-      "description": "The Google API OAuth client secret that will be used to authenticate users. You can create a “Web application”-type credential at https://console.developers.google.com/apis/credentials",
-      "value": "2IIY1nMmohzaml3Z9a1xD3Ic"
     },
     "MIX_ENV": {
       "description": "The environment in which Elixir code will run",
       "value": "prod"
-    },
-    "RESTRICTED_DOMAIN": {
-      "description": "If specified, only authenticated users from this domain name will be able to create projects",
-      "required": false
     }
   },
   "addons": [

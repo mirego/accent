@@ -25,7 +25,7 @@ defmodule Langue.Formatter.Json.Serializer do
     content
     |> Enum.map(&add_extra/1)
     |> (&{&1}).()
-    |> :jsone.encode([:native_utf8, {:indent, 2}, {:space, 1}, {:float_format, [{:decimals, 4}, :compact]}])
+    |> :jsone.encode([:native_utf8, :native_forward_slash, {:indent, 2}, {:space, 1}, {:float_format, [{:decimals, 4}, :compact]}])
     |> prettify_json()
   end
 
