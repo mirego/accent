@@ -30,7 +30,7 @@ Accent provides a powerful abstraction around the process maintaining translatio
 | [🏎 Quickstart](#-quickstart)                        | Steps to run the project, from API to webapp, with or without Docker |
 | [🌳 Environment variables](#-environment-variables) | Required and optional env var used                                   |
 | [✅ Tests](#-tests)                                 | How to run the extensive tests suite                                 |
-| [🚀 Heroku](#-heroku)                               | Easy deployment setup with Heroku                                    |
+| [🚀 Heroku](#-deploy-on-heroku)                     | Easy deployment setup with Heroku                                    |
 | [🌎 Contribute](#-contribute)                       | How to contribute to this repo                                       |
 
 ## 🚀 Getting started
