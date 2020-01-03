@@ -4,6 +4,10 @@
   margin: 25px 0;
   border-radius: 0 3px 3px 0;
   z-index: 10;
+
+  .item-iconContainer {
+    left: -1px;
+  }
 }
 
 &.rollback,
@@ -20,8 +24,7 @@
 
   .item-iconContainer {
     top: 3px;
-    left: -21px;
-    box-shadow: none;
+    left: -16px;
   }
 
   .item-content {
@@ -40,7 +43,14 @@
   border-left-color: $color-green;
   border-left-color: var(--color-primary);
 
+  &.compact {
+    .item-content {
+      padding-left: 0;
+    }
+  }
+
   .item-iconContainer {
+    left: -21px;
     background: $color-green;
     background: var(--color-primary);
     border-color: transparent;

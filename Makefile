@@ -87,7 +87,7 @@ lint-credo:
 
 .PHONY: lint-eslint
 lint-eslint:
-	./node_modules/.bin/eslint webapp/. cli/. jipt/.
+	./node_modules/.bin/eslint webapp/app/. webapp/tests/. cli/. jipt/.
 
 .PHONY: lint-tslint
 lint-tslint:

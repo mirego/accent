@@ -45,7 +45,6 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     |> OperationScope.filter_from_user(args[:user_id])
     |> OperationScope.filter_from_batch(args[:is_batch])
     |> OperationScope.filter_from_action(args[:action])
-    |> Query.where([o, _], o.action not in ["update_proposed"])
     |> OperationScope.order_last_to_first()
     |> Repo.paginate(page: args[:page])
     |> Paginated.format()
