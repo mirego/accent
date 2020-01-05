@@ -8,7 +8,12 @@
   background: var(--color-primary-opacity-10);
 }
 
+html {
+  background: #eee;
+}
+
 body {
+  background: #fff;
   font-family: $font-primary;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

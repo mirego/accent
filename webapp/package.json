@@ -27,8 +27,8 @@
   },
   "dependencies": {
     "@joeattardi/emoji-button": "2.5.2",
-    "apollo-boost": "0.4.4",
-    "apollo-client": "2.6.4",
+    "apollo-boost": "0.4.7",
+    "apollo-client": "2.6.8",
     "apollo-link-batch-http": "1.2.13",
     "apollo-link-http": "1.5.16",
     "babel-plugin-graphql-tag": "2.5.0",
@@ -68,7 +68,7 @@
     "loader.js": "4.7.0",
     "merge": "1.2.1",
     "raven-js": "3.27.2",
-    "sass": "1.24.0",
+    "sass": "1.24.2",
     "simple-fmt": "0.1.0"
   },
   "devDependencies": {
