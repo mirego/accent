@@ -60,4 +60,12 @@ defmodule Accent.Scopes.Revision do
   def slaves(query) do
     from(r in query, where: [master: false])
   end
+
+  @doc """
+  Fill `translations_count`, `conflicts_count` and `reviewed_count` for documents.
+  """
+  @spec with_stats(Ecto.Queryable.t()) :: Ecto.Queryable.t()
+  def with_stats(query) do
+    Accent.Scopes.TranslationsCount.with_stats(query, :revision_id)
+  end
 end

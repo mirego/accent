@@ -13,6 +13,7 @@ defmodule Accent.Document do
     field(:header, :string, default: "")
 
     belongs_to(:project, Accent.Project)
+    has_many(:translations, Accent.Translation)
 
     field(:translations_count, :integer, virtual: true, default: :not_loaded)
     field(:reviewed_count, :integer, virtual: true, default: :not_loaded)
@@ -29,13 +30,5 @@ defmodule Accent.Document do
     |> validate_required([:format, :path, :project_id])
     |> validate_inclusion(:format, @possible_formats)
     |> unique_constraint(:path, name: :documents_path_format_project_id_index)
-  end
-
-  def merge_stats(document, stats) do
-    translations_count = stats[document.id][:active] || 0
-    conflicts_count = stats[document.id][:conflicted] || 0
-    reviewed_count = translations_count - conflicts_count
-
-    %{document | translations_count: translations_count, conflicts_count: conflicts_count, reviewed_count: reviewed_count}
   end
 end

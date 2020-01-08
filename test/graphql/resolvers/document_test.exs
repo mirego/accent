@@ -92,4 +92,17 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
     assert get_in(result, [:entries, Access.all(), Access.key(:conflicts_count)]) == [1, 0]
     assert get_in(result, [:entries, Access.all(), Access.key(:reviewed_count)]) == [0, 1]
   end
+
+  test "list project with many deleted documents", %{document: document, project: project, revision: revision} do
+    %Translation{revision_id: revision.id, document_id: document.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: false} |> Repo.insert!()
+
+    for i <- 1..80 do
+      %Document{project_id: project.id, path: "doc-#{i}", format: "json"} |> Repo.insert!()
+    end
+
+    {:ok, result} = Resolver.list_project(project, %{}, %{})
+
+    assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [document.id]
+    assert get_in(result, [:meta, Access.key(:total_entries)]) == 1
+  end
 end

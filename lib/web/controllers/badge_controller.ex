@@ -8,7 +8,7 @@ defmodule Accent.BadgeController do
 
   @svg_content_type "image/svg+xml"
 
-  plug(:load_resource, model: Project, preload: [:revisions])
+  plug(:load_resource, model: Project)
   plug(:fetch_badge)
 
   def fetch_badge(conn, _) do

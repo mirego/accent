@@ -1,17 +1,16 @@
 defmodule Accent.BadgeGenerator do
-  alias Accent.{
-    PrettyFloat,
-    Revision,
-    TranslationsCounter
-  }
+  alias Accent.{PrettyFloat, Repo}
+  alias Accent.Scopes.Revision, as: RevisionScope
 
   @badge_service_timeout 20_000
   @base_badge_service_url "https://img.shields.io/badge/"
 
   def generate(project, attribute) do
     project_stats =
-      project.revisions
-      |> merge_revisions_stats()
+      project
+      |> Ecto.assoc(:revisions)
+      |> RevisionScope.with_stats()
+      |> Repo.all()
       |> merge_project_stats()
 
     color = color_for_value(project_stats[attribute], attribute)
@@ -33,13 +32,6 @@ defmodule Accent.BadgeGenerator do
   defp label(value, :translations_count), do: "#{value}%20strings"
   defp label(value, :reviewed_count), do: "#{value}%20reviewed"
   defp label(value, :conflicts_count), do: "#{value}%20conflicts"
-
-  defp merge_revisions_stats(revisions) do
-    counts = TranslationsCounter.from_revisions(revisions)
-
-    revisions
-    |> Enum.map(&Revision.merge_stats(&1, counts))
-  end
 
   defp merge_project_stats(revisions) do
     revisions

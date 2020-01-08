@@ -1,5 +1,6 @@
 defmodule Accent.GraphQL.Resolvers.Revision do
   require Ecto.Query
+  alias Ecto.Query
 
   alias Accent.Scopes.Revision, as: RevisionScope
 
@@ -9,8 +10,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     Project,
     Repo,
     Revision,
-    RevisionManager,
-    TranslationsCounter
+    RevisionManager
   }
 
   alias Movement.Builders.NewSlave, as: NewSlaveBuilder
@@ -90,7 +90,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> RevisionCorrectAllPersister.persist()
     |> case do
       {:ok, _} ->
-        {:ok, %{revision: merge_stats(revision), errors: nil}}
+        {:ok, %{revision: refresh_stats(revision), errors: nil}}
 
       {:error, _reason} ->
         {:ok, %{revision: nil, errors: ["unprocessable_entity"]}}
@@ -106,7 +106,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> RevisionUncorrectAllPersister.persist()
     |> case do
       {:ok, _} ->
-        {:ok, %{revision: merge_stats(revision), errors: nil}}
+        {:ok, %{revision: refresh_stats(revision), errors: nil}}
 
       {:error, _reason} ->
         {:ok, %{revision: nil, errors: ["unprocessable_entity"]}}
@@ -117,18 +117,18 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   def show_project(project, %{id: id}, _) do
     Revision
     |> RevisionScope.from_project(project.id)
-    |> Ecto.Query.where(id: ^id)
+    |> RevisionScope.with_stats()
+    |> Query.where(id: ^id)
     |> Repo.one()
-    |> merge_stats()
     |> (&{:ok, &1}).()
   end
 
   def show_project(project, _, _) do
     Revision
     |> RevisionScope.from_project(project.id)
+    |> RevisionScope.with_stats()
     |> RevisionScope.master()
     |> Repo.one()
-    |> merge_stats()
     |> (&{:ok, &1}).()
   end
 
@@ -136,23 +136,16 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   def list_project(project, _, _) do
     project
     |> Ecto.assoc(:revisions)
-    |> Ecto.Query.order_by(desc: :master, asc: :inserted_at)
+    |> RevisionScope.with_stats()
+    |> Query.order_by(desc: :master, asc: :inserted_at)
     |> Repo.all()
-    |> merge_stats()
     |> (&{:ok, &1}).()
   end
 
-  defp merge_stats(revision) when is_map(revision) do
-    counts = TranslationsCounter.from_revisions([revision])
-
-    revision
-    |> Revision.merge_stats(counts)
-  end
-
-  defp merge_stats(revisions) when is_list(revisions) do
-    counts = TranslationsCounter.from_revisions(revisions)
-
-    revisions
-    |> Enum.map(&Revision.merge_stats(&1, counts))
+  defp refresh_stats(revision) do
+    Revision
+    |> RevisionScope.with_stats()
+    |> Query.where(id: ^revision.id)
+    |> Repo.one()
   end
 end

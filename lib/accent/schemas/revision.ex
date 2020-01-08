@@ -39,14 +39,6 @@ defmodule Accent.Revision do
     |> unique_constraint(:language, name: :revisions_project_id_language_id_index)
   end
 
-  def merge_stats(revision, stats) do
-    translations_count = stats[revision.id][:active] || 0
-    conflicts_count = stats[revision.id][:conflicted] || 0
-    reviewed_count = translations_count - conflicts_count
-
-    %{revision | translations_count: translations_count, conflicts_count: conflicts_count, reviewed_count: reviewed_count}
-  end
-
   def language(revision = %{language: %Ecto.Association.NotLoaded{}}) do
     revision
     |> Accent.Repo.preload(:language)
