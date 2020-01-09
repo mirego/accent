@@ -39,12 +39,6 @@ defmodule Accent.Revision do
     |> unique_constraint(:language, name: :revisions_project_id_language_id_index)
   end
 
-  def language(revision = %{language: %Ecto.Association.NotLoaded{}}) do
-    revision
-    |> Accent.Repo.preload(:language)
-    |> language()
-  end
-
   def language(revision) do
     language_override =
       revision
