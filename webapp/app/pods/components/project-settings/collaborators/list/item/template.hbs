@@ -54,28 +54,28 @@
   </div>
 </div>
 
-<div>
+<div class="actions">
   {{#if isEditing}}
     {{#if canUpdateCollaborator}}
+      <button class="button button--filled button--white" {{action "toggleUpdateCollaborator"}}>
+        {{t "components.project_settings.collaborators_item.cancel_save_role"}}
+      </button>
+
       <button class="button button--filled" {{action "updateCollaborator"}}>
         {{inline-svg "/assets/check.svg" class="button-icon"}}
         {{t "components.project_settings.collaborators_item.save_role"}}
       </button>
     {{/if}}
-
-    <button class="button button--grey" {{action "toggleUpdateCollaborator"}}>
-      {{t "components.project_settings.collaborators_item.cancel_save_role"}}
-    </button>
   {{else}}
     {{#if canUpdateCollaborator}}
-      <button class="button button--grey" {{action "toggleUpdateCollaborator"}}>
+      <button class="button button--filled button--white" {{action "toggleUpdateCollaborator"}}>
         {{inline-svg "/assets/pencil.svg" class="button-icon"}}
         {{t "components.project_settings.collaborators_item.edit_role"}}
       </button>
     {{/if}}
 
     {{#if canDeleteCollaborator}}
-      <button class="button button--red" {{action "deleteCollaborator"}}>
+      <button class="button button--filled button--red" {{action "deleteCollaborator"}}>
         {{inline-svg "/assets/x.svg" class="button-icon"}}
 
         {{#if hasJoined}}

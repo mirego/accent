@@ -11,6 +11,7 @@ import Component from '@ember/component';
 export default Component.extend({
   tagName: 'li',
   classNameBindings: [
+    'isEditing:editing',
     'hasJoined:joined:invited',
     'collaborator.user.pictureUrl:withPicture'
   ],
@@ -24,10 +25,12 @@ export default Component.extend({
   hasJoined: notEmpty('collaborator.user.id'),
 
   possibleRoles: map('globalState.roles', ({slug}) => slug),
-  mappedPossibleRoles: map('possibleRoles', value => ({
-    label: `general.roles.${value}`,
-    value
-  })),
+  mappedPossibleRoles: computed('possibleRoles', function() {
+    return this.possibleRoles.map(value => ({
+      label: this.intl.t(`general.roles.${value}`),
+      value
+    }));
+  }),
 
   updatedRole: reads('collaborator.role'),
 

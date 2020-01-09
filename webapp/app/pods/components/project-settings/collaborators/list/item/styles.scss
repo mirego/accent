@@ -21,6 +21,7 @@
     }
   }
 
+  &.editing,
   &:focus,
   &:hover {
     background: $color-light-background;
@@ -64,13 +65,17 @@
   font-style: italic;
 }
 
+.actions {
+  display: flex;
+}
+
 .button {
   flex: 0 0 auto;
   transition: $transition-speed $transition-easing;
   transition-property: opacity;
   opacity: 0;
   padding: 6px 7px;
-  margin-left: 5px;
+  margin-left: 10px;
   font-size: 11px;
 
   .button-icon {
@@ -82,6 +87,7 @@
 
 .ember-power-select-trigger {
   min-width: 150px;
+  padding: 5px 7px 4px;
   margin-bottom: 10px;
   border: 1px solid #eee;
   background: #fff;
