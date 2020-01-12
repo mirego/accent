@@ -28,6 +28,7 @@ defmodule Accent.Hook.Consumers.GitHub.AddTranslations do
         |> Kernel.||("")
         |> String.replace("%slug%", Accent.Revision.language(revision).slug)
         |> String.replace("%original_file_name%", "*")
+        |> String.replace("%document_path%", "*")
 
       Map.put(config, "matcher", ExMinimatch.compile(target))
     end)

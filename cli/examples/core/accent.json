@@ -4,7 +4,7 @@
       "language": "fr",
       "format": "json",
       "source": "core/*.json",
-      "target": "core/%original_file_name%-%slug%.json",
+      "target": "core/%document_path%-%slug%.json",
       "hooks": {
         "beforeSync": [
           "rm -rf core",

@@ -214,7 +214,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
             "format" => "gettext",
             "language" => "fr",
             "source" => "priv/fr/**/*.po",
-            "target" => "priv/%slug%/**/%original_file_name%.po"
+            "target" => "priv/%slug%/**/%document_path%.po"
           }
         ]
       }
@@ -301,7 +301,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
             "format" => "gettext",
             "language" => "fr",
             "source" => "priv/fr/**/*.po",
-            "target" => "priv/%slug%/**/%original_file_name%.po"
+            "target" => "priv/%slug%/**/%document_path%.po"
           }
         ]
       }

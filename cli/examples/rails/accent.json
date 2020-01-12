@@ -4,7 +4,7 @@
       "language": "en",
       "format": "rails_yml",
       "source": "config/locales/en/*.yml",
-      "target": "config/locales/%slug%/%original_file_name%.yml"
+      "target": "config/locales/%slug%/%document_path%.yml"
     }
   ]
 }
