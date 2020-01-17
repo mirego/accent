@@ -1,19 +1,24 @@
 import Service, {inject as service} from '@ember/service';
+import RouterService from '@ember/routing/router-service';
 
-export default Service.extend({
-  router: service('router'),
+export default class JIPT extends Service {
+  @service('router')
+  router: RouterService;
 
-  listTranslations(translationsEntries, revision) {
-    const translations = translationsEntries.reduce((memo, translation) => {
-      const key = `${translation.key}@${translation.document.path}`;
-      memo[key] = {
-        text: translation.correctedText,
-        id: translation.id,
-        key,
-        isConflicted: translation.isConflicted
-      };
-      return memo;
-    }, {});
+  listTranslations(translationsEntries: any, revision: any) {
+    const translations = translationsEntries.reduce(
+      (memo: any, translation: any) => {
+        const key = `${translation.key}@${translation.document.path}`;
+        memo[key] = {
+          text: translation.correctedText,
+          id: translation.id,
+          key,
+          isConflicted: translation.isConflicted
+        };
+        return memo;
+      },
+      {}
+    );
 
     const payload = {translations, revisionId: revision.id};
 
@@ -21,18 +26,18 @@ export default Service.extend({
       {jipt: true, action: 'listTranslations', payload},
       '*'
     );
-  },
+  }
 
-  changeText(translationId, text) {
+  changeText(translationId: string, text: string) {
     const payload = {
       translationId,
       text
     };
 
     window.parent.postMessage({jipt: true, action: 'changeText', payload}, '*');
-  },
+  }
 
-  updateTranslation(translationId, translation) {
+  updateTranslation(translationId: string, translation: any) {
     const payload = {
       translationId,
       ...translation
@@ -42,7 +47,7 @@ export default Service.extend({
       {jipt: true, action: 'updateTranslation', payload},
       '*'
     );
-  },
+  }
 
   redirectIfEmbedded() {
     window.addEventListener('message', payload => {
@@ -51,13 +56,19 @@ export default Service.extend({
         this.router.transitionTo('logged-in.jipt', payload.data.projectId);
     });
     window.parent.postMessage({jipt: true, action: 'redirectIfEmbedded'}, '*');
-  },
+  }
 
   login() {
     window.parent.postMessage({jipt: true, action: 'login'}, '*');
-  },
+  }
 
   loggedIn() {
     window.parent.postMessage({jipt: true, action: 'loggedIn'}, '*');
   }
-});
+}
+
+declare module '@ember/service' {
+  interface Registry {
+    jipt: JIPT;
+  }
+}

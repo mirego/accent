@@ -1,10 +1,8 @@
-import Service from '@ember/service';
-
 // the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
 const arbitraryRevokeTimeout = 1000 * 40; // eslint-disable-line no-magic-numbers
 const bomCharCode = 0xfeff;
 
-const fileSaver = view => {
+export const fileSaver = view => {
   const doc = view.document;
 
   // only get URL when necessary in case Blob.js hasn't overridden it yet
@@ -158,14 +156,3 @@ const fileSaver = view => {
   return (blob, name, noAutoBom) =>
     new FileSaver(blob, name || blob.name || 'download', noAutoBom);
 };
-
-export default Service.extend({
-  init() {
-    this._super(...arguments);
-    this.set('fileSaver', fileSaver(window));
-  },
-
-  saveAs(...options) {
-    return this.fileSaver(...options);
-  }
-});

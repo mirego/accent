@@ -1,10 +1,10 @@
 import EmberRouter from '@ember/routing/router';
 import config from './config/environment';
 
-const Router = EmberRouter.extend({
-  location: config.locationType,
-  rootURL: config.rootURL
-});
+class Router extends EmberRouter {
+  location = config.locationType;
+  rootURL = config.rootURL;
+}
 
 /* eslint-disable max-nested-callbacks */
 export default Router.map(function() {
@@ -16,7 +16,7 @@ export default Router.map(function() {
         'translation',
         {path: 'translations/:translationId'},
         function() {
-          this.route('_');
+          this.route('index');
         }
       );
     });

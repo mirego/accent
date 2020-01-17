@@ -20,6 +20,11 @@
     "inlineSources": true,
     "baseUrl": ".",
     "module": "esNext",
+    "lib": [
+      "dom",
+      "es2017",
+      "esnext.asynciterable"
+    ],
     "paths": {
       "accent-webapp/tests/*": [
         "tests/*"
