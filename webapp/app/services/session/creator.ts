@@ -29,7 +29,7 @@ export default class SessionCreator extends Service {
     };
 
     const response = await fetch(uri, options);
-    const {data}: any = response.json();
+    const {data}: any = await response.json();
     return data;
   }
 }
