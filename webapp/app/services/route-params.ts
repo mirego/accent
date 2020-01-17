@@ -2,8 +2,10 @@ import Service from '@ember/service';
 import Transition from '@ember/routing/-private/transition';
 
 export default class RouteParams extends Service {
-  fetch(transition: Transition) {
-    return transition.to.params;
+  fetch(transition: Transition, routeName: string) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    return transition.routeInfos.find(route => route.name === routeName).params;
   }
 }
 

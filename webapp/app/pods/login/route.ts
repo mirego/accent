@@ -2,7 +2,9 @@ import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 
 import authenticationProvidersQuery from 'accent-webapp/queries/authentication-providers';
-import ApolloSubscription from 'accent-webapp/services/apollo-subscription';
+import ApolloSubscription, {
+  Subscription
+} from 'accent-webapp/services/apollo-subscription';
 import Session from 'accent-webapp/services/session';
 
 export default class LoginRoute extends Route {
@@ -12,16 +14,20 @@ export default class LoginRoute extends Route {
   @service('apollo-subscription')
   apolloSubscription: ApolloSubscription;
 
+  subscription: Subscription;
+
   model() {
-    return this.apolloSubscription.graphql(
+    const subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       authenticationProvidersQuery,
       {}
     );
+
+    return subscription.currentResult();
   }
 
   deactivate() {
-    this.apolloSubscription.clearSubscription();
+    this.apolloSubscription.clearSubscription(this.subscription);
   }
 
   redirect() {
