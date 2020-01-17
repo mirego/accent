@@ -1,8 +1,9 @@
 import Route from '@ember/routing/route';
-import ApolloRoute from 'accent-webapp/mixins/apollo-route';
-import AuthenticatedRoute from 'accent-webapp/mixins/authenticated-route';
+import {inject as service} from '@ember/service';
 
 import projectsQuery from 'accent-webapp/queries/projects';
+import Session from 'accent-webapp/services/session';
+import ApolloSubscription from 'accent-webapp/services/apollo-subscription';
 
 const props = data => {
   const permissions = data.viewer.permissions.reduce((memo, permission) => {
@@ -17,35 +18,51 @@ const props = data => {
   };
 };
 
-export default Route.extend(ApolloRoute, AuthenticatedRoute, {
-  queryParams: {
+export default class ProjectsRoute extends Route {
+  @service('session')
+  session: Session;
+
+  @service('apollo-subscription')
+  apolloSubscription: ApolloSubscription;
+
+  queryParams = {
     query: {
       refreshModel: true
     },
     page: {
       refreshModel: true
     }
-  },
+  };
 
   model({page, query}) {
-    return this.graphql(projectsQuery, {
-      props: data => {
-        if (!data.viewer) {
-          this.session.logout();
-          return (window.location = '/');
-        }
+    return this.apolloSubscription.graphql(
+      () => this.modelFor(this.routeName),
+      projectsQuery,
+      {
+        props: data => {
+          if (!data.viewer) {
+            this.session.logout();
+            return (window.location = '/');
+          }
 
-        return props(data);
-      },
-      options: {
-        fetchPolicy: 'network-only',
-        variables: {
-          page,
-          query
+          return props(data);
+        },
+        options: {
+          fetchPolicy: 'network-only',
+          variables: {
+            page,
+            query
+          }
         }
       }
-    });
-  },
+    );
+  }
+
+  redirect() {
+    if (!this.session.isAuthenticated) {
+      this.transitionTo('login');
+    }
+  }
 
   resetController(controller, isExiting) {
     if (isExiting) {
@@ -55,4 +72,8 @@ export default Route.extend(ApolloRoute, AuthenticatedRoute, {
       });
     }
   }
-});
+
+  deactivate() {
+    this.apolloSubscription.clearSubscription();
+  }
+}
