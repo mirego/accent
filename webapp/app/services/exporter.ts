@@ -1,10 +1,35 @@
 import Service, {inject as service} from '@ember/service';
 import config from 'accent-webapp/config/environment';
+import AuthenticatedRequest from 'accent-webapp/services/authenticated-request';
 
-export default Service.extend({
-  authenticatedRequest: service('authenticated-request'),
+interface ExportOptions {
+  project: any;
+  document: any;
+  revision: any;
+  version: string;
+  documentFormat: string;
+  orderBy: string;
+}
 
-  export({project, document, revision, version, documentFormat, orderBy}) {
+interface JIPTOptions {
+  project: any;
+  document: any;
+  version: string;
+  documentFormat: string;
+}
+
+export default class Exporter extends Service {
+  @service('authenticated-request')
+  authenticatedRequest: AuthenticatedRequest;
+
+  async export({
+    project,
+    document,
+    revision,
+    version,
+    documentFormat,
+    orderBy
+  }: ExportOptions) {
     const url = config.API.EXPORT_DOCUMENT;
     documentFormat = (documentFormat || document.format).toLowerCase();
 
@@ -18,13 +43,12 @@ export default Service.extend({
         order_by: orderBy,
         document_path: document.path,
         document_format: documentFormat
-      })}`,
-      {}
+      })}`
     );
     /* eslint-enable camelcase */
-  },
+  }
 
-  jipt({project, document, version, documentFormat}) {
+  async jipt({project, document, version, documentFormat}: JIPTOptions) {
     const url = config.API.JIPT_EXPORT_DOCUMENT;
     documentFormat = (documentFormat || document.format).toLowerCase();
 
@@ -36,19 +60,27 @@ export default Service.extend({
         version,
         document_path: document.path,
         document_format: documentFormat
-      })}`,
-      {}
+      })}`
     );
     /* eslint-enable camelcase */
-  },
+  }
 
-  queryParams(params) {
+  private queryParams(params: Record<string, string | null | boolean>) {
     return Object.keys(params)
-      .map(k => {
-        if (!params[k]) return;
-        return `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`;
+      .map((key: string) => {
+        const value = params[key];
+
+        if (!value) return null;
+
+        return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
       })
       .filter(nonNull => nonNull)
       .join('&');
   }
-});
+}
+
+declare module '@ember/service' {
+  interface Registry {
+    exporter: Exporter;
+  }
+}

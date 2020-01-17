@@ -26,6 +26,7 @@
     "edition": "octane"
   },
   "dependencies": {
+    "@glimmer/tracking": "1.0.0",
     "@joeattardi/emoji-button": "2.5.2",
     "apollo-boost": "0.4.7",
     "apollo-client": "2.6.8",
