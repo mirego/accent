@@ -48,7 +48,7 @@ export default class ProjectsRoute extends Route {
       return transformData(data);
     };
 
-    const subscription = this.apolloSubscription.graphql(
+    this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       projectsQuery,
       {
@@ -63,7 +63,7 @@ export default class ProjectsRoute extends Route {
       }
     );
 
-    return subscription.currentResult();
+    return this.subscription.currentResult();
   }
 
   redirect() {
