@@ -26,7 +26,7 @@ export default class ProjectRoute extends Route {
   model(params: RouteParams) {
     const props = (data: any) => this.transformData(data);
 
-    const subscription = this.apolloSubscription.graphql(
+    this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       projectQuery,
       {
@@ -39,7 +39,7 @@ export default class ProjectRoute extends Route {
       }
     );
 
-    return subscription.currentResult();
+    return this.subscription.currentResult();
   }
 
   @action
