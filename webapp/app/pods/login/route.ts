@@ -17,13 +17,13 @@ export default class LoginRoute extends Route {
   subscription: Subscription;
 
   model() {
-    const subscription = this.apolloSubscription.graphql(
+    this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       authenticationProvidersQuery,
       {}
     );
 
-    return subscription.currentResult();
+    return this.subscription.currentResult();
   }
 
   deactivate() {
