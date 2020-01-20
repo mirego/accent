@@ -8,7 +8,7 @@ export default class ApolloMutate extends Service {
   async mutate(args: any) {
     const {data} = await this.apollo.client.mutate(args);
 
-    this.resolve(data);
+    return this.resolve(data);
   }
 
   private resolve(data: Record<string, any>) {
