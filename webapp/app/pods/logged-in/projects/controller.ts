@@ -5,6 +5,7 @@ import Controller from '@ember/controller';
 import JIPT from 'accent-webapp/services/jipt';
 import GlobalState from 'accent-webapp/services/global-state';
 import Session from 'accent-webapp/services/session';
+import {tracked} from '@glimmer/tracking';
 
 export default class ProjectsController extends Controller {
   @service('jipt')
@@ -18,7 +19,10 @@ export default class ProjectsController extends Controller {
 
   queryParams = ['query', 'page'];
 
+  @tracked
   query = '';
+
+  @tracked
   page = 1;
 
   @readOnly('model.permissions')
@@ -38,12 +42,13 @@ export default class ProjectsController extends Controller {
 
   @action
   changeQuery(query: string) {
-    this.set('query', query);
+    this.query = query;
   }
 
   @action
   selectPage(page: string) {
     window.scrollTo(0, 0);
-    this.set('page', page);
+
+    this.page = page;
   }
 }
