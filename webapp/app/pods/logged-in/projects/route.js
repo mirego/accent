@@ -3,9 +3,11 @@ import {inject as service} from '@ember/service';
 
 import projectsQuery from 'accent-webapp/queries/projects';
 import Session from 'accent-webapp/services/session';
-import ApolloSubscription from 'accent-webapp/services/apollo-subscription';
+import ApolloSubscription, {
+  Subscription
+} from 'accent-webapp/services/apollo-subscription';
 
-const props = data => {
+const transformData = data => {
   const permissions = data.viewer.permissions.reduce((memo, permission) => {
     memo[permission] = true;
     return memo;
@@ -34,19 +36,23 @@ export default class ProjectsRoute extends Route {
     }
   };
 
+  subscription: Subscription;
+
   model({page, query}) {
-    return this.apolloSubscription.graphql(
+    const props = data => {
+      if (!data.viewer) {
+        this.session.logout();
+        return (window.location = '/');
+      }
+
+      return transformData(data);
+    };
+
+    const subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       projectsQuery,
       {
-        props: data => {
-          if (!data.viewer) {
-            this.session.logout();
-            return (window.location = '/');
-          }
-
-          return props(data);
-        },
+        props,
         options: {
           fetchPolicy: 'network-only',
           variables: {
@@ -56,6 +62,8 @@ export default class ProjectsRoute extends Route {
         }
       }
     );
+
+    return subscription.currentResult();
   }
 
   redirect() {
@@ -74,6 +82,6 @@ export default class ProjectsRoute extends Route {
   }
 
   deactivate() {
-    this.apolloSubscription.clearSubscription();
+    this.apolloSubscription.clearSubscription(this.subscription);
   }
 }

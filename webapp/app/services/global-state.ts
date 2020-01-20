@@ -2,18 +2,22 @@ import {tracked} from '@glimmer/tracking';
 import Service from '@ember/service';
 
 export default class GlobalState extends Service {
-  revision = null;
-  mainColor = null;
+  @tracked
+  revision: any | null = null;
 
   @tracked
-  permissions = {};
+  mainColor: string | null = null;
 
   @tracked
-  roles = [];
+  permissions: Record<string, boolean> = {};
 
   @tracked
-  documentFormats = [];
+  roles: Array<{slug: string}> = [];
 
+  @tracked
+  documentFormats: Array<{slug: string; name: string; extension: string}> = [];
+
+  @tracked
   isProjectNavigationListShowing = false;
 }
 

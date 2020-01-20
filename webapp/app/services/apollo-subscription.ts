@@ -8,23 +8,36 @@ interface GraphQLOptions {
   props?: (data: any) => any;
 }
 
-export default class ApolloSubscription extends Service {
-  @service('apollo')
+export class Subscription {
   apollo: Apollo;
 
   @tracked
-  queryObservable: any = null;
+  queryObservable: any;
 
   @tracked
-  querySubscription: any = null;
+  querySubscription: any;
 
-  graphql(model: any, query: any, {options, props}: GraphQLOptions) {
-    props = props || ((data: any) => data);
+  props: undefined | ((data: any) => any);
 
-    this.createQuery(query, options);
-    this.createSubscription(props, model);
+  constructor(
+    apollo: Apollo,
+    model: any,
+    query: any,
+    options?: any,
+    props?: (data: any) => any
+  ) {
+    this.apollo = apollo;
+    this.queryObservable = this.createQuery(query, options);
+    this.querySubscription = this.createSubscription(model);
+    this.props = props || (data => data);
+  }
 
-    return this.currentResult(props);
+  currentResult() {
+    const queryObservable = this.queryObservable;
+    const result = queryObservable.currentResult();
+    const mappedResult = this.mapResult(result, this.props);
+
+    return mappedResult;
   }
 
   clearSubscription() {
@@ -33,39 +46,27 @@ export default class ApolloSubscription extends Service {
     if (subscription) subscription.unsubscribe();
   }
 
-  private currentResult(props: any) {
-    const queryObservable = this.queryObservable;
-    const result = queryObservable.currentResult();
-    const mappedResult = this.mapResult(result, props);
-
-    return mappedResult;
-  }
-
   private createQuery(query: any, options = {}) {
     this.clearSubscription();
 
-    const queryObservable = this.apollo.client.watchQuery({
+    return this.apollo.client.watchQuery({
       query,
       ...options
     });
-
-    this.queryObservable = queryObservable;
   }
 
-  private createSubscription(props: any, graphqlObject: () => any) {
+  private createSubscription(graphqlObject: () => any) {
     const next = (result: any) => {
       const object = graphqlObject();
 
       if (!object) return;
 
-      const mappedResult = this.mapResult(result, props);
+      const mappedResult = this.mapResult(result, this.props);
 
       setProperties(object, mappedResult);
     };
 
-    const querySubscription = this.queryObservable.subscribe({next});
-
-    this.querySubscription = querySubscription;
+    return this.queryObservable.subscribe({next});
   }
 
   private mapResult(result: any, props: any) {
@@ -83,6 +84,21 @@ export default class ApolloSubscription extends Service {
     } else {
       return result;
     }
+  }
+}
+
+export default class ApolloSubscription extends Service {
+  @service('apollo')
+  apollo: Apollo;
+
+  graphql(model: any, query: any, {options, props}: GraphQLOptions) {
+    props = props || ((data: any) => data);
+
+    return new Subscription(this.apollo, model, query, options, props);
+  }
+
+  clearSubscription(subscription: Subscription) {
+    if (subscription) subscription.clearSubscription();
   }
 }
 
