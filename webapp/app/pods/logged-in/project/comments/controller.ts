@@ -7,7 +7,7 @@ export default class CommentsController extends Controller {
   queryParams = ['page'];
 
   @tracked
-  page = 1;
+  page: number | null = 1;
 
   @equal('model.comments.entries', undefined)
   emptyEntries: boolean;
