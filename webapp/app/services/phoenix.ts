@@ -16,7 +16,10 @@ export default class Phoenix extends Service {
       params: {token}
     });
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     socket.connect();
+
     return socket;
   }
 
