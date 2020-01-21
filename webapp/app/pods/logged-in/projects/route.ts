@@ -6,12 +6,16 @@ import Session from 'accent-webapp/services/session';
 import ApolloSubscription, {
   Subscription
 } from 'accent-webapp/services/apollo-subscription';
+import ProjectsController from 'accent-webapp/pods/logged-in/projects/controller';
 
-const transformData = data => {
-  const permissions = data.viewer.permissions.reduce((memo, permission) => {
-    memo[permission] = true;
-    return memo;
-  }, {});
+const transformData = (data: any) => {
+  const permissions = data.viewer.permissions.reduce(
+    (memo: any, permission: any) => {
+      memo[permission] = true;
+      return memo;
+    },
+    {}
+  );
 
   return {
     projects: data.viewer.projects,
@@ -38,11 +42,14 @@ export default class ProjectsRoute extends Route {
 
   subscription: Subscription;
 
-  model({page, query}) {
-    const props = data => {
+  model({page, query}: {page: number; query: any}) {
+    const props = (data: any) => {
       if (!data.viewer) {
         this.session.logout();
-        return (window.location = '/');
+
+        window.location.href = '/';
+
+        return;
       }
 
       return transformData(data);
@@ -72,12 +79,10 @@ export default class ProjectsRoute extends Route {
     }
   }
 
-  resetController(controller, isExiting) {
+  resetController(controller: ProjectsController, isExiting: boolean) {
     if (isExiting) {
-      controller.setProperties({
-        query: '',
-        page: 1
-      });
+      controller.query = '';
+      controller.page = 1;
     }
   }
 
