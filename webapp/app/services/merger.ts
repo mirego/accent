@@ -41,3 +41,9 @@ export default class Merger extends Service {
     });
   }
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    merger: Merger;
+  }
+}
