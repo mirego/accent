@@ -129,3 +129,9 @@ export default class Peeker extends Service {
     });
   }
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    peeker: Peeker;
+  }
+}
