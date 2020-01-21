@@ -46,7 +46,7 @@ export default class ProjectsController extends Controller {
   }
 
   @action
-  selectPage(page: string) {
+  selectPage(page: number) {
     window.scrollTo(0, 0);
 
     this.page = page;
