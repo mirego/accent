@@ -1,3 +1,5 @@
+@value color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   margin-top: 30px;
 }
@@ -26,18 +28,18 @@
 
   &:focus {
     outline: none;
-    border-color: lighten($color-green, 20%);
+    border-color: lighten(color-green, 20%);
     border-color: var(--color-primary-opacity-70);
-    box-shadow: 0 0 3px 2px rgba($color-green, 0.3);
+    box-shadow: 0 0 3px 2px rgba(color-green, 0.3);
     box-shadow: 0 0 3px 2px var(--color-primary-opacity-10);
 
     &::-moz-selection {
-      background: lighten($color-green, 45%);
+      background: lighten(color-green, 45%);
       background: var(--color-primary-opacity-10);
     }
 
     &::selection {
-      background: lighten($color-green, 45%);
+      background: lighten(color-green, 45%);
       background: var(--color-primary-opacity-10);
     }
   }

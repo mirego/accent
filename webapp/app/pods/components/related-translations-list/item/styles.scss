@@ -1,9 +1,11 @@
+@value color-grey, color-black, color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   position: relative;
 
   &.empty {
     padding: 35px 10px;
-    color: $color-grey;
+    color: color-grey;
     font-size: 13px;
     font-style: italic;
     text-align: center;
@@ -18,21 +20,21 @@
   display: flex;
   align-items: center;
   margin-right: 4px;
-  color: rgba($color-black, 0.7);
+  color: rgba(color-black, 0.7);
   text-decoration: none;
   font-weight: normal;
   font-size: 12px;
 
   &:focus,
   &:hover {
-    color: $color-green;
+    color: color-green;
     color: var(--color-primary);
   }
 }
 
 .updatedAt {
   margin: 0 6px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 11px;
   font-style: italic;
 }
@@ -57,7 +59,7 @@
 
 .textEdit-cancel {
   margin-right: 20px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 12px;
   cursor: pointer;
 }

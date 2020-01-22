@@ -1,3 +1,5 @@
+@value color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   max-width: 500px;
   margin: 0 auto 30px;
@@ -10,10 +12,10 @@
   width: 100%;
   font-family: $font-primary;
   font-size: 13px;
-  border: 2px solid darken($color-green, 5%);
+  border: 2px solid darken(color-green, 5%);
 
   &:focus {
-    border-color: $color-green;
+    border-color: color-green;
   }
 }
 
@@ -42,8 +44,8 @@
   }
 
   &.loginButton--dummy {
-    border: 2px solid darken($color-green, 5%);
-    background: $color-green;
+    border: 2px solid darken(color-green, 5%);
+    background: color-green;
     border-radius: 0 0 4px 4px;
     margin-top: -3px;
   }

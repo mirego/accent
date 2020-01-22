@@ -1,10 +1,12 @@
+@value color-light-background, color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   max-width: 400px;
   margin: 100px auto 30px;
   padding: 20px 20px 40px;
   box-shadow: 0 3px 21px rgba(#000, 0.07);
   border: 1px solid #eee;
-  background: $color-light-background;
+  background: color-light-background;
   text-align: center;
 }
 
@@ -24,11 +26,11 @@
 
 .status {
   margin-right: 15px;
-  text-shadow: 0 1px 2px rgba($color-green, 0.3);
+  text-shadow: 0 1px 2px rgba(color-green, 0.3);
   font-family: $font-monospace;
   font-size: 30px;
   font-weight: 300;
-  color: $color-green;
+  color: color-green;
 }
 
 .title {
@@ -36,7 +38,7 @@
   font-size: 14px;
   font-style: italic;
   font-weight: 300;
-  color: rgba($color-green, 0.7);
+  color: rgba(color-green, 0.7);
 }
 
 .text {
@@ -55,7 +57,7 @@
 
   &:focus,
   &:hover {
-    color: $color-green;
+    color: color-green;
     text-decoration: underline;
   }
 }

@@ -1,4 +1,6 @@
-& {
+@value color-green, color-socket, color-error from 'accent-webapp/styles/variables/colors';
+
+.flash {
   position: relative;
   margin-bottom: 10px;
   width: 400px;
@@ -8,35 +10,37 @@
   text-shadow: 0 1px 1px rgba(#000, 0.1);
   color: #fff;
   font-weight: bold;
-  animation: 0.3s flash-message-in ease;
+  animation: 0.3s ease;
+  animation-name: flash-message-in;
   pointer-events: all;
 
   &.is-exiting {
-    animation: 0.3s flash-message-out forwards ease-in-out;
+    animation: 0.3s forwards ease-in-out;
+    animation-name: flash-message-out;
   }
 }
 
 &.success {
-  background: $color-green;
+  background: color-green;
 
   .icon {
-    stroke: lighten($color-green, 35%);
+    stroke: lighten(color-green, 35%);
   }
 }
 
 &.socket {
-  background: $color-socket;
+  background: color-socket;
 
   .icon {
-    stroke: lighten($color-socket, 35%);
+    stroke: lighten(color-socket, 35%);
   }
 }
 
 &.error {
-  background: $color-error;
+  background: color-error;
 
   .icon {
-    stroke: lighten($color-error, 35%);
+    stroke: lighten(color-error, 35%);
   }
 }
 

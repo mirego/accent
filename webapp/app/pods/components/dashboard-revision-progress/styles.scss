@@ -1,3 +1,6 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-grey, color-error, color-warning, color-success, color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   max-width: 330px;
   margin-bottom: 20px;
@@ -5,52 +8,52 @@
 
 &.master {
   .language-name {
-    color: darken($color-grey, 15%);
+    color: darken(color-grey, 15%);
   }
 }
 
 &.low-percentage {
   .reviewedStats {
-    color: $color-error;
+    color: color-error;
   }
 
   .container {
-    border-color: lighten($color-error, 47%);
-    background: lighten($color-error, 53%);
+    border-color: lighten(color-error, 47%);
+    background: lighten(color-error, 53%);
   }
 
   .progress {
-    background: $color-error;
+    background: color-error;
   }
 }
 
 &.medium-percentage {
   .reviewedStats {
-    color: $color-warning;
+    color: color-warning;
   }
 
   .container {
-    border-color: lighten($color-warning, 30%);
-    background: lighten($color-warning, 45%);
+    border-color: lighten(color-warning, 30%);
+    background: lighten(color-warning, 45%);
   }
 
   .progress {
-    background: $color-warning;
+    background: color-warning;
   }
 }
 
 &.high-percentage {
   .reviewedStats {
-    color: $color-success;
+    color: color-success;
   }
 
   .container {
-    border-color: lighten($color-success, 45%);
-    background: lighten($color-success, 53%);
+    border-color: lighten(color-success, 45%);
+    background: lighten(color-success, 53%);
   }
 
   .progress {
-    background: $color-success;
+    background: color-success;
   }
 }
 
@@ -58,20 +61,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: $color-grey;
+  color: color-grey;
 }
 
 .language-name {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
-  color: $color-grey;
+  color: color-grey;
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
 
   &:focus,
   &:hover {
-    color: $color-green;
+    color: color-green;
   }
 }
 
@@ -79,7 +82,7 @@
   margin-left: 4px;
   font-weight: normal;
   font-size: 13px;
-  color: lighten($color-grey, 10%);
+  color: lighten(color-grey, 10%);
 }
 
 .reviewedStats {

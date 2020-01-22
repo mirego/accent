@@ -1,3 +1,5 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+
 .subNavigation {
   border-radius: 3px;
   overflow: hidden;
@@ -38,7 +40,7 @@
 }
 
 .subNavigation-list-item-link {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color, border-color, background;
   display: flex;
   align-items: center;
@@ -73,7 +75,7 @@
 }
 
 .subNavigation-list-item-link-icon {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: stroke;
   width: 20px;
   height: 20px;

@@ -1,3 +1,5 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+
 & {
   display: flex;
   align-items: flex-start;
@@ -5,7 +7,7 @@
   font-size: 13px;
   color: #888;
   cursor: pointer;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
 
   &:last-child {

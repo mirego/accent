@@ -1,3 +1,6 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-green, color-light-background from 'accent-webapp/styles/variables/colors';
+
 & {
   margin-top: 10px;
 }
@@ -24,7 +27,7 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 13px;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: background, border-color, color;
 
   .link-icon {
@@ -33,12 +36,12 @@
 
   &:focus,
   &:hover {
-    color: $color-green;
+    color: color-green;
     color: var(--color-primary);
-    background: $color-light-background;
+    background: color-light-background;
 
     .link-icon {
-      stroke: $color-green;
+      stroke: color-green;
       stroke: var(--color-primary);
     }
   }
@@ -48,7 +51,7 @@
   width: 20px;
   height: 20px;
   margin-bottom: 3px;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: stroke;
 }
 
