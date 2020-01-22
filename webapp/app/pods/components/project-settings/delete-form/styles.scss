@@ -1,3 +1,5 @@
+@value color-error, color-light-background from 'accent-webapp/styles/variables/colors';
+
 & {
   margin-top: 90px;
 }
@@ -6,16 +8,16 @@
   display: block;
   width: 100%;
   padding-bottom: 6px;
-  border-bottom: 1px solid lighten($color-error, 48%);
+  border-bottom: 1px solid lighten(color-error, 48%);
   font-size: 19px;
-  color: darken($color-error, 10%);
+  color: darken(color-error, 10%);
 }
 
 .zone {
   margin-top: 12px;
   padding: 10px;
   border-radius: 3px;
-  background: $color-light-background;
+  background: color-light-background;
 }
 
 .zone-content {
@@ -26,11 +28,11 @@
 
 .zone-title {
   font-size: 13px;
-  color: darken($color-error, 26%);
+  color: darken(color-error, 26%);
 }
 
 .zone-text {
   font-size: 12px;
   font-style: italic;
-  color: rgba(darken($color-error, 30%), 0.5);
+  color: rgba(darken(color-error, 30%), 0.5);
 }

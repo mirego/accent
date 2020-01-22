@@ -1,3 +1,5 @@
+@value color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   margin: 5px 0 62px;
 }
@@ -12,6 +14,6 @@
 .translation {
   height: 4px;
   width: 180px;
-  background: $color-green;
+  background: color-green;
   background: var(--color-primary);
 }

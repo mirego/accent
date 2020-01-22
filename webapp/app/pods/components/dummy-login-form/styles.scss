@@ -1,10 +1,12 @@
+@value color-light-background, color-error, color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   max-width: 500px;
   margin: 100px auto 30px;
   padding: 20px;
   box-shadow: 0 3px 21px rgba(#000, 0.07);
   border: 1px solid #eee;
-  background: $color-light-background;
+  background: color-light-background;
   text-align: center;
 }
 
@@ -18,10 +20,10 @@
   display: inline-block;
   padding: 10px 15px;
   margin-bottom: 20px;
-  background: lighten($color-error, 40%);
+  background: lighten(color-error, 40%);
   font-weight: bold;
   font-size: 12px;
-  color: $color-error;
+  color: color-error;
 }
 
 .subtitle {
@@ -46,7 +48,7 @@
 
   &:focus {
     border-right: 0;
-    border-color: $color-green;
+    border-color: color-green;
   }
 }
 

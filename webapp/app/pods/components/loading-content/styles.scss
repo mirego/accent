@@ -1,3 +1,5 @@
+@value color-grey from 'accent-webapp/styles/variables/colors';
+
 & {
   display: flex;
   position: relative;
@@ -19,7 +21,7 @@ svg {
 
 circle {
   fill: none;
-  stroke: $color-grey;
+  stroke: color-grey;
   stroke-width: 2;
   stroke-dasharray: 1, 200;
   stroke-dashoffset: 0;
@@ -28,7 +30,7 @@ circle {
 }
 
 .label {
-  color: $color-grey;
+  color: color-grey;
   font-size: 14px;
   font-style: italic;
 }

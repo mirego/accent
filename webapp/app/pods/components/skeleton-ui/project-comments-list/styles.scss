@@ -1,3 +1,5 @@
+@value color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   margin-top: 25px;
 }
@@ -27,7 +29,7 @@
   height: 5px;
   width: 180px;
   margin-bottom: 15px;
-  background: rgba($color-green, 0.3);
+  background: rgba(color-green, 0.3);
   background: var(--color-primary-opacity-70);
 }
 

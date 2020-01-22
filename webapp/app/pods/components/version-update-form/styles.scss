@@ -1,3 +1,5 @@
+@value color-green, color-error from 'accent-webapp/styles/variables/colors';
+
 & {
   padding: 20px;
   background: #fff;
@@ -8,7 +10,7 @@
   text-align: center;
   font-size: 27px;
   font-weight: 300;
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
 }
 
@@ -33,12 +35,12 @@
 .errors {
   margin-bottom: 15px;
   padding-bottom: 5px;
-  border-bottom: 1px solid rgba($color-error, 0.3);
+  border-bottom: 1px solid rgba(color-error, 0.3);
 }
 
 .error {
   margin-bottom: 5px;
-  color: $color-error;
+  color: color-error;
   font-size: 13px;
   font-weight: bold;
 }

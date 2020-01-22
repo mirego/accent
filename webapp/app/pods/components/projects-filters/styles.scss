@@ -1,3 +1,5 @@
+@value color-grey, color-black, color-green from 'accent-webapp/styles/variables/colors';
+
 .filters {
   margin: 0 auto;
   padding: 15px 15px 10px;
@@ -17,7 +19,7 @@
 
 .totalEntries {
   margin-left: 20px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 13px;
   font-style: italic;
 }
@@ -42,24 +44,24 @@
   padding: 7px 7px 7px 30px;
   font-size: 14px;
   font-family: $font-primary;
-  color: $color-black;
+  color: color-black;
 
   &::placeholder {
-    color: $color-grey;
+    color: color-grey;
   }
 
   &:focus {
-    border-color: $color-green;
+    border-color: color-green;
   }
 }
 
 .filters-meta {
   margin-top: 7px;
   font-size: 14px;
-  color: $color-grey;
+  color: color-grey;
 }
 
 .filters-meta-keyword {
   font-style: italic;
-  color: $color-green;
+  color: color-green;
 }

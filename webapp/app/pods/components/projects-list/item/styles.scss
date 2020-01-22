@@ -1,44 +1,47 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-error, color-warning, color-success, color-black, color-light-background, color-grey from 'accent-webapp/styles/variables/colors';
+
 &.low-percentage {
   .language-reviewedPercentage {
-    color: $color-error;
+    color: color-error;
   }
 
   .progress {
-    background: $color-error;
+    background: color-error;
   }
 }
 
 &.medium-percentage {
   .language-reviewedPercentage {
-    color: $color-warning;
+    color: color-warning;
   }
 
   .progress {
-    background: $color-warning;
+    background: color-warning;
   }
 }
 
 &.high-percentage {
   .language-reviewedPercentage {
-    color: $color-success;
+    color: color-success;
   }
 
   .progress {
-    background: $color-success;
+    background: color-success;
   }
 }
 
 & {
   padding: 12px 15px;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: background;
   border-radius: 3px;
-  box-shadow: 0 2px 4px rgba($color-black, 0.15);
-  color: $color-black;
+  box-shadow: 0 2px 4px rgba(color-black, 0.15);
+  color: color-black;
 
   &:focus,
   &:hover {
-    background: $color-light-background;
+    background: color-light-background;
 
     .projectName {
       color: var(--color-primary);
@@ -53,7 +56,7 @@
 }
 
 .projectName {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
   font-weight: 600;
   font-size: 18px;
@@ -74,7 +77,7 @@
 
 .projectUpdates {
   display: block;
-  color: $color-grey;
+  color: color-grey;
   font-style: italic;
   font-size: 11px;
 }
@@ -93,8 +96,8 @@
 .numberStat-totals {
   padding: 2px 7px 1px;
   border-radius: 3px;
-  background: lighten($color-grey, 25%);
-  color: $color-grey;
+  background: lighten(color-grey, 25%);
+  color: color-grey;
   font-size: 12px;
   font-family: $font-monospace;
 }

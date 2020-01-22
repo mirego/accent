@@ -1,3 +1,5 @@
+@value color-grey, color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   position: relative;
   margin-top: 30px;
@@ -10,7 +12,7 @@
   border-bottom: 1px solid #eee;
   padding-bottom: 6px;
   margin-bottom: 6px;
-  color: $color-grey;
+  color: color-grey;
   font-weight: bold;
   font-size: 17px;
 }
@@ -43,14 +45,14 @@
 
 .rolesList {
   padding: 5px 0 20px 20px;
-  border-left: 1px solid lighten($color-grey, 25%);
+  border-left: 1px solid lighten(color-grey, 25%);
 }
 
 .rolesList-title {
   display: block;
   padding-bottom: 5px;
   margin: 15px 0 0;
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
   font-weight: bold;
   font-size: 12px;
@@ -61,7 +63,7 @@
 }
 
 .rolesList-text {
-  color: $color-grey;
+  color: color-grey;
   font-size: 12px;
 }
 

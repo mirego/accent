@@ -1,3 +1,5 @@
+@value color-green, color-error, color-light-background from 'accent-webapp/styles/variables/colors';
+
 & {
   padding: 20px;
   background: #fff;
@@ -8,7 +10,7 @@
   text-align: center;
   font-size: 27px;
   font-weight: 300;
-  color: $color-green;
+  color: color-green;
 }
 
 .formItem-fields {
@@ -26,7 +28,7 @@
   font-family: $font-primary;
 
   &:focus {
-    border: 2px solid rgba($color-green, 0.7);
+    border: 2px solid rgba(color-green, 0.7);
   }
 }
 
@@ -61,12 +63,12 @@
 .errors {
   margin-bottom: 15px;
   padding-bottom: 5px;
-  border-bottom: 1px solid rgba($color-error, 0.3);
+  border-bottom: 1px solid rgba(color-error, 0.3);
 }
 
 .error {
   margin-bottom: 5px;
-  color: $color-error;
+  color: color-error;
   font-size: 13px;
   font-weight: bold;
 }
@@ -101,6 +103,6 @@
   min-height: 31px;
   border-color: #eee;
   border: 1px solid #eee;
-  background: $color-light-background;
+  background: color-light-background;
   box-shadow: 0 1px 5px rgba(#000, 0.06);
 }

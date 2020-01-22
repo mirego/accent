@@ -1,3 +1,5 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+
 %centeredWrapper {
   margin: 0 auto;
   max-width: $screen-lg;
@@ -26,7 +28,7 @@
 }
 
 %textInput {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: border box-shadow;
   resize: vertical;
   outline: 0;

@@ -1,3 +1,6 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-error, color-warning, color-success, color-grey, color-black from 'accent-webapp/styles/variables/colors';
+
 & {
   position: relative;
   display: flex;
@@ -13,31 +16,31 @@
 
 &.low-percentage {
   .reviewedPercentage {
-    color: $color-error;
+    color: color-error;
   }
 
   .progress {
-    background: $color-error;
+    background: color-error;
   }
 }
 
 &.medium-percentage {
   .reviewedPercentage {
-    color: $color-warning;
+    color: color-warning;
   }
 
   .progress {
-    background: $color-warning;
+    background: color-warning;
   }
 }
 
 &.high-percentage {
   .reviewedPercentage {
-    color: $color-success;
+    color: color-success;
   }
 
   .progress {
-    background: $color-success;
+    background: color-success;
   }
 }
 
@@ -65,8 +68,8 @@
 .reviewedStats {
   padding: 2px 7px 1px;
   border-radius: 3px;
-  background: lighten($color-grey, 25%);
-  color: $color-grey;
+  background: lighten(color-grey, 25%);
+  color: color-grey;
   font-family: $font-monospace;
 }
 
@@ -106,14 +109,14 @@
 
 .item-document-deleting-title {
   display: flex;
-  color: $color-error;
+  color: color-error;
   font-size: 13px;
 }
 
 .item-document-deleting-title-loading {
   width: 10px;
   margin-right: 6px;
-  fill: $color-error;
+  fill: color-error;
 }
 
 .item-form {
@@ -169,7 +172,7 @@
 .item-document {
   margin-left: -20px;
   text-decoration: none;
-  color: $color-black;
+  color: color-black;
 }
 
 .item-edit-button {
@@ -186,7 +189,7 @@
   height: 16px;
   opacity: 0;
   stroke: #ccc;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: opacity, stroke;
 
   &:focus,

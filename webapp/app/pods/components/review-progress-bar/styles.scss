@@ -1,13 +1,15 @@
+@value color-black, color-grey from 'accent-webapp/styles/variables/colors';
+
 & {
   width: 100%;
   height: 2px;
   background: #eee;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: 0 1px 8px rgba($color-black, 0.04);
+  box-shadow: 0 1px 8px rgba(color-black, 0.04);
 }
 
 .progress {
   height: 5px;
-  background: $color-grey;
+  background: color-grey;
 }

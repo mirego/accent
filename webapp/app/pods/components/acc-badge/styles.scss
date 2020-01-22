@@ -1,54 +1,57 @@
-& {
-  transition: $transition-speed $transition-easing;
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-grey, color-green, color-error from 'accent-webapp/styles/variables/colors';
+
+.badge {
+  transition: transition-speed transition-easing;
   transition-property: background;
   display: inline-block;
   padding: 1px 6px 1px 5px;
-  background: lighten($color-grey, 28%);
+  background: lighten(color-grey, 28%);
   border-radius: 3px;
-  color: darken($color-grey, 10%);
+  color: darken(color-grey, 10%);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   text-decoration: none;
 }
 
-&.primary {
-  background: $color-green;
+.primary {
+  background: color-green;
   background: var(--color-primary);
   color: #fff;
 }
 
-&.danger {
-  background: $color-error;
+.danger {
+  background: color-error;
   color: #fff;
 }
 
-&.link {
+.link {
   padding: 0;
 
   &:focus,
   &:hover {
-    background: lighten($color-grey, 26%);
+    background: lighten(color-grey, 26%);
   }
 }
 
-&.link.primary {
+.link.primary {
   padding: 0;
 
   &:focus,
   &:hover {
-    background: darken($color-green, 3%);
+    background: darken(color-green, 3%);
     background: var(--color-primary-darken-10);
   }
 }
 
-&.link a {
+.link a {
   display: inline-block;
   padding: 1px 6px 1px 5px;
   color: lighten(#000, 50%);
   text-decoration: none;
 }
 
-&.link.primary a {
+.link.primary a {
   color: #fff;
 }

@@ -1,3 +1,5 @@
+@value color-green from 'accent-webapp/styles/variables/colors';
+
 &,
 &:before {
   height: 2px;
@@ -14,7 +16,7 @@
 }
 
 &:before {
-  background-color: lighten($color-green, 20%);
+  background-color: lighten(color-green, 20%);
   background-color: var(--color-primary-opacity-70);
   content: '';
   animation: progress-line-running-progress 1.8s cubic-bezier(0.5, 0, 0.1, 1)

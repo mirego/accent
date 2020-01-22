@@ -1,10 +1,12 @@
+@value color-grey from 'accent-webapp/styles/variables/colors';
+
 & {
   margin-top: 30px;
 }
 
 .emptyItem {
   margin: 60px 0 15px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 13px;
   font-style: italic;
   text-align: center;

@@ -1,3 +1,5 @@
+@value color-black, color-error, color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   display: flex;
   justify-content: center;
@@ -5,14 +7,14 @@
   flex-direction: column;
   padding: 30px;
   margin: 0 auto;
-  color: rgba($color-black, 0.4);
+  color: rgba(color-black, 0.4);
   font-size: 18px;
   font-weight: 700;
   text-align: center;
 
   &.error {
     .icon {
-      stroke: $color-error;
+      stroke: color-error;
       opacity: 0.2;
       width: 100px;
       height: 100px;
@@ -20,7 +22,7 @@
   }
 
   &.success {
-    color: $color-green;
+    color: color-green;
     color: var(--color-primary);
 
     .icon {
@@ -39,7 +41,7 @@
 }
 
 .link {
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
   text-decoration: none;
 

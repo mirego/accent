@@ -1,3 +1,5 @@
+@value color-error from 'accent-webapp/styles/variables/colors';
+
 & {
   margin-top: 30px;
 }
@@ -14,7 +16,7 @@
 .error {
   display: block;
   margin-bottom: 10px;
-  color: $color-error;
+  color: color-error;
   font-size: 13px;
   font-weight: bold;
 }
