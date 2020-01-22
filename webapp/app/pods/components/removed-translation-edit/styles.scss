@@ -1,3 +1,5 @@
+@value color-grey from 'accent-webapp/styles/variables/colors';
+
 .text {
   width: 100%;
   min-height: 140px;
@@ -5,7 +7,7 @@
   padding: 15px;
   resize: vertical;
   outline: 0;
-  border: 1px solid lighten($color-grey, 20%);
+  border: 1px solid lighten(color-grey, 20%);
   background: darken(#fff, 2%);
   font-family: $font-monospace;
   font-size: 12px;
@@ -14,7 +16,7 @@
 .label {
   display: block;
   margin-top: 10px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 13px;
   font-style: italic;
   text-align: right;

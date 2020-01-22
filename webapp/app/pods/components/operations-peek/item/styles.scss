@@ -1,3 +1,5 @@
+@value color-border, color-grey, color-green, color-black, color-light-background from 'accent-webapp/styles/variables/colors';
+
 & {
   margin-bottom: 15px;
 }
@@ -15,8 +17,8 @@
 .languageHeader-displayOptions-button {
   padding: 0 10px;
   background: none;
-  border-right: 1px solid $color-border;
-  color: $color-grey;
+  border-right: 1px solid color-border;
+  color: color-grey;
   font-size: 13px;
 
   &:focus {
@@ -30,7 +32,7 @@
 }
 
 .languageHeader-displayOptions-button[disabled] {
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
 }
 
@@ -38,7 +40,7 @@
 .operationsList {
   margin: 10px 0;
   background: #fff;
-  box-shadow: 0 2px 10px rgba($color-black, 0.06);
+  box-shadow: 0 2px 10px rgba(color-black, 0.06);
 }
 
 .stat {
@@ -69,7 +71,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background: $color-light-background;
+  background: color-light-background;
 }
 
 .operation-content {
@@ -78,7 +80,7 @@
 
 .operation-action {
   font-size: 12px;
-  color: $color-grey;
+  color: color-grey;
 }
 
 .operation-key {
@@ -101,5 +103,5 @@
   padding: 20px 10px;
   font-style: italic;
   font-size: 12px;
-  color: $color-grey;
+  color: color-grey;
 }

@@ -1,3 +1,5 @@
+@value color-green, color-success from 'accent-webapp/styles/variables/colors';
+
 & {
   margin-top: 60px;
 }
@@ -21,7 +23,7 @@
   height: 5px;
   width: 120px;
   margin-bottom: 20px;
-  background: rgba($color-green, 0.1);
+  background: rgba(color-green, 0.1);
   background: var(--color-primary-opacity-10);
 }
 
@@ -47,7 +49,7 @@
   height: 3px;
   width: 250px;
   margin-bottom: 5px;
-  background: rgba($color-success, 0.1);
+  background: rgba(color-success, 0.1);
 }
 
 .item-textarea {

@@ -1,5 +1,8 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-grey, color-light-background, color-green, color-black from 'accent-webapp/styles/variables/colors';
+
 & {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: background;
   display: flex;
   justify-content: space-between;
@@ -11,7 +14,7 @@
 
   &.invited {
     .user {
-      color: $color-grey;
+      color: color-grey;
     }
   }
 
@@ -24,7 +27,7 @@
   &.editing,
   &:focus,
   &:hover {
-    background: $color-light-background;
+    background: color-light-background;
 
     .button {
       opacity: 1;
@@ -35,14 +38,14 @@
 .role {
   display: block;
   margin-bottom: 4px;
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
   font-size: 12px;
 }
 
 .user {
   display: flex;
-  color: $color-black;
+  color: color-black;
   font-size: 15px;
 }
 
@@ -60,7 +63,7 @@
 }
 
 .invite {
-  color: $color-grey;
+  color: color-grey;
   font-size: 13px;
   font-style: italic;
 }
@@ -71,7 +74,7 @@
 
 .button {
   flex: 0 0 auto;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: opacity;
   opacity: 0;
   padding: 6px 7px;

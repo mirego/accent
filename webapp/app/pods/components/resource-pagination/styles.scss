@@ -1,3 +1,5 @@
+@value color-grey from 'accent-webapp/styles/variables/colors';
+
 & {
   display: flex;
   align-items: center;
@@ -7,7 +9,7 @@
 
 .label {
   margin: 0 10px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 14px;
 }
 

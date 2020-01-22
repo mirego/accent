@@ -1,22 +1,24 @@
+@value color-error, color-success from 'accent-webapp/styles/variables/colors';
+
 & {
   display: flex;
   align-items: center;
   padding: 2px 8px;
   margin-bottom: 5px;
   background: #fff;
-  border-left: 2px solid lighten($color-error, 10%);
+  border-left: 2px solid lighten(color-error, 10%);
   font-size: 12px;
 }
 
 .description {
-  color: lighten($color-error, 10%);
+  color: lighten(color-error, 10%);
 }
 
 .text {
   padding: 0 4px;
   margin-left: 5px;
-  color: $color-error;
-  background: lighten($color-error, 38%);
+  color: color-error;
+  background: lighten(color-error, 38%);
   font-weight: bold;
 }
 
@@ -40,8 +42,8 @@
 .single-replacement {
   margin-left: 4px;
   padding: 0 4px;
-  background: lighten($color-success, 38%);
-  color: $color-success;
+  background: lighten(color-success, 38%);
+  color: color-success;
   font-size: 12px;
   font-weight: bold;
 }

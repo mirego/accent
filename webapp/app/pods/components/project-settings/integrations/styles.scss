@@ -1,3 +1,5 @@
+@value color-grey from 'accent-webapp/styles/variables/colors';
+
 & {
   position: relative;
   margin-top: 30px;
@@ -10,7 +12,7 @@
   border-bottom: 1px solid #eee;
   padding-bottom: 6px;
   margin-bottom: 6px;
-  color: $color-grey;
+  color: color-grey;
   font-weight: bold;
   font-size: 17px;
 }

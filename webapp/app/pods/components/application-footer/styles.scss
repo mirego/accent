@@ -1,8 +1,10 @@
-& {
+@value color-light-background, color-grey from 'accent-webapp/styles/variables/colors';
+
+.footer {
   padding: 10px;
   margin-top: 40px;
-  background: $color-light-background;
-  color: $color-grey;
+  background: color-light-background;
+  color: color-grey;
   font-size: 12px;
   text-align: right;
 }

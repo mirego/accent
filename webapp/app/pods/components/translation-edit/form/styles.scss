@@ -1,3 +1,5 @@
+@value color-green, color-blue, color-true-black, color-error from 'accent-webapp/styles/variables/colors';
+
 & {
   height: 100%;
 }
@@ -13,8 +15,8 @@
   color: #444;
 
   &.checked {
-    background: lighten($color-green, 45%);
-    color: darken($color-green, 25%);
+    background: lighten(color-green, 45%);
+    color: darken(color-green, 25%);
   }
 
   input {
@@ -25,9 +27,9 @@
 .label {
   width: 100%;
   padding: 5px 5px 5px 8px;
-  border-left: 2px solid lighten($color-blue, 40%);
+  border-left: 2px solid lighten(color-blue, 40%);
   margin-bottom: 5px;
-  background: lighten($color-blue, 46%);
+  background: lighten(color-blue, 46%);
   font-size: 12px;
   color: #888;
 }
@@ -55,19 +57,19 @@
   display: flex;
   align-items: center;
   padding: 10px 10px 0;
-  background: lighten($color-blue, 46%);
-  border-left: 2px solid lighten($color-blue, 40%);
+  background: lighten(color-blue, 46%);
+  border-left: 2px solid lighten(color-blue, 40%);
   font-size: 13px;
   font-weight: bold;
-  color: $color-blue;
+  color: color-blue;
 }
 
 .placeholders-text {
   margin-bottom: 6px;
   padding: 5px 10px 8px;
-  background: lighten($color-blue, 46%);
-  border-left: 2px solid lighten($color-blue, 40%);
-  color: darken($color-blue, 15%);
+  background: lighten(color-blue, 46%);
+  border-left: 2px solid lighten(color-blue, 40%);
+  color: darken(color-blue, 15%);
 }
 
 .placeholders-text-content {
@@ -78,13 +80,13 @@
   display: flex;
   align-items: center;
   padding-left: 12px;
-  border-left: 2px solid lighten($color-true-black, 80%);
+  border-left: 2px solid lighten(color-true-black, 80%);
   font-size: 14px;
-  color: darken($color-blue, 15%);
+  color: darken(color-blue, 15%);
 
   &.placeholders-item--warning {
-    border-color: lighten($color-error, 20%);
-    color: lighten($color-error, 10%);
+    border-color: lighten(color-error, 20%);
+    color: lighten(color-error, 10%);
   }
 }
 
@@ -92,12 +94,12 @@
   margin-right: 5px;
   width: 14px;
   height: 14px;
-  stroke: lighten($color-error, 15%);
+  stroke: lighten(color-error, 15%);
 }
 
 .placeholders-title-icon {
   width: 14px;
   height: 14px;
   margin-right: 6px;
-  stroke: darken($color-blue, 10%);
+  stroke: darken(color-blue, 10%);
 }

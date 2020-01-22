@@ -1,3 +1,5 @@
+@value color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   width: 100%;
 }
@@ -20,13 +22,13 @@
   display: flex;
   align-items: center;
   font-size: 23px;
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
 }
 
 .item-title-link {
   text-decoration: none;
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
 
   &:hover {

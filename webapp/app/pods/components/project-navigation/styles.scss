@@ -1,3 +1,5 @@
+@value color-black from 'accent-webapp/styles/variables/colors';
+
 & {
   position: relative;
   display: flex;
@@ -12,7 +14,7 @@
   font-size: 12px;
   font-weight: 700;
   text-decoration: none;
-  color: $color-black;
+  color: color-black;
   border-bottom: 1px solid #eee;
 }
 

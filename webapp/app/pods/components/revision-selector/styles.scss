@@ -1,3 +1,5 @@
+@value color-light-background, color-black, color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   position: relative;
   box-shadow: 0 2px 4px rgba(#000, 0.06);
@@ -14,7 +16,7 @@
     pointer-events: all;
 
     &:hover {
-      background: $color-light-background;
+      background: color-light-background;
     }
 
     .ember-power-select-status-icon {
@@ -38,14 +40,14 @@
 .ember-power-select-selected-item {
   margin-left: 10px;
   font-weight: 700;
-  color: $color-black;
+  color: color-black;
   color: var(--color-black);
 
   em {
     margin-left: 1px;
     font-size: 11px;
     font-style: normal;
-    color: $color-green;
+    color: color-green;
     color: var(--color-primary);
   }
 }

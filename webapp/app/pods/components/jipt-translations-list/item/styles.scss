@@ -1,12 +1,14 @@
+@value color-true-black, color-grey from 'accent-webapp/styles/variables/colors';
+
 .item-text {
   display: block;
   text-overflow: ellipsis;
   overflow-x: hidden;
-  color: $color-true-black;
+  color: color-true-black;
   font-size: 16px;
 
   &.item-text--empty {
-    color: $color-grey;
+    color: color-grey;
     font-style: italic;
   }
 }

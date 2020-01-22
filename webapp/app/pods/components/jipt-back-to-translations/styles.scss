@@ -1,18 +1,21 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-black from 'accent-webapp/styles/variables/colors';
+
 .language {
   display: block;
   margin-bottom: 6px;
-  color: lighten($color-black, 20%);
+  color: lighten(color-black, 20%);
   font-size: 14px;
   text-decoration: none;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
 
   &:focus,
   &:hover {
-    color: $color-black;
+    color: color-black;
 
     .back-icon {
-      stroke: $color-black;
+      stroke: color-black;
       transform: translateX(-2px);
     }
   }
@@ -21,7 +24,7 @@
 .back-icon {
   width: 11px;
   height: 11px;
-  stroke: lighten($color-black, 20%);
-  transition: $transition-speed $transition-easing;
+  stroke: lighten(color-black, 20%);
+  transition: transition-speed transition-easing;
   transition-property: fill transform;
 }

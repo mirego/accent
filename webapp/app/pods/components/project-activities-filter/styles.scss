@@ -1,3 +1,5 @@
+@value color-grey from 'accent-webapp/styles/variables/colors';
+
 .filterList {
   display: flex;
   align-items: center;
@@ -12,5 +14,5 @@
 }
 
 .label-text {
-  color: $color-grey;
+  color: color-grey;
 }

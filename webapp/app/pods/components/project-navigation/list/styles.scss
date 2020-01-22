@@ -1,3 +1,6 @@
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-grey, color-light-background, color-green from 'accent-webapp/styles/variables/colors';
+
 & {
   display: flex;
   flex-direction: column;
@@ -18,7 +21,7 @@
   align-items: center;
   position: relative;
   left: 1px;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color, background;
   padding: 8px 12px;
   margin-bottom: 10px;
@@ -26,11 +29,11 @@
   font-weight: 600;
   font-size: 13px;
   border-radius: 3px;
-  color: $color-grey;
+  color: color-grey;
 
   &:hover,
   &:focus {
-    background: $color-light-background;
+    background: color-light-background;
     color: var(--color-primary);
 
     .list-item-link-icon {
@@ -43,7 +46,7 @@
   }
 
   &.active {
-    background: lighten($color-green, 46%);
+    background: lighten(color-green, 46%);
     background: var(--color-primary);
     color: #fff;
 
@@ -60,13 +63,13 @@
 .list-item-link-text {
   width: 127px;
   padding: 0 0 0 12px;
-  color: $color-grey;
-  transition: $transition-speed $transition-easing;
+  color: color-grey;
+  transition: transition-speed transition-easing;
   transition-property: color;
 }
 
 .list-item-link-icon {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: fill;
   display: inline-block;
   width: 19px;
