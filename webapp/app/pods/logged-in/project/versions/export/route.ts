@@ -1,11 +1,13 @@
 import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
-import RSVP from 'rsvp';
+import Exporter from 'accent-webapp/services/exporter';
+import ExportController from 'accent-webapp/pods/logged-in/project/versions/export/controller';
 
-export default Route.extend({
-  exporter: service('exporter'),
+export default class ExportRoute extends Route {
+  @service('exporter')
+  exporter: Exporter;
 
-  queryParams: {
+  queryParams = {
     revisionFilter: {
       refreshModel: true
     },
@@ -18,23 +20,21 @@ export default Route.extend({
     orderByFilter: {
       refreshModel: true
     }
-  },
+  };
 
-  model({versionId}) {
-    return RSVP.hash({
+  model({versionId}: {versionId: string}) {
+    return {
       projectModel: this.modelFor('logged-in.project'),
       versionModel: this.modelFor('logged-in.project.versions'),
       versionId
-    });
-  },
+    };
+  }
 
-  resetController(controller, isExiting) {
-    controller.set('exportLoading', true);
+  resetController(controller: ExportController, isExiting: boolean) {
+    controller.exportLoading = true;
 
     if (isExiting) {
-      controller.setProperties({
-        fileRender: null
-      });
+      controller.fileRender = null;
     }
   }
-});
+}
