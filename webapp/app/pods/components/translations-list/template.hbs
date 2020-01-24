@@ -1,29 +1,31 @@
-{{#each translations key="id" as |translation|}}
-  <TranslationsList::Item
-    @translation={{translation}}
-    @project={{project}}
-    @revisionId={{revisionId}}
-    @onUpdateText={{onUpdateText}}
-  />
-{{else if query}}
-  <EmptyContent
-    @iconPath="assets/empty.svg"
-    @text={{t "components.translations_list.no_translations_query" query=query}}
-  />
-{{else if withAdvancedFilters}}
-  <EmptyContent
-    @iconPath="assets/empty.svg"
-    @text={{t "components.translations_list.no_translations_filters"}}
-  />
-{{else}}
-  <EmptyContent>
-    {{inline-svg "assets/empty.svg" class="icon"}}
-    {{t "components.translations_list.no_translations"}}
-    <div>
-      {{t "components.translations_list.maybe_sync_before"}}
-      <LinkTo @route="logged-in.project.files" class="link">
-        {{t "components.translations_list.maybe_sync_link"}}
-      </LinkTo>
-    </div>
-  </EmptyContent>
-{{/each}}
+<div local-class="translations-list">
+  {{#each translations key="id" as |translation|}}
+    <TranslationsList::Item
+      @translation={{translation}}
+      @project={{project}}
+      @revisionId={{revisionId}}
+      @onUpdateText={{onUpdateText}}
+    />
+  {{else if query}}
+    <EmptyContent
+      @iconPath="assets/empty.svg"
+      @text={{t "components.translations_list.no_translations_query" query=query}}
+    />
+  {{else if withAdvancedFilters}}
+    <EmptyContent
+      @iconPath="assets/empty.svg"
+      @text={{t "components.translations_list.no_translations_filters"}}
+    />
+  {{else}}
+    <EmptyContent>
+      {{inline-svg "assets/empty.svg" class="icon"}}
+      {{t "components.translations_list.no_translations"}}
+      <div>
+        {{t "components.translations_list.maybe_sync_before"}}
+        <LinkTo @route="logged-in.project.files" class="link">
+          {{t "components.translations_list.maybe_sync_link"}}
+        </LinkTo>
+      </div>
+    </EmptyContent>
+  {{/each}}
+</div>

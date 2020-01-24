@@ -1,5 +1,11 @@
-@value screen-lg: 1300px;
-@value screen-md: 640px;
-@value screen-sm: 440px;
+$screen-lg: 1300px;
+$screen-md: 640px;
+$screen-sm: 440px;
 
-@value border-radius: 3px;
+$border-radius: 3px;
+
+@value screen-lg: $screen-lg;
+@value screen-md: $screen-md;
+@value screen-sm: $screen-sm;
+
+@value border-radius: $border-radius;

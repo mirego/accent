@@ -1,28 +1,30 @@
-<AccSelect
-  @searchEnabled={{false}}
-  @selected={{roleValue}}
-  @options={{mappedPossibleRoles}}
-  @onchange={{action (mut role) value="value"}}
-/>
+<div local-class="project-settings-collaborators-create-form">
+  <AccSelect
+    @searchEnabled={{false}}
+    @selected={{roleValue}}
+    @options={{mappedPossibleRoles}}
+    @onchange={{action (mut role) value="value"}}
+  />
 
-<QuickSubmitTextfield
-  @value={{email}}
-  class="textInput"
-  placeholder={{t "components.collaborator_create_form.email_placeholder"}}
-  @onSubmit={{action "submit"}}
-/>
+  <QuickSubmitTextfield
+    @value={{email}}
+    class="textInput"
+    placeholder={{t "components.collaborator_create_form.email_placeholder"}}
+    @onSubmit={{action "submit"}}
+  />
 
-<AsyncButton
-  @onClick={{action "submit"}}
-  @loading={{isCreating}}
-  @disabled={{emptyEmail}}
-  class="button button--filled"
->
-  {{t "components.collaborator_create_form.create_button"}}
-</AsyncButton>
+  <AsyncButton
+    @onClick={{action "submit"}}
+    @loading={{isCreating}}
+    @disabled={{emptyEmail}}
+    class="button button--filled"
+  >
+    {{t "components.collaborator_create_form.create_button"}}
+  </AsyncButton>
 
-{{#if onCancel}}
-  <button class="button button--filled button--white" {{action onCancel}}>
-    {{t "components.collaborator_create_form.cancel_button"}}
-  </button>
-{{/if}}
+  {{#if onCancel}}
+    <button class="button button--filled button--white" {{action onCancel}}>
+      {{t "components.collaborator_create_form.cancel_button"}}
+    </button>
+  {{/if}}
+</div>

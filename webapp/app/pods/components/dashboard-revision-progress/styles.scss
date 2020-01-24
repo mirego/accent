@@ -1,18 +1,18 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-grey, color-error, color-warning, color-success, color-green from 'accent-webapp/styles/variables/colors';
 
-& {
+.dashboard-revision-progress {
   max-width: 330px;
   margin-bottom: 20px;
 }
 
-&.master {
+.dashboard-revision-progress.master {
   .language-name {
     color: darken(color-grey, 15%);
   }
 }
 
-&.low-percentage {
+.dashboard-revision-progress.low-percentage {
   .reviewedStats {
     color: color-error;
   }
@@ -27,7 +27,7 @@
   }
 }
 
-&.medium-percentage {
+.dashboard-revision-progress.medium-percentage {
   .reviewedStats {
     color: color-warning;
   }
@@ -42,7 +42,7 @@
   }
 }
 
-&.high-percentage {
+.dashboard-revision-progress.high-percentage {
   .reviewedStats {
     color: color-success;
   }

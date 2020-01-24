@@ -20,7 +20,7 @@
   }
 }
 
-&.success {
+.flash.success {
   background: color-green;
 
   .icon {
@@ -28,7 +28,7 @@
   }
 }
 
-&.socket {
+.flash.socket {
   background: color-socket;
 
   .icon {
@@ -36,7 +36,7 @@
   }
 }
 
-&.error {
+.flash.error {
   background: color-error;
 
   .icon {

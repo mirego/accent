@@ -1,10 +1,12 @@
 @value color-grey, color-black, color-green from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
+@value screen-lg from 'accent-webapp/styles/variables/dimensions';
 
 .filters {
   margin: 0 auto;
   padding: 15px 15px 10px;
-  max-width: $screen-lg;
-  background: none;
+  max-width: screen-lg;
+  background: none !important;
 }
 
 .filters-wrapper {
@@ -35,7 +37,7 @@
 }
 
 .createProjectButton {
-  margin-left: 15px;
+  margin-left: 15px !important;
 }
 
 .input {
@@ -43,7 +45,7 @@
   width: 100%;
   padding: 7px 7px 7px 30px;
   font-size: 14px;
-  font-family: $font-primary;
+  font-family: font-primary;
   color: color-black;
 
   &::placeholder {

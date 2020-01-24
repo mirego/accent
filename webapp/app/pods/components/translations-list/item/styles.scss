@@ -1,7 +1,7 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-light-background, color-error, color-green, color-grey from 'accent-webapp/styles/variables/colors';
 
-& {
+.translations-list-item {
   transition: transition-speed transition-easing;
   transition-property: background, transform;
   display: block;

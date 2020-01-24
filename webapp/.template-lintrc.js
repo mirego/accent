@@ -11,6 +11,9 @@ module.exports = {
     'link-rel-noopener': true,
     'no-abstract-roles': true,
     'no-bare-strings': true,
+    'no-curly-component-invocation': {
+      allow: ['inline-svg', 't', 'string-diff']
+    },
     'no-debugger': true,
     'no-element-event-actions': true,
     'no-duplicate-attributes': true,

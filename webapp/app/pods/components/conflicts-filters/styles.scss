@@ -1,7 +1,9 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-black, color-grey from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
 
-.subNavigation + & {
+.subNavigation + .conflicts-filter {
   position: relative;
   top: -1px;
   z-index: 8;
@@ -38,7 +40,7 @@
   transition-property: border-color;
   width: 100%;
   padding: 7px 7px 7px 30px;
-  font-family: $font-primary;
+  font-family: font-primary;
   font-size: 14px;
   color: color-black;
 
@@ -57,7 +59,7 @@
   font-size: 12px;
 }
 
-@media (max-width: ($screen-sm)) {
+@media (max-width: (screen-sm)) {
   .filters-wrapper {
     flex-direction: column;
   }

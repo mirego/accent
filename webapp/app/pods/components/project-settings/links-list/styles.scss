@@ -1,7 +1,8 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-green, color-light-background from 'accent-webapp/styles/variables/colors';
+@value screen-md from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.project-settings-links-list {
   margin-top: 10px;
 }
 
@@ -55,8 +56,8 @@
   transition-property: stroke;
 }
 
-@media (max-width: ($screen-md)) {
-  &,
+@media (max-width: (screen-md)) {
+  .project-settings-links-list,
   .list {
     margin: 0;
   }

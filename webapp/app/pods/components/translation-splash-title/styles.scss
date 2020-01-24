@@ -1,7 +1,8 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-black, color-green, color-error from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
 
-& {
+.translation-splash-title {
   margin-bottom: 40px;
 }
 
@@ -56,7 +57,7 @@
   display: flex;
   align-items: center;
   text-transform: none;
-  font-family: $font-monospace;
+  font-family: font-monospace;
   font-weight: normal;
   color: #888;
 }

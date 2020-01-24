@@ -1,12 +1,13 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-black, color-grey from 'accent-webapp/styles/variables/colors';
+@value screen-lg, screen-md, screen-sm from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.projects-header {
   padding: 64px 0 20px;
   background-image: linear-gradient(0, transparent, #eee);
 }
 
-&.withProject {
+.projects-header.withProject {
   padding-top: 59px;
 
   .applicationLogo {
@@ -35,7 +36,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
-  max-width: $screen-lg;
+  max-width: screen-lg;
   padding: 0 15px;
   width: 100%;
 }
@@ -165,15 +166,15 @@
   }
 }
 
-@media (max-width: ($screen-md)) {
-  & {
+@media (max-width: (screen-md)) {
+  .projects-header {
     padding: 10px 0;
 
     .content {
       padding: 0 30px;
     }
 
-    &.withProject {
+    .projects-header.withProject {
       padding: 10px 0;
     }
   }
@@ -183,7 +184,7 @@
   }
 }
 
-@media (max-width: ($screen-sm)) {
+@media (max-width: (screen-sm)) {
   .applicationLogo-image {
     width: 18px;
     height: 18px;
@@ -193,7 +194,7 @@
     font-size: 11px;
   }
 
-  .button {
+  :global(.button) {
     padding: 3px 7px 4px;
     font-size: 11px;
   }

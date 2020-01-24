@@ -1,38 +1,40 @@
-<ConflictsFilters
-  @meta={{translations.meta}}
-  @conflicts={{translations.entries}}
-  @referenceRevisions={{referenceRevisions}}
-  @document={{document}}
-  @documents={{documents}}
-  @query={{query}}
-  @reference={{reference}}
-  @onChangeDocument={{onChangeDocument}}
-  @onChangeReference={{onChangeReference}}
-  @onChangeQuery={{onChangeQuery}}
-/>
-
-{{#if isLoading}}
-  <SkeletonUi::ProgressLine />
-{{/if}}
-
-{{#if showSkeleton}}
-  <SkeletonUi::ConflictsItems />
-{{else if showLoading}}
-  <LoadingContent @label={{t "pods.project.conflicts.loading_content"}} />
-{{else}}
-  <ConflictsItems
-    @referenceRevision={{referenceRevision}}
-    @revision={{revision}}
-    @fullscreen={{fullscreen}}
-    @permissions={{permissions}}
-    @project={{project}}
-    @conflicts={{translations.entries}}
-    @query={{query}}
-    @onCorrect={{onCorrect}}
-    @onCorrectAll={{onCorrectAll}}
+<div local-class="conflicts-page {{if @fullscreen "fullscreen"}}">
+  <ConflictsFilters
+    @meta={{@translations.meta}}
+    @conflicts={{@translations.entries}}
+    @referenceRevisions={{@referenceRevisions}}
+    @document={{@document}}
+    @documents={{@documents}}
+    @query={{@query}}
+    @reference={{@reference}}
+    @onChangeDocument={{@onChangeDocument}}
+    @onChangeReference={{@onChangeReference}}
+    @onChangeQuery={{@onChangeQuery}}
   />
-  <ResourcePagination
-    @meta={{translations.meta}}
-    @onSelectPage={{onSelectPage}}
-  />
-{{/if}}
+
+  {{#if @isLoading}}
+    <SkeletonUi::ProgressLine />
+  {{/if}}
+
+  {{#if @showSkeleton}}
+    <SkeletonUi::ConflictsItems />
+  {{else if @showLoading}}
+    <LoadingContent @label={{t "pods.project.conflicts.loading_content"}} />
+  {{else}}
+    <ConflictsItems
+      @referenceRevision={{@referenceRevision}}
+      @revision={{@revision}}
+      @fullscreen={{@fullscreen}}
+      @permissions={{@permissions}}
+      @project={{@project}}
+      @conflicts={{@translations.entries}}
+      @query={{@query}}
+      @onCorrect={{@onCorrect}}
+      @onCorrectAll={{@onCorrectAll}}
+    />
+    <ResourcePagination
+      @meta={{@translations.meta}}
+      @onSelectPage={{@onSelectPage}}
+    />
+  {{/if}}
+</div>

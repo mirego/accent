@@ -1,6 +1,6 @@
 @value color-error, color-success from 'accent-webapp/styles/variables/colors';
 
-& {
+.translation-edit-lint-message {
   display: flex;
   align-items: center;
   padding: 2px 8px;

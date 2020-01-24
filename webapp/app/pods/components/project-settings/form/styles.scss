@@ -1,6 +1,7 @@
 @value color-light-background, color-green, color-error from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
 
-& {
+.project-settings-form {
   margin-top: 25px;
 }
 
@@ -11,7 +12,7 @@
   flex-grow: 0;
   flex-shrink: 0;
   padding: 10px;
-  font-family: $font-primary;
+  font-family: font-primary;
   font-size: 12px;
 }
 

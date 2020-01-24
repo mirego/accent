@@ -1,7 +1,8 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-error, color-warning, color-success, color-grey, color-black from 'accent-webapp/styles/variables/colors';
+@value font-monospace, font-primary from 'accent-webapp/styles/variables/fonts';
 
-& {
+.documents-list-item {
   position: relative;
   display: flex;
   margin-bottom: 30px;
@@ -14,7 +15,7 @@
   }
 }
 
-&.low-percentage {
+.documents-list-item.low-percentage {
   .reviewedPercentage {
     color: color-error;
   }
@@ -24,7 +25,7 @@
   }
 }
 
-&.medium-percentage {
+.documents-list-item.medium-percentage {
   .reviewedPercentage {
     color: color-warning;
   }
@@ -34,7 +35,7 @@
   }
 }
 
-&.high-percentage {
+.documents-list-item.high-percentage {
   .reviewedPercentage {
     color: color-success;
   }
@@ -70,7 +71,7 @@
   border-radius: 3px;
   background: lighten(color-grey, 25%);
   color: color-grey;
-  font-family: $font-monospace;
+  font-family: font-monospace;
 }
 
 .reviewedPercentage {
@@ -104,7 +105,7 @@
   padding: 5px 8px 4px;
   width: 100%;
   font-size: 15px;
-  font-family: $font-primary;
+  font-family: font-primary;
 }
 
 .item-document-deleting-title {
@@ -146,7 +147,7 @@
     border: 1px solid #eee;
     border-radius: 3px;
     background: #fafafa;
-    font-family: $font-monospace;
+    font-family: font-monospace;
     font-style: normal;
     color: #777;
   }

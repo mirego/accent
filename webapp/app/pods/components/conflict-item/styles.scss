@@ -1,7 +1,7 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-light-background, color-green, color-grey, color-error, color-success, color-black from 'accent-webapp/styles/variables/colors';
 
-& {
+.conflict-item {
   transition: transition-speed transition-easing;
   transition-property: background, border-color, transform;
   padding: 10px;
@@ -28,7 +28,7 @@
   position: relative;
 }
 
-&.fullscreen {
+.conflict-item.fullscreen {
   .item-details {
     display: flex;
     align-items: stretch;
@@ -46,7 +46,7 @@
   }
 }
 
-&[class*='resolved'] {
+.conflict-item[class*='resolved'] {
   padding: 5px 10px;
   margin: 5px 0 15px;
   background: lighten(color-green, 48%);
@@ -65,7 +65,7 @@
   }
 }
 
-&[class*='errored'] {
+.conflict-item[class*='errored'] {
   .textInput {
     border-color: lighten(color-error, 30%);
   }

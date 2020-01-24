@@ -1,9 +1,11 @@
-<Input @type="checkbox" class="checkbox" @checked={{isSubscribed}} />
+<div local-class="translation-comments-subscriptions">
+  <Input @type="checkbox" class="checkbox" @checked={{isSubscribed}} />
 
-<span class="user">
-  {{collaborator.user.fullname}}
+  <span class="user">
+    {{collaborator.user.fullname}}
 
-  <span class="user-email">
-    {{collaborator.email}}
+    <span class="user-email">
+      {{collaborator.email}}
+    </span>
   </span>
-</span>
+</div>

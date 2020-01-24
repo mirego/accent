@@ -1,6 +1,7 @@
 @value color-green, color-blue, color-true-black, color-error from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
 
-& {
+.translation-edit-form {
   height: 100%;
 }
 
@@ -44,7 +45,7 @@
   &::placeholder {
     opacity: 0.2;
     font-style: italic;
-    font-family: $font-primary;
+    font-family: font-primary;
   }
 }
 

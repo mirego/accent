@@ -1,44 +1,46 @@
-{{#if isEditing}}
-  <ProjectSettings::Integrations::Form
-    @integration={{integration}}
-    @project={{project}}
-    @errors={{errors}}
-    @onSubmit={{action "update"}}
-    @onCancel={{action "toggleEdit"}}
-  />
-{{else}}
-  <div class="details">
-    <div class="details-info">
-      {{inline-svg logoService class="details-logo"}}
-      <span class="details-service">
-        {{mappedService}}
-      </span>
+<div local-class="project-settings-integrations-list-item">
+  {{#if isEditing}}
+    <ProjectSettings::Integrations::Form
+      @integration={{integration}}
+      @project={{project}}
+      @errors={{errors}}
+      @onSubmit={{action "update"}}
+      @onCancel={{action "toggleEdit"}}
+    />
+  {{else}}
+    <div class="details">
+      <div class="details-info">
+        {{inline-svg logoService class="details-logo"}}
+        <span class="details-service">
+          {{mappedService}}
+        </span>
 
-      <span class="details-preview">
-        {{integration.data.url}}
-        {{integration.data.repository}}
-      </span>
+        <span class="details-preview">
+          {{integration.data.url}}
+          {{integration.data.repository}}
+        </span>
+      </div>
+
+      <div class="details-actions">
+        {{#if (get permissions "update_project_integration")}}
+          <button
+            class="button button--filled button--white"
+            {{action "toggleEdit"}}
+          >
+            {{t "components.project_settings.integrations.edit"}}
+          </button>
+        {{/if}}
+
+        {{#if (get permissions "delete_project_integration")}}
+          <AsyncButton
+            @onClick={{action "delete"}}
+            @loading={{isDeleting}}
+            class="button button--filled button--red"
+          >
+            {{t "components.project_settings.integrations.delete"}}
+          </AsyncButton>
+        {{/if}}
+      </div>
     </div>
-
-    <div class="details-actions">
-      {{#if (get permissions "update_project_integration")}}
-        <button
-          class="button button--filled button--white"
-          {{action "toggleEdit"}}
-        >
-          {{t "components.project_settings.integrations.edit"}}
-        </button>
-      {{/if}}
-
-      {{#if (get permissions "delete_project_integration")}}
-        <AsyncButton
-          @onClick={{action "delete"}}
-          @loading={{isDeleting}}
-          class="button button--filled button--red"
-        >
-          {{t "components.project_settings.integrations.delete"}}
-        </AsyncButton>
-      {{/if}}
-    </div>
-  </div>
-{{/if}}
+  {{/if}}
+</div>

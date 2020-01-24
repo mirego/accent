@@ -1,31 +1,33 @@
 @value color-error, color-warning, color-success, color-black, color-green from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
+@value screen-md from 'accent-webapp/styles/variables/dimensions';
 
-&.low-percentage {
+.dashboard-revisions.low-percentage {
   .numberStat-reviewCompleted,
   .numberStat-reviewPercentage {
     color: color-error;
   }
 }
 
-&.medium-percentage {
+.dashboard-revisions.medium-percentage {
   .numberStat-reviewCompleted,
   .numberStat-reviewPercentage {
     color: color-warning;
   }
 }
 
-&.high-percentage {
+.dashboard-revisions.high-percentage {
   .numberStat-reviewCompleted,
   .numberStat-reviewPercentage {
     color: color-success;
   }
 }
 
-& {
+.dashboard-revisions {
   display: flex;
 }
 
-& > .content {
+.dashboard-revisions > .content {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -62,7 +64,7 @@
 .numberStat-totalKeys {
   display: block;
   font-size: 20px;
-  font-family: $font-monospace;
+  font-family: font-monospace;
   color: #ccc;
 }
 
@@ -195,8 +197,8 @@
   text-align: center;
 }
 
-@media (max-width: ($screen-md)) {
-  & > .content {
+@media (max-width: (screen-md)) {
+  .dashboard-revisions > .content {
     width: 100%;
     margin-right: 0;
   }

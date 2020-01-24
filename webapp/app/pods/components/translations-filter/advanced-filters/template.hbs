@@ -1,59 +1,61 @@
-<span class="title">
-  {{t
-    "components.translations_filter.advanced_filters_title"
-  }}
-</span>
+<div local-class="translations-filter-advanced-filters">
+  <span class="title">
+    {{t
+      "components.translations_filter.advanced_filters_title"
+    }}
+  </span>
 
-<div class="labels">
-  <label class="label">
-    <Input
-      @type="checkbox"
-      @checked={{@isTextEmptyFilter}}
-      @change={{action @onChangeAdvancedFilterBoolean "isTextEmpty"}}
-    />
-    <span class="label-text">
-      {{t
-        "components.translations_filter.advanced_filters.empty"
-      }}
-    </span>
-  </label>
+  <div class="labels">
+    <label class="label">
+      <Input
+        @type="checkbox"
+        @checked={{@isTextEmptyFilter}}
+        @change={{action @onChangeAdvancedFilterBoolean "isTextEmpty"}}
+      />
+      <span class="label-text">
+        {{t
+          "components.translations_filter.advanced_filters.empty"
+        }}
+      </span>
+    </label>
 
-  <label class="label">
-    <Input
-      @type="checkbox"
-      @checked={{@isTextNotEmptyFilter}}
-      @change={{action @onChangeAdvancedFilterBoolean "isTextNotEmpty"}}
-    />
-    <span class="label-text">
-      {{t
-        "components.translations_filter.advanced_filters.not_empty"
-      }}
-    </span>
-  </label>
+    <label class="label">
+      <Input
+        @type="checkbox"
+        @checked={{@isTextNotEmptyFilter}}
+        @change={{action @onChangeAdvancedFilterBoolean "isTextNotEmpty"}}
+      />
+      <span class="label-text">
+        {{t
+          "components.translations_filter.advanced_filters.not_empty"
+        }}
+      </span>
+    </label>
 
-  <label class="label">
-    <Input
-      @type="checkbox"
-      @checked={{@isAddedLastSyncFilter}}
-      @change={{action @onChangeAdvancedFilterBoolean "isAddedLastSync"}}
-    />
-    <span class="label-text">
-      {{t
-        "components.translations_filter.advanced_filters.added_last_sync"
-      }}
-    </span>
-  </label>
+    <label class="label">
+      <Input
+        @type="checkbox"
+        @checked={{@isAddedLastSyncFilter}}
+        @change={{action @onChangeAdvancedFilterBoolean "isAddedLastSync"}}
+      />
+      <span class="label-text">
+        {{t
+          "components.translations_filter.advanced_filters.added_last_sync"
+        }}
+      </span>
+    </label>
 
-  <label class="label">
-    <Input
-      @type="checkbox"
-      @checked={{@isCommentedOnFilter}}
-      @change={{action @onChangeAdvancedFilterBoolean "isCommentedOn"}}
-    />
-    <span class="label-text">
-      {{t
-        "components.translations_filter.advanced_filters.commented_on"
-      }}
-    </span>
-  </label>
+    <label class="label">
+      <Input
+        @type="checkbox"
+        @checked={{@isCommentedOnFilter}}
+        @change={{action @onChangeAdvancedFilterBoolean "isCommentedOn"}}
+      />
+      <span class="label-text">
+        {{t
+          "components.translations_filter.advanced_filters.commented_on"
+        }}
+      </span>
+    </label>
+  </div>
 </div>

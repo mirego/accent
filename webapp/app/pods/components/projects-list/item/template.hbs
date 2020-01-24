@@ -1,37 +1,39 @@
-<div class="projectHeader projectId-{{project.id}}">
-  {{#if project.logo}}
-    <span class="projectLogo">
-      <ProjectLogo @logo={{project.logo}} />
-    </span>
-  {{/if}}
-
-  <span class="projectName">
-    {{project.name}}
-  </span>
-  <style>
-    {{{this.colors}}}
-  </style>
-</div>
-
-<div class="numberStat">
-  <span class="projectUpdates">
-    {{#if project.lastSyncedAt}}
-      <span class="projectUpdate">
-        {{t "components.projects_list.last_synced_at_label"}}
-        <TimeAgoInWordsTag
-          @date={{project.lastSyncedAt}}
-          class="lastSyncedAt-date"
-        />
+<div local-class="projects-list-item {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}">
+  <div local-class="projectHeader projectId-{{@project.id}}">
+    {{#if @project.logo}}
+      <span local-class="projectLogo">
+        <ProjectLogo @logo={{@project.logo}} />
       </span>
-    {{else}}
-      {{t "components.projects_list.never_synced"}}
     {{/if}}
-  </span>
 
-  <span class="numberStat-totals">
-    {{totalStrings}}
-    {{t "components.dashboard_revisions.strings"}}
-  </span>
+    <span local-class="projectName">
+      {{@project.name}}
+    </span>
+    <style>
+      {{{this.colors}}}
+    </style>
+  </div>
+
+  <div local-class="numberStat">
+    <span local-class="projectUpdates">
+      {{#if @project.lastSyncedAt}}
+        <span local-class="projectUpdate">
+          {{t "components.projects_list.last_synced_at_label"}}
+          <TimeAgoInWordsTag
+            @date={{@project.lastSyncedAt}}
+            local-class="lastSyncedAt-date"
+          />
+        </span>
+      {{else}}
+        {{t "components.projects_list.never_synced"}}
+      {{/if}}
+    </span>
+
+    <span local-class="numberStat-totals">
+      {{this.totalStrings}}
+      {{t "components.dashboard_revisions.strings"}}
+    </span>
+  </div>
+
+  <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
 </div>
-
-<ReviewProgressBar @correctedKeysPercentage={{correctedKeysPercentage}} />

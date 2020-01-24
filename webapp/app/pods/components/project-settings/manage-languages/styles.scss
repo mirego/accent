@@ -1,6 +1,7 @@
 @value color-black, color-light-background, color-grey, color-error from 'accent-webapp/styles/variables/colors';
+@value screen-md from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.project-settings-manage-languages {
   display: flex;
   margin-top: 25px;
 }
@@ -61,8 +62,8 @@
   border: 1px solid #eee;
 }
 
-@media (max-width: ($screen-md)) {
-  & {
+@media (max-width: (screen-md)) {
+  .project-settings-manage-languages {
     flex-direction: column;
   }
 

@@ -1,21 +1,23 @@
-<ProjectSettings::Title
-  @title={{t "components.project_settings.badges.title"}}
-/>
+<div local-class="project-settings-badges">
+  <ProjectSettings::Title
+    @title={{t "components.project_settings.badges.title"}}
+  />
 
-<p class="text">
-  {{t "components.project_settings.badges.text"}}
-</p>
+  <p class="text">
+    {{t "components.project_settings.badges.text"}}
+  </p>
 
-<div class="badge">
-  <span class="badge-title">
-    {{t "components.project_settings.badges.percentage_reviewed"}}
-  </span>
-  <img src="{{percentageReviewedBadgeUrlWithDigest}}">
+  <div class="badge">
+    <span class="badge-title">
+      {{t "components.project_settings.badges.percentage_reviewed"}}
+    </span>
+    <img src="{{percentageReviewedBadgeUrlWithDigest}}">
+  </div>
+
+  <input
+    readonly=""
+    onClick="this.select();"
+    class="badge-code"
+    value={{percentageReviewedBadgeCode}}
+  >
 </div>
-
-<input
-  readonly=""
-  onClick="this.select();"
-  class="badge-code"
-  value={{percentageReviewedBadgeCode}}
->

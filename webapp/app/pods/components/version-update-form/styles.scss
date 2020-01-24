@@ -1,6 +1,7 @@
 @value color-green, color-error from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
 
-& {
+.version-update-form {
   padding: 20px;
   background: #fff;
 }
@@ -29,7 +30,7 @@
   min-width: 250px;
   width: 100%;
   font-size: 12px;
-  font-family: $font-primary;
+  font-family: font-primary;
 }
 
 .errors {

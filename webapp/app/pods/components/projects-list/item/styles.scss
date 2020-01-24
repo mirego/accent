@@ -1,7 +1,8 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-error, color-warning, color-success, color-black, color-light-background, color-grey from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
 
-&.low-percentage {
+.projects-list-item.low-percentage {
   .language-reviewedPercentage {
     color: color-error;
   }
@@ -11,7 +12,7 @@
   }
 }
 
-&.medium-percentage {
+.projects-list-item.medium-percentage {
   .language-reviewedPercentage {
     color: color-warning;
   }
@@ -21,7 +22,7 @@
   }
 }
 
-&.high-percentage {
+.projects-list-item.high-percentage {
   .language-reviewedPercentage {
     color: color-success;
   }
@@ -31,7 +32,7 @@
   }
 }
 
-& {
+.projects-list-item {
   padding: 12px 15px;
   transition: transition-speed transition-easing;
   transition-property: background;
@@ -99,5 +100,5 @@
   background: lighten(color-grey, 25%);
   color: color-grey;
   font-size: 12px;
-  font-family: $font-monospace;
+  font-family: font-monospace;
 }

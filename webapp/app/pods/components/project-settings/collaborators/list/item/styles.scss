@@ -1,7 +1,7 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-grey, color-light-background, color-green, color-black from 'accent-webapp/styles/variables/colors';
 
-& {
+.project-settings-collaborators-list-item {
   transition: transition-speed transition-easing;
   transition-property: background;
   display: flex;

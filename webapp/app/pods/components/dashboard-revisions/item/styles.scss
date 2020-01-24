@@ -1,7 +1,9 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-black, color-error, color-warning, color-success, color-grey, color-green from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.dashboard-revisions-item {
   transition: transition-speed transition-easing;
   transition-property: border-color;
   position: relative;
@@ -29,7 +31,7 @@
   }
 }
 
-&.low-percentage {
+.dashboard-revisions-item.low-percentage {
   .language-reviewedPercentage {
     color: color-error;
   }
@@ -39,7 +41,7 @@
   }
 }
 
-&.medium-percentage {
+.dashboard-revisions-item.medium-percentage {
   .language-reviewedPercentage {
     color: color-warning;
   }
@@ -49,7 +51,7 @@
   }
 }
 
-&.high-percentage {
+.dashboard-revisions-item.high-percentage {
   .language-reviewedPercentage {
     color: color-success;
   }
@@ -59,7 +61,7 @@
   }
 }
 
-&.master {
+.dashboard-revisions-item.master {
   flex: 1 1 auto;
   max-width: none;
 
@@ -104,7 +106,7 @@
   background: lighten(color-grey, 25%);
   color: color-grey;
   font-size: 12px;
-  font-family: $font-monospace;
+  font-family: font-monospace;
 }
 
 .actionsButton {
@@ -153,7 +155,7 @@
   margin-top: 10px;
 }
 
-@media (max-width: ($screen-sm)) {
+@media (max-width: (screen-sm)) {
   .language-reviewedPercentage {
     font-size: 18px;
   }

@@ -1,11 +1,11 @@
 @value color-light-background, color-black, color-green from 'accent-webapp/styles/variables/colors';
 
-& {
+.revision-selector {
   position: relative;
   box-shadow: 0 2px 4px rgba(#000, 0.06);
 }
 
-&.with-many-revisions {
+.revision-selector.with-many-revisions {
   .ember-power-select-selected-item {
     margin-left: 0;
   }

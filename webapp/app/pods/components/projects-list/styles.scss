@@ -1,9 +1,11 @@
-& {
+@value screen-lg, screen-md from 'accent-webapp/styles/variables/dimensions';
+
+.projects-list {
   display: flex;
   flex-wrap: wrap;
   padding: 0 5px;
   margin: 0 auto;
-  max-width: $screen-lg;
+  max-width: screen-lg;
   position: relative;
   margin-top: 20px;
 }
@@ -20,7 +22,7 @@
   margin: 0 10px 30px;
 }
 
-@media (max-width: ($screen-md)) {
+@media (max-width: (screen-md)) {
   .item {
     max-width: none;
     width: 100%;
