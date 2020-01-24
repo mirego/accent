@@ -1,4 +1,6 @@
-& {
+@value font-primary from 'accent-webapp/styles/variables/fonts';
+
+.project-settings-collaborators-create-form {
   display: flex;
 }
 
@@ -9,7 +11,7 @@
   padding: 8px 10px;
   margin-right: 10px;
   min-width: 350px;
-  font-family: $font-primary;
+  font-family: font-primary;
   font-size: 11px;
 }
 

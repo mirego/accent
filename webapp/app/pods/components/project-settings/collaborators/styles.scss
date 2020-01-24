@@ -1,6 +1,7 @@
 @value color-grey, color-green from 'accent-webapp/styles/variables/colors';
+@value screen-md from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.project-settings-collaborators {
   position: relative;
   margin-top: 30px;
 }
@@ -67,7 +68,7 @@
   font-size: 12px;
 }
 
-@media (max-width: ($screen-md)) {
+@media (max-width: (screen-md)) {
   .rolesList {
     display: none;
   }

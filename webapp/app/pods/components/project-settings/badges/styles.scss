@@ -1,6 +1,7 @@
 @value color-green from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
 
-& {
+.project-settings-badges {
   margin-top: 30px;
 }
 
@@ -31,7 +32,7 @@
   overflow-x: scroll;
   word-break: keep-all;
   background: #fbfbfb;
-  font-family: $font-monospace;
+  font-family: font-monospace;
   font-size: 11px;
   border: 2px solid #ddd;
   border-radius: 3px;

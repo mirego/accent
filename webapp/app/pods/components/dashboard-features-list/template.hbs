@@ -1,55 +1,57 @@
-<ul>
-  {{#if (get permissions "index_conflicts")}}
-    <li class="item {{if highlightReview "item--highlight"}}">
-      <LinkTo
-        @route="logged-in.project.revision.conflicts"
-        @models={{array project.id revision.id}}
-        class="item-link"
-      >
-        <strong class="item-title">
-          {{inline-svg "assets/check.svg" class="item-icon"}}
-          {{t "components.dashboard_master_revision.features.review.title"}}
-        </strong>
-        <span class="item-text">
-          {{t "components.dashboard_master_revision.features.review.text"}}
-        </span>
-      </LinkTo>
-    </li>
-  {{/if}}
+<div local-class="dashboard-features-list">
+  <ul>
+    {{#if (get @permissions "index_conflicts")}}
+      <li class="item {{if this.highlightReview "item--highlight"}}">
+        <LinkTo
+          @route="logged-in.project.revision.conflicts"
+          @models={{array @project.id @revision.id}}
+          class="item-link"
+        >
+          <strong class="item-title">
+            {{inline-svg "assets/check.svg" class="item-icon"}}
+            {{t "components.dashboard_master_revision.features.review.title"}}
+          </strong>
+          <span class="item-text">
+            {{t "components.dashboard_master_revision.features.review.text"}}
+          </span>
+        </LinkTo>
+      </li>
+    {{/if}}
 
-  {{#if (get permissions "sync")}}
-    <li class="item {{if highlightSync "item--highlight"}}">
-      <LinkTo
-        @route="logged-in.project.files"
-        @model={{project.id}}
-        class="item-link"
-      >
-        <strong class="item-title">
-          {{inline-svg "assets/sync.svg" class="item-icon"}}
-          {{t "components.dashboard_master_revision.features.sync.title"}}
-        </strong>
-        <span class="item-text">
-          {{t "components.dashboard_master_revision.features.sync.text"}}
-        </span>
-      </LinkTo>
-    </li>
-  {{/if}}
+    {{#if (get @permissions "sync")}}
+      <li class="item {{if this.highlightSync "item--highlight"}}">
+        <LinkTo
+          @route="logged-in.project.files"
+          @model={{@project.id}}
+          class="item-link"
+        >
+          <strong class="item-title">
+            {{inline-svg "assets/sync.svg" class="item-icon"}}
+            {{t "components.dashboard_master_revision.features.sync.title"}}
+          </strong>
+          <span class="item-text">
+            {{t "components.dashboard_master_revision.features.sync.text"}}
+          </span>
+        </LinkTo>
+      </li>
+    {{/if}}
 
-  {{#if (get permissions "index_translations")}}
-    <li class="item">
-      <LinkTo
-        @route="logged-in.project.revision.translations"
-        @models={{array project.id revision.id}}
-        class="item-link"
-      >
-        <strong class="item-title">
-          {{inline-svg "assets/search.svg" class="item-icon"}}
-          {{t "components.dashboard_master_revision.features.translations.title"}}
-        </strong>
-        <span class="item-text">
-          {{t "components.dashboard_master_revision.features.translations.text"}}
-        </span>
-      </LinkTo>
-    </li>
-  {{/if}}
-</ul>
+    {{#if (get @permissions "index_translations")}}
+      <li class="item">
+        <LinkTo
+          @route="logged-in.project.revision.translations"
+          @models={{array @project.id @revision.id}}
+          class="item-link"
+        >
+          <strong class="item-title">
+            {{inline-svg "assets/search.svg" class="item-icon"}}
+            {{t "components.dashboard_master_revision.features.translations.title"}}
+          </strong>
+          <span class="item-text">
+            {{t "components.dashboard_master_revision.features.translations.text"}}
+          </span>
+        </LinkTo>
+      </li>
+    {{/if}}
+  </ul>
+</div>

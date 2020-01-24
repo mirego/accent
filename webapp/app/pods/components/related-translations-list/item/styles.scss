@@ -1,6 +1,6 @@
 @value color-grey, color-black, color-green from 'accent-webapp/styles/variables/colors';
 
-& {
+.related-translations-list-item {
   position: relative;
 
   &.empty {

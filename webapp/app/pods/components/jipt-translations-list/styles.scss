@@ -1,7 +1,7 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-light-background, color-black from 'accent-webapp/styles/variables/colors';
 
-& {
+.jipt-translations-list {
   margin: 20px 0;
   border-top: 1px solid #eee;
 }

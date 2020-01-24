@@ -1,6 +1,7 @@
 @value color-green, color-error, color-light-background from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
 
-& {
+.project-create-form {
   padding: 20px;
   background: #fff;
 }
@@ -25,7 +26,7 @@
   padding: 10px;
   margin-right: 5px;
   font-size: 12px;
-  font-family: $font-primary;
+  font-family: font-primary;
 
   &:focus {
     border: 2px solid rgba(color-green, 0.7);

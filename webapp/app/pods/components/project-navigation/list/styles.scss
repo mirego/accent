@@ -1,7 +1,8 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-grey, color-light-background, color-green from 'accent-webapp/styles/variables/colors';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.project-navigation-list {
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -82,8 +83,8 @@
   }
 }
 
-@media (max-width: ($screen-sm)) {
-  & {
+@media (max-width: (screen-sm)) {
+  .project-navigation-list {
     flex-direction: row;
     justify-content: space-between;
     margin-left: 0;

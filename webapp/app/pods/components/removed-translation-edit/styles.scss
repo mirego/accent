@@ -1,4 +1,5 @@
 @value color-grey from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
 
 .text {
   width: 100%;
@@ -9,7 +10,7 @@
   outline: 0;
   border: 1px solid lighten(color-grey, 20%);
   background: darken(#fff, 2%);
-  font-family: $font-monospace;
+  font-family: font-monospace;
   font-size: 12px;
 }
 

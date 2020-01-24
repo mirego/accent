@@ -1,6 +1,7 @@
 @value color-black from 'accent-webapp/styles/variables/colors';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.login-header {
   max-width: 500px;
   margin: 100px auto 40px;
 }
@@ -39,8 +40,8 @@
   height: 30px;
 }
 
-@media (max-width: ($screen-sm)) {
-  & {
+@media (max-width: (screen-sm)) {
+  .login-header {
     margin-top: 30px;
   }
 }

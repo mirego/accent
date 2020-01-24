@@ -1,4 +1,6 @@
-& {
+@value font-monospace, font-primary from 'accent-webapp/styles/variables/fonts';
+
+.project-settings-integrations-form {
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 3px;
@@ -16,12 +18,12 @@
   margin-right: 10px;
   max-width: 350px;
   width: 100%;
-  font-family: $font-primary;
+  font-family: font-primary;
   font-size: 11px;
 
   &[readonly] {
     max-width: 500px;
-    font-family: $font-monospace;
+    font-family: font-monospace;
     background: #fafafa;
   }
 }
@@ -39,7 +41,7 @@
 }
 
 .instructions-text a {
-  font-family: $font-monospace;
+  font-family: font-monospace;
   color: var(--color-primary);
   text-decoration: none;
 

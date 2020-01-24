@@ -1,6 +1,7 @@
 @value color-light-background, color-error, color-green from 'accent-webapp/styles/variables/colors';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.dummy-login-form {
   max-width: 500px;
   margin: 100px auto 30px;
   padding: 20px;
@@ -57,8 +58,8 @@
   border-radius: 0 3px 3px 0;
 }
 
-@media (max-width: ($screen-sm)) {
-  & {
+@media (max-width: (screen-sm)) {
+  .dummy-login-form {
     margin-top: 30px;
   }
 }

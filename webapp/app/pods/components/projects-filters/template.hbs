@@ -1,33 +1,35 @@
-<div class="filters">
-  <form class="filters-wrapper" {{action "submitForm" on="submit"}}>
-    <div class="queryFilter">
-      {{inline-svg "/assets/search.svg" class="search-icon"}}
-      <Input
-        class="input"
-        @type="text"
+<div local-class="filters" class="filters">
+  <form local-class="filters-wrapper" class="filters-wrapper" {{on "submit" (fn this.submitForm)}}>
+    <div local-class="queryFilter">
+      {{inline-svg "/assets/search.svg" local-class="search-icon"}}
+      <input
+        {{on "change" this.setDebouncedQuery}}
+        local-class="input"
+        type="text"
         placeholder={{t "components.projects_filters.input_placeholder_text"}}
-        @value={{debouncedQuery}}
-      />
+        value={{this.debouncedQuery}}
+      >
     </div>
 
-    {{#unless debouncedQuery}}
-      {{#if (get permissions "create_project")}}
+    {{#unless this.debouncedQuery}}
+      {{#if (get @permissions "create_project")}}
         <LinkTo
           @route="logged-in.projects.new"
-          class="button button--filled button--green createProjectButton"
+          class="button button--filled button--green"
+          local-class="createProjectButton"
         >
-          {{inline-svg "/assets/add.svg" class="button-icon"}}
+          {{inline-svg "/assets/add.svg" local-class="button-icon"}}
           {{t "components.projects_filters.new_project"}}
         </LinkTo>
       {{/if}}
     {{/unless}}
   </form>
 
-  <div class="filters-meta">
-    {{#if query}}
+  <div local-class="filters-meta">
+    {{#if @query}}
       {{t "components.projects_filters.searching_for"}}
-      <em class="filters-meta-keyword">
-        {{query}}
+      <em local-class="filters-meta-keyword">
+        {{@query}}
       </em>
     {{/if}}
   </div>

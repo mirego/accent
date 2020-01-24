@@ -1,6 +1,7 @@
 @value color-green from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
 
-& {
+.login-forms {
   max-width: 500px;
   margin: 0 auto 30px;
 }
@@ -10,7 +11,7 @@
   max-width: 300px;
   padding: 10px;
   width: 100%;
-  font-family: $font-primary;
+  font-family: font-primary;
   font-size: 13px;
   border: 2px solid darken(color-green, 5%);
 

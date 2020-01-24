@@ -1,9 +1,7 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-
 .button {
   display: inline-flex;
   align-items: center;
-  transition: transition-speed transition-easing;
+  transition: $transition-speed $transition-easing;
   transition-property: all;
   appearance: none;
   margin: 0;
@@ -25,7 +23,7 @@
 .button-icon {
   position: relative;
   top: 3px;
-  transition: transition-speed transition-easing;
+  transition: $transition-speed $transition-easing;
   transition-property: fill;
   width: 14px;
   height: 14px;
@@ -89,7 +87,7 @@
   }
 
   &.button--red {
-    background: $color-error;
+    background: color-error;
     border: 1px solid darken($color-error, 4%);
     color: #fff;
 

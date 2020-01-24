@@ -1,14 +1,29 @@
-@value color-green: #28cb87;
-@value color-blue: #3f7cc5;
-@value color-border: #e0e0e0;
+$color-green: #28cb87;
+$color-blue: #3f7cc5;
+$color-border: #e0e0e0;
 
-@value color-true-black: #1a211d;
-@value color-black: #3a3a3a;
+$color-true-black: #1a211d;
+$color-black: #3a3a3a;
 
-@value color-grey: #adadad;
-@value color-light-background: #fafafa;
+$color-grey: #adadad;
+$color-light-background: #fafafa;
 
-@value color-success: #45c86f;
-@value color-warning: #e4b600;
-@value color-socket: #2c4fb4;
-@value color-error: #d84444;
+$color-success: #45c86f;
+$color-warning: #e4b600;
+$color-socket: #2c4fb4;
+$color-error: #d84444;
+
+@value color-green: $color-green;
+@value color-blue: $color-blue;
+@value color-border: $color-border;
+
+@value color-true-black: $color-true-black;
+@value color-black: $color-black;
+
+@value color-grey: $color-grey;
+@value color-light-background: $color-light-background;
+
+@value color-success: $color-success;
+@value color-warning: $color-warning;
+@value color-socket: $color-socket;
+@value color-error: $color-error;

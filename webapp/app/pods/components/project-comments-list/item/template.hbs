@@ -1,40 +1,42 @@
-<div class="item-header">
-  <LinkTo
-    @route="logged-in.project.revision.translations"
-    @models={{array project.id groupedComment.value.revision.id}}
-    class="item-language"
-  >
-    {{groupedComment.value.revision.language.name}}
-  </LinkTo>
-  <LinkTo
-    @route="logged-in.project.translation.comments"
-    @models={{array project.id groupedComment.value.id}}
-    class="item-link"
-  >
-    <small class="item-key-prefix">
-      {{#if translationKey.prefix}}
-        {{translationKey.prefix}}
-      {{else}}
-        {{groupedComment.value.document.path}}
-      {{/if}}
-    </small>
-    {{translationKey.value}}
-  </LinkTo>
-  {{#if groupedComment.value.removed}}
-    <div class="removedBadge">
-      {{t
-        "components.translation_splash_title.removed_label"
-        removedAt=(time-ago-in-words groupedComment.value.updatedAt)
-      }}
-    </div>
-  {{/if}}
-</div>
+<div local-class="project-comments-list-item">
+  <div class="item-header">
+    <LinkTo
+      @route="logged-in.project.revision.translations"
+      @models={{array project.id groupedComment.value.revision.id}}
+      class="item-language"
+    >
+      {{groupedComment.value.revision.language.name}}
+    </LinkTo>
+    <LinkTo
+      @route="logged-in.project.translation.comments"
+      @models={{array project.id groupedComment.value.id}}
+      class="item-link"
+    >
+      <small class="item-key-prefix">
+        {{#if translationKey.prefix}}
+          {{translationKey.prefix}}
+        {{else}}
+          {{groupedComment.value.document.path}}
+        {{/if}}
+      </small>
+      {{translationKey.value}}
+    </LinkTo>
+    {{#if groupedComment.value.removed}}
+      <div class="removedBadge">
+        {{t
+          "components.translation_splash_title.removed_label"
+          removedAt=(time-ago-in-words groupedComment.value.updatedAt)
+        }}
+      </div>
+    {{/if}}
+  </div>
 
-<TranslationCommentsList
-  @comments={{groupedComment.items}}
-  class={{if
-    groupedComment.value.removed
-    "translationCommentsList translationRemoved"
-    "translationCommentsList"
-  }}
-/>
+  <TranslationCommentsList
+    @comments={{groupedComment.items}}
+    class={{if
+      groupedComment.value.removed
+      "translationCommentsList translationRemoved"
+      "translationCommentsList"
+    }}
+  />
+</div>

@@ -1,7 +1,7 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-light-background, color-green, color-black, color-error from 'accent-webapp/styles/variables/colors';
 
-& {
+.project-comments-list-item {
   margin-bottom: 45px;
 }
 

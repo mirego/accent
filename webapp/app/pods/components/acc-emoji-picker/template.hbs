@@ -1,1 +1,9 @@
-{{yield}}
+<div
+  {{did-insert this.initializePicker}}
+  {{will-destroy this.destroyPicker}}
+  {{on "click" (fn this.onClick)}}
+  ...attributes
+>
+  {{yield}}
+</div>
+

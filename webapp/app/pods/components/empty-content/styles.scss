@@ -1,6 +1,6 @@
 @value color-black, color-error, color-green from 'accent-webapp/styles/variables/colors';
 
-& {
+.empty-content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,14 +33,14 @@
   }
 }
 
-.icon {
+:global(.icon) {
   display: block;
   width: 50px;
   height: 50px;
   margin-bottom: 10px;
 }
 
-.link {
+:global(.link) {
   color: color-green;
   color: var(--color-primary);
   text-decoration: none;

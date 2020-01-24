@@ -1,7 +1,7 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-green, color-grey, color-black from 'accent-webapp/styles/variables/colors';
 
-& {
+.dashboard-features-list {
   padding: 0 15px 0 0;
   flex: 1 0 50%;
   list-style: none;

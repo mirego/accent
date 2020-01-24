@@ -1,85 +1,87 @@
-<div class="filters">
-  <form class="filters-wrapper" {{action "submitForm" on="submit"}}>
-    <div class="filters-content">
-      <div class="queryForm">
-        {{inline-svg "/assets/search.svg" class="search-icon"}}
-        <Input
-          class="input"
-          @type="text"
-          placeholder={{t
-            "components.translations_filter.input_placeholder_text"
-          }}
-          @value={{debouncedQuery}}
-        />
-      </div>
+<div local-class="translations-filter">
+  <div class="filters">
+    <form class="filters-wrapper" {{action "submitForm" on="submit"}}>
+      <div class="filters-content">
+        <div class="queryForm">
+          {{inline-svg "/assets/search.svg" class="search-icon"}}
+          <Input
+            class="input"
+            @type="text"
+            placeholder={{t
+              "components.translations_filter.input_placeholder_text"
+            }}
+            @value={{debouncedQuery}}
+          />
+        </div>
 
-      <div class="queryForm-filters">
-        <div class="queryForm-filters-column">
-          {{#if showDocumentsSelect}}
-            <div class="queryForm-filter">
-              <div class="queryForm-filter-select">
-                <AccSelect
-                  @matchTriggerWidth={{false}}
-                  @searchEnabled={{false}}
-                  @selected={{documentValue}}
-                  @options={{mappedDocuments}}
-                  @onchange={{action onChangeDocument value="value"}}
-                />
+        <div class="queryForm-filters">
+          <div class="queryForm-filters-column">
+            {{#if showDocumentsSelect}}
+              <div class="queryForm-filter">
+                <div class="queryForm-filter-select">
+                  <AccSelect
+                    @matchTriggerWidth={{false}}
+                    @searchEnabled={{false}}
+                    @selected={{documentValue}}
+                    @options={{mappedDocuments}}
+                    @onchange={{action onChangeDocument value="value"}}
+                  />
+                </div>
               </div>
-            </div>
-          {{/if}}
+            {{/if}}
 
-          {{#if showVersionsSelect}}
-            <div class="queryForm-filter">
-              <div class="queryForm-filter-select">
-                <AccSelect
-                  @matchTriggerWidth={{false}}
-                  @searchEnabled={{false}}
-                  @selected={{versionValue}}
-                  @options={{mappedVersions}}
-                  @onchange={{action onChangeVersion value="value"}}
-                />
+            {{#if showVersionsSelect}}
+              <div class="queryForm-filter">
+                <div class="queryForm-filter-select">
+                  <AccSelect
+                    @matchTriggerWidth={{false}}
+                    @searchEnabled={{false}}
+                    @selected={{versionValue}}
+                    @options={{mappedVersions}}
+                    @onchange={{action onChangeVersion value="value"}}
+                  />
+                </div>
               </div>
-            </div>
+            {{/if}}
+          </div>
+
+          {{#if this.onChangeAdvancedFilterBoolean}}
+            <button {{action "toggleAdvancedFilters"}} class="advancedFilters">
+              <div class="advancedFilters-content">
+                {{inline-svg "assets/filter.svg" class="advancedFilters-icon"}}
+                {{t
+                  "components.translations_filter.advanced_filters_button"
+                }}
+
+                {{#if this.withAdvancedFilters}}
+                  <span class="advancedFilters-badge">
+                    {{this.withAdvancedFilters}}
+                  </span>
+                {{/if}}
+              </div>
+            </button>
           {{/if}}
         </div>
 
-        {{#if this.onChangeAdvancedFilterBoolean}}
-          <button {{action "toggleAdvancedFilters"}} class="advancedFilters">
-            <div class="advancedFilters-content">
-              {{inline-svg "assets/filter.svg" class="advancedFilters-icon"}}
-              {{t
-                "components.translations_filter.advanced_filters_button"
-              }}
-
-              {{#if this.withAdvancedFilters}}
-                <span class="advancedFilters-badge">
-                  {{this.withAdvancedFilters}}
-                </span>
-              {{/if}}
-            </div>
-          </button>
+        {{#if this.displayAdvancedFilters}}
+          <TranslationsFilter::AdvancedFilters
+            @isTextEmptyFilter={{isTextEmptyFilter}}
+            @isTextNotEmptyFilter={{isTextNotEmptyFilter}}
+            @isAddedLastSyncFilter={{isAddedLastSyncFilter}}
+            @isCommentedOnFilter={{isCommentedOnFilter}}
+            @onChangeAdvancedFilterBoolean={{onChangeAdvancedFilterBoolean}}
+          />
         {{/if}}
       </div>
 
-      {{#if this.displayAdvancedFilters}}
-        <TranslationsFilter::AdvancedFilters
-          @isTextEmptyFilter={{isTextEmptyFilter}}
-          @isTextNotEmptyFilter={{isTextNotEmptyFilter}}
-          @isAddedLastSyncFilter={{isAddedLastSyncFilter}}
-          @isCommentedOnFilter={{isCommentedOnFilter}}
-          @onChangeAdvancedFilterBoolean={{onChangeAdvancedFilterBoolean}}
-        />
+      {{#if meta.totalEntries}}
+        <span class="totalEntries">
+          {{t
+            "components.translations_filter.total_entries_count"
+            count=meta.totalEntries
+          }}
+        </span>
       {{/if}}
-    </div>
-
-    {{#if meta.totalEntries}}
-      <span class="totalEntries">
-        {{t
-          "components.translations_filter.total_entries_count"
-          count=meta.totalEntries
-        }}
-      </span>
-    {{/if}}
-  </form>
+    </form>
+  </div>
 </div>

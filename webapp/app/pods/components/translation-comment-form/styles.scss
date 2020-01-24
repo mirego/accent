@@ -1,6 +1,8 @@
 @value color-error from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.translation-comment-form {
   margin-top: 30px;
 }
 
@@ -27,11 +29,11 @@
   padding: 10px;
   margin-right: 10px;
   width: 100%;
-  font-family: $font-primary;
+  font-family: font-primary;
   font-size: 13px;
 }
 
-@media (max-width: ($screen-sm)) {
+@media (max-width: (screen-sm)) {
   .form-content {
     flex-direction: column;
   }

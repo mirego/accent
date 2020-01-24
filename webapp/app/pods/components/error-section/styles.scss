@@ -1,6 +1,8 @@
 @value color-light-background, color-green from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
 
-& {
+.error-section {
   max-width: 400px;
   margin: 100px auto 30px;
   padding: 20px 20px 40px;
@@ -27,14 +29,14 @@
 .status {
   margin-right: 15px;
   text-shadow: 0 1px 2px rgba(color-green, 0.3);
-  font-family: $font-monospace;
+  font-family: font-monospace;
   font-size: 30px;
   font-weight: 300;
   color: color-green;
 }
 
 .title {
-  font-family: $font-monospace;
+  font-family: font-monospace;
   font-size: 14px;
   font-style: italic;
   font-weight: 300;
@@ -68,8 +70,8 @@
   color: #bbb;
 }
 
-@media (max-width: ($screen-sm)) {
-  & {
+@media (max-width: (screen-sm)) {
+  .error-section {
     margin-top: 40px;
   }
 }
