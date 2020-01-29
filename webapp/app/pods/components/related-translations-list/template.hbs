@@ -1,21 +1,21 @@
-<div local-class="related-translations-list">
-  {{#each translations key="id" as |translation|}}
+<ul local-local-class="related-translations-list">
+  {{#each @translations key="id" as |translation|}}
     <RelatedTranslationsList::Item
-      @onUpdateText={{onUpdateText}}
+      @onUpdateText={{@onUpdateText}}
       @isInEditMode={{true}}
       @showEditButton={{false}}
       @translation={{translation}}
-      @project={{project}}
+      @project={{@project}}
     />
   {{else}}
-    <li class="emptyItem">
-      <p class="emptyItem-text">
+    <li local-class="emptyItem">
+      <p local-class="emptyItem-text">
         {{t "components.related_translations_list.no_related_translations"}}
       </p>
 
       <LinkTo
         @route="logged-in.project.edit.manage-languages"
-        @model={{project.id}}
+        @model={{@project.id}}
         class="button button--filled button--white button--borderless"
       >
         {{inline-svg "assets/add.svg" class="button-icon"}}
@@ -23,4 +23,4 @@
       </LinkTo>
     </li>
   {{/each}}
-</div>
+</ul>

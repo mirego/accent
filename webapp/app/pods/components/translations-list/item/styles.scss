@@ -103,7 +103,6 @@
 }
 
 .item-text {
-  @extend %translationTextBase;
   display: block;
   width: 100%;
   font-size: 13px;
@@ -148,10 +147,10 @@
 }
 
 .item-textEdit-button {
-  padding: 1px 9px;
-  position: absolute;
-  top: 6px;
-  right: 16px;
+  padding: 1px 9px !important;
+  position: absolute !important;
+  top: 6px !important;
+  right: 16px !important;
 }
 
 @media (max-width: 800px) {

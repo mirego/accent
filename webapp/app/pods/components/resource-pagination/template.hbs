@@ -1,27 +1,27 @@
 <div local-class="resource-pagination">
-  {{#if showPagination}}
+  {{#if this.showPagination}}
     <button
-      disabled={{disabledPrevious}}
+      disabled={{this.disabledPrevious}}
       class="button button--white button--filled button--iconOnly"
-      {{action "goToPreviousPage"}}
+      {{on "click" (fn this.goToPreviousPage)}}
     >
       {{inline-svg "assets/chevron-left.svg" class="button-icon"}}
     </button>
 
-    <span class="label">
-      <span class="label-number">
-        {{attrs.meta.currentPage}}
+    <span local-class="label" class="label">
+      <span local-class="label-number">
+        {{@meta.currentPage}}
       </span>
       /
-      <span class="label-number">
-        {{attrs.meta.totalPages}}
+      <span local-class="label-number">
+        {{@meta.totalPages}}
       </span>
     </span>
 
     <button
-      disabled={{disabledNext}}
+      disabled={{this.disabledNext}}
       class="button button--white button--filled button--iconOnly"
-      {{action "goToNextPage"}}
+      {{on "click" (fn this.goToNextPage)}}
     >
       {{inline-svg "assets/chevron-right.svg" class="button-icon"}}
     </button>

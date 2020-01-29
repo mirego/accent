@@ -192,9 +192,9 @@
 }
 
 .activities-viewMoreButton {
-  display: block;
-  margin-top: 15px;
-  text-align: center;
+  display: block !important;
+  margin-top: 15px !important;
+  text-align: center !important;
 }
 
 @media (max-width: (screen-md)) {

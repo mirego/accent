@@ -105,6 +105,7 @@ export default class SyncController extends Controller {
     this.revisionOperations = revisionOperations;
   }
 
+  @action
   async sync({
     fileSource,
     documentFormat,

@@ -111,11 +111,11 @@
 }
 
 .fileButton {
-  margin-top: 7px;
-  padding: 9px 30px;
+  margin-top: 7px !important;
+  padding: 9px 30px !important;
 
   .button-icon {
-    margin-right: 10px;
+    margin-right: 10px !important;
   }
 }
 
@@ -169,7 +169,7 @@
 }
 
 .peekButton {
-  margin-top: 7px;
+  margin-top: 7px !important;
 }
 
 .errorMessage {

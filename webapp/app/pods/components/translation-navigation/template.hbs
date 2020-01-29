@@ -3,7 +3,7 @@
     <li class="subNavigation-list-item">
       <LinkTo
         @route="logged-in.project.translation.index"
-        @models={{array project.id translation.id}}
+        @models={{array @project.id @translation.id}}
         class="subNavigation-list-item-link"
       >
         {{inline-svg
@@ -16,11 +16,11 @@
       </LinkTo>
     </li>
 
-    {{#if (get permissions "index_related_translations")}}
+    {{#if (get @permissions "index_related_translations")}}
       <li class="subNavigation-list-item">
         <LinkTo
           @route="logged-in.project.translation.related-translations"
-          @models={{array project.id translation.id}}
+          @models={{array @project.id @translation.id}}
           class="subNavigation-list-item-link"
         >
           {{inline-svg
@@ -36,11 +36,11 @@
       </li>
     {{/if}}
 
-    {{#if (get permissions "index_comments")}}
+    {{#if (get @permissions "index_comments")}}
       <li class="subNavigation-list-item">
         <LinkTo
           @route="logged-in.project.translation.comments"
-          @models={{array project.id translation.id}}
+          @models={{array @project.id @translation.id}}
           class="subNavigation-list-item-link"
         >
           {{inline-svg
@@ -50,18 +50,18 @@
           <span class="subNavigation-list-item-link-text">
             {{t
               "components.translation_navigation.comments_link_title"
-              count=translation.commentsCount
+              count=@translation.commentsCount
             }}
           </span>
         </LinkTo>
       </li>
     {{/if}}
 
-    {{#if (get permissions "index_translation_activities")}}
+    {{#if (get @permissions "index_translation_activities")}}
       <li class="subNavigation-list-item">
         <LinkTo
           @route="logged-in.project.translation.activities"
-          @models={{array project.id translation.id}}
+          @models={{array @project.id @translation.id}}
           class="subNavigation-list-item-link"
         >
           {{inline-svg

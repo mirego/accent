@@ -114,9 +114,10 @@
 }
 
 .correctButton {
-  position: absolute;
-  top: 6px;
-  right: 15px;
+  position: absolute !important;
+  top: 6px !important;
+  right: 15px !important;
+  padding: 0 !important;
 }
 
 .textDiff,
@@ -131,13 +132,13 @@
   border-top: 1px dashed lighten(color-grey, 20%);
   white-space: pre-wrap;
 
-  .added {
+  :global(.added) {
     padding: 0 3px;
     background: lighten(color-success, 42%);
     color: darken(color-success, 10%);
   }
 
-  .removed {
+  :global(.removed) {
     padding: 0 3px;
     background: lighten(color-error, 42%);
     color: color-error;

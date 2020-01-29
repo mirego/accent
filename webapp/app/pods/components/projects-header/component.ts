@@ -55,8 +55,6 @@ export default class ProjectsHeader extends Component<Args> {
 
   @restartableTask
   *debounceQuery(query: string) {
-    if (!this.debouncedQuery) return;
-
     this.debouncedQuery = query;
 
     yield timeout(DEBOUNCE_OFFSET);

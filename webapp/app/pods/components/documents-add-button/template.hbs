@@ -1,8 +1,9 @@
 <LinkTo
   @route="logged-in.project.files.new-sync"
-  @model={{project.id}}
+  @model={{@project.id}}
+  local-class="button"
   class="button"
 >
-  {{inline-svg "/assets/add.svg" class="button-icon"}}
+  {{inline-svg "/assets/add.svg" local-class="button-icon" class="button-icon"}}
   {{t "components.documents_add_button.link"}}
 </LinkTo>

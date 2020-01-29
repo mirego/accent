@@ -53,10 +53,12 @@ export default class ConflictItem extends Component<Args> {
     }
   }
 
+  @action
   inputBlur() {
     this.active = false;
   }
 
+  @action
   inputFocus() {
     this.active = true;
   }

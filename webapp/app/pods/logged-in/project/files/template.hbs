@@ -9,8 +9,8 @@
     @permissions={{permissions}}
     @documents={{model.documents.entries}}
     @project={{model.project}}
-    @onDelete={{action "deleteDocument"}}
-    @onUpdate={{action "updateDocument"}}
+    @onDelete={{fn this.deleteDocument}}
+    @onUpdate={{fn this.updateDocument}}
   />
 
   {{#if (get permissions "sync")}}
@@ -19,7 +19,7 @@
 
   <ResourcePagination
     @meta={{model.documents.meta}}
-    @onSelectPage={{action "selectPage"}}
+    @onSelectPage={{fn this.selectPage}}
   />
 
   {{outlet}}

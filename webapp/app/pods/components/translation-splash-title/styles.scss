@@ -2,7 +2,7 @@
 @value color-black, color-green, color-error from 'accent-webapp/styles/variables/colors';
 @value font-monospace from 'accent-webapp/styles/variables/fonts';
 
-.translation-splash-title {
+.translation-splash-file {
   margin-bottom: 40px;
 }
 
@@ -36,7 +36,6 @@
 }
 
 .key {
-  @extend %translationKeyBase;
   margin-bottom: 3px;
   font-weight: bold;
   font-size: 22px;

@@ -3,14 +3,57 @@
 .revision-selector {
   position: relative;
   box-shadow: 0 2px 4px rgba(#000, 0.06);
+
+  :global(.ember-power-select-selected-item) {
+    margin-left: 10px;
+    font-weight: 700;
+    color: color-black;
+    color: var(--color-black);
+
+    em {
+      margin-left: 1px;
+      font-size: 11px;
+      font-style: normal;
+      color: color-green;
+      color: var(--color-primary);
+    }
+  }
+
+  :global(.ember-power-select-trigger) {
+    padding: 10px;
+    font-size: 20px;
+    flex-direction: row-reverse;
+    border: 1px solid #eee;
+    cursor: default;
+    pointer-events: none;
+
+    :global(.ember-power-select-status-icon) {
+      &:after {
+        display: none;
+        content: 'Ξ';
+        transform: rotate(0);
+        bottom: -14px;
+        left: 0;
+        color: #ddd;
+      }
+    }
+
+    &[aria-expanded='true'] {
+      :global(.ember-power-select-status-icon) {
+        &:after {
+          transform: rotate(0);
+        }
+      }
+    }
+  }
 }
 
 .revision-selector.with-many-revisions {
-  .ember-power-select-selected-item {
+  :global(.ember-power-select-selected-item) {
     margin-left: 0;
   }
 
-  .ember-power-select-trigger {
+  :global(.ember-power-select-trigger) {
     padding-bottom: 25px;
     cursor: pointer;
     pointer-events: all;
@@ -19,7 +62,7 @@
       background: color-light-background;
     }
 
-    .ember-power-select-status-icon {
+    :global(.ember-power-select-status-icon) {
       &:after {
         display: block;
       }
@@ -35,47 +78,4 @@
   font-style: italic;
   color: #ccc;
   pointer-events: none;
-}
-
-.ember-power-select-selected-item {
-  margin-left: 10px;
-  font-weight: 700;
-  color: color-black;
-  color: var(--color-black);
-
-  em {
-    margin-left: 1px;
-    font-size: 11px;
-    font-style: normal;
-    color: color-green;
-    color: var(--color-primary);
-  }
-}
-
-.ember-power-select-trigger {
-  padding: 10px;
-  font-size: 20px;
-  flex-direction: row-reverse;
-  border: 1px solid #eee;
-  cursor: default;
-  pointer-events: none;
-
-  .ember-power-select-status-icon {
-    &:after {
-      display: none;
-      content: 'Ξ';
-      transform: rotate(0);
-      bottom: -14px;
-      left: 0;
-      color: #ddd;
-    }
-  }
-
-  &[aria-expanded='true'] {
-    .ember-power-select-status-icon {
-      &:after {
-        transform: rotate(0);
-      }
-    }
-  }
 }

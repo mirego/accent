@@ -1,41 +1,41 @@
-<div local-class="documents-list-item">
-  <form class="item-form {{if this.isDeleting "item-form--deleting"}}" {{action "updateDocument" on="submit"}}>
-    <div class="item-form-inputs">
-      <h2 class="item-title">
+<li local-class="documents-list-item {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}">
+  <form local-class="item-form {{if this.isDeleting "item-form--deleting"}}" {{on "submit" (fn this.updateDocument)}}>
+    <div local-class="item-form-inputs">
+      <h2 local-class="item-title">
         {{#if this.isEditing}}
-          <label class="item-form-label">
+          <label local-class="item-form-label">
             {{t "components.documents_list.item.path_label"}}
-            <small class="item-form-help">
+            <small local-class="item-form-help">
               {{{t "components.documents_list.item.path_help"}}}
             </small>
 
             <QuickSubmitTextfield
-              @onSubmit={{action "updateDocument"}}
-              @value={{renamedDocumentPath}}
-              class="textInput"
+              @onSubmit={{fn this.updateDocument}}
+              @value={{this.renamedDocumentPath}}
+              local-class="textInput"
             />
           </label>
         {{else}}
-          <span class="item-toggle-edit">
+          <span local-class="item-toggle-edit">
             {{#if this.isDeleting}}
-              <span class="item-document-deleting-title">
-                {{inline-svg "/assets/loading.svg" class="item-document-deleting-title-loading"}}
+              <span local-class="item-document-deleting-title">
+                {{inline-svg "/assets/loading.svg" local-class="item-document-deleting-title-loading"}}
 
                 {{t "components.documents_list.item.deleting_label"}}
-                {{document.path}}.{{documentFormatItem.extension}}…
+                {{@document.path}}.{{this.documentFormatItem.extension}}…
               </span>
             {{else}}
-              <button class="item-edit-button" {{action "toggleEdit"}}>
-                {{inline-svg "assets/pencil.svg" class="item-edit-icon"}}
+              <button local-class="item-edit-button" {{on "click" (fn this.toggleEdit)}}>
+                {{inline-svg "assets/pencil.svg" local-class="item-edit-icon"}}
               </button>
 
               <LinkTo
                 @route="logged-in.project.files.export"
-                @models={{array project.id document.id}}
-                class="item-document"
+                @models={{array @project.id @document.id}}
+                local-class="item-document"
               >
-                {{document.path}}
-                <span class="item-subtitle">.{{documentFormatItem.extension}}</span>
+                {{@document.path}}
+                <span local-class="item-subtitle">.{{this.documentFormatItem.extension}}</span>
               </LinkTo>
             {{/if}}
           </span>
@@ -44,60 +44,60 @@
     </div>
 
     {{#unless this.isEditing}}
-      <div class="stat">
-        <span class="reviewedPercentage">
-          {{correctedKeysPercentage}}
+      <div local-class="stat">
+        <span local-class="reviewedPercentage">
+          {{this.correctedKeysPercentage}}
           %
         </span>
-        <span class="reviewedStats">
-          <span class="reviewedStats-reviewedCount">
-            {{reviewsCount}}
+        <span local-class="reviewedStats">
+          <span local-class="reviewedStats-reviewedCount">
+            {{this.reviewsCount}}
           </span>
           /
-          <span class="reviewedStats-translationsCount">
-            {{document.translationsCount}}
+          <span local-class="reviewedStats-translationsCount">
+            {{@document.translationsCount}}
           </span>
         </span>
       </div>
 
-      <div class="stat-progress">
-        <ReviewProgressBar @correctedKeysPercentage={{correctedKeysPercentage}} />
+      <div local-class="stat-progress">
+        <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
       </div>
     {{/unless}}
 
-    <div class="links">
+    <div local-class="links">
       {{#if this.isEditing}}
         <div>
           <button
             class="button button--filled button--white"
-            {{action "toggleEdit"}}
+            {{on "click" (fn this.toggleEdit)}}
           >
             {{t "components.documents_list.cancel_button"}}
           </button>
           <AsyncButton
             class="button button--filled"
-            @loading={{isUpdating}}
-            @onClick={{action "updateDocument"}}
+            @loading={{this.isUpdating}}
+            @onClick={{fn this.updateDocument}}
           >
             {{t "components.documents_list.save_button"}}
           </AsyncButton>
         </div>
       {{else}}
         <div>
-          {{#if (get permissions "sync")}}
+          {{#if (get @permissions "sync")}}
             <LinkTo
               @route="logged-in.project.files.sync"
-              @models={{array project.id document.id}}
+              @models={{array @project.id @document.id}}
               class="button button--filled button--white"
             >
               {{inline-svg "/assets/sync.svg" class="button-icon"}}
               {{t "components.documents_list.sync"}}
             </LinkTo>
           {{/if}}
-          {{#if (get permissions "merge")}}
+          {{#if (get @permissions "merge")}}
             <LinkTo
               @route="logged-in.project.files.add-translations"
-              @models={{array project.id document.id}}
+              @models={{array @project.id @document.id}}
               class="button button--filled button--white"
             >
               {{inline-svg "/assets/merge.svg" class="button-icon"}}
@@ -106,7 +106,7 @@
           {{/if}}
           <LinkTo
             @route="logged-in.project.files.export"
-            @models={{array project.id document.id}}
+            @models={{array @project.id @document.id}}
             class="button button--filled button--white"
           >
             {{inline-svg "/assets/export.svg" class="button-icon"}}
@@ -115,12 +115,13 @@
         </div>
 
         <div>
-          {{#if (get permissions "delete_document")}}
-            {{#if canDeleteFile}}
+          {{#if (get @permissions "delete_document")}}
+            {{#if this.canDeleteFile}}
               <AsyncButton
-                @onClick={{action "deleteFile" document}}
-                @loading={{isDeleting}}
-                class="button button--small button--red button--borderless deleteDocumentButton"
+                @onClick={{fn this.deleteFile @document}}
+                @loading={{this.isDeleting}}
+                class="button button--small button--red button--borderless"
+                local-class="deleteDocumentButton"
               >
                 {{inline-svg "/assets/x.svg" class="button-icon"}}
                 {{t "components.documents_list.delete_document"}}
@@ -131,4 +132,4 @@
       {{/if}}
     </div>
   </form>
-</div>
+</li>

@@ -7,6 +7,6 @@
     @componentTranslationPrefix="project_activities_list_item"
     @project={{model.project}}
     @activity={{model.activity}}
-    @onRollback={{action "rollback"}}
+    @onRollback={{fn this.rollback}}
   />
 {{/if}}

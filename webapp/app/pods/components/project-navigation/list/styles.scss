@@ -46,7 +46,7 @@
     }
   }
 
-  &.active {
+  &:global(.active) {
     background: lighten(color-green, 46%);
     background: var(--color-primary);
     color: #fff;

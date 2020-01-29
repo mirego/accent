@@ -1,17 +1,17 @@
-<div local-class="translations-list">
-  {{#each translations key="id" as |translation|}}
+<ul local-class="translations-list">
+  {{#each @translations key="id" as |translation|}}
     <TranslationsList::Item
       @translation={{translation}}
-      @project={{project}}
-      @revisionId={{revisionId}}
-      @onUpdateText={{onUpdateText}}
+      @project={{@project}}
+      @revisionId={{@revisionId}}
+      @onUpdateText={{@onUpdateText}}
     />
-  {{else if query}}
+  {{else if @query}}
     <EmptyContent
       @iconPath="assets/empty.svg"
-      @text={{t "components.translations_list.no_translations_query" query=query}}
+      @text={{t "components.translations_list.no_translations_query" query=@query}}
     />
-  {{else if withAdvancedFilters}}
+  {{else if @withAdvancedFilters}}
     <EmptyContent
       @iconPath="assets/empty.svg"
       @text={{t "components.translations_list.no_translations_filters"}}
@@ -28,4 +28,4 @@
       </div>
     </EmptyContent>
   {{/each}}
-</div>
+</ul>

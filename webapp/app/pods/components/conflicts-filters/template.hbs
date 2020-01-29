@@ -1,43 +1,44 @@
 <div local-class="conflicts-filters">
   <div class="filters">
-    <form class="filters-wrapper" {{action "submitForm" on="submit"}}>
-      <div class="filters-content">
-        <div class="queryForm">
-          {{inline-svg "/assets/search.svg" class="search-icon"}}
+    <form local-class="filters-wrapper" {{on "submit" (fn this.submitForm)}}>
+      <div local-class="filters-content">
+        <div class="queryForm" local-class="queryForm">
+          {{inline-svg "/assets/search.svg" local-class="search-icon"}}
 
-          <Input
-            class="input"
-            @type="text"
+          <input
+            local-class="input"
+            type="text"
             placeholder={{t "components.conflicts_filters.input_placeholder_text"}}
-            @value={{debouncedQuery}}
-          />
+            value={{this.debouncedQuery}}
+            {{on "change" this.setDebouncedQuery}}
+          >
         </div>
 
-        <div class="queryForm-filters">
-          <div class="queryForm-filters-column">
-            {{#if showDocumentsSelect}}
-              <div class="queryForm-filter">
-                <div class="queryForm-filter-select">
+        <div local-class="queryForm-filters">
+          <div local-class="queryForm-filters-column">
+            {{#if this.showDocumentsSelect}}
+              <div local-class="queryForm-filter">
+                <div local-class="queryForm-filter-select">
                   <AccSelect
                     @matchTriggerWidth={{false}}
                     @searchEnabled={{false}}
-                    @selected={{documentValue}}
-                    @options={{mappedDocuments}}
-                    @onchange={{action onChangeDocument value="value"}}
+                    @selected={{this.documentValue}}
+                    @options={{this.mappedDocuments}}
+                    @onchange={{fn @onChangeDocument}}
                   />
                 </div>
               </div>
             {{/if}}
 
-            {{#if showReferenceRevisionsSelect}}
-              <div class="queryForm-filter">
-                <div class="queryForm-filter-select">
+            {{#if this.showReferenceRevisionsSelect}}
+              <div local-class="queryForm-filter">
+                <div local-class="queryForm-filter-select">
                   <AccSelect
                     @matchTriggerWidth={{false}}
                     @searchEnabled={{false}}
-                    @selected={{referenceValue}}
-                    @options={{mappedReferenceRevisions}}
-                    @onchange={{action onChangeReference value="value"}}
+                    @selected={{this.referenceValue}}
+                    @options={{this.mappedReferenceRevisions}}
+                    @onchange={{fn @onChangeReference}}
                   />
                 </div>
               </div>
@@ -46,11 +47,11 @@
         </div>
       </div>
 
-      {{#if meta.totalEntries}}
-        <span class="totalEntries">
+      {{#if @meta.totalEntries}}
+        <span local-class="totalEntries">
           {{t
             "components.conflicts_filters.total_entries_count"
-            count=meta.totalEntries
+            count=@meta.totalEntries
           }}
         </span>
       {{/if}}

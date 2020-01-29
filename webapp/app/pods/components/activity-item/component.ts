@@ -59,7 +59,7 @@ export default class ActivityItem extends Component<Args> {
   @readOnly('args.activity.version.id')
   showVersionInfo: boolean;
 
-  translationKey = parsedKeyProperty(this.args.activity.translation.key);
+  translationKey = parsedKeyProperty(this.args.activity.translation?.key);
 
   get activityItemClassName() {
     return dasherize(this.args.activity.action);

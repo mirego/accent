@@ -97,7 +97,8 @@
             <AsyncButton
               @onClick={{fn this.correct}}
               @loading={{this.loading}}
-              local-class="button button--filled button--green correctButton"
+              class="button button--filled button--green"
+              local-class="correctButton"
             >
               {{inline-svg "/assets/check.svg" local-class="button-icon"}}
               {{t "components.conflict_item.correct_button_text"}}
