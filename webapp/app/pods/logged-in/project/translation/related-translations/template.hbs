@@ -8,6 +8,6 @@
   <RelatedTranslationsList
     @project={{model.project}}
     @translations={{model.relatedTranslations}}
-    @onUpdateText={{action "updateTranslation"}}
+    @onUpdateText={{fn this.updateTranslation}}
   />
 {{/if}}

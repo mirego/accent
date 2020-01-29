@@ -12,9 +12,9 @@
       @batchFilter={{batchFilter}}
       @actionFilter={{actionFilter}}
       @userFilter={{userFilter}}
-      @userFilterChange={{action "userFilterChange"}}
-      @batchFilterChange={{action "batchFilterChange"}}
-      @actionFilterChange={{action "actionFilterChange"}}
+      @userFilterChange={{fn this.userFilterChange}}
+      @batchFilterChange={{fn this.batchFilterChange}}
+      @actionFilterChange={{fn this.actionFilterChange}}
     />
   {{/if}}
 
@@ -30,6 +30,6 @@
 
   <ResourcePagination
     @meta={{model.activities.meta}}
-    @onSelectPage={{action "selectPage"}}
+    @onSelectPage={{fn this.selectPage}}
   />
 {{/if}}

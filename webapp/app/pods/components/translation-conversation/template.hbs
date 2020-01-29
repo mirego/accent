@@ -1,25 +1,25 @@
 <div local-class="translation-conversation">
-  <div class="comments">
-    {{#if (get permissions "create_comment")}}
-      {{#unless translation.isRemoved}}
-        <TranslationCommentForm @onSubmit={{onSubmit}} />
+  <div local-class="comments">
+    {{#if (get @permissions "create_comment")}}
+      {{#unless @translation.isRemoved}}
+        <TranslationCommentForm @onSubmit={{@onSubmit}} />
       {{/unless}}
     {{/if}}
 
     <TranslationCommentsList
-      @comments={{comments.entries}}
-      class="at-translation"
+      @comments={{@comments.entries}}
+      local-class="at-translation"
     />
 
-    <ResourcePagination @meta={{comments.meta}} @onSelectPage={{onSelectPage}} />
+    <ResourcePagination @meta={{@comments.meta}} @onSelectPage={{@onSelectPage}} />
   </div>
 
-  <div class="subscriptions">
+  <div local-class="subscriptions">
     <TranslationCommentsSubscriptions
-      @collaborators={{collaborators}}
-      @subscriptions={{subscriptions}}
-      @onCreateSubscription={{onCreateSubscription}}
-      @onDeleteSubscription={{onDeleteSubscription}}
+      @collaborators={{@collaborators}}
+      @subscriptions={{@subscriptions}}
+      @onCreateSubscription={{@onCreateSubscription}}
+      @onDeleteSubscription={{@onDeleteSubscription}}
     />
   </div>
 </div>

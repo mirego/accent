@@ -1,7 +1,7 @@
-<div local-class="project-comments-list">
-  {{#each commentsByTranslation as |groupedComment|}}
+<ul local-class="project-comments-list">
+  {{#each this.commentsByTranslation as |groupedComment|}}
     <ProjectCommentsList::Item
-      @project={{project}}
+      @project={{@project}}
       @groupedComment={{groupedComment}}
     />
   {{else}}
@@ -10,4 +10,4 @@
       @text={{t "components.project_comments_list.no_comments"}}
     />
   {{/each}}
-</div>
+</ul>

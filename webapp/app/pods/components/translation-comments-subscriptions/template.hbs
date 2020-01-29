@@ -1,14 +1,14 @@
-<div local-class="translation-comments-subscriptions">
-  <strong class="title">
+<ul local-class="translation-comments-subscriptions">
+  <strong local-class="title">
     {{t "components.translation_comments_subscriptions.title"}}
   </strong>
 
-  {{#each filteredCollaborators key="id" as |collaborator|}}
+  {{#each this.filteredCollaborators key="id" as |collaborator|}}
     <TranslationCommentsSubscriptions::Item
-      @subscriptions={{subscriptions}}
+      @subscriptions={{@subscriptions}}
       @collaborator={{collaborator}}
-      @onCreateSubscription={{onCreateSubscription}}
-      @onDeleteSubscription={{onDeleteSubscription}}
+      @onCreateSubscription={{@onCreateSubscription}}
+      @onDeleteSubscription={{@onDeleteSubscription}}
     />
   {{/each}}
-</div>
+</ul>

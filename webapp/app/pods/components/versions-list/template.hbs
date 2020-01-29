@@ -1,9 +1,9 @@
-<div local-class="versions-list">
-  {{#each versions key="id" as |version|}}
+<ul local-class="versions-list">
+  {{#each @versions key="id" as |version|}}
     <VersionsList::Item
-      @permissions={{permissions}}
+      @permissions={{@permissions}}
       @version={{version}}
-      @project={{project}}
+      @project={{@project}}
     />
   {{/each}}
-</div>
+</ul>

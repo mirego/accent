@@ -1,61 +1,66 @@
 <div local-class="translations-filter">
   <div class="filters">
-    <form class="filters-wrapper" {{action "submitForm" on="submit"}}>
-      <div class="filters-content">
-        <div class="queryForm">
-          {{inline-svg "/assets/search.svg" class="search-icon"}}
-          <Input
-            class="input"
-            @type="text"
+    <form
+      local-class="filters-wrapper"
+      class="filters-wrapper"
+      {{on "submit" (fn this.submitForm)}}
+    >
+      <div local-class="filters-content">
+        <div local-class="queryForm">
+          {{inline-svg "/assets/search.svg" local-class="search-icon"}}
+          <input
+            local-class="input"
+            type="text"
             placeholder={{t
               "components.translations_filter.input_placeholder_text"
             }}
-            @value={{debouncedQuery}}
-          />
+            value={{this.debouncedQuery}}
+            {{on "change" (fn this.setDebouncedQuery)}}
+          >
         </div>
 
         <div class="queryForm-filters">
           <div class="queryForm-filters-column">
-            {{#if showDocumentsSelect}}
+            {{#if this.showDocumentsSelect}}
               <div class="queryForm-filter">
                 <div class="queryForm-filter-select">
                   <AccSelect
                     @matchTriggerWidth={{false}}
                     @searchEnabled={{false}}
-                    @selected={{documentValue}}
-                    @options={{mappedDocuments}}
-                    @onchange={{action onChangeDocument value="value"}}
+                    @selected={{this.documentValue}}
+                    @options={{this.mappedDocuments}}
+                    @onchange={{fn @onChangeDocument}}
                   />
                 </div>
               </div>
             {{/if}}
 
-            {{#if showVersionsSelect}}
+            {{#if this.showVersionsSelect}}
               <div class="queryForm-filter">
                 <div class="queryForm-filter-select">
                   <AccSelect
                     @matchTriggerWidth={{false}}
                     @searchEnabled={{false}}
-                    @selected={{versionValue}}
-                    @options={{mappedVersions}}
-                    @onchange={{action onChangeVersion value="value"}}
+                    @selected={{this.versionValue}}
+                    @options={{this.mappedVersions}}
+                    @onchange={{fn @onChangeVersion}}
                   />
                 </div>
               </div>
             {{/if}}
           </div>
 
-          {{#if this.onChangeAdvancedFilterBoolean}}
-            <button {{action "toggleAdvancedFilters"}} class="advancedFilters">
-              <div class="advancedFilters-content">
-                {{inline-svg "assets/filter.svg" class="advancedFilters-icon"}}
+          {{#if @onChangeAdvancedFilterBoolean}}
+            <button {{on "click" (fn this.toggleAdvancedFilters)}} local-class="advancedFilters">
+              <div local-class="advancedFilters-content">
+                {{inline-svg "assets/filter.svg" local-class="advancedFilters-icon"}}
                 {{t
                   "components.translations_filter.advanced_filters_button"
                 }}
 
-                {{#if this.withAdvancedFilters}}
-                  <span class="advancedFilters-badge">
-                    {{this.withAdvancedFilters}}
+                {{#if @withAdvancedFilters}}
+                  <span local-class="advancedFilters-badge">
+                    {{@withAdvancedFilters}}
                   </span>
                 {{/if}}
               </div>
@@ -65,20 +70,20 @@
 
         {{#if this.displayAdvancedFilters}}
           <TranslationsFilter::AdvancedFilters
-            @isTextEmptyFilter={{isTextEmptyFilter}}
-            @isTextNotEmptyFilter={{isTextNotEmptyFilter}}
-            @isAddedLastSyncFilter={{isAddedLastSyncFilter}}
-            @isCommentedOnFilter={{isCommentedOnFilter}}
-            @onChangeAdvancedFilterBoolean={{onChangeAdvancedFilterBoolean}}
+            @isTextEmptyFilter={{@isTextEmptyFilter}}
+            @isTextNotEmptyFilter={{@isTextNotEmptyFilter}}
+            @isAddedLastSyncFilter={{@isAddedLastSyncFilter}}
+            @isCommentedOnFilter={{@isCommentedOnFilter}}
+            @onChangeAdvancedFilterBoolean={{@onChangeAdvancedFilterBoolean}}
           />
         {{/if}}
       </div>
 
-      {{#if meta.totalEntries}}
-        <span class="totalEntries">
+      {{#if @meta.totalEntries}}
+        <span local-class="totalEntries">
           {{t
             "components.translations_filter.total_entries_count"
-            count=meta.totalEntries
+            count=@meta.totalEntries
           }}
         </span>
       {{/if}}

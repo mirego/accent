@@ -204,10 +204,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
 
-  .button {
+  :global(.button) {
     margin-right: 6px;
 
-    &.button--borderLess:first-of-type:last-of-type {
+    &:global(.button--borderLess):first-of-type:last-of-type {
       margin-left: -14px;
     }
   }
@@ -215,6 +215,7 @@
 
 .deleteDocumentButton {
   opacity: 0;
+  padding: 2px 6px !important;
 }
 
 @media (max-width: (800px)) {

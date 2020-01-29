@@ -45,6 +45,7 @@ export default class NewController extends Controller {
     this.router.transitionTo('logged-in.project.versions', this.project.id);
   }
 
+  @action
   async create({name, tag}: {name: string; tag: string}) {
     this.error = false;
 

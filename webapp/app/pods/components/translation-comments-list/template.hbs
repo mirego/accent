@@ -1,11 +1,11 @@
-<div local-class="translation-comments-list">
-  {{#each comments key="id" as |comment|}}
-    <li class="itemComment">
-      <div class="itemComment-header">
-        <span class="itemComment-user">
+<ul local-local-class="translation-comments-list" ...attributes>
+  {{#each @comments key="id" as |comment|}}
+    <li local-class="itemComment">
+      <div local-class="itemComment-header">
+        <span local-class="itemComment-user">
           {{#if comment.user.pictureUrl}}
             <img
-              class="itemComment-user-picture"
+              local-class="itemComment-user-picture"
               src="{{comment.user.pictureUrl}}"
             >
           {{/if}}
@@ -14,11 +14,11 @@
 
         <TimeAgoInWordsTag
           @date={{comment.insertedAt}}
-          class="itemComment-date"
+          local-class="itemComment-date"
         />
       </div>
 
-      <div class="itemComment-content">
+      <div local-class="itemComment-content">
         {{comment.text}}
       </div>
     </li>
@@ -28,4 +28,4 @@
       @text={{t "components.translation_comments_list.no_comments"}}
     />
   {{/each}}
-</div>
+</ul>

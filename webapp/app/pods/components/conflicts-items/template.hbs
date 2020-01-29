@@ -1,6 +1,6 @@
 <ul local-class="conflicts-items {{if @fullscreen "fullscreen"}}">
   {{#if @conflicts}}
-    <div class="actions">
+    <div local-class="actions">
       {{#unless query}}
         <AsyncButton
           @onClick={{fn this.correctAllConflicts}}
@@ -17,7 +17,8 @@
         @route="logged-in.project.revision.conflicts"
         @models={{array @project.id @revision.id}}
         @query={{hash fullscreen=this.toggledFullscreen}}
-        class="button button--grey fullscreen-button"
+        class="button button--grey"
+        local-class="fullscreen-button"
       >
         {{#if @fullscreen}}
           {{inline-svg
@@ -41,7 +42,7 @@
       @revision={{@referenceRevision}}
       @permissions={{@permissions}}
       @project={{@project}}
-      @conflict={{@conflict}}
+      @conflict={{conflict}}
       @onCorrect={{@onCorrect}}
     />
   {{else if query}}
@@ -51,7 +52,7 @@
     />
   {{else}}
     <EmptyContent
-      class="success"
+      local-class="success"
       @iconPath="assets/thumbs-up.svg"
       @text={{t "components.conflicts_items.review_completed"}}
     />

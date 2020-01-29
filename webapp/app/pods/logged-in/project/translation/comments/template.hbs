@@ -11,9 +11,9 @@
     @collaborators={{model.collaborators}}
     @subscriptions={{model.commentsSubscriptions}}
     @comments={{model.comments}}
-    @onCreateSubscription={{action "createSubscription"}}
-    @onDeleteSubscription={{action "deleteSubscription"}}
-    @onSubmit={{action "createComment"}}
-    @onSelectPage={{action "selectPage"}}
+    @onCreateSubscription={{fn this.createSubscription}}
+    @onDeleteSubscription={{fn this.deleteSubscription}}
+    @onSubmit={{fn this.createComment}}
+    @onSelectPage={{fn this.selectPage}}
   />
 {{/if}}

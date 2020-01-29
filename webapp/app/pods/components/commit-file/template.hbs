@@ -100,8 +100,8 @@
           <AsyncButton
             @onClick={{fn this.peek}}
             @loading={{this.isPeeking}}
-            local-class="button
-            button--filled button--blue peekButton"
+            class="button button--filled button--blue"
+            local-class="peekButton"
           >
             {{t "components.commit_file.peek_button"}}
           </AsyncButton>
@@ -112,7 +112,7 @@
         <div local-class="actions">
           <AsyncButton
             @onClick={{fn this.fileCancel}}
-            local-class="button button--filled button--white"
+            class="button button--filled button--white"
           >
             {{t "components.commit_file.cancel_button"}}
           </AsyncButton>
@@ -121,13 +121,13 @@
             <AsyncButton
               @onClick={{fn this.commit}}
               @loading={{this.isCommiting}}
-              local-class="button button--filled"
+              class="button button--filled"
             >
-              {{this.commitButtonText}}
+              {{@commitButtonText}}
             </AsyncButton>
           {{else}}
-            <AsyncButton local-class="button button--filled button--disabled">
-              {{this.commitButtonText}}
+            <AsyncButton class="button button--filled button--disabled">
+              {{@commitButtonText}}
             </AsyncButton>
           {{/if}}
         </div>
@@ -152,8 +152,8 @@
           {{t "components.commit_file.upload_help"}}
         </p>
 
-        <label for="file-input" local-class="button button--filled fileButton">
-          {{inline-svg "/assets/import.svg" local-class="button-icon"}}
+        <label for="file-input" class="button button--filled" local-class="fileButton">
+          {{inline-svg "/assets/import.svg" class="button-icon" local-class="button-icon"}}
           {{t "components.commit_file.file_input_button"}}
         </label>
       </div>

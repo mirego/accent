@@ -44,18 +44,18 @@
 }
 
 .rollbackButton {
-  font-size: 13px;
-  margin-left: 10px;
-  color: lighten(color-error, 25%);
+  font-size: 13px !important;
+  margin-left: 10px !important;
+  color: lighten(color-error, 25%) !important;
 
   &:focus,
   &:hover {
-    color: color-error;
+    color: color-error !important;
   }
 
-  .label {
-    padding: 1px 4px;
-    font-weight: normal;
+  :global(.label) {
+    padding: 1px 4px !important;
+    font-weight: normal !important;
   }
 }
 
@@ -207,12 +207,12 @@
 .textDiff {
   white-space: pre-wrap;
 
-  .added {
+  :global(.added) {
     background: lighten(color-success, 42%);
     color: darken(color-success, 10%);
   }
 
-  .removed {
+  :global(.removed) {
     background: lighten(color-error, 48%);
     color: color-error;
     text-decoration: line-through;

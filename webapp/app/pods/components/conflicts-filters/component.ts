@@ -1,36 +1,57 @@
-import {observer, computed} from '@ember/object';
+import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
 import {notEmpty, gt, reads} from '@ember/object/computed';
-import Component from '@ember/component';
-import {run} from '@ember/runloop';
+import Component from '@glimmer/component';
+import IntlService from 'ember-intl/services/intl';
+import {PaginationMeta} from 'accent-webapp/pods/components/resource-pagination/component';
+import {tracked} from '@glimmer/tracking';
+import {restartableTask} from 'ember-concurrency-decorators';
+import {timeout} from 'ember-concurrency';
 
 const DEBOUNCE_OFFSET = 500; // ms
 
-// Attributes:
-// query: String
-// reference: String
-// referenceRevisions: Array of <revision>
-// document: Object <document>
-// documents: Array of <document>
-// onChangeQuery: Function
-// onChangeReference: Function
-// onChangeDocument: Function
-export default Component.extend({
-  intl: service('intl'),
+interface Args {
+  meta: PaginationMeta;
+  conflicts: any;
+  referenceRevisions: any;
+  document: any;
+  documents: any;
+  query: any;
+  reference: any;
+  onChangeDocument: () => void;
+  onChangeReference: () => void;
+  onChangeQuery: (query: string) => void;
+}
 
-  showReferenceRevisionsSelect: notEmpty('referenceRevisions'),
-  showDocumentsSelect: gt('documents.length', 1),
-  debouncedQuery: reads('query'),
+export default class ConflictsFilters extends Component<Args> {
+  @service('intl')
+  intl: IntlService;
 
-  queryDidChanges: observer('debouncedQuery', function() {
-    run.debounce(this, this._debounceQuery, DEBOUNCE_OFFSET);
-  }),
+  @notEmpty('args.referenceRevisions')
+  showReferenceRevisionsSelect: boolean;
 
-  mappedDocuments: computed('documents.[]', function() {
-    const documents = this.documents.map(({id, path}) => ({
-      label: path,
-      value: id
-    }));
+  @gt('args.documents.length', 1)
+  showDocumentsSelect: boolean;
+
+  @tracked
+  debouncedQuery = this.args.query;
+
+  @restartableTask
+  *debounceQuery(query: string) {
+    this.debouncedQuery = query;
+
+    yield timeout(DEBOUNCE_OFFSET);
+
+    this.args.onChangeQuery(this.debouncedQuery);
+  }
+
+  get mappedDocuments() {
+    const documents = this.args.documents.map(
+      ({id, path}: {id: string; path: string}) => ({
+        label: path,
+        value: id
+      })
+    );
 
     documents.unshift({
       label: this.intl.t(
@@ -40,13 +61,15 @@ export default Component.extend({
     });
 
     return documents;
-  }),
+  }
 
-  mappedReferenceRevisions: computed('referenceRevisions.[]', function() {
-    const revisions = this.referenceRevisions.map(({id, language}) => ({
-      label: language.name,
-      value: id
-    }));
+  get mappedReferenceRevisions() {
+    const revisions = this.args.referenceRevisions.map(
+      ({id, language}: {id: string; language: any}) => ({
+        label: language.name,
+        value: id
+      })
+    );
 
     revisions.unshift({
       label: this.intl.t(
@@ -56,29 +79,33 @@ export default Component.extend({
     });
 
     return revisions;
-  }),
-
-  documentValue: computed('document', 'mappedDocuments.[]', function() {
-    return this.mappedDocuments.find(({value}) => value === this.document);
-  }),
-
-  referenceValue: computed(
-    'reference',
-    'mappedReferenceRevisions.[]',
-    function() {
-      return this.mappedReferenceRevisions.find(
-        ({value}) => value === this.reference
-      );
-    }
-  ),
-
-  _debounceQuery() {
-    this.onChangeQuery(this.debouncedQuery);
-  },
-
-  actions: {
-    submitForm() {
-      this._debounceQuery();
-    }
   }
-});
+
+  get documentValue() {
+    return this.mappedDocuments.find(
+      ({value}: {value: string}) => value === this.args.document
+    );
+  }
+
+  get referenceValue() {
+    return this.mappedReferenceRevisions.find(({value}: {value: string}) => {
+      return value === this.args.reference;
+    });
+  }
+
+  @action
+  setDebouncedQuery(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    this.debounceQuery.perform(target.value);
+  }
+
+  @action
+  submitForm(event: Event) {
+    event.preventDefault();
+
+    this.args.onChangeQuery(this.debouncedQuery);
+  }
+}

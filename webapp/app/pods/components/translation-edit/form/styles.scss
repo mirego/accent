@@ -3,25 +3,25 @@
 
 .translation-edit-form {
   height: 100%;
-}
 
-.ember-radio-button {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 3px;
-  border-radius: 3px;
-  font-weight: bold;
-  font-size: 13px;
-  color: #444;
+  :global(.ember-radio-button) {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 3px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #444;
 
-  &.checked {
-    background: lighten(color-green, 45%);
-    color: darken(color-green, 25%);
-  }
+    &.checked {
+      background: lighten(color-green, 45%);
+      color: darken(color-green, 25%);
+    }
 
-  input {
-    margin-right: 8px;
+    input {
+      margin-right: 8px;
+    }
   }
 }
 
