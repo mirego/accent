@@ -1,1 +1,4 @@
-{{content}}
+<pre
+  {{did-insert (fn this.onUpdate)}}
+  {{did-update (fn this.onUpdate) @project @document @version @documentFormat}}
+>{{content}}</pre>

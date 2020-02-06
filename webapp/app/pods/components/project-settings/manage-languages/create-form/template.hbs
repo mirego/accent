@@ -1,22 +1,22 @@
 <AccSelect
-  @search={{action "searchLanguages"}}
+  @search={{fn this.searchLanguages}}
   @searchEnabled={{true}}
-  @options={{mappedLanguages}}
-  @selected={{languageValue}}
+  @options={{this.mappedLanguages}}
+  @selected={{this.languageValue}}
   placeholder={{t
     "components.project_manage_languages_create_form.language_search_placeholder"
   }}
   @searchPlaceholder={{t
     "components.project_manage_languages_create_form.language_search_placeholder"
   }}
-  @onchange={{action (mut language) value="value"}}
+  @onchange={{fn this.setLanguage}}
 />
 
 <AsyncButton
-  @onClick={{action "submit"}}
+  @onClick={{fn this.submit}}
   class="button button--filled"
-  @loading={{isLoading}}
-  @disabled={{emptyLanguage}}
+  @loading={{this.isLoading}}
+  @disabled={{this.emptyLanguage}}
 >
   {{t "components.project_manage_languages_create_form.save_button"}}
 </AsyncButton>

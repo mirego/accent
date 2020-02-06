@@ -1,16 +1,17 @@
 <div class="data">
-  <div class="data-control {{if repositoryError "error-control"}}">
+  <div class="data-control {{if this.repositoryError "error-control"}}">
     <label class="data-title">
       {{t "components.project_settings.integrations.data.repository"}}
     </label>
-    <Input
+    <input
       placeholder="mirego/accent"
-      @value={{repository}}
+      value={{@repository}}
       class="textInput"
-    />
+      {{on "change" (fn this.changeRepository)}}
+    >
   </div>
 
-  <div class="data-control {{if tokenError "error-control"}}">
+  <div class="data-control {{if this.tokenError "error-control"}}">
     <label class="data-title">
       {{t "components.project_settings.integrations.data.token"}}
       <a
@@ -22,17 +23,29 @@
         {{t "components.project_settings.integrations.token_how"}}
       </a>
     </label>
-    <Input placeholder="aaaa-bbbb-cccc" @value={{token}} class="textInput" />
+
+    <input
+      placeholder="aaaa-bbbb-cccc"
+      value={{@token}}
+      class="textInput"
+      {{on "change" (fn this.changeToken)}}
+    >
   </div>
 
-  <div class="data-control {{if defaultRefError "error-control"}}">
+  <div class="data-control {{if this.defaultRefError "error-control"}}">
     <label class="data-title">
       {{t "components.project_settings.integrations.data.default_ref"}}
     </label>
-    <Input placeholder="master" @value={{defaultRef}} class="textInput" />
+
+    <input
+      placeholder="master"
+      value={{@defaultRef}}
+      class="textInput"
+      {{on "change" (fn this.changeDefaultRef)}}
+    >
   </div>
 
-  {{#if webhookUrl}}
+  {{#if this.webhookUrl}}
     <div class="instructions">
       <label class="data-title">
         {{t "components.project_settings.integrations.github_webhook_url"}}
@@ -46,12 +59,12 @@
         </a>
       </label>
 
-      <Input
+      <input
         readonly=""
         onClick="this.select();"
         class="textInput"
-        value={{webhookUrl}}
-      />
+        value={{this.webhookUrl}}
+      >
 
       <div class="instructions-text">
         <p>

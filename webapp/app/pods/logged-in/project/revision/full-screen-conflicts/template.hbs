@@ -1,23 +1,23 @@
 <EmberWormhole @to="modals">
   <ConflictsPage
-    @fullscreen={{fullscreen}}
-    @project={{model.project}}
-    @revision={{revision}}
-    @translations={{model.translations}}
-    @isLoading={{model.loading}}
-    @showLoading={{showLoading}}
-    @document={{document}}
-    @permissions={{permissions}}
-    @documents={{model.documents}}
-    @showSkeleton={{showSkeleton}}
-    @query={{query}}
-    @reference={{reference}}
-    @referenceRevision={{referenceRevision}}
-    @referenceRevisions={{referenceRevisions}}
-    @onCorrect={{action "correctConflict"}}
-    @onSelectPage={{action "selectPage"}}
-    @onChangeDocument={{action "changeDocument"}}
-    @onChangeReference={{action "changeReference"}}
-    @onChangeQuery={{action "changeQuery"}}
+    @fullscreen={{this.fullscreen}}
+    @project={{this.model.project}}
+    @revision={{this.revision}}
+    @translations={{this.model.translations}}
+    @isLoading={{this.model.loading}}
+    @showLoading={{this.showLoading}}
+    @document={{this.document}}
+    @permissions={{this.permissions}}
+    @documents={{this.model.documents}}
+    @showSkeleton={{this.showSkeleton}}
+    @query={{this.query}}
+    @reference={{this.reference}}
+    @referenceRevision={{this.referenceRevision}}
+    @referenceRevisions={{this.referenceRevisions}}
+    @onCorrect={{fn this.correctConflict}}
+    @onSelectPage={{fn this.selectPage}}
+    @onChangeDocument={{fn this.changeDocument}}
+    @onChangeReference={{fn this.changeReference}}
+    @onChangeQuery={{fn this.changeQuery}}
   />
 </EmberWormhole>

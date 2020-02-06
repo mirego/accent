@@ -1,5 +1,5 @@
 <div class="data">
-  <div class="data-control {{if urlError "error-control"}}">
+  <div class="data-control {{if this.urlError "error-control"}}">
     <label class="data-title">
       {{t "components.project_settings.integrations.data.url"}}
       <a
@@ -12,11 +12,12 @@
       </a>
     </label>
 
-    <Input
+    <input
       placeholder="https://discordapp.com/api/webhooks/aaaa/bbbb/cccc"
-      @value={{url}}
+      value={{@url}}
       class="textInput"
-    />
+      {{on "change" (fn this.changeUrl)}}
+    >
   </div>
 
   <div class="data-control">
@@ -24,9 +25,9 @@
       {{t "components.project_settings.integrations.events.title"}}
     </h3>
     <CheckboxWithLabel
-      @checked={{syncChecked}}
+      @checked={{@syncChecked}}
       @text={{t "components.project_settings.integrations.events.options.sync"}}
-      @update={{action (mut syncChecked)}}
+      @update={{fn @onChangeSyncChecked}}
     />
   </div>
 </div>

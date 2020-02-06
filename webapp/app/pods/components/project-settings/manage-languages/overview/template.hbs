@@ -2,14 +2,14 @@
   @title={{t "components.project_manage_languages_overview.list_languages"}}
 />
 
-<ul class="list">
-  {{#each revisions key="id" as |revision|}}
+<ul local-class="list">
+  {{#each @revisions key="id" as |revision|}}
     <ProjectSettings::ManageLanguages::Overview::Item
       @master={{revision.isMaster}}
-      @permissions={{permissions}}
-      @onPromoteMaster={{onPromoteMaster}}
-      @onDelete={{onDelete}}
-      @project={{project}}
+      @permissions={{@permissions}}
+      @onPromoteMaster={{@onPromoteMaster}}
+      @onDelete={{@onDelete}}
+      @project={{@project}}
       @revision={{revision}}
     />
   {{/each}}

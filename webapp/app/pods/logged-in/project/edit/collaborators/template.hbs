@@ -1,15 +1,16 @@
-{{#if showLoading}}
+{{#if this.showLoading}}
   <LoadingContent
     @label={{t "pods.project.edit.collaborators.loading_content"}}
   />
 {{else}}
-  <ProjectSettings::BackLink @project={{project}} />
+  <ProjectSettings::BackLink @project={{this.project}} />
+
   <ProjectSettings::Collaborators
-    @project={{project}}
-    @permissions={{permissions}}
-    @collaborators={{collaborators}}
-    @onCreateCollaborator={{action "createCollaborator"}}
-    @onUpdateCollaborator={{action "updateCollaborator"}}
-    @onDeleteCollaborator={{action "deleteCollaborator"}}
+    @project={{this.project}}
+    @permissions={{this.permissions}}
+    @collaborators={{this.collaborators}}
+    @onCreateCollaborator={{fn this.createCollaborator}}
+    @onUpdateCollaborator={{fn this.updateCollaborator}}
+    @onDeleteCollaborator={{fn this.deleteCollaborator}}
   />
 {{/if}}

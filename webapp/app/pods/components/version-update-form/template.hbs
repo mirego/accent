@@ -1,34 +1,44 @@
 <div local-class="version-update-form">
-  <h1 class="title">
+  <h1 local-class="title">
     {{t "components.version_update_form.title"}}
   </h1>
 
-  {{#if error}}
-    <div class="errors">
-      <div class="error">
+  {{#if @error}}
+    <div local-class="errors">
+      <div local-class="error">
         {{t "components.version_update_form.error"}}
       </div>
     </div>
   {{/if}}
 
-  <div class="formItem">
-    <label class="formItem-label">
+  <div local-class="formItem">
+    <label local-class="formItem-label">
       {{t "components.version_update_form.name_label"}}
     </label>
-    <Input @value={{name}} class="textInput" />
+
+    <input
+      value={{this.name}}
+      local-class="textInput"
+      {{on "change" (fn this.setName)}}
+    >
   </div>
 
-  <div class="formItem">
-    <label class="formItem-label">
+  <div local-class="formItem">
+    <label local-class="formItem-label">
       {{t "components.version_update_form.tag_label"}}
     </label>
-    <Input @value={{tag}} class="textInput" />
+
+    <input
+      value={{this.tag}}
+      local-class="textInput"
+      {{on "change" (fn this.setTag)}}
+    >
   </div>
 
-  <div class="formActions">
+  <div local-class="formActions">
     <LinkTo
       @route="logged-in.project.versions"
-      @model={{project.id}}
+      @model={{@project.id}}
       class="button button--filled button--white"
     >
       {{t "components.version_update_form.cancel_button"}}
@@ -36,8 +46,8 @@
 
     <AsyncButton
       class="button button--filled"
-      @loading={{isCreating}}
-      @onClick={{action "submit"}}
+      @loading={{this.isCreating}}
+      @onClick={{fn this.submit}}
     >
       {{t "components.version_update_form.save_button"}}
     </AsyncButton>

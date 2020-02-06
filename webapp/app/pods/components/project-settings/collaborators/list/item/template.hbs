@@ -1,89 +1,91 @@
-<div local-class="project-settings-collaborators-list-item">
-  <div>
-    {{#if isEditing}}
-      <AccSelect
-        @searchEnabled={{false}}
-        @selected={{roleValue}}
-        @options={{mappedPossibleRoles}}
-        @onchange={{action (mut updatedRole) value="value"}}
-      />
-    {{else}}
-      <span class="role">
-        {{role}}
-      </span>
-    {{/if}}
-
-    <span class="user">
-      {{#if collaborator.user.pictureUrl}}
-        <img class="user-picture" src="{{collaborator.user.pictureUrl}}">
-      {{/if}}
-
-      <span class="user-name">
-        {{#if hasJoined}}
-          {{#if collaborator.user.fullname}}
-            {{collaborator.user.fullname}}
-            <small class="user-email">
-              {{collaborator.email}}
-            </small>
-          {{else}}
-            {{collaborator.email}}
-          {{/if}}
-        {{else}}
-          {{collaborator.email}}
-        {{/if}}
-      </span>
-    </span>
-  </div>
-
-  <div>
-    <span class="invite">
-      {{#if hasJoined}}
-        {{t "components.project_settings.collaborators_item.joined"}}
-        <TimeAgoInWordsTag @date={{collaborator.insertedAt}} />
+<li local-class="{{if this.isEditing "editing"}} {{if this.hasJoined "joined" "invited"}} {{if this.collaborator.user.pictureUrl "withPicture"}}">
+  <div local-class="project-settings-collaborators-list-item">
+    <div>
+      {{#if this.isEditing}}
+        <AccSelect
+          @searchEnabled={{false}}
+          @selected={{this.roleValue}}
+          @options={{this.mappedPossibleRoles}}
+          @onchange={{fn this.setRole}}
+        />
       {{else}}
-        {{t "components.project_settings.collaborators_item.invited"}}
-
-        <TimeAgoInWordsTag @date={{collaborator.insertedAt}} />
-
-        {{#if collaborator.assigner}}
-          {{t "components.project_settings.collaborators_item.by"}}
-          {{collaborator.assigner.fullname}}
-        {{/if}}
+        <span local-class="role">
+          {{this.role}}
+        </span>
       {{/if}}
-    </span>
-  </div>
-</div>
 
-<div class="actions">
-  {{#if isEditing}}
-    {{#if canUpdateCollaborator}}
-      <button class="button button--filled button--white" {{action "toggleUpdateCollaborator"}}>
-        {{t "components.project_settings.collaborators_item.cancel_save_role"}}
-      </button>
-
-      <button class="button button--filled" {{action "updateCollaborator"}}>
-        {{inline-svg "/assets/check.svg" class="button-icon"}}
-        {{t "components.project_settings.collaborators_item.save_role"}}
-      </button>
-    {{/if}}
-  {{else}}
-    {{#if canUpdateCollaborator}}
-      <button class="button button--filled button--white" {{action "toggleUpdateCollaborator"}}>
-        {{inline-svg "/assets/pencil.svg" class="button-icon"}}
-        {{t "components.project_settings.collaborators_item.edit_role"}}
-      </button>
-    {{/if}}
-
-    {{#if canDeleteCollaborator}}
-      <button class="button button--filled button--red" {{action "deleteCollaborator"}}>
-        {{inline-svg "/assets/x.svg" class="button-icon"}}
-
-        {{#if hasJoined}}
-          {{t "components.project_settings.collaborators_item.delete_button"}}
-        {{else}}
-          {{t "components.project_settings.collaborators_item.uninvite_button"}}
+      <span local-class="user">
+        {{#if @collaborator.user.pictureUrl}}
+          <img local-class="user-picture" src={{@collaborator.user.pictureUrl}}>
         {{/if}}
-      </button>
+
+        <span local-class="user-name">
+          {{#if this.hasJoined}}
+            {{#if @collaborator.user.fullname}}
+              {{@collaborator.user.fullname}}
+              <small class="user-email">
+                {{@collaborator.email}}
+              </small>
+            {{else}}
+              {{@collaborator.email}}
+            {{/if}}
+          {{else}}
+            {{@collaborator.email}}
+          {{/if}}
+        </span>
+      </span>
+    </div>
+
+    <div>
+      <span local-class="invite">
+        {{#if this.hasJoined}}
+          {{t "components.project_settings.collaborators_item.joined"}}
+          <TimeAgoInWordsTag @date={{@collaborator.insertedAt}} />
+        {{else}}
+          {{t "components.project_settings.collaborators_item.invited"}}
+
+          <TimeAgoInWordsTag @date={{@collaborator.insertedAt}} />
+
+          {{#if @collaborator.assigner}}
+            {{t "components.project_settings.collaborators_item.by"}}
+            {{@collaborator.assigner.fullname}}
+          {{/if}}
+        {{/if}}
+      </span>
+    </div>
+  </div>
+
+  <div local-class="actions">
+    {{#if this.isEditing}}
+      {{#if this.canUpdateCollaborator}}
+        <button class="button button--filled button--white" {{on "click" (fn this.toggleUpdateCollaborator)}}>
+          {{t "components.project_settings.collaborators_item.cancel_save_role"}}
+        </button>
+
+        <button class="button button--filled" {{on "click" (fn this.updateCollaborator)}}>
+          {{inline-svg "/assets/check.svg" class="button-icon"}}
+          {{t "components.project_settings.collaborators_item.save_role"}}
+        </button>
+      {{/if}}
+    {{else}}
+      {{#if this.canUpdateCollaborator}}
+        <button class="button button--filled button--white" {{on "click" (fn this.toggleUpdateCollaborator)}}>
+          {{inline-svg "/assets/pencil.svg" class="button-icon"}}
+          {{t "components.project_settings.collaborators_item.edit_role"}}
+        </button>
+      {{/if}}
+
+      {{#if this.canDeleteCollaborator}}
+        <button class="button button--filled button--red" {{on "click" (fn this.deleteCollaborator)}}>
+          {{inline-svg "/assets/x.svg" class="button-icon"}}
+
+          {{#if this.hasJoined}}
+            {{t "components.project_settings.collaborators_item.delete_button"}}
+          {{else}}
+            {{t "components.project_settings.collaborators_item.uninvite_button"}}
+          {{/if}}
+        </button>
+      {{/if}}
     {{/if}}
-  {{/if}}
-</div>
+  </div>
+</li>

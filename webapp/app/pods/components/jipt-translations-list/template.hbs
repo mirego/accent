@@ -1,9 +1,9 @@
 <div local-class="jipt-translations-list">
-  {{#each translations key="id" as |translation|}}
+  {{#each @translations key="id" as |translation|}}
     <LinkTo
       @route="logged-in.jipt.translation"
       @model={{translation.id}}
-      class="item"
+      local-class="item"
     >
       <JiptTranslationsList::Item @translation={{translation}} />
     </LinkTo>

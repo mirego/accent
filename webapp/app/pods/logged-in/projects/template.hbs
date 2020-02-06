@@ -1,22 +1,22 @@
 <div>
-  <ProjectsHeader @session={{session}} />
+  <ProjectsHeader @session={{this.session}} />
   <ProjectsFilters
-    @permissions={{permissions}}
-    @query={{query}}
-    @onChangeQuery={{action "changeQuery"}}
+    @permissions={{this.permissions}}
+    @query={{this.query}}
+    @onChangeQuery={{fn this.changeQuery}}
   />
 
   {{#if showLoading}}
     <LoadingContent @label={{t "pods.projects.loading_content"}} />
   {{else}}
     <ProjectsList
-      @permissions={{permissions}}
-      @projects={{model.projects.entries}}
-      @query={{query}}
+      @permissions={{this.permissions}}
+      @projects={{this.model.projects.entries}}
+      @query={{this.query}}
     />
     <ResourcePagination
-      @meta={{model.projects.meta}}
-      @onSelectPage={{action "selectPage"}}
+      @meta={{this.model.projects.meta}}
+      @onSelectPage={{fn this.selectPage}}
     />
   {{/if}}
 

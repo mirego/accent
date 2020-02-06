@@ -12,7 +12,7 @@ module.exports = {
     'no-abstract-roles': true,
     'no-bare-strings': true,
     'no-curly-component-invocation': {
-      allow: ['inline-svg', 't', 'string-diff']
+      allow: ['inline-svg', 't', 'string-diff', 'time-ago-in-words']
     },
     'no-debugger': true,
     'no-element-event-actions': true,

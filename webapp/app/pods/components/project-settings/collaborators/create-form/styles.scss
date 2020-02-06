@@ -2,6 +2,19 @@
 
 .project-settings-collaborators-create-form {
   display: flex;
+
+  :global(.ember-power-select-trigger) {
+    min-width: 150px;
+    margin-right: 10px;
+    border: 1px solid #eee;
+    background: #fff;
+    font-size: 12px;
+    box-shadow: 0 1px 5px rgba(#000, 0.06);
+  }
+
+  :global(.button) {
+    margin-right: 5px;
+  }
 }
 
 .textInput {
@@ -13,17 +26,4 @@
   min-width: 350px;
   font-family: font-primary;
   font-size: 11px;
-}
-
-.ember-power-select-trigger {
-  min-width: 150px;
-  margin-right: 10px;
-  border: 1px solid #eee;
-  background: #fff;
-  font-size: 12px;
-  box-shadow: 0 1px 5px rgba(#000, 0.06);
-}
-
-.button {
-  margin-right: 5px;
 }

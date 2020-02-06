@@ -1,5 +1,5 @@
 <div>
-  <ProjectsHeader @session={{session}} @project={{project}} />
+  <ProjectsHeader @session={{this.session}} @project={{this.project}} />
   <style>
     body {
     {{{this.colors}}}
@@ -8,25 +8,25 @@
 
   <div class="wrapper">
     <div class="wrapper-sidebar">
-      {{#if model.loading}}
+      {{#if this.model.loading}}
         <SkeletonUi::ProjectNavigation />
-      {{else if showError}}
+      {{else if this.showError}}
         <SkeletonUi::ProjectNavigation />
       {{else}}
         <ProjectNavigation
-          @project={{project}}
-          @permissions={{permissions}}
-          @revisions={{revisions}}
+          @project={{this.project}}
+          @permissions={{this.permissions}}
+          @revisions={{this.revisions}}
         />
       {{/if}}
     </div>
 
     <div class="wrapper-content">
-      {{#unless model.loading}}
-        <PhoenixChannelListener @project={{project}} />
+      {{#unless this.model.loading}}
+        <PhoenixChannelListener @project={{this.project}} />
       {{/unless}}
 
-      {{#if showError}}
+      {{#if this.showError}}
         <ErrorSection
           @status={{t "pods.error.unauthorized.status"}}
           @title={{t "pods.error.unauthorized.title"}}
@@ -39,4 +39,5 @@
     </div>
   </div>
 </div>
+
 <ApplicationFooter />

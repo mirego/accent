@@ -1,9 +1,9 @@
 <ErrorSection
-  @status={{status}}
-  @title={{title}}
-  @text={{text}}
-  @onLogout={{action "logout"}}
-  @isAuthenticated={{session.isAuthenticated}}
+  @status={{this.status}}
+  @title={{this.title}}
+  @text={{this.text}}
+  @onLogout={{fn this.logout}}
+  @isAuthenticated={{this.session.isAuthenticated}}
 />
 
 <ApplicationFooter />

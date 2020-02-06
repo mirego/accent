@@ -1,17 +1,17 @@
-{{#if model.loading}}
+{{#if this.model.loading}}
   <SkeletonUi::ProgressLine />
 {{/if}}
 
-{{#if showSkeleton}}
+{{#if this.showSkeleton}}
   <SkeletonUi::ActivitiesList @showTranslationLink={{false}} />
 {{else}}
   <TranslationActivitiesList
-    @permissions={{permissions}}
-    @project={{model.project}}
-    @activities={{model.activities.entries}}
+    @permissions={{this.permissions}}
+    @project={{this.model.project}}
+    @activities={{this.model.activities.entries}}
   />
   <ResourcePagination
-    @meta={{model.activities.meta}}
-    @onSelectPage={{action "selectPage"}}
+    @meta={{this.model.activities.meta}}
+    @onSelectPage={{fn this.selectPage}}
   />
 {{/if}}

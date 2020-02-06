@@ -1,19 +1,21 @@
-{{#if showLoading}}
+{{#if this.showLoading}}
   <LoadingContent @label={{t "pods.project.edit.loading_content"}} />
 {{else}}
   <ProjectSettings::Form
-    @project={{project}}
-    @permissions={{permissions}}
-    @onUpdateProject={{action "updateProject"}}
+    @project={{this.project}}
+    @permissions={{this.permissions}}
+    @onUpdateProject={{fn this.updateProject}}
   />
+
   <ProjectSettings::LinksList
-    @project={{project}}
-    @permissions={{permissions}}
+    @project={{this.project}}
+    @permissions={{this.permissions}}
   />
-  {{#if (get permissions "delete_project")}}
+
+  {{#if (get this.permissions "delete_project")}}
     <ProjectSettings::DeleteForm
-      @project={{project}}
-      @onSubmit={{action "deleteProject"}}
+      @project={{this.project}}
+      @onSubmit={{fn this.deleteProject}}
     />
   {{/if}}
 {{/if}}

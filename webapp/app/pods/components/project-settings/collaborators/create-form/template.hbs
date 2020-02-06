@@ -1,29 +1,29 @@
 <div local-class="project-settings-collaborators-create-form">
   <AccSelect
     @searchEnabled={{false}}
-    @selected={{roleValue}}
-    @options={{mappedPossibleRoles}}
-    @onchange={{action (mut role) value="value"}}
+    @selected={{this.roleValue}}
+    @options={{this.mappedPossibleRoles}}
+    @onchange={{fn this.setRole}}
   />
 
   <QuickSubmitTextfield
-    @value={{email}}
-    class="textInput"
+    @value={{this.email}}
+    local-class="textInput"
     placeholder={{t "components.collaborator_create_form.email_placeholder"}}
-    @onSubmit={{action "submit"}}
+    @onSubmit={{fn this.submit}}
   />
 
   <AsyncButton
-    @onClick={{action "submit"}}
-    @loading={{isCreating}}
-    @disabled={{emptyEmail}}
+    @onClick={{fn this.submit}}
+    @loading={{this.isCreating}}
+    @disabled={{this.emptyEmail}}
     class="button button--filled"
   >
     {{t "components.collaborator_create_form.create_button"}}
   </AsyncButton>
 
-  {{#if onCancel}}
-    <button class="button button--filled button--white" {{action onCancel}}>
+  {{#if @onCancel}}
+    <button class="button button--filled button--white" {{on "click" (fn @onCancel)}}>
       {{t "components.collaborator_create_form.cancel_button"}}
     </button>
   {{/if}}
