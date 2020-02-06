@@ -9,6 +9,7 @@ export enum Hooks {
 
 export enum NamePattern {
   file = 'file',
+  fileWithSlugSuffix = 'fileWithSlugSuffix',
   parentDirectory = 'parentDirectory'
 }
 

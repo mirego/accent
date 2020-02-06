@@ -146,7 +146,13 @@ export default class Document {
       }
     }
 
-    return path.basename(file).replace(path.extname(file), '');
+    const basename = path.basename(file).replace(path.extname(file), '');
+
+    if (config.namePattern === NamePattern.fileWithSlugSuffix) {
+      return basename.replace(path.extname(basename), '');
+    }
+
+    return basename;
   }
 
   private encodeQuery(params: string[][]) {
@@ -161,11 +167,15 @@ export default class Document {
 
   private resolveNamePattern(config: DocumentConfig) {
     if (config.namePattern) return config;
+    let pattern = NamePattern.parentDirectory;
 
-    const pattern =
-      config.target.match(/\%slug\%\//) || !config.source.match(/\//)
-        ? NamePattern.file
-        : NamePattern.parentDirectory;
+    if (config.target.match(/\%slug\%\//) || !config.source.match(/\//)) {
+      pattern = NamePattern.file;
+    }
+
+    if (config.target.match(/\.\%slug\%\./)) {
+      pattern = NamePattern.fileWithSlugSuffix;
+    }
 
     config.namePattern = pattern;
 

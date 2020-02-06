@@ -3,8 +3,8 @@
     {
       "language": "en",
       "format": "rails_yml",
-      "source": "config/locales/en/*.yml",
-      "target": "config/locales/%slug%/%document_path%.yml"
+      "source": "config/locales/*.en.yml",
+      "target": "config/locales/%document_path%.%slug%.yml"
     }
   ]
 }
