@@ -1,1 +1,3 @@
-{{time-ago-in-words attrs.date}}
+<time datetime={{this.formattedDatetime}} title={{this.humanizedDate}}>
+  {{time-ago-in-words @date}}
+</time>

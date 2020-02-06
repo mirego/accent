@@ -12,6 +12,7 @@ export default class EmojiPicker extends Component<Args> {
 
   clickCallback = this.onClick.bind(this);
 
+  @action
   initializePicker(element: HTMLDivElement) {
     this.element = element;
 
@@ -22,6 +23,7 @@ export default class EmojiPicker extends Component<Args> {
     this.picker.on('emoji', this.args.onPicked);
   }
 
+  @action
   destroyPicker() {
     this.picker.off('emoji', this.args.onPicked);
   }

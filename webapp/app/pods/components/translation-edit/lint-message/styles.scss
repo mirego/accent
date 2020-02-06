@@ -8,6 +8,28 @@
   background: #fff;
   border-left: 2px solid lighten(color-error, 10%);
   font-size: 12px;
+
+  :global(.ember-power-select-trigger) {
+    border: 0;
+    margin-left: 4px;
+    padding: 3px 8px 3px 6px;
+    background: transparent;
+    font-size: 12px;
+  }
+
+  :global(.ember-power-select-status-icon):after {
+    left: -12px;
+    color: #aaa;
+  }
+
+  :global(.ember-power-select-selected-item) {
+    margin-right: 10px;
+  }
+
+  :global(.ember-basic-dropdown-trigger)[aria-expanded='true'],
+  :global(.ember-power-select-status-icon)::after {
+    left: -14px;
+  }
 }
 
 .description {
@@ -28,15 +50,7 @@
 }
 
 .replaceButton {
-  margin-left: 10px;
-}
-
-.ember-power-select-trigger {
-  border: 0;
-  margin-left: 4px;
-  padding: 3px 8px 3px 6px;
-  background: transparent;
-  font-size: 12px;
+  margin-left: 10px !important;
 }
 
 .single-replacement {
@@ -46,18 +60,4 @@
   color: color-success;
   font-size: 12px;
   font-weight: bold;
-}
-
-.ember-power-select-status-icon:after {
-  left: -12px;
-  color: #aaa;
-}
-
-.ember-power-select-selected-item {
-  margin-right: 10px;
-}
-
-.ember-basic-dropdown-trigger[aria-expanded='true']
-  .ember-power-select-status-icon::after {
-  left: -14px;
 }

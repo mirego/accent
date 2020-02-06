@@ -16,9 +16,9 @@
     <div class="sections">
       <div class="sections-file">
         <CommitFile
-          @permissions={{permissions}}
-          @revisions={{revisions}}
-          @documents={{documents}}
+          @permissions={{this.permissions}}
+          @revisions={{this.revisions}}
+          @documents={{this.documents}}
           @canCommit={{true}}
           @commitAction="sync"
           @peekAction="peek_sync"
@@ -29,9 +29,9 @@
         />
       </div>
 
-      {{#if revisionOperations.length}}
+      {{#if this.revisionOperations.length}}
         <div class="sections-preview">
-          <OperationsPeek @revisionOperations={{revisionOperations}} />
+          <OperationsPeek @revisionOperations={{this.revisionOperations}} />
         </div>
       {{/if}}
     </div>

@@ -3,21 +3,22 @@
     @title={{t "components.project_settings.badges.title"}}
   />
 
-  <p class="text">
+  <p local-class="text">
     {{t "components.project_settings.badges.text"}}
   </p>
 
-  <div class="badge">
-    <span class="badge-title">
+  <div local-class="badge">
+    <span local-class="badge-title">
       {{t "components.project_settings.badges.percentage_reviewed"}}
     </span>
-    <img src="{{percentageReviewedBadgeUrlWithDigest}}">
+
+    <img src={{this.percentageReviewedBadgeUrlWithDigest}}>
   </div>
 
   <input
     readonly=""
     onClick="this.select();"
-    class="badge-code"
-    value={{percentageReviewedBadgeCode}}
+    local-class="badge-code"
+    value={{this.percentageReviewedBadgeCode}}
   >
 </div>

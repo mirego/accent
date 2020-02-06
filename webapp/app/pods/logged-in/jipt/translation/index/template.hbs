@@ -1,13 +1,13 @@
-{{#unless translation.removed}}
+{{#unless this.translation.removed}}
   <TranslationEdit
-    @translation={{model.translation}}
-    @project={{model.project}}
-    @permissions={{permissions}}
-    @onChangeText={{action "changeText"}}
-    @onUpdateText={{action "updateText"}}
-    @onCorrectConflict={{action "correctConflict"}}
-    @onUncorrectConflict={{action "uncorrectConflict"}}
+    @translation={{this.model.translation}}
+    @project={{this.model.project}}
+    @permissions={{this.permissions}}
+    @onChangeText={{fn this.changeText}}
+    @onUpdateText={{fn this.updateText}}
+    @onCorrectConflict={{fn this.correctConflict}}
+    @onUncorrectConflict={{fn this.uncorrectConflict}}
   />
 {{else}}
-  <RemovedTranslationEdit @translation={{model.translation}} />
+  <RemovedTranslationEdit @translation={{this.model.translation}} />
 {{/unless}}

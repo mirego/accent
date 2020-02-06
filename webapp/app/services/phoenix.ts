@@ -115,3 +115,9 @@ export default class Phoenix extends Service {
     );
   }
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    phoenix: Phoenix;
+  }
+}

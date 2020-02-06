@@ -2,8 +2,8 @@
   @status={{t "pods.error.not_found.status"}}
   @title={{t "pods.error.not_found.title"}}
   @text={{t "pods.error.not_found.text"}}
-  @onLogout={{action "logout"}}
-  @isAuthenticated={{session.isAuthenticated}}
+  @onLogout={{fn this.logout}}
+  @isAuthenticated={{this.session.isAuthenticated}}
 />
 
 <ApplicationFooter />

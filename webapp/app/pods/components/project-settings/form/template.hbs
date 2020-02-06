@@ -1,28 +1,34 @@
 <div local-class="project-settings-form">
-  {{#if (get permissions "update_project")}}
-    <div class="field">
-      <Input @value={{this.name}} class="textInput" />
+  {{#if (get @permissions "update_project")}}
+    <div local-class="field">
+      <input
+        value={{this.name}}
+        local-class="textInput"
+        {{on "change" (fn this.setName)}}
+      >
 
-      <Input @type="color" @value={{this.mainColor}} class="colorInput" />
+      <input
+        type="color"
+        value={{this.mainColor}}
+        local-class="colorInput"
+        {{on "change" (fn this.setMainColor)}}
+      >
 
       <div class="logo-field">
         <AccEmojiPicker
           role="button"
-          class="logo"
-          @onPicked={{action "logoPicked"}}
+          local-class="logo"
+          @onPicked={{fn this.logoPicked}}
           >
           <ProjectLogo @logo={{this.logo}} />
         </AccEmojiPicker>
 
         {{#if this.logo}}
           <button
-            class="logoReset"
-            {{action "logoReset"}}
+            local-class="logoReset"
+            {{on "click" (fn this.logoReset)}}
           >
-            {{inline-svg
-              "assets/x"
-              class="logoReset-icon"
-            }}
+            {{inline-svg "assets/x" local-class="logoReset-icon"}}
           </button>
         {{/if}}
       </div>
@@ -30,44 +36,38 @@
 
     <AsyncButton
       @disabled={{this.unchangedForm}}
-      @onClick={{action "updateProject"}}
+      @onClick={{fn this.updateProject}}
       class="button button--filled"
     >
       {{t "components.project_settings.form.update_button"}}
     </AsyncButton>
   {{/if}}
 
-  {{#if (get permissions "lock_project_file_operations")}}
-    <div class="lock">
-      {{#if isFileOperationsLocked}}
+  {{#if (get @permissions "lock_project_file_operations")}}
+    <div local-class="lock">
+      {{#if this.isFileOperationsLocked}}
         <div
           role="button"
-          class="lock-text lock-text--active"
-          {{action "setLockedFileOperations" on="click"}}
+          local-class="lock-text lock-text--active"
+          {{on "click" (fn this.setLockedFileOperations)}}
         >
-          {{inline-svg
-            "assets/lock--unlocked"
-            class="lock-icon lock-icon--unlocked"
-          }}
-          {{t
-            "components.project_settings.form.lock_file_operations.remove_lock_button"
-          }}
+          {{inline-svg "assets/lock--unlocked" local-class="lock-icon lock-icon--unlocked"}}
+
+          {{t "components.project_settings.form.lock_file_operations.remove_lock_button"}}
         </div>
       {{else}}
         <div
           role="button"
-          class="lock-text lock-text--inactive"
-          {{action "setLockedFileOperations" on="click"}}
+          local-class="lock-text lock-text--inactive"
+          {{on "click" (fn this.setLockedFileOperations)}}
         >
-          {{inline-svg "assets/lock--locked" class="lock-icon lock-icon--locked"}}
+          {{inline-svg "assets/lock--locked" local-class="lock-icon lock-icon--locked"}}
 
-          {{t
-            "components.project_settings.form.lock_file_operations.add_lock_button"
-          }}
+          {{t "components.project_settings.form.lock_file_operations.add_lock_button"}}
         </div>
       {{/if}}
 
-      <p class="lock-text-helper">
+      <p local-class="lock-text-helper">
         {{t "components.project_settings.form.lock_file_operations.text_1"}}
       </p>
     </div>

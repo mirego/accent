@@ -3,13 +3,16 @@
   {{{this.colors}}}
   }
 </style>
+
 <div>
-  <JiptHeader @project={{model.project}} />
+  <JiptHeader @project={{this.model.project}} />
+
   <RevisionSelector
-    @revisions={{revisions}}
-    @revision={{revision.id}}
+    @revisions={{this.revisions}}
+    @revision={{this.revision.id}}
     @withRevisionsCount={{false}}
-    @onSelect={{action "selectRevision"}}
+    @onSelect={{fn this.selectRevision}}
   />
+
   {{outlet}}
 </div>

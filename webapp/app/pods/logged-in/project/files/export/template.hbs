@@ -1,6 +1,6 @@
-<AccModal @onClose={{action "closeModal"}}>
+<AccModal @onClose={{fn this.closeModal}}>
   <ProjectFileOperation>
-    <button class="closeButton" {{action "closeModal"}}>
+    <button class="closeButton" {{on "click" (fn this.closeModal)}}>
       <div class="closeButton-content">
         {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
       </div>
@@ -13,25 +13,25 @@
       </div>
 
       <div class="title-document">
-        {{document.path}}
+        {{this.document.path}}
         <span class="title-documentExtension">
           .
-          {{documentFormatItem.extension}}
+          {{this.documentFormatItem.extension}}
         </span>
       </div>
     </div>
     <RevisionExportOptions
-      @format={{documentFormatFilter}}
-      @orderBy={{orderByFilter}}
-      @revision={{revisionFilter}}
-      @revisions={{revisions}}
-      @onChangeRevision={{action (mut revisionFilter)}}
-      @onChangeFormat={{action (mut documentFormatFilter)}}
-      @onChangeOrderBy={{action (mut orderByFilter)}}
+      @format={{this.documentFormatFilter}}
+      @orderBy={{this.orderByFilter}}
+      @revision={{this.revisionFilter}}
+      @revisions={{this.revisions}}
+      @onChangeRevision={{fn (mut this.revisionFilter)}}
+      @onChangeFormat={{fn (mut this.documentFormatFilter)}}
+      @onChangeOrderBy={{fn (mut this.orderByFilter)}}
     />
     <LinkTo
       @route="logged-in.project.files.jipt"
-      @models={{array project.id document.id}}
+      @models={{array this.project.id this.document.id}}
       class="button button--filled button--white button--small toggleJiptExport"
     >
       {{inline-svg "/assets/edit-in-place.svg" class="button-icon"}}
@@ -39,26 +39,26 @@
     </LinkTo>
 
     <AsyncButton
-      @onClick={{action "exportFile"}}
-      @disabled={{exportButtonDisabled}}
+      @onClick={{fn this.exportFile}}
+      @disabled={{this.exportButtonDisabled}}
       class="button button--filled renderExport"
     >
       {{t "components.project_file_operations.export"}}
     </AsyncButton>
 
-    {{#if exportLoading}}
+    {{#if this.exportLoading}}
       <SkeletonUi::ProgressLine />
     {{/if}}
 
     <FileExport
-      @class="render"
-      @onFileLoaded={{action "onFileLoaded"}}
-      @project={{project}}
-      @revisions={{revisions}}
-      @revision={{revision}}
-      @document={{document}}
-      @documentFormat={{documentFormatFilter}}
-      @orderBy={{orderByFilter}}
+      class="render"
+      @onFileLoaded={{fn this.onFileLoaded}}
+      @project={{this.project}}
+      @revisions={{this.revisions}}
+      @revision={{this.revision}}
+      @document={{this.document}}
+      @documentFormat={{this.documentFormatFilter}}
+      @orderBy={{this.orderByFilter}}
     />
   </ProjectFileOperation>
 </AccModal>

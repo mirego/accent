@@ -1,9 +1,9 @@
-{{#if showLoading}}
+{{#if this.showLoading}}
   <LoadingContent @label={{t "pods.project.edit.api_token.loading_content"}} />
 {{else}}
-  <ProjectSettings::BackLink @project={{project}} />
+  <ProjectSettings::BackLink @project={{this.project}} />
 
-  {{#if project.accessToken}}
-    <ProjectSettings::ApiToken @token={{project.accessToken}} />
+  {{#if this.project.accessToken}}
+    <ProjectSettings::ApiToken @token={{this.project.accessToken}} />
   {{/if}}
 {{/if}}

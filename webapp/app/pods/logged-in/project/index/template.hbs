@@ -1,17 +1,17 @@
-{{#if model.loading}}
+{{#if this.model.loading}}
   <SkeletonUi::ProgressLine />
 {{/if}}
 
-{{#if showLoading}}
+{{#if this.showLoading}}
   <LoadingContent @label={{t "pods.project.index.loading_content"}} />
 {{else}}
   <DashboardRevisions
-    @document={{document}}
-    @project={{project}}
-    @activities={{project.activities.entries}}
-    @revisions={{revisions}}
-    @permissions={{permissions}}
-    @onCorrectAllConflicts={{action "correctAllConflicts"}}
-    @onUncorrectAllConflicts={{action "uncorrectAllConflicts"}}
+    @document={{this.document}}
+    @project={{this.project}}
+    @activities={{this.project.activities.entries}}
+    @revisions={{this.revisions}}
+    @permissions={{this.permissions}}
+    @onCorrectAllConflicts={{fn this.correctAllConflicts}}
+    @onUncorrectAllConflicts={{fn this.uncorrectAllConflicts}}
   />
 {{/if}}

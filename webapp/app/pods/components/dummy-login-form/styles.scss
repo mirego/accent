@@ -54,8 +54,8 @@
 }
 
 .dummyLoginButton {
-  flex: 0 1 auto;
-  border-radius: 0 3px 3px 0;
+  flex: 0 1 auto !important;
+  border-radius: 0 3px 3px 0 !important;
 }
 
 @media (max-width: (screen-sm)) {
