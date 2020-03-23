@@ -1,0 +1,10 @@
+{
+  "files": [
+    {
+      "namePattern": "file",
+      "format": "strings",
+      "source": "Project/Resources/en.lproj/Localizable.strings",
+      "target": "Project/Resources/%slug%.lproj/%document_path%.strings"
+    }
+  ]
+}
