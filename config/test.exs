@@ -22,4 +22,6 @@ config :accent, Accent.Lint,
   spelling_gateway: Accent.Lint.Rules.Spelling.GatewayMock,
   spelling_gateway_url: "http://language-tool.test"
 
+config :ueberauth, Ueberauth, providers: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}}]
+
 config :logger, level: :warn
