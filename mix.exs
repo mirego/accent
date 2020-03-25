@@ -71,7 +71,7 @@ defmodule Accent.Mixfile do
       {:gettext, "~> 0.17"},
       {:csv, "~> 2.0"},
       {:php_assoc_map, "~> 0.5"},
-      {:jason, "~> 1.0"},
+      {:jason, "~> 1.2", override: true},
       {:erlsom, "~> 1.5"},
       {:xml_builder, "~> 2.0"},
       {:ex_minimatch, "~> 0.0.1"},
@@ -99,7 +99,7 @@ defmodule Accent.Mixfile do
       {:mock, "~> 0.3.0", only: :test},
 
       # Dev
-      {:dialyxir, "~> 0.5", only: ~w(dev test)a, runtime: false},
+      {:dialyxir, "~> 1.0", only: ~w(dev test)a, runtime: false},
       {:credo, ">= 0.0.0", only: ~w(dev test)a},
       {:credo_envvar, "~> 0.1.0", only: ~w(dev test)a, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
