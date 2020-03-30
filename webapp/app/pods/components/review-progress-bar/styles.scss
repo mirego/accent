@@ -1,15 +1,25 @@
-@value color-black, color-grey from 'accent-webapp/styles/variables/colors';
+@value color-black from 'accent-webapp/styles/variables/colors';
 
-.review-progress-bar {
+.progress-bar {
   width: 100%;
   height: 2px;
   background: #eee;
   border-radius: 3px;
-  overflow: hidden;
   box-shadow: 0 1px 8px rgba(color-black, 0.04);
 }
 
 .progress {
-  height: 5px;
-  background: color-grey;
+  height: 2px;
+  background: currentColor;
+  border-radius: 3px;
+
+  &:after {
+    width: 100%;
+    content: '';
+    height: 1px;
+    background: transparent;
+    box-shadow: 3px 2px 4px currentColor;
+    display: block;
+    opacity: 0.7;
+  }
 }

@@ -148,13 +148,13 @@ export default class ConflictsController extends Controller {
 
   @action
   changeReference(reference: any) {
-    this.reference = reference;
+    this.reference = reference.value;
   }
 
   @action
   changeDocument(documentEntry: any) {
     this.page = 1;
-    this.document = documentEntry;
+    this.document = documentEntry.value;
   }
 
   @action

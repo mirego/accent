@@ -1,4 +1,10 @@
-<button local-class="button {{if @loading "button--loading"}}" class="button" ...attributes {{on "click" (fn this.onClick)}}>
+<button
+  local-class="button {{if @loading "button--loading"}}"
+  class="button"
+  disabled={{this.disabled}}
+  ...attributes
+  {{on "click" (fn this.onClick)}}
+>
   <div local-class="content">
     <span local-class="label" class="label">{{yield}}</span>
 

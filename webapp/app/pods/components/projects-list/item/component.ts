@@ -10,8 +10,8 @@ interface Args {
 }
 
 export default class ProjectsListItem extends Component<Args> {
-  @readOnly('args.project.revisions')
-  revisions: any;
+  @readOnly('args.project')
+  project: any;
 
   @lt('correctedKeysPercentage', LOW_PERCENTAGE)
   lowPercentage: boolean; // Lower than low percentage
@@ -24,28 +24,22 @@ export default class ProjectsListItem extends Component<Args> {
 
   get colors() {
     return `
-      .projectId-${this.args.project.id} {
-        --color-primary: ${this.args.project.mainColor};
+      .projectId-${this.project.id} {
+        --color-primary: ${this.project.mainColor};
       }
     `;
   }
 
   get totalStrings() {
-    return this.revisions.reduce((memo: number, revision: any) => {
-      return memo + revision.translationsCount;
-    }, 0);
+    return this.project.translationsCount;
   }
 
   get totalConflicts() {
-    return this.revisions.reduce((memo: number, revision: any) => {
-      return memo + revision.conflictsCount;
-    }, 0);
+    return this.project.conflictsCount;
   }
 
   get totalReviewed() {
-    return this.revisions.reduce((memo: number, revision: any) => {
-      return memo + (revision.translationsCount - revision.conflictsCount);
-    }, 0);
+    return this.project.translationsCount - this.project.conflictsCount;
   }
 
   get correctedKeysPercentage() {

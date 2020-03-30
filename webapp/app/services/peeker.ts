@@ -61,9 +61,9 @@ export default class Peeker extends Service {
       documentFormat
     });
 
-    return revisions.map(revision => {
-      this.mapOperations(revision, operations, stats);
-    });
+    return revisions.map(revision =>
+      this.mapOperations(revision, operations, stats)
+    );
   }
 
   async merge({
@@ -91,7 +91,7 @@ export default class Peeker extends Service {
       documentFormat
     });
 
-    return this.mapOperations(revision, operations, stats);
+    return [this.mapOperations(revision, operations, stats)];
   }
 
   private mapOperations(

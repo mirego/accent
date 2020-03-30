@@ -1,4 +1,4 @@
-<ul local-local-class="translation-comments-list" ...attributes>
+<ul local-class="translation-comments-list" ...attributes>
   {{#each @comments key="id" as |comment|}}
     <li local-class="itemComment">
       <div local-class="itemComment-header">
@@ -12,10 +12,9 @@
           {{comment.user.fullname}}
         </span>
 
-        <TimeAgoInWordsTag
-          @date={{comment.insertedAt}}
-          local-class="itemComment-date"
-        />
+        <span local-class="itemComment-date">
+          <TimeAgoInWordsTag @date={{comment.insertedAt}} />
+        </span>
       </div>
 
       <div local-class="itemComment-content">

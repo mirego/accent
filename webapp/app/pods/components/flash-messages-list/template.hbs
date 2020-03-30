@@ -1,5 +1,5 @@
 <div local-class="flash-messages-list">
-  {{#each flashMessages.queue as |flash|}}
+  {{#each @flashMessages.queue as |flash|}}
     <AccFlashMessage @flash={{flash}} />
   {{/each}}
 </div>

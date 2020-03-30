@@ -58,6 +58,8 @@ export default class ProjectActivitiesFilter extends Component<Args> {
   }
 
   get mappedUsers() {
+    if (!this.args.collaborators) return [];
+
     const users = this.args.collaborators
       .filter((collaborator: any) => !collaborator.isPending)
       .map(({user: {fullname, id}}: {user: any}) => ({

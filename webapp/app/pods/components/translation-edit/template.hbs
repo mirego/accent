@@ -49,7 +49,7 @@
               <AsyncButton
                 @loading={{this.isUpdatingText}}
                 @disabled={{this.hasTextNotChanged}}
-                local-class="button button--filled button--white"
+                class="button button--filled button--white"
                 @onClick={{fn this.updateText}}
               >
                 {{t "components.translation_edit.update_text"}}
@@ -58,10 +58,10 @@
             {{#if (get @permissions "correct_translation")}}
               <AsyncButton
                 @loading={{this.isCorrectingConflict}}
-                local-class="button button--filled"
+                class="button button--filled"
                 @onClick={{fn this.correctConflict}}
               >
-                {{inline-svg "/assets/check.svg" local-class="button-icon"}}
+                {{inline-svg "/assets/check.svg" class="button-icon"}}
                 {{t "components.translation_edit.correct_button"}}
               </AsyncButton>
             {{/if}}
@@ -91,7 +91,7 @@
               <AsyncButton
                 @loading={{this.isUpdatingText}}
                 @disabled={{this.hasTextNotChanged}}
-                local-class="button button--filled button--white"
+                class="button button--filled button--white"
                 @onClick={{fn this.updateText}}
               >
                 {{t "components.translation_edit.update_text"}}
@@ -101,10 +101,10 @@
               {{#if (get @permissions "uncorrect_translation")}}
                 <AsyncButton
                   @loading={{this.isUncorrectingConflict}}
-                  local-class="button button--filled button--red"
+                  class="button button--filled button--red"
                   @onClick={{fn this.uncorrectConflict}}
                 >
-                  {{inline-svg "/assets/revert.svg" local-class="button-icon"}}
+                  {{inline-svg "/assets/revert.svg" class="button-icon"}}
                   {{t "components.translation_edit.uncorrect_button"}}
                 </AsyncButton>
               {{/if}}

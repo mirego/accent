@@ -111,7 +111,7 @@ export default class ActivityItem extends Component<Args> {
     const actionsWithDocument = ['sync', 'document_delete', 'merge'];
 
     return (
-      actionsWithDocument.includes(action) && this.args.activity.document.path
+      actionsWithDocument.includes(action) && this.args.activity.document && this.args.activity.document.path
     );
   }
 

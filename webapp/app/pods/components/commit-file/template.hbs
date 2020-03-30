@@ -92,7 +92,7 @@
         />
       </div>
 
-      {{#if (get permissions peekAction)}}
+      {{#if (get @permissions @peekAction)}}
         <div local-class="option">
           <p local-class="textHelper">
             {{t "components.commit_file.peek_help"}}
@@ -137,9 +137,9 @@
     <div local-class="emptyFile">
       <div local-class="emptyFile-upload">
         <FileInput
-          @name="file-input"
-          @id="file-input"
-          @onChange={{fn this.fileChange}}
+          name="file-input"
+          id="file-input"
+          @onChange={{this.fileChange}}
           local-class="fileInput"
         />
 

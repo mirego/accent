@@ -65,7 +65,7 @@ export default class RevisionSelector extends Component<Args> {
   }
 
   @action
-  selectRevision(value: any) {
+  selectRevision({value}: any) {
     this.globalState.revision = value;
 
     this.args.onSelect(value);

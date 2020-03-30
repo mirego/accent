@@ -27,18 +27,8 @@ export default gql`
           lastSyncedAt
           mainColor
           logo
-
-          revisions {
-            id
-            translationsCount
-            conflictsCount
-
-            language {
-              id
-              slug
-              name
-            }
-          }
+          translationsCount
+          conflictsCount
         }
       }
     }

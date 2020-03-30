@@ -1,0 +1,23 @@
+<div local-class="data-control {{if @error "error-control"}}">
+  <label local-class="data-title">
+    {{@label}}
+
+    {{#if @helpLinkTitle}}
+      <a
+        local-class="data-title-help"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={{@helpLinkHref}}
+      >
+        {{@helpLinkTitle}}
+      </a>
+      {{/if}}
+  </label>
+
+  <input
+    placeholder={{@placeholder}}
+    value={{@value}}
+    local-class="textInput"
+    {{on "change" (fn @onChange)}}
+  >
+</div>

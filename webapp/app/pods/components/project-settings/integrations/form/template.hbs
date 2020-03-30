@@ -16,21 +16,23 @@
       />
     </div>
 
-    {{component
-      this.dataFormComponent
-      repository=this.repository
-      defaultRef=this.defaultRef
-      token=this.token
-      errors=this.errors
-      url=this.url
-      project=@project
-      syncChecked=this.syncChecked
-      onChangeUrl=(fn this.setUrl)
-      onChangeSyncChecked=(fn this.setSyncChecked)
-      onChangeRepository=(fn this.setRepository)
-      onChangeToken=(fn this.setToken)
-      onChangeDefaultRef=(fn this.setDefaultRef)
-    }}
+    <div local-class="data">
+      {{component
+        this.dataFormComponent
+        repository=this.repository
+        defaultRef=this.defaultRef
+        token=this.token
+        errors=this.errors
+        url=this.url
+        project=@project
+        syncChecked=this.syncChecked
+        onChangeUrl=(fn this.setUrl)
+        onChangeSyncChecked=(fn this.setSyncChecked)
+        onChangeRepository=(fn this.setRepository)
+        onChangeToken=(fn this.setToken)
+        onChangeDefaultRef=(fn this.setDefaultRef)
+      }}
+    </div>
 
     <div local-class="actions">
       <AsyncButton
@@ -42,7 +44,7 @@
       </AsyncButton>
 
       {{#if @onCancel}}
-        <button class="button button--filled button--white" {{on "click" (fn @onCancel)}}>
+        <button local-class="button" class="button button--filled button--white" {{on "click" (fn @onCancel)}}>
           {{t "components.project_settings.integrations.cancel"}}
         </button>
       {{/if}}

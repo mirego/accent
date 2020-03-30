@@ -24,6 +24,13 @@
   position: relative;
 }
 
+.totalEntries {
+  flex-shrink: 0;
+  margin-top: 10px;
+  color: color-grey;
+  font-size: 12px;
+}
+
 .search-icon {
   position: absolute;
   top: 50%;

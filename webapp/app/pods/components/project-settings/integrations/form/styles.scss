@@ -1,132 +1,43 @@
 @value font-monospace, font-primary from 'accent-webapp/styles/variables/fonts';
 
 .project-settings-integrations-form {
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #eee;
   border-radius: 3px;
+
+  :global(.ember-power-select-trigger) {
+    min-width: 150px;
+    margin-right: 10px;
+    border: 1px solid #eee;
+    background: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 1px 5px rgba(#000, 0.06);
+  }
+
+  :global(.ember-power-select-option),
+  :global(.ember-power-select-selected-item) {
+    display: flex;
+    align-items: center;
+  }
+
+  :global(.ember-power-select-trigger)[aria-disabled='true'] {
+    background: transparent;
+    box-shadow: none;
+  }
 }
 
 .form {
   display: flex;
+  padding-bottom: 10px;
 }
 
-.textInput {
-  @extend %textInput;
-  flex-grow: 1;
-  flex-shrink: 0;
-  padding: 8px 10px;
-  margin-right: 10px;
-  max-width: 350px;
-  width: 100%;
-  font-family: font-primary;
-  font-size: 11px;
-
-  &[readonly] {
-    max-width: 500px;
-    font-family: font-monospace;
-    background: #fafafa;
-  }
-}
-
-.instructions {
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-  margin: 20px 0 10px;
-}
-
-.instructions-text {
-  margin-top: 7px;
-  font-style: italic;
-  color: #555;
-}
-
-.instructions-text a {
-  font-family: font-monospace;
-  color: var(--color-primary);
-  text-decoration: none;
-
-  &:focus,
-  &:hover {
-    text-decoration: underline;
-    opacity: 0.8;
-  }
-}
-
-.checkbox-with-label {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 10px;
-  border: 1px solid #eee;
-  padding: 3px 6px;
-  border-radius: 3px;
-  background: #f7f7f7;
-
-  input {
-    margin-right: 5px;
-  }
-}
-
-:global(.data) {
+.data {
   margin-top: 10px;
   font-size: 12px;
 }
 
-:global(.data-control) {
-  margin-bottom: 15px;
-}
-
-:global(.error-control) {
-  @extend %errorControl;
-}
-
-:global(.data-title) {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-:global(.data-title-help) {
-  margin-left: 4px;
-  font-size: 11px;
-  font-weight: normal;
-  text-decoration: none;
-  color: var(--color-primary);
-
-  &:focus,
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-:global(.service-logo) {
-  width: 15px;
-  height: 15px;
-  margin-right: 8px;
-}
-
-:global(.ember-power-select-trigger) {
-  min-width: 150px;
-  margin-right: 10px;
-  border: 1px solid #eee;
-  background: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  box-shadow: 0 1px 5px rgba(#000, 0.06);
-}
-
-:global(.ember-power-select-option),
-:global(.ember-power-select-selected-item) {
-  display: flex;
-  align-items: center;
-}
-
-:global(.ember-power-select-trigger)[aria-disabled='true'] {
-  background: transparent;
-  box-shadow: none;
-}
-
-:global(.button) {
+.button {
   margin-right: 5px;
 }
 

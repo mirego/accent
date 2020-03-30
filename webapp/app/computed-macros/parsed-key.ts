@@ -1,4 +1,9 @@
-export default key => {
+interface ParsedKey {
+  value: String;
+  prefix: String;
+}
+
+export default (key: String): ParsedKey => {
   if (!key) return {value: '', prefix: ''};
 
   const splittedKey = key.split('|');

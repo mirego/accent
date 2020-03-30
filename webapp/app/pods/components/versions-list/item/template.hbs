@@ -20,7 +20,9 @@
     </h2>
     <div local-class="item-meta">
       {{@version.user.fullname}}
-      <TimeAgoInWordsTag @date={{@version.insertedAt}} local-class="item-meta-date" />
+      <span local-class="item-meta-date">
+        <TimeAgoInWordsTag @date={{@version.insertedAt}} />
+      </span>
     </div>
   </div>
 

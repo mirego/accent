@@ -36,16 +36,16 @@ interface Args {
     documentPath: string | null;
     documentFormat: any;
     revision: any;
-    mergeType: {label: string; value: string};
-    syncType: {label: string; value: string};
+    mergeType: string;
+    syncType: string;
   }) => Promise<void>;
   onCommit: (options: {
     fileSource: any;
     documentPath: string | null;
     documentFormat: any;
     revision: any;
-    mergeType: {label: string; value: string};
-    syncType: {label: string; value: string};
+    mergeType: string;
+    syncType: string;
   }) => Promise<void>;
 }
 
@@ -196,8 +196,8 @@ export default class CommitFile extends Component<Args> {
         documentPath: this.documentPath,
         documentFormat: this.documentFormat,
         revision: this.revision,
-        mergeType: this.mergeType,
-        syncType: this.syncType
+        mergeType: this.mergeType.value,
+        syncType: this.syncType.value
       });
 
       this.onCommitingDone();
@@ -216,8 +216,8 @@ export default class CommitFile extends Component<Args> {
         documentPath: this.documentPath,
         documentFormat: this.documentFormat,
         revision: this.revision,
-        mergeType: this.mergeType,
-        syncType: this.syncType
+        mergeType: this.mergeType.value,
+        syncType: this.syncType.value
       });
 
       this.onPeekingDone();

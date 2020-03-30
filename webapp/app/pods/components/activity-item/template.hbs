@@ -7,10 +7,9 @@
       {{#if @activity.isRollbacked}}
         <div local-class="item-content-rollbacked">
           {{t "components.activity_item.rollbacked"}}
-          <TimeAgoInWordsTag
-            @date={{@activity.updatedAt}}
-            local-class="item-rollbacked-date"
-          />
+          <span local-class="item-rollbacked-date">
+            <TimeAgoInWordsTag @date={{@activity.updatedAt}} />
+          </span>
         </div>
       {{/if}}
 
@@ -94,14 +93,14 @@
                     {{@activity.document.path}}
                   {{/if}}
                 </small>
-                {{@translationKey.value}}
+                {{this.translationKey.value}}
               </LinkTo>
             {{/if}}
           {{/if}}
         </div>
 
         <div local-class="item-actions">
-          <TimeAgoInWordsTag @date={{@activity.insertedAt}} local-class="item-date" />
+          <span local-class="item-date"><TimeAgoInWordsTag @date={{@activity.insertedAt}} /></span>
           <LinkTo
             @route="logged-in.project.activity"
             @models={{array @project.id @activity.id}}
@@ -173,10 +172,9 @@
           </div>
 
           {{#unless @compact}}
-            <TimeAgoInWordsTag
-              @date={{@activity.rollbackedOperation.insertedAt}}
-              local-class="item-date"
-            />
+            <span local-class="item-date">
+              <TimeAgoInWordsTag @date={{@activity.rollbackedOperation.insertedAt}} />
+            </span>
             <LinkTo
               @route="logged-in.project.activity"
               @models={{array @project.id @activity.rollbackedOperation.id}}

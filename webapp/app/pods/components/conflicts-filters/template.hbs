@@ -1,7 +1,7 @@
 <div local-class="conflicts-filters">
   <div class="filters">
-    <form local-class="filters-wrapper" {{on "submit" (fn this.submitForm)}}>
-      <div local-class="filters-content">
+    <form class="filters-wrapper" local-class="filters-wrapper" {{on "submit" (fn this.submitForm)}}>
+      <div class="filters-content" local-class="filters-content">
         <div class="queryForm" local-class="queryForm">
           {{inline-svg "/assets/search.svg" local-class="search-icon"}}
 
@@ -14,11 +14,11 @@
           >
         </div>
 
-        <div local-class="queryForm-filters">
-          <div local-class="queryForm-filters-column">
+        <div class="queryForm-filters">
+          <div class="queryForm-filters-column">
             {{#if this.showDocumentsSelect}}
-              <div local-class="queryForm-filter">
-                <div local-class="queryForm-filter-select">
+              <div class="queryForm-filter">
+                <div class="queryForm-filter-select">
                   <AccSelect
                     @matchTriggerWidth={{false}}
                     @searchEnabled={{false}}
@@ -31,8 +31,8 @@
             {{/if}}
 
             {{#if this.showReferenceRevisionsSelect}}
-              <div local-class="queryForm-filter">
-                <div local-class="queryForm-filter-select">
+              <div class="queryForm-filter">
+                <div class="queryForm-filter-select">
                   <AccSelect
                     @matchTriggerWidth={{false}}
                     @searchEnabled={{false}}

@@ -18,7 +18,7 @@ interface Args {
 }
 
 export default class Slack extends Component<Args> {
-  urlError = fieldError('args.errors', 'data.url');
+  urlError = fieldError(this.args.errors, this.args.url);
 
   @action
   changeUrl(event: Event) {

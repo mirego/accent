@@ -19,10 +19,9 @@
       {{#if @project.lastSyncedAt}}
         <span local-class="projectUpdate">
           {{t "components.projects_list.last_synced_at_label"}}
-          <TimeAgoInWordsTag
-            @date={{@project.lastSyncedAt}}
-            local-class="lastSyncedAt-date"
-          />
+          <span local-class="lastSyncedAt-date">
+            <TimeAgoInWordsTag @date={{@project.lastSyncedAt}} />
+          </span>
         </span>
       {{else}}
         {{t "components.projects_list.never_synced"}}

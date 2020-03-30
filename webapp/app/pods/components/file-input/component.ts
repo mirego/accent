@@ -1,3 +1,4 @@
+import {action} from '@ember/object';
 import Component from '@glimmer/component';
 
 interface Args {
@@ -5,6 +6,7 @@ interface Args {
 }
 
 export default class FileInput extends Component<Args> {
+  @action
   onChange(event: Event) {
     const target = event.target as HTMLInputElement;
 

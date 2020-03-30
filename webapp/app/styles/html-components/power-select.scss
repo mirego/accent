@@ -31,12 +31,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-top: $ember-power-select-trigger-border-top;
-  border-bottom: $ember-power-select-trigger-border-bottom;
-  border-right: $ember-power-select-trigger-border-right;
-  border-left: $ember-power-select-trigger-border-left;
-  border-color: transparent;
-  border-radius: $ember-power-select-trigger-default-border-radius;
   background-color: transparent;
   overflow-x: hidden;
   text-overflow: ellipsis;
@@ -44,15 +38,6 @@
   font-size: 13px;
   color: $ember-power-select-text-color;
   cursor: pointer;
-
-  &:focus,
-  &.ember-power-select-trigger--active {
-    border-top: $ember-power-select-active-trigger-border-top;
-    border-bottom: $ember-power-select-active-trigger-border-bottom;
-    border-right: $ember-power-select-active-trigger-border-right;
-    border-left: $ember-power-select-active-trigger-border-left;
-    outline: none;
-  }
 }
 
 .ember-basic-dropdown-trigger--below.ember-power-select-trigger[aria-expanded='true'],

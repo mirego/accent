@@ -1,7 +1,7 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
 @value color-grey, color-light-background, color-green, color-black from 'accent-webapp/styles/variables/colors';
 
-.project-settings-collaborators-list-item {
+.item {
   transition: transition-speed transition-easing;
   transition-property: background;
   display: flex;
@@ -34,17 +34,7 @@
     }
   }
 
-  :global(.ember-power-select-trigger) {
-    min-width: 150px;
-    padding: 5px 7px 4px;
-    margin-bottom: 10px;
-    border: 1px solid #eee;
-    background: #fff;
-    font-size: 12px;
-    box-shadow: 0 1px 5px rgba(#000, 0.06);
-  }
-
-  :global(.button) {
+  .button {
     flex: 0 0 auto;
     transition: transition-speed transition-easing;
     transition-property: opacity;
@@ -58,6 +48,16 @@
       width: 12px;
       height: 12px;
     }
+  }
+
+  :global(.ember-power-select-trigger) {
+    min-width: 150px;
+    padding: 5px 7px 4px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    background: #fff;
+    font-size: 12px;
+    box-shadow: 0 1px 5px rgba(#000, 0.06);
   }
 }
 

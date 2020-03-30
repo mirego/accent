@@ -37,7 +37,9 @@
       </span>
     </span>
 
-    <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
+    <div local-class="progress">
+      <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
+    </div>
 
     {{#if this.showActions}}
       <div local-class="actions">

@@ -1,5 +1,5 @@
 @value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-light-background, color-error, color-green, color-black, color-success from 'accent-webapp/styles/variables/colors';
+@value color-blue, color-error, color-green, color-black, color-success from 'accent-webapp/styles/variables/colors';
 @value screen-md from 'accent-webapp/styles/variables/dimensions';
 
 .activity-title {
@@ -13,12 +13,13 @@
 }
 
 .activity-explanation {
-  margin: 20px 0 0;
-  font-weight: 300;
-  font-size: 14px;
-  color: #555;
   padding: 10px 12px;
-  background: color-light-background;
+  margin: 0 0 20px;
+  background: rgba(color-blue, 0.15);
+  box-shadow: 0 1px 20px rgba(color-blue, 0.08);
+  font-weight: 300;
+  font-size: 13px;
+  color: darken(color-blue, 10%);
   border-radius: 3px;
 }
 
@@ -27,7 +28,7 @@
   margin-bottom: 4px;
   font-size: 12px;
   font-weight: 500;
-  color: #111;
+  color: darken(color-blue, 20%);
 }
 
 .activity-date {

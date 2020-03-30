@@ -20,29 +20,13 @@
     "inlineSources": true,
     "baseUrl": ".",
     "module": "esNext",
-    "lib": [
-      "dom",
-      "es2017",
-      "esnext.asynciterable"
-    ],
+    "lib": ["dom", "es2017", "esnext.asynciterable"],
     "paths": {
-      "accent-webapp/tests/*": [
-        "tests/*"
-      ],
-      "accent-webapp/*": [
-        "app/*"
-      ],
-      "fetch": [
-        "node_modules/ember-fetch"
-      ],
-      "*": [
-        "types/*"
-      ]
+      "accent-webapp/tests/*": ["tests/*"],
+      "accent-webapp/*": ["app/*"],
+      "fetch": ["node_modules/ember-fetch"],
+      "*": ["types/*"]
     }
   },
-  "include": [
-    "app/**/*",
-    "tests/**/*",
-    "types/**/*"
-  ]
+  "include": ["app/**/*", "tests/**/*", "types/**/*"]
 }

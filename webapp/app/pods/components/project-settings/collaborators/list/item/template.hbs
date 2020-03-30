@@ -1,5 +1,5 @@
-<li local-class="{{if this.isEditing "editing"}} {{if this.hasJoined "joined" "invited"}} {{if this.collaborator.user.pictureUrl "withPicture"}}">
-  <div local-class="project-settings-collaborators-list-item">
+<li local-class="item {{if this.isEditing "editing"}} {{if this.hasJoined "joined" "invited"}} {{if @collaborator.user.pictureUrl "withPicture"}}">
+  <div local-class="item-content">
     <div>
       {{#if this.isEditing}}
         <AccSelect
@@ -23,7 +23,7 @@
           {{#if this.hasJoined}}
             {{#if @collaborator.user.fullname}}
               {{@collaborator.user.fullname}}
-              <small class="user-email">
+              <small local-class="user-email">
                 {{@collaborator.email}}
               </small>
             {{else}}
@@ -58,25 +58,25 @@
   <div local-class="actions">
     {{#if this.isEditing}}
       {{#if this.canUpdateCollaborator}}
-        <button class="button button--filled button--white" {{on "click" (fn this.toggleUpdateCollaborator)}}>
+        <button local-class="button" class="button button--filled button--white" {{on "click" (fn this.toggleUpdateCollaborator)}}>
           {{t "components.project_settings.collaborators_item.cancel_save_role"}}
         </button>
 
-        <button class="button button--filled" {{on "click" (fn this.updateCollaborator)}}>
+        <button local-class="button" class="button button--filled" {{on "click" (fn this.updateCollaborator)}}>
           {{inline-svg "/assets/check.svg" class="button-icon"}}
           {{t "components.project_settings.collaborators_item.save_role"}}
         </button>
       {{/if}}
     {{else}}
       {{#if this.canUpdateCollaborator}}
-        <button class="button button--filled button--white" {{on "click" (fn this.toggleUpdateCollaborator)}}>
+        <button local-class="button" class="button button--filled button--white" {{on "click" (fn this.toggleUpdateCollaborator)}}>
           {{inline-svg "/assets/pencil.svg" class="button-icon"}}
           {{t "components.project_settings.collaborators_item.edit_role"}}
         </button>
       {{/if}}
 
       {{#if this.canDeleteCollaborator}}
-        <button class="button button--filled button--red" {{on "click" (fn this.deleteCollaborator)}}>
+        <button local-class="button" class="button button--filled button--red" {{on "click" (fn this.deleteCollaborator)}}>
           {{inline-svg "/assets/x.svg" class="button-icon"}}
 
           {{#if this.hasJoined}}

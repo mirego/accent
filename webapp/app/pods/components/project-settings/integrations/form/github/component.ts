@@ -20,9 +20,9 @@ interface Args {
 }
 
 export default class GitHub extends Component<Args> {
-  tokenError = fieldError('args.errors', 'data.token');
-  repositoryError = fieldError('args.errors', 'data.repository');
-  defaultRefError = fieldError('args.errors', 'data.defaultRef');
+  tokenError = fieldError(this.args.errors, this.args.token);
+  repositoryError = fieldError(this.args.errors, this.args.repository);
+  defaultRefError = fieldError(this.args.errors, this.args.defaultRef);
 
   get webhookUrl() {
     if (!this.args.project.accessToken) return;

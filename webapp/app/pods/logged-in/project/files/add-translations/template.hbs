@@ -1,6 +1,6 @@
 <AccModal @onClose={{fn this.closeModal}}>
   <ProjectFileOperation>
-    <button class="closeButton" {{fn this.closeModal}}>
+    <button class="closeButton" {{on "click" (fn this.closeModal)}}>
       <div class="closeButton-content">
         {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
       </div>

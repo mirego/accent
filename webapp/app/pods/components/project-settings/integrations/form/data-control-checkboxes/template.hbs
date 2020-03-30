@@ -1,0 +1,11 @@
+  <div local-class="data-control">
+    <h3 local-class="data-title">
+      {{@title}}
+    </h3>
+
+    <CheckboxWithLabel
+      @checked={{@syncChecked}}
+      @text={{@syncCheckLabel}}
+      @update={{fn @onChangeSyncChecked}}
+    />
+  </div>

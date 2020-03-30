@@ -105,7 +105,8 @@ export default class IntegrationsForm extends Component<Args> {
 
     this.service = this.integration.service || this.services[0];
     this.url = this.integration.data.url;
-    this.syncChecked = this.integration.events?.includes('SYNC')
+    this.syncChecked =
+      this.integration.events && this.integration.events.includes('SYNC');
     this.repository = this.integration.data.repository;
     this.token = this.integration.data.token;
     this.defaultRef = this.integration.data.defaultRef;

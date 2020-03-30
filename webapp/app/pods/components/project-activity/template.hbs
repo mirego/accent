@@ -1,4 +1,12 @@
 <div local-class="activity" {{did-insert (fn this.maybeFetchActivities)}}>
+  <p local-class="activity-explanation">
+    <span local-class="activity-explanation-label">
+      {{t "components.project_activity.explanation_label"}}
+    </span>
+
+    {{this.actionExplanation}}
+  </p>
+
   <h1 local-class="activity-title">
     <span local-class="activity-title-author">
       {{@activity.user.fullname}}
@@ -8,7 +16,7 @@
   </h1>
 
   <div local-class="activity-meta">
-    <TimeAgoInWordsTag @date={{@activity.insertedAt}} local-class="activity-date" />
+    <span local-class="activity-date"><TimeAgoInWordsTag @date={{@activity.insertedAt}} /></span>
 
     {{#if isRollbacked}}
       <div local-class="rollbackedBadge">
@@ -27,14 +35,6 @@
       {{/if}}
     {{/if}}
   </div>
-
-  <p local-class="activity-explanation">
-    <span local-class="activity-explanation-label">
-      {{t "components.project_activity.explanation_label"}}
-    </span>
-
-    {{this.actionExplanation}}
-  </p>
 </div>
 
 <div local-class="details">

@@ -44,14 +44,6 @@ export default class ProjectSettingsForm extends Component<Args> {
   @tracked
   isFileOperationsLocked = this.args.project.isFileOperationsLocked;
 
-  get unchangedForm() {
-    return (
-      this.logo === this.args.project.logo &&
-      this.mainColor === this.args.project.mainColor &&
-      this.name === this.args.project.name
-    );
-  }
-
   @action
   logoPicked(logo: string) {
     this.logo = logo;

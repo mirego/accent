@@ -28,9 +28,9 @@ export default class ManageLanguagesEditController extends Controller {
   get revision() {
     if (!this.model.revisionsModel.project) return;
 
-    return this.model.revisionsModel.project.revisions.find((revision: any) => {
-      revision.id === this.model.revisionId;
-    });
+    return this.model.revisionsModel.project.revisions.find(
+      (revision: any) => revision.id === this.model.revisionId
+    );
   }
 
   @action

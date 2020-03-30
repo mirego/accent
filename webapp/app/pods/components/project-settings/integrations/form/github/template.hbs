@@ -1,86 +1,64 @@
-<div class="data">
-  <div class="data-control {{if this.repositoryError "error-control"}}">
-    <label class="data-title">
-      {{t "components.project_settings.integrations.data.repository"}}
-    </label>
-    <input
-      placeholder="mirego/accent"
-      value={{@repository}}
-      class="textInput"
-      {{on "change" (fn this.changeRepository)}}
-    >
-  </div>
+<ProjectSettings::Integrations::Form::DataControlText
+  @error={{this.repositoryError}}
+  @label={{t "components.project_settings.integrations.data.repository"}}
+  @placeholder="mirego/accent"
+  @value={{@repository}}
+  @onChange={{this.changeRepository}}
+/>
 
-  <div class="data-control {{if this.tokenError "error-control"}}">
-    <label class="data-title">
-      {{t "components.project_settings.integrations.data.token"}}
+<ProjectSettings::Integrations::Form::DataControlText
+  @error={{this.tokenError}}
+  @label={{t "components.project_settings.integrations.data.token"}}
+  @placeholder="aaaa-bbbb-cccc"
+  @value={{@token}}
+  @onChange={{this.changeToken}}
+  @helpLinkHref="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line"
+  @helpLinkTitle={{t "components.project_settings.integrations.token_how"}}
+/>
+
+<ProjectSettings::Integrations::Form::DataControlText
+  @error={{this.defaultRefError}}
+  @label={{t "components.project_settings.integrations.data.default_ref"}}
+  @placeholder="mirego/accent"
+  @value={{@defaultRef}}
+  @onChange={{this.changeDefaultRef}}
+/>
+
+{{#if this.webhookUrl}}
+  <div local-class="instructions">
+    <label local-class="data-title">
+      {{t "components.project_settings.integrations.github_webhook_url"}}
       <a
-        class="data-title-help"
+        local-class="data-title-help"
         target="_blank"
         rel="noopener noreferrer"
-        href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line"
+        href="https://developer.github.com/webhooks/creating"
       >
-        {{t "components.project_settings.integrations.token_how"}}
+        {{t "components.project_settings.integrations.github_webhook_url_how"}}
       </a>
     </label>
 
     <input
-      placeholder="aaaa-bbbb-cccc"
-      value={{@token}}
-      class="textInput"
-      {{on "change" (fn this.changeToken)}}
+      readonly=""
+      onClick="this.select();"
+      local-class="textInput"
+      value={{this.webhookUrl}}
     >
-  </div>
 
-  <div class="data-control {{if this.defaultRefError "error-control"}}">
-    <label class="data-title">
-      {{t "components.project_settings.integrations.data.default_ref"}}
-    </label>
+    <div local-class="instructions-text">
+      <p>
+        {{t
+          "components.project_settings.integrations.github_webhook_accent_cli_1"
+          htmlSafe=true
+        }}
+      </p>
 
-    <input
-      placeholder="master"
-      value={{@defaultRef}}
-      class="textInput"
-      {{on "change" (fn this.changeDefaultRef)}}
-    >
-  </div>
-
-  {{#if this.webhookUrl}}
-    <div class="instructions">
-      <label class="data-title">
-        {{t "components.project_settings.integrations.github_webhook_url"}}
-        <a
-          class="data-title-help"
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://developer.github.com/webhooks/creating"
-        >
-          {{t "components.project_settings.integrations.github_webhook_url_how"}}
-        </a>
-      </label>
-
-      <input
-        readonly=""
-        onClick="this.select();"
-        class="textInput"
-        value={{this.webhookUrl}}
-      >
-
-      <div class="instructions-text">
-        <p>
-          {{t
-            "components.project_settings.integrations.github_webhook_accent_cli_1"
-            htmlSafe=true
-          }}
-        </p>
-
-        <p>
-          {{t
-            "components.project_settings.integrations.github_webhook_accent_cli_2"
-            htmlSafe=true
-          }}
-        </p>
-      </div>
+      <p>
+        {{t
+          "components.project_settings.integrations.github_webhook_accent_cli_2"
+          htmlSafe=true
+        }}
+      </p>
     </div>
-  {{/if}}
-</div>
+  </div>
+{{/if}}

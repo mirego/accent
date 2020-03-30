@@ -78,6 +78,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
     |> Query.where([_, c], c.user_id == ^viewer.id)
     |> Query.order_by([p, _], asc: p.name)
     |> ProjectScope.from_search(args[:query])
+    |> ProjectScope.with_stats()
     |> Repo.paginate(page: args[:page])
     |> Paginated.format()
     |> (&{:ok, &1}).()
@@ -86,6 +87,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
   @spec show_viewer(any(), %{id: String.t()}, GraphQLContext.t()) :: {:ok, Project.t() | nil}
   def show_viewer(_, %{id: id}, _) do
     Project
+    |> ProjectScope.with_stats()
     |> Repo.get(id)
     |> (&{:ok, &1}).()
   end
