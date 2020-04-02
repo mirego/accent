@@ -13,7 +13,7 @@ interface Args {
     languageId,
     name,
     mainColor,
-    logo
+    logo,
   }: {
     languageId: string;
     name: string;

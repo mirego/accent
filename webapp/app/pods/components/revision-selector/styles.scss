@@ -26,25 +26,11 @@
     border: 1px solid #eee;
     cursor: default;
     pointer-events: none;
+  }
 
-    :global(.ember-power-select-status-icon) {
-      &:after {
-        display: none;
-        content: 'Ξ';
-        transform: rotate(0);
-        bottom: -14px;
-        left: 0;
-        color: #ddd;
-      }
-    }
-
-    &[aria-expanded='true'] {
-      :global(.ember-power-select-status-icon) {
-        &:after {
-          transform: rotate(0);
-        }
-      }
-    }
+  &[aria-expanded=true] :global(.ember-power-select-status-icon),
+  :global(.ember-power-select-status-icon) {
+    display: none;
   }
 }
 
@@ -61,21 +47,30 @@
     &:hover {
       background: color-light-background;
     }
+  }
 
-    :global(.ember-power-select-status-icon) {
-      &:after {
-        display: block;
-      }
+  &[aria-expanded=true] :global(.ember-power-select-status-icon),
+  :global(.ember-power-select-status-icon) {
+    left: 13px;
+    bottom: 16px;
+
+    &:after {
+      bottom: -14px;
+      left: 0;
+      color: #ddd;
     }
+  }
+
+  &[aria-expanded=true] :global(.ember-power-select-status-icon) {
+    left: 11px;
   }
 }
 
 .otherLanguages {
   position: absolute;
   bottom: 8px;
-  left: 13px;
+  left: 25px;
   font-size: 12px;
-  font-style: italic;
   color: #ccc;
   pointer-events: none;
 }

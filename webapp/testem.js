@@ -14,7 +14,7 @@ module.exports = {
       process.env.TRAVIS ? '--no-sandbox' : null,
       '--headless',
       '--disable-gpu',
-      '--remote-debugging-port=9222'
-    ].filter(Boolean)
-  }
+      '--remote-debugging-port=9222',
+    ].filter(Boolean),
+  },
 };

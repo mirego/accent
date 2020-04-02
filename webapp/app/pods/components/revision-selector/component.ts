@@ -39,7 +39,7 @@ export default class RevisionSelector extends Component<Args> {
         id,
         name,
         isMaster,
-        language
+        language,
       }: {
         id: string;
         name: string;

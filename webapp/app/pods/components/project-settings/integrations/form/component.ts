@@ -11,7 +11,7 @@ interface Args {
     service,
     events,
     integration,
-    data: {url, repository, token, defaultRef}
+    data: {url, repository, token, defaultRef},
   }: {
     service: any;
     events: any;
@@ -69,10 +69,10 @@ export default class IntegrationsForm extends Component<Args> {
   }
 
   get mappedServices() {
-    return this.services.map(value => {
+    return this.services.map((value) => {
       return {
         label: this.intl.t(`general.integration_services.${value}`),
-        value
+        value,
       };
     });
   }
@@ -98,8 +98,8 @@ export default class IntegrationsForm extends Component<Args> {
           url: '',
           repository: '',
           token: '',
-          defaultRef: ''
-        }
+          defaultRef: '',
+        },
       };
     }
 
@@ -159,8 +159,8 @@ export default class IntegrationsForm extends Component<Args> {
         url: this.url,
         repository: this.repository,
         token: this.token,
-        defaultRef: this.defaultRef
-      }
+        defaultRef: this.defaultRef,
+      },
     });
 
     this.isSubmiting = false;

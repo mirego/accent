@@ -48,7 +48,7 @@ export default class ServiceIntegrationsController extends Controller {
   async createIntegration({
     data,
     events,
-    service
+    service,
   }: {
     data: any;
     events: any;
@@ -64,8 +64,8 @@ export default class ServiceIntegrationsController extends Controller {
         projectId: project.id,
         data,
         events,
-        service
-      }
+        service,
+      },
     });
   }
 
@@ -74,7 +74,7 @@ export default class ServiceIntegrationsController extends Controller {
     integration,
     data,
     events,
-    service
+    service,
   }: {
     integration: any;
     data: any;
@@ -89,8 +89,8 @@ export default class ServiceIntegrationsController extends Controller {
         integrationId: integration.id,
         data,
         events,
-        service
-      }
+        service,
+      },
     });
   }
 
@@ -101,8 +101,8 @@ export default class ServiceIntegrationsController extends Controller {
       successMessage: FLASH_MESSAGE_INTEGRATION_REMOVE_SUCCESS,
       errorMessage: FLASH_MESSAGE_INTEGRATION_REMOVE_ERROR,
       variables: {
-        integrationId: integration.id
-      }
+        integrationId: integration.id,
+      },
     });
   }
 
@@ -110,7 +110,7 @@ export default class ServiceIntegrationsController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage
+    errorMessage,
   }: {
     mutation: any;
     variables: any;
@@ -121,7 +121,7 @@ export default class ServiceIntegrationsController extends Controller {
       await this.apolloMutate.mutate({
         mutation,
         variables,
-        refetchQueries: ['ProjectServiceIntegrations']
+        refetchQueries: ['ProjectServiceIntegrations'],
       });
 
       this.flashMessages.success(this.intl.t(successMessage));

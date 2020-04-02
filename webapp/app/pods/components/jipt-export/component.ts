@@ -25,7 +25,7 @@ export default class JIPTExport extends Component<Args> {
       project: this.args.project,
       document: this.args.document,
       version: this.args.version,
-      documentFormat: this.args.documentFormat
+      documentFormat: this.args.documentFormat,
     });
 
     this.content = data;

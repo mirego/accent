@@ -17,8 +17,10 @@ import {Project} from '../types/project';
 
 const enum OperationName {
   Sync = 'sync',
-  AddTranslation = 'addTranslations'
+  AddTranslation = 'addTranslations',
 }
+
+const ERROR_THRESHOLD_STATUS_CODE = 400;
 
 export default class Document {
   paths: string[];
@@ -40,7 +42,7 @@ export default class Document {
   }
 
   async sync(project: Project, file: string, options: any) {
-    const masterLanguage = fetchFromRevision(project!.masterRevision);
+    const masterLanguage = fetchFromRevision(project.masterRevision);
     const formData = new FormData();
     formData.append('file', fs.createReadStream(file));
     formData.append('document_path', this.parseDocumentName(file, this.config));
@@ -56,7 +58,7 @@ export default class Document {
     const response = await fetch(url, {
       body: formData,
       headers: this.authorizationHeader(),
-      method: 'POST'
+      method: 'POST',
     });
 
     return this.handleResponse(response, options, OperationName.Sync);
@@ -84,7 +86,7 @@ export default class Document {
     const response = await fetch(url, {
       body: formData,
       headers: this.authorizationHeader(),
-      method: 'POST'
+      method: 'POST',
     });
 
     return this.handleResponse(response, options, OperationName.AddTranslation);
@@ -110,12 +112,12 @@ export default class Document {
       ['document_path', documentPath],
       ['document_format', this.config.format],
       ['order_by', options['order-by']],
-      ['language', language]
+      ['language', language],
     ];
 
     const url = `${this.apiUrl}/export?${this.encodeQuery(query)}`;
     const response = await fetch(url, {
-      headers: this.authorizationHeader()
+      headers: this.authorizationHeader(),
     });
 
     return this.writeResponseToFile(response, file);
@@ -124,12 +126,12 @@ export default class Document {
   async exportJipt(file: string, documentPath: string) {
     const query = [
       ['document_path', documentPath],
-      ['document_format', this.config.format]
+      ['document_format', this.config.format],
     ];
 
     const url = `${this.apiUrl}/jipt-export?${this.encodeQuery(query)}`;
     const response = await fetch(url, {
-      headers: this.authorizationHeader()
+      headers: this.authorizationHeader(),
     });
 
     return this.writeResponseToFile(response, file);
@@ -182,7 +184,7 @@ export default class Document {
     return config;
   }
 
-  private writeResponseToFile(response: Response, file: string) {
+  private async writeResponseToFile(response: Response, file: string) {
     return new Promise((resolve, reject) => {
       mkdirp.sync(path.dirname(file));
 
@@ -199,7 +201,7 @@ export default class Document {
     operationName: OperationName
   ): Promise<OperationResponse> {
     if (!options['dry-run']) {
-      if (response.status >= 400) {
+      if (response.status >= ERROR_THRESHOLD_STATUS_CODE) {
         return {[operationName]: {success: false}, peek: false};
       }
 

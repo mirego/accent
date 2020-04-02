@@ -11,15 +11,15 @@ export default class LanguageSearcher extends Service {
   async search({term}: {term: string}) {
     const searchQuery = {
       query: searchLanguagesQuery,
-      variables: {query: term}
+      variables: {query: term},
     };
 
     if (term.length < MINIMUM_TERM_LENGTH) return [];
 
     const {
       data: {
-        languages: {entries}
-      }
+        languages: {entries},
+      },
     } = await this.apollo.client.query(searchQuery);
 
     return entries;

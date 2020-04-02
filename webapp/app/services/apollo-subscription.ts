@@ -29,7 +29,7 @@ export class Subscription {
     this.apollo = apollo;
     this.queryObservable = this.createQuery(query, options);
     this.querySubscription = this.createSubscription(model);
-    this.props = props || (data => data);
+    this.props = props || ((data) => data);
   }
 
   currentResult() {
@@ -51,7 +51,7 @@ export class Subscription {
 
     return this.apollo.client.watchQuery({
       query,
-      ...options
+      ...options,
     });
   }
 
@@ -79,7 +79,7 @@ export class Subscription {
         refetch: this.queryObservable.refetch,
         fetchMore: this.queryObservable.fetchMore,
         startPolling: this.queryObservable.startPolling,
-        stopPolling: this.queryObservable.stopPolling
+        stopPolling: this.queryObservable.stopPolling,
       };
     } else {
       return result;

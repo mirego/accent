@@ -4,10 +4,16 @@ import {gt} from '@ember/object/computed';
 
 const REPLACEMENTS_LIMIT = 10;
 
+interface Context {
+  text: string;
+  offset: number;
+  length: number;
+}
+
 interface Args {
   message: any;
   onReplaceText: (
-    context: string,
+    context: Context,
     replacement: {label: string; value: string}
   ) => void;
 }
@@ -21,7 +27,7 @@ export default class LintMessage extends Component<Args> {
 
     return {
       label: replacement.value,
-      value: replacement.value
+      value: replacement.value,
     };
   }
 
@@ -31,7 +37,7 @@ export default class LintMessage extends Component<Args> {
       .map((replacement: any) => {
         return {
           label: replacement.value,
-          value: replacement.value
+          value: replacement.value,
         };
       });
   }

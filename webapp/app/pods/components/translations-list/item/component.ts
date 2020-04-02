@@ -31,7 +31,7 @@ export default class TranslationsListItem extends Component<Args> {
   async save() {
     this.isSaving = true;
 
-    await this.args.onUpdateText(this.args.translation, this.editText)
+    await this.args.onUpdateText(this.args.translation, this.editText);
 
     this.isSaving = false;
     this.isInEditMode = !this.isInEditMode;

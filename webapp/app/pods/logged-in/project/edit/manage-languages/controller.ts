@@ -70,8 +70,8 @@ export default class ManageLanguagesController extends Controller {
       await this.apolloMutate.mutate({
         mutation: revisionDeleteQuery,
         variables: {
-          revisionId: revision.id
-        }
+          revisionId: revision.id,
+        },
       });
 
       this.flashMessages.success(
@@ -92,8 +92,8 @@ export default class ManageLanguagesController extends Controller {
       await this.apolloMutate.mutate({
         mutation: revisionMasterPromoteQuery,
         variables: {
-          revisionId: revision.id
-        }
+          revisionId: revision.id,
+        },
       });
 
       this.flashMessages.success(
@@ -119,8 +119,8 @@ export default class ManageLanguagesController extends Controller {
         refetchQueries: ['Dashboard', 'Project'],
         variables: {
           projectId: project.id,
-          languageId
-        }
+          languageId,
+        },
       });
 
       this.flashMessages.success(

@@ -13,7 +13,7 @@ export default class Phoenix extends Service {
 
   socket({token}: {token: string}) {
     const socket = new Socket(`${config.API.WS_HOST}/socket`, {
-      params: {token}
+      params: {token},
     });
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -51,7 +51,7 @@ export default class Phoenix extends Service {
     const events = {
       sync: this.handleSync,
       create_collaborator: this.handleCreateCollaborator,
-      create_comment: this.handleCreateComment
+      create_comment: this.handleCreateComment,
     };
     /* eslint-enable camelcase */
 
@@ -59,7 +59,7 @@ export default class Phoenix extends Service {
       channel.on(eventId, (payload: any) =>
         this.handleEvent(events[eventId].bind(this), {
           payload,
-          currentUserId
+          currentUserId,
         })
       );
     });
@@ -80,7 +80,7 @@ export default class Phoenix extends Service {
     /* eslint camelcase:0 */
     this.showFlashMessage('sync', {
       user: payload.user.name,
-      documentPath: payload.document_path
+      documentPath: payload.document_path,
     });
     /* eslint camelcase:1 */
   }
@@ -88,7 +88,7 @@ export default class Phoenix extends Service {
   private handleCreateCollaborator({payload}: {payload: any}) {
     this.showFlashMessage('create_collaborator', {
       user: payload.user.name,
-      collaboratorEmail: payload.collaborator.email
+      collaboratorEmail: payload.collaborator.email,
     });
   }
 
@@ -96,7 +96,7 @@ export default class Phoenix extends Service {
     this.showFlashMessage('create_comment', {
       user: payload.user.name,
       commentText: payload.comment.text,
-      translationKey: payload.comment.translation.key
+      translationKey: payload.comment.translation.key,
     });
   }
 

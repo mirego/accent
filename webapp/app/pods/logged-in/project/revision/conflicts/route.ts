@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 
 import translationsQuery from 'accent-webapp/queries/conflicts';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/-private/transition';
@@ -23,20 +23,20 @@ export default class ConflictsRoute extends Route {
 
   queryParams = {
     fullscreen: {
-      refreshModel: true
+      refreshModel: true,
     },
     query: {
-      refreshModel: true
+      refreshModel: true,
     },
     page: {
-      refreshModel: true
+      refreshModel: true,
     },
     reference: {
-      refreshModel: true
+      refreshModel: true,
     },
     document: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -46,7 +46,7 @@ export default class ConflictsRoute extends Route {
       query,
       page,
       reference,
-      document
+      document,
     }: {query: any; page: number; reference: any; document: any},
     transition: Transition
   ) {
@@ -54,7 +54,7 @@ export default class ConflictsRoute extends Route {
       () => this.modelFor(this.routeName),
       translationsQuery,
       {
-        props: data => ({
+        props: (data) => ({
           revisionId: this.routeParams.fetch(
             transition,
             'logged-in.project.revision'
@@ -63,7 +63,7 @@ export default class ConflictsRoute extends Route {
           revisionModel: this.modelFor('logged-in.project.revision'),
           documents: data.viewer.project.documents.entries,
           project: data.viewer.project,
-          translations: data.viewer.project.revision.translations
+          translations: data.viewer.project.revision.translations,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -77,9 +77,9 @@ export default class ConflictsRoute extends Route {
             query,
             page,
             document,
-            reference
-          }
-        }
+            reference,
+          },
+        },
       }
     );
 
@@ -90,7 +90,7 @@ export default class ConflictsRoute extends Route {
     if (controller.fullscreen) {
       this.render('logged-in.project.revision.full-screen-conflicts', {
         controller: 'logged-in.project.revision.conflicts',
-        outlet: 'main'
+        outlet: 'main',
       });
     } else {
       super.renderTemplate(controller, model);

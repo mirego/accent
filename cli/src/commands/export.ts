@@ -24,8 +24,8 @@ export default class Export extends Command {
     'order-by': flags.string({
       default: 'index',
       description: 'Will be used in the export call as the order of the keys',
-      options: ['index', 'key-asc']
-    })
+      options: ['index', 'key-asc'],
+    }),
   };
 
   async run() {
@@ -43,9 +43,9 @@ export default class Export extends Command {
       const targets = new DocumentPathsFetcher().fetch(this.project!, document);
 
       await Promise.all(
-        targets.map(({path, language, documentPath}) => {
+        targets.map(async ({path, language, documentPath}) => {
           const localFile = document.fetchLocalFile(documentPath, path);
-          if (!localFile) return new Promise(resolve => resolve());
+          if (!localFile) return new Promise((resolve) => resolve());
           formatter.log(localFile);
 
           return document.export(localFile, language, documentPath, flags);

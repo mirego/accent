@@ -28,7 +28,7 @@ export default class Exporter extends Service {
     revision,
     version,
     documentFormat,
-    orderBy
+    orderBy,
   }: ExportOptions) {
     const url = config.API.EXPORT_DOCUMENT;
     documentFormat = (documentFormat || document.format).toLowerCase();
@@ -42,7 +42,7 @@ export default class Exporter extends Service {
         version,
         order_by: orderBy,
         document_path: document.path,
-        document_format: documentFormat
+        document_format: documentFormat,
       })}`
     );
     /* eslint-enable camelcase */
@@ -59,7 +59,7 @@ export default class Exporter extends Service {
         project_id: project.id,
         version,
         document_path: document.path,
-        document_format: documentFormat
+        document_format: documentFormat,
       })}`
     );
     /* eslint-enable camelcase */
@@ -74,7 +74,7 @@ export default class Exporter extends Service {
 
         return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
       })
-      .filter(nonNull => nonNull)
+      .filter((nonNull) => nonNull)
       .join('&');
   }
 }

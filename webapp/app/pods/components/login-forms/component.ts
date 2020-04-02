@@ -42,9 +42,7 @@ export default class LoginForms extends Component<Args> {
   }
 
   get dummyUrl() {
-    return `${config.API.AUTHENTICATION_PATH}/dummy/callback?email=${
-      this.username
-    }`;
+    return `${config.API.AUTHENTICATION_PATH}/dummy/callback?email=${this.username}`;
   }
 
   @action

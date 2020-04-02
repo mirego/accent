@@ -19,7 +19,7 @@ const DEFAULT_PROPERTIES = {
   file: null,
   fileSource: null,
   documentPath: null,
-  documentFormat: 'json'
+  documentFormat: 'json',
 };
 
 interface Args {
@@ -116,16 +116,16 @@ export default class CommitFile extends Component<Args> {
   revision = this.args.revisions.find((revision: any) => revision.isMaster);
 
   get mappedMergeTypes() {
-    return this.mergeTypes.map(name => ({
+    return this.mergeTypes.map((name) => ({
       label: name,
-      value: name
+      value: name,
     }));
   }
 
   get mappedSyncTypes() {
-    return this.syncTypes.map(name => ({
+    return this.syncTypes.map((name) => ({
       label: name,
-      value: name
+      value: name,
     }));
   }
 
@@ -133,7 +133,7 @@ export default class CommitFile extends Component<Args> {
     return this.args.revisions.map(
       ({id, language}: {id: string; language: {name: string}}) => ({
         label: language.name,
-        value: id
+        value: id,
       })
     );
   }
@@ -149,7 +149,7 @@ export default class CommitFile extends Component<Args> {
 
     return this.globalState.documentFormats.map(({slug, name}) => ({
       value: slug,
-      label: name
+      label: name,
     }));
   }
 
@@ -197,7 +197,7 @@ export default class CommitFile extends Component<Args> {
         documentFormat: this.documentFormat,
         revision: this.revision,
         mergeType: this.mergeType.value,
-        syncType: this.syncType.value
+        syncType: this.syncType.value,
       });
 
       this.onCommitingDone();
@@ -217,7 +217,7 @@ export default class CommitFile extends Component<Args> {
         documentFormat: this.documentFormat,
         revision: this.revision,
         mergeType: this.mergeType.value,
-        syncType: this.syncType.value
+        syncType: this.syncType.value,
       });
 
       this.onPeekingDone();

@@ -13,7 +13,7 @@ export default class JIPT extends Service {
           text: translation.correctedText,
           id: translation.id,
           key,
-          isConflicted: translation.isConflicted
+          isConflicted: translation.isConflicted,
         };
         return memo;
       },
@@ -31,7 +31,7 @@ export default class JIPT extends Service {
   changeText(translationId: string, text: string) {
     const payload = {
       translationId,
-      text
+      text,
     };
 
     window.parent.postMessage({jipt: true, action: 'changeText', payload}, '*');
@@ -40,7 +40,7 @@ export default class JIPT extends Service {
   updateTranslation(translationId: string, translation: any) {
     const payload = {
       translationId,
-      ...translation
+      ...translation,
     };
 
     window.parent.postMessage(
@@ -50,7 +50,7 @@ export default class JIPT extends Service {
   }
 
   redirectIfEmbedded() {
-    window.addEventListener('message', payload => {
+    window.addEventListener('message', (payload) => {
       payload.data.jipt &&
         payload.data.projectId &&
         this.router.transitionTo('logged-in.jipt', payload.data.projectId);

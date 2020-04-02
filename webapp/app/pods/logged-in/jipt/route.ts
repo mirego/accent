@@ -3,7 +3,7 @@ import {inject as service} from '@ember/service';
 
 import projectQuery from 'accent-webapp/queries/jipt-project';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import JIPT from 'accent-webapp/services/jipt';
 import GlobalState from 'accent-webapp/services/global-state';
@@ -20,8 +20,8 @@ export default class JIPTRoute extends Route {
 
   queryParams = {
     revisionId: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -31,13 +31,13 @@ export default class JIPTRoute extends Route {
       () => this.modelFor(this.routeName),
       projectQuery,
       {
-        props: data => this.props(data),
+        props: (data) => this.props(data),
         options: {
           variables: {
             projectId: params.projectId,
-            revisionId: params.revisionId
-          }
-        }
+            revisionId: params.revisionId,
+          },
+        },
       }
     );
 

@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 import projectDashboardQuery from 'accent-webapp/queries/project-dashboard';
 import RouteParams from 'accent-webapp/services/route-params';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/-private/transition';
 
@@ -29,9 +29,9 @@ export default class ProjectIndexRoute extends Route {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
-              .projectId
-          }
-        }
+              .projectId,
+          },
+        },
       }
     );
 

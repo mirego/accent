@@ -6,7 +6,7 @@ import projectActivitiesQuery from 'accent-webapp/queries/project-activities';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/-private/transition';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import ActivitiesController from 'accent-webapp/pods/logged-in/project/activities/controller';
 
@@ -19,17 +19,17 @@ export default class ActivitiesRoute extends Route {
 
   queryParams = {
     batchFilter: {
-      refreshModel: true
+      refreshModel: true,
     },
     actionFilter: {
-      refreshModel: true
+      refreshModel: true,
     },
     userFilter: {
-      refreshModel: true
+      refreshModel: true,
     },
     page: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -39,7 +39,7 @@ export default class ActivitiesRoute extends Route {
       batchFilter,
       actionFilter,
       userFilter,
-      page
+      page,
     }: {batchFilter: any; actionFilter: any; userFilter: any; page: number},
     transition: Transition
   ) {
@@ -47,10 +47,10 @@ export default class ActivitiesRoute extends Route {
       () => this.modelFor(this.routeName),
       projectActivitiesQuery,
       {
-        props: data => ({
+        props: (data) => ({
           project: data.viewer.project,
           activities: data.viewer.project.activities,
-          collaborators: data.viewer.project.collaborators
+          collaborators: data.viewer.project.collaborators,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -60,9 +60,9 @@ export default class ActivitiesRoute extends Route {
             isBatch: batchFilter ? true : null,
             action: actionFilter,
             userId: userFilter,
-            page
-          }
-        }
+            page,
+          },
+        },
       }
     );
 

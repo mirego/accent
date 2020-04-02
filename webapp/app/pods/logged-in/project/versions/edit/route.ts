@@ -5,7 +5,7 @@ export default class EditRoute extends Route {
     return {
       projectModel: this.modelFor('logged-in.project'),
       versionModel: this.modelFor('logged-in.project.versions'),
-      versionId
+      versionId,
     };
   }
 }

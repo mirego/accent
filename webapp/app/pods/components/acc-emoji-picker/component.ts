@@ -17,7 +17,7 @@ export default class EmojiPicker extends Component<Args> {
     this.element = element;
 
     this.picker = new EmojiButton({
-      showPreview: false
+      showPreview: false,
     });
 
     this.picker.on('emoji', this.args.onPicked);

@@ -35,7 +35,7 @@ export default class PhoenixChannelListener extends Component<Args> {
           this.session.credentials.user.id
         )
       )
-      .then(channel => (this.channel = channel));
+      .then((channel) => (this.channel = channel));
   }
 
   willDestroy() {

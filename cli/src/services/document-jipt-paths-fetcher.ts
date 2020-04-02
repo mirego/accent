@@ -11,7 +11,7 @@ export default class DocumentJiptPathsFetcher {
   ): DocumentPath[] {
     return project.documents.entries
       .map(({path}) => path)
-      .map(path => {
+      .map((path) => {
         const parsedTarget = document.target
           .replace('%slug%', pseudoLanguageName)
           .replace('%original_file_name%', path);
@@ -19,7 +19,7 @@ export default class DocumentJiptPathsFetcher {
         return {
           documentPath: path,
           language: pseudoLanguageName,
-          path: parsedTarget
+          path: parsedTarget,
         };
       });
   }

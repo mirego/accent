@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 
 import authenticationProvidersQuery from 'accent-webapp/queries/authentication-providers';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import Session from 'accent-webapp/services/session';
 

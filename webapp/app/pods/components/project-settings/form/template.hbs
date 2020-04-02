@@ -4,7 +4,7 @@
       <input
         value={{this.name}}
         local-class="textInput"
-        {{on "change" (fn this.setName)}}
+        {{on "keyup" (fn this.setName)}}
       >
 
       <input
@@ -14,9 +14,8 @@
         {{on "change" (fn this.setMainColor)}}
       >
 
-      <div class="logo-field">
+      <div local-class="logo-field">
         <AccEmojiPicker
-          role="button"
           local-class="logo"
           @onPicked={{fn this.logoPicked}}
           >

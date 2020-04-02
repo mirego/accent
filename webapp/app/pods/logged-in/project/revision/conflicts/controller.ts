@@ -110,8 +110,8 @@ export default class ConflictsController extends Controller {
         mutation: translationCorrectQuery,
         variables: {
           translationId: conflict.id,
-          text
-        }
+          text,
+        },
       });
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CORRECT_SUCCESS));
@@ -125,7 +125,7 @@ export default class ConflictsController extends Controller {
     try {
       await this.apolloMutate.mutate({
         mutation: correctAllRevisionQuery,
-        variables: {revisionId: this.revision.id}
+        variables: {revisionId: this.revision.id},
       });
 
       this.flashMessages.success(

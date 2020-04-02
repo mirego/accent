@@ -42,7 +42,7 @@ export default class Peeker extends Service {
     file,
     documentPath,
     documentFormat,
-    syncType
+    syncType,
   }: SyncOptions) {
     const url = fmt(
       config.API.SYNC_PEEK_PROJECT_PATH,
@@ -54,14 +54,14 @@ export default class Peeker extends Service {
     documentFormat = documentFormat.toLowerCase();
 
     const {
-      data: {operations, stats}
+      data: {operations, stats},
     } = await this.authenticatedRequest.peek(url, {
       file,
       documentPath,
-      documentFormat
+      documentFormat,
     });
 
-    return revisions.map(revision =>
+    return revisions.map((revision) =>
       this.mapOperations(revision, operations, stats)
     );
   }
@@ -72,7 +72,7 @@ export default class Peeker extends Service {
     file,
     mergeType,
     documentPath,
-    documentFormat
+    documentFormat,
   }: MergeOptions) {
     const url = fmt(
       config.API.MERGE_PEEK_PROJECT_PATH,
@@ -84,11 +84,11 @@ export default class Peeker extends Service {
     documentFormat = documentFormat.toLowerCase();
 
     const {
-      data: {operations, stats}
+      data: {operations, stats},
     } = await this.authenticatedRequest.peek(url, {
       file,
       documentPath,
-      documentFormat
+      documentFormat,
     });
 
     return [this.mapOperations(revision, operations, stats)];
@@ -102,14 +102,14 @@ export default class Peeker extends Service {
     return {
       language: revision.language,
       stats: this.mapOperationStats(stats[revision.id]),
-      operations: this.mapOperationItems(operations[revision.id])
+      operations: this.mapOperationItems(operations[revision.id]),
     };
   }
 
   private mapOperationStats(stats: Record<string, number>) {
     if (!stats) return [];
 
-    return Object.keys(stats).map(action => {
+    return Object.keys(stats).map((action) => {
       const count = stats[action];
 
       return {action, count};
@@ -119,12 +119,12 @@ export default class Peeker extends Service {
   private mapOperationItems(operations: OperationItem[]) {
     if (!operations) return [];
 
-    return operations.map(operation => {
+    return operations.map((operation) => {
       return {
         action: operation.action,
         key: operation.key,
         text: operation.text,
-        previousText: operation['previous-text']
+        previousText: operation['previous-text'],
       };
     });
   }

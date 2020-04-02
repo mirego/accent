@@ -60,8 +60,8 @@ export default class NewController extends Controller {
         variables: {
           projectId,
           name,
-          tag
-        }
+          tag,
+        },
       });
 
       this.router.transitionTo('logged-in.project.versions', this.project.id);

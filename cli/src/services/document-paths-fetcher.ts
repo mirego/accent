@@ -10,7 +10,7 @@ export default class DocumentPathsFetcher {
     const documentPaths = project.documents.entries.map(({path}) => path);
 
     return languageSlugs.reduce((memo: DocumentPath[], slug) => {
-      documentPaths.forEach(path => {
+      documentPaths.forEach((path) => {
         const parsedTarget = document.target
           .replace('%slug%', slug)
           .replace('%original_file_name%', path)

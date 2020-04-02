@@ -11,7 +11,7 @@ export default TextField.extend({
     if (this.onBlur) this.onBlur();
   },
 
-  keyUp(_event) {
+  keyUp() {
     if (this.onKeyUp) this.onKeyUp();
   },
 
@@ -19,5 +19,5 @@ export default TextField.extend({
     if (event.which === ENTER_KEY && (event.metaKey || event.ctrlKey)) {
       if (this.onSubmit) this.onSubmit();
     }
-  }
+  },
 });

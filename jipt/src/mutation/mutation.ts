@@ -12,6 +12,12 @@ interface Translation {
   window nodes on mutation and messages FROM the Accent client.
 */
 export default class Mutation {
+  private readonly liveNode: LiveNode;
+
+  constructor(liveNode: LiveNode) {
+    this.liveNode = liveNode;
+  }
+
   static nodeChange(node: Element, meta: any, text: string) {
     this.textNodeChange(node, meta, text);
     this.attributeNodeChange(node, meta, text);
@@ -55,12 +61,6 @@ export default class Mutation {
     }, NODE_UPDATE_STYLE_TIMEOUT);
   }
 
-  private readonly liveNode: LiveNode;
-
-  constructor(liveNode: LiveNode) {
-    this.liveNode = liveNode;
-  }
-
   bindEvents() {
     const onMutation = (instance: MutationRecord[]) => {
       return instance.forEach(this.handleNodeMutation.bind(this));
@@ -71,7 +71,7 @@ export default class Mutation {
       characterData: true,
       characterDataOldValue: true,
       childList: true,
-      subtree: true
+      subtree: true,
     });
   }
 

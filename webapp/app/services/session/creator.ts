@@ -10,7 +10,7 @@ export default class SessionCreator extends Service {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         query: `
@@ -24,8 +24,8 @@ export default class SessionCreator extends Service {
             }
           }
         }
-        `
-      })
+        `,
+      }),
     };
 
     const response = await fetch(uri, options);

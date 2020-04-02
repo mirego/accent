@@ -5,15 +5,31 @@ import percentage from 'accent-webapp/component-helpers/percentage';
 const LOW_PERCENTAGE = 50;
 const HIGH_PERCENTAGE = 90;
 
+interface Revision {
+  id: string;
+  isMaster: boolean;
+  translationsCount: number;
+  conflictsCount: number;
+}
+
 interface Args {
   document: any;
   project: any;
   activities: any;
-  revisions: any;
+  revisions: Revision[];
   permissions: Record<string, true>;
   onCorrectAllConflicts: () => Promise<void>;
   onUncorrectAllConflicts: () => Promise<void>;
 }
+
+const calculateTotalRevisions = (
+  revisions: Revision[],
+  accumulate: (revision: Revision) => number
+) => {
+  return revisions.reduce((memo, revision) => {
+    return memo + accumulate(revision);
+  }, 0);
+};
 
 export default class DashboardRevisions extends Component<Args> {
   @lt('reviewedPercentage', LOW_PERCENTAGE)
@@ -29,31 +45,35 @@ export default class DashboardRevisions extends Component<Args> {
   reviewCompleted: boolean;
 
   get masterRevision() {
-    return this.args.revisions.find((revision: any) => revision.isMaster);
+    return this.args.revisions.find((revision: Revision) => revision.isMaster);
   }
 
   get slaveRevisions() {
     return this.args.revisions.filter(
-      (revision: any) => revision !== this.masterRevision
+      (revision: Revision) => revision !== this.masterRevision
     );
   }
 
   get totalStrings() {
-    return this.args.revisions.reduce((memo: number, revision: any) => {
-      return memo + revision.translationsCount;
-    }, 0);
+    return calculateTotalRevisions(
+      this.args.revisions,
+      (revision: Revision) => revision.translationsCount
+    );
   }
 
   get totalConflicts() {
-    return this.args.revisions.reduce((memo: number, revision: any) => {
-      return memo + revision.conflictsCount;
-    }, 0);
+    return calculateTotalRevisions(
+      this.args.revisions,
+      (revision: Revision) => revision.conflictsCount
+    );
   }
 
   get totalReviewed() {
-    return this.args.revisions.reduce((memo: number, revision: any) => {
-      return memo + (revision.translationsCount - revision.conflictsCount);
-    }, 0);
+    return calculateTotalRevisions(
+      this.args.revisions,
+      (revision: Revision) =>
+        revision.translationsCount - revision.conflictsCount
+    );
   }
 
   get reviewedPercentage() {

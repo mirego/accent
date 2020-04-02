@@ -58,8 +58,8 @@ export default class CollaboratorsController extends Controller {
       variables: {
         projectId: project.id,
         email,
-        role
-      }
+        role,
+      },
     });
   }
 
@@ -71,8 +71,8 @@ export default class CollaboratorsController extends Controller {
       errorMessage: FLASH_MESSAGE_COLLABORATOR_UPDATE_ERROR,
       variables: {
         collaboratorId: collaborator.id,
-        role
-      }
+        role,
+      },
     });
   }
 
@@ -83,8 +83,8 @@ export default class CollaboratorsController extends Controller {
       successMessage: FLASH_MESSAGE_COLLABORATOR_REMOVE_SUCCESS,
       errorMessage: FLASH_MESSAGE_COLLABORATOR_REMOVE_ERROR,
       variables: {
-        collaboratorId: collaborator.id
-      }
+        collaboratorId: collaborator.id,
+      },
     });
   }
 
@@ -92,7 +92,7 @@ export default class CollaboratorsController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage
+    errorMessage,
   }: {
     mutation: any;
     variables: any;
@@ -103,7 +103,7 @@ export default class CollaboratorsController extends Controller {
       const result = await this.apolloMutate.mutate({
         mutation,
         variables,
-        refetchQueries: ['ProjectCollaborators']
+        refetchQueries: ['ProjectCollaborators'],
       });
 
       this.flashMessages.success(this.intl.t(successMessage));

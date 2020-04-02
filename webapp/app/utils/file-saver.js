@@ -2,24 +2,24 @@
 const arbitraryRevokeTimeout = 1000 * 40; // eslint-disable-line no-magic-numbers
 const bomCharCode = 0xfeff;
 
-export const fileSaver = view => {
+export const fileSaver = (view) => {
   const doc = view.document;
 
   // only get URL when necessary in case Blob.js hasn't overridden it yet
   const getURL = () => view.URL || view.webkitURL || view;
   const saveLink = doc.createElementNS('http://www.w3.org/1999/xhtml', 'a');
   const canUseSaveLink = 'download' in saveLink;
-  const click = node => node.dispatchEvent(new MouseEvent('click'));
+  const click = (node) => node.dispatchEvent(new MouseEvent('click'));
   const isSafari = /constructor/i.test(view.HTMLElement) || view.safari;
   const isChromeIos = /CriOS\/[\d]+/.test(navigator.userAgent);
-  const throwOutside = ex => {
+  const throwOutside = (ex) => {
     (view.setImmediate || view.setTimeout)(() => {
       throw ex;
     }, 0);
   };
   const forceSaveableType = 'application/octet-stream';
 
-  const revoke = file => {
+  const revoke = (file) => {
     const revoker = () => {
       if (typeof file === 'string') {
         // file is an object URL
@@ -48,7 +48,7 @@ export const fileSaver = view => {
     }
   };
 
-  const autoBom = blob => {
+  const autoBom = (blob) => {
     // prepend BOM for UTF-8 XML and text/* types (including HTML)
     // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
     if (
@@ -57,13 +57,13 @@ export const fileSaver = view => {
       )
     ) {
       return new Blob([String.fromCharCode(bomCharCode), blob], {
-        type: blob.type
+        type: blob.type,
       });
     }
     return blob;
   };
 
-  const FileSaver = function(blob, name, noAutoBom) {
+  const FileSaver = function (blob, name, noAutoBom) {
     if (!noAutoBom) blob = autoBom(blob);
 
     // First try a.download, then web filesystem, then object URLs

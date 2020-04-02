@@ -6,7 +6,7 @@ import {
   IntrospectionFragmentMatcher,
   InMemoryCache,
   from,
-  ApolloLink
+  ApolloLink,
 } from 'apollo-boost';
 
 import config from 'accent-webapp/config/environment';
@@ -30,12 +30,12 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
           possibleTypes: [
             {name: 'ProjectIntegrationDiscord'},
             {name: 'ProjectIntegrationSlack'},
-            {name: 'ProjectIntegrationGitHub'}
-          ]
-        }
-      ]
-    }
-  }
+            {name: 'ProjectIntegrationGitHub'},
+          ],
+        },
+      ],
+    },
+  },
 });
 
 const cache = new InMemoryCache({dataIdFromObject, fragmentMatcher});
@@ -44,7 +44,7 @@ const link = new BatchHttpLink({uri, batchInterval: 50, batchMax: 50});
 const absintheBatchLink = new ApolloLink((operation, forward) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
-  return forward(operation).map(response => response.payload);
+  return forward(operation).map((response) => response.payload);
 });
 
 const authLink = (session: any) => {
@@ -55,8 +55,8 @@ const authLink = (session: any) => {
       operation.setContext(({headers = {}}: any) => ({
         headers: {
           ...headers,
-          authorization: `Bearer ${token}`
-        }
+          authorization: `Bearer ${token}`,
+        },
       }));
     }
 
@@ -73,7 +73,7 @@ export default class Apollo extends Service {
 
   client = new ApolloClient({
     link: from([authLink(this.session), absintheBatchLink, link]),
-    cache
+    cache,
   });
 }
 

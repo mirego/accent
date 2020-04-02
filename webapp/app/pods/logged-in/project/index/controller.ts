@@ -55,7 +55,7 @@ export default class ProjectIndexController extends Controller {
     try {
       await this.apolloMutate.mutate({
         mutation: correctAllRevisionQuery,
-        variables: {revisionId: revision.id}
+        variables: {revisionId: revision.id},
       });
 
       this.flashMessages.success(
@@ -73,7 +73,7 @@ export default class ProjectIndexController extends Controller {
     try {
       await this.apolloMutate.mutate({
         mutation: uncorrectAllRevisionQuery,
-        variables: {revisionId: revision.id}
+        variables: {revisionId: revision.id},
       });
 
       this.flashMessages.success(

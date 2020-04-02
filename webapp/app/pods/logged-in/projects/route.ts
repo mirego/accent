@@ -4,7 +4,7 @@ import {inject as service} from '@ember/service';
 import projectsQuery from 'accent-webapp/queries/projects';
 import Session from 'accent-webapp/services/session';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import ProjectsController from 'accent-webapp/pods/logged-in/projects/controller';
 
@@ -20,7 +20,7 @@ const transformData = (data: any) => {
   return {
     projects: data.viewer.projects,
     languages: data.languages.entries,
-    permissions
+    permissions,
   };
 };
 
@@ -33,11 +33,11 @@ export default class ProjectsRoute extends Route {
 
   queryParams = {
     query: {
-      refreshModel: true
+      refreshModel: true,
     },
     page: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -64,9 +64,9 @@ export default class ProjectsRoute extends Route {
           fetchPolicy: 'network-only',
           variables: {
             page,
-            query
-          }
-        }
+            query,
+          },
+        },
       }
     );
 

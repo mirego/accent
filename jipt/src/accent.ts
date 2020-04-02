@@ -14,7 +14,7 @@ export interface Config {
 const state = new State({
   nodes: new WeakMap(),
   projectTranslations: {},
-  refs: new Map()
+  refs: new Map(),
 });
 
 const liveNode = new LiveNode(state);
@@ -39,7 +39,7 @@ export const Accent = {
 
     const mutation = new Mutation(liveNode);
     mutation.bindEvents();
-  }
+  },
 };
 
 export default Accent;

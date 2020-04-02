@@ -13,7 +13,7 @@ interface Args {
     isFileOperationsLocked,
     name,
     mainColor,
-    logo
+    logo,
   }: {
     isFileOperationsLocked: boolean;
     name: string;
@@ -57,7 +57,7 @@ export default class ProjectSettingsForm extends Component<Args> {
       isFileOperationsLocked: this.isFileOperationsLocked,
       name: this.name,
       mainColor: this.mainColor,
-      logo: this.logo
+      logo: this.logo,
     });
   }
 
@@ -67,7 +67,7 @@ export default class ProjectSettingsForm extends Component<Args> {
       isFileOperationsLocked: this.isFileOperationsLocked,
       name: this.name,
       mainColor: this.mainColor,
-      logo: this.logo
+      logo: this.logo,
     });
   }
 

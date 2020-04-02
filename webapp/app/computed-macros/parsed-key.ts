@@ -11,6 +11,6 @@ export default (key: String): ParsedKey => {
 
   return {
     value: isSplitted ? splittedKey[1] : key,
-    prefix: isSplitted ? splittedKey[0] : ''
+    prefix: isSplitted ? splittedKey[0] : '',
   };
 };

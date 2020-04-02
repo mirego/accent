@@ -1,9 +1,28 @@
-@value color-green, color-error, color-light-background from 'accent-webapp/styles/variables/colors';
+@value color-green, color-error, color-grey, color-light-background from 'accent-webapp/styles/variables/colors';
 @value font-primary from 'accent-webapp/styles/variables/fonts';
 
 .project-create-form {
   padding: 20px;
   background: #fff;
+
+  :global(.ember-power-select-trigger) {
+    min-height: 35px;
+    border-color: #eee;
+    border: 1px solid #eee;
+    background: color-light-background;
+    box-shadow: 0 1px 5px rgba(#000, 0.06);
+  }
+
+  .textInput {
+    &:focus {
+      border: 2px solid rgba(color-green, 0.7);
+    }
+  }
+
+  :global(.button).cancelButton:hover,
+  :global(.button).cancelButton:focus {
+    border-color: color-grey;
+  }
 }
 
 .title {
@@ -27,10 +46,6 @@
   margin-right: 5px;
   font-size: 12px;
   font-family: font-primary;
-
-  &:focus {
-    border: 2px solid rgba(color-green, 0.7);
-  }
 }
 
 .colorInput {
@@ -49,7 +64,7 @@
   justify-content: center;
   width: 48px;
   height: 40px;
-  padding: 9px 5px 3px;
+  padding: 6px 5px 3px;
   cursor: pointer;
   font-size: 25px;
 
@@ -98,12 +113,4 @@
 .formActions {
   padding-top: 20px;
   border-top: 1px solid #eee;
-}
-
-.ember-power-select-trigger {
-  min-height: 31px;
-  border-color: #eee;
-  border: 1px solid #eee;
-  background: color-light-background;
-  box-shadow: 0 1px 5px rgba(#000, 0.06);
 }

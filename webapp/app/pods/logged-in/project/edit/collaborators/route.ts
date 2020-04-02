@@ -5,7 +5,7 @@ import Route from '@ember/routing/route';
 import projectCollaboratorsQuery from 'accent-webapp/queries/project-collaborators';
 import RouteParams from 'accent-webapp/services/route-params';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/-private/transition';
 
@@ -23,16 +23,16 @@ export default class CollaboratorsRoute extends Route {
       () => this.modelFor(this.routeName),
       projectCollaboratorsQuery,
       {
-        props: data => ({
-          project: data.viewer.project
+        props: (data) => ({
+          project: data.viewer.project,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
-              .projectId
-          }
-        }
+              .projectId,
+          },
+        },
       }
     );
 

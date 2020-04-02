@@ -5,7 +5,7 @@ import Route from '@ember/routing/route';
 import projectDocumentsQuery from 'accent-webapp/queries/project-documents';
 import RouteParams from 'accent-webapp/services/route-params';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/-private/transition';
 
@@ -18,8 +18,8 @@ export default class FilesRoute extends Route {
 
   queryParams = {
     page: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -31,18 +31,18 @@ export default class FilesRoute extends Route {
       () => this.modelFor(this.routeName),
       projectDocumentsQuery,
       {
-        props: data => ({
+        props: (data) => ({
           project: data.viewer.project,
-          documents: data.viewer.project.documents
+          documents: data.viewer.project.documents,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId,
-            page: pageNumber
-          }
-        }
+            page: pageNumber,
+          },
+        },
       }
     );
 

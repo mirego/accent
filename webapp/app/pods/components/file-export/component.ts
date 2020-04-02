@@ -36,7 +36,7 @@ export default class FileExport extends Component<Args> {
       document: this.args.document,
       version: this.args.version,
       documentFormat: this.args.documentFormat,
-      orderBy: this.args.orderBy
+      orderBy: this.args.orderBy,
     });
 
     this.content = data;

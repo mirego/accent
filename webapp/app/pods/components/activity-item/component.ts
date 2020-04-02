@@ -25,7 +25,7 @@ const ACTIONS_ICON_PATHS = {
   remove: 'assets/x.svg',
   new_comment: 'assets/bubble.svg',
   new_slave: 'assets/language.svg',
-  document_delete: 'assets/file.svg'
+  document_delete: 'assets/file.svg',
 };
 
 interface Args {
@@ -111,7 +111,9 @@ export default class ActivityItem extends Component<Args> {
     const actionsWithDocument = ['sync', 'document_delete', 'merge'];
 
     return (
-      actionsWithDocument.includes(action) && this.args.activity.document && this.args.activity.document.path
+      actionsWithDocument.includes(action) &&
+      this.args.activity.document &&
+      this.args.activity.document.path
     );
   }
 
@@ -135,7 +137,7 @@ export default class ActivityItem extends Component<Args> {
       'correct_all',
       'batch_correct_conflict',
       'batch_update',
-      'conflict_on_slave'
+      'conflict_on_slave',
     ];
 
     return (

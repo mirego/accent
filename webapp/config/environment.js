@@ -3,7 +3,7 @@
 'use strict';
 
 // eslint-disable-next-line complexity
-module.exports = function(environment) {
+module.exports = function (environment) {
   const wsHost = process.env.API_WS_HOST || '__API_WS_HOST__';
   const host = process.env.API_HOST || '__API_HOST__';
   const sentryDsn =
@@ -16,22 +16,22 @@ module.exports = function(environment) {
     podModulePrefix: 'accent-webapp/pods',
     environment,
     rootURL: '/',
-    locationType: 'auto'
+    locationType: 'auto',
   };
 
   ENV.SENTRY = {
-    DSN: sentryDsn
+    DSN: sentryDsn,
   };
 
   ENV.EmberENV = {
     EXTEND_PROTOTYPES: false,
-    LOG_VERSION: false
+    LOG_VERSION: false,
   };
 
   ENV.APP = {
     LOCAL_STORAGE: {
-      SESSION_NAMESPACE: 'accent-session'
-    }
+      SESSION_NAMESPACE: 'accent-session',
+    },
   };
 
   ENV.API = {
@@ -47,7 +47,7 @@ module.exports = function(environment) {
     EXPORT_DOCUMENT: `${host}/export`,
     JIPT_EXPORT_DOCUMENT: `${host}/jipt-export`,
     PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`,
-    JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`
+    JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`,
   };
 
   ENV.contentSecurityPolicy = {
@@ -56,10 +56,10 @@ module.exports = function(environment) {
       "'self' 'unsafe-inline' 'unsafe-eval' apis.google.com cdn.ravenjs.com",
     'font-src': "'self'",
     'connect-src': `'self' ${wsHost} ${host} https://www.googleapis.com https://sentry.io`,
-    'img-src': '*',
+    'img-src': '* data:',
     'style-src': "'self' 'unsafe-inline'",
     'media-src': "'self'",
-    'frame-src': 'accounts.google.com'
+    'frame-src': 'accounts.google.com',
   };
 
   ENV.flashMessageDefaults = {
@@ -73,7 +73,7 @@ module.exports = function(environment) {
     // service defaults
     type: 'info',
     types: ['info', 'success', 'error', 'socket'],
-    injectionFactories: []
+    injectionFactories: [],
   };
 
   if (environment === 'test') {

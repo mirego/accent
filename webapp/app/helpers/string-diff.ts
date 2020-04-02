@@ -1,13 +1,44 @@
-import Ember from 'ember';
 import {helper} from '@ember/component/helper';
 import {htmlSafe} from '@ember/string';
 import Diff from 'diff';
 
-const {
-  Handlebars: {
-    Utils: {escapeExpression}
+const badChars = /[&<>"'`=]/g;
+const possible = /[&<>"'`=]/;
+const escape = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#x27;',
+  '`': '&#x60;',
+  '=': '&#x3D;',
+};
+
+const escapeChar = (chr: keyof typeof escape) => {
+  return escape[chr];
+};
+
+const escapeExpression = (string: any): string => {
+  if (typeof string !== 'string') {
+    // don't escape SafeStrings, since they're already safe
+    if (string && string.toHTML) {
+      return string.toHTML();
+    } else if (string === null || string === undefined) {
+      return '';
+    } else if (!string) {
+      return String(string);
+    }
+
+    // Force a string conversion as this will be done by the append regardless and
+    // the regex test will do this transparently behind the scenes, causing issues if
+    // an object's to string has escaped characters in it.
+    string = String(string);
   }
-} = Ember;
+
+  if (!possible.test(string)) return string;
+
+  return string.replace(badChars, escapeChar);
+};
 
 const REMOVED_TAG_TEMPLATE = (value: string) =>
   `<span class="removed">${value}</span>`;

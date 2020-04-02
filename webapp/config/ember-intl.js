@@ -2,7 +2,7 @@
 
 'use strict';
 
-module.exports = function() {
+module.exports = function () {
   return {
     locales: null,
     fallbackLocale: null,
@@ -13,6 +13,6 @@ module.exports = function() {
     errorOnNamedArgumentMismatch: false,
     errorOnMissingTranslations: false,
     stripEmptyTranslations: false,
-    requiresTranslation: () => true
+    requiresTranslation: () => true,
   };
 };

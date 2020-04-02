@@ -10,7 +10,7 @@ const enum ACTIONS {
   redirectIfEmbedded = 'redirectIfEmbedded',
   login = 'login',
   loggedIn = 'loggedIn',
-  changeText = 'changeText'
+  changeText = 'changeText',
 }
 
 interface Props {

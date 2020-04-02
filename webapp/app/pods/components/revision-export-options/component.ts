@@ -42,17 +42,21 @@ export default class RevisionExportOptions extends Component<Args> {
     return [
       {
         value: null,
-        label: this.intl.t('components.revision_export_options.orders.original')
+        label: this.intl.t(
+          'components.revision_export_options.orders.original'
+        ),
       },
       {
         value: 'key',
-        label: this.intl.t('components.revision_export_options.orders.az')
-      }
+        label: this.intl.t('components.revision_export_options.orders.az'),
+      },
     ];
   }
 
   get formatValue() {
-    return this.formatOptions.find(({value}: {value: any}) => value === this.args.format);
+    return this.formatOptions.find(
+      ({value}: {value: any}) => value === this.args.format
+    );
   }
 
   get formattedDocumentFormats() {
@@ -60,7 +64,7 @@ export default class RevisionExportOptions extends Component<Args> {
 
     return this.globalState.documentFormats.map(({slug, name}) => ({
       value: slug,
-      label: name
+      label: name,
     }));
   }
 
@@ -68,42 +72,48 @@ export default class RevisionExportOptions extends Component<Args> {
     return [
       {
         value: null,
-        label: this.intl.t('components.revision_export_options.default_format')
+        label: this.intl.t('components.revision_export_options.default_format'),
       },
-      ...this.formattedDocumentFormats
+      ...this.formattedDocumentFormats,
     ];
   }
 
   get revisionValue() {
     return (
-      this.mappedRevisions.find(({value}: {value: any}) => value === this.args.revision) ||
-      this.mappedRevisions[0]
+      this.mappedRevisions.find(
+        ({value}: {value: any}) => value === this.args.revision
+      ) || this.mappedRevisions[0]
     );
   }
 
   get mappedRevisions() {
     if (!this.args.revisions) return [];
 
-    return this.args.revisions.map(({id, language}: {id: string; language: any}) => ({
-      label: language.name,
-      value: id
-    }));
+    return this.args.revisions.map(
+      ({id, language}: {id: string; language: any}) => ({
+        label: language.name,
+        value: id,
+      })
+    );
   }
 
   get documentValue() {
     return (
-      this.mappedDocuments.find(({value}: {value: any}) => value === this.args.document) ||
-      this.mappedDocuments[0]
+      this.mappedDocuments.find(
+        ({value}: {value: any}) => value === this.args.document
+      ) || this.mappedDocuments[0]
     );
   }
 
   get mappedDocuments() {
     if (!this.args.documents) return [];
 
-    return this.args.documents.map(({id, path}: {id: string; path: string}) => ({
-      label: path,
-      value: id
-    }));
+    return this.args.documents.map(
+      ({id, path}: {id: string; path: string}) => ({
+        label: path,
+        value: id,
+      })
+    );
   }
 
   @action

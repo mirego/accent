@@ -6,6 +6,8 @@
   transition-property: background, border-color, transform;
   padding: 10px;
   margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 3px;
 
   &:nth-child(even) {
     background: color-light-background;
@@ -13,12 +15,12 @@
 
   &:focus,
   &:hover {
-    border-color: lighten(color-green, 40%);
-    border-color: var(--color-primary-opacity-10);
+    border-color: lighten(color-grey, 26%);
     background: color-light-background;
   }
 
   &.active {
+    border-color: lighten(color-grey, 26%);
     background: color-light-background;
     transform: scale(1.02);
   }
@@ -46,26 +48,24 @@
   }
 }
 
-.conflict-item[class*='resolved'] {
+.conflict-item.resolved {
   padding: 5px 10px;
   margin: 5px 0 15px;
   background: lighten(color-green, 48%);
-  background: var(--color-primary-opacity-10);
-  box-shadow: 0 1px 5px lighten(color-grey, 25%);
+  border: 1px solid lighten(color-green, 40%);
+  box-shadow: 0 1px 6px lighten(color-green, 45%);
 
   .item-key-prefix {
     color: rgba(color-green, 0.7);
-    color: var(--color-primary-opacity-70);
   }
 
   .item-key {
     font-size: 12px;
     color: color-green;
-    color: var(--color-primary);
   }
 }
 
-.conflict-item[class*='errored'] {
+.conflict-item.errored {
   .textInput {
     border-color: lighten(color-error, 30%);
   }

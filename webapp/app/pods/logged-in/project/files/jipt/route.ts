@@ -9,15 +9,15 @@ export default class JIPTRoute extends Route {
 
   queryParams = {
     documentFormatFilter: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   model({fileId}: {fileId: string}) {
     return {
       projectModel: this.modelFor('logged-in.project'),
       fileModel: this.modelFor('logged-in.project.files'),
-      fileId
+      fileId,
     };
   }
 

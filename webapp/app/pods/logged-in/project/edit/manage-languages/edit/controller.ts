@@ -50,8 +50,8 @@ export default class ManageLanguagesEditController extends Controller {
         mutation: revisionUpdateQuery,
         variables: {
           revisionId: this.revision.id,
-          ...revisionAttributes
-        }
+          ...revisionAttributes,
+        },
       });
 
       this.router.transitionTo(

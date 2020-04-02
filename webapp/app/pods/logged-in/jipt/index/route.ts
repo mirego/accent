@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 
 import translationsQuery from 'accent-webapp/queries/jipt-translations';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/-private/transition';
@@ -18,17 +18,17 @@ export default class IndexRoute extends Route {
 
   queryParams = {
     query: {
-      refreshModel: true
+      refreshModel: true,
     },
     page: {
-      refreshModel: true
+      refreshModel: true,
     },
     document: {
-      refreshModel: true
+      refreshModel: true,
     },
     version: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -38,7 +38,7 @@ export default class IndexRoute extends Route {
       query,
       page,
       document,
-      version
+      version,
     }: {query: any; page: number; document: any; version: any},
     transition: Transition
   ) {
@@ -46,7 +46,7 @@ export default class IndexRoute extends Route {
       () => this.modelFor(this.routeName),
       translationsQuery,
       {
-        props: data => ({
+        props: (data) => ({
           project: data.viewer.project,
           documents: data.viewer.project.documents.entries,
           versions: data.viewer.project.versions.entries,
@@ -54,7 +54,7 @@ export default class IndexRoute extends Route {
           selectedTranslationIds: this.routeParams.fetch(
             transition,
             'logged-in.jipt'
-          ).transitionIds
+          ).transitionIds,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -65,9 +65,9 @@ export default class IndexRoute extends Route {
             query,
             page,
             document,
-            version
-          }
-        }
+            version,
+          },
+        },
       }
     );
 

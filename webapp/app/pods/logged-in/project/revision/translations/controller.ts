@@ -35,7 +35,7 @@ export default class TranslationsController extends Controller {
     'isTextEmpty',
     'isTextNotEmpty',
     'isAddedLastSync',
-    'isCommentedOn'
+    'isCommentedOn',
   ];
 
   @tracked
@@ -79,8 +79,8 @@ export default class TranslationsController extends Controller {
       this.isTextEmpty,
       this.isTextNotEmpty,
       this.isAddedLastSync,
-      this.isCommentedOn
-    ].filter(filter => filter === 'true').length;
+      this.isCommentedOn,
+    ].filter((filter) => filter === 'true').length;
   }
 
   @action
@@ -123,8 +123,8 @@ export default class TranslationsController extends Controller {
         mutation: translationUpdateQuery,
         variables: {
           translationId: translation.id,
-          text
-        }
+          text,
+        },
       });
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
     } catch (error) {

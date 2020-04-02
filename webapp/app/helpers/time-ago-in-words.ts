@@ -4,7 +4,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 const OPTIONS = {
   addSuffix: true,
-  includeSeconds: false
+  includeSeconds: false,
 };
 
 const timeAgoInWords = ([date]: [string]) => {

@@ -71,8 +71,8 @@ export default class EditController extends Controller {
         variables: {
           id,
           name,
-          tag
-        }
+          tag,
+        },
       });
 
       this.router.transitionTo('logged-in.project.versions', this.project.id);

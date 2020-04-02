@@ -9,7 +9,7 @@ export default class HookRunnerFomatter {
   log(name: string, commands: string[]) {
     const operation = capitalizeFirstLetter(decamelize(name, ' '));
     console.log(chalk.yellow('➤ '), chalk.bold(chalk.yellow(`${operation}:`)));
-    commands.forEach(command => {
+    commands.forEach((command) => {
       console.log('  ', chalk.yellow(command));
     });
     console.log('');

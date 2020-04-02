@@ -17,9 +17,7 @@ export default class Badges extends Component<Args> {
   get percentageReviewedBadgeCode() {
     // eslint-disable-next-line no-irregular-whitespace
     return htmlSafe(
-      `![strings reviewed status](${this.percentageReviewedBadgeUrl})](${
-        this.projectUrl
-      })`
+      `![strings reviewed status](${this.percentageReviewedBadgeUrl})](${this.projectUrl})`
     );
   }
 

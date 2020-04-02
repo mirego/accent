@@ -50,8 +50,8 @@ export default class FilesController extends Controller {
       await this.apolloMutate.mutate({
         mutation: documentDeleteQuery,
         variables: {
-          documentId: documentEntity.id
-        }
+          documentId: documentEntity.id,
+        },
       });
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_DELETE_SUCCESS));
@@ -68,8 +68,8 @@ export default class FilesController extends Controller {
         mutation: documentUpdateQuery,
         variables: {
           documentId: documentEntity.id,
-          path
-        }
+          path,
+        },
       });
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));

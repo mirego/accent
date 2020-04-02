@@ -24,7 +24,7 @@
         <div local-class="search">
           {{inline-svg "/assets/search.svg" local-class="search-icon"}}
           <input
-            {{on "change" this.setDebouncedQuery}}
+            {{on "keyup" this.setDebouncedQuery}}
             local-class="search-input"
             type="text"
             placeholder={{t "general.search_input_placeholder_text"}}

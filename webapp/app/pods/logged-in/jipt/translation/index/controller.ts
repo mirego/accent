@@ -59,8 +59,8 @@ export default class IndexController extends Controller {
         mutation: translationCorrectQuery,
         variables: {
           translationId: conflict.id,
-          text
-        }
+          text,
+        },
       });
 
       this.jipt.updateTranslation(
@@ -82,8 +82,8 @@ export default class IndexController extends Controller {
       await this.apolloMutate.mutate({
         mutation: translationUncorrectQuery,
         variables: {
-          translationId: conflict.id
-        }
+          translationId: conflict.id,
+        },
       });
 
       this.jipt.updateTranslation(
@@ -106,8 +106,8 @@ export default class IndexController extends Controller {
         mutation: translationUpdateQuery,
         variables: {
           translationId: translation.id,
-          text
-        }
+          text,
+        },
       });
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));

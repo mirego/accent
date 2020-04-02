@@ -38,8 +38,8 @@ export default class ActivityController extends Controller {
       await this.apolloMutate.mutate({
         mutation: operationRollbackQuery,
         variables: {
-          operationId: this.model.activity.id
-        }
+          operationId: this.model.activity.id,
+        },
       });
 
       this.flashMessages.success(

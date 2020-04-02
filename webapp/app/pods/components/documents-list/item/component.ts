@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {not, lt, gte, readOnly} from '@ember/object/computed';
+import {not, lt, gte} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 import Component from '@glimmer/component';
 import percentage from 'accent-webapp/component-helpers/percentage';

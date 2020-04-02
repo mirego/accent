@@ -5,7 +5,8 @@ export default class RouteParams extends Service {
   fetch(transition: Transition, routeName: string) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
-    return transition.routeInfos.find(route => route.name === routeName).params;
+    return transition.routeInfos.find((route) => route.name === routeName)
+      .params;
   }
 }
 

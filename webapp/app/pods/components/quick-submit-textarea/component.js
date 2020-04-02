@@ -19,5 +19,5 @@ export default TextArea.extend({
     if (event.which === ENTER_KEY && (event.metaKey || event.ctrlKey)) {
       if (this.onSubmit) this.onSubmit();
     }
-  }
+  },
 });

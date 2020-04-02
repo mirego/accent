@@ -41,8 +41,8 @@ export default class CommentsController extends Controller {
       refetchQueries: ['TranslationComments'],
       variables: {
         translationId: translation.id,
-        text
-      }
+        text,
+      },
     });
   }
 
@@ -55,8 +55,8 @@ export default class CommentsController extends Controller {
       refetchQueries: ['TranslationComments'],
       variables: {
         translationId: translation.id,
-        userId: user.id
-      }
+        userId: user.id,
+      },
     });
   }
 
@@ -66,8 +66,8 @@ export default class CommentsController extends Controller {
       mutation: translationCommentsSubscriptionDeleteQuery,
       refetchQueries: ['TranslationComments'],
       variables: {
-        translationCommentsSubscripitionId: subscription.id
-      }
+        translationCommentsSubscripitionId: subscription.id,
+      },
     });
   }
 

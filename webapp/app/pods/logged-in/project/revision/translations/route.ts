@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 
 import translationsQuery from 'accent-webapp/queries/translations';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import TranslationsController from 'accent-webapp/pods/logged-in/project/revision/translations/controller';
@@ -23,29 +23,29 @@ export default class TranslationsRoute extends Route {
 
   queryParams = {
     query: {
-      refreshModel: true
+      refreshModel: true,
     },
     page: {
-      refreshModel: true
+      refreshModel: true,
     },
     document: {
-      refreshModel: true
+      refreshModel: true,
     },
     version: {
-      refreshModel: true
+      refreshModel: true,
     },
     isTextEmpty: {
-      refreshModel: true
+      refreshModel: true,
     },
     isTextNotEmpty: {
-      refreshModel: true
+      refreshModel: true,
     },
     isAddedLastSync: {
-      refreshModel: true
+      refreshModel: true,
     },
     isCommentedOn: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -60,7 +60,7 @@ export default class TranslationsRoute extends Route {
       () => this.modelFor(this.routeName),
       translationsQuery,
       {
-        props: data => ({
+        props: (data) => ({
           revisionId: this.routeParams.fetch(
             transition,
             'logged-in.project.revision'
@@ -68,7 +68,7 @@ export default class TranslationsRoute extends Route {
           project: data.viewer.project,
           documents: data.viewer.project.documents.entries,
           versions: data.viewer.project.versions.entries,
-          translations: data.viewer.project.revision.translations
+          translations: data.viewer.project.revision.translations,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -79,9 +79,9 @@ export default class TranslationsRoute extends Route {
               transition,
               'logged-in.project.revision'
             ).revisionId,
-            ...params
-          }
-        }
+            ...params,
+          },
+        },
       }
     );
 

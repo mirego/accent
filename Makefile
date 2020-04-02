@@ -87,7 +87,7 @@ lint-credo:
 
 .PHONY: lint-eslint
 lint-eslint:
-	npx eslint --ext .js,.ts ./webapp ./cli ./jipt
+	npx eslint --ext .js,.ts ./webapp/app ./cli ./jipt
 
 .PHONY: lint-prettier
 lint-prettier:
@@ -114,7 +114,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	npx prettier --write --single-quote --no-bracket-spacing '{webapp,jipt,cli}/*.{js,json}' 'webapp/{app,config}/**/*.{js,ts,json,scss}' 'jipt/src/**/*.{js,ts,json,gql}' 'cli/{examples,src}/**/*.{js,ts,json,gql}' 'README.md'
+	npx prettier --write --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md}' '*.md'
 
 # Development targets
 # -------------------

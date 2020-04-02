@@ -24,7 +24,7 @@ export default class LiveNode {
   }
 
   matchAttributes(node: Element) {
-    Array.from(node.attributes).forEach(attribute => {
+    Array.from(node.attributes).forEach((attribute) => {
       const translation = this.findTranslationByValue(attribute.value);
       if (!translation || !translation.text) return;
 
@@ -34,7 +34,7 @@ export default class LiveNode {
       attribute.value = newAttribute;
 
       this.state.addReference(node, translation, {
-        attributeName: attribute.name
+        attributeName: attribute.name,
       });
     });
   }

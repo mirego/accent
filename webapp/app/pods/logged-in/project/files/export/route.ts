@@ -9,21 +9,21 @@ export default class ExportRoute extends Route {
 
   queryParams = {
     revisionFilter: {
-      refreshModel: true
+      refreshModel: true,
     },
     documentFormatFilter: {
-      refreshModel: true
+      refreshModel: true,
     },
     orderByFilter: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   model({fileId}: {fileId: string}) {
     return {
       projectModel: this.modelFor('logged-in.project'),
       fileModel: this.modelFor('logged-in.project.files'),
-      fileId
+      fileId,
     };
   }
 

@@ -43,8 +43,8 @@ export default class RelatedTranslations extends Controller {
         mutation: translationUpdateQuery,
         variables: {
           translationId: translation.id,
-          text
-        }
+          text,
+        },
       });
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));

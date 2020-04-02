@@ -22,7 +22,7 @@ export default class Syncer extends Service {
     file,
     documentPath,
     documentFormat,
-    syncType
+    syncType,
   }: SyncOptions) {
     const url = fmt(
       config.API.SYNC_PROJECT_PATH,
@@ -35,7 +35,7 @@ export default class Syncer extends Service {
       file,
       documentPath,
       documentFormat,
-      syncType
+      syncType,
     });
   }
 }

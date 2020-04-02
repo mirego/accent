@@ -16,6 +16,12 @@ const LARGE_INPUT_ROWS = 7;
 const SMALL_INPUT_VALUE = 70;
 const LARGE_INPUT_VALUE = 100;
 
+interface Context {
+  text: string;
+  offset: number;
+  length: number;
+}
+
 interface Args {
   projectId: string;
   translationId: string;
@@ -60,8 +66,8 @@ export default class TranslationEditForm extends Component<Args> {
 
   get rows() {
     if (!this.args.value) return SMALL_INPUT_ROWS;
-    if (this.args.value.length < SMALL_INPUT_VALUE) return SMALL_INPUT_ROWS;
     if (this.args.value.length < LARGE_INPUT_VALUE) return MEDIUM_INPUT_ROWS;
+    if (this.args.value.length < SMALL_INPUT_VALUE) return SMALL_INPUT_ROWS;
 
     return LARGE_INPUT_ROWS;
   }
@@ -97,15 +103,15 @@ export default class TranslationEditForm extends Component<Args> {
       variables: {
         text: value,
         projectId: this.args.projectId,
-        translationId: this.args.translationId
-      }
+        translationId: this.args.translationId,
+      },
     });
 
-    this.lintMessages = data.viewer.project.translation.lintMessages;
+    this.lintMessages = data.viewer.project.translation.lintMessages as String;
   }
 
   @action
-  replaceText(context: any, replacement: any) {
+  replaceText(context: Context, replacement: any) {
     const wordToReplace = context.text.substring(
       context.offset,
       context.offset + context.length

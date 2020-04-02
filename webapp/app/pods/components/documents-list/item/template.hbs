@@ -21,8 +21,7 @@
               <span local-class="item-document-deleting-title">
                 {{inline-svg "/assets/loading.svg" local-class="item-document-deleting-title-loading"}}
 
-                {{t "components.documents_list.item.deleting_label"}}
-                {{@document.path}}.{{this.documentFormatItem.extension}}…
+                {{t "components.documents_list.item.deleting_label" path=@document.path extension=this.documentFormatItem.extension}}
               </span>
             {{else}}
               <button local-class="item-edit-button" {{on "click" (fn this.toggleEdit)}}>

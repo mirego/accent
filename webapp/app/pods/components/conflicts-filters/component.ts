@@ -1,6 +1,6 @@
 import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
-import {notEmpty, gt, reads} from '@ember/object/computed';
+import {notEmpty, gt} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import IntlService from 'ember-intl/services/intl';
 import {PaginationMeta} from 'accent-webapp/pods/components/resource-pagination/component';
@@ -49,7 +49,7 @@ export default class ConflictsFilters extends Component<Args> {
     const documents = this.args.documents.map(
       ({id, path}: {id: string; path: string}) => ({
         label: path,
-        value: id
+        value: id,
       })
     );
 
@@ -57,7 +57,7 @@ export default class ConflictsFilters extends Component<Args> {
       label: this.intl.t(
         'components.conflicts_filters.document_default_option_text'
       ),
-      value: null
+      value: null,
     });
 
     return documents;
@@ -67,7 +67,7 @@ export default class ConflictsFilters extends Component<Args> {
     const revisions = this.args.referenceRevisions.map(
       ({id, language}: {id: string; language: any}) => ({
         label: language.name,
-        value: id
+        value: id,
       })
     );
 
@@ -75,7 +75,7 @@ export default class ConflictsFilters extends Component<Args> {
       label: this.intl.t(
         'components.conflicts_filters.reference_default_option_text'
       ),
-      value: null
+      value: null,
     });
 
     return revisions;

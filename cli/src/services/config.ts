@@ -35,7 +35,7 @@ export default class ConfigFetcher {
 
   files(): Document[] {
     return this.config.files.map(
-      documentConfig => new Document(documentConfig, this.config)
+      (documentConfig) => new Document(documentConfig, this.config)
     );
   }
 }

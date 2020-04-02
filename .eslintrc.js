@@ -11,7 +11,8 @@ module.exports = {
       extends: [
         'plugin:mirego/recommended',
         'prettier',
-        'prettier/@typescript-eslint'
+        'prettier/@typescript-eslint',
+        'typestrict'
       ],
       env: {
         es6: true,
@@ -21,6 +22,7 @@ module.exports = {
         JsDiff: true
       },
       rules: {
+        'complexity': 0,
         'no-irregular-whitespace': 0,
         'ember/closure-actions': 2,
         'ember/named-functions-in-promises': 0,
@@ -72,7 +74,8 @@ module.exports = {
         '@typescript-eslint/type-annotation-spacing': 2,
         '@typescript-eslint/unified-signatures': 2,
         'no-unused-vars': 0,
-        '@typescript-eslint/no-unused-vars': 2
+        'no-invalid-this': 0,
+        '@typescript-eslint/no-unused-vars': 2,
       }
     },
     {
@@ -110,6 +113,9 @@ module.exports = {
       env: {
         es6: true
       },
+      globals: {
+        process: true
+      },
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: './cli/tsconfig.json'
@@ -121,7 +127,11 @@ module.exports = {
         'prettier/@typescript-eslint'
       ],
       rules: {
+        'complexity': 0,
         'no-irregular-whitespace': 0,
+        'no-unused-vars': 0,
+        'no-console': 0,
+        'max-nested-callbacks': [2, {max: 3}],
         '@typescript-eslint/adjacent-overload-signatures': 2,
         '@typescript-eslint/array-type': [2, {default: 'array-simple'}],
         '@typescript-eslint/await-thenable': 2,
@@ -149,7 +159,7 @@ module.exports = {
         '@typescript-eslint/no-floating-promises': 2,
         '@typescript-eslint/no-misused-new': 2,
         '@typescript-eslint/no-misused-promises': 2,
-        '@typescript-eslint/no-non-null-assertion': 2,
+        '@typescript-eslint/no-non-null-assertion': 0,
         '@typescript-eslint/no-parameter-properties': 2,
         '@typescript-eslint/no-require-imports': 2,
         '@typescript-eslint/no-unnecessary-type-assertion': 2,
@@ -157,7 +167,6 @@ module.exports = {
         '@typescript-eslint/require-await': 2,
         '@typescript-eslint/type-annotation-spacing': 2,
         '@typescript-eslint/unified-signatures': 2,
-        'no-unused-vars': 0,
         '@typescript-eslint/no-unused-vars': 2
       }
     },
@@ -177,7 +186,9 @@ module.exports = {
         'prettier/@typescript-eslint'
       ],
       rules: {
+        'complexity': 0,
         'no-irregular-whitespace': 0,
+        'no-unused-vars': 0,
         '@typescript-eslint/adjacent-overload-signatures': 2,
         '@typescript-eslint/array-type': [2, {default: 'array-simple'}],
         '@typescript-eslint/await-thenable': 2,
@@ -213,7 +224,6 @@ module.exports = {
         '@typescript-eslint/require-await': 2,
         '@typescript-eslint/type-annotation-spacing': 2,
         '@typescript-eslint/unified-signatures': 2,
-        'no-unused-vars': 0,
         '@typescript-eslint/no-unused-vars': 2
       }
     }

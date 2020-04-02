@@ -26,10 +26,10 @@
                 {{if @activity.user.pictureUrl "item-user--pictureUrl"}}"
             >
               {{#if @activity.user.pictureUrl}}
-                <img
+                <AccAvatarImg
                   local-class="item-user-picture"
                   src="{{@activity.user.pictureUrl}}"
-                >
+                />
               {{/if}}
               {{@activity.user.fullname}}
             </span>

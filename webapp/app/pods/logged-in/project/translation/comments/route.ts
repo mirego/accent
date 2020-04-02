@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 
 import translationCommentsQuery from 'accent-webapp/queries/translation-comments';
 import ApolloSubscription, {
-  Subscription
+  Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/-private/transition';
@@ -19,8 +19,8 @@ export default class CommentsRoute extends Route {
 
   queryParams = {
     page: {
-      refreshModel: true
-    }
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -32,12 +32,12 @@ export default class CommentsRoute extends Route {
       () => this.modelFor(this.routeName),
       translationCommentsQuery,
       {
-        props: data => ({
+        props: (data) => ({
           translation: data.viewer.project.translation,
           comments: data.viewer.project.translation.comments,
           collaborators: data.viewer.project.collaborators,
           commentsSubscriptions:
-            data.viewer.project.translation.commentsSubscriptions
+            data.viewer.project.translation.commentsSubscriptions,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -48,9 +48,9 @@ export default class CommentsRoute extends Route {
               transition,
               'logged-in.project.translation'
             ).translationId,
-            page: pageNumber
-          }
-        }
+            page: pageNumber,
+          },
+        },
       }
     );
 

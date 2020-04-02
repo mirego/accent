@@ -1,5 +1,3 @@
-export default config;
-
 /**
  * Type declarations for
  *    import config from './config/environment'
@@ -68,3 +66,5 @@ declare const config: {
     injectionFactories: [];
   };
 };
+
+export default config;

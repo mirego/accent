@@ -38,9 +38,9 @@ export default class CollaboratorsListItem extends Component<Args> {
   }
 
   get mappedPossibleRoles() {
-    return this.possibleRoles.map(value => ({
+    return this.possibleRoles.map((value) => ({
       label: this.intl.t(`general.roles.${value}`),
-      value
+      value,
     }));
   }
 

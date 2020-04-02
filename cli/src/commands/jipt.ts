@@ -22,8 +22,8 @@ export default class Jipt extends Command {
     {
       description: 'The pseudo language for in-place-translation-editing',
       name: 'pseudoLanguageName',
-      required: true
-    }
+      required: true,
+    },
   ];
   static flags = {};
 
@@ -45,7 +45,7 @@ export default class Jipt extends Command {
       );
 
       await Promise.all(
-        targets.map(({path, documentPath}) => {
+        targets.map(async ({path, documentPath}) => {
           formatter.log(path);
 
           return document.exportJipt(path, documentPath);

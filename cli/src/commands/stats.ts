@@ -9,9 +9,11 @@ export default class Stats extends Command {
 
   static examples = [`$ accent stats`];
 
+  /* eslint-disable @typescript-eslint/require-await */
   async run() {
     const formatter = new Formatter(this.project!);
 
     formatter.log();
   }
+  /* eslint-enable @typescript-eslint/require-await */
 }

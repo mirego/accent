@@ -1,5 +1,5 @@
 <div local-class="projects-list-item {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}">
-  <div local-class="projectHeader projectId-{{@project.id}}">
+  <div local-class="projectHeader" class="projectId-{{@project.id}}">
     {{#if @project.logo}}
       <span local-class="projectLogo">
         <ProjectLogo @logo={{@project.logo}} />
@@ -34,5 +34,7 @@
     </span>
   </div>
 
-  <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
+  <div local-class="progress">
+    <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
+  </div>
 </div>

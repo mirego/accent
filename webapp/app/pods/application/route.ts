@@ -28,7 +28,7 @@ export default class ApplicationRoute extends Route {
     const match = window.location.search
       .substring(window.location.search.indexOf('?') + 1)
       .split('&')
-      .find(segment => segment.split('=')[0] === 'token');
+      .find((segment) => segment.split('=')[0] === 'token');
 
     const token = match && match.split('=')[1];
 
