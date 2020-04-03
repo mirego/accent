@@ -4,10 +4,10 @@
       <div local-class="itemComment-header">
         <span local-class="itemComment-user">
           {{#if comment.user.pictureUrl}}
-            <img
+            <AccAvatarImg
               local-class="itemComment-user-picture"
               src="{{comment.user.pictureUrl}}"
-            >
+            />
           {{/if}}
           {{comment.user.fullname}}
         </span>

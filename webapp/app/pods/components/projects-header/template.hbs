@@ -44,7 +44,7 @@
     {{#if @session.credentials.user}}
       <div local-class="content-right">
         {{#if @session.credentials.user.pictureUrl}}
-          <img local-class="picture" src={{@session.credentials.user.pictureUrl}}>
+          <AccAvatarImg local-class="picture" src={{@session.credentials.user.pictureUrl}} />
         {{/if}}
 
         <span local-class="username">

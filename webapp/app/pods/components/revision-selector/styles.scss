@@ -19,6 +19,13 @@
     }
   }
 
+  :global(.ember-power-select-status-icon) {
+    opacity: 0.3;
+    right: 10px;
+    font-size: 27px;
+    margin-top: 4px;
+  }
+
   :global(.ember-power-select-trigger) {
     padding: 10px;
     font-size: 20px;
@@ -26,11 +33,6 @@
     border: 1px solid #eee;
     cursor: default;
     pointer-events: none;
-  }
-
-  &[aria-expanded=true] :global(.ember-power-select-status-icon),
-  :global(.ember-power-select-status-icon) {
-    display: none;
   }
 }
 
@@ -48,28 +50,12 @@
       background: color-light-background;
     }
   }
-
-  &[aria-expanded=true] :global(.ember-power-select-status-icon),
-  :global(.ember-power-select-status-icon) {
-    left: 13px;
-    bottom: 16px;
-
-    &:after {
-      bottom: -14px;
-      left: 0;
-      color: #ddd;
-    }
-  }
-
-  &[aria-expanded=true] :global(.ember-power-select-status-icon) {
-    left: 11px;
-  }
 }
 
 .otherLanguages {
   position: absolute;
   bottom: 8px;
-  left: 25px;
+  left: 11px;
   font-size: 12px;
   color: #ccc;
   pointer-events: none;

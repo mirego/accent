@@ -29,6 +29,7 @@ module.exports = {
     'no-triple-curlies': false,
     'no-unused-block-params': true,
     quotes: 'double',
+    'require-valid-alt-text': false,
     'self-closing-void-elements': true,
     'simple-unless': false,
     'style-concatenation': true,

@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 
 interface Args {
+  success?: boolean;
   iconPath: string;
   text: string;
 }

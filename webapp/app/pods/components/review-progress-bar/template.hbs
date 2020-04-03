@@ -1,3 +1,4 @@
-<div local-class="progress-bar">
+{{!-- template-lint-disable no-inline-styles --}}
+<div local-class="progress-bar" {{did-insert (fn this.setPercentage) @correctedKeysPercentage}}>
   <div local-class="progress" style={{this.progressStyles}}></div>
 </div>

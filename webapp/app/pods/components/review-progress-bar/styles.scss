@@ -10,8 +10,10 @@
 
 .progress {
   height: 2px;
+  width: 0;
   background: currentColor;
   border-radius: 3px;
+  transition: width 500ms ease-in-out;
 
   &:after {
     width: 100%;

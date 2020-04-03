@@ -260,7 +260,7 @@
   .item-translationText,
   .item-actions,
   .item-header {
-    opacity: 0.4;
+    opacity: 0.6;
     font-size: 12px;
   }
 
@@ -295,6 +295,10 @@
 
   &.sync {
     border-color: rgba(color-green, 0.1);
+
+    &:before {
+      display: none;
+    }
 
     .item-iconContainer {
       left: -19px;

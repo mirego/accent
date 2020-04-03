@@ -1,1 +1,1 @@
- declare module 'ember-concurrency';
+declare module 'ember-concurrency';
