@@ -1,38 +1,48 @@
 name: CI
+
 on: [push, pull_request]
+
 jobs:
   test:
-    env:
-      MIX_ENV: test
     runs-on: ubuntu-latest
+
     services:
       db:
         image: postgres:10
-        ports: ['5432:5432']
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        env:
+          POSTGRES_DB: accent_test
+          POSTGRES_PASSWORD: password
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    env:
+      MIX_ENV: test
+      DATABASE_URL: postgres://postgres:password@localhost/accent_test
+
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-elixir@v1.0.0
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-elixir@v1
         with:
           otp-version: 22.x
           elixir-version: 1.9.x
+
       - uses: actions/setup-node@v1
         with:
           node-version: 10.14.x
+
       - name: Install System Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc libyaml-dev python-yaml
+
       - name: Install Elixir Dependencies
         run: |
           mix local.rebar --force
           mix local.hex --force
           mix deps.get
           mix deps.compile
+
       - name: Install NodeJS Dependencies
         run: |
           npm config set spin false
@@ -40,15 +50,18 @@ jobs:
           npm i --prefix webapp --no-audit --no-color
           npm i --prefix cli --no-audit --no-color
           npm i --prefix jipt --no-audit --no-color
+
       - name: Build webapp production
         run: npm run build-production-inline --prefix webapp
+
       - name: Run Tests
         run: |
-          DATABASE_URL=postgresql://postgres:postgres@localhost:5432/accent_test mix ecto.setup
-          DATABASE_URL=postgresql://postgres:postgres@localhost:5432/accent_test ./priv/scripts/ci-check.sh
+          mix ecto.setup
+          ./priv/scripts/ci-check.sh
+
       - name: Build CLI
         run: npm --prefix cli run build
       - name: Build JIPT
         run: npm --prefix jipt run build-production-inline
       - name: Coverage report
-        run: DATABASE_URL=postgresql://postgres:postgres@localhost:5432/accent_test mix coveralls.post --token ${{ secrets.COVERALLS_REPO_TOKEN }} --name 'github-actions' --branch ${{ github.ref }} --committer ${{ github.actor }} --sha ${{ github.sha }}
+        run: mix coveralls.post --token ${{ secrets.COVERALLS_REPO_TOKEN }} --name 'github-actions' --branch ${{ github.ref }} --committer ${{ github.actor }} --sha ${{ github.sha }}
