@@ -41,7 +41,7 @@ export default class TranslationEditForm extends Component<Args> {
   apollo: Apollo;
 
   @tracked
-  lintMessages = [];
+  lintMessages: String[] = [];
 
   @tracked
   showTypeHints = true;
@@ -107,7 +107,8 @@ export default class TranslationEditForm extends Component<Args> {
       },
     });
 
-    this.lintMessages = data.viewer.project.translation.lintMessages as String;
+    this.lintMessages = data.viewer.project.translation
+      .lintMessages as String[];
   }
 
   @action

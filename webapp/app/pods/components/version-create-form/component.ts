@@ -43,4 +43,9 @@ export default class VersionCreateForm extends Component<Args> {
 
     this.isCreating = false;
   }
+
+  @action
+  focusTextarea(element: HTMLElement) {
+    element.querySelector('input')?.focus();
+  }
 }

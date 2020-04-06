@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import {action} from '@ember/object';
 
 interface Args {
   permissions: Record<string, true>;
@@ -12,4 +13,9 @@ interface Args {
   onSelectPage: (page: number) => void;
 }
 
-export default class TranslationConversation extends Component<Args> {}
+export default class TranslationConversation extends Component<Args> {
+  @action
+  focusTextarea(element: HTMLElement) {
+    element.querySelector('textarea')?.focus();
+  }
+}

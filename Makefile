@@ -97,6 +97,10 @@ lint-prettier:
 lint-template-hbs:
 	npx ember-template-lint './webapp/app/**/*.hbs' --config-path './webapp/.template-lintrc'
 
+.PHONY: type-check
+type-check: ## Type-check typescript files
+	cd webapp && npx tsc
+
 .PHONY: test
 test: ## Run the test suite
 	mix test

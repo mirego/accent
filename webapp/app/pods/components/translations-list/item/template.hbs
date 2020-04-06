@@ -63,7 +63,7 @@
   </span>
 
   {{#if this.isInEditMode}}
-    <div local-class="item-textEdit">
+    <div {{did-insert this.focusTextarea}} local-class="item-textEdit">
       <TranslationEdit::Form
         @projectId={{@project.id}}
         @translationId={{@translation.id}}
@@ -71,7 +71,6 @@
         @valueType={{@translation.valueType}}
         @value={{this.editText}}
         @onSubmit={{fn this.save}}
-        {{did-insert this.focusTextarea}}
       />
       <AsyncButton
         @onClick={{fn this.save}}

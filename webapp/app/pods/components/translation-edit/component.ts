@@ -6,7 +6,7 @@ interface Args {
   translation: any;
   project: any;
   permissions: Record<string, true>;
-  onChangeText: (text: string) => void;
+  onChangeText?: (text: string) => void;
   onUpdateText: (text: string) => Promise<void>;
   onCorrectConflict: (text: string) => Promise<void>;
   onUncorrectConflict: () => Promise<void>;
@@ -69,6 +69,11 @@ export default class TranslationEdit extends Component<Args> {
   changeText(text: string) {
     this.text = text;
 
-    this.args.onChangeText(text);
+    this.args.onChangeText && this.args.onChangeText(text);
+  }
+
+  @action
+  focusTextarea(element: HTMLElement) {
+    element.querySelector('textarea')?.focus();
   }
 }

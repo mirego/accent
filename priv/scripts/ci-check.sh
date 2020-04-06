@@ -46,6 +46,9 @@ run make lint-eslint
 header "Handlebar template code lint…"
 run make lint-template-hbs
 
+header "Type check Typescript files…"
+run make type-check
+
 if [ ${error_status} -ne 0 ]; then
   echo "\n\n${YELLOW}▶▶ One of the checks ${RED_BOLD}failed${YELLOW}. Please fix it before committing.${NO_COLOR}"
 else

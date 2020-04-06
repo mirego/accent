@@ -59,4 +59,9 @@ export default class CreateForm extends Component<Args> {
     this.email = '';
     this.isCreating = false;
   }
+
+  @action
+  focusTextarea(element: HTMLElement) {
+    element.querySelector('input')?.focus();
+  }
 }

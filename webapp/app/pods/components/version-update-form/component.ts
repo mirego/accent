@@ -44,4 +44,9 @@ export default class VersionUpdateForm extends Component<Args> {
 
     this.tag = target.value;
   }
+
+  @action
+  focusTextarea(element: HTMLElement) {
+    element.querySelector('input')?.focus();
+  }
 }

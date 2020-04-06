@@ -90,13 +90,15 @@ export default class ProjectEditIndexController extends Controller {
     errorMessage: string;
   }) {
     try {
-      await this.apolloMutate.mutate({
+      const result = await this.apolloMutate.mutate({
         mutation,
         variables,
         refetchQueries: ['ProjectEdit'],
       });
 
       this.flashMessages.success(this.intl.t(successMessage));
+
+      return result;
     } catch (error) {
       this.flashMessages.error(this.intl.t(errorMessage));
     }

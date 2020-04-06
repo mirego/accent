@@ -7,7 +7,11 @@ interface Args {
   correctedKeysPercentage: number;
 }
 
-const TRANSITION_DELAY = 300;
+const minimumTransitionDelay = 300;
+const thresholdTransitionDelay = 200;
+const transitionDelay = () =>
+  Math.floor(Math.random() * Math.floor(thresholdTransitionDelay)) +
+  minimumTransitionDelay;
 
 export default class ReviewProgressBar extends Component<Args> {
   @tracked
@@ -17,7 +21,7 @@ export default class ReviewProgressBar extends Component<Args> {
   setPercentage() {
     setTimeout(
       () => (this.percentage = this.args.correctedKeysPercentage),
-      TRANSITION_DELAY
+      transitionDelay()
     );
   }
 

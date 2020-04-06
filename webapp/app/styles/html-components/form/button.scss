@@ -301,6 +301,7 @@
 
 .button--green {
   color: $color-success;
+  border-color: rgba($color-success, 0.4);
 
   &.button--loading svg.loading {
     fill: $color-success;
@@ -315,6 +316,7 @@
 
 .button--red {
   color: $color-error;
+  border-color: rgba($color-error, 0.3);
 
   &.button--loading svg.loading {
     fill: $color-error;

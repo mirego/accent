@@ -1,20 +1,22 @@
 <div class="subNavigation subNavigation--alt">
   <ul class="subNavigation-list">
-    <li class="subNavigation-list-item">
-      <LinkTo
-        @route="logged-in.project.translation.index"
-        @models={{array @project.id @translation.id}}
-        class="subNavigation-list-item-link"
-      >
-        {{inline-svg
-          "assets/pencil.svg"
-          class="subNavigation-list-item-link-icon"
-        }}
-        <span class="subNavigation-list-item-link-text">
-          {{t "components.translation_navigation.edit_link_title"}}
-        </span>
-      </LinkTo>
-    </li>
+    {{#if (get @permissions "show_project")}}
+      <li class="subNavigation-list-item">
+        <LinkTo
+          @route="logged-in.project.translation.index"
+          @models={{array @project.id @translation.id}}
+          class="subNavigation-list-item-link"
+        >
+          {{inline-svg
+            "assets/pencil.svg"
+            class="subNavigation-list-item-link-icon"
+          }}
+          <span class="subNavigation-list-item-link-text">
+            {{t "components.translation_navigation.edit_link_title"}}
+          </span>
+        </LinkTo>
+      </li>
+    {{/if}}
 
     {{#if (get @permissions "index_related_translations")}}
       <li class="subNavigation-list-item">
@@ -48,10 +50,17 @@
             class="subNavigation-list-item-link-icon"
           }}
           <span class="subNavigation-list-item-link-text">
-            {{t
-              "components.translation_navigation.comments_link_title"
-              count=@translation.commentsCount
-            }}
+            {{#if @translation.commentsCount}}
+              {{t
+                "components.translation_navigation.comments_link_title"
+                count=@translation.commentsCount
+              }}
+            {{else}}
+              {{t
+                "components.translation_navigation.comments_link_title"
+                count=0
+              }}
+            {{/if}}
           </span>
         </LinkTo>
       </li>

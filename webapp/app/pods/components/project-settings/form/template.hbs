@@ -1,11 +1,12 @@
 <div local-class="project-settings-form">
   {{#if (get @permissions "update_project")}}
     <div local-class="field">
-      <input
-        value={{this.name}}
+      <QuickSubmitTextfield
+        @onKeyUp={{fn this.setName}}
+        @onSubmit={{fn this.updateProject}}
+        @value={{this.name}}
         local-class="textInput"
-        {{on "keyup" (fn this.setName)}}
-      >
+      />
 
       <input
         type="color"
@@ -35,6 +36,7 @@
 
     <AsyncButton
       @onClick={{fn this.updateProject}}
+      @loading={{this.isUpdatingProject}}
       class="button button--filled"
     >
       {{t "components.project_settings.form.update_button"}}

@@ -65,7 +65,7 @@
   justify-content: flex-end;
   align-items: center;
 
-  & > .button {
+  & > :global(.button) {
     margin-left: 10px;
   }
 }

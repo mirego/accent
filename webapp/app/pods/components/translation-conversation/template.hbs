@@ -2,7 +2,9 @@
   <div local-class="comments">
     {{#if (get @permissions "create_comment")}}
       {{#unless @translation.isRemoved}}
-        <TranslationCommentForm @onSubmit={{@onSubmit}} />
+        <div {{did-insert this.focusTextarea}}>
+          <TranslationCommentForm @onSubmit={{@onSubmit}} />
+        </div>
       {{/unless}}
     {{/if}}
 

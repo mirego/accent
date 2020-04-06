@@ -24,6 +24,7 @@
 .subNavigation-list {
   display: flex;
   align-items: stretch;
+  min-height: 40px;
   position: relative;
   left: -6px;
   z-index: 10;

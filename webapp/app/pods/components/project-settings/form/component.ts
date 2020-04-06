@@ -19,7 +19,7 @@ interface Args {
     name: string;
     mainColor: string;
     logo: string;
-  }) => void;
+  }) => Promise<any>;
 }
 
 export default class ProjectSettingsForm extends Component<Args> {
@@ -36,6 +36,9 @@ export default class ProjectSettingsForm extends Component<Args> {
   name = this.args.project.name;
 
   @tracked
+  isUpdatingProject = false;
+
+  @tracked
   mainColor = this.args.project.mainColor;
 
   @tracked
@@ -50,25 +53,32 @@ export default class ProjectSettingsForm extends Component<Args> {
   }
 
   @action
-  setLockedFileOperations() {
+  async setLockedFileOperations() {
+    this.isUpdatingProject = true;
     this.isFileOperationsLocked = !this.isFileOperationsLocked;
 
-    this.args.onUpdateProject({
+    await this.args.onUpdateProject({
       isFileOperationsLocked: this.isFileOperationsLocked,
       name: this.name,
       mainColor: this.mainColor,
       logo: this.logo,
     });
+
+    this.isUpdatingProject = false;
   }
 
   @action
-  updateProject() {
-    this.args.onUpdateProject({
+  async updateProject() {
+    this.isUpdatingProject = true;
+
+    await this.args.onUpdateProject({
       isFileOperationsLocked: this.isFileOperationsLocked,
       name: this.name,
       mainColor: this.mainColor,
       logo: this.logo,
     });
+
+    this.isUpdatingProject = false;
   }
 
   @action

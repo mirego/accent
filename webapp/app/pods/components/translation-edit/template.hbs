@@ -13,16 +13,18 @@
   {{/if}}
 
   {{#if @translation.id}}
-    <TranslationEdit::Form
-      @projectId={{@project.id}}
-      @translationId={{@translation.id}}
-      @placeholders={{@translation.masterTranslation.placeholders}}
-      @disabled={{@translation.isRemoved}}
-      @valueType={{@translation.valueType}}
-      @value={{this.text}}
-      @onKeyUp={{fn this.changeText}}
-      @onSubmit={{fn this.updateText}}
-    />
+    <div {{did-insert this.focusTextarea}}>
+      <TranslationEdit::Form
+        @projectId={{@project.id}}
+        @translationId={{@translation.id}}
+        @placeholders={{@translation.masterTranslation.placeholders}}
+        @disabled={{@translation.isRemoved}}
+        @valueType={{@translation.valueType}}
+        @value={{this.text}}
+        @onKeyUp={{fn this.changeText}}
+        @onSubmit={{fn this.updateText}}
+      />
+    </div>
   {{/if}}
 
   {{#if @translation}}

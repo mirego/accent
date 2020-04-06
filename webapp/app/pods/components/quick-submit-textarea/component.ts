@@ -1,23 +1,36 @@
-import TextArea from '@ember/component/text-area';
+import Component from '@glimmer/component';
+import {action} from '@ember/object';
 
 const ENTER_KEY = 13;
 
-export default TextArea.extend({
-  focusIn() {
-    if (this.onFocus) this.onFocus();
-  },
+interface Args {
+  value: string | null | undefined;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onKeyUp?: (event: KeyboardEvent) => void;
+  onSubmit?: () => void;
+}
 
-  focusOut() {
-    if (this.onBlur) this.onBlur();
-  },
+export default class QuickSubmitTextarea extends Component<Args> {
+  @action
+  blur() {
+    this.args.onBlur && this.args.onBlur();
+  }
 
-  keyUp(event) {
-    if (this.onKeyUp) this.onKeyUp(event);
-  },
+  @action
+  focus() {
+    this.args.onFocus && this.args.onFocus();
+  }
 
-  keyDown(event) {
+  @action
+  keyUp(event: KeyboardEvent) {
+    this.args.onKeyUp && this.args.onKeyUp(event);
+  }
+
+  @action
+  keyDown(event: KeyboardEvent) {
     if (event.which === ENTER_KEY && (event.metaKey || event.ctrlKey)) {
-      if (this.onSubmit) this.onSubmit();
+      this.args.onSubmit && this.args.onSubmit();
     }
-  },
-});
+  }
+}

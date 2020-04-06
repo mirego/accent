@@ -1,4 +1,4 @@
-<ul local-class="related-translations-list">
+<ul {{did-insert this.focusTextarea}} local-class="related-translations-list">
   {{#each @translations key="id" as |translation|}}
     <RelatedTranslationsList::Item
       @onUpdateText={{@onUpdateText}}
