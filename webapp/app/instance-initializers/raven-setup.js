@@ -1,7 +1,7 @@
 import Raven from 'raven-js';
 import config from 'accent-webapp/config/environment';
 
-export const initialize = application => {
+export const initialize = (application) => {
   if (config.SENTRY.DSN) {
     Raven.config(config.SENTRY.DSN).install();
 
@@ -15,5 +15,5 @@ export const initialize = application => {
 
 export default {
   name: 'raven-setup',
-  initialize
+  initialize,
 };

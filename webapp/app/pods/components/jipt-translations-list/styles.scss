@@ -1,4 +1,7 @@
-& {
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-light-background, color-black from 'accent-webapp/styles/variables/colors';
+
+.jipt-translations-list {
   margin: 20px 0;
   border-top: 1px solid #eee;
 }
@@ -11,13 +14,13 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: padding, background;
 
   &:focus,
   &:hover {
-    background: $color-light-background;
-    color: $color-black;
+    background: color-light-background;
+    color: color-black;
     color: var(--color-black);
   }
 }

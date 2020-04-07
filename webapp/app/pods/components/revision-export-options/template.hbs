@@ -1,47 +1,49 @@
-<div class="filters filters--white">
-  <div class="filters-wrapper">
-    <div class="exportOptions">
-      {{#if showRevisions}}
-        <div class="exportOptions-item">
+<div local-class="revision-export-options">
+  <div class="filters filters--white" local-class="filters">
+    <div class="filters-wrapper">
+      <div local-class="exportOptions">
+        {{#if this.showRevisions}}
+          <div local-class="exportOptions-item">
+            <AccSelect
+              @searchEnabled={{false}}
+              @selected={{this.revisionValue}}
+              @options={{this.mappedRevisions}}
+              @onchange={{fn this.revisionChanged}}
+            />
+          </div>
+        {{/if}}
+
+        {{#if this.showOrders}}
+          <div local-class="exportOptions-item">
+            <AccSelect
+              @searchEnabled={{false}}
+              @selected={{this.orderByValue}}
+              @options={{this.orderByOptions}}
+              @onchange={{fn this.orderByChanged}}
+            />
+          </div>
+        {{/if}}
+
+        <div local-class="exportOptions-item">
           <AccSelect
             @searchEnabled={{false}}
-            @selected={{revisionValue}}
-            @options={{mappedRevisions}}
-            @onchange={{action "revisionChanged" value="value"}}
+            @selected={{this.formatValue}}
+            @options={{this.formatOptions}}
+            @onchange={{fn this.formatChanged}}
           />
         </div>
-      {{/if}}
 
-      {{#if showOrders}}
-        <div class="exportOptions-item">
-          <AccSelect
-            @searchEnabled={{false}}
-            @selected={{orderByValue}}
-            @options={{orderByOptions}}
-            @onchange={{action "orderByChanged" value="value"}}
-          />
-        </div>
-      {{/if}}
-
-      <div class="exportOptions-item">
-        <AccSelect
-          @searchEnabled={{false}}
-          @selected={{formatValue}}
-          @options={{formatOptions}}
-          @onchange={{action "formatChanged" value="value"}}
-        />
+        {{#if this.showDocuments}}
+          <div local-class="exportOptions-item">
+            <AccSelect
+              @searchEnabled={{false}}
+              @selected={{this.documentValue}}
+              @options={{this.mappedDocuments}}
+              @onchange={{fn this.documentChanged}}
+            />
+          </div>
+        {{/if}}
       </div>
-
-      {{#if showDocuments}}
-        <div class="exportOptions-item">
-          <AccSelect
-            @searchEnabled={{false}}
-            @selected={{documentValue}}
-            @options={{mappedDocuments}}
-            @onchange={{action "documentChanged" value="value"}}
-          />
-        </div>
-      {{/if}}
     </div>
   </div>
 </div>

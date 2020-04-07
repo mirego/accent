@@ -1,5 +1,8 @@
-& {
-  padding: 0;
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-black from 'accent-webapp/styles/variables/colors';
+
+.button {
+  padding: 0 !important;
 
   &.button--loading {
     cursor: default;
@@ -14,13 +17,13 @@
     }
   }
 
-  &.button--filled {
+  &:global(.button--filled) {
     .loading {
       fill: #fff;
     }
   }
 
-  &.button--small {
+  &:global(.button--small) {
     &.button--loading {
       .loading {
         width: 14px;
@@ -40,7 +43,7 @@
 }
 
 .label {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: transform;
   transform: translate3d(0, 0, 0);
   display: flex;
@@ -49,12 +52,12 @@
 }
 
 .loading {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: left;
   will-change: left;
   width: 15px;
   position: absolute;
   top: calc(50% - 8px);
   left: 100%;
-  fill: $color-black;
+  fill: color-black;
 }

@@ -1,7 +1,7 @@
 <RevisionSelector
-  @revisions={{revisions}}
-  @revision={{revision}}
-  @onSelect={{action "selectRevision"}}
+  @revisions={{this.revisions}}
+  @revision={{this.revision}}
+  @onSelect={{fn this.selectRevision}}
 />
 
 {{outlet}}

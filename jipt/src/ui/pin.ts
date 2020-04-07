@@ -10,6 +10,8 @@ interface Props {
   state: State;
 }
 
+const CENTER_OFFSET = 6;
+
 /*
   The Pin component serves as the entrypoint for the user. The element it creates
   is responsible to sending messages to the Accent UI.
@@ -34,7 +36,7 @@ export default class Pin {
   }
 
   bindEvents() {
-    this.element.addEventListener('click', event => {
+    this.element.addEventListener('click', (event) => {
       const target = event.target as HTMLElement;
 
       if (target.dataset.id) {
@@ -47,7 +49,7 @@ export default class Pin {
       }
     });
 
-    document.addEventListener('mouseover', event => {
+    document.addEventListener('mouseover', (event) => {
       const node = event.target as HTMLElement;
 
       if (this.liveNode.isLive(node)) this.showFor(node);
@@ -61,7 +63,9 @@ export default class Pin {
     );
     styles.set(
       this.element,
-      `top: ${top + height - 6}px; left: ${left - 6}px; ${styles.pin}`
+      `top: ${top + height - CENTER_OFFSET}px; left: ${
+        left - CENTER_OFFSET
+      }px; ${styles.pin}`
     );
 
     const ids = keys

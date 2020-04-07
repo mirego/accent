@@ -1,18 +1,21 @@
-& {
+.conflicts-items {
   position: relative;
   margin-top: 20px;
   padding-top: 50px;
 }
 
-&.fullscreen {
+.conflicts-items.fullscreen {
   padding: 50px 0 0;
 }
 
-.fullscreen-button {
-  padding: 4px 12px;
+a.fullscreen-button {
+  margin-left: 6px;
+  padding: 4px 12px 3px;
 }
 
 .actions {
+  display: flex;
+  align-items: center;
   position: absolute;
   right: 0;
   top: 0;

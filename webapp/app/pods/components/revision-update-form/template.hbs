@@ -1,46 +1,50 @@
-<h1 class="title">
-  {{t "components.revision_update_form.title"}}
-</h1>
+<div local-class="revision-update-form">
+  <h1 local-class="title">
+    {{t "components.revision_update_form.title"}}
+  </h1>
 
-{{#if error}}
-  <div class="errors">
-    <div class="error">
-      {{t "components.revision_update_form.error"}}
+  <form {{on "submit" (fn this.submit)}}>
+    <div local-class="formItem">
+      <label local-class="formItem-label">
+        {{t "components.revision_update_form.name_label"}}
+      </label>
+
+      <input
+        placeholder={{this.namePlaceholder}}
+        value={{this.name}}
+        local-class="textInput"
+        {{on "change" (fn this.setName)}}
+      >
     </div>
-  </div>
-{{/if}}
 
-<form {{action "submit" on="submit"}}>
-  <div class="formItem">
-    <label class="formItem-label">
-      {{t "components.revision_update_form.name_label"}}
-    </label>
-    <Input placeholder={{namePlaceholder}} @value={{name}} class="textInput" />
-  </div>
+    <div local-class="formItem">
+      <label local-class="formItem-label">
+        {{t "components.revision_update_form.slug_label"}}
+      </label>
+      <input
+        placeholder={{this.slugPlaceholder}}
+        value={{this.slug}}
+        local-class="textInput"
+        {{on "change" (fn this.setSlug)}}
+      >
+    </div>
 
-  <div class="formItem">
-    <label class="formItem-label">
-      {{t "components.revision_update_form.slug_label"}}
-    </label>
-    <Input placeholder={{slugPlaceholder}} @value={{slug}} class="textInput" />
-  </div>
+    <div local-class="formActions">
+      <LinkTo
+        @route="logged-in.project.edit.manage-languages"
+        @model={{@project.id}}
+        class="button button--filled button--white"
+      >
+        {{t "components.revision_update_form.cancel_button"}}
+      </LinkTo>
 
-  <div class="formActions">
-    <LinkTo
-      @route="logged-in.project.edit.manage-languages"
-      @model={{project.id}}
-      class="button
-      button--filled button--white"
-    >
-      {{t "components.revision_update_form.cancel_button"}}
-    </LinkTo>
-
-    <AsyncButton
-      class="button button--filled"
-      @loading={{isUpdating}}
-      @onClick={{action "submit"}}
-    >
-      {{t "components.revision_update_form.save_button"}}
-    </AsyncButton>
-  </div>
-</form>
+      <AsyncButton
+        class="button button--filled"
+        @loading={{this.isUpdating}}
+        @onClick={{fn this.submit}}
+      >
+        {{t "components.revision_update_form.save_button"}}
+      </AsyncButton>
+    </div>
+  </form>
+</div>

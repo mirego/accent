@@ -1,5 +1,7 @@
-<ProjectNavigation::List
-  @selectedRevision={{selectedRevision}}
-  @permissions={{permissions}}
-  @project={{project}}
-/>
+<div local-class="project-navigation">
+  <ProjectNavigation::List
+    @selectedRevision={{this.selectedRevision}}
+    @permissions={{@permissions}}
+    @project={{@project}}
+  />
+</div>

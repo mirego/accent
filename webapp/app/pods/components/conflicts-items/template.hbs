@@ -1,57 +1,60 @@
-{{#if conflicts}}
-  <div class="actions">
-    {{#unless query}}
-      <AsyncButton
-        @onClick={{action "correctAllConflicts"}}
-        @loading={{isCorrectAllConflictLoading}}
-        @disabled={{isCorrectAllConflictLoading}}
-        class="button button--green"
+<ul local-class="conflicts-items {{if @fullscreen "fullscreen"}}">
+  {{#if @conflicts}}
+    <div local-class="actions">
+      {{#unless query}}
+        <AsyncButton
+          @onClick={{fn this.correctAllConflicts}}
+          @loading={{this.isCorrectAllConflictLoading}}
+          @disabled={{this.isCorrectAllConflictLoading}}
+          class="button button--green"
+        >
+          {{inline-svg "/assets/check.svg" class="button-icon"}}
+          {{t "components.conflicts_items.correct_all_button"}}
+        </AsyncButton>
+      {{/unless}}
+
+      <LinkTo
+        @route="logged-in.project.revision.conflicts"
+        @models={{array @project.id @revision.id}}
+        @query={{hash fullscreen=this.toggledFullscreen}}
+        class="button button--grey"
+        local-class="fullscreen-button"
       >
-        {{inline-svg "/assets/check.svg" class="button-icon"}}
-        {{t "components.conflicts_items.correct_all_button"}}
-      </AsyncButton>
-    {{/unless}}
+        {{#if @fullscreen}}
+          {{inline-svg
+            "/assets/fullscreen-minimize.svg"
+            class="button-icon fullscreen-icon"
+          }}
+        {{else}}
+          {{inline-svg
+            "/assets/fullscreen.svg"
+            class="button-icon fullscreen-icon"
+          }}
+        {{/if}}
+        {{t "components.conflicts_items.fullscreen"}}
+      </LinkTo>
+    </div>
+  {{/if}}
 
-    <LinkTo
-      @route="logged-in.project.revision.conflicts"
-      @models={{array project.id revision.id}}
-      @query={{hash fullscreen=toggledFullscreen}}
-      class="button button--grey fullscreen-button"
-    >
-      {{#if fullscreen}}
-        {{inline-svg
-          "/assets/fullscreen-minimize.svg"
-          class="button-icon fullscreen-icon"
-        }}
-      {{else}}
-        {{inline-svg
-          "/assets/fullscreen.svg"
-          class="button-icon fullscreen-icon"
-        }}
-      {{/if}}
-      {{t "components.conflicts_items.fullscreen"}}
-    </LinkTo>
-  </div>
-{{/if}}
-
-{{#each conflicts key="id" as |conflict|}}
-  <ConflictItem
-    @fullscreen={{fullscreen}}
-    @revision={{referenceRevision}}
-    @permissions={{permissions}}
-    @project={{project}}
-    @conflict={{conflict}}
-    @onCorrect={{onCorrect}}
-  />
-{{else if query}}
-  <EmptyContent
-    @iconPath="assets/empty.svg"
-    @text={{t "components.conflicts_items.no_translations" query=query}}
-  />
-{{else}}
-  <EmptyContent
-    class="success"
-    @iconPath="assets/thumbs-up.svg"
-    @text={{t "components.conflicts_items.review_completed"}}
-  />
-{{/each}}
+  {{#each @conflicts key="id" as |conflict|}}
+    <ConflictItem
+      @fullscreen={{@fullscreen}}
+      @revision={{@referenceRevision}}
+      @permissions={{@permissions}}
+      @project={{@project}}
+      @conflict={{conflict}}
+      @onCorrect={{@onCorrect}}
+    />
+  {{else if query}}
+    <EmptyContent
+      @iconPath="assets/empty.svg"
+      @text={{t "components.conflicts_items.no_translations" query=@query}}
+    />
+  {{else}}
+    <EmptyContent
+      @success={{true}}
+      @iconPath="assets/thumbs-up.svg"
+      @text={{t "components.conflicts_items.review_completed"}}
+    />
+  {{/each}}
+</ul>

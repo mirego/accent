@@ -1,18 +1,20 @@
-<ProjectSettings::Title @title={{t "components.project_settings.jipt.title"}} />
+<div local-class="project-settings-jipt">
+  <ProjectSettings::Title @title={{t "components.project_settings.jipt.title"}} />
 
-<p class="text">
-  {{t "components.project_settings.jipt.integration_help"}}
-</p>
+  <p local-class="text">
+    {{t "components.project_settings.jipt.integration_help"}}
+  </p>
 
-<a
-  class="button button--filled"
-  href="https://www.accent.reviews/guides/live-editing.html"
->
-  {{t "components.project_settings.jipt.integration_link"}}
-</a>
+  <a
+    class="button button--filled"
+    href="https://www.accent.reviews/guides/live-editing.html"
+  >
+    {{t "components.project_settings.jipt.integration_link"}}
+  </a>
 
-<h2 class="title">
-  {{t "components.project_settings.jipt.script_title"}}
-</h2>
+  <h2 local-class="title">
+    {{t "components.project_settings.jipt.script_title"}}
+  </h2>
 
-<textarea readonly="" onClick="this.select();" class="code">{{this.scriptContent}}</textarea>
+  <textarea readonly="" onClick="this.select();" local-class="code">{{this.scriptContent}}</textarea>
+</div>

@@ -1,13 +1,13 @@
-.filters {
+:global(.filters) {
   padding: 15px;
   border-radius: 3px;
   background: $color-light-background;
 
-  &.filters--white {
+  :global(&.filters--white) {
     background: #fff;
   }
 
-  .ember-power-select-trigger {
+  :global(.ember-power-select-trigger) {
     padding: 5px 10px;
     background: #fff;
     box-shadow: none;
@@ -17,44 +17,44 @@
     color: var(--color-black-opacity-70);
 
     &:focus,
-    &.ember-power-select-trigger--active {
+    :global(&.ember-power-select-trigger--active) {
       background: $color-light-background;
       border: 1px solid rgba($color-black, 0.1);
     }
   }
 }
 
-.filters-wrapper {
+:global(.filters-wrapper) {
   position: relative;
 }
 
-.queryForm-filters {
+:global(.queryForm-filters) {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 6px;
 }
 
-.queryForm-filters-column {
+:global(.queryForm-filters-column) {
   display: flex;
   flex-grow: 1;
 }
 
-.queryForm-filter {
+:global(.queryForm-filter) {
   display: flex;
   align-items: center;
   margin-top: 10px;
   margin-right: 15px;
 }
 
-.queryForm-filter-label {
+:global(.queryForm-filter-label) {
   margin-right: 10px;
   color: $color-grey;
   font-size: 12px;
   font-style: italic;
 }
 
-.queryForm-filter-select {
+:global(.queryForm-filter-select) {
   font-size: 13px;
   min-width: 130px;
 }

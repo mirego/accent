@@ -1,5 +1,8 @@
-& {
-  transition: $transition-speed $transition-easing;
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-light-background, color-error, color-green, color-grey from 'accent-webapp/styles/variables/colors';
+
+.translations-list-item {
+  transition: transition-speed transition-easing;
   transition-property: background, transform;
   display: block;
   margin: 8px 0;
@@ -9,7 +12,7 @@
 
   &:focus,
   &:hover {
-    background: $color-light-background;
+    background: color-light-background;
 
     .item-edit {
       transform: translateX(-50px);
@@ -18,7 +21,7 @@
   }
 
   &.item--editMode {
-    background: $color-light-background;
+    background: color-light-background;
     transform: scale(1.02);
 
     .item-edit {
@@ -29,7 +32,7 @@
     .item-edit-icon {
       &:focus,
       &:hover {
-        stroke: $color-error;
+        stroke: color-error;
       }
     }
   }
@@ -41,7 +44,7 @@
   &:focus,
   &:hover {
     .item-key {
-      color: $color-green;
+      color: color-green;
       color: var(--color-primary);
     }
   }
@@ -53,7 +56,7 @@
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .item-edit {
@@ -70,13 +73,13 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
-  stroke: $color-grey;
-  transition: $transition-speed $transition-easing;
+  stroke: color-grey;
+  transition: transition-speed transition-easing;
   transition-property: stroke;
 
   &:focus,
   &:hover {
-    stroke: $color-green;
+    stroke: color-green;
     stroke: var(--color-primary);
   }
 }
@@ -91,7 +94,7 @@
 .item-key {
   display: block;
   @extend %translationKeyBase;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
   margin-right: 15px;
   line-height: 1.5;
@@ -100,7 +103,6 @@
 }
 
 .item-text {
-  @extend %translationTextBase;
   display: block;
   width: 100%;
   font-size: 13px;
@@ -110,7 +112,7 @@
   border-radius: 3px;
   padding: 6px 10px;
   cursor: text;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: border-color, color;
 
   &.item-text--empty {
@@ -128,7 +130,7 @@
 
 .item-updatedAt {
   margin-left: 5px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 11px;
 }
 
@@ -139,16 +141,16 @@
 
 .item-textEdit-cancel {
   margin-right: 20px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 12px;
   cursor: pointer;
 }
 
 .item-textEdit-button {
-  padding: 1px 9px;
-  position: absolute;
-  top: 6px;
-  right: 16px;
+  padding: 1px 9px !important;
+  position: absolute !important;
+  top: 6px !important;
+  right: 16px !important;
 }
 
 @media (max-width: 800px) {

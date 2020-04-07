@@ -52,5 +52,5 @@ export default {
   set,
   translationNode,
   translationNodeConflicted,
-  translationNodeUpdated
+  translationNodeUpdated,
 };

@@ -1,14 +1,15 @@
-{{#if showLoading}}
+{{#if this.showLoading}}
   <LoadingContent
     @label={{t "pods.project.edit.service_integrations.loading_content"}}
   />
 {{else}}
-  <ProjectSettings::BackLink @project={{project}} />
+  <ProjectSettings::BackLink @project={{this.project}} />
+
   <ProjectSettings::Integrations
-    @project={{project}}
-    @permissions={{permissions}}
-    @onCreateIntegration={{action "createIntegration"}}
-    @onUpdateIntegration={{action "updateIntegration"}}
-    @onDeleteIntegration={{action "deleteIntegration"}}
+    @project={{this.project}}
+    @permissions={{this.permissions}}
+    @onCreateIntegration={{fn this.createIntegration}}
+    @onUpdateIntegration={{fn this.updateIntegration}}
+    @onDeleteIntegration={{fn this.deleteIntegration}}
   />
 {{/if}}

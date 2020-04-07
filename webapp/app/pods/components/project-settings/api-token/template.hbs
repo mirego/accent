@@ -1,10 +1,12 @@
-<ProjectSettings::Title
-  @title={{t "components.project_settings.api_token.title"}}
-/>
+<div local-class="project-settings-api-token">
+  <ProjectSettings::Title
+    @title={{t "components.project_settings.api_token.title"}}
+  />
 
-<p class="text">
-  {{t "components.project_settings.api_token.text_1"}}
-  {{t "components.project_settings.api_token.text_2"}}
-</p>
+  <p local-class="text">
+    {{t "components.project_settings.api_token.text_1"}}
+    {{t "components.project_settings.api_token.text_2"}}
+  </p>
 
-<input readonly="" onClick="this.select();" class="token" value={{token}}>
+  <input readonly="" onClick="this.select();" local-class="token" value={{@token}}>
+</div>

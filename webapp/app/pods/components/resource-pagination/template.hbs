@@ -1,27 +1,29 @@
-{{#if showPagination}}
-  <button
-    disabled={{disabledPrevious}}
-    class="button button--white button--filled button--iconOnly"
-    {{action "goToPreviousPage"}}
-  >
-    {{inline-svg "assets/chevron-left.svg" class="button-icon"}}
-  </button>
+<div local-class="resource-pagination">
+  {{#if this.showPagination}}
+    <button
+      disabled={{this.disabledPrevious}}
+      class="button button--white button--filled button--iconOnly"
+      {{on "click" (fn this.goToPreviousPage)}}
+    >
+      {{inline-svg "assets/chevron-left.svg" class="button-icon"}}
+    </button>
 
-  <span class="label">
-    <span class="label-number">
-      {{attrs.meta.currentPage}}
+    <span local-class="label" class="label">
+      <span local-class="label-number">
+        {{@meta.currentPage}}
+      </span>
+      /
+      <span local-class="label-number">
+        {{@meta.totalPages}}
+      </span>
     </span>
-    /
-    <span class="label-number">
-      {{attrs.meta.totalPages}}
-    </span>
-  </span>
 
-  <button
-    disabled={{disabledNext}}
-    class="button button--white button--filled button--iconOnly"
-    {{action "goToNextPage"}}
-  >
-    {{inline-svg "assets/chevron-right.svg" class="button-icon"}}
-  </button>
-{{/if}}
+    <button
+      disabled={{this.disabledNext}}
+      class="button button--white button--filled button--iconOnly"
+      {{on "click" (fn this.goToNextPage)}}
+    >
+      {{inline-svg "assets/chevron-right.svg" class="button-icon"}}
+    </button>
+  {{/if}}
+</div>

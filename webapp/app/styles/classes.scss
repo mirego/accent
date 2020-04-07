@@ -27,7 +27,7 @@
 
 %textInput {
   transition: $transition-speed $transition-easing;
-  transition-property: border box-shadow;
+  transition-property: border, box-shadow;
   resize: vertical;
   outline: 0;
   border-radius: 4px;

@@ -11,7 +11,7 @@ import ProjectFetcher from './services/project-fetcher';
 // Types
 import {Project} from './types/project';
 
-const sleep = (ms: number) =>
+const sleep = async (ms: number) =>
   new Promise((resolve: () => void) => setTimeout(resolve, ms));
 
 export default abstract class extends Command {

@@ -17,6 +17,7 @@ export default class HookRunner {
     this.hooks = document.config.hooks;
   }
 
+  /* eslint-disable @typescript-eslint/require-await */
   async run(name: Hooks) {
     if (!this.hooks) return null;
     const hooks = this.hooks[name];
@@ -29,4 +30,5 @@ export default class HookRunner {
 
     return this.document.refreshPaths();
   }
+  /* eslint-disable @typescript-eslint/require-await */
 }

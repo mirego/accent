@@ -1,4 +1,7 @@
-& {
+@value color-light-background, color-green, color-error from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
+
+.project-settings-form {
   margin-top: 25px;
 }
 
@@ -9,7 +12,7 @@
   flex-grow: 0;
   flex-shrink: 0;
   padding: 10px;
-  font-family: $font-primary;
+  font-family: font-primary;
   font-size: 12px;
 }
 
@@ -31,7 +34,7 @@
   align-items: center;
   margin: 20px 0;
   padding: 10px;
-  background: $color-light-background;
+  background: color-light-background;
 }
 
 .lock-text-helper {
@@ -58,11 +61,11 @@
     border-color: #ddd;
 
     &:hover {
-      color: $color-green;
-      border-color: $color-green;
+      color: color-green;
+      border-color: color-green;
 
       .lock-icon {
-        stroke: $color-green;
+        stroke: color-green;
       }
     }
 
@@ -72,20 +75,20 @@
   }
 
   &.lock-text--active {
-    color: $color-error;
-    border-color: $color-error;
+    color: color-error;
+    border-color: color-error;
 
     &:hover {
-      color: darken($color-error, 10%);
-      border-color: darken($color-error, 10%);
+      color: darken(color-error, 10%);
+      border-color: darken(color-error, 10%);
 
       .lock-icon {
-        stroke: darken($color-error, 10%);
+        stroke: darken(color-error, 10%);
       }
     }
 
     .lock-icon {
-      stroke: $color-error;
+      stroke: color-error;
     }
   }
 }
@@ -99,7 +102,7 @@
 .logo {
   display: flex;
   width: 25px;
-  height: 20px;
+  height: 22px;
   padding: 0;
   font-size: 25px;
   line-height: 1;

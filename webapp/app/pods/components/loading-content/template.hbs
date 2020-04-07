@@ -1,7 +1,9 @@
-<svg viewBox="25 25 50 50">
-  <circle cx="50" cy="50" r="20"></circle>
-</svg>
+<div local-class="loading-content" ...attributes>
+  <svg viewBox="25 25 50 50">
+    <circle cx="50" cy="50" r="20"></circle>
+  </svg>
 
-{{#if label}}
-  <span class="label">{{label}}</span>
-{{/if}}
+  {{#if @label}}
+    <span local-class="label">{{@label}}</span>
+  {{/if}}
+</div>

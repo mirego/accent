@@ -11,7 +11,7 @@ export default class ProjectAddTranslationsFormatter {
   log(project: Project) {
     const languages = project.revisions
       .filter(
-        revision =>
+        (revision) =>
           fetchFromRevision(revision) !==
           fetchFromRevision(project.masterRevision)
       )

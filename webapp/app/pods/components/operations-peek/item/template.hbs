@@ -1,97 +1,97 @@
-<div>
-  <div class="languageHeader">
-    <strong class="languageHeader-title">
-      {{revisionOperation.language.name}}
+<div local-class="operations-peek-item">
+  <div local-class="languageHeader">
+    <strong local-class="languageHeader-title">
+      {{@revisionOperation.language.name}}
     </strong>
 
-    <div class="languageHeader-displayOptions">
+    <div local-class="languageHeader-displayOptions">
       <button
-        class="languageHeader-displayOptions-button"
-        disabled={{showStats}}
-        {{action "showStats"}}
+        local-class="languageHeader-displayOptions-button"
+        disabled={{this.shouldShowStats}}
+        {{on "click" (fn this.showStats)}}
       >
         {{t "components.operations_peek.item.overview"}}
       </button>
 
       <button
-        class="languageHeader-displayOptions-button"
-        disabled={{showOperations}}
-        {{action "showOperations"}}
+        local-class="languageHeader-displayOptions-button"
+        disabled={{this.shouldShowOperations}}
+        {{on "click" (fn this.showOperations)}}
       >
         {{t "components.operations_peek.item.details"}}
       </button>
 
       <button
-        class="languageHeader-displayOptions-button"
-        disabled={{hideDetails}}
-        {{action "hideDetails"}}
+        local-class="languageHeader-displayOptions-button"
+        disabled={{this.shouldHideDetails}}
+        {{on "click" (fn this.hideDetails)}}
       >
         {{t "components.operations_peek.item.hide"}}
       </button>
     </div>
   </div>
 
-  {{#if showStats}}
-    <ul class="statsList">
-      {{#each revisionOperation.stats as |stat|}}
-        <li class="stat">
-          <span class="stat-count">
+  {{#if this.shouldShowStats}}
+    <ul local-class="statsList">
+      {{#each @revisionOperation.stats as |stat|}}
+        <li local-class="stat">
+          <span local-class="stat-count">
             {{stat.count}}
           </span>
 
-          <span class="stat-action">
+          <span local-class="stat-action">
             {{stat.action}}
           </span>
         </li>
       {{else}}
-        <li class="noChanges">
+        <li local-class="noChanges">
           {{t "components.operations_peek.item.empty_changes"}}
         </li>
       {{/each}}
     </ul>
   {{/if}}
 
-  {{#if showOperations}}
-    <ul class="operationsList">
-      {{#each revisionOperation.operations as |operation|}}
-        <li class="operation">
-          <div class="operation-header">
-            <span class="operation-key">
+  {{#if this.shouldShowOperations}}
+    <ul local-class="operationsList">
+      {{#each @revisionOperation.operations as |operation|}}
+        <li local-class="operation">
+          <div local-class="operation-header">
+            <span local-class="operation-key">
               {{operation.key}}
             </span>
-            <strong class="operation-action">
+            <strong local-class="operation-action">
               {{operation.action}}
             </strong>
           </div>
 
-          <div class="operation-content">
+          <div local-class="operation-content">
             {{#if operation.previousText}}
               {{#if operation.text}}
                 <div>
-                  <span class="operation-textLabel">
+                  <span local-class="operation-textLabel">
                     {{t "components.operations_peek.item.previous_label"}}
                   </span>
 
-                  <div class="operation-text">{{operation.previousText}}</div>
+                  <div local-class="operation-text">{{operation.previousText}}</div>
                 </div>
 
                 <div>
-                  <span class="operation-textLabel">
+                  <span local-class="operation-textLabel">
                     {{t "components.operations_peek.item.text_label"}}
                   </span>
 
-                  <div class="operation-text">{{operation.text}}</div>
+                  <div local-class="operation-text">{{operation.text}}</div>
                 </div>
               {{else}}
-                <div class="operation-text">{{operation.previousText}}</div>
+                <div local-class="operation-text">{{operation.previousText}}</div>
               {{/if}}
             {{else}}
-              <div class="operation-text">{{operation.text}}</div>
+              <div local-class="operation-text">{{operation.text}}</div>
             {{/if}}
           </div>
         </li>
       {{else}}
-        <li class="noChanges">
+        <li local-class="noChanges">
           {{t "components.operations_peek.item.empty_changes"}}
         </li>
       {{/each}}

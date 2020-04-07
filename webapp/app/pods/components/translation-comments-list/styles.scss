@@ -1,11 +1,14 @@
-& {
+@value color-black, color-border, color-light-background, color-grey from 'accent-webapp/styles/variables/colors';
+@value screen-lg from 'accent-webapp/styles/variables/dimensions';
+
+.translation-comments-list {
   position: relative;
-  box-shadow: 0 1px 5px rgba($color-black, 0.04);
+  box-shadow: 0 1px 5px rgba(color-black, 0.04);
   border-radius: 3px;
-  border: 1px solid $color-border;
+  border: 1px solid color-border;
 }
 
-&.translationRemoved {
+.translation-comments-list.translationRemoved {
   opacity: 0.5;
 
   .itemComment {
@@ -13,7 +16,7 @@
   }
 }
 
-&.at-translation {
+.translation-comments-list.at-translation {
   margin-top: 20px;
 
   &:before,
@@ -28,7 +31,7 @@
 
   &:focus,
   &:hover {
-    background: $color-light-background;
+    background: color-light-background;
   }
 
   &:last-of-type {
@@ -57,7 +60,7 @@
 }
 
 .itemComment-date {
-  color: darken($color-grey, 15%);
+  color: darken(color-grey, 15%);
   font-size: 11px;
 }
 
@@ -66,8 +69,8 @@
   font-size: 13px;
 }
 
-@media (max-width: ($screen-lg + 40px)) {
-  & {
+@media (max-width: (screen-lg + 40px)) {
+  .translation-comments-list {
     border-color: transparent;
     box-shadow: none;
   }

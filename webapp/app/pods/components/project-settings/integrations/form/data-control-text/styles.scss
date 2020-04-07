@@ -1,0 +1,47 @@
+@value font-monospace, font-primary from 'accent-webapp/styles/variables/fonts';
+
+.data-control {
+  margin-bottom: 15px;
+}
+
+.data-title {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.data-title-help {
+  margin-left: 4px;
+  font-size: 11px;
+  font-weight: normal;
+  text-decoration: none;
+  color: var(--color-primary);
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.error-control {
+  @extend %errorControl;
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 8px 10px;
+  margin-right: 10px;
+  max-width: 350px;
+  width: 100%;
+  font-family: font-primary;
+  font-size: 11px;
+
+  &[readonly] {
+    max-width: 500px;
+    font-family: font-monospace;
+    background: #fafafa;
+  }
+}

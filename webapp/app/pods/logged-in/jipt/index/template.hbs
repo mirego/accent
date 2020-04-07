@@ -1,23 +1,26 @@
 {{#unless this.withSelectedTranslations}}
   <TranslationsFilter
-    @query={{query}}
-    @document={{document}}
-    @documents={{model.project.documents}}
-    @version={{version}}
-    @versions={{model.project.versions.entries}}
-    @onChangeQuery={{action "changeQuery"}}
-    @onChangeDocument={{action "changeDocument"}}
-    @onChangeVersion={{action "changeVersion"}}
-    @meta={{model.project.revision.translations.meta}}
+    @query={{this.query}}
+    @document={{this.document}}
+    @documents={{this.model.project.documents}}
+    @version={{this.version}}
+    @versions={{this.model.project.versions.entries}}
+    @onChangeQuery={{fn this.changeQuery}}
+    @onChangeDocument={{fn this.changeDocument}}
+    @onChangeVersion={{fn this.changeVersion}}
+    @meta={{this.model.project.revision.translations.meta}}
   />
 {{/unless}}
+
 {{#if this.withSelectedTranslations}}
   <JiptTranslationsFilteredTitle @count={{this.filteredTranslations.length}} />
 {{/if}}
+
 <JiptTranslationsList @translations={{this.filteredTranslations}} />
+
 {{#unless this.withSelectedTranslations}}
   <ResourcePagination
-    @meta={{model.project.revision.translations.meta}}
-    @onSelectPage={{action "selectPage"}}
+    @meta={{this.model.project.revision.translations.meta}}
+    @onSelectPage={{fn this.selectPage}}
   />
 {{/unless}}

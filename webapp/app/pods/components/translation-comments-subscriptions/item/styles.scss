@@ -1,11 +1,13 @@
-& {
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+
+.translation-comments-subscriptions-item {
   display: flex;
   align-items: flex-start;
   margin: 0 0 10px;
   font-size: 13px;
   color: #888;
   cursor: pointer;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
 
   &:last-child {
@@ -21,7 +23,7 @@
   }
 }
 
-&.currentUser {
+.translation-comments-subscriptions-item.currentUser {
   font-weight: bold;
   color: #444;
 }

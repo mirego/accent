@@ -32,28 +32,29 @@ export default class Sync extends Command {
   static flags = {
     'add-translations': flags.boolean({
       description:
-        'Add translations in Accent to help translators if you already have translated strings'
+        'Add translations in Accent to help translators if you already have translated strings',
     }),
     'dry-run': flags.boolean({
       default: false,
-      description: 'Do not write the file from the export _after_ the operation'
+      description:
+        'Do not write the file from the export _after_ the operation',
     }),
     'merge-type': flags.string({
       default: 'smart',
       description:
         'Will be used in the add translations call as the "merge_type" param',
-      options: ['smart', 'passive', 'force']
+      options: ['smart', 'passive', 'force'],
     }),
     'order-by': flags.string({
       default: 'index',
       description: 'Will be used in the export call as the order of the keys',
-      options: ['index', 'key-asc']
+      options: ['index', 'key-asc'],
     }),
     'sync-type': flags.string({
       default: 'smart',
       description: 'Will be used in the sync call as the "sync_type" param',
-      options: ['smart', 'passive']
-    })
+      options: ['smart', 'passive'],
+    }),
   };
 
   async run() {
@@ -98,9 +99,9 @@ export default class Sync extends Command {
       const targets = new DocumentPathsFetcher().fetch(this.project!, document);
 
       await Promise.all(
-        targets.map(({path, language, documentPath}) => {
+        targets.map(async ({path, language, documentPath}) => {
           const localFile = document.fetchLocalFile(documentPath, path);
-          if (!localFile) return new Promise(resolve => resolve());
+          if (!localFile) return new Promise((resolve) => resolve());
 
           formatter.log(localFile);
 
@@ -116,7 +117,7 @@ export default class Sync extends Command {
     const {flags} = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
 
-    return document.paths.map(async path => {
+    return document.paths.map(async (path) => {
       const operations = await document.sync(this.project!, path, flags);
       const documentPath = document.parseDocumentName(path, document.config);
 

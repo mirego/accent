@@ -1,59 +1,62 @@
-<div class="content">
-  <div class="content-left">
-    {{#if project}}
-      <LinkTo @route="logged-in.projects" class="applicationLogo">
-        {{inline-svg
-          "assets/chevron-left.svg"
-          class="applicationLogo-back"
-        }}
-      </LinkTo>
+<header local-class="projects-header {{if @project "withProject"}}">
+  <div local-class="content">
+    <div local-class="content-left">
+      {{#if @project}}
+        <LinkTo @route="logged-in.projects" local-class="applicationLogo">
+          {{inline-svg
+            "assets/chevron-left.svg"
+            local-class="applicationLogo-back"
+          }}
+        </LinkTo>
 
-      <LinkTo
-        @route="logged-in.project.index"
-        @model={{project.id}}
-        class="project"
-      >
-        <span class="project-logo">
-          <ProjectLogo @logo={{@project.logo}} />
+        <LinkTo
+          @route="logged-in.project.index"
+          @model={{@project.id}}
+          local-class="project"
+        >
+          <span local-class="project-logo">
+            <ProjectLogo @logo={{@project.logo}} />
+          </span>
+
+          {{@project.name}}
+        </LinkTo>
+
+        <div local-class="search">
+          {{inline-svg "/assets/search.svg" local-class="search-icon"}}
+          <input
+            {{on "keyup" this.setDebouncedQuery}}
+            local-class="search-input"
+            type="text"
+            placeholder={{t "general.search_input_placeholder_text"}}
+            value={{this.debouncedQuery}}
+          >
+        </div>
+      {{else}}
+        <div local-class="applicationLogo">
+          {{inline-svg "assets/logo.svg" local-class="applicationLogo-image"}}
+          <span local-class="applicationLogo-accent">
+            {{t "general.application_name"}}
+          </span>
+        </div>
+      {{/if}}
+    </div>
+
+    {{#if @session.credentials.user}}
+      <div local-class="content-right">
+        {{#if @session.credentials.user.pictureUrl}}
+          <AccAvatarImg local-class="picture" src={{@session.credentials.user.pictureUrl}} />
+        {{/if}}
+
+        <span local-class="username">
+          {{@session.credentials.user.fullname}}
         </span>
 
-        {{project.name}}
-      </LinkTo>
-
-      <div class="search">
-        {{inline-svg "/assets/search.svg" class="search-icon"}}
-        <Input
-          class="search-input"
-          @type="text"
-          placeholder={{t "general.search_input_placeholder_text"}}
-          @value={{debouncedQuery}}
-        />
-      </div>
-    {{else}}
-      <div class="applicationLogo">
-        {{inline-svg "assets/logo.svg" class="applicationLogo-image"}}
-        <span class="applicationLogo-accent">
-          {{t "general.application_name"}}
-        </span>
+        {{#unless @project}}
+          <button class="button button--white" {{on "click" (fn this.logout)}}>
+            {{t "general.logout_button"}}
+          </button>
+        {{/unless}}
       </div>
     {{/if}}
   </div>
-
-  {{#if session.credentials.user}}
-    <div class="content-right">
-      {{#if session.credentials.user.pictureUrl}}
-        <img class="picture" src="{{session.credentials.user.pictureUrl}}">
-      {{/if}}
-
-      <span class="username">
-        {{session.credentials.user.fullname}}
-      </span>
-
-      {{#unless project}}
-        <button class="button button--white" {{action "logout"}}>
-          {{t "general.logout_button"}}
-        </button>
-      {{/unless}}
-    </div>
-  {{/if}}
-</div>
+</header>

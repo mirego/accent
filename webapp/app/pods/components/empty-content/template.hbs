@@ -1,5 +1,7 @@
-{{#if hasBlock}}
-  {{yield}}
-{{else}}
-  {{inline-svg iconPath class="icon"}}{{text}}
-{{/if}}
+<div local-class="empty-content {{if @success "success"}}">
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{inline-svg @iconPath local-class="icon"}}{{@text}}
+  {{/if}}
+</div>

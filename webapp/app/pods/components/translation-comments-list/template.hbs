@@ -1,29 +1,30 @@
-{{#each comments key="id" as |comment|}}
-  <li class="itemComment">
-    <div class="itemComment-header">
-      <span class="itemComment-user">
-        {{#if comment.user.pictureUrl}}
-          <img
-            class="itemComment-user-picture"
-            src="{{comment.user.pictureUrl}}"
-          >
-        {{/if}}
-        {{comment.user.fullname}}
-      </span>
+<ul local-class="translation-comments-list" ...attributes>
+  {{#each @comments key="id" as |comment|}}
+    <li local-class="itemComment">
+      <div local-class="itemComment-header">
+        <span local-class="itemComment-user">
+          {{#if comment.user.pictureUrl}}
+            <AccAvatarImg
+              local-class="itemComment-user-picture"
+              src="{{comment.user.pictureUrl}}"
+            />
+          {{/if}}
+          {{comment.user.fullname}}
+        </span>
 
-      <TimeAgoInWordsTag
-        @date={{comment.insertedAt}}
-        class="itemComment-date"
-      />
-    </div>
+        <span local-class="itemComment-date">
+          <TimeAgoInWordsTag @date={{comment.insertedAt}} />
+        </span>
+      </div>
 
-    <div class="itemComment-content">
-      {{comment.text}}
-    </div>
-  </li>
-{{else}}
-  <EmptyContent
-    @iconPath="assets/bubble.svg"
-    @text={{t "components.translation_comments_list.no_comments"}}
-  />
-{{/each}}
+      <div local-class="itemComment-content">
+        {{comment.text}}
+      </div>
+    </li>
+  {{else}}
+    <EmptyContent
+      @iconPath="assets/bubble.svg"
+      @text={{t "components.translation_comments_list.no_comments"}}
+    />
+  {{/each}}
+</ul>

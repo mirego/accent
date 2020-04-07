@@ -1,9 +1,11 @@
-{{#each documents key="id" as |document|}}
-  <DocumentsList::Item
-    @permissions={{permissions}}
-    @document={{document}}
-    @onDelete={{onDelete}}
-    @onUpdate={{onUpdate}}
-    @project={{project}}
-  />
-{{/each}}
+<ul local-class="documents-list">
+  {{#each @documents key="id" as |document|}}
+    <DocumentsList::Item
+      @permissions={{@permissions}}
+      @document={{document}}
+      @onDelete={{@onDelete}}
+      @onUpdate={{@onUpdate}}
+      @project={{@project}}
+    />
+  {{/each}}
+</ul>

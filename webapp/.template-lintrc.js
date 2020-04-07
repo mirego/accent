@@ -11,6 +11,9 @@ module.exports = {
     'link-rel-noopener': true,
     'no-abstract-roles': true,
     'no-bare-strings': true,
+    'no-curly-component-invocation': {
+      allow: ['inline-svg', 't', 'string-diff', 'time-ago-in-words'],
+    },
     'no-debugger': true,
     'no-element-event-actions': true,
     'no-duplicate-attributes': true,
@@ -26,10 +29,11 @@ module.exports = {
     'no-triple-curlies': false,
     'no-unused-block-params': true,
     quotes: 'double',
+    'require-valid-alt-text': false,
     'self-closing-void-elements': true,
     'simple-unless': false,
     'style-concatenation': true,
     'table-groups': true,
-    'template-length': [true, {min: 1, max: 200}]
-  }
+    'template-length': [true, {min: 1, max: 200}],
+  },
 };

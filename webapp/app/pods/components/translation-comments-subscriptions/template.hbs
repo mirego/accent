@@ -1,12 +1,14 @@
-<strong class="title">
-  {{t "components.translation_comments_subscriptions.title"}}
-</strong>
+<ul local-class="translation-comments-subscriptions">
+  <strong local-class="title">
+    {{t "components.translation_comments_subscriptions.title"}}
+  </strong>
 
-{{#each filteredCollaborators key="id" as |collaborator|}}
-  <TranslationCommentsSubscriptions::Item
-    @subscriptions={{subscriptions}}
-    @collaborator={{collaborator}}
-    @onCreateSubscription={{onCreateSubscription}}
-    @onDeleteSubscription={{onDeleteSubscription}}
-  />
-{{/each}}
+  {{#each this.filteredCollaborators key="id" as |collaborator|}}
+    <TranslationCommentsSubscriptions::Item
+      @subscriptions={{@subscriptions}}
+      @collaborator={{collaborator}}
+      @onCreateSubscription={{@onCreateSubscription}}
+      @onDeleteSubscription={{@onDeleteSubscription}}
+    />
+  {{/each}}
+</ul>

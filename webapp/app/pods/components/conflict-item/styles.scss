@@ -1,22 +1,27 @@
-& {
-  transition: $transition-speed $transition-easing;
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-light-background, color-green, color-grey, color-error, color-success, color-black from 'accent-webapp/styles/variables/colors';
+
+.conflict-item {
+  transition: transition-speed transition-easing;
   transition-property: background, border-color, transform;
   padding: 10px;
   margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 3px;
 
   &:nth-child(even) {
-    background: $color-light-background;
+    background: color-light-background;
   }
 
   &:focus,
   &:hover {
-    border-color: lighten($color-green, 40%);
-    border-color: var(--color-primary-opacity-10);
-    background: $color-light-background;
+    border-color: lighten(color-grey, 26%);
+    background: color-light-background;
   }
 
   &.active {
-    background: $color-light-background;
+    border-color: lighten(color-grey, 26%);
+    background: color-light-background;
     transform: scale(1.02);
   }
 }
@@ -25,7 +30,7 @@
   position: relative;
 }
 
-&.fullscreen {
+.conflict-item.fullscreen {
   .item-details {
     display: flex;
     align-items: stretch;
@@ -43,35 +48,33 @@
   }
 }
 
-&[class*='resolved'] {
+.conflict-item.resolved {
   padding: 5px 10px;
-  margin: 5px 0 15px;
-  background: lighten($color-green, 48%);
-  background: var(--color-primary-opacity-10);
-  box-shadow: 0 1px 5px lighten($color-grey, 25%);
+  margin: 5px 15px 15px;
+  background: lighten(color-green, 48%);
+  border: 1px solid lighten(color-green, 40%);
+  box-shadow: 0 1px 6px lighten(color-green, 45%);
 
   .item-key-prefix {
-    color: rgba($color-green, 0.7);
-    color: var(--color-primary-opacity-70);
+    color: rgba(color-green, 0.7);
   }
 
   .item-key {
     font-size: 12px;
-    color: $color-green;
-    color: var(--color-primary);
+    color: color-green;
   }
 }
 
-&[class*='errored'] {
+.conflict-item.errored {
   .textInput {
-    border-color: lighten($color-error, 30%);
+    border-color: lighten(color-error, 30%);
   }
 }
 
 .error {
   font-size: 12px;
   font-weight: bold;
-  color: $color-error;
+  color: color-error;
 }
 
 .item-key-prefix {
@@ -84,7 +87,7 @@
 .item-key {
   display: block;
   @extend %translationKeyBase;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
   margin-right: 15px;
   line-height: 1.5;
@@ -111,9 +114,10 @@
 }
 
 .correctButton {
-  position: absolute;
-  top: 6px;
-  right: 15px;
+  position: absolute !important;
+  top: 6px !important;
+  right: 15px !important;
+  padding: 0 !important;
 }
 
 .textDiff,
@@ -121,36 +125,36 @@
 .conflictedText-textReference {
   padding: 8px 0;
   font-size: 13px;
-  color: darken($color-grey, 15%);
+  color: darken(color-grey, 15%);
 }
 
 .textDiff {
-  border-top: 1px dashed lighten($color-grey, 20%);
+  border-top: 1px dashed lighten(color-grey, 20%);
   white-space: pre-wrap;
 
-  .added {
+  :global(.added) {
     padding: 0 3px;
-    background: lighten($color-success, 42%);
-    color: darken($color-success, 10%);
+    background: lighten(color-success, 42%);
+    color: darken(color-success, 10%);
   }
 
-  .removed {
+  :global(.removed) {
     padding: 0 3px;
-    background: lighten($color-error, 42%);
-    color: $color-error;
+    background: lighten(color-error, 42%);
+    color: color-error;
     text-decoration: line-through;
   }
 }
 
 .textConflicted {
   font-size: 11px;
-  color: lighten($color-grey, 5%);
+  color: lighten(color-grey, 5%);
 }
 
 .textConflicted-empty {
   font-size: 11px;
   font-style: italic;
-  color: lighten($color-grey, 10%);
+  color: lighten(color-grey, 10%);
 }
 
 .textConflicted-content {
@@ -159,14 +163,14 @@
 
 .conflictedText-textReference-link {
   margin-right: 4px;
-  color: rgba($color-black, 0.7);
+  color: rgba(color-black, 0.7);
   text-decoration: none;
   font-weight: normal;
   font-size: 12px;
 
   &:focus,
   &:hover {
-    color: $color-green;
+    color: color-green;
     color: var(--color-primary);
   }
 }
@@ -187,7 +191,7 @@
   font-size: 11px;
   font-style: italic;
   font-weight: normal;
-  color: lighten($color-grey, 10%);
+  color: lighten(color-grey, 10%);
 }
 
 .conflictedText-textReference-text-content {

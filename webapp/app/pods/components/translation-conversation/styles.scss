@@ -1,10 +1,14 @@
-& {
+.translation-conversation {
   display: flex;
   width: 100%;
 }
 
 .comments {
   flex: 1 1 100%;
+}
+
+.list {
+  margin-top: 30px;
 }
 
 .subscriptions {

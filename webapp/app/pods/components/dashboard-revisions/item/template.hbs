@@ -1,67 +1,73 @@
-<div class="slaveRevisions-item">
-  <span role="button" class="actionsButton" {{action "toggleShowActions"}}>
-    {{inline-svg "assets/gear.svg" class="actionsButton-icon"}}
-  </span>
-  <span class="language">
-    {{#if (get permissions "index_translations")}}
-      <LinkTo
-        @route="logged-in.project.revision.translations"
-        @models={{array project.id revision.id}}
-        class="language-name"
-      >
-        {{revision.language.name}}
-        <span class="language-reviewedPercentage">
-          {{correctedKeysPercentage}}
-          %
+<div local-class="dashboard-revisions-item {{if this.master "master"}} {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}">
+  <div local-class="slaveRevisions-item">
+    <span role="button" local-class="actionsButton" {{on "click" (fn this.toggleShowActions)}}>
+      {{inline-svg "assets/gear.svg" local-class="actionsButton-icon"}}
+    </span>
+    <span local-class="language">
+      {{#if (get @permissions "index_translations")}}
+        <LinkTo
+          @route="logged-in.project.revision.translations"
+          @models={{array @project.id @revision.id}}
+          local-class="language-name"
+        >
+          {{@revision.language.name}}
+          <span local-class="language-reviewedPercentage">
+            {{this.correctedKeysPercentage}}
+            %
+          </span>
+        </LinkTo>
+      {{else}}
+        <span local-class="language-name">
+          {{@revision.language.name}}
+          <span local-class="language-reviewedPercentage">
+            {{this.correctedKeysPercentage}}
+            %
+          </span>
         </span>
-      </LinkTo>
-    {{else}}
-      <span class="language-name">
-        {{revision.language.name}}
-        <span class="language-reviewedPercentage">
-          {{correctedKeysPercentage}}
-          %
-        </span>
-      </span>
-    {{/if}}
+      {{/if}}
 
-    <span class="reviewedStats">
-      <span class="reviewedStats-reviewedCount">
-        {{reviewsCount}}
-      </span>
-      /
-      <span class="reviewedStats-translationsCount">
-        {{revision.translationsCount}}
+      <span local-class="reviewedStats">
+        <span local-class="reviewedStats-reviewedCount">
+          {{this.reviewsCount}}
+        </span>
+        /
+        <span local-class="reviewedStats-translationsCount">
+          {{@revision.translationsCount}}
+        </span>
       </span>
     </span>
-  </span>
 
-  <ReviewProgressBar @correctedKeysPercentage={{correctedKeysPercentage}} />
-
-  {{#if showActions}}
-    <div class="actions">
-      {{#if showCorrectAllAction}}
-        <AsyncButton
-          @onClick={{action "correctAllConflicts"}}
-          @loading={{isCorrectAllConflictLoading}}
-          @disabled={{isAnyActionsLoading}}
-          class="button button--green actionItem-button"
-        >
-          {{inline-svg "/assets/check.svg" class="button-icon"}}
-          {{t "components.dashboard_revisions.item.correct_all_button"}}
-        </AsyncButton>
-      {{/if}}
-      {{#if showUncorrectAllAction}}
-        <AsyncButton
-          @onClick={{action "uncorrectAllConflicts"}}
-          @loading={{isUncorrectAllConflictLoading}}
-          @disabled={{isAnyActionsLoading}}
-          class="button button--red actionItem-button"
-        >
-          {{inline-svg "/assets/revert.svg" class="button-icon"}}
-          {{t "components.dashboard_revisions.item.uncorrect_all_button"}}
-        </AsyncButton>
-      {{/if}}
+    <div local-class="progress">
+      <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
     </div>
-  {{/if}}
+
+    {{#if this.showActions}}
+      <div local-class="actions">
+        {{#if this.showCorrectAllAction}}
+          <AsyncButton
+            @onClick={{fn this.correctAllConflicts}}
+            @loading={{this.isCorrectAllConflictLoading}}
+            @disabled={{this.isAnyActionsLoading}}
+            class="button button--green"
+            local-class="actionItem-button"
+          >
+            {{inline-svg "/assets/check.svg" class="button-icon"}}
+            {{t "components.dashboard_revisions.item.correct_all_button"}}
+          </AsyncButton>
+        {{/if}}
+        {{#if this.showUncorrectAllAction}}
+          <AsyncButton
+            @onClick={{fn this.uncorrectAllConflicts}}
+            @loading={{this.isUncorrectAllConflictLoading}}
+            @disabled={{this.isAnyActionsLoading}}
+            class="button button--red"
+            local-class="actionItem-button"
+          >
+            {{inline-svg "/assets/revert.svg" class="button-icon"}}
+            {{t "components.dashboard_revisions.item.uncorrect_all_button"}}
+          </AsyncButton>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
 </div>

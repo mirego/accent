@@ -1,19 +1,19 @@
-{{#if model.loading}}
+{{#if this.model.loading}}
   <SkeletonUi::ProgressLine />
 {{/if}}
 
-{{#if showSkeleton}}
+{{#if this.showSkeleton}}
   <SkeletonUi::TranslationCommentsList />
 {{else}}
   <TranslationConversation
-    @permissions={{permissions}}
-    @translation={{model.translation}}
-    @collaborators={{model.collaborators}}
-    @subscriptions={{model.commentsSubscriptions}}
-    @comments={{model.comments}}
-    @onCreateSubscription={{action "createSubscription"}}
-    @onDeleteSubscription={{action "deleteSubscription"}}
-    @onSubmit={{action "createComment"}}
-    @onSelectPage={{action "selectPage"}}
+    @permissions={{this.permissions}}
+    @translation={{this.model.translation}}
+    @collaborators={{this.model.collaborators}}
+    @subscriptions={{this.model.commentsSubscriptions}}
+    @comments={{this.model.comments}}
+    @onCreateSubscription={{fn this.createSubscription}}
+    @onDeleteSubscription={{fn this.deleteSubscription}}
+    @onSubmit={{fn this.createComment}}
+    @onSelectPage={{fn this.selectPage}}
   />
 {{/if}}

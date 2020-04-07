@@ -1,15 +1,18 @@
-& {
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-grey, color-green from 'accent-webapp/styles/variables/colors';
+
+.translation-edit {
   margin-top: 30px;
 }
 
 .previousText {
   margin-bottom: 15px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 12px;
 }
 
 .previousText-label {
-  color: darken($color-grey, 10%);
+  color: darken(color-grey, 10%);
   font-weight: bold;
 }
 
@@ -36,9 +39,9 @@
   font-size: 13px;
   font-weight: bold;
   text-decoration: none;
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color, opacity;
 
   &:focus,
@@ -51,9 +54,9 @@
   width: 18px;
   height: 18px;
   margin-right: 3px;
-  stroke: $color-green;
+  stroke: color-green;
   stroke: var(--color-primary);
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: stroke;
 }
 
@@ -62,14 +65,14 @@
   justify-content: flex-end;
   align-items: center;
 
-  & > .button {
+  & > :global(.button) {
     margin-left: 10px;
   }
 }
 
 .actions-updatedAt {
   margin-right: 10px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 11px;
   font-style: italic;
 }

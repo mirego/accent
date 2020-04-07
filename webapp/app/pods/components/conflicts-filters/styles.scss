@@ -1,4 +1,9 @@
-.subNavigation + & {
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-black, color-grey from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
+
+.subNavigation + .conflicts-filter {
   position: relative;
   top: -1px;
   z-index: 8;
@@ -19,6 +24,13 @@
   position: relative;
 }
 
+.totalEntries {
+  flex-shrink: 0;
+  margin-top: 10px;
+  color: color-grey;
+  font-size: 12px;
+}
+
 .search-icon {
   position: absolute;
   top: 50%;
@@ -31,30 +43,30 @@
 
 .input {
   @extend %textInput;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: border-color;
   width: 100%;
   padding: 7px 7px 7px 30px;
-  font-family: $font-primary;
+  font-family: font-primary;
   font-size: 14px;
-  color: $color-black;
+  color: color-black;
 
   &:focus {
-    box-shadow: inset 0 1px 2px #f6f6f6, 0 1px 2px rgba($color-black, 0.06);
+    box-shadow: inset 0 1px 2px #f6f6f6, 0 1px 2px rgba(color-black, 0.06);
   }
 
   &::placeholder {
-    color: $color-grey;
+    color: color-grey;
   }
 }
 
 .totalEntries {
   margin-top: 10px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 12px;
 }
 
-@media (max-width: ($screen-sm)) {
+@media (max-width: (screen-sm)) {
   .filters-wrapper {
     flex-direction: column;
   }

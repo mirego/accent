@@ -1,4 +1,6 @@
-& {
+@value color-black, color-green from 'accent-webapp/styles/variables/colors';
+
+.jipt-header {
   position: sticky;
   top: 0;
   z-index: 5000;
@@ -12,7 +14,7 @@
   margin: 0 0 0 10px;
   font-size: 14px;
   font-weight: 700;
-  color: $color-black;
+  color: color-black;
 }
 
 .applicationLogo {
@@ -25,7 +27,7 @@
   }
 
   path {
-    fill: $color-green;
+    fill: color-green;
     fill: var(--color-primary);
   }
 }

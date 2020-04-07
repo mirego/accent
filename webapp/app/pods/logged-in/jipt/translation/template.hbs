@@ -1,16 +1,18 @@
 <JiptTranslation>
-  {{#if showSkeleton}}
+  {{#if this.showSkeleton}}
     <SkeletonUi::TranslationSplashTitle />
   {{else}}
     <JiptBackToTranslations />
     <TranslationSplashTitle
-      @project={{model.project}}
-      @translation={{model.translation}}
+      @project={{this.model.project}}
+      @translation={{this.model.translation}}
       @withRevisionLink={{false}}
     />
   {{/if}}
-  {{#if model.loading}}
+
+  {{#if this.model.loading}}
     <SkeletonUi::ProgressLine />
   {{/if}}
+
   {{outlet}}
 </JiptTranslation>

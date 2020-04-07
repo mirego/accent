@@ -1,4 +1,4 @@
-.subNavigation + & {
+.subNavigation + .revision-export-options {
   position: relative;
   top: -1px;
   z-index: 8;
@@ -19,7 +19,7 @@
   flex: 1 1 auto;
   margin: 0 5px;
 
-  .ember-power-select-trigger {
+  :global(.ember-power-select-trigger) {
     font-size: 13px;
   }
 

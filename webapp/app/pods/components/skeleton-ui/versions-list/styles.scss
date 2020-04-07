@@ -1,4 +1,6 @@
-& {
+@value color-light-background from 'accent-webapp/styles/variables/colors';
+
+.versions-list {
   margin-top: 25px;
 }
 
@@ -21,7 +23,7 @@
   height: 3px;
   width: 160px;
   margin-bottom: 20px;
-  background: $color-light-background;
+  background: color-light-background;
 }
 
 .item-document {

@@ -1,29 +1,32 @@
-<span class="description">{{@message.rule.description}}</span>
-<span class="text">{{@message.text}}</span>
+<div local-class="translation-edit-lint-message">
+  <span local-class="description">{{@message.rule.description}}</span>
+  <span local-class="text">{{@message.text}}</span>
 
-{{#if this.mappedReplacements}}
-  <span class="arrow">
-    {{t "components.translation_edit.lint_message.arrow"}}
-  </span>
-
-  {{#if this.multipleReplacements}}
-    <AccSelect
-      @searchEnabled={{false}}
-      @selected={{this.selectedReplacement}}
-      @options={{this.mappedReplacements}}
-      @onchange={{action "replaceText" value="value"}}
-    />
-  {{else}}
-    <span class="single-replacement">
-      {{this.selectedReplacement.label}}
+  {{#if this.mappedReplacements}}
+    <span local-class="arrow">
+      {{t "components.translation_edit.lint_message.arrow"}}
     </span>
-  {{/if}}
 
-  {{#if @message.context}}
-    <button
-      class="replaceButton button button--small button--filled"
-      {{action "replaceTextSelected"}}>
-      {{t "components.translation_edit.lint_message.replace"}}
-    </button>
+    {{#if this.multipleReplacements}}
+      <AccSelect
+        @searchEnabled={{false}}
+        @selected={{this.selectedReplacement}}
+        @options={{this.mappedReplacements}}
+        @onchange={{fn this.replaceText}}
+      />
+    {{else}}
+      <span local-class="single-replacement">
+        {{this.selectedReplacement.label}}
+      </span>
+    {{/if}}
+
+    {{#if @message.context}}
+      <button
+        class="button button--small button--filled"
+        local-class="replaceButton"
+        {{on "click" this.replaceTextSelected}}>
+        {{t "components.translation_edit.lint_message.replace"}}
+      </button>
+    {{/if}}
   {{/if}}
-{{/if}}
+</div>

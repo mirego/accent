@@ -1,4 +1,6 @@
-& {
+@value color-light-background, color-green from 'accent-webapp/styles/variables/colors';
+
+.releases-list {
   margin-top: 25px;
 }
 
@@ -20,7 +22,7 @@
   height: 3px;
   width: 160px;
   margin-bottom: 20px;
-  background: $color-light-background;
+  background: color-light-background;
 }
 
 .item-document {
@@ -39,6 +41,6 @@
 }
 
 .item-button--green {
-  border-color: rgba($color-green, 0.3);
-  background: rgba($color-green, 0.1);
+  border-color: rgba(color-green, 0.3);
+  background: rgba(color-green, 0.1);
 }

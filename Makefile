@@ -71,7 +71,7 @@ compose-build: ## Build the Docker image from the docker-compose.yml file
 # ----------
 
 .PHONY: lint
-lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-tslint lint-template-hbs ## Run lint tools on the code
+lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-template-hbs ## Run lint tools on the code
 
 .PHONY: lint-compile
 lint-compile:
@@ -87,19 +87,19 @@ lint-credo:
 
 .PHONY: lint-eslint
 lint-eslint:
-	./node_modules/.bin/eslint webapp/app/. webapp/tests/. cli/. jipt/.
-
-.PHONY: lint-tslint
-lint-tslint:
-	./node_modules/.bin/tslint -c tslint.json '{cli,jipt}/src/**/*.{js,ts,json}'
+	npx eslint --ext .js,.ts ./webapp/app ./cli ./jipt
 
 .PHONY: lint-prettier
 lint-prettier:
-	./node_modules/.bin/prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md}' '*.md'
+	npx prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md}' '*.md'
 
 .PHONY: lint-template-hbs
 lint-template-hbs:
-	./node_modules/.bin/ember-template-lint './webapp/app/**/*.hbs' --config-path './webapp/.template-lintrc'
+	npx ember-template-lint './webapp/app/**/*.hbs' --config-path './webapp/.template-lintrc'
+
+.PHONY: type-check
+type-check: ## Type-check typescript files
+	cd webapp && npx tsc
 
 .PHONY: test
 test: ## Run the test suite
@@ -118,7 +118,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	./node_modules/.bin/prettier --write --single-quote --no-bracket-spacing '{webapp,jipt,cli}/*.{js,json}' 'webapp/{app,config}/**/*.{js,ts,json,scss}' 'jipt/src/**/*.{js,ts,json,gql}' 'cli/{examples,src}/**/*.{js,ts,json,gql}' 'README.md'
+	npx prettier --write --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md}' '*.md'
 
 # Development targets
 # -------------------

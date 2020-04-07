@@ -1,20 +1,26 @@
-<h1 class="title">
-  {{t "components.dummy_login_form.title"}}
-</h1>
+<div local-class="dummy-login-form">
+  <h1 local-class="title">
+    {{t "components.dummy_login_form.title"}}
+  </h1>
 
-<div class="warning">
-  {{t "components.dummy_login_form.warning"}}
+  <div local-class="warning">
+    {{t "components.dummy_login_form.warning"}}
+  </div>
+
+  <h2 local-class="subtitle">
+    {{t "components.dummy_login_form.subtitle" htmlSafe=true}}
+  </h2>
+
+  <form local-class="form" {{on "submit" (fn this.submit)}}>
+    <input
+      value={{this.email}}
+      local-class="textInput"
+      {{on "change" (fn this.setEmail)}}
+    >
+
+    <button class="button button--filled button--green" local-class="dummyLoginButton">
+      {{inline-svg "assets/check.svg" local-class="button-icon"}}
+      {{t "components.dummy_login_form.login_button"}}
+    </button>
+  </form>
 </div>
-
-<h2 class="subtitle">
-  {{t "components.dummy_login_form.subtitle" htmlSafe=true}}
-</h2>
-
-<form class="form" {{action "submit" on="submit"}}>
-  <Input @value={{email}} class="textInput" />
-
-  <button class="button button--filled button--green dummyLoginButton">
-    {{inline-svg "assets/check.svg" class="button-icon"}}
-    {{t "components.dummy_login_form.login_button"}}
-  </button>
-</form>

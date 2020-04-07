@@ -1,11 +1,13 @@
-{{#each commentsByTranslation as |groupedComment|}}
-  <ProjectCommentsList::Item
-    @project={{project}}
-    @groupedComment={{groupedComment}}
-  />
-{{else}}
-  <EmptyContent
-    @iconPath="assets/bubble.svg"
-    @text={{t "components.project_comments_list.no_comments"}}
-  />
-{{/each}}
+<ul local-class="project-comments-list">
+  {{#each this.commentsByTranslation as |groupedComment|}}
+    <ProjectCommentsList::Item
+      @project={{@project}}
+      @groupedComment={{groupedComment}}
+    />
+  {{else}}
+    <EmptyContent
+      @iconPath="assets/bubble.svg"
+      @text={{t "components.project_comments_list.no_comments"}}
+    />
+  {{/each}}
+</ul>

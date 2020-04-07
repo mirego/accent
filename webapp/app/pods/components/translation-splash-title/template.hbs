@@ -1,59 +1,59 @@
-<div>
-  {{#if withRevisionLink}}
+<div local-class="translation-splash-file">
+  {{#if this.withRevisionLink}}
     <LinkTo
       @route="logged-in.project.revision.translations"
-      @models={{array project.id translation.revision.id}}
-      class="language"
+      @models={{array @project.id @translation.revision.id}}
+      local-class="language"
     >
-      {{inline-svg "assets/chevron-left.svg" class="back-icon"}}
-      {{revisionName}}
+      {{inline-svg "assets/chevron-left.svg" local-class="back-icon"}}
+      {{this.revisionName}}
     </LinkTo>
   {{/if}}
 
-  <h1 class="key">
-    <small class="key-prefix">
-      {{#if translationKey.prefix}}
-        {{translationKey.prefix}}
+  <h1 local-class="key">
+    <small local-class="key-prefix">
+      {{#if this.translationKey.prefix}}
+        {{this.translationKey.prefix}}
       {{else}}
-        {{translation.document.path}}
+        {{@translation.document.path}}
       {{/if}}
     </small>
-    {{translationKey.value}}
+    {{this.translationKey.value}}
   </h1>
 
   {{#if translation.version}}
     <AccBadge>
-      <span class="version-tag">
-        {{translation.version.tag}}
+      <span local-class="version-tag">
+        {{@translation.version.tag}}
       </span>
     </AccBadge>
   {{/if}}
 
-  {{#if translation.plural}}
+  {{#if @translation.plural}}
     <AccBadge @link={{true}}>
       <LinkTo
         @route="logged-in.project.revision.translations"
-        @models={{array project.id translation.revision.id}}
+        @models={{array @project.id @translation.revision.id}}
       >
         {{t "components.translation_splash_title.plural_label"}}
       </LinkTo>
     </AccBadge>
   {{/if}}
 
-  {{#if translation.isRemoved}}
-    <div class="removedBadge">
+  {{#if @translation.isRemoved}}
+    <div local-class="removedBadge">
       {{t
         "components.translation_splash_title.removed_label"
-        removedAt=(time-ago-in-words translation.updatedAt)
+        removedAt=(time-ago-in-words @translation.updatedAt)
       }}
     </div>
-  {{else if translation.isConflicted}}
-    <AccBadge @link={{withRevisionLink}} @primary={{true}}>
-      {{#if withRevisionLink}}
+  {{else if @translation.isConflicted}}
+    <AccBadge @link={{this.withRevisionLink}} @primary={{true}}>
+      {{#if this.withRevisionLink}}
         <LinkTo
           @route="logged-in.project.revision.conflicts"
-          @models={{array project.id translation.revision.id}}
-          @query={{hash query=translation.id}}
+          @models={{array @project.id @translation.revision.id}}
+          @query={{hash query=@translation.id}}
         >
           {{t "components.translation_splash_title.conflicted_label"}}
         </LinkTo>

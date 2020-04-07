@@ -16,6 +16,11 @@ defmodule Accent.GraphQL.Types.Project do
     field(:main_color, :string)
     field(:last_synced_at, :datetime)
     field(:logo, :string)
+
+    field(:translations_count, non_null(:integer))
+    field(:conflicts_count, non_null(:integer))
+    field(:reviewed_count, non_null(:integer))
+
     field(:last_activity, :activity, resolve: &Accent.GraphQL.Resolvers.Project.last_activity/3)
     field(:is_file_operations_locked, non_null(:boolean), resolve: field_alias(:locked_file_operations))
 

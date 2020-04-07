@@ -1,70 +1,73 @@
-<div class="header">
-  <div>
-    <LinkTo
-      @route="logged-in.project.translation"
-      @models={{array project.id translation.id}}
-      class="key"
-      tabindex="-1"
-    >
-      {{revisionName}}
+<li local-class="related-translations-list-item">
+  <div local-class="header">
+    <div>
+      <LinkTo
+        @route="logged-in.project.translation"
+        @models={{array @project.id @translation.id}}
+        local-class="key"
+        tabindex="-1"
+      >
+        {{this.revisionName}}
 
-      <span class="updatedAt">
-        {{t "components.related_translations_list.last_updated_label"}}
-        <TimeAgoInWordsTag @date={{translation.updatedAt}} />
-      </span>
-    </LinkTo>
+        <span local-class="updatedAt">
+          {{t "components.related_translations_list.last_updated_label"}}
+          <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
+        </span>
+      </LinkTo>
+    </div>
+
+    <div>
+      {{#unless @translation.isRemoved}}
+        {{#if @translation.commentsCount}}
+          <AccBadge @link={{true}}>
+            <LinkTo
+              tabindex="-1"
+              @route="logged-in.project.translation.comments"
+              @models={{array @project.id @translation.id}}
+            >
+              {{t
+                "components.related_translations_list.comments_label"
+                count=@translation.commentsCount
+              }}
+            </LinkTo>
+          </AccBadge>
+        {{/if}}
+
+        {{#if @translation.isConflicted}}
+          <AccBadge @link={{true}} @primary={{true}}>
+            <LinkTo
+              tabindex="-1"
+              @route="logged-in.project.revision.conflicts"
+              @models={{array @project.id @translation.revision.id}}
+              @query={{hash query=@translation.id}}
+            >
+              {{t "components.related_translations_list.conflicted_label"}}
+            </LinkTo>
+          </AccBadge>
+        {{/if}}
+      {{/unless}}
+    </div>
   </div>
 
-  <div>
-    {{#unless translation.isRemoved}}
-      {{#if translation.commentsCount}}
-        <AccBadge @link={{true}}>
-          <LinkTo
-            tabindex="-1"
-            @route="logged-in.project.translation.comments"
-            @models={{array project.id translation.id}}
-          >
-            {{t
-              "components.related_translations_list.comments_label"
-              count=translation.commentsCount
-            }}
-          </LinkTo>
-        </AccBadge>
-      {{/if}}
+  <div local-class="textEdit">
+    <TranslationEdit::Form
+      @projectId={{@project.id}}
+      @translationId={{@translation.id}}
+      @disabled={{@translation.isRemoved}}
+      @valueType={{@translation.valueType}}
+      @value={{this.editText}}
+      @onSubmit={{fn this.save}}
+    />
 
-      {{#if translation.isConflicted}}
-        <AccBadge @link={{true}} @primary={{true}}>
-          <LinkTo
-            tabindex="-1"
-            @route="logged-in.project.revision.conflicts"
-            @models={{array project.id translation.revision.id}}
-            @query={{hash query=translation.id}}
-          >
-            {{t "components.related_translations_list.conflicted_label"}}
-          </LinkTo>
-        </AccBadge>
-      {{/if}}
-    {{/unless}}
+    {{#if showSaveButton}}
+      <AsyncButton
+        @onClick={{fn this.save}}
+        @loading={{this.isSaving}}
+        class="button button--filled button--iconOnly"
+        local-class="textEdit-button"
+      >
+        {{t "components.related_translations_list.save_button"}}
+      </AsyncButton>
+    {{/if}}
   </div>
-</div>
-
-<div class="textEdit">
-  <TranslationEdit::Form
-    @projectId={{project.id}}
-    @translationId={{translation.id}}
-    @disabled={{translation.isRemoved}}
-    @valueType={{translation.valueType}}
-    @value={{editText}}
-    @onSubmit={{action "save"}}
-  />
-
-  {{#if showSaveButton}}
-    <AsyncButton
-      @onClick={{action "save"}}
-      @loading={{isSaving}}
-      class="button button--filled button--iconOnly textEdit-button"
-    >
-      {{t "components.related_translations_list.save_button"}}
-    </AsyncButton>
-  {{/if}}
-</div>
+</li>

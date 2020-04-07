@@ -1,4 +1,8 @@
-& {
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-error, color-warning, color-success, color-grey, color-black from 'accent-webapp/styles/variables/colors';
+@value font-monospace, font-primary from 'accent-webapp/styles/variables/fonts';
+
+.documents-list-item {
   position: relative;
   display: flex;
   margin-bottom: 30px;
@@ -11,33 +15,33 @@
   }
 }
 
-&.low-percentage {
+.documents-list-item.low-percentage {
   .reviewedPercentage {
-    color: $color-error;
+    color: color-error;
   }
 
   .progress {
-    background: $color-error;
+    color: color-error;
   }
 }
 
-&.medium-percentage {
+.documents-list-item.medium-percentage {
   .reviewedPercentage {
-    color: $color-warning;
+    color: color-warning;
   }
 
   .progress {
-    background: $color-warning;
+    color: color-warning;
   }
 }
 
-&.high-percentage {
+.documents-list-item.high-percentage {
   .reviewedPercentage {
-    color: $color-success;
+    color: color-success;
   }
 
   .progress {
-    background: $color-success;
+    color: color-success;
   }
 }
 
@@ -58,16 +62,16 @@
   font-size: 12px;
 }
 
-.stat-progress {
+.progress {
   margin: 3px 0 10px;
 }
 
 .reviewedStats {
   padding: 2px 7px 1px;
   border-radius: 3px;
-  background: lighten($color-grey, 25%);
-  color: $color-grey;
-  font-family: $font-monospace;
+  background: lighten(color-grey, 25%);
+  color: color-grey;
+  font-family: font-monospace;
 }
 
 .reviewedPercentage {
@@ -101,19 +105,19 @@
   padding: 5px 8px 4px;
   width: 100%;
   font-size: 15px;
-  font-family: $font-primary;
+  font-family: font-primary;
 }
 
 .item-document-deleting-title {
   display: flex;
-  color: $color-error;
+  color: color-error;
   font-size: 13px;
 }
 
 .item-document-deleting-title-loading {
   width: 10px;
   margin-right: 6px;
-  fill: $color-error;
+  fill: color-error;
 }
 
 .item-form {
@@ -143,7 +147,7 @@
     border: 1px solid #eee;
     border-radius: 3px;
     background: #fafafa;
-    font-family: $font-monospace;
+    font-family: font-monospace;
     font-style: normal;
     color: #777;
   }
@@ -169,7 +173,7 @@
 .item-document {
   margin-left: -20px;
   text-decoration: none;
-  color: $color-black;
+  color: color-black;
 }
 
 .item-edit-button {
@@ -186,7 +190,7 @@
   height: 16px;
   opacity: 0;
   stroke: #ccc;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: opacity, stroke;
 
   &:focus,
@@ -200,10 +204,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
 
-  .button {
+  :global(.button) {
     margin-right: 6px;
 
-    &.button--borderLess:first-of-type:last-of-type {
+    &:global(.button--borderLess):first-of-type:last-of-type {
       margin-left: -14px;
     }
   }
@@ -211,6 +215,7 @@
 
 .deleteDocumentButton {
   opacity: 0;
+  padding: 2px 6px !important;
 }
 
 @media (max-width: (800px)) {

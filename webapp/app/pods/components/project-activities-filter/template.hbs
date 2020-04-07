@@ -1,15 +1,15 @@
 <div class="filters">
   <div class="filters-wrapper">
-    <ul class="filterList">
-      {{#unless actionFilter}}
-        <li class="filterList-item">
+    <ul local-class="filterList">
+      {{#unless @actionFilter}}
+        <li local-class="filterList-item">
           <label class="label">
-            <Input
-              @type="checkbox"
-              @checked={{batchFilter}}
-              @change={{action "batchFilterChange"}}
-            />
-            <span class="label-text">
+            <input
+              type="checkbox"
+              checked={{@batchFilter}}
+              {{on "change" (fn this.batchFilterChange)}}
+            >
+            <span local-class="label-text" class="label-text">
               {{t
                 "components.project_activities_filter.only_important_activities_text"
               }}
@@ -18,21 +18,21 @@
         </li>
       {{/unless}}
 
-      <li class="filterList-item">
+      <li local-class="filterList-item">
         <AccSelect
           @searchEnabled={{false}}
-          @selected={{actionFilterValue}}
-          @options={{mappedActions}}
-          @onchange={{action "actionFilterChange" value="value"}}
+          @selected={{this.actionFilterValue}}
+          @options={{this.mappedActions}}
+          @onchange={{fn this.actionFilterChange}}
         />
       </li>
 
-      <li class="filterList-item">
+      <li local-class="filterList-item">
         <AccSelect
           @searchEnabled={{false}}
-          @selected={{userFilterValue}}
-          @options={{mappedUsers}}
-          @onchange={{action "userFilterChange" value="value"}}
+          @selected={{this.userFilterValue}}
+          @options={{this.mappedUsers}}
+          @onchange={{fn this.userFilterChange}}
         />
       </li>
     </ul>

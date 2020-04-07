@@ -1,13 +1,13 @@
-{{#if model.loading}}
+{{#if this.model.loading}}
   <SkeletonUi::ProgressLine />
 {{/if}}
 
-{{#if showSkeleton}}
+{{#if this.showSkeleton}}
   <SkeletonUi::RelatedTranslationsList />
 {{else}}
   <RelatedTranslationsList
-    @project={{model.project}}
-    @translations={{model.relatedTranslations}}
-    @onUpdateText={{action "updateTranslation"}}
+    @project={{this.model.project}}
+    @translations={{this.model.relatedTranslations}}
+    @onUpdateText={{fn this.updateTranslation}}
   />
 {{/if}}

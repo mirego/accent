@@ -1,24 +1,26 @@
-<strong class="title">
-  {{t "components.project_settings.delete_form.title"}}
-</strong>
+<div local-class="project-settings-delete-form">
+  <strong local-class="title">
+    {{t "components.project_settings.delete_form.title"}}
+  </strong>
 
-<div class="zone">
-  <div class="zone-item">
-    <strong class="zone-title">
-      {{t "components.project_settings.delete_form.delete_project_title"}}
-    </strong>
+  <div local-class="zone">
+    <div local-class="zone-item">
+      <strong local-class="zone-title">
+        {{t "components.project_settings.delete_form.delete_project_title"}}
+      </strong>
 
-    <div class="zone-content">
-      <p class="zone-text">
-        {{t "components.project_settings.delete_form.delete_project_text"}}
-      </p>
+      <div local-class="zone-content">
+        <p local-class="zone-text">
+          {{t "components.project_settings.delete_form.delete_project_text"}}
+        </p>
 
-      <AsyncButton
-        @onClick={{action "deleteProject"}}
-        class="button button--filled button--red"
-      >
-        {{t "components.project_settings.delete_form.delete_project_button"}}
-      </AsyncButton>
+        <AsyncButton
+          @onClick={{fn this.deleteProject}}
+          class="button button--filled button--red"
+        >
+          {{t "components.project_settings.delete_form.delete_project_button"}}
+        </AsyncButton>
+      </div>
     </div>
   </div>
 </div>

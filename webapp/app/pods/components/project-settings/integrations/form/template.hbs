@@ -1,36 +1,54 @@
-<div class="form">
-  <AccSelect
-    @searchEnabled={{false}}
-    @selected={{serviceValue}}
-    @renderInPlace={{true}}
-    @options={{mappedServices}}
-    @onchange={{action (mut service) value="value"}}
-  />
-</div>
+<div
+  {{did-insert (fn this.didUpdateIntegration)}}
+  {{did-update (fn this.didUpdateIntegration) @integration}}
+  {{did-insert (fn this.didUpdateErrors)}}
+  {{did-update (fn this.didUpdateErrors) @errors}}
+  local-class="project-settings-integrations-form"
+>
+  {{#if this.integration}}
+    <div local-class="form">
+      <AccSelect
+        @searchEnabled={{false}}
+        @selected={{this.serviceValue}}
+        @renderInPlace={{true}}
+        @options={{this.mappedServices}}
+        @onchange={{fn this.setService}}
+      />
+    </div>
 
-{{component
-  dataFormComponent
-  repository=repository
-  defaultRef=defaultRef
-  token=token
-  errors=errors
-  url=url
-  project=project
-  syncChecked=syncChecked
-}}
+    <div local-class="data">
+      {{component
+        this.dataFormComponent
+        repository=this.repository
+        defaultRef=this.defaultRef
+        token=this.token
+        errors=this.errors
+        url=this.url
+        project=@project
+        syncChecked=this.syncChecked
+        onChangeUrl=(fn this.setUrl)
+        onChangeSyncChecked=(fn this.setSyncChecked)
+        onChangeRepository=(fn this.setRepository)
+        onChangeToken=(fn this.setToken)
+        onChangeDefaultRef=(fn this.setDefaultRef)
+      }}
+    </div>
 
-<div class="actions">
-  <AsyncButton
-    @onClick={{action "submit"}}
-    @loading={{isCreating}}
-    class="button button--filled"
-  >
-    {{t "components.project_settings.integrations.save"}}
-  </AsyncButton>
+    <div local-class="actions">
+      <AsyncButton
+        @onClick={{fn this.submit}}
+        @loading={{this.isCreating}}
+        class="button button--filled"
+      >
+        {{t "components.project_settings.integrations.save"}}
+      </AsyncButton>
 
-  {{#if onCancel}}
-    <button class="button button--filled button--white" {{action onCancel}}>
-      {{t "components.project_settings.integrations.cancel"}}
-    </button>
+      {{#if @onCancel}}
+        <button local-class="button" class="button button--filled button--white" {{on "click" (fn @onCancel)}}>
+          {{t "components.project_settings.integrations.cancel"}}
+        </button>
+      {{/if}}
+    </div>
   {{/if}}
 </div>
+

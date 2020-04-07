@@ -1,4 +1,7 @@
-& {
+@value color-black, color-green from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
+
+.project-settings-jipt {
   margin-top: 30px;
 }
 
@@ -15,7 +18,7 @@
   padding-bottom: 10px;
   font-size: 16px;
   font-weight: 300;
-  color: $color-black;
+  color: color-black;
 }
 
 .code {
@@ -26,7 +29,7 @@
   height: 111px;
   word-break: keep-all;
   background: #fbfbfb;
-  font-family: $font-monospace;
+  font-family: font-monospace;
   font-size: 15px;
   border: 2px solid #ddd;
   border-radius: 3px;
@@ -36,18 +39,18 @@
 
   &:focus {
     outline: none;
-    border-color: lighten($color-green, 20%);
+    border-color: lighten(color-green, 20%);
     border-color: var(--color-primary-opacity-70);
-    box-shadow: 0 0 3px 2px rgba($color-green, 0.3);
+    box-shadow: 0 0 3px 2px rgba(color-green, 0.3);
     box-shadow: 0 0 3px 2px var(--color-primary-opacity-10);
 
     &::-moz-selection {
-      background: lighten($color-green, 45%);
+      background: lighten(color-green, 45%);
       background: var(--color-primary-opacity-10);
     }
 
     &::selection {
-      background: lighten($color-green, 45%);
+      background: lighten(color-green, 45%);
       background: var(--color-primary-opacity-10);
     }
   }

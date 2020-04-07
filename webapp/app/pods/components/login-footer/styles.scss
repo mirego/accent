@@ -1,4 +1,7 @@
-& {
+@value color-black, color-green from 'accent-webapp/styles/variables/colors';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
+
+.login-footer {
   max-width: 500px;
   margin: 30px auto 60px;
   padding-top: 14px;
@@ -7,11 +10,11 @@
 
 .text {
   font-size: 12px;
-  color: lighten($color-black, 50%);
+  color: lighten(color-black, 50%);
 }
 
 .link {
-  color: $color-green;
+  color: color-green;
   text-decoration: none;
 
   &:focus,
@@ -20,8 +23,8 @@
   }
 }
 
-@media (max-width: ($screen-sm)) {
-  & {
+@media (max-width: (screen-sm)) {
+  .login-footer {
     margin-top: 30px;
   }
 }

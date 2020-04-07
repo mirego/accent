@@ -1,4 +1,6 @@
-& {
+@value color-grey from 'accent-webapp/styles/variables/colors';
+
+.loading-content {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -6,29 +8,29 @@
   justify-content: center;
   margin-top: 70px;
   padding: 40px 0;
-}
 
-svg {
-  position: relative;
-  left: -4px;
-  width: 3.75em;
-  margin-bottom: 30px;
-  transform-origin: center;
-  animation: loading-content-rotate 2s ease-in infinite;
-}
+  svg {
+    position: relative;
+    left: -4px;
+    width: 3.75em;
+    margin-bottom: 30px;
+    transform-origin: center;
+    animation: loading-content-rotate 2s ease-in infinite;
+  }
 
-circle {
-  fill: none;
-  stroke: $color-grey;
-  stroke-width: 2;
-  stroke-dasharray: 1, 200;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  animation: loading-content-dash 1s ease-in infinite;
+  circle {
+    fill: none;
+    stroke: color-grey;
+    stroke-width: 2;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: loading-content-dash 1s ease-in infinite;
+  }
 }
 
 .label {
-  color: $color-grey;
+  color: color-grey;
   font-size: 14px;
   font-style: italic;
 }

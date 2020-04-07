@@ -1,115 +1,117 @@
-<li class="list-item">
-  <LinkTo
-    @route="logged-in.project.index"
-    @model={{project.id}}
-    class="list-item-link"
-  >
-    {{inline-svg "/assets/home.svg" class="list-item-link-icon"}}
-    <span class="list-item-link-text">
-      {{t "components.project_navigation.dashboard_link_title"}}
-    </span>
-  </LinkTo>
-</li>
-{{#if (get permissions "index_translations")}}
-  <li class="list-item">
+<ul local-class="project-navigation-list">
+  <li local-class="list-item">
     <LinkTo
-      @route="logged-in.project.revision.translations"
-      @models={{array project.id selectedRevision}}
-      class="list-item-link"
+      @route="logged-in.project.index"
+      @model={{@project.id}}
+      local-class="list-item-link"
     >
-      {{inline-svg "/assets/search.svg" class="list-item-link-icon"}}
-      <span class="list-item-link-text">
-        {{t "components.project_navigation.translations_link_title"}}
+      {{inline-svg "/assets/home.svg" local-class="list-item-link-icon"}}
+      <span local-class="list-item-link-text">
+        {{t "components.project_navigation.dashboard_link_title"}}
       </span>
     </LinkTo>
   </li>
-{{/if}}
+  {{#if (get @permissions "index_translations")}}
+    <li local-class="list-item">
+      <LinkTo
+        @route="logged-in.project.revision.translations"
+        @models={{array @project.id @selectedRevision}}
+        local-class="list-item-link"
+      >
+        {{inline-svg "/assets/search.svg" local-class="list-item-link-icon"}}
+        <span local-class="list-item-link-text">
+          {{t "components.project_navigation.translations_link_title"}}
+        </span>
+      </LinkTo>
+    </li>
+  {{/if}}
 
-{{#if (get permissions "index_translations")}}
-  <li class="list-item">
+  {{#if (get @permissions "index_translations")}}
+    <li local-class="list-item">
+      <LinkTo
+        @route="logged-in.project.revision.conflicts"
+        @models={{array @project.id @selectedRevision}}
+        local-class="list-item-link"
+      >
+        {{inline-svg "/assets/check.svg" local-class="list-item-link-icon"}}
+        <span local-class="list-item-link-text">
+          {{t "components.project_navigation.conflicts_link_title"}}
+        </span>
+      </LinkTo>
+    </li>
+  {{/if}}
+
+  {{#if (get @permissions "index_comments")}}
+    <li local-class="list-item">
+      <LinkTo
+        @route="logged-in.project.comments"
+        @model={{@project.id}}
+        local-class="list-item-link"
+      >
+        {{inline-svg "/assets/bubble.svg" local-class="list-item-link-icon"}}
+        <span local-class="list-item-link-text">
+          {{t "components.project_navigation.conversation_link_title"}}
+        </span>
+      </LinkTo>
+    </li>
+  {{/if}}
+
+  {{#if (get @permissions "index_project_activities")}}
+    <li local-class="list-item">
+      <LinkTo
+        @route="logged-in.project.activities"
+        @model={{@project.id}}
+        local-class="list-item-link"
+      >
+        {{inline-svg "/assets/activity.svg" local-class="list-item-link-icon"}}
+
+        <span local-class="list-item-link-text">
+          {{t "components.project_navigation.activities_link_title"}}
+        </span>
+      </LinkTo>
+    </li>
+  {{/if}}
+
+  {{#if (get @permissions "index_documents")}}
+    <li local-class="list-item">
+      <LinkTo
+        @route="logged-in.project.files"
+        @model={{@project.id}}
+        local-class="list-item-link"
+      >
+        {{inline-svg "/assets/file.svg" local-class="list-item-link-icon"}}
+        <span local-class="list-item-link-text">
+          {{t "components.project_navigation.sync_link_title"}}
+        </span>
+      </LinkTo>
+    </li>
+  {{/if}}
+
+  {{#if (get @permissions "index_versions")}}
+    <li local-class="list-item">
+      <LinkTo
+        @route="logged-in.project.versions"
+        @model={{@project.id}}
+        local-class="list-item-link"
+      >
+        {{inline-svg "/assets/tag.svg" local-class="list-item-link-icon"}}
+        <span local-class="list-item-link-text">
+          {{t "components.project_navigation.versions_link_title"}}
+        </span>
+      </LinkTo>
+    </li>
+  {{/if}}
+
+  <li local-class="list-item">
     <LinkTo
-      @route="logged-in.project.revision.conflicts"
-      @models={{array project.id selectedRevision}}
-      class="list-item-link"
+      @route="logged-in.project.edit"
+      @model={{@project.id}}
+      local-class="list-item-link"
     >
-      {{inline-svg "/assets/check.svg" class="list-item-link-icon"}}
-      <span class="list-item-link-text">
-        {{t "components.project_navigation.conflicts_link_title"}}
+      {{inline-svg "/assets/gear.svg" local-class="list-item-link-icon"}}
+      <span local-class="list-item-link-text">
+        {{t "components.project_navigation.settings_link_title"}}
       </span>
     </LinkTo>
   </li>
-{{/if}}
-
-{{#if (get permissions "index_comments")}}
-  <li class="list-item">
-    <LinkTo
-      @route="logged-in.project.comments"
-      @model={{project.id}}
-      class="list-item-link"
-    >
-      {{inline-svg "/assets/bubble.svg" class="list-item-link-icon"}}
-      <span class="list-item-link-text">
-        {{t "components.project_navigation.conversation_link_title"}}
-      </span>
-    </LinkTo>
-  </li>
-{{/if}}
-
-{{#if (get permissions "index_project_activities")}}
-  <li class="list-item">
-    <LinkTo
-      @route="logged-in.project.activities"
-      @model={{project.id}}
-      class="list-item-link"
-    >
-      {{inline-svg "/assets/activity.svg" class="list-item-link-icon"}}
-
-      <span class="list-item-link-text">
-        {{t "components.project_navigation.activities_link_title"}}
-      </span>
-    </LinkTo>
-  </li>
-{{/if}}
-
-{{#if (get permissions "index_documents")}}
-  <li class="list-item">
-    <LinkTo
-      @route="logged-in.project.files"
-      @model={{project.id}}
-      class="list-item-link"
-    >
-      {{inline-svg "/assets/file.svg" class="list-item-link-icon"}}
-      <span class="list-item-link-text">
-        {{t "components.project_navigation.sync_link_title"}}
-      </span>
-    </LinkTo>
-  </li>
-{{/if}}
-
-{{#if (get permissions "index_versions")}}
-  <li class="list-item">
-    <LinkTo
-      @route="logged-in.project.versions"
-      @model={{project.id}}
-      class="list-item-link"
-    >
-      {{inline-svg "/assets/tag.svg" class="list-item-link-icon"}}
-      <span class="list-item-link-text">
-        {{t "components.project_navigation.versions_link_title"}}
-      </span>
-    </LinkTo>
-  </li>
-{{/if}}
-
-<li class="list-item">
-  <LinkTo
-    @route="logged-in.project.edit"
-    @model={{project.id}}
-    class="list-item-link"
-  >
-    {{inline-svg "/assets/gear.svg" class="list-item-link-icon"}}
-    <span class="list-item-link-text">
-      {{t "components.project_navigation.settings_link_title"}}
-    </span>
-  </LinkTo>
-</li>
+</ul>

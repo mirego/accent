@@ -1,13 +1,13 @@
-{{#if activities}}
-  <ul class="list">
-    {{#each activities key="id" as |activity|}}
+{{#if @activities}}
+  <ul local-class="list">
+    {{#each @activities key="id" as |activity|}}
       <ActivityItem
-        @compact={{compact}}
-        @permissions={{permissions}}
+        @compact={{@compact}}
+        @permissions={{@permissions}}
         @showTranslationLink={{true}}
         @componentTranslationPrefix="project_activities_list_item"
         @activity={{activity}}
-        @project={{project}}
+        @project={{@project}}
       />
     {{/each}}
   </ul>

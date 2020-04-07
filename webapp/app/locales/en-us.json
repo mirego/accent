@@ -177,8 +177,8 @@
       }
     },
     "date_tag": {
-      "formatted_date_time_format": "yyyy-MM-ddTHH:mm:ss",
-      "humanized_date_title_format": "MMMM Do yyyy, HH:mm:ss"
+      "formatted_date_time_format": "yyyy-MM-dd'T'HH:mm:ss",
+      "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
     },
     "versions_list": {
       "export": "Export",
@@ -199,7 +199,7 @@
       "save_button": "Save",
       "cancel_button": "Cancel",
       "item": {
-        "deleting_label": "Deleting",
+        "deleting_label": "Deleting {path}.{extension}…",
         "path_label": "Path",
         "path_help": "Used to scope your strings. The path will be used to export all your languages (en/<em>path</em>.format, fr/<em>path</em>.format)"
       }
@@ -621,8 +621,8 @@
       "translations_link_title": "All strings"
     },
     "time_ago_in_words_tag": {
-      "formatted_date_time_format": "yyyy-MM-ddTHH:mm:ss",
-      "humanized_date_title_format": "dddd, MMMM Do yyyy, H:mm a"
+      "formatted_date_time_format": "yyyy-MM-dd'T'HH:mm:ss",
+      "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
     },
     "translation_activities_list_item": {
       "action_text": {

@@ -1,23 +1,29 @@
-<div class="comments">
-  {{#if (get permissions "create_comment")}}
-    {{#unless translation.isRemoved}}
-      <TranslationCommentForm @onSubmit={{onSubmit}} />
-    {{/unless}}
-  {{/if}}
+<div local-class="translation-conversation">
+  <div local-class="comments">
+    {{#if (get @permissions "create_comment")}}
+      {{#unless @translation.isRemoved}}
+        <div {{did-insert this.focusTextarea}}>
+          <TranslationCommentForm @onSubmit={{@onSubmit}} />
+        </div>
+      {{/unless}}
+    {{/if}}
 
-  <TranslationCommentsList
-    @comments={{comments.entries}}
-    class="at-translation"
-  />
+    <div local-class="list">
+      <TranslationCommentsList
+        @comments={{@comments.entries}}
+        local-class="at-translation"
+      />
 
-  <ResourcePagination @meta={{comments.meta}} @onSelectPage={{onSelectPage}} />
-</div>
+      <ResourcePagination @meta={{@comments.meta}} @onSelectPage={{@onSelectPage}} />
+    </div>
+  </div>
 
-<div class="subscriptions">
-  <TranslationCommentsSubscriptions
-    @collaborators={{collaborators}}
-    @subscriptions={{subscriptions}}
-    @onCreateSubscription={{onCreateSubscription}}
-    @onDeleteSubscription={{onDeleteSubscription}}
-  />
+  <div local-class="subscriptions">
+    <TranslationCommentsSubscriptions
+      @collaborators={{@collaborators}}
+      @subscriptions={{@subscriptions}}
+      @onCreateSubscription={{@onCreateSubscription}}
+      @onDeleteSubscription={{@onDeleteSubscription}}
+    />
+  </div>
 </div>

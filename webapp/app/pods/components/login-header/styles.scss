@@ -1,4 +1,7 @@
-& {
+@value color-black from 'accent-webapp/styles/variables/colors';
+@value screen-sm from 'accent-webapp/styles/variables/dimensions';
+
+.login-header {
   max-width: 500px;
   margin: 100px auto 40px;
 }
@@ -14,13 +17,13 @@
   text-decoration: none;
   font-size: 25px;
   font-weight: 700;
-  color: $color-black;
+  color: color-black;
 }
 
 .text {
   font-size: 17px;
   line-height: 1.3;
-  color: lighten($color-black, 40%);
+  color: lighten(color-black, 40%);
 }
 
 .text-emphasis {
@@ -29,7 +32,7 @@
   font-weight: bold;
   font-size: 22px;
   font-style: normal;
-  color: $color-black;
+  color: color-black;
 }
 
 .logo {
@@ -37,8 +40,8 @@
   height: 30px;
 }
 
-@media (max-width: ($screen-sm)) {
-  & {
+@media (max-width: (screen-sm)) {
+  .login-header {
     margin-top: 30px;
   }
 }

@@ -1,23 +1,23 @@
-{{#if model.loading}}
+{{#if this.model.loading}}
   <SkeletonUi::ProgressLine />
 {{/if}}
 
-{{#if showSkeleton}}
+{{#if this.showSkeleton}}
   <SkeletonUi::VersionsList />
 {{else}}
   <VersionsList
-    @permissions={{permissions}}
-    @versions={{model.versions.entries}}
-    @project={{model.project}}
+    @permissions={{this.permissions}}
+    @versions={{this.model.versions.entries}}
+    @project={{this.model.project}}
   />
 
-  {{#if (get permissions "create_version")}}
-    <VersionsAddButton @project={{model.project}} />
+  {{#if (get this.permissions "create_version")}}
+    <VersionsAddButton @project={{this.model.project}} />
   {{/if}}
 
   <ResourcePagination
-    @meta={{model.versions.meta}}
-    @onSelectPage={{action "selectPage"}}
+    @meta={{this.model.versions.meta}}
+    @onSelectPage={{fn this.selectPage}}
   />
   {{outlet}}
 {{/if}}

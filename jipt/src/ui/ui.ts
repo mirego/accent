@@ -144,9 +144,7 @@ export default class UI {
     element.innerHTML = `
       <div class="${DISABLE_CLASS}" style="${styles.frameDisableButton}">×</div>
       <div class="${EXPAND_CLASS}" style="${styles.frameExpandButton}"></div>
-      <div class="${COLLAPSE_CLASS}" style="${
-      styles.frameCollapseButton
-    }">×</div>
+      <div class="${COLLAPSE_CLASS}" style="${styles.frameCollapseButton}">×</div>
     `;
 
     return element;

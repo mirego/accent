@@ -1,108 +1,111 @@
-<li>
-  <LinkTo
-    @route="logged-in.project.translation"
-    @models={{array project.id conflict.id}}
-    class="key"
-  >
-    <strong class="item-key">
-      <small class="item-key-prefix">
-        {{#if conflictKey.prefix}}
-          {{conflictKey.prefix}}
-        {{else}}
-          {{conflict.document.path}}
-        {{/if}}
-      </small>
-      {{conflictKey.value}}
-    </strong>
-  </LinkTo>
-
-  {{#if resolved}}
-    <div class="textResolved">
-      <div class="textResolved-content">
-        {{#if error}}
-          <div class="error">
-            {{t "components.conflict_item.uncorrect_error_text"}}
-          </div>
-        {{/if}}
-      </div>
-    </div>
-  {{else}}
-    <div class="item-details">
-      <div class="item-details__column">
-        <div class="textConflicted">
-          {{#if emptyPreviousText}}
-            <span class="textConflicted-empty">
-              {{t "components.conflict_item.no_previous_text"}}
-            </span>
-          {{else if samePreviousText}}
-            <span class="textConflicted-empty">
-              {{t "components.conflict_item.same_text"}}
-            </span>
+<div local-class="conflict-item {{if this.active "active"}} {{if this.resolved "resolved"}} {{if this.error "errored"}} {{if this.fullscreen "fullscreen"}}">
+  <li>
+    <LinkTo
+      @route="logged-in.project.translation"
+      @models={{array @project.id @conflict.id}}
+      local-class="key"
+    >
+      <strong local-class="item-key">
+        <small local-class="item-key-prefix">
+          {{#if this.conflictKey.prefix}}
+            {{this.conflictKey.prefix}}
           {{else}}
-            <span class="textConflicted-content">{{conflict.conflictedText}}</span>
+            {{@conflict.document.path}}
+          {{/if}}
+        </small>
+        {{this.conflictKey.value}}
+      </strong>
+    </LinkTo>
+
+    {{#if this.resolved}}
+      <div local-class="textResolved">
+        <div local-class="textResolved-content">
+          {{#if this.error}}
+            <div local-class="error">
+              {{t "components.conflict_item.uncorrect_error_text"}}
+            </div>
           {{/if}}
         </div>
-
-        {{#if emptyPreviousText}}
-          <div class="textDiff"><span class="added">{{conflict.correctedText}}</span></div>
-        {{else if samePreviousText}}
-          <div class="textDiff">{{conflict.correctedText}}</div>
-        {{else}}
-          <div class="textDiff">{{string-diff conflict.correctedText conflict.conflictedText}}</div>
-        {{/if}}
-
-        {{#if conflict.relatedTranslation.id}}
-          <div class="conflictedText-textReference">
-            <strong class="conflictedText-textReference-language">
-              <LinkTo
-                @route="logged-in.project.translation"
-                @models={{array project.id conflict.relatedTranslation.id}}
-                class="conflictedText-textReference-link"
-              >
-                {{revision.language.name}}
-              </LinkTo>
-              <span class="conflictedText-textReference-updatedAt">
-                <TimeAgoInWordsTag
-                  @date={{conflict.relatedTranslation.updatedAt}}
-                />
+      </div>
+    {{else}}
+      <div local-class="item-details">
+        <div local-class="item-details__column">
+          <div local-class="textConflicted">
+            {{#if this.emptyPreviousText}}
+              <span local-class="textConflicted-empty">
+                {{t "components.conflict_item.no_previous_text"}}
               </span>
-            </strong>
-            <div class="conflictedText-textReference-text">
-              <span class="conflictedText-textReference-text-content">{{conflict.relatedTranslation.correctedText}}</span>
+            {{else if this.samePreviousText}}
+              <span local-class="textConflicted-empty">
+                {{t "components.conflict_item.same_text"}}
+              </span>
+            {{else}}
+              <span local-class="textConflicted-content">{{@conflict.conflictedText}}</span>
+            {{/if}}
+          </div>
+
+          {{#if this.emptyPreviousText}}
+            <div local-class="textDiff"><span local-class="added">{{@conflict.correctedText}}</span></div>
+          {{else if this.samePreviousText}}
+            <div local-class="textDiff">{{@conflict.correctedText}}</div>
+          {{else}}
+            <div local-class="textDiff">{{string-diff @conflict.correctedText @conflict.conflictedText}}</div>
+          {{/if}}
+
+          {{#if @conflict.relatedTranslation.id}}
+            <div local-class="conflictedText-textReference">
+              <strong local-class="conflictedText-textReference-language">
+                <LinkTo
+                  @route="logged-in.project.translation"
+                  @models={{array @project.id @conflict.relatedTranslation.id}}
+                  local-class="conflictedText-textReference-link"
+                >
+                  {{@revision.language.name}}
+                </LinkTo>
+                <span local-class="conflictedText-textReference-updatedAt">
+                  <TimeAgoInWordsTag
+                    @date={{@conflict.relatedTranslation.updatedAt}}
+                  />
+                </span>
+              </strong>
+              <div local-class="conflictedText-textReference-text">
+                <span local-class="conflictedText-textReference-text-content">{{@conflict.relatedTranslation.correctedText}}</span>
+              </div>
             </div>
-          </div>
-        {{/if}}
-        {{#if error}}
-          <div class="error">
-            {{t "components.conflict_item.correct_error_text"}}
-          </div>
-        {{/if}}
-      </div>
-      <div class="item-details__column">
-        <div class="textInput">
-          <TranslationEdit::Form
-            @projectId={{project.id}}
-            @translationId={{conflict.id}}
-            @disabled={{conflict.isRemoved}}
-            @valueType={{conflict.valueType}}
-            @value={{textInput}}
-            @showTypeHints={{false}}
-            @onFocus={{action "inputFocus"}}
-            @onBlur={{action "inputBlur"}}
-            @onSubmit={{action "correct"}}
-          />
+          {{/if}}
+          {{#if this.error}}
+            <div local-class="error">
+              {{t "components.conflict_item.correct_error_text"}}
+            </div>
+          {{/if}}
         </div>
-        {{#if (get permissions "correct_translation")}}
-          <AsyncButton
-            @onClick={{action "correct"}}
-            @loading={{loading}}
-            class="button button--filled button--green correctButton"
-          >
-            {{inline-svg "/assets/check.svg" class="button-icon"}}
-            {{t "components.conflict_item.correct_button_text"}}
-          </AsyncButton>
-        {{/if}}
+        <div local-class="item-details__column">
+          <div local-class="textInput">
+            <TranslationEdit::Form
+              @projectId={{@project.id}}
+              @translationId={{@conflict.id}}
+              @disabled={{@conflict.isRemoved}}
+              @valueType={{@conflict.valueType}}
+              @value={{this.textInput}}
+              @showTypeHints={{false}}
+              @onFocus={{fn this.inputFocus}}
+              @onBlur={{fn this.inputBlur}}
+              @onSubmit={{fn this.correct}}
+            />
+          </div>
+          {{#if (get @permissions "correct_translation")}}
+            <AsyncButton
+              @onClick={{fn this.correct}}
+              @loading={{this.loading}}
+              class="button button--filled button--green"
+              local-class="correctButton"
+            >
+              {{inline-svg "/assets/check.svg" class="button-icon"}}
+              {{t "components.conflict_item.correct_button_text"}}
+            </AsyncButton>
+          {{/if}}
+        </div>
       </div>
-    </div>
-  {{/if}}
-</li>
+    {{/if}}
+  </li>
+</div>

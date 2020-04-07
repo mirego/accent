@@ -1,9 +1,11 @@
-{{#each integrations key="id" as |integration|}}
-  <ProjectSettings::Integrations::List::Item
-    @project={{project}}
-    @permissions={{permissions}}
-    @integration={{integration}}
-    @onUpdate={{onUpdate}}
-    @onDelete={{onDelete}}
-  />
-{{/each}}
+<ul local-class="project-settings-integrations-list">
+  {{#each @integrations key="id" as |integration|}}
+    <ProjectSettings::Integrations::List::Item
+      @project={{@project}}
+      @permissions={{@permissions}}
+      @integration={{integration}}
+      @onUpdate={{@onUpdate}}
+      @onDelete={{@onDelete}}
+    />
+  {{/each}}
+</ul>

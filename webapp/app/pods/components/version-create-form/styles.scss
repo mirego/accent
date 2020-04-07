@@ -1,4 +1,7 @@
-& {
+@value color-green, color-error from 'accent-webapp/styles/variables/colors';
+@value font-primary from 'accent-webapp/styles/variables/fonts';
+
+.version-create-form {
   padding: 20px;
   background: #fff;
 }
@@ -8,7 +11,7 @@
   text-align: center;
   font-size: 27px;
   font-weight: 300;
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
 }
 
@@ -27,18 +30,18 @@
   min-width: 250px;
   width: 100%;
   font-size: 12px;
-  font-family: $font-primary;
+  font-family: font-primary;
 }
 
 .errors {
   margin-bottom: 15px;
   padding-bottom: 5px;
-  border-bottom: 1px solid rgba($color-error, 0.3);
+  border-bottom: 1px solid rgba(color-error, 0.3);
 }
 
 .error {
   margin-bottom: 5px;
-  color: $color-error;
+  color: color-error;
   font-size: 13px;
   font-weight: bold;
 }

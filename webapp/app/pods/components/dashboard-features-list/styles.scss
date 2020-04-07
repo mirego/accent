@@ -1,4 +1,7 @@
-& {
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-green, color-grey, color-black from 'accent-webapp/styles/variables/colors';
+
+.dashboard-features-list {
   padding: 0 15px 0 0;
   flex: 1 0 50%;
   list-style: none;
@@ -9,29 +12,29 @@
 
   &.item--highlight .item-link {
     padding: 10px 15px 12px;
-    background: lighten($color-green, 47%);
-    border-left: 2px solid $color-green;
+    background: lighten(color-green, 47%);
+    border-left: 2px solid color-green;
 
     .item-icon {
-      fill: $color-green;
+      fill: color-green;
     }
 
     .item-text {
-      color: darken($color-green, 25%);
+      color: darken(color-green, 25%);
     }
 
     .item-title {
-      color: $color-green;
+      color: color-green;
     }
 
     &:focus,
     &:hover {
       .item-title {
-        color: darken($color-green, 10%);
+        color: darken(color-green, 10%);
       }
 
       .item-text {
-        color: darken($color-green, 35%);
+        color: darken(color-green, 35%);
       }
     }
   }
@@ -39,32 +42,32 @@
 
 .item-link {
   display: block;
-  color: $color-grey;
+  color: color-grey;
   text-decoration: none;
 
   &:focus,
   &:hover {
     .item-title {
-      color: $color-green;
+      color: color-green;
     }
 
     .item-icon {
-      fill: $color-green;
+      fill: color-green;
     }
 
     .item-text {
-      color: darken($color-grey, 10%);
+      color: darken(color-grey, 10%);
     }
   }
 }
 
 .item-title {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
   display: flex;
   align-items: center;
   padding-bottom: 5px;
-  color: $color-black;
+  color: color-black;
   font-size: 12px;
   font-weight: normal;
 }
@@ -74,20 +77,20 @@
 }
 
 .item-icon {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: fill;
   width: 18px;
   height: 18px;
   margin-right: 4px;
-  fill: $color-black;
+  fill: color-black;
 }
 
 .item-text {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
   display: block;
   margin-top: 5px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 12px;
 }
 

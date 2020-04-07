@@ -3,3 +3,9 @@ $screen-md: 640px;
 $screen-sm: 440px;
 
 $border-radius: 3px;
+
+@value screen-lg: $screen-lg;
+@value screen-md: $screen-md;
+@value screen-sm: $screen-sm;
+
+@value border-radius: $border-radius;

@@ -1,4 +1,8 @@
-& {
+@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
+@value color-border, color-light-background, color-green, color-grey, color-error, color-success, color-warning, color-black from 'accent-webapp/styles/variables/colors';
+@value font-monospace from 'accent-webapp/styles/variables/fonts';
+
+.item {
   display: flex;
   position: relative;
   margin: 25px 0;
@@ -10,17 +14,17 @@
   }
 }
 
-&.rollback,
-&.merge,
-&.new-slave,
-&.uncorrect-all,
-&.correct-all,
-&.sync {
-  left: 9px;
+.item.rollback,
+.item.merge,
+.item.new-slave,
+.item.uncorrect-all,
+.item.correct-all,
+.item.sync {
+  left: 8px;
   width: calc(100% + -9px);
   padding: 5px;
   background: #fff;
-  border: 1px solid rgba($color-border, 0.5);
+  border: 1px solid rgba(color-border, 0.5);
 
   .item-iconContainer {
     top: 3px;
@@ -29,29 +33,35 @@
 
   .item-content {
     width: 100%;
-    padding: 5px 5px 0;
+    padding: 5px 5px 0 2px;
     margin-left: -21px;
     background: #fff;
     border-bottom: 0;
   }
 }
 
-&.sync {
+.item.sync {
+  position: relative;
   padding: 6px 10px 5px;
-  background: $color-light-background;
   border-color: transparent;
-  border-left-color: $color-green;
-  border-left-color: var(--color-primary);
 
-  &.compact {
-    .item-content {
-      padding-left: 0;
-    }
+  &:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    box-shadow: 0 1px 10px var(--color-primary);
+    opacity: 0.16;
+    pointer-events: none;
   }
 
   .item-iconContainer {
     left: -21px;
-    background: $color-green;
+    background: color-green;
     background: var(--color-primary);
     border-color: transparent;
     box-shadow: none;
@@ -63,63 +73,52 @@
 
   .item-stats {
     padding: 0;
-    background: lighten($color-green, 46%);
-    background: var(--color-primary-lighten-99);
-    color: darken($color-green, 25%);
+    background: transparent;
+    color: darken(color-green, 25%);
     color: var(--color-primary-darken-50);
   }
 
   .item-date {
-    color: $color-grey;
+    color: rgba(#000, 0.3);
   }
 
   .item-details-link {
-    color: $color-green;
+    color: color-green;
     color: var(--color-primary);
   }
 
   .item-content {
     background: var(--color-primary-lighten-95);
-    font-size: 14px;
   }
 
   .item-documentPath {
-    color: darken($color-green, 25%);
+    color: darken(color-green, 25%);
     color: var(--color-primary-darken-30);
-    font-size: 13px;
   }
 
   .item-user,
   .item-header-content {
-    color: darken($color-green, 25%);
+    color: darken(color-green, 25%);
     color: var(--color-primary-darken-30);
-    font-size: 13px;
-  }
-
-  .item-user.item-user--bot {
-    padding-left: 23px;
-  }
-
-  .item-user.item-user--pictureUrl {
-    padding-left: 28px;
   }
 
   .item-user-icon {
-    stroke: darken($color-green, 25%);
+    stroke: darken(color-green, 25%);
     stroke: var(--color-primary);
-    width: 17px;
-    height: 17px;
-  }
-
-  .item-user-picture {
-    top: -1px;
-    width: 21px;
-    height: 21px;
+    color: rgba(color-black, 0.9);
   }
 
   &.compact {
+    .item-content {
+      padding-left: 0;
+    }
+
+    .item-header {
+      margin-bottom: 0;
+    }
+
     .item-iconContainer-icon {
-      stroke: $color-green;
+      stroke: color-green;
       stroke: var(--color-primary);
     }
 
@@ -139,9 +138,9 @@
   }
 }
 
-&.rollback {
-  background: $color-light-background;
-  border: 1px solid rgba($color-border, 0.3);
+.item.rollback {
+  background: color-light-background;
+  border: 1px solid rgba(color-border, 0.3);
 
   .item-header {
     margin-bottom: 4px;
@@ -158,14 +157,14 @@
   .item-content {
     padding: 5px 0 0;
     margin: 0;
-    background: $color-light-background;
+    background: color-light-background;
     border-bottom: 0;
   }
 }
 
-&.uncorrect-all {
+.item.uncorrect-all {
   .item-iconContainer {
-    background: $color-error;
+    background: color-error;
     border-color: transparent;
   }
 
@@ -175,20 +174,20 @@
 
   &.compact {
     .item-iconContainer-icon {
-      stroke: $color-error;
+      stroke: color-error;
     }
   }
 }
 
-&.correct-all {
+.item.correct-all {
   &.compact {
     .item-iconContainer-icon {
-      stroke: $color-success;
+      stroke: color-success;
     }
   }
 
   .item-iconContainer {
-    background: $color-success;
+    background: color-success;
     border-color: transparent;
   }
 
@@ -197,11 +196,11 @@
   }
 }
 
-&.document-delete {
-  border-color: lighten($color-error, 35%);
+.item.document-delete {
+  border-color: lighten(color-error, 35%);
 
   .item-iconContainer {
-    background: $color-error;
+    background: color-error;
     border-color: transparent;
   }
 
@@ -211,57 +210,57 @@
 
   &.compact {
     .item-iconContainer-icon {
-      stroke: $color-error;
+      stroke: color-error;
     }
   }
 }
 
-&.correct-conflict {
+.item.correct-conflict {
   .item-iconContainer {
-    border-color: rgba($color-success, 0.4);
+    border-color: rgba(color-success, 0.4);
   }
 
   .item-iconContainer-icon {
-    stroke: $color-success;
+    stroke: color-success;
   }
 }
 
-&.uncorrect-conflict {
+.item.uncorrect-conflict {
   .item-iconContainer {
-    border-color: rgba($color-error, 0.2);
+    border-color: rgba(color-error, 0.2);
   }
 
   .item-iconContainer-icon {
-    stroke: $color-error;
+    stroke: color-error;
   }
 }
 
-&.conflict-on-corrected {
+.item.conflict-on-corrected {
   .item-iconContainer {
-    border-color: lighten($color-error, 35%);
+    border-color: lighten(color-error, 35%);
   }
 
   .item-iconContainer-icon {
-    stroke: $color-error;
+    stroke: color-error;
   }
 }
 
-&.conflict-on-proposed {
+.item.conflict-on-proposed {
   .item-iconContainer {
-    border-color: lighten($color-warning, 25%);
+    border-color: lighten(color-warning, 25%);
   }
 
   .item-iconContainer-icon {
-    stroke: $color-warning;
+    stroke: color-warning;
   }
 }
 
-&.rollbacked {
+.item.rollbacked {
   .item-stats,
   .item-translationText,
   .item-actions,
   .item-header {
-    opacity: 0.4;
+    opacity: 0.6;
     font-size: 12px;
   }
 
@@ -272,13 +271,13 @@
 
   .item-iconContainer {
     background: #fff;
-    border-color: rgba($color-grey, 0.4);
+    border-color: rgba(color-grey, 0.4);
   }
 
   .item-iconContainer-icon {
     width: 11px;
     height: 11px;
-    stroke: rgba($color-grey, 0.5);
+    stroke: rgba(color-grey, 0.5);
   }
 
   &.rollback,
@@ -286,7 +285,7 @@
   &.new-slave,
   &.uncorrect-all,
   &.correct-all {
-    border-color: $color-border;
+    border-color: color-border;
 
     .item-iconContainer {
       left: -19px;
@@ -295,7 +294,11 @@
   }
 
   &.sync {
-    border-color: rgba($color-green, 0.1);
+    border-color: rgba(color-green, 0.1);
+
+    &:before {
+      display: none;
+    }
 
     .item-iconContainer {
       left: -19px;
@@ -304,7 +307,7 @@
   }
 }
 
-&.rollback.compact {
+.item.rollback.compact {
   .item-iconContainer {
     top: -2px;
     left: -17px;
@@ -316,8 +319,8 @@
   }
 }
 
-&.rollbacked.compact,
-&.compact {
+.item.rollbacked.compact,
+.item.compact {
   width: 100%;
   margin: 12px 0 2px;
   border-color: transparent;
@@ -395,6 +398,10 @@
     width: 15px;
     height: 15px;
   }
+
+  .item-details-link {
+    color: rgba(color-black, 0.4);
+  }
 }
 
 .item-wrapper {
@@ -406,7 +413,7 @@
   display: inline-flex;
   align-items: baseline;
   font-size: 12px;
-  font-family: $font-monospace;
+  font-family: font-monospace;
   color: #aaa;
 }
 
@@ -421,7 +428,7 @@
   height: 21px;
   margin-right: 10px;
   border-radius: 50%;
-  border: 1px solid $color-grey;
+  border: 1px solid color-grey;
   box-shadow: 0 0 0 5px #fff;
   background: #fff;
 }
@@ -430,7 +437,7 @@
   width: 11px;
   height: 11px;
   flex: 0 0 11px;
-  stroke: $color-grey;
+  stroke: color-grey;
 }
 
 .item-content {
@@ -438,7 +445,7 @@
   font-size: 13px;
 }
 
-&.compact {
+.item.compact {
   .item-header {
     flex-direction: column;
   }
@@ -498,7 +505,7 @@
   margin-left: 2px;
   width: 14px;
   height: 14px;
-  color: #565656;
+  color: rgba(color-black, 0.6);
 }
 
 .item-translationFromOperationText,
@@ -506,7 +513,7 @@
 .item-translationText {
   margin: 5px 0 10px;
   padding: 8px;
-  background: $color-light-background;
+  background: color-light-background;
   font-size: 12px;
   font-style: italic;
 }
@@ -536,7 +543,7 @@
 
 .item-documentPath {
   display: inline-block;
-  color: $color-black;
+  color: color-black;
   color: var(--color-black);
   font-weight: bold;
   font-size: 12px;
@@ -555,12 +562,12 @@
   text-decoration: none;
   font-size: 12px;
   font-weight: bold;
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: color;
 
   &:hover,
   &:focus {
-    color: $color-green;
+    color: color-green;
     color: var(--color-primary);
   }
 
@@ -579,7 +586,7 @@
 .item-revisionLink {
   display: inline-block;
   text-decoration: none;
-  color: $color-green;
+  color: color-green;
   color: var(--color-primary);
 
   &:hover,
@@ -596,7 +603,7 @@
 }
 
 .item-date {
-  color: $color-grey;
+  color: rgba(#000, 0.3);
   font-size: 11px;
 }
 
@@ -606,18 +613,18 @@
 }
 
 .item-rollback {
-  transition: $transition-speed $transition-easing;
+  transition: transition-speed transition-easing;
   transition-property: opacity, color;
   opacity: 0;
   background: none;
   padding: 0;
   margin: 0 0 0 5px;
-  color: $color-grey;
+  color: color-grey;
   font-size: 11px;
 
   &:focus,
   &:hover {
-    color: darken($color-grey, 25%);
+    color: darken(color-grey, 25%);
     text-decoration: underline;
   }
 }
@@ -649,21 +656,21 @@
   margin-left: 5px;
   border-left: 1px solid #ddd;
   text-decoration: none;
-  color: $color-grey;
+  color: color-grey;
   font-size: 11px;
   font-weight: 500;
 
   &:focus,
   &:hover {
     text-decoration: underline;
-    color: $color-green;
+    color: color-green;
     color: var(--color-primary);
   }
 }
 
 .item-content-rollbacked {
   margin-bottom: 6px;
-  color: $color-error;
+  color: color-error;
   font-size: 12px;
   font-weight: 500;
 }

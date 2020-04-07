@@ -1,65 +1,69 @@
-<div class="list-item-header">
-  <LinkTo
-    @route="logged-in.project.edit.manage-languages.edit"
-    @models={{array project.id revision.id}}
-    class="list-item-header-edit"
-  >
-    {{inline-svg "assets/pencil.svg" class="item-edit-icon"}}
-  </LinkTo>
+<div local-class="list-item {{if @master "list-item--master"}} {{if this.isPromoting "list-item--promoting"}} {{if this.isDeleting "list-item--deleting"}} {{if this.deleted "list-item--deleted"}}">
+  <div local-class="list-item-header">
+    <LinkTo
+      @route="logged-in.project.edit.manage-languages.edit"
+      @models={{array @project.id @revision.id}}
+      local-class="list-item-header-edit"
+    >
+      {{inline-svg "assets/pencil.svg" local-class="item-edit-icon"}}
+    </LinkTo>
 
-  <LinkTo
-    @route="logged-in.project.revision.translations"
-    @models={{array project.id revision.id}}
-    class="list-link"
-  >
-    {{this.name}}
-    <small class="list-link-small">
-      {{this.slug}}
-    </small>
-  </LinkTo>
+    <LinkTo
+      @route="logged-in.project.revision.translations"
+      @models={{array @project.id @revision.id}}
+      local-class="list-link"
+    >
+      {{this.name}}
+      <small local-class="list-link-small">
+        {{this.slug}}
+      </small>
+    </LinkTo>
 
-  {{#if revision.isMaster}}
-    <AccBadge class="masterBadge">
-      {{t "components.project_manage_languages_overview.master_badge"}}
-    </AccBadge>
-  {{/if}}
-</div>
+    {{#if @revision.isMaster}}
+      <AccBadge local-class="masterBadge">
+        {{t "components.project_manage_languages_overview.master_badge"}}
+      </AccBadge>
+    {{/if}}
+  </div>
 
-<div class="list-item-infos">
-  {{#unless revision.isMaster}}
-    <div class="list-item-infos-date">
-      {{t
-        "components.project_manage_languages_overview.revision_inserted_at_label"
-      }}
-      <TimeAgoInWordsTag @date={{revision.insertedAt}} />
-    </div>
+  <div local-class="list-item-infos">
+    {{#unless @revision.isMaster}}
+      <div local-class="list-item-infos-date">
+        {{t
+          "components.project_manage_languages_overview.revision_inserted_at_label"
+        }}
+        <TimeAgoInWordsTag @date={{@revision.insertedAt}} />
+      </div>
 
-    <div class="list-item-actions">
-      {{#if (get permissions "promote_slave")}}
-        <AsyncButton
-          @loading={{isPromoting}}
-          class="button--grey button--small promoteSlaveButton"
-          @onClick={{action "promoteRevision"}}
-        >
-          {{inline-svg "/assets/chevron-top.svg" class="button-icon"}}
-          {{t
-            "components.project_manage_languages_overview.promote_revision_master_button"
-          }}
-        </AsyncButton>
-      {{/if}}
+      <div local-class="list-item-actions">
+        {{#if (get @permissions "promote_slave")}}
+          <AsyncButton
+            @loading={{this.isPromoting}}
+            local-class="promoteSlaveButton"
+            class="button--grey button--small"
+            @onClick={{fn this.promoteRevision}}
+          >
+            {{inline-svg "/assets/chevron-top.svg" class="button-icon"}}
+            {{t
+              "components.project_manage_languages_overview.promote_revision_master_button"
+            }}
+          </AsyncButton>
+        {{/if}}
 
-      {{#if (get permissions "delete_slave")}}
-        <AsyncButton
-          @loading={{isDeleting}}
-          class="button--red button--filled button--small"
-          @onClick={{action "deleteRevision"}}
-        >
-          {{inline-svg "/assets/x.svg" class="button-icon"}}
-          {{t
-            "components.project_manage_languages_overview.delete_revision_button"
-          }}
-        </AsyncButton>
-      {{/if}}
-    </div>
-  {{/unless}}
+        {{#if (get @permissions "delete_slave")}}
+          <AsyncButton
+            @loading={{this.isDeleting}}
+            class="button--red button--filled button--small"
+            local-class="deleteSlaveButton"
+            @onClick={{fn this.deleteRevision}}
+          >
+            {{inline-svg "/assets/x.svg" class="button-icon"}}
+            {{t
+              "components.project_manage_languages_overview.delete_revision_button"
+            }}
+          </AsyncButton>
+        {{/if}}
+      </div>
+    {{/unless}}
+  </div>
 </div>

@@ -1,12 +1,13 @@
 <PowerSelect
-  @options={{options}}
-  @matchTriggerWidth={{matchTriggerWidth}}
-  @searchEnabled={{searchEnabled}}
-  @selected={{selected}}
-  @search={{search}}
-  @placeholder={{placeholder}}
-  @searchPlaceholder={{searchPlaceholder}}
-  @onChange={{onchange}} as |option|
+  @options={{@options}}
+  @matchTriggerWidth={{@matchTriggerWidth}}
+  @searchEnabled={{@searchEnabled}}
+  @selected={{@selected}}
+  @search={{@search}}
+  @placeholder={{@placeholder}}
+  @searchPlaceholder={{@searchPlaceholder}}
+  @renderInPlace={{@renderInPlace}}
+  @onChange={{@onchange}} as |option|
 >
   {{option.label}}
 </PowerSelect>

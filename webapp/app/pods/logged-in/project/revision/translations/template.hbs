@@ -1,39 +1,40 @@
 <TranslationsFilter
-  @query={{query}}
-  @document={{document}}
-  @documents={{model.documents}}
-  @version={{version}}
-  @versions={{model.project.versions.entries}}
-  @withAdvancedFilters={{withAdvancedFilters}}
-  @isTextEmptyFilter={{isTextEmpty}}
-  @isTextNotEmptyFilter={{isTextNotEmpty}}
-  @isAddedLastSyncFilter={{isAddedLastSync}}
-  @isCommentedOnFilter={{isCommentedOn}}
-  @onChangeQuery={{action "changeQuery"}}
-  @onChangeAdvancedFilterBoolean={{action "changeAdvancedFilterBoolean"}}
-  @onChangeDocument={{action "changeDocument"}}
-  @onChangeVersion={{action "changeVersion"}}
-  @meta={{model.translations.meta}}
+  @query={{this.query}}
+  @document={{this.document}}
+  @documents={{this.model.documents}}
+  @version={{this.version}}
+  @versions={{this.model.project.versions.entries}}
+  @withAdvancedFilters={{this.withAdvancedFilters}}
+  @isTextEmptyFilter={{this.isTextEmpty}}
+  @isTextNotEmptyFilter={{this.isTextNotEmpty}}
+  @isAddedLastSyncFilter={{this.isAddedLastSync}}
+  @isCommentedOnFilter={{this.isCommentedOn}}
+  @onChangeQuery={{fn this.changeQuery}}
+  @onChangeAdvancedFilterBoolean={{fn this.changeAdvancedFilterBoolean}}
+  @onChangeDocument={{fn this.changeDocument}}
+  @onChangeVersion={{fn this.changeVersion}}
+  @meta={{this.model.translations.meta}}
 />
-{{#if model.loading}}
+
+{{#if this.model.loading}}
   <SkeletonUi::ProgressLine />
 {{/if}}
 
-{{#if showSkeleton}}
+{{#if this.showSkeleton}}
   <SkeletonUi::TranslationsList />
-{{else if showLoading}}
+{{else if this.showLoading}}
   <LoadingContent @label={{t "pods.project.translations.loading_content"}} />
 {{else}}
   <TranslationsList
-    @project={{model.project}}
-    @revisionId={{model.revisionId}}
-    @translations={{model.translations.entries}}
-    @withAdvancedFilters={{withAdvancedFilters}}
-    @query={{query}}
-    @onUpdateText={{action "updateText"}}
+    @project={{this.model.project}}
+    @revisionId={{this.model.revisionId}}
+    @translations={{this.model.translations.entries}}
+    @withAdvancedFilters={{this.withAdvancedFilters}}
+    @query={{this.query}}
+    @onUpdateText={{fn this.updateText}}
   />
   <ResourcePagination
-    @meta={{model.translations.meta}}
-    @onSelectPage={{action "selectPage"}}
+    @meta={{this.model.translations.meta}}
+    @onSelectPage={{fn this.selectPage}}
   />
 {{/if}}

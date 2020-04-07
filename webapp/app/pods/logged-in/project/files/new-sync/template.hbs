@@ -1,6 +1,6 @@
-<AccModal @onClose={{action "closeModal"}}>
+<AccModal @onClose={{fn this.closeModal}}>
   <ProjectFileOperation>
-    <button class="closeButton" {{action "closeModal"}}>
+    <button class="closeButton" {{on "click" (fn this.closeModal)}}>
       <div class="closeButton-content">
         {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
       </div>
@@ -16,22 +16,22 @@
     <div class="sections">
       <div class="sections-file">
         <CommitFile
-          @permissions={{permissions}}
-          @revisions={{revisions}}
-          @documents={{documents}}
+          @permissions={{this.permissions}}
+          @revisions={{this.revisions}}
+          @documents={{this.documents}}
           @canCommit={{true}}
           @commitAction="sync"
           @peekAction="peek_sync"
           @commitButtonText={{t "components.commit_file.sync_button"}}
-          @onFileCancel={{action "cancelFile"}}
-          @onPeek={{action "peek"}}
-          @onCommit={{action "sync"}}
+          @onFileCancel={{fn this.cancelFile}}
+          @onPeek={{fn this.peek}}
+          @onCommit={{fn this.sync}}
         />
       </div>
 
-      {{#if revisionOperations.length}}
+      {{#if this.revisionOperations.length}}
         <div class="sections-preview">
-          <OperationsPeek @revisionOperations={{revisionOperations}} />
+          <OperationsPeek @revisionOperations={{this.revisionOperations}} />
         </div>
       {{/if}}
     </div>

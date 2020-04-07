@@ -1,58 +1,60 @@
-<div class="overview">
-  <ProjectSettings::ManageLanguages::Overview
-    @permissions={{permissions}}
-    @project={{project}}
-    @revisions={{revisions}}
-    @onPromoteMaster={{onPromoteMaster}}
-    @onDelete={{onDelete}}
-  />
+<div local-class="project-settings-manage-languages">
+  <div local-class="overview">
+    <ProjectSettings::ManageLanguages::Overview
+      @permissions={{@permissions}}
+      @project={{@project}}
+      @revisions={{@revisions}}
+      @onPromoteMaster={{@onPromoteMaster}}
+      @onDelete={{@onDelete}}
+    />
 
-  {{#if (get permissions "create_slave")}}
-    <div class="createSlaveForm">
-      {{#if errors}}
-        <div class="error">
-          {{#each errors as |error|}}
-            <li>
-              {{error}}
-            </li>
-          {{/each}}
-        </div>
-      {{/if}}
-      <ProjectSettings::ManageLanguages::CreateForm
-        @permissions={{permissions}}
-        @project={{project}}
-        @languages={{languages}}
-        @onCreate={{onCreate}}
-      />
-    </div>
-  {{/if}}
-</div>
+    {{#if (get @permissions "create_slave")}}
+      <div local-class="createSlaveForm">
+        {{#if @errors}}
+          <div local-class="error">
+            {{#each @errors as |error|}}
+              <li>
+                {{error}}
+              </li>
+            {{/each}}
+          </div>
+        {{/if}}
+        <ProjectSettings::ManageLanguages::CreateForm
+          @permissions={{@permissions}}
+          @project={{@project}}
+          @languages={{@languages}}
+          @onCreate={{@onCreate}}
+        />
+      </div>
+    {{/if}}
+  </div>
 
-<div class="help">
-  <h2 class="titleText">
-    {{inline-svg "/assets/sync.svg" class="button-icon"}}
-    {{t "components.project_manage_languages.sync_explain_title"}}
-  </h2>
+  <div local-class="help">
+    <h2 local-class="titleText">
+      {{inline-svg "/assets/sync.svg" class="button-icon"}}
+      {{t "components.project_manage_languages.sync_explain_title"}}
+    </h2>
 
-  <p class="explainText">
-    {{t "components.project_manage_languages.sync_explain_text"}}
-  </p>
+    <p local-class="explainText">
+      {{t "components.project_manage_languages.sync_explain_text"}}
+    </p>
 
-  <h2 class="titleText">
-    {{inline-svg "/assets/merge.svg" class="button-icon"}}
-    {{t "components.project_manage_languages.add_translations_explain_title"}}
-  </h2>
+    <h2 local-class="titleText">
+      {{inline-svg "/assets/merge.svg" class="button-icon"}}
+      {{t "components.project_manage_languages.add_translations_explain_title"}}
+    </h2>
 
-  <p class="explainText">
-    {{t "components.project_manage_languages.add_translations_explain_text"}}
-  </p>
+    <p local-class="explainText">
+      {{t "components.project_manage_languages.add_translations_explain_text"}}
+    </p>
 
-  <h2 class="titleText">
-    {{inline-svg "/assets/check.svg" class="button-icon"}}
-    {{t "components.project_manage_languages.conflicts_explain_title"}}
-  </h2>
+    <h2 local-class="titleText">
+      {{inline-svg "/assets/check.svg" class="button-icon"}}
+      {{t "components.project_manage_languages.conflicts_explain_title"}}
+    </h2>
 
-  <p class="explainText">
-    {{t "components.project_manage_languages.conflicts_explain_text"}}
-  </p>
+    <p local-class="explainText">
+      {{t "components.project_manage_languages.conflicts_explain_text"}}
+    </p>
+  </div>
 </div>

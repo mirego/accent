@@ -1,12 +1,12 @@
-{{#if model.loading}}
+{{#if this.model.loading}}
   <LoadingContent @label={{t "pods.project.activities.show.loading_content"}} />
 {{else}}
   <ProjectActivity
-    @permissions={{permissions}}
+    @permissions={{this.permissions}}
     @showTranslationLink={{true}}
     @componentTranslationPrefix="project_activities_list_item"
-    @project={{model.project}}
-    @activity={{model.activity}}
-    @onRollback={{action "rollback"}}
+    @project={{this.model.project}}
+    @activity={{this.model.activity}}
+    @onRollback={{fn this.rollback}}
   />
 {{/if}}

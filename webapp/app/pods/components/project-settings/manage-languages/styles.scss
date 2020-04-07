@@ -1,6 +1,17 @@
-& {
+@value color-black, color-light-background, color-grey, color-error from 'accent-webapp/styles/variables/colors';
+@value screen-md from 'accent-webapp/styles/variables/dimensions';
+
+.project-settings-manage-languages {
   display: flex;
   margin-top: 25px;
+
+  :global(.ember-power-select-trigger) {
+    min-height: 31px;
+    max-width: 400px;
+    margin-bottom: 20px;
+    background: color-light-background;
+    border: 1px solid #eee;
+  }
 }
 
 .overview {
@@ -17,7 +28,7 @@
   margin: 15px 0 5px;
   font-weight: 600;
   font-size: 13px;
-  color: $color-black;
+  color: color-black;
 
   &:first-of-type {
     margin-top: 0;
@@ -28,16 +39,16 @@
   display: block;
   max-width: 700px;
   font-size: 12px;
-  color: rgba($color-black, 0.8);
+  color: rgba(color-black, 0.8);
 }
 
 .emptyLanguages {
   font-size: 14px;
   padding: 10px;
-  background: $color-light-background;
+  background: color-light-background;
   border: 1px solid #eee;
   border-radius: 3px;
-  color: $color-grey;
+  color: color-grey;
 }
 
 .createSlaveForm {
@@ -48,19 +59,11 @@
   margin-bottom: 10px;
   font-size: 12px;
   font-weight: bold;
-  color: $color-error;
+  color: color-error;
 }
 
-.ember-power-select-trigger {
-  min-height: 31px;
-  max-width: 400px;
-  margin-bottom: 20px;
-  background: $color-light-background;
-  border: 1px solid #eee;
-}
-
-@media (max-width: ($screen-md)) {
-  & {
+@media (max-width: (screen-md)) {
+  .project-settings-manage-languages {
     flex-direction: column;
   }
 

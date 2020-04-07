@@ -1,72 +1,74 @@
-<h2 class="heroTitle">
-  <div class="heroTitle-title">
-    {{t "components.welcome_project.welcome"}}
+<div local-class="welcome-project">
+  <h2 local-class="heroTitle">
+    <div local-class="heroTitle-title">
+      {{t "components.welcome_project.welcome"}}
+    </div>
+
+    <div local-class="heroTitle-text">
+      {{t "components.welcome_project.welcome_translations"}}
+    </div>
+  </h2>
+
+  <h3 local-class="subtitle">
+    {{t "components.welcome_project.first_step"}}:
+  </h3>
+
+  <div local-class="links">
+    <LinkTo
+      @route="logged-in.project.files.new-sync"
+      @model={{@project.id}}
+      local-class="link"
+    >
+      {{inline-svg "assets/sync.svg" local-class="link-icon"}}
+
+      <span local-class="link-title">
+        {{t "components.welcome_project.sync_file"}}
+        <span local-class="link-subtitle">
+          {{t "components.welcome_project.sync_file_text"}}
+        </span>
+      </span>
+    </LinkTo>
+
+    <LinkTo
+      @route="logged-in.project.edit.manage-languages"
+      @model={{@project.id}}
+      local-class="link"
+    >
+      {{inline-svg "assets/language.svg" local-class="link-icon"}}
+      <span local-class="link-title">
+        {{t "components.welcome_project.manage_languages"}}
+        <span local-class="link-subtitle">
+          {{t "components.welcome_project.manage_languages_text"}}
+        </span>
+      </span>
+    </LinkTo>
+
+    <LinkTo
+      @route="logged-in.project.edit.collaborators"
+      @model={{@project.id}}
+      local-class="link"
+    >
+      {{inline-svg "assets/users.svg" local-class="link-icon"}}
+      <span local-class="link-title">
+        {{t "components.welcome_project.add_collaborator"}}
+        <span local-class="link-subtitle">
+          {{t "components.welcome_project.add_collaborator_text"}}
+        </span>
+      </span>
+    </LinkTo>
+
+    <LinkTo
+      @route="logged-in.project.edit.api-token"
+      @model={{@project.id}}
+      local-class="link"
+    >
+      {{inline-svg "assets/bot.svg" local-class="link-icon"}}
+      <span local-class="link-title">
+        {{t "components.welcome_project.api_token"}}
+        <span local-class="link-subtitle">
+          {{t "components.welcome_project.api_token_text"}}
+        </span>
+      </span>
+    </LinkTo>
   </div>
-
-  <div class="heroTitle-text">
-    {{t "components.welcome_project.welcome_translations"}}
-  </div>
-</h2>
-
-<h3 class="subtitle">
-  {{t "components.welcome_project.first_step"}}:
-</h3>
-
-<div class="links">
-  <LinkTo
-    @route="logged-in.project.files.new-sync"
-    @model={{project.id}}
-    class="link"
-  >
-    {{inline-svg "assets/sync.svg" class="link-icon"}}
-
-    <span class="link-title">
-      {{t "components.welcome_project.sync_file"}}
-      <span class="link-subtitle">
-        {{t "components.welcome_project.sync_file_text"}}
-      </span>
-    </span>
-  </LinkTo>
-
-  <LinkTo
-    @route="logged-in.project.edit.manage-languages"
-    @model={{project.id}}
-    class="link"
-  >
-    {{inline-svg "assets/language.svg" class="link-icon"}}
-    <span class="link-title">
-      {{t "components.welcome_project.manage_languages"}}
-      <span class="link-subtitle">
-        {{t "components.welcome_project.manage_languages_text"}}
-      </span>
-    </span>
-  </LinkTo>
-
-  <LinkTo
-    @route="logged-in.project.edit.collaborators"
-    @model={{project.id}}
-    class="link"
-  >
-    {{inline-svg "assets/users.svg" class="link-icon"}}
-    <span class="link-title">
-      {{t "components.welcome_project.add_collaborator"}}
-      <span class="link-subtitle">
-        {{t "components.welcome_project.add_collaborator_text"}}
-      </span>
-    </span>
-  </LinkTo>
-
-  <LinkTo
-    @route="logged-in.project.edit.api-token"
-    @model={{project.id}}
-    class="link"
-  >
-    {{inline-svg "assets/bot.svg" class="link-icon"}}
-    <span class="link-title">
-      {{t "components.welcome_project.api_token"}}
-      <span class="link-subtitle">
-        {{t "components.welcome_project.api_token_text"}}
-      </span>
-    </span>
-  </LinkTo>
 </div>

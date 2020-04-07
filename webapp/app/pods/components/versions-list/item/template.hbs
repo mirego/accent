@@ -1,48 +1,52 @@
-<div>
-  <h2 class="item-title">
-    {{#if (get permissions "update_version")}}
+<li local-class="item">
+  <div>
+    <h2 local-class="item-title">
+      {{#if (get @permissions "update_version")}}
+        <LinkTo
+          @route="logged-in.project.versions.edit"
+          @models={{array @project.id @version.id}}
+          local-class="item-title-link"
+        >
+          {{@version.name}}
+        </LinkTo>
+      {{else}}
+        {{@version.name}}
+      {{/if}}
+
+      <span local-class="item-tag">
+        {{inline-svg "/assets/tag.svg" local-class="item-tag-icon"}}
+        {{@version.tag}}
+      </span>
+    </h2>
+    <div local-class="item-meta">
+      {{@version.user.fullname}}
+      <span local-class="item-meta-date">
+        <TimeAgoInWordsTag @date={{@version.insertedAt}} />
+      </span>
+    </div>
+  </div>
+
+  <div local-class="links">
+    {{#if (get @permissions "update_version")}}
       <LinkTo
         @route="logged-in.project.versions.edit"
-        @models={{array project.id version.id}}
-        class="item-title-link"
+        @models={{array @project.id @version.id}}
+        class="button button--filled button--white"
       >
-        {{version.name}}
+        {{inline-svg "/assets/pencil.svg" class="button-icon"}}
+        {{t "components.versions_list.update"}}
       </LinkTo>
-    {{else}}
-      {{version.name}}
     {{/if}}
 
-    <span class="item-tag">
-      {{inline-svg "/assets/tag.svg" class="item-tag-icon"}}
-      {{version.tag}}
-    </span>
-  </h2>
-  <div class="item-meta">
-    {{version.user.fullname}}
-    <TimeAgoInWordsTag @date={{version.insertedAt}} class="item-meta-date" />
+    {{#if (get @permissions "export_version")}}
+      <LinkTo
+        @route="logged-in.project.versions.export"
+        @models={{array @project.id @version.id}}
+        class="button button--filled button--white"
+      >
+        {{inline-svg "/assets/export.svg" class="button-icon"}}
+        {{t "components.versions_list.export"}}
+      </LinkTo>
+    {{/if}}
   </div>
-</div>
-
-<div class="links">
-  {{#if (get permissions "update_version")}}
-    <LinkTo
-      @route="logged-in.project.versions.edit"
-      @models={{array project.id version.id}}
-      class="button button--filled button--white"
-    >
-      {{inline-svg "/assets/pencil.svg" class="button-icon"}}
-      {{t "components.versions_list.update"}}
-    </LinkTo>
-  {{/if}}
-
-  {{#if (get permissions "export_version")}}
-    <LinkTo
-      @route="logged-in.project.versions.export"
-      @models={{array project.id version.id}}
-      class="button button--filled button--white"
-    >
-      {{inline-svg "/assets/export.svg" class="button-icon"}}
-      {{t "components.versions_list.export"}}
-    </LinkTo>
-  {{/if}}
-</div>
+</li>

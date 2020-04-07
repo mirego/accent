@@ -1,9 +1,11 @@
-{{#each translations key="id" as |translation|}}
-  <LinkTo
-    @route="logged-in.jipt.translation"
-    @model={{translation.id}}
-    class="item"
-  >
-    <JiptTranslationsList::Item @translation={{translation}} />
-  </LinkTo>
-{{/each}}
+<div local-class="jipt-translations-list">
+  {{#each @translations key="id" as |translation|}}
+    <LinkTo
+      @route="logged-in.jipt.translation"
+      @model={{translation.id}}
+      local-class="item"
+    >
+      <JiptTranslationsList::Item @translation={{translation}} />
+    </LinkTo>
+  {{/each}}
+</div>

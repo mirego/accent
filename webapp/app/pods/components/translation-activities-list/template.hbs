@@ -1,9 +1,11 @@
-{{#each activities key="id" as |activity|}}
-  <ActivityItem
-    @project={{project}}
-    @permissions={{permissions}}
-    @showTranslationLink={{false}}
-    @componentTranslationPrefix="translation_activities_list_item"
-    @activity={{activity}}
-  />
-{{/each}}
+<ul local-class="translations-activities-list">
+  {{#each @activities key="id" as |activity|}}
+    <ActivityItem
+      @project={{@project}}
+      @permissions={{@permissions}}
+      @showTranslationLink={{false}}
+      @componentTranslationPrefix="translation_activities_list_item"
+      @activity={{activity}}
+    />
+  {{/each}}
+</ul>
