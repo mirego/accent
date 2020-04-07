@@ -82,7 +82,7 @@ defmodule Accent.Mixfile do
       {:ueberauth_google, "~> 0.6"},
       {:ueberauth_github, "~> 0.7"},
       {:ueberauth_slack, github: "ueberauth/ueberauth_slack", ref: "525594c870f959ab"},
-      {:ueberauth_discord, "~> 0.4.0"},
+      {:ueberauth_discord, "~> 0.5"},
 
       # Errors
       {:sentry, "~> 7.0"},
@@ -92,7 +92,7 @@ defmodule Accent.Mixfile do
       {:bamboo_smtp, "~> 2.0"},
 
       # Events handling
-      {:gen_stage, "~> 0.11"},
+      {:gen_stage, "~> 1.0"},
 
       # Mock testing
       {:mox, "~> 0.3", only: :test},
