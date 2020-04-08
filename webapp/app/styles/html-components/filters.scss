@@ -1,13 +1,13 @@
-:global(.filters) {
+.filters {
   padding: 15px;
   border-radius: 3px;
   background: $color-light-background;
 
-  :global(&.filters--white) {
+  &.filters--white {
     background: #fff;
   }
 
-  :global(.ember-power-select-trigger) {
+  .ember-power-select-trigger {
     padding: 5px 10px;
     background: #fff;
     box-shadow: none;
@@ -17,44 +17,44 @@
     color: var(--color-black-opacity-70);
 
     &:focus,
-    :global(&.ember-power-select-trigger--active) {
+    &.ember-power-select-trigger--active {
       background: $color-light-background;
       border: 1px solid rgba($color-black, 0.1);
     }
   }
 }
 
-:global(.filters-wrapper) {
+.filters-wrapper {
   position: relative;
 }
 
-:global(.queryForm-filters) {
+.queryForm-filters {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 6px;
 }
 
-:global(.queryForm-filters-column) {
+.queryForm-filters-column {
   display: flex;
   flex-grow: 1;
 }
 
-:global(.queryForm-filter) {
+.queryForm-filter {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 2px;
   margin-right: 15px;
 }
 
-:global(.queryForm-filter-label) {
+.queryForm-filter-label {
   margin-right: 10px;
   color: $color-grey;
   font-size: 12px;
   font-style: italic;
 }
 
-:global(.queryForm-filter-select) {
+.queryForm-filter-select {
   font-size: 13px;
   min-width: 130px;
 }

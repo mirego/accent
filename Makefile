@@ -100,6 +100,7 @@ lint-template-hbs:
 .PHONY: type-check
 type-check: ## Type-check typescript files
 	cd webapp && npx tsc
+	cd jipt && npx tsc
 
 .PHONY: test
 test: ## Run the test suite

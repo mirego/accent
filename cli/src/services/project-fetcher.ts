@@ -18,7 +18,7 @@ export default class ProjectFetcher {
     return data.data && data.data.viewer.project;
   }
 
-  private async graphql(config: Config) {
+  private graphql(config: Config) {
     const query = `query ProjectDetails($project_id: ID!) {
       viewer {
         project(id: $project_id) {

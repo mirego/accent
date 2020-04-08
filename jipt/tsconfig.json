@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
+    "allowJs": false,
     "lib": ["dom", "es2015"],
+    "noEmit": true,
     "downlevelIteration": true
   }
 }

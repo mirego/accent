@@ -13,7 +13,7 @@ export interface Config {
 
 const state = new State({
   nodes: new WeakMap(),
-  projectTranslations: {},
+  projectTranslations: new Map(),
   refs: new Map(),
 });
 

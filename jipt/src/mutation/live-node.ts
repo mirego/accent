@@ -23,7 +23,7 @@ export default class LiveNode {
     return !!this.state.nodes.get(node);
   }
 
-  matchAttributes(node: Element) {
+  matchAttributes(node: HTMLElement) {
     Array.from(node.attributes).forEach((attribute) => {
       const translation = this.findTranslationByValue(attribute.value);
       if (!translation || !translation.text) return;
@@ -61,15 +61,17 @@ export default class LiveNode {
     if (newContent === node.nodeValue) return;
 
     parentNode.innerHTML = this.replaceValue(parentNode.innerHTML, newContent);
-    const newNode = parentNode.getElementsByClassName(ACCENT_CLASS)[0];
+    const newNode = parentNode.getElementsByClassName(
+      ACCENT_CLASS
+    )[0] as HTMLElement;
     Mutation.nodeStyleRefresh(newNode, translation);
 
     this.state.addReference(newNode, translation);
   }
 
-  evaluate(node: Element) {
+  evaluate(node: HTMLElement) {
     node.childNodes &&
-      node.childNodes.forEach((node: Element) => {
+      node.childNodes.forEach((node: HTMLElement) => {
         this.evaluate(node);
         if (node.attributes) this.matchAttributes(node);
       });
@@ -87,7 +89,7 @@ export default class LiveNode {
     return value.match(ACCENT_REGEX);
   }
 
-  private findTranslationByValue(value) {
+  private findTranslationByValue(value: string) {
     if (!value) return;
 
     const match = this.valueMatch(value);

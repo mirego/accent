@@ -38,16 +38,8 @@
   }
 }
 
-.modalList {
-  display: none;
-}
-
 @media (max-width: ($screen-sm)) {
   .acc-modal__wrapper {
     padding: 30px 10px;
-  }
-
-  .modalList {
-    display: block;
   }
 }
