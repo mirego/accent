@@ -15,7 +15,7 @@
     <input
       value={{this.email}}
       local-class="textInput"
-      {{on "change" (fn this.setEmail)}}
+      {{on "keyup" (fn this.setEmail)}}
     >
 
     <button class="button button--filled button--green" local-class="dummyLoginButton">

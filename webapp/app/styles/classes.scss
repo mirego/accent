@@ -1,50 +1,16 @@
-%centeredWrapper {
-  margin: 0 auto;
-  max-width: $screen-lg;
-}
-
-%translationKeyBase {
-  color: $color-black;
-  color: var(--color-black);
-  font-family: $font-monospace;
-  word-break: break-all;
-}
-
-%translationTextBase {
-  white-space: pre-wrap;
-  color: $color-grey;
-}
-
-%errorControl {
-  label {
-    color: $color-error;
-  }
-
-  input {
-    border-color: $color-error;
-  }
-}
-
 %textInput {
-  transition: $transition-speed $transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: border, box-shadow;
   resize: vertical;
   outline: 0;
   border-radius: 4px;
-  border: 2px solid lighten($color-grey, 20%);
-  background: #fff;
-  font-family: $font-monospace;
+  border: 2px solid var(--input-border-color);
+  background: var(--input-background);
+  color: var(--input-color);
+  font-family: var(--font-monospace);
   line-height: 1.4;
 
   &:focus {
-    border: 2px solid rgba($color-green, 0.7);
-    border-color: var(--color-primary-opacity-70);
-  }
-}
-
-@media (max-width: ($screen-lg + 40px)) {
-  %centeredWrapper {
-    padding-left: 20px;
-    padding-right: 20px;
+    border: 2px solid var(--color-primary);
   }
 }

@@ -1,25 +1,21 @@
-@value color-error, color-warning, color-success, color-black, color-green from 'accent-webapp/styles/variables/colors';
-@value font-monospace from 'accent-webapp/styles/variables/fonts';
-@value screen-md from 'accent-webapp/styles/variables/dimensions';
-
 .dashboard-revisions.low-percentage {
   .numberStat-reviewCompleted,
   .numberStat-reviewPercentage {
-    color: color-error;
+    color: var(--color-error);
   }
 }
 
 .dashboard-revisions.medium-percentage {
   .numberStat-reviewCompleted,
   .numberStat-reviewPercentage {
-    color: color-warning;
+    color: var(--color-warning);
   }
 }
 
 .dashboard-revisions.high-percentage {
   .numberStat-reviewCompleted,
   .numberStat-reviewPercentage {
-    color: color-success;
+    color: var(--color-success);
   }
 }
 
@@ -64,7 +60,7 @@
 .numberStat-totalKeys {
   display: block;
   font-size: 20px;
-  font-family: font-monospace;
+  font-family: var(--font-monospace);
   color: #ccc;
 }
 
@@ -82,7 +78,7 @@
 
 .numberStat-reviewCompleted-successIcon {
   display: block;
-  stroke: rgba(color-success, 0.8);
+  stroke: var(--color-success);
   width: 52px;
   height: 52px;
   margin-bottom: 10px;
@@ -102,8 +98,6 @@
   padding-bottom: 5px;
   font-size: 14px;
   font-weight: bold;
-  color: color-black;
-  color: var(--color-black);
 }
 
 .slaves {
@@ -117,10 +111,9 @@
   width: 100%;
   max-width: 340px;
   padding: 15px;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(#000, 0.09);
+  background: var(--body-background);
+  box-shadow: 0 2px 6px var(--shadow-color);
   border-radius: 2px;
-  color: color-green;
   color: var(--color-primary);
   text-decoration: none;
   transition: box-shadow 0.2s ease-in-out;
@@ -142,7 +135,6 @@
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  fill: color-green;
   fill: var(--color-primary);
 }
 
@@ -150,7 +142,6 @@
   display: block;
   margin-top: 10px;
   font-size: 11px;
-  color: rgba(darken(color-green, 20%), 0.5);
   color: var(--color-black);
 }
 
@@ -181,7 +172,6 @@
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 300;
-  color: #666;
 }
 
 .activities-title-icon {
@@ -197,7 +187,7 @@
   text-align: center !important;
 }
 
-@media (max-width: (screen-md)) {
+@media (max-width: var(--screen-md)) {
   .dashboard-revisions > .content {
     width: 100%;
     margin-right: 0;

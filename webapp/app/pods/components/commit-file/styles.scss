@@ -1,49 +1,39 @@
-@value color-grey, color-green, color-black, color-error from 'accent-webapp/styles/variables/colors';
-@value font-monospace from 'accent-webapp/styles/variables/fonts';
-
 .commit-file {
   :global(.textInput) {
     @extend %textInput;
     margin-bottom: 8px;
     padding: 5px;
     outline: 0;
-    border: 1px solid lighten(color-grey, 20%);
-    box-shadow: inset 0 2px 6px rgba(color-black, 0.05);
     background: #fff;
-    font-family: font-monospace;
+    font-family: var(--font-monospace);
     font-size: 12px;
   }
 
   :global(.ember-power-select-trigger) {
     padding: 6px 10px;
-    border: 1px solid rgba(color-black, 0.1);
-    color: rgba(color-black, 0.8);
+    border: 1px solid var(--background-light-highlight);
+    background: var(--background-light);
     color: var(--color-black-opacity-70);
-    background: #fafafa;
   }
 }
 
 .textHelper {
   margin-bottom: 3px;
   width: 80%;
-  color: color-grey;
+  color: var(--color-grey);
   font-size: 12px;
 }
 
 .documentHelper {
   display: inline-block;
   margin-bottom: 7px;
-  padding: 2px 4px 3px;
+  padding: 2px 0 3px;
   border-radius: 4px;
-  background: lighten(color-green, 48%);
-  background: var(--color-primary-opacity-10);
-  color: color-green;
   color: var(--color-primary);
   font-size: 11px;
 
   &.documentHelper--new {
-    background: lighten(color-green, 48%);
-    color: color-green;
+    color: var(--color-green);
   }
 }
 
@@ -89,7 +79,7 @@
   width: 15px;
   height: 15px;
   margin-right: 10px;
-  stroke: color-black;
+  stroke: var(--color-black);
   stroke: var(--color-black);
 }
 
@@ -97,7 +87,7 @@
   display: flex;
   align-items: center;
   margin: 0 0 6px;
-  color: color-black;
+  color: var(--color-black);
   color: var(--color-black);
 }
 
@@ -106,7 +96,6 @@
   margin: 0 0 10px;
   font-size: 14px;
   font-weight: 300;
-  color: rgba(color-black, 0.7);
   color: var(--color-black-opacity-70);
 }
 
@@ -139,7 +128,7 @@
   margin-bottom: 5px;
   font-size: 13px;
   font-weight: bold;
-  color: color-black;
+  color: var(--color-black);
   color: var(--color-black);
 }
 
@@ -147,13 +136,11 @@
 .instructions-text {
   margin-bottom: 18px;
   font-size: 13px;
-  color: rgba(color-black, 0.5);
   color: var(--color-black);
 
   em {
     font-style: normal;
     font-weight: bold;
-    color: rgba(color-green, 0.8);
     color: var(--color-primary);
   }
 }
@@ -174,7 +161,7 @@
 
 .errorMessage {
   margin: 10px 0;
-  color: color-error;
+  color: var(--color-error);
   font-size: 13px;
   font-weight: bold;
 }
@@ -183,6 +170,6 @@
   @extend %textInput;
   padding: 6px 10px;
   font-size: 12px;
-  font-family: font-monospace;
+  font-family: var(--font-monospace);
   color: #444;
 }

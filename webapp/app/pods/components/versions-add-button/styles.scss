@@ -1,24 +1,18 @@
-@value color-green, color-black from 'accent-webapp/styles/variables/colors';
-
 .button {
   display: inline-flex;
   align-items: center;
   padding: 15px 20px;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(#000, 0.09);
+  box-shadow: 0 2px 4px var(--shadow-color);
   border-radius: 3px;
-  color: color-green;
   color: var(--color-primary);
   font-weight: normal;
   font-size: 18px;
 
   &:focus,
   &:hover {
-    background: darken(#fff, 4%);
     background: var(--color-primary-opacity-10);
-    border-color: darken(#fff, 4%);
     border-color: var(--color-primary-opacity-10);
-    color: color-black;
     color: var(--color-black);
   }
 }
@@ -27,6 +21,5 @@
   margin-right: 5px;
   width: 25px;
   height: 25px;
-  fill: color-green;
   fill: var(--color-primary);
 }

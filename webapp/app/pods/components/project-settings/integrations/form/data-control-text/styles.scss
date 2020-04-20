@@ -1,5 +1,3 @@
-@value font-monospace, font-primary from 'accent-webapp/styles/variables/fonts';
-
 .data-control {
   margin-bottom: 15px;
 }
@@ -25,7 +23,13 @@
 }
 
 .error-control {
-  @extend %errorControl;
+  label {
+    color: var(--color-error);
+  }
+
+  input {
+    border-color: var(--color-error);
+  }
 }
 
 .textInput {
@@ -36,12 +40,12 @@
   margin-right: 10px;
   max-width: 350px;
   width: 100%;
-  font-family: font-primary;
+  font-family: var(--font-primary);
   font-size: 11px;
 
   &[readonly] {
     max-width: 500px;
-    font-family: font-monospace;
+    font-family: var(--font-monospace);
     background: #fafafa;
   }
 }

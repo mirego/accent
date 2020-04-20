@@ -1,5 +1,3 @@
-@value color-green from 'accent-webapp/styles/variables/colors';
-
 .project-comments-list {
   margin-top: 25px;
 }
@@ -7,7 +5,7 @@
 .item {
   margin-bottom: 30px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--background-light-highlight);
 
   &:nth-child(2) {
     opacity: 0.6;
@@ -22,14 +20,13 @@
   height: 3px;
   width: 80px;
   margin-bottom: 10px;
-  background: #eee;
+  background: var(--background-light-highlight);
 }
 
 .item-key {
   height: 5px;
   width: 180px;
   margin-bottom: 15px;
-  background: rgba(color-green, 0.3);
   background: var(--color-primary-opacity-70);
 }
 

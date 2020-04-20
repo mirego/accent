@@ -1,6 +1,5 @@
 import {inject as service} from '@ember/service';
 import {action} from '@ember/object';
-import {not} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import IntlService from 'ember-intl/services/intl';
 import GlobalState from 'accent-webapp/services/global-state';
@@ -11,6 +10,8 @@ interface Args {
   onCancel: () => void;
   onCreate: ({email, role}: {email: string; role: string}) => Promise<void>;
 }
+
+const invalidEmail = (email: string) => !email.match(/@/);
 
 export default class CreateForm extends Component<Args> {
   @service('intl')
@@ -28,8 +29,8 @@ export default class CreateForm extends Component<Args> {
   @tracked
   role = this.possibleRoles[0];
 
-  @not('email')
-  emptyEmail: boolean;
+  @tracked
+  invalidEmail = invalidEmail(this.email);
 
   get possibleRoles() {
     return this.globalState.roles.map(({slug}: {slug: string}) => slug);
@@ -49,6 +50,11 @@ export default class CreateForm extends Component<Args> {
   @action
   setRole({value}: {value: string}) {
     this.role = value;
+  }
+
+  @action
+  emailChanged(event: any) {
+    this.invalidEmail = invalidEmail(event.currentTarget.value);
   }
 
   @action

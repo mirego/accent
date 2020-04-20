@@ -5,7 +5,7 @@
 .item {
   padding: 0 0 15px 0;
   margin-bottom: 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--background-light);
 
   &:nth-child(2) {
     opacity: 0.6;
@@ -20,14 +20,14 @@
   height: 4px;
   width: 140px;
   margin-bottom: 25px;
-  background: #ddd;
+  background: var(--background-light);
 }
 
 .item-text {
   height: 3px;
   width: 340px;
   margin-bottom: 6px;
-  background: #eee;
+  background: var(--background-light);
 
   &:last-child {
     margin-bottom: 0;

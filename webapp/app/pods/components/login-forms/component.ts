@@ -46,7 +46,8 @@ export default class LoginForms extends Component<Args> {
   }
 
   @action
-  setUsername(username: string) {
-    this.username = username;
+  setUsername(event: any) {
+    if (event.keyCode == 13) window.location.href = this.dummyUrl;
+    this.username = event.currentTarget.value;
   }
 }

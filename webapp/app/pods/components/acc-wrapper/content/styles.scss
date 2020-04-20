@@ -1,0 +1,20 @@
+.content {
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 0 20px 0 30px;
+  margin-top: 40px;
+}
+
+@media (max-width: 800px) {
+  .content {
+    margin-top: 5px;
+    padding-left: 5px;
+  }
+}
+
+@media (max-width: var(--screen-sm)) {
+  .content {
+    margin-top: 0;
+    padding: 0 10px;
+  }
+}

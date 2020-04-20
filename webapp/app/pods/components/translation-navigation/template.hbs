@@ -1,17 +1,17 @@
-<div class="subNavigation subNavigation--alt">
-  <ul class="subNavigation-list">
+<div local-class="navigation navigation--alt">
+  <ul local-class="navigation-list">
     {{#if (get @permissions "show_project")}}
-      <li class="subNavigation-list-item">
+      <li local-class="navigation-list-item">
         <LinkTo
           @route="logged-in.project.translation.index"
           @models={{array @project.id @translation.id}}
-          class="subNavigation-list-item-link"
+          local-class="navigation-list-item-link"
         >
           {{inline-svg
             "assets/pencil.svg"
-            class="subNavigation-list-item-link-icon"
+            local-class="navigation-list-item-link-icon"
           }}
-          <span class="subNavigation-list-item-link-text">
+          <span local-class="navigation-list-item-link-text">
             {{t "components.translation_navigation.edit_link_title"}}
           </span>
         </LinkTo>
@@ -19,17 +19,17 @@
     {{/if}}
 
     {{#if (get @permissions "index_related_translations")}}
-      <li class="subNavigation-list-item">
+      <li local-class="navigation-list-item">
         <LinkTo
           @route="logged-in.project.translation.related-translations"
           @models={{array @project.id @translation.id}}
-          class="subNavigation-list-item-link"
+          local-class="navigation-list-item-link"
         >
           {{inline-svg
             "assets/language.svg"
-            class="subNavigation-list-item-link-icon"
+            local-class="navigation-list-item-link-icon"
           }}
-          <span class="subNavigation-list-item-link-text">
+          <span local-class="navigation-list-item-link-text">
             {{t
               "components.translation_navigation.related_translations_link_title"
             }}
@@ -39,17 +39,17 @@
     {{/if}}
 
     {{#if (get @permissions "index_comments")}}
-      <li class="subNavigation-list-item">
+      <li local-class="navigation-list-item">
         <LinkTo
           @route="logged-in.project.translation.comments"
           @models={{array @project.id @translation.id}}
-          class="subNavigation-list-item-link"
+          local-class="navigation-list-item-link"
         >
           {{inline-svg
             "assets/bubble.svg"
-            class="subNavigation-list-item-link-icon"
+            local-class="navigation-list-item-link-icon"
           }}
-          <span class="subNavigation-list-item-link-text">
+          <span local-class="navigation-list-item-link-text">
             {{#if @translation.commentsCount}}
               {{t
                 "components.translation_navigation.comments_link_title"
@@ -67,17 +67,17 @@
     {{/if}}
 
     {{#if (get @permissions "index_translation_activities")}}
-      <li class="subNavigation-list-item">
+      <li local-class="navigation-list-item">
         <LinkTo
           @route="logged-in.project.translation.activities"
           @models={{array @project.id @translation.id}}
-          class="subNavigation-list-item-link"
+          local-class="navigation-list-item-link"
         >
           {{inline-svg
             "assets/activity.svg"
-            class="subNavigation-list-item-link-icon"
+            local-class="navigation-list-item-link-icon"
           }}
-          <span class="subNavigation-list-item-link-text">
+          <span local-class="navigation-list-item-link-text">
             {{t "components.translation_navigation.activities_link_title"}}
           </span>
         </LinkTo>

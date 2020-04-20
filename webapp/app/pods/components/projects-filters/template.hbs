@@ -3,7 +3,7 @@
     <div local-class="queryFilter">
       {{inline-svg "/assets/search.svg" local-class="search-icon"}}
       <input
-        {{on "change" this.setDebouncedQuery}}
+        {{on "keyup" this.setDebouncedQuery}}
         local-class="input"
         type="text"
         placeholder={{t "components.projects_filters.input_placeholder_text"}}

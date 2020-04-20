@@ -1,12 +1,10 @@
-@value color-green, color-socket, color-error from 'accent-webapp/styles/variables/colors';
-
 .flash {
   position: relative;
   margin-bottom: 10px;
   width: 400px;
   background: #fff;
   border-radius: 3px;
-  box-shadow: 0 1px 12px rgba(#000, 0.1);
+  box-shadow: 0 1px 12px var(--shadow-color);
   text-shadow: 0 1px 1px rgba(#000, 0.1);
   color: #fff;
   font-weight: bold;
@@ -21,26 +19,29 @@
 }
 
 .flash.success {
-  background: color-green;
+  background: var(--color-green);
 
   .icon {
-    stroke: lighten(color-green, 35%);
+    opacity: 0.7;
+    stroke: var(--color-green);
   }
 }
 
 .flash.socket {
-  background: color-socket;
+  background: var(--color-socket);
 
   .icon {
-    stroke: lighten(color-socket, 35%);
+    opacity: 0.7;
+    stroke: var(--color-socket);
   }
 }
 
 .flash.error {
-  background: color-error;
+  background: var(--color-error);
 
   .icon {
-    stroke: lighten(color-error, 35%);
+    opacity: 0.7;
+    stroke: var(--color-error);
   }
 }
 

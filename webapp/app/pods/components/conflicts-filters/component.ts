@@ -46,6 +46,8 @@ export default class ConflictsFilters extends Component<Args> {
   }
 
   get mappedDocuments() {
+    if (!this.args.documents) return [];
+
     const documents = this.args.documents.map(
       ({id, path}: {id: string; path: string}) => ({
         label: path,

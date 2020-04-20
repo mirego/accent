@@ -21,7 +21,7 @@
     </label>
     <input
       value={{this.name}}
-      {{on "change" (fn this.setName)}}
+      {{on "keyup" (fn this.setName)}}
       local-class="textInput"
     >
   </div>
@@ -32,7 +32,7 @@
     </label>
     <input
       value={{this.tag}}
-      {{on "change" (fn this.setTag)}}
+      {{on "keyup" (fn this.setTag)}}
       local-class="textInput"
     >
   </div>

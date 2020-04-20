@@ -1,12 +1,10 @@
-@value color-error, color-success from 'accent-webapp/styles/variables/colors';
-
 .translation-edit-lint-message {
   display: flex;
   align-items: center;
   padding: 2px 8px;
   margin-bottom: 5px;
-  background: #fff;
-  border-left: 2px solid lighten(color-error, 10%);
+  background: var(--body-background);
+  border-left: 2px solid var(--color-grey);
   font-size: 12px;
 
   :global(.ember-power-select-trigger) {
@@ -33,20 +31,24 @@
 }
 
 .description {
-  color: lighten(color-error, 10%);
+  color: var(--text-color-normal);
 }
 
 .text {
   padding: 0 4px;
   margin-left: 5px;
-  color: color-error;
-  background: lighten(color-error, 38%);
+  background: hsl(
+    var(--color-error-hue),
+    var(--color-error-saturation),
+    var(--color-highlight-lighteness)
+  );
+  color: var(--color-error);
   font-weight: bold;
 }
 
 .arrow {
   margin-left: 5px;
-  color: #aaa;
+  color: var(--color-grey);
 }
 
 .replaceButton {
@@ -56,8 +58,12 @@
 .single-replacement {
   margin-left: 4px;
   padding: 0 4px;
-  background: lighten(color-success, 38%);
-  color: color-success;
+  background: hsl(
+    var(--color-green-hue),
+    var(--color-green-saturation),
+    var(--color-highlight-lighteness)
+  );
+  color: var(--color-green);
   font-size: 12px;
   font-weight: bold;
 }

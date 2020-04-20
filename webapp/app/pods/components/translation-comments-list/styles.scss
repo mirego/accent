@@ -1,11 +1,8 @@
-@value color-black, color-border, color-light-background, color-grey from 'accent-webapp/styles/variables/colors';
-@value screen-lg from 'accent-webapp/styles/variables/dimensions';
-
 .translation-comments-list {
   position: relative;
-  box-shadow: 0 1px 5px rgba(color-black, 0.04);
+  box-shadow: 0 1px 5px var(--shadow-color);
   border-radius: 3px;
-  border: 1px solid color-border;
+  border: 1px solid var(--background-light-highlight);
 }
 
 .translation-comments-list.translationRemoved {
@@ -27,11 +24,11 @@
 
 .itemComment {
   padding: 8px 10px 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--background-light-highlight);
 
   &:focus,
   &:hover {
-    background: color-light-background;
+    background: var(--background-light);
   }
 
   &:last-of-type {
@@ -60,7 +57,7 @@
 }
 
 .itemComment-date {
-  color: darken(color-grey, 15%);
+  color: var(--color-grey);
   font-size: 11px;
 }
 
@@ -69,7 +66,7 @@
   font-size: 13px;
 }
 
-@media (max-width: (screen-lg + 40px)) {
+@media (max-width: var(--screen-lg)) {
   .translation-comments-list {
     border-color: transparent;
     box-shadow: none;

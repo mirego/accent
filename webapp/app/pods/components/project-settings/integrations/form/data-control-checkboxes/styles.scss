@@ -1,5 +1,19 @@
 .data-control {
   margin-bottom: 15px;
+
+  :global(.checkbox-with-label) {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+    border: 1px solid var(--background-light-highlight);
+    padding: 3px 6px;
+    border-radius: 3px;
+    background: var(--background-light);
+
+    input {
+      margin-right: 5px;
+    }
+  }
 }
 
 .data-title {
@@ -7,18 +21,4 @@
   margin-bottom: 5px;
   font-size: 13px;
   font-weight: bold;
-}
-
-:global(.checkbox-with-label) {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 10px;
-  border: 1px solid #eee;
-  padding: 3px 6px;
-  border-radius: 3px;
-  background: #f7f7f7;
-
-  input {
-    margin-right: 5px;
-  }
 }

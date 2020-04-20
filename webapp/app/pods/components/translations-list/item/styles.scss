@@ -1,8 +1,5 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-light-background, color-error, color-green, color-grey from 'accent-webapp/styles/variables/colors';
-
 .translations-list-item {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: background, transform;
   display: block;
   margin: 8px 0;
@@ -12,7 +9,7 @@
 
   &:focus,
   &:hover {
-    background: color-light-background;
+    background: var(--background-light);
 
     .item-edit {
       transform: translateX(-50px);
@@ -21,7 +18,7 @@
   }
 
   &.item--editMode {
-    background: color-light-background;
+    background: var(--background-light);
     transform: scale(1.02);
 
     .item-edit {
@@ -32,7 +29,7 @@
     .item-edit-icon {
       &:focus,
       &:hover {
-        stroke: color-error;
+        stroke: var(--color-error);
       }
     }
   }
@@ -44,8 +41,7 @@
   &:focus,
   &:hover {
     .item-key {
-      color: color-green;
-      color: var(--color-primary);
+      color: var(--color-primary-opacity-50);
     }
   }
 }
@@ -73,13 +69,13 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
-  stroke: color-grey;
-  transition: transition-speed transition-easing;
+  stroke: var(--color-grey);
+  transition: 0.2s ease-in-out;
   transition-property: stroke;
 
   &:focus,
   &:hover {
-    stroke: color-green;
+    stroke: var(--color-green);
     stroke: var(--color-primary);
   }
 }
@@ -93,11 +89,13 @@
 
 .item-key {
   display: block;
-  @extend %translationKeyBase;
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: color;
   margin-right: 15px;
+  color: var(--color-primary);
   line-height: 1.5;
+  word-break: break-all;
+  font-family: var(--font-monospace);
   font-size: 12px;
   font-weight: bold;
 }
@@ -107,12 +105,12 @@
   width: 100%;
   font-size: 13px;
   color: #b4b4b4;
-  background: #fff;
-  border: 1px solid #eee;
+  background: var(--background-light);
+  border: 1px solid var(--input-border-color);
   border-radius: 3px;
   padding: 6px 10px;
   cursor: text;
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: border-color, color;
 
   &.item-text--empty {
@@ -123,14 +121,13 @@
 
   &:hover,
   &:focus {
-    border-color: darken(#eee, 5%);
-    color: darken(#b4b4b4, 10%);
+    border-color: var(--background-light-highlight);
   }
 }
 
 .item-updatedAt {
   margin-left: 5px;
-  color: color-grey;
+  color: var(--color-grey);
   font-size: 11px;
 }
 
@@ -141,7 +138,7 @@
 
 .item-textEdit-cancel {
   margin-right: 20px;
-  color: color-grey;
+  color: var(--color-grey);
   font-size: 12px;
   cursor: pointer;
 }

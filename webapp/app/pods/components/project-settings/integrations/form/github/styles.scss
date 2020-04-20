@@ -1,7 +1,5 @@
-@value font-monospace from 'accent-webapp/styles/variables/fonts';
-
 .instructions {
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--background-light-highlight);
   padding-top: 10px;
   margin: 20px 0 10px;
 }
@@ -12,7 +10,7 @@
   color: #555;
 
   a {
-    font-family: font-monospace;
+    font-family: var(--font-monospace);
     color: var(--color-primary);
     text-decoration: none;
 
@@ -57,6 +55,6 @@
   background: #fafafa;
   max-width: 500px;
   width: 100%;
-  font-family: font-monospace;
+  font-family: var(--font-monospace);
   font-size: 11px;
 }

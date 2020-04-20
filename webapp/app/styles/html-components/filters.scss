@@ -1,25 +1,27 @@
 .filters {
   padding: 15px;
-  border-radius: 3px;
-  background: $color-light-background;
+  border-radius: 0 0 3px 3px;
+  background: var(--background-light);
+  border: 1px solid var(--background-light-highlight);
+  margin-top: -2px;
 
   &.filters--white {
-    background: #fff;
+    border-left: 0;
+    border-right: 0;
   }
 
   .ember-power-select-trigger {
     padding: 5px 10px;
-    background: #fff;
+    background: var(--body-background);
     box-shadow: none;
     border: 1px solid transparent;
-    border-color: rgba($color-black, 0.1);
-    color: rgba($color-black, 0.8);
+    border-color: var(--background-light-highlight);
     color: var(--color-black-opacity-70);
 
     &:focus,
     &.ember-power-select-trigger--active {
-      background: $color-light-background;
-      border: 1px solid rgba($color-black, 0.1);
+      background: var(--background-light);
+      border: 1px solid var(--background-light-highlight);
     }
   }
 }
@@ -49,7 +51,7 @@
 
 .queryForm-filter-label {
   margin-right: 10px;
-  color: $color-grey;
+  color: var(--color-grey);
   font-size: 12px;
   font-style: italic;
 }

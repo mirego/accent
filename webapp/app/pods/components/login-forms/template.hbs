@@ -4,7 +4,7 @@
       <input
         value={{this.username}}
         local-class="input"
-        {{on "change" (fn this.setUsername)}}
+        {{on "keyup" (fn this.setUsername)}}
       >
       <a
         href={{this.dummyUrl}}

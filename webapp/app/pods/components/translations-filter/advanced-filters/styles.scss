@@ -6,16 +6,22 @@
 
 .title {
   text-transform: uppercase;
-  color: #333;
+  color: var(--text-color-normal);
   font-size: 11px;
   font-weight: bold;
 }
 
 .label {
+  display: flex;
+  align-items: center;
   width: 50%;
   margin-top: 10px;
-  color: #666;
+  color: var(--color-grey);
   font-size: 12px;
+
+  input {
+    margin-right: 4px;
+  }
 }
 
 .labels {

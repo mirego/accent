@@ -6,7 +6,7 @@
   position: absolute;
   min-width: 160px;
   z-index: 4000;
-  background-color: #fff;
+  background: var(--body-background);
 }
 
 .ember-basic-dropdown-content--left {
@@ -60,7 +60,6 @@
     font-weight: bold;
     font-size: 11px;
     font-style: normal;
-    color: $color-green;
     color: var(--color-primary);
   }
 }
@@ -93,7 +92,7 @@
   border-left: $ember-power-select-dropdown-left-border;
   border-right: $ember-power-select-dropdown-right-border;
   border-radius: $ember-power-select-dropdown-default-border-radius;
-  box-shadow: 0 2px 5px rgba($color-black, 0.2);
+  box-shadow: 0 2px 5px var(--shadow-color);
   border-color: #ddd;
   overflow: hidden;
   color: $ember-power-select-text-color;
@@ -122,12 +121,11 @@
 .ember-power-select-option {
   cursor: pointer;
   padding: 6px 10px;
-  color: #333;
+  color: var(--color-black);
 
   em {
     font-size: 11px;
     font-style: normal;
-    color: rgba($color-black, 0.7);
     color: var(--color-black-opacity-70);
   }
 }
@@ -146,16 +144,11 @@
 
 .ember-power-select-option[aria-selected='true'] {
   background-color: #fff;
-  color: $color-green;
   color: var(--color-primary);
 }
 
 .ember-power-select-option[aria-current='true'] {
-  background-color: darken($color-light-background, 6%);
-
-  em {
-    color: rgba(#000, 0.4);
-  }
+  background-color: var(--background-light);
 }
 
 // Disabled styles
@@ -168,8 +161,10 @@
   width: 100%;
   padding: 10px;
   font-size: 14px;
+  background: var(--input-background);
+  color: var(--input-color);
 
   &:focus {
-    outline-color: $color-green;
+    outline-color: var(--color-primary);
   }
 }

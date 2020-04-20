@@ -1,48 +1,44 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-error, color-warning, color-success, color-black, color-light-background, color-grey from 'accent-webapp/styles/variables/colors';
-@value font-monospace from 'accent-webapp/styles/variables/fonts';
-
 .projects-list-item.low-percentage {
   .language-reviewedPercentage {
-    color: color-error;
+    color: var(--color-error);
   }
 
   .progress {
-    color: color-error;
+    color: var(--color-error);
   }
 }
 
 .projects-list-item.medium-percentage {
   .language-reviewedPercentage {
-    color: color-warning;
+    color: var(--color-warning);
   }
 
   .progress {
-    color: color-warning;
+    color: var(--color-warning);
   }
 }
 
 .projects-list-item.high-percentage {
   .language-reviewedPercentage {
-    color: color-success;
+    color: var(--color-success);
   }
 
   .progress {
-    color: color-success;
+    color: var(--color-success);
   }
 }
 
 .projects-list-item {
   padding: 12px 15px;
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: background;
   border-radius: 3px;
-  box-shadow: 0 2px 4px rgba(color-black, 0.15);
-  color: color-black;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  color: var(--color-black);
 
   &:focus,
   &:hover {
-    background: color-light-background;
+    background: var(--background-light);
 
     .projectName {
       color: var(--color-primary);
@@ -57,7 +53,7 @@
 }
 
 .projectName {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: color;
   font-weight: 600;
   font-size: 18px;
@@ -78,7 +74,8 @@
 
 .projectUpdates {
   display: block;
-  color: color-grey;
+  opacity: 0.6;
+  color: var(--color-black);
   font-style: italic;
   font-size: 11px;
 }
@@ -95,10 +92,8 @@
 }
 
 .numberStat-totals {
-  padding: 2px 7px 1px;
-  border-radius: 3px;
-  background: lighten(color-grey, 25%);
-  color: color-grey;
+  padding: 2px 0 1px 7px;
+  color: var(--color-black);
   font-size: 12px;
-  font-family: font-monospace;
+  font-family: var(--font-monospace);
 }

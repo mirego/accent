@@ -1,5 +1,3 @@
-@value color-green, color-black, color-light-background from 'accent-webapp/styles/variables/colors';
-
 .activities-list {
   margin-top: 20px;
 }
@@ -9,7 +7,7 @@
   padding-bottom: 30px;
   padding-left: 38px;
   margin-bottom: 30px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--background-light-highlight);
 
   &:nth-child(2) {
     opacity: 0.6;
@@ -23,7 +21,6 @@
     }
 
     .item-icon {
-      background: rgba(color-green, 0.3);
       background: var(--color-primary-opacity-70);
     }
   }
@@ -44,7 +41,7 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #eee;
+  background: var(--background-light-highlight);
 }
 
 .item-header {
@@ -55,7 +52,6 @@
   display: inline-block;
   height: 3px;
   width: 100px;
-  background: rgba(color-green, 0.5);
   background: var(--color-primary-opacity-70);
 }
 
@@ -64,7 +60,7 @@
   height: 4px;
   width: 90px;
   margin-right: 10px;
-  background: rgba(color-black, 0.2);
+  background: var(--background-light);
 }
 
 .item-text {
@@ -72,11 +68,11 @@
   height: 3px;
   width: 120px;
   margin-right: 10px;
-  background: rgba(color-black, 0.07);
+  background: var(--background-light);
 }
 
 .item-content {
   width: 100%;
   height: 30px;
-  background: color-light-background;
+  background: var(--background-light);
 }

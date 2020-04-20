@@ -1,5 +1,3 @@
-@value screen-sm from 'accent-webapp/styles/variables/dimensions';
-
 .google-login-form {
   max-width: 500px;
   margin: 0 auto 30px;
@@ -26,7 +24,7 @@
   }
 }
 
-@media (max-width: (screen-sm)) {
+@media (max-width: var(--screen-sm)) {
   .google-login-form {
     margin-top: 30px;
   }

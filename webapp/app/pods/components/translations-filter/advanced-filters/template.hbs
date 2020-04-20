@@ -6,7 +6,7 @@
   </span>
 
   <div local-class="labels">
-    <label local-class="label" class="label">
+    <label local-class="label">
       <input
         type="checkbox"
         checked={{@isTextEmptyFilter}}
@@ -19,39 +19,39 @@
       </span>
     </label>
 
-    <label local-class="label" class="label">
+    <label local-class="label">
       <input
         type="checkbox"
         checked={{@isTextNotEmptyFilter}}
         {{on "change" (fn @onChangeAdvancedFilterBoolean "isTextNotEmpty")}}
       >
-      <span class="label-text">
+      <span>
         {{t
           "components.translations_filter.advanced_filters.not_empty"
         }}
       </span>
     </label>
 
-    <label local-class="label" class="label">
+    <label local-class="label">
       <input
         type="checkbox"
         checked={{@isAddedLastSyncFilter}}
         {{on "change" (fn @onChangeAdvancedFilterBoolean "isAddedLastSync")}}
       >
-      <span class="label-text">
+      <span>
         {{t
           "components.translations_filter.advanced_filters.added_last_sync"
         }}
       </span>
     </label>
 
-    <label local-class="label" class="label">
+    <label local-class="label">
       <input
         type="checkbox"
         checked={{@isCommentedOnFilter}}
         {{on "change" (fn @onChangeAdvancedFilterBoolean "isCommentedOn")}}
       >
-      <span class="label-text">
+      <span>
         {{t
           "components.translations_filter.advanced_filters.commented_on"
         }}

@@ -1,5 +1,3 @@
-@value color-light-background, color-green from 'accent-webapp/styles/variables/colors';
-
 .releases-list {
   margin-top: 25px;
 }
@@ -7,7 +5,7 @@
 .item {
   margin-bottom: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #fafafa;
+  border-bottom: 1px solid var(--background-light-highlight);
 
   &:nth-child(2) {
     opacity: 0.6;
@@ -22,25 +20,26 @@
   height: 3px;
   width: 160px;
   margin-bottom: 20px;
-  background: color-light-background;
+  background: var(--background-light);
 }
 
 .item-document {
   height: 4px;
   width: 230px;
   margin-bottom: 20px;
-  background: #eee;
+  background: var(--background-light-highlight);
 }
 
 .item-button {
   display: inline-block;
   height: 30px;
   width: 80px;
-  border: 1px solid #eee;
+  border: 1px solid var(--background-light-highlight);
   margin-right: 10px;
 }
 
 .item-button--green {
-  border-color: rgba(color-green, 0.3);
-  background: rgba(color-green, 0.1);
+  opacity: 0.2;
+  border-color: var(--color-green);
+  background: var(--color-green);
 }

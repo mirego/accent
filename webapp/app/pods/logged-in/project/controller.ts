@@ -42,11 +42,24 @@ export default class ProjectController extends Controller {
     const color = Color(this.mainColor || this.defaultColor);
 
     return `
+    --accent-hue: ${color.hue()};
+
     --color-primary: ${color.string()};
+    --color-primary-hue: ${color.hue()};
+    --color-primary-saturation: ${color.saturationv()}%;
     --color-primary-darken-10: ${color.darken(0.1).string()};
     --color-primary-opacity-10: ${color.fade(0.9).string()};
+    --color-primary-opacity-50: ${color.fade(0.5).string()};
     --color-primary-opacity-70: ${color.fade(0.3).string()};
     --color-black: ${color.darken(0.7).desaturate(0.3).string()};
+    `;
+  }
+
+  get darkColors() {
+    const color = Color(this.mainColor || this.defaultColor);
+
+    return `
+    --color-black: ${color.desaturate(0.9).lighten(0.6).string()};
     `;
   }
 }

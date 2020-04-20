@@ -20,7 +20,7 @@
       <input
         value={{this.name}}
         local-class="textInput"
-        {{on "change" (fn this.setName)}}
+        {{on "keyup" (fn this.setName)}}
       >
 
       <input

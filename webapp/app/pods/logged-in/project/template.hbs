@@ -1,13 +1,16 @@
 <div>
   <ProjectsHeader @session={{this.session}} @project={{this.project}} />
   <style>
-    body {
+    html body {
     {{{this.colors}}}
+    }
+    html[data-theme='dark'] body {
+    {{{this.darkColors}}}
     }
   </style>
 
-  <div class="wrapper">
-    <div class="wrapper-sidebar">
+  <AccWrapper>
+    <AccWrapper::Sidebar>
       {{#if this.model.loading}}
         <SkeletonUi::ProjectNavigation />
       {{else if this.showError}}
@@ -19,9 +22,9 @@
           @revisions={{this.revisions}}
         />
       {{/if}}
-    </div>
+    </AccWrapper::Sidebar>
 
-    <div class="wrapper-content">
+    <AccWrapper::Content>
       {{#unless this.model.loading}}
         <PhoenixChannelListener @project={{this.project}} />
       {{/unless}}
@@ -36,8 +39,8 @@
       {{else}}
         {{outlet}}
       {{/if}}
-    </div>
-  </div>
+    </AccWrapper::Content>
+  </AccWrapper>
 </div>
 
 <ApplicationFooter />

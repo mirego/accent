@@ -1,6 +1,3 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-green, color-grey, color-black, color-light-background from 'accent-webapp/styles/variables/colors';
-
 .welcome-project {
   width: 100%;
   margin: 0 30px;
@@ -17,13 +14,12 @@
   margin-bottom: 15px;
   line-height: 1;
   font-size: 48px;
-  color: color-green;
   color: var(--color-primary);
 }
 
 .heroTitle-text {
   font-size: 18px;
-  color: lighten(color-grey, 10%);
+  color: var(--color-grey);
 }
 
 .subtitle {
@@ -31,7 +27,6 @@
   margin: 20px 0 10px;
   font-weight: bold;
   font-size: 16px;
-  color: color-black;
   color: var(--color-black);
 }
 
@@ -55,24 +50,23 @@
   padding: 20px;
   margin-bottom: 10px;
   margin-right: 10px;
-  box-shadow: 0 2px 4px rgba(color-black, 0.15);
+  box-shadow: 0 2px 4px var(--shadow-color);
   border-radius: 4px;
-  color: color-green;
   color: var(--color-primary);
   text-decoration: none;
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: background;
 
   &:focus,
   &:hover {
-    background: color-light-background;
+    background: var(--background-light);
   }
 }
 
 .link-subtitle {
   display: block;
   font-size: 12px;
-  color: rgba(color-grey, 0.8);
+  color: var(--color-grey);
 }
 
 .link-icon {
@@ -84,6 +78,5 @@
 }
 
 .link-icon {
-  stroke: color-green;
   stroke: var(--color-primary);
 }

@@ -1,5 +1,3 @@
-@value color-grey from 'accent-webapp/styles/variables/colors';
-
 .loading-content {
   display: flex;
   position: relative;
@@ -20,7 +18,7 @@
 
   circle {
     fill: none;
-    stroke: color-grey;
+    stroke: var(--color-grey);
     stroke-width: 2;
     stroke-dasharray: 1, 200;
     stroke-dashoffset: 0;
@@ -30,7 +28,7 @@
 }
 
 .label {
-  color: color-grey;
+  color: var(--color-grey);
   font-size: 14px;
   font-style: italic;
 }

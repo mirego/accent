@@ -1,13 +1,10 @@
-@value color-light-background, color-error, color-green from 'accent-webapp/styles/variables/colors';
-@value screen-sm from 'accent-webapp/styles/variables/dimensions';
-
 .dummy-login-form {
   max-width: 500px;
   margin: 100px auto 30px;
   padding: 20px;
-  box-shadow: 0 3px 21px rgba(#000, 0.07);
-  border: 1px solid #eee;
-  background: color-light-background;
+  box-shadow: 0 3px 21px var(--shadow-color);
+  border: 1px solid var(--background-light-highlight);
+  background: var(--background-light);
   text-align: center;
 }
 
@@ -21,16 +18,15 @@
   display: inline-block;
   padding: 10px 15px;
   margin-bottom: 20px;
-  background: lighten(color-error, 40%);
   font-weight: bold;
   font-size: 12px;
-  color: color-error;
+  color: var(--color-error);
 }
 
 .subtitle {
   margin: 0 15px 25px;
   font-size: 13px;
-  color: #555;
+  color: var(--color-grey);
 }
 
 .form {
@@ -49,7 +45,7 @@
 
   &:focus {
     border-right: 0;
-    border-color: color-green;
+    border-color: var(--color-green);
   }
 }
 
@@ -58,7 +54,7 @@
   border-radius: 0 3px 3px 0 !important;
 }
 
-@media (max-width: (screen-sm)) {
+@media (max-width: var(--screen-sm)) {
   .dummy-login-form {
     margin-top: 30px;
   }

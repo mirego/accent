@@ -1,0 +1,19 @@
+.sidebar {
+  flex: 0 0 225px;
+  margin-top: 30px;
+}
+
+@media (max-width: 800px) {
+  .sidebar {
+    margin-top: 5px;
+    flex: 0 0 55px;
+  }
+}
+
+@media (max-width: var(--screen-sm)) {
+  .sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+    border: 0;
+  }
+}

@@ -1,4 +1,4 @@
-.acc-modal__wrapper {
+.wrapper {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -12,18 +12,18 @@
   padding: 130px 30px 100px;
 }
 
-.acc-modal__overlay {
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   min-height: calc(100vh - 130px);
-  background-color: rgba(#000, 0.6);
-  opacity: 1;
+  background-color: #000;
+  opacity: 0.6;
 }
 
-.acc-modal__container {
+.container {
   display: block;
   position: relative;
   z-index: 3;
@@ -31,15 +31,15 @@
   width: 100%;
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 2px 20px 0 rgba(#000, 0.1);
+  box-shadow: 0 2px 20px 0 var(--shadow-color);
 
-  &.acc-modal__container--small {
+  &.container--small {
     max-width: 500px;
   }
 }
 
-@media (max-width: ($screen-sm)) {
-  .acc-modal__wrapper {
+@media (max-width: var(--screen-sm)) {
+  .wrapper {
     padding: 30px 10px;
   }
 }

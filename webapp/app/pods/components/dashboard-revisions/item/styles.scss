@@ -1,10 +1,5 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-black, color-error, color-warning, color-success, color-grey, color-green from 'accent-webapp/styles/variables/colors';
-@value font-monospace from 'accent-webapp/styles/variables/fonts';
-@value screen-sm from 'accent-webapp/styles/variables/dimensions';
-
 .dashboard-revisions-item {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: border-color;
   position: relative;
   flex: 1 1 calc(50% - 10px);
@@ -14,7 +9,7 @@
   margin-right: 10px;
   padding: 8px 15px 12px;
   border-radius: 3px;
-  box-shadow: 0 2px 4px rgba(color-black, 0.15);
+  box-shadow: 0 2px 4px var(--shadow-color);
 
   &:nth-child(even) {
     flex: 1 1 50%;
@@ -33,31 +28,31 @@
 
 .dashboard-revisions-item.low-percentage {
   .language-reviewedPercentage {
-    color: color-error;
+    color: var(--color-error);
   }
 
   .progress {
-    color: color-error;
+    color: var(--color-error);
   }
 }
 
 .dashboard-revisions-item.medium-percentage {
   .language-reviewedPercentage {
-    color: color-warning;
+    color: var(--color-warning);
   }
 
   .progress {
-    color: color-warning;
+    color: var(--color-warning);
   }
 }
 
 .dashboard-revisions-item.high-percentage {
   .language-reviewedPercentage {
-    color: color-success;
+    color: var(--color-success);
   }
 
   .progress {
-    color: color-success;
+    color: var(--color-success);
   }
 }
 
@@ -75,19 +70,18 @@
   align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 6px;
-  color: color-grey;
+  color: var(--color-grey);
 }
 
 .language-name {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: color;
-  color: darken(color-grey, 10%);
   font-size: 12px;
   text-decoration: none;
+  color: var(--color-black);
 
   &:focus,
   &:hover {
-    color: color-green;
     color: var(--color-primary);
   }
 }
@@ -97,20 +91,19 @@
   margin-top: 5px;
   font-weight: normal;
   font-size: 25px;
-  color: lighten(color-grey, 10%);
+  color: var(--color-grey);
 }
 
 .reviewedStats {
-  padding: 2px 7px 1px;
+  padding: 2px 0 1px 7px;
   border-radius: 3px;
-  background: lighten(color-grey, 25%);
-  color: color-grey;
+  color: var(--color-grey);
   font-size: 12px;
-  font-family: font-monospace;
+  font-family: var(--font-monospace);
 }
 
 .actionsButton {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: opacity;
   position: absolute;
   right: 7px;
@@ -120,22 +113,21 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  background: #fff;
+  background: var(--body-background);
   opacity: 0;
   cursor: pointer;
 
   &:focus,
   &:hover {
     .actionsButton-icon {
-      stroke: color-green;
       stroke: var(--color-primary);
     }
   }
 }
 
 .actionsButton-icon {
-  stroke: color-grey;
-  transition: transition-speed transition-easing;
+  stroke: var(--color-grey);
+  transition: 0.2s ease-in-out;
   transition-property: stroke;
   width: 15px;
   height: 15px;
@@ -148,14 +140,14 @@
 .actionItem-text {
   margin-bottom: 7px;
   font-size: 12px;
-  color: color-grey;
+  color: var(--color-grey);
 }
 
 .actionItem-button {
   margin-top: 10px;
 }
 
-@media (max-width: (screen-sm)) {
+@media (max-width: var(--screen-sm)) {
   .language-reviewedPercentage {
     font-size: 18px;
   }

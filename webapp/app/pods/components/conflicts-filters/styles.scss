@@ -1,14 +1,3 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-black, color-grey from 'accent-webapp/styles/variables/colors';
-@value font-primary from 'accent-webapp/styles/variables/fonts';
-@value screen-sm from 'accent-webapp/styles/variables/dimensions';
-
-.subNavigation + .conflicts-filter {
-  position: relative;
-  top: -1px;
-  z-index: 8;
-}
-
 .filters-wrapper {
   display: flex;
   justify-content: space-between;
@@ -27,7 +16,7 @@
 .totalEntries {
   flex-shrink: 0;
   margin-top: 10px;
-  color: color-grey;
+  color: var(--color-grey);
   font-size: 12px;
 }
 
@@ -43,30 +32,28 @@
 
 .input {
   @extend %textInput;
-  transition: transition-speed transition-easing;
-  transition-property: border-color;
   width: 100%;
   padding: 7px 7px 7px 30px;
-  font-family: font-primary;
+  font-family: var(--font-primary);
   font-size: 14px;
-  color: color-black;
+  color: var(--color-black);
 
   &:focus {
-    box-shadow: inset 0 1px 2px #f6f6f6, 0 1px 2px rgba(color-black, 0.06);
+    box-shadow: inset 0 1px 2px rgba(#000, 0.1), 0 1px 2px var(--shadow-color);
   }
 
   &::placeholder {
-    color: color-grey;
+    color: var(--color-grey);
   }
 }
 
 .totalEntries {
   margin-top: 10px;
-  color: color-grey;
+  color: var(--color-grey);
   font-size: 12px;
 }
 
-@media (max-width: (screen-sm)) {
+@media (max-width: var(--screen-sm)) {
   .filters-wrapper {
     flex-direction: column;
   }

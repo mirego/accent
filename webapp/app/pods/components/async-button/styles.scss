@@ -1,6 +1,3 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-black from 'accent-webapp/styles/variables/colors';
-
 .button {
   padding: 0 !important;
 
@@ -43,7 +40,7 @@
 }
 
 .label {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: transform;
   transform: translate3d(0, 0, 0);
   display: flex;
@@ -52,12 +49,12 @@
 }
 
 .loading {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: left;
   will-change: left;
   width: 15px;
   position: absolute;
   top: calc(50% - 8px);
   left: 100%;
-  fill: color-black;
+  fill: var(--color-black);
 }

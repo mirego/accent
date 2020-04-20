@@ -1,25 +1,321 @@
-// Variables
-@import 'variables/colors';
-@import 'variables/fonts';
-@import 'variables/dimensions';
-@import 'variables/transitions';
 @import 'variables/power-select';
 
-@import 'modal';
-
 @import 'reset';
-@import 'base';
 @import 'classes';
 
+@import 'html-components/button';
 @import 'html-components/emoji-picker';
-@import 'html-components/sub-navigation';
 @import 'html-components/filters';
-@import 'html-components/wrapper';
 @import 'html-components/power-select';
 
-@import 'html-components/form/button';
-@import 'html-components/form/label';
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100;
+  src: url('fonts/Inter-Thin.woff2') format('woff2'),
+    url('fonts/Inter-Thin.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 100;
+  src: url('fonts/Inter-ThinItalic.woff2') format('woff2'),
+    url('fonts/Inter-ThinItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  src: url('fonts/Inter-ExtraLight.woff2') format('woff2'),
+    url('fonts/Inter-ExtraLight.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 200;
+  src: url('fonts/Inter-ExtraLightItalic.woff2') format('woff2'),
+    url('fonts/Inter-ExtraLightItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/Inter-Light.woff2') format('woff2'),
+    url('fonts/Inter-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 300;
+  src: url('fonts/Inter-LightItalic.woff2') format('woff2'),
+    url('fonts/Inter-LightItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Inter-Regular.woff2') format('woff2'),
+    url('fonts/Inter-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 400;
+  src: url('fonts/Inter-Italic.woff2') format('woff2'),
+    url('fonts/Inter-Italic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/Inter-Medium.woff2') format('woff2'),
+    url('fonts/Inter-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 500;
+  src: url('fonts/Inter-MediumItalic.woff2') format('woff2'),
+    url('fonts/Inter-MediumItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  src: url('fonts/Inter-SemiBold.woff2') format('woff2'),
+    url('fonts/Inter-SemiBold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 600;
+  src: url('fonts/Inter-SemiBoldItalic.woff2') format('woff2'),
+    url('fonts/Inter-SemiBoldItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/Inter-Bold.woff2') format('woff2'),
+    url('fonts/Inter-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  src: url('fonts/Inter-BoldItalic.woff2') format('woff2'),
+    url('fonts/Inter-BoldItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  font-weight: 300;
+  font-style: normal;
+  src: url('fonts/FiraCode-Light.woff2') format('woff2'),
+    url('fonts/FiraCode-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  font-weight: 400;
+  font-style: normal;
+  src: url('fonts/FiraCode-Regular.woff2') format('woff2'),
+    url('fonts/FiraCode-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  font-weight: 500;
+  font-style: normal;
+  src: url('fonts/FiraCode-Medium.woff2') format('woff2'),
+    url('fonts/FiraCode-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  font-weight: 700;
+  font-style: normal;
+  src: url('fonts/FiraCode-Bold.woff2') format('woff2'),
+    url('fonts/FiraCode-Bold.woff') format('woff');
+}
+
+::-moz-selection {
+  background: var(--color-primary-opacity-10);
+}
+
+::selection {
+  background: var(--color-primary-opacity-10);
+}
+
+html {
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  --font-monospace: 'Fira Code', 'Monaco', Courrier, monospace;
+
+  --screen-lg: 1300px;
+  --screen-md: 640px;
+  --screen-sm: 440px;
+
+  --border-radius: 3px;
+
+  --accent-hue: 155;
+  --accent-saturation: 67%;
+  --accent-light: 48%;
+
+  --text-color-normal: hsl(var(--accent-hue), 30%, 5%);
+
+  --body-background: #fff;
+  --body-background-border: #eaeaea;
+
+  --logo-background: #eee;
+  --logo-foreground: #bbb;
+
+  --gradient-header-color: #eee;
+
+  --input-border-color: #e0e0e0;
+  --input-background: #fff;
+  --input-color: #000;
+
+  --background-light: #fafafa;
+  --background-light-highlight: #eaeaea;
+
+  --color-primary: #28cb87;
+  --color-primary-hue: 155;
+  --color-primary-saturation: 67%;
+  --color-primary-darken-10: #1c9060;
+  --color-primary-opacity-10: #233e32;
+  --color-primary-opacity-50: #296349;
+  --color-primary-opacity-70: #238458;
+
+  --color-highlight-lighteness: 95%;
+
+  --color-grey: #adadad;
+  --color-black: #484848;
+
+  --color-green: #28cb87;
+  --color-green-hue: 155;
+  --color-green-saturation: 67%;
+
+  --color-blue: #3f7cc5;
+  --color-blue-hue: 213;
+  --color-blue-saturation: 54%;
+
+  --color-success: #45c86f;
+  --color-success-hue: 139;
+  --color-success-saturation: 54%;
+
+  --color-warning: #e4b600;
+  --color-warning-hue: 48;
+  --color-warning-saturation: 100%;
+
+  --color-socket: #2c4fb4;
+
+  --color-error: #d84444;
+  --color-error-hue: 0;
+  --color-error-saturation: 65%;
+
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  background: #eee;
+}
+
+html[data-theme='dark'] {
+  --body-background: #232323;
+  --body-background-border: #333;
+
+  --logo-background: #333;
+  --logo-foreground: #777;
+
+  --text-color-normal: hsl(var(--accent-hue), 3%, 80%);
+
+  --gradient-header-color: #171717;
+
+  --input-border-color: #333;
+  --input-background: #111;
+  --input-color: #fafafa;
+
+  --background-light: #292929;
+  --background-light-highlight: #3c3c3c;
+
+  --shadow-color: rgba(0, 0, 0, 0.4);
+
+  --color-highlight-lighteness: 12%;
+  --color-black: #adadad;
+  --color-grey: #616161;
+
+  background: #171717;
+}
+
+body {
+  background: var(--body-background);
+  color: var(--text-color-normal);
+  font-family: var(--font-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+textarea,
+select,
+button,
+input[type='submit'],
+input[type='text'] {
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+dl,
+dt,
+dd {
+  margin: 0;
+}
 
 textarea[disabled] {
   cursor: no-drop;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+:global(.app) {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+:global(.added) {
+  padding: 0 3px;
+  background: hsl(
+    var(--color-green-hue),
+    var(--color-green-saturation),
+    var(--color-highlight-lighteness)
+  );
+  color: var(--color-green);
+}
+
+:global(.removed) {
+  padding: 0 3px;
+  background: hsl(
+    var(--color-error-hue),
+    var(--color-error-saturation),
+    var(--color-highlight-lighteness)
+  );
+  color: var(--color-error);
+  text-decoration: line-through;
 }

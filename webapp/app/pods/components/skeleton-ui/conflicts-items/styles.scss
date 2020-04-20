@@ -1,5 +1,3 @@
-@value color-green, color-success from 'accent-webapp/styles/variables/colors';
-
 .conflicts-items {
   margin-top: 60px;
 }
@@ -7,11 +5,11 @@
 .item {
   padding: 15px 10px 20px;
   margin-bottom: 15px;
-  background: #fbfbfb;
+  background: var(--background-light);
 
   &:nth-child(2) {
     opacity: 0.6;
-    background: #fff;
+    background: var(--body-background);
   }
 
   &:nth-child(3) {
@@ -23,7 +21,6 @@
   height: 5px;
   width: 120px;
   margin-bottom: 20px;
-  background: rgba(color-green, 0.1);
   background: var(--color-primary-opacity-10);
 }
 
@@ -35,13 +32,13 @@
   height: 3px;
   width: 200px;
   margin-bottom: 5px;
-  background: #eee;
+  background: var(--background-light);
 }
 
 .item-conflict-text-border {
   height: 1px;
   width: 100%;
-  border-top: 1px dashed #eee;
+  border-top: 1px dashed var(--background-light);
   margin: 10px 0;
 }
 
@@ -49,19 +46,20 @@
   height: 3px;
   width: 250px;
   margin-bottom: 5px;
-  background: rgba(color-success, 0.1);
+  opacity: 0.1;
+  background: var(--color-success);
 }
 
 .item-textarea {
   height: 40px;
   width: 100%;
   margin-right: 20px;
-  border: 1px solid #fafafa;
+  border: 1px solid var(--background-light-highlight);
 }
 
 .item-button {
   height: 30px;
   width: 130px;
-  border: 1px solid #fafafa;
-  background: #fff;
+  border: 1px solid var(--background-light-highlight);
+  background: var(--body-background);
 }

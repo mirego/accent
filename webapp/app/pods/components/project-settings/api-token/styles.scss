@@ -1,6 +1,3 @@
-@value color-green from 'accent-webapp/styles/variables/colors';
-@value font-monospace from 'accent-webapp/styles/variables/fonts';
-
 .project-settings-api-token {
   margin-top: 30px;
 }
@@ -19,28 +16,25 @@
   padding: 8px;
   overflow-x: scroll;
   word-break: keep-all;
-  background: #fbfbfb;
-  font-family: font-monospace;
+  background: var(--background-light);
+  font-family: var(--font-monospace);
   font-size: 11px;
-  border: 2px solid #ddd;
+  border: 2px solid var(--background-light-highlight);
   border-radius: 3px;
   transition-property: border-color, box-shadow;
   transition: 0.3s ease-in-out;
+  color: var(--text-color-normal);
 
   &:focus {
     outline: none;
-    border-color: lighten(color-green, 20%);
     border-color: var(--color-primary-opacity-70);
-    box-shadow: 0 0 3px 2px rgba(color-green, 0.3);
     box-shadow: 0 0 3px 2px var(--color-primary-opacity-10);
 
     &::-moz-selection {
-      background: lighten(color-green, 45%);
       background: var(--color-primary-opacity-10);
     }
 
     &::selection {
-      background: lighten(color-green, 45%);
       background: var(--color-primary-opacity-10);
     }
   }

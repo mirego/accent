@@ -1,20 +1,18 @@
-@value color-black, color-green from 'accent-webapp/styles/variables/colors';
-
 .jipt-header {
   position: sticky;
   top: 0;
   z-index: 5000;
   display: flex;
   padding: 14px 10px;
-  box-shadow: 0 3px 10px rgba(#000, 0.1);
-  background: #fff;
+  box-shadow: 0 3px 10px var(--shadow-color);
+  background: var(--body-background);
 }
 
 .project {
   margin: 0 0 0 10px;
   font-size: 14px;
   font-weight: 700;
-  color: color-black;
+  color: var(--color-black);
 }
 
 .applicationLogo {
@@ -23,11 +21,10 @@
   text-decoration: none;
 
   circle {
-    fill: #fff;
+    fill: var(--body-background);
   }
 
   path {
-    fill: color-green;
     fill: var(--color-primary);
   }
 }

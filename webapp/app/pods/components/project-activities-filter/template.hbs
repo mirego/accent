@@ -3,13 +3,13 @@
     <ul local-class="filterList">
       {{#unless @actionFilter}}
         <li local-class="filterList-item">
-          <label class="label">
+          <label local-class="label">
             <input
               type="checkbox"
               checked={{@batchFilter}}
               {{on "change" (fn this.batchFilterChange)}}
             >
-            <span local-class="label-text" class="label-text">
+            <span local-class="label-text">
               {{t
                 "components.project_activities_filter.only_important_activities_text"
               }}

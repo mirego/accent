@@ -1,26 +1,23 @@
-@value color-light-background, color-black, color-green from 'accent-webapp/styles/variables/colors';
-
 .revision-selector {
   position: relative;
-  box-shadow: 0 2px 4px rgba(#000, 0.06);
+  background: var(--body-background);
+  box-shadow: 0 2px 4px var(--shadow-color);
 
   :global(.ember-power-select-selected-item) {
     margin-left: 10px;
     font-weight: 700;
-    color: color-black;
     color: var(--color-black);
 
     em {
       margin-left: 1px;
       font-size: 11px;
       font-style: normal;
-      color: color-green;
       color: var(--color-primary);
     }
   }
 
   :global(.ember-power-select-status-icon) {
-    opacity: 0.3;
+    opacity: 0;
     right: 10px;
     font-size: 27px;
     margin-top: 4px;
@@ -28,15 +25,19 @@
 
   :global(.ember-power-select-trigger) {
     padding: 10px;
+    border-radius: 3px;
     font-size: 20px;
     flex-direction: row-reverse;
-    border: 1px solid #eee;
     cursor: default;
     pointer-events: none;
   }
 }
 
 .revision-selector.with-many-revisions {
+  :global(.ember-power-select-status-icon) {
+    opacity: 0.3;
+  }
+
   :global(.ember-power-select-selected-item) {
     margin-left: 0;
   }
@@ -47,7 +48,7 @@
     pointer-events: all;
 
     &:hover {
-      background: color-light-background;
+      background: var(--background-light);
     }
   }
 }

@@ -15,7 +15,7 @@
               "components.translations_filter.input_placeholder_text"
             }}
             value={{this.debouncedQuery}}
-            {{on "change" (fn this.setDebouncedQuery)}}
+            {{on "keyup" (fn this.setDebouncedQuery)}}
           >
         </div>
 
@@ -51,19 +51,17 @@
           </div>
 
           {{#if @onChangeAdvancedFilterBoolean}}
-            <button {{on "click" (fn this.toggleAdvancedFilters)}} local-class="advancedFilters">
-              <div local-class="advancedFilters-content">
-                {{inline-svg "assets/filter.svg" local-class="advancedFilters-icon"}}
-                {{t
-                  "components.translations_filter.advanced_filters_button"
-                }}
+            <button {{on "click" (fn this.toggleAdvancedFilters)}} local-class="advancedFilters" class="button button--filled button--white">
+              {{inline-svg "assets/filter.svg" class="button-icon"}}
+              {{t
+                "components.translations_filter.advanced_filters_button"
+              }}
 
-                {{#if @withAdvancedFilters}}
-                  <span local-class="advancedFilters-badge">
-                    {{@withAdvancedFilters}}
-                  </span>
-                {{/if}}
-              </div>
+              {{#if @withAdvancedFilters}}
+                <span local-class="advancedFilters-badge">
+                  {{@withAdvancedFilters}}
+                </span>
+              {{/if}}
             </button>
           {{/if}}
         </div>

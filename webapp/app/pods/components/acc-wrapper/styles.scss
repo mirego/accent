@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  margin: 0 auto;
+  max-width: var(--screen-lg);
+  width: 100%;
+}
+
+@media (max-width: var(--screen-sm)) {
+  .wrapper {
+    flex-direction: column;
+  }
+}

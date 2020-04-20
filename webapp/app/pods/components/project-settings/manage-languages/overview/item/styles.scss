@@ -1,10 +1,7 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-black, color-grey, color-green from 'accent-webapp/styles/variables/colors';
-
 .list-item {
   margin-bottom: 5px;
   padding: 8px 2px;
-  border-bottom: 1px solid rgba(color-black, 0.1);
+  border-bottom: 1px solid var(--background-light);
   font-size: 14px;
 
   &.list-item--deleted {
@@ -21,7 +18,7 @@
   &.list-item--master {
     padding: 10px 2px;
     margin-bottom: 10px;
-    border-bottom-color: rgba(color-black, 0.2);
+    border-bottom-color: var(--background-light-highlight);
     font-size: 16px;
   }
 
@@ -48,7 +45,7 @@
   left: 0;
   top: 3px;
   padding-right: 12px;
-  color: color-grey;
+  color: var(--color-grey);
   opacity: 0;
   transform: translateX(-10px);
   transition: 0.2s ease-in-out;
@@ -56,7 +53,6 @@
 
   &:focus,
   &:hover {
-    color: color-green;
     color: var(--color-primary);
   }
 
@@ -73,14 +69,13 @@
 
 .list-item-infos-date {
   font-size: 12px;
-  color: color-grey;
+  color: var(--color-grey);
 }
 
 .list-link {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: color-green;
   color: var(--color-primary);
 
   &:focus,
@@ -99,7 +94,7 @@
   display: flex;
   opacity: 0;
   pointer-events: none;
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: opacity;
 }
 

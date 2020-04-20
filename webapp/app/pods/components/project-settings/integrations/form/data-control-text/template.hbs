@@ -18,6 +18,6 @@
     placeholder={{@placeholder}}
     value={{@value}}
     local-class="textInput"
-    {{on "change" (fn @onChange)}}
+    {{on "keyup" (fn @onChange)}}
   >
 </div>

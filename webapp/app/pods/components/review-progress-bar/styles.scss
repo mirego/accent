@@ -1,11 +1,9 @@
-@value color-black from 'accent-webapp/styles/variables/colors';
-
 .progress-bar {
   width: 100%;
   height: 2px;
-  background: #eee;
+  background: var(--background-light);
   border-radius: 3px;
-  box-shadow: 0 1px 8px rgba(color-black, 0.04);
+  box-shadow: 0 1px 8px var(--shadow-color);
 }
 
 .progress {

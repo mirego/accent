@@ -10,7 +10,7 @@
             type="text"
             placeholder={{t "components.conflicts_filters.input_placeholder_text"}}
             value={{this.debouncedQuery}}
-            {{on "change" this.setDebouncedQuery}}
+            {{on "keyup" this.setDebouncedQuery}}
           >
         </div>
 

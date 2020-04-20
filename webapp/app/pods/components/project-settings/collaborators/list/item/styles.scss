@@ -1,20 +1,18 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-grey, color-light-background, color-green, color-black from 'accent-webapp/styles/variables/colors';
-
 .item {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: background;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
   padding: 10px 15px 10px 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--background-light-highlight);
   overflow-x: hidden;
 
   &.invited {
     .user {
-      color: color-grey;
+      opacity: 0.6;
+      color: var(--color-black);
     }
   }
 
@@ -27,7 +25,7 @@
   &.editing,
   &:focus,
   &:hover {
-    background: color-light-background;
+    background: var(--background-light);
 
     .button {
       opacity: 1;
@@ -36,7 +34,7 @@
 
   .button {
     flex: 0 0 auto;
-    transition: transition-speed transition-easing;
+    transition: 0.2s ease-in-out;
     transition-property: opacity;
     opacity: 0;
     padding: 6px 7px;
@@ -54,24 +52,25 @@
     min-width: 150px;
     padding: 5px 7px 4px;
     margin-bottom: 10px;
-    border: 1px solid #eee;
-    background: #fff;
+    border: 1px solid var(--body-background-border);
+    border-radius: 3px;
+    background: var(--body-background);
     font-size: 12px;
-    box-shadow: 0 1px 5px rgba(#000, 0.06);
+    box-shadow: 0 1px 5px var(--shadow-color);
   }
 }
 
 .role {
   display: block;
   margin-bottom: 4px;
-  color: color-green;
+  color: var(--color-green);
   color: var(--color-primary);
   font-size: 12px;
 }
 
 .user {
   display: flex;
-  color: color-black;
+  color: var(--color-black);
   font-size: 15px;
 }
 
@@ -89,7 +88,8 @@
 }
 
 .invite {
-  color: color-grey;
+  opacity: 0.4;
+  color: var(--color-black);
   font-size: 13px;
   font-style: italic;
 }

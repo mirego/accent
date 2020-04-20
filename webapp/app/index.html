@@ -17,6 +17,10 @@
   <body>
     {{content-for "body"}}
 
+    <script>
+      var theme = localStorage.getItem('theme');
+      theme && document.documentElement.setAttribute('data-theme', theme);
+    </script>
     <script src="{{rootURL}}assets/vendor.js"></script>
     <script src="{{rootURL}}assets/accent-webapp.js"></script>
 

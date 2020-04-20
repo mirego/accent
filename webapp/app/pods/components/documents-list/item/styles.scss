@@ -1,7 +1,3 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-error, color-warning, color-success, color-grey, color-black from 'accent-webapp/styles/variables/colors';
-@value font-monospace, font-primary from 'accent-webapp/styles/variables/fonts';
-
 .documents-list-item {
   position: relative;
   display: flex;
@@ -17,31 +13,31 @@
 
 .documents-list-item.low-percentage {
   .reviewedPercentage {
-    color: color-error;
+    color: var(--color-error);
   }
 
   .progress {
-    color: color-error;
+    color: var(--color-error);
   }
 }
 
 .documents-list-item.medium-percentage {
   .reviewedPercentage {
-    color: color-warning;
+    color: var(--color-warning);
   }
 
   .progress {
-    color: color-warning;
+    color: var(--color-warning);
   }
 }
 
 .documents-list-item.high-percentage {
   .reviewedPercentage {
-    color: color-success;
+    color: var(--color-success);
   }
 
   .progress {
-    color: color-success;
+    color: var(--color-success);
   }
 }
 
@@ -67,11 +63,9 @@
 }
 
 .reviewedStats {
-  padding: 2px 7px 1px;
-  border-radius: 3px;
-  background: lighten(color-grey, 25%);
-  color: color-grey;
-  font-family: font-monospace;
+  padding: 2px 0 1px 7px;
+  color: var(--color-black);
+  font-family: var(--font-monospace);
 }
 
 .reviewedPercentage {
@@ -105,19 +99,19 @@
   padding: 5px 8px 4px;
   width: 100%;
   font-size: 15px;
-  font-family: font-primary;
+  font-family: var(--font-primary);
 }
 
 .item-document-deleting-title {
   display: flex;
-  color: color-error;
+  color: var(--color-error);
   font-size: 13px;
 }
 
 .item-document-deleting-title-loading {
   width: 10px;
   margin-right: 6px;
-  fill: color-error;
+  fill: var(--color-error);
 }
 
 .item-form {
@@ -125,7 +119,7 @@
 
   &.item-form--editing {
     padding: 15px;
-    box-shadow: 0 1px 5px rgba(#000, 0.06);
+    box-shadow: 0 1px 5px var(--shadow-color);
   }
 }
 
@@ -144,10 +138,10 @@
   em {
     margin: 0 2px;
     padding: 0 2px;
-    border: 1px solid #eee;
+    border: 1px solid var(--background-light-border);
     border-radius: 3px;
-    background: #fafafa;
-    font-family: font-monospace;
+    background: var(--background-light);
+    font-family: var(--font-monospace);
     font-style: normal;
     color: #777;
   }
@@ -173,10 +167,12 @@
 .item-document {
   margin-left: -20px;
   text-decoration: none;
-  color: color-black;
+  color: var(--color-black);
 }
 
 .item-edit-button {
+  background: transparent;
+
   &:hover {
     outline: none;
   }
@@ -190,7 +186,7 @@
   height: 16px;
   opacity: 0;
   stroke: #ccc;
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: opacity, stroke;
 
   &:focus,

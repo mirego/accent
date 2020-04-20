@@ -1,6 +1,3 @@
-@value color-green from 'accent-webapp/styles/variables/colors';
-@value font-primary from 'accent-webapp/styles/variables/fonts';
-
 .login-forms {
   max-width: 500px;
   margin: 0 auto 30px;
@@ -11,16 +8,14 @@
   max-width: 300px;
   padding: 10px;
   width: 100%;
-  font-family: font-primary;
   font-size: 13px;
-  border: 2px solid darken(color-green, 5%);
 
   &:focus {
-    border-color: color-green;
+    border-color: var(--color-green);
   }
 }
 
-.loginButton {
+a.loginButton {
   max-width: 300px;
   position: relative;
   display: inline-flex;
@@ -45,8 +40,8 @@
   }
 
   &.loginButton--dummy {
-    border: 2px solid darken(color-green, 5%);
-    background: color-green;
+    border-color: var(--color-green);
+    background: var(--color-green);
     border-radius: 0 0 4px 4px;
     margin-top: -3px;
   }

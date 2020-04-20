@@ -10,13 +10,14 @@
     @value={{this.email}}
     local-class="textInput"
     placeholder={{t "components.collaborator_create_form.email_placeholder"}}
+    @onKeyUp={{fn this.emailChanged}}
     @onSubmit={{fn this.submit}}
   />
 
   <AsyncButton
     @onClick={{fn this.submit}}
     @loading={{this.isCreating}}
-    @disabled={{this.emptyEmail}}
+    @disabled={{this.invalidEmail}}
     class="button button--filled"
   >
     {{t "components.collaborator_create_form.create_button"}}

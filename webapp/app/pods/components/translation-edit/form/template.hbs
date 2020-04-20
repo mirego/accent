@@ -38,7 +38,7 @@
       {{/if}}
     {{/if}}
 
-    {{#if this.placeholders}}
+    {{#if @placeholders}}
       <div local-class="placeholders">
         <span local-class="placeholders-title">
           {{inline-svg "assets/code.svg" local-class="placeholders-title-icon"}}
@@ -52,7 +52,7 @@
         </div>
 
         <ul>
-          {{#each this.placeholders as |placeholder|}}
+          {{#each @placeholders as |placeholder|}}
             <li
               local-class="placeholders-item
                 {{if

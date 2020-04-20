@@ -68,7 +68,7 @@ export default class ExportController extends Controller {
     });
   }
 
-  get versionfunction() {
+  get version() {
     if (!this.versions) return;
 
     return this.versions.find(({id}: {id: string}) => {
@@ -107,6 +107,7 @@ export default class ExportController extends Controller {
     this.router.transitionTo('logged-in.project.versions', this.project.id);
   }
 
+  @action
   onFileLoaded(content: any) {
     this.fileRender = content;
     this.exportLoading = false;

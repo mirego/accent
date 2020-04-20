@@ -1,7 +1,5 @@
-@value color-black from 'accent-webapp/styles/variables/colors';
-
 .project-settings-title {
   font-size: 18px;
   font-weight: bold;
-  color: color-black;
+  color: var(--text-color-normal);
 }

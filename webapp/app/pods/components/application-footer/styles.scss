@@ -1,26 +1,82 @@
-@value color-light-background, color-grey from 'accent-webapp/styles/variables/colors';
-
 .footer {
   padding: 10px;
   margin-top: 40px;
-  background: color-light-background;
-  color: color-grey;
+  background: var(--background-light);
+  color: var(--color-grey);
   font-size: 12px;
   text-align: right;
+
+  &:focus,
+  &:hover {
+    .button-themes {
+      opacity: 1;
+    }
+  }
 }
 
 .inner {
-  @extend %centeredWrapper;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: var(--screen-lg);
+}
+
+.button-themes {
+  opacity: 0;
+  display: flex;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.button-theme {
+  background: none;
+  opacity: 0.2;
+  color: var(--text-color-normal);
+  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.button-theme--moon {
+  &.button-theme--enabled,
+  &:focus,
+  &:hover {
+    outline: none;
+    opacity: 1;
+    color: #5660e4;
+  }
+
+  svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+.button-theme--sun {
+  &.button-theme--enabled,
+  &:focus,
+  &:hover {
+    outline: none;
+    opacity: 1;
+    color: #dcbc18;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .external-link {
-  color: #000;
+  color: var(--color-black);
   text-decoration: none;
 
   &:focus,
   &:hover {
     text-decoration: underline;
+  }
+}
+
+@media (max-width: var(--screen-lg)) {
+  .inner {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }

@@ -48,6 +48,7 @@
       {{#if this.isFileOperationsLocked}}
         <div
           role="button"
+          class="button"
           local-class="lock-text lock-text--active"
           {{on "click" (fn this.setLockedFileOperations)}}
         >
@@ -58,6 +59,7 @@
       {{else}}
         <div
           role="button"
+          class="button"
           local-class="lock-text lock-text--inactive"
           {{on "click" (fn this.setLockedFileOperations)}}
         >

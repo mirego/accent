@@ -314,7 +314,7 @@
         "uncorrect_all": "put all strings back to review",
         "correct_all": "marked all strings as reviewed",
         "document_delete": "deleted a file",
-        "merge": "added translations for some strings"
+        "merge": "added translations for some strings:"
       },
       "label_text": {
         "conflict_on_corrected": "The text has been moved to review and is now:",
@@ -480,7 +480,7 @@
         "correct_conflict": "marked a string as reviewed:",
         "batch_correct_conflict": "marked multiple strings as reviewed:",
         "document_delete": "deleted a file:",
-        "merge": "added translations for some strings",
+        "merge": "added translations for some strings:",
         "merge_on_corrected": "last translations additions modified a string:",
         "merge_on_proposed": "last translations additions modified a string:",
         "merge_on_corrected_force": "last translations additions (force) modified a string:",

@@ -1,6 +1,3 @@
-@value color-green, color-blue, color-true-black, color-error from 'accent-webapp/styles/variables/colors';
-@value font-primary from 'accent-webapp/styles/variables/fonts';
-
 .translation-edit-form {
   height: 100%;
 
@@ -15,8 +12,8 @@
     color: #444;
 
     &.checked {
-      background: lighten(color-green, 45%);
-      color: darken(color-green, 25%);
+      background: var(--background-light-highlight);
+      color: var(--text-color-normal);
     }
 
     input {
@@ -28,11 +25,14 @@
 .label {
   width: 100%;
   padding: 5px 5px 5px 8px;
-  border-left: 2px solid lighten(color-blue, 40%);
   margin-bottom: 5px;
-  background: lighten(color-blue, 46%);
+  background: hsl(
+    var(--color-blue-hue),
+    var(--color-blue-saturation),
+    var(--color-highlight-lighteness)
+  );
   font-size: 12px;
-  color: #888;
+  color: var(--color-blue);
 }
 
 .inputText {
@@ -45,32 +45,33 @@
   &::placeholder {
     opacity: 0.2;
     font-style: italic;
-    font-family: font-primary;
+    font-family: var(--font-primary);
   }
 }
 
 .placeholders {
   margin: 0 0 15px;
+  padding: 15px;
+  border-radius: 3px;
   font-size: 12px;
+  background: hsl(
+    var(--color-blue-hue),
+    var(--color-blue-saturation),
+    var(--color-highlight-lighteness)
+  );
+  color: var(--color-blue);
 }
 
 .placeholders-title {
   display: flex;
   align-items: center;
-  padding: 10px 10px 0;
-  background: lighten(color-blue, 46%);
-  border-left: 2px solid lighten(color-blue, 40%);
+  margin-bottom: 3px;
   font-size: 13px;
   font-weight: bold;
-  color: color-blue;
 }
 
 .placeholders-text {
   margin-bottom: 6px;
-  padding: 5px 10px 8px;
-  background: lighten(color-blue, 46%);
-  border-left: 2px solid lighten(color-blue, 40%);
-  color: darken(color-blue, 15%);
 }
 
 .placeholders-text-content {
@@ -80,14 +81,14 @@
 .placeholders-item {
   display: flex;
   align-items: center;
-  padding-left: 12px;
-  border-left: 2px solid lighten(color-true-black, 80%);
-  font-size: 14px;
-  color: darken(color-blue, 15%);
+  font-size: 12px;
+  color: var(--text-color-normal);
+  opacity: 0.8;
+  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 
   &.placeholders-item--warning {
-    border-color: lighten(color-error, 20%);
-    color: lighten(color-error, 10%);
+    opacity: 1;
+    color: var(--color-error);
   }
 }
 
@@ -95,12 +96,12 @@
   margin-right: 5px;
   width: 14px;
   height: 14px;
-  stroke: lighten(color-error, 15%);
+  stroke: var(--color-error);
 }
 
 .placeholders-title-icon {
   width: 14px;
   height: 14px;
   margin-right: 6px;
-  stroke: darken(color-blue, 10%);
+  stroke: var(--color-blue);
 }

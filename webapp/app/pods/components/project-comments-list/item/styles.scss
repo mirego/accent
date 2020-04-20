@@ -1,29 +1,25 @@
-@value transition-speed, transition-easing from 'accent-webapp/styles/variables/transitions';
-@value color-light-background, color-green, color-black, color-error from 'accent-webapp/styles/variables/colors';
-
 .project-comments-list-item {
   margin-bottom: 45px;
 }
 
 .translationCommentsList {
-  background: color-light-background;
+  background: var(--background-light);
   border-radius: 3px;
 }
 
 .item-link {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: color;
-  @extend %translationKeyBase;
   display: inline-block;
-  color: color-green;
   color: var(--color-primary);
+  word-break: break-all;
+  font-family: var(--font-monospace);
   font-size: 12px;
   font-weight: bold;
   text-decoration: none;
 
   &:focus,
   &:hover {
-    color: darken(color-green, 15%);
     color: var(--color-primary-darken-10);
   }
 }
@@ -41,18 +37,16 @@
 }
 
 .item-language {
-  transition: transition-speed transition-easing;
+  transition: 0.2s ease-in-out;
   transition-property: color;
   display: block;
   font-size: 12px;
   text-decoration: none;
-  color: color-black;
   color: var(--color-black);
 }
 
 .item-badge {
   font-size: 12px;
-  color: color-green;
   color: var(--color-primary);
   text-decoration: none;
 }
@@ -61,5 +55,5 @@
   display: block;
   margin-top: 5px;
   font-size: 12px;
-  color: color-error;
+  color: var(--color-error);
 }
