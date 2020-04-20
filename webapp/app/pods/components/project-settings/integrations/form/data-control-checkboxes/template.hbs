@@ -3,9 +3,12 @@
     {{@title}}
   </h3>
 
-  <CheckboxWithLabel
-    @checked={{@syncChecked}}
-    @text={{@syncCheckLabel}}
-    @update={{fn @onChangeSyncChecked}}
-  />
+  <label local-class="checkbox">
+    <Input
+      @type="checkbox"
+      @checked={{@syncChecked}}
+      {{on 'change' this.changeSyncChecked}}
+    />
+    {{@syncCheckLabel}}
+  </label>
 </div>
