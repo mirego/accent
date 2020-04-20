@@ -4,6 +4,8 @@ import {action} from '@ember/object';
 import config from 'accent-webapp/config/environment';
 import {tracked} from '@glimmer/tracking';
 
+const ENTER_KEY = 13;
+
 interface Args {
   providers: any;
 }
@@ -47,7 +49,7 @@ export default class LoginForms extends Component<Args> {
 
   @action
   setUsername(event: any) {
-    if (event.keyCode == 13) window.location.href = this.dummyUrl;
+    if (event.keyCode === ENTER_KEY) window.location.href = this.dummyUrl;
     this.username = event.currentTarget.value;
   }
 }
