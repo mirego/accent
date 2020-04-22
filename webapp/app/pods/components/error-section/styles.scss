@@ -2,8 +2,8 @@
   max-width: 400px;
   margin: 100px auto 30px;
   padding: 20px 20px 40px;
-  box-shadow: 0 3px 21px rgba(#000, 0.07);
-  border: 1px solid #eee;
+  box-shadow: 0 3px 21px var(--shadow-color);
+  border: 1px solid var(--background-light-highlight);
   background: var(--background-light);
   text-align: center;
 }
@@ -43,14 +43,14 @@
   max-width: 220px;
   margin: 10px auto 50px;
   padding-top: 20px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--background-light-highlight);
   font-size: 15px;
-  color: #555;
+  color: var(--text-color-normal);
 }
 
 .link {
   font-size: 13px;
-  color: #ccc;
+  color: var(--color-grey);
   text-decoration: none;
 
   &:focus,

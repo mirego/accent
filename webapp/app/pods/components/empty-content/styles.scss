@@ -12,6 +12,10 @@
 
   &.success {
     color: var(--color-primary);
+
+    .icon {
+      opacity: 0.6;
+    }
   }
 
   :global(.link) {
@@ -25,9 +29,10 @@
   }
 }
 
+:global(.icon),
 .icon {
   display: block;
-  opacity: 0.7;
+  opacity: 0.1;
   width: 100px;
   height: 100px;
   margin-bottom: 10px;

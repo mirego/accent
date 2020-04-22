@@ -5,6 +5,11 @@
   border: 1px solid var(--background-light-highlight);
   margin-top: -2px;
 
+  &.filters--transparent {
+    background: none;
+    border-color: transparent;
+  }
+
   &.filters--white {
     border-left: 0;
     border-right: 0;

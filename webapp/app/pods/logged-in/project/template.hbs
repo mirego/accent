@@ -10,19 +10,21 @@
   </style>
 
   <AccWrapper>
-    <AccWrapper::Sidebar>
-      {{#if this.model.loading}}
-        <SkeletonUi::ProjectNavigation />
-      {{else if this.showError}}
-        <SkeletonUi::ProjectNavigation />
-      {{else}}
-        <ProjectNavigation
-          @project={{this.project}}
-          @permissions={{this.permissions}}
-          @revisions={{this.revisions}}
-        />
-      {{/if}}
-    </AccWrapper::Sidebar>
+    {{#unless this.showError}}
+      <AccWrapper::Sidebar>
+        {{#if this.model.loading}}
+          <SkeletonUi::ProjectNavigation />
+        {{else if this.showError}}
+          <SkeletonUi::ProjectNavigation />
+        {{else}}
+          <ProjectNavigation
+            @project={{this.project}}
+            @permissions={{this.permissions}}
+            @revisions={{this.revisions}}
+          />
+        {{/if}}
+      </AccWrapper::Sidebar>
+    {{/unless}}
 
     <AccWrapper::Content>
       {{#unless this.model.loading}}
