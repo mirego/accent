@@ -18,7 +18,7 @@ export default class ProjectFetcher {
     return data.data && data.data.viewer.project;
   }
 
-  private graphql(config: Config) {
+  private async graphql(config: Config) {
     const query = `query ProjectDetails($project_id: ID!) {
       viewer {
         project(id: $project_id) {
@@ -64,7 +64,7 @@ export default class ProjectFetcher {
       }
     }`;
 
-    return fetch(`${config.apiUrl}/graphql`, {
+    return await fetch(`${config.apiUrl}/graphql`, {
       body: JSON.stringify({query}),
       headers: {
         'Content-Type': 'application/json',
