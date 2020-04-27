@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {readOnly, not} from '@ember/object/computed';
+import {not} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
 
@@ -18,14 +18,19 @@ export default class RelatedTranslationsListItem extends Component<Args> {
   @not('args.translation.isRemoved')
   showSaveButton: boolean;
 
-  @readOnly('args.translation.correctedText')
-  editText: string;
+  @tracked
+  editText = this.args.translation.correctedText;
 
   get revisionName() {
     return (
       this.args.translation.revision.name ||
       this.args.translation.revision.language.name
     );
+  }
+
+  @action
+  changeText(text: string) {
+    this.editText = text;
   }
 
   @action

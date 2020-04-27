@@ -32,8 +32,9 @@ export default class TranslationCommentForm extends Component<Args> {
   }
 
   @action
-  setText(text: string) {
-    this.text = text;
+  setText(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement;
+    this.text = target.value;
   }
 
   private onLoading() {

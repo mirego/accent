@@ -45,6 +45,7 @@ export default class LintMessage extends Component<Args> {
   @action
   replaceTextSelected() {
     const replacement = this.selectedReplacement;
+
     this.args.onReplaceText(this.args.message.context, replacement);
   }
 

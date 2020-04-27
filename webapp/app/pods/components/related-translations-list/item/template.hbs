@@ -56,6 +56,7 @@
       @disabled={{@translation.isRemoved}}
       @valueType={{@translation.valueType}}
       @value={{this.editText}}
+      @onKeyUp={{fn this.changeText}}
       @onSubmit={{fn this.save}}
     />
 

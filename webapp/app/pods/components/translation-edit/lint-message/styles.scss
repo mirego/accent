@@ -3,8 +3,8 @@
   align-items: center;
   padding: 2px 8px;
   margin-bottom: 5px;
-  background: var(--body-background);
-  border-left: 2px solid var(--color-grey);
+  background: var(--background-light);
+  border-left: 2px solid var(--background-light-highlight);
   font-size: 12px;
 
   :global(.ember-power-select-trigger) {

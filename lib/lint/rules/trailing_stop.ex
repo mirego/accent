@@ -16,13 +16,19 @@ defmodule Accent.Lint.Rules.TrailingStop do
     master = value.entry.master_value
     master_has_trailing_stop? = Regex.match?(@regex, master)
     text_has_trailing_stop? = Regex.match?(@regex, text)
+    fixed_text = text <> "."
 
     if master_has_trailing_stop? and !text_has_trailing_stop? do
       Accent.Lint.add_message(
         value,
         %Message{
+          context: %Message.Context{
+            offset: 0,
+            length: String.length(text),
+            text: text
+          },
           text: Accent.Lint.display_trailing_text(value.entry.master_value),
-          replacements: [%Message.Replacement{value: "#{text}."}],
+          replacements: [%Message.Replacement{value: fixed_text}],
           rule: %Message.Rule{
             id: "TRAILING_STOP",
             description: "Translation does not match full stop of the source"

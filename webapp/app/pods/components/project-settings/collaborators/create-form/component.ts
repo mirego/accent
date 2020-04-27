@@ -54,6 +54,7 @@ export default class CreateForm extends Component<Args> {
 
   @action
   emailChanged(event: any) {
+    this.email = event.currentTarget.value;
     this.invalidEmail = invalidEmail(event.currentTarget.value);
   }
 
@@ -62,6 +63,7 @@ export default class CreateForm extends Component<Args> {
     this.isCreating = true;
 
     await this.args.onCreate({email: this.email, role: this.role});
+
     this.email = '';
     this.isCreating = false;
   }

@@ -81,6 +81,12 @@ export default class DocumentsListItem extends Component<Args> {
   }
 
   @action
+  changePath(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement;
+    this.renamedDocumentPath = target.value;
+  }
+
+  @action
   async updateDocument(event?: Event) {
     event?.preventDefault();
 

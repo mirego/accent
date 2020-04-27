@@ -42,6 +42,11 @@ export default class ConflictItem extends Component<Args> {
   }
 
   @action
+  changeTranslationText(text: string) {
+    this.textInput = text;
+  }
+
+  @action
   async correct() {
     this.onLoading();
 

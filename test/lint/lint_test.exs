@@ -47,6 +47,7 @@ defmodule AccentTest.Lint do
 
       assert linted.messages === [
                %Message{
+                 context: %Message.Context{length: 4, offset: 0, text: "foo "},
                  replacements: [%Message.Replacement{value: "foo"}],
                  rule: %Message.Rule{
                    description: "Value contains trailing space",
@@ -63,7 +64,8 @@ defmodule AccentTest.Lint do
 
       assert linted.messages === [
                %Message{
-                 replacements: [],
+                 context: %Message.Context{length: 3, offset: 0, text: "foo"},
+                 replacements: [%Message.Replacement{value: "foo:"}],
                  rule: %Message.Rule{description: "Translation does not match trailing colons of the source", id: "TRAILING_COLON"},
                  text: "foo:"
                }
@@ -76,6 +78,7 @@ defmodule AccentTest.Lint do
 
       assert linted.messages === [
                %Message{
+                 context: %Message.Context{length: 3, offset: 0, text: "boo"},
                  replacements: [%Message.Replacement{value: "boo…"}],
                  rule: %Message.Rule{description: "Translation does not match ellipsis of the source", id: "TRAILING_ELLIPSIS"},
                  text: "foo…"
@@ -89,6 +92,7 @@ defmodule AccentTest.Lint do
 
       assert linted.messages === [
                %Message{
+                 context: %Message.Context{length: 3, offset: 0, text: "boo"},
                  replacements: [%Message.Replacement{value: "boo!"}],
                  rule: %Message.Rule{description: "Translation does not match exclamation of the source", id: "TRAILING_EXCLAMATION"},
                  text: "foo!"
@@ -102,6 +106,7 @@ defmodule AccentTest.Lint do
 
       assert linted.messages === [
                %Message{
+                 context: %Message.Context{length: 3, offset: 0, text: "boo"},
                  replacements: [%Message.Replacement{value: "boo?"}],
                  rule: %Message.Rule{description: "Translation does not match question mark of the source", id: "TRAILING_QUESTION_MARK"},
                  text: "foo?"
@@ -115,6 +120,7 @@ defmodule AccentTest.Lint do
 
       assert linted.messages === [
                %Message{
+                 context: %Message.Context{length: 3, offset: 0, text: "boo"},
                  replacements: [%Message.Replacement{value: "boo."}],
                  rule: %Message.Rule{description: "Translation does not match full stop of the source", id: "TRAILING_STOP"},
                  text: "foo."

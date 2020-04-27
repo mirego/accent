@@ -11,7 +11,7 @@
         @onSubmit={{fn this.submit}}
         @rows={{3}}
         @value={{this.text}}
-        @onChange={{this.setText}}
+        @onKeyUp={{fn this.setText}}
         @placeholder={{t "components.translation_comment_form.comment_placeholder"}}
         local-class="inputText"
       />

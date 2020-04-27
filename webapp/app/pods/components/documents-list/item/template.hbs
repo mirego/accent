@@ -11,6 +11,7 @@
 
             <QuickSubmitTextfield
               @onSubmit={{fn this.updateDocument}}
+              @onKeyUp={{fn this.changePath}}
               @value={{this.renamedDocumentPath}}
               local-class="textInput"
             />

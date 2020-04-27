@@ -28,6 +28,11 @@ export default class TranslationsListItem extends Component<Args> {
   translationKey = parsedKeyProperty(this.args.translation.key);
 
   @action
+  changeTranslationText(text: string) {
+    this.editText = text;
+  }
+
+  @action
   async save() {
     this.isSaving = true;
 

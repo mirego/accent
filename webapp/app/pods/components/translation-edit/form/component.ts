@@ -46,6 +46,9 @@ export default class TranslationEditForm extends Component<Args> {
   @tracked
   showTypeHints = true;
 
+  @tracked
+  text = this.args.value;
+
   @equal('args.valueType', 'STRING')
   isStringType: boolean;
 
@@ -65,9 +68,9 @@ export default class TranslationEditForm extends Component<Args> {
   isNullType: boolean;
 
   get rows() {
-    if (!this.args.value) return SMALL_INPUT_ROWS;
-    if (this.args.value.length < LARGE_INPUT_VALUE) return MEDIUM_INPUT_ROWS;
-    if (this.args.value.length < SMALL_INPUT_VALUE) return SMALL_INPUT_ROWS;
+    if (!this.text) return SMALL_INPUT_ROWS;
+    if (this.text.length < LARGE_INPUT_VALUE) return MEDIUM_INPUT_ROWS;
+    if (this.text.length < SMALL_INPUT_VALUE) return SMALL_INPUT_ROWS;
 
     return LARGE_INPUT_ROWS;
   }
@@ -75,7 +78,7 @@ export default class TranslationEditForm extends Component<Args> {
   get unusedPlaceholders() {
     return this.args.placeholders.reduce(
       (memo: Record<string, true>, placeholder: string) => {
-        if (!this.args.value.includes(placeholder)) memo[placeholder] = true;
+        if (!this.text.includes(placeholder)) memo[placeholder] = true;
         return memo;
       },
       {}
@@ -83,14 +86,16 @@ export default class TranslationEditForm extends Component<Args> {
   }
 
   @action
+  initialLint() {
+    this.fetchLintMessages(this.text);
+  }
+
+  @action
   changeText(event: Event) {
     const target = event.target as HTMLInputElement;
 
-    if (this.args.onKeyUp) this.args.onKeyUp(target.value);
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    this.fetchLintMessagesTask.perform(target.value);
+    this.args.onKeyUp?.(target.value);
+    this.fetchLintMessages(target.value);
   }
 
   @restartableTask
@@ -117,9 +122,17 @@ export default class TranslationEditForm extends Component<Args> {
       context.offset,
       context.offset + context.length
     );
-    const wordRegexp = new RegExp(wordToReplace, 'g');
-    const newText = this.args.value.replace(wordRegexp, replacement.value);
 
+    const newText = this.text.replace(wordToReplace, replacement.value);
+
+    this.text = newText;
     this.args.onKeyUp?.(newText);
+    this.fetchLintMessages(newText);
+  }
+
+  fetchLintMessages(value: string) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    this.fetchLintMessagesTask.perform(value);
   }
 }

@@ -4,7 +4,7 @@ import {action} from '@ember/object';
 
 export default class AccAvatarImg extends Component {
   @tracked
-  showFallback: boolean;
+  showFallback = false;
 
   @action
   fallbackImage() {

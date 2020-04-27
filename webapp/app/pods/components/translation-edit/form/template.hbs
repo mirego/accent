@@ -1,14 +1,14 @@
-<div local-class="translation-edit-form">
+<div {{did-insert this.initialLint}} local-class="translation-edit-form">
   {{#if this.isBooleanType}}
     <span local-class="label">
       {{t "components.translation_edit.form.boolean_type_notice"}}
     </span>
 
-    <RadioButton @groupValue={{@value}} @value="true">
+    <RadioButton @groupValue={{this.text}} @value="true">
       {{t "components.translation_edit.form.true_option"}}
     </RadioButton>
 
-    <RadioButton @groupValue={{@value}} @value="false">
+    <RadioButton @groupValue={{this.text}} @value="false">
       {{t "components.translation_edit.form.false_option"}}
     </RadioButton>
   {{else}}
@@ -73,7 +73,7 @@
       placeholder={{t "components.translation_edit.form.empty_type_placeholder"}}
       @rows={{this.rows}}
       @disabled={{@disabled}}
-      @value={{@value}}
+      @value={{this.text}}
       local-class="inputText"
       @onFocus={{@onFocus}}
       @onBlur={{@onBlur}}

@@ -21,8 +21,13 @@ defmodule Accent.Lint.Rules.TrailingColon do
       Accent.Lint.add_message(
         value,
         %Message{
+          context: %Message.Context{
+            offset: 0,
+            length: String.length(text),
+            text: text
+          },
           text: Accent.Lint.display_trailing_text(value.entry.master_value),
-          replacements: [],
+          replacements: [%Message.Replacement{value: "#{text}:"}],
           rule: %Message.Rule{
             id: "TRAILING_COLON",
             description: "Translation does not match trailing colons of the source"
