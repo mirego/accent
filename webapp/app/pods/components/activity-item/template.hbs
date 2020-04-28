@@ -47,9 +47,13 @@
           {{/if}}
 
           {{#if this.showVersionInfo}}
-            <span local-class="item-version-tag">
+            <LinkTo
+              @route="logged-in.project.versions.export"
+              @models={{array @project.id @activity.version.id}}
+              local-class="item-version-tag"
+            >
               {{@activity.version.tag}}
-            </span>
+            </LinkTo>
           {{/if}}
 
           {{#if this.showRevisionInfo}}

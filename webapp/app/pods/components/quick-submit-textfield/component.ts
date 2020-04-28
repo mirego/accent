@@ -14,23 +14,23 @@ interface Args {
 export default class QuickSubmitTextfield extends Component<Args> {
   @action
   blur() {
-    this.args.onBlur && this.args.onBlur();
+    this.args.onBlur?.();
   }
 
   @action
   focus() {
-    this.args.onFocus && this.args.onFocus();
+    this.args.onFocus?.();
   }
 
   @action
   keyUp(event: KeyboardEvent) {
-    this.args.onKeyUp && this.args.onKeyUp(event);
+    this.args.onKeyUp?.(event);
   }
 
   @action
   keyDown(event: KeyboardEvent) {
     if (event.which === ENTER_KEY && (event.metaKey || event.ctrlKey)) {
-      this.args.onSubmit && this.args.onSubmit();
+      this.args.onSubmit?.();
     }
   }
 }

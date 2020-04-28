@@ -16,7 +16,7 @@
   </p>
 
   {{#if @isAuthenticated}}
-    <button local-class="button button--red" {{on "click" @onLogout}}>
+    <button class="button button--red button--borderless" {{on "click" @onLogout}}>
       {{t "components.error_section.logout"}}
     </button>
 

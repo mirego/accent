@@ -378,10 +378,16 @@
 .item-version-tag {
   display: inline-flex;
   align-items: baseline;
+  margin-left: 3px;
   font-size: 12px;
   font-family: var(--font-monospace);
-  margin-left: 3px;
-  color: #aaa;
+  color: var(--color-primary);
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .item-iconContainer {
