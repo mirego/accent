@@ -20,6 +20,7 @@ export default class CollaboratorsList extends Component<Args> {
     return this.args.onDelete(collaborator);
   }
 
+  @action
   updateCollaborator(collaborator: any, args: any) {
     return this.args.onUpdate(collaborator, args);
   }

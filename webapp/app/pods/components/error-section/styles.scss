@@ -1,5 +1,6 @@
 .error-section {
   max-width: 400px;
+  width: 100%;
   margin: 100px auto 30px;
   padding: 20px 20px 40px;
   box-shadow: 0 3px 21px var(--shadow-color);
@@ -13,7 +14,7 @@
   width: 30px;
   height: 30px;
   margin: 0 auto 20px;
-  fill: #eee;
+  fill: var(--background-light-highlight);
 }
 
 .header {
@@ -61,7 +62,7 @@
 }
 
 .or {
-  margin: 0 10px;
+  margin: 0 5px 0 2px;
   font-size: 12px;
   color: #bbb;
 }

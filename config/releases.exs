@@ -6,12 +6,21 @@ defmodule Utilities do
   def string_to_boolean(_), do: false
 end
 
+webapp_url = System.get_env("WEBAPP_URL") || "http://localhost:4000"
+static_url = URI.parse(webapp_url)
+
 config :accent,
-  webapp_url: System.get_env("WEBAPP_URL") || "http://localhost:4000",
+  webapp_url: webapp_url,
   force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
   restricted_domain: System.get_env("RESTRICTED_DOMAIN")
 
-config :accent, Accent.Endpoint, http: [port: System.get_env("PORT") || "4000"]
+config :accent, Accent.Endpoint,
+  http: [port: System.get_env("PORT") || "4000"],
+  static_url: [
+    scheme: static_url.scheme,
+    host: static_url.host,
+    port: static_url.port
+  ]
 
 config :accent, Accent.Repo, url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 

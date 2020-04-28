@@ -94,6 +94,7 @@ export default class TranslationEditForm extends Component<Args> {
   changeText(event: Event) {
     const target = event.target as HTMLInputElement;
 
+    this.text = target.value;
     this.args.onKeyUp?.(target.value);
     this.fetchLintMessages(target.value);
   }
