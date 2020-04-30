@@ -7,13 +7,11 @@
     "i18n",
     "translations"
   ],
+  "stack": "container",
   "website": "https://www.accent.reviews",
   "repository": "https://github.com/mirego/accent",
   "logo": "https://raw.githubusercontent.com/mirego/accent/master/priv/static/images/accent.png",
   "success_url": "/",
-  "scripts": {
-    "postdeploy": "mix do ecto.migrate, run ./priv/repo/seeds.exs"
-  },
   "env": {
     "WEBAPP_URL": {
       "description": "The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.",
@@ -29,11 +27,6 @@
       "description": "The default login to quickly test the instance. It only requires the user to enter a valid email to login.",
       "value": "true",
       "required": false
-    },
-    "MIX_ENV": {
-      "description": "The environment in which Elixir code will run",
-      "value": "prod",
-      "required": true
     }
   },
   "addons": [
@@ -43,16 +36,5 @@
         "version": "9.6"
       }
     }
-  ],
-  "buildpacks": [
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-apt#usr-local-paths"
-    },
-    {
-      "url": "https://github.com/HashNuke/heroku-buildpack-elixir"
-    },
-    {
-      "url": "https://github.com/gjaldon/heroku-buildpack-phoenix-static"
-    }
-  ]
+ ]
 }
