@@ -22,9 +22,11 @@ defmodule Accent.Collaborator do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
+    |> update_change(:email, &String.trim/1)
     |> validate_format(:email, ~r/.+@.+/)
-    |> downcase_email(params)
+    |> update_change(:email, &String.downcase/1)
     |> validate_inclusion(:role, @possible_roles)
+    |> unique_constraint(:email, name: :collaborators_email_project_id_index)
   end
 
   def update_changeset(model, params) do
@@ -32,10 +34,4 @@ defmodule Accent.Collaborator do
     |> cast(params, [:role])
     |> validate_inclusion(:role, @possible_roles)
   end
-
-  defp downcase_email(changeset, %{"email" => email}) do
-    put_change(changeset, :email, String.downcase(email))
-  end
-
-  defp downcase_email(changeset, _params), do: changeset
 end
