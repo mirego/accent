@@ -13,7 +13,7 @@ defmodule Accent.Repo.Migrations.UniqueCollaboratorEmail do
       WHERE inserted_at > (
        SELECT oldest_email_collaborators.inserted_at
        FROM oldest_email_collaborators
-       WHERE collaborators.email  = oldest_email_collaborators.email
+       WHERE collaborators.email = oldest_email_collaborators.email
       )
       """,
       ""
