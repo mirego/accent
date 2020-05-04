@@ -7,7 +7,7 @@
   </p>
 </div>
 
-[Demo](http://demo.accent.reviews) • [Website](https://www.accent.reviews) • [GraphiQL](https://www.accent.reviews/documentation)
+[Demo](http://demo.accent.reviews) • [Website](https://www.accent.reviews) • [GraphiQL](http://demo.accent.reviews/graphiql/)
 
 [![Actions Status](https://github.com/mirego/accent/workflows/CI/badge.svg)](https://github.com/mirego/accent/actions)
 [![Coverage Status](https://coveralls.io/repos/github/mirego/accent/badge.svg?branch=master)](https://coveralls.io/github/mirego/accent?branch=master) [![Join the chat at https://gitter.im/mirego/accent](https://badges.gitter.im/mirego/accent.svg)](https://gitter.im/mirego/accent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
