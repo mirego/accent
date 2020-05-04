@@ -4,7 +4,7 @@ defmodule AccentTest.GraphQL.Resolvers.Language do
   alias Accent.GraphQL.Resolvers.Language, as: Resolver
 
   test "list" do
-    {:ok, result} = Resolver.list(nil, %{}, %{})
+    {:ok, result} = Resolver.list(nil, %{page_size: 10}, %{})
 
     assert length(result.entries) == 10
   end
@@ -16,7 +16,7 @@ defmodule AccentTest.GraphQL.Resolvers.Language do
   end
 
   test "list empty search" do
-    {:ok, result} = Resolver.list(nil, %{query: ""}, %{})
+    {:ok, result} = Resolver.list(nil, %{query: "", page_size: 10}, %{})
 
     assert length(result.entries) == 10
   end

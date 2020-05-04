@@ -13,6 +13,10 @@ defmodule Accent.GraphQL.Paginated do
 
   use Accessible
 
+  def paginate(query, args) do
+    Accent.Repo.paginate(query, page: args[:page], page_size: args[:page_size])
+  end
+
   def format(paginated_list) do
     %__MODULE__{entries: paginated_list.entries, meta: meta(paginated_list)}
   end

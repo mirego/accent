@@ -38,7 +38,10 @@ export default class ProjectFetcher {
             }
           }
 
-          documents {
+          documents(pageSize: 1000) {
+            meta {
+              totalEntries
+            }
             entries {
               id
               path

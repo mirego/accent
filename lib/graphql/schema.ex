@@ -34,6 +34,7 @@ defmodule Accent.GraphQL.Schema do
 
     field :languages, non_null(:languages) do
       arg(:query, :string)
+      arg(:page_size, :integer, default_value: 10)
 
       resolve(&Accent.GraphQL.Resolvers.Language.list/3)
     end

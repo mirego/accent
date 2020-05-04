@@ -20,8 +20,13 @@ export interface Document {
   format: string;
 }
 
+interface DocumentsMeta {
+  totalEntries: number;
+}
+
 export interface PaginatedDocuments {
   entries: Document[];
+  meta: DocumentsMeta;
 }
 
 export interface Project {

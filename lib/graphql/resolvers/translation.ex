@@ -115,7 +115,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
       |> TranslationScope.parse_commented_on(args[:is_commented_on])
       |> TranslationScope.from_version(args[:version])
       |> Query.preload(:revision)
-      |> Repo.paginate(page: args[:page], page_size: args[:page_size])
+      |> Paginated.paginate(args)
 
     translations = %{translations | entries: add_related_translations(translations.entries, args[:reference_revision], args[:version])}
 

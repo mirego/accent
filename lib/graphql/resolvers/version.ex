@@ -52,7 +52,7 @@ defmodule Accent.GraphQL.Resolvers.Version do
     project
     |> Ecto.assoc(:versions)
     |> Ecto.Query.order_by(desc: :inserted_at)
-    |> Repo.paginate(page: args[:page])
+    |> Paginated.paginate(args)
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end

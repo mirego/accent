@@ -47,6 +47,7 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :documents, :documents do
       arg(:page, :integer)
+      arg(:page_size, :integer)
 
       resolve(project_authorize(:index_documents, &Accent.GraphQL.Resolvers.Document.list_project/3))
     end
@@ -63,6 +64,7 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :comments, :comments do
       arg(:page, :integer)
+      arg(:page_size, :integer)
 
       resolve(project_authorize(:index_comments, &Accent.GraphQL.Resolvers.Comment.list_project/3))
     end

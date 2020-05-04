@@ -19,7 +19,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.9.1 darwin-x64 node-v10.14.2
+accent-cli/0.9.1 darwin-x64 node-v10.16.3
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND

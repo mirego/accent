@@ -56,7 +56,7 @@ export default class ProjectStatsFormatter {
 
     if (this.project.revisions.length > 1) {
       console.log(
-        chalk.magenta(`Translations (${this.project.revisions.length - 1})`)
+        chalk.magenta('Translations', `(${this.project.revisions.length - 1})`)
       );
       this.project.revisions.forEach((revision: Revision) => {
         if (this.project.masterRevision.id !== revision.id) {
@@ -71,8 +71,13 @@ export default class ProjectStatsFormatter {
       });
     }
 
-    if (this.project.documents.entries.length !== 0) {
-      console.log(chalk.magenta('Documents'));
+    if (this.project.documents.meta.totalEntries !== 0) {
+      console.log(
+        chalk.magenta(
+          'Documents',
+          `(${this.project.documents.meta.totalEntries})`
+        )
+      );
       this.project.documents.entries.forEach((document: Document) => {
         console.log(
           '  ',

@@ -61,7 +61,7 @@ defmodule Accent.GraphQL.Resolvers.Document do
     |> DocumentScope.from_project(project.id)
     |> DocumentScope.with_stats()
     |> Ecto.Query.order_by(desc: :updated_at)
-    |> Repo.paginate(page: args[:page])
+    |> Paginated.paginate(args)
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end

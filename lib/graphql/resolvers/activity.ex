@@ -24,7 +24,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     |> Query.join(:left, [o], r in assoc(o, :revision))
     |> Query.where([o, r], r.project_id == ^project.id or o.project_id == ^project.id)
     |> OperationScope.order_last_to_first()
-    |> Repo.paginate(page: args[:page], page_size: args[:page_size])
+    |> Paginated.paginate(args)
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end
@@ -33,7 +33,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
   def list_operations(operation, args, _) do
     operation
     |> Ecto.assoc(:operations)
-    |> Repo.paginate(page: args[:page])
+    |> Paginated.paginate(args)
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end
@@ -46,7 +46,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     |> OperationScope.filter_from_batch(args[:is_batch])
     |> OperationScope.filter_from_action(args[:action])
     |> OperationScope.order_last_to_first()
-    |> Repo.paginate(page: args[:page])
+    |> Paginated.paginate(args)
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end

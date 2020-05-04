@@ -53,12 +53,14 @@ defmodule Accent.GraphQL.Types.Translation do
 
     field :comments, :comments do
       arg(:page, :integer)
+      arg(:page_size, :integer)
 
       resolve(translation_authorize(:index_comments, &Accent.GraphQL.Resolvers.Comment.list_translation/3))
     end
 
     field :activities, :activities do
       arg(:page, :integer)
+      arg(:page_size, :integer)
       arg(:action, :string)
       arg(:is_batch, :boolean)
       arg(:user_id, :id)

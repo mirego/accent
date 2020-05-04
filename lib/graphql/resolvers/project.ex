@@ -79,7 +79,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
     |> Query.order_by([p, _], asc: p.name)
     |> ProjectScope.from_search(args[:query])
     |> ProjectScope.with_stats()
-    |> Repo.paginate(page: args[:page])
+    |> Paginated.paginate(args)
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end

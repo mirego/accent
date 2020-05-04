@@ -47,7 +47,7 @@ defmodule Accent.GraphQL.Resolvers.Comment do
   def list_project(project, args, _) do
     Comment
     |> CommentScope.from_project(project.id)
-    |> Repo.paginate(page: args[:page])
+    |> Paginated.paginate(args)
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end
@@ -57,7 +57,7 @@ defmodule Accent.GraphQL.Resolvers.Comment do
     translation
     |> Ecto.assoc(:comments)
     |> CommentScope.default_order()
-    |> Repo.paginate(page: args[:page])
+    |> Paginated.paginate(args)
     |> Paginated.format()
     |> (&{:ok, &1}).()
   end
