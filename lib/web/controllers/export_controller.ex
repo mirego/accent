@@ -46,6 +46,7 @@ defmodule Accent.ExportController do
   ### Optional params
     - `order_by`
     - `inline_render`
+    - `version`
 
   ### Response
 
