@@ -8,12 +8,12 @@ defmodule Accent.Plugs.MovementContextParser do
 
   plug(:validate_params)
   plug(:assign_document_parser)
-  plug(:assign_document_path)
   plug(:assign_document_format)
+  plug(:assign_document_path)
   plug(:assign_version)
   plug(:assign_movement_context)
-  plug(:assign_movement_document)
   plug(:assign_movement_version)
+  plug(:assign_movement_document)
   plug(:assign_movement_entries)
 
   def validate_params(conn = %{params: %{"document_format" => _format, "file" => _file, "language" => _language}}, _), do: conn
@@ -94,7 +94,7 @@ defmodule Accent.Plugs.MovementContextParser do
         context =
           context
           |> Context.assign(:document, context.assigns[:document])
-          |> Context.assign(:document_update, document && %{top_of_the_file_comment: document.top_of_the_file_comment, header: document.header})
+          |> Context.assign(:document_update, document && %{top_of_the_file_comment: document.top_of_the_file_comment, header: document.header, meta: document.meta})
           |> Map.put(:render, render)
           |> Map.put(:entries, entries)
 
@@ -113,7 +113,8 @@ defmodule Accent.Plugs.MovementContextParser do
       document: %Langue.Document{
         path: document.path,
         top_of_the_file_comment: document.top_of_the_file_comment,
-        header: document.header
+        header: document.header,
+        meta: document.meta
       }
     }
 

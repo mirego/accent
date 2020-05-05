@@ -19,6 +19,10 @@ defmodule AccentTest.Plugs.MovementContextParser do
     %Plug.Upload{content_type: "plain/text", filename: "simple.gettext", path: "test/support/formatter/gettext/simple.po"}
   end
 
+  def file_with_meta do
+    %Plug.Upload{content_type: "plain/text", filename: "simple.arb", path: "test/support/formatter/arb/simple.arb"}
+  end
+
   def invalid_file do
     %Plug.Upload{content_type: "application/json", filename: "simple.json", path: "test/support/invalid_file.json"}
   end
@@ -162,7 +166,42 @@ defmodule AccentTest.Plugs.MovementContextParser do
     assert context.assigns[:document_update] == %{
              top_of_the_file_comment:
                "## Do not add, change, or remove `msgid`s manually here as\n## they're tied to the ones in the corresponding POT file\n## (with the same domain).\n##\n## Use `mix gettext.extract --merge` or `mix gettext.merge`\n## to merge POT files into PO files.",
-             header: "\nLanguage: fr\n"
+             header: "\nLanguage: fr\n",
+             meta: %{}
+           }
+
+    assert conn.state == :unset
+  end
+
+  test "assign document meta", %{project: project} do
+    conn =
+      :get
+      |> conn("/foo", %{document_path: "world", document_format: "arb", file: file_with_meta(), language: "en"})
+      |> assign(:project, project)
+      |> MovementContextParser.call([])
+
+    context =
+      conn.assigns
+      |> Map.get(:movement_context)
+
+    assert context.assigns[:document] == %Document{
+             project_id: project.id,
+             path: "world",
+             format: "arb"
+           }
+
+    assert context.assigns[:document_update] == %{
+             top_of_the_file_comment: "",
+             header: "",
+             meta: %{
+               "@@last_modified" => "2020-04-24T15:33:06.520235",
+               "@mediaRootListItemTitle" => %{
+                 "description" => "Placeholder text for having a list view",
+                 "placeholders" => %{"itemNumber" => %{"example" => "1"}},
+                 "type" => "text"
+               },
+               "@navRootTitle" => %{"description" => "Placeholder text for nav view", "placeholders" => %{}, "type" => "text"}
+             }
            }
 
     assert conn.state == :unset

@@ -12,7 +12,8 @@ defmodule Langue do
     Strings,
     LaravelPhp,
     GoI18nJson,
-    XLIFF12
+    XLIFF12,
+    ARB
   ]
 
   for format <- @formats, module = Module.concat([Langue, Formatter, format]), name = module.name() do

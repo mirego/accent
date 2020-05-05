@@ -15,7 +15,8 @@ defmodule Accent.TranslationsRenderer do
         path: args[:document].path,
         master_language: Accent.Revision.language(args[:master_revision]).slug,
         top_of_the_file_comment: args[:document].top_of_the_file_comment,
-        header: args[:document].header
+        header: args[:document].header,
+        meta: args[:document].meta
       }
     }
 

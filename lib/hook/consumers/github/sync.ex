@@ -62,6 +62,6 @@ defmodule Accent.Hook.Consumers.GitHub.Sync do
   defp document_update(nil), do: nil
 
   defp document_update(parsed_document) do
-    %{top_of_the_file_comment: parsed_document.top_of_the_file_comment, header: parsed_document.header}
+    %{top_of_the_file_comment: parsed_document.top_of_the_file_comment, header: parsed_document.header, meta: parsed_document.meta}
   end
 end

@@ -1,0 +1,19 @@
+{
+    "@@last_modified": "2020-04-24T15:33:06.520235",
+    "mediaRootListItemTitle": "Item, {itemNumber}",
+    "@mediaRootListItemTitle": {
+      "description": "Placeholder text for having a list view",
+      "type": "text",
+      "placeholders": {
+        "itemNumber": {
+          "example": "1"
+        }
+      }
+    },
+    "navRootTitle": "Navigation",
+    "@navRootTitle": {
+      "description": "Placeholder text for nav view",
+      "type": "text",
+      "placeholders": {}
+    }
+}

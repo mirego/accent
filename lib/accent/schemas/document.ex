@@ -11,6 +11,7 @@ defmodule Accent.Document do
 
     field(:top_of_the_file_comment, :string, default: "")
     field(:header, :string, default: "")
+    field(:meta, :map, default: %{})
 
     belongs_to(:project, Accent.Project)
     has_many(:translations, Accent.Translation)
@@ -26,7 +27,7 @@ defmodule Accent.Document do
 
   def changeset(model, params) do
     model
-    |> cast(params, [:format, :project_id, :path, :top_of_the_file_comment, :header])
+    |> cast(params, [:format, :project_id, :path, :top_of_the_file_comment, :header, :meta])
     |> validate_required([:format, :path, :project_id])
     |> validate_inclusion(:format, @possible_formats)
     |> unique_constraint(:path, name: :documents_path_format_project_id_index)
