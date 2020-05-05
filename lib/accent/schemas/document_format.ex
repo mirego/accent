@@ -18,7 +18,7 @@ defmodule Accent.DocumentFormat do
     %{name: "Laravel PHP", slug: "laravel_php", extension: "php"},
     %{name: "Go I18n JSON", slug: "go_i18n_json", extension: "json"},
     %{name: "XLIFF 1.2", slug: "xliff_1_2", extension: "xlf"},
-    %{name: "Flutter ARB", slug: "arb", extension: "arb"}
+    %{name: "ARB", slug: "arb", extension: "arb"}
   ]
 
   @doc """
@@ -48,7 +48,7 @@ defmodule Accent.DocumentFormat do
       %Accent.DocumentFormat{extension: "php", name: "Laravel PHP", slug: "laravel_php"},
       %Accent.DocumentFormat{extension: "json", name: "Go I18n JSON", slug: "go_i18n_json"},
       %Accent.DocumentFormat{extension: "xlf", name: "XLIFF 1.2", slug: "xliff_1_2"},
-      %Accent.DocumentFormat{extension: "arb", name: "Flutter ARB", slug: "arb"}
+      %Accent.DocumentFormat{extension: "arb", name: "ARB", slug: "arb"}
     ]
   """
   def all, do: Enum.map(@all, &struct(__MODULE__, &1))
