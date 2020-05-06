@@ -20,16 +20,21 @@ defmodule Langue.Formatter.ARB.Parser do
     }
   end
 
+  def parse_and_index(data) when is_list(data) do
+    {final_map, _} =
+      Enum.reduce(data, {%{}, 0}, fn {key, value}, {map, index} ->
+        {Map.put(map, key, %{"value" => parse_and_index(value), "index" => index}), index + 1}
+      end)
+
+    final_map
+  end
+
+  def parse_and_index(data) when is_tuple(data), do: parse_and_index(elem(data, 0))
+  def parse_and_index(data) when is_binary(data), do: data
+
   def parse_meta(render) do
-    render
-    |> :jsone.decode()
-    |> Enum.reduce(%{}, fn {key, value}, acc ->
-      if String.at(key, 0) == "@" do
-        Map.put(acc, key, value)
-      else
-        acc
-      end
-    end)
+    :jsone.decode(render, object_format: :tuple)
+    |> parse_and_index()
   end
 
   def parse_json(render) do

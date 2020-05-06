@@ -7,29 +7,35 @@ defmodule Langue.Formatter.ARB.Serializer do
   def serialize(%{entries: entries, document: document}) do
     render =
       entries
-      |> Enum.map(fn entry ->
-        {entry.key, NestedSerializerHelper.entry_value_to_string(entry.value, entry.value_type)}
+      |> Enum.reduce(%{}, fn entry, acc ->
+        Map.put(acc, entry.key, NestedSerializerHelper.entry_value_to_string(entry.value, entry.value_type))
       end)
-      |> Enum.concat(get_meta(document))
-      |> Enum.sort(&(first_alpha_char(&1) <= first_alpha_char(&2)))
+      |> combine_entries_with_meta(document.meta)
       |> JsonSerializer.encode_json()
       |> Kernel.<>("\n")
 
     %Langue.Formatter.SerializerResult{render: render}
   end
 
-  def first_alpha_char(["@" | tail]), do: first_alpha_char(tail)
-  def first_alpha_char([head | _tail]), do: head
+  def combine_entries_with_meta(entries, meta) when meta == %{}, do: entries
 
-  def first_alpha_char({key, _value}) do
-    first_alpha_char(String.graphemes(key))
-  end
+  def combine_entries_with_meta(entries, meta) when is_map(meta) do
+    Enum.map(meta, fn {key, values} ->
+      case Map.get(entries, key) do
+        nil ->
+          {key, Map.put(values, "value", combine_entries_with_meta(entries, Map.get(values, "value")))}
 
-  def get_meta(%Langue.Document{meta: nil}), do: []
-
-  def get_meta(%Langue.Document{meta: meta}) do
-    Enum.map(meta, fn {key, value} ->
+        entry_value ->
+          {key, Map.put(values, "value", entry_value)}
+      end
+    end)
+    |> Enum.sort(&(index(&1) < index(&2)))
+    |> Enum.map(fn {key, %{"value" => value}} ->
       {key, value}
     end)
   end
+
+  def combine_entries_with_meta(_entries, meta) when is_binary(meta), do: meta
+
+  def index({_key, %{"index" => index}}), do: index
 end
