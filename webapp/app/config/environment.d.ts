@@ -11,6 +11,7 @@ declare const config: {
   podModulePrefix: string;
   locationType: string;
   rootURL: string;
+  version: string;
 
   EmberENV: {
     EXTEND_PROTOTYPES: boolean;
