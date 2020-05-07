@@ -52,8 +52,8 @@ defmodule Accent.Hook.Consumers.GitHub.Sync do
         assigns: %{
           document: document,
           document_update: %{
-            top_of_the_file_comment: parsed_document.top_of_the_file_comment,
-            header: parsed_document.header
+            top_of_the_file_comment: parsed_document && parsed_document.top_of_the_file_comment,
+            header: parsed_document && parsed_document.header
           }
         }
       }
