@@ -125,8 +125,6 @@ describe('Acceptance | Logged in | Projects page', function () {
 
       expect('[data-test-loader]').to.be.not.rendered;
       expect('[data-test-empty-content]').to.be.rendered;
-      // Validate that CI correctly fails ;)
-      expect(true).to.be.false;
     });
   });
 });
