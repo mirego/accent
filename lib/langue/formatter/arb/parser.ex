@@ -41,9 +41,7 @@ defmodule Langue.Formatter.ARB.Parser do
     render
     |> :jsone.decode(object_format: :tuple)
     |> elem(0)
-    |> Enum.filter(fn {key, _value} ->
-      if String.at(key, 0) != "@", do: key
-    end)
+    |> Enum.filter(fn {key, _value} -> String.at(key, 0) != "@" end)
     |> NestedParserHelper.parse()
   end
 end

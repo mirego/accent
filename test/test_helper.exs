@@ -7,7 +7,8 @@ defmodule Accent.FormatterTestHelper do
           path: "project-a",
           master_language: "en",
           top_of_the_file_comment: variant.top_of_the_file_comment,
-          header: variant.header
+          header: variant.header,
+          meta: variant.meta
         }
       }
       |> parser.parse()
@@ -24,7 +25,8 @@ defmodule Accent.FormatterTestHelper do
           path: "project-a",
           master_language: "en",
           top_of_the_file_comment: variant.top_of_the_file_comment,
-          header: variant.header
+          header: variant.header,
+          meta: variant.meta
         }
       }
       |> serializer.serialize()

@@ -194,13 +194,25 @@ defmodule AccentTest.Plugs.MovementContextParser do
              top_of_the_file_comment: "",
              header: "",
              meta: %{
-               "@@last_modified" => "2020-04-24T15:33:06.520235",
+               "@@last_modified" => %{"index" => 0, "value" => "2020-04-24T15:33:06.520235"},
                "@mediaRootListItemTitle" => %{
-                 "description" => "Placeholder text for having a list view",
-                 "placeholders" => %{"itemNumber" => %{"example" => "1"}},
-                 "type" => "text"
+                 "index" => 2,
+                 "value" => %{
+                   "description" => %{"index" => 0, "value" => "Placeholder text for having a list view"},
+                   "placeholders" => %{"index" => 2, "value" => %{"itemNumber" => %{"index" => 0, "value" => %{"example" => %{"index" => 0, "value" => "1"}}}}},
+                   "type" => %{"index" => 1, "value" => "text"}
+                 }
                },
-               "@navRootTitle" => %{"description" => "Placeholder text for nav view", "placeholders" => %{}, "type" => "text"}
+               "@navRootTitle" => %{
+                 "index" => 4,
+                 "value" => %{
+                   "description" => %{"index" => 0, "value" => "Placeholder text for nav view"},
+                   "placeholders" => %{"index" => 2, "value" => %{}},
+                   "type" => %{"index" => 1, "value" => "text"}
+                 }
+               },
+               "mediaRootListItemTitle" => %{"index" => 1, "value" => "Item, {itemNumber}"},
+               "navRootTitle" => %{"index" => 3, "value" => "Navigation"}
              }
            }
 
