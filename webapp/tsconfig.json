@@ -29,5 +29,10 @@
       "*": ["types/*"]
     }
   },
-  "include": ["app/**/*", "tests/**/*", "types/**/*"]
+  "include": [
+    "node_modules/ember-chai-dom-helpers",
+    "app/**/*",
+    "tests/**/*",
+    "types/**/*"
+  ]
 }

@@ -103,8 +103,15 @@ type-check: ## Type-check typescript files
 	cd jipt && npx tsc
 
 .PHONY: test
-test: ## Run the test suite
+test: test-api test-webapp
+
+.PHONY: test-api
+test-api: ## Run the backend test suite
 	mix test
+
+.PHONY: test-webapp
+test-webapp: ## Run the frontend test suite
+	cd webapp && npx ember exam --reporter dot
 
 .PHONY: test-coverage
 test-coverage: ## Generate the code coverage report

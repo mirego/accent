@@ -7,7 +7,7 @@
   />
 
   {{#if showLoading}}
-    <LoadingContent @label={{t "pods.projects.loading_content"}} />
+    <LoadingContent @label={{t "pods.projects.loading_content"}} data-test-loader />
   {{else}}
     <ProjectsList
       @permissions={{this.permissions}}

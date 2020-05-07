@@ -1,6 +1,6 @@
-<ul local-class="projects-list">
-  {{#each @projects key="id" as |project|}}
-    <li local-class="item">
+<ul local-class="projects-list" data-test-projects-list>
+  {{#each @projects key="id" as |project index|}}
+    <li local-class="item" data-test-project={{index}}>
       <LinkTo
         @route="logged-in.project"
         @model={{project.id}}
