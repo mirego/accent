@@ -65,3 +65,11 @@ jobs:
         run: npm --prefix jipt run build-production-inline
       - name: Coverage report
         run: mix coveralls.post --token ${{ secrets.COVERALLS_REPO_TOKEN }} --name 'github-actions' --branch ${{ github.ref }} --committer ${{ github.actor }} --sha ${{ github.sha }}
+
+      - uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: mirego/accent
+          tag_with_ref: true
+          push: ${{ startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master' }}
