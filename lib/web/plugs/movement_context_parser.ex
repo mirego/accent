@@ -40,8 +40,8 @@ defmodule Accent.Plugs.MovementContextParser do
 
   def assign_version(conn = %{assigns: %{project: project}, params: %{"version" => version}}, _) do
     Version
-    |> VersionScope.from_tag(version)
     |> VersionScope.from_project(project.id)
+    |> VersionScope.from_tag(version)
     |> Repo.one()
     |> case do
       nil ->
