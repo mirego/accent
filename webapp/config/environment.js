@@ -12,6 +12,7 @@ module.exports = function (environment) {
       : process.env.WEBAPP_SENTRY_DSN;
 
   const ENV = {
+    version: '__VERSION__',
     modulePrefix: 'accent-webapp',
     podModulePrefix: 'accent-webapp/pods',
     environment,

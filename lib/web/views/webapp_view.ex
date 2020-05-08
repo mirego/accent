@@ -17,6 +17,11 @@ defmodule Accent.WebappView do
     |> String.replace("__API_HOST__", config[:api_host] || "#{http_scheme}#{default_api_host}")
     |> String.replace("__API_WS_HOST__", config[:api_ws_host] || "#{ws_scheme}#{default_api_host}")
     |> String.replace("__WEBAPP_SENTRY_DSN__", config[:sentry_dsn])
+    |> String.replace("__VERSION__", version())
+  end
+
+  defp version do
+    Application.get_env(:accent, :version)
   end
 
   defp config do

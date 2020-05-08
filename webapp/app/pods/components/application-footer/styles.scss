@@ -21,25 +21,45 @@
   max-width: var(--screen-lg);
 }
 
+.meta {
+  display: flex;
+  align-items: center;
+}
+
+.version {
+  font-family: var(--font-monospace);
+  font-size: 10px;
+}
+
 .button-themes {
   opacity: 0;
   display: flex;
+  margin-left: 10px;
   transition: opacity 0.2s ease-in-out;
 }
 
 .button-theme {
+  padding: 0 3px;
+  margin-left: 5px;
   background: none;
   opacity: 0.2;
   color: var(--text-color-normal);
-  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
-}
+  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    transform 0.2s ease-in;
 
-.button-theme--moon {
-  &.button-theme--enabled,
   &:focus,
   &:hover {
     outline: none;
+  }
+
+  &:hover {
     opacity: 1;
+  }
+}
+
+.button-theme--moon {
+  &:hover {
+    transform: rotate(-20deg);
     color: #5660e4;
   }
 
@@ -50,11 +70,8 @@
 }
 
 .button-theme--sun {
-  &.button-theme--enabled,
-  &:focus,
   &:hover {
-    outline: none;
-    opacity: 1;
+    transform: translateY(-3px);
     color: #dcbc18;
   }
 
