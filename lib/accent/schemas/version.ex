@@ -25,9 +25,10 @@ defmodule Accent.Version do
   end
 
   def with_parsed_tag(version) do
-    trimmed_tag = String.trim_leading(version.tag, "v")
-
-    case Version.parse(trimmed_tag) do
+    version.tag
+    |> String.trim_leading("v")
+    |> Version.parse()
+    |> case do
       {:ok, tag} -> %{version | parsed_tag: tag}
       _ -> %{version | parsed_tag: :error}
     end
