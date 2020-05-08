@@ -26,7 +26,10 @@ run() {
 }
 
 header "API tests…"
-run mix test
+run make test-api
+
+header "Webapp tests…"
+run make test-webapp
 
 header "Compilation without warnings…"
 run make lint-compile

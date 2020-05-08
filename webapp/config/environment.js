@@ -86,6 +86,8 @@ module.exports = function (environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
 
+    ENV.API.HOST = 'fake/endpoint';
+
     ENV.APP.LOCAL_STORAGE.SESSION_NAMESPACE = 'accent-session-test';
   }
 

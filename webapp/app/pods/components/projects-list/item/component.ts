@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import {readOnly, lt, gte} from '@ember/object/computed';
+import {lt, gte} from '@ember/object/computed';
 import percentage from 'accent-webapp/component-helpers/percentage';
 
 const LOW_PERCENTAGE = 50;
@@ -10,9 +10,6 @@ interface Args {
 }
 
 export default class ProjectsListItem extends Component<Args> {
-  @readOnly('args.project')
-  project: any;
-
   @lt('correctedKeysPercentage', LOW_PERCENTAGE)
   lowPercentage: boolean; // Lower than low percentage
 
@@ -24,22 +21,24 @@ export default class ProjectsListItem extends Component<Args> {
 
   get colors() {
     return `
-      .projectId-${this.project.id} {
-        --color-primary: ${this.project.mainColor};
+      .projectId-${this.args.project.id} {
+        --color-primary: ${this.args.project.mainColor};
       }
     `;
   }
 
   get totalStrings() {
-    return this.project.translationsCount;
+    return this.args.project.translationsCount;
   }
 
   get totalConflicts() {
-    return this.project.conflictsCount;
+    return this.args.project.conflictsCount;
   }
 
   get totalReviewed() {
-    return this.project.translationsCount - this.project.conflictsCount;
+    return (
+      this.args.project.translationsCount - this.args.project.conflictsCount
+    );
   }
 
   get correctedKeysPercentage() {
