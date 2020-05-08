@@ -51,14 +51,17 @@ defmodule Accent.Hook.Consumers.GitHub.Sync do
         entries: entries,
         assigns: %{
           document: document,
-          document_update: %{
-            top_of_the_file_comment: parsed_document.top_of_the_file_comment,
-            header: parsed_document.header
-          }
+          document_update: document_update(parsed_document)
         }
       }
     else
       _ -> nil
     end
+  end
+
+  defp document_update(nil), do: nil
+
+  defp document_update(parsed_document) do
+    %{top_of_the_file_comment: parsed_document.top_of_the_file_comment, header: parsed_document.header}
   end
 end

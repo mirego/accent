@@ -20,10 +20,18 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     [project: project, document: document, user: user]
   end
 
-  def file do
+  def gettext_file do
     Base.encode64(~S(
       msgid "key"
       msgstr "value"
+      ))
+  end
+
+  def json_file do
+    Base.encode64(~S(
+      {
+        "key": "value"
+      }
       ))
   end
 
@@ -61,7 +69,81 @@ defmodule AccentTest.Hook.Consumers.GitHub do
        }}
     end)
     |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
-      {:ok, %{body: %{"content" => file()}}}
+      {:ok, %{body: %{"content" => gettext_file()}}}
+    end)
+
+    data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
+    Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
+
+    event = %Accent.Hook.Context{
+      project: project,
+      event: "push",
+      payload: %{
+        default_ref: data.default_ref,
+        ref: "refs/heads/develop",
+        repository: data.repository,
+        token: data.token
+      }
+    }
+
+    Consumer.handle_events([event], nil, [])
+
+    batch_operation =
+      Operation
+      |> where([o], o.batch == true)
+      |> Repo.one()
+
+    operation =
+      Operation
+      |> where([o], o.batch == false)
+      |> Repo.one()
+
+    translation =
+      Translation
+      |> where([t], t.key == ^"key")
+      |> Repo.one()
+
+    assert batch_operation.action === "sync"
+    assert operation.action === "new"
+    assert operation.translation_id === translation.id
+    assert translation.proposed_text === "value"
+  end
+
+  test "sync with json file", %{project: project, user: user} do
+    config =
+      %{
+        "files" => [
+          %{
+            "format" => "json",
+            "language" => "fr",
+            "source" => "priv/fr/**/*.json"
+          }
+        ]
+      }
+      |> Jason.encode!()
+      |> Base.encode64()
+
+    FileServerMock
+    |> expect(:get_path, fn "accent/test-repo/contents/accent.json?ref=develop", [{"Authorization", "token 1234"}] ->
+      {:ok, %{body: %{"content" => config}}}
+    end)
+    |> expect(:get_path, fn "accent/test-repo/git/trees/develop?recursive=1", [{"Authorization", "token 1234"}] ->
+      {:ok,
+       %{
+         body: %{
+           "tree" => [
+             %{"path" => "accent.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"},
+             %{"path" => "Dockerfile", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"},
+             %{"path" => "priv/fr", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/3"},
+             %{"path" => "priv/fr", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"},
+             %{"path" => "priv/fr/admin.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/5"},
+             %{"path" => "priv/en/admin.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"}
+           ]
+         }
+       }}
+    end)
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
+      {:ok, %{body: %{"content" => json_file()}}}
     end)
 
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
@@ -160,7 +242,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
        }}
     end)
     |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
-      {:ok, %{body: %{"content" => file()}}}
+      {:ok, %{body: %{"content" => gettext_file()}}}
     end)
 
     version = Repo.insert!(%Version{project_id: project.id, user_id: user.id, tag: "v1.0.0", name: "First release"})
@@ -239,7 +321,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
        }}
     end)
     |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
-      {:ok, %{body: %{"content" => file()}}}
+      {:ok, %{body: %{"content" => gettext_file()}}}
     end)
 
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
@@ -326,7 +408,7 @@ defmodule AccentTest.Hook.Consumers.GitHub do
        }}
     end)
     |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
-      {:ok, %{body: %{"content" => file()}}}
+      {:ok, %{body: %{"content" => gettext_file()}}}
     end)
 
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
