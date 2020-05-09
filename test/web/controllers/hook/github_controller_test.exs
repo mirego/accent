@@ -26,6 +26,23 @@ defmodule AccentTest.Hook.GitHubController do
     {:ok, [access_token: access_token, user: user, project: project]}
   end
 
+  test "acknowledge ping", %{access_token: access_token, conn: conn, project: project} do
+    params = %{
+      "ref" => "refs/heads/master",
+      "repository" => %{
+        "full_name" => "accent/test-repo"
+      }
+    }
+
+    response =
+      conn
+      |> put_req_header("x-github-event", "ping")
+      |> post(hooks_github_path(conn, []) <> "?authorization=#{access_token.token}&project_id=#{project.id}", params)
+
+    assert response.status == 200
+    assert response.resp_body == "pong"
+  end
+
   test "broadcast event on push", %{user: user, access_token: access_token, conn: conn, project: project} do
     params = %{
       "ref" => "refs/heads/master",

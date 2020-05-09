@@ -8,9 +8,9 @@ defmodule Accent.Hook.GitHubController do
   alias Accent.{Integration, Project, Repo}
   alias Accent.Scopes.Integration, as: IntegrationScope
 
-  plug(:filter_event_type)
   plug(Plug.Assign, canary_action: :hook_update)
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
+  plug(:filter_event_type)
   plug(:assign_payload)
   plug(:update)
 
@@ -57,6 +57,11 @@ defmodule Accent.Hook.GitHubController do
     |> case do
       ["push"] ->
         conn
+
+      ["ping"] ->
+        conn
+        |> send_resp(:ok, "pong")
+        |> halt()
 
       _ ->
         conn
