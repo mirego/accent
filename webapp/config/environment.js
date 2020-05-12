@@ -37,6 +37,7 @@ module.exports = function (environment) {
 
   ENV.API = {
     WS_HOST: wsHost,
+    WS_ENABLED: true,
     HOST: host,
     AUTHENTICATION_PATH: `${host}/auth`,
     HOOKS_PATH: `${host}/hooks/{0}?project_id={1}&authorization={2}`,
@@ -87,6 +88,7 @@ module.exports = function (environment) {
     ENV.APP.autoboot = false;
 
     ENV.API.HOST = 'fake/endpoint';
+    ENV.API.WS_ENABLED = false;
 
     ENV.APP.LOCAL_STORAGE.SESSION_NAMESPACE = 'accent-session-test';
   }

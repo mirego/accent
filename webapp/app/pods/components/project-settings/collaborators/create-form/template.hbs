@@ -11,14 +11,16 @@
     local-class="textInput"
     placeholder={{t "components.collaborator_create_form.email_placeholder"}}
     @onKeyUp={{fn this.emailChanged}}
-    @onSubmit={{fn this.submit}}
+    @onSubmit={{perform this.submitTask}}
+    data-test-new-collaborator-email
   />
 
   <AsyncButton
-    @onClick={{fn this.submit}}
+    @onClick={{perform this.submitTask}}
     @loading={{this.isCreating}}
     @disabled={{this.invalidEmail}}
     class="button button--filled"
+    data-test-new-collaborator-submit
   >
     {{t "components.collaborator_create_form.create_button"}}
   </AsyncButton>

@@ -26,6 +26,7 @@ declare const config: {
 
   API: {
     WS_HOST: string;
+    WS_ENABLED: boolean;
     HOST: string;
     AUTHENTICATION_PATH: string;
     HOOKS_PATH: string;
