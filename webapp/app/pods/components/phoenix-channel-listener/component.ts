@@ -1,12 +1,9 @@
-// Vendor
 import {inject as service} from '@ember/service';
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
 import Session from 'accent-webapp/services/session';
 import Phoenix from 'accent-webapp/services/phoenix';
 import {Channel} from 'accent-webapp/utils/phoenix';
-
-// Config
 import config from 'accent-webapp/config/environment';
 
 interface Args {
