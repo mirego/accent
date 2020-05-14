@@ -1,4 +1,7 @@
-<li local-class="item {{if this.isEditing "editing"}} {{if this.hasJoined "joined" "invited"}} {{if @collaborator.user.pictureUrl "withPicture"}}">
+<li
+  local-class="item {{if this.isEditing "editing"}} {{if this.hasJoined "joined" "invited"}} {{if @collaborator.user.pictureUrl "withPicture"}}"
+  data-test-collaborator
+>
   <div local-class="item-content">
     <div>
       {{#if this.isEditing}}
@@ -22,15 +25,22 @@
         <span local-class="user-name">
           {{#if this.hasJoined}}
             {{#if @collaborator.user.fullname}}
-              {{@collaborator.user.fullname}}
-              <small local-class="user-email">
+              <span data-test-collaborator-fullname>
+                {{@collaborator.user.fullname}}
+              </span>
+
+              <small local-class="user-email" data-test-collaborator-email>
                 {{@collaborator.email}}
               </small>
             {{else}}
-              {{@collaborator.email}}
+              <span data-test-collaborator-email>
+                {{@collaborator.email}}
+              </span>
             {{/if}}
           {{else}}
-            {{@collaborator.email}}
+            <span data-test-collaborator-email>
+              {{@collaborator.email}}
+            </span>
           {{/if}}
         </span>
       </span>
@@ -76,7 +86,12 @@
       {{/if}}
 
       {{#if this.canDeleteCollaborator}}
-        <button local-class="button" class="button button--filled button--red" {{on "click" (fn this.deleteCollaborator)}}>
+        <button
+          local-class="button"
+          class="button button--filled button--red"
+          {{on "click" (fn this.deleteCollaborator)}}
+          data-test-collaborator-remove
+        >
           {{inline-svg "/assets/x.svg" class="button-icon"}}
 
           {{#if this.hasJoined}}

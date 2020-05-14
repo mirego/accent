@@ -4,6 +4,7 @@ import Component from '@glimmer/component';
 import IntlService from 'ember-intl/services/intl';
 import GlobalState from 'accent-webapp/services/global-state';
 import {tracked} from '@glimmer/tracking';
+import {dropTask} from 'ember-concurrency-decorators';
 
 interface Args {
   project: any;
@@ -47,6 +48,16 @@ export default class CreateForm extends Component<Args> {
     return this.mappedPossibleRoles.find(({value}) => value === this.role);
   }
 
+  @dropTask
+  *submitTask() {
+    this.isCreating = true;
+
+    yield this.args.onCreate({email: this.email, role: this.role});
+
+    this.email = '';
+    this.isCreating = false;
+  }
+
   @action
   setRole({value}: {value: string}) {
     this.role = value;
@@ -56,16 +67,6 @@ export default class CreateForm extends Component<Args> {
   emailChanged(event: any) {
     this.email = event.currentTarget.value;
     this.invalidEmail = invalidEmail(event.currentTarget.value);
-  }
-
-  @action
-  async submit() {
-    this.isCreating = true;
-
-    await this.args.onCreate({email: this.email, role: this.role});
-
-    this.email = '';
-    this.isCreating = false;
   }
 
   @action

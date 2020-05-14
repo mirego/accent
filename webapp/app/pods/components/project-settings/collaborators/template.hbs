@@ -8,6 +8,7 @@
       local-class="toggleCreateFormButton"
       class="button button--iconOnly {{if this.showCreateForm "button--filled button--white" "button--filled"}}"
       {{on "click" (fn this.toggleCreateForm)}}
+      data-test-new-collaborator-init
     >
       {{#if this.showCreateForm}}
         {{inline-svg "/assets/x.svg" class="button-icon"}}

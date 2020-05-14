@@ -1,5 +1,16 @@
 const randomId = () => Math.random().toString(36).substring(2);
 
+export const fakeRevision = (params?: object) => ({
+  __typename: 'Revision',
+  conflictsCount: 0,
+  id: `revision-id-${randomId()}`,
+  language: fakeLanguage(),
+  isMaster: true,
+  name: null,
+  translationsCount: 1,
+  ...params,
+});
+
 export const fakeProject = (params?: object) => ({
   __typename: 'Project',
   id: `project-id-${randomId()}`,
@@ -8,7 +19,61 @@ export const fakeProject = (params?: object) => ({
   logo: null,
   mainColor: '#28cb87',
   name: 'Accent',
+  documents: null,
+  revisions: [fakeRevision()],
   translationsCount: 420,
+  viewerPermissions: [
+    'create_slave',
+    'delete_slave',
+    'promote_slave',
+    'update_slave',
+    'update_project',
+    'delete_collaborator',
+    'create_collaborator',
+    'update_collaborator',
+    'rollback',
+    'lock_project_file_operations',
+    'delete_project',
+    'peek_sync',
+    'peek_merge',
+    'merge',
+    'sync',
+    'delete_document',
+    'update_document',
+    'show_project_access_token',
+    'index_project_integrations',
+    'create_project_integration',
+    'update_project_integration',
+    'delete_project_integration',
+    'index_permissions',
+    'index_versions',
+    'create_version',
+    'update_version',
+    'export_version',
+    'index_translations',
+    'index_comments',
+    'create_comment',
+    'show_comment',
+    'correct_all_revision',
+    'uncorrect_all_revision',
+    'show_project',
+    'index_collaborators',
+    'correct_translation',
+    'uncorrect_translation',
+    'update_translation',
+    'show_translation',
+    'index_project_activities',
+    'index_related_translations',
+    'index_revisions',
+    'show_revision',
+    'index_documents',
+    'show_document',
+    'show_activity',
+    'index_translation_activities',
+    'index_translation_comments_subscriptions',
+    'create_translation_comments_subscription',
+    'delete_translation_comments_subscription',
+  ],
   ...params,
 });
 
@@ -17,5 +82,49 @@ export const fakeLanguage = (params?: object) => ({
   id: `language-id-${randomId()}`,
   name: 'French',
   slug: 'fr',
+  ...params,
+});
+
+export const fakeUser = (params?: object) => ({
+  __typename: 'User',
+  email: 'tstark@mirego.com',
+  fullname: 'Tony Stark',
+  id: `user-id-${randomId()}`,
+  isBot: false,
+  pictureUrl: 'fake-picture-url',
+  ...params,
+});
+
+export const fakeConfirmedCollaborator = (params?: object) => ({
+  __typename: 'ConfirmedCollaborator',
+  assigner: {
+    __typename: 'User',
+    fullname: 'Bruce Banner',
+    id: `user-id-${randomId()}`,
+  },
+  email: 'tstark@mirego.com',
+  id: `collaborator-id-${randomId()}`,
+  insertedAt: '2020-02-06T18:27:28.334778Z',
+  isPending: false,
+  role: 'OWNER',
+  user: fakeUser({
+    fullname: 'Tony Stark',
+  }),
+  ...params,
+});
+
+export const fakePendingCollaborator = (params?: object) => ({
+  __typename: 'PendingCollaborator',
+  assigner: {
+    __typename: 'User',
+    fullname: 'Bruce Banner',
+    id: `user-id-${randomId()}`,
+  },
+  email: 'tstark@mirego.com',
+  id: `collaborator-id-${randomId()}`,
+  insertedAt: '2020-05-12T16:50:35.183302Z',
+  isPending: true,
+  role: 'OWNER',
+  user: null,
   ...params,
 });
