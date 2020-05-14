@@ -1,8 +1,6 @@
 defmodule AccentTest.GraphQL.Resolvers.Collaborator do
   use Accent.RepoCase
-
-  import Mox
-  setup :verify_on_exit!
+  use Oban.Testing, repo: Accent.Repo
 
   alias Accent.GraphQL.Resolvers.Collaborator, as: Resolver
 
@@ -29,10 +27,17 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
   test "create", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn _ -> :ok end)
-
     {:ok, result} = Resolver.create(project, %{email: "test@example.com", role: "admin"}, context)
+
+    assert_enqueued(
+      worker: Accent.Hook.Outbounds.Mock,
+      args: %{
+        "event" => "create_collaborator",
+        "payload" => %{"collaborator" => %{"email" => "test@example.com"}},
+        "project_id" => project.id,
+        "user_id" => user.id
+      }
+    )
 
     assert get_in(result, [:errors]) == nil
     assert get_in(Repo.all(Collaborator), [Access.all(), Access.key(:email)]) == ["test@example.com"]

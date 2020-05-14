@@ -3,10 +3,10 @@ defmodule Accent.PeekController do
 
   import Canary.Plugs
 
-  alias Accent.Hook.Context, as: HookContext
   alias Accent.Project
   alias Movement.Builders.ProjectSync, as: ProjectSyncBuilder
   alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
+  alias Movement.Context
 
   plug(Plug.Assign, [canary_action: :peek_merge] when action === :merge)
   plug(Plug.Assign, [canary_action: :peek_sync] when action === :sync)
@@ -44,16 +44,10 @@ defmodule Accent.PeekController do
   def sync(conn, _params) do
     operations =
       conn.assigns[:movement_context]
-      |> Movement.Context.assign(:project, conn.assigns[:project])
+      |> Context.assign(:project, conn.assigns[:project])
       |> ProjectSyncBuilder.build()
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
-
-    Accent.Hook.notify(%HookContext{
-      event: "peek_sync",
-      project: conn.assigns[:project],
-      user: conn.assigns[:current_user]
-    })
 
     render(conn, "index.json", operations: operations)
   end
@@ -88,34 +82,24 @@ defmodule Accent.PeekController do
   def merge(conn, _params) do
     operations =
       conn.assigns[:movement_context]
-      |> Movement.Context.assign(:revision, conn.assigns[:revision])
+      |> Context.assign(:revision, conn.assigns[:revision])
       |> RevisionMergeBuilder.build()
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
-
-    Accent.Hook.notify(%HookContext{
-      event: "peek_merge",
-      project: conn.assigns[:project],
-      user: conn.assigns[:current_user],
-      payload: %{
-        merge_type: conn.assigns[:merge_type],
-        language_name: conn.assigns[:revision].language.name
-      }
-    })
 
     render(conn, "index.json", operations: operations)
   end
 
   defp assign_sync_comparer(conn, _) do
     comparer = Movement.Comparer.comparer(:sync, conn.params["sync_type"])
-    context = Movement.Context.assign(conn.assigns[:movement_context], :comparer, comparer)
+    context = Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)
   end
 
   defp assign_merge_comparer(conn, _) do
     comparer = Movement.Comparer.comparer(:merge, conn.params["merge_type"])
-    context = Movement.Context.assign(conn.assigns[:movement_context], :comparer, comparer)
+    context = Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)
   end

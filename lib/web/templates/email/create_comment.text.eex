@@ -1,6 +1,6 @@
-<%= @commenter.email %> has commented on <%= @translation.key %>:
+<%= @email %> has commented on <%= @key %>:
 
 ---
-<%= @comment.text %>
+<%= @text %>
 
 You can reply here (<%= webapp_url() %><%= @translation_path %>)

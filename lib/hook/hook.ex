@@ -1,11 +1,22 @@
 defmodule Accent.Hook do
-  def notify(context) do
-    broadcaster().notify(context)
+  def outbound(context), do: run(outbounds_modules(), context)
+  def inbound(context), do: run(inbounds_modules(), context)
+
+  defp run(modules, context) do
+    modules
+    |> Enum.reduce([], fn {module, opts}, acc ->
+      if context.event in Keyword.fetch!(opts, :events),
+        do: [module.new(context) | acc],
+        else: acc
+    end)
+    |> Oban.insert_all()
   end
 
-  def external_document_update(service, context) do
-    broadcaster().external_document_update(service, context)
+  defp outbounds_modules do
+    Application.get_env(:accent, __MODULE__)[:outbounds]
   end
 
-  defp broadcaster, do: Application.get_env(:accent, :hook_broadcaster)
+  defp inbounds_modules do
+    Application.get_env(:accent, __MODULE__)[:inbounds]
+  end
 end

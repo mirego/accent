@@ -1,10 +1,6 @@
 defmodule AccentTest.Hook.GitHubController do
   use Accent.ConnCase
-
-  import Mox
-  setup :verify_on_exit!
-
-  alias Accent.Hook.Context, as: HookContext
+  use Oban.Testing, repo: Accent.Repo
 
   alias Accent.{
     AccessToken,
@@ -54,22 +50,27 @@ defmodule AccentTest.Hook.GitHubController do
     data = %{default_ref: "master", repository: "accent/test-repo", token: "1234"}
     Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
 
-    payload = %{
-      default_ref: "master",
-      ref: "refs/heads/master",
-      repository: "accent/test-repo",
-      token: "1234"
-    }
-
-    Accent.Hook.BroadcasterMock
-    |> expect(:external_document_update, fn :github, %HookContext{payload: ^payload} -> :ok end)
-
     response =
       conn
       |> put_req_header("x-github-event", "push")
       |> post(hooks_github_path(conn, []) <> "?authorization=#{access_token.token}&project_id=#{project.id}", params)
 
     assert response.status == 204
+
+    assert_enqueued(
+      worker: Accent.Hook.Inbounds.Mock,
+      args: %{
+        "event" => "sync",
+        "payload" => %{
+          "default_ref" => "master",
+          "ref" => "refs/heads/master",
+          "repository" => "accent/test-repo",
+          "token" => "1234"
+        },
+        "project_id" => project.id,
+        "user_id" => user.id
+      }
+    )
   end
 
   test "don’t broadcast event on other event", %{user: user, access_token: access_token, conn: conn, project: project} do

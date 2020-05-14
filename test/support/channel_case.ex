@@ -13,6 +13,12 @@ defmodule Accent.ChannelCase do
 
       # The default endpoint for testing
       @endpoint Endpoint
+
+      def to_worker_args(struct) do
+        struct
+        |> Jason.encode!()
+        |> Jason.decode!()
+      end
     end
   end
 

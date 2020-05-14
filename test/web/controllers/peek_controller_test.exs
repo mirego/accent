@@ -1,9 +1,6 @@
 defmodule AccentTest.PeekController do
   use Accent.ConnCase
 
-  import Mox
-  setup :verify_on_exit!
-
   alias Accent.{
     AccessToken,
     Collaborator,
@@ -40,9 +37,6 @@ defmodule AccentTest.PeekController do
 
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn %{event: "peek_merge"} -> :ok end)
-
     response =
       conn
       |> put_req_header("authorization", "Bearer #{access_token.token}")
@@ -66,9 +60,6 @@ defmodule AccentTest.PeekController do
     %Translation{revision_id: revision.id, key: "test", conflicted: true, corrected_text: "initial", proposed_text: "initial", document_id: document.id} |> Repo.insert!()
 
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn %{event: "peek_merge"} -> :ok end)
 
     response =
       conn
@@ -94,9 +85,6 @@ defmodule AccentTest.PeekController do
 
     body = %{file: file(), merge_type: "passive", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn %{event: "peek_merge"} -> :ok end)
-
     response =
       conn
       |> put_req_header("authorization", "Bearer #{access_token.token}")
@@ -112,9 +100,6 @@ defmodule AccentTest.PeekController do
     %Translation{revision_id: revision.id, key: "test", conflicted: false, corrected_text: "initial", proposed_text: "initial", document_id: document.id} |> Repo.insert!()
 
     body = %{file: file(), merge_type: "force", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn %{event: "peek_merge"} -> :ok end)
 
     response =
       conn
@@ -139,9 +124,6 @@ defmodule AccentTest.PeekController do
     %Translation{revision_id: revision.id, key: "test", conflicted: true, corrected_text: "initial", proposed_text: "initial", document_id: document.id} |> Repo.insert!()
 
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
-
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn %{event: "peek_sync"} -> :ok end)
 
     response =
       conn

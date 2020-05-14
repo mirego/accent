@@ -19,6 +19,8 @@ defimpl Canada.Can, for: Accent.User do
 
   def can?(_user, _action, nil), do: false
 
+  def validate_role(nil, _action, _project_id), do: false
+
   def validate_role(permissions, action, project_id) do
     permissions
     |> Map.get(project_id)

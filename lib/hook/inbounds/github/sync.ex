@@ -1,14 +1,12 @@
-defmodule Accent.Hook.Consumers.GitHub.Sync do
+defmodule Accent.Hook.Inbounds.GitHub.Sync do
   alias Accent.Plugs.MovementContextParser
   alias Movement.Builders.ProjectSync, as: SyncBuilder
   alias Movement.Context
   alias Movement.Persisters.ProjectSync, as: SyncPersister
 
-  alias Accent.Hook.Consumers.GitHub
+  alias Accent.Hook.Inbounds.GitHub
 
-  def persist(trees, configs, project, user, payload, version) do
-    token = payload[:token]
-
+  def persist(trees, configs, project, user, token, version) do
     trees
     |> group_by_matched_source_config(configs)
     |> Enum.reject(&(elem(&1, 0) === nil))

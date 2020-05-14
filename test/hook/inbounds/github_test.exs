@@ -1,8 +1,8 @@
-defmodule AccentTest.Hook.Consumers.GitHub do
+defmodule AccentTest.Hook.Inbounds.GitHub do
   use Accent.RepoCase
 
-  alias Accent.Hook.Consumers.GitHub, as: Consumer
-  alias Accent.Hook.Consumers.GitHub.FileServerMock
+  alias Accent.Hook.Inbounds.GitHub, as: Consumer
+  alias Accent.Hook.Inbounds.GitHub.FileServerMock
   alias Accent.{Document, Integration, Language, Operation, ProjectCreator, Repo, Revision, Translation, User, Version}
   alias Ecto.UUID
 
@@ -75,18 +75,20 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
     Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
 
-    event = %Accent.Hook.Context{
-      project: project,
-      event: "push",
-      payload: %{
-        default_ref: data.default_ref,
-        ref: "refs/heads/develop",
-        repository: data.repository,
-        token: data.token
-      }
-    }
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        user_id: user.id,
+        project_id: project.id,
+        event: "push",
+        payload: %{
+          default_ref: data.default_ref,
+          ref: "refs/heads/develop",
+          repository: data.repository,
+          token: data.token
+        }
+      })
 
-    Consumer.handle_events([event], nil, [])
+    Consumer.perform(context, %{})
 
     batch_operation =
       Operation
@@ -149,18 +151,20 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
     Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
 
-    event = %Accent.Hook.Context{
-      project: project,
-      event: "push",
-      payload: %{
-        default_ref: data.default_ref,
-        ref: "refs/heads/develop",
-        repository: data.repository,
-        token: data.token
-      }
-    }
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        user_id: user.id,
+        project_id: project.id,
+        event: "push",
+        payload: %{
+          default_ref: data.default_ref,
+          ref: "refs/heads/develop",
+          repository: data.repository,
+          token: data.token
+        }
+      })
 
-    Consumer.handle_events([event], nil, [])
+    Consumer.perform(context, %{})
 
     batch_operation =
       Operation
@@ -187,25 +191,27 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     data = %{default_ref: "master", repository: "accent/test-repo", token: "1234"}
     Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
 
-    event = %Accent.Hook.Context{
-      project: project,
-      event: "push",
-      payload: %{
-        default_ref: data.default_ref,
-        ref: "refs/heads/feature/my-feature",
-        repository: data.repository,
-        token: data.token
-      }
-    }
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        user_id: user.id,
+        project_id: project.id,
+        event: "push",
+        payload: %{
+          default_ref: data.default_ref,
+          ref: "refs/heads/feature/my-feature",
+          repository: data.repository,
+          token: data.token
+        }
+      })
 
-    Consumer.handle_events([event], nil, [])
+    Consumer.perform(context, %{})
 
     translation =
       Translation
       |> where([t], t.key == ^"key")
       |> Repo.one()
 
-    assert translation === nil
+    refute translation
   end
 
   test "sync tag version on matching ref tag", %{project: project, user: user} do
@@ -249,18 +255,20 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     data = %{default_ref: "master", repository: "accent/test-repo", token: "1234"}
     Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
 
-    event = %Accent.Hook.Context{
-      project: project,
-      event: "push",
-      payload: %{
-        default_ref: data.default_ref,
-        ref: "refs/tags/v1.0.0",
-        repository: data.repository,
-        token: data.token
-      }
-    }
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        user_id: user.id,
+        project_id: project.id,
+        event: "push",
+        payload: %{
+          default_ref: data.default_ref,
+          ref: "refs/tags/v1.0.0",
+          repository: data.repository,
+          token: data.token
+        }
+      })
 
-    Consumer.handle_events([event], nil, [])
+    Consumer.perform(context, %{})
 
     batch_operation =
       Operation
@@ -327,18 +335,20 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
     Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
 
-    event = %Accent.Hook.Context{
-      project: project,
-      event: "push",
-      payload: %{
-        default_ref: data.default_ref,
-        ref: "refs/heads/develop",
-        repository: data.repository,
-        token: data.token
-      }
-    }
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        user_id: user.id,
+        project_id: project.id,
+        event: "push",
+        payload: %{
+          default_ref: data.default_ref,
+          ref: "refs/heads/develop",
+          repository: data.repository,
+          token: data.token
+        }
+      })
 
-    Consumer.handle_events([event], nil, [])
+    Consumer.perform(context, %{})
 
     batch_operation =
       Operation
@@ -414,18 +424,20 @@ defmodule AccentTest.Hook.Consumers.GitHub do
     data = %{default_ref: "develop", repository: "accent/test-repo", token: "1234"}
     Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "github", data: data})
 
-    event = %Accent.Hook.Context{
-      project: project,
-      event: "push",
-      payload: %{
-        default_ref: data.default_ref,
-        ref: "refs/heads/develop",
-        repository: data.repository,
-        token: data.token
-      }
-    }
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        user_id: user.id,
+        project_id: project.id,
+        event: "push",
+        payload: %{
+          default_ref: data.default_ref,
+          ref: "refs/heads/develop",
+          repository: data.repository,
+          token: data.token
+        }
+      })
 
-    Consumer.handle_events([event], nil, [])
+    Consumer.perform(context, %{})
 
     batch_operation =
       Operation

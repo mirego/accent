@@ -1,9 +1,8 @@
 defmodule AccentTest.SyncController do
   use Accent.ConnCase
+  use Oban.Testing, repo: Accent.Repo
 
   import Ecto.Query, only: [from: 2]
-  import Mox
-  setup :verify_on_exit!
 
   alias Accent.{
     AccessToken,
@@ -38,15 +37,25 @@ defmodule AccentTest.SyncController do
   test "sync with operations", %{user: user, access_token: access_token, conn: conn, project: project, language: language} do
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: "json", document_path: "simple"}
 
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn _ -> :ok end)
-
     response =
       conn
       |> put_req_header("authorization", "Bearer #{access_token.token}")
       |> post(sync_path(conn, []), body)
 
     assert response.status == 200
+
+    assert_enqueued(
+      worker: Accent.Hook.Outbounds.Mock,
+      args: %{
+        "event" => "sync",
+        "payload" => %{
+          "batch_operation_stats" => [%{"action" => "new", "count" => 3}],
+          "document_path" => "simple"
+        },
+        "project_id" => project.id,
+        "user_id" => user.id
+      }
+    )
 
     assert Enum.map(Repo.all(Document), &Map.get(&1, :path)) == ["simple"]
 

@@ -1,9 +1,8 @@
 defmodule AccentTest.MergeController do
   use Accent.ConnCase
+  use Oban.Testing, repo: Accent.Repo
 
   import Ecto.Query, only: [from: 2]
-  import Mox
-  setup :verify_on_exit!
 
   alias Accent.{
     AccessToken,
@@ -42,15 +41,22 @@ defmodule AccentTest.MergeController do
 
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn %{event: "merge"} -> :ok end)
-
     response =
       conn
       |> put_req_header("authorization", "Bearer #{access_token.token}")
       |> post(merge_path(conn, []), body)
 
     assert response.status == 200
+
+    assert_enqueued(
+      worker: Accent.Hook.Outbounds.Mock,
+      args: %{
+        "event" => "merge",
+        "payload" => %{"language_name" => "french", "merge_type" => nil},
+        "project_id" => project.id,
+        "user_id" => user.id
+      }
+    )
 
     merge_on_proposed_operation = from(o in Operation, where: [action: ^"merge_on_proposed"]) |> Repo.one()
     merge_operation = from(o in Operation, where: [action: ^"merge"]) |> Repo.one()
@@ -86,15 +92,22 @@ defmodule AccentTest.MergeController do
 
     body = %{file: file(), merge_type: "force", project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn %{event: "merge"} -> :ok end)
-
     response =
       conn
       |> put_req_header("authorization", "Bearer #{access_token.token}")
       |> post(merge_path(conn, []), body)
 
     assert response.status == 200
+
+    assert_enqueued(
+      worker: Accent.Hook.Outbounds.Mock,
+      args: %{
+        "event" => "merge",
+        "payload" => %{"language_name" => "french", "merge_type" => nil},
+        "project_id" => project.id,
+        "user_id" => user.id
+      }
+    )
 
     merge_on_corrected_force_operation = from(o in Operation, where: [action: ^"merge_on_corrected_force"]) |> Repo.one()
     merge_operation = from(o in Operation, where: [action: ^"merge"]) |> Repo.one()
@@ -111,15 +124,22 @@ defmodule AccentTest.MergeController do
 
     body = %{file: file(), project_id: project.id, language: language.slug, document_format: document.format, document_path: document.path}
 
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn %{event: "merge"} -> :ok end)
-
     response =
       conn
       |> put_req_header("authorization", "Bearer #{access_token.token}")
       |> post("/merge", body)
 
     assert response.status == 200
+
+    assert_enqueued(
+      worker: Accent.Hook.Outbounds.Mock,
+      args: %{
+        "event" => "merge",
+        "payload" => %{"language_name" => "french", "merge_type" => nil},
+        "project_id" => project.id,
+        "user_id" => user.id
+      }
+    )
 
     merge_on_proposed_operation = from(o in Operation, where: [action: ^"merge_on_proposed"]) |> Repo.one()
     merge_operation = from(o in Operation, where: [action: ^"merge"]) |> Repo.one()

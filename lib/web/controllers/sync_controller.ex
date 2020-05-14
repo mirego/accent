@@ -27,8 +27,8 @@ defmodule Accent.SyncController do
     - `file`
     - `document_path`
     - `document_format`
-
   ### Optional params
+
     - `sync_type` (smart or passive), default: smart.
 
   ### Response
@@ -50,10 +50,10 @@ defmodule Accent.SyncController do
         send_resp(conn, :ok, "")
 
       {:ok, {context, _operations}} ->
-        Accent.Hook.notify(%HookContext{
+        Accent.Hook.outbound(%HookContext{
           event: "sync",
-          project: conn.assigns[:project],
-          user: conn.assigns[:current_user],
+          project_id: conn.assigns[:project].id,
+          user_id: conn.assigns[:current_user].id,
           payload: %{
             batch_operation_stats: context.assigns[:batch_operation].stats,
             document_path: context.assigns[:document].path

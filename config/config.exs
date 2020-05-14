@@ -10,11 +10,11 @@ config :accent, Accent.Endpoint,
   render_errors: [accepts: ~w(json)],
   pubsub: [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]
 
-config :accent,
-  hook_broadcaster: Accent.Hook.Broadcaster,
-  hook_github_file_server: Accent.Hook.Consumers.GitHub.FileServer.HTTP
+config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServer.HTTP
 
 config :accent, Accent.WebappView, path: "priv/static/webapp/index.html"
+
+config :accent, Oban, queues: [hook: 10], repo: Accent.Repo
 
 config :absinthe, :schema, Accent.GraphQL.Schema
 
