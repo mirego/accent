@@ -5,6 +5,7 @@ defmodule Accent.Lint do
 
   @rules [
     &R.DoubleSpaces.lint/2,
+    &R.FirstLetterCase.lint/2,
     &R.LeadingSpaces.lint/2,
     &R.PlaceholderCount.lint/2,
     &R.Spelling.lint/2,
@@ -17,6 +18,8 @@ defmodule Accent.Lint do
     &R.TrailingStop.lint/2,
     &R.URLCount.lint/2
   ]
+
+  @max_text_length 12
 
   @typep entry :: Langue.Entry.t()
   @typep value :: Value.t()
@@ -41,12 +44,19 @@ defmodule Accent.Lint do
 
   @spec display_trailing_text(String.t()) :: String.t()
   def display_trailing_text(text) do
-    max_length = 12
+    pad_max_length(text, (String.length(text) - @max_text_length)..-1, &String.pad_leading/3)
+  end
 
-    if String.length(text) > max_length do
-      display_text = String.slice(text, (String.length(text) - max_length)..-1)
+  @spec display_leading_text(String.t()) :: String.t()
+  def display_leading_text(text) do
+    pad_max_length(text, 0..(@max_text_length - 1), &String.pad_trailing/3)
+  end
 
-      String.pad_leading(display_text, max_length + 1, "…")
+  defp pad_max_length(text, slice, padding_func) do
+    if String.length(text) > @max_text_length do
+      text
+      |> String.slice(slice)
+      |> padding_func.(@max_text_length + 1, "…")
     else
       text
     end
