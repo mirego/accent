@@ -33,7 +33,8 @@ defmodule Langue.Formatter.ARB.Parser do
   def parse_and_index(data) when is_binary(data), do: data
 
   def parse_meta(render) do
-    :jsone.decode(render, object_format: :tuple)
+    render
+    |> :jsone.decode(object_format: :tuple)
     |> parse_and_index()
   end
 

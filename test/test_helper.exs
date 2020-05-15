@@ -40,13 +40,15 @@ defmodule Langue.Expectation.Case do
     quote do
       def top_of_the_file_comment, do: ""
       def header, do: ""
+      def meta, do: %{}
 
       @callback header() :: binary()
       @callback top_of_the_file_comment() :: binary()
+      @callback meta() :: map()
       @callback render() :: binary()
       @callback entries() :: [Language.Entry.t()]
 
-      defoverridable top_of_the_file_comment: 0, header: 0
+      defoverridable top_of_the_file_comment: 0, header: 0, meta: 0
     end
   end
 end

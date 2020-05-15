@@ -23,15 +23,18 @@ defmodule Langue.Formatter.ARB.Serializer do
   def parse_meta(_entries, meta) when meta == %{}, do: meta
 
   def parse_meta(entries, meta) when is_map(meta) do
-    Enum.map(meta, fn {key, values} ->
-      case Map.get(entries, key) do
-        nil ->
-          {key, Map.put(values, "value", parse_meta(entries, Map.get(values, "value")))}
+    meta_list =
+      Enum.map(meta, fn {key, values} ->
+        case Map.get(entries, key) do
+          nil ->
+            {key, Map.put(values, "value", parse_meta(entries, Map.get(values, "value")))}
 
-        entry_value ->
-          {key, Map.put(values, "value", entry_value)}
-      end
-    end)
+          entry_value ->
+            {key, Map.put(values, "value", entry_value)}
+        end
+      end)
+
+    meta_list
     |> Enum.sort(&(index(&1) < index(&2)))
     |> Enum.map(fn {key, %{"value" => value}} ->
       {key, value}
