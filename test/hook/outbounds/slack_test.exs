@@ -47,7 +47,6 @@ defmodule AccentTest.Hook.Outbounds.Slack do
         *Stats:*
         new: _4_
         conflict_on_proposed: _10_
-
         """
       })
 

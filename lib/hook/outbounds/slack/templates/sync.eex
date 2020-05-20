@@ -1,0 +1,6 @@
+*<%= @user.fullname %>* just synced a file: _<%= @document_path %>_
+
+*Stats:*
+<%= for %{"action" => action, "count" => count} <- @stats do %>
+<%= action %>: _<%= count %>_
+<% end %>

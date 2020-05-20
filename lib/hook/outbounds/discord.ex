@@ -1,5 +1,8 @@
 defmodule Accent.Hook.Outbounds.Discord do
   use Oban.Worker, queue: :hook
+  require EEx
+
+  EEx.function_from_file(:def, :sync, "lib/hook/outbounds/discord/templates/sync.eex", [:assigns], trim: true)
 
   alias Accent.Hook.Outbounds.PostURL
 
@@ -11,18 +14,7 @@ defmodule Accent.Hook.Outbounds.Discord do
 
   defp build_body(%{event: "sync", user: user, payload: %{"document_path" => document_path, "batch_operation_stats" => stats}}) do
     %{
-      text: """
-      **#{user.fullname}** just synced a file: *#{document_path}*
-
-      **Stats:**
-      #{build_stats(stats)}
-      """
+      text: sync(user: user, document_path: document_path, stats: stats)
     }
-  end
-
-  defp build_stats(stats) do
-    Enum.reduce(stats, "", fn %{"action" => action, "count" => count}, acc ->
-      "#{acc}#{action}: *#{count}*\n"
-    end)
   end
 end

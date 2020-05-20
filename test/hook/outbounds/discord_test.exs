@@ -41,7 +41,6 @@ defmodule AccentTest.Hook.Outbounds.Discord do
         **Stats:**
         new: *4*
         conflict_on_proposed: *10*
-
         """
       })
 
