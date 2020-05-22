@@ -6,7 +6,7 @@ import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
 import {tracked} from '@glimmer/tracking';
 
-const DEBOUNCE_OFFSET = 500; // ms
+const DEBOUNCE_OFFSET = 1000; // ms
 
 interface Args {
   permissions: any;

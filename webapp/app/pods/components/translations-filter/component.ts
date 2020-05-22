@@ -7,7 +7,7 @@ import {tracked} from '@glimmer/tracking';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
 
-const DEBOUNCE_OFFSET = 500; // ms
+const DEBOUNCE_OFFSET = 1000; // ms
 
 interface Args {
   query: string;

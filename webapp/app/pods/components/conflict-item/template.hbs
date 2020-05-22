@@ -45,7 +45,7 @@
           </div>
 
           {{#if this.emptyPreviousText}}
-            <div local-class="textDiff"><span local-class="added">{{@conflict.correctedText}}</span></div>
+            <div local-class="textDiff"><span class="added">{{@conflict.correctedText}}</span></div>
           {{else if this.samePreviousText}}
             <div local-class="textDiff">{{@conflict.correctedText}}</div>
           {{else}}
@@ -80,20 +80,27 @@
           {{/if}}
         </div>
         <div local-class="item-details__column">
-          <div local-class="textInput">
-            <TranslationEdit::Form
-              @projectId={{@project.id}}
-              @translationId={{@conflict.id}}
-              @disabled={{@conflict.isRemoved}}
-              @valueType={{@conflict.valueType}}
-              @value={{this.textInput}}
-              @showTypeHints={{false}}
-              @onFocus={{fn this.inputFocus}}
-              @onBlur={{fn this.inputBlur}}
-              @onKeyUp={{fn this.changeTranslationText}}
-              @onSubmit={{fn this.correct}}
-            />
-          </div>
+          {{#if this.active}}
+            <div {{did-insert this.focusTextarea}} local-class="textInput">
+              <TranslationEdit::Form
+                @projectId={{@project.id}}
+                @translationId={{@conflict.id}}
+                @disabled={{@conflict.isRemoved}}
+                @valueType={{@conflict.valueType}}
+                @value={{this.textInput}}
+                @showTypeHints={{false}}
+                @onFocus={{fn this.inputFocus}}
+                @onBlur={{fn this.inputBlur}}
+                @onKeyUp={{fn this.changeTranslationText}}
+                @onSubmit={{fn this.correct}}
+              />
+            </div>
+          {{else}}
+            <span tabindex="0" role="button" local-class="item-text" {{on "click" (fn this.toggleActive)}}>
+              {{this.textInput}}
+            </span>
+          {{/if}}
+
           {{#if (get @permissions "correct_translation")}}
             <AsyncButton
               @onClick={{fn this.correct}}

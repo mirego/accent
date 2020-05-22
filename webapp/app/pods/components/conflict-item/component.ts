@@ -68,6 +68,16 @@ export default class ConflictItem extends Component<Args> {
     this.active = true;
   }
 
+  @action
+  toggleActive() {
+    this.active = true;
+  }
+
+  @action
+  focusTextarea(element: HTMLElement) {
+    element.querySelector('textarea')?.focus();
+  }
+
   private onLoading() {
     this.error = false;
     this.loading = true;

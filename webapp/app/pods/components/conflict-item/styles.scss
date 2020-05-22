@@ -1,6 +1,6 @@
 .conflict-item {
   transition: 0.2s ease-in-out;
-  transition-property: background, border-color, transform;
+  transition-property: background, border-color;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid transparent;
@@ -10,16 +10,11 @@
     background: var(--background-light);
   }
 
+  &.active,
   &:focus,
   &:hover {
     border-color: var(--background-light-highlight);
     background: var(--background-light);
-  }
-
-  &.active {
-    background: var(--background-light);
-    border-color: var(--background-light-highlight);
-    transform: scale(1.02);
   }
 }
 
@@ -118,9 +113,13 @@
 
 .correctButton {
   position: absolute !important;
-  top: 6px !important;
+  top: -10px !important;
   right: 15px !important;
   padding: 0 !important;
+}
+
+.conflict-item.active .correctButton {
+  top: 6px !important;
 }
 
 .textDiff,
@@ -197,4 +196,19 @@
   flex-shrink: 0;
   width: 100%;
   margin: 0 0 5px;
+}
+
+.item-text {
+  display: block;
+  color: var(--input-color);
+  font-family: var(--font-monospace);
+  line-height: 1.4;
+  padding: 0 180px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+
+  &:focus {
+    outline: none;
+    opacity: 0.8;
+  }
 }
