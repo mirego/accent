@@ -8,18 +8,19 @@ defmodule AccentTest.Hook do
     Repo,
     User
   }
-  
+
   setup do
     project = %Project{main_color: "#f00", name: "Test"} |> Repo.insert!()
     user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()
     payload = %{test: "hook"}
     context = %Hook.Context{project_id: project.id, user_id: user.id, event: "event", payload: payload}
+
     worker_args = %{
-        "event" => "event",
-        "payload" => %{"test" => "hook"},
-        "project_id" => project.id,
-        "user_id" => user.id
-      }
+      "event" => "event",
+      "payload" => %{"test" => "hook"},
+      "project_id" => project.id,
+      "user_id" => user.id
+    }
 
     {:ok, [context: context, worker_args: worker_args]}
   end
