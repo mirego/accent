@@ -102,11 +102,8 @@
       }
     },
     "conflict_item": {
-      "correct_button_text": "Mark as reviewed",
       "correct_error_text": "Failed to correct the conflict. Try again later.",
-      "no_previous_text": "No previous text",
-      "same_text": "Same previous text",
-      "uncorrect_button_text": "Uncorrect",
+      "conflicted_label": "in review",
       "uncorrect_error_text": "Failed to uncorrect the conflict. Try again later."
     },
     "conflicts_actions": {
@@ -120,7 +117,6 @@
     },
     "conflicts_items": {
       "correct_all_button": "Mark all strings as reviewed for this language",
-      "fullscreen": "Fullscreen",
       "no_translations": "No strings to review for: {query}",
       "review_completed": "All reviewed!"
     },
@@ -583,8 +579,10 @@
       "maybe_create_one": "Create your first project here →"
     },
     "related_translations_list": {
+      "title": "Translations",
       "comments_label": "{count, plural, =0 {No comments} =1 {1 comment} other {# comments}}",
       "conflicted_label": "in review",
+      "master_label": "master",
       "save_button": "Save",
       "last_updated_label": "Last updated: ",
       "new_language_link": "New language",
@@ -697,6 +695,7 @@
     "translation_splash_title": {
       "plural_label": "plural",
       "conflicted_label": "in review",
+      "master_label": "master",
       "removed_label": "This string was removed {removedAt}"
     },
     "translations_filter": {

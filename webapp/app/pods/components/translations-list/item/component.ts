@@ -8,7 +8,6 @@ import {tracked} from '@glimmer/tracking';
 interface Args {
   translation: any;
   project: any;
-  revisionId: string;
   onUpdateText: (translation: any, editText: string) => Promise<void>;
 }
 

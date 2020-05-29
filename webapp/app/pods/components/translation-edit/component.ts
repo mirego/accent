@@ -25,6 +25,12 @@ export default class TranslationEdit extends Component<Args> {
   @tracked
   text = this.args.translation.correctedText;
 
+  get latestActivity() {
+    if (!this.args.translation) return;
+
+    return this.args.translation.latestActivities.entries[0];
+  }
+
   get samePreviousText() {
     return (
       this.args.translation.conflictedText ===

@@ -6,7 +6,6 @@ interface Args {
   translations: any;
   isLoading: boolean;
   showLoading: boolean;
-  fullscreen: boolean;
   document: any;
   permissions: Record<string, true>;
   documents: any;

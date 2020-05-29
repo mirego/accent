@@ -1,6 +1,6 @@
 import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
-import {notEmpty, gt} from '@ember/object/computed';
+import {gt} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import IntlService from 'ember-intl/services/intl';
 import {PaginationMeta} from 'accent-webapp/pods/components/resource-pagination/component';
@@ -13,11 +13,9 @@ const DEBOUNCE_OFFSET = 1000; // ms
 interface Args {
   meta: PaginationMeta;
   conflicts: any;
-  referenceRevisions: any;
   document: any;
   documents: any;
   query: any;
-  reference: any;
   onChangeDocument: () => void;
   onChangeReference: () => void;
   onChangeQuery: (query: string) => void;
@@ -26,9 +24,6 @@ interface Args {
 export default class ConflictsFilters extends Component<Args> {
   @service('intl')
   intl: IntlService;
-
-  @notEmpty('args.referenceRevisions')
-  showReferenceRevisionsSelect: boolean;
 
   @gt('args.documents.length', 1)
   showDocumentsSelect: boolean;
@@ -65,34 +60,10 @@ export default class ConflictsFilters extends Component<Args> {
     return documents;
   }
 
-  get mappedReferenceRevisions() {
-    const revisions = this.args.referenceRevisions.map(
-      ({id, language}: {id: string; language: any}) => ({
-        label: language.name,
-        value: id,
-      })
-    );
-
-    revisions.unshift({
-      label: this.intl.t(
-        'components.conflicts_filters.reference_default_option_text'
-      ),
-      value: null,
-    });
-
-    return revisions;
-  }
-
   get documentValue() {
     return this.mappedDocuments.find(
       ({value}: {value: string}) => value === this.args.document
     );
-  }
-
-  get referenceValue() {
-    return this.mappedReferenceRevisions.find(({value}: {value: string}) => {
-      return value === this.args.reference;
-    });
   }
 
   @action

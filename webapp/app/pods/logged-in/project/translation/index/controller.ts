@@ -96,4 +96,21 @@ export default class IndexController extends Controller {
       this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
     }
   }
+
+  @action
+  async updateTranslation(translation: any, text: string) {
+    try {
+      await this.apolloMutate.mutate({
+        mutation: translationUpdateQuery,
+        variables: {
+          translationId: translation.id,
+          text,
+        },
+      });
+
+      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
+    } catch (error) {
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
+    }
+  }
 }

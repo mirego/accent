@@ -40,11 +40,9 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 25px;
-}
-
-.textEdit {
-  margin-top: 10px;
+  margin-bottom: 3px;
 }
 
 .textEdit-input {

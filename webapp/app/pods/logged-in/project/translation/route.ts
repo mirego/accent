@@ -25,6 +25,8 @@ export default class TranslationsRoute extends Route {
         props: (data) => ({
           project: data.viewer.project,
           translation: data.viewer.project.translation,
+          relatedTranslations:
+            data.viewer.project.translation.relatedTranslations,
         }),
         options: {
           fetchPolicy: 'cache-and-network',

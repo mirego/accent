@@ -29,20 +29,6 @@
                 </div>
               </div>
             {{/if}}
-
-            {{#if this.showReferenceRevisionsSelect}}
-              <div class="queryForm-filter">
-                <div class="queryForm-filter-select">
-                  <AccSelect
-                    @matchTriggerWidth={{false}}
-                    @searchEnabled={{false}}
-                    @selected={{this.referenceValue}}
-                    @options={{this.mappedReferenceRevisions}}
-                    @onchange={{fn @onChangeReference}}
-                  />
-                </div>
-              </div>
-            {{/if}}
           </div>
         </div>
       </div>

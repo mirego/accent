@@ -1,26 +1,19 @@
-<ul {{did-insert this.focusTextarea}} local-class="related-translations-list">
-  {{#each @translations key="id" as |translation|}}
-    <RelatedTranslationsList::Item
-      @onUpdateText={{@onUpdateText}}
-      @isInEditMode={{true}}
-      @showEditButton={{false}}
-      @translation={{translation}}
-      @project={{@project}}
-    />
-  {{else}}
-    <li local-class="emptyItem">
-      <p local-class="emptyItem-text">
-        {{t "components.related_translations_list.no_related_translations"}}
-      </p>
+{{#if @translations}}
+  <div local-class="list">
+    <strong local-class="title">
+      {{t "components.related_translations_list.title"}}
+    </strong>
 
-      <LinkTo
-        @route="logged-in.project.edit.manage-languages"
-        @model={{@project.id}}
-        class="button button--filled button--white button--borderless"
-      >
-        {{inline-svg "assets/add.svg" class="button-icon"}}
-        {{t "components.related_translations_list.new_language_link"}}
-      </LinkTo>
-    </li>
-  {{/each}}
-</ul>
+    <ul>
+      {{#each @translations key="id" as |translation|}}
+        <RelatedTranslationsList::Item
+          @onUpdateText={{@onUpdateText}}
+          @isInEditMode={{true}}
+          @showEditButton={{false}}
+          @translation={{translation}}
+          @project={{@project}}
+        />
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}

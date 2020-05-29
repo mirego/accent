@@ -18,26 +18,6 @@
       </li>
     {{/if}}
 
-    {{#if (get @permissions "index_related_translations")}}
-      <li local-class="navigation-list-item">
-        <LinkTo
-          @route="logged-in.project.translation.related-translations"
-          @models={{array @project.id @translation.id}}
-          local-class="navigation-list-item-link"
-        >
-          {{inline-svg
-            "assets/language.svg"
-            local-class="navigation-list-item-link-icon"
-          }}
-          <span local-class="navigation-list-item-link-text">
-            {{t
-              "components.translation_navigation.related_translations_link_title"
-            }}
-          </span>
-        </LinkTo>
-      </li>
-    {{/if}}
-
     {{#if (get @permissions "index_comments")}}
       <li local-class="navigation-list-item">
         <LinkTo

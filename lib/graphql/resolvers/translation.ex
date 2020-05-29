@@ -117,8 +117,6 @@ defmodule Accent.GraphQL.Resolvers.Translation do
       |> Query.preload(:revision)
       |> Paginated.paginate(args)
 
-    translations = %{translations | entries: add_related_translations(translations.entries, args[:reference_revision], args[:version])}
-
     {:ok, Paginated.format(translations)}
   end
 
@@ -175,30 +173,5 @@ defmodule Accent.GraphQL.Resolvers.Translation do
         |> Repo.one()
         |> (&{:ok, &1}).()
     end
-  end
-
-  defp add_related_translations(entries, nil, _), do: entries
-
-  defp add_related_translations(entries, reference_revision, version) do
-    reference_revision = Repo.get(Revision, reference_revision)
-
-    reference_translations =
-      Translation
-      |> TranslationScope.active()
-      |> TranslationScope.from_revision(reference_revision.id)
-      |> TranslationScope.from_keys(Enum.map(entries, &Map.get(&1, :key)))
-      |> TranslationScope.from_version(version)
-      |> Repo.all()
-      |> Enum.group_by(&Map.get(&1, :key))
-
-    Enum.map(entries, fn translation ->
-      case reference_translations[translation.key] do
-        [reference_translation | _tail] ->
-          Map.put(translation, :related_translation, reference_translation)
-
-        _ ->
-          translation
-      end
-    end)
   end
 end

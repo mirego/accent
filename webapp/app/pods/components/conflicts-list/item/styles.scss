@@ -1,0 +1,271 @@
+.conflict-item {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  &:nth-child(even) {
+    background: var(--background-light);
+  }
+}
+
+.item-details__column {
+  position: relative;
+}
+
+.item-details {
+  display: flex;
+  align-items: stretch;
+}
+
+.item-details__column {
+  display: flex;
+  width: 72%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.item-details__column:first-of-type {
+  width: 28%;
+  margin-right: 15px;
+}
+
+.item-detail-conflict {
+  display: flex;
+  width: 100%;
+}
+
+.item-detail-conflict-actions {
+  margin-left: 6px;
+  flex-shrink: 0;
+  flex-grow: 1;
+}
+
+.item-detail-conflict-actions-flag,
+.item-detail-conflict-actions-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 3px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  color: var(--color-black);
+  line-height: 1;
+}
+
+.item-detail-conflict-actions-link--loading {
+  pointer-events: none;
+  background: transparent;
+
+  &:focus,
+  &:hover {
+    background: transparent;
+  }
+}
+
+.item-detail-conflict-actions-flag--link,
+.item-detail-conflict-actions-link {
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    background: var(--background-light-highlight);
+  }
+}
+
+.item-detail-conflict-actions-flag {
+  position: relative;
+  top: -1px;
+  padding: 0 5px;
+  margin-left: 0;
+  margin-right: 5px;
+  width: auto;
+  border-radius: 5px;
+  border: 1px solid var(--background-light-highlight);
+  font-size: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.item-detail-conflict-actions-flag--link {
+  &:focus,
+  &:hover {
+    color: var(--body-background);
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+}
+
+.item-detail-conflict-actions-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.conflict-item.resolved {
+  padding: 5px 10px;
+  margin: 5px 0 15px;
+  border: 1px solid var(--color-green);
+  background: hsl(
+    var(--color-green-hue),
+    var(--color-green-saturation),
+    var(--color-highlight-lighteness)
+  );
+
+  .item-key-prefix {
+    opacity: 0.7;
+    color: var(--color-green);
+  }
+
+  .item-key {
+    font-size: 12px;
+    color: var(--color-green);
+  }
+}
+
+.conflict-item.errored {
+  .textInput {
+    border-color: var(--color-error);
+  }
+}
+
+.error {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--color-error);
+}
+
+.item-key-prefix {
+  display: block;
+  font-size: 11px;
+  color: #959595;
+  font-weight: 300;
+}
+
+.item-key {
+  display: block;
+  font-family: var(--font-monospace);
+  word-break: break-all;
+  transition: 0.2s ease-in-out;
+  transition-property: color;
+  margin-right: 15px;
+  line-height: 1.5;
+  font-size: 11px;
+  color: var(--color-primary);
+}
+
+.key {
+  text-decoration: none;
+}
+
+.textResolved {
+  display: flex;
+  align-items: flex-start;
+}
+
+.textResolved-content {
+  flex-grow: 1;
+}
+
+.textResolved-text {
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.textDiff,
+.conflictedText-textReference {
+  padding: 8px 0 3px;
+  color: var(--color-grey);
+}
+
+.textDiff {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 12px;
+}
+
+.itemInput-actions {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.item-revision,
+.conflictedText-textReference-link {
+  flex-shrink: 0;
+  width: 90px;
+  margin-right: 4px;
+  color: var(--color-black);
+  opacity: 0.6;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: right;
+
+  &:focus,
+  &:hover {
+    opacity: 1;
+    color: var(--color-primary);
+  }
+}
+
+.item-revision {
+  opacity: 1;
+  padding: 4px 0 3px;
+  margin: 0 9px 0 0;
+  font-size: 13px;
+}
+
+.conflictedText-references {
+  width: 100%;
+}
+
+.conflictedText-textReference {
+  display: flex;
+  flex-direction: row;
+  font-size: 13px;
+}
+
+.conflictedText-textReference-text {
+  width: 100%;
+}
+
+.conflictedText-textReference-text-content {
+  display: block;
+  white-space: pre-wrap;
+  margin: 0 0 0 5px;
+  color: var(--color-black);
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.textInput {
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.item-text {
+  display: block;
+  width: 100%;
+  color: var(--color-black);
+  line-height: 1.4;
+  padding: 3px 10px 10px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  cursor: pointer;
+  word-break: break-word;
+
+  &:focus,
+  &:hover {
+    outline: none;
+    opacity: 0.8;
+  }
+}

@@ -6,7 +6,6 @@ export default gql`
     $revisionId: ID!
     $query: String
     $page: Int
-    $reference: ID
     $document: ID
   ) {
     viewer {
@@ -23,11 +22,12 @@ export default gql`
 
         revision(id: $revisionId) {
           id
+
           translations(
             query: $query
             page: $page
+            pageSize: 20
             document: $document
-            referenceRevision: $reference
             isConflicted: true
           ) {
             meta {
@@ -43,11 +43,51 @@ export default gql`
               conflictedText
               correctedText
               valueType
-              relatedTranslation {
+
+              lintMessages {
+                text
+                context {
+                  text
+                  offset
+                  length
+                }
+                rule {
+                  id
+                  description
+                }
+                replacements {
+                  value
+                  label
+                }
+              }
+
+              revision {
+                id
+                isMaster
+                name
+
+                language {
+                  id
+                  name
+                }
+              }
+
+              relatedTranslations {
                 id
                 correctedText
-                updatedAt
+                isConflicted
+                revision {
+                  id
+                  isMaster
+                  name
+
+                  language {
+                    id
+                    name
+                  }
+                }
               }
+
               document {
                 id
                 path

@@ -33,7 +33,7 @@
         <AccBadge @link={{true}} @primary={{true}}>
           <LinkTo
             @route="logged-in.project.revision.conflicts"
-            @models={{array @project.id @revisionId}}
+            @models={{array @project.id @translation.revision.id}}
             @query={{hash query=@translation.id}}
           >
             {{t "components.translations_list.in_review_label"}}

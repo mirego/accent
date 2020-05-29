@@ -6,6 +6,7 @@ defmodule Accent.RoleAbilities do
   @reviewer_role "reviewer"
 
   @any_actions ~w(
+    lint
     index_permissions
     index_versions
     create_version

@@ -4,7 +4,6 @@ import {equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
 import translationUpdateQuery from 'accent-webapp/queries/update-translation';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
-import GlobalState from 'accent-webapp/services/global-state';
 import IntlService from 'ember-intl/services/intl';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import {tracked} from '@glimmer/tracking';
@@ -17,9 +16,6 @@ const FLASH_MESSAGE_UPDATE_ERROR =
 export default class TranslationsController extends Controller {
   @service('apollo-mutate')
   apolloMutate: ApolloMutate;
-
-  @service('global-state')
-  globalState: GlobalState;
 
   @service('intl')
   intl: IntlService;

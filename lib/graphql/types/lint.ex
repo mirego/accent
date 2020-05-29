@@ -9,6 +9,7 @@ defmodule Accent.GraphQL.Types.Lint do
 
   object :lint_translation_message_replacement do
     field(:value, non_null(:string))
+    field(:label, non_null(:string), resolve: fn replacement, _, _ -> Map.fetch(replacement, :value) end)
   end
 
   object :lint_translation_message_rule do

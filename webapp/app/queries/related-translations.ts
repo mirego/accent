@@ -18,6 +18,7 @@ export default gql`
             revision {
               id
               name
+              isMaster
 
               language {
                 id

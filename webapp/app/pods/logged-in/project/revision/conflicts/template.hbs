@@ -1,22 +1,15 @@
 <ConflictsPage
   @project={{this.model.project}}
-  @revision={{this.revision}}
   @translations={{this.model.translations}}
   @isLoading={{this.model.loading}}
   @showLoading={{this.showLoading}}
-  @fullscreen={{this.fullscreen}}
   @document={{this.document}}
   @permissions={{this.permissions}}
   @documents={{this.model.documents}}
   @showSkeleton={{this.showSkeleton}}
   @query={{this.query}}
-  @reference={{this.reference}}
-  @referenceRevision={{this.referenceRevision}}
-  @referenceRevisions={{this.referenceRevisions}}
   @onCorrect={{fn this.correctConflict}}
-  @onCorrectAll={{fn this.correctAllConflicts}}
   @onSelectPage={{fn this.selectPage}}
   @onChangeDocument={{fn this.changeDocument}}
-  @onChangeReference={{fn this.changeReference}}
   @onChangeQuery={{fn this.changeQuery}}
 />

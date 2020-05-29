@@ -1,0 +1,21 @@
+<ul local-class="conflicts-items">
+  {{#each @conflicts key="id" as |conflict|}}
+    <ConflictsList::Item
+      @permissions={{@permissions}}
+      @project={{@project}}
+      @conflict={{conflict}}
+      @onCorrect={{@onCorrect}}
+    />
+  {{else if query}}
+    <EmptyContent
+      @iconPath="assets/empty.svg"
+      @text={{t "components.conflicts_items.no_translations" query=@query}}
+    />
+  {{else}}
+    <EmptyContent
+      @success={{true}}
+      @iconPath="assets/thumbs-up.svg"
+      @text={{t "components.conflicts_items.review_completed"}}
+    />
+  {{/each}}
+</ul>

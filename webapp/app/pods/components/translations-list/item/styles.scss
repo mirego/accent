@@ -2,7 +2,7 @@
   transition: 0.2s ease-in-out;
   transition-property: background, transform;
   display: block;
-  margin: 8px 0;
+  margin: 8px 0 4px;
   padding: 10px;
   border: 1px solid transparent;
   border-radius: 3px;
@@ -104,14 +104,12 @@
   display: block;
   width: 100%;
   font-size: 13px;
-  color: #b4b4b4;
-  background: var(--background-light);
-  border: 1px solid var(--input-border-color);
-  border-radius: 3px;
-  padding: 6px 10px;
+  color: var(--color-black);
+  padding: 6px 0;
   cursor: text;
   transition: 0.2s ease-in-out;
-  transition-property: border-color, color;
+  transition-property: opacity;
+  opacity: 0.8;
 
   &.item-text--empty {
     font-style: italic;
@@ -121,7 +119,7 @@
 
   &:hover,
   &:focus {
-    border-color: var(--background-light-highlight);
+    opacity: 1;
   }
 }
 

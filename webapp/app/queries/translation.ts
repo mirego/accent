@@ -16,6 +16,24 @@ export default gql`
           correctedText
           conflictedText
           updatedAt
+          fileComment
+
+          lintMessages {
+            text
+            context {
+              text
+              offset
+              length
+            }
+            rule {
+              id
+              description
+            }
+            replacements {
+              value
+              label
+            }
+          }
 
           document {
             id
@@ -28,7 +46,45 @@ export default gql`
 
           masterTranslation {
             id
+            correctedText
             placeholders
+          }
+
+          relatedTranslations {
+            id
+            key
+            correctedText
+            isConflicted
+            isRemoved
+            updatedAt
+
+            lintMessages {
+              text
+              context {
+                text
+                offset
+                length
+              }
+              rule {
+                id
+                description
+              }
+              replacements {
+                value
+                label
+              }
+            }
+
+            revision {
+              id
+              name
+              isMaster
+
+              language {
+                id
+                name
+              }
+            }
           }
 
           version {
@@ -39,6 +95,7 @@ export default gql`
           revision {
             id
             name
+            isMaster
 
             language {
               id

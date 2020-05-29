@@ -25,6 +25,7 @@ interface Context {
 interface Args {
   projectId: string;
   translationId: string;
+  lintMessages?: any[];
   disabled: boolean;
   valueType: 'STRING' | 'BOOLEAN' | 'INTEGER' | 'FLOAT' | 'EMPTY' | 'NULL';
   value: string;
@@ -41,7 +42,7 @@ export default class TranslationEditForm extends Component<Args> {
   apollo: Apollo;
 
   @tracked
-  lintMessages: String[] = [];
+  lintMessages = this.args.lintMessages;
 
   @tracked
   showTypeHints = true;
@@ -86,17 +87,14 @@ export default class TranslationEditForm extends Component<Args> {
   }
 
   @action
-  initialLint() {
-    this.fetchLintMessages(this.text);
-  }
-
-  @action
   changeText(event: Event) {
     const target = event.target as HTMLInputElement;
 
+    const previousText = this.text;
     this.text = target.value;
     this.args.onKeyUp?.(target.value);
-    this.fetchLintMessages(target.value);
+
+    if (previousText !== this.text) this.fetchLintMessages(target.value);
   }
 
   @restartableTask
@@ -113,8 +111,7 @@ export default class TranslationEditForm extends Component<Args> {
       },
     });
 
-    this.lintMessages = data.viewer.project.translation
-      .lintMessages as String[];
+    this.lintMessages = data.viewer.project.translation.lintMessages;
   }
 
   @action

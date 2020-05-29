@@ -22,16 +22,10 @@ export default class ConflictsRoute extends Route {
   router: RouterService;
 
   queryParams = {
-    fullscreen: {
-      refreshModel: true,
-    },
     query: {
       refreshModel: true,
     },
     page: {
-      refreshModel: true,
-    },
-    reference: {
       refreshModel: true,
     },
     document: {
@@ -42,12 +36,7 @@ export default class ConflictsRoute extends Route {
   subscription: Subscription;
 
   model(
-    {
-      query,
-      page,
-      reference,
-      document,
-    }: {query: any; page: number; reference: any; document: any},
+    {query, page, document}: {query: any; page: number; document: any},
     transition: Transition
   ) {
     this.subscription = this.apolloSubscription.graphql(
@@ -55,12 +44,6 @@ export default class ConflictsRoute extends Route {
       translationsQuery,
       {
         props: (data) => ({
-          revisionId: this.routeParams.fetch(
-            transition,
-            'logged-in.project.revision'
-          ).revisionId,
-          referenceRevisionId: reference,
-          revisionModel: this.modelFor('logged-in.project.revision'),
           documents: data.viewer.project.documents.entries,
           project: data.viewer.project,
           translations: data.viewer.project.revision.translations,
@@ -77,24 +60,12 @@ export default class ConflictsRoute extends Route {
             query,
             page,
             document,
-            reference,
           },
         },
       }
     );
 
     return this.subscription.currentResult();
-  }
-
-  renderTemplate(controller: ConflictsController, model: any) {
-    if (controller.fullscreen) {
-      this.render('logged-in.project.revision.full-screen-conflicts', {
-        controller: 'logged-in.project.revision.conflicts',
-        outlet: 'main',
-      });
-    } else {
-      super.renderTemplate(controller, model);
-    }
   }
 
   resetController(controller: ConflictsController, isExiting: boolean) {
@@ -112,18 +83,18 @@ export default class ConflictsRoute extends Route {
   }
 
   @action
+  onRefresh() {
+    this.refresh();
+  }
+
+  @action
   onRevisionChange({revisionId}: {revisionId: string}) {
-    const {project} = this.modelFor('logged-in.project') as any;
+    const {project} = this.modelFor('logged-in.project') as {project: any};
 
     this.router.transitionTo(
       'logged-in.project.revision.conflicts',
       project.id,
       revisionId
     );
-  }
-
-  @action
-  onRefresh() {
-    this.refresh();
   }
 }

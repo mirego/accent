@@ -6,8 +6,6 @@ import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 import {tracked} from '@glimmer/tracking';
 
 interface Args {
-  fullscreen: boolean;
-  revision: any;
   permissions: Record<string, true>;
   project: any;
   conflict: any;
@@ -30,16 +28,7 @@ export default class ConflictItem extends Component<Args> {
   @tracked
   resolved = false;
 
-  @tracked
-  active = false;
-
   conflictKey = parsedKeyProperty(this.args.conflict.key);
-
-  get samePreviousText() {
-    return (
-      this.args.conflict.conflictedText === this.args.conflict.correctedText
-    );
-  }
 
   @action
   changeTranslationText(text: string) {
@@ -56,26 +45,6 @@ export default class ConflictItem extends Component<Args> {
     } catch (error) {
       this.onError();
     }
-  }
-
-  @action
-  inputBlur() {
-    this.active = false;
-  }
-
-  @action
-  inputFocus() {
-    this.active = true;
-  }
-
-  @action
-  toggleActive() {
-    this.active = true;
-  }
-
-  @action
-  focusTextarea(element: HTMLElement) {
-    element.querySelector('textarea')?.focus();
   }
 
   private onLoading() {

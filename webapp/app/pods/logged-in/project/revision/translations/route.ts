@@ -61,10 +61,6 @@ export default class TranslationsRoute extends Route {
       translationsQuery,
       {
         props: (data) => ({
-          revisionId: this.routeParams.fetch(
-            transition,
-            'logged-in.project.revision'
-          ).revisionId,
           project: data.viewer.project,
           documents: data.viewer.project.documents.entries,
           versions: data.viewer.project.versions.entries,

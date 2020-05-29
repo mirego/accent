@@ -23,23 +23,11 @@ export default class LintMessage extends Component<Args> {
   multipleReplacements: boolean;
 
   get selectedReplacement() {
-    const replacement = this.args.message.replacements[0];
-
-    return {
-      label: replacement.value,
-      value: replacement.value,
-    };
+    return this.args.message.replacements[0];
   }
 
   get mappedReplacements() {
-    return this.args.message.replacements
-      .slice(0, REPLACEMENTS_LIMIT)
-      .map((replacement: any) => {
-        return {
-          label: replacement.value,
-          value: replacement.value,
-        };
-      });
+    return this.args.message.replacements.slice(0, REPLACEMENTS_LIMIT);
   }
 
   @action

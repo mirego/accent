@@ -152,28 +152,6 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
     assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [translation.id]
   end
 
-  test "list revision with reference_revision", %{project: project, revision: revision, context: context} do
-    english_language = %Language{name: "english"} |> Repo.insert!()
-    other_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: revision.id} |> Repo.insert!()
-
-    %Translation{revision_id: revision.id, conflicted: true, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
-    other_translation = %Translation{revision_id: other_revision.id, conflicted: true, key: "ok", corrected_text: "foo", proposed_text: "foo"} |> Repo.insert!()
-
-    {:ok, result} = Resolver.list_revision(revision, %{reference_revision: other_revision.id}, context)
-
-    assert get_in(result, [:entries, Access.all(), Access.key(:related_translation), Access.key(:id)]) == [other_translation.id]
-  end
-
-  test "list revision with reference_revision without other revision translation", %{project: project, revision: revision, context: context} do
-    english_language = %Language{name: "english"} |> Repo.insert!()
-    other_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: revision.id} |> Repo.insert!()
-    %Translation{revision_id: revision.id, conflicted: true, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
-
-    {:ok, result} = Resolver.list_revision(revision, %{reference_revision: other_revision.id}, context)
-
-    assert get_in(result, [:entries, Access.all(), Access.key(:related_translation)]) == [nil]
-  end
-
   test "related translations", %{project: project, revision: revision, context: context} do
     english_language = %Language{name: "english"} |> Repo.insert!()
     other_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: revision.id} |> Repo.insert!()

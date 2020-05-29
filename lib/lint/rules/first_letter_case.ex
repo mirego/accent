@@ -6,6 +6,7 @@ defmodule Accent.Lint.Rules.FirstLetterCase do
   @behaviour Accent.Lint.Rule
 
   @regex ~r/^[A-Z]/
+  @regex_letter ~r/^[a-zA-Z]/
 
   alias Accent.Lint.Message
 
@@ -14,10 +15,12 @@ defmodule Accent.Lint.Rules.FirstLetterCase do
   def lint(value, _) do
     text = value.entry.value
     master = value.entry.master_value
+    master_letter? = Regex.match?(@regex_letter, master)
+    text_letter? = Regex.match?(@regex_letter, text)
     master_match? = Regex.match?(@regex, master)
     text_match? = Regex.match?(@regex, text)
 
-    if (master_match? and !text_match?) || (!master_match? and text_match?) do
+    if master_letter? and text_letter? and ((master_match? and !text_match?) || (!master_match? and text_match?)) do
       Accent.Lint.add_message(
         value,
         %Message{

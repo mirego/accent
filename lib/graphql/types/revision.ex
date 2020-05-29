@@ -30,7 +30,6 @@ defmodule Accent.GraphQL.Types.Revision do
       arg(:is_text_not_empty, :boolean)
       arg(:is_added_last_sync, :boolean)
       arg(:is_commented_on, :boolean)
-      arg(:reference_revision, :id)
 
       resolve(revision_authorize(:index_translations, &Accent.GraphQL.Resolvers.Translation.list_revision/3))
     end

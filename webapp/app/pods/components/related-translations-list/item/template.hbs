@@ -34,7 +34,7 @@
         {{/if}}
 
         {{#if @translation.isConflicted}}
-          <AccBadge @link={{true}} @primary={{true}}>
+          <AccBadge @link={{true}}>
             <LinkTo
               tabindex="-1"
               @route="logged-in.project.revision.conflicts"
@@ -46,29 +46,33 @@
           </AccBadge>
         {{/if}}
       {{/unless}}
+
+      {{#if @translation.revision.isMaster}}
+        <AccBadge>
+          {{t "components.related_translations_list.master_label"}}
+        </AccBadge>
+      {{/if}}
     </div>
   </div>
 
-  <div local-class="textEdit">
-    <TranslationEdit::Form
-      @projectId={{@project.id}}
-      @translationId={{@translation.id}}
-      @disabled={{@translation.isRemoved}}
-      @valueType={{@translation.valueType}}
-      @value={{this.editText}}
-      @onKeyUp={{fn this.changeText}}
-      @onSubmit={{fn this.save}}
-    />
+  <TranslationEdit::Form
+    @projectId={{@project.id}}
+    @translationId={{@translation.id}}
+    @disabled={{@translation.isRemoved}}
+    @valueType={{@translation.valueType}}
+    @value={{this.editText}}
+    @onKeyUp={{fn this.changeText}}
+    @onSubmit={{fn this.save}}
+  />
 
-    {{#if showSaveButton}}
-      <AsyncButton
-        @onClick={{fn this.save}}
-        @loading={{this.isSaving}}
-        class="button button--filled button--iconOnly"
-        local-class="textEdit-button"
-      >
-        {{t "components.related_translations_list.save_button"}}
-      </AsyncButton>
-    {{/if}}
-  </div>
+  {{#if showSaveButton}}
+    <AsyncButton
+      @onClick={{fn this.save}}
+      @loading={{this.isSaving}}
+      class="button button--filled button--iconOnly"
+      local-class="textEdit-button"
+    >
+      {{t "components.related_translations_list.save_button"}}
+    </AsyncButton>
+  {{/if}}
 </li>

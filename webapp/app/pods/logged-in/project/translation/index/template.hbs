@@ -1,12 +1,24 @@
 {{#unless this.translation.removed}}
-  <TranslationEdit
-    @translation={{this.model.translation}}
-    @project={{this.model.project}}
-    @permissions={{this.permissions}}
-    @onUpdateText={{fn this.updateText}}
-    @onCorrectConflict={{fn this.correctConflict}}
-    @onUncorrectConflict={{fn this.uncorrectConflict}}
-  />
+  <TranslationIndex>
+    <TranslationEdit
+      @translation={{this.model.translation}}
+      @project={{this.model.project}}
+      @permissions={{this.permissions}}
+      @onUpdateText={{fn this.updateText}}
+      @onCorrectConflict={{fn this.correctConflict}}
+      @onUncorrectConflict={{fn this.uncorrectConflict}}
+    />
+
+    {{#if this.model.relatedTranslations}}
+      {{#if (get this.permissions "index_related_translations")}}
+        <RelatedTranslationsList
+          @project={{this.model.project}}
+          @translations={{this.model.relatedTranslations}}
+          @onUpdateText={{fn this.updateTranslation}}
+        />
+      {{/if}}
+    {{/if}}
+  </TranslationIndex>
 {{else}}
   <RemovedTranslationEdit @translation={{this.model.translation}} />
 {{/unless}}

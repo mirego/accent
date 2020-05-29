@@ -62,4 +62,10 @@
       {{/if}}
     </AccBadge>
   {{/if}}
+
+  {{#if @translation.revision.isMaster}}
+    <AccBadge>
+      {{t "components.translation_splash_title.master_label"}}
+    </AccBadge>
+  {{/if}}
 </div>
