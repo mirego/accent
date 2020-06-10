@@ -1,36 +1,27 @@
-defmodule Accent.Hook.Consumers.GitHub do
-  @moduledoc """
-  From a project’s integration association and a webhook event from GitHub,
-  sync and add translation as if the operations were made manually by a user.
-
-  """
-  use Accent.Hook.EventConsumer, subscribe_to: [Accent.Hook.Producers.GitHub]
+defmodule Accent.Hook.Inbounds.GitHub do
+  use Oban.Worker, queue: :hook
 
   alias Accent.{Document, Repo, Version}
-  alias Accent.Hook.Consumers.GitHub.AddTranslations
-  alias Accent.Hook.Consumers.GitHub.Sync
-  alias Accent.Hook.Context
+  alias Accent.Hook.Inbounds.GitHub.AddTranslations
+  alias Accent.Hook.Inbounds.GitHub.Sync
   alias Accent.Plugs.MovementContextParser
   alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Version, as: VersionScope
 
-  def handle_events(events, _from, state) do
-    Enum.each(events, &handle_event/1)
+  @impl Oban.Worker
+  def perform(context, _job) do
+    context = Accent.Hook.Context.from_worker(context)
 
-    {:noreply, [], state}
-  end
-
-  defp handle_event(%Context{user: user, project: project, payload: payload}) do
-    payload[:ref]
-    |> ref_to_version(payload[:default_ref], project)
-    |> sync_and_add_translations(project, user, payload)
+    context.payload["ref"]
+    |> ref_to_version(context.payload["default_ref"], context.project)
+    |> sync_and_add_translations(context.project, context.user, context.payload)
   end
 
   defp sync_and_add_translations({:ok, version}, project, user, payload) do
-    repo = payload[:repository]
-    token = payload[:token]
+    repo = payload["repository"]
+    token = payload["token"]
 
-    ref = (version && version.tag) || payload[:default_ref]
+    ref = (version && version.tag) || payload["default_ref"]
     configs = fetch_config(repo, token, ref)
     trees = fetch_trees(repo, token, ref)
 
@@ -40,10 +31,10 @@ defmodule Accent.Hook.Consumers.GitHub do
       |> Repo.all()
       |> Repo.preload(:language)
 
-    Sync.persist(trees, configs, project, user, payload, version)
+    Sync.persist(trees, configs, project, user, token, version)
 
     Enum.each(revisions, fn revision ->
-      AddTranslations.persist(trees, configs, project, user, revision, payload, version)
+      AddTranslations.persist(trees, configs, project, user, revision, token, version)
     end)
   end
 
@@ -122,14 +113,10 @@ defmodule Accent.Hook.Consumers.GitHub do
   defp fetch_trees(repo, token, ref) do
     with path <- Path.join([repo, "git", "trees", ref]) <> "?recursive=1",
          {:ok, %{body: %{"tree" => tree}}} <- file_server().get_path(path, headers(token)) do
-      filter_blob_file_only(tree)
+      Enum.filter(tree, &(&1["type"] === "blob"))
     else
       _ -> []
     end
-  end
-
-  defp filter_blob_file_only(files) do
-    Enum.filter(files, &(&1["type"] === "blob"))
   end
 
   defp headers(token) do

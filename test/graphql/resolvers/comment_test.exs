@@ -1,8 +1,6 @@
 defmodule AccentTest.GraphQL.Resolvers.Comment do
   use Accent.RepoCase
-
-  import Mox
-  setup :verify_on_exit!
+  use Oban.Testing, repo: Accent.Repo
 
   alias Accent.GraphQL.Resolvers.Comment, as: Resolver
 
@@ -33,13 +31,24 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
     {:ok, [user: user, project: project, translation: translation]}
   end
 
-  test "create", %{translation: translation, user: user} do
+  test "create", %{translation: translation, project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    Accent.Hook.BroadcasterMock
-    |> expect(:notify, fn _ -> :ok end)
-
     {:ok, result} = Resolver.create(translation, %{text: "First comment"}, context)
+
+    assert_enqueued(
+      worker: Accent.Hook.Outbounds.Mock,
+      args: %{
+        "event" => "create_comment",
+        "payload" => %{
+          "text" => "First comment",
+          "user" => %{"email" => user.email},
+          "translation" => %{"id" => translation.id, "key" => translation.key}
+        },
+        "project_id" => project.id,
+        "user_id" => user.id
+      }
+    )
 
     assert get_in(result, [:errors]) == nil
     assert get_in(Repo.all(Comment), [Access.all(), Access.key(:text)]) == ["First comment"]

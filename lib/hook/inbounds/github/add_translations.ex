@@ -1,14 +1,12 @@
-defmodule Accent.Hook.Consumers.GitHub.AddTranslations do
+defmodule Accent.Hook.Inbounds.GitHub.AddTranslations do
   alias Accent.Plugs.MovementContextParser
   alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
   alias Movement.Context
   alias Movement.Persisters.RevisionMerge, as: RevisionMergePersister
 
-  alias Accent.Hook.Consumers.GitHub
+  alias Accent.Hook.Inbounds.GitHub
 
-  def persist(trees, configs, project, user, revision, payload, version) do
-    token = payload[:token]
-
+  def persist(trees, configs, project, user, revision, token, version) do
     trees
     |> group_by_matched_target_config(configs, revision)
     |> Enum.reject(&(elem(&1, 0) === nil))

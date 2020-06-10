@@ -25,14 +25,16 @@ defmodule Accent.GraphQL.Resolvers.Comment do
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
-        comment = Repo.preload(comment, [:user, translation: [revision: :project]])
+        comment = Repo.preload(comment, [:user, translation: [:revision]])
 
-        Accent.Hook.notify(%Hook.Context{
+        Accent.Hook.outbound(%Hook.Context{
           event: "create_comment",
-          project: comment.translation.revision.project,
-          user: info.context[:conn].assigns[:current_user],
+          project_id: comment.translation.revision.project_id,
+          user_id: info.context[:conn].assigns[:current_user].id,
           payload: %{
-            comment: comment
+            text: comment.text,
+            user: %{email: comment.user.email},
+            translation: %{id: comment.translation.id, key: comment.translation.key}
           }
         })
 

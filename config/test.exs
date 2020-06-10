@@ -14,14 +14,20 @@ config :accent, Accent.Mailer,
   x_smtpapi_header: ~s({"category": ["test", "accent-api-test"]}),
   adapter: Bamboo.TestAdapter
 
-config :accent,
-  hook_broadcaster: Accent.Hook.BroadcasterMock,
-  hook_github_file_server: Accent.Hook.Consumers.GitHub.FileServerMock
+config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServerMock
 
 config :accent, Accent.Lint,
   spelling_gateway: Accent.Lint.Rules.Spelling.GatewayMock,
   spelling_gateway_url: "http://language-tool.test"
 
 config :ueberauth, Ueberauth, providers: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}}]
+
+config :accent, Oban, crontab: false, queues: false
+
+events = ~w(sync merge create_collaborator create_comment)
+
+config :accent, Accent.Hook,
+  outbounds: [{Accent.Hook.Outbounds.Mock, events: events}],
+  inbounds: [{Accent.Hook.Inbounds.Mock, events: events}]
 
 config :logger, level: :warn

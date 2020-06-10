@@ -53,10 +53,10 @@ defmodule Accent.MergeController do
         send_resp(conn, :ok, "")
 
       {:ok, _} ->
-        Accent.Hook.notify(%HookContext{
+        Accent.Hook.outbound(%HookContext{
           event: "merge",
-          project: conn.assigns[:project],
-          user: conn.assigns[:current_user],
+          project_id: conn.assigns[:project].id,
+          user_id: conn.assigns[:current_user].id,
           payload: %{
             merge_type: conn.assigns[:merge_type],
             language_name: conn.assigns[:revision].language.name

@@ -92,7 +92,7 @@ defmodule Accent.Mixfile do
       {:bamboo_smtp, "~> 2.0"},
 
       # Events handling
-      {:gen_stage, "~> 1.0"},
+      {:oban, "~> 1.2"},
 
       # Mock testing
       {:mox, "~> 0.3", only: :test},

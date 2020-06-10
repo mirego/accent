@@ -15,10 +15,11 @@ defmodule Accent.Hook.GitHubController do
   plug(:update)
 
   def update(conn, _) do
-    Accent.Hook.external_document_update(:github, %HookContext{
+    Accent.Hook.inbound(%HookContext{
+      event: "sync",
       payload: conn.assigns[:payload],
-      project: conn.assigns[:project],
-      user: conn.assigns[:current_user]
+      project_id: conn.assigns[:project].id,
+      user_id: conn.assigns[:current_user].id
     })
 
     send_resp(conn, :no_content, "")

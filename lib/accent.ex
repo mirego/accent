@@ -7,20 +7,9 @@ defmodule Accent do
     import Supervisor.Spec, warn: false
 
     children = [
-      # Start the endpoint when the application starts
       supervisor(Accent.Endpoint, []),
-      # Start the Ecto repository
-      worker(Accent.Repo, []),
-      worker(Accent.Hook.Producers.GitHub, []),
-      worker(Accent.Hook.Consumers.GitHub, []),
-      worker(Accent.Hook.Producers.Email, []),
-      worker(Accent.Hook.Consumers.Email, mailer: Accent.Mailer),
-      worker(Accent.Hook.Producers.Websocket, []),
-      worker(Accent.Hook.Consumers.Websocket, endpoint: Accent.Endpoint),
-      worker(Accent.Hook.Producers.Slack, []),
-      worker(Accent.Hook.Consumers.Slack, http_client: HTTPoison),
-      worker(Accent.Hook.Producers.Discord, []),
-      worker(Accent.Hook.Consumers.Discord, http_client: HTTPoison)
+      {Accent.Repo, []},
+      {Oban, oban_config()}
     ]
 
     {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
@@ -36,5 +25,18 @@ defmodule Accent do
   def config_change(changed, _new, removed) do
     Accent.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp oban_config do
+    opts = Application.get_env(:accent, Oban)
+
+    # Prevent running queues or scheduling jobs from an iex console.
+    if Code.ensure_loaded?(IEx) and IEx.started?() do
+      opts
+      |> Keyword.put(:crontab, false)
+      |> Keyword.put(:queues, false)
+    else
+      opts
+    end
   end
 end

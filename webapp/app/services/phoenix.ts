@@ -4,6 +4,39 @@ import {Socket, Channel} from 'accent-webapp/utils/phoenix';
 import IntlService from 'ember-intl/services/intl';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 
+interface WebsocketMessageUser {
+  id: string;
+  name: string;
+}
+
+interface WebsocketMessagePayloadUser {
+  email: string;
+}
+
+interface WebsocketMessagePayloadCollaborator {
+  email: string;
+}
+
+interface WebsocketMessagePayloadTranslation {
+  id: string;
+  key: string;
+}
+
+interface WebsocketMessagePayload {
+  user?: WebsocketMessagePayloadUser;
+  collaborator?: WebsocketMessagePayloadCollaborator;
+  translation?: WebsocketMessagePayloadTranslation;
+  text?: string;
+  /* eslint-disable camelcase */
+  document_path?: string;
+  /* eslint-enable camelcase */
+}
+
+interface WebsocketMessage {
+  payload: WebsocketMessagePayload;
+  user: WebsocketMessageUser;
+}
+
 export default class Phoenix extends Service {
   @service('intl')
   intl: IntlService;
@@ -56,47 +89,37 @@ export default class Phoenix extends Service {
     /* eslint-enable camelcase */
 
     Object.keys(events).forEach((eventId: keyof typeof events) => {
-      channel.on(eventId, (payload: any) =>
-        this.handleEvent(events[eventId].bind(this), {
-          payload,
-          currentUserId,
-        })
-      );
+      channel.on(eventId, (message: WebsocketMessage) => {
+        if (message.user?.id === currentUserId) return;
+
+        events[eventId].bind(this)(message);
+      });
     });
 
     return channel;
   }
 
-  private handleEvent(
-    func: ({payload}: {payload: any}) => any,
-    {payload, currentUserId}: {payload: any; currentUserId: string}
-  ) {
-    if (payload.user && payload.user.id !== currentUserId) {
-      return func({payload});
-    }
-  }
-
-  private handleSync({payload}: {payload: any}) {
+  private handleSync({payload, user}: WebsocketMessage) {
     /* eslint camelcase:0 */
     this.showFlashMessage('sync', {
-      user: payload.user.name,
+      user: user.name,
       documentPath: payload.document_path,
     });
     /* eslint camelcase:1 */
   }
 
-  private handleCreateCollaborator({payload}: {payload: any}) {
+  private handleCreateCollaborator({payload, user}: WebsocketMessage) {
     this.showFlashMessage('create_collaborator', {
-      user: payload.user.name,
-      collaboratorEmail: payload.collaborator.email,
+      user: user.name,
+      collaboratorEmail: payload?.collaborator?.email,
     });
   }
 
-  private handleCreateComment({payload}: {payload: any}) {
+  private handleCreateComment({payload, user}: WebsocketMessage) {
     this.showFlashMessage('create_comment', {
-      user: payload.user.name,
-      commentText: payload.comment.text,
-      translationKey: payload.comment.translation.key,
+      user: user.name,
+      commentText: payload.text,
+      translationKey: payload?.translation?.key,
     });
   }
 
