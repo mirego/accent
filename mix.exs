@@ -9,12 +9,13 @@ defmodule Accent.Mixfile do
       version: @version,
       elixir: "~> 1.9",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix] ++ Mix.compilers(),
+      compilers: extra_compilers(Mix.env()) ++ Mix.compilers(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
       releases: releases(),
+      erlc_paths: ["src", "gen"],
       test_coverage: [tool: ExCoveralls]
     ]
   end
@@ -29,6 +30,9 @@ defmodule Accent.Mixfile do
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
   defp elixirc_paths(_), do: ["lib", "web"]
+
+  defp extra_compilers(:prod), do: [:phoenix]
+  defp extra_compilers(_), do: [:gleam, :phoenix]
 
   # Specifies your project dependencies.
   #
@@ -97,6 +101,10 @@ defmodule Accent.Mixfile do
       # Mock testing
       {:mox, "~> 0.3", only: :test},
       {:mock, "~> 0.3.0", only: :test},
+
+      # Gleam
+      {:mix_gleam, "~> 0.1", only: [:dev, :test]},
+      {:gleam_stdlib, "~> 0.8", only: [:dev, :test]},
 
       # Dev
       {:dialyxir, "~> 1.0", only: ~w(dev test)a, runtime: false},

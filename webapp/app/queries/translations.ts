@@ -59,6 +59,14 @@ export default gql`
               updatedAt
               commentsCount
               valueType
+              lintMessages {
+                text
+                check
+                replacement {
+                  value
+                  label
+                }
+              }
               document {
                 id
                 path

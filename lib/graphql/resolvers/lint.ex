@@ -37,7 +37,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       |> Repo.one()
 
     entry = Translation.to_langue_entry(translation, master_translation, translation.revision.master)
-    [lint] = Accent.Lint.lint([entry], language: translation.revision.language.slug)
+    [lint] = Accent.Lint.lint([entry])
 
     {:ok, lint.messages}
   end

@@ -9,16 +9,8 @@ export default gql`
           id
           lintMessages(text: $text) {
             text
-            context {
-              text
-              offset
-              length
-            }
-            rule {
-              id
-              description
-            }
-            replacements {
+            check
+            replacement {
               value
               label
             }

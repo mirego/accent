@@ -1,4 +1,4 @@
-<div local-class="translation-edit-form">
+<div local-class="translation-edit-form" {{did-update this.didUpdateValue @value}}>
   {{#if this.isBooleanType}}
     <span local-class="label">
       {{t "components.translation_edit.form.boolean_type_notice"}}

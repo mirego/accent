@@ -1,0 +1,1 @@
+-record(leading_spaces, {text, replacement}).

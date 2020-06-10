@@ -1,50 +1,25 @@
+import {inject as service} from '@ember/service';
+import IntlService from 'ember-intl/services/intl';
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
-import {gt} from '@ember/object/computed';
-
-const REPLACEMENTS_LIMIT = 10;
-
-interface Context {
-  text: string;
-  offset: number;
-  length: number;
-}
 
 interface Args {
   message: any;
-  onReplaceText: (
-    context: Context,
-    replacement: {label: string; value: string}
-  ) => void;
+  onReplaceText: (value: string) => void;
 }
 
 export default class LintMessage extends Component<Args> {
-  @gt('mappedReplacements', 1)
-  multipleReplacements: boolean;
-
-  get selectedReplacement() {
-    return this.args.message.replacements[0];
-  }
-
-  get mappedReplacements() {
-    return this.args.message.replacements.slice(0, REPLACEMENTS_LIMIT);
-  }
+  @service('intl')
+  intl: IntlService;
 
   @action
-  replaceTextSelected() {
-    const replacement = this.selectedReplacement;
-
-    this.args.onReplaceText(this.args.message.context, replacement);
+  replaceText() {
+    this.args.onReplaceText(this.args.message.replacement.value);
   }
 
-  @action
-  replaceText({value}: {value: string}) {
-    const replacement = this.args.message.replacements.find(
-      (replacement: {label: string; value: string}) => {
-        return replacement.value === value;
-      }
+  get description() {
+    return this.intl.t(
+      `components.translation_edit.lint_message.checks.${this.args.message.check}`
     );
-
-    this.args.onReplaceText(this.args.message.context, replacement);
   }
 }

@@ -68,14 +68,6 @@ config :accent, Accent.Mailer,
   mailer_from: System.get_env("MAILER_FROM"),
   x_smtpapi_header: System.get_env("SMTP_API_HEADER")
 
-if System.get_env("SPELLING_GATEWAY_API_URL") do
-  config :accent, Accent.Lint,
-    spelling_gateway: Accent.Lint.Rules.Spelling.LanguageTool,
-    spelling_gateway_url: System.get_env("SPELLING_GATEWAY_API_URL")
-else
-  config :accent, Accent.Lint, spelling_gateway: Accent.Lint.Rules.Spelling.Noop
-end
-
 cond do
   System.get_env("SENDGRID_API_KEY") ->
     config :accent, Accent.Mailer,

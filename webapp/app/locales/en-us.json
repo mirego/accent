@@ -682,7 +682,17 @@
       },
       "lint_message": {
         "arrow": "→",
-        "replace": "Replace"
+        "replace": "Replace",
+        "checks": {
+          "PLACEHOLDER_COUNT": "Number of placeholders does not match the master string",
+          "TRAILING_SPACE": "String contains a trailing space",
+          "LEADING_SPACES": "String contains leading spaces",
+          "DOUBLE_SPACES": "String contains double spaces",
+          "FIRST_LETTER_CASE": "First letter of translation does not match case of the master’s",
+          "THREE_DOTS_ELLIPSIS": "String contains three dots instead of ellipsis",
+          "SAME_TRAILING_CHARACTER": "String does not match the trailing character of master",
+          "URL_COUNT": "Number of URL does not match the master string"
+        }
       }
     },
     "translation_navigation": {

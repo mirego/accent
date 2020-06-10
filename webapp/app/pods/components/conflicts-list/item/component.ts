@@ -30,6 +30,13 @@ export default class ConflictItem extends Component<Args> {
 
   conflictKey = parsedKeyProperty(this.args.conflict.key);
 
+  get revisionName() {
+    return (
+      this.args.conflict.revision.name ||
+      this.args.conflict.revision.language.name
+    );
+  }
+
   @action
   changeTranslationText(text: string) {
     this.textInput = text;

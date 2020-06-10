@@ -9,18 +9,12 @@ import {tracked} from '@glimmer/tracking';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
 
-const DEBOUNCE_LINT_MESSAGES = 1000;
+const DEBOUNCE_LINT_MESSAGES = 300;
 const SMALL_INPUT_ROWS = 1;
-const MEDIUM_INPUT_ROWS = 3;
+const MEDIUM_INPUT_ROWS = 2;
 const LARGE_INPUT_ROWS = 7;
 const SMALL_INPUT_VALUE = 70;
 const LARGE_INPUT_VALUE = 100;
-
-interface Context {
-  text: string;
-  offset: number;
-  length: number;
-}
 
 interface Args {
   projectId: string;
@@ -97,6 +91,11 @@ export default class TranslationEditForm extends Component<Args> {
     if (previousText !== this.text) this.fetchLintMessages(target.value);
   }
 
+  @action
+  didUpdateValue() {
+    if (this.args.value) this.text = this.args.value;
+  }
+
   @restartableTask
   *fetchLintMessagesTask(value: string) {
     yield timeout(DEBOUNCE_LINT_MESSAGES);
@@ -115,17 +114,10 @@ export default class TranslationEditForm extends Component<Args> {
   }
 
   @action
-  replaceText(context: Context, replacement: any) {
-    const wordToReplace = context.text.substring(
-      context.offset,
-      context.offset + context.length
-    );
-
-    const newText = this.text.replace(wordToReplace, replacement.value);
-
-    this.text = newText;
-    this.args.onKeyUp?.(newText);
-    this.fetchLintMessages(newText);
+  replaceText(value: string) {
+    this.text = value;
+    this.args.onKeyUp?.(value);
+    this.fetchLintMessages(value);
   }
 
   fetchLintMessages(value: string) {

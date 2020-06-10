@@ -1,0 +1,1 @@
+-record(trailing_space, {text, replacement}).

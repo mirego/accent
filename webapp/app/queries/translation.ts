@@ -20,16 +20,8 @@ export default gql`
 
           lintMessages {
             text
-            context {
-              text
-              offset
-              length
-            }
-            rule {
-              id
-              description
-            }
-            replacements {
+            check
+            replacement {
               value
               label
             }
@@ -60,16 +52,8 @@ export default gql`
 
             lintMessages {
               text
-              context {
-                text
-                offset
-                length
-              }
-              rule {
-                id
-                description
-              }
-              replacements {
+              check
+              replacement {
                 value
                 label
               }

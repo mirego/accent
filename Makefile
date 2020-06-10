@@ -80,6 +80,7 @@ lint-compile:
 .PHONY: lint-format
 lint-format:
 	mix format --dry-run --check-formatted
+	gleam format src --check
 
 .PHONY: lint-credo
 lint-credo:
@@ -118,11 +119,15 @@ test-coverage: ## Generate the code coverage report
 	mix coveralls
 
 .PHONY: format
-format: format-elixir format-prettier ## Run formatting tools on the code
+format: format-elixir format-prettier format-gleam ## Run formatting tools on the code
 
 .PHONY: format-elixir
 format-elixir:
 	mix format
+
+.PHONY: format-gleam
+format-gleam:
+	gleam format src
 
 .PHONY: format-prettier
 format-prettier:

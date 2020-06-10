@@ -1,20 +1,18 @@
-.navigation {
-  border-radius: 3px;
-  overflow: hidden;
-}
-
 .navigation--alt {
-  background: var(--background-light);
-  border: 1px solid var(--input-border-color);
+  border-bottom: 1px solid var(--input-border-color);
 
   .navigation-list-item {
     margin-right: 6px;
   }
 
   .navigation-list-item-link {
-    padding: 10px 15px 10px 10px;
+    position: relative;
+    top: 1px;
+    padding: 10px 15px 8px 10px;
+    border-bottom: 2px solid transparent;
 
     &:global(.active) {
+      border-bottom-color: var(--color-primary);
       color: var(--color-primary);
     }
   }

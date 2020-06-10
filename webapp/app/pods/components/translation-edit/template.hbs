@@ -1,4 +1,4 @@
-<div local-class="translation-edit">
+<div local-class="translation-edit" {{did-update this.didUpdateCorrectedText @translation.correctedText}}>
   {{#if @translation.isConflicted}}
     {{#if @translation.conflictedText}}
       {{#unless this.samePreviousText}}

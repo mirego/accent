@@ -1,5 +1,4 @@
 import {action} from '@ember/object';
-import {not} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
 
@@ -15,11 +14,14 @@ export default class RelatedTranslationsListItem extends Component<Args> {
   @tracked
   isSaving = false;
 
-  @not('args.translation.isRemoved')
-  showSaveButton: boolean;
-
   @tracked
   editText = this.args.translation.correctedText;
+
+  get showSaveButton() {
+    if (this.args.translation.isRemoved) return false;
+
+    return this.args.translation.correctedText !== this.editText;
+  }
 
   get revisionName() {
     return (

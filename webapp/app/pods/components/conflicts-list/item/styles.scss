@@ -177,8 +177,7 @@
   font-size: 13px;
 }
 
-.textDiff,
-.conflictedText-textReference {
+.textDiff {
   padding: 8px 0 3px;
   color: var(--color-grey);
 }
@@ -197,8 +196,7 @@
   right: 5px;
 }
 
-.item-revision,
-.conflictedText-textReference-link {
+.item-revision {
   flex-shrink: 0;
   width: 90px;
   margin-right: 4px;
@@ -223,29 +221,6 @@
   font-size: 13px;
 }
 
-.conflictedText-references {
-  width: 100%;
-}
-
-.conflictedText-textReference {
-  display: flex;
-  flex-direction: row;
-  font-size: 13px;
-}
-
-.conflictedText-textReference-text {
-  width: 100%;
-}
-
-.conflictedText-textReference-text-content {
-  display: block;
-  white-space: pre-wrap;
-  margin: 0 0 0 5px;
-  color: var(--color-black);
-  opacity: 0.8;
-  font-size: 12px;
-}
-
 .textInput {
   flex-grow: 1;
   flex-shrink: 0;
@@ -268,4 +243,8 @@
     outline: none;
     opacity: 0.8;
   }
+}
+
+.conflictedText-references {
+  width: 100%;
 }

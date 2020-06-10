@@ -1,3 +1,10 @@
+FROM gleamlang/gleam:0.9.0 as gleam-builder
+WORKDIR /opt/build
+COPY gleam.toml .
+COPY rebar.config .
+COPY src src
+RUN rebar3 compile
+
 #
 # Step 1 - Build webapp and jipt deps
 #
@@ -20,7 +27,7 @@ RUN npm ci --no-audit --no-color && \
     npm run build-production
 
 #
-# Step 2 - Build the OTP binary
+# Step 3 - Build the OTP binary
 #
 FROM elixir:1.9-alpine AS builder
 
@@ -41,6 +48,7 @@ COPY priv priv
 COPY config config
 COPY mix.exs .
 COPY mix.lock .
+COPY --from=gleam-builder /opt/build ./gen
 
 RUN mix deps.get --only prod
 RUN mix deps.compile --only prod
@@ -59,7 +67,7 @@ RUN mkdir -p /opt/build && \
     cp -R _build/prod/rel/accent/* /opt/build
 
 #
-# Step 3 - Build a lean runtime container
+# Step 4 - Build a lean runtime container
 #
 FROM alpine:3.9
 

@@ -108,10 +108,10 @@
             </span>
 
             <strong local-class="translation-state-reviewed">
-              {{#if @activity.previousTranslation.isReviewed}}
-                {{t "components.project_activity.reviewed_yes"}}
-              {{else}}
+              {{#if @activity.previousTranslation.isConflicted}}
                 {{t "components.project_activity.reviewed_no"}}
+              {{else}}
+                {{t "components.project_activity.reviewed_yes"}}
               {{/if}}
             </strong>
           </div>

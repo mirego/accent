@@ -1,0 +1,1 @@
+-record(entry, {value, master_value, is_master, messages}).

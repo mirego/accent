@@ -1,0 +1,34 @@
+<div local-class="item">
+  <LinkTo
+    @route="logged-in.project.translation"
+    @models={{array @project.id @translation.id}}
+    local-class="item-link"
+  >
+    {{this.revisionName}}
+  </LinkTo>
+
+  <div local-class="item-text">
+    <span local-class="item-text-content">{{@translation.correctedText}}</span>
+  </div>
+
+  <div local-class="item-actions">
+    <LinkTo
+      @route="logged-in.project.translation"
+      @models={{array @project.id @translation.id}}
+      local-class="item-actions-link"
+    >
+      {{inline-svg "assets/eye.svg" local-class="item-actions-icon"}}
+    </LinkTo>
+
+    {{#if relatedTranslation.isConflicted}}
+      <LinkTo
+        @route="logged-in.project.revision.conflicts"
+        @models={{array @project.id @translation.revision.id}}
+        @query={{hash query=@translation.id}}
+        local-class="item-actions-flag item-actions-flag--link"
+      >
+        {{t "components.conflict_item.conflicted_label"}}
+      </LinkTo>
+    {{/if}}
+  </div>
+</div>

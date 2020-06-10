@@ -1,64 +1,50 @@
 defmodule Accent.Lint do
-  alias Accent.Lint.Message
-  alias Accent.Lint.Rules, as: R
-  alias Accent.Lint.Value
-
-  @rules [
-    &R.DoubleSpaces.lint/2,
-    &R.FirstLetterCase.lint/2,
-    &R.LeadingSpaces.lint/2,
-    &R.PlaceholderCount.lint/2,
-    &R.Spelling.lint/2,
-    &R.ThreeDotsEllipsis.lint/2,
-    &R.TrailingColon.lint/2,
-    &R.TrailingEllipsis.lint/2,
-    &R.TrailingExclamation.lint/2,
-    &R.TrailingQuestionMark.lint/2,
-    &R.TrailingSpaces.lint/2,
-    &R.TrailingStop.lint/2,
-    &R.URLCount.lint/2
-  ]
-
-  @max_text_length 12
-
   @typep entry :: Langue.Entry.t()
-  @typep value :: Value.t()
-  @typep message :: Message.t()
 
-  @spec lint(list(entry), Keyword.t()) :: list(value)
-  def lint(entries, opts) do
-    entries
-    |> Stream.map(&%Value{entry: &1})
-    |> Task.async_stream(fn entry -> Enum.reduce(@rules, entry, & &1.(&2, opts)) end, timeout: :infinity)
-    |> Stream.map(&elem(&1, 1))
-    |> Enum.to_list()
+  defmodule Entry do
+    @enforce_keys ~w(value master_value messages)a
+    defstruct value: nil, master_value: nil, messages: []
   end
 
-  @spec add_message(value, message) :: value
-  def add_message(value, message) do
-    %{
-      value
-      | messages: [message | value.messages]
+  defmodule Message do
+    @enforce_keys ~w(check text replacement)a
+    defstruct check: nil, text: nil, replacement: nil
+  end
+
+  defmodule Replacement do
+    @enforce_keys ~w(value label)a
+    defstruct value: nil, label: nil
+  end
+
+  @spec lint(list(entry)) :: list(map())
+  def lint(entries) do
+    entries
+    |> Enum.map(&map_to_entry/1)
+    |> :lint.lint()
+    |> Enum.map(&entry_to_map/1)
+  end
+
+  defp map_to_entry(map) do
+    {:entry, map.value, map.master_value, map.is_master, []}
+  end
+
+  defp entry_to_map({:entry, value, master_value, _, messages}) do
+    %Entry{
+      value: value,
+      master_value: master_value,
+      messages: Enum.map(messages, &entry_message/1)
     }
   end
 
-  @spec display_trailing_text(String.t()) :: String.t()
-  def display_trailing_text(text) do
-    pad_max_length(text, (String.length(text) - @max_text_length)..-1, &String.pad_leading/3)
+  defp entry_message({check, text, {:some, {_, replacement_value, replacement_label}}}) do
+    %Message{
+      check: check,
+      text: text,
+      replacement: %Replacement{value: replacement_value, label: replacement_label}
+    }
   end
 
-  @spec display_leading_text(String.t()) :: String.t()
-  def display_leading_text(text) do
-    pad_max_length(text, 0..(@max_text_length - 1), &String.pad_trailing/3)
-  end
-
-  defp pad_max_length(text, slice, padding_func) do
-    if String.length(text) > @max_text_length do
-      text
-      |> String.slice(slice)
-      |> padding_func.(@max_text_length + 1, "…")
-    else
-      text
-    end
+  defp entry_message({check, text, :none}) do
+    %Message{check: check, text: text, replacement: nil}
   end
 end

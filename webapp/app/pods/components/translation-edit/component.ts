@@ -1,4 +1,5 @@
 import {action} from '@ember/object';
+import {next} from '@ember/runloop';
 import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
 
@@ -72,6 +73,14 @@ export default class TranslationEdit extends Component<Args> {
   }
 
   @action
+  didUpdateCorrectedText(element: HTMLElement) {
+    if (this.args.translation) {
+      this.text = this.args.translation.correctedText;
+      next(this, () => this.focusTextarea(element));
+    }
+  }
+
+  @action
   changeText(text: string) {
     this.text = text;
 
@@ -80,6 +89,8 @@ export default class TranslationEdit extends Component<Args> {
 
   @action
   focusTextarea(element: HTMLElement) {
-    element.querySelector('textarea')?.focus();
+    const focusable = element.querySelector('textarea');
+    focusable?.focus();
+    focusable?.setSelectionRange(this.text.length, this.text.length);
   }
 }

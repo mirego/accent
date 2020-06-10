@@ -83,40 +83,10 @@
           {{#if @conflict.relatedTranslations}}
             <div local-class="conflictedText-references">
               {{#each @conflict.relatedTranslations key="id" as |relatedTranslation|}}
-                <div local-class="conflictedText-textReference">
-                  <LinkTo
-                    @route="logged-in.project.translation"
-                    @models={{array @project.id relatedTranslation.id}}
-                    local-class="conflictedText-textReference-link"
-                  >
-                    {{relatedTranslation.revision.language.name}}
-                  </LinkTo>
-
-                  <div local-class="conflictedText-textReference-text">
-                    <span local-class="conflictedText-textReference-text-content">{{relatedTranslation.correctedText}}</span>
-                  </div>
-
-                  <div local-class="item-detail-conflict-actions">
-                    <LinkTo
-                      @route="logged-in.project.translation"
-                      @models={{array @project.id relatedTranslation.id}}
-                      local-class="item-detail-conflict-actions-link"
-                    >
-                      {{inline-svg "assets/eye.svg" local-class="item-detail-conflict-actions-icon"}}
-                    </LinkTo>
-
-                    {{#if relatedTranslation.isConflicted}}
-                      <LinkTo
-                        @route="logged-in.project.revision.conflicts"
-                        @models={{array @project.id relatedTranslation.revision.id}}
-                        @query={{hash query=relatedTranslation.id}}
-                        local-class="item-detail-conflict-actions-flag item-detail-conflict-actions-flag--link"
-                      >
-                        {{t "components.conflict_item.conflicted_label"}}
-                      </LinkTo>
-                    {{/if}}
-                  </div>
-                </div>
+                <ConflictsList::Item::RelatedTranslation
+                  @project={{@project}}
+                  @translation={{relatedTranslation}}
+                />
               {{/each}}
             </div>
           {{/if}}

@@ -16,10 +16,6 @@ config :accent, Accent.Mailer,
 
 config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServerMock
 
-config :accent, Accent.Lint,
-  spelling_gateway: Accent.Lint.Rules.Spelling.GatewayMock,
-  spelling_gateway_url: "http://language-tool.test"
-
 config :ueberauth, Ueberauth, providers: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}}]
 
 config :accent, Oban, crontab: false, queues: false

@@ -1,26 +1,25 @@
 defmodule Accent.GraphQL.Types.Lint do
   use Absinthe.Schema.Notation
 
-  object :lint_translation_message_context do
-    field(:text, non_null(:string))
-    field(:offset, non_null(:integer))
-    field(:length, non_null(:integer))
+  enum :lint_check do
+    value(:leading_spaces)
+    value(:double_spaces)
+    value(:first_letter_case)
+    value(:three_dots_ellipsis)
+    value(:same_trailing_character)
+    value(:trailing_space)
+    value(:placeholder_count)
+    value(:url_count)
   end
 
   object :lint_translation_message_replacement do
     field(:value, non_null(:string))
-    field(:label, non_null(:string), resolve: fn replacement, _, _ -> Map.fetch(replacement, :value) end)
-  end
-
-  object :lint_translation_message_rule do
-    field(:id, non_null(:id))
-    field(:description, :string)
+    field(:label, non_null(:string))
   end
 
   object :lint_translation_message do
     field(:text, non_null(:string))
-    field(:context, :lint_translation_message_context)
-    field(:rule, non_null(:lint_translation_message_rule))
-    field(:replacements, non_null(list_of(non_null(:lint_translation_message_replacement))))
+    field(:check, non_null(:lint_check))
+    field(:replacement, :lint_translation_message_replacement)
   end
 end

@@ -1,35 +1,24 @@
 <div local-class="translation-edit-lint-message">
-  <span local-class="description">{{@message.rule.description}}</span>
+  <span local-class="description">{{this.description}}</span>
 
-  <div>
-    <span local-class="text">{{@message.text}}</span>
+  {{#if @message.replacement}}
+    <div>
+      <span local-class="text">{{@message.text}}</span>
 
-    {{#if this.mappedReplacements}}
       <span local-class="arrow">
         {{t "components.translation_edit.lint_message.arrow"}}
       </span>
 
-      {{#if this.multipleReplacements}}
-        <AccSelect
-          @searchEnabled={{false}}
-          @selected={{this.selectedReplacement}}
-          @options={{this.mappedReplacements}}
-          @onchange={{fn this.replaceText}}
-        />
-      {{else}}
-        <span local-class="single-replacement">
-          {{this.selectedReplacement.label}}
-        </span>
-      {{/if}}
+      <span local-class="single-replacement">
+        {{@message.replacement.label}}
+      </span>
 
-      {{#if @message.context}}
-        <button
-          class="button button--small button--filled button--borderless"
-          local-class="replaceButton"
-          {{on "click" this.replaceTextSelected}}>
-          {{t "components.translation_edit.lint_message.replace"}}
-        </button>
-      {{/if}}
-    {{/if}}
-  </div>
+      <button
+        class="button button--small button--filled button--borderless"
+        local-class="replaceButton"
+        {{on "click" this.replaceText}}>
+        {{t "components.translation_edit.lint_message.replace"}}
+      </button>
+    </div>
+  {{/if}}
 </div>
