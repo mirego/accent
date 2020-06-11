@@ -8,7 +8,7 @@ config :accent,
 
 config :accent, Accent.Endpoint,
   render_errors: [accepts: ~w(json)],
-  pubsub: [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Accent.PubSub
 
 config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServer.HTTP
 

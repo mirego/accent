@@ -5,7 +5,7 @@
         <td>
           <img alt="Accent" width=40 height=40 src="<%= logo_url() %>" />
 
-          <%= render @view_module, @view_template, assigns %>
+          <%= @inner_content %>
 
           <hr style="<%= style(background: "#f3f3f3", color: "#f3f3f3", border: "1px solid #f3f3f3", margin: "10px 0") %>" />
 

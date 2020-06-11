@@ -49,7 +49,7 @@ defmodule Accent.Mixfile do
       {:corsica, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.0", override: true},
-      {:plug, "~> 1.7", override: true},
+      {:plug, "1.10.1", override: true},
 
       # Database
       {:ecto, "~> 3.2", override: true},

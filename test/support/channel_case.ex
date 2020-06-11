@@ -8,7 +8,7 @@ defmodule Accent.ChannelCase do
   using do
     quote do
       # Import conveniences for testing with connections
-      use Phoenix.ChannelTest
+      import Phoenix.ChannelTest
       import Accent.Router.Helpers
 
       # The default endpoint for testing

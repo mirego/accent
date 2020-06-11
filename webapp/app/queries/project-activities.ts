@@ -4,7 +4,7 @@ export default gql`
   query ProjectActivities(
     $projectId: ID!
     $page: Int
-    $userId: String
+    $userId: ID
     $isBatch: Boolean
     $action: String
   ) {

@@ -9,7 +9,8 @@ defmodule Accent do
     children = [
       supervisor(Accent.Endpoint, []),
       {Accent.Repo, []},
-      {Oban, oban_config()}
+      {Oban, oban_config()},
+      {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
     {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)

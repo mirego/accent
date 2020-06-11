@@ -40,8 +40,8 @@ export default class ProjectsNewController extends Controller {
         {
           mutation: projectCreateQuery,
           variables: {
-            name,
             ...projectAttributes,
+            name,
           },
         }
       );
