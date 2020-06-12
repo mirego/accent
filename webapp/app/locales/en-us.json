@@ -879,6 +879,9 @@
         "api_token": {
           "loading_content": "Fetching project’s API settings…"
         },
+        "jipt": {
+          "loading_content": "Fetching project’s Just In Place Translations settings…"
+        },
         "service_integrations": {
           "loading_content": "Fetching project’s service & integrations…"
         }

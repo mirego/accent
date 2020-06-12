@@ -1,56 +1,12 @@
-<div local-class="project-comments-list">
-  <div local-class="item">
-    <div local-class="item-language"></div>
-    <div local-class="item-key"></div>
-    <div local-class="item-comments">
-      <div local-class="item-comments-item">
-        <div local-class="item-comments-item-key"></div>
-        <div local-class="item-comments-item-text"></div>
-        <div local-class="item-comments-item-text"></div>
-        <div local-class="item-comments-item-text"></div>
-      </div>
-      <div local-class="item-comments-item">
-        <div local-class="item-comments-item-key"></div>
-        <div local-class="item-comments-item-text"></div>
-      </div>
-      <div local-class="item-comments-item">
-        <div local-class="item-comments-item-key"></div>
-        <div local-class="item-comments-item-text"></div>
-        <div local-class="item-comments-item-text"></div>
-      </div>
-    </div>
-  </div>
-  <div local-class="item">
-    <div local-class="item-language"></div>
-    <div local-class="item-key"></div>
-    <div local-class="item-comments">
-      <div local-class="item-comments-item">
-        <div local-class="item-comments-item-key"></div>
-        <div local-class="item-comments-item-text"></div>
-        <div local-class="item-comments-item-text"></div>
-        <div local-class="item-comments-item-text"></div>
-      </div>
-    </div>
-  </div>
-  <div local-class="item">
-    <div local-class="item-language"></div>
-    <div local-class="item-key"></div>
-    <div local-class="item-comments">
-      <div local-class="item-comments-item">
-        <div local-class="item-comments-item-key"></div>
-        <div local-class="item-comments-item-text"></div>
-        <div local-class="item-comments-item-text"></div>
-      </div>
-      <div local-class="item-comments-item">
-        <div local-class="item-comments-item-key"></div>
-        <div local-class="item-comments-item-text"></div>
-        <div local-class="item-comments-item-text"></div>
-        <div local-class="item-comments-item-text"></div>
-      </div>
-      <div local-class="item-comments-item">
-        <div local-class="item-comments-item-key"></div>
-        <div local-class="item-comments-item-text"></div>
-      </div>
-    </div>
-  </div>
-</div>
+<SkeletonUi local-class="skeleton">
+  {{#each (repeat 6)}}
+    <ContentLoader @height="45" @width="400">
+      <rect x="0" y="0" rx="3" ry="3" width="28" height="2" />
+      <rect x="0" y="5" rx="3" ry="3" width="88" height="2" />
+      <circle cx="4" cy="14" r="4" />
+      <rect x="12" y="14" rx="3" ry="3" width="110" height="2" />
+      <rect x="0" y="22" rx="3" ry="3" width="200" height="2" />
+      <rect x="0" y="26" rx="3" ry="3" width="230" height="2" />
+    </ContentLoader>
+  {{/each}}
+</SkeletonUi>

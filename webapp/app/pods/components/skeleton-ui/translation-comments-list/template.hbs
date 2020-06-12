@@ -1,18 +1,10 @@
-<div local-class="translation-comments-list">
-  <div local-class="form"></div>
-  <div local-class="item">
-    <div local-class="item-user"></div>
-    <div local-class="item-text"></div>
-  </div>
-  <div local-class="item">
-    <div local-class="item-user"></div>
-    <div local-class="item-text"></div>
-    <div local-class="item-text"></div>
-    <div local-class="item-text"></div>
-  </div>
-  <div local-class="item">
-    <div local-class="item-user"></div>
-    <div local-class="item-text"></div>
-    <div local-class="item-text"></div>
-  </div>
-</div>
+<SkeletonUi local-class="skeleton">
+  {{#each (repeat 3)}}
+    <ContentLoader @height="35" @width="400">
+      <circle cx="4" cy="14" r="4" />
+      <rect x="12" y="14" rx="3" ry="3" width="110" height="2" />
+      <rect x="0" y="22" rx="3" ry="3" width="200" height="2" />
+      <rect x="0" y="26" rx="3" ry="3" width="230" height="2" />
+    </ContentLoader>
+  {{/each}}
+</SkeletonUi>

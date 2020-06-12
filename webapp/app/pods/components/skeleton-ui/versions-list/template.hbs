@@ -1,26 +1,11 @@
-<div local-class="versions-list">
-  <div local-class="item">
-    <div local-class="item-meta"></div>
-    <div local-class="item-document"></div>
-    <div local-class="item-button"></div>
-    <div local-class="item-button"></div>
-  </div>
-  <div local-class="item">
-    <div local-class="item-meta"></div>
-    <div local-class="item-document"></div>
-    <div local-class="item-button"></div>
-    <div local-class="item-button"></div>
-  </div>
-  <div local-class="item">
-    <div local-class="item-meta"></div>
-    <div local-class="item-document"></div>
-    <div local-class="item-button"></div>
-    <div local-class="item-button"></div>
-  </div>
-  <div local-class="item">
-    <div local-class="item-meta"></div>
-    <div local-class="item-document"></div>
-    <div local-class="item-button"></div>
-    <div local-class="item-button"></div>
-  </div>
-</div>
+<SkeletonUi local-class="skeleton">
+  {{#each (repeat 6)}}
+    <ContentLoader @height="35" @width="400">
+      <rect x="0" y="0" rx="1" ry="1" width="28" height="4" />
+      <rect x="0" y="8" rx="1" ry="1" width="70" height="1" />
+
+      <rect x="0" y="13" rx="2" ry="2" width="30" height="10" />
+      <rect x="36" y="13" rx="2" ry="2" width="37" height="10" />
+    </ContentLoader>
+  {{/each}}
+</SkeletonUi>
