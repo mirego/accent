@@ -11,6 +11,8 @@ interface Args {
   onUpdateText: (translation: any, editText: string) => Promise<void>;
 }
 
+const MAX_TEXT_LENGTH = 600;
+
 export default class TranslationsListItem extends Component<Args> {
   @tracked
   isSaving = false;
@@ -29,6 +31,14 @@ export default class TranslationsListItem extends Component<Args> {
   @action
   changeTranslationText(text: string) {
     this.editText = text;
+  }
+
+  get displayText() {
+    const text = this.args.translation.correctedText;
+
+    if (text.length < MAX_TEXT_LENGTH) return text;
+
+    return `${text.substring(0, MAX_TEXT_LENGTH - 1)}…`;
   }
 
   @action

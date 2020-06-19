@@ -89,7 +89,7 @@
     </span>
   {{else}}
     <span role="button" local-class="item-text" {{on "click" (fn this.toggleEdit)}}>
-      {{@translation.correctedText}}
+      {{this.displayText}}
     </span>
   {{/if}}
 </li>
