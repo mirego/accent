@@ -29,7 +29,7 @@ RUN npm ci --no-audit --no-color && \
 #
 # Step 3 - Build the OTP binary
 #
-FROM elixir:1.9-alpine AS builder
+FROM hexpm/elixir:1.10.3-erlang-22.3.4.1-alpine-3.11.6 AS builder
 
 ENV MIX_ENV=prod
 
@@ -69,7 +69,7 @@ RUN mkdir -p /opt/build && \
 #
 # Step 4 - Build a lean runtime container
 #
-FROM alpine:3.9
+FROM alpine:3.11.6
 
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
