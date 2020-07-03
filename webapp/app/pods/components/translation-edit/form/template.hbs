@@ -1,4 +1,35 @@
 <div local-class="translation-edit-form" {{did-update this.didUpdateValue @value}}>
+  {{#if @placeholders}}
+    <div local-class="placeholders">
+      <span local-class="placeholders-title">
+        {{inline-svg "assets/code.svg" local-class="placeholders-title-icon"}}
+        {{t "components.translation_edit.form.placeholders.title"}}
+      </span>
+
+      <div local-class="placeholders-text">
+        <p local-class="placeholders-text-content">
+          {{t "components.translation_edit.form.placeholders.text"}}
+        </p>
+      </div>
+
+      <ul>
+        {{#each @placeholders as |placeholder|}}
+          <li
+            local-class="placeholders-item
+              {{if
+                (get this.unusedPlaceholders placeholder)
+                "placeholders-item--warning"
+              }}"
+          >
+            <code>
+              {{placeholder}}
+            </code>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+
   {{#if this.isBooleanType}}
     <span local-class="label">
       {{t "components.translation_edit.form.boolean_type_notice"}}
@@ -11,64 +42,41 @@
     <RadioButton @groupValue={{this.text}} @value="false">
       {{t "components.translation_edit.form.false_option"}}
     </RadioButton>
+  {{/if}}
+
+  {{#if this.showTypeHints}}
+    {{#if this.isIntegerType}}
+      <span local-class="label">
+        {{t "components.translation_edit.form.integer_type_notice"}}
+      </span>
+    {{/if}}
+
+    {{#if this.isFloatType}}
+      <span local-class="label">
+        {{t "components.translation_edit.form.float_type_notice"}}
+      </span>
+    {{/if}}
+
+    {{#if this.isEmptyType}}
+      <span local-class="label">
+        {{t "components.translation_edit.form.empty_type_notice"}}
+      </span>
+    {{/if}}
+
+    {{#if this.isNullType}}
+      <span local-class="label">
+        {{t "components.translation_edit.form.null_type_notice"}}
+      </span>
+    {{/if}}
+  {{/if}}
+
+  {{#if this.isHTMLType}}
+    <HtmlTextarea
+      @value={{this.text}}
+      @onChange={{fn this.changeHTML}}
+      @wysiwygOptions={{this.wysiwygOptions}}
+    />
   {{else}}
-    {{#if this.showTypeHints}}
-      {{#if this.isIntegerType}}
-        <span local-class="label">
-          {{t "components.translation_edit.form.integer_type_notice"}}
-        </span>
-      {{/if}}
-
-      {{#if this.isFloatType}}
-        <span local-class="label">
-          {{t "components.translation_edit.form.float_type_notice"}}
-        </span>
-      {{/if}}
-
-      {{#if this.isEmptyType}}
-        <span local-class="label">
-          {{t "components.translation_edit.form.empty_type_notice"}}
-        </span>
-      {{/if}}
-
-      {{#if this.isNullType}}
-        <span local-class="label">
-          {{t "components.translation_edit.form.null_type_notice"}}
-        </span>
-      {{/if}}
-    {{/if}}
-
-    {{#if @placeholders}}
-      <div local-class="placeholders">
-        <span local-class="placeholders-title">
-          {{inline-svg "assets/code.svg" local-class="placeholders-title-icon"}}
-          {{t "components.translation_edit.form.placeholders.title"}}
-        </span>
-
-        <div local-class="placeholders-text">
-          <p local-class="placeholders-text-content">
-            {{t "components.translation_edit.form.placeholders.text"}}
-          </p>
-        </div>
-
-        <ul>
-          {{#each @placeholders as |placeholder|}}
-            <li
-              local-class="placeholders-item
-                {{if
-                  (get this.unusedPlaceholders placeholder)
-                  "placeholders-item--warning"
-                }}"
-            >
-              <code>
-                {{placeholder}}
-              </code>
-            </li>
-          {{/each}}
-        </ul>
-      </div>
-    {{/if}}
-
     <QuickSubmitTextarea
       placeholder={{t "components.translation_edit.form.empty_type_placeholder"}}
       @rows={{this.rows}}

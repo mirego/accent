@@ -65,8 +65,8 @@ export default class CreateForm extends Component<Args> {
 
   @action
   emailChanged(event: any) {
-    this.email = event.currentTarget.value;
-    this.invalidEmail = invalidEmail(event.currentTarget.value);
+    this.email = event.target.value;
+    this.invalidEmail = invalidEmail(event.target.value);
   }
 
   @action

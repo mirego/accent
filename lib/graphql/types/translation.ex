@@ -7,6 +7,7 @@ defmodule Accent.GraphQL.Types.Translation do
 
   enum :translation_value_type do
     value(:string, as: "string")
+    value(:html, as: "html")
     value(:plural, as: "plural")
     value(:boolean, as: "boolean")
     value(:null, as: "null")

@@ -8,7 +8,11 @@
   </LinkTo>
 
   <div local-class="item-text">
-    <span local-class="item-text-content">{{this.text}}</span>
+    {{#if this.displayHTML}}
+      <span local-class="item-text-content">{{this.text}}</span>
+    {{else}}
+      <span local-class="item-text-content">{{{this.text}}}</span>
+    {{/if}}
   </div>
 
   <div local-class="item-actions">

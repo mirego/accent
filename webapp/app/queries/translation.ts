@@ -14,7 +14,6 @@ export default gql`
           plural
           commentsCount
           correctedText
-          conflictedText
           updatedAt
           fileComment
 
@@ -49,6 +48,7 @@ export default gql`
             isConflicted
             isRemoved
             updatedAt
+            valueType
 
             lintMessages {
               text

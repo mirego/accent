@@ -17,5 +17,6 @@ defmodule Movement.Builders.TranslationUpdate do
   defp parse_value_type(_translation, ""), do: "empty"
   defp parse_value_type(%{value_type: "null"}, value) when value != "null", do: "string"
   defp parse_value_type(%{value_type: "empty"}, value) when value != "", do: "string"
+  defp parse_value_type(%{value_type: "html"}, _value), do: "html"
   defp parse_value_type(_translation, _value), do: "string"
 end

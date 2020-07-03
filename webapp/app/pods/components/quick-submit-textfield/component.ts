@@ -1,6 +1,9 @@
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
+import {restartableTask} from 'ember-concurrency-decorators';
+import {timeout} from 'ember-concurrency';
 
+const DEBOUNCE_OFFSET = 200; // ms
 const ENTER_KEY = 13;
 
 interface Args {
@@ -24,7 +27,9 @@ export default class QuickSubmitTextfield extends Component<Args> {
 
   @action
   keyUp(event: KeyboardEvent) {
-    this.args.onKeyUp?.(event);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    this.debounceChange.perform(event);
   }
 
   @action
@@ -32,5 +37,12 @@ export default class QuickSubmitTextfield extends Component<Args> {
     if (event.which === ENTER_KEY && (event.metaKey || event.ctrlKey)) {
       this.args.onSubmit?.();
     }
+  }
+
+  @restartableTask
+  *debounceChange(event: KeyboardEvent) {
+    yield timeout(DEBOUNCE_OFFSET);
+
+    this.args.onKeyUp?.(event);
   }
 }

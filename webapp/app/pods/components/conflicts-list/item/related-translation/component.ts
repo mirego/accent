@@ -16,6 +16,10 @@ export default class ConflictItemRelatedTranslation extends Component<Args> {
     return `${text.substring(0, MAX_TEXT_LENGTH - 1)}…`;
   }
 
+  get displayHTML() {
+    return this.args.translation.valueType === 'HTML';
+  }
+
   get revisionName() {
     return (
       this.args.translation.revision.name ||

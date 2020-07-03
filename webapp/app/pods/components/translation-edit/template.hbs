@@ -1,17 +1,4 @@
 <div local-class="translation-edit" {{did-update this.didUpdateCorrectedText @translation.correctedText}}>
-  {{#if @translation.isConflicted}}
-    {{#if @translation.conflictedText}}
-      {{#unless this.samePreviousText}}
-        <div local-class="previousText">
-          <strong local-class="previousText-label">
-            {{t "components.translation_edit.previous_text"}}
-          </strong>
-          <div local-class="previousText-text">{{@translation.conflictedText}}</div>
-        </div>
-      {{/unless}}
-    {{/if}}
-  {{/if}}
-
   {{#if @translation.id}}
     <div {{did-insert this.focusTextarea}}>
       <TranslationEdit::Form

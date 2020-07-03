@@ -21,7 +21,14 @@ interface Args {
   translationId: string;
   lintMessages?: any[];
   disabled: boolean;
-  valueType: 'STRING' | 'BOOLEAN' | 'INTEGER' | 'FLOAT' | 'EMPTY' | 'NULL';
+  valueType:
+    | 'STRING'
+    | 'HTML'
+    | 'BOOLEAN'
+    | 'INTEGER'
+    | 'FLOAT'
+    | 'EMPTY'
+    | 'NULL';
   value: string;
   onSubmit: () => void;
   showTypeHints?: boolean;
@@ -47,6 +54,9 @@ export default class TranslationEditForm extends Component<Args> {
   @equal('args.valueType', 'STRING')
   isStringType: boolean;
 
+  @equal('args.valueType', 'HTML')
+  isHTMLType: boolean;
+
   @equal('args.valueType', 'BOOLEAN')
   isBooleanType: boolean;
 
@@ -61,6 +71,8 @@ export default class TranslationEditForm extends Component<Args> {
 
   @equal('args.valueType', 'NULL')
   isNullType: boolean;
+
+  wysiwygOptions = {};
 
   get rows() {
     if (!this.text) return SMALL_INPUT_ROWS;
@@ -78,6 +90,15 @@ export default class TranslationEditForm extends Component<Args> {
       },
       {}
     );
+  }
+
+  @action
+  changeHTML(value: string) {
+    const previousText = this.text;
+    this.text = value;
+    this.args.onKeyUp?.(value);
+
+    if (previousText !== this.text) this.fetchLintMessages(value);
   }
 
   @action
