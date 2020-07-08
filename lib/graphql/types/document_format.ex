@@ -15,6 +15,7 @@ defmodule Accent.GraphQL.Types.DocumentFormat do
     value(:laravel_php, as: "laravel_php")
     value(:go_i18n_json, as: "go_i18n_json")
     value(:xliff_1_2, as: "xliff_1_2")
+    value(:resx_2_0, as: "resx_2_0")
   end
 
   object :document_format_item do
