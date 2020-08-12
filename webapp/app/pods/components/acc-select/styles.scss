@@ -1,0 +1,28 @@
+.root {
+  position: relative;
+
+  :global(select) {
+    appearance: none;
+    width: 100%;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background: var(--body-background);
+    box-shadow: none;
+    border: 1px solid transparent;
+    border-color: var(--background-light-highlight);
+    color: var(--color-black-opacity-70);
+  }
+
+  &:after {
+    display: block;
+    pointer-events: none;
+    cursor: pointer;
+    content: "›";
+    position: absolute;
+    bottom: 0;
+    right: 11px;
+    font-size: 150%;
+    transform: rotate(90deg);
+  }
+}

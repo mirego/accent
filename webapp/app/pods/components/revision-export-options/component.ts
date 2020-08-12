@@ -41,7 +41,7 @@ export default class RevisionExportOptions extends Component<Args> {
   get orderByOptions() {
     return [
       {
-        value: null,
+        value: '',
         label: this.intl.t(
           'components.revision_export_options.orders.original'
         ),
@@ -71,7 +71,7 @@ export default class RevisionExportOptions extends Component<Args> {
   get formatOptions() {
     return [
       {
-        value: null,
+        value: '',
         label: this.intl.t('components.revision_export_options.default_format'),
       },
       ...this.formattedDocumentFormats,

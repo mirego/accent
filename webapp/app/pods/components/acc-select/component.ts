@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import {action} from '@ember/object';
 
 interface Args {
   searchEnabled: boolean;
@@ -12,4 +13,9 @@ interface Args {
   renderInPlace: boolean;
 }
 
-export default class Select extends Component<Args> {}
+export default class Select extends Component<Args> {
+  @action
+  selectChange(event: Event) {
+    this.args.onchange(event.target);
+  }
+}
