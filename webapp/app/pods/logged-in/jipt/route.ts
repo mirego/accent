@@ -8,6 +8,11 @@ import ApolloSubscription, {
 import JIPT from 'accent-webapp/services/jipt';
 import GlobalState from 'accent-webapp/services/global-state';
 
+interface QueryParams {
+  projectId: string,
+  revisionId: string | null,
+}
+
 export default class JIPTRoute extends Route {
   @service('apollo-subscription')
   apolloSubscription: ApolloSubscription;
@@ -26,18 +31,29 @@ export default class JIPTRoute extends Route {
 
   subscription: Subscription;
 
-  model(params: any) {
+  model(params: QueryParams) {
+    const {
+      projectId,
+      revisionId,
+    } = params;
+
+    const variables: {
+      projectId: string;
+      revisionId?: string;
+    } = {
+      projectId,
+    };
+
+    if (revisionId) {
+      variables.revisionId = revisionId;
+    }
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       projectQuery,
       {
         props: (data) => this.props(data),
-        options: {
-          variables: {
-            projectId: params.projectId,
-            revisionId: params.revisionId,
-          },
-        },
+        options: { variables },
       }
     );
 
