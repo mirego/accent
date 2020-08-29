@@ -23,6 +23,7 @@ test.json
 
 .env*
 
+gen/
 priv/static/webapp
 priv/static/jipt
 webapp/node_modules

@@ -1,1 +1,0 @@
--record(url_count, {text, replacement}).

@@ -1,1 +1,0 @@
--record(double_spaces, {text, replacement}).

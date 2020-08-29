@@ -1,1 +1,0 @@
--record(placeholder_count, {text, replacement}).
