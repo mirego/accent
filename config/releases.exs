@@ -6,21 +6,26 @@ defmodule Utilities do
   def string_to_boolean(_), do: false
 end
 
-webapp_url = System.get_env("WEBAPP_URL") || "http://localhost:4000"
-static_url = URI.parse(webapp_url)
+canonical_url = System.get_env("CANONICAL_URL") || "http://localhost:4000"
+static_url = if (canonical_url) do
+  uri = URI.parse(canonical_url)
+
+  [
+    scheme: uri.scheme,
+    host: uri.host,
+    port: uri.port
+  ]
+else
+  nil
+end
 
 config :accent,
-  webapp_url: webapp_url,
   force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
   restricted_domain: System.get_env("RESTRICTED_DOMAIN")
 
 config :accent, Accent.Endpoint,
   http: [port: System.get_env("PORT") || "4000"],
-  static_url: [
-    scheme: static_url.scheme,
-    host: static_url.host,
-    port: static_url.port
-  ]
+  static_url: static_url
 
 config :accent, Accent.Repo, url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 
@@ -50,9 +55,6 @@ config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
   client_secret: System.get_env("DISCORD_CLIENT_SECRET")
 
 config :accent, Accent.WebappView,
-  force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
-  api_host: System.get_env("API_HOST"),
-  api_ws_host: System.get_env("API_WS_HOST"),
   sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN") || ""
 
 config :sentry,
@@ -64,7 +66,6 @@ if !System.get_env("SENTRY_DSN") do
 end
 
 config :accent, Accent.Mailer,
-  webapp_url: System.get_env("WEBAPP_URL"),
   mailer_from: System.get_env("MAILER_FROM"),
   x_smtpapi_header: System.get_env("SMTP_API_HEADER")
 

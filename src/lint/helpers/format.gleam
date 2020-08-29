@@ -8,7 +8,8 @@ fn pad_max_length(
 ) -> String {
   case string.length(text) > 12 {
     False -> text
-    True -> text
+    True ->
+      text
       |> string.slice(at_index: at_index, length: to_index)
       |> fun(13, "…")
   }

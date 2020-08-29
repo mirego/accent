@@ -1,7 +1,12 @@
 defmodule Accent.EmailViewConfigHelper do
+  alias Accent.Router.Helpers, as: Routes
+
   def x_smtpapi_header, do: config()[:x_smtpapi_header]
   def mailer_from, do: config()[:mailer_from]
-  def webapp_url, do: config()[:webapp_url]
+
+  def webapp_url do
+    Routes.web_app_url(Accent.Endpoint, [])
+  end
 
   defp config do
     Application.get_env(:accent, Accent.Mailer)

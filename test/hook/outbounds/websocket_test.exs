@@ -43,7 +43,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
 
     context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "create_comment", payload: payload})
 
-    _ = Websocket.perform(context, %{})
+    _ = Websocket.perform(%Oban.Job{args: context})
 
     expected_payload = %{
       "payload" => %{
@@ -67,7 +67,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
 
     context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "sync", payload: payload})
 
-    _ = Websocket.perform(context, %{})
+    _ = Websocket.perform(%Oban.Job{args: context})
 
     expected_payload = %{
       "payload" => %{
@@ -93,7 +93,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
 
     context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "create_collaborator", payload: payload})
 
-    _ = Websocket.perform(context, %{})
+    _ = Websocket.perform(%Oban.Job{args: context})
 
     expected_payload = %{
       "payload" => %{

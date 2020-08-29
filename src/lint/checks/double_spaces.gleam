@@ -1,6 +1,6 @@
 import gleam/string
 import gleam/option.{Some}
-import lint/types.{Entry, DoubleSpaces, Message, MessageReplacement}
+import lint/types.{DoubleSpaces, Entry, Message, MessageReplacement}
 
 fn message(entry: Entry, text) {
   DoubleSpaces(

@@ -1,14 +1,15 @@
 import gleam/string
 import gleam/option.{Some}
 import lint/helpers/format
-import lint/types.{Entry, TrailingSpace, MessageReplacement}
+import lint/types.{Entry, MessageReplacement, TrailingSpace}
 
 fn message(entry: Entry, text) {
   TrailingSpace(
     text: format.display_trailing_text(entry.value),
-    replacement: Some(
-      MessageReplacement(value: text, label: format.display_trailing_text(text)),
-    ),
+    replacement: Some(MessageReplacement(
+      value: text,
+      label: format.display_trailing_text(text),
+    )),
   )
 }
 

@@ -9,8 +9,8 @@ defmodule Accent.Hook.Outbounds.Email do
   }
 
   @impl Oban.Worker
-  def perform(context, _job) do
-    context = Accent.Hook.Context.from_worker(context)
+  def perform(%Oban.Job{args: args}) do
+    context = Accent.Hook.Context.from_worker(args)
 
     context
     |> fetch_emails()

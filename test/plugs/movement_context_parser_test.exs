@@ -36,7 +36,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "with no params" do
     conn =
-      :get
+      :post
       |> conn("/foo")
       |> MovementContextParser.call([])
 
@@ -47,7 +47,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "with missing file" do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "test.json", document_format: "json", language: "fr"})
       |> MovementContextParser.call([])
 
@@ -58,7 +58,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch document path with only file param", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_format: "json", file: file("foo.json"), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -69,7 +69,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch document path with file param containing multiple dots", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "admin.common.test", document_format: "json", file: file("foo.json"), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -80,7 +80,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch document path with file param containing no dots", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "admin", document_format: "json", file: file("foo.json"), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -91,7 +91,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch document parser", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "test.json", document_format: "json", file: file(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -102,7 +102,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch invalid document parser", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "test.json", document_format: "UNKOWN", file: file(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -114,7 +114,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch document render", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "test.json", document_format: "json", file: file(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -129,7 +129,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch new document resource", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "hello", document_format: "json", file: file(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -144,7 +144,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "assign document top_of_the_file_comment and header", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "hello", document_format: "gettext", file: file_with_header(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -170,7 +170,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch existing document resource", %{project: project, language: language, document: document} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: document.path, document_format: "json", file: file(), language: language.slug})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -185,7 +185,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "fetch entries", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "test.json", document_format: "json", file: file(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])
@@ -203,7 +203,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
 
   test "invalid file", %{project: project} do
     conn =
-      :get
+      :post
       |> conn("/foo", %{document_path: "test.json", document_format: "json", file: invalid_file(), language: "fr"})
       |> assign(:project, project)
       |> MovementContextParser.call([])

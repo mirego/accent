@@ -7,8 +7,8 @@ defmodule Accent.Hook.Outbounds.Discord do
   alias Accent.Hook.Outbounds.PostURL
 
   @impl Oban.Worker
-  def perform(context, _job) do
-    context = Accent.Hook.Context.from_worker(context)
+  def perform(%Oban.Job{args: args}) do
+    context = Accent.Hook.Context.from_worker(args)
     PostURL.perform("discord", &build_body/1).(context)
   end
 

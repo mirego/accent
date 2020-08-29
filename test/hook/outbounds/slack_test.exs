@@ -50,6 +50,6 @@ defmodule AccentTest.Hook.Outbounds.Slack do
         """
       })
 
-    with_mock(HTTPoison, [post: fn ^received_url, ^received_body, ^received_headers -> {:ok, "done"} end], do: Slack.perform(context, %{}))
+    with_mock(HTTPoison, [post: fn ^received_url, ^received_body, ^received_headers -> {:ok, "done"} end], do: Slack.perform(%Oban.Job{args: context}))
   end
 end

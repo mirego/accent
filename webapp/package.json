@@ -16,6 +16,7 @@
     "type-check": "tsc",
     "start": "ember server --port $WEBAPP_PORT",
     "build": "ember build --output-path=../priv/static/webapp",
+    "build-dev": "ember build --watch --output-path=../priv/static/webapp",
     "build-production-inline": "ember build --environment=production --output-path=../priv/static/webapp",
     "build-production": "ember build --environment=production --output-path=webapp-dist"
   },

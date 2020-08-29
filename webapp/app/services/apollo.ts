@@ -9,10 +9,7 @@ import {
   ApolloLink,
 } from 'apollo-boost';
 
-import config from 'accent-webapp/config/environment';
 import Session from 'accent-webapp/services/session';
-
-const uri = `${config.API.HOST}/graphql`;
 
 const dataIdFromObject = (result: {id?: string; __typename: string}) => {
   if (result.id && result.__typename) return `${result.__typename}${result.id}`;
@@ -38,6 +35,7 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
   },
 });
 
+const uri = '/graphql';
 const cache = new InMemoryCache({dataIdFromObject, fragmentMatcher});
 const link = new BatchHttpLink({uri, batchInterval: 50, batchMax: 50});
 

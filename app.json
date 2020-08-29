@@ -13,10 +13,10 @@
   "logo": "https://raw.githubusercontent.com/mirego/accent/master/priv/static/images/accent.png",
   "success_url": "/",
   "env": {
-    "WEBAPP_URL": {
+    "CANONICAL_URL": {
       "description": "The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.",
-      "value": "https://this-heroku-app-name.herokuapp.com",
-      "required": true
+      "value": "https://my-custom.domain.com",
+      "required": false
     },
     "FORCE_SSL": {
       "description": "If the app should always be served by https (and wss for websocket)",

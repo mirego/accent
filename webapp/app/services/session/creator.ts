@@ -1,8 +1,5 @@
 import Service from '@ember/service';
-import config from 'accent-webapp/config/environment';
 import fetch from 'fetch';
-
-const uri = `${config.API.HOST}/graphql`;
 
 export default class SessionCreator extends Service {
   async createSession({token}: {token: string}) {
@@ -28,7 +25,7 @@ export default class SessionCreator extends Service {
       }),
     };
 
-    const response = await fetch(uri, options);
+    const response = await fetch('/graphql', options);
     const {data}: any = await response.json();
     return data;
   }

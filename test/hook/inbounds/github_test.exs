@@ -88,7 +88,7 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
         }
       })
 
-    Consumer.perform(context, %{})
+    Consumer.perform(%Oban.Job{args: context})
 
     batch_operation =
       Operation
@@ -164,7 +164,7 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
         }
       })
 
-    Consumer.perform(context, %{})
+    Consumer.perform(%Oban.Job{args: context})
 
     batch_operation =
       Operation
@@ -204,7 +204,7 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
         }
       })
 
-    Consumer.perform(context, %{})
+    Consumer.perform(%Oban.Job{args: context})
 
     translation =
       Translation
@@ -268,7 +268,7 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
         }
       })
 
-    Consumer.perform(context, %{})
+    Consumer.perform(%Oban.Job{args: context})
 
     batch_operation =
       Operation
@@ -348,7 +348,7 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
         }
       })
 
-    Consumer.perform(context, %{})
+    Consumer.perform(%Oban.Job{args: context})
 
     batch_operation =
       Operation
@@ -437,7 +437,7 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
         }
       })
 
-    Consumer.perform(context, %{})
+    Consumer.perform(%Oban.Job{args: context})
 
     batch_operation =
       Operation

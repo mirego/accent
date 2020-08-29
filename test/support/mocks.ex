@@ -4,7 +4,7 @@ defmodule Accent.Hook.Inbounds.Mock do
   use Oban.Worker, queue: :hook
 
   @impl Oban.Worker
-  def perform(_context, _job) do
+  def perform(_job) do
     :ok
   end
 end
@@ -13,7 +13,7 @@ defmodule Accent.Hook.Outbounds.Mock do
   use Oban.Worker, queue: :hook
 
   @impl Oban.Worker
-  def perform(_context, _job) do
+  def perform(_job) do
     :ok
   end
 end

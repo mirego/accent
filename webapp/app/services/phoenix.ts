@@ -1,5 +1,4 @@
 import Service, {inject as service} from '@ember/service';
-import config from 'accent-webapp/config/environment';
 import {Socket, Channel} from 'accent-webapp/utils/phoenix';
 import IntlService from 'ember-intl/services/intl';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
@@ -45,7 +44,7 @@ export default class Phoenix extends Service {
   flashMessages: FlashMessages;
 
   socket({token}: {token: string}) {
-    const socket = new Socket(`${config.API.WS_HOST}/socket`, {
+    const socket = new Socket('/socket', {
       params: {token},
     });
 

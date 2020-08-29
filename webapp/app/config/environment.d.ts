@@ -45,17 +45,6 @@ declare const config: {
     DSN: string;
   };
 
-  contentSecurityPolicy: {
-    'default-src': string | string[];
-    'script-src': string | string[];
-    'font-src': string | string[];
-    'connect-src': string | string[];
-    'img-src': string | string[];
-    'style-src': string | string[];
-    'media-src': string | string[];
-    'frame-src': string | string[];
-  };
-
   flashMessageDefaults: {
     timeout: number;
     destroyOnClick: boolean;

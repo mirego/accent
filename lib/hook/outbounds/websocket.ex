@@ -2,8 +2,8 @@ defmodule Accent.Hook.Outbounds.Websocket do
   use Oban.Worker, queue: :hook
 
   @impl Oban.Worker
-  def perform(context, _job) do
-    context
+  def perform(%Oban.Job{args: args}) do
+    args
     |> Accent.Hook.Context.from_worker()
     |> merge_user()
     |> broadcast_event()

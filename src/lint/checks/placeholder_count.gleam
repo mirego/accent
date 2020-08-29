@@ -31,13 +31,11 @@ pub fn check(entry: Entry) {
   case tuple(master_placeholders, value_placeholders) {
     tuple(Match(_), Nomatch) -> [message(entry)]
     tuple(Nomatch, Match(_)) -> [message(entry)]
-    tuple(
-      Match(master_matches),
-      Match(value_matches),
-    ) -> case list.length(master_matches) == list.length(value_matches) {
-      True -> []
-      False -> [message(entry)]
-    }
+    tuple(Match(master_matches), Match(value_matches)) ->
+      case list.length(master_matches) == list.length(value_matches) {
+        True -> []
+        False -> [message(entry)]
+      }
     _ -> []
   }
 }

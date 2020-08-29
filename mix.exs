@@ -49,7 +49,7 @@ defmodule Accent.Mixfile do
       {:corsica, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.0", override: true},
-      {:plug, "1.10.1", override: true},
+      {:plug, "1.10.4", override: true},
 
       # Database
       {:ecto, "~> 3.2", override: true},
@@ -96,7 +96,7 @@ defmodule Accent.Mixfile do
       {:bamboo_smtp, "~> 2.0"},
 
       # Events handling
-      {:oban, "~> 1.2"},
+      {:oban, "~> 2.0"},
 
       # Mock testing
       {:mox, "~> 0.3", only: :test},
@@ -104,7 +104,7 @@ defmodule Accent.Mixfile do
 
       # Gleam
       {:mix_gleam, "~> 0.1", only: [:dev, :test]},
-      {:gleam_stdlib, "~> 0.8", only: [:dev, :test]},
+      {:gleam_stdlib, "0.11.0", only: [:dev, :test]},
 
       # Dev
       {:dialyxir, "~> 1.0", only: ~w(dev test)a, runtime: false},

@@ -1,12 +1,5 @@
-FROM gleamlang/gleam:0.9.0 as gleam-builder
-WORKDIR /opt/build
-COPY gleam.toml .
-COPY rebar.config .
-COPY src src
-RUN rebar3 compile
-
 #
-# Step 1 - Build webapp and jipt deps
+# Build webapp and jipt deps
 #
 FROM node:10.16-alpine AS webapp-builder
 RUN apk --no-cache update && \
@@ -27,7 +20,17 @@ RUN npm ci --no-audit --no-color && \
     npm run build-production
 
 #
-# Step 3 - Build the OTP binary
+# Build Gleam modules
+#
+FROM gleamlang/gleam:0.11.0 as gleam-builder
+WORKDIR /opt/build
+COPY gleam.toml .
+COPY rebar.config .
+COPY src src
+RUN rebar3 compile
+
+#
+# Build the OTP binary
 #
 FROM hexpm/elixir:1.10.3-erlang-22.3.4.1-alpine-3.11.6 AS builder
 
@@ -67,7 +70,7 @@ RUN mkdir -p /opt/build && \
     cp -R _build/prod/rel/accent/* /opt/build
 
 #
-# Step 4 - Build a lean runtime container
+# Build a lean runtime container
 #
 FROM alpine:3.11.6
 

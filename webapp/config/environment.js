@@ -4,8 +4,6 @@
 
 // eslint-disable-next-line complexity
 module.exports = function (environment) {
-  const wsHost = process.env.API_WS_HOST || '__API_WS_HOST__';
-  const host = process.env.API_HOST || '__API_HOST__';
   const sentryDsn =
     process.env.NODE_ENV === 'production'
       ? process.env.WEBAPP_SENTRY_DSN || '__WEBAPP_SENTRY_DSN__'
@@ -36,32 +34,18 @@ module.exports = function (environment) {
   };
 
   ENV.API = {
-    WS_HOST: wsHost,
     WS_ENABLED: true,
-    HOST: host,
-    AUTHENTICATION_PATH: `${host}/auth`,
-    HOOKS_PATH: `${host}/hooks/{0}?project_id={1}&authorization={2}`,
-    PROJECT_PATH: `${host}/projects/{0}`,
-    SYNC_PEEK_PROJECT_PATH: `${host}/sync/peek?project_id={0}&language={1}&sync_type={2}`,
-    SYNC_PROJECT_PATH: `${host}/sync?project_id={0}&language={1}&sync_type={2}`,
-    MERGE_PEEK_PROJECT_PATH: `${host}/merge/peek?project_id={0}&language={1}&merge_type={2}`,
-    MERGE_REVISION_PATH: `${host}/merge?project_id={0}&language={1}&merge_type={2}`,
-    EXPORT_DOCUMENT: `${host}/export`,
-    JIPT_EXPORT_DOCUMENT: `${host}/jipt-export`,
-    PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: `${host}/{0}/percentage_reviewed_badge.svg`,
-    JIPT_SCRIPT_PATH: `${host}/static/jipt/index.js`,
-  };
-
-  ENV.contentSecurityPolicy = {
-    'default-src': "'none'",
-    'script-src':
-      "'self' 'unsafe-inline' 'unsafe-eval' apis.google.com cdn.ravenjs.com",
-    'font-src': "'self'",
-    'connect-src': `'self' ${wsHost} ${host} https://www.googleapis.com https://sentry.io`,
-    'img-src': '* data:',
-    'style-src': "'self' 'unsafe-inline'",
-    'media-src': "'self'",
-    'frame-src': 'accounts.google.com',
+    AUTHENTICATION_PATH: "/auth",
+    HOOKS_PATH: "/hooks/{0}?project_id={1}&authorization={2}",
+    PROJECT_PATH: "/projects/{0}",
+    SYNC_PEEK_PROJECT_PATH: "/sync/peek?project_id={0}&language={1}&sync_type={2}",
+    SYNC_PROJECT_PATH: "/sync?project_id={0}&language={1}&sync_type={2}",
+    MERGE_PEEK_PROJECT_PATH: "/merge/peek?project_id={0}&language={1}&merge_type={2}",
+    MERGE_REVISION_PATH: "/merge?project_id={0}&language={1}&merge_type={2}",
+    EXPORT_DOCUMENT: "/export",
+    JIPT_EXPORT_DOCUMENT: "/jipt-export",
+    PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: "/{0}/percentage_reviewed_badge.svg",
+    JIPT_SCRIPT_PATH: "/static/jipt/index.js",
   };
 
   ENV.flashMessageDefaults = {
@@ -87,7 +71,6 @@ module.exports = function (environment) {
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
 
-    ENV.API.HOST = 'fake/endpoint';
     ENV.API.WS_ENABLED = false;
 
     ENV.APP.LOCAL_STORAGE.SESSION_NAMESPACE = 'accent-session-test';

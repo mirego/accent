@@ -1,22 +1,14 @@
 defmodule Accent.WebappView do
-  def render(conn) do
-    config = config()
-
+  def render do
     :accent
-    |> Application.app_dir(config[:path])
+    |> Application.app_dir(path())
     |> File.read!()
-    |> replace_env_var(config, conn)
+    |> replace_env_var()
   end
 
-  defp replace_env_var(file, config, conn) do
-    default_api_host = Plug.Conn.get_req_header(conn, "host")
-    http_scheme = if config[:force_ssl], do: "https://", else: "http://"
-    ws_scheme = if config[:force_ssl], do: "wss://", else: "ws://"
-
+  defp replace_env_var(file) do
     file
-    |> String.replace("__API_HOST__", config[:api_host] || "#{http_scheme}#{default_api_host}")
-    |> String.replace("__API_WS_HOST__", config[:api_ws_host] || "#{ws_scheme}#{default_api_host}")
-    |> String.replace("__WEBAPP_SENTRY_DSN__", config[:sentry_dsn])
+    |> String.replace("__WEBAPP_SENTRY_DSN__", sentry_dsn())
     |> String.replace("__VERSION__", version())
   end
 
@@ -24,7 +16,11 @@ defmodule Accent.WebappView do
     Application.get_env(:accent, :version)
   end
 
-  defp config do
-    Application.get_env(:accent, __MODULE__)
+  defp sentry_dsn do
+    Application.get_env(:accent, __MODULE__)[:sentry_dsn]
+  end
+
+  defp path do
+    Application.get_env(:accent, __MODULE__)[:path]
   end
 end

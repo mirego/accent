@@ -3,27 +3,7 @@
   background: var(--body-background);
   box-shadow: 0 2px 4px var(--shadow-color);
 
-  :global(.ember-power-select-selected-item) {
-    margin-left: 10px;
-    font-weight: 700;
-    color: var(--color-black);
-
-    em {
-      margin-left: 1px;
-      font-size: 11px;
-      font-style: normal;
-      color: var(--color-primary);
-    }
-  }
-
-  :global(.ember-power-select-status-icon) {
-    opacity: 0;
-    right: 10px;
-    font-size: 27px;
-    margin-top: 4px;
-  }
-
-  :global(.ember-power-select-trigger) {
+  select {
     padding: 10px;
     border-radius: 3px;
     font-size: 20px;
@@ -34,15 +14,7 @@
 }
 
 .revision-selector.with-many-revisions {
-  :global(.ember-power-select-status-icon) {
-    opacity: 0.3;
-  }
-
-  :global(.ember-power-select-selected-item) {
-    margin-left: 0;
-  }
-
-  :global(.ember-power-select-trigger) {
+  select {
     padding-bottom: 25px;
     cursor: pointer;
     pointer-events: all;

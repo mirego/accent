@@ -9,7 +9,7 @@ import lint/checks/same_trailing_character
 import lint/checks/trailing_space
 import lint/checks/placeholder_count
 import lint/checks/url_count
-import lint/types.{Entry, Message}
+import lint/types.{Entry}
 
 fn checks() {
   [
@@ -36,12 +36,13 @@ pub fn lint(entries: List(Entry)) -> List(Entry) {
 
           case applicable(entry) {
             False -> entry
-            True -> Entry(
-              value: entry.value,
-              master_value: entry.master_value,
-              is_master: entry.is_master,
-              messages: list.append(entry.messages, check(entry)),
-            )
+            True ->
+              Entry(
+                value: entry.value,
+                master_value: entry.master_value,
+                is_master: entry.is_master,
+                messages: list.append(entry.messages, check(entry)),
+              )
           }
         },
       )

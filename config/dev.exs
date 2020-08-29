@@ -7,7 +7,13 @@ config :accent, Accent.Endpoint,
   code_reloader: true,
   cache_static_lookup: false,
   check_origin: false,
-  watchers: []
+  watchers: [
+    npm: [
+      "run",
+      "build-dev",
+      cd: Path.expand("../webapp", __DIR__)
+    ]
+  ]
 
 config :accent, Accent.Hook,
   outbounds: [

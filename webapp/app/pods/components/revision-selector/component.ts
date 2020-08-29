@@ -38,24 +38,15 @@ export default class RevisionSelector extends Component<Args> {
       ({
         id,
         name,
-        isMaster,
         language,
       }: {
         id: string;
         name: string;
-        isMaster: boolean;
         language: any;
       }) => {
-        const masterLabel = (name: string) =>
-          htmlSafe(
-            `${name} <em>${this.intl.t(
-              'components.revision_selector.master'
-            )}</em>`
-          );
         const displayName = name || language.name;
-        const label = isMaster ? masterLabel(displayName) : displayName;
 
-        return {label, value: id};
+        return {label: displayName, value: id};
       }
     );
   }

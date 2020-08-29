@@ -1,11 +1,11 @@
 <SkeletonUi local-class="skeleton">
   {{#each (repeat 6)}}
-    <ContentLoader @height="35" @width="400">
+    <SkeletonUi::Content @height="35" @width="400">
       <rect x="14" y="3" rx="3" ry="3" width="88" height="2" />
       <rect x="14" y="10" rx="3" ry="3" width="310" height="2" />
       <rect x="14" y="14" rx="3" ry="3" width="300" height="2" />
       <circle cx="6" cy="6" r="4" />
       <rect x="372" y="3" rx="3" ry="3" width="28" height="2" />
-    </ContentLoader>
+    </SkeletonUi::Content>
   {{/each}}
 </SkeletonUi>

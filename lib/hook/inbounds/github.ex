@@ -9,8 +9,8 @@ defmodule Accent.Hook.Inbounds.GitHub do
   alias Accent.Scopes.Version, as: VersionScope
 
   @impl Oban.Worker
-  def perform(context, _job) do
-    context = Accent.Hook.Context.from_worker(context)
+  def perform(%Oban.Job{args: args}) do
+    context = Accent.Hook.Context.from_worker(args)
 
     context.payload["ref"]
     |> ref_to_version(context.payload["default_ref"], context.project)

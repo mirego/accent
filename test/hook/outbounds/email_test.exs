@@ -40,7 +40,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
 
     context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "create_comment", payload: payload})
 
-    _ = Email.perform(context, %{})
+    _ = Email.perform(%Oban.Job{args: context})
 
     refute_delivered_email(CreateCommentEmail.create(["comment@test.com"], project, payload))
   end
@@ -58,7 +58,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
 
     context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: commenter.id, event: "create_comment", payload: payload})
 
-    _ = Email.perform(context, %{})
+    _ = Email.perform(%Oban.Job{args: context})
 
     assert_delivered_email(CreateCommentEmail.create(["foo@test.com"], project, payload))
   end
@@ -74,7 +74,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
 
     context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "create_collaborator", payload: payload})
 
-    _ = Email.perform(context, %{})
+    _ = Email.perform(%Oban.Job{args: context})
 
     assert_delivered_email(ProjectInviteEmail.create(["collab@test.com"], user, project))
   end

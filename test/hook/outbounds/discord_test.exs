@@ -44,6 +44,6 @@ defmodule AccentTest.Hook.Outbounds.Discord do
         """
       })
 
-    with_mock(HTTPoison, [post: fn ^received_url, ^received_body, ^received_headers -> {:ok, "done"} end], do: Discord.perform(context, %{}))
+    with_mock(HTTPoison, [post: fn ^received_url, ^received_body, ^received_headers -> {:ok, "done"} end], do: Discord.perform(%Oban.Job{args: context}))
   end
 end
