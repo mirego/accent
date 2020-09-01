@@ -35,17 +35,20 @@ module.exports = function (environment) {
 
   ENV.API = {
     WS_ENABLED: true,
-    AUTHENTICATION_PATH: "/auth",
-    HOOKS_PATH: "/hooks/{0}?project_id={1}&authorization={2}",
-    PROJECT_PATH: "/projects/{0}",
-    SYNC_PEEK_PROJECT_PATH: "/sync/peek?project_id={0}&language={1}&sync_type={2}",
-    SYNC_PROJECT_PATH: "/sync?project_id={0}&language={1}&sync_type={2}",
-    MERGE_PEEK_PROJECT_PATH: "/merge/peek?project_id={0}&language={1}&merge_type={2}",
-    MERGE_REVISION_PATH: "/merge?project_id={0}&language={1}&merge_type={2}",
-    EXPORT_DOCUMENT: "/export",
-    JIPT_EXPORT_DOCUMENT: "/jipt-export",
-    PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: "/{0}/percentage_reviewed_badge.svg",
-    JIPT_SCRIPT_PATH: "/static/jipt/index.js",
+    AUTHENTICATION_PATH: '/auth',
+    HOOKS_PATH: '/hooks/{0}?project_id={1}&authorization={2}',
+    PROJECT_PATH: '/projects/{0}',
+    SYNC_PEEK_PROJECT_PATH:
+      '/sync/peek?project_id={0}&language={1}&sync_type={2}',
+    SYNC_PROJECT_PATH: '/sync?project_id={0}&language={1}&sync_type={2}',
+    MERGE_PEEK_PROJECT_PATH:
+      '/merge/peek?project_id={0}&language={1}&merge_type={2}',
+    MERGE_REVISION_PATH: '/merge?project_id={0}&language={1}&merge_type={2}',
+    EXPORT_DOCUMENT: '/export',
+    JIPT_EXPORT_DOCUMENT: '/jipt-export',
+    PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH:
+      '/{0}/percentage_reviewed_badge.svg',
+    JIPT_SCRIPT_PATH: '/static/jipt/index.js',
   };
 
   ENV.flashMessageDefaults = {

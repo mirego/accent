@@ -116,14 +116,10 @@ _That’s it! You now have a working Accent instance without installing Elixir o
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup, you can just run `mix phx.server`.
 
-| Variable       | Default                                   | Description                                                                                                                                                                |
-| -------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `API_HOST`     | _none_                                    | The API host, if the API is hosted by the same host as the webapp (like in a production setup) it should not be included in env var. It is required for the webapp in dev. |
-| `API_WS_HOST`  | _none_                                    | The API Websocket host, same requirements and defaults as `API_HOST`                                                                                                       |
-| `DATABASE_URL` | `postgres://localhost/accent_development` | A valid database URL                                                                                                                                                       |
-| `PORT`         | `4000`                                    | A port to run the API on                                                                                                                                                   |
-| `WEBAPP_PORT`  | `4200`                                    | A port to run the Webapp on (only used in `dev` environment)                                                                                                               |
-| `WEBAPP_URL`   | `http://localhost:4000`                   | The Web client’s endpoint. Used in the authentication process and in the sent emails.                                                                                      |
+| Variable       | Default                                   | Description              |
+| -------------- | ----------------------------------------- | ------------------------ |
+| `DATABASE_URL` | `postgres://localhost/accent_development` | A valid database URL     |
+| `PORT`         | `4000`                                    | A port to run the app on |
 
 ### Production setup
 
@@ -206,8 +202,8 @@ $> heroku addons:create heroku-postgresql:hobby-dev --app peaceful-badlands-8588
 Creating heroku-postgresql:hobby-dev on ⬢ peaceful-badlands-85887... free
 Database has been created and is available
 
-$> heroku config:set FORCE_SSL=true DUMMY_LOGIN_ENABLED=true WEBAPP_URL=https://peaceful-badlands-85887.herokuapp.com --app peaceful-badlands-85887
-Setting FORCE_SSL, DUMMY_LOGIN_ENABLED, WEBAPP_URL and restarting ⬢ peaceful-badlands-85887... done
+$> heroku config:set FORCE_SSL=true DUMMY_LOGIN_ENABLED=true --app peaceful-badlands-85887
+Setting FORCE_SSL, DUMMY_LOGIN_ENABLED and restarting ⬢ peaceful-badlands-85887... done
 
 $> heroku container:push web --app peaceful-badlands-85887
 === Building web

@@ -34,15 +34,7 @@ export default class RevisionSelector extends Component<Args> {
 
   get mappedRevisions() {
     return this.args.revisions.map(
-      ({
-        id,
-        name,
-        language,
-      }: {
-        id: string;
-        name: string;
-        language: any;
-      }) => {
+      ({id, name, language}: {id: string; name: string; language: any}) => {
         const displayName = name || language.name;
 
         return {label: displayName, value: id};
