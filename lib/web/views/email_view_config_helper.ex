@@ -5,7 +5,7 @@ defmodule Accent.EmailViewConfigHelper do
   def mailer_from, do: config()[:mailer_from]
 
   def webapp_url do
-    Routes.web_app_url(Accent.Endpoint, [])
+    Routes.static_url(Accent.Endpoint, "/")
   end
 
   defp config do

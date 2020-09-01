@@ -30,5 +30,5 @@ defmodule Accent.CreateCommentEmail do
   defp add_x_smtpapi_header(email, nil), do: email
   defp add_x_smtpapi_header(email, header), do: put_header(email, "X-SMTPAPI", header)
 
-  defp translation_path(project, translation_id), do: "/app/projects/#{project.id}/translations/#{translation_id}/conversation"
+  defp translation_path(project, translation_id), do: "app/projects/#{project.id}/translations/#{translation_id}/conversation"
 end

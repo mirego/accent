@@ -7,17 +7,19 @@ defmodule Utilities do
 end
 
 canonical_url = System.get_env("CANONICAL_URL") || "http://localhost:4000"
-static_url = if (canonical_url) do
-  uri = URI.parse(canonical_url)
 
-  [
-    scheme: uri.scheme,
-    host: uri.host,
-    port: uri.port
-  ]
-else
-  nil
-end
+static_url =
+  if canonical_url do
+    uri = URI.parse(canonical_url)
+
+    [
+      scheme: uri.scheme,
+      host: uri.host,
+      port: uri.port
+    ]
+  else
+    nil
+  end
 
 config :accent,
   force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
@@ -54,8 +56,7 @@ config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
   client_id: System.get_env("DISCORD_CLIENT_ID"),
   client_secret: System.get_env("DISCORD_CLIENT_SECRET")
 
-config :accent, Accent.WebappView,
-  sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN") || ""
+config :accent, Accent.WebappView, sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN") || ""
 
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),

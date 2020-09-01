@@ -16,13 +16,13 @@ defmodule AccentTest.ProjectInviteEmail do
     assert email.html_body =~ user.email
     assert email.html_body =~ project.name
     assert email.html_body =~ "The Accent Team"
-    assert email.html_body =~ ~s(href="http://example.com">http://example.com</a>)
-    assert email.html_body =~ ~s(href="http://example.com">login</a>)
+    assert email.html_body =~ ~s(href="http://example.com/">http://example.com/</a>)
+    assert email.html_body =~ ~s(href="http://example.com/">login</a>)
 
     assert email.text_body =~ user.email
     assert email.text_body =~ project.name
     assert email.text_body =~ "The Accent Team"
-    assert email.text_body =~ "(http://example.com)"
-    assert email.text_body =~ "(http://example.com)"
+    assert email.text_body =~ "(http://example.com/)"
+    assert email.text_body =~ "(http://example.com/)"
   end
 end

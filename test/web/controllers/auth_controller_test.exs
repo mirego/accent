@@ -6,7 +6,7 @@ defmodule AccentTest.AuthenticationController do
   test "create responds with error when invalid params", %{conn: conn} do
     conn = AuthController.callback(conn, nil)
 
-    assert redirected_to(conn, 302) == "http://localhost:4000"
+    assert redirected_to(conn, 302) == "/"
   end
 
   test "create responds with valid dummy params", %{conn: conn} do
@@ -17,7 +17,7 @@ defmodule AccentTest.AuthenticationController do
 
     user = Repo.get_by(User, email: "dummy@test.com")
     token = Repo.get_by(AccessToken, user_id: user.id)
-    assert redirected_to(conn, 302) =~ "http://localhost:4000?token=#{token.token}"
+    assert redirected_to(conn, 302) =~ "/?token=#{token.token}"
   end
 
   test "create responds with valid google params", %{conn: conn} do
@@ -29,6 +29,6 @@ defmodule AccentTest.AuthenticationController do
     user = Repo.get_by(User, email: "dummy@test.com")
     token = Repo.get_by(AccessToken, user_id: user.id)
     assert user.fullname === "Dummy"
-    assert redirected_to(conn, 302) =~ "http://localhost:4000?token=#{token.token}"
+    assert redirected_to(conn, 302) =~ "/?token=#{token.token}"
   end
 end

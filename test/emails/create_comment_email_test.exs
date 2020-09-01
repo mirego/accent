@@ -25,13 +25,13 @@ defmodule AccentTest.CreateCommentEmail do
     assert email.html_body =~ user.email
     assert email.html_body =~ comment.text
     assert email.html_body =~ "The Accent Team"
-    assert email.html_body =~ ~s(href="http://example.com">http://example.com</a>)
+    assert email.html_body =~ ~s(href="http://example.com/">http://example.com/</a>)
     assert email.html_body =~ ~s(href="http://example.com/app/projects/#{project.id}/translations/#{translation.id}/conversation">here</a>)
 
     assert email.text_body =~ user.email
     assert email.text_body =~ comment.text
     assert email.text_body =~ "The Accent Team"
-    assert email.text_body =~ "(http://example.com)"
+    assert email.text_body =~ "(http://example.com/)"
     assert email.text_body =~ "(http://example.com/app/projects/#{project.id}/translations/#{translation.id}/conversation)"
   end
 end

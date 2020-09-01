@@ -1,6 +1,5 @@
 import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
-import {htmlSafe} from '@ember/string';
 import Component from '@glimmer/component';
 import IntlService from 'ember-intl/services/intl';
 import GlobalState from 'accent-webapp/services/global-state';
