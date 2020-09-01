@@ -89,7 +89,7 @@ export interface Server {
 
 export const setupPretender = (): Server => {
   const server: Pretender = new Pretender(function () {
-    this.post('fake/endpoint/graphql', (request) => {
+    this.post('/graphql', (request) => {
       const response = handleGraphQLRequest(request);
 
       return response
