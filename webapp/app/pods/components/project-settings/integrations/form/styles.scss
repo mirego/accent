@@ -2,33 +2,12 @@
   padding: 15px;
   border: 1px solid var(--background-light-highlight);
   border-radius: 3px;
-
-  :global(.ember-power-select-trigger) {
-    min-width: 150px;
-    margin-right: 10px;
-    border-radius: 3px;
-    border: 1px solid var(--background-light-highlight);
-    background: var(--background-light);
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: 0 1px 5px var(--shadow-color);
-  }
-
-  :global(.ember-power-select-option),
-  :global(.ember-power-select-selected-item) {
-    display: flex;
-    align-items: center;
-  }
-
-  :global(.ember-power-select-trigger)[aria-disabled='true'] {
-    background: transparent;
-    box-shadow: none;
-  }
 }
 
 .form {
   display: flex;
   padding-bottom: 10px;
+  font-size: 12px;
 }
 
 .data {
