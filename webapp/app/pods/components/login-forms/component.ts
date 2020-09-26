@@ -18,6 +18,7 @@ export default class LoginForms extends Component<Args> {
   githubUrl = `${config.API.AUTHENTICATION_PATH}/github`;
   slackUrl = `${config.API.AUTHENTICATION_PATH}/slack`;
   discordUrl = `${config.API.AUTHENTICATION_PATH}/discord`;
+  microsoftUrl = `${config.API.AUTHENTICATION_PATH}/microsoft`;
 
   get providerIds() {
     return this.args.providers.map(({id}: {id: string}) => id);
@@ -41,6 +42,10 @@ export default class LoginForms extends Component<Args> {
 
   get discordLoginEnabled() {
     return this.providerIds.includes('discord');
+  }
+
+  get microsoftLoginEnabled() {
+    return this.providerIds.includes('microsoft');
   }
 
   get dummyUrl() {
