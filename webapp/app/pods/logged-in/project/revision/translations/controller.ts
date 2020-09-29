@@ -94,15 +94,15 @@ export default class TranslationsController extends Controller {
   }
 
   @action
-  changeVersion(versionId: string) {
+  changeVersion(select: HTMLSelectElement) {
     this.page = 1;
-    this.version = versionId;
+    this.version = select.value ? select.value : null;
   }
 
   @action
-  changeDocument(documentId: string) {
+  changeDocument(select: HTMLSelectElement) {
     this.page = 1;
-    this.document = documentId;
+    this.document = select.value ? select.value : null;
   }
 
   @action

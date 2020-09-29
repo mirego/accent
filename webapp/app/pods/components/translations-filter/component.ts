@@ -31,10 +31,10 @@ export default class TranslationsFilter extends Component<Args> {
   @service('intl')
   intl: IntlService;
 
-  @gt('documents.length', 1)
+  @gt('args.documents.length', 1)
   showDocumentsSelect: boolean;
 
-  @gt('versions.length', 0)
+  @gt('args.versions.length', 0)
   showVersionsSelect: boolean;
 
   @tracked
@@ -57,7 +57,7 @@ export default class TranslationsFilter extends Component<Args> {
       label: this.intl.t(
         'components.translations_filter.document_default_option_text'
       ),
-      value: null,
+      value: '',
     });
 
     return documents;
@@ -81,7 +81,7 @@ export default class TranslationsFilter extends Component<Args> {
       label: this.intl.t(
         'components.translations_filter.version_default_option_text'
       ),
-      value: null,
+      value: '',
     });
 
     return versions;

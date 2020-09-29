@@ -54,7 +54,7 @@ export default class ConflictsFilters extends Component<Args> {
       label: this.intl.t(
         'components.conflicts_filters.document_default_option_text'
       ),
-      value: null,
+      value: '',
     });
 
     return documents;
