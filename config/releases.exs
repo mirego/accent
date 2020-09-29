@@ -23,7 +23,7 @@ static_url =
 
 config :accent,
   force_ssl: Utilities.string_to_boolean(System.get_env("FORCE_SSL")),
-  restricted_domain: System.get_env("RESTRICTED_DOMAIN")
+  restricted_domain: System.get_env("RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN") || System.get_env("RESTRICTED_DOMAIN")
 
 config :accent, Accent.Endpoint,
   http: [port: System.get_env("PORT") || "4000"],

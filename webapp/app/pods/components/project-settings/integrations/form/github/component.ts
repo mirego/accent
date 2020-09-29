@@ -28,11 +28,14 @@ export default class GitHub extends Component<Args> {
     if (!this.args.project.accessToken) return;
     const host = window.location.origin;
 
-    return host + fmt(
-      config.API.HOOKS_PATH,
-      'github',
-      this.args.project.id,
-      this.args.project.accessToken
+    return (
+      host +
+      fmt(
+        config.API.HOOKS_PATH,
+        'github',
+        this.args.project.id,
+        this.args.project.accessToken
+      )
     );
   }
 
