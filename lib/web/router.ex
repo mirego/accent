@@ -7,6 +7,7 @@ defmodule Accent.Router do
     plug(Accent.Plugs.SentryUserContext)
     plug(Accent.Plugs.BotParamsInjector)
     plug(Accent.Plugs.GraphQLContext)
+    plug(Accent.Plugs.GraphQLOperationNameLogger)
   end
 
   scope "/graphiql" do

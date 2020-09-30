@@ -32,7 +32,7 @@ RUN rebar3 compile
 #
 # Build the OTP binary
 #
-FROM hexpm/elixir:1.10.3-erlang-22.3.4.1-alpine-3.11.6 AS builder
+FROM hexpm/elixir:1.10.4-erlang-22.3.4.1-alpine-3.11.6 AS builder
 
 ENV MIX_ENV=prod
 

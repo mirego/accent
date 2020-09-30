@@ -11,15 +11,20 @@ defmodule Accent.Plugs.AssignCurrentUser do
   It assigns nil if any of the steps fails.
   """
   def call(conn, _opts) do
-    token =
-      conn
-      |> get_req_header("authorization")
-      |> List.first()
-      |> fallback_query_param_token(conn)
+    conn
+    |> get_req_header("authorization")
+    |> List.first()
+    |> fallback_query_param_token(conn)
+    |> UserAuthFetcher.fetch()
+    |> case do
+      nil ->
+        assign(conn, :current_user, nil)
 
-    user = UserAuthFetcher.fetch(token)
+      user ->
+        Logger.metadata(current_user: user.email || user.id)
 
-    assign(conn, :current_user, user)
+        assign(conn, :current_user, user)
+    end
   end
 
   defp fallback_query_param_token(token, _) when not is_nil(token), do: token

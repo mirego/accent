@@ -24,6 +24,8 @@ config :accent, Accent.Hook,
   ],
   inbounds: [{Accent.Hook.Inbounds.GitHub, events: ~w(sync)}]
 
-config :logger, :console, format: "[$level] $message\n"
+config :logger, :console,
+  format: "$metadata[$level] $message\n",
+  metadata: ~w(current_user graphql_operation)a
 
 config :phoenix, :stacktrace_depth, 20
