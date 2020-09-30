@@ -12,7 +12,7 @@ interface Args {
 
 export default class Integrations extends Component<Args> {
   @tracked
-  showCreateForm = false;
+  showCreateForm = this.args.project.integrations.length === 0;
 
   @action
   toggleCreateForm() {

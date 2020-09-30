@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 10px 15px;
   border: 1px solid var(--background-light-highlight);
   border-radius: 3px;
 }
@@ -37,7 +37,6 @@
   flex: 0 0 20px;
   margin-right: 8px;
   width: 20px;
-  height: 20px;
 }
 
 .details-actions {

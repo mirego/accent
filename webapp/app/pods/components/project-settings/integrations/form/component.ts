@@ -5,6 +5,12 @@ import Component from '@glimmer/component';
 import IntlService from 'ember-intl/services/intl';
 import {tracked} from '@glimmer/tracking';
 
+const LOGOS = {
+  DISCORD: 'assets/services/discord.svg',
+  GITHUB: 'assets/services/github.svg',
+  SLACK: 'assets/services/slack.svg',
+};
+
 interface Args {
   project: any;
   onSubmit: ({
@@ -59,13 +65,19 @@ export default class IntegrationsForm extends Component<Args> {
   @tracked
   defaultRef: string;
 
-  services = ['DISCORD', 'SLACK', 'GITHUB'];
+  services = ['SLACK', 'GITHUB', 'DISCORD'];
 
   @not('url')
   emptyUrl: boolean;
 
   get serviceValue() {
     return this.mappedServices.find(({value}) => value === this.service);
+  }
+
+  get logoService() {
+    const service: keyof typeof LOGOS = this.service;
+
+    return LOGOS[service];
   }
 
   get mappedServices() {
@@ -151,7 +163,7 @@ export default class IntegrationsForm extends Component<Args> {
   async submit() {
     this.isSubmiting = true;
 
-    const {errors} = await this.args.onSubmit({
+    const response = await this.args.onSubmit({
       service: this.service,
       events: this.events,
       integration: this.integration.newRecord ? null : this.integration,
@@ -165,8 +177,8 @@ export default class IntegrationsForm extends Component<Args> {
 
     this.isSubmiting = false;
 
-    if (errors && errors.length > 0) {
-      this.errors = errors;
+    if (response.errors && response.errors.length > 0) {
+      this.errors = response.errors;
     }
   }
 }

@@ -388,7 +388,7 @@
       },
       "integrations": {
         "title": "Service & integrations",
-        "help": "Services are pre-built integrations that perform certain actions when events occur on Accent.",
+        "help": "Services are pre-built integrations that perform certain actions when events occur on Accent. <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.accent.reviews/guides/service-integrations.html\">More info -></a>",
         "save": "Save",
         "cancel": "Cancel",
         "edit": "Edit",

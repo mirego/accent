@@ -14,9 +14,9 @@
   </PowerSelect>
 {{else}}
   <div local-class="root">
-    <select {{on 'change' this.selectChange}}>
+    <select {{on "change" this.selectChange}}>
       {{#each @options key="value" as |selectOption|}}
-        <option value={{selectOption.value}} selected="{{if (eq @selected.value selectOption.value) 'selected'}}">
+        <option value={{selectOption.value}} selected="{{if (eq @selected.value selectOption.value) "selected"}}">
           {{selectOption.label}}
         </option>
       {{/each}}

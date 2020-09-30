@@ -13,6 +13,12 @@ config :accent, Accent.Endpoint,
       "build-dev",
       cd: Path.expand("../webapp", __DIR__)
     ]
+  ],
+  live_reload: [
+    patterns: [
+      ~r{priv/gettext/.*$},
+      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$}
+    ]
   ]
 
 config :accent, Accent.Hook,
