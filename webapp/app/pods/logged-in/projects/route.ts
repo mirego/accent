@@ -7,8 +7,9 @@ import ApolloSubscription, {
   Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import ProjectsController from 'accent-webapp/pods/logged-in/projects/controller';
+import RecentProjects from 'accent-webapp/services/recent-projects';
 
-const transformData = (data: any) => {
+const transformData = (data: any, recentProjectIds: string[]) => {
   const permissions = data.viewer.permissions.reduce(
     (memo: any, permission: any) => {
       memo[permission] = true;
@@ -17,9 +18,18 @@ const transformData = (data: any) => {
     {}
   );
 
+  const orderedProjects = (recentProjectId: string) => {
+    return data.viewer.projects.nodes.find(
+      ({id}: {id: string}) => recentProjectId === id
+    );
+  };
+
+  const recentProjects = recentProjectIds.map(orderedProjects).filter(Boolean);
+
   return {
     projects: data.viewer.projects,
     languages: data.languages.entries,
+    recentProjects,
     permissions,
   };
 };
@@ -27,6 +37,9 @@ const transformData = (data: any) => {
 export default class ProjectsRoute extends Route {
   @service('session')
   session: Session;
+
+  @service('recent-projects')
+  recentProjects: RecentProjects;
 
   @service('apollo-subscription')
   apolloSubscription: ApolloSubscription;
@@ -43,6 +56,8 @@ export default class ProjectsRoute extends Route {
   subscription: Subscription;
 
   model({page, query}: {page: number; query: any}) {
+    const recentProjectIds = this.recentProjects.fetch();
+
     const props = (data: any) => {
       if (!data.viewer) {
         this.session.logout();
@@ -52,7 +67,7 @@ export default class ProjectsRoute extends Route {
         return;
       }
 
-      return transformData(data);
+      return transformData(data, recentProjectIds);
     };
 
     this.subscription = this.apolloSubscription.graphql(
@@ -65,6 +80,7 @@ export default class ProjectsRoute extends Route {
           variables: {
             page,
             query,
+            nodeIds: recentProjectIds,
           },
         },
       }

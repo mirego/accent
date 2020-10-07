@@ -1,0 +1,43 @@
+.projects {
+  display: flex;
+  align-items: center;
+  padding: 10px 5px;
+  margin: 0 auto 20px;
+  max-width: calc(var(--screen-lg) - 25px);
+}
+
+.projects-title {
+  display: block;
+  margin-right: 10px;
+  font-weight: 600;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.item-link {
+  display: block;
+  padding: 4px 10px 5px;
+  margin-right: 12px;
+  background: var(--background-light);
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 1px 2px var(--shadow-color);
+  transition: 0.2s ease-in-out;
+  transition-property: background, box-shadow;
+
+  &:focus {
+    box-shadow: 0 1px 1px var(--shadow-color);
+  }
+
+  &:hover {
+    box-shadow: 0 2px 5px var(--shadow-color);
+    background: var(--body-background);
+  }
+}

@@ -29,6 +29,7 @@
     <AccWrapper::Content>
       {{#unless this.model.loading}}
         <PhoenixChannelListener @project={{this.project}} />
+        <RecentProjectCache @project={{this.project}} />
       {{/unless}}
 
       {{#if this.showError}}

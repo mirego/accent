@@ -73,15 +73,27 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
   @spec list_viewer(User.t(), %{query: String.t(), page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Project.t())}
   def list_viewer(viewer, args, _info) do
-    Project
-    |> Query.join(:inner, [p], c in assoc(p, :collaborators))
-    |> Query.where([_, c], c.user_id == ^viewer.id)
-    |> Query.order_by([p, _], asc: p.name)
-    |> ProjectScope.from_search(args[:query])
-    |> ProjectScope.with_stats()
-    |> Paginated.paginate(args)
-    |> Paginated.format()
-    |> (&{:ok, &1}).()
+    paginated_projects =
+      Project
+      |> Query.join(:inner, [p], c in assoc(p, :collaborators))
+      |> Query.where([_, c], c.user_id == ^viewer.id)
+      |> Query.order_by([p, _], asc: p.name)
+      |> ProjectScope.from_search(args[:query])
+      |> ProjectScope.with_stats()
+      |> Paginated.paginate(args)
+      |> Paginated.format()
+
+    nodes_projects =
+      Project
+      |> Query.join(:inner, [p], c in assoc(p, :collaborators))
+      |> Query.where([_, c], c.user_id == ^viewer.id)
+      |> ProjectScope.from_ids(args[:node_ids])
+      |> ProjectScope.with_stats()
+      |> Repo.all()
+
+    projects = Map.put(paginated_projects, :nodes, nodes_projects)
+
+    {:ok, projects}
   end
 
   @spec show_viewer(any(), %{id: String.t()}, GraphQLContext.t()) :: {:ok, Project.t() | nil}

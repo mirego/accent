@@ -8,6 +8,7 @@ defmodule Accent.GraphQL.Types.Project do
   object :projects do
     field(:meta, non_null(:pagination_meta))
     field(:entries, list_of(:project))
+    field(:nodes, list_of(:project))
   end
 
   object :project do

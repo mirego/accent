@@ -9,6 +9,10 @@
   {{#if showLoading}}
     <LoadingContent @label={{t "pods.projects.loading_content"}} />
   {{else}}
+    <RecentProjectsList
+      @permissions={{this.permissions}}
+      @projects={{this.model.recentProjects}}
+    />
     <ProjectsList
       @permissions={{this.permissions}}
       @projects={{this.model.projects.entries}}

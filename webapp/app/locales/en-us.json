@@ -570,6 +570,9 @@
       "input_placeholder_text": "Search for a project",
       "new_project": "New project"
     },
+    "recent_projects_list": {
+      "title": "Recent projects:"
+    },
     "projects_list": {
       "last_synced_at_label": "Last sync:",
       "last_activity_at_label": "Last activity:",

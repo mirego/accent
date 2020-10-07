@@ -14,6 +14,7 @@ defmodule Accent.GraphQL.Types.Viewer do
       arg(:page, :integer)
       arg(:page_size, :integer)
       arg(:query, :string)
+      arg(:node_ids, list_of(non_null(:id)))
 
       resolve(viewer_authorize(:index_projects, &Accent.GraphQL.Resolvers.Project.list_viewer/3))
     end

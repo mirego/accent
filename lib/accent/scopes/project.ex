@@ -19,6 +19,23 @@ defmodule Accent.Scopes.Project do
   end
 
   @doc """
+  ## Examples
+
+    iex> Accent.Scopes.Project.from_ids(Accent.Project, nil)
+    Accent.Project
+    iex> Accent.Scopes.Project.from_ids(Accent.Project, ["not-uuid", "08895faf-eb7e-48cc-8cd0-4175a6f39464"])
+    #Ecto.Query<from p0 in Accent.Project, where: p0.id in ^["08895faf-eb7e-48cc-8cd0-4175a6f39464"]>
+  """
+  @spec from_ids(Ecto.Queryable.t(), [String.t()] | nil) :: Ecto.Queryable.t()
+  def from_ids(query, nil), do: query
+
+  def from_ids(query, ids) do
+    ids = Enum.filter(ids, &(Ecto.UUID.cast(&1) !== :error))
+
+    from(p in query, where: p.id in ^ids)
+  end
+
+  @doc """
   Fill `translations_count`, `conflicts_count` and `reviewed_count` for projects.
   """
   @spec with_stats(Ecto.Queryable.t()) :: Ecto.Queryable.t()

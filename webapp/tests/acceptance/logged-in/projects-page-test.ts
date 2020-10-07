@@ -54,6 +54,7 @@ describe('Acceptance | Logged in | Projects page', function () {
               fakeProject({name: 'First project'}),
               fakeProject({name: 'Second project'}),
             ],
+            nodes: [],
             meta: {
               __typename: 'PaginationMeta',
               currentPage: 1,
@@ -102,6 +103,7 @@ describe('Acceptance | Logged in | Projects page', function () {
           ],
           projects: {
             __typename: 'Projects',
+            nodes: [],
             entries: [],
             meta: {
               __typename: 'PaginationMeta',
@@ -125,6 +127,58 @@ describe('Acceptance | Logged in | Projects page', function () {
 
       expect('[data-test-loader]').to.be.not.rendered;
       expect('[data-test-empty-content]').to.be.rendered;
+    });
+  });
+
+  describe('with recent projects', function () {
+    afterEach(function () {
+      localStorage.clear();
+    });
+
+    beforeEach(function () {
+      localStorage.setItem('accent-recent-projects', '["1"]');
+
+      server.query('Projects', () => ({
+        languages: {
+          __typename: 'Languages',
+          entries: [fakeLanguage(), fakeLanguage()],
+        },
+        viewer: {
+          __typename: 'Viewer',
+          permissions: [
+            'create_project',
+            'index_permissions',
+            'index_projects',
+          ],
+          projects: {
+            __typename: 'Projects',
+            nodes: [fakeProject({id: '1', name: 'First project'})],
+            entries: [fakeProject({id: '1', name: 'First project'})],
+            meta: {
+              __typename: 'PaginationMeta',
+              currentPage: 1,
+              nextPage: null,
+              previousPage: null,
+              totalEntries: 1,
+              totalPages: 1,
+            },
+          },
+        },
+      }));
+    });
+
+    it('should display list', async function () {
+      await visit('/app/projects');
+
+      expect('[data-test-loader]').to.be.rendered;
+
+      await waitFor('[data-test-recent-projects-list]');
+
+      expect('[data-test-loader]').to.be.not.rendered;
+      expect('[data-test-recent-project]').to.have.count(1);
+      expect(
+        '[data-test-recent-project="0"] [data-test-project-name]'
+      ).to.have.textContent('First project');
     });
   });
 });

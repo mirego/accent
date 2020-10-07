@@ -4,48 +4,52 @@ export interface ProjectQueryVariables {
   projectId: string;
 }
 
-export interface ProjectQueryResponse {
-  roles: Array<{
-    slug: string;
-  }>;
+export interface ProjectQueryResponseProject {
+  id: string;
+  name: string;
+  mainColor: string;
+  logo: string;
 
-  documentFormats: Array<{
-    slug: string;
-    name: string;
-    extension: string;
-  }>;
+  viewerPermissions: string[];
 
-  viewer: {
-    project: {
+  documents: {
+    entries: Array<{
       id: string;
+      path: string;
+      format: string;
+    }>;
+  };
+
+  revisions: Array<{
+    id: string;
+    name: string;
+    isMaster: boolean;
+    translationsCount: number;
+    conflictsCount: number;
+
+    language: {
+      id: string;
+      slug: string;
       name: string;
-      mainColor: string;
-      logo: string;
-
-      viewerPermissions: string[];
-
-      documents: {
-        entries: Array<{
-          id: string;
-          path: string;
-          format: string;
-        }>;
-      };
-
-      revisions: Array<{
-        id: string;
-        name: string;
-        isMaster: boolean;
-        translationsCount: number;
-        conflictsCount: number;
-
-        language: {
-          id: string;
-          slug: string;
-          name: string;
-        };
-      }>;
     };
+  }>;
+}
+
+export interface ProjectQueryResponseDocumentFormat {
+  slug: string;
+  name: string;
+  extension: string;
+}
+
+export interface ProjectQueryResponseRole {
+  slug: string;
+}
+
+export interface ProjectQueryResponse {
+  roles: ProjectQueryResponseRole[];
+  documentFormats: ProjectQueryResponseDocumentFormat[];
+  viewer: {
+    project: ProjectQueryResponseProject;
   };
 }
 

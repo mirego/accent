@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query Projects($query: String, $page: Int) {
+  query Projects($query: String, $page: Int, $nodeIds: [ID!]) {
     languages {
       entries {
         id
@@ -13,7 +13,7 @@ export default gql`
     viewer {
       permissions
 
-      projects(query: $query, page: $page) {
+      projects(query: $query, page: $page, nodeIds: $nodeIds) {
         meta {
           totalEntries
           totalPages
@@ -21,6 +21,14 @@ export default gql`
           nextPage
           previousPage
         }
+
+        nodes {
+          id
+          name
+          mainColor
+          logo
+        }
+
         entries {
           id
           name

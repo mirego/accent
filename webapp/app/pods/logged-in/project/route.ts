@@ -4,6 +4,9 @@ import {action} from '@ember/object';
 
 import projectQuery, {
   ProjectQueryResponse,
+  ProjectQueryResponseProject,
+  ProjectQueryResponseRole,
+  ProjectQueryResponseDocumentFormat,
 } from 'accent-webapp/queries/project';
 import GlobalState from 'accent-webapp/services/global-state';
 import ApolloSubscription, {
@@ -12,6 +15,13 @@ import ApolloSubscription, {
 
 interface RouteParams {
   projectId: string;
+}
+
+interface Model {
+  project?: ProjectQueryResponseProject;
+  permissions: object;
+  roles?: ProjectQueryResponseRole[];
+  documentFormats?: ProjectQueryResponseDocumentFormat[];
 }
 
 export default class ProjectRoute extends Route {
@@ -23,7 +33,7 @@ export default class ProjectRoute extends Route {
 
   subscription: Subscription;
 
-  model(params: RouteParams) {
+  model(params: RouteParams): Model {
     const props = (data: any) => this.transformData(data);
 
     this.subscription = this.apolloSubscription.graphql(
@@ -56,8 +66,8 @@ export default class ProjectRoute extends Route {
     this.apolloSubscription.clearSubscription(this.subscription);
   }
 
-  private transformData(data: ProjectQueryResponse) {
-    if (!data.viewer || !data.viewer.project) return {permissions: []};
+  private transformData(data: ProjectQueryResponse): Model {
+    if (!data.viewer || !data.viewer.project) return {permissions: {}};
 
     const permissions = data.viewer.project.viewerPermissions.reduce(
       (memo: Record<string, boolean>, permission: string) => {
