@@ -24,6 +24,8 @@ defmodule Movement.Persisters.Base do
       |> Map.put(:stats, stats)
       |> Repo.insert!()
 
+    Accent.OperationBatcher.batch(batch_operation)
+
     context
     |> Movement.Context.assign(:batch_operation, batch_operation)
     |> Movement.Context.assign(:batch_action, nil)

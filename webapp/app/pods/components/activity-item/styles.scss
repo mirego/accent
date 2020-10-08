@@ -11,10 +11,12 @@
 }
 
 .item.rollback,
+.item.batch-merge,
 .item.merge,
 .item.new-slave,
 .item.uncorrect-all,
 .item.correct-all,
+.item.batch-sync,
 .item.sync {
   left: 10px;
   width: calc(100% + -9px);
@@ -37,6 +39,7 @@
   }
 }
 
+.item.batch-sync,
 .item.sync {
   position: relative;
   padding: 6px 10px 5px;
@@ -254,6 +257,7 @@
   }
 
   &.rollback,
+  &.batch-merge,
   &.merge,
   &.new-slave,
   &.uncorrect-all,
@@ -266,6 +270,7 @@
     }
   }
 
+  &.batch-sync,
   &.sync {
     &:before {
       display: none;

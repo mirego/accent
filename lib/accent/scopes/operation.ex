@@ -39,14 +39,14 @@ defmodule Accent.Scopes.Operation do
     iex> Accent.Scopes.Operation.filter_from_batch(Accent.Operation, "test")
     Accent.Operation
     iex> Accent.Scopes.Operation.filter_from_batch(Accent.Operation, true)
-    #Ecto.Query<from o0 in Accent.Operation, where: o0.batch == ^true>
+    #Ecto.Query<from o0 in Accent.Operation, where: o0.batch == ^true, where: is_nil(o0.batch_operation_id)>
   """
   @spec filter_from_batch(Ecto.Queryable.t(), any()) :: Ecto.Queryable.t()
   def filter_from_batch(query, nil), do: query
   def filter_from_batch(query, batch) when not is_boolean(batch), do: query
 
   def filter_from_batch(query, batch) do
-    from(query, where: [batch: ^batch])
+    from(operations in query, where: [batch: ^batch], where: is_nil(operations.batch_operation_id))
   end
 
   @doc """

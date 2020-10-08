@@ -231,10 +231,14 @@
           />
         {{/each}}
       </div>
-      <ResourcePagination
-        @meta={{this.operations.meta}}
-        @onSelectPage={{fn this.refreshActivities}}
-      />
+      {{#if this.operations.meta.nextPage}}
+        <div local-class="details-associations-pagination">
+          <ResourcePagination
+            @meta={{this.operations.meta}}
+            @onSelectPage={{fn this.refreshActivities}}
+          />
+        </div>
+      {{/if}}
     {{/if}}
   </div>
 </div>
