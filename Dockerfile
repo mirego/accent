@@ -22,7 +22,7 @@ RUN npm ci --no-audit --no-color && \
 #
 # Build Gleam modules
 #
-FROM gleamlang/gleam:0.11.0 as gleam-builder
+FROM gleamlang/gleam:0.11.2 as gleam-builder
 WORKDIR /opt/build
 COPY gleam.toml .
 COPY rebar.config .

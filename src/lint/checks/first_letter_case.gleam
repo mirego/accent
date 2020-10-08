@@ -1,6 +1,6 @@
 import gleam/bool
+import gleam/regex
 import gleam/option.{None}
-import lint/helpers/regex.{Match, Nomatch}
 import lint/types.{Entry, FirstLetterCase}
 
 fn message(text) {
@@ -8,17 +8,13 @@ fn message(text) {
 }
 
 fn starts_with_letter(text) {
-  case regex.match(text, "^\[a-zA-Z\]", []) {
-    Match(_) -> True
-    _ -> False
-  }
+  let Ok(re) = regex.from_string("a")
+  regex.check(re, text)
 }
 
 fn starts_with_capitalized_letter(text) {
-  case regex.match(text, "^\[A-Z\]", []) {
-    Match(_) -> True
-    _ -> False
-  }
+  let Ok(re) = regex.from_string("^\[A-Z\]")
+  regex.check(re, text)
 }
 
 pub fn applicable(entry: Entry) {

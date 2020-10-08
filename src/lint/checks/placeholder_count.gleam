@@ -3,8 +3,8 @@ import gleam/bool
 import gleam/atom
 import gleam/list
 import gleam/option.{None}
+import gleam/regex
 import lint/helpers/format
-import lint/helpers/regex.{Match, Nomatch}
 import lint/types.{Entry, PlaceholderCount}
 
 fn message(entry: Entry) {
@@ -15,9 +15,9 @@ fn message(entry: Entry) {
 }
 
 fn match_placeholders(text) {
-  let placeholder_regex = "(\{\{\\w+\}\})|(%\{\\w+\})"
+  let Ok(placeholder_regex) = regex.from_string("(\{\{\\w+\}\})|(%\{\\w+\})")
 
-  regex.match(text, placeholder_regex, [atom.create_from_string("global")])
+  regex.scan(placeholder_regex, text)
 }
 
 pub fn applicable(entry: Entry) {
@@ -25,17 +25,11 @@ pub fn applicable(entry: Entry) {
 }
 
 pub fn check(entry: Entry) {
-  let value_placeholders = match_placeholders(entry.value)
-  let master_placeholders = match_placeholders(entry.master_value)
+  let master_matches = match_placeholders(entry.master_value)
+  let value_matches = match_placeholders(entry.value)
 
-  case tuple(master_placeholders, value_placeholders) {
-    tuple(Match(_), Nomatch) -> [message(entry)]
-    tuple(Nomatch, Match(_)) -> [message(entry)]
-    tuple(Match(master_matches), Match(value_matches)) ->
-      case list.length(master_matches) == list.length(value_matches) {
-        True -> []
-        False -> [message(entry)]
-      }
-    _ -> []
+  case list.length(master_matches) == list.length(value_matches) {
+    True -> []
+    False -> [message(entry)]
   }
 }

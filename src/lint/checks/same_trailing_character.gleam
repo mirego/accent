@@ -2,7 +2,7 @@ import gleam/io
 import gleam/bool
 import gleam/string
 import gleam/option.{None}
-import lint/helpers/regex.{Match, Nomatch}
+import gleam/regex
 import lint/types.{Entry, SameTrailingCharacter}
 
 pub fn applicable(entry: Entry) {
@@ -10,16 +10,11 @@ pub fn applicable(entry: Entry) {
 }
 
 pub fn check(entry: Entry) {
-  let master_with_trailing = regex.match(entry.master_value, "(\\.|:)$", [])
-  let value_with_trailing = regex.match(entry.value, "(\\.|:)$", [])
+  let Ok(re) = regex.from_string("(\\.|:)$")
+  let master_with_trailing = regex.check(re, entry.master_value)
+  let value_with_trailing = regex.check(re, entry.value)
 
-  let mismatch = case tuple(master_with_trailing, value_with_trailing) {
-    tuple(Match(_), Nomatch) -> True
-    tuple(Nomatch, Match(_)) -> True
-    _ -> False
-  }
-
-  case mismatch {
+  case master_with_trailing != value_with_trailing {
     True -> {
       let value_trailing_character = string.slice(entry.value, -1, 1)
       let master_trailing_character = string.slice(entry.master_value, -1, 1)
