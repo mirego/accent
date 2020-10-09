@@ -1,7 +1,5 @@
 import Config
 
-import_config "releases.exs"
-
 config :accent, Accent.Endpoint,
   debug_errors: true,
   code_reloader: true,

@@ -1,7 +1,5 @@
 import Config
 
-import_config "releases.exs"
-
 config :accent, Accent.Endpoint,
   check_origin: false,
   server: true

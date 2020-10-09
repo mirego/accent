@@ -1,7 +1,5 @@
 import Config
 
-import_config "releases.exs"
-
 config :accent, Accent.Endpoint,
   http: [port: 4001],
   static_url: [
