@@ -41,13 +41,15 @@ defmodule AccentTest.Hook.Outbounds.Slack do
 
     received_body =
       Jason.encode!(%{
-        text: """
-        *Test* just synced a file: _foo.json_
+        text:
+          """
+          *Test* just synced a file: _foo.json_
 
-        *Stats:*
-        new: _4_
-        conflict_on_proposed: _10_
-        """
+          *Stats:*
+          new: _4_
+          conflict_on_proposed: _10_
+          """
+          |> String.trim_trailing()
       })
 
     with_mock(HTTPoison, [post: fn ^received_url, ^received_body, ^received_headers -> {:ok, "done"} end], do: Slack.perform(%Oban.Job{args: context}))

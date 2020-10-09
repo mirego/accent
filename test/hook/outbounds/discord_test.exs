@@ -35,13 +35,15 @@ defmodule AccentTest.Hook.Outbounds.Discord do
 
     received_body =
       Jason.encode!(%{
-        text: """
-        **Test** just synced a file: *foo.json*
+        text:
+          """
+          **Test** just synced a file: *foo.json*
 
-        **Stats:**
-        new: *4*
-        conflict_on_proposed: *10*
-        """
+          **Stats:**
+          new: *4*
+          conflict_on_proposed: *10*
+          """
+          |> String.trim_trailing()
       })
 
     with_mock(HTTPoison, [post: fn ^received_url, ^received_body, ^received_headers -> {:ok, "done"} end], do: Discord.perform(%Oban.Job{args: context}))

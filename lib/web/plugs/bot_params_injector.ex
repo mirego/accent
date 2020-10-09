@@ -6,6 +6,8 @@ defmodule Accent.Plugs.BotParamsInjector do
   @doc """
   If the current_user is the project’s bot, we automatically add the project id in the params.
   This makes the param not required in the URL when making calls such as `sync` or `merge`.
+
+  Fallback to doing nothing with the connection
   """
   def assign_project_id(conn = %{assigns: %{current_user: user = %{bot: true}}}, _) do
     user.permissions
@@ -28,8 +30,5 @@ defmodule Accent.Plugs.BotParamsInjector do
     end
   end
 
-  @doc """
-  Fallback to doing nothing with the connection
-  """
   def assign_project_id(conn, _), do: conn
 end

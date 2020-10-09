@@ -13,6 +13,7 @@ defmodule Accent.Mixfile do
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
+      xref: [exclude: IEx],
       deps: deps(),
       releases: releases(),
       erlc_paths: ["src", "gen"],
@@ -28,8 +29,8 @@ defmodule Accent.Mixfile do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
-  defp elixirc_paths(_), do: ["lib", "web"]
+  defp elixirc_paths(:test), do: ["lib", "web", "vendor", "test/support"]
+  defp elixirc_paths(_), do: ["lib", "web", "vendor"]
 
   defp extra_compilers(:prod), do: [:phoenix]
   defp extra_compilers(_), do: [:gleam, :phoenix]
@@ -78,7 +79,6 @@ defmodule Accent.Mixfile do
       {:jason, "~> 1.2", override: true},
       {:erlsom, "~> 1.5"},
       {:xml_builder, "~> 2.0"},
-      {:ex_minimatch, "~> 0.0.1"},
 
       # Auth
       {:oauth2, "~> 2.0", override: true},
@@ -104,7 +104,7 @@ defmodule Accent.Mixfile do
 
       # Gleam
       {:mix_gleam, "~> 0.1", only: [:dev, :test]},
-      {:gleam_stdlib, "0.11.0", only: [:dev, :test]},
+      {:gleam_stdlib, "~> 0.11", only: [:dev, :test]},
 
       # Dev
       {:dialyxir, "~> 1.0", only: ~w(dev test)a, runtime: false},
