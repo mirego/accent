@@ -132,15 +132,14 @@ defmodule Accent.GraphQL.Resolvers.Translation do
       |> Repo.get!(revision.project_id)
       |> Ecto.assoc(:revisions)
       |> Query.select([r], r.id)
+      |> Query.where([r], r.id != ^revision.id)
       |> Repo.all()
 
     translations =
       Translation
       |> TranslationScope.from_revisions(revision_ids)
-      |> TranslationScope.from_key(translation.key)
-      |> TranslationScope.from_document(translation.document_id)
-      |> TranslationScope.not_id(translation.id)
-      |> TranslationScope.from_version(translation.version_id)
+      |> TranslationScope.related_to(translation)
+      |> Query.distinct([t], t.revision_id)
       |> Repo.all()
 
     {:ok, translations}
@@ -167,9 +166,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
       revision_id ->
         Translation
         |> TranslationScope.from_revision(revision_id)
-        |> TranslationScope.from_key(translation.key)
-        |> TranslationScope.from_document(translation.document_id)
-        |> TranslationScope.from_version(translation.version_id)
+        |> TranslationScope.related_to_one(translation)
         |> Repo.one()
         |> (&{:ok, &1}).()
     end

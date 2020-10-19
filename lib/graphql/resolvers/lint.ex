@@ -31,15 +31,17 @@ defmodule Accent.GraphQL.Resolvers.Lint do
     master_translation =
       Translation
       |> TranslationScope.from_revision(master_revision.id)
-      |> TranslationScope.from_document(translation.document_id)
-      |> TranslationScope.from_version(translation.version_id)
-      |> TranslationScope.from_key(translation.key)
+      |> TranslationScope.related_to_one(translation)
       |> Repo.one()
 
-    entry = Translation.to_langue_entry(translation, master_translation, translation.revision.master)
-    [lint] = Accent.Lint.lint([entry])
+    if master_translation do
+      entry = Translation.to_langue_entry(translation, master_translation, translation.revision.master)
+      [lint] = Accent.Lint.lint([entry])
 
-    {:ok, lint.messages}
+      {:ok, lint.messages}
+    else
+      {:ok, []}
+    end
   end
 
   defp overwrite_text_args(translation, %{text: text}) when is_binary(text) do

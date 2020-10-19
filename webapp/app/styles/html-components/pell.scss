@@ -16,9 +16,24 @@
   border: 2px solid var(--input-border-color);
   background: var(--input-background);
   color: var(--input-color);
-  font-family: var(--font-monospace);
+  font-family: var(--font-primary);
   font-size: 12px;
   line-height: 1.4;
+
+  ul {
+    padding-left: 15px;
+    list-style-type: disc;
+  }
+
+  ol {
+    padding-left: 13px;
+    list-style-type: decimal;
+  }
+
+  blockquote {
+    padding: 5px 0 5px 15px;
+    border-left: 1px solid var(--input-border-color);
+  }
 }
 
 .pell-actionbar {

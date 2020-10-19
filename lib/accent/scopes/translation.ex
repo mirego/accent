@@ -2,7 +2,7 @@ defmodule Accent.Scopes.Translation do
   import Ecto.Query
 
   alias Ecto.Queryable
-  alias Accent.{Operation, Repo}
+  alias Accent.{Operation, Repo, Translation}
 
   @doc """
   ## Examples
@@ -162,6 +162,35 @@ defmodule Accent.Scopes.Translation do
   """
   @spec not_conflicted(Queryable.t()) :: Queryable.t()
   def not_conflicted(query), do: from(query, where: [conflicted: false])
+
+  @doc """
+  ## Examples
+
+    iex> Accent.Scopes.Translation.related_to(Accent.Translation, %Accent.Translation{key: "foo", document_id: "bar", version_id: nil})
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.key == ^"foo", where: t0.document_id == ^"bar", where: is_nil(t0.version_id), order_by: [desc: t0.updated_at]>
+  """
+  @spec related_to(Queryable.t(), Translation.t()) :: Queryable.t()
+  def related_to(query, translation) do
+    query
+    |> not_id(translation.id)
+    |> from_key(translation.key)
+    |> from_document(translation.document_id)
+    |> from_version(translation.version_id)
+    |> parse_order("-updated")
+  end
+
+  @doc """
+  ## Examples
+
+    iex> Accent.Scopes.Translation.related_to_one(Accent.Translation, %Accent.Translation{key: "foo", document_id: "bar", version_id: nil})
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.key == ^"foo", where: t0.document_id == ^"bar", where: is_nil(t0.version_id), order_by: [desc: t0.updated_at], limit: 1>
+  """
+  @spec related_to_one(Queryable.t(), Translation.t()) :: Queryable.t()
+  def related_to_one(query, translation) do
+    query
+    |> related_to(translation)
+    |> limit(1)
+  end
 
   @doc """
   ## Examples

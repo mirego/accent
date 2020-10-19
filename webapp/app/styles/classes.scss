@@ -10,6 +10,14 @@
   font-family: var(--font-monospace);
   line-height: 1.4;
 
+  &::-moz-selection {
+    background: var(--color-primary-opacity-70);
+  }
+
+  &::selection {
+    background: var(--color-primary-opacity-70);
+  }
+
   &:focus {
     border: 2px solid var(--color-primary);
   }

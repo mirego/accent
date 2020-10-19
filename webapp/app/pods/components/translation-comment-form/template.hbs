@@ -1,5 +1,8 @@
 <div local-class="translation-comment-form">
-  <form local-class="form" {{on "submit" (fn this.submit)}}>
+  <form
+    {{on "submit" (perform this.submitTask)}}
+    local-class="form"
+  >
     {{#if this.error}}
       <span local-class="error">
         {{t "components.translation_comment_form.submit_error"}}
@@ -8,14 +11,15 @@
 
     <div local-class="form-content">
       <QuickSubmitTextarea
-        @onSubmit={{fn this.submit}}
+        @onSubmit={{perform this.submitTask}}
         @rows={{3}}
         @value={{this.text}}
         @onKeyUp={{fn this.setText}}
         @placeholder={{t "components.translation_comment_form.comment_placeholder"}}
         local-class="inputText"
+        disabled={{this.submitTask.isRunning}}
       />
-      <AsyncButton @loading={{this.loading}} class="button button--filled">
+      <AsyncButton @loading={{this.submitTask.isRunning}} class="button button--filled">
         {{t "components.translation_comment_form.comment_button"}}
       </AsyncButton>
     </div>
