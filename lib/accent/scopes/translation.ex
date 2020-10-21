@@ -5,17 +5,6 @@ defmodule Accent.Scopes.Translation do
   alias Accent.{Operation, Repo, Translation}
 
   @doc """
-  ## Examples
-
-    iex> Accent.Scopes.Translation.not_id(Accent.Translation, "test")
-    #Ecto.Query<from t0 in Accent.Translation, where: t0.id != ^"test">
-  """
-  @spec not_id(Queryable.t(), String.t()) :: Queryable.t()
-  def not_id(query, id) do
-    from(t in query, where: t.id != ^id)
-  end
-
-  @doc """
   Default ordering is by ascending key
 
   ## Examples
@@ -166,13 +155,12 @@ defmodule Accent.Scopes.Translation do
   @doc """
   ## Examples
 
-    iex> Accent.Scopes.Translation.related_to(Accent.Translation, %Accent.Translation{key: "foo", document_id: "bar", version_id: nil})
+    iex> Accent.Scopes.Translation.related_to(Accent.Translation, %Accent.Translation{id: "0400a3e6-1e72-4b35-9565-79a95accc94e", key: "foo", document_id: "bar", version_id: nil})
     #Ecto.Query<from t0 in Accent.Translation, where: t0.key == ^"foo", where: t0.document_id == ^"bar", where: is_nil(t0.version_id), order_by: [desc: t0.updated_at]>
   """
   @spec related_to(Queryable.t(), Translation.t()) :: Queryable.t()
   def related_to(query, translation) do
     query
-    |> not_id(translation.id)
     |> from_key(translation.key)
     |> from_document(translation.document_id)
     |> from_version(translation.version_id)
@@ -182,7 +170,7 @@ defmodule Accent.Scopes.Translation do
   @doc """
   ## Examples
 
-    iex> Accent.Scopes.Translation.related_to_one(Accent.Translation, %Accent.Translation{key: "foo", document_id: "bar", version_id: nil})
+    iex> Accent.Scopes.Translation.related_to_one(Accent.Translation, %Accent.Translation{id: "0400a3e6-1e72-4b35-9565-79a95accc94e", key: "foo", document_id: "bar", version_id: nil})
     #Ecto.Query<from t0 in Accent.Translation, where: t0.key == ^"foo", where: t0.document_id == ^"bar", where: is_nil(t0.version_id), order_by: [desc: t0.updated_at], limit: 1>
   """
   @spec related_to_one(Queryable.t(), Translation.t()) :: Queryable.t()
