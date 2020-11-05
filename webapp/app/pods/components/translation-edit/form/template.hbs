@@ -70,6 +70,19 @@
     {{/if}}
   {{/if}}
 
+  {{#if @fileComment}}
+    <div local-class="file-comment">
+      <span local-class="file-comment-title">
+        {{inline-svg "assets/bubble.svg" local-class="file-comment-title-icon"}}
+        {{t "components.translation_edit.form.file_comment.title"}}
+      </span>
+
+      <div local-class="file-comment-text">
+        <pre local-class="file-comment-text-content">{{@fileComment}}</pre>
+      </div>
+    </div>
+  {{/if}}
+
   {{#if this.isHTMLType}}
     <HtmlTextarea
       @value={{this.text}}

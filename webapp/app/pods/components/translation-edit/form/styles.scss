@@ -105,3 +105,35 @@
   margin-right: 6px;
   stroke: var(--color-blue);
 }
+
+.file-comment {
+  margin: 0 0 15px;
+  padding: 15px 15px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  background: var(--background-light);
+  color: var(--color-black);
+}
+
+.file-comment-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.file-comment-text {
+  margin-bottom: 6px;
+}
+
+.file-comment-text-content {
+  max-width: 500px;
+}
+
+.file-comment-title-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  stroke: var(--color-black);
+}

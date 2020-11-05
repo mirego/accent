@@ -22,7 +22,14 @@ defmodule Accent.GraphQL.Types.Translation do
     field(:key, non_null(:string), resolve: &Accent.GraphQL.Resolvers.Translation.key/3)
     field(:value_type, non_null(:translation_value_type))
     field(:plural, non_null(:boolean))
-    field(:file_comment, :string)
+
+    field(:file_comment, :string,
+      resolve: fn
+        %{file_comment: nil}, _, _ -> {:ok, nil}
+        %{file_comment: value}, _, _ -> {:ok, String.trim(value)}
+      end
+    )
+
     field(:placeholders, non_null(list_of(non_null(:string))))
 
     field(:proposed_text, :string)
