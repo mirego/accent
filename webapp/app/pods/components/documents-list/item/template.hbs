@@ -1,135 +1,136 @@
 <li local-class="documents-list-item {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}">
   <form local-class="item-form {{if this.isDeleting "item-form--deleting"}}" {{on "submit" (fn this.updateDocument)}}>
-    <div local-class="item-form-inputs">
-      <h2 local-class="item-title">
-        {{#if this.isEditing}}
-          <label local-class="item-form-label">
-            {{t "components.documents_list.item.path_label"}}
-            <small local-class="item-form-help">
-              {{{t "components.documents_list.item.path_help"}}}
-            </small>
+    <div local-class="item-form-content">
+      <div local-class="item-form-inputs">
+        <h2 local-class="item-title">
+          {{#if this.isEditing}}
+            <label local-class="item-form-label">
+              {{t "components.documents_list.item.path_label"}}
+              <small local-class="item-form-help">
+                {{{t "components.documents_list.item.path_help"}}}
+              </small>
 
-            <input
-              {{on-key "cmd+Enter" (fn this.updateDocument)}}
-              {{on "input" (fn this.changePath)}}
-              local-class="textInput"
-              value={{this.renamedDocumentPath}}
-            >
-          </label>
-        {{else}}
-          <span local-class="item-toggle-edit">
-            {{#if this.isDeleting}}
-              <span local-class="item-document-deleting-title">
-                {{inline-svg "/assets/loading.svg" local-class="item-document-deleting-title-loading"}}
-
-                {{t "components.documents_list.item.deleting_label" path=@document.path extension=this.documentFormatItem.extension}}
-              </span>
-            {{else}}
-              <button local-class="item-edit-button" {{on "click" (fn this.toggleEdit)}}>
-                {{inline-svg "assets/pencil.svg" local-class="item-edit-icon"}}
-              </button>
-
-              <LinkTo
-                @route="logged-in.project.files.export"
-                @models={{array @project.id @document.id}}
-                local-class="item-document"
+              <input
+                {{on-key "cmd+Enter" (fn this.updateDocument)}}
+                {{on "input" (fn this.changePath)}}
+                local-class="textInput"
+                value={{this.renamedDocumentPath}}
               >
-                {{@document.path}}
-                <span local-class="item-subtitle">.{{this.documentFormatItem.extension}}</span>
-              </LinkTo>
-            {{/if}}
+            </label>
+          {{else}}
+            <span local-class="item-toggle-edit">
+              {{#if this.isDeleting}}
+                <span local-class="item-document-deleting-title">
+                  {{inline-svg "/assets/loading.svg" local-class="item-document-deleting-title-loading"}}
+
+                  {{t "components.documents_list.item.deleting_label" path=@document.path extension=this.documentFormatItem.extension}}
+                </span>
+              {{else}}
+                <button local-class="item-edit-button" {{on "click" (fn this.toggleEdit)}}>
+                  {{inline-svg "assets/pencil.svg" local-class="item-edit-icon"}}
+                </button>
+
+                <LinkTo
+                  @route="logged-in.project.files.export"
+                  @models={{array @project.id @document.id}}
+                  local-class="item-document"
+                >
+                  {{@document.path}}
+                  <span local-class="item-subtitle">.{{this.documentFormatItem.extension}}</span>
+                </LinkTo>
+              {{/if}}
+            </span>
+          {{/if}}
+        </h2>
+      </div>
+
+      {{#unless this.isEditing}}
+        <div local-class="stat">
+          <span local-class="reviewedPercentage">
+            {{this.correctedKeysPercentage}}
+            %
           </span>
-        {{/if}}
-      </h2>
+          <span local-class="reviewedStats">
+            <span local-class="reviewedStats-reviewedCount">
+              {{this.reviewsCount}}
+            </span>
+            /
+            <span local-class="reviewedStats-translationsCount">
+              {{@document.translationsCount}}
+            </span>
+          </span>
+        </div>
+
+        <div local-class="progress">
+          <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
+        </div>
+      {{/unless}}
     </div>
 
-    {{#unless this.isEditing}}
-      <div local-class="stat">
-        <span local-class="reviewedPercentage">
-          {{this.correctedKeysPercentage}}
-          %
-        </span>
-        <span local-class="reviewedStats">
-          <span local-class="reviewedStats-reviewedCount">
-            {{this.reviewsCount}}
-          </span>
-          /
-          <span local-class="reviewedStats-translationsCount">
-            {{@document.translationsCount}}
-          </span>
-        </span>
+    {{#if this.isEditing}}
+      <div local-class="links links--editing">
+        <AsyncButton
+          class="button button--filled"
+          @loading={{this.isUpdating}}
+          @onClick={{fn this.updateDocument}}
+        >
+          {{t "components.documents_list.save_button"}}
+        </AsyncButton>
+        <button
+          class="button button--filled button--white"
+          {{on "click" (fn this.toggleEdit)}}
+        >
+          {{t "components.documents_list.cancel_button"}}
+        </button>
       </div>
-
-      <div local-class="progress">
-        <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
-      </div>
-    {{/unless}}
-
-    <div local-class="links">
-      {{#if this.isEditing}}
-        <div>
-          <button
-            class="button button--filled button--white"
-            {{on "click" (fn this.toggleEdit)}}
-          >
-            {{t "components.documents_list.cancel_button"}}
-          </button>
-          <AsyncButton
-            class="button button--filled"
-            @loading={{this.isUpdating}}
-            @onClick={{fn this.updateDocument}}
-          >
-            {{t "components.documents_list.save_button"}}
-          </AsyncButton>
-        </div>
-      {{else}}
-        <div>
-          {{#if (get @permissions "sync")}}
-            <LinkTo
-              @route="logged-in.project.files.sync"
-              @models={{array @project.id @document.id}}
-              class="button button--filled button--white"
-            >
-              {{inline-svg "/assets/sync.svg" class="button-icon"}}
-              {{t "components.documents_list.sync"}}
-            </LinkTo>
-          {{/if}}
-          {{#if (get @permissions "merge")}}
-            <LinkTo
-              @route="logged-in.project.files.add-translations"
-              @models={{array @project.id @document.id}}
-              class="button button--filled button--white"
-            >
-              {{inline-svg "/assets/merge.svg" class="button-icon"}}
-              {{t "components.documents_list.merge"}}
-            </LinkTo>
-          {{/if}}
+    {{else}}
+      <div local-class="links">
+        {{#if (get @permissions "sync")}}
           <LinkTo
-            @route="logged-in.project.files.export"
+            @route="logged-in.project.files.sync"
+            @models={{array @project.id @document.id}}
+            local-class="button-sync"
+            class="button button--filled button--white"
+          >
+            {{inline-svg "/assets/sync.svg" class="button-icon"}}
+            {{t "components.documents_list.sync"}}
+          </LinkTo>
+        {{/if}}
+        {{#if (get @permissions "merge")}}
+          <LinkTo
+            @route="logged-in.project.files.add-translations"
             @models={{array @project.id @document.id}}
             class="button button--filled button--white"
           >
-            {{inline-svg "/assets/export.svg" class="button-icon"}}
-            {{t "components.documents_list.export"}}
+            {{inline-svg "/assets/merge.svg" class="button-icon"}}
+            {{t "components.documents_list.merge"}}
           </LinkTo>
-        </div>
+        {{/if}}
+        <LinkTo
+          @route="logged-in.project.files.export"
+          @models={{array @project.id @document.id}}
+          class="button button--filled button--white"
+        >
+          {{inline-svg "/assets/export.svg" class="button-icon"}}
+          {{t "components.documents_list.export"}}
+        </LinkTo>
+      </div>
 
-        <div>
-          {{#if (get @permissions "delete_document")}}
-            {{#if this.canDeleteFile}}
-              <AsyncButton
-                @onClick={{fn this.deleteFile @document}}
-                @loading={{this.isDeleting}}
-                class="button button--small button--red button--borderless"
-                local-class="deleteDocumentButton"
-              >
-                {{inline-svg "/assets/x.svg" class="button-icon"}}
-                {{t "components.documents_list.delete_document"}}
-              </AsyncButton>
-            {{/if}}
+      <div>
+        {{#if (get @permissions "delete_document")}}
+          {{#if this.canDeleteFile}}
+            <AsyncButton
+              @onClick={{fn this.deleteFile @document}}
+              @loading={{this.isDeleting}}
+              class="button button--small button--red button--borderless"
+              local-class="deleteDocumentButton"
+            >
+              {{inline-svg "/assets/x.svg" class="button-icon"}}
+              {{t "components.documents_list.delete_document"}}
+            </AsyncButton>
           {{/if}}
-        </div>
-      {{/if}}
-    </div>
+        {{/if}}
+      </div>
+    {{/if}}
   </form>
 </li>

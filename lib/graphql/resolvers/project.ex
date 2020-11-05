@@ -2,6 +2,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
   require Ecto.Query
 
   alias Accent.Scopes.Project, as: ProjectScope
+  alias Accent.Scopes.Operation, as: OperationScope
 
   alias Accent.{
     GraphQL.Paginated,
@@ -105,11 +106,11 @@ defmodule Accent.GraphQL.Resolvers.Project do
   end
 
   @spec last_activity(Project.t(), any(), GraphQLContext.t()) :: {:ok, Operation.t() | nil}
-  def last_activity(project, _, _) do
+  def last_activity(project, args, _) do
     Operation
-    |> Query.join(:left, [o], r in assoc(o, :revision))
-    |> Query.where([o, r], r.project_id == ^project.id or o.project_id == ^project.id)
-    |> Query.order_by([o], desc: o.inserted_at)
+    |> OperationScope.filter_from_project(project.id)
+    |> OperationScope.filter_from_action(args[:action])
+    |> OperationScope.order_last_to_first()
     |> Query.limit(1)
     |> Repo.one()
     |> (&{:ok, &1}).()

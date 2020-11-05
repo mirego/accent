@@ -12,6 +12,7 @@ export default gql`
     $isTextNotEmpty: Boolean
     $isAddedLastSync: Boolean
     $isCommentedOn: Boolean
+    $isConflicted: Boolean
   ) {
     viewer {
       project(id: $projectId) {
@@ -42,6 +43,7 @@ export default gql`
             isTextEmpty: $isTextEmpty
             isTextNotEmpty: $isTextNotEmpty
             isAddedLastSync: $isAddedLastSync
+            isConflicted: $isConflicted
             isCommentedOn: $isCommentedOn
           ) {
             meta {

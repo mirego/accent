@@ -17,12 +17,25 @@ interface PeekOptions {
   documentFormat: string;
 }
 
+interface MachineTranslationsTranslateFileOptions {
+  file: File;
+}
+
 export default class AuthenticatedRequest extends Service {
   @service('session')
   session: Session;
 
   async commit(url: string, options: CommitOptions) {
     return this.postFile(url, options);
+  }
+
+  async machineTranslationsTranslateFile(
+    url: string,
+    options: MachineTranslationsTranslateFileOptions
+  ) {
+    const response = await this.postFile(url, options);
+
+    return response.text();
   }
 
   async peek(url: string, options: PeekOptions) {
@@ -43,7 +56,13 @@ export default class AuthenticatedRequest extends Service {
     return response.text();
   }
 
-  private async postFile(url: string, options: PeekOptions | CommitOptions) {
+  private async postFile(
+    url: string,
+    options:
+      | PeekOptions
+      | CommitOptions
+      | MachineTranslationsTranslateFileOptions
+  ) {
     const fetchOptions: RequestInit = {};
 
     fetchOptions.method = 'POST';
@@ -63,19 +82,17 @@ export default class AuthenticatedRequest extends Service {
     return response;
   }
 
-  private setupFormFile({
-    file,
-    documentPath,
-    documentFormat,
-  }: {
+  private setupFormFile(options: {
     file: File;
-    documentPath: string;
-    documentFormat: string;
+    documentPath?: string;
+    documentFormat?: string;
   }) {
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('document_path', documentPath);
-    formData.append('document_format', documentFormat);
+    formData.append('file', options.file);
+    if (options.documentPath)
+      formData.append('document_path', options.documentPath);
+    if (options.documentFormat)
+      formData.append('document_format', options.documentFormat);
 
     return formData;
   }

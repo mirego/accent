@@ -100,6 +100,11 @@
   font-weight: bold;
 }
 
+.item-meta {
+  display: flex;
+  align-items: center;
+}
+
 .item-text {
   display: block;
   width: 100%;

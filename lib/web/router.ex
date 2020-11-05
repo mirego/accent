@@ -42,6 +42,7 @@ defmodule Accent.Router do
     post("/add-translations/peek", PeekController, :merge, as: :peek_add_translations)
     post("/merge", MergeController, [])
     post("/merge/peek", PeekController, :merge, as: :peek_merge)
+    post("/machine-translations/translate-file", MachineTranslationsController, :translate_file, as: :translate_file)
 
     # File export
     get("/export", ExportController, [])

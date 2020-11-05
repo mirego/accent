@@ -42,6 +42,21 @@ end
 
 config :accent, Accent.Repo, url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 
+google_translate_provider = {Accent.MachineTranslations.Adapter.GoogleTranslations, [key: System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")]}
+
+translate_list_provider = if System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY"), do: google_translate_provider, else: nil
+
+translate_text_providers = []
+
+translate_text_providers =
+  if System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY"),
+    do: [google_translate_provider | translate_text_providers],
+    else: translate_text_providers
+
+config :accent, Accent.MachineTranslations,
+  translate_list: translate_list_provider,
+  translate_text: translate_text_providers
+
 providers = []
 providers = if System.get_env("GOOGLE_API_CLIENT_ID"), do: [{:google, {Ueberauth.Strategy.Google, [scope: "email openid"]}} | providers], else: providers
 providers = if System.get_env("SLACK_CLIENT_ID"), do: [{:slack, {Ueberauth.Strategy.Slack, [team: System.get_env("SLACK_TEAM_ID")]}} | providers], else: providers
@@ -72,6 +87,14 @@ config :accent, Accent.WebappView, sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
   environment_name: System.get_env("SENTRY_ENVIRONMENT_NAME")
+
+if System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY") do
+  config :goth, json: System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")
+else
+  config :goth, disabled: true
+end
+
+config :tesla, logger_enabled: true
 
 if !System.get_env("SENTRY_DSN") do
   config :sentry, included_environments: []

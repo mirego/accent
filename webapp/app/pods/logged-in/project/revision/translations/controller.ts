@@ -32,6 +32,7 @@ export default class TranslationsController extends Controller {
     'isTextNotEmpty',
     'isAddedLastSync',
     'isCommentedOn',
+    'isConflictedFilter',
   ];
 
   @tracked
@@ -56,6 +57,9 @@ export default class TranslationsController extends Controller {
   isAddedLastSync: 'true' | null = null;
 
   @tracked
+  isConflicted: 'true' | null = null;
+
+  @tracked
   isCommentedOn: 'true' | null = null;
 
   @equal('model.translations.entries', undefined)
@@ -76,6 +80,7 @@ export default class TranslationsController extends Controller {
       this.isTextNotEmpty,
       this.isAddedLastSync,
       this.isCommentedOn,
+      this.isConflicted,
     ].filter((filter) => filter === 'true').length;
   }
 
@@ -87,7 +92,12 @@ export default class TranslationsController extends Controller {
 
   @action
   changeAdvancedFilterBoolean(
-    key: 'isTextEmpty' | 'isTextNotEmpty' | 'isAddedLastSync' | 'isCommentedOn',
+    key:
+      | 'isTextEmpty'
+      | 'isTextNotEmpty'
+      | 'isAddedLastSync'
+      | 'isCommentedOn'
+      | 'isConflicted',
     event: InputEvent
   ) {
     this[key] = (event.target as HTMLInputElement).checked ? 'true' : null;

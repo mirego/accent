@@ -95,11 +95,13 @@ export default class TranslationEditForm extends Component<Args> {
 
   @action
   async changeHTML(value: string) {
-    const previousText = this.args.value;
     this.args.onKeyUp?.(value);
+  }
 
-    if (previousText !== value)
-      await (this.fetchLintMessagesTask as Task).perform(value);
+  @action
+  async changeText(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.args.onKeyUp?.(target.value);
   }
 
   @action
@@ -107,14 +109,9 @@ export default class TranslationEditForm extends Component<Args> {
     this.args.onEscape?.();
   }
 
-  @action
-  async changeText(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const previousText = this.args.value;
-    this.args.onKeyUp?.(target.value);
-
-    if (previousText !== target.value)
-      await (this.fetchLintMessagesTask as Task).perform(target.value);
+  @restartableTask
+  *onUpdateValue(_element: HTMLElement, [value]: string[]) {
+    yield (this.fetchLintMessagesTask as Task).perform(value);
   }
 
   @restartableTask
@@ -137,6 +134,5 @@ export default class TranslationEditForm extends Component<Args> {
   @action
   async replaceText(value: string) {
     this.args.onKeyUp?.(value);
-    await (this.fetchLintMessagesTask as Task).perform(value);
   }
 }

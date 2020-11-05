@@ -15,6 +15,7 @@
               "components.translations_filter.input_placeholder_text"
             }}
             value={{this.debouncedQuery}}
+            {{on-key "Enter" (fn this.submitForm)}}
             {{on "keyup" (fn this.setDebouncedQuery)}}
           >
         </div>
@@ -72,6 +73,7 @@
             @isTextNotEmptyFilter={{@isTextNotEmptyFilter}}
             @isAddedLastSyncFilter={{@isAddedLastSyncFilter}}
             @isCommentedOnFilter={{@isCommentedOnFilter}}
+            @isConflictedFilter={{@isConflictedFilter}}
             @onChangeAdvancedFilterBoolean={{@onChangeAdvancedFilterBoolean}}
           />
         {{/if}}

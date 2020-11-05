@@ -56,10 +56,12 @@ export default gql`
               revision {
                 id
                 isMaster
+                slug
                 name
 
                 language {
                   id
+                  slug
                   name
                 }
               }
@@ -72,10 +74,12 @@ export default gql`
                   id
                   isMaster
                   name
+                  slug
 
                   language {
                     id
                     name
+                    slug
                   }
                 }
               }

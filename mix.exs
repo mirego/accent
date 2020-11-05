@@ -106,6 +106,12 @@ defmodule Accent.Mixfile do
       {:mix_gleam, "~> 0.1", only: [:dev, :test]},
       {:gleam_stdlib, "~> 0.11", only: [:dev, :test]},
 
+      # Google API authentication
+      {:goth, "~> 1.1"},
+
+      # Network request
+      {:tesla, "~> 1.3"},
+
       # Dev
       {:dialyxir, "~> 1.0", only: ~w(dev test)a, runtime: false},
       {:credo, ">= 0.0.0", only: ~w(dev test)a},

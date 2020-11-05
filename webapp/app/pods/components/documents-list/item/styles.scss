@@ -1,12 +1,16 @@
 .documents-list-item {
   position: relative;
   display: flex;
-  margin-bottom: 30px;
+  padding-bottom: 30px;
   width: 100%;
 
   &:hover {
     .deleteDocumentButton {
       opacity: 1;
+    }
+
+    .links {
+      transform: translate3d(0, 0, 0);
     }
   }
 }
@@ -115,12 +119,22 @@
 }
 
 .item-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   width: 100%;
 
   &.item-form--editing {
     padding: 15px;
     box-shadow: 0 1px 5px var(--shadow-color);
   }
+}
+
+.item-form-content {
+  flex-grow: 1;
+  min-width: 300px;
+  margin-right: 30px;
 }
 
 .item-form-label {
@@ -199,6 +213,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  transform: translate3d(30px, 0, 0);
+  transition: 0.2s ease-in-out;
+  transition-property: transform;
 
   :global(.button) {
     margin-right: 6px;
@@ -209,9 +226,19 @@
   }
 }
 
+.links--editing {
+  width: 100%;
+  justify-content: flex-start;
+  transform: translate3d(0, 0, 0);
+}
+
 .deleteDocumentButton {
   opacity: 0;
   padding: 2px 6px !important;
+}
+
+:global(.button).button-sync {
+  color: var(--color-primary);
 }
 
 @media (max-width: (800px)) {

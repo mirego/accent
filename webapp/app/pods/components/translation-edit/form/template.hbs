@@ -1,4 +1,4 @@
-<div local-class="translation-edit-form">
+<div local-class="translation-edit-form" {{did-update (perform this.onUpdateValue) @value}}>
   {{#if @placeholders}}
     <div local-class="placeholders">
       <span local-class="placeholders-title">
@@ -84,21 +84,28 @@
   {{/if}}
 
   {{#if this.isHTMLType}}
-    <HtmlTextarea
-      @value={{@text}}
-      @onChange={{fn this.changeHTML}}
-      @wysiwygOptions={{this.wysiwygOptions}}
-    />
+    <div local-class="input-wrapper">
+      <HtmlTextarea
+        @value={{@text}}
+        @onChange={{fn this.changeHTML}}
+        @wysiwygOptions={{this.wysiwygOptions}}
+      />
+
+      {{yield (hash submit=(component "translation-edit/form/submit"))}}
+    </div>
   {{else}}
-    <textarea
-      {{autoresize @value}}
-      {{on-key "Escape" (fn this.cancel)}}
-      {{on-key "cmd+Enter" @onSubmit}}
-      {{on "input" (fn this.changeText)}}
-      local-class="inputText"
-      value={{@value}}
-      ...attributes
-    />
+    <div local-class="input-wrapper">
+      <textarea
+        {{autoresize @value}}
+        {{on-key "Escape" (fn this.cancel)}}
+        {{on-key "cmd+Enter" @onSubmit}}
+        {{on "input" (fn this.changeText)}}
+        local-class="inputText"
+        value={{@value}}
+        ...attributes
+      />
+      {{yield (hash submit=(component "translation-edit/form/submit"))}}
+    </div>
   {{/if}}
 
   {{#each this.lintMessages as |message|}}

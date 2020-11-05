@@ -37,6 +37,7 @@ declare const config: {
     MERGE_REVISION_PATH: string;
     EXPORT_DOCUMENT: string;
     JIPT_EXPORT_DOCUMENT: string;
+    MACHINE_TRANSLATIONS_TRANSLATE_FILE_PROJECT_PATH: string;
     PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH: string;
     JIPT_SCRIPT_PATH: string;
   };

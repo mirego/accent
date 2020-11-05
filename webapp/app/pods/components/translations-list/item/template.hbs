@@ -28,7 +28,7 @@
       </LinkTo>
     </span>
 
-    <span>
+    <span local-class="item-meta">
       {{#if @translation.isConflicted}}
         <AccBadge @link={{true}} @primary={{true}}>
           <LinkTo
@@ -38,6 +38,18 @@
           >
             {{t "components.translations_list.in_review_label"}}
           </LinkTo>
+        </AccBadge>
+      {{/if}}
+
+      {{#if @translation.lintMessages}}
+        <AccBadge
+          {{on "click" (fn this.toggleEdit)}}
+          @warning={{true}}
+          @icon={{true}}
+          class="tooltip"
+          title={{t "components.translations_list.lint_messages_label" count=@translation.lintMessages.length}}
+        >
+          {{inline-svg "/assets/warning.svg"}}
         </AccBadge>
       {{/if}}
 

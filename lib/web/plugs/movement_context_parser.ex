@@ -7,9 +7,9 @@ defmodule Accent.Plugs.MovementContextParser do
   alias Movement.Context
 
   plug(:validate_params)
+  plug(:assign_document_format)
   plug(:assign_document_parser)
   plug(:assign_document_path)
-  plug(:assign_document_format)
   plug(:assign_version)
   plug(:assign_movement_context)
   plug(:assign_movement_document)
@@ -19,7 +19,7 @@ defmodule Accent.Plugs.MovementContextParser do
   def validate_params(conn = %{params: %{"document_format" => _format, "file" => _file, "language" => _language}}, _), do: conn
   def validate_params(conn, _), do: conn |> send_resp(:unprocessable_entity, "file, language and document_format are required") |> halt
 
-  def assign_document_parser(conn = %{params: %{"document_format" => document_format}}, _) do
+  def assign_document_parser(conn = %{assigns: %{document_format: document_format}}, _) do
     case Langue.parser_from_format(document_format) do
       {:ok, parser} -> assign(conn, :document_parser, parser)
       {:error, _reason} -> conn |> send_resp(:unprocessable_entity, "document_format is invalid") |> halt
@@ -27,7 +27,7 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   def assign_document_format(conn = %{params: %{"document_format" => format}}, _) do
-    assign(conn, :document_format, format)
+    assign(conn, :document_format, String.downcase(format))
   end
 
   def assign_document_path(conn = %{params: %{"document_path" => path}}, _) when path !== "" and not is_nil(path) do

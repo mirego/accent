@@ -17,6 +17,10 @@
     <DocumentsAddButton @project={{this.model.project}} />
   {{/if}}
 
+  {{#if (get this.permissions "machine_translations_translate_file")}}
+    <DocumentsMachineTranslationsButton @project={{this.model.project}} />
+  {{/if}}
+
   <ResourcePagination
     @meta={{this.model.documents.meta}}
     @onSelectPage={{fn this.selectPage}}

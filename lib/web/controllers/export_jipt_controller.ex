@@ -123,11 +123,10 @@ defmodule Accent.ExportJIPTController do
     revision = Enum.at(project.revisions, 0)
 
     %{render: render} =
-      Accent.TranslationsRenderer.render(%{
-        master_translations: [],
+      Accent.TranslationsRenderer.render_translations(%{
         translations: translations,
-        master_revision: revision,
         document: document,
+        master_language: Accent.Revision.language(revision),
         language: Accent.Revision.language(revision),
         value_map: &"{^#{&1.key}@#{document.path}}"
       })

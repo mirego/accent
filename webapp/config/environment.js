@@ -38,6 +38,8 @@ module.exports = function (environment) {
     AUTHENTICATION_PATH: '/auth',
     HOOKS_PATH: '/hooks/{0}?project_id={1}&authorization={2}',
     PROJECT_PATH: '/projects/{0}',
+    MACHINE_TRANSLATIONS_TRANSLATE_FILE_PROJECT_PATH:
+      '/machine-translations/translate-file?project_id={0}&language={1}&to_language_id={2}&document_format={3}',
     SYNC_PEEK_PROJECT_PATH:
       '/sync/peek?project_id={0}&language={1}&sync_type={2}',
     SYNC_PROJECT_PATH: '/sync?project_id={0}&language={1}&sync_type={2}',

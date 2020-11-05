@@ -95,7 +95,8 @@ export default class ProjectActivity extends Component<Args> {
     if (!this.args.activity.action) return;
 
     return this.intl.t(
-      `components.project_activity.action_text.${this.args.activity.action}`
+      `components.project_activity.action_text.${this.args.activity.action}`,
+      {document: this.args.activity.document?.path}
     );
   }
 

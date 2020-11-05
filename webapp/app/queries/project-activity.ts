@@ -90,6 +90,15 @@ export default gql`
       path
     }
 
+    revision {
+      id
+      name
+      language {
+        id
+        name
+      }
+    }
+
     version {
       id
       tag

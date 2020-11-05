@@ -16,4 +16,7 @@ config :accent, Accent.Hook,
   outbounds: [{Accent.Hook.Outbounds.Mock, events: events}],
   inbounds: [{Accent.Hook.Inbounds.Mock, events: events}]
 
+config :goth, disabled: true
+config :tesla, logger_enabled: false, adapter: Tesla.Mock
+
 config :logger, level: :warn

@@ -57,5 +57,18 @@
         }}
       </span>
     </label>
+
+    <label local-class="label">
+      <input
+        type="checkbox"
+        checked={{@isConflictedFilter}}
+        {{on "change" (fn @onChangeAdvancedFilterBoolean "isConflicted")}}
+      >
+      <span>
+        {{t
+          "components.translations_filter.advanced_filters.conflicted"
+        }}
+      </span>
+    </label>
   </div>
 </div>

@@ -42,9 +42,9 @@ defmodule AccentTest.TranslationsRenderer do
       |> Repo.insert!()
 
     %{render: render} =
-      TranslationsRenderer.render(%{
+      TranslationsRenderer.render_translations(%{
         master_translations: [],
-        master_revision: revision,
+        master_language: revision.language,
         translations: [translation],
         document: document,
         language: revision.language
@@ -82,9 +82,9 @@ defmodule AccentTest.TranslationsRenderer do
       |> Enum.map(&Repo.insert!/1)
 
     %{render: render} =
-      TranslationsRenderer.render(%{
+      TranslationsRenderer.render_translations(%{
         master_translations: [],
-        master_revision: revision,
+        master_language: revision.language,
         translations: translations,
         document: document,
         language: revision.language
@@ -107,9 +107,9 @@ defmodule AccentTest.TranslationsRenderer do
       |> Repo.insert!()
 
     %{render: render} =
-      TranslationsRenderer.render(%{
+      TranslationsRenderer.render_translations(%{
         master_translations: [],
-        master_revision: revision,
+        master_language: revision.language,
         translations: [translation],
         document: document,
         language: %Language{slug: "fr"}
@@ -138,14 +138,14 @@ defmodule AccentTest.TranslationsRenderer do
       |> Repo.insert!()
 
     %{render: render} =
-      TranslationsRenderer.render(%{
+      TranslationsRenderer.render_translations(%{
         master_translations: [
           %Translation{
             key: "a",
             corrected_text: "master A"
           }
         ],
-        master_revision: revision,
+        master_language: Accent.Revision.language(revision),
         translations: [translation],
         document: document,
         language: %Language{slug: "fr"}

@@ -19,6 +19,21 @@ defmodule Accent.Scopes.Operation do
   @doc """
   ## Examples
 
+    iex> Accent.Scopes.Operation.filter_from_project(Accent.Operation, nil)
+    Accent.Operation
+    iex> Accent.Scopes.Operation.filter_from_project(Accent.Operation, "test")
+    #Ecto.Query<from o0 in Accent.Operation, left_join: r1 in assoc(o0, :revision), where: r1.project_id == ^"test" or o0.project_id == ^"test">
+  """
+  @spec filter_from_project(Ecto.Queryable.t(), String.t() | nil) :: Ecto.Queryable.t()
+  def filter_from_project(query, nil), do: query
+
+  def filter_from_project(query, project_id) do
+    from(o in query, left_join: r in assoc(o, :revision), where: r.project_id == ^project_id or o.project_id == ^project_id)
+  end
+
+  @doc """
+  ## Examples
+
     iex> Accent.Scopes.Operation.filter_from_action(Accent.Operation, nil)
     Accent.Operation
     iex> Accent.Scopes.Operation.filter_from_action(Accent.Operation, "test")

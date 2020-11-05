@@ -46,6 +46,9 @@ export default class TranslationsRoute extends Route {
     isCommentedOn: {
       refreshModel: true,
     },
+    isConflicted: {
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -55,6 +58,7 @@ export default class TranslationsRoute extends Route {
     params.isTextNotEmpty = params.isTextNotEmpty === 'true' ? true : null;
     params.isAddedLastSync = params.isAddedLastSync === 'true' ? true : null;
     params.isCommentedOn = params.isCommentedOn === 'true' ? true : null;
+    params.isConflicted = params.isConflicted === 'true' ? true : null;
 
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),

@@ -31,14 +31,14 @@
 .projects-list-item {
   padding: 12px 15px;
   transition: 0.2s ease-in-out;
-  transition-property: background;
+  transition-property: box-shadow;
   border-radius: 3px;
   box-shadow: 0 2px 4px var(--shadow-color);
   color: var(--color-black);
 
   &:focus,
   &:hover {
-    background: var(--background-light);
+    box-shadow: 0 9px 19px var(--shadow-color);
 
     .projectName {
       color: var(--color-primary);

@@ -95,15 +95,6 @@
   }
 }
 
-.item-actions-flag--link {
-  &:focus,
-  &:hover {
-    color: var(--body-background);
-    border-color: var(--color-primary);
-    background: var(--color-primary);
-  }
-}
-
 .item-actions-icon {
   width: 12px;
   height: 12px;

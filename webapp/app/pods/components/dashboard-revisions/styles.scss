@@ -169,9 +169,15 @@
 .activities-title {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: 300;
+}
+
+.activities-title-text {
+  display: flex;
+  align-items: center;
 }
 
 .activities-title-icon {
@@ -185,6 +191,12 @@
   display: block !important;
   margin-top: 15px !important;
   text-align: center !important;
+}
+
+.activities-last-sync {
+  font-size: 11px;
+  text-decoration: none;
+  opacity: 0.8;
 }
 
 @media (max-width: var(--screen-md)) {

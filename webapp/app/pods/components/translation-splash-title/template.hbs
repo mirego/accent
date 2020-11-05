@@ -68,4 +68,20 @@
       {{t "components.translation_splash_title.master_label"}}
     </AccBadge>
   {{/if}}
+
+  {{#if @translation.lintMessages}}
+    <AccBadge
+      @warning={{true}}
+      @icon={{true}}
+      class="tooltip"
+      title={{t "components.translations_list.lint_messages_label" count=@translation.lintMessages.length}}
+    >
+      {{inline-svg "/assets/warning.svg"}}
+    </AccBadge>
+  {{/if}}
+
+  <span local-class="updatedAt">
+    {{t "components.translation_splash_title.last_updated_label"}}
+    <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
+  </span>
 </div>

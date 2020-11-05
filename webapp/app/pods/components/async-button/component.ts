@@ -13,7 +13,8 @@ export default class AsyncButton extends Component<Args> {
   }
 
   @action
-  onClick() {
+  onClick(event: Event) {
+    event.preventDefault();
     if (this.args.disabled) return;
 
     if (typeof this.args.onClick === 'function') this.args.onClick();

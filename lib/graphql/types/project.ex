@@ -11,6 +11,11 @@ defmodule Accent.GraphQL.Types.Project do
     field(:nodes, list_of(:project))
   end
 
+  object :project_translated_text do
+    field(:id, non_null(:id))
+    field(:text, :string)
+  end
+
   object :project do
     field(:id, :id)
     field(:name, :string)
@@ -22,8 +27,19 @@ defmodule Accent.GraphQL.Types.Project do
     field(:conflicts_count, non_null(:integer))
     field(:reviewed_count, non_null(:integer))
 
-    field(:last_activity, :activity, resolve: &Accent.GraphQL.Resolvers.Project.last_activity/3)
+    field :last_activity, :activity do
+      arg(:action, :string)
+      resolve(&Accent.GraphQL.Resolvers.Project.last_activity/3)
+    end
+
     field(:is_file_operations_locked, non_null(:boolean), resolve: field_alias(:locked_file_operations))
+
+    field :translated_text, list_of(non_null(:project_translated_text)) do
+      arg(:text, non_null(:string))
+      arg(:source_language_slug, non_null(:string))
+      arg(:target_language_slug, non_null(:string))
+      resolve(project_authorize(:machine_translations_translate_text, &Accent.GraphQL.Resolvers.MachineTranslation.translate_text/3))
+    end
 
     field :access_token, :string do
       resolve(project_authorize(:show_project_access_token, &Accent.GraphQL.Resolvers.AccessToken.show_project/3))

@@ -5,17 +5,24 @@
       @project={{@project}}
       @conflict={{conflict}}
       @onCorrect={{@onCorrect}}
+      @onCopyTranslation={{@onCopyTranslation}}
     />
-  {{else if query}}
+  {{else if @query}}
     <EmptyContent
       @iconPath="assets/empty.svg"
       @text={{t "components.conflicts_items.no_translations" query=@query}}
     />
   {{else}}
-    <EmptyContent
-      @success={{true}}
-      @iconPath="assets/thumbs-up.svg"
-      @text={{t "components.conflicts_items.review_completed"}}
-    />
+    <div local-class="all-reviewed">
+      <img local-class="all-reviewed-image" src="/assets/all-reviewed-splash.svg" />
+
+      <div local-class="all-reviewed-title">
+        All reviewed
+      </div>
+
+      <div local-class="all-reviewed-subtitle">
+        Every strings have been marked as reviewed
+      </div>
+    </div>
   {{/each}}
 </ul>

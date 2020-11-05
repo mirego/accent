@@ -12,6 +12,7 @@ const ACTIONS_ICON_PATHS = {
   add_to_version: 'assets/tag.svg',
   create_version: 'assets/tag.svg',
   batch_sync: 'assets/sync.svg',
+  batch_update: 'assets/pencil.svg',
   sync: 'assets/sync.svg',
   merge: 'assets/merge.svg',
   batch_merge: 'assets/merge.svg',

@@ -18,6 +18,12 @@
   flex-direction: column;
   text-decoration: none;
   margin: 0 10px 30px;
+  transition: 0.2s ease-in-out;
+  transition-property: background;
+
+  &:focus {
+    background: var(--background-light);
+  }
 }
 
 @media (max-width: var(--screen-md)) {

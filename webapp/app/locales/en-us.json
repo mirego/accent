@@ -17,8 +17,17 @@
         "title_count": "{count, plural, =1 {This element contains 1 string} other {This element contains # strings}}"
       }
     },
+    "machine_translations_translate_upload_form": {
+      "translate": "Translate",
+      "reset": "Reset",
+      "step_1": "Select or drop a file here to translate it.",
+      "step_2": "Choose the correct format and submit to translate <code>{name}</code> in the chosen target language"
+    },
     "documents_add_button": {
       "link": "Synchronize a new file"
+    },
+    "documents_machine_translations_button": {
+      "link": "Translate with machine translations"
     },
     "versions_add_button": {
       "link": "Create new version"
@@ -155,6 +164,7 @@
       "overview_link_title": "Overview"
     },
     "dashboard_revisions": {
+      "last_synced_at_label": "Last sync:",
       "manage_languages_link_title": "Manage languages",
       "new_language_link_title": "New language",
       "new_language_link_text": "With another language, you can keep track of translation based on the master language.",
@@ -309,7 +319,7 @@
         "update": "updated a string",
         "batch_update": "updated multiple strings",
         "update_proposed": "updated an uploaded text reference",
-        "sync": "synced a file",
+        "sync": "synced a file: {document}",
         "batch_sync": "synced files",
         "new_slave": "added a new language",
         "uncorrect_all": "put all strings back to review",
@@ -680,7 +690,6 @@
       "uncorrect_button": "Put back to review",
       "uneditable": "The text is not editable because it has been marked as reviewed",
       "update_text": "Update text",
-      "last_updated_label": "Last updated:",
       "form": {
         "true_option": "true",
         "false_option": "false",
@@ -724,6 +733,7 @@
       "plural_label": "plural",
       "conflicted_label": "in review",
       "master_label": "master",
+      "last_updated_label": "Last updated:",
       "removed_label": "This string was removed {removedAt}"
     },
     "translations_filter": {
@@ -738,7 +748,8 @@
         "empty": "Text is empty (\"\" or null value)",
         "not_empty": "Text is not empty",
         "added_last_sync": "Strings added last sync",
-        "commented_on": "Strings with comments"
+        "commented_on": "Strings with comments",
+        "conflicted": "In review"
       }
     },
     "translations_list": {
@@ -746,6 +757,7 @@
       "save": "Save",
       "empty_text": "Empty text",
       "in_review_label": "in review",
+      "lint_messages_label": "{count, plural, =0 {No linting warnings} =1 {1 linting warning} other {# linting warnings}}",
       "last_updated_label": "Last updated: ",
       "maybe_sync_before": "Maybe try to",
       "maybe_sync_link": "sync some files →",

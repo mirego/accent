@@ -4,9 +4,15 @@ interface Args {
   isTextEmptyFilter: boolean;
   isTextNotEmptyFilter: boolean;
   isAddedLastSyncFilter: boolean;
+  isConflictedFilter: boolean;
   isCommentedOnFilter: boolean;
   onChangeAdvancedFilterBoolean: (
-    key: 'isTextEmpty' | 'isTextNotEmpty' | 'isAddedLastSync' | 'isCommentedOn',
+    key:
+      | 'isTextEmpty'
+      | 'isTextNotEmpty'
+      | 'isAddedLastSync'
+      | 'isCommentedOn'
+      | 'isConflicted',
     event: InputEvent
   ) => void;
 }

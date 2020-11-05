@@ -15,6 +15,7 @@ interface Args {
   referenceRevision: any;
   referenceRevisions: any;
   onCorrect: () => void;
+  onCopyTranslation: () => void;
   onCorrectAll: () => void;
   onSelectPage: () => void;
   onChangeDocument: () => void;

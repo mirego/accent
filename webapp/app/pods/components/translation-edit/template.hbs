@@ -33,10 +33,16 @@
             {{/if}}
           </div>
           <div local-class="actions-buttons">
-            <div local-class="actions-updatedAt">
-              {{t "components.translation_edit.last_updated_label"}}
-              <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
-            </div>
+            {{#unless this.hasTextNotChanged}}
+              <AsyncButton
+                @onClick={{fn this.setOriginalText}}
+                local-class="actions-button-revert"
+                class="button button--iconOnly button--white"
+              >
+                {{inline-svg "/assets/revert.svg" class="button-icon"}}
+              </AsyncButton>
+            {{/unless}}
+
             {{#if (get @permissions "update_translation")}}
               <AsyncButton
                 @loading={{this.isUpdatingText}}
@@ -75,10 +81,16 @@
             {{/if}}
           </div>
           <div local-class="actions-buttons">
-            <div local-class="actions-updatedAt">
-              {{t "components.translation_edit.last_updated_label"}}
-              <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
-            </div>
+            {{#unless this.hasTextNotChanged}}
+              <AsyncButton
+                @onClick={{fn this.setOriginalText}}
+                local-class="actions-button-revert"
+                class="button button--iconOnly button--white"
+              >
+                {{inline-svg "/assets/revert.svg" class="button-icon"}}
+              </AsyncButton>
+            {{/unless}}
+
             {{#if (get @permissions "update_translation")}}
               <AsyncButton
                 @loading={{this.isUpdatingText}}
@@ -89,6 +101,7 @@
                 {{t "components.translation_edit.update_text"}}
               </AsyncButton>
             {{/if}}
+
             {{#unless @translation.version}}
               {{#if (get @permissions "uncorrect_translation")}}
                 <AsyncButton

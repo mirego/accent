@@ -186,12 +186,12 @@
   font-size: 12px;
 }
 
-.itemInput-actions {
+.button-submit {
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 7px;
+  right: 7px;
   z-index: 3;
 }
 
@@ -246,4 +246,28 @@
 
 .conflictedText-references {
   width: 100%;
+}
+
+.conflictedText-references-conflicted {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: var(--color-black);
+}
+
+.conflictedText-references-conflicted-label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  width: 90px;
+  margin-right: 10px;
+  font-weight: 500;
+  font-size: 11px;
+  text-align: right;
+}
+
+.conflictedText-references-conflicted-icon {
+  width: 12px;
+  height: 12px;
 }

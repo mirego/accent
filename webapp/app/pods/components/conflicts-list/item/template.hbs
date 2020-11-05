@@ -65,31 +65,54 @@
               @showTypeHints={{false}}
               @onKeyUp={{fn this.changeTranslationText}}
               @onSubmit={{fn this.correct}}
-            />
+              as |form|
+            >
+              {{#component form.submit}}
+                <div local-class="button-submit">
+                  {{#if this.showOriginalButton}}
+                    <AsyncButton
+                      @onClick={{fn this.setOriginalText}}
+                      class="button button--iconOnly button--white"
+                    >
+                      {{inline-svg "/assets/revert.svg" class="button-icon"}}
+                    </AsyncButton>
+                  {{/if}}
+                  {{#if (get @permissions "correct_translation")}}
+                    <AsyncButton
+                      @onClick={{fn this.correct}}
+                      @loading={{this.loading}}
+                      class="button button--iconOnly button--filled button--green"
+                    >
+                      {{inline-svg "/assets/check.svg" class="button-icon"}}
+                    </AsyncButton>
+                  {{/if}}
+                </div>
+              {{/component}}
+            </TranslationEdit::Form>
           </div>
 
-          <div local-class="itemInput-actions">
-            {{#if (get @permissions "correct_translation")}}
-              <AsyncButton
-                @onClick={{fn this.correct}}
-                @loading={{this.loading}}
-                class="button button--iconOnly button--filled button--green"
-              >
-                {{inline-svg "/assets/check.svg" class="button-icon"}}
-              </AsyncButton>
+          <div local-class="conflictedText-references">
+            {{#if this.showTextDiff}}
+              <div local-class="conflictedText-references-conflicted">
+                <span local-class="conflictedText-references-conflicted-label">
+                  {{inline-svg "/assets/diff.svg" local-class="conflictedText-references-conflicted-icon"}}
+                </span>
+
+                {{string-diff this.textInput @conflict.conflictedText}}
+              </div>
             {{/if}}
-          </div>
 
-          {{#if @conflict.relatedTranslations}}
-            <div local-class="conflictedText-references">
+            {{#if @conflict.relatedTranslations}}
               {{#each @conflict.relatedTranslations key="id" as |relatedTranslation|}}
                 <ConflictsList::Item::RelatedTranslation
                   @project={{@project}}
                   @translation={{relatedTranslation}}
+                  @permissions={{@permissions}}
+                  @onCopyTranslation={{perform this.copyTranslationTask}}
                 />
               {{/each}}
-            </div>
-          {{/if}}
+            {{/if}}
+          </div>
         </div>
       </div>
     {{/if}}

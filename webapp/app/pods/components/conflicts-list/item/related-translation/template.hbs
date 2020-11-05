@@ -24,7 +24,16 @@
       {{inline-svg "assets/eye.svg" local-class="item-actions-icon"}}
     </LinkTo>
 
-    {{#if relatedTranslation.isConflicted}}
+    {{#if (get @permissions "machine_translations_translate_text")}}
+      <button
+        local-class="item-actions-link"
+        {{on "click" this.translate}}
+      >
+        {{inline-svg "assets/language.svg" local-class="item-actions-icon"}}
+      </button>
+    {{/if}}
+
+    {{#if @translation.isConflicted}}
       <LinkTo
         @route="logged-in.project.revision.conflicts"
         @models={{array @project.id @translation.revision.id}}

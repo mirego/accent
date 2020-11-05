@@ -2,17 +2,13 @@
   padding: 15px;
   border-radius: 0 0 3px 3px;
   background: var(--background-light);
-  border: 1px solid var(--background-light-highlight);
+  box-shadow: 0 9px 19px var(--shadow-color);
   margin-top: -2px;
 
   &.filters--transparent {
     background: none;
     border-color: transparent;
-  }
-
-  &.filters--white {
-    border-left: 0;
-    border-right: 0;
+    box-shadow: none;
   }
 
   .ember-power-select-trigger {

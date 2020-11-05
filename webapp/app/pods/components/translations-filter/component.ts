@@ -21,6 +21,7 @@ interface Args {
   isTextNotEmptyFilter: boolean;
   isAddedLastSyncFilter: boolean;
   isCommentedOnFilter: boolean;
+  isConflictedFilter: boolean;
   onChangeQuery: (query: string) => void;
   onChangeDocument: () => void;
   onChangeVersion: () => void;

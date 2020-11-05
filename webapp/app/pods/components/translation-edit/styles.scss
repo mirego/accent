@@ -69,9 +69,10 @@
   }
 }
 
-.actions-updatedAt {
-  margin-right: 10px;
-  color: var(--color-grey);
-  font-size: 11px;
-  font-style: italic;
+.actions-button-revert {
+  opacity: 0.6;
+
+  :global(.label) {
+    padding: 3px 2px;
+  }
 }

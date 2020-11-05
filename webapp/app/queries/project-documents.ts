@@ -8,6 +8,10 @@ export default gql`
 
         revisions {
           id
+          language {
+            id
+            name
+          }
         }
 
         documents(page: $page) {

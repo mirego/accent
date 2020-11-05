@@ -1,8 +1,8 @@
 import {action} from '@ember/object';
 import {empty} from '@ember/object/computed';
 import Component from '@glimmer/component';
-
 import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
+import {dropTask} from 'ember-concurrency-decorators';
 import {tracked} from '@glimmer/tracking';
 
 interface Args {
@@ -10,6 +10,11 @@ interface Args {
   project: any;
   conflict: any;
   onCorrect: (conflict: any, textInput: string) => Promise<void>;
+  onCopyTranslation: (
+    text: string,
+    sourceLanguageSlug: string,
+    targetLanguageSlug: string
+  ) => Promise<{text: string | null}>;
 }
 
 export default class ConflictItem extends Component<Args> {
@@ -29,6 +34,17 @@ export default class ConflictItem extends Component<Args> {
   resolved = false;
 
   conflictKey = parsedKeyProperty(this.args.conflict.key);
+  textOriginal = this.args.conflict.correctedText;
+
+  get showTextDiff() {
+    if (!this.args.conflict.conflictedText) return false;
+
+    return this.textInput !== this.args.conflict.conflictedText;
+  }
+
+  get showOriginalButton() {
+    return this.textInput !== this.textOriginal;
+  }
 
   get revisionName() {
     return (
@@ -40,6 +56,24 @@ export default class ConflictItem extends Component<Args> {
   @action
   changeTranslationText(text: string) {
     this.textInput = text;
+  }
+
+  @action
+  setOriginalText() {
+    this.textInput = this.textOriginal;
+  }
+
+  @dropTask
+  *copyTranslationTask(text: string, sourceLanguageSlug: string) {
+    const copyTranslation = yield this.args.onCopyTranslation(
+      text,
+      sourceLanguageSlug,
+      this.revisionSlug
+    );
+
+    if (copyTranslation.text) {
+      this.textInput = copyTranslation.text;
+    }
   }
 
   @action
@@ -67,5 +101,12 @@ export default class ConflictItem extends Component<Args> {
   private onCorrectSuccess() {
     this.resolved = true;
     this.loading = false;
+  }
+
+  private get revisionSlug() {
+    return (
+      this.args.conflict.revision.slug ||
+      this.args.conflict.revision.language.slug
+    );
   }
 }

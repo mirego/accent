@@ -1,7 +1,8 @@
 .badge {
   transition: 0.2s ease-in-out;
   transition-property: background;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: 1px 6px 1px 5px;
   background: var(--background-light);
   border-radius: 3px;
@@ -17,9 +18,23 @@
   color: #fff;
 }
 
+.warning {
+  color: var(--color-warning);
+}
+
 .danger {
   background: var(--color-error);
   color: #fff;
+}
+
+.icon {
+  background: transparent;
+  position: relative;
+  top: 2px;
+
+  svg {
+    height: 12px;
+  }
 }
 
 .link {

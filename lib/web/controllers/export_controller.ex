@@ -157,10 +157,10 @@ defmodule Accent.ExportController do
          _
        ) do
     %{render: render} =
-      Accent.TranslationsRenderer.render(%{
+      Accent.TranslationsRenderer.render_translations(%{
         master_translations: master_translations,
-        master_revision: master_revision,
         translations: translations,
+        master_language: Accent.Revision.language(master_revision),
         language: Accent.Revision.language(revision),
         document: document
       })

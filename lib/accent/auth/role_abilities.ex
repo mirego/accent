@@ -73,11 +73,27 @@ defmodule Accent.RoleAbilities do
     delete_project
   )a ++ @developer_actions
 
-  def actions_for(@owner_role), do: @admin_actions
-  def actions_for(@admin_role), do: @admin_actions
-  def actions_for(@bot_role), do: @bot_actions
-  def actions_for(@developer_role), do: @developer_actions
-  def actions_for(@reviewer_role), do: @any_actions
+  @configurable_actions ~w(machine_translations_translate_file machine_translations_translate_text)a
+
+  def actions_for(@owner_role), do: add_configurable_actions(@admin_actions, @owner_role)
+  def actions_for(@admin_role), do: add_configurable_actions(@admin_actions, @admin_role)
+  def actions_for(@bot_role), do: add_configurable_actions(@bot_actions, @bot_role)
+  def actions_for(@developer_role), do: add_configurable_actions(@developer_actions, @developer_role)
+  def actions_for(@reviewer_role), do: add_configurable_actions(@any_actions, @reviewer_role)
+
+  def add_configurable_actions(actions, role) do
+    Enum.reduce(@configurable_actions, actions, fn action, actions ->
+      if can?(role, action), do: [action | actions], else: actions
+    end)
+  end
+
+  def can?(role, :machine_translations_translate_file) when role in [@owner_role, @admin_role, @developer_role] do
+    Accent.MachineTranslations.translate_list_enabled?()
+  end
+
+  def can?(role, :machine_translations_translate_text) when role in [@owner_role, @admin_role, @developer_role] do
+    Accent.MachineTranslations.translate_text_enabled?()
+  end
 
   # Define abilities function at compile time to remove list lookup at runtime
   def can?(@owner_role, _action), do: true

@@ -32,6 +32,10 @@ config :sentry,
   root_source_code_path: File.cwd!(),
   release: version
 
+config :tesla,
+  auth_enabled: true,
+  adapter: Tesla.Adapter.Hackney
+
 config :ueberauth, Ueberauth, providers: []
 
 import_config "#{Mix.env()}.exs"

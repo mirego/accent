@@ -5,7 +5,12 @@ interface Args {
   project: any;
   conflicts: any;
   query: any;
-  onCorrect: () => Promise<void>;
+  onCorrect: (conflict: any, textInput: string) => Promise<void>;
+  onCopyTranslation: (
+    text: string,
+    sourceLanguageSlug: string,
+    targetLanguageSlug: string
+  ) => void;
 }
 
 export default class ConflictsItems extends Component<Args> {}

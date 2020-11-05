@@ -1,6 +1,6 @@
 <svg
-  viewBox="0 0 20 18"
   xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
   fill="none"
   stroke="currentColor"
   stroke-width="2"
@@ -8,9 +8,8 @@
   stroke-linejoin="round"
 >
   <path
-    d="M10.81 2l-1.5 2.716L2 12.17M12 2H0m16 11h-4m1.84-5.134l-3.564 8.025m4-8.025l3.565 8.025M6 0v2"
+    d="M4 17l9.21-9.244C14.405 6.306 15 5.054 15 4M1 3.5h15M8.5 1v3M6.234 9c-.877 4.463.712 6.796 4.766 7"
   />
-  <path
-    d="M8 10.229L5.576 7.773C4.894 7.21 4.47 6.78 4.3 6.483 4.13 6.185 4.03 5.69 4 5"
-  />
+  <path stroke-linejoin="round" d="M14 21.87L18.584 12 23 22" />
+  <path stroke-linejoin="bevel" d="M16 18.5h7" />
 </svg>

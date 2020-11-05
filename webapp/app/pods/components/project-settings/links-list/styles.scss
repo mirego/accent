@@ -11,30 +11,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  padding: 30px;
+  padding: 20px;
   margin: 0 30px 30px 0;
-  min-width: 225px;
+  min-width: 125px;
   text-align: center;
   background: var(--body-background);
   border-radius: 3px;
-  color: #999;
-  box-shadow: 0 1px 4px var(--shadow-color);
-  border: 1px solid transparent;
+  color: var(--color-black);
+  box-shadow: 0 9px 19px var(--shadow-color);
   text-decoration: none;
   font-weight: 600;
   font-size: 13px;
   transition: 0.2s ease-in-out;
-  transition-property: background, border-color, color;
-
-  .link-icon {
-    stroke: #999;
-  }
+  transition-property: box-shadow, color;
 
   &:focus,
   &:hover {
     color: var(--color-primary);
-    background: var(--background-light);
+    box-shadow: 0 3px 10px var(--shadow-color);
 
     .link-icon {
       stroke: var(--color-primary);
@@ -45,9 +39,11 @@
 .link-icon {
   width: 20px;
   height: 20px;
-  margin-bottom: 3px;
+  margin-right: 10px;
   transition: 0.2s ease-in-out;
   transition-property: stroke;
+  opacity: 0.3;
+  stroke: var(--color-black);
 }
 
 @media (max-width: var(--screen-md)) {

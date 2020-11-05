@@ -5,9 +5,11 @@ import Controller from '@ember/controller';
 import translationCorrectQuery from 'accent-webapp/queries/correct-translation';
 import IntlService from 'ember-intl/services/intl';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
+import Apollo from 'accent-webapp/services/apollo';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 import GlobalState from 'accent-webapp/services/global-state';
 import {tracked} from '@glimmer/tracking';
+import projectTranslateTextQuery from 'accent-webapp/queries/translate-text-project';
 
 const FLASH_MESSAGE_CORRECT_SUCCESS =
   'pods.project.conflicts.flash_messages.correct_success';
@@ -20,6 +22,9 @@ export default class ConflictsController extends Controller {
 
   @service('flash-messages')
   flashMessages: FlashMessages;
+
+  @service('apollo')
+  apollo: Apollo;
 
   @service('apollo-mutate')
   apolloMutate: ApolloMutate;
@@ -55,6 +60,34 @@ export default class ConflictsController extends Controller {
 
   @and('emptyEntries', 'model.loading', 'emptyQuery', 'emptyDocument')
   showSkeleton: boolean;
+
+  @action
+  async copyTranslation(
+    text: string,
+    sourceLanguageSlug: string,
+    targetLanguageSlug: string
+  ) {
+    try {
+      const {data} = await this.apollo.client.query({
+        fetchPolicy: 'network-only',
+        query: projectTranslateTextQuery,
+        variables: {
+          text,
+          sourceLanguageSlug,
+          targetLanguageSlug,
+          projectId: this.model.project.id,
+        },
+      });
+
+      if (data.viewer?.project?.translatedText?.[0]) {
+        return data.viewer.project.translatedText[0];
+      } else {
+        return {text: null};
+      }
+    } catch (error) {
+      return {text: null};
+    }
+  }
 
   @action
   async correctConflict(conflict: any, text: string) {

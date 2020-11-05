@@ -24,10 +24,19 @@
   background: var(--button-background-color);
   border: 1px solid var(--button-border-color);
   color: var(--button-text-color);
+  transform: translate3d(0, 0, 0);
 
   &[disabled] {
     opacity: 0.5;
     cursor: default;
+
+    &:focus,
+    &:hover {
+      background: var(--button-background-color);
+      border: 1px solid var(--button-border-color);
+      color: var(--button-text-color);
+      transform: none;
+    }
   }
 
   &.button--loading svg.loading {
@@ -40,6 +49,7 @@
 
   &:focus,
   &:hover {
+    transform: translate3d(0, -2px, 0);
     background: var(--button-background-hover-color);
     color: var(--button-text-hover-color);
   }

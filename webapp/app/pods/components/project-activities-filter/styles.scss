@@ -1,3 +1,9 @@
+:global(.filters).filters {
+  border: 1px solid #eee;
+  border-radius: 3px;
+  box-shadow: none;
+}
+
 .filterList {
   display: flex;
   align-items: center;

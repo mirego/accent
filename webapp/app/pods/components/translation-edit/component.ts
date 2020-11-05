@@ -5,6 +5,7 @@ import {tracked} from '@glimmer/tracking';
 
 interface Args {
   translation: any;
+  text: string | null;
   project: any;
   permissions: Record<string, true>;
   onChangeText?: (text: string) => void;
@@ -43,6 +44,12 @@ export default class TranslationEdit extends Component<Args> {
     if (!this.args.translation) return false;
 
     return this.text === this.args.translation.correctedText;
+  }
+
+  @action
+  setOriginalText() {
+    this.text = this.args.translation.correctedText;
+    this.args.onChangeText?.(this.text);
   }
 
   @action
@@ -88,6 +95,7 @@ export default class TranslationEdit extends Component<Args> {
 
   @action
   focusTextarea(element: HTMLElement) {
+    if (!this.text) return;
     const focusable = element.querySelector('textarea');
     focusable?.focus();
     focusable?.setSelectionRange(this.text.length, this.text.length);

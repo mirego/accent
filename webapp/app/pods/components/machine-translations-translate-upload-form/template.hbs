@@ -1,0 +1,104 @@
+<div local-class="content"
+  {{did-insert (fn this.deactivateDocumentDrop)}}
+  {{will-destroy (fn this.activateDocumentDrop)}}
+  {{on "drop" (fn this.dropFile)}}
+>
+  <div local-class="filters">
+    <div local-class="filters-languages">
+      <AccSelect
+        @searchEnabled={{true}}
+        @search={{fn this.searchLanguages}}
+        @selected={{this.fromLanguage}}
+        @options={{this.mappedLanguages}}
+        @onchange={{fn this.onSelectFromLanguage}}
+      />
+
+      <button
+        {{on "click" (fn this.switchLanguages)}}
+        local-class="button-switch"
+        class="button button--iconOnly"
+      >
+        {{inline-svg "/assets/switch.svg" class="button-icon"}}
+      </button>
+
+      <AccSelect
+        @searchEnabled={{true}}
+        @search={{fn this.searchLanguages}}
+        @selected={{this.toLanguage}}
+        @options={{this.mappedLanguages}}
+        @onchange={{fn this.onSelectToLanguage}}
+      />
+    </div>
+
+    <div local-class="filters-file">
+      <AccSelect
+        @searchEnabled={{false}}
+        @selected={{this.documentFormat}}
+        @options={{this.mappedDocumentFormats}}
+        @onchange={{fn this.onSelectDocumentFormat}}
+      />
+
+      {{#if @content}}
+        <AsyncButton
+          local-class="button-resubmit"
+          class="button button--filled"
+          @loading={{this.submitTask.isRunning}}
+          @onClick={{perform this.submitTask}}
+        >
+          {{inline-svg "/assets/language.svg" class="button-icon"}}
+          {{t "components.machine_translations_translate_upload_form.translate"}}
+        </AsyncButton>
+      {{/if}}
+    </div>
+  </div>
+
+  <div local-class="form">
+    {{#if @content}}
+      <button
+        {{on "click" (fn this.resetFile)}}
+        local-class="button-reset"
+        class="button button--white button--filled"
+      >
+        {{t "components.machine_translations_translate_upload_form.reset"}}
+      </button>
+    {{else}}
+      {{#if this.file}}
+        <div local-class="form-content">
+          <div local-class="form-content-icons">
+            {{inline-svg "/assets/import.svg" local-class="form-content-icon"}}
+            {{inline-svg "/assets/add.svg" local-class="form-content-icon form-content-icon--add"}}
+            {{inline-svg "/assets/language.svg" local-class="form-content-icon form-content-icon--highlight"}}
+          </div>
+
+          {{{t "components.machine_translations_translate_upload_form.step_2" name=this.file.name}}}
+
+          <AsyncButton
+            local-class="button-submit"
+            class="button button--filled"
+            @loading={{this.submitTask.isRunning}}
+            @onClick={{perform this.submitTask}}
+          >
+            {{inline-svg "/assets/language.svg" class="button-icon"}}
+            {{t "components.machine_translations_translate_upload_form.translate"}}
+          </AsyncButton>
+        </div>
+      {{else}}
+        <FileInput
+          name="file-input"
+          id="file-input"
+          @onChange={{fn this.fileChange}}
+          local-class="fileInput"
+        />
+
+        <div local-class="form-content">
+          <div local-class="form-content-icons">
+            {{inline-svg "/assets/import.svg" local-class="form-content-icon form-content-icon--highlight"}}
+            {{inline-svg "/assets/add.svg" local-class="form-content-icon form-content-icon--add"}}
+            {{inline-svg "/assets/language.svg" local-class="form-content-icon"}}
+          </div>
+          {{t "components.machine_translations_translate_upload_form.step_1"}}
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+</div>

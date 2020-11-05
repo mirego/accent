@@ -10,6 +10,7 @@
             type="text"
             placeholder={{t "components.conflicts_filters.input_placeholder_text"}}
             value={{this.debouncedQuery}}
+            {{on-key "Enter" (fn this.submitForm)}}
             {{on "keyup" this.setDebouncedQuery}}
           >
         </div>
