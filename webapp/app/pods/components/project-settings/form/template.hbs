@@ -1,11 +1,11 @@
 <div local-class="project-settings-form">
   {{#if (get @permissions "update_project")}}
     <div local-class="field">
-      <QuickSubmitTextfield
-        @onKeyUp={{fn this.setName}}
-        @onSubmit={{fn this.updateProject}}
-        @value={{this.name}}
+      <input
+        {{on-key "cmd+Enter" (fn this.updateProject)}}
+        {{on "input" (fn this.setName)}}
         local-class="textInput"
+        value={{this.name}}
       />
 
       <input

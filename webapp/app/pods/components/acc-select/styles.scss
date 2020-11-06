@@ -21,9 +21,9 @@
     cursor: pointer;
     content: '›';
     position: absolute;
-    bottom: 0;
-    right: 11px;
-    font-size: 150%;
-    transform: rotate(90deg);
+    top: 50%;
+    right: 10px;
+    font-size: 140%;
+    transform: translateY(-50%) rotate(90deg);
   }
 }

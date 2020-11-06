@@ -13,7 +13,7 @@
     {{option.label}}
   </PowerSelect>
 {{else}}
-  <div local-class="root">
+  <div local-class="root" ...attributes>
     <select {{on "change" this.selectChange}}>
       {{#each @options key="value" as |selectOption|}}
         <option value={{selectOption.value}} selected="{{if (eq @selected.value selectOption.value) "selected"}}">

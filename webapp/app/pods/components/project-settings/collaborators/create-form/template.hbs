@@ -4,14 +4,16 @@
     @selected={{this.roleValue}}
     @options={{this.mappedPossibleRoles}}
     @onchange={{fn this.setRole}}
+    local-class="select"
   />
 
-  <QuickSubmitTextfield
-    @value={{this.email}}
+  <input
+    {{on-key "cmd+Enter" (perform this.submitTask)}}
+    {{on "input" (fn this.emailChanged)}}
     local-class="textInput"
+    type="email"
+    value={{this.email}}
     placeholder={{t "components.collaborator_create_form.email_placeholder"}}
-    @onKeyUp={{fn this.emailChanged}}
-    @onSubmit={{perform this.submitTask}}
     data-test-new-collaborator-email
   />
 

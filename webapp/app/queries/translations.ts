@@ -67,6 +67,9 @@ export default gql`
                   label
                 }
               }
+              revision {
+                id
+              }
               document {
                 id
                 path

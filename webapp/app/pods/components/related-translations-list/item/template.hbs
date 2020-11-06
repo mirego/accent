@@ -66,14 +66,13 @@
     @onSubmit={{fn this.save}}
   />
 
-  {{#if showSaveButton}}
-    <AsyncButton
-      @onClick={{fn this.save}}
-      @loading={{this.isSaving}}
-      class="button button--filled button--iconOnly"
-      local-class="textEdit-button"
-    >
-      {{t "components.related_translations_list.save_button"}}
-    </AsyncButton>
-  {{/if}}
+  <AsyncButton
+    @onClick={{fn this.save}}
+    @loading={{this.isSaving}}
+    @disabled={{not showSaveButton}}
+    class="button button--filled button--iconOnly"
+    local-class="textEdit-button"
+  >
+    {{t "components.related_translations_list.save_button"}}
+  </AsyncButton>
 </li>

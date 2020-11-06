@@ -1,7 +1,6 @@
 import {action} from '@ember/object';
 import {equal} from '@ember/object/computed';
 import Component from '@glimmer/component';
-
 import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 import {tracked} from '@glimmer/tracking';
 

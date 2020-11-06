@@ -1,7 +1,6 @@
 .conflict-item {
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid transparent;
   border-radius: 3px;
 
   &:nth-child(even) {
@@ -110,7 +109,6 @@
 .conflict-item.resolved {
   padding: 5px 10px;
   margin: 5px 0 15px;
-  border: 1px solid var(--color-green);
   background: hsl(
     var(--color-green-hue),
     var(--color-green-saturation),

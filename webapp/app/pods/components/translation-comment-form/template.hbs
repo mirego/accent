@@ -10,14 +10,15 @@
     {{/if}}
 
     <div local-class="form-content">
-      <QuickSubmitTextarea
-        @onSubmit={{perform this.submitTask}}
-        @rows={{3}}
-        @value={{this.text}}
-        @onKeyUp={{fn this.setText}}
-        @placeholder={{t "components.translation_comment_form.comment_placeholder"}}
+      <textarea
+        {{autoresize this.text}}
+        {{on-key "cmd+Enter" (perform this.submitTask)}}
+        {{on "input" this.setText}}
         local-class="inputText"
+        placeholder={{t "components.translation_comment_form.comment_placeholder"}}
+        rows="3"
         disabled={{this.submitTask.isRunning}}
+        value={{this.text}}
       />
       <AsyncButton @loading={{this.submitTask.isRunning}} class="button button--filled">
         {{t "components.translation_comment_form.comment_button"}}

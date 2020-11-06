@@ -139,6 +139,8 @@
   color: var(--color-black);
 
   em {
+    display: block;
+    margin: 5px 0;
     font-style: normal;
     font-weight: bold;
     color: var(--color-primary);

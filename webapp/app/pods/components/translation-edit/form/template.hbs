@@ -1,4 +1,4 @@
-<div local-class="translation-edit-form" {{did-update this.didUpdateValue @value}}>
+<div local-class="translation-edit-form">
   {{#if @placeholders}}
     <div local-class="placeholders">
       <span local-class="placeholders-title">
@@ -35,11 +35,11 @@
       {{t "components.translation_edit.form.boolean_type_notice"}}
     </span>
 
-    <RadioButton @groupValue={{this.text}} @value="true">
+    <RadioButton @groupValue={{@value}} @value="true">
       {{t "components.translation_edit.form.true_option"}}
     </RadioButton>
 
-    <RadioButton @groupValue={{this.text}} @value="false">
+    <RadioButton @groupValue={{@value}} @value="false">
       {{t "components.translation_edit.form.false_option"}}
     </RadioButton>
   {{/if}}
@@ -85,21 +85,19 @@
 
   {{#if this.isHTMLType}}
     <HtmlTextarea
-      @value={{this.text}}
+      @value={{@text}}
       @onChange={{fn this.changeHTML}}
       @wysiwygOptions={{this.wysiwygOptions}}
     />
   {{else}}
-    <QuickSubmitTextarea
-      placeholder={{t "components.translation_edit.form.empty_type_placeholder"}}
-      @rows={{this.rows}}
-      @disabled={{@disabled}}
-      @value={{this.text}}
+    <textarea
+      {{autoresize @value}}
+      {{on-key "Escape" (fn this.cancel)}}
+      {{on-key "cmd+Enter" @onSubmit}}
+      {{on "input" (fn this.changeText)}}
       local-class="inputText"
-      @onFocus={{@onFocus}}
-      @onBlur={{@onBlur}}
-      @onKeyUp={{fn this.changeText}}
-      @onSubmit={{@onSubmit}}
+      value={{@value}}
+      ...attributes
     />
   {{/if}}
 

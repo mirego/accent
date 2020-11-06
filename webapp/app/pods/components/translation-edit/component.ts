@@ -83,8 +83,7 @@ export default class TranslationEdit extends Component<Args> {
   @action
   changeText(text: string) {
     this.text = text;
-
-    this.args.onChangeText && this.args.onChangeText(text);
+    this.args.onChangeText?.(text);
   }
 
   @action

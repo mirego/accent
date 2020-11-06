@@ -9,11 +9,11 @@
               {{{t "components.documents_list.item.path_help"}}}
             </small>
 
-            <QuickSubmitTextfield
-              @onSubmit={{fn this.updateDocument}}
-              @onKeyUp={{fn this.changePath}}
-              @value={{this.renamedDocumentPath}}
+            <input
+              {{on-key "cmd+Enter" (fn this.updateDocument)}}
+              {{on "input" (fn this.changePath)}}
               local-class="textInput"
+              value={{this.renamedDocumentPath}}
             />
           </label>
         {{else}}

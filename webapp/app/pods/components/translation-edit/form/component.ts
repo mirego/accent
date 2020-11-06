@@ -8,13 +8,9 @@ import Apollo from 'accent-webapp/services/apollo';
 import {tracked} from '@glimmer/tracking';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
+import {Task} from 'accent-webapp/types/task';
 
-const DEBOUNCE_LINT_MESSAGES = 300;
-const SMALL_INPUT_ROWS = 1;
-const MEDIUM_INPUT_ROWS = 2;
-const LARGE_INPUT_ROWS = 7;
-const SMALL_INPUT_VALUE = 70;
-const LARGE_INPUT_VALUE = 100;
+const DEBOUNCE_LINT_MESSAGES = 1000;
 
 interface Args {
   projectId: string;
@@ -35,6 +31,7 @@ interface Args {
   placeholders?: any;
   onFocus?: () => void;
   onBlur?: () => void;
+  onEscape?: () => void;
   onKeyUp?: (text: string) => void;
 }
 
@@ -47,9 +44,6 @@ export default class TranslationEditForm extends Component<Args> {
 
   @tracked
   showTypeHints = true;
-
-  @tracked
-  text = this.args.value;
 
   @equal('args.valueType', 'STRING')
   isStringType: boolean;
@@ -74,18 +68,10 @@ export default class TranslationEditForm extends Component<Args> {
 
   wysiwygOptions = {};
 
-  get rows() {
-    if (!this.text) return SMALL_INPUT_ROWS;
-    if (this.text.length < LARGE_INPUT_VALUE) return MEDIUM_INPUT_ROWS;
-    if (this.text.length < SMALL_INPUT_VALUE) return SMALL_INPUT_ROWS;
-
-    return LARGE_INPUT_ROWS;
-  }
-
   get unusedPlaceholders() {
     return this.args.placeholders.reduce(
       (memo: Record<string, true>, placeholder: string) => {
-        if (!this.text.includes(placeholder)) memo[placeholder] = true;
+        if (!this.args.value.includes(placeholder)) memo[placeholder] = true;
         return memo;
       },
       {}
@@ -94,27 +80,26 @@ export default class TranslationEditForm extends Component<Args> {
 
   @action
   changeHTML(value: string) {
-    const previousText = this.text;
-    this.text = value;
+    const previousText = this.args.value;
     this.args.onKeyUp?.(value);
 
-    if (previousText !== this.text) this.fetchLintMessages(value);
+    if (previousText !== value)
+      (this.fetchLintMessagesTask as Task).perform(value);
+  }
+
+  @action
+  cancel() {
+    this.args.onEscape?.();
   }
 
   @action
   changeText(event: Event) {
     const target = event.target as HTMLInputElement;
-
-    const previousText = this.text;
-    this.text = target.value;
+    const previousText = this.args.value;
     this.args.onKeyUp?.(target.value);
 
-    if (previousText !== this.text) this.fetchLintMessages(target.value);
-  }
-
-  @action
-  didUpdateValue() {
-    if (this.args.value) this.text = this.args.value;
+    if (previousText !== target.value)
+      (this.fetchLintMessagesTask as Task).perform(target.value);
   }
 
   @restartableTask
@@ -136,14 +121,7 @@ export default class TranslationEditForm extends Component<Args> {
 
   @action
   replaceText(value: string) {
-    this.text = value;
     this.args.onKeyUp?.(value);
-    this.fetchLintMessages(value);
-  }
-
-  fetchLintMessages(value: string) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    this.fetchLintMessagesTask.perform(value);
+    (this.fetchLintMessagesTask as Task).perform(value);
   }
 }
