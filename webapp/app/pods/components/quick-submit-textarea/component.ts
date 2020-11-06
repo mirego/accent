@@ -3,7 +3,7 @@ import {action} from '@ember/object';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
 
-const DEBOUNCE_OFFSET = 1000; // ms
+const DEBOUNCE_OFFSET = 100; // ms
 const ENTER_KEY = 13;
 
 interface Args {

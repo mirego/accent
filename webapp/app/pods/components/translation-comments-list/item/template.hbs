@@ -1,0 +1,19 @@
+<div local-class="header">
+  <span local-class="user">
+    {{#if @comment.user.pictureUrl}}
+      <AccAvatarImg
+        local-class="user-picture"
+        src="{{@comment.user.pictureUrl}}"
+      />
+    {{/if}}
+    {{@comment.user.fullname}}
+  </span>
+
+  <span local-class="date">
+    <TimeAgoInWordsTag @date={{@comment.insertedAt}} />
+  </span>
+</div>
+
+<div local-class="content">
+  {{this.text}}
+</div>

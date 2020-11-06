@@ -36,36 +36,6 @@
   }
 }
 
-.itemComment-header {
-  display: flex;
-  align-items: center;
-}
-
-.itemComment-user {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 6px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.itemComment-user-picture {
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
-  border-radius: 3px;
-}
-
-.itemComment-date {
-  color: var(--color-grey);
-  font-size: 11px;
-}
-
-.itemComment-content {
-  margin-top: 5px;
-  font-size: 13px;
-}
-
 @media (max-width: var(--screen-lg)) {
   .translation-comments-list {
     border-color: transparent;

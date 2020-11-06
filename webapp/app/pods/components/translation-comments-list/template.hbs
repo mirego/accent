@@ -1,25 +1,7 @@
 <ul local-class="translation-comments-list" ...attributes>
   {{#each @comments key="id" as |comment|}}
     <li local-class="itemComment">
-      <div local-class="itemComment-header">
-        <span local-class="itemComment-user">
-          {{#if comment.user.pictureUrl}}
-            <AccAvatarImg
-              local-class="itemComment-user-picture"
-              src="{{comment.user.pictureUrl}}"
-            />
-          {{/if}}
-          {{comment.user.fullname}}
-        </span>
-
-        <span local-class="itemComment-date">
-          <TimeAgoInWordsTag @date={{comment.insertedAt}} />
-        </span>
-      </div>
-
-      <div local-class="itemComment-content">
-        {{comment.text}}
-      </div>
+      <TranslationCommentsList::Item @comment={{comment}} />
     </li>
   {{else}}
     <EmptyContent

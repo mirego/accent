@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.user {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.user-picture {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  border-radius: 3px;
+}
+
+.date {
+  color: var(--color-grey);
+  font-size: 11px;
+}
+
+.content {
+  margin-top: 5px;
+  font-size: 13px;
+}
