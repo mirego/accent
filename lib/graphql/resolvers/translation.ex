@@ -19,7 +19,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     Translation
   }
 
-  @internal_nested_separator ~r/__KEY__(\d)/
+  @internal_nested_separator ~r/__KEY__(\d+)/
   @typep translation_operation :: {:ok, %{translation: Translation.t() | nil, errors: [String.t()] | nil}}
 
   @spec key(Translation.t(), map(), GraphQLContext.t()) :: {:ok, String.t()}
