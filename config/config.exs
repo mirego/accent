@@ -6,6 +6,8 @@ config :accent,
   ecto_repos: [Accent.Repo],
   version: version
 
+config :accent, Accent.Repo, timeout: 25_000
+
 config :accent, Accent.Endpoint,
   render_errors: [accepts: ~w(json)],
   pubsub_server: Accent.PubSub
