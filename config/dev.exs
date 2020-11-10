@@ -32,4 +32,6 @@ config :logger, :console,
   format: "$metadata[$level] $message\n",
   metadata: ~w(current_user graphql_operation)a
 
+config :accent, Accent.Repo, url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
+
 config :phoenix, :stacktrace_depth, 20
