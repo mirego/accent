@@ -9,6 +9,14 @@ import {tracked} from '@glimmer/tracking';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
 import {Task} from 'accent-webapp/types/task';
+import MarkdownIt from 'markdown-it';
+import {htmlSafe} from '@ember/string';
+
+const markdown = MarkdownIt({
+  html: false,
+  linkify: true,
+  typographer: true,
+});
 
 const DEBOUNCE_LINT_MESSAGES = 1000;
 
@@ -33,6 +41,7 @@ interface Args {
   onBlur?: () => void;
   onEscape?: () => void;
   onKeyUp?: (text: string) => void;
+  fileComment?: string;
 }
 
 export default class TranslationEditForm extends Component<Args> {
@@ -67,6 +76,12 @@ export default class TranslationEditForm extends Component<Args> {
   isNullType: boolean;
 
   wysiwygOptions = {};
+
+  get fileComment() {
+    if (!this.args.fileComment) return;
+
+    return htmlSafe(markdown.render(this.args.fileComment));
+  }
 
   get unusedPlaceholders() {
     return this.args.placeholders.reduce(

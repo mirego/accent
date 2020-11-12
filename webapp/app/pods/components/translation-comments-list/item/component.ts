@@ -1,6 +1,6 @@
+import Component from '@glimmer/component';
 import MarkdownIt from 'markdown-it';
 import {htmlSafe} from '@ember/string';
-import Component from '@glimmer/component';
 
 const markdown = MarkdownIt({
   html: false,
