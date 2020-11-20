@@ -8,7 +8,7 @@ pub type Message {
   FirstLetterCase(text: String, replacement: Option(MessageReplacement))
   LeadingSpaces(text: String, replacement: Option(MessageReplacement))
   DoubleSpaces(text: String, replacement: Option(MessageReplacement))
-  ThreeDotEllipsis(text: String, replacement: Option(MessageReplacement))
+  ThreeDotsEllipsis(text: String, replacement: Option(MessageReplacement))
   TrailingSpace(text: String, replacement: Option(MessageReplacement))
   SameTrailingCharacter(text: String, replacement: Option(MessageReplacement))
   PlaceholderCount(text: String, replacement: Option(MessageReplacement))

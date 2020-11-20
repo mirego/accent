@@ -1,9 +1,9 @@
 import gleam/string
 import gleam/option.{Some}
-import lint/types.{Entry, Message, MessageReplacement, ThreeDotEllipsis}
+import lint/types.{Entry, Message, MessageReplacement, ThreeDotsEllipsis}
 
 fn message(entry: Entry, text) {
-  ThreeDotEllipsis(
+  ThreeDotsEllipsis(
     text: entry.value,
     replacement: Some(MessageReplacement(value: text, label: text)),
   )

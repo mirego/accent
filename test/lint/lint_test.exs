@@ -39,5 +39,18 @@ defmodule AccentTest.Lint do
                }
              ]
     end
+
+    test "lint three dots ellipsis entry" do
+      entry = %Entry{value: "foo...", master_value: "foo..."}
+      [linted] = Lint.lint([entry])
+
+      assert linted.messages === [
+               %Message{
+                 replacement: %Replacement{value: "foo…", label: "foo…"},
+                 check: :three_dots_ellipsis,
+                 text: "foo..."
+               }
+             ]
+    end
   end
 end
