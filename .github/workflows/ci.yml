@@ -24,8 +24,8 @@ jobs:
 
       - uses: actions/setup-elixir@v1
         with:
-          otp-version: 22.3.3
-          elixir-version: 1.9.x
+          otp-version: 23.1.1
+          elixir-version: 1.11.x
 
       - uses: actions/setup-node@v1
         with:
