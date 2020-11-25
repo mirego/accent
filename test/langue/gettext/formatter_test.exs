@@ -13,6 +13,7 @@ defmodule LangueTest.Formatter.Gettext do
     LanguageHeader,
     PluralFormsHeader,
     HeaderLineBreak,
+    NewLines,
     ContextValues
   ]
 

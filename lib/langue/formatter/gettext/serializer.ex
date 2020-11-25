@@ -85,7 +85,13 @@ defmodule Langue.Formatter.Gettext.Serializer do
   defp split_string(nil, empty), do: empty
 
   defp split_string(string, _empty) do
-    Regex.split(~r/[^\n]*\n/, string, include_captures: true, trim: true)
+    ~r/[^\n]*\n/
+    |> Regex.split(string, include_captures: true, trim: true)
+    |> case do
+      ["\n" | rest] -> ["" | rest]
+      values -> values
+    end
+    |> Enum.reject(& &1 === "\n")
   end
 
   defp remove_key_suffix(string), do: String.replace(string, ".__KEY___", "")
