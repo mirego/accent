@@ -112,6 +112,7 @@
   color: var(--color-black);
   padding: 6px 0;
   cursor: text;
+  white-space: pre-wrap;
   transition: 0.2s ease-in-out;
   transition-property: opacity;
   opacity: 0.8;

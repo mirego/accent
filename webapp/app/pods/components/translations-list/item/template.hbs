@@ -97,12 +97,8 @@
       </AsyncButton>
     </div>
   {{else if this.isTextEmpty}}
-    <span role="button" local-class="item-text item-text--empty" {{on "click" (fn this.toggleEdit)}}>
-      {{t "components.translations_list.empty_text"}}
-    </span>
+    <span role="button" local-class="item-text item-text--empty" {{on "click" (fn this.toggleEdit)}}>{{t "components.translations_list.empty_text"}}</span>
   {{else}}
-    <span role="button" local-class="item-text" {{on "click" (fn this.toggleEdit)}}>
-      {{truncate @translation.correctedText 600}}
-    </span>
+    <span role="button" local-class="item-text" {{on "click" (fn this.toggleEdit)}}>{{truncate @translation.correctedText 600}}</span>
   {{/if}}
 </li>

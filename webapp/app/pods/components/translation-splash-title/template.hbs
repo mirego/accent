@@ -21,67 +21,69 @@
     {{this.translationKey.value}}
   </h1>
 
-  {{#if translation.version}}
-    <AccBadge>
-      <span local-class="version-tag">
-        {{@translation.version.tag}}
-      </span>
-    </AccBadge>
-  {{/if}}
+  <div local-class="badges">
+    {{#if translation.version}}
+      <AccBadge>
+        <span local-class="version-tag">
+          {{@translation.version.tag}}
+        </span>
+      </AccBadge>
+    {{/if}}
 
-  {{#if @translation.plural}}
-    <AccBadge @link={{true}}>
-      <LinkTo
-        @route="logged-in.project.revision.translations"
-        @models={{array @project.id @translation.revision.id}}
-      >
-        {{t "components.translation_splash_title.plural_label"}}
-      </LinkTo>
-    </AccBadge>
-  {{/if}}
-
-  {{#if @translation.isRemoved}}
-    <div local-class="removedBadge">
-      {{t
-        "components.translation_splash_title.removed_label"
-        removedAt=(time-ago-in-words @translation.updatedAt)
-      }}
-    </div>
-  {{else if @translation.isConflicted}}
-    <AccBadge @link={{this.withRevisionLink}} @primary={{true}}>
-      {{#if this.withRevisionLink}}
+    {{#if @translation.plural}}
+      <AccBadge @link={{true}}>
         <LinkTo
-          @route="logged-in.project.revision.conflicts"
+          @route="logged-in.project.revision.translations"
           @models={{array @project.id @translation.revision.id}}
-          @query={{hash query=@translation.id}}
         >
-          {{t "components.translation_splash_title.conflicted_label"}}
+          {{t "components.translation_splash_title.plural_label"}}
         </LinkTo>
-      {{else}}
-        {{t "components.translation_splash_title.conflicted_label"}}
-      {{/if}}
-    </AccBadge>
-  {{/if}}
+      </AccBadge>
+    {{/if}}
 
-  {{#if @translation.revision.isMaster}}
-    <AccBadge>
-      {{t "components.translation_splash_title.master_label"}}
-    </AccBadge>
-  {{/if}}
+    {{#if @translation.isRemoved}}
+      <div local-class="removedBadge">
+        {{t
+          "components.translation_splash_title.removed_label"
+          removedAt=(time-ago-in-words @translation.updatedAt)
+        }}
+      </div>
+    {{else if @translation.isConflicted}}
+      <AccBadge @link={{this.withRevisionLink}} @primary={{true}}>
+        {{#if this.withRevisionLink}}
+          <LinkTo
+            @route="logged-in.project.revision.conflicts"
+            @models={{array @project.id @translation.revision.id}}
+            @query={{hash query=@translation.id}}
+          >
+            {{t "components.translation_splash_title.conflicted_label"}}
+          </LinkTo>
+        {{else}}
+          {{t "components.translation_splash_title.conflicted_label"}}
+        {{/if}}
+      </AccBadge>
+    {{/if}}
 
-  {{#if @translation.lintMessages}}
-    <AccBadge
-      @warning={{true}}
-      @icon={{true}}
-      class="tooltip"
-      title={{t "components.translations_list.lint_messages_label" count=@translation.lintMessages.length}}
-    >
-      {{inline-svg "/assets/warning.svg"}}
-    </AccBadge>
-  {{/if}}
+    {{#if @translation.revision.isMaster}}
+      <AccBadge>
+        {{t "components.translation_splash_title.master_label"}}
+      </AccBadge>
+    {{/if}}
 
-  <span local-class="updatedAt">
-    {{t "components.translation_splash_title.last_updated_label"}}
-    <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
-  </span>
+    {{#if @translation.lintMessages}}
+      <AccBadge
+        @warning={{true}}
+        @icon={{true}}
+        class="tooltip"
+        title={{t "components.translations_list.lint_messages_label" count=@translation.lintMessages.length}}
+      >
+        {{inline-svg "/assets/warning.svg"}}
+      </AccBadge>
+    {{/if}}
+
+    <span local-class="updatedAt">
+      {{t "components.translation_splash_title.last_updated_label"}}
+      <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
+    </span>
+  </div>
 </div>

@@ -91,6 +91,8 @@ export default class ConflictsRoute extends Route {
   onRevisionChange({revisionId}: {revisionId: string}) {
     const {project} = this.modelFor('logged-in.project') as {project: any};
 
+    this.apolloSubscription.clearSubscription(this.subscription);
+
     this.router.transitionTo(
       'logged-in.project.revision.conflicts',
       project.id,

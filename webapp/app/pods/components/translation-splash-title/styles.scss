@@ -67,3 +67,12 @@
   font-size: 12px;
   color: var(--color-error);
 }
+
+.badges {
+  display: flex;
+  align-items: center;
+
+  > * {
+    margin-right: 6px;
+  }
+}

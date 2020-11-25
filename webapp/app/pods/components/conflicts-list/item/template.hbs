@@ -98,7 +98,7 @@
                   {{inline-svg "/assets/diff.svg" local-class="conflictedText-references-conflicted-icon"}}
                 </span>
 
-                {{string-diff this.textInput @conflict.conflictedText}}
+                <div local-class="conflictedText-references-conflicted-value">{{string-diff this.textInput @conflict.conflictedText}}</div>
               </div>
             {{/if}}
 
