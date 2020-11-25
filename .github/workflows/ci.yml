@@ -31,6 +31,10 @@ jobs:
         with:
           node-version: 10.14.x
 
+      - uses: gleam-lang/setup-gleam@v1.0.1
+        with:
+          gleam-version: 0.11.2
+
       - name: Install System Dependencies
         run: |
           sudo apt-get update
