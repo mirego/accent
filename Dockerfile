@@ -38,6 +38,8 @@ ENV MIX_ENV=prod
 
 WORKDIR /build
 
+COPY --from=gleam-builder /opt/build ./gen
+
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
     apk --no-cache add make g++ git yaml-dev
@@ -51,7 +53,6 @@ COPY priv priv
 COPY config config
 COPY mix.exs .
 COPY mix.lock .
-COPY --from=gleam-builder /opt/build ./gen
 
 RUN mix deps.get --only prod
 RUN mix deps.compile --only prod
