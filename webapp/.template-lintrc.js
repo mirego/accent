@@ -19,7 +19,7 @@ module.exports = {
     'no-duplicate-attributes': true,
     'no-html-comments': true,
     'no-implicit-this': false,
-    'no-invalid-interactive': true,
+    'no-invalid-interactive': false,
     'no-log': true,
     'no-nested-interactive': true,
     'no-outlet-outside-routes': true,

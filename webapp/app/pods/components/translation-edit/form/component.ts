@@ -94,12 +94,12 @@ export default class TranslationEditForm extends Component<Args> {
   }
 
   @action
-  async changeHTML(value: string) {
+  changeHTML(value: string) {
     this.args.onKeyUp?.(value);
   }
 
   @action
-  async changeText(event: Event) {
+  changeText(event: Event) {
     const target = event.target as HTMLInputElement;
     this.args.onKeyUp?.(target.value);
   }
@@ -132,7 +132,7 @@ export default class TranslationEditForm extends Component<Args> {
   }
 
   @action
-  async replaceText(value: string) {
+  replaceText(value: string) {
     this.args.onKeyUp?.(value);
   }
 }

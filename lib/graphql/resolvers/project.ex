@@ -1,8 +1,8 @@
 defmodule Accent.GraphQL.Resolvers.Project do
   require Ecto.Query
 
-  alias Accent.Scopes.Project, as: ProjectScope
   alias Accent.Scopes.Operation, as: OperationScope
+  alias Accent.Scopes.Project, as: ProjectScope
 
   alias Accent.{
     GraphQL.Paginated,
