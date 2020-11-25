@@ -127,7 +127,8 @@
     "conflicts_items": {
       "correct_all_button": "Mark all strings as reviewed for this language",
       "no_translations": "No strings to review for: {query}",
-      "review_completed": "All reviewed!"
+      "all_reviewed_title": "All reviewed",
+      "all_reviewed_subtitle": "Every strings have been marked as reviewed"
     },
     "dashboard_master_revision": {
       "features": {
