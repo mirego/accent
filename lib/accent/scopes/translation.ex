@@ -72,11 +72,11 @@ defmodule Accent.Scopes.Translation do
     iex> Accent.Scopes.Translation.parse_empty(Accent.Translation, nil)
     Accent.Translation
     iex> Accent.Scopes.Translation.parse_empty(Accent.Translation, true)
-    #Ecto.Query<from t0 in Accent.Translation, where: t0.value_type in ^["empty", "null"]>
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.value_type in ^["empty", "null"] or t0.corrected_text == "">
   """
   @spec parse_empty(Queryable.t(), nil | boolean()) :: Queryable.t()
   def parse_empty(query, nil), do: query
-  def parse_empty(query, true), do: from(translations in query, where: translations.value_type in ^["empty", "null"])
+  def parse_empty(query, true), do: from(translations in query, where: translations.value_type in ^["empty", "null"] or translations.corrected_text == "")
 
   @doc """
   ## Examples
