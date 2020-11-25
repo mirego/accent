@@ -1,4 +1,5 @@
 defmodule Langue.Entry do
+  @enforce_keys ~w(key value value_type)a
   defstruct key: nil, master_value: nil, is_master: true, value: nil, comment: nil, index: 1, value_type: "string", locked: false, plural: false, placeholders: []
 
   @type t :: %__MODULE__{

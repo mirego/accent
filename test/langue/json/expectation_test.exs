@@ -159,9 +159,9 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "test.__KEY__0.a", value: "value-a"},
-        %Entry{index: 2, key: "test.__KEY__1.b", value: "value-b"},
-        %Entry{index: 3, key: "test.__KEY__2.c", value: "value-c"}
+        %Entry{index: 1, key: "test.__KEY__0.a", value: "value-a", value_type: "string"},
+        %Entry{index: 2, key: "test.__KEY__1.b", value: "value-b", value_type: "string"},
+        %Entry{index: 3, key: "test.__KEY__2.c", value: "value-c", value_type: "string"}
       ]
     end
   end
@@ -181,9 +181,9 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "test", value: "F"},
-        %Entry{index: 2, key: "test2", value: "D"},
-        %Entry{index: 3, key: "test3", value: "New history please"}
+        %Entry{index: 1, key: "test", value: "F", value_type: "string"},
+        %Entry{index: 2, key: "test2", value: "D", value_type: "string"},
+        %Entry{index: 3, key: "test3", value: "New history please", value_type: "string"}
       ]
     end
   end
@@ -209,9 +209,9 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "test.nested", value: "A"},
-        %Entry{index: 2, key: "test2.full.nested", value: "B"},
-        %Entry{index: 3, key: "test2.normal", value: "C"}
+        %Entry{index: 1, key: "test.nested", value: "A", value_type: "string"},
+        %Entry{index: 2, key: "test2.full.nested", value: "B", value_type: "string"},
+        %Entry{index: 3, key: "test2.normal", value: "C", value_type: "string"}
       ]
     end
   end
@@ -267,6 +267,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
           {
             "aa": "bb",
             "cc": "dd",
+            "dd": "",
             "nested_array": [
               null,
               "two"
@@ -279,25 +280,26 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "activerecord.errors.models.result.attributes.video_url.invalid_url", value: "n’est pas valide"},
-        %Entry{index: 2, key: "activerecord.errors.models.season.attributes.base.current_season_must_be_unique", value: "Les saisons"},
-        %Entry{index: 3, key: "activerecord.errors.models.season.attributes.starts_at.cant_be_changed", value: "ne peut pas être changé"},
-        %Entry{index: 4, key: "activerecord.errors.models.season.attributes.workouts_count.cant_be_changed", value: "ne peut pas être changé"},
-        %Entry{index: 5, key: "attributes.country_code", value: "Pays"},
-        %Entry{index: 6, key: "attributes.credit_card", value: "Carte de crédit"},
-        %Entry{index: 7, key: "attributes.email", value: "Courriel"},
-        %Entry{index: 8, key: "attributes.first_name", value: "Prénom"},
-        %Entry{index: 9, key: "attributes.last_name", value: "Nom"},
-        %Entry{index: 10, key: "attributes.package", value: "Forfait"},
-        %Entry{index: 11, key: "attributes.password", value: "Mot de passe"},
-        %Entry{index: 12, key: "attributes.seasons", value: "Saisons"},
-        %Entry{index: 13, key: "array_type.__KEY__0", value: "foo"},
-        %Entry{index: 14, key: "array_type.__KEY__1.bar", value: "baz"},
-        %Entry{index: 15, key: "array_type.__KEY__1.aux", value: "zoo"},
-        %Entry{index: 16, key: "array_type.__KEY__2.aa", value: "bb"},
-        %Entry{index: 17, key: "array_type.__KEY__2.cc", value: "dd"},
-        %Entry{index: 18, key: "array_type.__KEY__2.nested_array.__KEY__0", value: "null", value_type: "null"},
-        %Entry{index: 19, key: "array_type.__KEY__2.nested_array.__KEY__1", value: "two"}
+        %Entry{index: 1, key: "activerecord.errors.models.result.attributes.video_url.invalid_url", value: "n’est pas valide", value_type: "string"},
+        %Entry{index: 2, key: "activerecord.errors.models.season.attributes.base.current_season_must_be_unique", value: "Les saisons", value_type: "string"},
+        %Entry{index: 3, key: "activerecord.errors.models.season.attributes.starts_at.cant_be_changed", value: "ne peut pas être changé", value_type: "string"},
+        %Entry{index: 4, key: "activerecord.errors.models.season.attributes.workouts_count.cant_be_changed", value: "ne peut pas être changé", value_type: "string"},
+        %Entry{index: 5, key: "attributes.country_code", value: "Pays", value_type: "string"},
+        %Entry{index: 6, key: "attributes.credit_card", value: "Carte de crédit", value_type: "string"},
+        %Entry{index: 7, key: "attributes.email", value: "Courriel", value_type: "string"},
+        %Entry{index: 8, key: "attributes.first_name", value: "Prénom", value_type: "string"},
+        %Entry{index: 9, key: "attributes.last_name", value: "Nom", value_type: "string"},
+        %Entry{index: 10, key: "attributes.package", value: "Forfait", value_type: "string"},
+        %Entry{index: 11, key: "attributes.password", value: "Mot de passe", value_type: "string"},
+        %Entry{index: 12, key: "attributes.seasons", value: "Saisons", value_type: "string"},
+        %Entry{index: 13, key: "array_type.__KEY__0", value: "foo", value_type: "string"},
+        %Entry{index: 14, key: "array_type.__KEY__1.bar", value: "baz", value_type: "string"},
+        %Entry{index: 15, key: "array_type.__KEY__1.aux", value: "zoo", value_type: "string"},
+        %Entry{index: 16, key: "array_type.__KEY__2.aa", value: "bb", value_type: "string"},
+        %Entry{index: 17, key: "array_type.__KEY__2.cc", value: "dd", value_type: "string"},
+        %Entry{index: 18, key: "array_type.__KEY__2.dd", value: "", value_type: "empty"},
+        %Entry{index: 19, key: "array_type.__KEY__2.nested_array.__KEY__0", value: "null", value_type: "null"},
+        %Entry{index: 20, key: "array_type.__KEY__2.nested_array.__KEY__1", value: "two", value_type: "string"}
       ]
     end
   end
@@ -320,10 +322,16 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "placeholders.single", value: "Hello, {{username}}.", placeholders: ~w({{username}})},
-        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}})},
-        %Entry{index: 3, key: "placeholders.duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", placeholders: ~w({{username}} {{username}})},
-        %Entry{index: 4, key: "placeholders.empty", value: "Hello, {{}}.", placeholders: ~w({{}})}
+        %Entry{index: 1, key: "placeholders.single", value: "Hello, {{username}}.", placeholders: ~w({{username}}), value_type: "string"},
+        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}}), value_type: "string"},
+        %Entry{
+          index: 3,
+          key: "placeholders.duplicate",
+          value: "Hello, {{username}}. Welcome back {{username}}.",
+          placeholders: ~w({{username}} {{username}}),
+          value_type: "string"
+        },
+        %Entry{index: 4, key: "placeholders.empty", value: "Hello, {{}}.", placeholders: ~w({{}}), value_type: "string"}
       ]
     end
   end

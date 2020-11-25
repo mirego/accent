@@ -13,8 +13,8 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
     def entries do
       [
-        %Entry{key: "greeting", value: "hello", index: 1},
-        %Entry{key: "goodbye", value: "Bye bye", index: 2}
+        %Entry{key: "greeting", value: "hello", index: 1, value_type: "string"},
+        %Entry{key: "goodbye", value: "Bye bye", index: 2, value_type: "string"}
       ]
     end
   end
@@ -32,7 +32,7 @@ defmodule LangueTest.Formatter.Strings.Expectation do
     def entries do
       [
         %Entry{key: "greeting", value: "", index: 1, value_type: "empty"},
-        %Entry{key: "goodbye", value: "Bye bye", index: 2}
+        %Entry{key: "goodbye", value: "Bye bye", index: 2, value_type: "string"}
       ]
     end
   end
@@ -58,10 +58,10 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
     def entries do
       [
-        %Entry{key: "app.login.text", value: "Enter your credentials below to login", comment: "/*\n  Login text\n*/", index: 1},
-        %Entry{key: "app.login.text", value: "Username", comment: "\n/// Onboarding", index: 2},
-        %Entry{key: "app.users.active", value: "Just one user online", comment: "\n/* User state */", index: 3},
-        %Entry{key: "app.users.unactive", value: "No users online", index: 4}
+        %Entry{key: "app.login.text", value: "Enter your credentials below to login", comment: "/*\n  Login text\n*/", index: 1, value_type: "string"},
+        %Entry{key: "app.login.text", value: "Username", comment: "\n/// Onboarding", index: 2, value_type: "string"},
+        %Entry{key: "app.users.active", value: "Just one user online", comment: "\n/* User state */", index: 3, value_type: "string"},
+        %Entry{key: "app.users.unactive", value: "No users online", index: 4, value_type: "string"}
       ]
     end
   end
@@ -84,8 +84,13 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
     def entries do
       [
-        %Entry{key: "app.feedback", value: "\n      Comment:\n      \\n\\n\\n\n      ---\n      \\n\\nDevice information:\n      \\n\\nDevice: BLA\n", index: 1},
-        %Entry{key: "app.login.text", value: "Username", index: 2}
+        %Entry{
+          key: "app.feedback",
+          value: "\n      Comment:\n      \\n\\n\\n\n      ---\n      \\n\\nDevice information:\n      \\n\\nDevice: BLA\n",
+          index: 1,
+          value_type: "string"
+        },
+        %Entry{key: "app.login.text", value: "Username", index: 2, value_type: "string"}
       ]
     end
   end
@@ -103,9 +108,9 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, %s.", placeholders: ~w(%s)},
-        %Entry{index: 2, key: "multiple", value: "Hello, %1$s %2$s.", placeholders: ~w(%1$s %2$s)},
-        %Entry{index: 3, key: "duplicate", value: "Hello, %1$s %2$s. Welcome back %1$s %2$s.", placeholders: ~w(%1$s %2$s %1$s %2$s)}
+        %Entry{index: 1, key: "single", value: "Hello, %s.", placeholders: ~w(%s), value_type: "string"},
+        %Entry{index: 2, key: "multiple", value: "Hello, %1$s %2$s.", placeholders: ~w(%1$s %2$s), value_type: "string"},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %1$s %2$s. Welcome back %1$s %2$s.", placeholders: ~w(%1$s %2$s %1$s %2$s), value_type: "string"}
       ]
     end
   end

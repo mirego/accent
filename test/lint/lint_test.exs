@@ -8,14 +8,14 @@ defmodule AccentTest.Lint do
 
   describe "lint/2" do
     test "lint valid entry" do
-      entry = %Entry{value: "foo", master_value: "foo"}
+      entry = %Entry{key: "a", value: "foo", master_value: "foo", value_type: "string"}
       [linted] = Lint.lint([entry])
 
       assert linted.messages === []
     end
 
     test "lint trailing space entry" do
-      entry = %Entry{value: "foo ", master_value: "foo"}
+      entry = %Entry{key: "a", value: "foo ", master_value: "foo", value_type: "string"}
       [linted] = Lint.lint([entry])
 
       assert linted.messages === [
@@ -28,7 +28,7 @@ defmodule AccentTest.Lint do
     end
 
     test "lint double spaces entry" do
-      entry = %Entry{value: "fo  o", master_value: "foo"}
+      entry = %Entry{key: "a", value: "fo  o", master_value: "foo", value_type: "string"}
       [linted] = Lint.lint([entry])
 
       assert linted.messages === [
@@ -41,7 +41,7 @@ defmodule AccentTest.Lint do
     end
 
     test "lint three dots ellipsis entry" do
-      entry = %Entry{value: "foo...", master_value: "foo..."}
+      entry = %Entry{key: "a", value: "foo...", master_value: "foo...", value_type: "string"}
       [linted] = Lint.lint([entry])
 
       assert linted.messages === [

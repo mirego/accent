@@ -81,8 +81,13 @@ defmodule LangueTest.Formatter.Resx20.Expectation do
 
     def entries do
       [
-        %Entry{key: "text", value: "Los siguientes recursos no se pudieron cargar. \n    Asegúrese de que estén en el formato correcto y no estén dañados.\n\n{0}", index: 1},
-        %Entry{key: "key", value: "value", index: 2}
+        %Entry{
+          key: "text",
+          value_type: "string",
+          value: "Los siguientes recursos no se pudieron cargar. \n    Asegúrese de que estén en el formato correcto y no estén dañados.\n\n{0}",
+          index: 1
+        },
+        %Entry{key: "key", value_type: "string", value: "value", index: 2}
       ]
     end
   end

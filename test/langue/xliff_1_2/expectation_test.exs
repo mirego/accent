@@ -16,6 +16,10 @@ defmodule LangueTest.Formatter.XLIFF12.Expectation do
             <source>Bye bye</source>
             <target>À la prochaine</target>
           </trans-unit>
+          <trans-unit id="empty">
+            <source></source>
+            <target></target>
+          </trans-unit>
         </body>
       </file>
       """
@@ -23,8 +27,9 @@ defmodule LangueTest.Formatter.XLIFF12.Expectation do
 
     def entries do
       [
-        %Entry{key: "greeting", value: "bonjour", master_value: "hello", index: 1},
-        %Entry{key: "goodbye", value: "À la prochaine", master_value: "Bye bye", index: 2}
+        %Entry{key: "greeting", value: "bonjour", master_value: "hello", index: 1, value_type: "string"},
+        %Entry{key: "goodbye", value: "À la prochaine", master_value: "Bye bye", index: 2, value_type: "string"},
+        %Entry{key: "empty", value: "", master_value: "", index: 3, value_type: "empty"}
       ]
     end
   end

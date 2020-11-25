@@ -26,10 +26,10 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "test", value: "F"},
-        %Entry{index: 2, key: "test2", value: "D"},
-        %Entry{index: 3, key: "test3", value: "New history please"},
-        %Entry{index: 4, key: "test4.key", value: "value"}
+        %Entry{index: 1, key: "test", value: "F", value_type: "string"},
+        %Entry{index: 2, key: "test2", value: "D", value_type: "string"},
+        %Entry{index: 3, key: "test3", value: "New history please", value_type: "string"},
+        %Entry{index: 4, key: "test4.key", value: "value", value_type: "string"}
       ]
     end
   end
@@ -50,10 +50,10 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "test", value: "F"},
-        %Entry{index: 2, key: "test2", value: "D"},
-        %Entry{index: 3, key: "test3", value: "New history please"},
-        %Entry{index: 4, key: "test4.key", value: "value"}
+        %Entry{index: 1, key: "test", value: "F", value_type: "string"},
+        %Entry{index: 2, key: "test2", value: "D", value_type: "string"},
+        %Entry{index: 3, key: "test3", value: "New history please", value_type: "string"},
+        %Entry{index: 4, key: "test4.key", value: "value", value_type: "string"}
       ]
     end
   end
@@ -74,10 +74,10 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, {{username}}.", placeholders: ~w({{username}})},
-        %Entry{index: 2, key: "multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}})},
-        %Entry{index: 3, key: "duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", placeholders: ~w({{username}} {{username}})},
-        %Entry{index: 4, key: "empty", value: "Hello, {{}}.", placeholders: ~w({{}})}
+        %Entry{index: 1, key: "single", value: "Hello, {{username}}.", placeholders: ~w({{username}}), value_type: "string"},
+        %Entry{index: 2, key: "multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}}), value_type: "string"},
+        %Entry{index: 3, key: "duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", placeholders: ~w({{username}} {{username}}), value_type: "string"},
+        %Entry{index: 4, key: "empty", value: "Hello, {{}}.", placeholders: ~w({{}}), value_type: "string"}
       ]
     end
   end

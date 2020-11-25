@@ -16,8 +16,8 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "activity_open_in_chrome", value: "Ouvrir avec Chrome"},
-        %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari"}
+        %Entry{index: 1, key: "activity_open_in_chrome", value: "Ouvrir avec Chrome", value_type: "string"},
+        %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari", value_type: "string"}
       ]
     end
   end
@@ -89,8 +89,8 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "activity_open_in_chrome", value: "Ouvrir avec Chrome", comment: " Comment "},
-        %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari"}
+        %Entry{index: 1, key: "activity_open_in_chrome", value: "Ouvrir avec Chrome", comment: " Comment ", value_type: "string"},
+        %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari", value_type: "string"}
       ]
     end
   end
@@ -133,8 +133,8 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "height", value: "Height (%@)", placeholders: ~w(%@)},
-        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@.", placeholders: ~w(%1$@ %2$@)}
+        %Entry{index: 1, key: "height", value: "Height (%@)", placeholders: ~w(%@), value_type: "string"},
+        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@.", placeholders: ~w(%1$@ %2$@), value_type: "string"}
       ]
     end
   end
@@ -153,7 +153,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "a", value: "Test & 1,2,4 < > j'appelle"}
+        %Entry{index: 1, key: "a", value: "Test & 1,2,4 < > j'appelle", value_type: "string"}
       ]
     end
   end
@@ -174,9 +174,9 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, %@.", placeholders: ~w(%@)},
-        %Entry{index: 2, key: "multiple", value: "Hello, %1$@ %2$@.", placeholders: ~w(%1$@ %2$@)},
-        %Entry{index: 3, key: "duplicate", value: "Hello, %1$@ %2$@. Welcome back %1$@ %2$@.", placeholders: ~w(%1$@ %2$@ %1$@ %2$@)}
+        %Entry{index: 1, key: "single", value: "Hello, %@.", placeholders: ~w(%@), value_type: "string"},
+        %Entry{index: 2, key: "multiple", value: "Hello, %1$@ %2$@.", placeholders: ~w(%1$@ %2$@), value_type: "string"},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %1$@ %2$@. Welcome back %1$@ %2$@.", placeholders: ~w(%1$@ %2$@ %1$@ %2$@), value_type: "string"}
       ]
     end
   end

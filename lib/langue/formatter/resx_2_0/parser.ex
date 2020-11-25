@@ -26,6 +26,10 @@ defmodule Langue.Formatter.Resx20.Parser do
   end
 
   defp to_entry({'name', key}, {'value', _, [value]}) do
-    %Langue.Entry{key: to_string(key), value: to_string(value)}
+    %Langue.Entry{
+      key: to_string(key),
+      value: to_string(value),
+      value_type: Langue.ValueType.parse(to_string(value))
+    }
   end
 end

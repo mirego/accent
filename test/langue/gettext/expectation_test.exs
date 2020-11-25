@@ -17,13 +17,17 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
       ## From Ecto.Changeset.unique_constraint/3
       msgid "has already been taken"
       msgstr "est déjà pris"
+
+      msgid "empty value"
+      msgstr ""
       """
     end
 
     def entries do
       [
-        %Entry{comment: "## From Ecto.Changeset.cast/4", index: 1, key: "can't be blank", value: "ne peut être vide"},
-        %Entry{comment: "## From Ecto.Changeset.unique_constraint/3", index: 2, key: "has already been taken", value: "est déjà pris"}
+        %Entry{comment: "## From Ecto.Changeset.cast/4", index: 1, key: "can't be blank", value: "ne peut être vide", value_type: "string"},
+        %Entry{comment: "## From Ecto.Changeset.unique_constraint/3", index: 2, key: "has already been taken", value: "est déjà pris", value_type: "string"},
+        %Entry{index: 3, key: "empty value", value: "", value_type: "empty"}
       ]
     end
 
@@ -64,14 +68,14 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "has already been taken", value: "est déjà pris"},
+        %Entry{index: 1, key: "has already been taken", value: "est déjà pris", value_type: "string"},
         %Entry{
           index: 2,
           key: "should be at least n character(s).__KEY___",
           value: "should be at least %{count} character(s)",
           plural: true,
           locked: true,
-          value_type: "string",
+          value_type: "plural",
           placeholders: ~w(%{count})
         },
         %Entry{index: 3, key: "should be at least n character(s).__KEY__0", value: "should be at least 0 characters", plural: true, value_type: "string"},
@@ -102,8 +106,8 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "has already been taken", value: "est déjà pris"},
-        %Entry{index: 2, key: "has.already.been.taken", value: "est déjà pris"}
+        %Entry{index: 1, key: "has already been taken", value: "est déjà pris", value_type: "string"},
+        %Entry{index: 2, key: "has.already.been.taken", value: "est déjà pris", value_type: "string"}
       ]
     end
   end
@@ -124,7 +128,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "has already been taken", value: "est déjà pris"}
+        %Entry{index: 1, key: "has already been taken", value: "est déjà pris", value_type: "string"}
       ]
     end
 
@@ -151,7 +155,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "has already been taken", value: "est déjà pris"}
+        %Entry{index: 1, key: "has already been taken", value: "est déjà pris", value_type: "string"}
       ]
     end
 
@@ -176,7 +180,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "test", value: "\na\n\na\n"}
+        %Entry{index: 1, key: "test", value: "\na\n\na\n", value_type: "string"}
       ]
     end
   end
@@ -193,7 +197,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "test", value: "a", comment: ""}
+        %Entry{index: 1, key: "test", value: "a", comment: "", value_type: "string"}
       ]
     end
   end
@@ -219,10 +223,10 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, %{username}.", placeholders: ~w(%{username})},
-        %Entry{index: 2, key: "multiple", value: "Hello, %{firstname} %{lastname}.", placeholders: ~w(%{firstname} %{lastname})},
-        %Entry{index: 3, key: "duplicate", value: "Hello, %{username}. Welcome back %{username}.", placeholders: ~w(%{username} %{username})},
-        %Entry{index: 4, key: "empty", value: "Hello, %{}.", placeholders: ~w(%{})}
+        %Entry{index: 1, key: "single", value: "Hello, %{username}.", placeholders: ~w(%{username}), value_type: "string"},
+        %Entry{index: 2, key: "multiple", value: "Hello, %{firstname} %{lastname}.", placeholders: ~w(%{firstname} %{lastname}), value_type: "string"},
+        %Entry{index: 3, key: "duplicate", value: "Hello, %{username}. Welcome back %{username}.", placeholders: ~w(%{username} %{username}), value_type: "string"},
+        %Entry{index: 4, key: "empty", value: "Hello, %{}.", placeholders: ~w(%{}), value_type: "string"}
       ]
     end
   end
@@ -243,7 +247,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "key", value: "value"}
+        %Entry{index: 1, key: "key", value: "value", value_type: "string"}
       ]
     end
 
@@ -288,8 +292,8 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "test duplicate", value: "a"},
-        %Entry{index: 2, key: "test duplicate.__CONTEXT__other", value: "a"}
+        %Entry{index: 1, key: "test duplicate", value: "a", value_type: "string"},
+        %Entry{index: 2, key: "test duplicate.__CONTEXT__other", value: "a", value_type: "string"}
       ]
     end
   end
