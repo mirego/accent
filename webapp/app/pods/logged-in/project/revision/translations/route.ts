@@ -111,7 +111,20 @@ export default class TranslationsRoute extends Route {
     this.router.transitionTo(
       'logged-in.project.revision.translations',
       project.id,
-      revisionId
+      revisionId,
+      {
+        queryParams: this.fetchQueryParams(
+          this.controller as TranslationsController
+        ),
+      }
     );
+  }
+
+  private fetchQueryParams(controller: TranslationsController) {
+    const query = controller.query;
+
+    return {
+      query,
+    };
   }
 }

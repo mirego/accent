@@ -96,7 +96,20 @@ export default class ConflictsRoute extends Route {
     this.router.transitionTo(
       'logged-in.project.revision.conflicts',
       project.id,
-      revisionId
+      revisionId,
+      {
+        queryParams: this.fetchQueryParams(
+          this.controller as ConflictsController
+        ),
+      }
     );
+  }
+
+  private fetchQueryParams(controller: ConflictsController) {
+    const query = controller.query;
+
+    return {
+      query,
+    };
   }
 }
