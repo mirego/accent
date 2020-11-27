@@ -1,5 +1,5 @@
 defimpl Canada.Can, for: Accent.User do
-  alias Accent.{User, Project, Revision}
+  alias Accent.{User, Project, Revision, Comment}
 
   def can?(%User{permissions: permissions}, action, project_id) when is_binary(project_id) do
     validate_role(permissions, action, project_id)
@@ -11,6 +11,10 @@ defimpl Canada.Can, for: Accent.User do
 
   def can?(%User{permissions: permissions}, action, %Revision{project_id: project_id}) when is_binary(project_id) do
     validate_role(permissions, action, project_id)
+  end
+
+  def can?(%User{id: user_id}, _action, %Comment{user_id: comment_user_id}) do
+    user_id == comment_user_id
   end
 
   def can?(%User{email: email}, action, _) do

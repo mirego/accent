@@ -3,6 +3,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   alias Accent.{
     Collaborator,
+    Comment,
     Document,
     Integration,
     Operation,
@@ -146,6 +147,14 @@ defmodule Accent.GraphQL.Helpers.Authorization do
         |> Repo.get(args.id)
 
       authorize(action, integration.project_id, info, do: func.(integration, args, info))
+    end
+  end
+
+  def comment_authorize(action, func) do
+    fn _, args, info ->
+      comment = Repo.get(Comment, args.id)
+
+      authorize(action, comment, info, do: func.(comment, args, info))
     end
   end
 end

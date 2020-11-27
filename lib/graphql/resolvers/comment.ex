@@ -45,6 +45,13 @@ defmodule Accent.GraphQL.Resolvers.Comment do
     end
   end
 
+  @spec delete(Comment.t(), any(), GraphQLContext.t()) :: comment_operation
+  def delete(comment, _, _) do
+    {:ok, comment} = Repo.delete(comment)
+
+    {:ok, %{comment: comment, errors: nil}}
+  end
+
   @spec list_project(Project.t(), %{page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Comment.t())}
   def list_project(project, args, _) do
     Comment
