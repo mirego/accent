@@ -50,6 +50,8 @@ export default class CreateForm extends Component<Args> {
 
   @dropTask
   *submitTask() {
+    if (!this.email || !this.role) return;
+
     this.isCreating = true;
 
     yield this.args.onCreate({email: this.email, role: this.role});

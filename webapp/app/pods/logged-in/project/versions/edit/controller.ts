@@ -64,23 +64,22 @@ export default class EditController extends Controller {
     tag = tag || '';
 
     const id = this.version.id;
+    const response = await this.apolloMutate.mutate({
+      mutation: versionUpdateQuery,
+      variables: {
+        id,
+        name,
+        tag,
+      },
+    });
 
-    try {
-      await this.apolloMutate.mutate({
-        mutation: versionUpdateQuery,
-        variables: {
-          id,
-          name,
-          tag,
-        },
-      });
-
+    if (response.errors) {
+      this.error = true;
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
+    } else {
       this.router.transitionTo('logged-in.project.versions', this.project.id);
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
       this.send('closeModal');
-    } catch (error) {
-      this.error = true;
-      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
     }
   }
 }

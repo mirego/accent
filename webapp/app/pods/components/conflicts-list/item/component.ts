@@ -4,12 +4,13 @@ import Component from '@glimmer/component';
 import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 import {dropTask} from 'ember-concurrency-decorators';
 import {tracked} from '@glimmer/tracking';
+import {MutationResponse} from 'accent-webapp/services/apollo-mutate';
 
 interface Args {
   permissions: Record<string, true>;
   project: any;
   conflict: any;
-  onCorrect: (conflict: any, textInput: string) => Promise<void>;
+  onCorrect: (conflict: any, textInput: string) => Promise<MutationResponse>;
   onCopyTranslation: (
     text: string,
     sourceLanguageSlug: string,
@@ -80,11 +81,15 @@ export default class ConflictItem extends Component<Args> {
   async correct() {
     this.onLoading();
 
-    try {
-      await this.args.onCorrect(this.args.conflict, this.textInput);
-      this.onCorrectSuccess();
-    } catch (error) {
+    const response = await this.args.onCorrect(
+      this.args.conflict,
+      this.textInput
+    );
+
+    if (response.errors) {
       this.onError();
+    } else {
+      this.onCorrectSuccess();
     }
   }
 

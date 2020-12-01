@@ -117,20 +117,18 @@ export default class ServiceIntegrationsController extends Controller {
     successMessage: string;
     errorMessage: string;
   }) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation,
-        variables,
-        refetchQueries: ['ProjectServiceIntegrations'],
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation,
+      variables,
+      refetchQueries: ['ProjectServiceIntegrations'],
+    });
 
-      this.flashMessages.success(this.intl.t(successMessage));
-
-      return {errors: null};
-    } catch (errors) {
+    if (response.errors) {
       this.flashMessages.error(this.intl.t(errorMessage));
-
-      return {errors};
+    } else {
+      this.flashMessages.success(this.intl.t(successMessage));
     }
+
+    return response;
   }
 }

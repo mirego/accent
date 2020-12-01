@@ -99,18 +99,18 @@ export default class CollaboratorsController extends Controller {
     successMessage: string;
     errorMessage: string;
   }) {
-    try {
-      const result = await this.apolloMutate.mutate({
-        mutation,
-        variables,
-        refetchQueries: ['ProjectCollaborators'],
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation,
+      variables,
+      refetchQueries: ['ProjectCollaborators'],
+    });
 
-      this.flashMessages.success(this.intl.t(successMessage));
-      return result;
-    } catch (error) {
+    if (response.errors) {
       this.flashMessages.error(this.intl.t(errorMessage));
-      return error;
+    } else {
+      this.flashMessages.success(this.intl.t(successMessage));
     }
+
+    return response;
   }
 }

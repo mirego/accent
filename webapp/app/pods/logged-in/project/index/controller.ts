@@ -52,36 +52,36 @@ export default class ProjectIndexController extends Controller {
 
   @action
   async correctAllConflicts(revision: any) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: correctAllRevisionQuery,
-        variables: {revisionId: revision.id},
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: correctAllRevisionQuery,
+      variables: {revisionId: revision.id},
+    });
 
-      this.flashMessages.success(
-        this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)
-      );
-    } catch (error) {
+    if (response.errors) {
       this.flashMessages.error(
         this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_ERROR)
+      );
+    } else {
+      this.flashMessages.success(
+        this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_SUCCESS)
       );
     }
   }
 
   @action
   async uncorrectAllConflicts(revision: any) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: uncorrectAllRevisionQuery,
-        variables: {revisionId: revision.id},
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: uncorrectAllRevisionQuery,
+      variables: {revisionId: revision.id},
+    });
 
-      this.flashMessages.success(
-        this.intl.t(FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS)
-      );
-    } catch (error) {
+    if (response.errors) {
       this.flashMessages.error(
         this.intl.t(FLASH_MESSAGE_REVISION_UNCORRECT_ERROR)
+      );
+    } else {
+      this.flashMessages.success(
+        this.intl.t(FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS)
       );
     }
   }

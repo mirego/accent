@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
-import fieldError from 'accent-webapp/computed-macros/field-error';
 
 interface Args {
   repository: any;
@@ -18,8 +17,6 @@ interface Args {
 }
 
 export default class Slack extends Component<Args> {
-  urlError = fieldError(this.args.errors, this.args.url);
-
   @action
   changeUrl(event: Event) {
     const target = event.target as HTMLInputElement;

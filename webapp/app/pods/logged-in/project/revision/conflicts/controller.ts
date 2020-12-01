@@ -67,43 +67,41 @@ export default class ConflictsController extends Controller {
     sourceLanguageSlug: string,
     targetLanguageSlug: string
   ) {
-    try {
-      const {data} = await this.apollo.client.query({
-        fetchPolicy: 'network-only',
-        query: projectTranslateTextQuery,
-        variables: {
-          text,
-          sourceLanguageSlug,
-          targetLanguageSlug,
-          projectId: this.model.project.id,
-        },
-      });
+    const {data} = await this.apollo.client.query({
+      fetchPolicy: 'network-only',
+      query: projectTranslateTextQuery,
+      variables: {
+        text,
+        sourceLanguageSlug,
+        targetLanguageSlug,
+        projectId: this.model.project.id,
+      },
+    });
 
-      if (data.viewer?.project?.translatedText?.[0]) {
-        return data.viewer.project.translatedText[0];
-      } else {
-        return {text: null};
-      }
-    } catch (error) {
+    if (data.viewer?.project?.translatedText?.[0]) {
+      return data.viewer.project.translatedText[0];
+    } else {
       return {text: null};
     }
   }
 
   @action
   async correctConflict(conflict: any, text: string) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: translationCorrectQuery,
-        variables: {
-          translationId: conflict.id,
-          text,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: translationCorrectQuery,
+      variables: {
+        translationId: conflict.id,
+        text,
+      },
+    });
 
-      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CORRECT_SUCCESS));
-    } catch (error) {
+    if (response.errors) {
       this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CORRECT_ERROR));
+    } else {
+      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CORRECT_SUCCESS));
     }
+
+    return response;
   }
 
   @action

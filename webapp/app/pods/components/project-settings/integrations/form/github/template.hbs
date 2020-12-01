@@ -1,5 +1,5 @@
 <ProjectSettings::Integrations::Form::DataControlText
-  @error={{this.repositoryError}}
+  @error={{field-error @errors "data.repository"}}
   @label={{t "components.project_settings.integrations.data.repository"}}
   @placeholder="mirego/accent"
   @value={{@repository}}
@@ -7,7 +7,7 @@
 />
 
 <ProjectSettings::Integrations::Form::DataControlText
-  @error={{this.tokenError}}
+  @error={{field-error @errors "data.token"}}
   @label={{t "components.project_settings.integrations.data.token"}}
   @placeholder="aaaa-bbbb-cccc"
   @value={{@token}}
@@ -17,9 +17,8 @@
 />
 
 <ProjectSettings::Integrations::Form::DataControlText
-  @error={{this.defaultRefError}}
+  @error={{field-error @errors "data.defaultRef"}}
   @label={{t "components.project_settings.integrations.data.default_ref"}}
-  @placeholder="master"
   @value={{@defaultRef}}
   @onChange={{this.changeDefaultRef}}
 />
