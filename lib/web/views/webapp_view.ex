@@ -1,4 +1,6 @@
 defmodule Accent.WebappView do
+  @subresource_integrity ~r/ integrity="(sha256-.+)?"/
+
   def render do
     :accent
     |> Application.app_dir(path())
@@ -10,6 +12,7 @@ defmodule Accent.WebappView do
     file
     |> String.replace("__WEBAPP_SENTRY_DSN__", sentry_dsn())
     |> String.replace("__VERSION__", version())
+    |> remove_subresource_integrity(skip_subresource_integrity())
   end
 
   defp version do
@@ -22,5 +25,15 @@ defmodule Accent.WebappView do
 
   defp path do
     Application.get_env(:accent, __MODULE__)[:path]
+  end
+
+  defp skip_subresource_integrity do
+    Application.get_env(:accent, __MODULE__)[:skip_subresource_integrity]
+  end
+
+  defp remove_subresource_integrity(content, false), do: content
+
+  defp remove_subresource_integrity(content, _) do
+    String.replace(content, @subresource_integrity, "")
   end
 end

@@ -82,7 +82,10 @@ config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
   client_id: System.get_env("DISCORD_CLIENT_ID"),
   client_secret: System.get_env("DISCORD_CLIENT_SECRET")
 
-config :accent, Accent.WebappView, sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN") || ""
+config :accent, Accent.WebappView,
+  path: "priv/static/webapp/index.html",
+  sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN") || "",
+  skip_subresource_integrity: System.get_env("WEBAPP_SKIP_SUBRESOURCE_INTEGRITY") || false
 
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
