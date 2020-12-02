@@ -77,6 +77,17 @@ a.loginButton {
       background: lighten(#7289da, 30%);
     }
   }
+
+  &.loginButton--microsoft {
+    border: 2px solid #03a5f0;
+    text-shadow: none;
+    color: #03a5f0;
+
+    &:focus,
+    &:hover {
+      background: lighten(#03a5f0, 48%);
+    }
+  }
 }
 
 .loginButton-logo {

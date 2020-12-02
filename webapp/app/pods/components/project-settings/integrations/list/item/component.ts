@@ -1,7 +1,5 @@
-import {inject as service} from '@ember/service';
 import {action} from '@ember/object';
 import Component from '@glimmer/component';
-import IntlService from 'ember-intl/services/intl';
 import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
@@ -19,9 +17,6 @@ interface Args {
 }
 
 export default class IntegrationsListItem extends Component<Args> {
-  @service('intl')
-  intl: IntlService;
-
   @tracked
   errors = [];
 
@@ -37,10 +32,8 @@ export default class IntegrationsListItem extends Component<Args> {
     return LOGOS[service];
   }
 
-  get mappedService() {
-    return this.intl.t(
-      `general.integration_services.${this.args.integration.service}`
-    );
+  get mappedServiceTranslationKey() {
+    return `general.integration_services.${this.args.integration.service}`;
   }
 
   @action
@@ -51,19 +44,23 @@ export default class IntegrationsListItem extends Component<Args> {
 
   @action
   async update(args: any) {
-    const {errors} = await this.args.onUpdate(args);
+    const response = await this.args.onUpdate(args);
 
-    this.errors = errors;
-    this.isEditing = errors && errors.length > 0;
+    this.errors = response.errors;
+    this.isEditing = response.errors?.length;
+
+    return response;
   }
 
   @action
   async delete() {
     this.isDeleting = true;
 
-    const {errors} = await this.args.onDelete({id: this.args.integration.id});
+    const response = await this.args.onDelete({id: this.args.integration.id});
 
-    this.errors = errors;
-    this.isDeleting = errors && errors.length > 0;
+    this.errors = response.errors;
+    this.isDeleting = response.errors?.length;
+
+    return response;
   }
 }

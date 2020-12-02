@@ -35,7 +35,7 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
       }
       |> Repo.insert!()
 
-    entries = [%Langue.Entry{key: "a", value: "B"}]
+    entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 
     context =
       %Context{entries: entries}
@@ -86,7 +86,7 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
       }
       |> Repo.insert!()
 
-    entries = [%Langue.Entry{key: "a", value: "B"}]
+    entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 
     context =
       %Context{entries: entries}

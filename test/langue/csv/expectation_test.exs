@@ -13,8 +13,8 @@ defmodule Langue.Formatter.CSV.ExpectationTest do
 
     def entries do
       [
-        %Entry{index: 1, key: "a", value: "b"},
-        %Entry{index: 2, key: "c", value: "d"}
+        %Entry{index: 1, key: "a", value: "b", value_type: "string"},
+        %Entry{index: 2, key: "c", value: "d", value_type: "string"}
       ]
     end
   end

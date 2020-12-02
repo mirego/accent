@@ -23,16 +23,24 @@ defmodule Langue.Formatter.XLIFF12.Parser do
     end
   end
 
-  defp parse_line({{'trans-unit', [{'id', key}], [{'source', [], [source]}, {'target', [], [value]}]}, index}) do
-    key = IO.chardata_to_string(key)
-    value = IO.chardata_to_string(value)
-    source = IO.chardata_to_string(source)
+  defp parse_line({{'trans-unit', [{'id', key}], [{'source', _, source}, {'target', _, value}]}, index}) do
+    value =
+      case value do
+        [value] -> IO.chardata_to_string(value)
+        _ -> ""
+      end
+
+    source =
+      case source do
+        [source] -> IO.chardata_to_string(source)
+        _ -> ""
+      end
 
     %Entry{
       value: value,
       master_value: source,
       value_type: Langue.ValueType.parse(value),
-      key: key,
+      key: IO.chardata_to_string(key),
       index: index
     }
   end

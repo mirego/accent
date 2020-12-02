@@ -20,7 +20,11 @@
         disabled={{this.submitTask.isRunning}}
         value={{this.text}}
       />
-      <AsyncButton @loading={{this.submitTask.isRunning}} class="button button--filled">
+      <AsyncButton
+        @loading={{this.submitTask.isRunning}}
+        class="button button--filled"
+        {{on "click" (perform this.submitTask)}}
+      >
         {{t "components.translation_comment_form.comment_button"}}
       </AsyncButton>
     </div>

@@ -27,15 +27,16 @@
 }
 
 .label {
-  width: 100%;
-  padding: 5px 5px 5px 8px;
+  display: inline-block;
+  padding: 5px 8px 4px;
+  border-radius: 3px;
   margin-bottom: 5px;
   background: hsl(
     var(--color-blue-hue),
     var(--color-blue-saturation),
     var(--color-highlight-lighteness)
   );
-  font-size: 12px;
+  font-size: 11px;
   color: var(--color-blue);
 }
 

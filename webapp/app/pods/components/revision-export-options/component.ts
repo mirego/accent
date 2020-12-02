@@ -90,8 +90,16 @@ export default class RevisionExportOptions extends Component<Args> {
     if (!this.args.revisions) return [];
 
     return this.args.revisions.map(
-      ({id, language}: {id: string; language: any}) => ({
-        label: language.name,
+      ({
+        id,
+        name,
+        language,
+      }: {
+        id: string;
+        name: string | null;
+        language: any;
+      }) => ({
+        label: name || language.name,
         value: id,
       })
     );

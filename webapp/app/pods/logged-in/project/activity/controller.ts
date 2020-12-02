@@ -34,23 +34,23 @@ export default class ActivityController extends Controller {
 
   @action
   async rollback() {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: operationRollbackQuery,
-        variables: {
-          operationId: this.model.activity.id,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: operationRollbackQuery,
+      variables: {
+        operationId: this.model.activity.id,
+      },
+    });
 
+    if (response.errors) {
+      this.flashMessages.error(
+        this.intl.t(FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR)
+      );
+    } else {
       this.flashMessages.success(
         this.intl.t(FLASH_MESSAGE_OPERATION_ROLLBACK_SUCCESS)
       );
 
       this.send('onRefresh');
-    } catch (error) {
-      this.flashMessages.error(
-        this.intl.t(FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR)
-      );
     }
   }
 }

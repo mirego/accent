@@ -18,9 +18,9 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "errors.model.user", value: "Utilisateur"},
-        %Entry{index: 2, key: "errors.messages.invalid_email", value: "n'est pas une adresse courriel valide"},
-        %Entry{index: 3, key: "errors.messages.invalid_url", value: "n'est pas un URL valide"}
+        %Entry{index: 1, key: "errors.model.user", value: "Utilisateur", value_type: "string"},
+        %Entry{index: 2, key: "errors.messages.invalid_email", value: "n'est pas une adresse courriel valide", value_type: "string"},
+        %Entry{index: 3, key: "errors.messages.invalid_url", value: "n'est pas un URL valide", value_type: "string"}
       ]
     end
   end
@@ -39,7 +39,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "errors.model.user", value: "éèàãô’ æ“"}
+        %Entry{index: 1, key: "errors.model.user", value: "éèàãô’ æ“", value_type: "string"}
       ]
     end
   end
@@ -122,12 +122,12 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "errors.__KEY__0", value: "First error"},
-        %Entry{index: 2, key: "errors.__KEY__1", value: "Second error"},
-        %Entry{index: 3, key: "errors.__KEY__2.nested.__KEY__0", value: "of course"},
-        %Entry{index: 4, key: "errors.__KEY__2.nested.__KEY__1.nested_agin.__KEY__0", value: "ok"},
-        %Entry{index: 5, key: "errors.__KEY__2.nested.__KEY__2", value: "it works"},
-        %Entry{index: 6, key: "root", value: "AWESOME"}
+        %Entry{index: 1, key: "errors.__KEY__0", value: "First error", value_type: "string"},
+        %Entry{index: 2, key: "errors.__KEY__1", value: "Second error", value_type: "string"},
+        %Entry{index: 3, key: "errors.__KEY__2.nested.__KEY__0", value: "of course", value_type: "string"},
+        %Entry{index: 4, key: "errors.__KEY__2.nested.__KEY__1.nested_agin.__KEY__0", value: "ok", value_type: "string"},
+        %Entry{index: 5, key: "errors.__KEY__2.nested.__KEY__2", value: "it works", value_type: "string"},
+        %Entry{index: 6, key: "root", value: "AWESOME", value_type: "string"}
       ]
     end
   end
@@ -148,10 +148,10 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "placeholders.single", value: "Hello, %{username}.", placeholders: ~w(%{username})},
-        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, %{firstname} %{lastname}.", placeholders: ~w(%{firstname} %{lastname})},
-        %Entry{index: 3, key: "placeholders.duplicate", value: "Hello, %{username}. Welcome back %{username}.", placeholders: ~w(%{username} %{username})},
-        %Entry{index: 4, key: "placeholders.empty", value: "Hello, %{}.", placeholders: ~w(%{})}
+        %Entry{index: 1, key: "placeholders.single", value: "Hello, %{username}.", placeholders: ~w(%{username}), value_type: "string"},
+        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, %{firstname} %{lastname}.", placeholders: ~w(%{firstname} %{lastname}), value_type: "string"},
+        %Entry{index: 3, key: "placeholders.duplicate", value: "Hello, %{username}. Welcome back %{username}.", placeholders: ~w(%{username} %{username}), value_type: "string"},
+        %Entry{index: 4, key: "placeholders.empty", value: "Hello, %{}.", placeholders: ~w(%{}), value_type: "string"}
       ]
     end
   end

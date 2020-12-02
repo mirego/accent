@@ -20,9 +20,9 @@ defmodule LangueTest.Formatter.Es6Module.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "general.nested", value: "value ok"},
-        %Entry{index: 2, key: "general.roles.owner", value: "Owner"},
-        %Entry{index: 3, key: "test", value: "OK"}
+        %Entry{index: 1, key: "general.nested", value: "value ok", value_type: "string"},
+        %Entry{index: 2, key: "general.roles.owner", value: "Owner", value_type: "string"},
+        %Entry{index: 3, key: "test", value: "OK", value_type: "string"}
       ]
     end
   end
@@ -69,10 +69,16 @@ defmodule LangueTest.Formatter.Es6Module.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "placeholders.single", value: "Hello, {{username}}.", placeholders: ~w({{username}})},
-        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}})},
-        %Entry{index: 3, key: "placeholders.duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", placeholders: ~w({{username}} {{username}})},
-        %Entry{index: 4, key: "placeholders.empty", value: "Hello, {{}}.", placeholders: ~w({{}})}
+        %Entry{index: 1, key: "placeholders.single", value: "Hello, {{username}}.", placeholders: ~w({{username}}), value_type: "string"},
+        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}}), value_type: "string"},
+        %Entry{
+          index: 3,
+          key: "placeholders.duplicate",
+          value: "Hello, {{username}}. Welcome back {{username}}.",
+          placeholders: ~w({{username}} {{username}}),
+          value_type: "string"
+        },
+        %Entry{index: 4, key: "placeholders.empty", value: "Hello, {{}}.", placeholders: ~w({{}}), value_type: "string"}
       ]
     end
   end

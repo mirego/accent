@@ -124,17 +124,18 @@ export default class TranslationsController extends Controller {
 
   @action
   async updateText(translation: any, text: string) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: translationUpdateQuery,
-        variables: {
-          translationId: translation.id,
-          text,
-        },
-      });
-      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
-    } catch (error) {
+    const response = await this.apolloMutate.mutate({
+      mutation: translationUpdateQuery,
+      variables: {
+        translationId: translation.id,
+        text,
+      },
+    });
+
+    if (response.errors) {
       this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
+    } else {
+      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
     }
   }
 }

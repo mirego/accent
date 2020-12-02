@@ -53,23 +53,24 @@ export default class NewController extends Controller {
     tag = tag || '';
 
     const projectId = this.project.id;
+    const response = await this.apolloMutate.mutate({
+      mutation: versionCreateQuery,
+      variables: {
+        projectId,
+        name,
+        tag,
+      },
+    });
 
-    try {
-      await this.apolloMutate.mutate({
-        mutation: versionCreateQuery,
-        variables: {
-          projectId,
-          name,
-          tag,
-        },
-      });
-
+    if (response.errors) {
+      this.error = true;
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CREATE_ERROR));
+    } else {
       this.router.transitionTo('logged-in.project.versions', this.project.id);
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CREATE_SUCCESS));
       this.send('closeModal');
-    } catch (error) {
-      this.error = true;
-      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CREATE_ERROR));
     }
+
+    return response;
   }
 }

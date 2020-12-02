@@ -19,6 +19,11 @@ defmodule Langue.Formatter.CSV.Parser do
   end
 
   defp to_entry({[key, value], index}) do
-    %Langue.Entry{index: index, key: key, value: value}
+    %Langue.Entry{
+      index: index,
+      key: key,
+      value: value,
+      value_type: Langue.ValueType.parse(value)
+    }
   end
 end

@@ -112,7 +112,7 @@
   max-width: 340px;
   padding: 15px;
   background: var(--body-background);
-  box-shadow: 0 2px 6px var(--shadow-color);
+  box-shadow: 0 1px 4px var(--shadow-color), 0 7px 12px var(--shadow-color);
   border-radius: 2px;
   color: var(--color-primary);
   text-decoration: none;
@@ -120,7 +120,7 @@
 
   &:hover,
   &:focus {
-    box-shadow: 0 4px 12px rgba(#000, 0.15);
+    box-shadow: 0 3px 10px var(--shadow-color);
   }
 }
 
@@ -196,7 +196,7 @@
 .activities-last-sync {
   font-size: 11px;
   text-decoration: none;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 @media (max-width: var(--screen-md)) {

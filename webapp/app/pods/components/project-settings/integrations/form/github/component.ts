@@ -1,7 +1,6 @@
 import fmt from 'simple-fmt';
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
-import fieldError from 'accent-webapp/computed-macros/field-error';
 import config from 'accent-webapp/config/environment';
 
 interface Args {
@@ -20,10 +19,6 @@ interface Args {
 }
 
 export default class GitHub extends Component<Args> {
-  tokenError = fieldError(this.args.errors, this.args.token);
-  repositoryError = fieldError(this.args.errors, this.args.repository);
-  defaultRefError = fieldError(this.args.errors, this.args.defaultRef);
-
   get webhookUrl() {
     if (!this.args.project.accessToken) return;
     const host = window.location.origin;

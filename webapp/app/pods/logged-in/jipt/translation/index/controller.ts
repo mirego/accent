@@ -54,65 +54,71 @@ export default class IndexController extends Controller {
   async correctConflict(text: string) {
     const conflict = this.model.translation;
 
-    try {
-      await this.apolloMutate.mutate({
-        mutation: translationCorrectQuery,
-        variables: {
-          translationId: conflict.id,
-          text,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: translationCorrectQuery,
+      variables: {
+        translationId: conflict.id,
+        text,
+      },
+    });
 
+    if (response.errors) {
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CORRECT_ERROR));
+    } else {
       this.jipt.updateTranslation(
         this.model.translation.id,
         this.model.translation
       );
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CORRECT_SUCCESS));
-    } catch (error) {
-      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CORRECT_ERROR));
     }
+
+    return response;
   }
 
   @action
   async uncorrectConflict() {
     const conflict = this.model.translation;
 
-    try {
-      await this.apolloMutate.mutate({
-        mutation: translationUncorrectQuery,
-        variables: {
-          translationId: conflict.id,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: translationUncorrectQuery,
+      variables: {
+        translationId: conflict.id,
+      },
+    });
 
+    if (response.errors) {
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UNCORRECT_ERROR));
+    } else {
       this.jipt.updateTranslation(
         this.model.translation.id,
         this.model.translation
       );
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UNCORRECT_SUCCESS));
-    } catch (error) {
-      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UNCORRECT_ERROR));
     }
+
+    return response;
   }
 
   @action
   async updateText(text: string) {
     const translation = this.model.translation;
 
-    try {
-      await this.apolloMutate.mutate({
-        mutation: translationUpdateQuery,
-        variables: {
-          translationId: translation.id,
-          text,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: translationUpdateQuery,
+      variables: {
+        translationId: translation.id,
+        text,
+      },
+    });
 
-      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
-    } catch (error) {
+    if (response.errors) {
       this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
+    } else {
+      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
     }
+
+    return response;
   }
 }

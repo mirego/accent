@@ -45,21 +45,21 @@ export default class ManageLanguagesEditController extends Controller {
   async update(revisionAttributes: any) {
     this.error = false;
 
-    try {
-      await this.apolloMutate.mutate({
-        mutation: revisionUpdateQuery,
-        variables: {
-          revisionId: this.revision.id,
-          ...revisionAttributes,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: revisionUpdateQuery,
+      variables: {
+        revisionId: this.revision.id,
+        ...revisionAttributes,
+      },
+    });
 
+    if (response.errors) {
+      this.error = true;
+    } else {
       this.router.transitionTo(
         'logged-in.project.edit.manage-languages',
         this.project.id
       );
-    } catch (error) {
-      this.error = true;
     }
   }
 }

@@ -63,7 +63,7 @@ export default class IntegrationsForm extends Component<Args> {
   token: string;
 
   @tracked
-  defaultRef: string;
+  defaultRef: string = 'main';
 
   services = ['SLACK', 'GITHUB', 'DISCORD'];
 
@@ -107,10 +107,10 @@ export default class IntegrationsForm extends Component<Args> {
         service: this.services[0],
         events: [],
         data: {
-          url: '',
-          repository: '',
-          token: '',
-          defaultRef: '',
+          url: this.url,
+          repository: this.repository,
+          token: this.token,
+          defaultRef: this.defaultRef,
         },
       };
     }
@@ -176,9 +176,8 @@ export default class IntegrationsForm extends Component<Args> {
     });
 
     this.isSubmiting = false;
+    this.errors = response.errors;
 
-    if (response.errors && response.errors.length > 0) {
-      this.errors = response.errors;
-    }
+    return response;
   }
 }

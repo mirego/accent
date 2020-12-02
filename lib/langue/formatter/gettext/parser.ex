@@ -1,7 +1,7 @@
 defmodule Langue.Formatter.Gettext.Parser do
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Entry
+  alias Langue.{Entry, ValueType}
   alias Langue.Utils.Placeholders
 
   def parse(%{render: render, document: document}) do
@@ -34,6 +34,7 @@ defmodule Langue.Formatter.Gettext.Parser do
       key: join_string(translation.msgid) <> key_suffix("_"),
       value: join_string(translation.msgid_plural),
       plural: true,
+      value_type: "plural",
       locked: true
     }
 
@@ -44,7 +45,7 @@ defmodule Langue.Formatter.Gettext.Parser do
           key: join_string(translation.msgid) <> key_suffix(plural_index),
           value: join_string(value),
           plural: true,
-          value_type: Langue.ValueType.parse(join_string(value))
+          value_type: ValueType.parse(join_string(value))
         }
       ])
     end)
@@ -55,7 +56,8 @@ defmodule Langue.Formatter.Gettext.Parser do
       %Entry{
         comment: join_string(translation.comments),
         key: join_string(translation.msgid),
-        value: join_string(translation.msgstr)
+        value: join_string(translation.msgstr),
+        value_type: ValueType.parse(join_string(translation.msgstr))
       }
     ]
   end
@@ -65,7 +67,8 @@ defmodule Langue.Formatter.Gettext.Parser do
       %Entry{
         comment: join_string(translation.comments),
         key: join_string(translation.msgid) <> context_suffix(translation.msgctxt),
-        value: join_string(translation.msgstr)
+        value: join_string(translation.msgstr),
+        value_type: ValueType.parse(join_string(translation.msgstr))
       }
     ]
   end

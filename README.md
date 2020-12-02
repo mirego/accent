@@ -57,11 +57,12 @@ This will start the webserver on port 4000, migrate the database to have an up a
 
 ## 🚧 Requirements
 
-- `erlang ~> 21.2`
-- `elixir ~> 1.9`
+- `erlang ~> 23.1`
+- `elixir ~> 1.11`
 - `postgres >= 9.4`
 - `node.js >= 10.16.0`
 - `libyaml >= 0.1.7`
+- `gleam ~> 0.11`
 
 ## 🎛 Executing mix commands
 
@@ -92,9 +93,8 @@ _This is the full development setup. To simply run the app, see the *Getting sta
 5. Install dependencies with `make dependencies`
 6. Create and migrate your database with `mix ecto.setup`
 7. Start Phoenix endpoint with `mix phx.server`
-8. Start Ember server with `npm run start --prefix webapp`
 
-_That’s it!_
+_That’s it!_ You should now be able to open the app at `http://localhost:4000`
 
 ### Makefile
 
@@ -123,13 +123,14 @@ Accent provides a default value for every required environment variable. This me
 
 ### Production setup
 
-| Variable                                  | Default | Description                                                                                                           |
-| ----------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| `RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects.                     |
-| `FORCE_SSL`                               | _false_ | If the app should always be served by https (and wss for websocket)                                                   |
-| `SENTRY_DSN`                              | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                                            |
-| `WEBAPP_SENTRY_DSN`                       | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                                         |
-| `CANONICAL_URL`                           | _none_  | The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow. |
+| Variable                                  | Default | Description                                                                                                                |
+| ----------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects.                          |
+| `FORCE_SSL`                               | _false_ | If the app should always be served by https (and wss for websocket)                                                        |
+| `SENTRY_DSN`                              | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                                                 |
+| `WEBAPP_SENTRY_DSN`                       | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                                              |
+| `CANONICAL_URL`                           | _none_  | The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.      |
+| `WEBAPP_SKIP_SUBRESOURCE_INTEGRITY`       | _none_  | Remove integrity attributes on link and script tag. Useful when using a proxy that compress resources before serving them. |
 
 ### Authentication setup
 
@@ -147,6 +148,9 @@ Various login providers are included in Accent using Ueberauth to abstract servi
 | `SLACK_TEAM_ID`            | _none_  |                                                                                         |
 | `DISCORD_CLIENT_ID`        | _none_  |                                                                                         |
 | `DISCORD_CLIENT_SECRET`    | _none_  |                                                                                         |
+| `MICROSOFT_CLIENT_ID`      | _none_  |                                                                                         |
+| `MICROSOFT_CLIENT_SECRET`  | _none_  |                                                                                         |
+| `MICROSOFT_TENANT_ID`      | _none_  |                                                                                         |
 
 ### Email setup
 

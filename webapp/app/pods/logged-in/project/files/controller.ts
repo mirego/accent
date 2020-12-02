@@ -46,36 +46,36 @@ export default class FilesController extends Controller {
 
   @action
   async deleteDocument(documentEntity: any) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: documentDeleteQuery,
-        variables: {
-          documentId: documentEntity.id,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: documentDeleteQuery,
+      variables: {
+        documentId: documentEntity.id,
+      },
+    });
 
+    if (response.errors) {
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_DELETE_ERROR));
+    } else {
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_DELETE_SUCCESS));
       this.send('onRefresh');
-    } catch (error) {
-      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_DELETE_ERROR));
     }
   }
 
   @action
   async updateDocument(documentEntity: any, path: string) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: documentUpdateQuery,
-        variables: {
-          documentId: documentEntity.id,
-          path,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: documentUpdateQuery,
+      variables: {
+        documentId: documentEntity.id,
+        path,
+      },
+    });
 
+    if (response.errors) {
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
+    } else {
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
       this.send('onRefresh');
-    } catch (error) {
-      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_UPDATE_ERROR));
     }
   }
 

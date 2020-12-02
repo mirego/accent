@@ -114,6 +114,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
       |> TranslationScope.parse_empty(args[:is_text_empty])
       |> TranslationScope.parse_commented_on(args[:is_commented_on])
       |> TranslationScope.from_version(args[:version])
+      |> Query.distinct(true)
       |> Query.preload(:revision)
       |> Paginated.paginate(args)
 

@@ -59,6 +59,10 @@ export default class DashboardRevisionsItem extends Component<Args> {
     return translationsCount - conflictsCount;
   }
 
+  get languageName() {
+    return this.args.revision.name || this.args.revision.language.name;
+  }
+
   @action
   toggleShowActions() {
     this.showActions = !this.showActions;

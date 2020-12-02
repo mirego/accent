@@ -14,8 +14,6 @@ config :accent, Accent.Endpoint,
 
 config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServer.HTTP
 
-config :accent, Accent.WebappView, path: "priv/static/webapp/index.html"
-
 config :accent, Oban, queues: [hook: 10], repo: Accent.Repo
 
 config :absinthe, :schema, Accent.GraphQL.Schema

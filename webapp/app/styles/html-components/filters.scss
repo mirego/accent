@@ -2,7 +2,7 @@
   padding: 15px;
   border-radius: 0 0 3px 3px;
   background: var(--background-light);
-  box-shadow: 0 9px 19px var(--shadow-color);
+  box-shadow: 0 1px 4px var(--shadow-color), 0 9px 19px var(--shadow-color);
   margin-top: -2px;
 
   &.filters--transparent {

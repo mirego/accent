@@ -3,9 +3,10 @@ import {action} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
 import {dropTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
+import {MutationResponse} from 'accent-webapp/services/apollo-mutate';
 
 interface Args {
-  onSubmit: (text: string) => Promise<void>;
+  onSubmit: (text: string) => Promise<MutationResponse>;
 }
 
 const SUBMIT_DEBOUNCE = 1000;
@@ -22,13 +23,13 @@ export default class TranslationCommentForm extends Component<Args> {
     this.error = false;
     event?.preventDefault();
 
-    try {
-      yield timeout(SUBMIT_DEBOUNCE);
-      yield this.args.onSubmit(this.text);
+    yield timeout(SUBMIT_DEBOUNCE);
+    const response = yield this.args.onSubmit(this.text);
 
-      this.text = '';
-    } catch (error) {
+    if (response.errors) {
       this.error = true;
+    } else {
+      this.text = '';
     }
   }
 

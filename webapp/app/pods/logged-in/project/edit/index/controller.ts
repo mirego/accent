@@ -45,22 +45,24 @@ export default class ProjectEditIndexController extends Controller {
   async deleteProject() {
     const project = this.project;
 
-    try {
-      await this.apolloMutate.mutate({
-        mutation: projectDeleteQuery,
-        variables: {
-          projectId: project.id,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: projectDeleteQuery,
+      variables: {
+        projectId: project.id,
+      },
+    });
 
+    if (response.errors) {
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_DELETE_PROJECT_ERROR));
+    } else {
       this.flashMessages.success(
         this.intl.t(FLASH_MESSAGE_DELETE_PROJECT_SUCCESS)
       );
 
       this.transitionToRoute('logged-in.projects');
-    } catch (error) {
-      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_DELETE_PROJECT_ERROR));
     }
+
+    return response;
   }
 
   @action
@@ -89,18 +91,18 @@ export default class ProjectEditIndexController extends Controller {
     successMessage: string;
     errorMessage: string;
   }) {
-    try {
-      const result = await this.apolloMutate.mutate({
-        mutation,
-        variables,
-        refetchQueries: ['ProjectEdit'],
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation,
+      variables,
+      refetchQueries: ['ProjectEdit'],
+    });
 
-      this.flashMessages.success(this.intl.t(successMessage));
-
-      return result;
-    } catch (error) {
+    if (response.errors) {
       this.flashMessages.error(this.intl.t(errorMessage));
+    } else {
+      this.flashMessages.success(this.intl.t(successMessage));
     }
+
+    return response;
   }
 }

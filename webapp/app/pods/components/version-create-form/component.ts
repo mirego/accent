@@ -3,7 +3,7 @@ import {action} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
 
 interface Args {
-  error: any;
+  error: boolean;
   project: any;
   onCreate: ({name, tag}: {name: string; tag: string}) => Promise<void>;
 }

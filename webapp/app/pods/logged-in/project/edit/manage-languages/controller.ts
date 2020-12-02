@@ -52,7 +52,7 @@ export default class ManageLanguagesController extends Controller {
   showLoading: boolean;
 
   @tracked
-  errors = [];
+  errors: string[] = [];
 
   get filteredLanguages() {
     const projectLanguages = this.model.project.revisions.map(
@@ -66,45 +66,45 @@ export default class ManageLanguagesController extends Controller {
 
   @action
   async deleteRevision(revision: any) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: revisionDeleteQuery,
-        variables: {
-          revisionId: revision.id,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: revisionDeleteQuery,
+      variables: {
+        revisionId: revision.id,
+      },
+    });
 
+    if (response.errors) {
+      this.flashMessages.error(
+        this.intl.t(FLASH_MESSAGE_REVISION_DELETED_ERROR)
+      );
+    } else {
       this.flashMessages.success(
         this.intl.t(FLASH_MESSAGE_REVISION_DELETED_SUCCESS)
       );
 
       this.send('onRefresh');
-    } catch (error) {
-      this.flashMessages.error(
-        this.intl.t(FLASH_MESSAGE_REVISION_DELETED_ERROR)
-      );
     }
   }
 
   @action
   async promoteRevisionMaster(revision: any) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: revisionMasterPromoteQuery,
-        variables: {
-          revisionId: revision.id,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: revisionMasterPromoteQuery,
+      variables: {
+        revisionId: revision.id,
+      },
+    });
 
+    if (response.errors) {
+      this.flashMessages.error(
+        this.intl.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR)
+      );
+    } else {
       this.flashMessages.success(
         this.intl.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_SUCCESS)
       );
 
       this.send('onRefresh');
-    } catch (error) {
-      this.flashMessages.error(
-        this.intl.t(FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR)
-      );
     }
   }
 
@@ -113,23 +113,24 @@ export default class ManageLanguagesController extends Controller {
     const project = this.model.project;
     this.errors = [];
 
-    try {
-      await this.apolloMutate.mutate({
-        mutation: revisionCreateQuery,
-        refetchQueries: ['Dashboard', 'Project'],
-        variables: {
-          projectId: project.id,
-          languageId,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: revisionCreateQuery,
+      refetchQueries: ['Dashboard', 'Project'],
+      variables: {
+        projectId: project.id,
+        languageId,
+      },
+    });
 
+    if (response.errors) {
+      this.errors = response.errors;
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_NEW_LANGUAGE_FAILURE));
+    } else {
       this.flashMessages.success(
         this.intl.t(FLASH_MESSAGE_NEW_LANGUAGE_SUCCESS)
       );
 
       this.router.transitionTo('logged-in.project.index', project.id);
-    } catch (error) {
-      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_NEW_LANGUAGE_FAILURE));
     }
   }
 }

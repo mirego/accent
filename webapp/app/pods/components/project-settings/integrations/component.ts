@@ -21,10 +21,10 @@ export default class Integrations extends Component<Args> {
 
   @action
   async create(args: any) {
-    const {errors} = await this.args.onCreateIntegration(args);
+    const response = await this.args.onCreateIntegration(args);
 
-    this.showCreateForm = errors && errors.length > 0;
+    this.showCreateForm = response.errors?.length > 0;
 
-    return {errors};
+    return response;
   }
 }
