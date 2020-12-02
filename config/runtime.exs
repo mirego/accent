@@ -62,6 +62,7 @@ providers = if System.get_env("GOOGLE_API_CLIENT_ID"), do: [{:google, {Ueberauth
 providers = if System.get_env("SLACK_CLIENT_ID"), do: [{:slack, {Ueberauth.Strategy.Slack, [team: System.get_env("SLACK_TEAM_ID")]}} | providers], else: providers
 providers = if System.get_env("GITHUB_CLIENT_ID"), do: [{:github, {Ueberauth.Strategy.Github, [default_scope: "user"]}} | providers], else: providers
 providers = if System.get_env("DISCORD_CLIENT_ID"), do: [{:discord, {Ueberauth.Strategy.Discord, [default_scope: "identify email"]}} | providers], else: providers
+providers = if System.get_env("MICROSOFT_CLIENT_ID"), do: [{:microsoft, {Ueberauth.Strategy.Microsoft, []}} | providers], else: providers
 providers = if System.get_env("DUMMY_LOGIN_ENABLED"), do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers], else: providers
 
 config :ueberauth, Ueberauth, providers: providers
@@ -81,6 +82,11 @@ config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
 config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
   client_id: System.get_env("DISCORD_CLIENT_ID"),
   client_secret: System.get_env("DISCORD_CLIENT_SECRET")
+  
+config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
+  client_id: System.get_env("MICROSOFT_CLIENT_ID"),
+  client_secret: System.get_env("MICROSOFT_CLIENT_SECRET"),
+  tenant_id: System.get_env("MICROSOFT_TENANT_ID")
 
 config :accent, Accent.WebappView,
   path: "priv/static/webapp/index.html",

@@ -59,5 +59,15 @@
         {{t "components.login_forms.discord"}}
       </a>
     {{/if}}
+    {{#if this.microsoftLoginEnabled}}
+      <a
+        href={{this.microsoftUrl}}
+        class="button button--filled"
+        local-class="loginButton loginButton--microsoft"
+      >
+        <img src="assets/auth_providers/microsoft.svg" local-class="loginButton-logo">
+        {{t "components.login_forms.microsoft"}}
+      </a>
+    {{/if}}
   {{/if}}
 </div>
