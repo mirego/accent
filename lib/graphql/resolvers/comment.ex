@@ -21,7 +21,7 @@ defmodule Accent.GraphQL.Resolvers.Comment do
       "translation_id" => translation.id
     }
 
-    changeset = Comment.changeset(%Comment{}, comment_params)
+    changeset = Comment.create_changeset(%Comment{}, comment_params)
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
@@ -47,7 +47,10 @@ defmodule Accent.GraphQL.Resolvers.Comment do
 
   @spec delete(Comment.t(), any(), GraphQLContext.t()) :: comment_operation
   def delete(comment, _, _) do
-    {:ok, comment} = Repo.delete(comment)
+    {:ok, comment} =
+      comment
+      |> Comment.delete_changeset()
+      |> Repo.delete()
 
     {:ok, %{comment: comment, errors: nil}}
   end

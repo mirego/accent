@@ -152,7 +152,9 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   def comment_authorize(action, func) do
     fn _, args, info ->
-      comment = Repo.get(Comment, args.id)
+      comment =
+        Comment
+        |> Repo.get(args.id)
 
       authorize(action, comment, info, do: func.(comment, args, info))
     end
