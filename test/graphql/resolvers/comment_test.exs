@@ -54,6 +54,17 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
     assert get_in(Repo.all(Comment), [Access.all(), Access.key(:text)]) == ["First comment"]
   end
 
+  test "delete", %{translation: translation, user: user} do
+    comment = %Comment{translation_id: translation.id, text: "test", user: user} |> Repo.insert!()
+
+    assert get_in(Repo.all(Comment), [Access.all(), Access.key(:id)]) == [comment.id]
+
+    {:ok, result} = Resolver.delete(comment, nil, nil)
+
+    assert get_in(result, [:errors]) == nil
+    assert Repo.all(Comment) == []
+  end
+
   test "list project", %{project: project, translation: translation, user: user} do
     comment = %Comment{translation_id: translation.id, text: "test", user: user} |> Repo.insert!()
 
