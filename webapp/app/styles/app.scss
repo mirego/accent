@@ -236,8 +236,8 @@ html {
 }
 
 html[data-theme='dark'] {
-  --body-background: #232323;
-  --body-background-border: #333;
+  --body-background: #191919;
+  --body-background-border: #232323;
 
   --logo-background: #333;
   --logo-foreground: #777;
@@ -250,10 +250,10 @@ html[data-theme='dark'] {
   --input-background: #111;
   --input-color: #fafafa;
 
-  --background-light: #292929;
+  --background-light: #1f1f1f;
   --background-light-highlight: #3c3c3c;
 
-  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-color: rgba(0, 0, 0, 0.24);
 
   --color-highlight-lighteness: 12%;
   --color-black: #adadad;

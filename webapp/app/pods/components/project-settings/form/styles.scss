@@ -47,12 +47,10 @@ div.lock-text {
   font-size: 12px;
   font-weight: bold;
   cursor: pointer;
-  border: 1px solid;
   padding: 3px 5px;
 
   &.lock-text--inactive {
-    color: #aaa;
-    border-color: #ddd;
+    color: var(--color-gray);
 
     &:hover {
       color: var(--color-green);
