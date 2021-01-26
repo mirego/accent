@@ -72,7 +72,9 @@ export default class CommentsController extends Controller {
     if (response.errors) {
       this.flashMessages.error(this.intl.t(FLASH_MESSAGE_DELETE_COMMENT_ERROR));
     } else {
-      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_DELETE_COMMENT_SUCCESS));
+      this.flashMessages.success(
+        this.intl.t(FLASH_MESSAGE_DELETE_COMMENT_SUCCESS)
+      );
     }
   }
 
