@@ -61,20 +61,18 @@ export default class CommentsController extends Controller {
 
   @action
   async deleteComment(comment: {id: string}) {
-    try {
-      await this.apolloMutate.mutate({
-        mutation: commentDeleteQuery,
-        refetchQueries: ['TranslationComments'],
-        variables: {
-          commentId: comment.id,
-        },
-      });
+    const response = await this.apolloMutate.mutate({
+      mutation: commentDeleteQuery,
+      refetchQueries: ['TranslationComments'],
+      variables: {
+        commentId: comment.id,
+      },
+    });
 
-      this.flashMessages.success(
-        this.intl.t(FLASH_MESSAGE_DELETE_COMMENT_SUCCESS)
-      );
-    } catch (error) {
+    if (response.errors) {
       this.flashMessages.error(this.intl.t(FLASH_MESSAGE_DELETE_COMMENT_ERROR));
+    } else {
+      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_DELETE_COMMENT_SUCCESS));
     }
   }
 
