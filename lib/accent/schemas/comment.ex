@@ -14,7 +14,7 @@ defmodule Accent.Comment do
 
   @required_fields ~w(text user_id translation_id)a
 
-  def changeset(model, params) do
+  def create_changeset(model, params) do
     model
     |> cast(params, @required_fields ++ [])
     |> validate_required(@required_fields)
@@ -24,6 +24,18 @@ defmodule Accent.Comment do
       Accent.Translation
       |> where(id: ^changeset.changes[:translation_id])
       |> changeset.repo.update_all(inc: [comments_count: 1])
+
+      changeset
+    end)
+  end
+
+  def delete_changeset(model) do
+    model
+    |> change()
+    |> prepare_changes(fn changeset ->
+      Accent.Translation
+      |> where(id: ^model.translation_id)
+      |> changeset.repo.update_all(inc: [comments_count: -1])
 
       changeset
     end)

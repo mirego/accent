@@ -10,6 +10,7 @@ interface Args {
   onCreateSubscription: (user: any) => Promise<void>;
   onDeleteSubscription: (subscription: any) => Promise<void>;
   onSubmit: (text: string) => Promise<void>;
+  onDeleteComment: (comment: {id: string}) => Promise<void>;
   onSelectPage: (page: number) => void;
 }
 

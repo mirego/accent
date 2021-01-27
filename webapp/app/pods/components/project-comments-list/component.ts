@@ -3,6 +3,7 @@ import Component from '@glimmer/component';
 interface Args {
   project: any;
   comments: any;
+  onDeleteComment: (comment: {id: string}) => Promise<void>;
 }
 
 export default class ProjectCommentsList extends Component<Args> {

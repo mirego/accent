@@ -8,6 +8,7 @@
   <ProjectCommentsList
     @project={{this.model.project}}
     @comments={{this.model.comments.entries}}
+    @onDeleteComment={{fn this.deleteComment}}
   />
   <ResourcePagination
     @meta={{this.model.comments.meta}}

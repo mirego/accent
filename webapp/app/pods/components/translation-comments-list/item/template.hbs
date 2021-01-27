@@ -12,6 +12,10 @@
   <span local-class="date">
     <TimeAgoInWordsTag @date={{@comment.insertedAt}} />
   </span>
+
+  {{#if this.isAuthor }}
+    <TranslationCommentDelete @onSubmit={{perform this.deleteComment}} />
+  {{/if}}
 </div>
 
 <div local-class="content">

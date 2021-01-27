@@ -21,7 +21,7 @@ defmodule Accent.GraphQL.Resolvers.Comment do
       "translation_id" => translation.id
     }
 
-    changeset = Comment.changeset(%Comment{}, comment_params)
+    changeset = Comment.create_changeset(%Comment{}, comment_params)
 
     case Repo.insert(changeset) do
       {:ok, comment} ->
@@ -43,6 +43,16 @@ defmodule Accent.GraphQL.Resolvers.Comment do
       {:error, _reason} ->
         {:ok, %{comment: nil, errors: ["unprocessable_entity"]}}
     end
+  end
+
+  @spec delete(Comment.t(), any(), GraphQLContext.t()) :: comment_operation
+  def delete(comment, _, _) do
+    {:ok, comment} =
+      comment
+      |> Comment.delete_changeset()
+      |> Repo.delete()
+
+    {:ok, %{comment: comment, errors: nil}}
   end
 
   @spec list_project(Project.t(), %{page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Comment.t())}
