@@ -31,6 +31,15 @@ defmodule Accent.Scopes.Translation do
   def parse_order(query, "-key"), do: from(query, order_by: [desc: :key])
   def parse_order(query, "updated"), do: from(query, order_by: [asc: :updated_at])
   def parse_order(query, "-updated"), do: from(query, order_by: [desc: :updated_at])
+
+  def parse_order(query, "master"),
+    do:
+      from(translations in query,
+        inner_join: revisions in assoc(translations, :revision),
+        inner_join: languages in assoc(revisions, :language),
+        order_by: fragment("(case when ? then 0 else 2 end) ASC", revisions.master)
+      )
+
   def parse_order(query, _), do: from(query, order_by: [asc: :key])
 
   @doc """
@@ -152,27 +161,18 @@ defmodule Accent.Scopes.Translation do
   @spec not_conflicted(Queryable.t()) :: Queryable.t()
   def not_conflicted(query), do: from(query, where: [conflicted: false])
 
-  @doc """
-  ## Examples
-
-    iex> Accent.Scopes.Translation.related_to(Accent.Translation, %Accent.Translation{id: "0400a3e6-1e72-4b35-9565-79a95accc94e", key: "foo", document_id: "bar", version_id: nil})
-    #Ecto.Query<from t0 in Accent.Translation, where: t0.key == ^"foo", where: t0.document_id == ^"bar", where: is_nil(t0.version_id), order_by: [desc: t0.updated_at]>
-  """
   @spec related_to(Queryable.t(), Translation.t()) :: Queryable.t()
   def related_to(query, translation) do
     query
     |> from_key(translation.key)
     |> from_document(translation.document_id)
     |> from_version(translation.version_id)
-    |> parse_order("-updated")
+    |> distinct([translations], translations.revision_id)
+    |> subquery()
+    |> from()
+    |> parse_order("master")
   end
 
-  @doc """
-  ## Examples
-
-    iex> Accent.Scopes.Translation.related_to_one(Accent.Translation, %Accent.Translation{id: "0400a3e6-1e72-4b35-9565-79a95accc94e", key: "foo", document_id: "bar", version_id: nil})
-    #Ecto.Query<from t0 in Accent.Translation, where: t0.key == ^"foo", where: t0.document_id == ^"bar", where: is_nil(t0.version_id), order_by: [desc: t0.updated_at], limit: 1>
-  """
   @spec related_to_one(Queryable.t(), Translation.t()) :: Queryable.t()
   def related_to_one(query, translation) do
     query
@@ -209,6 +209,16 @@ defmodule Accent.Scopes.Translation do
   """
   @spec from_revision(Queryable.t(), String.t()) :: Queryable.t()
   def from_revision(query, revision_id), do: from(query, where: [revision_id: ^revision_id])
+
+  @doc """
+  ## Examples
+
+    iex> Accent.Scopes.Translation.not_from_revision(Accent.Translation, "test")
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.revision_id != ^"test">
+  """
+  @spec from_revision(Queryable.t(), String.t()) :: Queryable.t()
+  def not_from_revision(query, nil), do: query
+  def not_from_revision(query, revision_id), do: from(t in query, where: t.revision_id != ^revision_id)
 
   @doc """
   ## Examples

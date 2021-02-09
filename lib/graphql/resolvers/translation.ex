@@ -123,24 +123,10 @@ defmodule Accent.GraphQL.Resolvers.Translation do
 
   @spec related_translations(Translation.t(), map(), struct()) :: {:ok, [Translation.t()]}
   def related_translations(translation, _, _) do
-    revision =
-      translation
-      |> Ecto.assoc(:revision)
-      |> Repo.one()
-
-    revision_ids =
-      Project
-      |> Repo.get!(revision.project_id)
-      |> Ecto.assoc(:revisions)
-      |> Query.select([r], r.id)
-      |> Query.where([r], r.id != ^revision.id)
-      |> Repo.all()
-
     translations =
       Translation
-      |> TranslationScope.from_revisions(revision_ids)
+      |> TranslationScope.not_from_revision(translation.revision_id)
       |> TranslationScope.related_to(translation)
-      |> Query.distinct([t], t.revision_id)
       |> Repo.all()
 
     {:ok, translations}
