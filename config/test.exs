@@ -8,7 +8,7 @@ config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServerM
 
 config :ueberauth, Ueberauth, providers: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}}]
 
-config :accent, Oban, crontab: false, queues: false
+config :accent, Oban, crontab: false, queues: false, plugins: false
 
 events = ~w(sync merge create_collaborator create_comment)
 
