@@ -1,23 +1,27 @@
-<div local-class="header">
-  <span local-class="user">
-    {{#if @comment.user.pictureUrl}}
-      <AccAvatarImg
-        local-class="user-picture"
-        src="{{@comment.user.pictureUrl}}"
-      />
+<div local-class="wrapper">
+  <div local-class="header">
+    <div local-class="meta">
+      <span local-class="user">
+        {{#if @comment.user.pictureUrl}}
+          <AccAvatarImg
+            local-class="user-picture"
+            src="{{@comment.user.pictureUrl}}"
+          />
+        {{/if}}
+        {{@comment.user.fullname}}
+      </span>
+
+      <span local-class="date">
+        <TimeAgoInWordsTag @date={{@comment.insertedAt}} />
+      </span>
+    </div>
+
+    {{#if this.isAuthor }}
+      <TranslationCommentDelete local-class="button-delete" @onSubmit={{perform this.deleteComment}} />
     {{/if}}
-    {{@comment.user.fullname}}
-  </span>
+  </div>
 
-  <span local-class="date">
-    <TimeAgoInWordsTag @date={{@comment.insertedAt}} />
-  </span>
-
-  {{#if this.isAuthor }}
-    <TranslationCommentDelete @onSubmit={{perform this.deleteComment}} />
-  {{/if}}
-</div>
-
-<div local-class="content">
-  {{this.text}}
+  <div local-class="content">
+    {{this.text}}
+  </div>
 </div>

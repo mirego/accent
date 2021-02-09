@@ -1,6 +1,22 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper {
+  &:focus,
+  &:hover {
+    .button-delete {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+
+:global(.button).button-delete {
+  opacity: 0;
+  transform: translate3d(10px, 0, 0);
 }
 
 .user {
