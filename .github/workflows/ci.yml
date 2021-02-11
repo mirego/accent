@@ -22,7 +22,47 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-elixir@v1
+      - uses: actions/cache@v2
+        id: deps-cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-deps-${{ hashFiles(format('{0}/mix.lock', github.workspace)) }}
+          restore-keys: |
+            ${{ runner.os }}-deps-
+
+      - uses: actions/cache@v2
+        id: npm-webapp-cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles(format('{0}/webapp/package-lock.json', github.workspace)) }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - uses: actions/cache@v2
+        id: npm-global-cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles(format('{0}/package-lock.json', github.workspace)) }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - uses: actions/cache@v2
+        id: npm-cli-cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles(format('{0}/cli/package-lock.json', github.workspace)) }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - uses: actions/cache@v2
+        id: npm-jipt-cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles(format('{0}/jipt/package-lock.json', github.workspace)) }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - uses: erlef/setup-elixir@v1
         with:
           otp-version: 23.1.1
           elixir-version: 1.11.x
@@ -41,18 +81,35 @@ jobs:
           sudo apt-get install -y gcc libyaml-dev python-yaml
 
       - name: Install Elixir Dependencies
+        if: steps.deps-cache.outputs.cache-hit != 'true'
         run: |
           mix local.rebar --force
           mix local.hex --force
           mix deps.get
           mix deps.compile
 
-      - name: Install NodeJS Dependencies
+      - name: Install global NodeJS Dependencies
+        if: steps.npm-global-cache.outputs.cache-hit != 'true'
         run: |
           npm config set spin false
           npm i --no-audit --no-color
+
+      - name: Install webapp NodeJS Dependencies
+        if: steps.npm-webapp-cache.outputs.cache-hit != 'true'
+        run: |
+          npm config set spin false
           npm i --prefix webapp --no-audit --no-color
+
+      - name: Install cli NodeJS Dependencies
+        if: steps.npm-cli-cache.outputs.cache-hit != 'true'
+        run: |
+          npm config set spin false
           npm i --prefix cli --no-audit --no-color
+
+      - name: Install jipt NodeJS Dependencies
+        if: steps.npm-jipt-cache.outputs.cache-hit != 'true'
+        run: |
+          npm config set spin false
           npm i --prefix jipt --no-audit --no-color
 
       - name: Build webapp production
@@ -65,8 +122,10 @@ jobs:
 
       - name: Build CLI
         run: npm --prefix cli run build
+
       - name: Build JIPT
         run: npm --prefix jipt run build-production-inline
+
       - name: Coverage report
         run: mix coveralls.post --token ${{ secrets.COVERALLS_REPO_TOKEN }} --name 'github-actions' --branch ${{ github.ref }} --committer ${{ github.actor }} --sha ${{ github.sha }}
 
