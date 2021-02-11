@@ -73,7 +73,7 @@ jobs:
 
       - uses: gleam-lang/setup-gleam@v1.0.1
         with:
-          gleam-version: 0.11.2
+          gleam-version: 0.13.2
 
       - name: Install System Dependencies
         run: |
@@ -100,13 +100,13 @@ jobs:
           npm config set spin false
           npm i --prefix webapp --no-audit --no-color
 
-      - name: Install cli NodeJS Dependencies
+      - name: Install CLI NodeJS Dependencies
         if: steps.npm-cli-cache.outputs.cache-hit != 'true'
         run: |
           npm config set spin false
           npm i --prefix cli --no-audit --no-color
 
-      - name: Install jipt NodeJS Dependencies
+      - name: Install JIPT NodeJS Dependencies
         if: steps.npm-jipt-cache.outputs.cache-hit != 'true'
         run: |
           npm config set spin false
