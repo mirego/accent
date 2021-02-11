@@ -30,38 +30,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-deps-
 
-      - uses: actions/cache@v2
-        id: npm-webapp-cache
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles(format('{0}/webapp/package-lock.json', github.workspace)) }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - uses: actions/cache@v2
-        id: npm-global-cache
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles(format('{0}/package-lock.json', github.workspace)) }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - uses: actions/cache@v2
-        id: npm-cli-cache
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles(format('{0}/cli/package-lock.json', github.workspace)) }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - uses: actions/cache@v2
-        id: npm-jipt-cache
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles(format('{0}/jipt/package-lock.json', github.workspace)) }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
       - uses: erlef/setup-elixir@v1
         with:
           otp-version: 23.1.1
@@ -95,19 +63,16 @@ jobs:
           npm i --no-audit --no-color
 
       - name: Install webapp NodeJS Dependencies
-        if: steps.npm-webapp-cache.outputs.cache-hit != 'true'
         run: |
           npm config set spin false
           npm i --prefix webapp --no-audit --no-color
 
       - name: Install CLI NodeJS Dependencies
-        if: steps.npm-cli-cache.outputs.cache-hit != 'true'
         run: |
           npm config set spin false
           npm i --prefix cli --no-audit --no-color
 
       - name: Install JIPT NodeJS Dependencies
-        if: steps.npm-jipt-cache.outputs.cache-hit != 'true'
         run: |
           npm config set spin false
           npm i --prefix jipt --no-audit --no-color
