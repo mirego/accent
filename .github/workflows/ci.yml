@@ -75,7 +75,7 @@ jobs:
         with:
           gleam-version: 0.13.2
 
-      - name: Install System Dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y gcc libyaml-dev python-yaml
