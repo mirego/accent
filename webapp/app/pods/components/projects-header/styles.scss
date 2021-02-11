@@ -2,7 +2,7 @@
   padding: 64px 0 20px;
   background-image: linear-gradient(
     0,
-    transparent,
+    var(--body-background),
     var(--gradient-header-color)
   );
 }
