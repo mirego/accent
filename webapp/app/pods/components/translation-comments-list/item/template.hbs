@@ -17,11 +17,47 @@
     </div>
 
     {{#if this.isAuthor }}
-      <TranslationCommentDelete local-class="button-delete" @onSubmit={{perform this.deleteComment}} />
+      <div>
+        <button
+          {{on "click" this.toggleEditComment}}
+          class="button button--small button--borderless"
+          local-class="button-edit"
+        >
+          {{#if this.editComment}}
+            {{inline-svg
+              "assets/x.svg"
+              class="button-icon"
+            }}
+          {{else}}
+            {{inline-svg
+              "assets/pencil.svg"
+              class="button-icon"
+            }}
+          {{/if}}
+        </button>
+
+        {{#unless this.editComment}}
+          <TranslationCommentDelete
+            class="button button--small button--red button--borderless"
+            local-class="button-delete" @onSubmit={{perform this.deleteComment}}
+          >
+            {{inline-svg
+              "assets/x.svg"
+              class="button-icon"
+            }}
+          </TranslationCommentDelete>
+        {{/unless}}
+      </div>
     {{/if}}
   </div>
 
-  <div local-class="content">
-    {{this.text}}
-  </div>
+  {{#if this.editComment}}
+    <div local-class="comment-form" {{did-insert this.focusTextarea}}>
+      <TranslationCommentForm @value={{@comment.text}} @onSubmit={{perform this.updateComment}} />
+    </div>
+  {{else}}
+    <div local-class="content">
+      {{this.text}}
+    </div>
+  {{/if}}
 </div>

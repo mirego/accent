@@ -2,7 +2,7 @@
   <div local-class="comments">
     {{#if (get @permissions "create_comment")}}
       {{#unless @translation.isRemoved}}
-        <div {{did-insert this.focusTextarea}}>
+        <div local-class="comment-form" {{did-insert this.focusTextarea}}>
           <TranslationCommentForm @onSubmit={{@onSubmit}} />
         </div>
       {{/unless}}
@@ -11,6 +11,7 @@
     <div local-class="list">
       <TranslationCommentsList
         @comments={{@comments.entries}}
+        @onUpdateComment={{@onUpdateComment}}
         @onDeleteComment={{@onDeleteComment}}
         local-class="at-translation"
       />

@@ -29,6 +29,12 @@ defmodule Accent.Comment do
     end)
   end
 
+  def update_changeset(model, params) do
+    model
+    |> cast(params, ~w(text)a)
+    |> validate_required(~w(text)a)
+  end
+
   def delete_changeset(model) do
     model
     |> change()

@@ -55,6 +55,20 @@ defmodule Accent.GraphQL.Resolvers.Comment do
     {:ok, %{comment: comment, errors: nil}}
   end
 
+  @spec update(Comment.t(), any(), GraphQLContext.t()) :: comment_operation
+  def update(comment, %{text: text}, _) do
+    comment
+    |> Comment.update_changeset(%{text: text})
+    |> Repo.update()
+    |> case do
+      {:ok, comment} ->
+        {:ok, %{comment: comment, errors: nil}}
+
+      {:error, _reason} ->
+        {:ok, %{comment: comment, errors: ["unprocessable_entity"]}}
+    end
+  end
+
   @spec list_project(Project.t(), %{page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Comment.t())}
   def list_project(project, args, _) do
     Comment

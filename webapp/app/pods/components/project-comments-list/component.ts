@@ -3,6 +3,7 @@ import Component from '@glimmer/component';
 interface Args {
   project: any;
   comments: any;
+  onUpdateComment: (comment: {id: string; text: string}) => Promise<void>;
   onDeleteComment: (comment: {id: string}) => Promise<void>;
 }
 

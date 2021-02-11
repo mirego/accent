@@ -6,6 +6,7 @@ import IntlService from 'ember-intl/services/intl';
 
 import commentCreateQuery from 'accent-webapp/queries/create-comment';
 import commentDeleteQuery from 'accent-webapp/queries/delete-comment';
+import commentUpdateQuery from 'accent-webapp/queries/update-comment';
 import translationCommentsSubscriptionCreateQuery from 'accent-webapp/queries/create-translation-comments-subscription';
 import translationCommentsSubscriptionDeleteQuery from 'accent-webapp/queries/delete-translation-comments-subscription';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
@@ -55,6 +56,18 @@ export default class CommentsController extends Controller {
       variables: {
         translationId: translation.id,
         text,
+      },
+    });
+  }
+
+  @action
+  async updateComment(comment: {id: string; text: string}) {
+    return this.apolloMutate.mutate({
+      mutation: commentUpdateQuery,
+      refetchQueries: ['TranslationComments'],
+      variables: {
+        commentId: comment.id,
+        text: comment.text,
       },
     });
   }

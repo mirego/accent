@@ -6,6 +6,7 @@ import {tracked} from '@glimmer/tracking';
 import IntlService from 'ember-intl/services/intl';
 
 import commentDeleteQuery from 'accent-webapp/queries/delete-comment';
+import commentUpdateQuery from 'accent-webapp/queries/update-comment';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 
@@ -39,6 +40,18 @@ export default class CommentsController extends Controller {
     window.scroll(0, 0);
 
     this.page = page;
+  }
+
+  @action
+  async updateComment(comment: {id: string; text: string}) {
+    return this.apolloMutate.mutate({
+      mutation: commentUpdateQuery,
+      refetchQueries: ['ProjectComments'],
+      variables: {
+        commentId: comment.id,
+        text: comment.text,
+      },
+    });
   }
 
   @action
