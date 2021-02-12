@@ -7,6 +7,7 @@
 .wrapper {
   &:focus,
   &:hover {
+    .button-edit,
     .button-delete {
       opacity: 1;
       transform: translate3d(0, 0, 0);
@@ -14,9 +15,23 @@
   }
 }
 
+:global(.button.button--small).button-edit {
+  padding: 0;
+  color: var(--color-grey);
+}
+
+:global(.button).button-edit,
 :global(.button).button-delete {
   opacity: 0;
   transform: translate3d(10px, 0, 0);
+
+  &:hover {
+    background: transparent;
+  }
+}
+
+.comment-form {
+  margin-top: 10px;
 }
 
 .user {
@@ -41,6 +56,14 @@
 }
 
 .content {
-  margin-top: 5px;
   font-size: 13px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p {
+    margin-top: 5px;
+  }
 }

@@ -1,10 +1,12 @@
 import {inject as service} from '@ember/service';
 import {readOnly} from '@ember/object/computed';
+import {action} from '@ember/object';
 import Component from '@glimmer/component';
 import MarkdownIt from 'markdown-it';
 import {htmlSafe} from '@ember/string';
 import Session from 'accent-webapp/services/session';
 import {dropTask} from 'ember-concurrency-decorators';
+import {tracked} from '@glimmer/tracking';
 
 const markdown = MarkdownIt({
   html: false,
@@ -23,6 +25,7 @@ interface Args {
       pictureUrl: string;
     };
   };
+  onUpdateComment: (comment: {id: string; text: string}) => Promise<void>;
   onDeleteComment: (comment: {id: string}) => Promise<void>;
 }
 
@@ -33,6 +36,9 @@ export default class TranslationsCommentsListItem extends Component<Args> {
   @readOnly('session.credentials.user')
   currentUser: any;
 
+  @tracked
+  editComment = false;
+
   get isAuthor() {
     return this.currentUser.id === this.args.comment.user.id;
   }
@@ -41,8 +47,25 @@ export default class TranslationsCommentsListItem extends Component<Args> {
     return htmlSafe(markdown.render(this.args.comment.text));
   }
 
+  @action
+  toggleEditComment() {
+    this.editComment = !this.editComment;
+  }
+
+  @action
+  focusTextarea(element: HTMLElement) {
+    element.querySelector('textarea')?.focus();
+  }
+
   @dropTask
   *deleteComment() {
     yield this.args.onDeleteComment(this.args.comment);
+  }
+
+  @dropTask
+  *updateComment(text: string) {
+    yield this.args.onUpdateComment({...this.args.comment, text});
+
+    this.editComment = false;
   }
 }

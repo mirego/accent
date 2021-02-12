@@ -5,6 +5,7 @@ import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 interface Args {
   groupedComment: any;
   project: any;
+  onUpdateComment: (comment: {id: string; text: string}) => Promise<void>;
   onDeleteComment: (comment: {id: string}) => Promise<void>;
 }
 

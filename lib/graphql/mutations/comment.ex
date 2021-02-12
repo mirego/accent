@@ -3,18 +3,27 @@ defmodule Accent.GraphQL.Mutations.Comment do
 
   import Accent.GraphQL.Helpers.Authorization
 
+  alias Accent.GraphQL.Resolvers.Comment, as: CommentResolver
+
   object :comment_mutations do
     field :create_comment, :mutated_comment do
       arg(:id, non_null(:id))
       arg(:text, non_null(:string))
 
-      resolve(translation_authorize(:create_comment, &Accent.GraphQL.Resolvers.Comment.create/3))
+      resolve(translation_authorize(:create_comment, &CommentResolver.create/3))
+    end
+
+    field :update_comment, :mutated_comment do
+      arg(:id, non_null(:id))
+      arg(:text, non_null(:string))
+
+      resolve(comment_authorize(:update_comment, &CommentResolver.update/3))
     end
 
     field :delete_comment, :mutated_comment do
       arg(:id, non_null(:id))
 
-      resolve(comment_authorize(:delete_comment, &Accent.GraphQL.Resolvers.Comment.delete/3))
+      resolve(comment_authorize(:delete_comment, &CommentResolver.delete/3))
     end
 
     field :create_translation_comments_subscription, :mutated_translation_comments_subscription do

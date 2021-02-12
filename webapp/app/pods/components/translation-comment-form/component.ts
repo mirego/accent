@@ -6,6 +6,7 @@ import {timeout} from 'ember-concurrency';
 import {MutationResponse} from 'accent-webapp/services/apollo-mutate';
 
 interface Args {
+  value?: string;
   onSubmit: (text: string) => Promise<MutationResponse>;
 }
 
@@ -13,7 +14,7 @@ const SUBMIT_DEBOUNCE = 1000;
 
 export default class TranslationCommentForm extends Component<Args> {
   @tracked
-  text = '';
+  text = this.args.value || '';
 
   @tracked
   error = false;

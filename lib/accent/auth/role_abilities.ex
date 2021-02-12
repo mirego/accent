@@ -15,6 +15,8 @@ defmodule Accent.RoleAbilities do
     index_translations
     index_comments
     create_comment
+    delete_comment
+    update_comment
     show_comment
     correct_all_revision
     uncorrect_all_revision
