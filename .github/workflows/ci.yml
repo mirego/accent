@@ -33,7 +33,7 @@ jobs:
 
       - uses: gleam-lang/setup-gleam@v1.0.1
         with:
-          gleam-version: 0.11.2
+          gleam-version: 0.13.2
 
       - name: Install System Dependencies
         run: |
