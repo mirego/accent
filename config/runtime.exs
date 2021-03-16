@@ -4,6 +4,9 @@ defmodule Utilities do
   def string_to_boolean("true"), do: true
   def string_to_boolean("1"), do: true
   def string_to_boolean(_), do: false
+
+  def string_to_integer(value) when is_bitstring(value), do: String.to_integer(value)
+  def string_to_integer(_), do: nil
 end
 
 canonical_url = System.get_env("CANONICAL_URL") || "http://localhost:4000"
@@ -41,8 +44,8 @@ else
 end
 
 config :accent, Accent.Repo,
-  pool_size: Environment.get_integer("DATABASE_POOL_SIZE"),
-  ssl: Environment.get_boolean("DATABASE_SSL"),
+  pool_size: Utilities.string_to_integer(System.get_env("DATABASE_POOL_SIZE")),
+  ssl: Utilities.string_to_boolean(System.get_env("DATABASE_SSL")),
   url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 
 google_translate_provider = {Accent.MachineTranslations.Adapter.GoogleTranslations, [key: System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")]}
