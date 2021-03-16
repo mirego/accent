@@ -131,6 +131,8 @@ Accent provides a default value for every required environment variable. This me
 | `WEBAPP_SENTRY_DSN`                       | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                                              |
 | `CANONICAL_URL`                           | _none_  | The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.      |
 | `WEBAPP_SKIP_SUBRESOURCE_INTEGRITY`       | _none_  | Remove integrity attributes on link and script tag. Useful when using a proxy that compress resources before serving them. |
+| `DATABASE_SSL`                            | _false_ | If SSL should be used to connect to the database                                                                           |
+| `DATABASE_POOL_SIZE`                      | _10_    | The size of the pool used by the database connection module                                                                |
 
 ### Authentication setup
 
