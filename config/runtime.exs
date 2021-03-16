@@ -40,7 +40,10 @@ else
     static_url: static_url
 end
 
-config :accent, Accent.Repo, url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
+config :accent, Accent.Repo,
+  pool_size: Environment.get_integer("DATABASE_POOL_SIZE"),
+  ssl: Environment.get_boolean("DATABASE_SSL"),
+  url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 
 google_translate_provider = {Accent.MachineTranslations.Adapter.GoogleTranslations, [key: System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")]}
 
