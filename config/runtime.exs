@@ -1,5 +1,7 @@
 import Config
 
+version = Mix.Project.config()[:version]
+
 defmodule Utilities do
   def string_to_boolean("true"), do: true
   def string_to_boolean("1"), do: true
@@ -99,10 +101,6 @@ config :accent, Accent.WebappView,
   sentry_dsn: System.get_env("WEBAPP_SENTRY_DSN") || "",
   skip_subresource_integrity: System.get_env("WEBAPP_SKIP_SUBRESOURCE_INTEGRITY") || false
 
-config :sentry,
-  dsn: System.get_env("SENTRY_DSN"),
-  environment_name: System.get_env("SENTRY_ENVIRONMENT_NAME")
-
 if System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY") do
   config :goth, json: System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")
 else
@@ -113,6 +111,13 @@ config :tesla, logger_enabled: true
 
 if !System.get_env("SENTRY_DSN") do
   config :sentry, included_environments: []
+else
+  config :sentry,
+    dsn: System.get_env("SENTRY_DSN"),
+    environment_name: System.get_env("SENTRY_ENVIRONMENT_NAME"),
+    included_environments: ~w(production),
+    root_source_code_path: File.cwd!(),
+    release: version
 end
 
 config :accent, Accent.Mailer,

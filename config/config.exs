@@ -25,11 +25,6 @@ config :canary,
 
 config :phoenix, :json_library, Jason
 
-config :sentry,
-  included_environments: [:prod],
-  root_source_code_path: File.cwd!(),
-  release: version
-
 config :tesla,
   auth_enabled: true,
   adapter: Tesla.Adapter.Hackney
