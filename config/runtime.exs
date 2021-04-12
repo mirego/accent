@@ -115,7 +115,7 @@ else
   config :sentry,
     dsn: System.get_env("SENTRY_DSN"),
     environment_name: System.get_env("SENTRY_ENVIRONMENT_NAME"),
-    included_environments: ~w(production),
+    included_environments: ~w(prod production),
     root_source_code_path: File.cwd!(),
     release: version
 end
