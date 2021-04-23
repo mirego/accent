@@ -21,9 +21,9 @@ defmodule Accent.Revision do
     has_many(:translations, Accent.Translation)
     has_many(:operations, Accent.Operation)
 
-    field(:translations_count, :integer, virtual: true, default: :not_loaded)
-    field(:reviewed_count, :integer, virtual: true, default: :not_loaded)
-    field(:conflicts_count, :integer, virtual: true, default: :not_loaded)
+    field(:translations_count, :any, virtual: true, default: :not_loaded)
+    field(:reviewed_count, :any, virtual: true, default: :not_loaded)
+    field(:conflicts_count, :any, virtual: true, default: :not_loaded)
 
     field(:translation_ids, {:array, :string}, virtual: true)
 

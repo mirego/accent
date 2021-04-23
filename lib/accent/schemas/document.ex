@@ -15,9 +15,9 @@ defmodule Accent.Document do
     belongs_to(:project, Accent.Project)
     has_many(:translations, Accent.Translation)
 
-    field(:translations_count, :integer, virtual: true, default: :not_loaded)
-    field(:reviewed_count, :integer, virtual: true, default: :not_loaded)
-    field(:conflicts_count, :integer, virtual: true, default: :not_loaded)
+    field(:translations_count, :any, virtual: true, default: :not_loaded)
+    field(:reviewed_count, :any, virtual: true, default: :not_loaded)
+    field(:conflicts_count, :any, virtual: true, default: :not_loaded)
 
     timestamps()
   end

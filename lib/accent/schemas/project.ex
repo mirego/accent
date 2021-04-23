@@ -8,9 +8,9 @@ defmodule Accent.Project do
     field(:last_synced_at, :utc_datetime)
     field(:locked_file_operations, :boolean, default: false)
 
-    field(:translations_count, :integer, virtual: true, default: :not_loaded)
-    field(:reviewed_count, :integer, virtual: true, default: :not_loaded)
-    field(:conflicts_count, :integer, virtual: true, default: :not_loaded)
+    field(:translations_count, :any, virtual: true, default: :not_loaded)
+    field(:reviewed_count, :any, virtual: true, default: :not_loaded)
+    field(:conflicts_count, :any, virtual: true, default: :not_loaded)
 
     has_many(:integrations, Accent.Integration)
     has_many(:revisions, Accent.Revision)
