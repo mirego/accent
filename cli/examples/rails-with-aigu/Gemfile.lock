@@ -3,9 +3,11 @@ GEM
   specs:
     aigu (1.2)
       nokogiri (~> 1.6)
-    mini_portile2 (2.3.0)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
+    mini_portile2 (2.5.1)
+    nokogiri (1.11.4)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
+    racc (1.5.2)
 
 PLATFORMS
   ruby
