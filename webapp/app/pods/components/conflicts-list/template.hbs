@@ -1,6 +1,7 @@
 <ul local-class="conflicts-items">
-  {{#each @conflicts key="id" as |conflict|}}
+  {{#each @conflicts key="id" as |conflict index|}}
     <ConflictsList::Item
+      @index={{index}}
       @permissions={{@permissions}}
       @project={{@project}}
       @conflict={{conflict}}

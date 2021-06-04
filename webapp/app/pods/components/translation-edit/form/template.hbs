@@ -86,7 +86,7 @@
   {{#if this.isHTMLType}}
     <div local-class="input-wrapper">
       <HtmlTextarea
-        @value={{@text}}
+        @value={{@value}}
         @onChange={{fn this.changeHTML}}
         @wysiwygOptions={{this.wysiwygOptions}}
       />

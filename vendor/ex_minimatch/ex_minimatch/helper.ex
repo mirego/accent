@@ -7,13 +7,6 @@ defmodule ExMinimatch.Helper do
     if options[:log] in [:info, :debug], do: IO.inspect(obj)
   end
 
-  # preserves the state
-  def tap(state, sideback) do
-    sideback.(state)
-
-    state
-  end
-
   def transform(state, callback) do
     callback.(state)
   end

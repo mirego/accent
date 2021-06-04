@@ -1,5 +1,5 @@
 <div local-class="empty-content {{if @success "success"}}" data-test-empty-content>
-  {{#if hasBlock}}
+  {{#if has-block}}
     {{yield}}
   {{else}}
     {{inline-svg @iconPath local-class="icon"}}{{@text}}

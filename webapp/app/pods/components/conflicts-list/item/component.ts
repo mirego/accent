@@ -5,9 +5,11 @@ import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 import {dropTask} from 'ember-concurrency-decorators';
 import {tracked} from '@glimmer/tracking';
 import {MutationResponse} from 'accent-webapp/services/apollo-mutate';
+import {timeout} from 'ember-concurrency';
 
 interface Args {
   permissions: Record<string, true>;
+  index: number;
   project: any;
   conflict: any;
   onCorrect: (conflict: any, textInput: string) => Promise<MutationResponse>;
@@ -34,6 +36,9 @@ export default class ConflictItem extends Component<Args> {
   @tracked
   resolved = false;
 
+  @tracked
+  show = false;
+
   conflictKey = parsedKeyProperty(this.args.conflict.key);
   textOriginal = this.args.conflict.correctedText;
 
@@ -52,6 +57,13 @@ export default class ConflictItem extends Component<Args> {
       this.args.conflict.revision.name ||
       this.args.conflict.revision.language.name
     );
+  }
+
+  @dropTask
+  *foo() {
+    yield timeout(this.args.index * 100);
+
+    this.show = true;
   }
 
   @action
