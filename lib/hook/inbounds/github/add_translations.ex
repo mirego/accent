@@ -46,6 +46,7 @@ defmodule Accent.Hook.Inbounds.GitHub.AddTranslations do
     |> Context.assign(:project, project)
     |> Context.assign(:version, version)
     |> Context.assign(:merge_type, "smart")
+    |> Context.assign(:merge_options, [])
     |> Context.assign(:comparer, Movement.Comparer.comparer(:merge, "smart"))
   end
 
@@ -59,6 +60,7 @@ defmodule Accent.Hook.Inbounds.GitHub.AddTranslations do
         render: file_content,
         entries: entries,
         assigns: %{
+          options: [],
           document: document,
           document_update: %{}
         }

@@ -16,7 +16,8 @@ defmodule Movement.Operation do
             document_id: nil,
             project_id: nil,
             previous_translation: nil,
-            placeholders: []
+            placeholders: [],
+            options: []
 
   @type t :: %__MODULE__{}
 end

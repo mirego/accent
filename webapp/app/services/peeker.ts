@@ -18,6 +18,7 @@ interface MergeOptions {
   project: any;
   file: File;
   mergeType: string;
+  mergeOptions: string[];
   documentPath: string;
   documentFormat: string;
 }
@@ -73,12 +74,14 @@ export default class Peeker extends Service {
     mergeType,
     documentPath,
     documentFormat,
+    mergeOptions,
   }: MergeOptions) {
     const url = fmt(
       config.API.MERGE_PEEK_PROJECT_PATH,
       project.id,
       revision.language.slug,
-      mergeType
+      mergeType,
+      mergeOptions.join(',')
     );
 
     documentFormat = documentFormat.toLowerCase();

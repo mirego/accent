@@ -38,6 +38,7 @@ interface Args {
     revision: any;
     mergeType: string;
     syncType: string;
+    mergeOptions: string[];
   }) => Promise<void>;
   onCommit: (options: {
     fileSource: any;
@@ -46,6 +47,7 @@ interface Args {
     revision: any;
     mergeType: string;
     syncType: string;
+    mergeOptions: string[];
   }) => Promise<void>;
 }
 
@@ -106,6 +108,9 @@ export default class CommitFile extends Component<Args> {
 
   @tracked
   syncType = this.mappedSyncTypes[0];
+
+  @tracked
+  correctOnMerge = false;
 
   @tracked
   revisionValue =
@@ -187,6 +192,11 @@ export default class CommitFile extends Component<Args> {
   }
 
   @action
+  onChangeCorrectOnMerge() {
+    this.correctOnMerge = !this.correctOnMerge;
+  }
+
+  @action
   async commit() {
     this.onCommiting();
 
@@ -198,6 +208,7 @@ export default class CommitFile extends Component<Args> {
         revision: this.revision,
         mergeType: this.mergeType.value,
         syncType: this.syncType.value,
+        mergeOptions: this.correctOnMerge ? ['correct'] : [],
       });
 
       this.onCommitingDone();
@@ -218,6 +229,7 @@ export default class CommitFile extends Component<Args> {
         revision: this.revision,
         mergeType: this.mergeType.value,
         syncType: this.syncType.value,
+        mergeOptions: this.correctOnMerge ? ['correct'] : [],
       });
 
       this.onPeekingDone();

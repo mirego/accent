@@ -1,5 +1,5 @@
 defmodule Movement.Migration do
-  @type t :: {:ok, map} | {:error, map}
+  @type t :: map
 
-  @callback call(atom, map) :: t
+  @callback call(atom, map) :: t()
 end

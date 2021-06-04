@@ -48,6 +48,7 @@ defmodule Accent.Hook.Inbounds.GitHub.Sync do
         render: file_content,
         entries: entries,
         assigns: %{
+          options: [],
           document: document,
           document_update: document_update(parsed_document)
         }

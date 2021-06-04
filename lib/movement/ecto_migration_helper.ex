@@ -9,11 +9,10 @@ defmodule Movement.EctoMigrationHelper do
   def update(model, params) do
     model
     |> model.__struct__.changeset(params)
-    |> Repo.update()
+    |> Repo.update!()
   end
 
   def insert(model) do
-    model
-    |> Repo.insert()
+    Repo.insert!(model)
   end
 end

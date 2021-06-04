@@ -44,8 +44,9 @@ module.exports = function (environment) {
       '/sync/peek?project_id={0}&language={1}&sync_type={2}',
     SYNC_PROJECT_PATH: '/sync?project_id={0}&language={1}&sync_type={2}',
     MERGE_PEEK_PROJECT_PATH:
-      '/merge/peek?project_id={0}&language={1}&merge_type={2}',
-    MERGE_REVISION_PATH: '/merge?project_id={0}&language={1}&merge_type={2}',
+      '/add-translations/peek?project_id={0}&language={1}&merge_type={2}&merge_options={3}',
+    MERGE_REVISION_PATH:
+      '/add-translations?project_id={0}&language={1}&merge_type={2}&merge_options={3}',
     EXPORT_DOCUMENT: '/export',
     JIPT_EXPORT_DOCUMENT: '/jipt-export',
     PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH:

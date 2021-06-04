@@ -1,11 +1,9 @@
 defmodule Movement.Context do
-  defstruct entries: [], operations: [], assigns: %{}, render: ""
+  defstruct entries: [], operations: [], assigns: %{options: []}, render: ""
 
   @type t :: %__MODULE__{}
 
   def assign(context, key, value) do
-    new_assign = Map.put(%{}, key, value)
-
-    Map.put(context, :assigns, Map.merge(context.assigns, new_assign))
+    Map.put(context, :assigns, Map.merge(context.assigns, %{key => value}))
   end
 end

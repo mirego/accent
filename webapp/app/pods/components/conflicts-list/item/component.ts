@@ -7,6 +7,9 @@ import {tracked} from '@glimmer/tracking';
 import {MutationResponse} from 'accent-webapp/services/apollo-mutate';
 import {timeout} from 'ember-concurrency';
 
+const FIRST_PAINT_ITEM_COUNT = 6;
+const FIRST_PAINT_TIMEOUT = 20;
+
 interface Args {
   permissions: Record<string, true>;
   index: number;
@@ -61,7 +64,11 @@ export default class ConflictItem extends Component<Args> {
 
   @dropTask
   *foo() {
-    yield timeout(this.args.index * 100);
+    if (this.args.index < FIRST_PAINT_ITEM_COUNT) {
+      yield timeout(FIRST_PAINT_TIMEOUT);
+    } else {
+      yield timeout(this.args.index * 100);
+    }
 
     this.show = true;
   }

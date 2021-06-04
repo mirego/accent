@@ -39,6 +39,7 @@ defmodule Accent.Operation do
 
     field(:rollbacked, :boolean, default: false)
     field(:stats, {:array, :map}, default: [])
+    field(:options, {:array, :string}, default: [])
 
     embeds_one(:previous_translation, Accent.PreviousTranslation)
 

@@ -14,6 +14,7 @@ defmodule Accent.PeekController do
   plug(Accent.Plugs.AssignRevisionLanguage when action === :merge)
   plug(Accent.Plugs.MovementContextParser)
   plug(:assign_merge_comparer when action in [:merge])
+  plug(:assign_merge_options when action in [:merge])
   plug(:assign_sync_comparer when action in [:sync])
 
   @doc """
@@ -83,6 +84,7 @@ defmodule Accent.PeekController do
     operations =
       conn.assigns[:movement_context]
       |> Context.assign(:revision, conn.assigns[:revision])
+      |> Context.assign(:options, conn.assigns[:merge_options])
       |> RevisionMergeBuilder.build()
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
@@ -102,5 +104,12 @@ defmodule Accent.PeekController do
     context = Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)
+  end
+
+  defp assign_merge_options(conn, _) do
+    case conn.params["merge_options"] do
+      options when is_binary(options) -> assign(conn, :merge_options, String.split(options, ","))
+      _ -> assign(conn, :merge_options, [])
+    end
   end
 end

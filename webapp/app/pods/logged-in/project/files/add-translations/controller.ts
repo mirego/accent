@@ -83,11 +83,13 @@ export default class AddTranslationsController extends Controller {
     documentFormat,
     revision,
     mergeType,
+    mergeOptions,
   }: {
     fileSource: any;
-    documentFormat: any;
+    documentFormat: string;
     revision: any;
-    mergeType: any;
+    mergeType: string;
+    mergeOptions: string[];
   }) {
     const file = fileSource;
     const project = this.project;
@@ -100,6 +102,7 @@ export default class AddTranslationsController extends Controller {
       documentPath,
       documentFormat,
       mergeType,
+      mergeOptions,
     });
 
     this.revisionOperations = revisionOperations;
@@ -111,11 +114,13 @@ export default class AddTranslationsController extends Controller {
     revision,
     documentFormat,
     mergeType,
+    mergeOptions,
   }: {
     fileSource: any;
     revision: any;
-    documentFormat: any;
-    mergeType: any;
+    documentFormat: string;
+    mergeType: string;
+    mergeOptions: string[];
   }) {
     const file = fileSource;
     const project = this.project;
@@ -129,6 +134,7 @@ export default class AddTranslationsController extends Controller {
         documentPath,
         documentFormat,
         mergeType,
+        mergeOptions,
       });
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CREATE_SUCCESS));

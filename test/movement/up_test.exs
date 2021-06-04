@@ -304,7 +304,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         placeholders: []
       })
 
-    Migrator.up(%{
+    Migrator.up(%Operation{
       value_type: "",
       action: "conflict_on_proposed",
       file_comment: "New comment",
@@ -335,7 +335,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         removed: false
       })
 
-    Migrator.up(%{
+    Migrator.up(%Operation{
       action: "update_proposed",
       text: "update",
       translation: translation,

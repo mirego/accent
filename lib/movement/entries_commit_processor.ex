@@ -31,7 +31,8 @@ defmodule Movement.EntriesCommitProcessor do
           placeholders: entry.placeholders
         }
 
-        assigns[:comparer].(current_translation, suggested_translation)
+        operation = assigns[:comparer].(current_translation, suggested_translation)
+        %{operation | options: assigns[:options]}
       end)
       |> filter_for_revision(assigns[:revision])
 

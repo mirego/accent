@@ -15,6 +15,7 @@ defmodule Accent.MergeController do
   plug(Accent.Plugs.AssignRevisionLanguage)
   plug(Accent.Plugs.MovementContextParser)
   plug(:assign_comparer)
+  plug(:assign_merge_options)
   plug(:create)
 
   @doc """
@@ -22,7 +23,7 @@ defmodule Accent.MergeController do
 
   ## Endpoint
 
-    GET /merge
+    GET /add-translations
 
   ### Required params
     - `project_id`
@@ -31,6 +32,7 @@ defmodule Accent.MergeController do
 
   ### Optional params
     - `merge_type` (smart, force or passive), default: smart.
+    - `merge_options`
 
   ### Response
 
@@ -45,6 +47,7 @@ defmodule Accent.MergeController do
     conn.assigns[:movement_context]
     |> Movement.Context.assign(:revision, conn.assigns[:revision])
     |> Movement.Context.assign(:merge_type, conn.assigns[:merge_type])
+    |> Movement.Context.assign(:options, conn.assigns[:merge_options])
     |> Movement.Context.assign(:user_id, conn.assigns[:current_user].id)
     |> RevisionMergeBuilder.build()
     |> RevisionMergePersister.persist()
@@ -75,5 +78,12 @@ defmodule Accent.MergeController do
     context = Movement.Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)
+  end
+
+  defp assign_merge_options(conn, _) do
+    case conn.params["merge_options"] do
+      options when is_binary(options) -> assign(conn, :merge_options, String.split(options, ","))
+      _ -> assign(conn, :merge_options, [])
+    end
   end
 end

@@ -92,6 +92,27 @@
         />
       </div>
 
+      {{#if this.isMerge}}
+        <div local-class="option">
+          <p local-class="textHelper">
+            {{t "components.commit_file.merge_options"}}
+          </p>
+
+          <label local-class="optionLabel">
+            <input
+              type="checkbox"
+              checked={{this.correctOnMerge}}
+              {{on "change" (fn this.onChangeCorrectOnMerge )}}
+            >
+            <span local-class="optionLabelText">
+              {{t
+                "components.commit_file.correct_on_merge"
+              }}
+            </span>
+          </label>
+        </div>
+      {{/if}}
+
       {{#if (get @permissions @peekAction)}}
         <div local-class="option">
           <p local-class="textHelper">

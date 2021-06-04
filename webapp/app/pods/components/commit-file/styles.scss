@@ -63,6 +63,15 @@
   }
 }
 
+.optionLabel {
+  display: flex;
+  font-size: 12px;
+}
+
+.optionLabelText {
+  margin-left: 5px;
+}
+
 .actions {
   margin-top: 15px;
 }

@@ -94,6 +94,8 @@
       "sync_button": "Sync",
       "upload_help": "After choosing a file you will be able to preview the changes on your project",
       "upload_title": "Select a file",
+      "merge_options": "Options",
+      "correct_on_merge": "Mark strings as reviewed",
       "instructions": {
         "sync": {
           "title": "Sync",

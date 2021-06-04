@@ -10,6 +10,7 @@ interface MergeOptions {
   documentPath: string;
   documentFormat: string;
   mergeType: string;
+  mergeOptions: string[];
 }
 
 export default class Merger extends Service {
@@ -23,13 +24,15 @@ export default class Merger extends Service {
     documentPath,
     documentFormat,
     mergeType,
+    mergeOptions,
   }: MergeOptions) {
     const language = revision.language;
     const url = fmt(
       config.API.MERGE_REVISION_PATH,
       project.id,
       language.slug,
-      mergeType
+      mergeType,
+      mergeOptions.join(',')
     );
 
     documentFormat = documentFormat.toLowerCase();
