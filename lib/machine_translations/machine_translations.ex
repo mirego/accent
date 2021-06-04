@@ -1,6 +1,10 @@
 defmodule Accent.MachineTranslations do
   alias Accent.MachineTranslations.TranslatedText
 
+  @translation_chunk_size 500
+  @untranslatable_string_length_limit 2000
+  @untranslatable_placeholder "_"
+
   def translate_list_enabled? do
     not is_nil(provider_from_service(:translate_list))
   end
@@ -22,20 +26,33 @@ defmodule Accent.MachineTranslations do
   end
 
   def translate_entries(entries, source_language, target_language) do
-    values = Enum.map(entries, & &1.value)
+    entries
+    |> Enum.chunk_every(@translation_chunk_size)
+    |> Enum.flat_map(fn entries ->
+      values = Enum.map(entries, &filter_long_value/1)
 
-    with {module, config} <- provider_from_service(:translate_list),
-         {:ok, translated_values} <- module.translate_list(values, source_language.slug, target_language.slug, config) do
-      entries
-      |> Enum.with_index()
-      |> Enum.map(fn {entry, index} ->
-        case Enum.at(translated_values, index) do
-          %TranslatedText{text: text} -> %{entry | value: text}
-          _ -> entry
-        end
-      end)
+      with {module, config} <- provider_from_service(:translate_list),
+           {:ok, translated_values} <- module.translate_list(values, source_language.slug, target_language.slug, config) do
+        entries
+        |> Enum.with_index()
+        |> Enum.map(fn {entry, index} ->
+          case Enum.at(translated_values, index) do
+            %TranslatedText{text: @untranslatable_placeholder} -> entry
+            %TranslatedText{text: text} -> %{entry | value: text}
+            _ -> entry
+          end
+        end)
+      else
+        _ -> entries
+      end
+    end)
+  end
+
+  defp filter_long_value(entry) do
+    if String.length(entry.value) > @untranslatable_string_length_limit do
+      @untranslatable_placeholder
     else
-      _ -> entries
+      entry.value
     end
   end
 
