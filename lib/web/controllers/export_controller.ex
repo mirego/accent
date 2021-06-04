@@ -47,6 +47,7 @@ defmodule Accent.ExportController do
     - `order_by`
     - `inline_render`
     - `version`
+    - `filters`
 
   ### Response
 
@@ -82,6 +83,8 @@ defmodule Accent.ExportController do
   defp fetch_order(conn, _), do: assign(conn, :order, "index")
 
   defp fetch_translations(conn = %{assigns: %{document: document, order: order, revision: revision, version: version}}, _) do
+    filters = parse_filters(conn.params["filters"])
+
     translations =
       Translation
       |> Scope.active()
@@ -89,10 +92,23 @@ defmodule Accent.ExportController do
       |> Scope.from_revision(revision.id)
       |> Scope.from_version(version && version.id)
       |> Scope.parse_order(order)
+      |> Scope.parse_conflicted(filters[:is_conflicted])
+      |> Scope.parse_added_last_sync(filters[:is_added_last_sync], revision.project_id)
+      |> Scope.parse_empty(filters[:is_text_empty])
       |> Repo.all()
 
     assign(conn, :translations, translations)
   end
+
+  defp parse_filters(filters) when is_map(filters) do
+    %{
+      is_text_empty: if(filters["is_text_empty"] === "true", do: true),
+      is_conflicted: if(filters["is_conflicted"] === "true", do: true),
+      is_added_last_sync: if(filters["is_added_last_sync"] === "true", do: true)
+    }
+  end
+
+  defp parse_filters(_), do: %{}
 
   defp fetch_master_revision(conn = %{assigns: %{project: project}}, _) do
     revision =

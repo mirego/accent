@@ -45,5 +45,16 @@
         {{/if}}
       </div>
     </div>
+
+    {{#if @onChangeAdvancedFilterBoolean}}
+      <div local-class="exportOptions-advancedFilters">
+        <RevisionExportOptions::AdvancedFilters
+          @isTextEmptyFilter={{@isTextEmptyFilter}}
+          @isAddedLastSyncFilter={{@isAddedLastSyncFilter}}
+          @isConflictedFilter={{@isConflictedFilter}}
+          @onChangeAdvancedFilterBoolean={{@onChangeAdvancedFilterBoolean}}
+        />
+      </div>
+    {{/if}}
   </div>
 </div>

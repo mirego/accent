@@ -17,6 +17,15 @@ export default class ExportRoute extends Route {
     orderByFilter: {
       refreshModel: true,
     },
+    isTextEmpty: {
+      refreshModel: true,
+    },
+    isAddedLastSync: {
+      refreshModel: true,
+    },
+    isConflicted: {
+      refreshModel: true,
+    },
   };
 
   model({fileId}: {fileId: string}) {

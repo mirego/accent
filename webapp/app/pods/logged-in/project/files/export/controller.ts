@@ -17,7 +17,14 @@ export default class ExportController extends Controller {
   @service('router')
   router: RouterService;
 
-  queryParams = ['revisionFilter', 'documentFormatFilter', 'orderByFilter'];
+  queryParams = [
+    'revisionFilter',
+    'documentFormatFilter',
+    'orderByFilter',
+    'isTextEmpty',
+    'isAddedLastSync',
+    'isConflictedFilter',
+  ];
 
   @tracked
   exportLoading = true;
@@ -33,6 +40,15 @@ export default class ExportController extends Controller {
 
   @tracked
   revisionFilter = null;
+
+  @tracked
+  isTextEmpty: 'true' | null = null;
+
+  @tracked
+  isAddedLastSync: 'true' | null = null;
+
+  @tracked
+  isConflicted: 'true' | null = null;
 
   @readOnly('model.projectModel.project')
   project: any;
@@ -96,6 +112,14 @@ export default class ExportController extends Controller {
   onFileLoaded(content: any) {
     this.fileRender = content;
     this.exportLoading = false;
+  }
+
+  @action
+  changeAdvancedFilterBoolean(
+    key: 'isTextEmpty' | 'isAddedLastSync' | 'isConflicted',
+    event: InputEvent
+  ) {
+    this[key] = (event.target as HTMLInputElement).checked ? 'true' : null;
   }
 
   @action

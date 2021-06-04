@@ -1,0 +1,48 @@
+<div local-class="revision-export-options-advanced-filters">
+  <span local-class="title">
+    {{t
+      "components.revision_export_options.advanced_filters_title"
+    }}
+  </span>
+
+  <div local-class="labels">
+    <label local-class="label">
+      <input
+        type="checkbox"
+        checked={{@isTextEmptyFilter}}
+        {{on "change" (fn @onChangeAdvancedFilterBoolean "isTextEmpty")}}
+      >
+      <span class="label-text">
+        {{t
+          "components.revision_export_options.advanced_filters.empty"
+        }}
+      </span>
+    </label>
+
+    <label local-class="label">
+      <input
+        type="checkbox"
+        checked={{@isAddedLastSyncFilter}}
+        {{on "change" (fn @onChangeAdvancedFilterBoolean "isAddedLastSync")}}
+      >
+      <span>
+        {{t
+          "components.revision_export_options.advanced_filters.added_last_sync"
+        }}
+      </span>
+    </label>
+
+    <label local-class="label">
+      <input
+        type="checkbox"
+        checked={{@isConflictedFilter}}
+        {{on "change" (fn @onChangeAdvancedFilterBoolean "isConflicted")}}
+      >
+      <span>
+        {{t
+          "components.revision_export_options.advanced_filters.conflicted"
+        }}
+      </span>
+    </label>
+  </div>
+</div>

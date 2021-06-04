@@ -6,15 +6,20 @@ interface ExportOptions {
   project: any;
   document: any;
   revision: any;
-  version: string;
+  version?: string;
   documentFormat: string;
   orderBy: string;
+  filters?: {
+    isTextEmptyFilter?: boolean;
+    isAddedLastSyncFilter?: boolean;
+    isConflictedFilter?: boolean;
+  };
 }
 
 interface JIPTOptions {
   project: any;
   document: any;
-  version: string;
+  version?: string;
   documentFormat: string;
 }
 
@@ -22,16 +27,17 @@ export default class Exporter extends Service {
   @service('authenticated-request')
   authenticatedRequest: AuthenticatedRequest;
 
-  async export({
-    project,
-    document,
-    revision,
-    version,
-    documentFormat,
-    orderBy,
-  }: ExportOptions) {
+  async export(options: ExportOptions) {
+    const {
+      project,
+      document,
+      revision,
+      version,
+      documentFormat,
+      orderBy,
+    } = options;
+
     const url = config.API.EXPORT_DOCUMENT;
-    documentFormat = (documentFormat || document.format).toLowerCase();
 
     /* eslint-disable camelcase */
     return this.authenticatedRequest.export(
@@ -42,7 +48,10 @@ export default class Exporter extends Service {
         version,
         order_by: orderBy,
         document_path: document.path,
-        document_format: documentFormat,
+        document_format: (documentFormat || document.format).toLowerCase(),
+        'filters[is_text_empty]': options.filters?.isTextEmptyFilter,
+        'filters[is_added_last_sync]': options.filters?.isAddedLastSyncFilter,
+        'filters[is_conflicted]': options.filters?.isConflictedFilter,
       })}`
     );
     /* eslint-enable camelcase */
@@ -65,7 +74,9 @@ export default class Exporter extends Service {
     /* eslint-enable camelcase */
   }
 
-  private queryParams(params: Record<string, string | null | boolean>) {
+  private queryParams(
+    params: Record<string, string | null | undefined | boolean>
+  ) {
     return Object.keys(params)
       .map((key: string) => {
         const value = params[key];

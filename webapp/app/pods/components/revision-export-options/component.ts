@@ -13,9 +13,13 @@ interface Args {
   revisions?: any;
   document?: any;
   documents?: any;
+  isTextEmptyFilter: boolean;
+  isAddedLastSyncFilter: boolean;
+  isConflictedFilter: boolean;
   onChangeRevision?: (revision: any) => void;
   onChangeOrderBy?: (orderBy: any) => void;
   onChangeDocument?: (document: any) => void;
+  onChangeAdvancedFilterBoolean: () => void;
 }
 
 export default class RevisionExportOptions extends Component<Args> {

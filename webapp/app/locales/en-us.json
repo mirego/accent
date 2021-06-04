@@ -637,6 +637,12 @@
         "az": "Alphabetical order",
         "original": "Original order"
       },
+      "advanced_filters_title": "Translation filters",
+      "advanced_filters": {
+        "empty": "Text is empty (\"\" or null value)",
+        "added_last_sync": "Strings added last sync",
+        "conflicted": "In review"
+      },
       "save_button": "Export"
     },
     "revision_navigation": {

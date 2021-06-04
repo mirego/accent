@@ -10,10 +10,13 @@ interface Args {
   project: any;
   revisions: any;
   revision: any;
-  document: any;
-  documentFormat: any;
-  orderBy: any;
-  version?: any;
+  document: string;
+  documentFormat: string;
+  orderBy: string;
+  version?: string;
+  isTextEmptyFilter?: boolean;
+  isAddedLastSyncFilter?: boolean;
+  isConflictedFilter?: boolean;
 }
 
 export default class FileExport extends Component<Args> {
@@ -37,6 +40,11 @@ export default class FileExport extends Component<Args> {
       version: this.args.version,
       documentFormat: this.args.documentFormat,
       orderBy: this.args.orderBy,
+      filters: {
+        isTextEmptyFilter: this.args.isTextEmptyFilter,
+        isAddedLastSyncFilter: this.args.isAddedLastSyncFilter,
+        isConflictedFilter: this.args.isConflictedFilter,
+      },
     });
 
     this.content = data;

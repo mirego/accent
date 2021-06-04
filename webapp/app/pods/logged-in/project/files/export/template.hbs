@@ -28,6 +28,10 @@
       @onChangeRevision={{fn (mut this.revisionFilter)}}
       @onChangeFormat={{fn (mut this.documentFormatFilter)}}
       @onChangeOrderBy={{fn (mut this.orderByFilter)}}
+      @isTextEmptyFilter={{this.isTextEmpty}}
+      @isAddedLastSyncFilter={{this.isAddedLastSync}}
+      @isConflictedFilter={{this.isConflicted}}
+      @onChangeAdvancedFilterBoolean={{fn this.changeAdvancedFilterBoolean}}
     />
     <LinkTo
       @route="logged-in.project.files.jipt"
@@ -58,6 +62,9 @@
       @revision={{this.revision}}
       @document={{this.document}}
       @documentFormat={{this.documentFormatFilter}}
+      @isTextEmptyFilter={{this.isTextEmpty}}
+      @isAddedLastSyncFilter={{this.isAddedLastSync}}
+      @isConflictedFilter={{this.isConflicted}}
       @orderBy={{this.orderByFilter}}
     />
   </ProjectFileOperation>
