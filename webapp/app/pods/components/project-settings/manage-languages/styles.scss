@@ -1,14 +1,6 @@
 .project-settings-manage-languages {
   display: flex;
   margin-top: 25px;
-
-  :global(.ember-power-select-trigger) {
-    min-height: 31px;
-    max-width: 400px;
-    margin-bottom: 20px;
-    background: var(--background-light);
-    border: 1px solid var(--background-light-highlight);
-  }
 }
 
 .overview {

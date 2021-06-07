@@ -1,0 +1,24 @@
+.fields {
+  margin-bottom: 25px;
+
+  :global(.ember-power-select-trigger) {
+    min-height: 31px;
+    max-width: 400px;
+    margin-bottom: 10px;
+    background: var(--background-light);
+    border: 1px solid var(--background-light-highlight);
+  }
+}
+
+.option {
+  margin-bottom: 10px;
+}
+
+.optionLabel {
+  display: flex;
+  font-size: 12px;
+}
+
+.optionLabelText {
+  margin-left: 5px;
+}

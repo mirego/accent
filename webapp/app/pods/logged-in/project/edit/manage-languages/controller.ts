@@ -109,7 +109,7 @@ export default class ManageLanguagesController extends Controller {
   }
 
   @action
-  async create(languageId: string) {
+  async create(languageId: string, options: {defaultNull: boolean}) {
     const project = this.model.project;
     this.errors = [];
 
@@ -119,6 +119,7 @@ export default class ManageLanguagesController extends Controller {
       variables: {
         projectId: project.id,
         languageId,
+        defaultNull: options.defaultNull,
       },
     });
 

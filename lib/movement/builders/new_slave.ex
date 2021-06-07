@@ -18,11 +18,13 @@ defmodule Movement.Builders.NewSlave do
   end
 
   defp process_operations(context = %Movement.Context{assigns: assigns, operations: operations}) do
+    default_null = "default_null" in assigns.new_slave_options
+
     new_operations =
       Enum.map(assigns[:translations], fn translation ->
         OperationMapper.map(@action, translation, %{
           key: translation.key,
-          text: translation.corrected_text,
+          text: if(default_null, do: "", else: translation.corrected_text),
           file_comment: translation.file_comment,
           file_index: translation.file_index,
           document_id: translation.document_id,
@@ -30,7 +32,8 @@ defmodule Movement.Builders.NewSlave do
           value_type: translation.value_type,
           plural: translation.plural,
           locked: translation.locked,
-          placeholders: translation.placeholders
+          placeholders: translation.placeholders,
+          options: assigns.new_slave_options
         })
       end)
 

@@ -59,10 +59,12 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   @spec create(Project.t(), %{language_id: String.t()}, GraphQLContext.t()) :: revision_operation
   def create(project, args, info) do
     language = Repo.get(Language, args.language_id)
+    new_slave_options = parse_new_slave_options(args)
 
     %Context{}
     |> Context.assign(:project, project)
     |> Context.assign(:language, language)
+    |> Context.assign(:new_slave_options, new_slave_options)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> NewSlaveBuilder.build()
     |> NewSlavePersister.persist()
@@ -147,5 +149,12 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> RevisionScope.with_stats()
     |> Query.where(id: ^revision.id)
     |> Repo.one()
+  end
+
+  defp parse_new_slave_options(args) do
+    options = []
+    options = if args[:default_null], do: ["default_null" | options], else: options
+
+    options
   end
 end

@@ -12,6 +12,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
   }
 
   alias Movement.Builders.NewSlave, as: NewSlaveBuilder
+  alias Movement.Context
 
   @user %User{email: "test@test.com"}
 
@@ -39,8 +40,9 @@ defmodule AccentTest.Movement.Builders.NewSlave do
       |> Repo.insert!()
 
     context =
-      %Movement.Context{}
-      |> Movement.Context.assign(:project, project)
+      %Context{}
+      |> Context.assign(:project, project)
+      |> Context.assign(:new_slave_options, [])
       |> NewSlaveBuilder.build()
 
     translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
@@ -60,6 +62,32 @@ defmodule AccentTest.Movement.Builders.NewSlave do
            ]
   end
 
+  test "builder fetch translations and process operations with default null", %{revision: revision, project: project, document: document} do
+    translation =
+      %Translation{
+        key: "a",
+        proposed_text: "A",
+        corrected_text: "A",
+        file_index: 2,
+        file_comment: "comment",
+        revision_id: revision.id,
+        document_id: document.id
+      }
+      |> Repo.insert!()
+
+    context =
+      %Context{}
+      |> Context.assign(:project, project)
+      |> Context.assign(:new_slave_options, ["default_null"])
+      |> NewSlaveBuilder.build()
+
+    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
+    operations = context.operations |> Enum.map(&Map.take(&1, [:text]))
+
+    assert translation_ids === [translation.id]
+    assert operations === [%{text: ""}]
+  end
+
   test "with removed translation", %{revision: revision, project: project, document: document} do
     translation =
       %Translation{
@@ -75,8 +103,9 @@ defmodule AccentTest.Movement.Builders.NewSlave do
       |> Repo.insert!()
 
     context =
-      %Movement.Context{}
-      |> Movement.Context.assign(:project, project)
+      %Context{}
+      |> Context.assign(:project, project)
+      |> Context.assign(:new_slave_options, [])
       |> NewSlaveBuilder.build()
 
     translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))

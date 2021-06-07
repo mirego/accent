@@ -9,6 +9,8 @@ defmodule Movement.Persisters.Base do
   # overflow in database adapter
   @operations_inserts_chunk 500
 
+  @options_keys ~w(new_slave_options merge_options sync_options)a
+
   @spec execute(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}
   def execute(context = %Movement.Context{operations: []}), do: {context, []}
 
@@ -21,6 +23,7 @@ defmodule Movement.Persisters.Base do
       |> assign_project(assigns[:project])
       |> assign_revision(assigns[:revision])
       |> assign_version(assigns[:version])
+      |> assign_options(assigns)
       |> Map.put(:stats, stats)
       |> Repo.insert!()
 
@@ -112,4 +115,10 @@ defmodule Movement.Persisters.Base do
   defp assign_version(operation, nil), do: operation
   defp assign_version(operation = %{version_id: version_id}, _version) when not is_nil(version_id), do: operation
   defp assign_version(operation, version), do: %{operation | version_id: version.id}
+
+  defp assign_options(operations, assigns) do
+    options = Enum.flat_map(@options_keys, &Map.get(assigns, &1, []))
+
+    %{operations | options: options}
+  end
 end

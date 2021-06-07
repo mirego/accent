@@ -20,12 +20,6 @@ export default class MachineTranslationsController extends Controller {
     this.router.transitionTo('logged-in.project.files.index');
   }
 
-  get languages() {
-    return this.model.project.revisions.map(
-      (revision: {language: any}) => revision.language
-    );
-  }
-
   @action
   resetContent() {
     this.translatedFileContent = '';

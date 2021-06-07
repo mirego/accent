@@ -621,6 +621,7 @@
       "cant_edit": "This string can’t be edited because it has been removed."
     },
     "project_manage_languages_create_form": {
+      "default_null": "Initialize language with empty strings",
       "language_search_placeholder": "Search languages…",
       "save_button": "Add language"
     },

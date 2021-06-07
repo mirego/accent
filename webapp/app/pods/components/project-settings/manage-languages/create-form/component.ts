@@ -10,7 +10,7 @@ interface Args {
   permissions: Record<string, true>;
   project: any;
   languages: any;
-  onCreate: (language: any) => Promise<void>;
+  onCreate: (language: any, options: object) => Promise<void>;
 }
 
 export default class CreateForm extends Component<Args> {
@@ -25,6 +25,9 @@ export default class CreateForm extends Component<Args> {
 
   @tracked
   language = this.mappedLanguages[0]?.value;
+
+  @tracked
+  defaultNull = false;
 
   @not('language')
   emptyLanguage: boolean;
@@ -42,10 +45,15 @@ export default class CreateForm extends Component<Args> {
   }
 
   @action
+  onChangeDefaultNull() {
+    this.defaultNull = !this.defaultNull;
+  }
+
+  @action
   async submit() {
     this.isLoading = true;
 
-    await this.args.onCreate(this.language);
+    await this.args.onCreate(this.language, {defaultNull: this.defaultNull});
 
     this.isLoading = false;
   }

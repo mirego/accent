@@ -8,9 +8,13 @@ export default gql`
 
         revisions {
           id
+          name
+          slug
+
           language {
             id
             name
+            slug
           }
         }
 

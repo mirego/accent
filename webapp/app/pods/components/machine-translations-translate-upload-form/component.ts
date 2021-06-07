@@ -7,8 +7,19 @@ import {dropTask} from 'ember-concurrency-decorators';
 import GlobalState from 'accent-webapp/services/global-state';
 import LanguageSearcher from 'accent-webapp/services/language-searcher';
 
+interface Revision {
+  id: string;
+  name: string | null;
+  slug: string | null;
+  language: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+}
+
 interface Args {
-  languages: any;
+  revisions: Revision[];
   content: string | null;
   onFileReset: () => void;
   onFileChange: (
@@ -40,15 +51,10 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
   fromLanguage = this.mappedLanguages[0];
 
   @tracked
-  toLanguage = this.mappedLanguages[1];
+  toLanguage = this.mappedLanguages[1] || this.mappedLanguages[0];
 
-  get mappedLanguages(): Array<{label: string; value: string}> {
-    return this.args.languages.map(
-      ({id, name}: {id: string; name: string}) => ({
-        label: name,
-        value: id,
-      })
-    );
+  get mappedLanguages() {
+    return this.mapRevisions(this.args.revisions);
   }
 
   get mappedDocumentFormats(): Array<{value: string; label: string}> {
@@ -74,12 +80,12 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
   }
 
   @action
-  onSelectFromLanguage(langage: {label: string; value: string}) {
+  onSelectFromLanguage(langage: any) {
     this.fromLanguage = langage;
   }
 
   @action
-  onSelectToLanguage(langage: {label: string; value: string}) {
+  onSelectToLanguage(langage: any) {
     this.toLanguage = langage;
   }
 
@@ -128,6 +134,17 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
       this.toLanguage.value,
       this.documentFormat.value
     );
+  }
+
+  private mapRevisions(revisions: Revision[]) {
+    return revisions.map((revision: Revision) => {
+      const displayName = revision.name || revision.language.name;
+      const label = htmlSafe(
+        `${displayName} <em>${revision.slug || revision.language.slug}</em>`
+      );
+
+      return {label, value: revision.language.id};
+    });
   }
 
   private mapLanguages(languages: any) {
