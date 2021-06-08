@@ -614,7 +614,6 @@
       "maybe_create_one": "Create your first project here →"
     },
     "related_translations_list": {
-      "title": "Translations",
       "comments_label": "{count, plural, =0 {No comments} =1 {1 comment} other {# comments}}",
       "conflicted_label": "in review",
       "master_label": "master",

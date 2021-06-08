@@ -2,14 +2,12 @@
   transition: 0.2s ease-in-out;
   transition-property: box-shadow;
   position: relative;
-  flex: 1 1 calc(50% - 10px);
+  flex: 1 1 calc(50% - 20px);
   justify-content: space-between;
   max-width: 50%;
   margin-bottom: 20px;
-  margin-right: 10px;
-  padding: 8px 15px 12px;
+  margin-right: 20px;
   border-radius: 3px;
-  box-shadow: 0 1px 4px var(--shadow-color), 0 9px 19px var(--shadow-color);
 
   &:nth-child(even) {
     flex: 1 1 50%;
@@ -18,8 +16,6 @@
 
   &:focus,
   &:hover {
-    box-shadow: 0 3px 10px var(--shadow-color);
-
     .actionsButton {
       opacity: 1;
     }
@@ -59,6 +55,7 @@
 .dashboard-revisions-item.master {
   flex: 1 1 auto;
   max-width: none;
+  margin-right: 0;
 
   .language-name {
     font-size: 14px;
@@ -79,6 +76,7 @@
   font-size: 12px;
   text-decoration: none;
   color: var(--color-black);
+  font-weight: bold;
 
   &:focus,
   &:hover {
@@ -106,8 +104,8 @@
   transition: 0.2s ease-in-out;
   transition-property: opacity;
   position: absolute;
-  right: 7px;
-  top: 6px;
+  right: 0;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,7 +132,7 @@
 }
 
 .actions {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .actionItem-text {

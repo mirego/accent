@@ -1,9 +1,5 @@
 {{#if @translations}}
   <div local-class="list">
-    <strong local-class="title">
-      {{t "components.related_translations_list.title"}}
-    </strong>
-
     <ul>
       {{#each @translations key="id" as |translation|}}
         <RelatedTranslationsList::Item

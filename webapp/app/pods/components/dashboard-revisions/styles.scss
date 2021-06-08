@@ -97,7 +97,7 @@
   margin-bottom: 10px;
   padding-bottom: 5px;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 300;
 }
 
 .slaves {
@@ -132,8 +132,8 @@
 }
 
 .empty-slaves-button-icon {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   margin-right: 5px;
   fill: var(--color-primary);
 }
@@ -143,6 +143,7 @@
   margin-top: 10px;
   font-size: 11px;
   color: var(--color-black);
+  opacity: 0.5;
 }
 
 .master {
