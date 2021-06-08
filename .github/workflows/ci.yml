@@ -24,8 +24,8 @@ jobs:
 
       - uses: erlef/setup-elixir@v1
         with:
-          otp-version: 23.1.1
-          elixir-version: 1.11.x
+          otp-version: 24.0.2
+          elixir-version: 1.12.x
 
       - uses: actions/setup-node@v1
         with:
