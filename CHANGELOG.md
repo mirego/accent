@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.8.0
+
+### 1. Enhancements
+
+- Comment deletion
+- Add export advanced filters
+- Add merge options on add translation to correct translation in the same operation
+- Add default null option on new slave
+
+### 2. Bug fixes
+
+- Fix Sentry setup
+
+### 3. Refactor
+
+- Update Elixir/erlang and EmberJS to latest version
+- Conflicts page item delays rendering to handle large list of large values
+
 ## v1.6.0
 
 ### 1. Enhancements
