@@ -344,11 +344,17 @@
       },
       "links_list": {
         "collaborators": "Collaborators",
+        "collaborators_text": "Manage who has access to what features of this project",
         "badges": "Badges",
+        "badges_text": "Quick look on project stats, embedded in images",
         "api_token": "API Token",
+        "api_token_text": "Integrate Accent workflow with the CLI or plain API requests",
         "service_integrations": "Service & integrations",
+        "service_integrations_text": "Notify and interact with external systems based on Accent events",
         "manage_languages": "Manage languages",
-        "jipt": "Just In Place Translations"
+        "manage_languages_text": "Add/remove languages translated in the project",
+        "jipt": "Just In Place Translations",
+        "jipt_text": "Live translation on any applications, with builtin Javascript library"
       },
       "delete_form": {
         "title": "Danger zone",

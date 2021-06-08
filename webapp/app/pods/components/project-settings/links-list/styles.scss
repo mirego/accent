@@ -1,20 +1,20 @@
 .project-settings-links-list {
-  margin-top: 10px;
+  margin-top: 40px;
 }
 
 .list {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .link {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
   margin: 0 30px 30px 0;
-  min-width: 125px;
-  text-align: center;
+  max-width: 275px;
   background: var(--body-background);
   border-radius: 3px;
   color: var(--color-black);
@@ -23,12 +23,27 @@
   font-weight: 600;
   font-size: 13px;
   transition: 0.2s ease-in-out;
-  transition-property: box-shadow, color;
+  transition-property: background, box-shadow, color;
+
+  strong {
+    padding: 10px 20px 5px;
+  }
+
+  p {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 11px;
+    border-top: 1px solid var(--body-background-border);
+    color: var(--color-grey);
+    background: var(--background-light);
+  }
 
   &:focus,
   &:hover {
     color: var(--color-primary);
-    box-shadow: 0 3px 10px var(--shadow-color);
+    box-shadow: 0 1px 2px var(--shadow-color), 0 9px 12px var(--shadow-color);
 
     .link-icon {
       stroke: var(--color-primary);
@@ -39,11 +54,18 @@
 .link-icon {
   width: 20px;
   height: 20px;
-  margin-right: 10px;
+  margin: 20px 20px 0;
   transition: 0.2s ease-in-out;
   transition-property: stroke;
-  opacity: 0.3;
+  opacity: 0.6;
   stroke: var(--color-black);
+
+  &.link-icon--jipt path:nth-child(2),
+  &.link-icon--integrations circle:nth-child(3),
+  &.link-icon--badges path:nth-child(2),
+  &.link-icon--collaborators path:nth-child(3) {
+    stroke: var(--color-primary);
+  }
 }
 
 @media (max-width: var(--screen-md)) {
