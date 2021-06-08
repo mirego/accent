@@ -32,6 +32,9 @@ config :tesla,
   auth_enabled: true,
   adapter: Tesla.Adapter.Hackney
 
+config :sentry,
+  release: version
+
 config :ueberauth, Ueberauth, providers: []
 
 import_config "#{Mix.env()}.exs"

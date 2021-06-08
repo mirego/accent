@@ -1,7 +1,5 @@
 import Config
 
-version = Mix.Project.config()[:version]
-
 defmodule Utilities do
   def string_to_boolean("true"), do: true
   def string_to_boolean("1"), do: true
@@ -116,8 +114,7 @@ else
     dsn: System.get_env("SENTRY_DSN"),
     environment_name: System.get_env("SENTRY_ENVIRONMENT_NAME"),
     included_environments: ~w(prod production),
-    root_source_code_path: File.cwd!(),
-    release: version
+    root_source_code_path: File.cwd!()
 end
 
 config :accent, Accent.Mailer,

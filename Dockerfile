@@ -32,7 +32,7 @@ RUN rebar3 compile
 #
 # Build the OTP binary
 #
-FROM hexpm/elixir:1.11.2-erlang-23.1.1-alpine-3.12.0 AS builder
+FROM hexpm/elixir:1.12.1-erlang-24.0.2-alpine-3.13.3 AS builder
 
 ENV MIX_ENV=prod
 
@@ -73,11 +73,11 @@ RUN mkdir -p /opt/build && \
 #
 # Build a lean runtime container
 #
-FROM alpine:3.12.0
+FROM alpine:3.13.3
 
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add bash yaml-dev
+    apk --no-cache add bash yaml-dev openssl ncurses-libs libstdc++
 
 WORKDIR /opt/accent
 COPY --from=builder /opt/build .
