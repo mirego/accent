@@ -33,6 +33,7 @@ defmodule Accent.Mixfile do
   defp elixirc_paths(_), do: ["lib", "web", "vendor"]
 
   defp extra_compilers(:prod), do: [:phoenix]
+  defp extra_compilers(:elixirls), do: [:phoenix]
   defp extra_compilers(_), do: [:gleam, :phoenix]
 
   # Specifies your project dependencies.
