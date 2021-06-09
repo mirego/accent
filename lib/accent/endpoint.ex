@@ -1,7 +1,7 @@
 defmodule Accent.Endpoint do
   use Phoenix.Endpoint, otp_app: :accent
 
-  socket("/socket", Accent.UserSocket, websocket: true)
+  socket("/socket", Accent.UserSocket, websocket: true, timeout: 45_000)
 
   plug(:force_ssl)
   plug(Corsica, origins: "*", allow_headers: ~w(Accept Content-Type Authorization origin))
