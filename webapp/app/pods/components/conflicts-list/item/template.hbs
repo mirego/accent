@@ -1,4 +1,7 @@
-<div {{did-insert (perform this.foo)}}>
+<div
+  local-class="root"
+  {{in-viewport onEnter=(fn this.didEnterViewport) scrollableArea=".conflict-items"}}
+>
   {{#if this.show}}
     <div local-class="conflict-item {{if this.resolved "resolved"}} {{if this.error "errored"}}">
       <li>
@@ -64,6 +67,7 @@
                   @disabled={{@conflict.isRemoved}}
                   @valueType={{@conflict.valueType}}
                   @value={{this.textInput}}
+                  @inputDisabled={{this.inputDisabled}}
                   @showTypeHints={{false}}
                   @onKeyUp={{fn this.changeTranslationText}}
                   @onSubmit={{fn this.correct}}
@@ -105,7 +109,7 @@
                 {{/if}}
 
                 {{#if @conflict.relatedTranslations}}
-                  {{#each @conflict.relatedTranslations key="id" as |relatedTranslation|}}
+                  {{#each this.relatedTranslations key="id" as |relatedTranslation|}}
                     <ConflictsList::Item::RelatedTranslation
                       @project={{@project}}
                       @translation={{relatedTranslation}}
@@ -120,6 +124,5 @@
         {{/if}}
       </li>
     </div>
-  {{else}}
   {{/if}}
 </div>

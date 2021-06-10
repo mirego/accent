@@ -24,7 +24,7 @@ interface Args {
   projectId: string;
   translationId: string;
   lintMessages?: any[];
-  disabled: boolean;
+  inputDisabled: boolean;
   valueType:
     | 'STRING'
     | 'HTML'

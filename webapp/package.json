@@ -104,6 +104,7 @@
     "ember-cli-typescript-blueprints": "3.0.0",
     "ember-content-loader": "1.0.0",
     "ember-exam": "4.0.9",
+    "ember-in-viewport": "3.10.2",
     "ember-keyboard": "6.0.2",
     "ember-mocha": "0.16.2",
     "ember-native-dom-helpers": "0.6.3",

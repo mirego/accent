@@ -5,16 +5,37 @@ import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 import {dropTask} from 'ember-concurrency-decorators';
 import {tracked} from '@glimmer/tracking';
 import {MutationResponse} from 'accent-webapp/services/apollo-mutate';
-import {timeout} from 'ember-concurrency';
 
-const FIRST_PAINT_ITEM_COUNT = 6;
-const FIRST_PAINT_TIMEOUT = 20;
+const ALWAYS_SHOWN_COUNT = 3;
+
+interface Conflict {
+  id: string;
+  key: string;
+  conflictedText: string;
+  correctedText: string;
+  revision: {
+    name: string | null;
+    slug: string | null;
+    isMaster: boolean;
+    language: {
+      name: string;
+      slug: string;
+    };
+  };
+  relatedTranslations: Array<{
+    id: string;
+    correctedText: string;
+    revision: {
+      isMaster: boolean;
+    };
+  }>;
+}
 
 interface Args {
   permissions: Record<string, true>;
   index: number;
   project: any;
-  conflict: any;
+  conflict: Conflict;
   onCorrect: (conflict: any, textInput: string) => Promise<MutationResponse>;
   onCopyTranslation: (
     text: string,
@@ -40,10 +61,27 @@ export default class ConflictItem extends Component<Args> {
   resolved = false;
 
   @tracked
-  show = false;
+  inputDisabled = false;
+
+  @tracked
+  show = this.args.index <= ALWAYS_SHOWN_COUNT;
 
   conflictKey = parsedKeyProperty(this.args.conflict.key);
   textOriginal = this.args.conflict.correctedText;
+
+  get relatedTranslations() {
+    const masterConflict = this.args.conflict.relatedTranslations.find(
+      (translation) => translation.revision.isMaster
+    );
+    if (!masterConflict) return [];
+
+    return this.args.conflict.relatedTranslations.filter((translation) => {
+      return (
+        translation.id === masterConflict.id ||
+        translation.correctedText !== masterConflict.correctedText
+      );
+    });
+  }
 
   get showTextDiff() {
     if (!this.args.conflict.conflictedText) return false;
@@ -62,14 +100,8 @@ export default class ConflictItem extends Component<Args> {
     );
   }
 
-  @dropTask
-  *foo() {
-    if (this.args.index < FIRST_PAINT_ITEM_COUNT) {
-      yield timeout(FIRST_PAINT_TIMEOUT);
-    } else {
-      yield timeout(this.args.index * 100);
-    }
-
+  @action
+  didEnterViewport() {
     this.show = true;
   }
 
@@ -85,11 +117,15 @@ export default class ConflictItem extends Component<Args> {
 
   @dropTask
   *copyTranslationTask(text: string, sourceLanguageSlug: string) {
+    this.inputDisabled = true;
+
     const copyTranslation = yield this.args.onCopyTranslation(
       text,
       sourceLanguageSlug,
       this.revisionSlug
     );
+
+    this.inputDisabled = false;
 
     if (copyTranslation.text) {
       this.textInput = copyTranslation.text;

@@ -1,6 +1,6 @@
 %textInput {
   transition: 0.2s ease-in-out;
-  transition-property: border, box-shadow;
+  transition-property: background, border, box-shadow;
   resize: vertical;
   outline: 0;
   border-radius: 4px;
@@ -9,6 +9,7 @@
   color: var(--input-color);
   font-family: var(--font-monospace);
   line-height: 1.4;
+  max-height: 200px;
 
   &::-moz-selection {
     background: var(--color-primary-opacity-70);
@@ -20,5 +21,10 @@
 
   &:focus {
     border: 2px solid var(--color-primary);
+  }
+
+  &:disabled {
+    color: var(--color-grey);
+    background: var(--background-light);
   }
 }

@@ -1,3 +1,7 @@
+.root {
+  min-height: 50px;
+}
+
 .conflict-item {
   padding: 10px;
   margin-bottom: 15px;
@@ -250,7 +254,8 @@
 
 .conflictedText-references-conflicted {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 10px;
   font-size: 12px;
   color: var(--color-black);
 }
@@ -262,6 +267,7 @@
   flex-shrink: 0;
   width: 90px;
   margin-right: 10px;
+  margin-top: 4px;
   font-weight: 500;
   font-size: 11px;
   text-align: right;

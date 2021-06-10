@@ -101,6 +101,7 @@
         {{on-key "cmd+Enter" @onSubmit}}
         {{on "input" (fn this.changeText)}}
         local-class="inputText"
+        disabled={{@inputDisabled}}
         value={{@value}}
         ...attributes
       />
