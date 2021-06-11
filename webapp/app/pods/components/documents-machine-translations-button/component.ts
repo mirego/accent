@@ -4,4 +4,6 @@ interface Args {
   project: any;
 }
 
-export default class DocumentsMachineTranslationsButton extends Component<Args> {}
+export default class DocumentsMachineTranslationsButton extends Component<
+  Args
+> {}

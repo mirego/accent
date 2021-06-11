@@ -151,14 +151,7 @@ export const fileSaver = (view) => {
   FSproto.WRITING = 1;
   FSproto.DONE = 2;
 
-  FSproto.error =
-    FSproto.onwritestart =
-    FSproto.onprogress =
-    FSproto.onwrite =
-    FSproto.onabort =
-    FSproto.onerror =
-    FSproto.onwriteend =
-      null;
+  FSproto.error = FSproto.onwritestart = FSproto.onprogress = FSproto.onwrite = FSproto.onabort = FSproto.onerror = FSproto.onwriteend = null;
 
   return (blob, name, noAutoBom) =>
     new FileSaver(blob, name || blob.name || 'download', noAutoBom);

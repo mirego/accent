@@ -32,7 +32,9 @@ interface Args {
 
 const preventDefault = (event: Event) => event.preventDefault();
 
-export default class MachineTranslationsTranslateUploadForm extends Component<Args> {
+export default class MachineTranslationsTranslateUploadForm extends Component<
+  Args
+> {
   @service('global-state')
   globalState: GlobalState;
 
