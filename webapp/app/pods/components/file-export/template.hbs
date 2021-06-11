@@ -1,5 +1,6 @@
-<pre
+<HighlightRender
   ...attributes
   {{did-insert (fn this.onUpdate)}}
   {{did-update (fn this.onUpdate) @revision @revisions @document @project @version @documentFormat @orderBy}}
->{{content}}</pre>
+  @content={{this.content}}
+/>

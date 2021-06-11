@@ -20,7 +20,7 @@ interface Revision {
 
 interface Args {
   revisions: Revision[];
-  content: string | null;
+  translatedFileContent: string | null;
   onFileReset: () => void;
   onFileChange: (
     file: File,
@@ -32,9 +32,7 @@ interface Args {
 
 const preventDefault = (event: Event) => event.preventDefault();
 
-export default class MachineTranslationsTranslateUploadForm extends Component<
-  Args
-> {
+export default class MachineTranslationsTranslateUploadForm extends Component<Args> {
   @service('global-state')
   globalState: GlobalState;
 
@@ -46,6 +44,9 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
 
   @tracked
   file: File | null;
+
+  @tracked
+  fileContent: string | ArrayBuffer | null;
 
   @tracked
   fromLanguage = this.mappedLanguages[0];
@@ -92,6 +93,10 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
   @action
   fileChange(files: File[]) {
     this.file = files[0];
+    const reader = new FileReader();
+    reader.onload = (event) =>
+      (this.fileContent = event.target?.result || null);
+    reader.readAsText(this.file);
   }
 
   @action
@@ -121,6 +126,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
   @action
   resetFile() {
     this.file = null;
+    this.fileContent = null;
     this.args.onFileReset();
   }
 

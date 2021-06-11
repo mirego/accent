@@ -53,27 +53,25 @@
   </div>
 
   <div local-class="form">
-    {{#if @content}}
-      <button
-        {{on "click" (fn this.resetFile)}}
-        local-class="button-reset"
-        class="button button--white button--filled"
-      >
-        {{t "components.machine_translations_translate_upload_form.reset"}}
-      </button>
+    {{#if @translatedFileContent}}
+      <div local-class="actions">
+        <button
+          {{on "click" (fn this.resetFile)}}
+          class="button button--white button--filled"
+        >
+          {{t "components.machine_translations_translate_upload_form.reset"}}
+        </button>
+      </div>
     {{else}}
       {{#if this.file}}
-        <div local-class="form-content">
-          <div local-class="form-content-icons">
-            {{inline-svg "/assets/import.svg" local-class="form-content-icon"}}
-            {{inline-svg "/assets/add.svg" local-class="form-content-icon form-content-icon--add"}}
-            {{inline-svg "/assets/language.svg" local-class="form-content-icon form-content-icon--highlight"}}
-          </div>
-
-          {{{t "components.machine_translations_translate_upload_form.step_2" name=this.file.name}}}
-
+        <div local-class="actions">
+          <button
+            {{on "click" (fn this.resetFile)}}
+            class="button button--white button--filled"
+          >
+            {{t "components.machine_translations_translate_upload_form.reset"}}
+          </button>
           <AsyncButton
-            local-class="button-submit"
             class="button button--filled"
             @loading={{this.submitTask.isRunning}}
             @onClick={{perform this.submitTask}}
@@ -101,4 +99,10 @@
       {{/if}}
     {{/if}}
   </div>
+
+  {{#if this.fileContent}}
+    {{#unless @translatedFileContent}}
+      <HighlightRender @content={{this.fileContent}} />
+    {{/unless}}
+  {{/if}}
 </div>

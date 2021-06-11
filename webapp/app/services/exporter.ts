@@ -28,14 +28,8 @@ export default class Exporter extends Service {
   authenticatedRequest: AuthenticatedRequest;
 
   async export(options: ExportOptions) {
-    const {
-      project,
-      document,
-      revision,
-      version,
-      documentFormat,
-      orderBy,
-    } = options;
+    const {project, document, revision, version, documentFormat, orderBy} =
+      options;
 
     const url = config.API.EXPORT_DOCUMENT;
 

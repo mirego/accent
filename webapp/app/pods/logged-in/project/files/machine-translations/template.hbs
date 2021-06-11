@@ -3,10 +3,10 @@
     @revisions={{this.model.project.revisions}}
     @onFileChange={{fn this.translate}}
     @onFileReset={{fn this.resetContent}}
-    @content={{this.translatedFileContent}}
+    @translatedFileContent={{this.translatedFileContent}}
   />
 
-  <MachineTranslationsTranslatedFile
-    @content={{this.translatedFileContent}}
-  />
+  {{#if this.translatedFileContent}}
+    <HighlightRender @content={{this.translatedFileContent}}/>
+  {{/if}}
 </AccModal>
