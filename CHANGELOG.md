@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.9.0
+
+### 1. Enhancements
+
+- Colorful file preview with highlight.js
+- Machine translations on document and review items
+
+### 2. Bug fixes
+
+- Large review list values does not crash the browser
+
+### 3. Refactor
+
+- Update Elixir/erlang and EmberJS to latest version
+
 ## v1.8.0
 
 ### 1. Enhancements
