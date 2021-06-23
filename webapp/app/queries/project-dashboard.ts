@@ -189,6 +189,15 @@ export default gql`
               tag
             }
 
+            batchedOperations {
+              id
+
+              document {
+                id
+                path
+              }
+            }
+
             rollbackedOperation {
               id
               action

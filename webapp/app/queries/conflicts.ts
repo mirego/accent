@@ -7,6 +7,7 @@ export default gql`
     $query: String
     $page: Int
     $document: ID
+    $version: ID
   ) {
     viewer {
       project(id: $projectId) {
@@ -20,6 +21,13 @@ export default gql`
           }
         }
 
+        versions {
+          entries {
+            id
+            tag
+          }
+        }
+
         revision(id: $revisionId) {
           id
 
@@ -28,6 +36,7 @@ export default gql`
             page: $page
             pageSize: 20
             document: $document
+            version: $version
             isConflicted: true
           ) {
             meta {

@@ -12,7 +12,6 @@
   transition: 0.2s ease-in-out;
   transition-property: all;
   appearance: none;
-  margin: 0;
   border: 0;
   text-decoration: none;
   border-radius: 3px;
@@ -317,4 +316,12 @@
   width: 14px;
   height: 14px;
   margin: -3px 4px 3px -2px;
+}
+
+.button--xl {
+  padding: 15px 20px;
+}
+
+.button--highlight {
+  background: var(--button-background-hover-color);
 }

@@ -89,6 +89,10 @@ export default class ActivityItem extends Component<Args> {
     return this.args.activity.stats;
   }
 
+  get showBatchedOperations() {
+    return this.args.activity.batchedOperations?.length;
+  }
+
   get localizedStats() {
     return this.args.activity.stats.map((stat: any) => {
       const text = this.intl.t(

@@ -21,6 +21,7 @@ export default class ExportController extends Controller {
     'revisionFilter',
     'documentFormatFilter',
     'orderByFilter',
+    'versionFilter',
     'isTextEmpty',
     'isAddedLastSync',
     'isConflictedFilter',
@@ -33,13 +34,16 @@ export default class ExportController extends Controller {
   fileRender: any = null;
 
   @tracked
-  documentFormatFilter = null;
-
-  @tracked
-  orderByFilter = null;
-
-  @tracked
   revisionFilter = null;
+
+  @tracked
+  documentFormatFilter = '';
+
+  @tracked
+  orderByFilter = '';
+
+  @tracked
+  versionFilter = '';
 
   @tracked
   isTextEmpty: 'true' | null = null;
@@ -55,6 +59,9 @@ export default class ExportController extends Controller {
 
   @readOnly('project.revisions')
   revisions: any;
+
+  @readOnly('model.fileModel.versions.entries')
+  versions: any;
 
   @readOnly('model.fileModel.documents.entries')
   documents: any;

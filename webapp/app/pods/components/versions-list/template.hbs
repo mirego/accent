@@ -1,9 +1,19 @@
-<ul local-class="versions-list">
-  {{#each @versions key="id" as |version|}}
-    <VersionsList::Item
-      @permissions={{@permissions}}
-      @version={{version}}
-      @project={{@project}}
-    />
-  {{/each}}
-</ul>
+{{#if @versions}}
+  <ul local-class="versions-list">
+    {{#each @versions key="id" as |version|}}
+      <VersionsList::Item
+        @permissions={{@permissions}}
+        @version={{version}}
+        @project={{@project}}
+      />
+    {{/each}}
+  </ul>
+{{else}}
+<div local-class="empty-content">
+  <h1 local-class="empty-title">{{t "components.versions_list.empty_title"}}</h1>
+
+  <p local-class="empty-text">
+    {{t "components.versions_list.empty_text"}}
+  </p>
+</div>
+{{/if}}

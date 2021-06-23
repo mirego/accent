@@ -6,6 +6,7 @@ import {htmlSafe} from '@ember/string';
 import {dropTask} from 'ember-concurrency-decorators';
 import GlobalState from 'accent-webapp/services/global-state';
 import LanguageSearcher from 'accent-webapp/services/language-searcher';
+import FileSaver from 'accent-webapp/services/file-saver';
 
 interface Revision {
   id: string;
@@ -37,6 +38,9 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
 > {
   @service('global-state')
   globalState: GlobalState;
+
+  @service('file-saver')
+  fileSaver: FileSaver;
 
   @service('language-searcher')
   languageSearcher: LanguageSearcher;
@@ -92,13 +96,27 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
     this.toLanguage = langage;
   }
 
-  @action
-  fileChange(files: File[]) {
+  @dropTask
+  *fileChange(files: File[]) {
+    this.fileContent = null;
+
+    yield this.args.onFileReset();
+
     this.file = files[0];
+
     const reader = new FileReader();
     reader.onload = (event) =>
       (this.fileContent = event.target?.result || null);
     reader.readAsText(this.file);
+
+    const filename = this.file.name.split('.');
+    const fileExtension = filename.pop();
+    const formatFromExtension = this.formatFromExtension(fileExtension);
+    const mappedDocumentFormat = this.mappedDocumentFormats.find(({value}) => {
+      return value === formatFromExtension;
+    });
+
+    if (mappedDocumentFormat) this.documentFormat = mappedDocumentFormat;
   }
 
   @action
@@ -125,13 +143,6 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
     this.file = file || null;
   }
 
-  @action
-  resetFile() {
-    this.file = null;
-    this.fileContent = null;
-    this.args.onFileReset();
-  }
-
   @dropTask
   *submitTask() {
     if (!this.file) return;
@@ -142,6 +153,30 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
       this.toLanguage.value,
       this.documentFormat.value
     );
+  }
+
+  @action
+  exportFile() {
+    if (!this.file) return;
+    const blob = new Blob([this.fileContent as BlobPart], {
+      type: 'charset=utf-8',
+    });
+
+    this.fileSaver.saveAs(blob, this.file.name);
+  }
+
+  private formatFromExtension(fileExtension?: string) {
+    if (!this.globalState.documentFormats) return null;
+
+    const documentFormatItem = this.globalState.documentFormats.find(
+      ({extension}) => {
+        return extension === fileExtension;
+      }
+    );
+
+    return documentFormatItem
+      ? documentFormatItem.slug
+      : this.globalState.documentFormats[0].slug;
   }
 
   private mapRevisions(revisions: Revision[]) {

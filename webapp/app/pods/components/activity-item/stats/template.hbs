@@ -1,0 +1,11 @@
+<ul>
+  {{#each this.localizedStats as |stat|}}
+    <li>
+      {{stat.text}}
+      :
+      <b>
+        {{stat.count}}
+      </b>
+    </li>
+  {{/each}}
+</ul>

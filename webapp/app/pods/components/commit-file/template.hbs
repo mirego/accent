@@ -58,9 +58,10 @@
       </div>
     {{/if}}
   {{/if}}
+
   {{#if file}}
     <div>
-      {{#unless this.documents}}
+      {{#if @documents}}
         <div local-class="option">
           <p local-class="textHelper">
             {{t "components.commit_file.file_source"}}
@@ -78,7 +79,7 @@
           </p>
           <Input @value={{this.documentPath}} local-class="fileSourceName" />
         </div>
-      {{/unless}}
+      {{/if}}
 
       <div local-class="option">
         <p local-class="textHelper">

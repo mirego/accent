@@ -30,6 +30,20 @@
                 </div>
               </div>
             {{/if}}
+
+            {{#if this.showVersionsSelect}}
+              <div class="queryForm-filter">
+                <div class="queryForm-filter-select">
+                  <AccSelect
+                    @matchTriggerWidth={{false}}
+                    @searchEnabled={{false}}
+                    @selected={{this.versionValue}}
+                    @options={{this.mappedVersions}}
+                    @onchange={{fn @onChangeVersion}}
+                  />
+                </div>
+              </div>
+            {{/if}}
           </div>
         </div>
       </div>

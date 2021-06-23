@@ -1,9 +1,8 @@
 <LinkTo
   @route="logged-in.project.versions.new"
   @model={{@project.id}}
-  local-class="button"
-  class="button button--bordered button--primary"
+  class="button button--primary button--xl button--highlight"
 >
-  {{inline-svg "/assets/add.svg" local-class="button-icon" class="button-icon"}}
+  {{inline-svg "/assets/add.svg" class="button-icon"}}
   {{t "components.versions_add_button.link"}}
 </LinkTo>

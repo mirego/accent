@@ -34,6 +34,7 @@ export default class FilesRoute extends Route {
         props: (data) => ({
           project: data.viewer.project,
           documents: data.viewer.project.documents,
+          versions: data.viewer.project.versions,
         }),
         options: {
           fetchPolicy: 'cache-and-network',

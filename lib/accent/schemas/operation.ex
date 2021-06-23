@@ -55,6 +55,7 @@ defmodule Accent.Operation do
 
     has_one(:rollback_operation, Accent.Operation, foreign_key: :rollbacked_operation_id)
     has_many(:operations, Accent.Operation, foreign_key: :batch_operation_id)
+    has_many(:batched_operations, Accent.Operation, foreign_key: :batch_operation_id, where: [batch: true])
 
     timestamps()
   end

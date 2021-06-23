@@ -1,0 +1,33 @@
+.languageHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.languageHeader-select select {
+  font-weight: bold;
+  border: 0;
+  padding-left: 0;
+  background: var(--body-background);
+  font-size: 15px;
+}
+
+.languageHeader-displayOptions-button {
+  padding: 0 10px;
+  background: none;
+  border-right: 1px solid var(--background-light-highlight);
+  color: var(--color-black);
+  font-size: 13px;
+
+  &:focus {
+    outline: none;
+    opacity: 0.6;
+  }
+
+  &:last-of-type {
+    border-right-color: transparent;
+  }
+}
+
+.languageHeader-displayOptions-button[disabled] {
+  color: var(--color-primary);
+}

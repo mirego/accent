@@ -14,6 +14,9 @@ export default class ExportRoute extends Route {
     documentFormatFilter: {
       refreshModel: true,
     },
+    versionFilter: {
+      refreshModel: true,
+    },
     orderByFilter: {
       refreshModel: true,
     },

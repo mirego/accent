@@ -17,13 +17,13 @@ export default class HighlightRender extends Component<Args> {
     const content = element.querySelector(
       '[data-highlight="content"]'
     ) as HTMLElement;
-    let child = element.querySelector('pre');
-    if (child) child.remove();
+    const existingPre = element.querySelector('pre');
+    existingPre?.remove();
 
-    child = document.createElement('pre');
-    child.append(content?.innerText || '');
-    element.append(child);
+    const newPre = document.createElement('pre');
+    newPre.append(content?.innerText || '');
+    element.append(newPre);
 
-    hljs.highlightElement(child);
+    hljs.highlightElement(newPre);
   }
 }

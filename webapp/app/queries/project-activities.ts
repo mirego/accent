@@ -62,6 +62,20 @@ export default gql`
               isBot
             }
 
+            batchedOperations {
+              id
+
+              stats {
+                action
+                count
+              }
+
+              document {
+                id
+                path
+              }
+            }
+
             document {
               id
               path

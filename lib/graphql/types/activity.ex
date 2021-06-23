@@ -42,6 +42,7 @@ defmodule Accent.GraphQL.Types.Activity do
 
     field(:previous_translation, :activity_previous_translation)
     field(:batch_operation, :activity, resolve: dataloader(Accent.Operation, :batch_operation))
+    field(:batched_operations, non_null(list_of(non_null(:activity))), resolve: dataloader(Accent.Operation, :batched_operations))
     field(:rollbacked_operation, :activity, resolve: dataloader(Accent.Operation, :rollbacked_operation))
     field(:rollback_operation, :activity, resolve: dataloader(Accent.Operation, :rollback_operation))
     field(:user, non_null(:user), resolve: dataloader(Accent.User))

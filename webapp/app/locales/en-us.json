@@ -19,7 +19,7 @@
     },
     "machine_translations_translate_upload_form": {
       "translate": "Translate",
-      "reset": "Reset",
+      "new_file": "New file",
       "step_1": "Select or drop a file here to translate it.",
       "step_2": "Choose the correct format and submit to translate <code>{name}</code> in the chosen target language"
     },
@@ -124,6 +124,7 @@
     "conflicts_filters": {
       "total_entries_count": "{count, plural, =0 {No strings to review} =1 {1 string to review} other {# strings to review}}",
       "reference_default_option_text": "No reference language",
+      "version_default_option_text": "Latest version",
       "document_default_option_text": "All documents",
       "input_placeholder_text": "Search for a string"
     },
@@ -191,6 +192,8 @@
       "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
     },
     "versions_list": {
+      "empty_title": "Add a version",
+      "empty_text": "Versionning enables you to review/export/sync translations independantly from your main project. This means that supporting previous versions of your app will be as easy as adding new features!",
       "export": "Export",
       "update": "Edit"
     },
@@ -225,8 +228,9 @@
         "details": "Details",
         "hide": "Hide",
         "empty_changes": "No changes on this language",
+        "empty_results": "No results for this search",
         "text_label": "Text:",
-        "previous_label": "Text:"
+        "previous_label": "Before sync:"
       }
     },
     "project_activity": {
@@ -641,6 +645,7 @@
     },
     "revision_export_options": {
       "default_format": "Default format",
+      "default_version": "Default version",
       "orders": {
         "az": "Alphabetical order",
         "original": "Original order"
@@ -847,6 +852,11 @@
         "flash_messages": {
           "create_error": "The document could not be synced with the uploaded file",
           "create_success": "The document has been synced with success"
+        }
+      },
+      "machine_translations": {
+        "flash_messages": {
+          "translate_error": "The document could not be translated with the uploaded file. Verify that the format is valid."
         }
       },
       "merge": {

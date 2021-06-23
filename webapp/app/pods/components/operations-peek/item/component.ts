@@ -1,39 +1,37 @@
 import Component from '@glimmer/component';
-import {tracked} from '@glimmer/tracking';
 import {action} from '@ember/object';
+import {tracked} from '@glimmer/tracking';
 
 interface Args {
   revisionOperation: any;
+  shouldShowStats: boolean;
+  shouldShowOperations: boolean;
+  shouldHideDetails: boolean;
 }
 
 export default class OperationsPeekItem extends Component<Args> {
   @tracked
-  shouldShowStats = true;
+  searchQuery = '';
 
-  @tracked
-  shouldShowOperations = false;
+  get operations() {
+    if (!this.searchQuery) return this.args.revisionOperation.operations;
 
-  @tracked
-  shouldHideDetails = false;
+    const query = new RegExp(this.searchQuery, 'i');
 
-  @action
-  showStats() {
-    this.shouldShowStats = true;
-    this.shouldShowOperations = false;
-    this.shouldHideDetails = false;
+    return this.args.revisionOperation.operations.filter(
+      (operation: {key: string; previousText: string; text: string}) => {
+        return [
+          operation.key,
+          operation.previousText,
+          operation.text,
+        ].some((text) => text.match(query));
+      }
+    );
   }
 
   @action
-  showOperations() {
-    this.shouldShowStats = false;
-    this.shouldShowOperations = true;
-    this.shouldHideDetails = false;
-  }
-
-  @action
-  hideDetails() {
-    this.shouldShowStats = false;
-    this.shouldShowOperations = false;
-    this.shouldHideDetails = true;
+  filterOperations(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchQuery = target.value;
   }
 }

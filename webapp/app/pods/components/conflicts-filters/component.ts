@@ -15,9 +15,12 @@ interface Args {
   conflicts: any;
   document: any;
   documents: any;
+  version: any;
+  versions: any;
   query: any;
   onChangeDocument: () => void;
   onChangeReference: () => void;
+  onChangeVersion: () => void;
   onChangeQuery: (query: string) => void;
 }
 
@@ -27,6 +30,9 @@ export default class ConflictsFilters extends Component<Args> {
 
   @gt('args.documents.length', 1)
   showDocumentsSelect: boolean;
+
+  @gt('args.versions.length', 0)
+  showVersionsSelect: boolean;
 
   @tracked
   debouncedQuery = this.args.query;
@@ -63,6 +69,30 @@ export default class ConflictsFilters extends Component<Args> {
   get documentValue() {
     return this.mappedDocuments.find(
       ({value}: {value: string}) => value === this.args.document
+    );
+  }
+
+  get mappedVersions() {
+    const versions = this.args.versions.map(
+      ({id, tag}: {id: string; tag: string}) => ({
+        label: tag,
+        value: id,
+      })
+    );
+
+    versions.unshift({
+      label: this.intl.t(
+        'components.conflicts_filters.version_default_option_text'
+      ),
+      value: '',
+    });
+
+    return versions;
+  }
+
+  get versionValue() {
+    return this.mappedVersions.find(
+      ({value}: {value: string}) => value === this.args.version
     );
   }
 

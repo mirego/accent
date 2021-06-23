@@ -37,6 +37,10 @@
   &.container--small {
     max-width: 500px;
   }
+
+  &.container--large {
+    max-width: 1250px;
+  }
 }
 
 @media (max-width: var(--screen-sm)) {

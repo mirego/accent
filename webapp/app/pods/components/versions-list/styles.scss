@@ -1,3 +1,23 @@
 .versions-list {
   width: 100%;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--background-light-highlight);
+}
+
+.empty-title {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.empty-text {
+  font-size: 13px;
+  opacity: 0.7;
+  max-width: 500px;
+}
+
+.empty-content {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--background-light-highlight);
 }

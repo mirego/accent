@@ -18,6 +18,13 @@ export default gql`
           }
         }
 
+        versions {
+          entries {
+            id
+            tag
+          }
+        }
+
         documents(page: $page) {
           meta {
             totalEntries

@@ -102,18 +102,16 @@
               </AsyncButton>
             {{/if}}
 
-            {{#unless @translation.version}}
-              {{#if (get @permissions "uncorrect_translation")}}
-                <AsyncButton
-                  @loading={{this.isUncorrectingConflict}}
-                  class="button button--filled button--red"
-                  @onClick={{fn this.uncorrectConflict}}
-                >
-                  {{inline-svg "/assets/revert.svg" class="button-icon"}}
-                  {{t "components.translation_edit.uncorrect_button"}}
-                </AsyncButton>
-              {{/if}}
-            {{/unless}}
+            {{#if (get @permissions "uncorrect_translation")}}
+              <AsyncButton
+                @loading={{this.isUncorrectingConflict}}
+                class="button button--filled button--red"
+                @onClick={{fn this.uncorrectConflict}}
+              >
+                {{inline-svg "/assets/revert.svg" class="button-icon"}}
+                {{t "components.translation_edit.uncorrect_button"}}
+              </AsyncButton>
+            {{/if}}
           </div>
         </div>
       {{/unless}}

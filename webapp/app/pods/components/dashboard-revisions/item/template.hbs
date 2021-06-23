@@ -48,7 +48,7 @@
             @onClick={{fn this.correctAllConflicts}}
             @loading={{this.isCorrectAllConflictLoading}}
             @disabled={{this.isAnyActionsLoading}}
-            class="button button--green"
+            class="button button--green button--highlight button--borderless"
             local-class="actionItem-button"
           >
             {{inline-svg "/assets/check.svg" class="button-icon"}}
@@ -60,7 +60,7 @@
             @onClick={{fn this.uncorrectAllConflicts}}
             @loading={{this.isUncorrectAllConflictLoading}}
             @disabled={{this.isAnyActionsLoading}}
-            class="button button--red"
+            class="button button--red button--highlight button--borderless"
             local-class="actionItem-button"
           >
             {{inline-svg "/assets/revert.svg" class="button-icon"}}

@@ -13,9 +13,12 @@ interface Args {
   revisions?: any;
   document?: any;
   documents?: any;
+  version?: any;
+  versions?: any;
   isTextEmptyFilter: boolean;
   isAddedLastSyncFilter: boolean;
   isConflictedFilter: boolean;
+  onChangeVersion?: (version: any) => void;
   onChangeRevision?: (revision: any) => void;
   onChangeOrderBy?: (orderBy: any) => void;
   onChangeDocument?: (document: any) => void;
@@ -37,6 +40,9 @@ export default class RevisionExportOptions extends Component<Args> {
 
   @gt('mappedDocuments.length', 1)
   showDocuments: boolean;
+
+  @gt('mappedVersions.length', 1)
+  showVersions: boolean;
 
   get orderByValue() {
     return this.orderByOptions.find(({value}) => value === this.args.orderBy);
@@ -128,6 +134,34 @@ export default class RevisionExportOptions extends Component<Args> {
     );
   }
 
+  get versionValue() {
+    return this.mappedVersions.find(
+      ({value}: {value: any}) => value === this.args.version
+    );
+  }
+
+  get mappedVersions() {
+    if (!this.args.versions) return [];
+
+    return this.args.versions.reduce(
+      (memo: object[], {tag}: {tag: string}) =>
+        memo.concat([
+          {
+            label: tag,
+            value: tag,
+          },
+        ]),
+      [
+        {
+          label: this.intl.t(
+            'components.revision_export_options.default_version'
+          ),
+          value: '',
+        },
+      ]
+    );
+  }
+
   @action
   orderByChanged(orderBy: any) {
     if (orderBy.value === this.args.orderBy) return;
@@ -147,6 +181,13 @@ export default class RevisionExportOptions extends Component<Args> {
     if (document.value === this.args.document) return;
 
     this.args.onChangeDocument?.(document.value);
+  }
+
+  @action
+  versionChanged(version: any) {
+    if (version.value === this.args.version) return;
+
+    this.args.onChangeVersion?.(version.value);
   }
 
   @action

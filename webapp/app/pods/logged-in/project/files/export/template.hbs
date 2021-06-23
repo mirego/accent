@@ -22,9 +22,12 @@
     </div>
     <RevisionExportOptions
       @format={{this.documentFormatFilter}}
+      @version={{this.versionFilter}}
       @orderBy={{this.orderByFilter}}
       @revision={{this.revisionFilter}}
       @revisions={{this.revisions}}
+      @versions={{this.versions}}
+      @onChangeVersion={{fn (mut this.versionFilter)}}
       @onChangeRevision={{fn (mut this.revisionFilter)}}
       @onChangeFormat={{fn (mut this.documentFormatFilter)}}
       @onChangeOrderBy={{fn (mut this.orderByFilter)}}
@@ -60,6 +63,7 @@
       @project={{this.project}}
       @revisions={{this.revisions}}
       @revision={{this.revision}}
+      @version={{this.versionFilter}}
       @document={{this.document}}
       @documentFormat={{this.documentFormatFilter}}
       @isTextEmptyFilter={{this.isTextEmpty}}

@@ -67,6 +67,14 @@
             </LinkTo>
           {{/if}}
 
+          {{#if this.showBatchedOperations}}
+            {{#if @compact}}
+              {{#each @activity.batchedOperations as |activity|}}
+                <span local-class="item-batchedOperations-path">{{activity.document.path}}</span>
+              {{/each}}
+            {{/if}}
+          {{/if}}
+
           {{#if this.isShowingTranslationLink}}
             {{#if @activity.translation.isRemoved}}
               <LinkTo
@@ -203,20 +211,35 @@
       {{/if}}
 
       {{#if this.showStats}}
-        <ul local-class="item-stats">
+        <div local-class="item-stats">
           <span local-class="item-stats-label">
             {{this.statsLabel}}
           </span>
-          {{#each this.localizedStats as |stat|}}
-            <li>
-              {{stat.text}}
-              :
-              <b>
-                {{stat.count}}
-              </b>
-            </li>
-          {{/each}}
-        </ul>
+
+          <ActivityItem::Stats
+            @stats={{@activity.stats}}
+            @componentTranslationPrefix={{@componentTranslationPrefix}}
+          />
+        </div>
+      {{/if}}
+
+      {{#if this.showBatchedOperations}}
+        {{#unless @compact}}
+          <ul local-class="item-batchedOperations">
+            {{#each @activity.batchedOperations as |activity|}}
+              <li local-class="item-batchedOperations-item">
+                <span local-class="item-batchedOperations-label">
+                  {{activity.document.path}}
+                </span>
+
+                <ActivityItem::Stats
+                  @stats={{activity.stats}}
+                  @componentTranslationPrefix={{@componentTranslationPrefix}}
+                />
+              </li>
+            {{/each}}
+          </ul>
+        {{/unless}}
       {{/if}}
     </div>
   </li>

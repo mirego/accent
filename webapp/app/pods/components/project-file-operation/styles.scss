@@ -114,9 +114,13 @@
     display: flex;
   }
 
-  :global(.sections-file),
+  :global(.sections-file) {
+    flex: 1 1 40%;
+    padding: 20px;
+  }
+
   :global(.sections-preview) {
-    flex: 1 1 50%;
+    flex: 1 1 60%;
     padding: 20px;
   }
 

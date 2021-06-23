@@ -7,8 +7,10 @@ interface Args {
   isLoading: boolean;
   showLoading: boolean;
   document: any;
+  version: any;
   permissions: Record<string, true>;
   documents: any;
+  versions: any;
   showSkeleton: boolean;
   query: any;
   reference: any;
@@ -19,6 +21,7 @@ interface Args {
   onCorrectAll: () => void;
   onSelectPage: () => void;
   onChangeDocument: () => void;
+  onChangeVersion: () => void;
   onChangeReference: () => void;
   onChangeQuery: () => void;
 }

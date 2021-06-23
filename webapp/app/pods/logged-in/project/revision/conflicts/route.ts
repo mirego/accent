@@ -31,12 +31,20 @@ export default class ConflictsRoute extends Route {
     document: {
       refreshModel: true,
     },
+    version: {
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
 
   model(
-    {query, page, document}: {query: any; page: number; document: any},
+    {
+      query,
+      page,
+      document,
+      version,
+    }: {query: any; page: number; document: any; version: any},
     transition: Transition
   ) {
     this.subscription = this.apolloSubscription.graphql(
@@ -45,6 +53,7 @@ export default class ConflictsRoute extends Route {
       {
         props: (data) => ({
           documents: data.viewer.project.documents.entries,
+          versions: data.viewer.project.versions.entries,
           project: data.viewer.project,
           translations: data.viewer.project.revision.translations,
         }),
@@ -60,6 +69,7 @@ export default class ConflictsRoute extends Route {
             query,
             page,
             document,
+            version,
           },
         },
       }

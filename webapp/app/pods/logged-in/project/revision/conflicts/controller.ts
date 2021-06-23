@@ -32,13 +32,16 @@ export default class ConflictsController extends Controller {
   @service('global-state')
   globalState: GlobalState;
 
-  queryParams = ['page', 'query', 'document'];
+  queryParams = ['page', 'query', 'document', 'version'];
 
   @tracked
   query = '';
 
   @tracked
   document: string | null = null;
+
+  @tracked
+  version: string | null = null;
 
   @tracked
   page = 1;
@@ -114,6 +117,12 @@ export default class ConflictsController extends Controller {
   changeDocument(select: HTMLSelectElement) {
     this.page = 1;
     this.document = select.value ? select.value : null;
+  }
+
+  @action
+  changeVersion(select: HTMLSelectElement) {
+    this.page = 1;
+    this.version = select.value ? select.value : null;
   }
 
   @action

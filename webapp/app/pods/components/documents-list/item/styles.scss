@@ -1,8 +1,8 @@
 .documents-list-item {
   position: relative;
   display: flex;
-  padding-bottom: 30px;
   width: 100%;
+  padding: 10px 0;
 
   &:hover {
     .deleteDocumentButton {
@@ -167,7 +167,7 @@
 
 .item-toggle-edit {
   position: relative;
-  left: -30px;
+  left: -24px;
   padding-left: 37px;
 
   &:focus,
@@ -179,7 +179,7 @@
 }
 
 .item-document {
-  margin-left: -20px;
+  margin-left: -26px;
   text-decoration: none;
   color: var(--color-black);
 }

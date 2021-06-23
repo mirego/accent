@@ -1,37 +1,5 @@
 <div local-class="operations-peek-item">
-  <div local-class="languageHeader">
-    <strong local-class="languageHeader-title">
-      {{@revisionOperation.language.name}}
-    </strong>
-
-    <div local-class="languageHeader-displayOptions">
-      <button
-        local-class="languageHeader-displayOptions-button"
-        disabled={{this.shouldShowStats}}
-        {{on "click" (fn this.showStats)}}
-      >
-        {{t "components.operations_peek.item.overview"}}
-      </button>
-
-      <button
-        local-class="languageHeader-displayOptions-button"
-        disabled={{this.shouldShowOperations}}
-        {{on "click" (fn this.showOperations)}}
-      >
-        {{t "components.operations_peek.item.details"}}
-      </button>
-
-      <button
-        local-class="languageHeader-displayOptions-button"
-        disabled={{this.shouldHideDetails}}
-        {{on "click" (fn this.hideDetails)}}
-      >
-        {{t "components.operations_peek.item.hide"}}
-      </button>
-    </div>
-  </div>
-
-  {{#if this.shouldShowStats}}
+  {{#if @shouldShowStats}}
     <ul local-class="statsList">
       {{#each @revisionOperation.stats as |stat|}}
         <li local-class="stat">
@@ -51,9 +19,16 @@
     </ul>
   {{/if}}
 
-  {{#if this.shouldShowOperations}}
+  {{#if @shouldShowOperations}}
     <ul local-class="operationsList">
-      {{#each @revisionOperation.operations as |operation|}}
+       <input
+         local-class="input"
+         type="text"
+         placeholder={{t "components.conflicts_filters.input_placeholder_text"}}
+         {{on "keyup" this.filterOperations}}
+       >
+
+      {{#each this.operations as |operation|}}
         <li local-class="operation">
           <div local-class="operation-header">
             <span local-class="operation-key">
@@ -91,9 +66,15 @@
           </div>
         </li>
       {{else}}
-        <li local-class="noChanges">
-          {{t "components.operations_peek.item.empty_changes"}}
-        </li>
+        {{#if this.searchQuery}}
+          <li local-class="noChanges">
+            {{t "components.operations_peek.item.empty_results"}}
+          </li>
+        {{else}}
+          <li local-class="noChanges">
+            {{t "components.operations_peek.item.empty_changes"}}
+          </li>
+        {{/if}}
       {{/each}}
     </ul>
   {{/if}}

@@ -17,6 +17,8 @@
 
   <div local-class="item-actions">
     <LinkTo
+      title="View string details"
+      class="tooltip tooltip--top"
       @route="logged-in.project.translation"
       @models={{array @project.id @translation.id}}
       local-class="item-actions-link"
@@ -26,6 +28,8 @@
 
     {{#if (get @permissions "machine_translations_translate_text")}}
       <button
+        title="Translate from this text"
+        class="tooltip tooltip--top"
         local-class="item-actions-link"
         {{on "click" this.translate}}
       >
@@ -35,6 +39,8 @@
 
     {{#if @translation.isConflicted}}
       <LinkTo
+        title="View in review"
+        class="tooltip tooltip--top"
         @route="logged-in.project.revision.conflicts"
         @models={{array @project.id @translation.revision.id}}
         @query={{hash query=@translation.id}}

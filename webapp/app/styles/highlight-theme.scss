@@ -115,112 +115,111 @@
   background-color: #ffeef0;
 }
 
-html[data-theme="dark"] {
+html[data-theme='dark'] {
   .hljs {
-  color: #CDD3D8;
-}
+    color: #cdd3d8;
+  }
 
-.hljs > *::selection {
-  background-color: #3e4451;
-}
+  .hljs > *::selection {
+    background-color: #3e4451;
+  }
 
-.hljs-comment {
-  color: #656565;
-  font-style: italic;
-}
+  .hljs-comment {
+    color: #656565;
+    font-style: italic;
+  }
 
-.hljs-selector-tag {
-  color: #C792EA;
-}
+  .hljs-selector-tag {
+    color: #c792ea;
+  }
 
-.hljs-string,
-.hljs-subst {
-  color: #C3E88D;
-}
+  .hljs-string,
+  .hljs-subst {
+    color: #c3e88d;
+  }
 
-.hljs-number,
-.hljs-regexp,
-.hljs-variable,
-.hljs-template-variable {
-  color: #F77669;
-}
+  .hljs-number,
+  .hljs-regexp,
+  .hljs-variable,
+  .hljs-template-variable {
+    color: #f77669;
+  }
 
-.hljs-keyword {
-  color: #C792EA;
-}
-.hljs-function > .hljs-title {
-  color: #75A5FF;
-}
-.hljs-tag {
-  color: #abb2bf;
-}
-.hljs-name {
-  color: #e06c75;
-}
-.hljs-type {
-  color: #da4939;
-}
+  .hljs-keyword {
+    color: #c792ea;
+  }
+  .hljs-function > .hljs-title {
+    color: #75a5ff;
+  }
+  .hljs-tag {
+    color: #abb2bf;
+  }
+  .hljs-name {
+    color: #e06c75;
+  }
+  .hljs-type {
+    color: #da4939;
+  }
 
-.hljs-attribute {
-  color: #80CBBF;
-}
+  .hljs-attribute {
+    color: #80cbbf;
+  }
 
-.hljs-symbol,
-.hljs-bullet,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-link {
-  color: #C792EA;
-}
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-link {
+    color: #c792ea;
+  }
 
-.hljs-params {
-  color: #EEFFF7;
-}
+  .hljs-params {
+    color: #eefff7;
+  }
 
+  .hljs-meta {
+    color: #75a5ff;
+  }
 
-.hljs-meta {
-  color: #75A5FF;
-}
+  .hljs-title {
+    color: #75a5ff;
+  }
 
-.hljs-title {
-  color: #75A5FF;
-}
+  .hljs-section {
+    color: #ffc66d;
+  }
 
-.hljs-section {
-  color: #ffc66d;
-}
+  .hljs-addition {
+    background-color: #144212;
+    color: #e6e1dc;
+    display: inline-block;
+    width: 100%;
+  }
 
-.hljs-addition {
-  background-color: #144212;
-  color: #e6e1dc;
-  display: inline-block;
-  width: 100%;
-}
+  .hljs-deletion {
+    background-color: #600;
+    color: #e6e1dc;
+    display: inline-block;
+    width: 100%;
+  }
 
-.hljs-deletion {
-  background-color: #600;
-  color: #e6e1dc;
-  display: inline-block;
-  width: 100%;
-}
+  .hljs-selector-class {
+    color: #ffcb68;
+  }
 
-.hljs-selector-class {
-  color: #FFCB68;
-}
+  .hljs-selector-id {
+    color: #f77669;
+  }
 
-.hljs-selector-id {
-  color: #F77669;
-}
+  .hljs-emphasis {
+    font-style: italic;
+  }
 
-.hljs-emphasis {
-  font-style: italic;
-}
+  .hljs-strong {
+    font-weight: bold;
+  }
 
-.hljs-strong {
-  font-weight: bold;
-}
-
-.hljs-link {
-  text-decoration: underline;
-}
+  .hljs-link {
+    text-decoration: underline;
+  }
 }

@@ -3,10 +3,7 @@
 }
 
 .filters {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
+  padding: 10px;
   background: var(--background-light);
   border-bottom: 1px solid var(--background-light-highlight);
 
@@ -19,9 +16,25 @@
   }
 }
 
-.filters-languages {
+.translate-action,
+.languages {
   display: flex;
   align-items: center;
+}
+
+.languages {
+  margin-bottom: 10px;
+}
+
+.translate-action-button,
+.translate-action-select {
+  margin-right: 10px;
+}
+
+.button-export {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 .filters-file {
@@ -33,6 +46,19 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
+}
+
+.preview {
+  display: flex;
+}
+
+.preview-file-content {
+  width: 50%;
+  border-right: 1px solid var(--background-light-highlight);
+}
+
+.preview-translated-content {
+  width: 50%;
 }
 
 .form-content {
@@ -61,6 +87,10 @@
   margin: 0 20px;
 }
 
+.form-content-text {
+  margin-top: 10px;
+}
+
 .form-content-icon--highlight {
   stroke: var(--color-primary);
 }
@@ -71,9 +101,12 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: red;
   width: 100%;
   height: 100%;
+}
+
+.fileInput--hidden {
+  display: none;
 }
 
 :global(.button).button-switch {

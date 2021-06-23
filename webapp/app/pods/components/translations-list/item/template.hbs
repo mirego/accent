@@ -30,7 +30,12 @@
 
     <span local-class="item-meta">
       {{#if @translation.isConflicted}}
-        <AccBadge @link={{true}} @primary={{true}}>
+        <AccBadge
+          title="View in review"
+          class="tooltip tooltip--top"
+          @link={{true}}
+          @primary={{true}}
+        >
           <LinkTo
             @route="logged-in.project.revision.conflicts"
             @models={{array @project.id @translation.revision.id}}
@@ -46,7 +51,7 @@
           {{on "click" (fn this.toggleEdit)}}
           @warning={{true}}
           @icon={{true}}
-          class="tooltip"
+          class="tooltip tooltip--top"
           title={{t "components.translations_list.lint_messages_label" count=@translation.lintMessages.length}}
         >
           {{inline-svg "/assets/warning.svg"}}
