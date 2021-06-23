@@ -157,8 +157,9 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
 
   @action
   exportFile() {
-    if (!this.file) return;
-    const blob = new Blob([this.fileContent as BlobPart], {
+    if (!this.file || !this.args.translatedFileContent) return;
+
+    const blob = new Blob([this.args.translatedFileContent as BlobPart], {
       type: 'charset=utf-8',
     });
 
