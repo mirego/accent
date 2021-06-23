@@ -1,38 +1,38 @@
-  <div local-class="languageHeader">
-    <AccSelect
-      local-class="languageHeader-select"
-      @searchEnabled={{false}}
-      @selected={{this.mappedSelectedRevision}}
-      @options={{this.mappedRevisions}}
-      @onchange={{fn this.onSelectRevision}}
-    />
+<div local-class="languageHeader">
+  <AccSelect
+    local-class="languageHeader-select"
+    @searchEnabled={{false}}
+    @selected={{this.mappedSelectedRevision}}
+    @options={{this.mappedRevisions}}
+    @onchange={{fn this.onSelectRevision}}
+  />
 
-    <div local-class="languageHeader-displayOptions">
-      <button
-        local-class="languageHeader-displayOptions-button"
-        disabled={{this.shouldShowStats}}
-        {{on "click" (fn this.showStats)}}
-      >
-        {{t "components.operations_peek.item.overview"}}
-      </button>
+  <div local-class="languageHeader-displayOptions">
+    <button
+      local-class="languageHeader-displayOptions-button"
+      disabled={{this.shouldShowStats}}
+      {{on "click" (fn this.showStats)}}
+    >
+      {{t "components.operations_peek.item.overview"}}
+    </button>
 
-      <button
-        local-class="languageHeader-displayOptions-button"
-        disabled={{this.shouldShowOperations}}
-        {{on "click" (fn this.showOperations)}}
-      >
-        {{t "components.operations_peek.item.details"}}
-      </button>
+    <button
+      local-class="languageHeader-displayOptions-button"
+      disabled={{this.shouldShowOperations}}
+      {{on "click" (fn this.showOperations)}}
+    >
+      {{t "components.operations_peek.item.details"}}
+    </button>
 
-      <button
-        local-class="languageHeader-displayOptions-button"
-        disabled={{this.shouldHideDetails}}
-        {{on "click" (fn this.hideDetails)}}
-      >
-        {{t "components.operations_peek.item.hide"}}
-      </button>
-    </div>
+    <button
+      local-class="languageHeader-displayOptions-button"
+      disabled={{this.shouldHideDetails}}
+      {{on "click" (fn this.hideDetails)}}
+    >
+      {{t "components.operations_peek.item.hide"}}
+    </button>
   </div>
+</div>
 
 
 <OperationsPeek::Item

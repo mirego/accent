@@ -21,6 +21,7 @@
       "translate": "Translate",
       "new_file": "New file",
       "step_1": "Select or drop a file here to translate it.",
+      "step_1_text": "You can then export the file to add translations in your selected language",
       "step_2": "Choose the correct format and submit to translate <code>{name}</code> in the chosen target language"
     },
     "documents_add_button": {
@@ -116,6 +117,9 @@
     "conflict_item": {
       "correct_error_text": "Failed to correct the conflict. Try again later.",
       "conflicted_label": "in review",
+      "in_review_tooltip": "View in review",
+      "translate_tooltip": "Translate from this text",
+      "translation_tooltip": "View string details",
       "uncorrect_error_text": "Failed to uncorrect the conflict. Try again later."
     },
     "conflicts_actions": {
@@ -782,6 +786,7 @@
       "save": "Save",
       "empty_text": "Empty text",
       "in_review_label": "in review",
+      "in_review_tooltip": "View in review",
       "lint_messages_label": "{count, plural, =0 {No linting warnings} =1 {1 linting warning} other {# linting warnings}}",
       "last_updated_label": "Last updated: ",
       "maybe_sync_before": "Maybe try to",

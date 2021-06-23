@@ -21,12 +21,12 @@
 
   {{#if @shouldShowOperations}}
     <ul local-class="operationsList">
-       <input
-         local-class="input"
-         type="text"
-         placeholder={{t "components.conflicts_filters.input_placeholder_text"}}
-         {{on "keyup" this.filterOperations}}
-       >
+      <input
+        local-class="input"
+        type="text"
+        placeholder={{t "components.conflicts_filters.input_placeholder_text"}}
+        {{on "keyup" this.filterOperations}}
+      >
 
       {{#each this.operations as |operation|}}
         <li local-class="operation">
