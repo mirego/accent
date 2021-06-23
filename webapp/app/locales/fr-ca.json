@@ -14,7 +14,7 @@
         "back": "Dos"
       },
       "translations_filtered_title": {
-        "title_count": "{count, plural, =1 {Cet élément contient 1 chaîne} autre {Cet élément contient # chaînes}}"
+        "title_count": "{count, plural, =1 {Cet élément contient 1 chaîne} other {Cet élément contient # chaînes}}"
       }
     },
     "machine_translations_translate_upload_form": {
@@ -34,7 +34,7 @@
       "link": "Créer une nouvelle version"
     },
     "revision_selector": {
-      "languages_count": "{count, plural, =1 {1 autre langue} autre {# autres langues}}",
+      "languages_count": "{count, plural, =1 {1 autre langue} other {# autres langues}}",
       "master": "Maître"
     },
     "translation_comments_subscriptions": {
@@ -84,7 +84,7 @@
       "document_path": "Nom du fichier",
       "language": "Langue",
       "commit_type": "Mode",
-      "file_source": "Chemin du document",
+      "file_source": "Nom du document",
       "merge_button": "Ajouter des traductions",
       "pattern_help": "Vous devez spécifier le modèle des fichiers inclus dans le zip qui seront importés, \"par exemple\": **/*.strings",
       "new_document_warning": "Les modifications créeront un nouveau fichier.",
@@ -126,7 +126,7 @@
       "reload_button": "Recharger"
     },
     "conflicts_filters": {
-      "total_entries_count": "{count, plural, =0 {Aucune chaîne à réviser} =1 {1 chaîne à réviser} autre {# chaînes à réviser}}",
+      "total_entries_count": "{count, plural, =0 {Aucune chaîne à réviser} =1 {1 chaîne à réviser} other {# chaînes à réviser}}",
       "reference_default_option_text": "Pas de langue de référence",
       "version_default_option_text": "Dernière version",
       "document_default_option_text": "Tous les documents",
@@ -210,15 +210,15 @@
       "export": "Exportation",
       "export_jipt": "Traductions juste en place",
       "no_strings": "Pas de chaînes",
-      "total_strings_count": "{nombre, pluriel, =0 {Aucune chaîne} =1 {1 chaîne} autre {# chaînes}}",
-      "language_strings_count": "{nombre, pluriel, =0 {} =1 {1 chaîne par langue} autres {# chaînes par langue}}",
+      "total_strings_count": "{count, plural, =0 {Aucune chaîne} =1 {1 chaîne} other {# chaînes}}",
+      "language_strings_count": "{count, plural, =0 {} =1 {1 chaîne par langue} other {# chaînes par langue}}",
       "delete_document": "Supprimer ce fichier",
       "save_button": "Sauvegarder",
       "cancel_button": "Annuler",
       "item": {
-        "deleting_label": "Suppression de {chemin}.{extension}…",
-        "path_label": "Chemin",
-        "path_help": "Utilisé pour délimiter vos chaînes. Le chemin sera utilisé pour exporter toutes vos langues (en/<em>chemin</em>.format, fr/<em>chemin</em>.format)"
+        "deleting_label": "Suppression de {path}.{extension}…",
+        "path_label": "Nom",
+        "path_help": "Utilisé pour délimiter vos chaînes. Le nom sera utilisé pour exporter toutes vos langues (en/<em>nom</em>.format, fr/<em>nom</em>.format)"
       }
     },
     "error_section": {
@@ -622,7 +622,7 @@
       "maybe_create_one": "Créez votre premier projet ici →"
     },
     "related_translations_list": {
-      "comments_label": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} autre {# commentaires}}",
+      "comments_label": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} other {# commentaires}}",
       "conflicted_label": "en revue",
       "master_label": "Maître",
       "save_button": "Sauvegarder",
@@ -753,13 +753,13 @@
     },
     "translation_navigation": {
       "activities_link_title": "Activités",
-      "comments_link_title": "{compte, pluriel, =0 {Conversation} autre {Conversation (#)}}",
+      "comments_link_title": "{count, plural, =0 {Conversation} other {Conversation (#)}}",
       "edit_link_title": "Éditer",
       "merge_link_title": "Ajouter des traductions",
       "related_translations_link_title": "Traductions"
     },
     "translation_splash_title": {
-      "plural_label": "pluriel",
+      "plural_label": "plural",
       "conflicted_label": "en revue",
       "master_label": "Maître",
       "last_updated_label": "Dernière mise à jour:",
@@ -771,7 +771,7 @@
       "documents_label": "Filtrer à partir du document :",
       "document_default_option_text": "Tous les documents",
       "version_default_option_text": "Dernière version",
-      "total_entries_count": "{count, plural, =0 {Aucune chaîne trouvée} =1 {1 chaîne trouvée} autre {# chaînes trouvées}}",
+      "total_entries_count": "{count, plural, =0 {Aucune chaîne trouvée} =1 {1 chaîne trouvée} other {# chaînes trouvées}}",
       "advanced_filters_title": "Filtres avancés",
       "advanced_filters": {
         "empty": "Le texte est vide (\"\" ou valeur nulle)",
@@ -782,12 +782,12 @@
       }
     },
     "translations_list": {
-      "comments_count": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} autre {# commentaires}}",
+      "comments_count": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} other {# commentaires}}",
       "save": "Sauvegarder",
       "empty_text": "Texte vide",
       "in_review_label": "en revue",
       "in_review_tooltip": "Voir en révision",
-      "lint_messages_label": "{count, plural, =0 {Aucun avertissement de peluche} =1 {1 avertissement de peluche} autre {# avertissement de peluche}}",
+      "lint_messages_label": "{count, plural, =0 {Aucun avertissement de peluche} =1 {1 avertissement de peluche} other {# avertissement de peluche}}",
       "last_updated_label": "Dernière mise à jour:",
       "maybe_sync_before": "Peut-être essayer de",
       "maybe_sync_link": "synchroniser certains fichiers →",
