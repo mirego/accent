@@ -36,7 +36,7 @@ export default class ManageLanguagesEditController extends Controller {
   @action
   closeModal() {
     this.router.transitionTo(
-      'logged-in.project.edit.manage-languages',
+      'logged-in.project.manage-languages',
       this.project.id
     );
   }
@@ -57,7 +57,7 @@ export default class ManageLanguagesEditController extends Controller {
       this.error = true;
     } else {
       this.router.transitionTo(
-        'logged-in.project.edit.manage-languages',
+        'logged-in.project.manage-languages',
         this.project.id
       );
     }

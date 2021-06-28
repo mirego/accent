@@ -1,4 +1,4 @@
-<div {{did-insert this.focusTextarea}} local-class="project-settings-collaborators-create-form">
+<div local-class="project-settings-collaborators-create-form">
   <AccSelect
     @searchEnabled={{false}}
     @selected={{this.roleValue}}
@@ -26,10 +26,4 @@
   >
     {{t "components.collaborator_create_form.create_button"}}
   </AsyncButton>
-
-  {{#if @onCancel}}
-    <button class="button button--filled button--white" {{on "click" (fn @onCancel)}}>
-      {{t "components.collaborator_create_form.cancel_button"}}
-    </button>
-  {{/if}}
 </div>

@@ -1,17 +1,5 @@
 <div local-class="project-settings-links-list">
   <div local-class="list">
-    <LinkTo @route="logged-in.project.edit.collaborators" local-class="link">
-      {{inline-svg "assets/users.svg" local-class="link-icon link-icon--collaborators"}}
-      <strong>{{t "components.project_settings.links_list.collaborators"}}</strong>
-      <p>{{t "components.project_settings.links_list.collaborators_text"}}</p>
-    </LinkTo>
-
-    <LinkTo @route="logged-in.project.edit.badges" local-class="link">
-      {{inline-svg "assets/badge.svg" local-class="link-icon link-icon--badges"}}
-      <strong>{{t "components.project_settings.links_list.badges"}}</strong>
-      <p>{{t "components.project_settings.links_list.badges_text"}}</p>
-    </LinkTo>
-
     <LinkTo @route="logged-in.project.edit.api-token" local-class="link">
       {{inline-svg "assets/code.svg" local-class="link-icon link-icon--api-token"}}
       <strong>{{t "components.project_settings.links_list.api_token"}}</strong>
@@ -24,10 +12,10 @@
       <p>{{t "components.project_settings.links_list.service_integrations_text"}}</p>
     </LinkTo>
 
-    <LinkTo @route="logged-in.project.edit.manage-languages" local-class="link">
-      {{inline-svg "assets/language.svg" local-class="link-icon link-icon--languages"}}
-      <strong>{{t "components.project_settings.links_list.manage_languages"}}</strong>
-      <p>{{t "components.project_settings.links_list.manage_languages_text"}}</p>
+    <LinkTo @route="logged-in.project.edit.badges" local-class="link">
+      {{inline-svg "assets/badge.svg" local-class="link-icon link-icon--badges"}}
+      <strong>{{t "components.project_settings.links_list.badges"}}</strong>
+      <p>{{t "components.project_settings.links_list.badges_text"}}</p>
     </LinkTo>
 
     <LinkTo @route="logged-in.project.edit.jipt" local-class="link">

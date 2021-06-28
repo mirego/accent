@@ -5,6 +5,23 @@
   margin-left: 15px;
 }
 
+.section {
+  margin: 10px 0;
+}
+
+.section-title {
+  display: block;
+  margin-left: 0;
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+  padding-left: 14px;
+  font-weight: 500;
+  font-size: 11px;
+  border-bottom: 1px solid var(--background-light-highlight);
+  color: var(--color-grey);
+  width: 100%;
+}
+
 .list-item {
   &:last-of-type {
     .list-item-link {
@@ -20,8 +37,8 @@
   left: 1px;
   transition: 0.2s ease-in-out;
   transition-property: color, opacity, background;
-  padding: 8px 12px;
-  margin-bottom: 10px;
+  padding: 4px 12px 3px;
+  margin-bottom: 6px;
   text-decoration: none;
   font-weight: 600;
   font-size: 13px;
@@ -72,8 +89,8 @@
   transition: 0.2s ease-in-out;
   transition-property: fill;
   display: inline-block;
-  width: 19px;
-  height: 19px;
+  width: 13px;
+  height: 13px;
 }
 
 @media (max-width: 800px) {

@@ -29,6 +29,7 @@ defmodule Accent.Translation do
 
     field(:marked_as_removed, :string, virtual: true)
     field(:text, :string, virtual: true)
+    field(:master_translation, :any, virtual: true, default: %Ecto.Association.NotLoaded{})
 
     timestamps()
   end

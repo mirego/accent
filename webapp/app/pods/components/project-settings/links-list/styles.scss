@@ -1,5 +1,5 @@
 .project-settings-links-list {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .list {
@@ -62,8 +62,7 @@
 
   &.link-icon--jipt path:nth-child(2),
   &.link-icon--integrations circle:nth-child(3),
-  &.link-icon--badges path:nth-child(2),
-  &.link-icon--collaborators path:nth-child(3) {
+  &.link-icon--badges path:nth-child(2) {
     stroke: var(--color-primary);
   }
 }

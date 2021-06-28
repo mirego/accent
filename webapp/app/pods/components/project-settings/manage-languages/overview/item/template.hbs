@@ -1,7 +1,7 @@
 <div local-class="list-item {{if @master "list-item--master"}} {{if this.isPromoting "list-item--promoting"}} {{if this.isDeleting "list-item--deleting"}} {{if this.deleted "list-item--deleted"}}">
   <div local-class="list-item-header">
     <LinkTo
-      @route="logged-in.project.edit.manage-languages.edit"
+      @route="logged-in.project.manage-languages.edit"
       @models={{array @project.id @revision.id}}
       local-class="list-item-header-edit"
     >

@@ -10,6 +10,8 @@ interface Args {
 }
 
 export default class Badges extends Component<Args> {
+  digest = new Date().getTime();
+
   get projectUrl() {
     return fmt(API.PROJECT_PATH, this.args.project.id);
   }
@@ -17,18 +19,56 @@ export default class Badges extends Component<Args> {
   get percentageReviewedBadgeCode() {
     // eslint-disable-next-line no-irregular-whitespace
     return htmlSafe(
-      `![strings reviewed status](${this.percentageReviewedBadgeUrl})](${this.projectUrl})`
+      `![Strings reviewed status](${this.percentageReviewedBadgeUrl})](${this.projectUrl})`
     );
-  }
-
-  get percentageReviewedBadgeUrlWithDigest() {
-    return `${this.percentageReviewedBadgeUrl}?digest=${new Date().getTime()}`;
   }
 
   get percentageReviewedBadgeUrl() {
-    return fmt(
-      API.PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH,
-      this.args.project.id
+    const host = window.location.origin;
+    const path = config.API.PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH;
+
+    return `${host}${fmt(path, this.args.project.id)}`;
+  }
+
+  get translationsBadgeCode() {
+    // eslint-disable-next-line no-irregular-whitespace
+    return htmlSafe(
+      `![Translations](${this.translationsBadgeUrl})](${this.projectUrl})`
     );
+  }
+
+  get translationsBadgeUrl() {
+    const host = window.location.origin;
+    const path = config.API.TRANSLATIONS_BADGE_SVG_PROJECT_PATH;
+
+    return `${host}${fmt(path, this.args.project.id)}`;
+  }
+
+  get reviewedBadgeCode() {
+    // eslint-disable-next-line no-irregular-whitespace
+    return htmlSafe(
+      `![Reviewed](${this.reviewedBadgeUrl})](${this.projectUrl})`
+    );
+  }
+
+  get reviewedBadgeUrl() {
+    const host = window.location.origin;
+    const path = config.API.REVIEWED_BADGE_SVG_PROJECT_PATH;
+
+    return `${host}${fmt(path, this.args.project.id)}`;
+  }
+
+  get conflictsBadgeCode() {
+    // eslint-disable-next-line no-irregular-whitespace
+    return htmlSafe(
+      `![Conflicts](${this.conflictsBadgeUrl})](${this.projectUrl})`
+    );
+  }
+
+  get conflictsBadgeUrl() {
+    const host = window.location.origin;
+    const path = config.API.CONFLICTS_BADGE_SVG_PROJECT_PATH;
+
+    return `${host}${fmt(path, this.args.project.id)}`;
   }
 }

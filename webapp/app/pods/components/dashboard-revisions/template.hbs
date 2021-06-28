@@ -90,7 +90,7 @@
             <div local-class="stats-title-links">
               {{#if (get @permissions "create_slave")}}
                 <LinkTo
-                  @route="logged-in.project.edit.manage-languages"
+                  @route="logged-in.project.manage-languages"
                   @model={{@project.id}}
                   class="button button--filled button--white button--borderLess"
                 >
@@ -115,7 +115,7 @@
           <div local-class="empty-slaves">
             {{#if (get @permissions "create_slave")}}
               <LinkTo
-                @route="logged-in.project.edit.manage-languages"
+                @route="logged-in.project.manage-languages"
                 @model={{@project.id}}
                 local-class="empty-slaves-button"
               >

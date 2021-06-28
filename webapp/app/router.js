@@ -29,12 +29,13 @@ export default Router.map(function () {
       this.route('edit', function () {
         this.route('badges');
         this.route('api-token');
-        this.route('collaborators');
         this.route('service-integrations');
-        this.route('manage-languages', function () {
-          this.route('edit', {path: '/:revisionId'});
-        });
         this.route('jipt');
+      });
+
+      this.route('collaborators');
+      this.route('manage-languages', function () {
+        this.route('edit', {path: '/:revisionId'});
       });
 
       this.route('activity', {path: 'activities/:activityId'});

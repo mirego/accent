@@ -7,8 +7,6 @@
     @label={{t "pods.project.manage_languages.loading_content"}}
   />
 {{else}}
-  <ProjectSettings::BackLink @project={{this.model.project}} />
-
   <ProjectSettings::ManageLanguages
     @project={{this.model.project}}
     @revisions={{this.model.project.revisions}}

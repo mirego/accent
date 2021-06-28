@@ -3,26 +3,8 @@
   margin-top: 30px;
 }
 
-.title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--background-light-highlight);
-  padding-bottom: 6px;
-  margin-bottom: 6px;
-  color: var(--color-black);
-  font-weight: bold;
-  font-size: 17px;
-}
-
-.toggleCreateFormButton {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 .createForm {
-  margin: 20px -5px;
+  margin: 0 0 10px 0;
 }
 
 .columns {

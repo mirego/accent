@@ -401,7 +401,10 @@
       "badges": {
         "title": "Badges",
         "text": "Can be embedded in markdown files or displayed on a web page to show public stats for a given project.",
-        "percentage_reviewed": "Percentage reviewed:"
+        "percentage_reviewed": "Percentage reviewed",
+        "conflicts": "Conflicts",
+        "translations": "Translations",
+        "reviewed": "Reviewed"
       },
       "collaborators": {
         "admin_text": "Can add languages, update the project and add/remove collaborators.",
@@ -585,6 +588,9 @@
       "export_jipt": "Just In Place Translation"
     },
     "project_navigation": {
+      "engage": "Engage",
+      "revise": "Revise",
+      "manage": "Manage",
       "activities_link_title": "Activities",
       "conversation_link_title": "Conversation",
       "translations_link_title": "All strings",
@@ -936,9 +942,6 @@
           "delete_error": "The project could not be deleted",
           "delete_success": "The project has been deleted with success"
         },
-        "collaborators": {
-          "loading_content": "Fetching project’s collaborators…"
-        },
         "badges": {
           "loading_content": "Fetching project’s badges…"
         },
@@ -951,6 +954,9 @@
         "service_integrations": {
           "loading_content": "Fetching project’s service & integrations…"
         }
+      },
+      "collaborators": {
+        "loading_content": "Fetching project’s collaborators…"
       },
       "export": {
         "loading_content": "Rendering the language export"

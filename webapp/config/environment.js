@@ -51,6 +51,9 @@ module.exports = function (environment) {
     JIPT_EXPORT_DOCUMENT: '/jipt-export',
     PERCENTAGE_REVIEWED_BADGE_SVG_PROJECT_PATH:
       '/{0}/percentage_reviewed_badge.svg',
+    REVIEWED_BADGE_SVG_PROJECT_PATH: '/{0}/reviewed_badge.svg',
+    TRANSLATIONS_BADGE_SVG_PROJECT_PATH: '/{0}/translations_badge.svg',
+    CONFLICTS_BADGE_SVG_PROJECT_PATH: '/{0}/conflicts_badge.svg',
     JIPT_SCRIPT_PATH: '/static/jipt/index.js',
   };
 

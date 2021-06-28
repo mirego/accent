@@ -13,7 +13,7 @@ defmodule Accent.BadgeGenerator do
       |> Repo.all()
       |> merge_project_stats()
 
-    color = color_for_value(project_stats[attribute], attribute)
+    color = color_for_value(project_stats, attribute)
 
     (@base_badge_service_url <> "accent-#{label(project_stats[attribute], attribute)}-#{color}.svg")
     |> HTTPoison.get([], recv_timeout: @badge_service_timeout)
@@ -23,10 +23,14 @@ defmodule Accent.BadgeGenerator do
     end
   end
 
-  defp color_for_value(value, :percentage_reviewed_count) when value < 50, do: "d84444"
-  defp color_for_value(value, :percentage_reviewed_count) when value <= 75, do: "e4b600"
-  defp color_for_value(_value, :percentage_reviewed_count), do: "45c86f"
-  defp color_for_value(_value, _), do: "aaaaaa"
+  defp color_for_value(%{percentage_reviewed_count: value}, :conflicts_count) when value < 50, do: "d84444"
+  defp color_for_value(%{percentage_reviewed_count: value}, :reviewed_count) when value < 50, do: "d84444"
+  defp color_for_value(%{percentage_reviewed_count: value}, :percentage_reviewed_count) when value < 50, do: "d84444"
+  defp color_for_value(%{percentage_reviewed_count: value}, :conflicts_count) when value <= 75, do: "e4b600"
+  defp color_for_value(%{percentage_reviewed_count: value}, :reviewed_count) when value <= 75, do: "e4b600"
+  defp color_for_value(%{percentage_reviewed_count: value}, :percentage_reviewed_count) when value <= 75, do: "e4b600"
+  defp color_for_value(_stats, :percentage_reviewed_count), do: "45c86f"
+  defp color_for_value(_stats, _), do: "aaaaaa"
 
   defp label(value, :percentage_reviewed_count), do: "#{value}%25"
   defp label(value, :translations_count), do: "#{value}%20strings"

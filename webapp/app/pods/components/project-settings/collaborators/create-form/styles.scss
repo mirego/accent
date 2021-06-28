@@ -2,17 +2,18 @@
   display: flex;
   align-items: center;
 
-  :global(.ember-power-select-trigger) {
-    min-width: 150px;
+  select {
     margin-right: 10px;
-    border: 1px solid var(--body-background-border);
-    background: var(--body-background);
-    font-size: 12px;
-    box-shadow: 0 1px 5px var(--shadow-color);
+    padding: 9px 25px 8px 5px;
   }
 
   :global(.button) {
     margin-right: 5px;
+
+    :global(.label) {
+      padding-top: 9px;
+      padding-bottom: 9px;
+    }
   }
 }
 
@@ -28,5 +29,5 @@
   margin-right: 10px;
   min-width: 350px;
   font-family: var(--font-primary);
-  font-size: 11px;
+  font-size: 12px;
 }

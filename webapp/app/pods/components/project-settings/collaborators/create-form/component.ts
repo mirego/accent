@@ -8,7 +8,6 @@ import {dropTask} from 'ember-concurrency-decorators';
 
 interface Args {
   project: any;
-  onCancel: () => void;
   onCreate: ({email, role}: {email: string; role: string}) => Promise<void>;
 }
 
@@ -69,10 +68,5 @@ export default class CreateForm extends Component<Args> {
   emailChanged(event: any) {
     this.email = event.target.value;
     this.invalidEmail = invalidEmail(event.target.value);
-  }
-
-  @action
-  focusTextarea(element: HTMLElement) {
-    element.querySelector('input')?.focus();
   }
 }

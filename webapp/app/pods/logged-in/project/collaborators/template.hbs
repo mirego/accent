@@ -1,10 +1,8 @@
 {{#if this.showLoading}}
   <LoadingContent
-    @label={{t "pods.project.edit.collaborators.loading_content"}}
+    @label={{t "pods.project.collaborators.loading_content"}}
   />
 {{else}}
-  <ProjectSettings::BackLink @project={{this.project}} />
-
   <ProjectSettings::Collaborators
     @project={{this.project}}
     @permissions={{this.permissions}}

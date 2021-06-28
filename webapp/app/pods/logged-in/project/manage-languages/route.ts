@@ -8,7 +8,7 @@ import ApolloSubscription, {
   Subscription,
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/-private/transition';
-import ManageLanguagesController from 'accent-webapp/pods/logged-in/project/edit/manage-languages/controller';
+import ManageLanguagesController from 'accent-webapp/pods/logged-in/project/manage-languages/controller';
 
 export default class ManageLanguagesRoute extends Route {
   @service('apollo-subscription')

@@ -1,35 +1,13 @@
 <div local-class="project-settings-collaborators">
-  <ProjectSettings::Title
-    @title={{t "components.project_settings.collaborators.title"}}
-  />
-
-  {{#if (get @permissions "create_collaborator")}}
-    <button
-      local-class="toggleCreateFormButton"
-      class="button button--iconOnly {{if this.showCreateForm "button--filled button--white" "button--filled"}}"
-      {{on "click" (fn this.toggleCreateForm)}}
-      data-test-new-collaborator-init
-    >
-      {{#if this.showCreateForm}}
-        {{inline-svg "/assets/x.svg" class="button-icon"}}
-      {{else}}
-        {{inline-svg "/assets/add.svg" class="button-icon"}}
-      {{/if}}
-    </button>
-  {{/if}}
-
-  {{#if this.showCreateForm}}
-    <div local-class="createForm">
-      <ProjectSettings::Collaborators::CreateForm
-        @project={{@project}}
-        @onCancel={{fn this.toggleCreateForm}}
-        @onCreate={{@onCreateCollaborator}}
-      />
-    </div>
-  {{/if}}
-
   <div local-class="columns">
     <div local-class="columns-item">
+      <div local-class="createForm">
+        <ProjectSettings::Collaborators::CreateForm
+          @project={{@project}}
+          @onCreate={{@onCreateCollaborator}}
+        />
+      </div>
+
       <ProjectSettings::Collaborators::List
         @permissions={{@permissions}}
         @collaborators={{@collaborators}}
