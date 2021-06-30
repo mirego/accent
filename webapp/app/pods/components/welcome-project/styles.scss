@@ -7,18 +7,19 @@
   display: block;
   margin: 0 0 40px;
   max-width: 350px;
-  font-weight: 300;
 }
 
 .heroTitle-title {
   margin-bottom: 15px;
   line-height: 1;
   font-size: 48px;
+  font-weight: 900;
   color: var(--color-primary);
 }
 
 .heroTitle-text {
   font-size: 18px;
+  font-weight: 300;
   color: var(--color-grey);
 }
 
@@ -50,16 +51,18 @@
   padding: 20px;
   margin-bottom: 10px;
   margin-right: 10px;
-  box-shadow: 0 2px 4px var(--shadow-color);
+  box-shadow: 0 4px 8px var(--shadow-color), 0 5px 15px var(--shadow-color);
   border-radius: 4px;
   color: var(--color-primary);
   text-decoration: none;
   transition: 0.2s ease-in-out;
-  transition-property: background;
+  transition-property: background, box-shadow;
+  background: var(--body-background);
 
   &:focus,
   &:hover {
-    background: var(--background-light);
+    background: var(--color-primary-opacity-10);
+    box-shadow: 0 1px 6px var(--shadow-color), 0 5px 18px var(--shadow-color);
   }
 }
 

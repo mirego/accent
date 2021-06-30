@@ -71,6 +71,11 @@ export default gql`
               }
               revision {
                 id
+                slug
+                language {
+                  id
+                  slug
+                }
               }
               document {
                 id

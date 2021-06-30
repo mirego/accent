@@ -22,4 +22,9 @@ defmodule Accent.GraphQL.Types.Lint do
     field(:check, non_null(:lint_check))
     field(:replacement, :lint_translation_message_replacement)
   end
+
+  object :lint_translation do
+    field(:messages, list_of(non_null(:lint_translation_message)))
+    field(:translation, non_null(:translation))
+  end
 end

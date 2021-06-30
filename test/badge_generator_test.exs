@@ -90,7 +90,7 @@ defmodule AccentTest.BadgeGenerator do
     with_mock HTTPoison, response do
       {:ok, _} = BadgeGenerator.generate(project, :conflicts_count)
 
-      assert called(HTTPoison.get("https://img.shields.io/badge/accent-2%20conflicts-aaaaaa.svg", [], recv_timeout: 20_000))
+      assert called(HTTPoison.get("https://img.shields.io/badge/accent-2%20conflicts-d84444.svg", [], recv_timeout: 20_000))
     end
   end
 

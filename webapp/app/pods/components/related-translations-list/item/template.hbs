@@ -64,6 +64,7 @@
     @value={{this.editText}}
     @onKeyUp={{fn this.changeText}}
     @onSubmit={{fn this.save}}
+    lang={{this.revisionSlug}}
     as |form|
   >
     {{#component form.submit}}

@@ -32,9 +32,12 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
   end
 
   test "lint", %{revision: revision, context: context} do
-    translation = %Translation{revision_id: revision.id, conflicted: false, key: "ok", corrected_text: "bar  foo", proposed_text: "bar"} |> Repo.insert!()
+    master_translation = %Translation{revision: revision, conflicted: false, key: "ok2", corrected_text: "bar foo", proposed_text: "bar"} |> Repo.insert!()
 
-    {:ok, result} = Resolver.lint_translation(translation, %{}, context)
+    translation =
+      %Translation{revision: revision, master_translation: master_translation, conflicted: false, key: "ok", corrected_text: "bar  foo", proposed_text: "bar"} |> Repo.insert!()
+
+    {:ok, result} = Resolver.lint_batched_translation(translation, %{}, context)
 
     assert result === [
              %Message{

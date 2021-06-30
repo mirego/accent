@@ -25,6 +25,13 @@ export default class TranslationsListItem extends Component<Args> {
 
   translationKey = parsedKeyProperty(this.args.translation.key);
 
+  get revisionSlug() {
+    return (
+      this.args.translation.revision.slug ||
+      this.args.translation.revision.language.slug
+    );
+  }
+
   @action
   changeTranslationText(text: string) {
     this.editText = text;

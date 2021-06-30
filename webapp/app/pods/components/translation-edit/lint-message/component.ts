@@ -5,7 +5,7 @@ import {action} from '@ember/object';
 
 interface Args {
   message: any;
-  onReplaceText: (value: string) => void;
+  onReplaceText?: (value: string) => void;
 }
 
 export default class LintMessage extends Component<Args> {
@@ -14,7 +14,7 @@ export default class LintMessage extends Component<Args> {
 
   @action
   replaceText() {
-    this.args.onReplaceText(this.args.message.replacement.value);
+    this.args.onReplaceText?.(this.args.message.replacement.value);
   }
 
   get description() {

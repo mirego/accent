@@ -1,0 +1,14 @@
+{{#if @lintTranslations}}
+  <div local-class="content">
+    {{#each @lintTranslations key="id" as |lintTranslation|}}
+      <LintTranslationsPage::Item @project={{@project}} @lintTranslation={{lintTranslation}} />
+    {{/each}}
+  </div>
+{{else}}
+  <div local-class="empty-content">
+    <EmptyContent
+      @success={{true}}
+      @text={{t "components.lint_translations_page.empty_text"}}
+    />
+  </div>
+{{/if}}

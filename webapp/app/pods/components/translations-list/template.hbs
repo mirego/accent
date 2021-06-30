@@ -7,16 +7,18 @@
     />
   {{else if @query}}
     <EmptyContent
-      @iconPath="assets/empty.svg"
+      local-class="empty-content"
+      @center={{true}}
       @text={{t "components.translations_list.no_translations_query" query=@query}}
     />
   {{else if @withAdvancedFilters}}
     <EmptyContent
-      @iconPath="assets/empty.svg"
+      local-class="empty-content"
+      @center={{true}}
       @text={{t "components.translations_list.no_translations_filters"}}
     />
   {{else}}
-    <EmptyContent>
+    <EmptyContent local-class="empty-content" @center={{true}}>
       {{inline-svg "assets/empty.svg" local-class="icon"}}
       {{t "components.translations_list.no_translations"}}
       <div>

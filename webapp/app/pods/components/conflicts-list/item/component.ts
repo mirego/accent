@@ -100,6 +100,13 @@ export default class ConflictItem extends Component<Args> {
     );
   }
 
+  get revisionSlug() {
+    return (
+      this.args.conflict.revision.slug ||
+      this.args.conflict.revision.language.slug
+    );
+  }
+
   @action
   didEnterViewport() {
     this.show = true;
@@ -161,12 +168,5 @@ export default class ConflictItem extends Component<Args> {
   private onCorrectSuccess() {
     this.resolved = true;
     this.loading = false;
-  }
-
-  private get revisionSlug() {
-    return (
-      this.args.conflict.revision.slug ||
-      this.args.conflict.revision.language.slug
-    );
   }
 }

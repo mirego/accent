@@ -30,6 +30,13 @@ export default class RelatedTranslationsListItem extends Component<Args> {
     );
   }
 
+  get revisionSlug() {
+    return (
+      this.args.translation.revision.slug ||
+      this.args.translation.revision.language.slug
+    );
+  }
+
   @action
   changeText(text: string) {
     this.editText = text;

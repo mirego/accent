@@ -14,18 +14,22 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   }
 
   @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Language.Entry.t())}
-  def lint_translation(translation, args, _) do
+  def lint_translation(translation, args, resolution) do
     batch({__MODULE__, :preload_translations}, translation, fn batch_results ->
       translation = Map.get(batch_results, translation.id)
-      translation = overwrite_text_args(translation, args)
-      entry = Translation.to_langue_entry(translation, translation.master_translation, translation.revision.master)
-      [lint] = Accent.Lint.lint([entry])
-
-      {:ok, lint.messages}
+      lint_batched_translation(translation, args, resolution)
     end)
   end
 
-  def preload_translations(_, [translation | _] = translations) do
+  def lint_batched_translation(translation, args, _) do
+    translation = overwrite_text_args(translation, args)
+    entry = Translation.to_langue_entry(translation, translation.master_translation, translation.revision.master)
+    [lint] = Accent.Lint.lint([entry])
+
+    {:ok, lint.messages}
+  end
+
+  def preload_translations(_, translations = [translation | _]) do
     translations = Repo.preload(translations, :revision)
 
     project =
@@ -45,9 +49,11 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       |> TranslationScope.from_revision(master_revision.id)
       |> TranslationScope.active()
       |> Repo.all()
+      |> Enum.map(&{&1.key, &1})
+      |> Enum.into(%{})
 
     Enum.reduce(translations, %{}, fn translation, acc ->
-      master_translation = Enum.find(master_translations, &(&1.key === translation.key))
+      master_translation = Map.get(master_translations, translation.key)
       Map.put(acc, translation.id, %{translation | master_translation: master_translation})
     end)
   end

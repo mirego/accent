@@ -46,6 +46,21 @@
         </LinkTo>
       </li>
     {{/if}}
+
+    {{#if (get @permissions "lint")}}
+      <li local-class="list-item">
+        <LinkTo
+          @route="logged-in.project.lint-translations"
+          @model={{@project.id}}
+          local-class="list-item-link"
+        >
+          {{inline-svg "/assets/warning.svg" local-class="list-item-link-icon"}}
+          <span local-class="list-item-link-text">
+            {{t "components.project_navigation.lint_link_title"}}
+          </span>
+        </LinkTo>
+      </li>
+    {{/if}}
   </div>
 
   <div local-class="section">
@@ -62,7 +77,7 @@
         >
           {{inline-svg "/assets/users.svg" local-class="list-item-link-icon"}}
           <span local-class="list-item-link-text">
-            Collaborators
+            {{t "components.project_navigation.collaborators_link_title"}}
           </span>
         </LinkTo>
       </li>
@@ -114,7 +129,7 @@
         >
           {{inline-svg "/assets/language.svg" local-class="list-item-link-icon"}}
           <span local-class="list-item-link-text">
-            Languages
+            {{t "components.project_navigation.manage_languages_link_title"}}
           </span>
         </LinkTo>
       </li>

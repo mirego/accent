@@ -60,6 +60,8 @@ export default Router.map(function () {
         this.route('conflicts');
       });
 
+      this.route('lint-translations');
+
       this.route(
         'translation',
         {path: 'translations/:translationId'},

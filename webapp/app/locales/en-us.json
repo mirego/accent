@@ -196,12 +196,12 @@
       "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
     },
     "versions_list": {
-      "empty_title": "Add a version",
       "empty_text": "Versionning enables you to review/export/sync translations independantly from your main project. This means that supporting previous versions of your app will be as easy as adding new features!",
       "export": "Export",
       "update": "Edit"
     },
     "documents_list": {
+      "empty_text": "Files are the actual listing of your project’s master language files. Add them here or from the CLI and keep them in sync with your project.",
       "format": "Format",
       "review": "In review",
       "total": "Total",
@@ -541,7 +541,7 @@
       }
     },
     "project_comments_list": {
-      "no_comments": "No comments on any strings yet",
+      "no_comments": "No comments on any strings yet. You can comment on any string to provide context for a translator or to discuss on the content of the string.",
       "title": "Conversation"
     },
     "project_create_form": {
@@ -578,6 +578,16 @@
       "tag_label": "Tag:",
       "save_button": "Update"
     },
+    "page_title": {
+      "versions": "Versions",
+      "comments": "Conversation",
+      "collaborators": "Collaborators",
+      "manage_languages": "Languages",
+      "files": "Files",
+      "project_edit": "Settings",
+      "activities": "Activities",
+      "lint_translations": "Checks"
+    },
     "project_file_operations": {
       "sync": "Sync",
       "merge": "Add translations",
@@ -593,12 +603,18 @@
       "manage": "Manage",
       "activities_link_title": "Activities",
       "conversation_link_title": "Conversation",
+      "collaborators_link_title": "Collaborators",
+      "manage_languages_link_title": "Languages",
       "translations_link_title": "All strings",
+      "lint_link_title": "Checks",
       "conflicts_link_title": "Review",
       "dashboard_link_title": "Dashboard",
       "settings_link_title": "Settings",
       "sync_link_title": "Files",
       "versions_link_title": "Versions"
+    },
+    "lint_translations_page": {
+      "empty_text": "No checks warnings or errors. You’re all good!"
     },
     "project_manage_languages": {
       "create_error": "Language can not be added right now. Try again later.",

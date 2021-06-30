@@ -13,12 +13,14 @@
         {{@message.replacement.label}}
       </span>
 
-      <button
-        class="button button--small button--filled button--borderless"
-        local-class="replaceButton"
-        {{on "click" this.replaceText}}>
-        {{t "components.translation_edit.lint_message.replace"}}
-      </button>
+      {{#if @onReplaceText}}
+        <button
+          class="button button--small button--filled button--borderless"
+          local-class="replaceButton"
+          {{on "click" this.replaceText}}>
+          {{t "components.translation_edit.lint_message.replace"}}
+        </button>
+      {{/if}}
     </div>
   {{/if}}
 </div>

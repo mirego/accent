@@ -7,5 +7,11 @@
       @onUpdate={{@onUpdate}}
       @project={{@project}}
     />
+  {{else}}
+    <div local-class="empty-content">
+      <EmptyContent
+        @text={{t "components.documents_list.empty_text"}}
+      />
+    </div>
   {{/each}}
 </ul>

@@ -3,7 +3,9 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 3px;
-  padding-bottom: 20px;
   margin-bottom: 20px;
-  border-bottom: 1px solid var(--background-light-highlight);
+}
+
+.empty-content {
+  margin-top: 25px;
 }

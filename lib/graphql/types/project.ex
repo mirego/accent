@@ -41,6 +41,10 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(project_authorize(:machine_translations_translate_text, &Accent.GraphQL.Resolvers.MachineTranslation.translate_text/3))
     end
 
+    field :lint_translations, list_of(non_null(:lint_translation)) do
+      resolve(project_authorize(:lint, &Accent.GraphQL.Resolvers.Project.lint_translations/3))
+    end
+
     field :access_token, :string do
       resolve(project_authorize(:show_project_access_token, &Accent.GraphQL.Resolvers.AccessToken.show_project/3))
     end

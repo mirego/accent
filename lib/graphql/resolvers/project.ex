@@ -3,9 +3,12 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
   alias Accent.Scopes.Operation, as: OperationScope
   alias Accent.Scopes.Project, as: ProjectScope
+  alias Accent.Scopes.Revision, as: RevisionScope
+  alias Accent.Scopes.Translation, as: TranslationScope
 
   alias Accent.{
     GraphQL.Paginated,
+    Language,
     Operation,
     Plugs.GraphQLContext,
     Project,
@@ -13,6 +16,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
     ProjectDeleter,
     ProjectUpdater,
     Repo,
+    Translation,
     User
   }
 
@@ -114,5 +118,48 @@ defmodule Accent.GraphQL.Resolvers.Project do
     |> Query.limit(1)
     |> Repo.one()
     |> (&{:ok, &1}).()
+  end
+
+  @spec lint_translations(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Language.Entry.t())}
+  def lint_translations(project, _args, _) do
+    translations =
+      Translation
+      |> TranslationScope.active()
+      |> TranslationScope.not_locked()
+      |> TranslationScope.from_project(project.id)
+      |> Query.distinct(true)
+      |> Query.preload(:revision)
+      |> Repo.all()
+
+    master_revision =
+      project
+      |> Ecto.assoc(:revisions)
+      |> RevisionScope.master()
+      |> Repo.one()
+
+    master_translations =
+      Translation
+      |> TranslationScope.from_project(project.id)
+      |> TranslationScope.from_revision(master_revision.id)
+      |> TranslationScope.active()
+      |> TranslationScope.not_locked()
+      |> Repo.all()
+      |> Enum.map(&{&1.key, &1})
+      |> Enum.into(%{})
+
+    translations =
+      Enum.reduce(translations, [], fn translation, acc ->
+        master_translation = Map.get(master_translations, translation.key)
+        entry = Translation.to_langue_entry(translation, master_translation, translation.revision.master)
+        [lint] = Accent.Lint.lint([entry])
+
+        if Enum.any?(lint.messages) do
+          [%{translation: translation, messages: lint.messages} | acc]
+        else
+          acc
+        end
+      end)
+
+    {:ok, translations}
   end
 end

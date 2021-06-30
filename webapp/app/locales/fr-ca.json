@@ -196,7 +196,6 @@
       "humanized_date_title_format": "EEEE, MMMM faire aaaa, H:mm a"
     },
     "versions_list": {
-      "empty_title": "Ajouter une version",
       "empty_text": "Le versionning vous permet de réviser/exporter/synchroniser les traductions indépendamment de votre projet principal. Cela signifie que la prise en charge des versions précédentes de votre application sera aussi simple que l'ajout de nouvelles fonctionnalités !",
       "export": "Exportation",
       "update": "Éditer"
@@ -936,9 +935,6 @@
           "delete_error": "Le projet n'a pas pu être supprimé",
           "delete_success": "Le projet a été supprimé avec succès"
         },
-        "collaborators": {
-          "loading_content": "Récupérer les collaborateurs du projet…"
-        },
         "badges": {
           "loading_content": "Récupération des badges du projet…"
         },
@@ -951,6 +947,9 @@
         "service_integrations": {
           "loading_content": "Récupération du service et des intégrations du projet…"
         }
+      },
+      "collaborators": {
+        "loading_content": "Récupérer les collaborateurs du projet…"
       },
       "export": {
         "loading_content": "Rendu de l'export de la langue"

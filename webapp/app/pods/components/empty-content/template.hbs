@@ -1,7 +1,14 @@
-<div local-class="empty-content {{if @success "success"}}" data-test-empty-content>
-  {{#if has-block}}
+<div
+  ...attributes
+  local-class="empty-content {{if @success "empty-content--success"}} {{if @center "empty-content--center"}}"
+  data-test-empty-content
+>
+  {{#if hasBlock}}
     {{yield}}
   {{else}}
-    {{inline-svg @iconPath local-class="icon"}}{{@text}}
+    {{#if @iconPath}}
+      {{inline-svg @iconPath local-class="icon"}}
+    {{/if}}
+    {{@text}}
   {{/if}}
 </div>

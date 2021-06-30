@@ -10,10 +10,8 @@
   </ul>
 {{else}}
   <div local-class="empty-content">
-    <h1 local-class="empty-title">{{t "components.versions_list.empty_title"}}</h1>
-
-    <p local-class="empty-text">
-      {{t "components.versions_list.empty_text"}}
-    </p>
+    <EmptyContent
+      @text={{t "components.versions_list.empty_text"}}
+    />
   </div>
 {{/if}}

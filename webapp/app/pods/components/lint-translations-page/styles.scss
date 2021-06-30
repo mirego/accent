@@ -1,0 +1,34 @@
+.content {
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid var(--background-light-highlight);
+}
+
+.empty-content {
+  margin-top: 25px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  padding: 5px 9px 5px 6px;
+  border-radius: 3px;
+  color: var(--color-warning);
+  font-weight: 500;
+  font-size: 12px;
+  background: hsl(
+    var(--color-warning-hue),
+    var(--color-warning-saturation),
+    88%
+  );
+}
+
+.icon-warning {
+  margin-right: 8px;
+  stroke: var(--color-warning);
+  width: 16px;
+}
+
+.icon-success {
+  stroke: var(--color-success);
+}

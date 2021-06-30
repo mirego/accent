@@ -10,6 +10,8 @@
     />
   {{else if @query}}
     <EmptyContent
+      local-class="empty-content"
+      @center={{true}}
       @iconPath="assets/empty.svg"
       @text={{t "components.conflicts_items.no_translations" query=@query}}
     />

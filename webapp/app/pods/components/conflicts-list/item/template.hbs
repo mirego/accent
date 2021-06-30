@@ -71,6 +71,7 @@
                   @showTypeHints={{false}}
                   @onKeyUp={{fn this.changeTranslationText}}
                   @onSubmit={{fn this.correct}}
+                  lang={{this.revisionSlug}}
                   as |form|
                 >
                   {{#component form.submit}}

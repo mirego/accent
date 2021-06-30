@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 
 interface Args {
   success?: boolean;
-  iconPath: string;
+  center?: boolean;
   text: string;
 }
 

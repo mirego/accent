@@ -33,6 +33,13 @@ export default class TranslationEdit extends Component<Args> {
     return this.args.translation.latestActivities.entries[0];
   }
 
+  get revisionSlug() {
+    return (
+      this.args.translation.revision.slug ||
+      this.args.translation.revision.language.slug
+    );
+  }
+
   get samePreviousText() {
     return (
       this.args.translation.conflictedText ===

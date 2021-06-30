@@ -1,3 +1,12 @@
+<PageTitle>
+  {{inline-svg "/assets/users.svg"}}
+  <h1>{{t "components.page_title.collaborators"}}</h1>
+</PageTitle>
+
+{{#if this.model.loading}}
+  <SkeletonUi::ProgressLine />
+{{/if}}
+
 {{#if this.showLoading}}
   <LoadingContent
     @label={{t "pods.project.collaborators.loading_content"}}

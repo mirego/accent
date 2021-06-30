@@ -87,7 +87,7 @@ describe('Acceptance | Logged in | Project | Collaborators page', function () {
       },
     }));
 
-    await visit('/app/projects/fake-project/edit/collaborators');
+    await visit('/app/projects/fake-project/collaborators');
 
     expect('[data-test-loader]').to.be.rendered;
 
@@ -145,7 +145,7 @@ describe('Acceptance | Logged in | Project | Collaborators page', function () {
       },
     });
 
-    await visit('/app/projects/fake-project/edit/collaborators');
+    await visit('/app/projects/fake-project/collaborators');
     await waitFor('[data-test-collaborators-list]');
 
     expect('[data-test-collaborator]').to.have.count(1);
@@ -153,7 +153,6 @@ describe('Acceptance | Logged in | Project | Collaborators page', function () {
       '[data-test-collaborator]:first-child [data-test-collaborator-email]'
     ).to.have.textContent('bbanner@mirego.com');
 
-    await click('[data-test-new-collaborator-init]');
     await typeIn('[data-test-new-collaborator-email]', 'pparker@mirego.com');
     await click('[data-test-new-collaborator-submit]');
 
@@ -207,7 +206,7 @@ describe('Acceptance | Logged in | Project | Collaborators page', function () {
       },
     });
 
-    await visit('/app/projects/fake-project/edit/collaborators');
+    await visit('/app/projects/fake-project/collaborators');
     await waitFor('[data-test-collaborators-list]');
 
     expect('[data-test-collaborator]').to.have.count(1);

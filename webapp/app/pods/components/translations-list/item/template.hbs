@@ -91,6 +91,7 @@
         @onKeyUp={{fn this.changeTranslationText}}
         @onEscape={{fn this.toggleEdit}}
         @onSubmit={{fn this.save}}
+        lang={{this.revisionSlug}}
       />
       <AsyncButton
         @onClick={{fn this.save}}

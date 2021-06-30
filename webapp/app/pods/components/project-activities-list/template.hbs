@@ -12,8 +12,11 @@
     {{/each}}
   </ul>
 {{else}}
-  <EmptyContent
-    @iconPath="assets/empty.svg"
-    @text={{t "components.project_activities_list.empty_activities_text"}}
-  />
+  <div local-class="empty-content">
+    <EmptyContent
+      @center={{true}}
+      @iconPath="assets/empty.svg"
+      @text={{t "components.project_activities_list.empty_activities_text"}}
+    />
+  </div>
 {{/if}}
