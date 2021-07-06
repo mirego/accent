@@ -52,5 +52,31 @@ defmodule AccentTest.Lint do
                }
              ]
     end
+
+    test "lint first letter uppercase entry" do
+      entry = %Entry{key: "a", is_master: false, value: "bar", master_value: "Foo", value_type: "string"}
+      [linted] = Lint.lint([entry])
+
+      assert linted.messages === [
+               %Message{
+                 replacement: %Replacement{value: "Bar", label: "Bar"},
+                 check: :first_letter_case,
+                 text: "bar"
+               }
+             ]
+    end
+
+    test "lint first letter lowercase entry" do
+      entry = %Entry{key: "a", is_master: false, value: "Bar", master_value: "foo", value_type: "string"}
+      [linted] = Lint.lint([entry])
+
+      assert linted.messages === [
+               %Message{
+                 replacement: %Replacement{value: "bar", label: "bar"},
+                 check: :first_letter_case,
+                 text: "Bar"
+               }
+             ]
+    end
   end
 end
