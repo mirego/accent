@@ -43,7 +43,13 @@ accent-cli reads from a `accent.json` file. The file should contain valid JSON r
       "source": "localization/fr/*.json",
       "target": "localization/%slug%/%document_path%.json",
       "hooks": {
-        "afterSync": "touch sync-done.txt"
+        "beforeSync": [
+          "touch sync-start.txt"
+        ],
+        "afterExport": [
+          "touch export-end.txt",
+          "rm sync-start.txt"
+        ]
       }
     }
   ]
@@ -92,7 +98,7 @@ EXAMPLE
   $ accent export
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.9.2/src/commands/export.ts)_
+_See code: [cli/src/commands/export.ts](https://github.com/mirego/accent/blob/v1.9.1/cli/src/commands/export.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -126,7 +132,7 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.9.2/src/commands/jipt.ts)_
+_See code: [cli/src/commands/jipt.ts](https://github.com/mirego/accent/blob/v1.9.1/cli/src/commands/jipt.ts)_
 
 ## `accent stats`
 
@@ -140,7 +146,7 @@ EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.9.2/src/commands/stats.ts)_
+_See code: [cli/src/commands/stats.ts](https://github.com/mirego/accent/blob/v1.9.1/cli/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -166,7 +172,7 @@ EXAMPLE
   $ accent sync
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.9.2/src/commands/sync.ts)_
+_See code: [cli/src/commands/sync.ts](https://github.com/mirego/accent/blob/v1.9.1/cli/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # License
