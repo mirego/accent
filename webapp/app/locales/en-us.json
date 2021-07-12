@@ -50,6 +50,7 @@
     },
     "login_forms": {
       "github": "Login with GitHub →",
+      "gitlab": "Login with GitLab →",
       "google": "Login with Google →",
       "slack": "Login with Slack →",
       "discord": "Login with Discord →",

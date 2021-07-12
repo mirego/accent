@@ -16,6 +16,7 @@ export default class LoginForms extends Component<Args> {
 
   googleUrl = `${config.API.AUTHENTICATION_PATH}/google`;
   githubUrl = `${config.API.AUTHENTICATION_PATH}/github`;
+  gitlabUrl = `${config.API.AUTHENTICATION_PATH}/gitlab`;
   slackUrl = `${config.API.AUTHENTICATION_PATH}/slack`;
   discordUrl = `${config.API.AUTHENTICATION_PATH}/discord`;
   microsoftUrl = `${config.API.AUTHENTICATION_PATH}/microsoft`;
@@ -34,6 +35,10 @@ export default class LoginForms extends Component<Args> {
 
   get githubLoginEnabled() {
     return this.providerIds.includes('github');
+  }
+
+  get gitlabLoginEnabled() {
+    return this.providerIds.includes('gitlab');
   }
 
   get slackLoginEnabled() {
