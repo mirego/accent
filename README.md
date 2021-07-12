@@ -137,21 +137,24 @@ Accent provides a default value for every required environment variable. This me
 
 Various login providers are included in Accent using Ueberauth to abstract services.
 
-| Variable                   | Default | Description                                                                             |
-| -------------------------- | ------- | --------------------------------------------------------------------------------------- |
-| `DUMMY_LOGIN_ENABLED`      | _none_  | If specified, the password-less authentication (with only the email) will be available. |
-| `GITHUB_CLIENT_ID`         | _none_  |                                                                                         |
-| `GITHUB_CLIENT_SECRET`     | _none_  |                                                                                         |
-| `GOOGLE_API_CLIENT_ID`     | _none_  |                                                                                         |
-| `GOOGLE_API_CLIENT_SECRET` | _none_  |                                                                                         |
-| `SLACK_CLIENT_ID`          | _none_  |                                                                                         |
-| `SLACK_CLIENT_SECRET`      | _none_  |                                                                                         |
-| `SLACK_TEAM_ID`            | _none_  |                                                                                         |
-| `DISCORD_CLIENT_ID`        | _none_  |                                                                                         |
-| `DISCORD_CLIENT_SECRET`    | _none_  |                                                                                         |
-| `MICROSOFT_CLIENT_ID`      | _none_  |                                                                                         |
-| `MICROSOFT_CLIENT_SECRET`  | _none_  |                                                                                         |
-| `MICROSOFT_TENANT_ID`      | _none_  |                                                                                         |
+| Variable                   | Default              | Description                                                                             |
+| -------------------------- | -------------------- | --------------------------------------------------------------------------------------- |
+| `DUMMY_LOGIN_ENABLED`      | _none_               | If specified, the password-less authentication (with only the email) will be available. |
+| `GITHUB_CLIENT_ID`         | _none_               |                                                                                         |
+| `GITHUB_CLIENT_SECRET`     | _none_               |                                                                                         |
+| `GITLAB_CLIENT_ID`         | _none_               |                                                                                         |
+| `GITLAB_CLIENT_SECRET`     | _none_               |                                                                                         |
+| `GITLAB_SITE_URL`          | _https://gitlab.com_ |                                                                                         |
+| `GOOGLE_API_CLIENT_ID`     | _none_               |                                                                                         |
+| `GOOGLE_API_CLIENT_SECRET` | _none_               |                                                                                         |
+| `SLACK_CLIENT_ID`          | _none_               |                                                                                         |
+| `SLACK_CLIENT_SECRET`      | _none_               |                                                                                         |
+| `SLACK_TEAM_ID`            | _none_               |                                                                                         |
+| `DISCORD_CLIENT_ID`        | _none_               |                                                                                         |
+| `DISCORD_CLIENT_SECRET`    | _none_               |                                                                                         |
+| `MICROSOFT_CLIENT_ID`      | _none_               |                                                                                         |
+| `MICROSOFT_CLIENT_SECRET`  | _none_               |                                                                                         |
+| `MICROSOFT_TENANT_ID`      | _none_               |                                                                                         |
 
 ### Email setup
 

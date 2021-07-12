@@ -67,6 +67,7 @@ providers = []
 providers = if System.get_env("GOOGLE_API_CLIENT_ID"), do: [{:google, {Ueberauth.Strategy.Google, [scope: "email openid"]}} | providers], else: providers
 providers = if System.get_env("SLACK_CLIENT_ID"), do: [{:slack, {Ueberauth.Strategy.Slack, [team: System.get_env("SLACK_TEAM_ID")]}} | providers], else: providers
 providers = if System.get_env("GITHUB_CLIENT_ID"), do: [{:github, {Ueberauth.Strategy.Github, [default_scope: "user"]}} | providers], else: providers
+providers = if System.get_env("GITLAB_CLIENT_ID"), do: [{:gitlab, {Ueberauth.Strategy.Gitlab, [default_scope: "read_user"]}} | providers], else: providers
 providers = if System.get_env("DISCORD_CLIENT_ID"), do: [{:discord, {Ueberauth.Strategy.Discord, [default_scope: "identify email"]}} | providers], else: providers
 providers = if System.get_env("MICROSOFT_CLIENT_ID"), do: [{:microsoft, {Ueberauth.Strategy.Microsoft, []}} | providers], else: providers
 providers = if System.get_env("DUMMY_LOGIN_ENABLED"), do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers], else: providers
@@ -80,6 +81,14 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: System.get_env("GITHUB_CLIENT_ID"),
   client_secret: System.get_env("GITHUB_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
+  client_id: System.get_env("GITLAB_CLIENT_ID"),
+  client_secret: System.get_env("GITLAB_CLIENT_SECRET"),
+  redirect_uri: "#{canonical_url}/auth/gitlab/callback",
+  site: System.get_env("GITLAB_SITE_URL") || "https://gitlab.com",
+  authorize_url: "#{System.get_env("GITLAB_SITE_URL") || "https://gitlab.com"}/oauth/authorize",
+  token_url: "#{System.get_env("GITLAB_SITE_URL") || "https://gitlab.com"}/oauth/token"
 
 config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
   client_id: System.get_env("SLACK_CLIENT_ID"),
