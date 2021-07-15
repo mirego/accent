@@ -38,6 +38,17 @@
       </a>
     {{/if}}
 
+    {{#if this.gitlabLoginEnabled}}
+      <a
+        href={{this.gitlabUrl}}
+        class="button button--filled"
+        local-class="loginButton loginButton--gitlab"
+      >
+        <img src="assets/auth_providers/gitlab.svg" local-class="loginButton-logo">
+        {{t "components.login_forms.gitlab"}}
+      </a>
+    {{/if}}
+
     {{#if this.slackLoginEnabled}}
       <a
         href={{this.slackUrl}}

@@ -56,6 +56,17 @@ a.loginButton {
     }
   }
 
+  &.loginButton--gitlab {
+    border: 2px solid #fc6d26;
+    text-shadow: none;
+    color: #fc6d26;
+
+    &:focus,
+    &:hover {
+      background: lighten(#fc6d26, 40%);
+    }
+  }
+
   &.loginButton--slack {
     border: 2px solid #3f0f3f;
     text-shadow: none;
