@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@glimmer/tracking": "1.0.4",
-    "@joeattardi/emoji-button": "2.12.1",
+    "@joeattardi/emoji-button": "4.6.2",
     "@types/markdown-it": "10.0.2",
     "@types/pell": "1.0.0",
     "apollo-boost": "0.4.9",
