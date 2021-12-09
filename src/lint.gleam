@@ -41,6 +41,8 @@ pub fn lint(entries: List(Entry)) -> List(Entry) {
                 value: entry.value,
                 master_value: entry.master_value,
                 is_master: entry.is_master,
+                language: entry.language,
+                translation_id: entry.translation_id,
                 messages: list.append(entry.messages, check(entry)),
               )
           }

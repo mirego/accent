@@ -20,6 +20,8 @@ pub type Entry {
     value: String,
     master_value: String,
     is_master: Bool,
+    language: String,
+    translation_id: String,
     messages: List(Message),
   )
 }

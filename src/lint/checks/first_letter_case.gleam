@@ -1,6 +1,6 @@
 import gleam/io
 import gleam/bool
-import gleam/regex
+import gleam/regex.{Options}
 import gleam/string
 import gleam/option.{None, Some}
 import lint/types.{Entry, FirstLetterCase, MessageReplacement}
@@ -13,12 +13,14 @@ fn message(entry: Entry, text) {
 }
 
 fn starts_with_letter(text) {
-  let Ok(re) = regex.from_string("\[a-z\]")
+  let options = Options(case_insensitive: True, multi_line: False)
+  let Ok(re) = regex.compile("^[A-Z]", with: options)
   regex.check(re, text)
 }
 
 fn starts_with_capitalized_letter(text) {
-  let Ok(re) = regex.from_string("^\[A-Z\]")
+  let options = Options(case_insensitive: False, multi_line: False)
+  let Ok(re) = regex.compile("^[A-Z]", with: options)
   regex.check(re, text)
 }
 

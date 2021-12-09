@@ -2,8 +2,8 @@ defmodule Accent.Lint do
   @typep entry :: Langue.Entry.t()
 
   defmodule Entry do
-    @enforce_keys ~w(value master_value messages)a
-    defstruct value: nil, master_value: nil, messages: []
+    @enforce_keys ~w(value master_value messages language translation_id)a
+    defstruct value: nil, master_value: nil, messages: [], language: nil, translation_id: nil
   end
 
   defmodule Message do
@@ -22,16 +22,23 @@ defmodule Accent.Lint do
     |> Enum.map(&map_to_entry/1)
     |> :lint.lint()
     |> Enum.map(&entry_to_map/1)
+    |> Task.async_stream(&Accent.Lint.Autocorrect.autocorrect/1)
+    |> Enum.flat_map(fn
+      {:ok, entry} -> [entry]
+      _ -> []
+    end)
   end
 
   defp map_to_entry(map) do
-    {:entry, map.value, map.master_value, map.is_master, []}
+    {:entry, map.value, map.master_value, map.is_master, map.language_slug, map.id, []}
   end
 
-  defp entry_to_map({:entry, value, master_value, _, messages}) do
+  defp entry_to_map({:entry, value, master_value, _, language, translation_id, messages}) do
     %Entry{
       value: value,
       master_value: master_value,
+      language: language,
+      translation_id: translation_id,
       messages: Enum.map(messages, &entry_message/1)
     }
   end

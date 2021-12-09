@@ -47,14 +47,14 @@ defmodule Accent.Translation do
     document_id
     placeholders
   )a
-  def changeset(model, params) do
-    model
-    |> cast(params, @optional_fields)
+  def changeset(struct, params) do
+    cast(struct, params, @optional_fields)
   end
 
-  @spec to_langue_entry(map(), map(), boolean) :: Langue.Entry.t()
-  def to_langue_entry(translation, master_translation, is_master) do
+  @spec to_langue_entry(map(), map(), boolean, String.t()) :: Langue.Entry.t()
+  def to_langue_entry(translation, master_translation, is_master, language_slug) do
     %Langue.Entry{
+      id: translation.id,
       key: translation.key,
       value: translation.corrected_text,
       master_value: master_translation.corrected_text,
@@ -64,7 +64,8 @@ defmodule Accent.Translation do
       value_type: translation.value_type,
       locked: translation.locked,
       plural: translation.plural,
-      placeholders: translation.placeholders
+      placeholders: translation.placeholders,
+      language_slug: language_slug
     }
   end
 end

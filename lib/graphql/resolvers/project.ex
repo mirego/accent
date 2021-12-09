@@ -128,7 +128,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
       |> TranslationScope.not_locked()
       |> TranslationScope.from_project(project.id)
       |> Query.distinct(true)
-      |> Query.preload(:revision)
+      |> Query.preload(revision: :language)
       |> Repo.all()
 
     master_revision =
@@ -147,17 +147,18 @@ defmodule Accent.GraphQL.Resolvers.Project do
       |> Enum.map(&{&1.key, &1})
       |> Enum.into(%{})
 
-    translations =
-      Enum.reduce(translations, [], fn translation, acc ->
+    entries =
+      Enum.map(translations, fn translation ->
         master_translation = Map.get(master_translations, translation.key)
-        entry = Translation.to_langue_entry(translation, master_translation, translation.revision.master)
-        [lint] = Accent.Lint.lint([entry])
+        language_slug = translation.revision.slug || translation.revision.language.slug
+        Translation.to_langue_entry(translation, master_translation, translation.revision.master, language_slug)
+      end)
 
-        if Enum.any?(lint.messages) do
-          [%{translation: translation, messages: lint.messages} | acc]
-        else
-          acc
-        end
+    translations =
+      Accent.Lint.lint(entries)
+      |> Enum.filter(&Enum.any?(&1.messages))
+      |> Enum.map(fn lint ->
+        %Accent.TranslationLint{id: lint.translation_id, translation_id: lint.translation_id, messages: lint.messages}
       end)
 
     {:ok, translations}

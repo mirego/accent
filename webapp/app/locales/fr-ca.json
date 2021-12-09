@@ -739,6 +739,7 @@
         "arrow": "→",
         "replace": "Remplacer",
         "checks": {
+          "AUTOCORRECT": "Autocorrection",
           "PLACEHOLDER_COUNT": "Le nombre d'espaces réservés ne correspond pas à la chaîne principale",
           "TRAILING_SPACE": "La chaîne contient un espace de fin",
           "LEADING_SPACES": "La chaîne contient des espaces de début",

@@ -1,7 +1,10 @@
 defmodule Accent.GraphQL.Types.Lint do
   use Absinthe.Schema.Notation
 
+  import Absinthe.Resolution.Helpers, only: [dataloader: 1]
+
   enum :lint_check do
+    value(:autocorrect)
     value(:leading_spaces)
     value(:double_spaces)
     value(:first_letter_case)
@@ -25,6 +28,6 @@ defmodule Accent.GraphQL.Types.Lint do
 
   object :lint_translation do
     field(:messages, list_of(non_null(:lint_translation_message)))
-    field(:translation, non_null(:translation))
+    field(:translation, non_null(:translation), resolve: dataloader(Accent.Translation))
   end
 end
