@@ -1,30 +1,32 @@
 defmodule Langue do
-  @formats [
-    Android,
-    CSV,
-    Es6Module,
-    Gettext,
-    JavaProperties,
-    JavaPropertiesXml,
-    Json,
-    Rails,
-    SimpleJson,
-    Strings,
-    LaravelPhp,
-    GoI18nJson,
-    XLIFF12,
-    Resx20
+  @format_modules [
+    Langue.Formatter.Android,
+    Langue.Formatter.CSV,
+    Langue.Formatter.Es6Module,
+    Langue.Formatter.Gettext,
+    Langue.Formatter.JavaProperties,
+    Langue.Formatter.JavaPropertiesXml,
+    Langue.Formatter.Json,
+    Langue.Formatter.Rails,
+    Langue.Formatter.SimpleJson,
+    Langue.Formatter.Strings,
+    Langue.Formatter.LaravelPhp,
+    Langue.Formatter.GoI18nJson,
+    Langue.Formatter.XLIFF12,
+    Langue.Formatter.Resx20
   ]
 
-  for format <- @formats, module = Module.concat([Langue, Formatter, format]), name = module.name() do
+  for module <- @format_modules, name = module.name() do
     def parser_from_format(unquote(name)), do: {:ok, &unquote(module).parse(&1)}
   end
 
   def parser_from_format(_), do: {:error, :unknown_parser}
 
-  for format <- @formats, module = Module.concat([Langue, Formatter, format]), name = module.name() do
+  for module <- @format_modules, name = module.name() do
     def serializer_from_format(unquote(name)), do: {:ok, &unquote(module).serialize(&1)}
   end
 
   def serializer_from_format(_), do: {:error, :unknown_serializer}
+
+  def format_modules, do: @format_modules
 end
