@@ -62,7 +62,6 @@ This will start the webserver on port 4000, migrate the database to have an up a
 - `postgres >= 9.4`
 - `node.js >= 10.16.0`
 - `libyaml >= 0.1.7`
-- `gleam ~> 0.11`
 
 ## 🎛 Executing mix commands
 

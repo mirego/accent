@@ -20,16 +20,6 @@ RUN npm ci --no-audit --no-color && \
     npm run build-production
 
 #
-# Build Gleam modules
-#
-FROM gleamlang/gleam:0.13.2 as gleam-builder
-WORKDIR /opt/build
-COPY gleam.toml .
-COPY rebar.config .
-COPY src src
-RUN rebar3 compile
-
-#
 # Build the OTP binary
 #
 FROM hexpm/elixir:1.12.1-erlang-24.0.2-alpine-3.13.3 AS builder
@@ -37,8 +27,6 @@ FROM hexpm/elixir:1.12.1-erlang-24.0.2-alpine-3.13.3 AS builder
 ENV MIX_ENV=prod
 
 WORKDIR /build
-
-COPY --from=gleam-builder /opt/build ./gen
 
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
