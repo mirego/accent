@@ -10,7 +10,7 @@ defmodule Accent.Lint.Checks.DoubleSpace do
     if fixed_text !== entry.value do
       [
         %Message{
-          check: :double_space,
+          check: :double_spaces,
           text: entry.value,
           replacement: %Replacement{value: fixed_text, label: fixed_text}
         }

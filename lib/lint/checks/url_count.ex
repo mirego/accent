@@ -11,7 +11,7 @@ defmodule Accent.Lint.Checks.URLCount do
       [
         %Message{
           check: :url_count,
-          text: entry.value,
+          text: entry.value
         }
       ]
     else

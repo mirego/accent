@@ -25,7 +25,7 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
     french_language = %Language{name: "french"} |> Repo.insert!()
     project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
 
-    revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
+    revision = %Revision{language_id: french_language.id, project_id: project.id, master: true, slug: "fr"} |> Repo.insert!()
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     {:ok, [user: user, project: project, revision: revision, context: context]}

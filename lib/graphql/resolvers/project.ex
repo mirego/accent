@@ -156,9 +156,9 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
     translations =
       Accent.Lint.lint(entries)
-      |> Enum.filter(&Enum.any?(&1.messages))
-      |> Enum.map(fn lint ->
-        %Accent.TranslationLint{id: lint.translation_id, translation_id: lint.translation_id, messages: lint.messages}
+      |> Enum.filter(&Enum.any?(elem(&1, 1)))
+      |> Enum.map(fn {id, messages} ->
+        %Accent.TranslationLint{id: id, translation_id: id, messages: messages}
       end)
 
     {:ok, translations}

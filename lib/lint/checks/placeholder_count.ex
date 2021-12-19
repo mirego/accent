@@ -11,7 +11,7 @@ defmodule Accent.Lint.Checks.PlaceholderCount do
       [
         %Message{
           check: :placeholder_count,
-          text: entry.value,
+          text: entry.value
         }
       ]
     else
@@ -22,7 +22,7 @@ defmodule Accent.Lint.Checks.PlaceholderCount do
   defp match_placeholders(text) do
     Langue.format_modules()
     |> Enum.map(& &1.placeholder_regex())
-    |> Enum.reject(& &1 === :not_supported)
+    |> Enum.reject(&(&1 === :not_supported))
     |> Enum.map(&Regex.scan(&1, text))
   end
 end

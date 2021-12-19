@@ -25,9 +25,9 @@ defmodule Accent.GraphQL.Resolvers.Lint do
     translation = overwrite_text_args(translation, args)
     language_slug = translation.revision.slug || translation.revision.language.slug
     entry = Translation.to_langue_entry(translation, translation.master_translation, translation.revision.master, language_slug)
-    [lint] = Accent.Lint.lint([entry])
+    [{_, messages}] = Accent.Lint.lint([entry])
 
-    {:ok, lint.messages}
+    {:ok, messages}
   end
 
   def preload_translations(_, translations = [translation | _]) do

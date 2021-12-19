@@ -9,16 +9,16 @@ defmodule AccentTest.Lint do
   describe "lint/2" do
     test "lint valid entry" do
       entry = %Entry{key: "a", value: "foo", master_value: "foo", value_type: "string"}
-      [linted] = Lint.lint([entry])
+      [{_, messages}] = Lint.lint([entry])
 
-      assert linted.messages === []
+      assert messages === []
     end
 
     test "lint trailing space entry" do
       entry = %Entry{key: "a", value: "foo ", master_value: "foo", value_type: "string"}
-      [linted] = Lint.lint([entry])
+      [{_, messages}] = Lint.lint([entry])
 
-      assert linted.messages === [
+      assert messages === [
                %Message{
                  replacement: %Replacement{value: "foo", label: "foo"},
                  check: :trailing_space,
@@ -29,9 +29,9 @@ defmodule AccentTest.Lint do
 
     test "lint double spaces entry" do
       entry = %Entry{key: "a", value: "fo  o", master_value: "foo", value_type: "string"}
-      [linted] = Lint.lint([entry])
+      [{_, messages}] = Lint.lint([entry])
 
-      assert linted.messages === [
+      assert messages === [
                %Message{
                  replacement: %Replacement{value: "fo o", label: "fo o"},
                  check: :double_spaces,
@@ -42,9 +42,9 @@ defmodule AccentTest.Lint do
 
     test "lint three dots ellipsis entry" do
       entry = %Entry{key: "a", value: "foo...", master_value: "foo...", value_type: "string"}
-      [linted] = Lint.lint([entry])
+      [{_, messages}] = Lint.lint([entry])
 
-      assert linted.messages === [
+      assert messages === [
                %Message{
                  replacement: %Replacement{value: "foo…", label: "foo…"},
                  check: :three_dots_ellipsis,
@@ -55,9 +55,9 @@ defmodule AccentTest.Lint do
 
     test "lint first letter uppercase entry" do
       entry = %Entry{key: "a", is_master: false, value: "bar", master_value: "Foo", value_type: "string"}
-      [linted] = Lint.lint([entry])
+      [{_, messages}] = Lint.lint([entry])
 
-      assert linted.messages === [
+      assert messages === [
                %Message{
                  replacement: %Replacement{value: "Bar", label: "Bar"},
                  check: :first_letter_case,
@@ -68,9 +68,9 @@ defmodule AccentTest.Lint do
 
     test "lint first letter lowercase entry" do
       entry = %Entry{key: "a", is_master: false, value: "Bar", master_value: "foo", value_type: "string"}
-      [linted] = Lint.lint([entry])
+      [{_, messages}] = Lint.lint([entry])
 
-      assert linted.messages === [
+      assert messages === [
                %Message{
                  replacement: %Replacement{value: "bar", label: "bar"},
                  check: :first_letter_case,

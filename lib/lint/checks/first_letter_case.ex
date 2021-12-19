@@ -41,6 +41,9 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
             replacement: %Replacement{value: fixed_text, label: fixed_text}
           }
         ]
+
+      true ->
+        []
     end
   end
 
