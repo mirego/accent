@@ -9,13 +9,6 @@
   border-radius: 3px;
   line-height: 1.5;
 
-  &.empty-content--success {
-    color: var(--color-success);
-    background-color: var(--color-success-opacity-10);
-    border-color: var(--color-success);
-    opacity: 1;
-  }
-
   &.empty-content--center {
     display: flex;
     align-items: center;
