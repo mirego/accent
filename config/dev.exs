@@ -1,17 +1,23 @@
 import Config
 
-config :accent, Accent.Endpoint,
-  debug_errors: true,
-  code_reloader: true,
-  cache_static_lookup: false,
-  check_origin: false,
-  watchers: [
+watchers = if System.get_env("DISABLE_DEV_WÀTCHERS") do
+  []
+else
+  [
     npm: [
       "run",
       "build-dev",
       cd: Path.expand("../webapp", __DIR__)
     ]
-  ],
+  ]
+end
+
+config :accent, Accent.Endpoint,
+  debug_errors: true,
+  code_reloader: true,
+  cache_static_lookup: false,
+  check_origin: false,
+  watchers: watchers,
   live_reload: [
     patterns: [
       ~r{priv/gettext/.*$},
