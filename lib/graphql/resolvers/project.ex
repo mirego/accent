@@ -129,6 +129,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
       |> TranslationScope.from_project(project.id)
       |> Query.distinct(true)
       |> Query.preload(revision: :language)
+      |> Query.order_by({:asc, :key})
       |> Repo.all()
 
     master_revision =

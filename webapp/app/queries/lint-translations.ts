@@ -6,11 +6,27 @@ export default gql`
       project(id: $projectId) {
         id
 
+        revisions {
+          id
+        }
+
         lintTranslations {
           translation {
             id
             key
             text: correctedText
+
+            revision {
+              id
+              name
+              slug
+
+              language {
+                id
+                slug
+                name
+              }
+            }
 
             document {
               id
