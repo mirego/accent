@@ -8,13 +8,12 @@
 @media (max-width: 800px) {
   .content {
     margin-top: 5px;
-    padding-left: 5px;
+    padding: 0 10px;
   }
 }
 
-@media (max-width: var(--screen-sm)) {
+@media (max-width: 440px) {
   .content {
     margin-top: 0;
-    padding: 0 10px;
   }
 }

@@ -194,7 +194,7 @@
   white-space: pre-wrap;
 }
 
-@media (max-width: var(--screen-md)) {
+@media (max-width: 640px) {
   .details {
     flex-direction: column;
   }

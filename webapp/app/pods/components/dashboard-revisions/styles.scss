@@ -200,7 +200,7 @@
   opacity: 0.9;
 }
 
-@media (max-width: var(--screen-md)) {
+@media (max-width: 640px) {
   .dashboard-revisions > .content {
     width: 100%;
     margin-right: 0;

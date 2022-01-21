@@ -1,16 +1,17 @@
 import Config
 
-watchers = if System.get_env("DISABLE_DEV_WÀTCHERS") do
-  []
-else
-  [
-    npm: [
-      "run",
-      "build-dev",
-      cd: Path.expand("../webapp", __DIR__)
+watchers =
+  if System.get_env("DISABLE_DEV_WÀTCHERS") do
+    []
+  else
+    [
+      npm: [
+        "run",
+        "build-dev",
+        cd: Path.expand("../webapp", __DIR__)
+      ]
     ]
-  ]
-end
+  end
 
 config :accent, Accent.Endpoint,
   debug_errors: true,
@@ -36,7 +37,7 @@ config :accent, Accent.Hook,
 
 config :logger, :console,
   format: "$metadata[$level] $message\n",
-  metadata: ~w(current_user graphql_operation)a
+  metadata: ~w(current_user graphql_operation hook_service hook_url)a
 
 config :accent, Accent.Repo, url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
 

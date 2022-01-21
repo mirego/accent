@@ -5,12 +5,13 @@
 
 @media (max-width: 800px) {
   .sidebar {
-    margin-top: 5px;
+    margin-top: -10px;
     flex: 0 0 55px;
+    width: 100%;
   }
 }
 
-@media (max-width: var(--screen-sm)) {
+@media (max-width: 440px) {
   .sidebar {
     flex: 0 0 auto;
     width: 100%;

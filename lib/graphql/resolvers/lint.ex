@@ -50,11 +50,11 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       |> TranslationScope.from_revision(master_revision.id)
       |> TranslationScope.active()
       |> Repo.all()
-      |> Enum.map(&{&1.key, &1})
+      |> Enum.map(&{{&1.key, &1.document_id}, &1})
       |> Enum.into(%{})
 
     Enum.reduce(translations, %{}, fn translation, acc ->
-      master_translation = Map.get(master_translations, translation.key)
+      master_translation = Map.get(master_translations, {translation.key, translation.document_id})
       Map.put(acc, translation.id, %{translation | master_translation: master_translation})
     end)
   end

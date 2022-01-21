@@ -62,7 +62,7 @@
   font-size: 12px;
 }
 
-@media (max-width: var(--screen-sm)) {
+@media (max-width: 440px) {
   .filters-wrapper {
     flex-direction: column;
   }

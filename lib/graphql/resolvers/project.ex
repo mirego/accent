@@ -145,12 +145,12 @@ defmodule Accent.GraphQL.Resolvers.Project do
       |> TranslationScope.active()
       |> TranslationScope.not_locked()
       |> Repo.all()
-      |> Enum.map(&{&1.key, &1})
+      |> Enum.map(&{{&1.key, &1.document_id}, &1})
       |> Enum.into(%{})
 
     entries =
       Enum.map(translations, fn translation ->
-        master_translation = Map.get(master_translations, translation.key)
+        master_translation = Map.get(master_translations, {translation.key, translation.document_id})
         language_slug = translation.revision.slug || translation.revision.language.slug
         Translation.to_langue_entry(translation, master_translation, translation.revision.master, language_slug)
       end)

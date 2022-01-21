@@ -31,6 +31,8 @@ const ACTIONS_ICON_PATHS = {
   document_delete: 'assets/file.svg',
 };
 
+const MAXIMUM_COMPACT_BATCH_OPERATION_DOCUMENT_PATHS = 6;
+
 interface Args {
   compact: boolean;
   permissions: Record<string, true>;
@@ -121,6 +123,27 @@ export default class ActivityItem extends Component<Args> {
       actionsWithDocument.includes(action) &&
       this.args.activity.document &&
       this.args.activity.document.path
+    );
+  }
+
+  get compactedBatchedOperations() {
+    return (
+      this.args.activity.batchedOperations.length >
+      MAXIMUM_COMPACT_BATCH_OPERATION_DOCUMENT_PATHS
+    );
+  }
+
+  get compactBatchedOperations() {
+    return this.args.activity.batchedOperations.slice(
+      0,
+      MAXIMUM_COMPACT_BATCH_OPERATION_DOCUMENT_PATHS
+    );
+  }
+
+  get compactBatchedOperationsHiddenCount() {
+    return (
+      this.args.activity.batchedOperations.length -
+      MAXIMUM_COMPACT_BATCH_OPERATION_DOCUMENT_PATHS
     );
   }
 

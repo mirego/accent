@@ -51,7 +51,7 @@
   color: var(--color-error);
 }
 
-@media (max-width: var(--screen-md)) {
+@media (max-width: 640px) {
   .project-settings-manage-languages {
     flex-direction: column;
   }

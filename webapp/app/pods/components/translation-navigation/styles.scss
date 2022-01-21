@@ -80,7 +80,7 @@
   stroke: var(--color-black);
 }
 
-@media (max-width: var(--screen-md)) {
+@media (max-width: 640px) {
   .navigation-list {
     justify-content: space-between;
   }
@@ -97,7 +97,7 @@
   }
 }
 
-@media (max-width: var(--screen-sm)) {
+@media (max-width: 440px) {
   .navigation-list-item {
     width: 100%;
     margin-right: 0;

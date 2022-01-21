@@ -48,10 +48,13 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
   end
 
   defp starts_with_letter?(text) do
-    Regex.match?(~r/^[A-Z]/i, text)
+    Regex.match?(~r/^[\w]/i, text)
   end
 
+  defp starts_with_capitalized_letter?(""), do: false
+
   defp starts_with_capitalized_letter?(text) do
-    Regex.match?(~r/^[A-Z]/, text)
+    letter = String.first(text)
+    String.capitalize(letter) === letter and String.downcase(letter) !== letter
   end
 end

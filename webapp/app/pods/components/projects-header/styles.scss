@@ -174,7 +174,7 @@
   }
 }
 
-@media (max-width: var(--screen-md)) {
+@media (max-width: 640px) {
   .projects-header {
     padding: 10px 0;
 
@@ -192,7 +192,7 @@
   }
 }
 
-@media (max-width: var(--screen-sm)) {
+@media (max-width: 440px) {
   .applicationLogo-image {
     width: 18px;
     height: 18px;

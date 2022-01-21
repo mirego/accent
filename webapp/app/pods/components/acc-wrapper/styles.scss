@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-@media (max-width: var(--screen-sm)) {
+@media (max-width: 640px) {
   .wrapper {
     flex-direction: column;
   }

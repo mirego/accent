@@ -6,6 +6,7 @@
   align-items: flex-start;
   justify-content: center;
   color: var(--color-black);
+  font-size: 13px;
 
   h1 {
     font-size: 35px;
@@ -17,5 +18,15 @@
     height: 20px;
     margin-left: 3px;
     opacity: 0.6;
+  }
+}
+
+@media (max-width: 800px) {
+  .wrapper {
+    margin-top: 20px;
+  }
+
+  .wrapper svg {
+    display: none;
   }
 }

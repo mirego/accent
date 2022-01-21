@@ -212,6 +212,7 @@
 .links {
   display: flex;
   flex-wrap: wrap;
+  flex-shrink: 1;
   justify-content: space-between;
   transform: translate3d(30px, 0, 0);
   transition: 0.2s ease-in-out;
@@ -239,6 +240,12 @@
 
 :global(.button).button-sync {
   color: var(--color-primary);
+}
+
+@media (max-width: (1300px)) {
+  .links {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @media (max-width: (800px)) {

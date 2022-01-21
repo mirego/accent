@@ -52,6 +52,11 @@
   border-top-right-radius: $ember-power-select-opened-border-radius;
 }
 
+.ember-power-select-options {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
 .ember-power-select-selected-item {
   flex: 1 1 auto;
   margin-right: 20px;

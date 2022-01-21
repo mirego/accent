@@ -479,10 +479,10 @@
 }
 
 .item-batchedOperations {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 4px;
-  border-top: 1px solid var(--background-light-highlight);
+  display: grid;
+  gap: 10px 8px;
+  margin-bottom: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .item-batchedOperations-path {
@@ -501,10 +501,7 @@
 }
 
 .item-batchedOperations-item {
-  margin-right: 14px;
-  margin-bottom: 5px;
   padding: 8px 18px 6px 0;
-  border-right: 1px solid var(--background-light-highlight);
   font-size: 12px;
 
   &:last-of-type {
@@ -514,6 +511,12 @@
 
 .item-batchedOperations-label {
   font-weight: 600;
+  text-decoration: none;
+}
+
+.item-batchedOperations-hiddenCount {
+  font-size: 11px;
+  margin-left: 4px;
 }
 
 .item-translationFromOperationText {

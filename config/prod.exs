@@ -16,4 +16,4 @@ config :accent, Accent.Hook,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   level: :info,
-  metadata: ~w(request_id current_user graphql_operation)a
+  metadata: ~w(request_id current_user graphql_operation hook_service hook_url)a
