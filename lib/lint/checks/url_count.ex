@@ -20,6 +20,6 @@ defmodule Accent.Lint.Checks.URLCount do
   end
 
   defp urls_count(text) do
-    Regex.scan(~r/https?:\/\/\([a-z0-9]+\.\)?[a-z0-9]+\./, text)
+    Regex.scan(~r/(https?|ftps?|mailto):\/\/[a-z0-9]+\./, text)
   end
 end

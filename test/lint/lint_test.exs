@@ -27,6 +27,19 @@ defmodule AccentTest.Lint do
              ]
     end
 
+    test "lint apostrophe as single quote entry" do
+      entry = %Entry{key: "a", value: "L'hiver", master_value: "", value_type: "string", language_slug: "fr"}
+      [{_, messages}] = Lint.lint([entry])
+
+      assert messages === [
+               %Message{
+                 replacement: %Replacement{value: "L’hiver", label: "L’hiver"},
+                 check: :apostrophe_as_single_quote,
+                 text: "L'hiver"
+               }
+             ]
+    end
+
     test "lint double spaces entry" do
       entry = %Entry{key: "a", value: "fo  o", master_value: "foo", value_type: "string"}
       [{_, messages}] = Lint.lint([entry])

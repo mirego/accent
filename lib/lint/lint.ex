@@ -6,6 +6,7 @@ defmodule Accent.Lint do
     Accent.Lint.Checks.PlaceholderCount,
     Accent.Lint.Checks.ThreeDotsEllipsis,
     Accent.Lint.Checks.TrailingSpaces,
+    Accent.Lint.Checks.ApostropheAsSingleQuote,
     Accent.Lint.Checks.URLCount
   ]
 

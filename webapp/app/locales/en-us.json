@@ -767,6 +767,7 @@
           "TRAILING_SPACE": "String contains a trailing space",
           "LEADING_SPACES": "String contains leading spaces",
           "DOUBLE_SPACES": "String contains double spaces",
+          "APOSTROPHE_AS_SINGLE_QUOTE": "A single quote as been used instead of an apostrophe",
           "FIRST_LETTER_CASE": "First letter of translation does not match case of the master’s",
           "THREE_DOTS_ELLIPSIS": "String contains three dots instead of ellipsis",
           "SAME_TRAILING_CHARACTER": "String does not match the trailing character of master",

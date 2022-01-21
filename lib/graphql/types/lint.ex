@@ -8,6 +8,7 @@ defmodule Accent.GraphQL.Types.Lint do
     value(:leading_spaces)
     value(:double_spaces)
     value(:first_letter_case)
+    value(:apostrophe_as_single_quote)
     value(:three_dots_ellipsis)
     value(:same_trailing_character)
     value(:trailing_space)
