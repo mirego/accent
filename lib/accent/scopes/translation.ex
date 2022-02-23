@@ -297,8 +297,6 @@ defmodule Accent.Scopes.Translation do
     Accent.Translation
     iex> Accent.Scopes.Translation.from_search(Accent.Translation, "test")
     #Ecto.Query<from t0 in Accent.Translation, where: ilike(t0.key, ^\"%test%\") or ilike(t0.corrected_text, ^\"%test%\")>
-    iex> Accent.Scopes.Translation.from_search(Accent.Translation, "030519c4-1d47-42bb-95ee-205880be01d9")
-    #Ecto.Query<from t0 in Accent.Translation, where: ilike(t0.key, ^\"%030519c4-1d47-42bb-95ee-205880be01d9%\") or ilike(t0.corrected_text, ^\"%030519c4-1d47-42bb-95ee-205880be01d9%\"), or_where: t0.id == ^\"030519c4-1d47-42bb-95ee-205880be01d9\">
   """
   @spec from_search(Queryable.t(), any()) :: Queryable.t()
   def from_search(query, nil), do: query

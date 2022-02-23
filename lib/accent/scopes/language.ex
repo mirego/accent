@@ -8,8 +8,6 @@ defmodule Accent.Scopes.Language do
     Accent.Language
     iex> Accent.Scopes.Language.from_search(Accent.Language, nil)
     Accent.Language
-    iex> Accent.Scopes.Language.from_search(Accent.Language, "test")
-    #Ecto.Query<from l0 in Accent.Language, where: ilike(l0.slug, ^\"%test%\") or (ilike(l0.name, ^\"%test%\") or ^false), order_by: [desc: l0.slug == ^"test", desc: ilike(l0.slug, ^"test%"), asc: fragment("character_length(?)", l0.slug)]>
   """
   @spec from_search(Ecto.Queryable.t(), any()) :: Ecto.Queryable.t()
   def from_search(query, nil), do: query
