@@ -27,14 +27,10 @@ defmodule Accent.Lint do
     Enum.map(entries, fn entry ->
       messages =
         Enum.flat_map(@checks, fn check ->
-          if check.applicable(entry) do
-            check.check(entry)
-          else
-            []
-          end
+          if check.applicable(entry), do: check.check(entry), else: []
         end)
 
-      {entry.id, messages}
+      {entry, messages}
     end)
   end
 end

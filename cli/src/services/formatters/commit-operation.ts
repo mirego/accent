@@ -9,16 +9,22 @@ const MASTER_ONLY_ACTIONS = ['new', 'renew', 'remove'];
 
 export default class CommitOperationFormatter {
   logSync(path: string, documentPath: string) {
-    console.log('  ', chalk.gray('Name in Accent:'), chalk.gray(documentPath));
-    console.log('  ', chalk.white(path));
-    console.log('  ', chalk.green('↑ Successfully synced in Accent'));
+    console.log(
+      '  ',
+      chalk.green('↑'),
+      chalk.bold.white(documentPath),
+      chalk.gray.dim.underline(path)
+    );
     console.log('');
   }
 
   logAddTranslations(path: string, documentPath: string) {
-    console.log('  ', chalk.gray('Name in Accent:'), chalk.gray(documentPath));
-    console.log('  ', chalk.white(path));
-    console.log('  ', chalk.green('↑ Successfully added translations'));
+    console.log(
+      '  ',
+      chalk.green('↑'),
+      chalk.bold.white(documentPath),
+      chalk.gray.dim.underline(path)
+    );
     console.log('');
   }
 
@@ -35,8 +41,11 @@ export default class CommitOperationFormatter {
   }
 
   logPeek(path: string, documentPath: string, operations: PeekOperation) {
-    console.log('  ', chalk.gray('Name in Accent:'), chalk.gray(documentPath));
-    console.log('  ', chalk.white(path));
+    console.log(
+      '  ',
+      chalk.bold.white(documentPath),
+      chalk.gray.dim.underline(path)
+    );
 
     if (!Object.keys(operations.stats).length) {
       console.log('  ', chalk.gray('~~ No changes for this file ~~'));

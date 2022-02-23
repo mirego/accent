@@ -762,7 +762,6 @@
         "arrow": "→",
         "replace": "Replace",
         "checks": {
-          "AUTOCORRECT": "Autocorrect",
           "PLACEHOLDER_COUNT": "Number of placeholders does not match the master string",
           "TRAILING_SPACE": "String contains a trailing space",
           "LEADING_SPACES": "String contains leading spaces",

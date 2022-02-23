@@ -18,7 +18,10 @@ export default class ProjectAddTranslationsFormatter {
       .map(fetchFromRevision)
       .join(', ');
 
-    console.log(chalk.magenta('Adding translations paths', `(${languages})`));
+    const title = `Adding translations paths (${languages})`;
+
+    console.log(chalk.gray.dim('⎯'.repeat(title.length - 1)));
+    console.log(chalk.magenta(title));
 
     console.log('');
   }

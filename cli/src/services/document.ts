@@ -1,7 +1,9 @@
 // Vendor
 import * as FormData from 'form-data';
+import {CLIError} from '@oclif/errors';
 import * as fs from 'fs-extra';
 import * as mkdirp from 'mkdirp';
+import chalk from 'chalk';
 import fetch, {Response} from 'node-fetch';
 import * as path from 'path';
 
@@ -39,6 +41,29 @@ export default class Document {
 
   refreshPaths() {
     this.paths = new Tree(this.config).list();
+  }
+
+  async lint(file: string, language: string) {
+    const formData = new FormData();
+
+    formData.append('file', fs.createReadStream(file));
+    formData.append('document_path', this.parseDocumentName(file, this.config));
+    formData.append('document_format', this.config.format);
+    formData.append('language', language);
+
+    const url = `${this.apiUrl}/lint`;
+
+    try {
+      const response = await fetch(url, {
+        body: formData,
+        headers: this.authorizationHeader(),
+        method: 'POST',
+      });
+
+      return await response.json();
+    } catch ({message}) {
+      throw new CLIError(chalk.red(`Server error: ${message}`));
+    }
   }
 
   async sync(project: Project, file: string, options: any) {
@@ -115,12 +140,16 @@ export default class Document {
       ['language', language],
     ];
 
-    const url = `${this.apiUrl}/export?${this.encodeQuery(query)}`;
-    const response = await fetch(url, {
-      headers: this.authorizationHeader(),
-    });
+    try {
+      const url = `${this.apiUrl}/export?${this.encodeQuery(query)}`;
+      const response = await fetch(url, {
+        headers: this.authorizationHeader(),
+      });
 
-    return this.writeResponseToFile(response, file);
+      return this.writeResponseToFile(response, file);
+    } catch ({message}) {
+      throw new CLIError(chalk.red(`Server error: ${message}`));
+    }
   }
 
   async exportJipt(file: string, documentPath: string) {
@@ -130,11 +159,16 @@ export default class Document {
     ];
 
     const url = `${this.apiUrl}/jipt-export?${this.encodeQuery(query)}`;
-    const response = await fetch(url, {
-      headers: this.authorizationHeader(),
-    });
 
-    return this.writeResponseToFile(response, file);
+    try {
+      const response = await fetch(url, {
+        headers: this.authorizationHeader(),
+      });
+
+      return this.writeResponseToFile(response, file);
+    } catch ({message}) {
+      throw new CLIError(chalk.red(`Server error: ${message}`));
+    }
   }
 
   parseDocumentName(file: string, config: DocumentConfig): string {
@@ -207,9 +241,13 @@ export default class Document {
 
       return {[operationName]: {success: true}, peek: false};
     } else {
-      const {data} = await response.json();
+      try {
+        const {data} = await response.json();
 
-      return {peek: data, [operationName]: {success: true}};
+        return {peek: data, [operationName]: {success: true}};
+      } catch ({message}) {
+        throw new CLIError(chalk.red(`Server error: ${message}`));
+      }
     }
   }
 }

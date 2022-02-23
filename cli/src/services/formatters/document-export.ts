@@ -2,11 +2,12 @@
 import chalk from 'chalk';
 
 export default class DocumentExportFormatter {
-  log(path: string) {
-    console.log('  ', chalk.white(path));
+  log(path: string, documentPath: string) {
     console.log(
       '  ',
-      chalk.green('↓ Successfully wrote local file from Accent')
+      chalk.green('↓'),
+      chalk.bold.white(documentPath),
+      chalk.gray.dim.underline(path)
     );
     console.log('');
   }

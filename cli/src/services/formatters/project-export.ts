@@ -3,7 +3,10 @@ import chalk from 'chalk';
 
 export default class ProjectExportFormatter {
   log() {
-    console.log(chalk.magenta('Writing files'));
+    const title = 'Writing files locally';
+
+    console.log(chalk.gray.dim('⎯'.repeat(title.length - 1)));
+    console.log(chalk.magenta(title));
 
     console.log('');
   }

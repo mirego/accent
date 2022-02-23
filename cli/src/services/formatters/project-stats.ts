@@ -1,5 +1,6 @@
 // Vendor
 import chalk from 'chalk';
+import {Config} from '../../types/config';
 
 // Types
 import {Document, Project, Revision} from '../../types/project';
@@ -9,12 +10,16 @@ import {
   fetchFromRevision,
   fetchNameFromRevision,
 } from '../revision-slug-fetcher';
+import Base from './base';
 
-export default class ProjectStatsFormatter {
+export default class ProjectStatsFormatter extends Base {
   private readonly project: Project;
+  private readonly config: Config;
 
-  constructor(project: Project) {
+  constructor(project: Project, config: Config) {
+    super();
     this.project = project;
+    this.config = config;
   }
 
   log() {
@@ -30,23 +35,37 @@ export default class ProjectStatsFormatter {
       (memo, revision: Revision) => memo + revision.reviewedCount,
       0
     );
+    const percentageReviewed = reviewedCount / translationsCount;
 
-    console.log(chalk.magenta('Name'));
-    console.log('  ', chalk.white.bold(this.project.name));
-    console.log('');
+    const percentageReviewedString = `${percentageReviewed}% reviewed`;
+    let percentageReviewedFormat = chalk.green(percentageReviewedString);
+
+    if (percentageReviewed === 100) {
+      percentageReviewedFormat = chalk.green(percentageReviewedString);
+    } else if (percentageReviewed > 100 / 2) {
+      percentageReviewedFormat = chalk.yellow(percentageReviewedString);
+    } else {
+      percentageReviewedFormat = chalk.red(percentageReviewedString);
+    }
+
+    console.log(
+      chalk.white.bold(this.project.name),
+      chalk.dim(' • '),
+      percentageReviewedFormat
+    );
+    console.log(chalk.gray.dim('⎯'.repeat(this.project.name.length - 1)));
 
     console.log(chalk.magenta('Last synced'));
     if (this.project.lastSyncedAt) {
-      console.log('  ', chalk.white.bold(this.project.lastSyncedAt));
+      console.log(chalk.white.bold(this.project.lastSyncedAt));
     } else {
-      console.log('  ', chalk.gray.bold('~~ Never synced ~~'));
+      console.log(chalk.gray.bold('~~ Never synced ~~'));
     }
 
     console.log('');
 
     console.log(chalk.magenta('Master language'));
     console.log(
-      '  ',
       `${chalk.white.bold(
         fetchNameFromRevision(this.project.masterRevision)
       )} – ${fetchFromRevision(this.project.masterRevision)}`
@@ -61,7 +80,6 @@ export default class ProjectStatsFormatter {
       this.project.revisions.forEach((revision: Revision) => {
         if (this.project.masterRevision.id !== revision.id) {
           console.log(
-            '  ',
             `${chalk.white.bold(
               fetchNameFromRevision(revision)
             )} – ${fetchFromRevision(revision)}`
@@ -79,31 +97,21 @@ export default class ProjectStatsFormatter {
         )
       );
       this.project.documents.entries.forEach((document: Document) => {
-        console.log(
-          '  ',
-          chalk.gray('Format:'),
-          chalk.white.bold(document.format)
-        );
-        console.log('  ', chalk.gray('Path:'), chalk.white.bold(document.path));
+        console.log(chalk.gray('Format:'), chalk.white.bold(document.format));
+        console.log(chalk.gray('Path:'), chalk.white.bold(document.path));
         console.log('');
       });
     }
 
     console.log(chalk.magenta('Strings'));
+    console.log(chalk.white('# Strings:'), chalk.white(`${translationsCount}`));
+    console.log(chalk.green('✓ Reviewed:'), chalk.green(`${reviewedCount}`));
+    console.log(chalk.red('× In review:'), chalk.red(`${conflictsCount}`));
+
+    console.log('');
     console.log(
-      '  ',
-      chalk.white('# Strings:'),
-      chalk.white(`${translationsCount}`)
+      chalk.gray.dim(`${this.config.apiUrl}/app/projects/${this.project.id}`)
     );
-    console.log(
-      '  ',
-      chalk.green('✓ Reviewed:'),
-      chalk.green(`${reviewedCount}`)
-    );
-    console.log(
-      '  ',
-      chalk.red('× In review:'),
-      chalk.red(`${conflictsCount}`)
-    );
+    console.log('');
   }
 }

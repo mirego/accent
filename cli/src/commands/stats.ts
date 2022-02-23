@@ -11,7 +11,7 @@ export default class Stats extends Command {
 
   /* eslint-disable @typescript-eslint/require-await */
   async run() {
-    const formatter = new Formatter(this.project!);
+    const formatter = new Formatter(this.project!, this.projectConfig.config);
 
     formatter.log();
   }

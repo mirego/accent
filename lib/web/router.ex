@@ -36,6 +36,7 @@ defmodule Accent.Router do
   scope "/", Accent do
     pipe_through(:authenticate)
 
+    post("/lint", LintController, :lint, as: :lint)
     post("/sync", SyncController, [])
     post("/sync/peek", PeekController, :sync, as: :peek_sync)
     post("/add-translations", MergeController, [])
@@ -52,9 +53,6 @@ defmodule Accent.Router do
   end
 
   scope "/", Accent do
-    # Users
-    # post("/auth", AuthenticationController, :create)
-
     get("/:id/percentage_reviewed_badge.svg", BadgeController, :percentage_reviewed_count)
     get("/:id/reviewed_badge.svg", BadgeController, :reviewed_count)
     get("/:id/conflicts_badge.svg", BadgeController, :conflicts_count)

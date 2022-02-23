@@ -12,6 +12,7 @@
   {{else if @query}}
     <EmptyContent
       @iconPath="assets/empty.svg"
+      @center={{true}}
       @text={{t "components.projects_list.no_projects_query" query=@query}}
     />
   {{else}}

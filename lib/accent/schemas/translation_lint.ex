@@ -2,6 +2,8 @@ defmodule Accent.TranslationLint do
   use Accent.Schema
 
   embedded_schema do
+    field(:entry, :map)
+
     embeds_many :messages, Message do
       field(:check, :any, virtual: true)
       field(:text, :string)

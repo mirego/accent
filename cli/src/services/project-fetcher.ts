@@ -1,5 +1,6 @@
 // Vendor
-import {error} from '@oclif/errors';
+import {CLIError} from '@oclif/errors';
+import chalk from 'chalk';
 import fetch from 'node-fetch';
 
 // Types
@@ -9,13 +10,23 @@ import {Project} from '../types/project';
 export default class ProjectFetcher {
   async fetch(config: Config): Promise<Project> {
     const response = await this.graphql(config);
-    const data = await response.json();
+    try {
+      const data = await response.json();
 
-    if (!data.data) {
-      error(`Can not find the project for the key: ${config.apiKey}`);
+      if (!data.data) {
+        throw new CLIError(
+          chalk.red(`Can not find the project for the key: ${config.apiKey}`),
+          {exit: 1}
+        );
+      }
+
+      return data.data && data.data.viewer.project;
+    } catch (_) {
+      throw new CLIError(
+        chalk.red(`Can not fetch the project on ${config.apiUrl}`),
+        {exit: 1}
+      );
     }
-
-    return data.data && data.data.viewer.project;
   }
 
   private async graphql(config: Config) {

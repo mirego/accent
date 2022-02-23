@@ -12,7 +12,7 @@ import ProjectFetcher from './services/project-fetcher';
 import {Project} from './types/project';
 
 const sleep = async (ms: number) =>
-  new Promise((resolve: () => void) => setTimeout(resolve, ms));
+  new Promise((resolve: (value: unknown) => void) => setTimeout(resolve, ms));
 
 export default abstract class extends Command {
   projectConfig: ConfigFetcher = new ConfigFetcher();
