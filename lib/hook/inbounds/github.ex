@@ -65,10 +65,7 @@ defmodule Accent.Hook.Inbounds.GitHub do
            |> Enum.reject(&(&1 === ""))
            |> Enum.map(&Base.decode64/1),
          true <- Enum.all?(decoded_contents, &match?({:ok, _}, &1)),
-         decoded_content <-
-           decoded_contents
-           |> Enum.map(&elem(&1, 1))
-           |> Enum.join("") do
+         decoded_content <- Enum.map_join(decoded_contents, "", &elem(&1, 1)) do
       {:ok, decoded_content}
     else
       _ -> {:ok, nil}

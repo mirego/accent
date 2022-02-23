@@ -24,13 +24,13 @@ defmodule Accent.Lint do
 
   @spec lint(list(entry)) :: list(map())
   def lint(entries) do
-    Enum.map(entries, fn entry ->
-      messages =
-        Enum.flat_map(@checks, fn check ->
-          if check.applicable(entry), do: check.check(entry), else: []
-        end)
+    Enum.map(entries, &entry_to_messages/1)
+  end
 
-      {entry, messages}
-    end)
+  defp entry_to_messages(entry) do
+    {entry,
+     Enum.flat_map(@checks, fn check ->
+       if check.applicable(entry), do: check.check(entry), else: []
+     end)}
   end
 end

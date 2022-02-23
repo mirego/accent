@@ -45,19 +45,19 @@ defmodule Accent.BadgeGenerator do
       |> Map.put(:conflicts_count, acc[:conflicts_count] + revision.conflicts_count)
       |> Map.put(:reviewed_count, acc[:reviewed_count] + revision.reviewed_count)
     end)
-    |> (fn
-          stats = %{translations_count: 0} ->
-            Map.put(stats, :percentage_reviewed_count, 0)
+    |> then(fn
+      stats = %{translations_count: 0} ->
+        Map.put(stats, :percentage_reviewed_count, 0)
 
-          stats ->
-            percentage_reviewed =
-              stats[:reviewed_count]
-              |> Kernel./(stats[:translations_count])
-              |> Kernel.*(100)
-              |> Float.round(2)
-              |> PrettyFloat.convert()
+      stats ->
+        percentage_reviewed =
+          stats[:reviewed_count]
+          |> Kernel./(stats[:translations_count])
+          |> Kernel.*(100)
+          |> Float.round(2)
+          |> PrettyFloat.convert()
 
-            Map.put(stats, :percentage_reviewed_count, percentage_reviewed)
-        end).()
+        Map.put(stats, :percentage_reviewed_count, percentage_reviewed)
+    end)
   end
 end

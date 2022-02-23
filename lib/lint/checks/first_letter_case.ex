@@ -11,40 +11,32 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
     master_capitalized = starts_with_capitalized_letter?(entry.master_value)
 
     cond do
-      value_capitalized and master_capitalized ->
+      value_capitalized === master_capitalized ->
         []
 
-      !value_capitalized and !master_capitalized ->
+      !master_has_first_letter or !value_has_first_letter ->
         []
 
-      master_has_first_letter and value_has_first_letter and value_capitalized and
-          !master_capitalized ->
+      value_capitalized ->
         ["", first_letter, rest] = String.split(entry.value, "", parts: 3)
         fixed_text = String.downcase(first_letter) <> rest
+        [to_message(entry, fixed_text)]
 
-        [
-          %Message{
-            check: :first_letter_case,
-            text: entry.value,
-            replacement: %Replacement{value: fixed_text, label: fixed_text}
-          }
-        ]
-
-      master_has_first_letter and value_has_first_letter and !value_capitalized and
-          master_capitalized ->
+      master_capitalized ->
         fixed_text = String.capitalize(entry.value)
-
-        [
-          %Message{
-            check: :first_letter_case,
-            text: entry.value,
-            replacement: %Replacement{value: fixed_text, label: fixed_text}
-          }
-        ]
+        [to_message(entry, fixed_text)]
 
       true ->
         []
     end
+  end
+
+  defp to_message(entry, fixed_text) do
+    %Message{
+      check: :first_letter_case,
+      text: entry.value,
+      replacement: %Replacement{value: fixed_text, label: fixed_text}
+    }
   end
 
   defp starts_with_letter?(text) do

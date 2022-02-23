@@ -63,6 +63,7 @@
       "login_button": "Login with any email"
     },
     "activity_item": {
+      "batch_operations_hidden_count": "and {count} more",
       "rollbacked": "Rollbacked",
       "details": "Details",
       "empty_text": "Empty text"
@@ -1002,6 +1003,10 @@
           "delete_error": "The comment could not be deleted",
           "delete_success": "The comment has been deleted with success"
         }
+      },
+      "lint_translations": {
+        "loading_content": "Linting translations…",
+        "header_link": "See all linting rules →"
       }
     },
     "projects": {

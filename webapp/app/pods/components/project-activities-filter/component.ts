@@ -51,7 +51,7 @@ export default class ProjectActivitiesFilter extends Component<Args> {
       label: this.intl.t(
         'components.project_activities_filter.actions_default_option_text'
       ),
-      value: null,
+      value: '',
     });
 
     return actions;
@@ -71,7 +71,7 @@ export default class ProjectActivitiesFilter extends Component<Args> {
       label: this.intl.t(
         'components.project_activities_filter.collaborators_default_option_text'
       ),
-      value: null,
+      value: '',
     });
 
     return users;

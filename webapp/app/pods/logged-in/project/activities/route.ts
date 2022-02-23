@@ -58,8 +58,8 @@ export default class ActivitiesRoute extends Route {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId,
             isBatch: batchFilter ? true : null,
-            action: actionFilter,
-            userId: userFilter,
+            action: actionFilter === '' ? null : actionFilter,
+            userId: userFilter === '' ? null : userFilter,
             page,
           },
         },

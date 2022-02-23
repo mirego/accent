@@ -1,7 +1,7 @@
 defmodule Accent.GraphQL.Types.Activity do
   use Absinthe.Schema.Notation
 
-  import Absinthe.Resolution.Helpers, only: [dataloader: 1, dataloader: 2]
+  import Absinthe.Resolution.Helpers, only: [dataloader: 1, dataloader: 2, dataloader: 3]
   import Accent.GraphQL.Helpers.Fields
 
   alias Accent.GraphQL.Resolvers.Activity, as: Resolver
@@ -40,9 +40,18 @@ defmodule Accent.GraphQL.Types.Activity do
       resolve(&Accent.GraphQL.Resolvers.Activity.list_operations/3)
     end
 
+    field(:batched_operations, non_null(list_of(non_null(:activity))),
+      resolve:
+        dataloader(Accent.Operation, :batched_operations,
+          callback: fn operations, _, _ ->
+            operations = Enum.sort_by(operations, & &1.id)
+            {:ok, operations}
+          end
+        )
+    )
+
     field(:previous_translation, :activity_previous_translation)
     field(:batch_operation, :activity, resolve: dataloader(Accent.Operation, :batch_operation))
-    field(:batched_operations, non_null(list_of(non_null(:activity))), resolve: dataloader(Accent.Operation, :batched_operations))
     field(:rollbacked_operation, :activity, resolve: dataloader(Accent.Operation, :rollbacked_operation))
     field(:rollback_operation, :activity, resolve: dataloader(Accent.Operation, :rollback_operation))
     field(:user, non_null(:user), resolve: dataloader(Accent.User))

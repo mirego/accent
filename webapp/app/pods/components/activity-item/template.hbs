@@ -75,7 +75,7 @@
                 {{/each}}
 
                 <span local-class="item-batchedOperations-hiddenCount">
-                  and {{this.compactBatchedOperationsHiddenCount}} more
+                  {{t "components.activity_item.batch_operations_hidden_count" count=this.compactBatchedOperationsHiddenCount}}
                 </span>
               {{else}}
                 {{#each @activity.batchedOperations as |activity|}}

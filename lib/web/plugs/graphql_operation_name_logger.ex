@@ -12,8 +12,7 @@ defmodule Accent.Plugs.GraphQLOperationNameLogger do
     operation_names =
       operations
       |> Enum.filter(&Map.has_key?(&1, "operationName"))
-      |> Enum.map(& &1["operationName"])
-      |> Enum.join(",")
+      |> Enum.map_join(",", & &1["operationName"])
 
     put_metadata(operation_names)
     conn

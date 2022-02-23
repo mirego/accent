@@ -27,10 +27,10 @@ export default class ActivitiesController extends Controller {
   batchFilter: boolean | null = null;
 
   @tracked
-  actionFilter = null;
+  actionFilter = '';
 
   @tracked
-  userFilter = null;
+  userFilter = '';
 
   @tracked
   page = 1;

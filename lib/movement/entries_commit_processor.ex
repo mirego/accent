@@ -77,8 +77,11 @@ defmodule Movement.EntriesCommitProcessor do
   end
 
   defp filter_for_revision(operations, _) do
-    operations
-    |> Enum.filter(fn %{action: operation} -> operation in @included_slave_actions end)
-    |> Enum.filter(fn %{action: operation} -> operation not in @no_action_keys end)
+    Enum.filter(
+      operations,
+      fn %{action: operation} ->
+        operation in @included_slave_actions and operation not in @no_action_keys
+      end
+    )
   end
 end

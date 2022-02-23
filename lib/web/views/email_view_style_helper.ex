@@ -28,7 +28,6 @@ defmodule Accent.EmailViewStyleHelper do
     default_styles
     |> Enum.concat(styles)
     |> Enum.uniq_by(fn {key, _value} -> key end)
-    |> Enum.map(fn {key, value} -> "#{key}: #{value}" end)
-    |> Enum.join("; ")
+    |> Enum.map_join("; ", fn {key, value} -> "#{key}: #{value}" end)
   end
 end
