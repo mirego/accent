@@ -126,6 +126,7 @@
 @media (max-width: 640px) {
   .project-navigation-list {
     flex-direction: row;
+    overflow-x: scroll;
     justify-content: space-between;
     padding-top: 25px;
     margin: 0;

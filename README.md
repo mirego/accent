@@ -57,10 +57,10 @@ This will start the webserver on port 4000, migrate the database to have an up a
 
 ## 🚧 Requirements
 
-- `erlang ~> 23.1`
-- `elixir ~> 1.11`
+- `erlang ~> 24.0`
+- `elixir ~> 1.13`
 - `postgres >= 9.4`
-- `node.js >= 10.16.0`
+- `node.js >= 16.13`
 - `libyaml >= 0.1.7`
 
 ## 🎛 Executing mix commands

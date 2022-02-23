@@ -126,6 +126,10 @@ export default class ActivityItem extends Component<Args> {
     );
   }
 
+  get showDocumentLink() {
+    return this.showDocumentInfo && this.action !== 'document_delete';
+  }
+
   get compactedBatchedOperations() {
     return (
       this.args.activity.batchedOperations.length >

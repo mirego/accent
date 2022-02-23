@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "target": "es2017",
+    "target": "es2020",
     "allowJs": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
@@ -20,8 +20,8 @@
     "inlineSourceMap": true,
     "inlineSources": true,
     "baseUrl": ".",
-    "module": "esNext",
-    "lib": ["dom", "es2017", "esnext.asynciterable"],
+    "module": "es6",
+    "lib": ["dom", "es2020", "esnext.asynciterable"],
     "paths": {
       "accent-webapp/tests/*": ["tests/*"],
       "accent-webapp/*": ["app/*"],

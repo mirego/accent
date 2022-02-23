@@ -1,6 +1,6 @@
 import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
-import {htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/template';
 import {not} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import LanguageSearcher from 'accent-webapp/services/language-searcher';

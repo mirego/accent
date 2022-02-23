@@ -37,7 +37,7 @@
 
           {{this.actionText}}
 
-          {{#if this.showDocumentInfo}}
+          {{#if this.showDocumentLink}}
             <LinkTo
               @route="logged-in.project.files.export"
               @models={{array @project.id @activity.document.id}}
@@ -45,6 +45,10 @@
             >
               {{@activity.document.path}}
             </LinkTo>
+          {{else if this.showDocumentInfo}}
+            <span local-class="item-documentPath">
+              {{@activity.document.path}}
+            </span>
           {{/if}}
 
           {{#if this.showVersionInfo}}

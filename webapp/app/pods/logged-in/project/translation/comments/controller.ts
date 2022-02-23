@@ -19,6 +19,9 @@ const FLASH_MESSAGE_DELETE_COMMENT_SUCCESS = `${FLASH_MESSAGE_PREFIX}delete_succ
 const FLASH_MESSAGE_DELETE_COMMENT_ERROR = `${FLASH_MESSAGE_PREFIX}delete_error`;
 
 export default class CommentsController extends Controller {
+  @tracked
+  model: any;
+
   @service('apollo-mutate')
   apolloMutate: ApolloMutate;
 

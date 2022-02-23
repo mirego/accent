@@ -2,6 +2,7 @@ import {inject as service} from '@ember/service';
 import {action} from '@ember/object';
 import {readOnly} from '@ember/object/computed';
 import Controller from '@ember/controller';
+import {tracked} from '@glimmer/tracking';
 
 import operationRollbackQuery from 'accent-webapp/queries/rollback-operation';
 import IntlService from 'ember-intl/services/intl';
@@ -15,6 +16,9 @@ const FLASH_MESSAGE_OPERATION_ROLLBACK_ERROR =
   'pods.project.activities.flash_messages.rollback_error';
 
 export default class ActivityController extends Controller {
+  @tracked
+  model: any;
+
   @service('intl')
   intl: IntlService;
 

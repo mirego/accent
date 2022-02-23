@@ -20,11 +20,9 @@ export default class OperationsPeekItem extends Component<Args> {
 
     return this.args.revisionOperation.operations.filter(
       (operation: {key: string; previousText: string; text: string}) => {
-        return [
-          operation.key,
-          operation.previousText,
-          operation.text,
-        ].some((text) => text.match(query));
+        return [operation.key, operation.previousText, operation.text].some(
+          (text) => text.match(query)
+        );
       }
     );
   }

@@ -1,7 +1,7 @@
 import {helper} from '@ember/component/helper';
 
 interface Error {
-  field: String;
+  field: string;
 }
 
 const fieldError = ([errors, fieldName]: [[Error], string]): boolean => {

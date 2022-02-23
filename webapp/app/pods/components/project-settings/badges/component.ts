@@ -1,6 +1,6 @@
 import fmt from 'simple-fmt';
 import Component from '@glimmer/component';
-import {htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/template';
 import config from 'accent-webapp/config/environment';
 
 const {API} = config;

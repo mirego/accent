@@ -205,11 +205,11 @@ export default class Document {
     if (config.namePattern) return config;
     let pattern = NamePattern.parentDirectory;
 
-    if (config.target.match(/\%slug\%\//) || !config.source.match(/\//)) {
+    if (config.target.match(/%slug%\//) || !config.source.match(/\//)) {
       pattern = NamePattern.file;
     }
 
-    if (config.target.match(/\.\%slug\%\./)) {
+    if (config.target.match(/\.%slug%\./)) {
       pattern = NamePattern.fileWithSlugSuffix;
     }
 

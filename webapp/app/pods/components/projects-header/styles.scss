@@ -178,12 +178,20 @@
   .projects-header {
     padding: 10px 0;
 
-    .content {
-      padding: 0 30px;
-    }
-
-    .projects-header.withProject {
+    &.withProject {
       padding: 10px 0;
+
+      .content {
+        padding: 0 10px;
+      }
+
+      .content-left {
+        transition: padding-left linear 0.1s;
+      }
+
+      .content-left:hover {
+        padding-left: 30px;
+      }
     }
   }
 

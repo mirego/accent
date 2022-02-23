@@ -8,6 +8,9 @@ import {tracked} from '@glimmer/tracking';
 import RouterService from '@ember/routing/router-service';
 
 export default class JIPTController extends Controller {
+  @tracked
+  model: any;
+
   @service('file-saver')
   fileSaver: FileSaver;
 

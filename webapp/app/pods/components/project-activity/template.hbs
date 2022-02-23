@@ -18,7 +18,7 @@
   <div local-class="activity-meta">
     <span local-class="activity-date"><TimeAgoInWordsTag @date={{@activity.insertedAt}} /></span>
 
-    {{#if isRollbacked}}
+    {{#if this.isRollbacked}}
       <div local-class="rollbackedBadge">
         {{t "components.project_activity.rollbacked_label"}}
       </div>

@@ -42,7 +42,7 @@
 
         <AsyncButton
           class="button button--filled"
-          @loading={{this.submitTask.isRunning}}
+          @loading={{this.isSubmitting}}
           @onClick={{perform this.submitTask}}
           local-class="translate-action-button"
         >

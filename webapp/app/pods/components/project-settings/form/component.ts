@@ -48,8 +48,8 @@ export default class ProjectSettingsForm extends Component<Args> {
   isFileOperationsLocked = this.args.project.isFileOperationsLocked;
 
   @action
-  logoPicked(logo: string) {
-    this.logo = logo;
+  logoPicked(selection: {emoji: string}) {
+    this.logo = selection.emoji;
   }
 
   @action
@@ -84,27 +84,6 @@ export default class ProjectSettingsForm extends Component<Args> {
   @action
   logoReset() {
     this.logo = null;
-  }
-
-  @action
-  logoChange([logo]: [File]) {
-    if (!logo) return;
-
-    if (logo.type !== 'image/svg+xml') {
-      this.flashMessages.error(
-        this.intl.t('components.project_settings.form.unsupported_logo_type')
-      );
-
-      return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      this.logo = reader.result;
-    };
-
-    reader.readAsText(logo);
   }
 
   @action

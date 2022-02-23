@@ -3,7 +3,7 @@
   local-class="empty-content {{if @center "empty-content--center"}}"
   data-test-empty-content
 >
-  {{#if hasBlock}}
+  {{#if this.hasBlock}}
     {{yield}}
   {{else}}
     {{#if @iconPath}}

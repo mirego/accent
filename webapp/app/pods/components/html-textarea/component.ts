@@ -3,6 +3,7 @@ import Component from '@glimmer/component';
 import pell from 'pell';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
+import {perform} from 'ember-concurrency-ts';
 
 const DEBOUNCE_OFFSET = 1000; // ms
 
@@ -57,9 +58,7 @@ export default class HTMLTextarea extends Component<Args> {
         },
       ],
       onChange: (text) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        // @ts-ignore
-        this.debounceChange.perform(text);
+        perform(this.debounceChange, text);
       },
     });
 

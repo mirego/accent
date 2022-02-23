@@ -166,7 +166,9 @@ export default Service.extend({
    * @method didCaptureException
    * @param  {Error} error
    */
-  didCaptureException() {},
+  didCaptureException() {
+    return undefined;
+  },
 
   /**
    * Hook that allows error filtering in global

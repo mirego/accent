@@ -11,9 +11,7 @@ interface Args {
   onDeleteSubscription: (subscription: any) => Promise<void>;
 }
 
-export default class TranslationCommentsSubscriptionsItem extends Component<
-  Args
-> {
+export default class TranslationCommentsSubscriptionsItem extends Component<Args> {
   @service('session')
   session: Session;
 

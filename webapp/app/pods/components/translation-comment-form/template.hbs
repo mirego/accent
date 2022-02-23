@@ -17,11 +17,11 @@
         local-class="inputText"
         placeholder={{t "components.translation_comment_form.comment_placeholder"}}
         rows="1"
-        disabled={{this.submitTask.isRunning}}
+        disabled={{this.isSubmitting}}
         value={{this.text}}
       />
       <AsyncButton
-        @loading={{this.submitTask.isRunning}}
+        @loading={{this.isSubmitting}}
         class="button button--filled"
         {{on "click" (perform this.submitTask)}}
       >

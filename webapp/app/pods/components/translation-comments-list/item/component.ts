@@ -3,7 +3,7 @@ import {readOnly} from '@ember/object/computed';
 import {action} from '@ember/object';
 import Component from '@glimmer/component';
 import MarkdownIt from 'markdown-it';
-import {htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/template';
 import Session from 'accent-webapp/services/session';
 import {dropTask} from 'ember-concurrency-decorators';
 import {tracked} from '@glimmer/tracking';

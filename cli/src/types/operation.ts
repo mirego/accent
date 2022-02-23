@@ -1,4 +1,4 @@
 export interface PeekOperation {
   operations: any[];
-  stats: any[];
+  stats: [string, string];
 }

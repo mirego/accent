@@ -63,7 +63,7 @@ export default class IntegrationsForm extends Component<Args> {
   token: string;
 
   @tracked
-  defaultRef: string = 'main';
+  defaultRef = 'main';
 
   services = ['SLACK', 'GITHUB', 'DISCORD'];
 

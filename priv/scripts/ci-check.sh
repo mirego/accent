@@ -28,8 +28,8 @@ run() {
 header "API tests…"
 run make test-api
 
-header "Webapp tests…"
-run make test-webapp
+#header "Webapp tests…"
+#run make test-webapp
 
 header "Compilation without warnings…"
 run make lint-compile

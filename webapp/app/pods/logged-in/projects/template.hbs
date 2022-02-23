@@ -6,7 +6,7 @@
     @onChangeQuery={{fn this.changeQuery}}
   />
 
-  {{#if showLoading}}
+  {{#if this.showLoading}}
     <LoadingContent @label={{t "pods.projects.loading_content"}} />
   {{else}}
     <RecentProjectsList

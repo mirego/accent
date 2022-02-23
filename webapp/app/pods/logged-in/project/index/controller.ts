@@ -8,6 +8,7 @@ import GlobalState from 'accent-webapp/services/global-state';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import IntlService from 'ember-intl/services/intl';
+import {tracked} from '@glimmer/tracking';
 
 const FLASH_MESSAGE_REVISION_CORRECT_SUCCESS =
   'pods.project.index.flash_messages.revision_correct_success';
@@ -19,6 +20,9 @@ const FLASH_MESSAGE_REVISION_UNCORRECT_ERROR =
   'pods.project.index.flash_messages.revision_uncorrect_error';
 
 export default class ProjectIndexController extends Controller {
+  @tracked
+  model: any;
+
   @service('global-state')
   globalState: GlobalState;
 

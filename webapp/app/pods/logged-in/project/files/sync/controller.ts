@@ -16,6 +16,9 @@ const FLASH_MESSAGE_CREATE_ERROR =
   'pods.document.sync.flash_messages.create_error';
 
 export default class SyncController extends Controller {
+  @tracked
+  model: any;
+
   @service('peeker')
   peeker: Peeker;
 

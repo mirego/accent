@@ -67,12 +67,11 @@ export const fileSaver = (view) => {
     if (!noAutoBom) blob = autoBom(blob);
 
     // First try a.download, then web filesystem, then object URLs
-    const filesaver = this;
     const type = blob.type;
     const force = type === forceSaveableType;
     let objectURL;
     const dispatchAll = () =>
-      dispatch(filesaver, 'writestart progress write writeend'.split(' '));
+      dispatch(this, 'writestart progress write writeend'.split(' '));
 
     // on any filesys errors revert to saving with object URLs
     /* eslint-disable complexity */
@@ -88,12 +87,12 @@ export const fileSaver = (view) => {
           const popup = view.open(url, '_blank');
           if (!popup) view.location.href = url;
           url = undefined; // version reference before dispatching
-          filesaver.readyState = filesaver.DONE;
+          this.readyState = this.DONE;
           dispatchAll();
         };
 
         reader.readAsDataURL(blob);
-        filesaver.readyState = filesaver.INIT;
+        this.readyState = this.INIT;
         return;
       }
 
@@ -111,12 +110,12 @@ export const fileSaver = (view) => {
       }
       /* eslint-enable complexity */
 
-      filesaver.readyState = filesaver.DONE;
+      this.readyState = this.DONE;
       dispatchAll();
       revoke(objectURL);
     };
 
-    filesaver.readyState = filesaver.INIT;
+    this.readyState = this.INIT;
 
     if (canUseSaveLink) {
       objectURL = getURL().createObjectURL(blob);
@@ -126,7 +125,7 @@ export const fileSaver = (view) => {
         click(saveLink);
         dispatchAll();
         revoke(objectURL);
-        filesaver.readyState = filesaver.DONE;
+        this.readyState = this.DONE;
       });
       return;
     }
@@ -146,12 +145,22 @@ export const fileSaver = (view) => {
     };
   }
 
-  FSproto.abort = () => {};
-  FSproto.readyState = FSproto.INIT = 0;
+  FSproto.abort = function () {
+    return undefined;
+  };
+  FSproto.readyState = 0;
+  FSproto.INIT = 0;
   FSproto.WRITING = 1;
   FSproto.DONE = 2;
 
-  FSproto.error = FSproto.onwritestart = FSproto.onprogress = FSproto.onwrite = FSproto.onabort = FSproto.onerror = FSproto.onwriteend = null;
+  FSproto.error =
+    FSproto.onwritestart =
+    FSproto.onprogress =
+    FSproto.onwrite =
+    FSproto.onabort =
+    FSproto.onerror =
+    FSproto.onwriteend =
+      null;
 
   return (blob, name, noAutoBom) =>
     new FileSaver(blob, name || blob.name || 'download', noAutoBom);

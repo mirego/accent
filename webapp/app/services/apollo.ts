@@ -40,14 +40,12 @@ const cache = new InMemoryCache({dataIdFromObject, fragmentMatcher});
 const link = new BatchHttpLink({uri, batchInterval: 50, batchMax: 50});
 
 const absintheBatchLink = new ApolloLink((operation, forward) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  return forward(operation).map((response) => response.payload);
+  return forward(operation).map((response: any) => response.payload);
 });
 
-const authLink = (session: any) => {
+const authLink = (getSession: any) => {
   return new ApolloLink((operation, forward) => {
-    const token = session.credentials.token;
+    const token = getSession().credentials.token;
 
     if (token) {
       operation.setContext(({headers = {}}: any) => ({
@@ -70,7 +68,7 @@ export default class Apollo extends Service {
   session: Session;
 
   client = new ApolloClient({
-    link: from([authLink(this.session), absintheBatchLink, link]),
+    link: from([authLink(() => this.session), absintheBatchLink, link]),
     cache,
   });
 }

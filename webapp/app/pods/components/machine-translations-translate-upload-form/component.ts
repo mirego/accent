@@ -2,11 +2,12 @@ import Component from '@glimmer/component';
 import {inject as service} from '@ember/service';
 import {action} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
-import {htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/template';
 import {dropTask} from 'ember-concurrency-decorators';
 import GlobalState from 'accent-webapp/services/global-state';
 import LanguageSearcher from 'accent-webapp/services/language-searcher';
 import FileSaver from 'accent-webapp/services/file-saver';
+import {taskFor} from 'ember-concurrency-ts';
 
 interface Revision {
   id: string;
@@ -33,9 +34,7 @@ interface Args {
 
 const preventDefault = (event: Event) => event.preventDefault();
 
-export default class MachineTranslationsTranslateUploadForm extends Component<
-  Args
-> {
+export default class MachineTranslationsTranslateUploadForm extends Component<Args> {
   @service('global-state')
   globalState: GlobalState;
 
@@ -59,6 +58,10 @@ export default class MachineTranslationsTranslateUploadForm extends Component<
 
   @tracked
   toLanguage = this.mappedLanguages[1] || this.mappedLanguages[0];
+
+  get isSubmitting() {
+    return taskFor(this.submitTask).isRunning;
+  }
 
   get mappedLanguages() {
     return this.mapRevisions(this.args.revisions);

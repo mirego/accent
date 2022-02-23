@@ -11,6 +11,9 @@ const FLASH_MESSAGE_CREATE_ERROR =
   'pods.document.machine_translations.flash_messages.translate_error';
 
 export default class MachineTranslationsController extends Controller {
+  @tracked
+  model: any;
+
   @service('router')
   router: RouterService;
 

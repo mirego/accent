@@ -16,3 +16,23 @@
     width: 100%;
   }
 }
+
+@media (max-width: 800px) {
+  .wrapper {
+    flex-direction: column;
+
+    & > div:first-of-type:last-of-type {
+      margin-top: 0;
+    }
+
+    & > div:last-of-type {
+      margin-top: 30px;
+    }
+
+    & > div,
+    & > div:last-of-type,
+    & > div:first-of-type {
+      width: 100%;
+    }
+  }
+}

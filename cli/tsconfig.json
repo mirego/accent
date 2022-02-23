@@ -15,7 +15,7 @@
     "noImplicitReturns": true,
     "rootDirs": ["./src"],
     "strict": true,
-    "target": "es2017"
+    "target": "es2020"
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules/**/*"]

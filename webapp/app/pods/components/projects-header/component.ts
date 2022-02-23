@@ -7,6 +7,7 @@ import GlobalState from 'accent-webapp/services/global-state';
 import {tracked} from '@glimmer/tracking';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
+import {perform} from 'ember-concurrency-ts';
 
 const DEBOUNCE_OFFSET = 500; // ms
 
@@ -44,15 +45,6 @@ export default class ProjectsHeader extends Component<Args> {
     return this.args.project.revisions[0].id;
   }
 
-  @action
-  setDebouncedQuery(event: Event) {
-    const target = event.target as HTMLInputElement;
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    this.debounceQuery.perform(target.value);
-  }
-
   @restartableTask
   *debounceQuery(query: string) {
     this.debouncedQuery = query;
@@ -67,6 +59,13 @@ export default class ProjectsHeader extends Component<Args> {
         queryParams: {query},
       }
     );
+  }
+
+  @action
+  setDebouncedQuery(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    perform(this.debounceQuery, target.value);
   }
 
   @action

@@ -46,7 +46,7 @@ export default class Export extends Command {
         targets.map(async ({path, language, documentPath}) => {
           const localFile = document.fetchLocalFile(documentPath, path);
           if (!localFile) return new Promise((resolve) => resolve(undefined));
-          formatter.log(localFile);
+          formatter.log(localFile, documentPath);
 
           return document.export(localFile, language, documentPath, flags);
         })

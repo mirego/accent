@@ -16,6 +16,9 @@ const FLASH_MESSAGE_UPDATE_ERROR =
   'pods.versions.edit.flash_messages.update_error';
 
 export default class EditController extends Controller {
+  @tracked
+  model: any;
+
   @service('apollo-mutate')
   apolloMutate: ApolloMutate;
 

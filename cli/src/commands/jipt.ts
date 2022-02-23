@@ -46,7 +46,7 @@ export default class Jipt extends Command {
 
       await Promise.all(
         targets.map(async ({path, documentPath}) => {
-          formatter.log(path);
+          formatter.log(path, documentPath);
 
           return document.exportJipt(path, documentPath);
         })

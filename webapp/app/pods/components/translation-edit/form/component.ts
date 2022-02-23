@@ -7,10 +7,10 @@ import translationLintQuery from 'accent-webapp/queries/lint-translation';
 import Apollo from 'accent-webapp/services/apollo';
 import {tracked} from '@glimmer/tracking';
 import {restartableTask} from 'ember-concurrency-decorators';
-import {timeout} from 'ember-concurrency';
-import {Task} from 'accent-webapp/types/task';
+import {perform} from 'ember-concurrency-ts';
+import {timeout, TaskGenerator} from 'ember-concurrency';
 import MarkdownIt from 'markdown-it';
-import {htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/template';
 
 const markdown = MarkdownIt({
   html: false,
@@ -53,6 +53,12 @@ export default class TranslationEditForm extends Component<Args> {
 
   @tracked
   showTypeHints = true;
+
+  @equal('args.value', 'true')
+  valueTrue: boolean;
+
+  @equal('args.value', 'false')
+  valueFalse: boolean;
 
   @equal('args.valueType', 'STRING')
   isStringType: boolean;
@@ -110,8 +116,11 @@ export default class TranslationEditForm extends Component<Args> {
   }
 
   @restartableTask
-  *onUpdateValue(_element: HTMLElement, [value]: string[]) {
-    yield (this.fetchLintMessagesTask as Task).perform(value);
+  *onUpdateValue(
+    _element: HTMLElement,
+    [value]: string[]
+  ): TaskGenerator<void> {
+    yield perform(this.fetchLintMessagesTask, value);
   }
 
   @restartableTask

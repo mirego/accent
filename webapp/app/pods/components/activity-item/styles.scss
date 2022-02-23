@@ -538,18 +538,21 @@
   color: #ccc;
 }
 
-.item-documentPath {
-  display: inline-block;
-  margin-left: 3px;
-  color: var(--color-black);
-  font-weight: bold;
-  font-size: 12px;
+a.item-documentPath {
   text-decoration: none;
 
   &:focus,
   &:hover {
     text-decoration: underline;
   }
+}
+
+.item-documentPath {
+  display: inline-block;
+  margin-left: 3px;
+  color: var(--color-black);
+  font-weight: bold;
+  font-size: 12px;
 }
 
 .item-translationLink {

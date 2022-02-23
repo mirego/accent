@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import {htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/template';
 
 const DEFAULT_PROJECT_LOGO = `
   <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">

@@ -1,6 +1,6 @@
 import {helper} from '@ember/component/helper';
-import {htmlSafe} from '@ember/string';
-import Diff from 'diff';
+import {htmlSafe} from '@ember/template';
+import {diffWords} from 'diff';
 
 const badChars = /[&<>"'`=]/g;
 const possible = /[&<>"'`=]/;
@@ -46,7 +46,7 @@ const ADDED_TAG_TEMPLATE = (value: string) =>
   `<span class="added">${value}</span>`;
 
 const stringDiff = ([text1, text2]: [string, string]) => {
-  const diff = Diff.diffWords(text2 || '', text1 || '');
+  const diff = diffWords(text2 || '', text1 || '');
 
   return htmlSafe(
     diff

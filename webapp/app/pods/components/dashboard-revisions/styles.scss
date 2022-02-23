@@ -200,13 +200,28 @@
   opacity: 0.9;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
+  .dashboard-revisions {
+    flex-direction: column;
+  }
+
   .dashboard-revisions > .content {
     width: 100%;
     margin-right: 0;
   }
 
   .activities {
+    margin-top: 20px;
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-revisions > .content {
+    margin: 0;
+  }
+
+  .stats-title {
     display: none;
   }
 }

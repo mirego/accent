@@ -10,6 +10,7 @@ import GlobalState from 'accent-webapp/services/global-state';
 import IntlService from 'ember-intl/services/intl';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import JIPT from 'accent-webapp/services/jipt';
+import {tracked} from '@glimmer/tracking';
 
 const FLASH_MESSAGE_CORRECT_SUCCESS =
   'pods.translation.edit.flash_messages.correct_success';
@@ -27,6 +28,9 @@ const FLASH_MESSAGE_UPDATE_ERROR =
   'pods.translation.edit.flash_messages.update_error';
 
 export default class IndexController extends Controller {
+  @tracked
+  model: any;
+
   @service('apollo-mutate')
   apolloMutate: ApolloMutate;
 

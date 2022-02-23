@@ -59,7 +59,7 @@
     @projectId={{@project.id}}
     @lintMessages={{@translation.lintMessages}}
     @translationId={{@translation.id}}
-    @disabled={{@translation.isRemoved}}
+    @inputDisabled={{@translation.isRemoved}}
     @valueType={{@translation.valueType}}
     @value={{this.editText}}
     @onKeyUp={{fn this.changeText}}
@@ -72,7 +72,7 @@
         <AsyncButton
           @onClick={{fn this.save}}
           @loading={{this.isSaving}}
-          @disabled={{not showSaveButton}}
+          @disabled={{not this.showSaveButton}}
           class="button button--filled button--iconOnly"
         >
           {{t "components.related_translations_list.save_button"}}

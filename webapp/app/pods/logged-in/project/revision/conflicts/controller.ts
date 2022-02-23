@@ -17,6 +17,9 @@ const FLASH_MESSAGE_CORRECT_ERROR =
   'pods.project.conflicts.flash_messages.correct_error';
 
 export default class ConflictsController extends Controller {
+  @tracked
+  model: any;
+
   @service('intl')
   intl: IntlService;
 

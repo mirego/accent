@@ -7,6 +7,7 @@ import {PaginationMeta} from 'accent-webapp/pods/components/resource-pagination/
 import {tracked} from '@glimmer/tracking';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
+import {perform} from 'ember-concurrency-ts';
 
 const DEBOUNCE_OFFSET = 1000; // ms
 
@@ -100,9 +101,7 @@ export default class ConflictsFilters extends Component<Args> {
   setDebouncedQuery(event: Event) {
     const target = event.target as HTMLInputElement;
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    this.debounceQuery.perform(target.value);
+    perform(this.debounceQuery, target.value);
   }
 
   @action

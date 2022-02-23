@@ -35,15 +35,14 @@ export default class ProjectsNewController extends Controller {
 
     const name = projectAttributes.name || '';
 
-    const response: CreateProjectResponse['createProject'] = await this.apolloMutate.mutate(
-      {
+    const response: CreateProjectResponse['createProject'] =
+      await this.apolloMutate.mutate({
         mutation: projectCreateQuery,
         variables: {
           ...projectAttributes,
           name,
         },
-      }
-    );
+      });
 
     if (response.errors) {
       this.error = true;

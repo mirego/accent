@@ -38,7 +38,7 @@ const handleGraphQLQuery = (queryBody: GraphQLBody, request: any) => {
     : RegisteredMutations;
 
   if (map.has(queryName)) {
-    const {params, calls} = map.get(queryName);
+    const {params, calls}: {params: any; calls: number} = map.get(queryName);
     const callbackArgs = {
       variables: queryBody.variables || null,
       calls: calls + 1,
@@ -64,7 +64,7 @@ const handleGraphQLQuery = (queryBody: GraphQLBody, request: any) => {
 };
 
 const handleGraphQLRequest = (request: any) => {
-  let parsedBody = request.requestBody && JSON.parse(request.requestBody);
+  const parsedBody = request.requestBody && JSON.parse(request.requestBody);
 
   if (Array.isArray(parsedBody)) {
     return parsedBody.map((individualParsedBody: GraphQLBody) => ({

@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
-import EmojiButton from '@joeattardi/emoji-button';
+import {EmojiButton} from '@joeattardi/emoji-button';
 
 interface Args {
   onPicked: () => string;
@@ -30,7 +30,7 @@ export default class EmojiPicker extends Component<Args> {
 
   @action
   onClick() {
-    this.picker.pickerVisible
+    this.picker.isPickerVisible()
       ? this.picker.hidePicker()
       : this.picker.showPicker(this.element);
   }

@@ -34,8 +34,8 @@ export default class ProjectsController extends Controller {
   @and('emptyEntries', 'model.loading')
   showLoading: boolean;
 
-  constructor() {
-    super(...arguments);
+  constructor(...args: any) {
+    super(...args);
 
     this.jipt.redirectIfEmbedded();
   }

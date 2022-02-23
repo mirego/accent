@@ -10,6 +10,9 @@ import {tracked} from '@glimmer/tracking';
 import RouterService from '@ember/routing/router-service';
 
 export default class ManageLanguagesEditController extends Controller {
+  @tracked
+  model: any;
+
   @service('apollo-mutate')
   apolloMutate: ApolloMutate;
 

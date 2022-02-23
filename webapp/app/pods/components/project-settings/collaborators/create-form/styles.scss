@@ -19,15 +19,17 @@
 
 .select {
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .textInput {
   @extend %textInput;
   flex-grow: 1;
-  flex-shrink: 0;
+  flex-shrink: 1;
   padding: 8px 10px;
   margin-right: 10px;
-  min-width: 350px;
+  max-width: 350px;
+  width: 100%;
   font-family: var(--font-primary);
   font-size: 12px;
 }

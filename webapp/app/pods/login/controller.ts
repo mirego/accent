@@ -6,8 +6,8 @@ export default class LoginController extends Controller {
   @service('jipt')
   jipt: JIPT;
 
-  constructor() {
-    super(...arguments);
+  constructor(...args: any) {
+    super(...args);
 
     this.jipt.login();
   }

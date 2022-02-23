@@ -16,6 +16,9 @@ const FLASH_MESSAGE_CREATE_ERROR =
   'pods.document.merge.flash_messages.create_error';
 
 export default class AddTranslationsController extends Controller {
+  @tracked
+  model: any;
+
   @service('peeker')
   peeker: Peeker;
 

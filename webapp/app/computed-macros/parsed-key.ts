@@ -1,9 +1,9 @@
 interface ParsedKey {
-  value: String;
-  prefix: String;
+  value: string;
+  prefix: string;
 }
 
-export default (key: String): ParsedKey => {
+export default (key: string): ParsedKey => {
   if (!key) return {value: '', prefix: ''};
 
   const splittedKey = key.split('|');

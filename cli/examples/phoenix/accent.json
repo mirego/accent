@@ -1,4 +1,6 @@
 {
+  "apiUrl": "http://localhost:4008",
+  "apiKey": "00Rd5FamlbWMiSFgPlARAWGaOoK659aU7YXbkKU3hldGNDVnJ8MdKLQyHha6LeMeLwLt3PGPo6RSMSK2W3vVtk-PpPIxLg",
   "files": [
     {
       "format": "gettext",

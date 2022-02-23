@@ -3,11 +3,15 @@ import Controller from '@ember/controller';
 import IntlService from 'ember-intl/services/intl';
 import Session from 'accent-webapp/services/session';
 import {action} from '@ember/object';
+import {tracked} from '@glimmer/tracking';
 
 const UNAUTHORIZED = 'unauthorized';
 const INTERNAL_ERROR = 'internal_error';
 
 export default class ErrorController extends Controller {
+  @tracked
+  model: any;
+
   @service('intl')
   intl: IntlService;
 

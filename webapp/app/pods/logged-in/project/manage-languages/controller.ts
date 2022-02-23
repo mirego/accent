@@ -27,6 +27,9 @@ const FLASH_MESSAGE_REVISION_MASTER_PROMOTED_ERROR =
   'pods.project.manage_languages.flash_messages.promote_master_revision_failure';
 
 export default class ManageLanguagesController extends Controller {
+  @tracked
+  model: any;
+
   @service('flash-messages')
   flashMessages: FlashMessages;
 

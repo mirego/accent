@@ -9,10 +9,10 @@ module.exports = {
       },
       plugins: ['@typescript-eslint', 'ember', 'mirego'],
       extends: [
+        'eslint:recommended',
         'plugin:mirego/recommended',
-        'prettier',
-        'prettier/@typescript-eslint',
-        'typestrict'
+        'plugin:@typescript-eslint/recommended',
+        'prettier'
       ],
       env: {
         es6: true,
@@ -31,7 +31,6 @@ module.exports = {
         'ember/no-on-calls-in-components': 2,
         'ember/no-duplicate-dependent-keys': 2,
         'ember/no-side-effects': 2,
-        'ember/require-super-in-init': 2,
         'ember/avoid-leaking-state-in-ember-objects': 2,
         'ember/use-brace-expansion': 2,
         'ember/jquery-ember-run': 2,
@@ -41,7 +40,6 @@ module.exports = {
         '@typescript-eslint/adjacent-overload-signatures': 2,
         '@typescript-eslint/array-type': [2, {default: 'array-simple'}],
         '@typescript-eslint/await-thenable': 2,
-        '@typescript-eslint/ban-ts-ignore': 2,
         '@typescript-eslint/consistent-type-assertions': [
           2,
           {assertionStyle: 'as'}
@@ -60,22 +58,23 @@ module.exports = {
             }
           }
         ],
-        '@typescript-eslint/member-ordering': 2,
+        '@typescript-eslint/member-ordering': 0,
         '@typescript-eslint/no-empty-interface': 2,
-        '@typescript-eslint/no-floating-promises': 2,
+        '@typescript-eslint/no-explicit-any': 0,
+        '@typescript-eslint/no-floating-promises': 0,
         '@typescript-eslint/no-misused-new': 2,
         '@typescript-eslint/no-misused-promises': 2,
         '@typescript-eslint/no-non-null-assertion': 2,
         '@typescript-eslint/no-parameter-properties': 2,
         '@typescript-eslint/no-require-imports': 2,
         '@typescript-eslint/no-unnecessary-type-assertion': 2,
+        '@typescript-eslint/no-unused-vars': 2,
         '@typescript-eslint/promise-function-async': 2,
         '@typescript-eslint/require-await': 2,
         '@typescript-eslint/type-annotation-spacing': 2,
         '@typescript-eslint/unified-signatures': 2,
         'no-unused-vars': 0,
         'no-invalid-this': 0,
-        '@typescript-eslint/no-unused-vars': 2,
       }
     },
     {
@@ -122,9 +121,10 @@ module.exports = {
       },
       plugins: ['@typescript-eslint', 'mirego'],
       extends: [
+        'eslint:recommended',
         'plugin:mirego/recommended',
+        'plugin:@typescript-eslint/recommended',
         'prettier',
-        'prettier/@typescript-eslint'
       ],
       rules: {
         'complexity': 0,
@@ -135,7 +135,6 @@ module.exports = {
         '@typescript-eslint/adjacent-overload-signatures': 2,
         '@typescript-eslint/array-type': [2, {default: 'array-simple'}],
         '@typescript-eslint/await-thenable': 2,
-        '@typescript-eslint/ban-ts-ignore': 2,
         '@typescript-eslint/consistent-type-assertions': [
           2,
           {assertionStyle: 'as'}
@@ -156,18 +155,19 @@ module.exports = {
         ],
         '@typescript-eslint/member-ordering': 2,
         '@typescript-eslint/no-empty-interface': 2,
-        '@typescript-eslint/no-floating-promises': 2,
+        '@typescript-eslint/no-explicit-any': 0,
+        '@typescript-eslint/no-floating-promises': 0,
         '@typescript-eslint/no-misused-new': 2,
         '@typescript-eslint/no-misused-promises': 2,
         '@typescript-eslint/no-non-null-assertion': 0,
         '@typescript-eslint/no-parameter-properties': 2,
         '@typescript-eslint/no-require-imports': 2,
         '@typescript-eslint/no-unnecessary-type-assertion': 2,
+        '@typescript-eslint/no-unused-vars': 2,
         '@typescript-eslint/promise-function-async': 2,
         '@typescript-eslint/require-await': 2,
         '@typescript-eslint/type-annotation-spacing': 2,
         '@typescript-eslint/unified-signatures': 2,
-        '@typescript-eslint/no-unused-vars': 2
       }
     },
     {
@@ -181,9 +181,10 @@ module.exports = {
       },
       plugins: ['@typescript-eslint', 'mirego'],
       extends: [
+        'eslint:recommended',
         'plugin:mirego/recommended',
+        'plugin:@typescript-eslint/recommended',
         'prettier',
-        'prettier/@typescript-eslint'
       ],
       rules: {
         'complexity': 0,
@@ -192,7 +193,6 @@ module.exports = {
         '@typescript-eslint/adjacent-overload-signatures': 2,
         '@typescript-eslint/array-type': [2, {default: 'array-simple'}],
         '@typescript-eslint/await-thenable': 2,
-        '@typescript-eslint/ban-ts-ignore': 2,
         '@typescript-eslint/consistent-type-assertions': [
           2,
           {assertionStyle: 'as'}
@@ -213,7 +213,8 @@ module.exports = {
         ],
         '@typescript-eslint/member-ordering': 2,
         '@typescript-eslint/no-empty-interface': 2,
-        '@typescript-eslint/no-floating-promises': 2,
+        '@typescript-eslint/no-explicit-any': 0,
+        '@typescript-eslint/no-floating-promises': 0,
         '@typescript-eslint/no-misused-new': 2,
         '@typescript-eslint/no-misused-promises': 2,
         '@typescript-eslint/no-non-null-assertion': 2,

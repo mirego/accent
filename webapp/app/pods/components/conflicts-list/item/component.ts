@@ -123,7 +123,7 @@ export default class ConflictItem extends Component<Args> {
   }
 
   @dropTask
-  *copyTranslationTask(text: string, sourceLanguageSlug: string) {
+  *copyTranslationTask(text: string, sourceLanguageSlug: string): any {
     this.inputDisabled = true;
 
     const copyTranslation = yield this.args.onCopyTranslation(

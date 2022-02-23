@@ -3,14 +3,10 @@ import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from './config/environment';
 
-const {modulePrefix, podModulePrefix} = config;
-
-class App extends Application {
-  modulePrefix = modulePrefix;
-  podModulePrefix = podModulePrefix;
+export default class App extends Application {
+  modulePrefix = config.modulePrefix;
+  podModulePrefix = config.podModulePrefix;
   Resolver = Resolver;
 }
 
-loadInitializers(App, modulePrefix);
-
-export default App;
+loadInitializers(App, config.modulePrefix);

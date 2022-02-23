@@ -30,20 +30,6 @@
     </div>
   {{/if}}
 
-  {{#if this.isBooleanType}}
-    <span local-class="label">
-      {{t "components.translation_edit.form.boolean_type_notice"}}
-    </span>
-
-    <RadioButton @groupValue={{@value}} @value="true">
-      {{t "components.translation_edit.form.true_option"}}
-    </RadioButton>
-
-    <RadioButton @groupValue={{@value}} @value="false">
-      {{t "components.translation_edit.form.false_option"}}
-    </RadioButton>
-  {{/if}}
-
   {{#if this.showTypeHints}}
     {{#if this.isIntegerType}}
       <span local-class="label">
@@ -83,7 +69,25 @@
     </div>
   {{/if}}
 
-  {{#if this.isHTMLType}}
+  {{#if this.isBooleanType}}
+    <div local-class="input-wrapper">
+      <span local-class="label">
+        {{t "components.translation_edit.form.boolean_type_notice"}}
+      </span>
+
+      <div local-class="radio-wrapper">
+        <label local-class="radio-label">
+          <input type="radio" {{on "change" (fn this.changeText)}} checked={{this.valueTrue}} name="value" value="true">
+          {{t "components.translation_edit.form.true_option"}}
+        </label>
+
+        <label local-class="radio-label">
+          <input type="radio" {{on "change" (fn this.changeText)}} checked={{this.valueFalse}} name="value" value="false">
+          {{t "components.translation_edit.form.false_option"}}
+        </label>
+      </div>
+    </div>
+  {{else if this.isHTMLType}}
     <div local-class="input-wrapper">
       <HtmlTextarea
         @value={{@value}}

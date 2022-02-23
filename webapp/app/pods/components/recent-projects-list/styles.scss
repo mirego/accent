@@ -1,7 +1,7 @@
 .projects {
   display: flex;
   align-items: center;
-  padding: 10px 5px;
+  padding: 10px 20px;
   margin: 0 auto 20px;
   max-width: calc(var(--screen-lg) - 25px);
 }
@@ -39,5 +39,17 @@
   &:hover {
     box-shadow: 0 2px 5px var(--shadow-color);
     background: var(--body-background);
+  }
+}
+
+@media (max-width: 640px) {
+  .projects {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 10px 15px;
+  }
+
+  .item-link {
+    margin-bottom: 10px;
   }
 }

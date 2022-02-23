@@ -1,7 +1,7 @@
 import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
 import {not} from '@ember/object/computed';
-import {htmlSafe} from '@ember/string';
+import {htmlSafe} from '@ember/template';
 import Component from '@glimmer/component';
 import LanguageSearcher from 'accent-webapp/services/language-searcher';
 import {tracked} from '@glimmer/tracking';
@@ -27,10 +27,10 @@ export default class ProjectCreateForm extends Component<Args> {
   languageSearcher: LanguageSearcher;
 
   @tracked
-  name: string = '';
+  name = '';
 
   @tracked
-  logo: string = '';
+  logo = '';
 
   @tracked
   mainColor = '#28cb87';
@@ -60,8 +60,8 @@ export default class ProjectCreateForm extends Component<Args> {
   }
 
   @action
-  logoPicked(logo: string) {
-    this.logo = logo;
+  logoPicked(selection: {emoji: string}) {
+    this.logo = selection.emoji;
   }
 
   @action

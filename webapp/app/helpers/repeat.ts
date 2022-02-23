@@ -1,7 +1,7 @@
 import {helper} from '@ember/component/helper';
 
 const repeat = ([length]: [number]) => {
-  return Array.apply(null, {length});
+  return Array.from(Array(length));
 };
 
 export default helper(repeat);

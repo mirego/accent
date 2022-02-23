@@ -14,10 +14,6 @@ module.exports = function (defaults) {
       'jquery.js': null,
     },
 
-    autoprefixer: {
-      browsers: target.browsers,
-    },
-
     autoImport: {
       exclude: ['graphql-tag'],
     },

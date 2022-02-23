@@ -4,6 +4,7 @@ import Component from '@glimmer/component';
 import Session from 'accent-webapp/services/session';
 import {restartableTask} from 'ember-concurrency-decorators';
 import {timeout} from 'ember-concurrency';
+import {perform} from 'ember-concurrency-ts';
 import {tracked} from '@glimmer/tracking';
 
 const DEBOUNCE_OFFSET = 1000; // ms
@@ -21,15 +22,6 @@ export default class ProjectsFilter extends Component<Args> {
   @tracked
   debouncedQuery: string = this.args.query;
 
-  @action
-  setDebouncedQuery(event: Event) {
-    const target = event.target as HTMLInputElement;
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    this.debounceQuery.perform(target.value);
-  }
-
   @restartableTask
   *debounceQuery(query: string) {
     this.debouncedQuery = query;
@@ -37,6 +29,13 @@ export default class ProjectsFilter extends Component<Args> {
     yield timeout(DEBOUNCE_OFFSET);
 
     this.args.onChangeQuery(query);
+  }
+
+  @action
+  setDebouncedQuery(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    perform(this.debounceQuery, target.value);
   }
 
   @action
