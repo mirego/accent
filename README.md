@@ -169,6 +169,15 @@ If you want to send emails, you’ll have to configure the following environment
 | `SMTP_PASSWORD`    | _none_  | The password for authentification.                        |
 | `SMTP_USERNAME`    | _none_  | The username for authentification.                        |
 
+### Metrics and monitoring setup
+
+If you want to track performance of Accent, you can configure NewRelic with the following environment variables:
+
+| Variable                | Default | Description      |
+| ----------------------- | ------- | ---------------- |
+| `NEW_RELIC_APP_NAME`    | _none_  | Service APM name |
+| `NEW_RELIC_LICENSE_KEY` | _none_  | License key      |
+
 ### Kubernetes helm chart setup
 
 You can setup the project with [a helm chart like this one](https://github.com/andreymaznyak/accent-helm-chart). This project uses [a fork by andreymaznyak](https://github.com/andreymaznyak/accent) and not this canonical repository. The specs and values may need to be updated if you use this repo.

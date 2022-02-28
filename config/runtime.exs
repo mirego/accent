@@ -107,6 +107,10 @@ end
 
 config :tesla, logger_enabled: true
 
+config :new_relic_agent,
+  app_name: System.get_env("NEW_RELIC_APP_NAME"),
+  license_key: System.get_env("NEW_RELIC_LICENSE_KEY")
+
 if !System.get_env("SENTRY_DSN") do
   config :sentry, included_environments: []
 else

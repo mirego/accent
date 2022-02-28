@@ -95,6 +95,10 @@ defmodule Accent.Mixfile do
       # Events handling
       {:oban, "~> 2.0"},
 
+      # Metrics and monitoring
+      {:new_relic_agent, "~> 1.27"},
+      {:new_relic_absinthe, "~> 0.0"},
+
       # Mock testing
       {:mox, "~> 0.3", only: :test},
       {:mock, "~> 0.3.0", only: :test},
