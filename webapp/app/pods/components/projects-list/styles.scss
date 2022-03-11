@@ -1,7 +1,7 @@
 .projects-list {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 5px;
+  padding: 0 25px;
   margin: 0 auto;
   max-width: var(--screen-lg);
   position: relative;
@@ -31,5 +31,13 @@
     max-width: none;
     width: 100%;
     flex: 1 1 auto;
+  }
+
+.item-link {
+  margin-bottom: 10px;
+}
+
+  .projects-list {
+    padding: 0;
   }
 }

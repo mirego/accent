@@ -37,7 +37,7 @@
   justify-content: space-between;
   margin: 0 auto;
   max-width: var(--screen-lg);
-  padding: 0 15px;
+  padding: 0 30px;
   width: 100%;
 }
 
@@ -177,6 +177,11 @@
 @media (max-width: 640px) {
   .projects-header {
     padding: 10px 0;
+    margin-bottom: 10px;
+
+    .content {
+      padding: 0 10px;
+    }
 
     &.withProject {
       padding: 10px 0;

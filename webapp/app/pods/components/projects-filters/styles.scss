@@ -1,6 +1,6 @@
 div.filters {
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 30px;
   max-width: var(--screen-lg);
 }
 
@@ -61,4 +61,11 @@ div.filters {
 .filters-meta-keyword {
   font-style: italic;
   color: var(--color-green);
+}
+
+@media (max-width: 640px) {
+  div.filters {
+    padding: 0 10px;
+    margin-bottom: 20px;
+  }
 }
