@@ -42,11 +42,14 @@ export default Router.map(function () {
       this.route('activities');
       this.route('files', function () {
         this.route('new-sync');
-        this.route('machine-translations');
+        this.route('new-machine-translations');
         this.route('sync', {path: ':fileId/sync'});
         this.route('add-translations', {path: ':fileId/add-translations'});
         this.route('export', {path: ':fileId/export'});
         this.route('jipt', {path: ':fileId/jipt'});
+        this.route('machine-translations', {
+          path: ':fileId/machine-translations',
+        });
       });
       this.route('versions', function () {
         this.route('new');

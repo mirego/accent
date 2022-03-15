@@ -12,3 +12,16 @@
   font-style: normal;
   color: var(--color-black);
 }
+
+@media (max-width: 640px) {
+  .translation-comments-subscriptions {
+    padding-left: 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--background-light-highlight);
+    border-left: 0;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+}

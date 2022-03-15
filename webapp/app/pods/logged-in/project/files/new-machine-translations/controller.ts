@@ -6,17 +6,13 @@ import MachineTranslations from 'accent-webapp/services/machine-translations';
 import {tracked} from '@glimmer/tracking';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import IntlService from 'ember-intl/services/intl';
-import GlobalState from 'accent-webapp/services/global-state';
 
 const FLASH_MESSAGE_CREATE_ERROR =
   'pods.document.machine_translations.flash_messages.translate_error';
 
-export default class MachineTranslationsController extends Controller {
+export default class NewMachineTranslationsController extends Controller {
   @tracked
   model: any;
-
-  @service('global-state')
-  globalState: GlobalState;
 
   @service('router')
   router: RouterService;
@@ -33,12 +29,6 @@ export default class MachineTranslationsController extends Controller {
   @tracked
   translatedFileContent = '';
 
-  get file() {
-    return this.model.fileModel.documents.entries.find(
-      (document: {id: string}) => document.id === this.model.fileId
-    );
-  }
-
   @action
   closeModal() {
     this.router.transitionTo('logged-in.project.files.index');
@@ -51,14 +41,15 @@ export default class MachineTranslationsController extends Controller {
 
   @action
   async translate(
+    file: File,
     fromLanguage: string,
     toLanguage: string,
     documentFormat: string
   ) {
     try {
-      const content = await this.machineTranslations.translateDocument({
-        project: this.model.projectModel.project,
-        documentId: this.model.fileId,
+      const content = await this.machineTranslations.translateFile({
+        project: this.model.project,
+        file,
         fromLanguage,
         toLanguage,
         documentFormat,

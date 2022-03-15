@@ -52,6 +52,12 @@ defmodule Langue.Formatter.Android.Parser do
     |> Enum.reduce(acc, &parse_item_line(&1, &2, key))
   end
 
+  defp parse_line({"plurals", attributes, items}, acc) do
+    [key] = for {k, v} <- attributes, k == "name", do: v
+
+    Enum.reduce(items, acc, &parse_plural_item_line(&1, &2, key))
+  end
+
   # Comments are only appended in the comments key of the accumulator
   defp parse_line({:comment, comment}, acc) do
     acc
@@ -60,6 +66,27 @@ defmodule Langue.Formatter.Android.Parser do
 
   # Unsupported elements are simply ignored
   defp parse_line(_, acc), do: acc
+
+  defp parse_plural_item_line({"item", attributes, [value]}, acc, key) do
+    {_, name} = List.keyfind(attributes, "quantity", 0)
+
+    acc
+    |> Map.put(
+      :entries,
+      Enum.concat(acc.entries, [
+        %Entry{
+          key: "#{key}.#{name}",
+          value: sanitize_value_to_string(value),
+          index: acc.index,
+          comment: serialize_comment(acc.comment),
+          value_type: Langue.ValueType.parse(value),
+          plural: true
+        }
+      ])
+    )
+    |> Map.put(:comment, [])
+    |> Map.put(:index, acc.index + 1)
+  end
 
   # Item contained in a entry with a value_type array
   defp parse_item_line({{"item", _attributes, [value]}, index}, acc, key) do

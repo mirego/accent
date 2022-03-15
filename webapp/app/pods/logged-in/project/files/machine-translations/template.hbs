@@ -1,6 +1,8 @@
-<AccModal @onClose={{fn this.closeModal}}>
-  <MachineTranslationsTranslateUploadForm
-    @revisions={{this.model.project.revisions}}
+<AccModal @onClose={{fn this.closeModal}} @large={{true}}>
+  <MachineTranslationsDocumentTranslate
+    @project={{this.model.projectModel.project}}
+    @document={{this.file}}
+    @revisions={{this.model.projectModel.project.revisions}}
     @onFileChange={{fn this.translate}}
     @onFileReset={{fn this.resetContent}}
     @translatedFileContent={{this.translatedFileContent}}

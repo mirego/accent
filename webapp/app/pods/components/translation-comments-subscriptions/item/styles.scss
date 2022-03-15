@@ -4,20 +4,11 @@
   margin: 0 0 10px;
   font-size: 13px;
   color: #888;
-  cursor: pointer;
   transition: 0.2s ease-in-out;
   transition-property: color;
 
   &:last-child {
     margin: 0;
-  }
-
-  &:hover {
-    color: #222;
-
-    .user-email {
-      color: #333;
-    }
   }
 }
 

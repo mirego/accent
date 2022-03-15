@@ -90,29 +90,37 @@
             @route="logged-in.project.files.sync"
             @models={{array @project.id @document.id}}
             local-class="button-sync"
-            class="button button--filled button--white"
+            title={{t "components.documents_list.sync"}}
+            class="tooltip tooltip--top button button--filled button--white button--iconOnly"
           >
             {{inline-svg "/assets/sync.svg" class="button-icon"}}
-            {{t "components.documents_list.sync"}}
           </LinkTo>
         {{/if}}
         {{#if (get @permissions "merge")}}
           <LinkTo
             @route="logged-in.project.files.add-translations"
             @models={{array @project.id @document.id}}
-            class="button button--filled button--white"
+            title={{t "components.documents_list.merge"}}
+            class="tooltip tooltip--top button button--filled button--white button--iconOnly"
           >
             {{inline-svg "/assets/merge.svg" class="button-icon"}}
-            {{t "components.documents_list.merge"}}
           </LinkTo>
         {{/if}}
         <LinkTo
+          @route="logged-in.project.files.machine-translations"
+          @models={{array @project.id @document.id}}
+          title={{t "components.documents_list.machine_translations"}}
+          class="tooltip tooltip--top button button--filled button--white button--iconOnly"
+        >
+          {{inline-svg "/assets/language.svg" class="button-icon"}}
+        </LinkTo>
+        <LinkTo
           @route="logged-in.project.files.export"
           @models={{array @project.id @document.id}}
-          class="button button--filled button--white"
+          title={{t "components.documents_list.export"}}
+          class="tooltip tooltip--top button button--filled button--white button--iconOnly"
         >
           {{inline-svg "/assets/export.svg" class="button-icon"}}
-          {{t "components.documents_list.export"}}
         </LinkTo>
       </div>
 
@@ -122,11 +130,11 @@
             <AsyncButton
               @onClick={{fn this.deleteFile @document}}
               @loading={{this.isDeleting}}
-              class="button button--small button--red button--borderless"
+              title={{t "components.documents_list.delete_document"}}
+              class="tooltip tooltip--top button button--small button--red button--borderless button--iconOnly"
               local-class="deleteDocumentButton"
             >
               {{inline-svg "/assets/x.svg" class="button-icon"}}
-              {{t "components.documents_list.delete_document"}}
             </AsyncButton>
           {{/if}}
         {{/if}}

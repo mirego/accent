@@ -8,7 +8,7 @@ interface ExportOptions {
   revision: any;
   version?: string;
   documentFormat: string;
-  orderBy: string;
+  orderBy?: string;
   filters?: {
     isTextEmptyFilter?: boolean;
     isAddedLastSyncFilter?: boolean;
@@ -28,8 +28,7 @@ export default class Exporter extends Service {
   authenticatedRequest: AuthenticatedRequest;
 
   async export(options: ExportOptions) {
-    const {project, document, revision, version, documentFormat, orderBy} =
-      options;
+    const {project, document, revision, version, documentFormat} = options;
 
     const url = config.API.EXPORT_DOCUMENT;
 
@@ -40,7 +39,7 @@ export default class Exporter extends Service {
         language: revision.language.slug,
         project_id: project.id,
         version,
-        order_by: orderBy,
+        order_by: options.orderBy,
         document_path: document.path,
         document_format: (documentFormat || document.format).toLowerCase(),
         'filters[is_text_empty]': options.filters?.isTextEmptyFilter,

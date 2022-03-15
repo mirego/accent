@@ -22,6 +22,31 @@ defmodule LangueTest.Formatter.Android.Expectation do
     end
   end
 
+  defmodule Plural do
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      <?xml version="1.0" encoding="utf-8"?>
+      <resources>
+        <plurals name="pluralized_key">
+          <item quantity="one">Only one pluralization found.</item>
+          <item quantity="other">Wow, you have %s pluralizations!</item>
+          <item quantity="zero">You have no pluralization.</item>
+        </plurals>
+      </resources>
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "pluralized_key.one", value: "Only one pluralization found.", value_type: "string", plural: true},
+        %Entry{index: 2, key: "pluralized_key.other", value: "Wow, you have %@ pluralizations!", value_type: "string", plural: true, placeholders: ["%@"]},
+        %Entry{index: 3, key: "pluralized_key.zero", value: "You have no pluralization.", value_type: "string", plural: true}
+      ]
+    end
+  end
+
   defmodule EmptyValue do
     use Langue.Expectation.Case
 

@@ -18,6 +18,7 @@
       }
     },
     "machine_translations_translate_upload_form": {
+      "select_target": "Select different target language to translate the file",
       "translate": "Translate",
       "new_file": "New file",
       "step_1": "Select or drop a file here to translate it.",
@@ -208,6 +209,7 @@
       "total": "Total",
       "sync": "Sync",
       "merge": "Add translations",
+      "machine_translations": "Translate",
       "export": "Export",
       "export_jipt": "Just in place translations",
       "no_strings": "No strings",

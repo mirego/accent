@@ -99,18 +99,19 @@ defmodule Accent.Scopes.Translation do
   def parse_not_empty(query, nil), do: query
   def parse_not_empty(query, true), do: from(translations in query, where: translations.corrected_text != "")
 
-  @spec parse_added_last_sync(Queryable.t(), nil | boolean(), String.t()) :: Queryable.t()
-  def parse_added_last_sync(query, nil, _), do: query
+  @spec parse_added_last_sync(Queryable.t(), nil | boolean(), String.t(), String.t() | nil) :: Queryable.t()
+  def parse_added_last_sync(query, nil, _, _), do: query
 
-  def parse_added_last_sync(query, true, project_id) do
+  def parse_added_last_sync(query, true, project_id, document_id) do
     from(
       operations in Operation,
-      where: operations.project_id == ^project_id,
-      where: operations.action == ^"sync",
       select: operations.id,
+      where: [project_id: ^project_id],
+      where: [action: ^"sync"],
       limit: 1,
-      order_by: [desc: operations.inserted_at]
+      order_by: [desc: :inserted_at]
     )
+    |> maybe_filter_last_sync_by_document(document_id)
     |> Repo.one()
     |> case do
       nil ->
@@ -123,6 +124,12 @@ defmodule Accent.Scopes.Translation do
           where: operations.batch_operation_id == ^last_sync_id
         )
     end
+  end
+
+  defp maybe_filter_last_sync_by_document(query, nil), do: query
+
+  defp maybe_filter_last_sync_by_document(query, document_id) do
+    from(query, where: [document_id: ^document_id])
   end
 
   @doc """
@@ -209,6 +216,21 @@ defmodule Accent.Scopes.Translation do
   """
   @spec from_revision(Queryable.t(), String.t()) :: Queryable.t()
   def from_revision(query, revision_id), do: from(query, where: [revision_id: ^revision_id])
+
+  @doc """
+  ## Examples
+
+    iex> Accent.Scopes.Translation.from_language(Accent.Translation, "test")
+    #Ecto.Query<from t0 in Accent.Translation, join: r1 in assoc(t0, :revision), where: r1.language_id == ^\"test\">
+  """
+  @spec from_language(Queryable.t(), String.t()) :: Queryable.t()
+  def from_language(query, language_id),
+    do:
+      from(
+        translations in query,
+        inner_join: revisions in assoc(translations, :revision),
+        where: revisions.language_id == ^language_id
+      )
 
   @doc """
   ## Examples

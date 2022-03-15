@@ -19,6 +19,8 @@ interface PeekOptions {
 
 interface MachineTranslationsTranslateFileOptions {
   file: File;
+  documentPath?: string;
+  documentFormat?: string;
 }
 
 export default class AuthenticatedRequest extends Service {
@@ -27,6 +29,24 @@ export default class AuthenticatedRequest extends Service {
 
   async commit(url: string, options: CommitOptions) {
     return this.postFile(url, options);
+  }
+
+  async post(url: string) {
+    const fetchOptions: RequestInit = {};
+
+    fetchOptions.method = 'POST';
+    fetchOptions.headers = {
+      Authorization: `Bearer ${this.session.credentials.token}`,
+    };
+
+    const response = await fetch(url, fetchOptions);
+
+    if (response.status >= HTTP_ERROR_STATUS) {
+      const error = await response.text();
+      throw new Error(error);
+    }
+
+    return response.text();
   }
 
   async machineTranslationsTranslateFile(

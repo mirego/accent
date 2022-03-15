@@ -40,6 +40,8 @@ module.exports = function (environment) {
     PROJECT_PATH: '/projects/{0}',
     MACHINE_TRANSLATIONS_TRANSLATE_FILE_PROJECT_PATH:
       '/machine-translations/translate-file?project_id={0}&language={1}&to_language_id={2}&document_format={3}',
+    MACHINE_TRANSLATIONS_TRANSLATE_DOCUMENT_PROJECT_PATH:
+      '/machine-translations/translate-document?project_id={0}&language={1}&to_language_id={2}&document_id={3}&document_format={4}',
     SYNC_PEEK_PROJECT_PATH:
       '/sync/peek?project_id={0}&language={1}&sync_type={2}',
     SYNC_PROJECT_PATH: '/sync?project_id={0}&language={1}&sync_type={2}',

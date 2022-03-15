@@ -5,11 +5,20 @@ defmodule Langue.Formatter.Android.Serializer do
   <?xml version="1.0" encoding="utf-8"?>
   """
 
+  @state %{
+    current_array: [],
+    current_array_key: nil,
+    current_plural: [],
+    current_plural_key: nil,
+    lines: []
+  }
+
   def serialize(%{entries: entries}) do
     resources =
       entries
-      |> Enum.reduce(%{current_array: [], lines: [], current_array_key: nil}, &parse_line/2)
-      |> maybe_add_array_items
+      |> Enum.reduce(@state, &parse_line/2)
+      |> maybe_add_array_items()
+      |> maybe_add_plural_items()
       |> Map.get(:lines)
 
     resource_render = {"resources", [], resources} |> :mochiweb_html.to_html() |> Enum.join("")
@@ -25,8 +34,10 @@ defmodule Langue.Formatter.Android.Serializer do
       |> String.replace("<item", "\n    <item")
       |> String.replace("<string ", "  <string ")
       |> String.replace("<string-array", "  <string-array")
+      |> String.replace("<plurals", "  <plurals")
       |> String.replace("</string>", "</string>\n")
       |> String.replace("</string-array>", "\n  </string-array>\n")
+      |> String.replace("</plurals>", "\n  </plurals>\n")
 
     %Langue.Formatter.SerializerResult{render: render}
   end
@@ -36,15 +47,22 @@ defmodule Langue.Formatter.Android.Serializer do
     |> add_array_item(key, value)
   end
 
+  defp parse_line(%{key: key, value: value, plural: true}, acc) do
+    acc
+    |> add_plural_item(key, value)
+  end
+
   defp parse_line(%{key: key, value: value, comment: comment}, acc) when is_nil(comment) or comment === "" do
     acc
-    |> maybe_add_array_items
+    |> maybe_add_array_items()
+    |> maybe_add_plural_items()
     |> add_string(key, value)
   end
 
   defp parse_line(%{key: key, value: value, comment: comment}, acc) do
     acc
-    |> maybe_add_array_items
+    |> maybe_add_array_items()
+    |> maybe_add_plural_items()
     |> add_comment(comment)
     |> add_string(key, value)
   end
@@ -68,6 +86,14 @@ defmodule Langue.Formatter.Android.Serializer do
     |> Map.put(:current_array_key, acc.current_array_key || key)
   end
 
+  defp add_plural_item(acc, key, value) do
+    quantity_key = String.replace(key, ~r/.+\./, "")
+
+    acc
+    |> Map.put(:current_plural, Enum.concat(acc[:current_plural], [xml_element("item", [quantity: quantity_key], value)]))
+    |> Map.put(:current_plural_key, acc.current_array_key || key)
+  end
+
   defp maybe_add_array_items(acc = %{current_array: array}) when array == [], do: acc
 
   defp maybe_add_array_items(acc) do
@@ -77,5 +103,16 @@ defmodule Langue.Formatter.Android.Serializer do
     |> Map.put(:current_array_key, nil)
     |> Map.put(:current_array, [])
     |> Map.put(:lines, Enum.concat(acc[:lines], [xml_element("string-array", [{"name", key}], acc[:current_array])]))
+  end
+
+  defp maybe_add_plural_items(acc = %{current_plural: plural}) when plural == [], do: acc
+
+  defp maybe_add_plural_items(acc) do
+    key = String.replace(acc[:current_plural_key], ~r/\..+/, "")
+
+    acc
+    |> Map.put(:current_plural_key, nil)
+    |> Map.put(:current_plural, [])
+    |> Map.put(:lines, Enum.concat(acc[:lines], [xml_element("plurals", [{"name", key}], acc[:current_plural])]))
   end
 end

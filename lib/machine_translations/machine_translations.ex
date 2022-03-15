@@ -48,6 +48,8 @@ defmodule Accent.MachineTranslations do
     end)
   end
 
+  defp filter_long_value(%{value: value}) when value in ["", nil], do: @untranslatable_placeholder
+
   defp filter_long_value(entry) do
     if String.length(entry.value) > @untranslatable_string_length_limit do
       @untranslatable_placeholder

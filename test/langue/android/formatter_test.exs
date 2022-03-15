@@ -12,7 +12,8 @@ defmodule LangueTest.Formatter.Android do
     Array,
     StringsFormatEscape,
     ValueEscaping,
-    PlaceholderValues
+    PlaceholderValues,
+    Plural
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.Android.Expectation, test) do

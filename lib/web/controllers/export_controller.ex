@@ -93,7 +93,7 @@ defmodule Accent.ExportController do
       |> Scope.from_version(version && version.id)
       |> Scope.parse_order(order)
       |> Scope.parse_conflicted(filters[:is_conflicted])
-      |> Scope.parse_added_last_sync(filters[:is_added_last_sync], revision.project_id)
+      |> Scope.parse_added_last_sync(filters[:is_added_last_sync], revision.project_id, document.id)
       |> Scope.parse_empty(filters[:is_text_empty])
       |> Repo.all()
 

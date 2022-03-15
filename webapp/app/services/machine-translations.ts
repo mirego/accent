@@ -11,9 +11,36 @@ interface TranslateFileOptions {
   documentFormat: string;
 }
 
+interface TranslateDocumentOptions {
+  project: any;
+  documentId: string;
+  toLanguage: string;
+  fromLanguage: string;
+  documentFormat: string;
+}
+
 export default class MachineTranslations extends Service {
   @service('authenticated-request')
   authenticatedRequest: AuthenticatedRequest;
+
+  async translateDocument({
+    project,
+    documentId,
+    toLanguage,
+    fromLanguage,
+    documentFormat,
+  }: TranslateDocumentOptions) {
+    const url = fmt(
+      config.API.MACHINE_TRANSLATIONS_TRANSLATE_DOCUMENT_PROJECT_PATH,
+      project.id,
+      fromLanguage,
+      toLanguage,
+      documentId,
+      documentFormat
+    );
+
+    return this.authenticatedRequest.post(url);
+  }
 
   async translateFile({
     project,

@@ -3,3 +3,9 @@ a.button {
   padding-left: 5px;
   padding-right: 5px;
 }
+
+@media (max-width: 640px) {
+  a.button {
+    margin-top: 20px;
+  }
+}

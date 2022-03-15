@@ -75,7 +75,7 @@ defmodule Accent.RoleAbilities do
     delete_project
   )a ++ @developer_actions
 
-  @configurable_actions ~w(machine_translations_translate_file machine_translations_translate_text)a
+  @configurable_actions ~w(machine_translations_translate_document achine_translations_translate_file machine_translations_translate_text)a
 
   def actions_for(@owner_role), do: add_configurable_actions(@admin_actions, @owner_role)
   def actions_for(@admin_role), do: add_configurable_actions(@admin_actions, @admin_role)
@@ -87,6 +87,10 @@ defmodule Accent.RoleAbilities do
     Enum.reduce(@configurable_actions, actions, fn action, actions ->
       if can?(role, action), do: [action | actions], else: actions
     end)
+  end
+
+  def can?(role, :machine_translations_translate_document) when role in [@owner_role, @admin_role, @developer_role] do
+    Accent.MachineTranslations.translate_list_enabled?()
   end
 
   def can?(role, :machine_translations_translate_file) when role in [@owner_role, @admin_role, @developer_role] do
