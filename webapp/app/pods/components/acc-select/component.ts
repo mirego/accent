@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import {action} from '@ember/object';
 
 interface Args {
+  customSelect?: boolean;
   searchEnabled: boolean;
   selected: any;
   options: any[];

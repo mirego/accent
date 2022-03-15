@@ -4,6 +4,7 @@
   <div local-class="filters">
     <div local-class="languages">
       <AccSelect
+        @customSelect={{true}}
         @selected={{this.fromRevision}}
         @options={{this.mappedRevisions}}
         @onchange={{fn this.onSelectFromRevision}}

@@ -3,6 +3,8 @@
 }
 
 .filters {
+  display: flex;
+  justify-content: space-between;
   padding: 10px;
   background: var(--background-light);
   border-bottom: 1px solid var(--background-light-highlight);
@@ -20,10 +22,6 @@
 .languages {
   display: flex;
   align-items: center;
-}
-
-.languages {
-  margin-bottom: 10px;
 }
 
 .translate-action-button,

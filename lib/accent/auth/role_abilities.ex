@@ -1,4 +1,6 @@
 defmodule Accent.RoleAbilities do
+  alias Accent.MachineTranslations
+
   @owner_role "owner"
   @admin_role "admin"
   @bot_role "bot"
@@ -90,15 +92,15 @@ defmodule Accent.RoleAbilities do
   end
 
   def can?(role, :machine_translations_translate_document) when role in [@owner_role, @admin_role, @developer_role] do
-    Accent.MachineTranslations.translate_list_enabled?()
+    MachineTranslations.translate_list_enabled?()
   end
 
   def can?(role, :machine_translations_translate_file) when role in [@owner_role, @admin_role, @developer_role] do
-    Accent.MachineTranslations.translate_list_enabled?()
+    MachineTranslations.translate_list_enabled?()
   end
 
   def can?(role, :machine_translations_translate_text) when role in [@owner_role, @admin_role, @developer_role] do
-    Accent.MachineTranslations.translate_text_enabled?()
+    MachineTranslations.translate_text_enabled?()
   end
 
   # Define abilities function at compile time to remove list lookup at runtime

@@ -70,6 +70,9 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
   @tracked
   toRevision = this.mappedRevisions[1] || this.mappedRevisions[0];
 
+  @tracked
+  searchedLanguages: Array<{id: string; name: string; slug: string}> = [];
+
   get sameLanguages() {
     return this.fromRevision.value === this.toRevision.value;
   }
@@ -83,8 +86,8 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
   }
 
   get revision() {
-    return this.mappedRevisions.find(
-      (revision) => revision.id === this.fromRevision.id
+    return this.args.revisions.find(
+      (revision) => revision.language.id === this.fromRevision.value
     );
   }
 
@@ -104,24 +107,46 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
 
   @action
   async onSelectFromRevision(select: HTMLSelectElement) {
-    this.fromRevision =
-      this.mappedRevisions.find(
-        (revision) => revision.language.id === select.value
-      ) || this.fromRevision;
+    const revision = this.args.revisions.find(
+      (revision) => revision.language.id === select.value
+    );
+    this.fromRevision = revision
+      ? this.mapRevision(revision)
+      : this.fromRevision;
+
     await this.renderDocument();
   }
 
   @action
   onSelectToRevision(select: HTMLSelectElement) {
-    this.toRevision =
-      this.mappedRevisions.find(
+    let revision;
+
+    if (this.searchedLanguages.length) {
+      const language = this.searchedLanguages.find(
+        (language) => language.id === select.value
+      );
+
+      if (!language) return;
+
+      revision = {
+        id: language.id,
+        name: language.name,
+        slug: language.slug,
+        language,
+      };
+    } else {
+      revision = this.args.revisions.find(
         (revision) => revision.language.id === select.value
-      ) || this.toRevision;
+      );
+    }
+
+    this.toRevision = revision ? this.mapRevision(revision) : this.fromRevision;
   }
 
   @action
   async searchLanguages(term: string) {
     const languages = await this.languageSearcher.search({term});
+    this.searchedLanguages = languages;
 
     return this.mapLanguages(languages);
   }
@@ -165,28 +190,36 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
   }
 
   private mapRevisions(revisions: Revision[]) {
-    return revisions.map((revision: Revision) => {
-      const displayName = revision.name || revision.language.name;
-      const label = htmlSafe(
-        `${displayName} <em>${revision.slug || revision.language.slug}</em>`
-      );
+    return revisions.map(this.mapRevision);
+  }
 
-      return {
-        id: revision.id,
-        label,
-        value: revision.language.id,
-        language: revision.language,
-      };
-    });
+  private mapRevision(revision: Revision) {
+    const displayName = revision.name || revision.language.name;
+    const label = htmlSafe(
+      `${displayName} <em>${revision.slug || revision.language.slug}</em>`
+    );
+
+    return {
+      label,
+      value: revision.language.id,
+    };
   }
 
   private mapLanguages(languages: any) {
-    return languages.map(
-      ({id, name, slug}: {id: string; name: string; slug: string}) => {
-        const label = htmlSafe(`${name} <em>${slug}</em>`);
+    return languages.map(this.mapLanguage);
+  }
 
-        return {label, value: id};
-      }
-    );
+  private mapLanguage({
+    id,
+    name,
+    slug,
+  }: {
+    id: string;
+    name: string;
+    slug: string;
+  }) {
+    const label = htmlSafe(`${name} <em>${slug}</em>`);
+
+    return {label, value: id};
   }
 }
