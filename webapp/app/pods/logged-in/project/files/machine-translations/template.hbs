@@ -1,10 +1,32 @@
 <AccModal @onClose={{fn this.closeModal}} @large={{true}}>
-  <MachineTranslationsDocumentTranslate
-    @project={{this.model.projectModel.project}}
-    @document={{this.file}}
-    @revisions={{this.model.projectModel.project.revisions}}
-    @onFileChange={{fn this.translate}}
-    @onFileReset={{fn this.resetContent}}
-    @translatedFileContent={{this.translatedFileContent}}
-  />
+  <ProjectFileOperation>
+    <button class="closeButton" {{on "click" (fn this.closeModal)}}>
+      <div class="closeButton-content">
+        {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
+      </div>
+    </button>
+
+    <div class="title">
+      <div class="sectionType">
+        {{inline-svg "/assets/language.svg" class="sectionType-icon"}}
+        {{t "components.project_file_operations.translate"}}
+      </div>
+
+      <div class="title-document">
+        {{this.document.path}}
+        <span class="title-documentExtension">
+          .
+          {{this.documentFormatItem.extension}}
+        </span>
+      </div>
+    </div>
+
+    <MachineTranslationsDocumentTranslate
+      @project={{this.model.projectModel.project}}
+      @document={{this.document}}
+      @revisions={{this.model.projectModel.project.revisions}}
+      @onTranslate={{fn this.translate}}
+      @translatedFileContent={{this.translatedFileContent}}
+    />
+  </ProjectFileOperation>
 </AccModal>

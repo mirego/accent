@@ -48,6 +48,7 @@ defmodule Accent.MachineTranslationsController do
       |> TranslationScope.active()
       |> TranslationScope.from_document(document.id)
       |> TranslationScope.from_language(conn.assigns[:source_language].id)
+      |> TranslationScope.from_version(nil)
       |> TranslationScope.parse_order(conn.assigns[:order])
       |> Repo.all()
       |> Enum.map(&Translation.to_langue_entry(&1, nil, true, conn.assigns[:source_language].slug))

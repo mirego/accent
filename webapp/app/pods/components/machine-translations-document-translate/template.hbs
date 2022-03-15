@@ -4,11 +4,9 @@
   <div local-class="filters">
     <div local-class="languages">
       <AccSelect
-        @searchEnabled={{true}}
-        @search={{fn this.searchLanguages}}
-        @selected={{this.fromLanguage}}
-        @options={{this.mappedLanguages}}
-        @onchange={{fn this.onSelectFromLanguage}}
+        @selected={{this.fromRevision}}
+        @options={{this.mappedRevisions}}
+        @onchange={{fn this.onSelectFromRevision}}
       />
 
       <div
@@ -20,9 +18,9 @@
       <AccSelect
         @searchEnabled={{true}}
         @search={{fn this.searchLanguages}}
-        @selected={{this.toLanguage}}
-        @options={{this.mappedLanguages}}
-        @onchange={{fn this.onSelectToLanguage}}
+        @selected={{this.toRevision}}
+        @options={{this.mappedRevisions}}
+        @onchange={{fn this.onSelectToRevision}}
       />
     </div>
 

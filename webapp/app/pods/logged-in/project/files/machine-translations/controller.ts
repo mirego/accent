@@ -33,9 +33,17 @@ export default class MachineTranslationsController extends Controller {
   @tracked
   translatedFileContent = '';
 
-  get file() {
+  get document() {
     return this.model.fileModel.documents.entries.find(
       (document: {id: string}) => document.id === this.model.fileId
+    );
+  }
+
+  get documentFormatItem() {
+    if (!this.globalState.documentFormats) return {};
+
+    return this.globalState.documentFormats.find(
+      ({slug}) => slug === this.document.format
     );
   }
 

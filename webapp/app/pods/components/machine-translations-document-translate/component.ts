@@ -35,8 +35,7 @@ interface Args {
   project: Project;
   document: Document;
   translatedFileContent: string | null;
-  onFileReset: () => void;
-  onFileChange: (
+  onTranslate: (
     fromLanguage: string,
     toLanguage: string,
     documentFormat: string
@@ -66,26 +65,26 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
   fileContent: string | ArrayBuffer | null;
 
   @tracked
-  fromLanguage = this.mappedLanguages[0];
+  fromRevision = this.mappedRevisions[0];
 
   @tracked
-  toLanguage = this.mappedLanguages[1] || this.mappedLanguages[0];
+  toRevision = this.mappedRevisions[1] || this.mappedRevisions[0];
 
   get sameLanguages() {
-    return this.fromLanguage.value === this.toLanguage.value;
+    return this.fromRevision.value === this.toRevision.value;
   }
 
   get isSubmitting() {
     return taskFor(this.submitTask).isRunning;
   }
 
-  get mappedLanguages() {
+  get mappedRevisions() {
     return this.mapRevisions(this.args.revisions);
   }
 
   get revision() {
-    return this.mappedLanguages.find(
-      (revision) => revision.id === this.fromLanguage.id
+    return this.mappedRevisions.find(
+      (revision) => revision.id === this.fromRevision.id
     );
   }
 
@@ -104,21 +103,20 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
   }
 
   @action
-  switchLanguages() {
-    const fromLanguage = this.fromLanguage;
-
-    this.fromLanguage = this.toLanguage;
-    this.toLanguage = fromLanguage;
+  async onSelectFromRevision(select: HTMLSelectElement) {
+    this.fromRevision =
+      this.mappedRevisions.find(
+        (revision) => revision.language.id === select.value
+      ) || this.fromRevision;
+    await this.renderDocument();
   }
 
   @action
-  onSelectFromLanguage(langage: any) {
-    this.fromLanguage = langage;
-  }
-
-  @action
-  onSelectToLanguage(langage: any) {
-    this.toLanguage = langage;
+  onSelectToRevision(select: HTMLSelectElement) {
+    this.toRevision =
+      this.mappedRevisions.find(
+        (revision) => revision.language.id === select.value
+      ) || this.toRevision;
   }
 
   @action
@@ -134,15 +132,17 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
 
     if (this.sameLanguages) return;
 
-    yield this.args.onFileChange(
-      this.fromLanguage.value,
-      this.toLanguage.value,
+    yield this.args.onTranslate(
+      this.fromRevision.value,
+      this.toRevision.value,
       this.documentFormat.value
     );
   }
 
   @action
   async renderDocument() {
+    if (!this.revision) return;
+
     const data = await this.exporter.export({
       revision: this.revision,
       project: this.args.project,

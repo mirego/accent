@@ -34,9 +34,9 @@ defmodule Accent.MachineTranslations do
       with {module, config} <- provider_from_service(:translate_list),
            {:ok, translated_values} <- module.translate_list(values, source_language.slug, target_language.slug, config) do
         entries
-        |> Enum.with_index()
-        |> Enum.map(fn {entry, index} ->
-          case Enum.at(translated_values, index) do
+        |> Enum.zip(translated_values)
+        |> Enum.map(fn {entry, translated_text} ->
+          case translated_text do
             %TranslatedText{text: @untranslatable_placeholder} -> entry
             %TranslatedText{text: text} -> %{entry | value: text}
             _ -> entry

@@ -596,6 +596,7 @@
       "sync": "Sync",
       "merge": "Add translations",
       "export": "Export",
+      "translate": "Translate",
       "document_format": "Format",
       "preview_title": "Preview",
       "preview_text": "You must choose a file, then click on the Preview button.",

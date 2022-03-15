@@ -134,6 +134,9 @@ defmodule Accent.MachineTranslations.Adapter.GoogleTranslations do
       {:ok, %{body: %{"translations" => translations}}} ->
         {:ok, Enum.map(translations, &%TranslatedText{text: &1["translatedText"]})}
 
+      {:ok, %{status: status, body: body}} when status > 201 ->
+        {:error, body}
+
       error ->
         error
     end
