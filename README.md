@@ -144,7 +144,7 @@ Various login providers are included in Accent using Ueberauth to abstract servi
 | `GITHUB_CLIENT_SECRET`     | _none_               |                                                                                         |
 | `GITLAB_CLIENT_ID`         | _none_               |                                                                                         |
 | `GITLAB_CLIENT_SECRET`     | _none_               |                                                                                         |
-| `GITLAB_SITE_URL`          | _https://gitlab.com_ |                                                                                         |
+| `GITLAB_SITE_URL`          | `https://gitlab.com` |                                                                                         |
 | `GOOGLE_API_CLIENT_ID`     | _none_               |                                                                                         |
 | `GOOGLE_API_CLIENT_SECRET` | _none_               |                                                                                         |
 | `SLACK_CLIENT_ID`          | _none_               |                                                                                         |

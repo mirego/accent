@@ -16,7 +16,9 @@
       @text={{t "components.projects_list.no_projects_query" query=@query}}
     />
   {{else}}
-    <EmptyContent>
+    <EmptyContent
+      @center={{true}}
+    >
       {{inline-svg "assets/empty.svg" class="icon"}}
       {{t "components.projects_list.no_projects"}}
       {{#if (get @permissions "create_project")}}

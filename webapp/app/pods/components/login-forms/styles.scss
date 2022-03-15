@@ -1,6 +1,7 @@
 .login-forms {
   max-width: 500px;
   margin: 0 auto 30px;
+  padding: 0 10px;
 }
 
 .input {
@@ -9,6 +10,8 @@
   padding: 10px;
   width: 100%;
   font-size: 13px;
+  border-color: var(--color-green) !important;
+  border-bottom-width: 0 !important;
 
   &:focus {
     border-color: var(--color-green);
@@ -24,7 +27,7 @@ a.loginButton {
   padding: 12px 10px;
   margin-bottom: 15px;
   text-align: center;
-  background: #fff;
+  background: var(--input-background);
   border: 2px solid #888;
   font-size: 13px;
 
@@ -40,15 +43,38 @@ a.loginButton {
   }
 
   &.loginButton--dummy {
-    border-color: var(--color-green);
+    border: 1px solid var(--color-green);
     background: var(--color-green);
+    color: #111;
+    text-shadow: none;
     border-radius: 0 0 4px 4px;
     margin-top: -3px;
+
+    &[disabled] {
+      pointer-events: none;
+    }
+
+    .loginButton-logo {
+      left: 15px;
+      top: 14px;
+      width: 16px;
+      opacity: 0.9;
+    }
+
+    &:hover[disabled],
+    &:focus,
+    &:hover {
+      margin-top: -3px;
+      border-color: var(--color-green);
+      background: var(--color-green);
+      color: #111;
+    }
   }
 
   &.loginButton--github {
     text-shadow: none;
     color: #000;
+    background: #fff;
 
     &:focus,
     &:hover {
@@ -68,13 +94,13 @@ a.loginButton {
   }
 
   &.loginButton--slack {
-    border: 2px solid #3f0f3f;
+    border: 2px solid #913d91;
     text-shadow: none;
-    color: #3f0f3f;
+    color: #913d91;
 
     &:focus,
     &:hover {
-      background: lighten(#3f0f3f, 79%);
+      background: lighten(#913d91, 79%);
     }
   }
 
@@ -104,7 +130,7 @@ a.loginButton {
 .loginButton-logo {
   position: absolute;
   left: 10px;
-  top: 8px;
+  top: 9px;
   width: 26px;
   margin-right: 10px;
   color: #fff;

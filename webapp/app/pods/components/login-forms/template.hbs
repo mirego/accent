@@ -4,12 +4,14 @@
       <input
         value={{this.username}}
         local-class="input"
+        {{did-insert this.focusInput}}
         {{on "keyup" (fn this.setUsername)}}
       >
       <a
         href={{this.dummyUrl}}
         class="button button--filled"
         local-class="loginButton loginButton--dummy"
+        disabled={{this.emptyUsername}}
       >
         <img src="assets/auth_providers/dummy.svg" local-class="loginButton-logo">
         {{t "components.login_forms.dummy"}}

@@ -57,9 +57,18 @@ export default class LoginForms extends Component<Args> {
     return `${config.API.AUTHENTICATION_PATH}/dummy/callback?email=${this.username}`;
   }
 
+  get emptyUsername() {
+    return this.username === "";
+  }
+
   @action
   setUsername(event: any) {
-    if (event.keyCode === ENTER_KEY) window.location.href = this.dummyUrl;
     this.username = event.currentTarget.value;
+    if (event.keyCode === ENTER_KEY && this.username !== "") window.location.href = this.dummyUrl;
+  }
+
+  @action
+  focusInput(element: HTMLElement) {
+    element.focus();
   }
 }
