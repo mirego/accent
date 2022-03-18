@@ -19,7 +19,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.9.2 darwin-x64 node-v10.16.3
+accent-cli/0.10.0 darwin-x64 node-v16.13.1
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -74,6 +74,7 @@ Here is a list of available hooks. Those are self-explanatory
 * [`accent export`](#accent-export)
 * [`accent help [COMMAND]`](#accent-help-command)
 * [`accent jipt PSEUDOLANGUAGENAME`](#accent-jipt-pseudolanguagename)
+* [`accent lint`](#accent-lint)
 * [`accent stats`](#accent-stats)
 * [`accent sync`](#accent-sync)
 
@@ -92,7 +93,7 @@ EXAMPLE
   $ accent export
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.9.2/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.10.0/src/commands/export.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -126,7 +127,21 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.9.2/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.10.0/src/commands/jipt.ts)_
+
+## `accent lint`
+
+Lint local files and display errors if any. Exit code is 1 if there are errors.
+
+```
+USAGE
+  $ accent lint
+
+EXAMPLE
+  $ accent lint
+```
+
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.10.0/src/commands/lint.ts)_
 
 ## `accent stats`
 
@@ -140,7 +155,7 @@ EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.9.2/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.10.0/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -166,7 +181,7 @@ EXAMPLE
   $ accent sync
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.9.2/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.10.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # License
