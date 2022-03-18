@@ -21,10 +21,12 @@ defmodule Accent.LintView do
               %{
                 check: message.check,
                 text: message.text,
-                replacement: %{
-                  label: message.replacement.label,
-                  value: message.replacement.value
-                }
+                replacement:
+                  message.replacement &&
+                    %{
+                      label: message.replacement.label,
+                      value: message.replacement.value
+                    }
               }
             end)
         }
