@@ -33,6 +33,7 @@ config :tesla,
   adapter: Tesla.Adapter.Hackney
 
 config :sentry,
+  before_send_event: {Accent.Sentry, :before_send},
   release: version
 
 config :ueberauth, Ueberauth, providers: []
