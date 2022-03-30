@@ -53,8 +53,6 @@ defmodule Accent.Translation do
 
   @spec to_langue_entry(map(), map(), boolean, String.t()) :: Langue.Entry.t()
   def to_langue_entry(translation, master_translation, is_master, language_slug) do
-    master_translation = master_translation || translation
-
     %Langue.Entry{
       id: translation.id,
       key: translation.key,

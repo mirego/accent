@@ -49,8 +49,8 @@ defmodule Accent.LintController do
   end
 
   defp map_entry(entry, conn) do
-    master_translation = Map.get(conn.assigns[:master_translations], {entry.key, conn.assigns[:document].id})
     translation = Map.get(conn.assigns[:translations], {entry.key, conn.assigns[:document].id})
+    master_translation = Map.get(conn.assigns[:master_translations], {entry.key, conn.assigns[:document].id}, translation)
     language_slug = conn.assigns[:revision].slug || conn.assigns[:revision].language.slug
 
     if translation do
@@ -64,14 +64,12 @@ defmodule Accent.LintController do
           value_type: entry.value_type
       }
     else
-      is_master = conn.assigns[:revision].id === conn.assigns[:master_revision].id
-
       %{
         entry
         | id: nil,
-          master_value: "",
+          master_value: entry.value,
           language_slug: language_slug,
-          is_master: is_master
+          is_master: conn.assigns[:revision].id === conn.assigns[:master_revision].id
       }
     end
   end

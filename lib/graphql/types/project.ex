@@ -73,6 +73,22 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(project_authorize(:index_documents, &Accent.GraphQL.Resolvers.Document.list_project/3))
     end
 
+    field :translations, :translations do
+      arg(:page, :integer)
+      arg(:page_size, :integer)
+      arg(:order, :string)
+      arg(:document, :id)
+      arg(:version, :id)
+      arg(:query, :string)
+      arg(:is_conflicted, :boolean)
+      arg(:is_text_empty, :boolean)
+      arg(:is_text_not_empty, :boolean)
+      arg(:is_added_last_sync, :boolean)
+      arg(:is_commented_on, :boolean)
+
+      resolve(project_authorize(:index_translations, &Accent.GraphQL.Resolvers.Translation.list_project/3))
+    end
+
     field :activities, :activities do
       arg(:page, :integer)
       arg(:page_size, :integer)

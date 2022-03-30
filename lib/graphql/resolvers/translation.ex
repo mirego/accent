@@ -121,6 +121,29 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     {:ok, Paginated.format(translations)}
   end
 
+  @spec list_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Translation.t())}
+  def list_project(project, args, _) do
+    translations =
+      Translation
+      |> TranslationScope.active()
+      |> TranslationScope.not_locked()
+      |> TranslationScope.from_project(project.id)
+      |> TranslationScope.from_search(args[:query])
+      |> TranslationScope.from_document(args[:document] || :all)
+      |> TranslationScope.parse_order(args[:order])
+      |> TranslationScope.parse_conflicted(args[:is_conflicted])
+      |> TranslationScope.parse_added_last_sync(args[:is_added_last_sync], project.id, args[:document])
+      |> TranslationScope.parse_not_empty(args[:is_text_not_empty])
+      |> TranslationScope.parse_empty(args[:is_text_empty])
+      |> TranslationScope.parse_commented_on(args[:is_commented_on])
+      |> TranslationScope.from_version(args[:version])
+      |> Query.distinct(true)
+      |> Query.preload(:revision)
+      |> Paginated.paginate(args)
+
+    {:ok, Paginated.format(translations)}
+  end
+
   @spec related_translations(Translation.t(), map(), struct()) :: {:ok, [Translation.t()]}
   def related_translations(translation, _, _) do
     translations =
