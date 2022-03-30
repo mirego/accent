@@ -46,7 +46,7 @@ export default class ProjectLintFormatter extends Base {
 
         const message = lintTranslation.messages[0];
         let displayMessage = message.text.slice(0, MAX_TEXT_SIZE);
-        if (message.length > MAX_TEXT_SIZE)
+        if (message.text.length > MAX_TEXT_SIZE)
           displayMessage = `${displayMessage}…`;
 
         console.log('  ', chalk.white.italic(displayMessage));
