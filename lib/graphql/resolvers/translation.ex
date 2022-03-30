@@ -102,20 +102,8 @@ defmodule Accent.GraphQL.Resolvers.Translation do
   def list_revision(revision, args, _) do
     translations =
       Translation
-      |> TranslationScope.active()
-      |> TranslationScope.not_locked()
+      |> list(args, revision.project_id)
       |> TranslationScope.from_revision(revision.id)
-      |> TranslationScope.from_search(args[:query])
-      |> TranslationScope.from_document(args[:document] || :all)
-      |> TranslationScope.parse_order(args[:order])
-      |> TranslationScope.parse_conflicted(args[:is_conflicted])
-      |> TranslationScope.parse_added_last_sync(args[:is_added_last_sync], revision.project_id, args[:document])
-      |> TranslationScope.parse_not_empty(args[:is_text_not_empty])
-      |> TranslationScope.parse_empty(args[:is_text_empty])
-      |> TranslationScope.parse_commented_on(args[:is_commented_on])
-      |> TranslationScope.from_version(args[:version])
-      |> Query.distinct(true)
-      |> Query.preload(:revision)
       |> Paginated.paginate(args)
 
     {:ok, Paginated.format(translations)}
@@ -125,20 +113,8 @@ defmodule Accent.GraphQL.Resolvers.Translation do
   def list_project(project, args, _) do
     translations =
       Translation
-      |> TranslationScope.active()
-      |> TranslationScope.not_locked()
+      |> list(args, project.id)
       |> TranslationScope.from_project(project.id)
-      |> TranslationScope.from_search(args[:query])
-      |> TranslationScope.from_document(args[:document] || :all)
-      |> TranslationScope.parse_order(args[:order])
-      |> TranslationScope.parse_conflicted(args[:is_conflicted])
-      |> TranslationScope.parse_added_last_sync(args[:is_added_last_sync], project.id, args[:document])
-      |> TranslationScope.parse_not_empty(args[:is_text_not_empty])
-      |> TranslationScope.parse_empty(args[:is_text_empty])
-      |> TranslationScope.parse_commented_on(args[:is_commented_on])
-      |> TranslationScope.from_version(args[:version])
-      |> Query.distinct(true)
-      |> Query.preload(:revision)
       |> Paginated.paginate(args)
 
     {:ok, Paginated.format(translations)}
@@ -155,6 +131,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     {:ok, translations}
   end
 
+  @spec master_translation(Translation.t(), map(), struct()) :: {:ok, Translation.t() | nil}
   def master_translation(translation, _, _) do
     translation
     |> Ecto.assoc(:revision)
@@ -181,4 +158,22 @@ defmodule Accent.GraphQL.Resolvers.Translation do
         |> (&{:ok, &1}).()
     end
   end
+
+  defp list(schema, args, project_id) do
+    schema
+    |> TranslationScope.active()
+    |> TranslationScope.not_locked()
+    |> TranslationScope.from_search(args[:query])
+    |> TranslationScope.from_document(args[:document] || :all)
+    |> TranslationScope.parse_order(args[:order])
+    |> TranslationScope.parse_conflicted(args[:is_conflicted])
+    |> TranslationScope.parse_added_last_sync(args[:is_added_last_sync], project_id, args[:document])
+    |> TranslationScope.parse_not_empty(args[:is_text_not_empty])
+    |> TranslationScope.parse_empty(args[:is_text_empty])
+    |> TranslationScope.parse_commented_on(args[:is_commented_on])
+    |> TranslationScope.from_version(args[:version])
+    |> Query.distinct(true)
+    |> Query.preload(:revision)
+  end
+
 end

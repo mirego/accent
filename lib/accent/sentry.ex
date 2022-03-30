@@ -1,5 +1,5 @@
 defmodule Accent.Sentry do
-  def before_send(%{exception: [%{type: DBConnection.ConnectionError}]} = event) do
+  def before_send(event = %{exception: [%{type: DBConnection.ConnectionError}]}) do
     %{event | fingerprint: ~w(ecto db_connection timeout)}
   end
 
