@@ -175,5 +175,4 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> Query.distinct(true)
     |> Query.preload(:revision)
   end
-
 end
