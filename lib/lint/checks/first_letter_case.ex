@@ -2,13 +2,19 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
   alias Accent.Lint.Message
   alias Accent.Lint.Replacement
 
-  def applicable(entry), do: !entry.is_master
+  def applicable(entry) do
+    letter = entry_first_letter(entry.value)
+    capitalized_letter = String.capitalize(letter)
+    downcased_letter = String.downcase(letter)
+
+    !entry.is_master && capitalized_letter !== downcased_letter
+  end
 
   def check(entry) do
-    value_has_first_letter = starts_with_letter?(entry.value)
     master_has_first_letter = starts_with_letter?(entry.master_value)
-    value_capitalized = starts_with_capitalized_letter?(entry.value)
+    value_has_first_letter = starts_with_letter?(entry.value)
     master_capitalized = starts_with_capitalized_letter?(entry.master_value)
+    value_capitalized = starts_with_capitalized_letter?(entry.value)
 
     cond do
       value_capitalized === master_capitalized ->
@@ -46,7 +52,14 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
   defp starts_with_capitalized_letter?(""), do: false
 
   defp starts_with_capitalized_letter?(text) do
-    letter = String.first(text)
-    String.capitalize(letter) === letter and String.downcase(letter) !== letter
+    letter = entry_first_letter(text)
+    capitalized_letter = String.capitalize(letter)
+    downcased_letter = String.downcase(letter)
+
+    capitalized_letter === letter and downcased_letter !== letter
   end
+
+  defp entry_first_letter(nil), do: ""
+  defp entry_first_letter(""), do: ""
+  defp entry_first_letter(text), do: String.first(text)
 end

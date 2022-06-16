@@ -86,6 +86,13 @@ defmodule AccentTest.Lint do
       assert messages === []
     end
 
+    test "lint not applicable first letter non latin uppercase entry" do
+      entry = %Entry{key: "a", is_master: false, value: "超级有趣", master_value: "Foo", value_type: "string"}
+      [{_, messages}] = Lint.lint([entry])
+
+      assert messages === []
+    end
+
     test "lint incorrect first letter accent uppercase entry" do
       entry = %Entry{key: "a", is_master: false, value: "Éar", master_value: "foo", value_type: "string"}
       [{_, messages}] = Lint.lint([entry])
