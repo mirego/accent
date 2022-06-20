@@ -13,8 +13,9 @@ export default class ConfigFetcher {
 
   constructor() {
     this.config = fs.readJsonSync('accent.json');
-    this.config.apiKey = this.config.apiKey || process.env.ACCENT_API_KEY!;
-    this.config.apiUrl = this.config.apiUrl || process.env.ACCENT_API_URL!;
+    this.config.apiKey = process.env.ACCENT_API_KEY || this.config.apiKey;
+    this.config.apiUrl = process.env.ACCENT_API_URL || this.config.apiUrl;
+    this.config.project = process.env.ACCENT_PROJECT || this.config.project;
 
     if (!this.config.apiKey) {
       error(

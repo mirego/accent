@@ -4,6 +4,6 @@
   <ProjectSettings::BackLink @project={{this.project}} />
 
   {{#if this.project.accessToken}}
-    <ProjectSettings::ApiToken @token={{this.project.accessToken}} />
+    <ProjectSettings::ApiToken @projectToken={{this.project.accessToken}} @userToken={{this.accessToken}} />
   {{/if}}
 {{/if}}

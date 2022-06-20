@@ -37,7 +37,11 @@ defmodule Accent.Scopes.Translation do
       from(translations in query,
         inner_join: revisions in assoc(translations, :revision),
         inner_join: languages in assoc(revisions, :language),
-        order_by: fragment("(case when ? then 0 else 2 end) ASC", revisions.master)
+        order_by: [
+          fragment("(case when ? then 0 else 2 end) ASC", revisions.master),
+          {:asc, revisions.name},
+          {:asc, languages.name}
+        ]
       )
 
   def parse_order(query, _), do: from(query, order_by: [asc: :key])

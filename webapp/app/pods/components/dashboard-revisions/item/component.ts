@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {readOnly, lt, gte, or, gt} from '@ember/object/computed';
+import {readOnly, or} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import percentage from 'accent-webapp/component-helpers/percentage';
 import {tracked} from '@glimmer/tracking';
@@ -19,23 +19,8 @@ export default class DashboardRevisionsItem extends Component<Args> {
   @readOnly('args.revision.isMaster')
   master: boolean;
 
-  @lt('correctedKeysPercentage', LOW_PERCENTAGE)
-  lowPercentage: boolean; // Lower than low percentage
-
-  @gte('correctedKeysPercentage', LOW_PERCENTAGE)
-  mediumPercentage: boolean; // higher or equal than low percentage
-
-  @gte('correctedKeysPercentage', HIGH_PERCENTAGE)
-  highPercentage: boolean; // higher or equal than high percentage
-
   @or('isCorrectAllConflictLoading', 'isUncorrectAllConflictLoading')
   isAnyActionsLoading: boolean;
-
-  @lt('correctedKeysPercentage', 100)
-  showCorrectAllAction: boolean;
-
-  @gt('correctedKeysPercentage', 0)
-  showUncorrectAllAction: boolean;
 
   @tracked
   showActions = false;
@@ -45,6 +30,26 @@ export default class DashboardRevisionsItem extends Component<Args> {
 
   @tracked
   isUncorrectAllConflictLoading = false;
+
+  get showCorrectAllAction() {
+    return this.correctedKeysPercentage < 100;
+  }
+
+  get showUncorrectAllAction() {
+    return this.correctedKeysPercentage > 0;
+  }
+
+  get lowPercentage() {
+    return this.correctedKeysPercentage < LOW_PERCENTAGE;
+  }
+
+  get mediumPercentage() {
+    return this.correctedKeysPercentage >= LOW_PERCENTAGE;
+  }
+
+  get highPercentage() {
+    return this.correctedKeysPercentage >= HIGH_PERCENTAGE;
+  }
 
   get correctedKeysPercentage() {
     return percentage(

@@ -1,5 +1,13 @@
 .project-settings-title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
   font-size: 18px;
   font-weight: bold;
   color: var(--text-color-normal);
+}
+
+.icon {
+  width: 14px;
+  opacity: 0.8;
 }

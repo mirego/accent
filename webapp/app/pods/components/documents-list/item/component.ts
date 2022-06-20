@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {not, lt, gte} from '@ember/object/computed';
+import {not} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 import Component from '@glimmer/component';
 import percentage from 'accent-webapp/component-helpers/percentage';
@@ -21,15 +21,6 @@ export default class DocumentsListItem extends Component<Args> {
   @service('global-state')
   globalState: GlobalState;
 
-  @lt('correctedKeysPercentage', LOW_PERCENTAGE)
-  lowPercentage: boolean; // Lower than low percentage
-
-  @gte('correctedKeysPercentage', LOW_PERCENTAGE)
-  mediumPercentage: boolean; // higher or equal than low percentage
-
-  @gte('correctedKeysPercentage', HIGH_PERCENTAGE)
-  highPercentage: boolean; // higher or equal than high percentage
-
   @tracked
   renamedDocumentPath = this.args.document.path;
 
@@ -44,6 +35,18 @@ export default class DocumentsListItem extends Component<Args> {
 
   @tracked
   isUpdating = false;
+
+  get lowPercentage() {
+    return this.correctedKeysPercentage < LOW_PERCENTAGE;
+  }
+
+  get mediumPercentage() {
+    return this.correctedKeysPercentage >= LOW_PERCENTAGE;
+  }
+
+  get highPercentage() {
+    return this.correctedKeysPercentage >= HIGH_PERCENTAGE;
+  }
 
   get documentFormatItem() {
     if (!this.globalState.documentFormats) return {};

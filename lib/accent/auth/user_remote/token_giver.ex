@@ -9,8 +9,8 @@ defmodule Accent.UserRemote.TokenGiver do
 
   defp invalidate_tokens(user) do
     user
-    |> Ecto.assoc(:access_tokens)
-    |> Repo.update_all(set: [revoked_at: DateTime.utc_now()])
+    |> Ecto.assoc(:private_access_tokens)
+    |> Repo.update_all(set: [revoked_at: DateTime.utc_now(), updated_at: DateTime.utc_now()])
   end
 
   defp create_token(user) do

@@ -79,14 +79,31 @@ export default class ProjectStatsFormatter extends Base {
       );
       this.project.revisions.forEach((revision: Revision) => {
         if (this.project.masterRevision.id !== revision.id) {
+          const percentageReviewed =
+            revision.reviewedCount / revision.translationsCount;
+
+          const percentageReviewedString = `${percentageReviewed}% reviewed`;
+          let percentageReviewedFormat = chalk.green(percentageReviewedString);
+
+          if (percentageReviewed === 100) {
+            percentageReviewedFormat = chalk.green(percentageReviewedString);
+          } else if (percentageReviewed > 100 / 2) {
+            percentageReviewedFormat = chalk.yellow(percentageReviewedString);
+          } else {
+            percentageReviewedFormat = chalk.red(percentageReviewedString);
+          }
+
           console.log(
             `${chalk.white.bold(
               fetchNameFromRevision(revision)
-            )} – ${fetchFromRevision(revision)}`
+            )} – ${fetchFromRevision(revision)}`,
+            chalk.dim('•'),
+            percentageReviewedFormat
           );
-          console.log('');
         }
       });
+
+      console.log('');
     }
 
     if (this.project.documents.meta.totalEntries !== 0) {

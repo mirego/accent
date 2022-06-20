@@ -402,6 +402,10 @@
         "text_1": "With this token, you can make authentified calls to Accent’s API. All operations will be flagged as \"made by the API client\".",
         "text_2": "Typically, this is used to sync and add translations the localization files in a deploy script."
       },
+      "user_token": {
+        "title": "Your personal token",
+        "text_1": "You can also use your personal token to make API call as yourself. Beware, this token is global for all your project."
+      },
       "badges": {
         "title": "Badges",
         "text": "Can be embedded in markdown files or displayed on a web page to show public stats for a given project.",

@@ -429,6 +429,12 @@ input[type='radio'] {
   color: var(--color-green);
 }
 
+:global(.undiffable) {
+  padding: 0 3px;
+  background: var(--background-light-highlight);
+  color: var(--color-gray);
+}
+
 :global(.removed) {
   padding: 0 3px;
   background: hsl(

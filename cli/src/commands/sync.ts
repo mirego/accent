@@ -16,6 +16,7 @@ import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import CommitOperationFormatter from '../services/formatters/commit-operation';
 import DocumentExportFormatter from '../services/formatters/document-export';
 import HookRunner from '../services/hook-runner';
+
 import {fetchFromRevision} from '../services/revision-slug-fetcher';
 
 // Types
@@ -82,7 +83,7 @@ export default class Sync extends Command {
       for (const document of documents) {
         await new HookRunner(document).run(Hooks.beforeAddTranslations);
 
-        await Promise.all(this.addTranslationsDocumentConfig(document));
+        await this.addTranslationsDocumentConfig(document);
 
         await new HookRunner(document).run(Hooks.afterAddTranslations);
       }
@@ -142,7 +143,7 @@ export default class Sync extends Command {
     });
   }
 
-  private addTranslationsDocumentConfig(document: Document) {
+  private async addTranslationsDocumentConfig(document: Document) {
     const {flags} = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
     const masterLanguage = fetchFromRevision(this.project!.masterRevision);
@@ -160,23 +161,28 @@ export default class Sync extends Command {
       formatter.logEmptyTarget(document.config.source);
     }
 
-    return existingTargets.map(async ({path, language}) => {
+    const promises = existingTargets.map(async ({path, language}) => {
       const documentPath = document.parseDocumentName(path, document.config);
-      const operations = await document.addTranslations(
+      return await document.addTranslations(
         path,
         language,
         documentPath,
         flags
       );
+    });
 
-      if (operations.addTranslations && !operations.peek) {
-        formatter.logAddTranslations(path, documentPath);
-      }
-      if (operations.peek) {
-        formatter.logPeek(path, documentPath, operations.peek);
+    (await Promise.all(promises)).forEach((operation) => {
+      if (operation.addTranslations && !operation.peek) {
+        formatter.logAddTranslations(operation.file, operation.documentPath);
       }
 
-      return operations;
+      if (operation.peek) {
+        formatter.logPeek(
+          operation.file,
+          operation.documentPath,
+          operation.peek
+        );
+      }
     });
   }
 }

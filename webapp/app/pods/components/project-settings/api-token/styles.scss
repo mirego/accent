@@ -4,14 +4,19 @@
 
 .text {
   max-width: 490px;
-  margin: 10px 0 15px;
+  margin: 10px 0 4px;
   font-size: 13px;
   font-style: italic;
+}
+
+.user-token {
+  margin-top: 30px;
 }
 
 .token {
   display: inline-block;
   width: 100%;
+  max-width: 640px;
   margin: 10px 0 0;
   padding: 8px;
   overflow-x: scroll;

@@ -2,6 +2,7 @@ import {inject as service} from '@ember/service';
 import Route from '@ember/routing/route';
 import Exporter from 'accent-webapp/services/exporter';
 import ExportController from 'accent-webapp/pods/logged-in/project/files/export/controller';
+import Transition from '@ember/routing/-private/transition';
 
 export default class ExportRoute extends Route {
   @service('exporter')
@@ -31,8 +32,9 @@ export default class ExportRoute extends Route {
     },
   };
 
-  model({fileId}: {fileId: string}) {
+  model({fileId}: {fileId: string}, transition: Transition) {
     return {
+      from: transition.from,
       projectModel: this.modelFor('logged-in.project'),
       fileModel: this.modelFor('logged-in.project.files'),
       fileId,

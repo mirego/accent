@@ -6,6 +6,7 @@ import FileSaver from 'accent-webapp/services/file-saver';
 import GlobalState from 'accent-webapp/services/global-state';
 import {tracked} from '@glimmer/tracking';
 import RouterService from '@ember/routing/router-service';
+import FromRoute from 'accent-webapp/services/from-route';
 
 export default class ExportController extends Controller {
   @tracked
@@ -19,6 +20,9 @@ export default class ExportController extends Controller {
 
   @service('router')
   router: RouterService;
+
+  @service('from-route')
+  fromRoute: FromRoute;
 
   queryParams = [
     'revisionFilter',
@@ -115,7 +119,12 @@ export default class ExportController extends Controller {
 
   @action
   closeModal() {
-    this.router.transitionTo('logged-in.project.files', this.project.id);
+    this.fromRoute.transitionTo(
+      this.model.from,
+      'logged-in.project.files',
+      'logged-in.project.files',
+      this.project.id
+    );
   }
 
   @action

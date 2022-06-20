@@ -10,6 +10,10 @@ defmodule Accent.GraphQL.Types.Viewer do
       resolve(viewer_authorize(:index_permissions, &Accent.GraphQL.Resolvers.Permission.list_viewer/3))
     end
 
+    field :access_token, :string do
+      resolve(&Accent.GraphQL.Resolvers.Viewer.show_access_token/3)
+    end
+
     field :projects, :projects do
       arg(:page, :integer)
       arg(:page_size, :integer)

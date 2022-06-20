@@ -7,7 +7,9 @@ defmodule Accent.User do
     field(:picture_url, :string)
     field(:bot, :boolean, default: false)
 
+    has_one(:global_access_token, Accent.AccessToken, where: [revoked_at: nil, global: true])
     has_many(:access_tokens, Accent.AccessToken)
+    has_many(:private_access_tokens, Accent.AccessToken, where: [global: false])
     has_many(:auth_providers, Accent.AuthProvider)
     has_many(:collaborations, Accent.Collaborator)
     has_many(:collaboration_assigns, Accent.Collaborator, foreign_key: :assigner_id)

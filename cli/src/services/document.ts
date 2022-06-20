@@ -28,6 +28,7 @@ export default class Document {
   paths: string[];
   readonly apiKey: string;
   readonly apiUrl: string;
+  readonly projectId: string | null | undefined;
   readonly config: DocumentConfig;
   readonly target: string;
 
@@ -35,6 +36,7 @@ export default class Document {
     this.config = this.resolveNamePattern(documentConfig);
     this.apiKey = config.apiKey;
     this.apiUrl = config.apiUrl;
+    this.projectId = config.project;
     this.target = this.config.target;
     this.paths = new Tree(this.config).list();
   }
@@ -50,6 +52,7 @@ export default class Document {
     formData.append('document_path', this.parseDocumentName(file, this.config));
     formData.append('document_format', this.config.format);
     formData.append('language', language);
+    if (this.projectId) formData.append('project_id', this.projectId);
 
     const url = `${this.apiUrl}/lint`;
 
@@ -73,6 +76,7 @@ export default class Document {
     formData.append('document_path', this.parseDocumentName(file, this.config));
     formData.append('document_format', this.config.format);
     formData.append('language', masterLanguage);
+    if (this.projectId) formData.append('project_id', this.projectId);
 
     let url = `${this.apiUrl}/sync`;
     if (options['dry-run']) url = `${url}/peek`;
@@ -86,7 +90,7 @@ export default class Document {
       method: 'POST',
     });
 
-    return this.handleResponse(response, options, OperationName.Sync);
+    return this.handleResponse(response, options, OperationName.Sync, {file});
   }
 
   async addTranslations(
@@ -101,6 +105,7 @@ export default class Document {
     formData.append('document_path', documentPath);
     formData.append('document_format', this.config.format);
     formData.append('language', language);
+    if (this.projectId) formData.append('project_id', this.projectId);
 
     let url = `${this.apiUrl}/add-translations`;
     if (options['dry-run']) url = `${url}/peek`;
@@ -114,7 +119,12 @@ export default class Document {
       method: 'POST',
     });
 
-    return this.handleResponse(response, options, OperationName.AddTranslation);
+    return this.handleResponse(
+      response,
+      options,
+      OperationName.AddTranslation,
+      {file, documentPath}
+    );
   }
 
   fetchLocalFile(documentPath: string, localPath: string) {
@@ -140,6 +150,8 @@ export default class Document {
       ['language', language],
     ];
 
+    if (this.projectId) query.push(['project_id', this.projectId]);
+
     try {
       const url = `${this.apiUrl}/export?${this.encodeQuery(query)}`;
       const response = await fetch(url, {
@@ -157,6 +169,8 @@ export default class Document {
       ['document_path', documentPath],
       ['document_format', this.config.format],
     ];
+
+    if (this.projectId) query.push(['project_id', this.projectId]);
 
     const url = `${this.apiUrl}/jipt-export?${this.encodeQuery(query)}`;
 
@@ -232,19 +246,20 @@ export default class Document {
   private async handleResponse(
     response: Response,
     options: any,
-    operationName: OperationName
+    operationName: OperationName,
+    info: object
   ): Promise<OperationResponse> {
     if (!options['dry-run']) {
       if (response.status >= ERROR_THRESHOLD_STATUS_CODE) {
-        return {[operationName]: {success: false}, peek: false};
+        return {[operationName]: {success: false}, peek: false, ...info};
       }
 
-      return {[operationName]: {success: true}, peek: false};
+      return {[operationName]: {success: true}, peek: false, ...info};
     } else {
       try {
         const {data} = await response.json();
 
-        return {peek: data, [operationName]: {success: true}};
+        return {peek: data, [operationName]: {success: true}, ...info};
       } catch ({message}) {
         throw new CLIError(chalk.red(`Server error: ${message}`));
       }

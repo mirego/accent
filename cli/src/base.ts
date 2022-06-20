@@ -20,15 +20,15 @@ export default abstract class extends Command {
 
   async init() {
     const config = this.projectConfig.config;
-    if (!config.apiUrl) error('You must set an API url in your config');
-    if (!config.apiKey) error('You must set an API key in your config');
 
     // Fetch project from the GraphQL API.
     cli.action.start(chalk.white('Fetch config'));
     await sleep(1000);
+
     const fetcher = new ProjectFetcher();
     this.project = await fetcher.fetch(config);
     if (!this.project) error('Unable to fetch project');
+
     cli.action.stop(chalk.green('✓'));
     console.log('');
   }

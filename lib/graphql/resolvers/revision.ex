@@ -138,8 +138,9 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   def list_project(project, _, _) do
     project
     |> Ecto.assoc(:revisions)
+    |> Query.join(:inner, [revisions], languages in assoc(revisions, :language), as: :languages)
+    |> Query.order_by([revisions, languages: languages], desc: :master, asc: revisions.name, asc: languages.name)
     |> RevisionScope.with_stats()
-    |> Query.order_by(desc: :master, asc: :inserted_at)
     |> Repo.all()
     |> (&{:ok, &1}).()
   end

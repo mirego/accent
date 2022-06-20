@@ -30,23 +30,21 @@ defmodule Accent.OperationBatcher do
       where: [action: ^operation.action],
       where: [rollbacked: false],
       where: operations.inserted_at >= datetime_add(^operation.inserted_at, ^(-@time_limit), ^@time_unit),
+      preload: [:batch_operation],
       order_by: [asc: :inserted_at],
       limit: 1
     )
-    |> existing_operation_by_revision_id(operation.revision_id)
+    |> existing_operation_by_field(:revision_id, operation.revision_id)
+    |> existing_operation_by_field(:project_id, operation.project_id)
     |> Repo.one()
-    |> case do
-      nil -> nil
-      operation -> Repo.preload(operation, :batch_operation)
-    end
   end
 
   defp find_existing_operation(_), do: nil
 
-  defp existing_operation_by_revision_id(query, nil), do: query
+  defp existing_operation_by_field(query, _field, nil), do: query
 
-  defp existing_operation_by_revision_id(query, revision_id) do
-    from(query, where: [revision_id: ^revision_id])
+  defp existing_operation_by_field(query, field_name, value) do
+    from(operations in query, where: field(operations, ^field_name) == ^value)
   end
 
   defp maybe_batch(nil), do: nil

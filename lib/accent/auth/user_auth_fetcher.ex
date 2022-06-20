@@ -13,8 +13,8 @@ defmodule Accent.UserAuthFetcher do
   @spec fetch(String.t() | nil) :: User.t() | nil
   def fetch(access_token) do
     access_token
-    |> fetch_user
-    |> map_permissions
+    |> fetch_user()
+    |> map_permissions()
   end
 
   defp fetch_user("Bearer " <> token) when is_binary(token) do

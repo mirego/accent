@@ -11,7 +11,9 @@ defmodule Accent do
       {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
-    {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
+    if Application.get_env(:sentry, :dsn) do
+      {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
+    end
 
     opts = [strategy: :one_for_one, name: Accent.Supervisor]
     Supervisor.start_link(children, opts)

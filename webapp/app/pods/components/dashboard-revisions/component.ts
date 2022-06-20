@@ -1,4 +1,3 @@
-import {lt, gte} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import percentage from 'accent-webapp/component-helpers/percentage';
 
@@ -32,17 +31,21 @@ const calculateTotalRevisions = (
 };
 
 export default class DashboardRevisions extends Component<Args> {
-  @lt('reviewedPercentage', LOW_PERCENTAGE)
-  lowPercentage: boolean; // Lower than low percentage
+  get reviewCompleted() {
+    return this.reviewedPercentage >= 100;
+  }
 
-  @gte('reviewedPercentage', LOW_PERCENTAGE)
-  mediumPercentage: boolean; // higher or equal than low percentage
+  get lowPercentage() {
+    return this.reviewedPercentage < LOW_PERCENTAGE;
+  }
 
-  @gte('reviewedPercentage', HIGH_PERCENTAGE)
-  highPercentage: boolean; // higher or equal than high percentage
+  get mediumPercentage() {
+    return this.reviewedPercentage >= LOW_PERCENTAGE;
+  }
 
-  @gte('reviewedPercentage', 100)
-  reviewCompleted: boolean;
+  get highPercentage() {
+    return this.reviewedPercentage >= HIGH_PERCENTAGE;
+  }
 
   get masterRevision() {
     return this.args.revisions.find((revision: Revision) => revision.isMaster);

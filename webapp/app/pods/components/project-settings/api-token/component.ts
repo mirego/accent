@@ -1,7 +1,8 @@
 import Component from '@glimmer/component';
 
 interface Args {
-  token: string;
+  projectToken: string;
+  userToken: string;
 }
 
 export default class APIToken extends Component<Args> {}

@@ -78,8 +78,11 @@ export default class ProjectFetcher {
       }
     }`;
 
+    // eslint-disable-next-line camelcase
+    const variables = config.project ? {project_id: config.project} : {};
+
     return await fetch(`${config.apiUrl}/graphql`, {
-      body: JSON.stringify({query}),
+      body: JSON.stringify({query, variables}),
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${config.apiKey}`,

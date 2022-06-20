@@ -1,0 +1,10 @@
+{
+  "project": "e6f11f13-75f6-4eb8-af93-d1140e14ea62",
+  "files": [
+    {
+      "format": "json",
+      "source": "fr/*.json",
+      "target": "%slug%/%document_path%.json"
+    }
+  ]
+}

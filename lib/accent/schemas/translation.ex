@@ -57,7 +57,7 @@ defmodule Accent.Translation do
       id: translation.id,
       key: translation.key,
       value: translation.corrected_text,
-      master_value: master_translation.corrected_text,
+      master_value: master_translation && master_translation.corrected_text,
       is_master: is_master,
       comment: translation.file_comment,
       index: translation.file_index,

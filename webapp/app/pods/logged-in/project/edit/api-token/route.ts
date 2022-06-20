@@ -23,6 +23,7 @@ export default class APITokenRoute extends Route {
       projectApiTokenQuery,
       {
         props: (data) => ({
+          accessToken: data.viewer.accessToken,
           project: data.viewer.project,
         }),
         options: {

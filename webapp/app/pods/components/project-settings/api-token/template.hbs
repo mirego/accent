@@ -1,5 +1,6 @@
 <div local-class="project-settings-api-token">
   <ProjectSettings::Title
+    @icon="/assets/code.svg"
     @title={{t "components.project_settings.api_token.title"}}
   />
 
@@ -8,5 +9,18 @@
     {{t "components.project_settings.api_token.text_2"}}
   </p>
 
-  <input readonly="" onClick="this.select();" local-class="token" value={{@token}}>
+  <input readonly="" onClick="this.select();" local-class="token" value={{@projectToken}}>
+
+  <div local-class="user-token">
+    <ProjectSettings::Title
+      @icon="/assets/users.svg"
+      @title={{t "components.project_settings.user_token.title"}}
+    />
+
+    <p local-class="text">
+      {{t "components.project_settings.user_token.text_1"}}
+    </p>
+
+    <input readonly="" onClick="this.select();" local-class="token" value={{@userToken}}>
+  </div>
 </div>

@@ -14,6 +14,9 @@ export default class APITokenController extends Controller {
   @readOnly('model.project')
   project: any;
 
+  @readOnly('model.accessToken')
+  accessToken: string;
+
   @readOnly('globalState.permissions')
   permissions: any;
 
