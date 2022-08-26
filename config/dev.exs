@@ -1,7 +1,7 @@
 import Config
 
 watchers =
-  if System.get_env("DISABLE_DEV_WÀTCHERS") do
+  if System.get_env("DISABLE_DEV_WATCHERS") do
     []
   else
     [
