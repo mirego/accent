@@ -4,17 +4,23 @@ defmodule Movement.Migration.Rollback do
   import Movement.EctoMigrationHelper
 
   def call(:new, operation) do
-    update(operation, %{rollbacked: true})
-    update(operation.translation, %{removed: true})
+    [
+      update_all(operation, %{rollbacked: true}),
+      update_all(operation.translation, %{removed: true})
+    ]
   end
 
   def call(:remove, operation) do
-    update(operation, %{rollbacked: true})
-    update(operation.translation, %{removed: false})
+    [
+      update_all(operation, %{rollbacked: true}),
+      update_all(operation.translation, %{removed: false})
+    ]
   end
 
   def call(:restore, operation) do
-    update(operation, %{rollbacked: true})
-    update(operation.translation, Map.from_struct(operation.previous_translation))
+    [
+      update_all(operation, %{rollbacked: true}),
+      update(operation.translation, Map.from_struct(operation.previous_translation))
+    ]
   end
 end

@@ -20,7 +20,9 @@ defmodule Accent.Operation do
     :version_id,
     :project_id,
     :stats,
-    :previous_translation
+    :previous_translation,
+    :inserted_at,
+    :updated_at
   ]
 
   schema "operations" do

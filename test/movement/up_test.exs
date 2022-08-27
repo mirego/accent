@@ -13,7 +13,7 @@ defmodule AccentTest.Movement.Migrator.Up do
   }
 
   test ":noop" do
-    assert nil == Migrator.up(%{action: "noop"})
+    assert [] === Migrator.up(%{action: "noop"})
   end
 
   test ":correct" do

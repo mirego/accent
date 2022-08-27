@@ -4,7 +4,7 @@ defmodule Movement.Operation do
             text: nil,
             file_comment: nil,
             file_index: 0,
-            value_type: nil,
+            value_type: "string",
             plural: false,
             locked: false,
             batch: false,

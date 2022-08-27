@@ -7,6 +7,14 @@ defmodule Accent.UserRemote.TokenGiver do
     create_token(user)
   end
 
+  def grant_global_token(user) do
+    Repo.insert!(%Accent.AccessToken{
+      user_id: user.id,
+      global: true,
+      token: Accent.Utils.SecureRandom.urlsafe_base64(70)
+    })
+  end
+
   defp invalidate_tokens(user) do
     user
     |> Ecto.assoc(:private_access_tokens)

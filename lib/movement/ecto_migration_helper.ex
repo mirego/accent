@@ -1,18 +1,11 @@
 defmodule Movement.EctoMigrationHelper do
-  alias Accent.Repo
-  alias Movement.Migration
+  def update(struct, params), do: {:update, {struct, params}}
 
-  @doc """
-  Update given model by merging the existing parameters and the arguments.
-  """
-  @spec update(model :: map, params :: map()) :: Migration.t()
-  def update(model, params) do
-    model
-    |> model.__struct__.changeset(params)
-    |> Repo.update!()
-  end
+  def insert(struct), do: {:insert, struct}
 
-  def insert(model) do
-    Repo.insert!(model)
-  end
+  def insert_all(schema, struct), do: {:insert_all, {schema, struct}}
+
+  def update_all_dynamic(struct, types, fields, values), do: {:update_all_dynamic, {struct.__struct__, struct.id, types, fields, values}}
+
+  def update_all(struct, params), do: {:update_all, {struct.__struct__, struct.id, params}}
 end

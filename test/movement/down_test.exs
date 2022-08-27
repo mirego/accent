@@ -11,7 +11,7 @@ defmodule AccentTest.Migrator.Down do
   alias Movement.Migrator
 
   test ":noop" do
-    assert nil == Migrator.down(%{action: "noop"})
+    assert [] === Migrator.down(%{action: "noop"})
   end
 
   test ":conflict_on_corrected" do

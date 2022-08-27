@@ -15,6 +15,7 @@ defmodule Movement.Mappers.Operation do
       revision_id: Map.get(suggested_translation, :revision_id),
       document_id: Map.get(suggested_translation, :document_id),
       version_id: Map.get(suggested_translation, :version_id),
+      translation_id: Map.get(suggested_translation, :translation_id),
       previous_translation: PreviousTranslation.from_translation(current_translation),
       placeholders: suggested_translation.placeholders
     }
