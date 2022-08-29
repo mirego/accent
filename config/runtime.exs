@@ -43,10 +43,13 @@ else
     static_url: static_url
 end
 
+ecto_ipv6? = System.get_env("ECTO_IPV6") == "true"
+
 config :accent, Accent.Repo,
   pool_size: Utilities.string_to_integer(System.get_env("DATABASE_POOL_SIZE")),
   ssl: Utilities.string_to_boolean(System.get_env("DATABASE_SSL")),
-  url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development"
+  url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development",
+  socket_options: if(ecto_ipv6?, do: [:inet6], else: [])
 
 google_translate_provider = {Accent.MachineTranslations.Adapter.GoogleTranslations, [key: System.get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")]}
 
