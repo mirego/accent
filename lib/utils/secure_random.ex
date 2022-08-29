@@ -12,8 +12,7 @@ defmodule Accent.Utils.SecureRandom do
   def urlsafe_base64(length) do
     length
     |> :crypto.strong_rand_bytes()
-    |> :base64.encode_to_string()
-    |> to_string
+    |> :base64.encode()
     |> String.replace(~r/[\n\=]/, "")
     |> String.replace(~r/\+/, "-")
     |> String.replace(~r/\//, "_")

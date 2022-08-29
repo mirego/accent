@@ -6,17 +6,21 @@ defmodule Movement.Migration.Conflict do
   def call(:correct, operation) do
     Accent.OperationBatcher.batch(operation)
 
-    update(operation.translation, %{
-      corrected_text: operation.text,
-      conflicted: false
-    })
+    update_all_dynamic(
+      operation.translation,
+      [:text, :boolean],
+      [:corrected_text, :conflicted],
+      [operation.text, false]
+    )
   end
 
   def call(:uncorrect, operation) do
-    update(operation.translation, %{
-      conflicted_text: operation.previous_translation && operation.previous_translation.conflicted_text,
-      conflicted: true
-    })
+    update_all_dynamic(
+      operation.translation,
+      [:text, :boolean],
+      [:conflicted_text, :conflicted],
+      [operation.previous_translation && operation.previous_translation.conflicted_text, true]
+    )
   end
 
   def call(:on_corrected, operation) do

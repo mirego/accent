@@ -96,7 +96,7 @@ defmodule Movement.Persisters.Base do
   defp migrate_down_operations(context = %Movement.Context{assigns: %{operation: operation}}) do
     operation = Repo.preload(operation, :translation)
 
-    {context, Migrator.down(operation)}
+    {context, Migrator.down([operation])}
   end
 
   defp assign_project(operation, nil), do: operation

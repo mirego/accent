@@ -40,7 +40,13 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> (&fn -> BasePersister.execute(&1) end).()
     |> Repo.transaction()
     |> case do
-      {:ok, {_context, [translation]}} ->
+      {:ok, {_context, _}} ->
+        translation =
+          Translation
+          |> Query.where(id: ^translation.id)
+          |> Repo.one()
+          |> Repo.preload(:revision)
+
         {:ok, %{translation: translation, errors: nil}}
 
       {:error, _reason} ->
@@ -57,7 +63,13 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> (&fn -> BasePersister.execute(&1) end).()
     |> Repo.transaction()
     |> case do
-      {:ok, {_context, [translation]}} ->
+      {:ok, {_context, _}} ->
+        translation =
+          Translation
+          |> Query.where(id: ^translation.id)
+          |> Repo.one()
+          |> Repo.preload(:revision)
+
         {:ok, %{translation: translation, errors: nil}}
 
       {:error, _reason} ->

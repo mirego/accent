@@ -15,6 +15,7 @@ defmodule Accent.UserRemote.Persister do
   alias Accent.AuthProvider
   alias Accent.Repo
   alias Accent.User, as: RepoUser
+  alias Accent.UserRemote.TokenGiver
   alias Accent.UserRemote.User, as: FetchedUser
   alias Ecto.Changeset
 
@@ -44,7 +45,12 @@ defmodule Accent.UserRemote.Persister do
   end
 
   defp create_provider(user, name, uid), do: Repo.insert!(%AuthProvider{name: name, uid: uid, user_id: user.id})
-  defp create_user(fetched_user), do: Repo.insert!(%RepoUser{email: fetched_user.email, fullname: fetched_user.fullname, picture_url: fetched_user.picture_url})
+
+  defp create_user(fetched_user) do
+    user = Repo.insert!(%RepoUser{email: fetched_user.email, fullname: fetched_user.fullname, picture_url: fetched_user.picture_url})
+    TokenGiver.grant_global_token(user)
+    user
+  end
 
   defp update_user(user, fetched_user) do
     user

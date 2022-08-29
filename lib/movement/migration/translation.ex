@@ -4,10 +4,10 @@ defmodule Movement.Migration.Translation do
   import Movement.EctoMigrationHelper
 
   alias Accent.{Operation, Translation}
+  alias Ecto.UUID
 
   def call(:update_proposed, operation) do
-    operation.translation
-    |> update(%{
+    update(operation.translation, %{
       proposed_text: operation.text
     })
   end
@@ -15,8 +15,7 @@ defmodule Movement.Migration.Translation do
   def call(:update, operation) do
     Accent.OperationBatcher.batch(operation)
 
-    operation.translation
-    |> update(%{
+    update(operation.translation, %{
       value_type: operation.value_type,
       corrected_text: operation.text,
       conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text,
@@ -25,25 +24,25 @@ defmodule Movement.Migration.Translation do
   end
 
   def call(:remove, operation) do
-    update(operation.translation, %{removed: true})
+    update_all(operation.translation, %{removed: true})
   end
 
   def call(:renew, operation) do
-    new_translation = %{
-      proposed_text: operation.text,
-      corrected_text: operation.text,
-      conflicted: true,
-      removed: false
-    }
-
-    update(operation, %{rollbacked: false})
-    update(operation.translation, new_translation)
+    [
+      update_all(operation, %{rollbacked: false}),
+      update_all_dynamic(
+        operation.translation,
+        [:text, :text, :boolean, :boolean],
+        [:proposed_text, :corrected_text, :conflicted, :removed],
+        [operation.text, operation.text, true, false]
+      )
+    ]
   end
 
   def call(:new, operation) do
-    id = Ecto.UUID.generate()
+    id = UUID.generate()
 
-    translation = %Translation{
+    translation = %{
       id: id,
       key: operation.key,
       proposed_text: operation.text,
@@ -58,17 +57,22 @@ defmodule Movement.Migration.Translation do
       revision_id: operation.revision_id,
       document_id: operation.document_id,
       version_id: operation.version_id,
-      placeholders: operation.placeholders
+      source_translation_id: operation.translation_id,
+      placeholders: operation.placeholders,
+      inserted_at: DateTime.utc_now(),
+      updated_at: DateTime.utc_now()
     }
 
-    insert(translation)
-    update(operation, %{translation_id: id})
+    [
+      insert_all(Translation, translation),
+      update_all_dynamic(operation, [:uuid], [:translation_id], [UUID.dump!(id)])
+    ]
   end
 
   def call(:version_new, operation) do
-    id = Ecto.UUID.generate()
+    id = UUID.generate()
 
-    translation = %Translation{
+    translation = %{
       id: id,
       key: operation.key,
       proposed_text: operation.text,
@@ -82,17 +86,23 @@ defmodule Movement.Migration.Translation do
       document_id: operation.document_id,
       version_id: operation.version_id,
       source_translation_id: operation.translation_id,
-      placeholders: operation.placeholders
+      placeholders: operation.placeholders,
+      inserted_at: DateTime.utc_now(),
+      updated_at: DateTime.utc_now()
     }
 
     version_operation = Operation.copy(operation, %{action: "add_to_version", translation_id: id})
 
-    insert(translation)
-    insert(version_operation)
+    [
+      insert_all(Translation, translation),
+      insert(version_operation)
+    ]
   end
 
   def call(:restore, operation) do
-    update(operation, %{rollbacked: false})
-    update(operation.translation, Map.from_struct(operation.previous_translation))
+    [
+      update_all(operation, %{rollbacked: false}),
+      update(operation.translation, Map.from_struct(operation.previous_translation))
+    ]
   end
 end
