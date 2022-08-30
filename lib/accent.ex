@@ -15,6 +15,8 @@ defmodule Accent do
       {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
     end
 
+    Ecto.DevLogger.install(Accent.Repo)
+
     opts = [strategy: :one_for_one, name: Accent.Supervisor]
     Supervisor.start_link(children, opts)
   end

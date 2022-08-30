@@ -8,6 +8,10 @@ config :accent,
 
 config :accent, Accent.Repo, timeout: 29_000, start_apps_before_migration: [:ssl]
 
+if config_env() == :dev do
+  config :accent, Accent.Repo, log: false
+end
+
 config :accent, Accent.Endpoint,
   render_errors: [accepts: ~w(json)],
   pubsub_server: Accent.PubSub

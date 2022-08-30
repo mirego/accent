@@ -51,6 +51,7 @@ defmodule Accent.Mixfile do
       # Database
       {:ecto, "~> 3.2", override: true},
       {:ecto_sql, "~> 3.2"},
+      {:ecto_dev_logger, "~> 0.4"},
       {:postgrex, "~> 0.14"},
 
       # Phoenix data helpers

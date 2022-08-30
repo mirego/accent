@@ -82,8 +82,12 @@ defmodule Accent.MergeController do
 
   defp assign_merge_options(conn, _) do
     case conn.params["merge_options"] do
-      options when is_binary(options) -> assign(conn, :merge_options, String.split(options, ","))
-      _ -> assign(conn, :merge_options, [])
+      options when is_binary(options) ->
+        options = Enum.reject(String.split(options, ","), &(&1 in ["", nil]))
+        assign(conn, :merge_options, options)
+
+      _ ->
+        assign(conn, :merge_options, [])
     end
   end
 end
