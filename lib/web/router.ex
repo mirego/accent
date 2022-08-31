@@ -36,6 +36,7 @@ defmodule Accent.Router do
   scope "/", Accent do
     pipe_through(:authenticate)
 
+    post("/format", FormatController, :format, as: :format)
     post("/lint", LintController, :lint, as: :lint)
     post("/sync", SyncController, [])
     post("/sync/peek", PeekController, :sync, as: :peek_sync)

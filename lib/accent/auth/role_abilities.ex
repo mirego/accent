@@ -9,6 +9,7 @@ defmodule Accent.RoleAbilities do
 
   @any_actions ~w(
     lint
+    format
     index_permissions
     index_versions
     create_version
