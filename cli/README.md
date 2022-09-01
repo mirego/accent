@@ -19,7 +19,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.10.3 darwin-x64 node-v16.15.1
+accent-cli/0.11.0 darwin-x64 node-v16.15.1
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -72,6 +72,7 @@ Here is a list of available hooks. Those are self-explanatory
 # Commands
 <!-- commands -->
 * [`accent export`](#accent-export)
+* [`accent format`](#accent-format)
 * [`accent help [COMMAND]`](#accent-help-command)
 * [`accent jipt PSEUDOLANGUAGENAME`](#accent-jipt-pseudolanguagename)
 * [`accent lint`](#accent-lint)
@@ -87,13 +88,30 @@ USAGE
   $ accent export
 
 OPTIONS
-  --order-by=index|key-asc  [default: index] Will be used in the export call as the order of the keys
+  --order-by=index|key  [default: index] Will be used in the export call as the order of the keys
 
 EXAMPLE
   $ accent export
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.10.3/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.11.0/src/commands/export.ts)_
+
+## `accent format`
+
+Format local files from server. Exit code is 1 if there are errors.
+
+```
+USAGE
+  $ accent format
+
+OPTIONS
+  --order-by=index|key  [default: index] Order of the keys
+
+EXAMPLE
+  $ accent format
+```
+
+_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.11.0/src/commands/format.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -127,7 +145,7 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.10.3/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.11.0/src/commands/jipt.ts)_
 
 ## `accent lint`
 
@@ -141,7 +159,7 @@ EXAMPLE
   $ accent lint
 ```
 
-_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.10.3/src/commands/lint.ts)_
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.11.0/src/commands/lint.ts)_
 
 ## `accent stats`
 
@@ -155,7 +173,7 @@ EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.10.3/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.11.0/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -173,7 +191,7 @@ OPTIONS
 
   --merge-type=smart|passive|force  [default: smart] Will be used in the add translations call as the "merge_type" param
 
-  --order-by=index|key-asc          [default: index] Will be used in the export call as the order of the keys
+  --order-by=index|key              [default: index] Will be used in the export call as the order of the keys
 
   --sync-type=smart|passive         [default: smart] Will be used in the sync call as the "sync_type" param
 
@@ -181,7 +199,7 @@ EXAMPLE
   $ accent sync
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.10.3/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.11.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # License

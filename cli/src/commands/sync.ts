@@ -49,7 +49,7 @@ export default class Sync extends Command {
     'order-by': flags.string({
       default: 'index',
       description: 'Will be used in the export call as the order of the keys',
-      options: ['index', 'key-asc'],
+      options: ['index', 'key'],
     }),
     'sync-type': flags.string({
       default: 'smart',

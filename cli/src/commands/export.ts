@@ -24,7 +24,7 @@ export default class Export extends Command {
     'order-by': flags.string({
       default: 'index',
       description: 'Will be used in the export call as the order of the keys',
-      options: ['index', 'key-asc'],
+      options: ['index', 'key'],
     }),
   };
 

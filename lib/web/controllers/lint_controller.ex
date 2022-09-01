@@ -18,11 +18,11 @@ defmodule Accent.LintController do
   plug(:assign_translations)
 
   @doc """
-  Create new sync for a project
+  Fetch linting errors for a file in a project
 
   ## Endpoint
 
-    GET /sync
+    POST /lint
 
   ### Required params
     - `project_id`

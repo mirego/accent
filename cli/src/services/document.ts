@@ -45,6 +45,30 @@ export default class Document {
     this.paths = new Tree(this.config).list();
   }
 
+  async format(file: string, language: string) {
+    const formData = new FormData();
+
+    formData.append('file', fs.createReadStream(file));
+    formData.append('document_path', this.parseDocumentName(file, this.config));
+    formData.append('document_format', this.config.format);
+    formData.append('language', language);
+    if (this.projectId) formData.append('project_id', this.projectId);
+
+    const url = `${this.apiUrl}/format`;
+
+    try {
+      const response = await fetch(url, {
+        body: formData,
+        headers: this.authorizationHeader(),
+        method: 'POST',
+      });
+
+      return this.writeResponseToFile(response, file);
+    } catch ({message}) {
+      throw new CLIError(chalk.red(`Server error: ${message}`));
+    }
+  }
+
   async lint(file: string, language: string) {
     const formData = new FormData();
 
