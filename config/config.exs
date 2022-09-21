@@ -6,7 +6,7 @@ config :accent,
   ecto_repos: [Accent.Repo],
   version: version
 
-config :accent, Accent.Repo, timeout: 29_000, start_apps_before_migration: [:ssl]
+config :accent, Accent.Repo, start_apps_before_migration: [:ssl]
 
 if config_env() == :dev do
   config :accent, Accent.Repo, log: false

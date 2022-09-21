@@ -46,6 +46,9 @@ end
 ecto_ipv6? = System.get_env("ECTO_IPV6") == "true"
 
 config :accent, Accent.Repo,
+  timeout: Utilities.string_to_integer(System.get_env("DATABASE_TIMEOUT", "29000")),
+  queue_target: Utilities.string_to_integer(System.get_env("DATABASE_QUEUE_TARGET", "500")),
+  queue_interval: Utilities.string_to_integer(System.get_env("DATABASE_QUEUE_INTERVAL", "2000")),
   pool_size: Utilities.string_to_integer(System.get_env("DATABASE_POOL_SIZE")),
   ssl: Utilities.string_to_boolean(System.get_env("DATABASE_SSL")),
   url: System.get_env("DATABASE_URL") || "postgres://localhost/accent_development",
