@@ -70,7 +70,7 @@ export default class Sync extends Command {
     for (const document of documents) {
       await new HookRunner(document).run(Hooks.beforeSync);
 
-      await Promise.all(this.syncDocumentConfig(document));
+      await this.syncDocumentConfig(document);
 
       await new HookRunner(document).run(Hooks.afterSync);
     }
@@ -105,16 +105,16 @@ export default class Sync extends Command {
 
       const targets = new DocumentPathsFetcher().fetch(this.project!, document);
 
-      await Promise.all(
-        targets.map(async ({path, language, documentPath}) => {
-          const localFile = document.fetchLocalFile(documentPath, path);
-          if (!localFile) return new Promise((resolve) => resolve(undefined));
+      for (const target of targets) {
+        const {path, language, documentPath} = target;
+        const localFile = document.fetchLocalFile(documentPath, path);
 
+        if (localFile) {
           formatter.log(path, documentPath);
 
-          return document.export(localFile, language, documentPath, flags);
-        })
-      );
+          await document.export(localFile, language, documentPath, flags);
+        }
+      }
 
       await new HookRunner(document).run(Hooks.afterExport);
     }
@@ -123,11 +123,11 @@ export default class Sync extends Command {
     syncFormatter.footer(t2);
   }
 
-  private syncDocumentConfig(document: Document) {
+  private async syncDocumentConfig(document: Document) {
     const {flags} = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
 
-    return document.paths.map(async (path) => {
+    for (const path of document.paths) {
       const operations = await document.sync(this.project!, path, flags);
       const documentPath = document.parseDocumentName(path, document.config);
 
@@ -138,9 +138,7 @@ export default class Sync extends Command {
       if (operations.peek) {
         formatter.logPeek(path, documentPath, operations.peek);
       }
-
-      return operations;
-    });
+    }
   }
 
   private async addTranslationsDocumentConfig(document: Document) {
@@ -161,17 +159,16 @@ export default class Sync extends Command {
       formatter.logEmptyTarget(document.config.source);
     }
 
-    const promises = existingTargets.map(async ({path, language}) => {
+    for (const target of existingTargets) {
+      const {path, language} = target;
       const documentPath = document.parseDocumentName(path, document.config);
-      return await document.addTranslations(
+      const operation = await document.addTranslations(
         path,
         language,
         documentPath,
         flags
       );
-    });
 
-    (await Promise.all(promises)).forEach((operation) => {
       if (operation.addTranslations && !operation.peek) {
         formatter.logAddTranslations(operation.file, operation.documentPath);
       }
@@ -183,6 +180,6 @@ export default class Sync extends Command {
           operation.peek
         );
       }
-    });
+    }
   }
 }

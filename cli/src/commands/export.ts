@@ -42,15 +42,14 @@ export default class Export extends Command {
 
       const targets = new DocumentPathsFetcher().fetch(this.project!, document);
 
-      await Promise.all(
-        targets.map(async ({path, language, documentPath}) => {
-          const localFile = document.fetchLocalFile(documentPath, path);
-          if (!localFile) return new Promise((resolve) => resolve(undefined));
-          formatter.log(localFile, documentPath);
+      for (const target of targets) {
+        const {path, language, documentPath} = target;
+        const localFile = document.fetchLocalFile(documentPath, path);
+        if (!localFile) return new Promise((resolve) => resolve(undefined));
+        formatter.log(localFile, documentPath);
 
-          return document.export(localFile, language, documentPath, flags);
-        })
-      );
+        await document.export(localFile, language, documentPath, flags);
+      }
 
       await new HookRunner(document).run(Hooks.afterExport);
     }

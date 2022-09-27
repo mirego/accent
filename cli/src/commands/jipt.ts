@@ -44,13 +44,12 @@ export default class Jipt extends Command {
         args.pseudoLanguageName
       );
 
-      await Promise.all(
-        targets.map(async ({path, documentPath}) => {
-          formatter.log(path, documentPath);
+      for (const target of targets) {
+        const {path, documentPath} = target;
+        formatter.log(path, documentPath);
 
-          return document.exportJipt(path, documentPath);
-        })
-      );
+        await document.exportJipt(path, documentPath);
+      }
 
       await new HookRunner(document).run(Hooks.afterExport);
     }

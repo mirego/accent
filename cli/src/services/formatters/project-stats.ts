@@ -12,6 +12,8 @@ import {
 } from '../revision-slug-fetcher';
 import Base from './base';
 
+const TITLE_LENGTH_PADDING = 4;
+
 export default class ProjectStatsFormatter extends Base {
   private readonly project: Project;
   private readonly config: Config;
@@ -53,7 +55,11 @@ export default class ProjectStatsFormatter extends Base {
       chalk.dim(' • '),
       percentageReviewedFormat
     );
-    console.log(chalk.gray.dim('⎯'.repeat(this.project.name.length - 1)));
+    const titleLength =
+      this.project.name.length +
+      percentageReviewedString.length +
+      TITLE_LENGTH_PADDING;
+    console.log(chalk.gray.dim('⎯'.repeat(titleLength)));
 
     console.log(chalk.magenta('Last synced'));
     if (this.project.lastSyncedAt) {
@@ -127,6 +133,7 @@ export default class ProjectStatsFormatter extends Base {
 
     console.log('');
     console.log(
+      chalk.magenta('Project URL:'),
       chalk.gray.dim(`${this.config.apiUrl}/app/projects/${this.project.id}`)
     );
     console.log('');

@@ -17,33 +17,33 @@ export default class Lint extends Command {
     const results: LintTranslation[] = [];
     const t0 = process.hrtime();
 
-    await Promise.all(
-      documents.map(async (document) => {
-        const targets = new DocumentPathsFetcher().fetch(
-          this.project!,
-          document
-        );
+    for (const document of documents) {
+      const targets = new DocumentPathsFetcher()
+        .fetch(this.project!, document)
+        .sort((a, b) => {
+          if (a.path < b.path) return -1;
+          if (a.path > b.path) return 1;
+          return 0;
+        });
 
-        return await Promise.all(
-          targets.map(async ({path, language}) => {
-            if (fs.existsSync(path)) {
-              const {
-                data: {lint_translations: lintTranslations},
-              } = await document.lint(path, language);
+      for (const target of targets) {
+        const {path, language} = target;
+        if (fs.existsSync(path)) {
+          const {
+            data: {lint_translations: lintTranslations},
+          } = await document.lint(path, language);
 
-              const lintTranslationsWithLocalPath = lintTranslations.map(
-                (lintTranslation: LintTranslation) => ({
-                  ...lintTranslation,
-                  path,
-                })
-              );
+          const lintTranslationsWithLocalPath = lintTranslations.map(
+            (lintTranslation: LintTranslation) => ({
+              ...lintTranslation,
+              path,
+            })
+          );
 
-              results.push(...lintTranslationsWithLocalPath);
-            }
-          })
-        );
-      })
-    );
+          results.push(...lintTranslationsWithLocalPath);
+        }
+      }
+    }
 
     const [, t1] = process.hrtime(t0);
     const stats = {time: t1};

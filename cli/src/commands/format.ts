@@ -30,26 +30,27 @@ export default class Format extends Command {
     const t0 = process.hrtime();
     const formattedPaths: FormattedFile[] = [];
 
-    await Promise.all(
-      documents.map(async (document) => {
-        const targets = new DocumentPathsFetcher().fetch(
-          this.project!,
-          document
-        );
+    for (const document of documents) {
+      const targets = new DocumentPathsFetcher()
+        .fetch(this.project!, document)
+        .sort((a, b) => {
+          if (a.path < b.path) return -1;
+          if (a.path > b.path) return 1;
+          return 0;
+        });
 
-        return await Promise.all(
-          targets.map(async ({path, language}) => {
-            if (fs.existsSync(path)) {
-              const beforeContent = fs.readFileSync(path);
-              await document.format(path, language);
-              const unchanged = fs.readFileSync(path).equals(beforeContent);
+      for (const target of targets) {
+        const {path, language} = target;
 
-              formattedPaths.push({path, unchanged});
-            }
-          })
-        );
-      })
-    );
+        if (fs.existsSync(path)) {
+          const beforeContent = fs.readFileSync(path);
+          await document.format(path, language);
+          const unchanged = fs.readFileSync(path).equals(beforeContent);
+
+          formattedPaths.push({path, unchanged});
+        }
+      }
+    }
 
     const [, t1] = process.hrtime(t0);
     const stats = {time: t1};
