@@ -55,7 +55,7 @@ defmodule Accent.OperationBatcher do
     stats = Enum.map(batch_operation.stats, fn stat -> update_in(stat, ["count"], fn count -> count + 1 end) end)
 
     batch_operation
-    |> Operation.stats_changeset(%{stats: stats})
+    |> Ecto.Changeset.change(stats: stats)
     |> Repo.update!()
   end
 

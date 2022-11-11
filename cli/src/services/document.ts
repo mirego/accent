@@ -17,17 +17,11 @@ import {DocumentConfig, NamePattern} from '../types/document-config';
 import {OperationResponse} from '../types/operation-response';
 import {Project} from '../types/project';
 
-const enum OperationName {
-  Sync = 'sync',
-  AddTranslation = 'addTranslations',
-}
-
-const ERROR_THRESHOLD_STATUS_CODE = 400;
-const SERVER_INTERNAL_ERROR_THRESHOLD_STATUS_CODE = 500;
+const SERVER_INTERNAL_ERROR_THRESHOLD_STATUS_CODE = 400;
 
 const throwOnServerError = async (response: Response) => {
   if (response.status >= SERVER_INTERNAL_ERROR_THRESHOLD_STATUS_CODE) {
-    throw new CLIError(chalk.red(`Server error: ${await response.text()}`));
+    throw new CLIError(chalk.red(`${await response.text()}`), {exit: 1});
   }
 };
 
@@ -107,6 +101,7 @@ export default class Document {
 
     let url = `${this.apiUrl}/sync`;
     if (options['dry-run']) url = `${url}/peek`;
+    if (options.version) formData.append('version', options.version);
     if (options['sync-type']) {
       formData.append('sync_type', options['sync-type']);
     }
@@ -117,7 +112,9 @@ export default class Document {
       method: 'POST',
     });
 
-    return this.handleResponse(response, options, OperationName.Sync, {file});
+    await throwOnServerError(response);
+
+    return this.handleResponse(response, options, {file});
   }
 
   async addTranslations(
@@ -136,6 +133,7 @@ export default class Document {
 
     let url = `${this.apiUrl}/add-translations`;
     if (options['dry-run']) url = `${url}/peek`;
+    if (options.version) formData.append('version', options.version);
     if (options['merge-type']) {
       formData.append('merge_type', options['merge-type']);
     }
@@ -148,12 +146,7 @@ export default class Document {
 
     await throwOnServerError(response);
 
-    return this.handleResponse(
-      response,
-      options,
-      OperationName.AddTranslation,
-      {file, documentPath}
-    );
+    return this.handleResponse(response, options, {file, documentPath});
   }
 
   fetchLocalFile(documentPath: string, localPath: string) {
@@ -179,6 +172,7 @@ export default class Document {
       ['language', language],
     ];
 
+    if (options.version) query.push(['version', options.version]);
     if (this.projectId) query.push(['project_id', this.projectId]);
 
     const url = `${this.apiUrl}/export?${this.encodeQuery(query)}`;
@@ -269,19 +263,14 @@ export default class Document {
   private async handleResponse(
     response: Response,
     options: any,
-    operationName: OperationName,
     info: object
   ): Promise<OperationResponse> {
     if (!options['dry-run']) {
-      if (response.status >= ERROR_THRESHOLD_STATUS_CODE) {
-        return {[operationName]: {success: false}, peek: false, ...info};
-      }
-
-      return {[operationName]: {success: true}, peek: false, ...info};
+      return {peek: false, ...info};
     } else {
       const {data} = await response.json();
 
-      return {peek: data, [operationName]: {success: true}, ...info};
+      return {peek: data, ...info};
     }
   }
 }

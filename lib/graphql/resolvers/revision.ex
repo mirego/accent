@@ -122,7 +122,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> RevisionScope.with_stats()
     |> Query.where(id: ^id)
     |> Repo.one()
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 
   def show_project(project, _, _) do
@@ -131,7 +131,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> RevisionScope.with_stats()
     |> RevisionScope.master()
     |> Repo.one()
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 
   @spec list_project(Project.t(), any(), GraphQLContext.t()) :: {:ok, [Revision.t()]}
@@ -142,7 +142,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> Query.order_by([revisions, languages: languages], desc: :master, asc: revisions.name, asc: languages.name)
     |> RevisionScope.with_stats()
     |> Repo.all()
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 
   defp refresh_stats(revision) do

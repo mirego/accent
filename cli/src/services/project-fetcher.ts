@@ -35,6 +35,7 @@ export default class ProjectFetcher {
         project(id: $project_id) {
           id
           name
+          logo
           lastSyncedAt
 
           masterRevision: revision {
@@ -46,6 +47,27 @@ export default class ProjectFetcher {
               id
               name
               slug
+            }
+          }
+
+          collaborators {
+            ... on ConfirmedCollaborator {
+              id
+              role
+              user {
+                email
+                fullname
+              }
+            }
+          }
+
+          versions(pageSize: 1000) {
+            meta {
+              totalEntries
+            }
+            entries {
+              name
+              tag
             }
           }
 

@@ -93,6 +93,20 @@
         />
       </div>
 
+      {{#if this.hasVersions}}
+        <div local-class="option">
+          <p local-class="textHelper">
+            {{t "components.commit_file.version_tag"}}
+          </p>
+          <AccSelect
+            @searchEnabled={{false}}
+            @selected={{this.versionValue}}
+            @options={{this.mappedVersions}}
+            @onchange={{fn this.onSelectVersion}}
+          />
+        </div>
+      {{/if}}
+
       {{#if this.isMerge}}
         <div local-class="option">
           <p local-class="textHelper">

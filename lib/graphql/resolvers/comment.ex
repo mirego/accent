@@ -75,7 +75,7 @@ defmodule Accent.GraphQL.Resolvers.Comment do
     |> CommentScope.from_project(project.id)
     |> Paginated.paginate(args)
     |> Paginated.format()
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 
   @spec list_translation(Translation.t(), %{page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Comment.t())}
@@ -85,6 +85,6 @@ defmodule Accent.GraphQL.Resolvers.Comment do
     |> CommentScope.default_order()
     |> Paginated.paginate(args)
     |> Paginated.format()
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 end

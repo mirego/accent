@@ -59,8 +59,8 @@ defmodule Movement.Migration.Translation do
       version_id: operation.version_id,
       source_translation_id: operation.translation_id,
       placeholders: operation.placeholders,
-      inserted_at: DateTime.utc_now(),
-      updated_at: DateTime.utc_now()
+      inserted_at: {:placeholder, :now},
+      updated_at: {:placeholder, :now}
     }
 
     [
@@ -87,15 +87,42 @@ defmodule Movement.Migration.Translation do
       version_id: operation.version_id,
       source_translation_id: operation.translation_id,
       placeholders: operation.placeholders,
-      inserted_at: DateTime.utc_now(),
-      updated_at: DateTime.utc_now()
+      inserted_at: {:placeholder, :now},
+      updated_at: {:placeholder, :now}
     }
 
-    version_operation = Operation.copy(operation, %{action: "add_to_version", translation_id: id})
+    version_operation =
+      operation
+      |> Map.take([
+        :action,
+        :key,
+        :text,
+        :conflicted,
+        :value_type,
+        :plural,
+        :locked,
+        :file_index,
+        :file_comment,
+        :removed,
+        :revision_id,
+        :user_id,
+        :batch_operation_id,
+        :document_id,
+        :version_id,
+        :project_id,
+        :stats,
+        :previous_translation
+      ])
+      |> Map.merge(%{
+        translation_id: id,
+        inserted_at: {:placeholder, :now},
+        updated_at: {:placeholder, :now},
+        action: "add_to_version"
+      })
 
     [
       insert_all(Translation, translation),
-      insert(version_operation)
+      insert_all(Operation, version_operation)
     ]
   end
 

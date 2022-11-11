@@ -46,7 +46,7 @@ defmodule Accent.Plugs.MovementContextParser do
     |> case do
       nil ->
         conn
-        |> send_resp(:unprocessable_entity, "unknown version")
+        |> send_resp(:not_found, ~s(unknown version "#{version}"))
         |> halt()
 
       version ->

@@ -29,20 +29,18 @@
 }
 
 .item-tag {
+  position: relative;
+  top: 2px;
   display: inline-flex;
   align-items: center;
-  margin-left: 12px;
+  margin-left: 10px;
+  font-size: 12px;
   font-family: var(--font-monospace);
-  font-size: 14px;
-  font-weight: normal;
-  color: #888;
-}
-
-.item-tag-icon {
-  width: 15px;
-  height: 15px;
-  margin-right: 4px;
-  stroke: #aaa;
+  color: var(--color-primary);
+  text-decoration: none;
+  background: var(--background-tooltip);
+  padding: 1px 3px;
+  border-radius: 3px;
 }
 
 .item-meta {

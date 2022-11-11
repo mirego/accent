@@ -17,14 +17,21 @@ export default class Export extends Command {
   static description =
     'Export files from Accent and write them to your local filesystem';
 
-  static examples = [`$ accent export`];
+  static examples = [
+    `$ accent export`,
+    `$ accent export --order-by=key --version=build.myapp.com:0.12.345`,
+  ];
 
   static args = [];
   static flags = {
     'order-by': flags.string({
       default: 'index',
-      description: 'Will be used in the export call as the order of the keys',
+      description: 'Order of the keys',
       options: ['index', 'key'],
+    }),
+    version: flags.string({
+      default: '',
+      description: 'Fetch a specific version',
     }),
   };
 

@@ -20,20 +20,37 @@ export interface Document {
   format: string;
 }
 
+export interface Version {
+  tag: string;
+  name: string;
+}
+
+export interface Collaborator {
+  id: string;
+  role: string;
+  user: {
+    email: string;
+    fullname: string;
+  };
+}
+
 interface DocumentsMeta {
   totalEntries: number;
 }
 
-export interface PaginatedDocuments {
-  entries: Document[];
+export interface Paginated<T> {
+  entries: T[];
   meta: DocumentsMeta;
 }
 
 export interface Project {
   id: string;
   name: string;
+  logo: string | null;
   lastSyncedAt: string;
   masterRevision: Revision;
   revisions: Revision[];
-  documents: PaginatedDocuments;
+  collaborators: Collaborator[];
+  documents: Paginated<Document>;
+  versions: Paginated<Version>;
 }

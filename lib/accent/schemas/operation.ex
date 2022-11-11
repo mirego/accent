@@ -1,30 +1,6 @@
 defmodule Accent.Operation do
   use Accent.Schema
 
-  @duplicated_fields [
-    :action,
-    :key,
-    :text,
-    :conflicted,
-    :value_type,
-    :plural,
-    :locked,
-    :file_index,
-    :file_comment,
-    :removed,
-    :revision_id,
-    :translation_id,
-    :user_id,
-    :batch_operation_id,
-    :document_id,
-    :version_id,
-    :project_id,
-    :stats,
-    :previous_translation,
-    :inserted_at,
-    :updated_at
-  ]
-
   schema "operations" do
     field(:action, :string)
     field(:key, :string)
@@ -60,28 +36,5 @@ defmodule Accent.Operation do
     has_many(:batched_operations, Accent.Operation, foreign_key: :batch_operation_id, where: [batch: true])
 
     timestamps()
-  end
-
-  @optional_fields ~w(
-    rollbacked
-    translation_id
-    comment_id
-  )a
-  def changeset(model, params) do
-    model
-    |> cast(params, [] ++ @optional_fields)
-  end
-
-  def stats_changeset(model, params) do
-    model
-    |> cast(params, [:stats])
-  end
-
-  def copy(operation, new_fields) do
-    duplicated_operation = Map.take(operation, @duplicated_fields)
-
-    %__MODULE__{}
-    |> Map.merge(duplicated_operation)
-    |> Map.merge(new_fields)
   end
 end

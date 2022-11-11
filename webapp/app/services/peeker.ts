@@ -7,6 +7,7 @@ interface SyncOptions {
   project: any;
   revision: any;
   revisions: any[];
+  version: any;
   file: File;
   documentPath: string;
   documentFormat: string;
@@ -15,6 +16,7 @@ interface SyncOptions {
 
 interface MergeOptions {
   revision: any;
+  version: any;
   project: any;
   file: File;
   mergeType: string;
@@ -39,6 +41,7 @@ export default class Peeker extends Service {
   async sync({
     project,
     revision,
+    version,
     revisions,
     file,
     documentPath,
@@ -59,6 +62,7 @@ export default class Peeker extends Service {
     } = await this.authenticatedRequest.peek(url, {
       file,
       documentPath,
+      version,
       documentFormat,
     });
 
@@ -69,6 +73,7 @@ export default class Peeker extends Service {
 
   async merge({
     revision,
+    version,
     project,
     file,
     mergeType,
@@ -90,6 +95,7 @@ export default class Peeker extends Service {
       data: {operations, stats},
     } = await this.authenticatedRequest.peek(url, {
       file,
+      version,
       documentPath,
       documentFormat,
     });

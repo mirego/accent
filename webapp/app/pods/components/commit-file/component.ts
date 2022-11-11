@@ -24,6 +24,7 @@ const DEFAULT_PROPERTIES = {
 
 interface Args {
   permissions: Record<string, true>;
+  versions: any;
   revisions: any;
   documents: any;
   canCommit: boolean;
@@ -35,6 +36,7 @@ interface Args {
     fileSource: any;
     documentPath: string | null;
     documentFormat: any;
+    version: any;
     revision: any;
     mergeType: string;
     syncType: string;
@@ -45,6 +47,7 @@ interface Args {
     documentPath: string | null;
     documentFormat: any;
     revision: any;
+    version: any;
     mergeType: string;
     syncType: string;
     mergeOptions: string[];
@@ -118,7 +121,20 @@ export default class CommitFile extends Component<Args> {
     this.mappedRevisions[0];
 
   @tracked
+  versionValue =
+    this.mappedVersions.find(
+      ({value}) => value === (this.version && this.version.id)
+    ) || this.mappedVersions[0];
+
+  @tracked
   revision = this.args.revisions.find((revision: any) => revision.isMaster);
+
+  @tracked
+  version: {id: string; tag: string} | null = null;
+
+  get hasVersions() {
+    return this.args.versions.length > 0;
+  }
 
   get mappedMergeTypes() {
     return this.mergeTypes.map((name) => ({
@@ -141,6 +157,19 @@ export default class CommitFile extends Component<Args> {
         value: id,
       })
     );
+  }
+
+  get mappedVersions(): Array<{label: string; value: string}> {
+    return [
+      {
+        label: this.intl.t('components.commit_file.no_version_label'),
+        value: null,
+      },
+      ...this.args.versions.map(({id, tag}: {id: string; tag: string}) => ({
+        label: tag,
+        value: id,
+      })),
+    ];
   }
 
   get documentFormatValue() {
@@ -187,6 +216,15 @@ export default class CommitFile extends Component<Args> {
   }
 
   @action
+  onSelectVersion(version: {label: string; value: string}) {
+    this.version = this.args.versions.find(
+      ({id}: {id: string}) => id === version.value
+    );
+
+    this.versionValue = version;
+  }
+
+  @action
   onSelectDocumentFormat(documentFormat: {label: string; value: string}) {
     this.documentFormat = documentFormat.value;
   }
@@ -205,6 +243,7 @@ export default class CommitFile extends Component<Args> {
         fileSource: this.fileSource,
         documentPath: this.documentPath,
         documentFormat: this.documentFormat,
+        version: this.version && this.version.tag,
         revision: this.revision,
         mergeType: this.mergeType.value,
         syncType: this.syncType.value,
@@ -227,6 +266,7 @@ export default class CommitFile extends Component<Args> {
         documentPath: this.documentPath,
         documentFormat: this.documentFormat,
         revision: this.revision,
+        version: this.version && this.version.tag,
         mergeType: this.mergeType.value,
         syncType: this.syncType.value,
         mergeOptions: this.correctOnMerge ? ['correct'] : [],

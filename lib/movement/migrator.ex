@@ -86,7 +86,7 @@ defmodule Movement.Migrator do
     |> Enum.map(fn {schema, records} ->
       records
       |> Enum.chunk_every(@operations_chunk)
-      |> Enum.map(&Repo.insert_all(schema, &1))
+      |> Enum.map(&Repo.insert_all(schema, &1, placeholders: %{now: DateTime.utc_now()}))
     end)
   end
 

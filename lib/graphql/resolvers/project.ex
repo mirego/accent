@@ -106,7 +106,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
     Project
     |> ProjectScope.with_stats()
     |> Repo.get(id)
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 
   @spec last_activity(Project.t(), any(), GraphQLContext.t()) :: {:ok, Operation.t() | nil}
@@ -117,7 +117,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
     |> OperationScope.order_last_to_first()
     |> Query.limit(1)
     |> Repo.one()
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 
   @spec lint_translations(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Language.Entry.t())}

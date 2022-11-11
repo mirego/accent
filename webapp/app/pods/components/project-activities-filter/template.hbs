@@ -18,6 +18,17 @@
         </li>
       {{/unless}}
 
+      {{#if this.mappedVersions}}
+        <li local-class="filterList-item">
+          <AccSelect
+            @searchEnabled={{false}}
+            @selected={{this.versionFilterValue}}
+            @options={{this.mappedVersions}}
+            @onchange={{fn this.versionFilterChange}}
+          />
+        </li>
+      {{/if}}
+
       <li local-class="filterList-item">
         <AccSelect
           @searchEnabled={{false}}

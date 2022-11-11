@@ -5,6 +5,7 @@ import AuthenticatedRequest from 'accent-webapp/services/authenticated-request';
 
 interface SyncOptions {
   revision: any;
+  version: any;
   project: any;
   file: File;
   documentPath: string;
@@ -18,6 +19,7 @@ export default class Syncer extends Service {
 
   async sync({
     revision,
+    version,
     project,
     file,
     documentPath,
@@ -27,7 +29,8 @@ export default class Syncer extends Service {
     const url = fmt(
       config.API.SYNC_PROJECT_PATH,
       project.id,
-      revision.language.slug
+      revision.language.slug,
+      syncType
     );
     documentFormat = documentFormat.toLowerCase();
 
@@ -35,6 +38,7 @@ export default class Syncer extends Service {
       file,
       documentPath,
       documentFormat,
+      version,
       syncType,
     });
   }

@@ -1,7 +1,7 @@
 defmodule Movement.Persisters.Rollback do
   @behaviour Movement.Persister
 
-  alias Accent.{Operation, Repo}
+  alias Accent.Repo
   alias Movement.Persisters.Base, as: BasePersister
 
   def persist(%Movement.Context{operations: []}), do: {:ok, []}
@@ -16,8 +16,8 @@ defmodule Movement.Persisters.Rollback do
 
   defp update_rollbacked_operation(context = %Movement.Context{assigns: %{operation: operation}}) do
     operation
-    |> Operation.changeset(%{updated_at: DateTime.utc_now(), rollbacked: true})
-    |> Repo.update()
+    |> Ecto.Changeset.change(updated_at: DateTime.utc_now(), rollbacked: true)
+    |> Repo.update!()
 
     context
   end

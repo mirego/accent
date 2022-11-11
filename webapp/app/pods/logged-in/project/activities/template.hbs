@@ -13,13 +13,16 @@
 {{else}}
   {{#if this.model.collaborators}}
     <ProjectActivitiesFilter
+      @versions={{this.model.versions}}
       @collaborators={{this.model.collaborators}}
       @batchFilter={{this.batchFilter}}
       @actionFilter={{this.actionFilter}}
       @userFilter={{this.userFilter}}
+      @versionFilter={{this.versionFilter}}
       @userFilterChange={{fn this.userFilterChange}}
       @batchFilterChange={{fn this.batchFilterChange}}
       @actionFilterChange={{fn this.actionFilterChange}}
+      @versionFilterChange={{fn this.versionFilterChange}}
     />
   {{/if}}
 

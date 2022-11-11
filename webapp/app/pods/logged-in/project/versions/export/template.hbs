@@ -19,18 +19,20 @@
       </div>
     </div>
 
-    <RevisionExportOptions
-      @format={{this.documentFormatFilter}}
-      @documents={{this.documents}}
-      @document={{this.documentFilter}}
-      @orderBy={{this.orderByFilter}}
-      @revision={{this.revisionFilter}}
-      @revisions={{this.revisions}}
-      @onChangeDocument={{fn (mut this.documentFilter)}}
-      @onChangeRevision={{fn (mut this.revisionFilter)}}
-      @onChangeFormat={{fn (mut this.documentFormatFilter)}}
-      @onChangeOrderBy={{fn (mut this.orderByFilter)}}
-    />
+    {{#if this.document}}
+      <RevisionExportOptions
+        @format={{this.documentFormatFilter}}
+        @documents={{this.documents}}
+        @document={{this.documentFilter}}
+        @orderBy={{this.orderByFilter}}
+        @revision={{this.revisionFilter}}
+        @revisions={{this.revisions}}
+        @onChangeDocument={{fn (mut this.documentFilter)}}
+        @onChangeRevision={{fn (mut this.revisionFilter)}}
+        @onChangeFormat={{fn (mut this.documentFormatFilter)}}
+        @onChangeOrderBy={{fn (mut this.orderByFilter)}}
+      />
+    {{/if}}
 
     <AsyncButton
       @onClick={{fn this.exportFile}}
@@ -40,8 +42,16 @@
       {{t "components.project_file_operations.export"}}
     </AsyncButton>
 
-    {{#if this.exportLoading}}
-      <SkeletonUi::ProgressLine />
+    {{#if this.document}}
+      {{#if this.exportLoading}}
+        <SkeletonUi::ProgressLine />
+      {{/if}}
+    {{else}}
+      <EmptyContent
+        @text={{t "pods.project.versions.export.empty_documents"}}
+        @iconPath="assets/empty.svg"
+        @center={{true}}
+      />
     {{/if}}
 
     <FileExport

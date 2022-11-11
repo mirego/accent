@@ -54,6 +54,6 @@ defmodule Accent.GraphQL.Resolvers.Version do
     |> Ecto.Query.order_by(desc: :inserted_at)
     |> Paginated.paginate(args)
     |> Paginated.format()
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 end

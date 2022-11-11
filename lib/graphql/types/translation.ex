@@ -73,6 +73,7 @@ defmodule Accent.GraphQL.Types.Translation do
       arg(:action, :string)
       arg(:is_batch, :boolean)
       arg(:user_id, :id)
+      arg(:version_id, :id)
 
       resolve(translation_authorize(:index_translation_activities, &Accent.GraphQL.Resolvers.Activity.list_translation/3))
     end

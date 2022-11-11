@@ -85,6 +85,8 @@
       "commit_error": "An error occured while uploading the file",
       "document_format": "Format of the file",
       "document_path": "Name of the file",
+      "version_tag": "Version",
+      "no_version_label": "No version",
       "language": "Language",
       "commit_type": "Mode",
       "file_source": "Document path",
@@ -483,6 +485,7 @@
       },
       "actions_default_option_text": "All activities",
       "collaborators_default_option_text": "All collaborators",
+      "versions_default_option_text": "All versions",
       "only_important_activities_text": "Only important activities"
     },
     "project_activities_list": {
@@ -993,7 +996,10 @@
       },
       "versions": {
         "loading_content": "Fetching versions…",
-        "title": "Versions"
+        "title": "Versions",
+        "export": {
+          "empty_documents": "No documents were found for this version"
+        }
       },
       "manage_languages": {
         "loading_content": "Fetching languages…",

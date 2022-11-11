@@ -46,6 +46,9 @@ export default class SyncController extends Controller {
   @readOnly('project.revisions')
   revisions: any;
 
+  @readOnly('project.versions.entries')
+  versions: any;
+
   @readOnly('model.fileModel.documents.entries')
   documents: any;
 
@@ -84,11 +87,13 @@ export default class SyncController extends Controller {
     fileSource,
     documentFormat,
     revision,
+    version,
     syncType,
   }: {
     fileSource: any;
     documentFormat: any;
     revision: any;
+    version: any;
     syncType: any;
   }) {
     const file = fileSource;
@@ -98,6 +103,7 @@ export default class SyncController extends Controller {
     const revisionOperations = await this.peeker.sync({
       project,
       revision,
+      version,
       revisions,
       file,
       documentPath,
@@ -113,11 +119,13 @@ export default class SyncController extends Controller {
     fileSource,
     documentFormat,
     revision,
+    version,
     syncType,
   }: {
     fileSource: any;
     documentFormat: any;
     revision: any;
+    version: any;
     syncType: any;
   }) {
     const file = fileSource;
@@ -128,6 +136,7 @@ export default class SyncController extends Controller {
       await this.syncer.sync({
         project,
         revision,
+        version,
         file,
         documentPath,
         documentFormat,

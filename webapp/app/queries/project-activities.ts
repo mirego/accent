@@ -5,6 +5,7 @@ export default gql`
     $projectId: ID!
     $page: Int
     $userId: ID
+    $versionId: ID
     $isBatch: Boolean
     $action: String
   ) {
@@ -12,6 +13,13 @@ export default gql`
       project(id: $projectId) {
         id
         isFileOperationsLocked
+
+        versions {
+          entries {
+            id
+            tag
+          }
+        }
 
         collaborators {
           id
@@ -28,6 +36,7 @@ export default gql`
         activities(
           page: $page
           userId: $userId
+          versionId: $versionId
           isBatch: $isBatch
           action: $action
         ) {

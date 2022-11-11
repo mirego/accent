@@ -21,13 +21,22 @@ export default class ActivitiesController extends Controller {
   @service('global-state')
   globalState: GlobalState;
 
-  queryParams = ['batchFilter', 'actionFilter', 'userFilter', 'page'];
+  queryParams = [
+    'batchFilter',
+    'actionFilter',
+    'userFilter',
+    'page',
+    'versionFilter',
+  ];
 
   @tracked
   batchFilter: boolean | null = null;
 
   @tracked
   actionFilter = '';
+
+  @tracked
+  versionFilter = '';
 
   @tracked
   userFilter = '';
@@ -59,6 +68,12 @@ export default class ActivitiesController extends Controller {
   @action
   userFilterChange(user: any) {
     this.userFilter = user;
+    this.page = 1;
+  }
+
+  @action
+  versionFilterChange(version: any) {
+    this.versionFilter = version;
     this.page = 1;
   }
 
