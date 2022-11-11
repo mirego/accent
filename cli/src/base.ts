@@ -30,6 +30,15 @@ export default abstract class extends Command {
     if (!this.project) error('Unable to fetch project');
 
     cli.action.stop(chalk.green('✓'));
+
+    if (this.projectConfig.warnings.length) {
+      console.log('');
+      console.log(chalk.yellow.bold('Warnings:'));
+    }
+
+    this.projectConfig.warnings.forEach((warning) =>
+      console.log(chalk.yellow(warning))
+    );
     console.log('');
   }
 
