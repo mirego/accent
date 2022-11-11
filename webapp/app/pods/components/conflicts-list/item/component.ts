@@ -16,10 +16,12 @@ interface Conflict {
   revision: {
     name: string | null;
     slug: string | null;
+    rtl: boolean | null;
     isMaster: boolean;
     language: {
       name: string;
       slug: string;
+      rtl: boolean;
     };
   };
   relatedTranslations: Array<{
@@ -105,6 +107,12 @@ export default class ConflictItem extends Component<Args> {
       this.args.conflict.revision.slug ||
       this.args.conflict.revision.language.slug
     );
+  }
+
+  get revisionTextDirRtl() {
+    return this.args.conflict.revision.rtl !== null
+      ? this.args.conflict.revision.rtl
+      : this.args.conflict.revision.language.rtl;
   }
 
   @action

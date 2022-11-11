@@ -197,6 +197,12 @@
   top: 7px;
   right: 7px;
   z-index: 3;
+
+  &[data-dir='rtl'] {
+    right: auto;
+    left: 7px;
+    flex-direction: row-reverse;
+  }
 }
 
 .item-revision {

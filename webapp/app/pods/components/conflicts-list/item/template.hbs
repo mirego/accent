@@ -70,11 +70,12 @@
                   @showTypeHints={{false}}
                   @onKeyUp={{fn this.changeTranslationText}}
                   @onSubmit={{fn this.correct}}
+                  @rtl={{this.revisionTextDirRtl}}
                   lang={{this.revisionSlug}}
                   as |form|
                 >
                   {{#component form.submit}}
-                    <div local-class="button-submit">
+                    <div local-class="button-submit" data-dir={{form.dir}}>
                       {{#if this.showOriginalButton}}
                         <AsyncButton
                           @onClick={{fn this.setOriginalText}}

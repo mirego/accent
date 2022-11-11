@@ -67,11 +67,13 @@ export default gql`
                 isMaster
                 slug
                 name
+                rtl
 
                 language {
                   id
                   slug
                   name
+                  rtl
                 }
               }
 
@@ -84,11 +86,13 @@ export default gql`
                   isMaster
                   name
                   slug
+                  rtl
 
                   language {
                     id
                     name
                     slug
+                    rtl
                   }
                 }
               }

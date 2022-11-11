@@ -32,6 +32,12 @@ export default class TranslationsListItem extends Component<Args> {
     );
   }
 
+  get revisionTextDirRtl() {
+    return this.args.translation.revision.rtl !== null
+      ? this.args.translation.revision.rtl
+      : this.args.translation.revision.language.rtl;
+  }
+
   @action
   changeTranslationText(text: string) {
     this.editText = text;

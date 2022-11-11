@@ -98,7 +98,7 @@
       {{yield (hash submit=(component "translation-edit/form/submit"))}}
     </div>
   {{else}}
-    <div local-class="input-wrapper">
+    <div local-class="input-wrapper" data-dir={{if @rtl "rtl"}}>
       <textarea
         {{autoresize @value}}
         {{on-key "Escape" (fn this.cancel)}}
@@ -107,9 +107,10 @@
         local-class="inputText"
         disabled={{@inputDisabled}}
         value={{@value}}
+        dir={{if @rtl "rtl"}}
         ...attributes
       />
-      {{yield (hash submit=(component "translation-edit/form/submit"))}}
+      {{yield (hash dir=(if @rtl "rtl") submit=(component "translation-edit/form/submit"))}}
     </div>
   {{/if}}
 

@@ -5,6 +5,7 @@ defmodule Accent.GraphQL.Types.Language do
     field(:id, non_null(:id))
     field(:slug, non_null(:id))
     field(:name, non_null(:string))
+    field(:rtl, non_null(:boolean))
   end
 
   object :languages do

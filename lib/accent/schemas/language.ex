@@ -12,6 +12,7 @@ defmodule Accent.Language do
     field(:osx_code, :string)
     field(:osx_locale, :string)
     field(:plural_forms, :string)
+    field(:rtl, :boolean)
 
     timestamps()
   end

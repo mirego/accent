@@ -91,20 +91,26 @@
         @onKeyUp={{fn this.changeTranslationText}}
         @onEscape={{fn this.toggleEdit}}
         @onSubmit={{fn this.save}}
+        @rtl={{this.revisionTextDirRtl}}
         lang={{this.revisionSlug}}
-      />
-      <AsyncButton
-        @onClick={{fn this.save}}
-        @loading={{this.isSaving}}
-        class="button button--filled button--iconOnly"
-        local-class=" item-textEdit-button"
+        as |form|
       >
-        {{t "components.translations_list.save"}}
-      </AsyncButton>
+        {{#component form.submit}}
+          <AsyncButton
+            @onClick={{fn this.save}}
+            @loading={{this.isSaving}}
+            class="button button--filled button--iconOnly"
+            data-dir={{form.dir}}
+            local-class=" item-textEdit-button"
+          >
+            {{t "components.translations_list.save"}}
+          </AsyncButton>
+        {{/component}}
+      </TranslationEdit::Form>
     </div>
   {{else if this.isTextEmpty}}
-    <span role="button" local-class="item-text item-text--empty" {{on "click" (fn this.toggleEdit)}}>{{t "components.translations_list.empty_text"}}</span>
+    <span role="button" local-class="item-text item-text--empty" data-dir={{if this.revisionTextDirRtl "rtl"}} {{on "click" (fn this.toggleEdit)}}>{{t "components.translations_list.empty_text"}}</span>
   {{else}}
-    <span role="button" local-class="item-text" {{on "click" (fn this.toggleEdit)}}>{{truncate @translation.correctedText 600}}</span>
+    <span role="button" local-class="item-text" data-dir={{if this.revisionTextDirRtl "rtl"}} {{on "click" (fn this.toggleEdit)}}>{{truncate @translation.correctedText 600}}</span>
   {{/if}}
 </li>
