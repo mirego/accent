@@ -8,6 +8,7 @@ Accent CLI
 * [Usage](#usage)
 * [Configuration](#configuration)
 * [Commands](#commands)
+* [GitHub Actions](#github-actions)
 * [License](#license)
 * [About Mirego](#about-mirego)
 <!-- tocstop -->
@@ -201,6 +202,49 @@ EXAMPLE
 
 _See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.11.0/src/commands/sync.ts)_
 <!-- commandsstop -->
+
+# GitHub Actions
+
+In addition to syncing the translations manually, you can add a GitHub Actions workflow to your project in order to automate the process.
+
+## Example
+
+```
+name: Accent
+
+on:
+  schedule:
+    - cron: "0 4 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install -g accent-cli
+      - run: accent sync --add-translations --merge-type=passive --order-by=key
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          add-paths: |
+            *.json
+          commit-message: Update translations
+          committer: Accent <accent@mirego.com>
+          author: Accent <accent@mirego.com>
+          base: master
+          branch: accent
+          delete-branch: true
+          title: 'New translations are available to merge'
+          body: |
+            The translation files have been updated, feel free to merge this pull request
+          draft: false
+```
+
+In this example the translations will be synchronized daily at midnight eastern time. Using a pull request gives you the opportunity to review the changes before merging them in your codebase.
 
 # License
 
