@@ -233,8 +233,8 @@ jobs:
           add-paths: |
             *.json
           commit-message: Update translations
-          committer: Accent <accent@mirego.com>
-          author: Accent <accent@mirego.com>
+          committer: github-actions[bot]@users.noreply.github.com
+          author: github-actions[bot]@users.noreply.github.com
           base: master
           branch: accent
           delete-branch: true
