@@ -28,5 +28,9 @@ defmodule Langue do
 
   def serializer_from_format(_), do: {:error, :unknown_serializer}
 
-  def format_modules, do: @format_modules
+  def placeholder_regex do
+    @format_modules
+    |> Enum.map(& &1.placeholder_regex())
+    |> Enum.reject(&(&1 === :not_supported))
+  end
 end

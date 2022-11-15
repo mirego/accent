@@ -30,7 +30,7 @@ defmodule Accent.Lint do
   defp entry_to_messages(entry) do
     {entry,
      Enum.flat_map(@checks, fn check ->
-       if check.applicable(entry), do: check.check(entry), else: []
+       if check.applicable(entry), do: List.wrap(check.check(entry)), else: []
      end)}
   end
 end

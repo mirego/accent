@@ -14,6 +14,27 @@ defmodule AccentTest.Lint do
       assert messages === []
     end
 
+    test "lint placeholder simple" do
+      entry = %Entry{key: "a", value: "nothing", master_value: "{{bar}}", value_type: "string"}
+      [{_, messages}] = Lint.lint([entry])
+
+      assert messages === [%Accent.Lint.Message{check: :placeholder_count, replacement: nil, text: "nothing"}]
+    end
+
+    test "lint placeholder many placeholders" do
+      entry = %Entry{key: "a", value: "${{bar}}M {{bax}}da", master_value: "{{bar}} M$ {{bax}}", value_type: "string"}
+      [{_, messages}] = Lint.lint([entry])
+
+      assert messages === []
+    end
+
+    test "lint placeholder special chars" do
+      entry = %Entry{key: "a", value: "${{bar}}M", master_value: "{{bar}} M$", value_type: "string"}
+      [{_, messages}] = Lint.lint([entry])
+
+      assert messages === []
+    end
+
     test "lint trailing space entry" do
       entry = %Entry{key: "a", value: "foo ", master_value: "foo", value_type: "string"}
       [{_, messages}] = Lint.lint([entry])

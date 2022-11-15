@@ -8,14 +8,10 @@ defmodule Accent.Lint.Checks.URLCount do
     value_url_count = urls_count(entry.value)
 
     if master_url_count !== value_url_count do
-      [
-        %Message{
-          check: :url_count,
-          text: entry.value
-        }
-      ]
-    else
-      []
+      %Message{
+        check: :url_count,
+        text: entry.value
+      }
     end
   end
 

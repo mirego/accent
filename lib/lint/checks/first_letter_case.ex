@@ -18,22 +18,22 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
 
     cond do
       value_capitalized === master_capitalized ->
-        []
+        nil
 
       !master_has_first_letter or !value_has_first_letter ->
-        []
+        nil
 
       value_capitalized ->
         ["", first_letter, rest] = String.split(entry.value, "", parts: 3)
         fixed_text = String.downcase(first_letter) <> rest
-        [to_message(entry, fixed_text)]
+        to_message(entry, fixed_text)
 
       master_capitalized ->
         fixed_text = String.capitalize(entry.value)
-        [to_message(entry, fixed_text)]
+        to_message(entry, fixed_text)
 
       true ->
-        []
+        nil
     end
   end
 

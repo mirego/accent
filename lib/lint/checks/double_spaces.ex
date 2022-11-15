@@ -8,15 +8,11 @@ defmodule Accent.Lint.Checks.DoubleSpace do
     fixed_text = String.replace(entry.value, "  ", " ")
 
     if fixed_text !== entry.value do
-      [
-        %Message{
-          check: :double_spaces,
-          text: entry.value,
-          replacement: %Replacement{value: fixed_text, label: fixed_text}
-        }
-      ]
-    else
-      []
+      %Message{
+        check: :double_spaces,
+        text: entry.value,
+        replacement: %Replacement{value: fixed_text, label: fixed_text}
+      }
     end
   end
 end
