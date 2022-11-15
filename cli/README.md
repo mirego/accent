@@ -209,7 +209,7 @@ In addition to syncing the translations manually, you can add a GitHub Actions w
 
 ## Example
 
-```
+```yaml
 name: Accent
 
 on:
