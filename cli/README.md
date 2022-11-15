@@ -228,18 +228,15 @@ jobs:
       - run: accent sync --add-translations --merge-type=passive --order-by=key
       - uses: peter-evans/create-pull-request@v4
         with:
-          add-paths: |
-            *.json
+          add-paths: "*.json"
           commit-message: Update translations
           committer: github-actions[bot]@users.noreply.github.com
           author: github-actions[bot]@users.noreply.github.com
-          base: master
           branch: accent
+          draft: false
           delete-branch: true
           title: New translations are available to merge
-          body: |
-            The translation files have been updated, feel free to merge this pull request
-          draft: false
+          body: The translation files have been updated, feel free to merge this pull request after review.
 ```
 
 In this example the translations will be synchronized daily at midnight eastern time. Using a pull request gives you the opportunity to review the changes before merging them in your codebase.
