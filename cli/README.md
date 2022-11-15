@@ -226,9 +226,7 @@ jobs:
           node-version: 16
       - run: npm install -g accent-cli
       - run: accent sync --add-translations --merge-type=passive --order-by=key
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
+      - uses: peter-evans/create-pull-request@v4
         with:
           add-paths: |
             *.json
@@ -238,7 +236,7 @@ jobs:
           base: master
           branch: accent
           delete-branch: true
-          title: 'New translations are available to merge'
+          title: New translations are available to merge
           body: |
             The translation files have been updated, feel free to merge this pull request
           draft: false
