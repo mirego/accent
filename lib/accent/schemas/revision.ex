@@ -13,6 +13,7 @@ defmodule Accent.Revision do
     field(:osx_code, :string)
     field(:osx_locale, :string)
     field(:plural_forms, :string)
+    field(:rtl, :boolean)
 
     belongs_to(:master_revision, Accent.Revision)
     belongs_to(:project, Accent.Project)

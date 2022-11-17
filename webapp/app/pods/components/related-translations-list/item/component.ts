@@ -37,6 +37,12 @@ export default class RelatedTranslationsListItem extends Component<Args> {
     );
   }
 
+  get revisionTextDirRtl() {
+    return this.args.translation.revision.rtl !== null
+      ? this.args.translation.revision.rtl
+      : this.args.translation.revision.language.rtl;
+  }
+
   @action
   changeText(text: string) {
     this.editText = text;

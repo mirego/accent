@@ -40,6 +40,12 @@ export default class TranslationEdit extends Component<Args> {
     );
   }
 
+  get revisionTextDirRtl() {
+    return this.args.translation.revision.rtl != null
+      ? this.args.translation.revision.rtl
+      : this.args.translation.revision.language.rtl;
+  }
+
   get samePreviousText() {
     return (
       this.args.translation.conflictedText ===

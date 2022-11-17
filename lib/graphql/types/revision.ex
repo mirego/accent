@@ -15,6 +15,7 @@ defmodule Accent.GraphQL.Types.Revision do
 
     field(:name, :string)
     field(:slug, :string)
+    field(:rtl, :boolean)
 
     field(:language, non_null(:language), resolve: dataloader(Accent.Language))
 

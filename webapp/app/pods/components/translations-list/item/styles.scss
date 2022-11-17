@@ -50,7 +50,7 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 1px;
 }
@@ -123,6 +123,10 @@
     color: #ddd;
   }
 
+  &[data-dir='rtl'] {
+    text-align: right;
+  }
+
   &:hover,
   &:focus {
     opacity: 1;
@@ -150,8 +154,13 @@
 .item-textEdit-button {
   padding: 1px 9px !important;
   position: absolute !important;
-  top: 6px !important;
+  top: 14px !important;
   right: 16px !important;
+
+  &[data-dir='rtl'] {
+    right: auto;
+    left: 16px !important;
+  }
 }
 
 @media (max-width: 800px) {
