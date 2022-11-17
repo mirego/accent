@@ -1,0 +1,15 @@
+{
+  "project": "10cbf933-de92-4740-83fb-491230e940bc",
+  "files": [
+    {
+      "format": "json",
+      "source": "locales/en.json",
+      "target": "downloads/en.json"
+    },
+    {
+      "format": "json",
+      "source": "locales/fr.json",
+      "target": "downloads/fr.json"
+    }
+  ]
+}
