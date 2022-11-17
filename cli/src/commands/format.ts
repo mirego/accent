@@ -21,11 +21,12 @@ export default class Format extends Command {
     'order-by': flags.string({
       default: 'index',
       description: 'Order of the keys',
-      options: ['index', 'key'],
+      options: ['index', 'key', '-index', '-key'],
     }),
   };
 
   async run() {
+    const {flags} = this.parse(Format);
     const documents = this.projectConfig.files();
     const t0 = process.hrtime();
     const formattedPaths: FormattedFile[] = [];
@@ -44,7 +45,7 @@ export default class Format extends Command {
 
         if (fs.existsSync(path)) {
           const beforeContent = fs.readFileSync(path);
-          await document.format(path, language);
+          await document.format(path, language, flags);
           const unchanged = fs.readFileSync(path).equals(beforeContent);
 
           formattedPaths.push({path, unchanged});
