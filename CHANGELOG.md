@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.12.0
+
+### 1. Enhancements
+
+- Support RTL languages in webapp
+- Add versions support in sync/add translation in webapp and CLI
+- Optimize SQL batch operations to use Ecto placeholders
+- CLI has a warning if 2 files in the config have the exact same folder
+- Add GitHub Actions instructions in CLI Readme
+
+### 2. Bug fixes
+
+- Documents list action links does not slide to the left to put the delete button uner the cursor
+- Fix `accent format --order-by` option
+- Fix large number of concurrent HTTP requests in CLI sync
+
 ## v1.9.0
 
 ### 1. Enhancements
