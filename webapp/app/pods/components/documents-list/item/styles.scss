@@ -8,10 +8,6 @@
     .deleteDocumentButton {
       opacity: 1;
     }
-
-    .links {
-      transform: translate3d(0, 0, 0);
-    }
   }
 }
 
@@ -214,9 +210,6 @@
   flex-wrap: wrap;
   flex-shrink: 1;
   justify-content: space-between;
-  transform: translate3d(30px, 0, 0);
-  transition: 0.2s ease-in-out;
-  transition-property: transform;
 
   :global(.button) {
     margin-right: 6px;
@@ -231,6 +224,12 @@
   width: 100%;
   justify-content: flex-start;
   transform: translate3d(0, 0, 0);
+}
+
+.deleteDocumentButton-container {
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
 }
 
 .deleteDocumentButton {

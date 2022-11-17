@@ -8,15 +8,11 @@ defmodule Accent.Lint.Checks.ThreeDotsEllipsis do
     fixed_text = String.replace(entry.value, "...", "…")
 
     if fixed_text !== entry.value do
-      [
-        %Message{
-          check: :three_dots_ellipsis,
-          text: entry.value,
-          replacement: %Replacement{value: fixed_text, label: fixed_text}
-        }
-      ]
-    else
-      []
+      %Message{
+        check: :three_dots_ellipsis,
+        text: entry.value,
+        replacement: %Replacement{value: fixed_text, label: fixed_text}
+      }
     end
   end
 end

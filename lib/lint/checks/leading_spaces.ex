@@ -8,15 +8,11 @@ defmodule Accent.Lint.Checks.LeadingSpaces do
     fixed_text = String.trim_leading(entry.value)
 
     if fixed_text !== entry.value do
-      [
-        %Message{
-          check: :leading_spaces,
-          text: entry.value,
-          replacement: %Replacement{value: fixed_text, label: fixed_text}
-        }
-      ]
-    else
-      []
+      %Message{
+        check: :leading_spaces,
+        text: entry.value,
+        replacement: %Replacement{value: fixed_text, label: fixed_text}
+      }
     end
   end
 end
