@@ -14,7 +14,8 @@ defmodule Movement.Persisters.Base do
   @spec execute(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}
   def execute(context = %Movement.Context{operations: []}), do: {context, []}
 
-  def execute(context = %Movement.Context{assigns: assigns = %{batch_action: action}}) when is_binary(action) do
+  def execute(context = %Movement.Context{assigns: assigns = %{batch_action: action}})
+      when is_binary(action) do
     stats = StatMapper.map(context.operations)
 
     batch_operation =
@@ -42,7 +43,9 @@ defmodule Movement.Persisters.Base do
   end
 
   @spec rollback(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}
-  def rollback(%Movement.Context{assigns: %{operation: %{action: "rollback"}}}), do: Repo.rollback(:cannot_rollback_rollback)
+  def rollback(%Movement.Context{assigns: %{operation: %{action: "rollback"}}}),
+    do: Repo.rollback(:cannot_rollback_rollback)
+
   def rollback(context = %Movement.Context{operations: []}), do: {context, []}
 
   def rollback(context) do
@@ -52,24 +55,36 @@ defmodule Movement.Persisters.Base do
   end
 
   defp persist_operations(context = %Movement.Context{assigns: assigns}) do
+    placeholders =
+      %{
+        now: DateTime.utc_now(),
+        user_id: assigns[:user_id]
+      }
+      |> assign_project(assigns[:project])
+      |> assign_batch_operation(assigns[:batch_operation])
+      |> assign_document(assigns[:document])
+      |> assign_revision(assigns[:revision])
+      |> assign_version(assigns[:version])
+
     operations =
       context.operations
       |> Stream.map(fn operation ->
-        operation
-        |> Map.put(:user_id, assigns[:user_id])
-        |> Map.put(:inserted_at, DateTime.utc_now())
-        |> Map.put(:updated_at, DateTime.utc_now())
-        |> assign_project(assigns[:project])
-        |> assign_batch_operation(assigns[:batch_operation])
-        |> assign_document(assigns[:document])
-        |> assign_revision(assigns[:revision])
-        |> assign_version(assigns[:version])
-        |> Map.from_struct()
+        Map.from_struct(%{
+          operation
+          | inserted_at: {:placeholder, :now},
+            updated_at: {:placeholder, :now},
+            user_id: {:placeholder, :user_id},
+            document_id: {:placeholder, :document_id},
+            project_id: {:placeholder, :project_id},
+            batch_operation_id: {:placeholder, :batch_operation_id},
+            version_id: operation.version_id || {:placeholder, :version_id},
+            revision_id: operation.revision_id || {:placeholder, :revision_id}
+        })
       end)
       |> Stream.chunk_every(@operations_inserts_chunk)
       |> Stream.flat_map(fn operations ->
         Operation
-        |> Repo.insert_all(operations, returning: true)
+        |> Repo.insert_all(operations, returning: true, placeholders: placeholders)
         |> elem(1)
         |> Repo.preload(:translation)
       end)
@@ -99,22 +114,20 @@ defmodule Movement.Persisters.Base do
     {context, Migrator.down([operation])}
   end
 
-  defp assign_project(operation, nil), do: operation
-  defp assign_project(operation, project), do: %{operation | project_id: project.id}
+  defp assign_project(placeholders, project),
+    do: Map.put(placeholders, :project_id, project && project.id)
 
-  defp assign_batch_operation(operation, nil), do: operation
-  defp assign_batch_operation(operation, batch_operation), do: %{operation | batch_operation_id: batch_operation.id}
+  defp assign_batch_operation(placeholders, batch_operation),
+    do: Map.put(placeholders, :batch_operation_id, batch_operation && batch_operation.id)
 
-  defp assign_document(operation, nil), do: operation
-  defp assign_document(operation, document), do: %{operation | document_id: document.id}
+  defp assign_document(placeholders, document),
+    do: Map.put(placeholders, :document_id, document && document.id)
 
-  defp assign_revision(operation, nil), do: operation
-  defp assign_revision(operation = %{revision_id: revision_id}, _revision) when not is_nil(revision_id), do: operation
-  defp assign_revision(operation, revision), do: %{operation | revision_id: revision.id}
+  defp assign_revision(placeholders, revision),
+    do: Map.put(placeholders, :revision_id, revision && revision.id)
 
-  defp assign_version(operation, nil), do: operation
-  defp assign_version(operation = %{version_id: version_id}, _version) when not is_nil(version_id), do: operation
-  defp assign_version(operation, version), do: %{operation | version_id: version.id}
+  defp assign_version(placeholders, version),
+    do: Map.put(placeholders, :version_id, version && version.id)
 
   defp assign_options(operations, assigns) do
     options = Enum.flat_map(@options_keys, &Map.get(assigns, &1, []))

@@ -49,6 +49,9 @@ export default class AddTranslationsController extends Controller {
   @readOnly('project.revisions')
   revisions: any;
 
+  @readOnly('project.versions.entries')
+  versions: any;
+
   @readOnly('model.fileModel.documents.entries')
   documents: any;
 
@@ -85,12 +88,14 @@ export default class AddTranslationsController extends Controller {
     fileSource,
     documentFormat,
     revision,
+    version,
     mergeType,
     mergeOptions,
   }: {
     fileSource: any;
     documentFormat: string;
     revision: any;
+    version: any;
     mergeType: string;
     mergeOptions: string[];
   }) {
@@ -101,6 +106,7 @@ export default class AddTranslationsController extends Controller {
     const revisionOperations = await this.peeker.merge({
       project,
       revision,
+      version,
       file,
       documentPath,
       documentFormat,

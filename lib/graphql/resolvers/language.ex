@@ -13,6 +13,6 @@ defmodule Accent.GraphQL.Resolvers.Language do
     |> LanguageScope.from_search(args[:query])
     |> Paginated.paginate(args)
     |> Paginated.format()
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 end

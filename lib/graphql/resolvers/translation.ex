@@ -27,7 +27,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     translation
     |> Map.get(:key)
     |> String.replace(@internal_nested_separator, "[\\1]")
-    |> (&{:ok, &1}).()
+    |> then(&{:ok, &1})
   end
 
   @spec correct(Translation.t(), %{text: String.t()}, GraphQLContext.t()) :: translation_operation
@@ -167,7 +167,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
         |> TranslationScope.from_revision(revision_id)
         |> TranslationScope.related_to_one(translation)
         |> Repo.one()
-        |> (&{:ok, &1}).()
+        |> then(&{:ok, &1})
     end
   end
 

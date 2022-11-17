@@ -8,12 +8,14 @@ interface CommitOptions {
   file: File;
   documentPath: string;
   documentFormat: string;
+  version?: string;
   syncType?: string;
 }
 
 interface PeekOptions {
   file: File;
   documentPath: string;
+  version?: string;
   documentFormat: string;
 }
 
@@ -104,6 +106,7 @@ export default class AuthenticatedRequest extends Service {
 
   private setupFormFile(options: {
     file: File;
+    version?: string;
     documentPath?: string;
     documentFormat?: string;
   }) {
@@ -113,6 +116,7 @@ export default class AuthenticatedRequest extends Service {
       formData.append('document_path', options.documentPath);
     if (options.documentFormat)
       formData.append('document_format', options.documentFormat);
+    if (options.version) formData.append('version', options.version);
 
     return formData;
   }

@@ -95,6 +95,7 @@ defmodule Accent.GraphQL.Types.Project do
       arg(:action, :string)
       arg(:is_batch, :boolean)
       arg(:user_id, :id)
+      arg(:version_id, :id)
 
       resolve(project_authorize(:index_project_activities, &Accent.GraphQL.Resolvers.Activity.list_project/3))
     end

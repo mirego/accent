@@ -27,6 +27,9 @@ export default class ActivitiesRoute extends Route {
     userFilter: {
       refreshModel: true,
     },
+    versionFilter: {
+      refreshModel: true,
+    },
     page: {
       refreshModel: true,
     },
@@ -39,8 +42,15 @@ export default class ActivitiesRoute extends Route {
       batchFilter,
       actionFilter,
       userFilter,
+      versionFilter,
       page,
-    }: {batchFilter: any; actionFilter: any; userFilter: any; page: number},
+    }: {
+      batchFilter: any;
+      actionFilter: any;
+      userFilter: any;
+      versionFilter: any;
+      page: number;
+    },
     transition: Transition
   ) {
     this.subscription = this.apolloSubscription.graphql(
@@ -51,6 +61,7 @@ export default class ActivitiesRoute extends Route {
           project: data.viewer.project,
           activities: data.viewer.project.activities,
           collaborators: data.viewer.project.collaborators,
+          versions: data.viewer.project.versions.entries,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -60,6 +71,7 @@ export default class ActivitiesRoute extends Route {
             isBatch: batchFilter ? true : null,
             action: actionFilter === '' ? null : actionFilter,
             userId: userFilter === '' ? null : userFilter,
+            versionId: versionFilter === '' ? null : versionFilter,
             page,
           },
         },

@@ -26,14 +26,18 @@ export default class Sync extends Command {
   static description =
     'Sync files in Accent and write them to your local filesystem';
 
-  static examples = [`$ accent sync`];
+  static examples = [
+    `$ accent sync`,
+    `$ accent sync --dry-run --sync-type=force`,
+    `$ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23`,
+  ];
 
   static args = [];
 
   static flags = {
     'add-translations': flags.boolean({
       description:
-        'Add translations in Accent to help translators if you already have translated strings',
+        'Add translations in Accent to help translators if you already have translated strings locally',
     }),
     'dry-run': flags.boolean({
       default: false,
@@ -41,9 +45,9 @@ export default class Sync extends Command {
         'Do not write the file from the export _after_ the operation',
     }),
     'merge-type': flags.string({
-      default: 'smart',
+      default: 'passive',
       description:
-        'Will be used in the add translations call as the "merge_type" param',
+        'Algorithm to use on existing strings when adding translation',
       options: ['smart', 'passive', 'force'],
     }),
     'order-by': flags.string({
@@ -53,8 +57,14 @@ export default class Sync extends Command {
     }),
     'sync-type': flags.string({
       default: 'smart',
-      description: 'Will be used in the sync call as the "sync_type" param',
+      description:
+        'Algorithm to use on existing strings when syncing the main language',
       options: ['smart', 'passive'],
+    }),
+    version: flags.string({
+      default: '',
+      description:
+        'Sync a specific version, the tag needs to exists in Accent first',
     }),
   };
 
@@ -65,7 +75,7 @@ export default class Sync extends Command {
 
     // From all the documentConfigs, do the sync or peek operations and log the results.
     const syncFormatter = new SyncFormatter();
-    syncFormatter.log(this.project!);
+    syncFormatter.log(this.project!, flags);
 
     for (const document of documents) {
       await new HookRunner(document).run(Hooks.beforeSync);

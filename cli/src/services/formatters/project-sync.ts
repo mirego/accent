@@ -9,11 +9,15 @@ import {fetchFromRevision} from '../revision-slug-fetcher';
 import Base from './base';
 
 export default class ProjectSyncFormatter extends Base {
-  log(project: Project) {
+  log(project: Project, flags: any) {
+    const logFlags = [];
+    if (flags.version) logFlags.push(chalk.gray(`${flags.version}`));
+
     console.log(
       chalk.magenta(
         'Syncing sources',
-        `(${fetchFromRevision(project.masterRevision)})`
+        `(${fetchFromRevision(project.masterRevision)})`,
+        logFlags.join('')
       )
     );
 

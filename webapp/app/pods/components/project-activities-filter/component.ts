@@ -6,13 +6,16 @@ import IntlService from 'ember-intl/services/intl';
 const ACTIONS_PREFIX = 'components.project_activities_filter.actions.';
 
 interface Args {
+  versions: any;
   collaborators: any;
   batchFilter: any;
   actionFilter: any;
   userFilter: any;
+  versionFilter: any;
   userFilterChange: (user: any) => void;
   batchFilterChange: (checked: boolean) => void;
   actionFilterChange: (actionFilter: any) => void;
+  versionFilterChange: (versionFilter: any) => void;
 }
 
 export default class ProjectActivitiesFilter extends Component<Args> {
@@ -77,6 +80,26 @@ export default class ProjectActivitiesFilter extends Component<Args> {
     return users;
   }
 
+  get mappedVersions() {
+    if (!this.args.versions) return [];
+
+    const versions = this.args.versions.map(
+      ({tag, id}: {tag: string; id: string}) => ({
+        label: tag,
+        value: id,
+      })
+    );
+
+    versions.unshift({
+      label: this.intl.t(
+        'components.project_activities_filter.versions_default_option_text'
+      ),
+      value: '',
+    });
+
+    return versions;
+  }
+
   get actionFilterValue() {
     return this.mappedActions.find(
       ({value}) => value === this.args.actionFilter
@@ -86,6 +109,12 @@ export default class ProjectActivitiesFilter extends Component<Args> {
   get userFilterValue() {
     return this.mappedUsers.find(
       ({value}: {value: any}) => value === this.args.userFilter
+    );
+  }
+
+  get versionFilterValue() {
+    return this.mappedVersions.find(
+      ({value}: {value: any}) => value === this.args.versionFilter
     );
   }
 
@@ -105,5 +134,10 @@ export default class ProjectActivitiesFilter extends Component<Args> {
   @action
   userFilterChange(user: any) {
     this.args.userFilterChange(user.value);
+  }
+
+  @action
+  versionFilterChange(version: any) {
+    this.args.versionFilterChange(version.value);
   }
 }

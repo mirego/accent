@@ -82,6 +82,13 @@ export default gql`
           }
         }
 
+        versions {
+          entries {
+            id
+            tag
+          }
+        }
+
         revisions {
           id
           name
