@@ -8,6 +8,7 @@ defmodule Accent do
       Accent.Endpoint,
       Accent.Repo,
       {Oban, oban_config()},
+      {TelemetryUI, Accent.TelemetryUI.config()},
       {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 

@@ -33,6 +33,26 @@ defmodule Accent.Router do
     plug :put_secure_browser_headers, %{"x-frame-options" => ""}
   end
 
+  pipeline :metrics do
+    plug :metrics_auth
+  end
+
+  defp metrics_auth(conn, _opts) do
+    if System.get_env("METRICS_BASIC_AUTH") do
+      [username, password] = String.split(System.fetch_env!("METRICS_BASIC_AUTH"), ":", parts: 2)
+      Plug.BasicAuth.basic_auth(conn, username: username, password: password)
+    else
+      conn
+      |> send_resp(:not_found, "Not found")
+      |> halt()
+    end
+  end
+
+  scope "/" do
+    pipe_through(:metrics)
+    get("/metrics", TelemetryUI.Web, [], assigns: %{telemetry_ui_allowed: true})
+  end
+
   scope "/", Accent do
     pipe_through(:authenticate)
 

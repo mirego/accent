@@ -38,7 +38,7 @@ defmodule Accent.Mixfile do
     [
       # Framework
       {:phoenix, "~> 1.4"},
-      {:phoenix_html, "~> 2.10"},
+      {:phoenix_html, "~> 3.0"},
 
       # Plugs
       {:plug_assign, "~> 1.0.0"},
@@ -100,6 +100,8 @@ defmodule Accent.Mixfile do
       # Metrics and monitoring
       {:new_relic_agent, "~> 1.27"},
       {:new_relic_absinthe, "~> 0.0"},
+      {:telemetry, "~> 1.0", override: true},
+      {:telemetry_ui, "~> 1.1"},
 
       # Mock testing
       {:mox, "~> 0.3", only: :test},
