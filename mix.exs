@@ -79,7 +79,7 @@ defmodule Accent.Mixfile do
 
       # Auth
       {:oauth2, "~> 2.0", override: true},
-      {:ueberauth, "~> 0.6"},
+      {:ueberauth, "~> 0.6.0"},
       {:ueberauth_google, "~> 0.6"},
       {:ueberauth_github, "~> 0.7"},
       {:ueberauth_gitlab_strategy, "~> 0.3"},
