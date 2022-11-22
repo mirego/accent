@@ -7,6 +7,7 @@ defmodule Accent.TelemetryUI do
         {"HTTP", http_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"GraphQL", graphql_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"Absinthe", absinthe_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
+        {"Ecto", ecto_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"System", system_metrics()}
       ],
       theme: theme(),
@@ -70,6 +71,43 @@ defmodule Accent.TelemetryUI do
         keep: http_keep,
         unit: {:native, :millisecond},
         reporter_options: [buckets: [0, 100, 500, 2000]]
+      )
+    ]
+  end
+
+  defp ecto_metrics do
+    ecto_keep = &(&1[:source] not in [nil, ""] and not String.starts_with?(&1[:source], "oban") and not String.starts_with?(&1[:source], "telemetry_ui"))
+
+    [
+      average("accent.repo.query.total_time",
+        description: "Database query total time",
+        keep: ecto_keep,
+        unit: {:native, :millisecond},
+        reporter_options: [report_as: "ecto"],
+        ui_options: [class: "col-span-3", unit: " ms"]
+      ),
+      average_over_time("accent.repo.query.total_time",
+        description: "Database query total time over time",
+        keep: ecto_keep,
+        unit: {:native, :millisecond},
+        reporter_options: [report_as: "ecto"],
+        ui_options: [class: "col-span-5", unit: " ms"]
+      ),
+      average("accent.repo.query.total_time",
+        description: "Database query total time per source",
+        keep: ecto_keep,
+        tags: [:source],
+        unit: {:native, :millisecond},
+        reporter_options: [report_as: "ecto"],
+        ui_options: [class: "col-span-full", unit: " ms"]
+      ),
+      average("accent.repo.query.total_time",
+        description: "Database query total time per query",
+        keep: ecto_keep,
+        tags: [:query],
+        unit: {:native, :millisecond},
+        reporter_options: [report_as: "ecto"],
+        ui_options: [class: "col-span-full", unit: " ms"]
       )
     ]
   end
