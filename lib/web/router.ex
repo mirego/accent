@@ -37,6 +37,8 @@ defmodule Accent.Router do
     plug :metrics_auth
   end
 
+  defp metrics_auth(conn = %{query_params: %{"share" => share}}, _opts) when is_binary(share), do: conn
+
   defp metrics_auth(conn, _opts) do
     if System.get_env("METRICS_BASIC_AUTH") do
       [username, password] = String.split(System.fetch_env!("METRICS_BASIC_AUTH"), ":", parts: 2)

@@ -108,7 +108,7 @@ defmodule Accent.Mixfile do
       {:mock, "~> 0.3.0", only: :test},
 
       # Google API authentication
-      {:goth, "~> 1.1"},
+      {:goth, "~> 1.2.0"},
 
       # Network request
       {:tesla, "~> 1.3"},
