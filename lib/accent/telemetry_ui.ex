@@ -100,14 +100,6 @@ defmodule Accent.TelemetryUI do
         unit: {:native, :millisecond},
         reporter_options: [report_as: "ecto"],
         ui_options: [class: "col-span-full", unit: " ms"]
-      ),
-      average("accent.repo.query.total_time",
-        description: "Database query total time per query",
-        keep: ecto_keep,
-        tags: [:query],
-        unit: {:native, :millisecond},
-        reporter_options: [report_as: "ecto"],
-        ui_options: [class: "col-span-full", unit: " ms"]
       )
     ]
   end
@@ -209,7 +201,7 @@ defmodule Accent.TelemetryUI do
         ui_options: [unit: " requests"],
         reporter_options: [report_as: "graphql", class: "col-span-4"]
       ),
-      average_over_time("phoenix.router_dispatch.stop.duration",
+      average("phoenix.router_dispatch.stop.duration",
         description: "GraphQL requests duration per operation",
         keep: graphql_keep,
         tag_values: graphql_tag_values,
