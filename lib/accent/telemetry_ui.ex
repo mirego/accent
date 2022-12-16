@@ -106,7 +106,11 @@ defmodule Accent.TelemetryUI do
 
   defp absinthe_metrics do
     absinthe_tag_values = fn metadata ->
-      operation_name = Enum.map_join(metadata.blueprint.operations, ",", & &1.name)
+      operation_name =
+        metadata.blueprint.operations
+        |> Enum.map(& &1.name)
+        |> Enum.uniq()
+        |> Enum.join(",")
 
       %{operation_name: operation_name}
     end
@@ -147,8 +151,14 @@ defmodule Accent.TelemetryUI do
     graphql_tag_values = fn metadata ->
       operation_name =
         case metadata.conn.params do
-          %{"_json" => json} -> Enum.map_join(json, ",", & &1["operationName"])
-          _ -> nil
+          %{"_json" => json} ->
+            json
+            |> Enum.map(& &1["operationName"])
+            |> Enum.uniq()
+            |> Enum.join(",")
+
+          _ ->
+            nil
         end
 
       %{operation_name: operation_name}

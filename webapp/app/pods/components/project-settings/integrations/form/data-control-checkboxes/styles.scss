@@ -6,12 +6,21 @@
     align-items: center;
     margin-right: 10px;
     border: 1px solid var(--background-light-highlight);
-    padding: 3px 6px;
+    padding: 4px 6px;
     border-radius: 3px;
-    background: var(--background-light);
+    background: var(--input-background);
+    cursor: pointer;
+  transition: 0.2s ease-in-out;
+  transition-property: background;
+
+    &:hover,
+    &:focus {
+      background: var(--background-light);
+    }
 
     input {
       margin-right: 5px;
+      cursor: pointer;
     }
   }
 }

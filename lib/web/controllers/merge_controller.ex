@@ -57,7 +57,7 @@ defmodule Accent.MergeController do
 
       {:ok, _} ->
         Accent.Hook.outbound(%HookContext{
-          event: "merge",
+          event: "add_translations",
           project_id: conn.assigns[:project].id,
           user_id: conn.assigns[:current_user].id,
           payload: %{

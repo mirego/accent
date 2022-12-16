@@ -3,12 +3,12 @@ defmodule Accent.CreateCommentEmail do
 
   import Accent.EmailViewConfigHelper, only: [mailer_from: 0, x_smtpapi_header: 0]
 
-  @spec create(list(String.t()), Accent.Project.t(), map()) :: Bamboo.Email.t()
-  def create(emails, project, comment) do
+  @spec create(list(String.t()), Accent.User.t(), Accent.Project.t(), map()) :: Bamboo.Email.t()
+  def create(emails, user, project, comment) do
     base_email()
     |> to(emails)
     |> mailer_subject(project)
-    |> assign(:email, comment["user"]["email"])
+    |> assign(:user, user)
     |> assign(:key, comment["translation"]["key"])
     |> assign(:text, comment["text"])
     |> assign(:translation_path, translation_path(project, comment["translation"]["id"]))

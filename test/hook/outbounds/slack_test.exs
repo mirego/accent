@@ -46,8 +46,8 @@ defmodule AccentTest.Hook.Outbounds.Slack do
           *Test* just synced a file: _foo.json_
 
           *Stats:*
-          new: _4_
-          conflict_on_proposed: _10_
+          New: _4_
+          Conflict on proposed: _10_
           """
           |> String.trim_trailing()
       })

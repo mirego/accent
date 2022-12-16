@@ -3,6 +3,7 @@ defmodule Movement.Persisters.Base do
 
   alias Accent.{Operation, Repo}
   alias Movement.Mappers.OperationsStats, as: StatMapper
+  alias Movement.Persisters.ProjectStateChangeWorker
   alias Movement.Migrator
 
   # Inserts operations by batch of 500 to prevent parameters
@@ -37,9 +38,21 @@ defmodule Movement.Persisters.Base do
   end
 
   def execute(context) do
+    project_state_change_context = %{
+      project_id: context.assigns[:project] && context.assigns.project.id,
+      document_id: context.assigns[:document] && context.assigns.document.id,
+      master_revision_id: context.assigns[:master_revision] && context.assigns.master_revision.id,
+      revision_id: context.assigns[:revision] && context.assigns.revision.id,
+      version_id: context.assigns[:version] && context.assigns.version.id,
+      batch_operation_id: context.assigns[:batch_operation] && context.assigns.batch_operation.id,
+      user_id: context.assigns[:user_id],
+      previous_project_state: ProjectStateChangeWorker.get_project_state(context.assigns[:project])
+    }
+
     context
     |> persist_operations()
     |> migrate_up_operations()
+    |> tap(fn _ -> Oban.insert(ProjectStateChangeWorker.new(project_state_change_context)) end)
   end
 
   @spec rollback(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}

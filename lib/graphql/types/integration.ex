@@ -9,7 +9,10 @@ defmodule Accent.GraphQL.Types.Integration do
 
   enum :project_integration_event do
     value(:sync, as: "sync")
-    value(:merge, as: "merge")
+    value(:new_conflicts, as: "new_conflicts")
+    value(:complete_review, as: "complete_review")
+    value(:create_collaborator, as: "create_collaborator")
+    value(:create_comment, as: "create_comment")
   end
 
   interface :project_integration do

@@ -22,8 +22,8 @@ defmodule Accent.Hook.Outbounds.Email do
     ProjectInviteEmail.create(emails, user, project)
   end
 
-  defp build_email(emails, %{event: "create_comment", project: project, payload: payload}) do
-    CreateCommentEmail.create(emails, project, payload)
+  defp build_email(emails, %{event: "create_comment", project: project, user: user, payload: payload}) do
+    CreateCommentEmail.create(emails, user, project, payload)
   end
 
   defp fetch_emails(%{event: "create_collaborator", payload: payload}) do

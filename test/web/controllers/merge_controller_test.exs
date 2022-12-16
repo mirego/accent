@@ -51,7 +51,7 @@ defmodule AccentTest.MergeController do
     assert_enqueued(
       worker: Accent.Hook.Outbounds.Mock,
       args: %{
-        "event" => "merge",
+        "event" => "add_translations",
         "payload" => %{"language_name" => "french", "merge_type" => nil},
         "project_id" => project.id,
         "user_id" => user.id
@@ -102,7 +102,7 @@ defmodule AccentTest.MergeController do
     assert_enqueued(
       worker: Accent.Hook.Outbounds.Mock,
       args: %{
-        "event" => "merge",
+        "event" => "add_translations",
         "payload" => %{"language_name" => "french", "merge_type" => nil},
         "project_id" => project.id,
         "user_id" => user.id
@@ -134,7 +134,7 @@ defmodule AccentTest.MergeController do
     assert_enqueued(
       worker: Accent.Hook.Outbounds.Mock,
       args: %{
-        "event" => "merge",
+        "event" => "add_translations",
         "payload" => %{"language_name" => "french", "merge_type" => nil},
         "project_id" => project.id,
         "user_id" => user.id

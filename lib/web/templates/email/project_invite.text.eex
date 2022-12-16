@@ -1,4 +1,4 @@
-<%= @user.email %> has invited you to collaborate on the project "<%= @project.name %>".
+<%= user_display_name(@user) %> has invited you to collaborate on the project "<%= @project.name %>".
 
 If you already have an account (<%= @email %>), you can just login (<%= webapp_url() %>) and you’ll see the project.
 

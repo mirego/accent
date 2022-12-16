@@ -8,9 +8,9 @@ interface Args {
   errors: any;
   url: any;
   project: any;
-  syncChecked: any;
+  events: any;
   onChangeUrl: (url: string) => void;
-  onChangeSyncChecked: (syncChecked: boolean) => void;
+  onChangeEventsChecked: (events: string[]) => void;
   onChangeRepository: (repository: string) => void;
   onChangeToken: (token: string) => void;
   onChangeDefaultRef: (defaultRef: string) => void;

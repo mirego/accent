@@ -11,11 +11,10 @@ defmodule AccentTest.CreateCommentEmail do
 
     payload = %{
       "text" => comment.text,
-      "user" => %{"email" => user.email},
       "translation" => %{"id" => translation.id, "key" => translation.key}
     }
 
-    email = Accent.CreateCommentEmail.create(emails, project, payload)
+    email = Accent.CreateCommentEmail.create(emails, user, project, payload)
 
     assert email.to == emails
     assert email.from == {"Accent", "accent-test@example.com"}

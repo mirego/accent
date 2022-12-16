@@ -3,12 +3,14 @@
     {{@title}}
   </h3>
 
-  <label local-class="checkbox">
-    <Input
-      @type="checkbox"
-      @checked={{@syncChecked}}
-      {{on "change" this.changeSyncChecked}}
-    />
-    {{@syncCheckLabel}}
-  </label>
+  {{#each this.allEvents as |event|}}
+    <label local-class="checkbox">
+      <Input
+        @type="checkbox"
+          @checked={{if (array-includes @events event.value) 'checked'}}
+        {{on "change" (fn this.changeEventChecked event.value)}}
+      />
+      {{t event.label}}
+    </label>
+  {{/each}}
 </div>

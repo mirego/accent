@@ -40,8 +40,8 @@ defmodule AccentTest.Hook.Outbounds.Discord do
           **Test** just synced a file: *foo.json*
 
           **Stats:**
-          new: *4*
-          conflict_on_proposed: *10*
+          New: *4*
+          Conflict on proposed: *10*
           """
           |> String.trim_trailing()
       })

@@ -10,9 +10,7 @@ interface Args {
   errors: any;
   url: any;
   project: any;
-  syncChecked: any;
   onChangeUrl: (url: string) => void;
-  onChangeSyncChecked: (syncChecked: boolean) => void;
   onChangeRepository: (repository: string) => void;
   onChangeToken: (token: string) => void;
   onChangeDefaultRef: (defaultRef: string) => void;

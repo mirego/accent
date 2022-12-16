@@ -39,8 +39,7 @@
   left: 1px;
   transition: 0.2s ease-in-out;
   transition-property: color, opacity, background;
-  padding: 4px 12px 3px;
-  margin-bottom: 6px;
+  padding: 7px 12px 6px;
   text-decoration: none;
   font-weight: 600;
   font-size: 13px;
@@ -56,6 +55,7 @@
 
     .list-item-link-icon {
       transform: scale(1);
+      opacity: 1;
     }
 
     .list-item-link-text {
@@ -70,6 +70,7 @@
 
     .list-item-link-icon {
       transform: scale(1);
+      opacity: 1;
     }
 
     .list-item-link-text {
@@ -89,10 +90,11 @@
 
 .list-item-link-icon {
   transition: 0.2s ease-in-out;
-  transition-property: fill;
+  transition-property: fill, opacity;
   display: inline-block;
   width: 13px;
   height: 13px;
+  opacity: 0.6;
 }
 
 @media (max-width: 800px) {

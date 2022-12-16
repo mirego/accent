@@ -16,6 +16,7 @@ defmodule Langue.Utils.LineByLineHelper.Parser do
     acc
     |> Map.put(:line, line)
     |> Map.put(:captures, Regex.named_captures(prop_line_regex, line))
+    |> IO.inspect
     |> build_entry()
     |> add_entries()
   end

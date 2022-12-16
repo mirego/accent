@@ -1,4 +1,4 @@
-<%= @email %> has commented on <%= @key %>:
+<%= user_display_name(@user) %> has commented on <%= @key %>:
 
 ---
 <%= @text %>

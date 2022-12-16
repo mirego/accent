@@ -54,7 +54,7 @@ export default class IntegrationsForm extends Component<Args> {
   url: string;
 
   @tracked
-  syncChecked: boolean;
+  events: string[];
 
   @tracked
   repository: string;
@@ -93,10 +93,6 @@ export default class IntegrationsForm extends Component<Args> {
     return `project-settings/integrations/form/${this.service.toLowerCase()}`;
   }
 
-  get events() {
-    return this.syncChecked ? ['SYNC'] : [];
-  }
-
   @action
   didUpdateIntegration() {
     if (this.args.integration) {
@@ -117,8 +113,7 @@ export default class IntegrationsForm extends Component<Args> {
 
     this.service = this.integration.service || this.services[0];
     this.url = this.integration.data.url;
-    this.syncChecked =
-      this.integration.events && this.integration.events.includes('SYNC');
+    this.events = this.integration.events;
     this.repository = this.integration.data.repository;
     this.token = this.integration.data.token;
     this.defaultRef = this.integration.data.defaultRef;
@@ -140,8 +135,8 @@ export default class IntegrationsForm extends Component<Args> {
   }
 
   @action
-  setSyncChecked(syncChecked: boolean) {
-    this.syncChecked = syncChecked;
+  setEventsChecked(events: string[]) {
+    this.events = events;
   }
 
   @action

@@ -167,7 +167,7 @@ html {
     'Segoe UI Symbol';
   --font-monospace: 'Fira Code', 'Monaco', Courrier, monospace;
 
-  --screen-lg: 1300px;
+  --screen-lg: 1400px;
   --screen-md: 640px;
   --screen-sm: 440px;
 
@@ -307,6 +307,7 @@ input[type='radio'] {
   width: 1rem;
   height: 1rem;
   background: var(--body-background);
+  accent-color: var(--body-background);
   border: 2px solid var(--color-grey);
 
   &:checked {

@@ -455,7 +455,9 @@
         "events": {
           "title": "Which events would you like to trigger this webhook?",
           "options": {
-            "sync": "Sync"
+            "sync": "Sync with any changes",
+            "new_conflicts": "New strings to review",
+            "complete_review": "Project is 100% reviewed"
           }
         }
       }
