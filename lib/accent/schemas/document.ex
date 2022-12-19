@@ -22,7 +22,7 @@ defmodule Accent.Document do
     timestamps()
   end
 
-  @possible_formats Accent.DocumentFormat.slugs()
+  @possible_formats Accent.DocumentFormat.ids()
 
   def changeset(model, params) do
     model

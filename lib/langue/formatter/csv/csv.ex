@@ -1,11 +1,9 @@
 defmodule Langue.Formatter.CSV do
-  @behaviour Langue.Formatter
+  use Langue.Formatter,
+    id: "csv",
+    display_name: "CSV",
+    extension: "csv",
+    parser: Langue.Formatter.CSV.Parser,
+    serializer: Langue.Formatter.CSV.Serializer
 
-  alias Langue.Formatter.CSV.{Parser, Serializer}
-
-  def name, do: "csv"
-  def placeholder_regex, do: :not_supported
-
-  defdelegate parse(map), to: Parser
-  defdelegate serialize(map), to: Serializer
 end

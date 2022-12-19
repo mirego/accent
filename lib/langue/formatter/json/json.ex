@@ -1,11 +1,10 @@
 defmodule Langue.Formatter.Json do
-  @behaviour Langue.Formatter
+  use Langue.Formatter,
+    id: "json",
+    display_name: "JSON",
+    extension: "json",
+    parser: Langue.Formatter.Json.Parser,
+    serializer: Langue.Formatter.Json.Serializer
 
-  alias Langue.Formatter.Json.{Parser, Serializer}
-
-  def name, do: "json"
   def placeholder_regex, do: ~r/{{[^}]*}}/
-
-  defdelegate parse(map), to: Parser
-  defdelegate serialize(map), to: Serializer
 end

@@ -1,9 +1,10 @@
 defmodule Langue.Formatter.GoI18nJson do
-  alias Langue.Formatter.GoI18nJson.{Parser, Serializer}
+  use Langue.Formatter,
+    id: "go_i18n_json",
+    display_name: "Go I18n JSON",
+    extension: "json",
+    parser: Langue.Formatter.GoI18nJson.Parser,
+    serializer: Langue.Formatter.GoI18nJson.Serializer
 
-  def name, do: "go_i18n_json"
   def placeholder_regex, do: ~r/{{\.[^}]*}}/
-
-  defdelegate parse(map), to: Parser
-  defdelegate serialize(map), to: Serializer
 end

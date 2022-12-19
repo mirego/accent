@@ -170,19 +170,21 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  test "export with language overrides", %{conn: conn, project: project, revision: revision} do
-    revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
-    document = %Document{project_id: project.id, path: "test2", format: "rails_yml"} |> Repo.insert!()
-    %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar", document_id: document.id, file_index: 2} |> Repo.insert!()
-    %Translation{revision_id: revision.id, key: "test", corrected_text: "foo", proposed_text: "foo", document_id: document.id, file_index: 1} |> Repo.insert!()
+  if Langue.Formatter.Rails.enabled?() do
+    test "export with language overrides", %{conn: conn, project: project, revision: revision} do
+      revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
+      document = %Document{project_id: project.id, path: "test2", format: "rails_yml"} |> Repo.insert!()
+      %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar", document_id: document.id, file_index: 2} |> Repo.insert!()
+      %Translation{revision_id: revision.id, key: "test", corrected_text: "foo", proposed_text: "foo", document_id: document.id, file_index: 1} |> Repo.insert!()
 
-    params = %{order_by: "", project_id: project.id, language: revision.slug, document_format: document.format, document_path: document.path}
-    response = get(conn, export_path(conn, [], params))
+      params = %{order_by: "", project_id: project.id, language: revision.slug, document_format: document.format, document_path: document.path}
+      response = get(conn, export_path(conn, [], params))
 
-    assert response.resp_body == """
-           "testtest":
-             "test": "foo"
-             "ok": "bar"
-           """
+      assert response.resp_body == """
+             "testtest":
+               "test": "foo"
+               "ok": "bar"
+             """
+    end
   end
 end

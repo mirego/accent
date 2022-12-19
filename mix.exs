@@ -66,7 +66,6 @@ defmodule Accent.Mixfile do
 
       # Utils
       {:p1_utils, "1.0.15", override: true},
-      {:fast_yaml, github: "processone/fast_yaml", ref: "e789f68895f71b7ad31057177810ca0161bf790e"},
       {:jsone, "~> 1.4"},
       {:mochiweb, "~> 2.18"},
       {:httpoison, "~> 1.1"},
@@ -119,7 +118,22 @@ defmodule Accent.Mixfile do
       {:credo_envvar, "~> 0.1.0", only: ~w(dev test)a, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
       {:phoenix_live_reload, "~> 1.0", only: :dev}
-    ]
+    ] ++
+      system_specific_deps()
+  end
+
+  defp system_specific_deps do
+    is_apple_arm64 =
+      :os.type() === {:unix, :darwin} and
+        not List.starts_with?(:erlang.system_info(:system_architecture), ~c"x86_64")
+
+    if is_apple_arm64 do
+      []
+    else
+      [
+        {:fast_yaml, github: "processone/fast_yaml", ref: "e789f68895f71b7ad31057177810ca0161bf790e"}
+      ]
+    end
   end
 
   defp aliases do

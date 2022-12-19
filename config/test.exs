@@ -10,6 +10,7 @@ config :ueberauth, Ueberauth, providers: [{:dummy, {Accent.Auth.Ueberauth.DummyS
 
 config :accent, Oban, crontab: false, queues: false, plugins: false
 
+config :telemetry_ui, disabled: true
 config :goth, disabled: true
 config :tesla, logger_enabled: false, adapter: Tesla.Mock
 

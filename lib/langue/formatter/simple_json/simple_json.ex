@@ -1,11 +1,10 @@
 defmodule Langue.Formatter.SimpleJson do
-  @behaviour Langue.Formatter
+  use Langue.Formatter,
+    id: "simple_json",
+    display_name: "Simple JSON",
+    extension: "json",
+    parser: Langue.Formatter.SimpleJson.Parser,
+    serializer: Langue.Formatter.SimpleJson.Serializer
 
-  alias Langue.Formatter.SimpleJson.{Parser, Serializer}
-
-  def name, do: "simple_json"
   def placeholder_regex, do: ~r/{{[^}]*}}/
-
-  defdelegate parse(map), to: Parser
-  defdelegate serialize(map), to: Serializer
 end

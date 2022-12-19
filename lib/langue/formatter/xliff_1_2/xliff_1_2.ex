@@ -1,11 +1,8 @@
 defmodule Langue.Formatter.XLIFF12 do
-  @behaviour Langue.Formatter
-
-  alias Langue.Formatter.XLIFF12.{Parser, Serializer}
-
-  def name, do: "xliff_1_2"
-  def placeholder_regex, do: :not_supported
-
-  defdelegate parse(map), to: Parser
-  defdelegate serialize(map), to: Serializer
+  use Langue.Formatter,
+    id: "xliff_1_2",
+    display_name: "XLIFF 1.2",
+    extension: "xlf",
+    parser: Langue.Formatter.XLIFF12.Parser,
+    serializer: Langue.Formatter.XLIFF12.Serializer
 end

@@ -1,11 +1,10 @@
 defmodule Langue.Formatter.Android do
-  @behaviour Langue.Formatter
+  use Langue.Formatter,
+    id: "android_xml",
+    display_name: "Android XML",
+    extension: "xml",
+    parser: Langue.Formatter.Android.Parser,
+    serializer: Langue.Formatter.Android.Serializer
 
-  alias Langue.Formatter.Android.{Parser, Serializer}
-
-  def name, do: "android_xml"
   def placeholder_regex, do: ~r/%(\d\$)?@/
-
-  defdelegate parse(map), to: Parser
-  defdelegate serialize(map), to: Serializer
 end

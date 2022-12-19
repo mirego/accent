@@ -93,34 +93,36 @@ defmodule AccentTest.TranslationsRenderer do
     assert render == ""
   end
 
-  test "render rails with locale", %{project: project, revision: revision} do
-    document = Repo.insert!(%Document{project_id: project.id, path: "my-test", format: "rails_yml"})
+  if Langue.Formatter.Rails.enabled?() do
+    test "render rails with locale", %{project: project, revision: revision} do
+      document = Repo.insert!(%Document{project_id: project.id, path: "my-test", format: "rails_yml"})
 
-    translation =
-      %Translation{
-        key: "a",
-        proposed_text: "A",
-        corrected_text: "A",
-        revision_id: revision.id,
-        document_id: document.id
-      }
-      |> Repo.insert!()
+      translation =
+        %Translation{
+          key: "a",
+          proposed_text: "A",
+          corrected_text: "A",
+          revision_id: revision.id,
+          document_id: document.id
+        }
+        |> Repo.insert!()
 
-    %{render: render} =
-      TranslationsRenderer.render_translations(%{
-        master_translations: [],
-        master_language: revision.language,
-        translations: [translation],
-        document: document,
-        language: %Language{slug: "fr"}
-      })
+      %{render: render} =
+        TranslationsRenderer.render_translations(%{
+          master_translations: [],
+          master_language: revision.language,
+          translations: [translation],
+          document: document,
+          language: %Language{slug: "fr"}
+        })
 
-    expected_render = """
-    "fr":
-      "a": "A"
-    """
+      expected_render = """
+      "fr":
+        "a": "A"
+      """
 
-    assert render == expected_render
+      assert render == expected_render
+    end
   end
 
   test "render xliff and revision overrides on source revision", %{project: project, revision: revision} do

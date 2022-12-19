@@ -1,5 +1,5 @@
 defmodule AccentTest.Hook do
-  use Accent.RepoCase, async: false
+  use Accent.RepoCase, async: true
   use Oban.Testing, repo: Accent.Repo
 
   alias Accent.{

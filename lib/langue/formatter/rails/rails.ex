@@ -1,11 +1,9 @@
 defmodule Langue.Formatter.Rails do
-  @behaviour Langue.Formatter
+  use Langue.Formatter,
+    id: "rails_yml",
+    display_name: "Rails YAML",
+    extension: "yml"
 
-  alias Langue.Formatter.Rails.{Parser, Serializer}
-
-  def name, do: "rails_yml"
+  def enabled?, do: Code.ensure_loaded?(:fast_yaml)
   def placeholder_regex, do: ~r/%{[^}]*}/
-
-  defdelegate parse(map), to: Parser
-  defdelegate serialize(map), to: Serializer
 end

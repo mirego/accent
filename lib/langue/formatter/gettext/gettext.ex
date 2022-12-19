@@ -1,11 +1,10 @@
 defmodule Langue.Formatter.Gettext do
-  @behaviour Langue.Formatter
+  use Langue.Formatter,
+    id: "gettext",
+    display_name: "Gettext",
+    extension: "po",
+    parser: Langue.Formatter.Gettext.Parser,
+    serializer: Langue.Formatter.Gettext.Serializer
 
-  alias Langue.Formatter.Gettext.{Parser, Serializer}
-
-  def name, do: "gettext"
   def placeholder_regex, do: ~r/%{[^}]*}/
-
-  defdelegate parse(map), to: Parser
-  defdelegate serialize(map), to: Serializer
 end
