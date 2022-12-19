@@ -15,9 +15,20 @@ export default class DataControlCheckboxes extends Component<Args> {
   intl: IntlService;
 
   allEvents = [
-    {value: 'SYNC', label: 'components.project_settings.integrations.events.options.sync'},
-    {value: 'NEW_CONFLICTS', label: 'components.project_settings.integrations.events.options.new_conflicts'},
-    {value: 'COMPLETE_REVIEW', label: 'components.project_settings.integrations.events.options.complete_review'},
+    {
+      value: 'SYNC',
+      label: 'components.project_settings.integrations.events.options.sync',
+    },
+    {
+      value: 'NEW_CONFLICTS',
+      label:
+        'components.project_settings.integrations.events.options.new_conflicts',
+    },
+    {
+      value: 'COMPLETE_REVIEW',
+      label:
+        'components.project_settings.integrations.events.options.complete_review',
+    },
   ];
 
   @tracked

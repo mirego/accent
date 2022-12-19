@@ -5,5 +5,4 @@ defmodule Langue.Formatter.CSV do
     extension: "csv",
     parser: Langue.Formatter.CSV.Parser,
     serializer: Langue.Formatter.CSV.Serializer
-
 end

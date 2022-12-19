@@ -10,8 +10,8 @@
     border-radius: 3px;
     background: var(--input-background);
     cursor: pointer;
-  transition: 0.2s ease-in-out;
-  transition-property: background;
+    transition: 0.2s ease-in-out;
+    transition-property: background;
 
     &:hover,
     &:focus {
