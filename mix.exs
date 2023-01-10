@@ -7,7 +7,7 @@ defmodule Accent.Mixfile do
     [
       app: :accent,
       version: @version,
-      elixir: "~> 1.13",
+      elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       build_embedded: Mix.env() == :prod,
@@ -68,7 +68,7 @@ defmodule Accent.Mixfile do
       {:jsone, "~> 1.4"},
       {:mochiweb, "~> 2.18"},
       {:httpoison, "~> 1.1"},
-      {:gettext, "~> 0.17"},
+      {:gettext, "~> 0.20.0"},
       {:csv, "~> 2.0"},
       {:php_assoc_map, "~> 0.5"},
       {:jason, "~> 1.2", override: true},

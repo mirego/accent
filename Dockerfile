@@ -1,19 +1,19 @@
 #
 # Build webapp and jipt deps
 #
-FROM node:10.16-alpine AS webapp-builder
+FROM node:16.19.0-alpine3.17 AS webapp-builder
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add git
+    apk --no-cache add git g++ make py3-pip
 WORKDIR /opt/build
 COPY webapp .
 RUN npm ci --no-audit --no-color && \
     npm run build-production
 
-FROM node:10.16-alpine AS jipt-builder
+FROM node:16.19.0-alpine3.17 AS jipt-builder
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
-    apk --no-cache add git
+    apk --no-cache add git g++ make py3-pip
 WORKDIR /opt/build
 COPY jipt .
 RUN npm ci --no-audit --no-color && \
@@ -22,7 +22,7 @@ RUN npm ci --no-audit --no-color && \
 #
 # Build the OTP binary
 #
-FROM hexpm/elixir:1.13.1-erlang-24.2-alpine-3.15.0 AS builder
+FROM hexpm/elixir:1.14.2-erlang-25.1-alpine-3.17.0 AS builder
 
 ENV MIX_ENV=prod
 
@@ -61,7 +61,7 @@ RUN mkdir -p /opt/build && \
 #
 # Build a lean runtime container
 #
-FROM alpine:3.15.0
+FROM alpine:3.17.0
 
 RUN apk --no-cache update && \
     apk --no-cache upgrade && \
