@@ -172,15 +172,15 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
     def render do
       """
       msgid "test"
-      msgstr ""
-      "a\\n"
-      "a\\n"
+      msgstr "This is a test\\n"
+      "\\n"
+      "multi line break"
       """
     end
 
     def entries do
       [
-        %Entry{index: 1, key: "test", value: "\na\n\na\n", value_type: "string"}
+        %Entry{index: 1, key: "test", value: "This is a test\n\nmulti line break", value_type: "string"}
       ]
     end
   end

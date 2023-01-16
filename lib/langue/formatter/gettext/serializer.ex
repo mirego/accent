@@ -91,7 +91,6 @@ defmodule Langue.Formatter.Gettext.Serializer do
       ["\n" | rest] -> ["" | rest]
       values -> values
     end
-    |> Enum.reject(&(&1 === "\n"))
   end
 
   defp remove_key_suffix(string), do: String.replace(string, ".__KEY___", "")

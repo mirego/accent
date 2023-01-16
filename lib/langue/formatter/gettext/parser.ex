@@ -7,8 +7,8 @@ defmodule Langue.Formatter.Gettext.Parser do
   def parse(%{render: render, document: document}) do
     {:ok, po} = Gettext.PO.parse_string(render)
     entries = parse_translations(po)
-    top_of_the_file_comment = join_string(po.top_of_the_file_comments)
-    header = join_string(po.headers)
+    top_of_the_file_comment = join_string(po.top_of_the_file_comments, "\n")
+    header = join_string(po.headers, "\n")
 
     %Langue.Formatter.ParserResult{
       entries: entries,
@@ -73,8 +73,9 @@ defmodule Langue.Formatter.Gettext.Parser do
     ]
   end
 
-  defp join_string([]), do: nil
-  defp join_string(list), do: Enum.join(list, "\n")
+  defp join_string(list, joiner \\ "")
+  defp join_string([], _joiner), do: nil
+  defp join_string(list, joiner), do: Enum.join(list, joiner)
 
   defp key_suffix(id), do: ".__KEY__#{id}"
 
