@@ -7,7 +7,7 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
     capitalized_letter = String.capitalize(letter)
     downcased_letter = String.downcase(letter)
 
-    !entry.is_master && capitalized_letter !== downcased_letter
+    is_binary(entry.master_value) && !entry.is_master && capitalized_letter !== downcased_letter
   end
 
   def check(entry) do

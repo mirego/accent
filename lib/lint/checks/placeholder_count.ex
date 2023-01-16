@@ -3,7 +3,7 @@ defmodule Accent.Lint.Checks.PlaceholderCount do
 
   @regex Langue.placeholder_regex()
 
-  def applicable(_), do: true
+  def applicable(entry), do: is_binary(entry.master_value)
 
   def check(entry) do
     master_matches = master_placeholders(entry.master_value)

@@ -13,13 +13,6 @@
     flex: 1 1 50%;
     margin-right: 0;
   }
-
-  &:focus,
-  &:hover {
-    .actionsButton {
-      opacity: 1;
-    }
-  }
 }
 
 .dashboard-revisions-item.low-percentage {
@@ -112,7 +105,6 @@
   width: 24px;
   height: 24px;
   background: var(--body-background);
-  opacity: 0;
   cursor: pointer;
 
   &:focus,
