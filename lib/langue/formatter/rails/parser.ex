@@ -17,4 +17,7 @@ if Langue.Formatter.Rails.enabled?() do
       %Langue.Formatter.ParserResult{entries: entries}
     end
   end
+else
+  defmodule Langue.Formatter.Rails.Parser do
+  end
 end

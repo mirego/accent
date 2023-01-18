@@ -19,4 +19,7 @@ if Langue.Formatter.Rails.enabled?() do
       %Langue.Formatter.SerializerResult{render: render}
     end
   end
+else
+  defmodule Langue.Formatter.Rails.Serializer do
+  end
 end
