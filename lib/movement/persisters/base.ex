@@ -3,8 +3,8 @@ defmodule Movement.Persisters.Base do
 
   alias Accent.{Operation, Repo}
   alias Movement.Mappers.OperationsStats, as: StatMapper
-  alias Movement.Persisters.ProjectStateChangeWorker
   alias Movement.Migrator
+  alias Movement.Persisters.ProjectStateChangeWorker
 
   # Inserts operations by batch of 500 to prevent parameters
   # overflow in database adapter
