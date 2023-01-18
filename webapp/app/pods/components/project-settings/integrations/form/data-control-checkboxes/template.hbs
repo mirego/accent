@@ -7,7 +7,7 @@
     <label local-class="checkbox">
       <Input
         @type="checkbox"
-          @checked={{if (array-includes @events event.value) 'checked'}}
+          @checked={{if (array-includes @events event.value) "checked"}}
         {{on "change" (fn this.changeEventChecked event.value)}}
       />
       {{t event.label}}
