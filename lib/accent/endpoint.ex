@@ -3,6 +3,8 @@ defmodule Accent.Endpoint do
 
   socket("/socket", Accent.UserSocket, websocket: true, timeout: 45_000)
 
+  plug(:ping)
+  plug(:canonical_host)
   plug(:force_ssl)
   plug(Corsica, origins: "*", allow_headers: ~w(Accept Content-Type Authorization origin))
 
@@ -44,6 +46,27 @@ defmodule Accent.Endpoint do
     else
       conn
     end
+  end
+
+  # sobelow_skip ["XSS.SendResp"]
+  defp ping(%{request_path: "/ping"} = conn, _opts) do
+    alias Plug.Conn
+    version = Application.get_env(:accent, :version)
+
+    conn
+    |> Conn.put_resp_header("content-type", "application/json")
+    |> Conn.send_resp(200, ~s({"status":"ok","version":"#{version}"}))
+    |> Conn.halt()
+  end
+
+  defp ping(conn, _opts), do: conn
+
+  defp canonical_host(%{request_path: "/health"} = conn, _opts), do: conn
+
+  defp canonical_host(conn, _opts) do
+    opts = PlugCanonicalHost.init(canonical_host: Application.get_env(:accent, :canonical_host))
+
+    PlugCanonicalHost.call(conn, opts)
   end
 
   @doc """

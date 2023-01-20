@@ -47,6 +47,7 @@ defmodule Accent.Mixfile do
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.0", override: true},
       {:plug, "1.10.4", override: true},
+      {:plug_canonical_host, "~> 2.0"},
 
       # Database
       {:ecto, "~> 3.2", override: true},
