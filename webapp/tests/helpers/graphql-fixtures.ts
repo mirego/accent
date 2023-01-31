@@ -40,7 +40,6 @@ export const fakeProject = (params?: object) => ({
     'sync',
     'delete_document',
     'update_document',
-    'show_project_access_token',
     'index_project_integrations',
     'create_project_integration',
     'update_project_integration',

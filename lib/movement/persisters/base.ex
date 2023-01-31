@@ -79,6 +79,13 @@ defmodule Movement.Persisters.Base do
       |> assign_revision(assigns[:revision])
       |> assign_version(assigns[:version])
 
+    placeholder_values =
+      Map.new(
+        Enum.map(placeholders, fn {key, _value} ->
+          {key, {:placeholder, key}}
+        end)
+      )
+
     operations =
       context.operations
       |> Stream.map(fn operation ->
@@ -86,12 +93,12 @@ defmodule Movement.Persisters.Base do
           operation
           | inserted_at: {:placeholder, :now},
             updated_at: {:placeholder, :now},
-            user_id: {:placeholder, :user_id},
-            document_id: {:placeholder, :document_id},
-            project_id: {:placeholder, :project_id},
-            batch_operation_id: {:placeholder, :batch_operation_id},
-            version_id: operation.version_id || {:placeholder, :version_id},
-            revision_id: operation.revision_id || {:placeholder, :revision_id}
+            user_id: placeholder_values[:user_id] || operation.user_id,
+            document_id: placeholder_values[:document_id] || operation.document_id,
+            project_id: placeholder_values[:project_id] || operation.project_id,
+            batch_operation_id: placeholder_values[:batch_operation_id] || operation.batch_operation_id,
+            version_id: operation.version_id || placeholder_values[:version_id],
+            revision_id: operation.revision_id || placeholder_values[:revision_id]
         })
       end)
       |> Stream.chunk_every(@operations_inserts_chunk)
@@ -127,17 +134,27 @@ defmodule Movement.Persisters.Base do
     {context, Migrator.down([operation])}
   end
 
+  defp assign_project(placeholders, nil), do: placeholders
+
   defp assign_project(placeholders, project),
     do: Map.put(placeholders, :project_id, project && project.id)
+
+  defp assign_batch_operation(placeholders, nil), do: placeholders
 
   defp assign_batch_operation(placeholders, batch_operation),
     do: Map.put(placeholders, :batch_operation_id, batch_operation && batch_operation.id)
 
+  defp assign_document(placeholders, nil), do: placeholders
+
   defp assign_document(placeholders, document),
     do: Map.put(placeholders, :document_id, document && document.id)
 
+  defp assign_revision(placeholders, nil), do: placeholders
+
   defp assign_revision(placeholders, revision),
     do: Map.put(placeholders, :revision_id, revision && revision.id)
+
+  defp assign_version(placeholders, nil), do: placeholders
 
   defp assign_version(placeholders, version),
     do: Map.put(placeholders, :version_id, version && version.id)

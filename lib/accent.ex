@@ -16,7 +16,11 @@ defmodule Accent do
       {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
     end
 
-    Ecto.DevLogger.install(Accent.Repo)
+    Ecto.DevLogger.install(Accent.Repo,
+      ignore_event: fn metadata ->
+        not is_nil(metadata[:options][:telemetry_ui_conf])
+      end
+    )
 
     opts = [strategy: :one_for_one, name: Accent.Supervisor]
     Supervisor.start_link(children, opts)

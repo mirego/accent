@@ -3,7 +3,7 @@ defmodule Accent.ProjectDeleter do
 
   def delete(project: project) do
     project
-    |> Ecto.assoc(:collaborators)
+    |> Ecto.assoc(:all_collaborators)
     |> Repo.delete_all()
 
     {:ok, project}

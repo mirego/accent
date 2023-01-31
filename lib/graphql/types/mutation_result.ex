@@ -21,6 +21,11 @@ defmodule Accent.GraphQL.Types.MutationResult do
     field(:errors, list_of(:string))
   end
 
+  object :mutated_api_token do
+    field(:api_token, :api_token)
+    field(:errors, list_of(:string))
+  end
+
   object :mutated_collaborator do
     field(:collaborator, :collaborator)
     field(:errors, list_of(:string))

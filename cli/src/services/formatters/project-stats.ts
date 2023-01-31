@@ -43,7 +43,8 @@ export default class ProjectStatsFormatter extends Base {
       (memo, revision: Revision) => memo + revision.reviewedCount,
       0
     );
-    const percentageReviewed = reviewedCount / translationsCount;
+    const percentageReviewed =
+      translationsCount > 0 ? reviewedCount / translationsCount : 0;
 
     const percentageReviewedString = `${percentageReviewed}% reviewed`;
     let percentageReviewedFormat = chalk.green(percentageReviewedString);
@@ -52,6 +53,8 @@ export default class ProjectStatsFormatter extends Base {
       percentageReviewedFormat = chalk.green(percentageReviewedString);
     } else if (percentageReviewed > 100 / 2) {
       percentageReviewedFormat = chalk.yellow(percentageReviewedString);
+    } else if (percentageReviewed <= 0) {
+      percentageReviewedFormat = chalk.dim('No strings');
     } else {
       percentageReviewedFormat = chalk.red(percentageReviewedString);
     }

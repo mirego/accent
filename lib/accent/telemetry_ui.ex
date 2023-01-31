@@ -83,14 +83,12 @@ defmodule Accent.TelemetryUI do
         description: "Database query total time",
         keep: ecto_keep,
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "ecto"],
         ui_options: [class: "col-span-3", unit: " ms"]
       ),
       average_over_time("accent.repo.query.total_time",
         description: "Database query total time over time",
         keep: ecto_keep,
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "ecto"],
         ui_options: [class: "col-span-5", unit: " ms"]
       ),
       average("accent.repo.query.total_time",
@@ -98,7 +96,6 @@ defmodule Accent.TelemetryUI do
         keep: ecto_keep,
         tags: [:source],
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "ecto"],
         ui_options: [class: "col-span-full", unit: " ms"]
       )
     ]
@@ -119,28 +116,24 @@ defmodule Accent.TelemetryUI do
       average("absinthe.execute.operation.stop.duration",
         description: "Absinthe operation duration",
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "absinthe"],
         ui_options: [class: "col-span-3", unit: " ms"]
       ),
       average_over_time("absinthe.execute.operation.stop.duration",
         description: "Absinthe operation duration over time",
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "absinthe"],
         ui_options: [class: "col-span-5", unit: " ms"]
       ),
       counter("absinthe.execute.operation.stop.duration",
         description: "Count Absinthe executions per operation",
         tags: [:operation_name],
         tag_values: absinthe_tag_values,
-        unit: {:native, :millisecond},
-        reporter_options: [report_as: "absinthe"]
+        unit: {:native, :millisecond}
       ),
       average_over_time("absinthe.execute.operation.stop.duration",
         description: "Absinthe duration per operation",
         tags: [:operation_name],
         tag_values: absinthe_tag_values,
-        unit: {:native, :millisecond},
-        reporter_options: [report_as: "absinthe"]
+        unit: {:native, :millisecond}
       )
     ]
   end
@@ -165,65 +158,69 @@ defmodule Accent.TelemetryUI do
     end
 
     [
-      counter("phoenix.router_dispatch.stop.duration",
+      counter("graphql.router_dispatch.duration",
+        event_name: [:phoenix, :router_dispatch, :stop],
         description: "Number of GraphQL requests",
         keep: graphql_keep,
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "graphql"],
         ui_options: [class: "col-span-3", unit: " requests"]
       ),
-      count_over_time("phoenix.router_dispatch.stop.duration",
+      count_over_time("graphql.router_dispatch.duration",
+        event_name: [:phoenix, :router_dispatch, :stop],
         description: "Number of GraphQL requests over time",
         keep: graphql_keep,
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "graphql"],
         ui_options: [class: "col-span-5", unit: " requests"]
       ),
-      average("phoenix.router_dispatch.stop.duration",
+      average("graphql.router_dispatch.duration",
+        event_name: [:phoenix, :router_dispatch, :stop],
         description: "GraphQL requests duration",
         keep: graphql_keep,
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "graphql"],
         ui_options: [class: "col-span-3", unit: " ms"]
       ),
-      average_over_time("phoenix.router_dispatch.stop.duration",
+      average_over_time("graphql.router_dispatch.duration",
+        event_name: [:phoenix, :router_dispatch, :stop],
         description: "GraphQL requests duration over time",
         keep: graphql_keep,
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "graphql"],
         ui_options: [class: "col-span-5", unit: " ms"]
       ),
-      count_over_time("phoenix.router_dispatch.stop.duration",
+      count_over_time("graphql.router_dispatch.duration",
+        event_name: [:phoenix, :router_dispatch, :stop],
         description: "GraphQL requests count per operation",
         keep: graphql_keep,
         tag_values: graphql_tag_values,
         tags: [:operation_name],
         unit: {:native, :millisecond},
         ui_options: [unit: " requests"],
-        reporter_options: [report_as: "graphql", class: "col-span-4"]
+        reporter_options: [class: "col-span-4"]
       ),
-      counter("phoenix.router_dispatch.stop.duration",
+      counter("graphql.router_dispatch.duration",
+        event_name: [:phoenix, :router_dispatch, :stop],
         description: "Count GraphQL requests by operation",
         keep: graphql_keep,
         tag_values: graphql_tag_values,
         tags: [:operation_name],
         unit: {:native, :millisecond},
         ui_options: [unit: " requests"],
-        reporter_options: [report_as: "graphql", class: "col-span-4"]
+        reporter_options: [class: "col-span-4"]
       ),
-      average("phoenix.router_dispatch.stop.duration",
+      average("graphql.router_dispatch.duration",
+        event_name: [:phoenix, :router_dispatch, :stop],
         description: "GraphQL requests duration per operation",
         keep: graphql_keep,
         tag_values: graphql_tag_values,
         tags: [:operation_name],
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "graphql", class: "col-span-4"]
+        reporter_options: [class: "col-span-4"]
       ),
-      distribution("phoenix.router_dispatch.stop.duration",
+      distribution("graphql.router_dispatch.duration",
+        event_name: [:phoenix, :router_dispatch, :stop],
         description: "GraphQL requests duration",
         keep: graphql_keep,
         unit: {:native, :millisecond},
-        reporter_options: [report_as: "graphql", buckets: [0, 100, 500, 2000]]
+        reporter_options: [buckets: [0, 100, 500, 2000]]
       )
     ]
   end

@@ -1,31 +1,225 @@
 .project-settings-api-token {
+  display: flex;
+  gap: 35px;
+  align-items: flex-start;
   margin-top: 30px;
 }
 
 .text {
-  max-width: 490px;
-  margin: 10px 0 4px;
+  margin: 10px 0 15px;
   font-size: 13px;
-  font-style: italic;
+}
+
+.text code {
+  font-family: var(--font-monospace);
+  padding: 1px 0;
+  color: var(--color-primary);
+}
+
+.tokens {
+  width: 100%;
 }
 
 .user-token {
-  margin-top: 30px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 3px;
+  background-color: var(--background-light);
+}
+
+.user-token .token {
+  background-color: var(--background-light-highlight);
+}
+
+.user-token h2 {
+  font-size: 14px;
+}
+
+.api-tokens {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.api-tokens.overlay {
+  position: relative;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    background: rgba(#fff, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.api-token {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.api-token:hover .revoke-button {
+  opacity: 1;
+}
+
+.api-token-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.api-token-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.api-token-user {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.api-token-name {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.api-token-inserted {
+  opacity: 0.3;
+  font-size: 10px;
+}
+
+.api-token-permissions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.api-token-permissions-label {
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.api-token-permission {
+  padding: 1px 3px;
+  border-radius: 3px;
+  background-color: var(--background-light);
+  border: 1px solid var(--background-light-highlight);
+  font-size: 11px;
+  font-family: var(--font-monospace);
+}
+
+.revoke-button {
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
+  padding: 2px 4px !important;
+}
+
+.create-button {
+  margin-top: 8px;
+}
+
+.permissions-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.permissions-input {
+  font-size: 12px;
+  font-family: var(--font-monospace);
+}
+
+.toggle-permissions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.toggle-permissions-header-button {
+  background: transparent;
+  border: none;
+  color: var(--color-primary);
+}
+
+.toggle-permissions-input {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border-bottom: 1px solid var(--text-color-normal);
+  padding: 3px 0;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.toggle-permissions-input-icon {
+  display: block;
+  font-size: 10px;
+  transition: 0.2s ease-in-out;
+  transition-property: transform;
+}
+
+.toggle-permissions-input--open {
+  opacity: 1;
+}
+
+.toggle-permissions-input--open .toggle-permissions-input-icon {
+  transform: rotate(180deg);
+}
+
+.picture {
+  width: 14px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 36px;
+  padding: 16px;
+  border-radius: 4px;
+  background: var(--background-light);
+  border: 1px solid var(--body-background-border);
+}
+
+.form h2 {
+  font-size: 14px;
+}
+
+.textInput {
+  @extend %textInput;
+  padding: 4px 10px;
+  margin-right: 5px;
+  width: 100%;
+  font-family: var(--font-primary);
+  font-size: 12px;
 }
 
 .token {
   display: inline-block;
   width: 100%;
-  max-width: 640px;
-  margin: 10px 0 0;
-  padding: 8px;
+  margin: 0;
+  padding: 2px 8px;
   overflow-x: scroll;
   word-break: keep-all;
   background: var(--background-light);
   font-family: var(--font-monospace);
   font-size: 11px;
-  border: 2px solid var(--background-light-highlight);
-  border-radius: 3px;
+  border-radius: 8px;
   transition-property: border-color, box-shadow;
   transition: 0.3s ease-in-out;
   color: var(--text-color-normal);
@@ -42,5 +236,11 @@
     &::selection {
       background: var(--color-primary-opacity-10);
     }
+  }
+}
+
+@media (max-width: 840px) {
+  .project-settings-api-token {
+    flex-direction: column;
   }
 }

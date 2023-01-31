@@ -1,6 +1,8 @@
 defmodule Accent.GraphQL.Helpers.Authorization do
   import Accent.GraphQL.Plugins.Authorization
 
+  alias Accent.AccessToken
+
   alias Accent.{
     Collaborator,
     Comment,
@@ -137,6 +139,19 @@ defmodule Accent.GraphQL.Helpers.Authorization do
         |> Repo.get(args.id)
 
       authorize(action, collaborator.project_id, info, do: func.(collaborator, args, info))
+    end
+  end
+
+  def api_token_authorize(action, func) do
+    fn _, args, info ->
+      access_token =
+        AccessToken
+        |> Repo.get(args.id)
+        |> Repo.preload(user: :collaborations)
+
+      project_id = List.first(access_token.user.collaborations).project_id
+
+      authorize(action, project_id, info, do: func.(access_token, args, info))
     end
   end
 

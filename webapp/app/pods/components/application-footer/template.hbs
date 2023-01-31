@@ -1,6 +1,6 @@
 <footer local-class="footer">
   <div local-class="inner">
-    <div local-class="meta">
+    <div local-class="left">
       <span local-class="version">
         {{this.version}}
       </span>
@@ -15,11 +15,20 @@
       </div>
     </div>
 
-    <div>
-      {{t "components.application_footer.text"}}
-      <a local-class="external-link" target="_blank" rel="noopener" href="https://mirego.com?ref=accent">
-        {{t "general.company_name"}}
-      </a>
+    <div local-class="right">
+      <div>
+        {{t "components.application_footer.text"}}
+        <a local-class="external-link" target="_blank" rel="noopener" href="https://mirego.com?ref=accent">
+          {{t "general.company_name"}}
+        </a>
+      </div>
+
+      <div local-class="select">
+        <select {{on "change" this.changeLanguage}}>
+          <option selected={{eq this.currentLocale 'en-us'}} value="en-us">En</option>
+          <option selected={{eq this.currentLocale 'fr-ca'}} value="fr-ca">Fr</option>
+        </select>
+      </div>
     </div>
   </div>
 </footer>

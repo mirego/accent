@@ -23,8 +23,9 @@ export default class APITokenRoute extends Route {
       projectApiTokenQuery,
       {
         props: (data) => ({
-          accessToken: data.viewer.accessToken,
           project: data.viewer.project,
+          accessToken: data.viewer.accessToken,
+          apiToken: data.viewer.project.apiTokens,
         }),
         options: {
           fetchPolicy: 'cache-and-network',

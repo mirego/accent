@@ -361,7 +361,7 @@
         "collaborators_text": "Manage who has access to what features of this project",
         "badges": "Badges",
         "badges_text": "Quick look on project stats, embedded in images",
-        "api_token": "API Token",
+        "api_token": "API Tokens",
         "api_token_text": "Integrate Accent workflow with the CLI or plain API requests",
         "service_integrations": "Service & integrations",
         "service_integrations_text": "Notify and interact with external systems based on Accent events",
@@ -400,13 +400,20 @@
         "use_language_text": "By switching to the Accent language using your favorite framework i18n tool, the page will display the strings in the pseudo language files and the Accent script will replace those by the strings in Accent. It will also bind click event on the elements so that you can select strings directly in your app and edit them via Accent."
       },
       "api_token": {
-        "title": "API token",
-        "text_1": "With this token, you can make authentified calls to Accent’s API. All operations will be flagged as \"made by the API client\".",
-        "text_2": "Typically, this is used to sync and add translations the localization files in a deploy script."
+        "title": "API tokens",
+        "text_1": "With this token, you can make authentified calls to Accent’s API. All tokens have the 'bot' permissions: sync and add translations. You can specifiy custom permissions to have more fine grained tokens across your project. Set the token as <code>ACCENT_API_KEY</code> in your GitHub actions workflows to be authenticated using accent-cli.",
+        "revoke_button": "Revoke",
+        "revoke_confirm": "Are you sure you want to revoke the token? This operation can’t be reverted.",
+        "inserted_at": "Created:",
+        "create_title": "Add a new API token",
+        "create_button": "Create",
+        "create_name_placeholder": "Display name",
+        "create_picture_url_placeholder": "Avatar URL (optional)"
       },
       "user_token": {
         "title": "Your personal token",
-        "text_1": "You can also use your personal token to make API call as yourself. Beware, this token is global for all your project."
+        "text_1": "You can also use your personal token to make API call as yourself. Beware, this token is global for all your project.",
+        "text_shell": "You can set a global environment variable named <code>ACCENT_API_KEY</code> on your shell (bash, zsh, fish, etc) to be authenticated when you use accent-cli."
       },
       "badges": {
         "title": "Badges",
@@ -562,7 +569,7 @@
       "error": "Invalid project",
       "cancel_button": "Cancel",
       "language_label": "Master language:",
-      "language_search_placeholder": "Search languages…",
+      "language_search_placeholder": "Search…",
       "name_label": "Name:",
       "save_button": "Create"
     },
@@ -662,7 +669,7 @@
       "conflicted_label": "in review",
       "master_label": "master",
       "save_button": "Save",
-      "last_updated_label": "Last updated: ",
+      "last_updated_label": "Last updated:",
       "new_language_link": "New language",
       "no_related_translations": "No translations yet. You need to add another language to your project."
     },
@@ -671,7 +678,7 @@
     },
     "project_manage_languages_create_form": {
       "default_null": "Initialize language with empty strings",
-      "language_search_placeholder": "Search languages…",
+      "language_search_placeholder": "Search…",
       "save_button": "Add language"
     },
     "project_manage_languages_overview": {
@@ -825,7 +832,7 @@
       "in_review_label": "in review",
       "in_review_tooltip": "View in review",
       "lint_messages_label": "{count, plural, =0 {No linting warnings} =1 {1 linting warning} other {# linting warnings}}",
-      "last_updated_label": "Last updated: ",
+      "last_updated_label": "Last updated:",
       "maybe_sync_before": "Maybe try to",
       "maybe_sync_link": "sync some files →",
       "no_translations": "Looks like no strings were added for your project.",
@@ -843,7 +850,7 @@
       "manage_languages_text": "Target languages follow your master language strings and conflicts",
       "add_collaborator": "Add collaborator",
       "add_collaborator_text": "Translators, developers, etc.",
-      "api_token": "Get your API Token",
+      "api_token": "Get an API Token",
       "api_token_text": "Interact with the API from your project",
       "start_review": "Start to review and translate",
       "export": "Export the corrected file",
@@ -858,6 +865,7 @@
       "ADMIN": "Admin",
       "DEVELOPER": "Developer",
       "OWNER": "Owner",
+      "BOT": "API Token",
       "REVIEWER": "Reviewer"
     },
     "integration_services": {
@@ -977,7 +985,11 @@
           "loading_content": "Fetching project’s badges…"
         },
         "api_token": {
-          "loading_content": "Fetching project’s API settings…"
+          "loading_content": "Fetching project’s API settings…",
+          "api_token_add_success": "API token has been created with success",
+          "api_token_add_error": "API token could not be created",
+          "api_token_revoke_success": "API token has been revoked with success",
+          "api_token_revoke_error": "API token could not be revoked"
         },
         "jipt": {
           "loading_content": "Fetching project’s Just In Place Translations settings…"

@@ -8,6 +8,7 @@
   margin-bottom: 20px;
   margin-right: 20px;
   border-radius: 3px;
+  border: 1px solid var(--background-light-highlight);
 
   &:nth-child(even) {
     flex: 1 1 50%;
@@ -59,7 +60,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 6px;
+  padding: 8px 10px;
   color: var(--color-grey);
 }
 
@@ -97,8 +98,8 @@
   transition: 0.2s ease-in-out;
   transition-property: opacity;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 3px;
+  top: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,17 +125,16 @@
 }
 
 .actions {
-  margin-top: 15px;
+  margin: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .actionItem-text {
-  margin-bottom: 7px;
   font-size: 12px;
   color: var(--color-grey);
-}
-
-.actionItem-button {
-  margin-top: 10px;
 }
 
 @media (max-width: 440px) {

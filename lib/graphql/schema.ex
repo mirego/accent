@@ -8,6 +8,7 @@ defmodule Accent.GraphQL.Schema do
 
   # Types
   import_types(AbsintheErrorPayload.ValidationMessageTypes)
+  import_types(Accent.GraphQL.Types.APIToken)
   import_types(Accent.GraphQL.Types.AuthenticationProvider)
   import_types(Accent.GraphQL.Types.DocumentFormat)
   import_types(Accent.GraphQL.Types.Role)
@@ -54,6 +55,7 @@ defmodule Accent.GraphQL.Schema do
 
   mutation do
     # Mutation types
+    import_types(Accent.GraphQL.Mutations.APIToken)
     import_types(Accent.GraphQL.Mutations.Translation)
     import_types(Accent.GraphQL.Mutations.Comment)
     import_types(Accent.GraphQL.Mutations.Collaborator)
@@ -64,6 +66,7 @@ defmodule Accent.GraphQL.Schema do
     import_types(Accent.GraphQL.Mutations.Operation)
     import_types(Accent.GraphQL.Mutations.Version)
 
+    import_fields(:api_token_mutations)
     import_fields(:comment_mutations)
     import_fields(:translation_mutations)
     import_fields(:collaborator_mutations)
@@ -106,5 +109,14 @@ defmodule Accent.GraphQL.Schema do
 
   def middleware(middleware, _, _) do
     [NewRelic.Absinthe.Middleware] ++ middleware
+  end
+
+  def absinthe_pipeline(config, opts) do
+    config
+    |> Absinthe.Plug.default_pipeline(opts)
+    |> Absinthe.Pipeline.insert_after(
+      Absinthe.Phase.Document.Result,
+      Accent.GraphQL.ErrorReporting
+    )
   end
 end

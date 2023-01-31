@@ -6,7 +6,6 @@ export default gql`
       project(id: $projectId) {
         id
         name
-        accessToken
 
         integrations {
           id

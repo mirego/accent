@@ -147,7 +147,7 @@
 }
 
 .master {
-  margin: 0 0 20px;
+  margin: 0 0 10px;
 }
 
 .stats-title-links {
@@ -219,9 +219,5 @@
 @media (max-width: 640px) {
   .dashboard-revisions > .content {
     margin: 0;
-  }
-
-  .stats-title {
-    display: none;
   }
 }

@@ -17,7 +17,8 @@ defmodule Accent.Project do
     has_many(:target_revisions, Accent.Revision, where: [master: false])
     has_many(:versions, Accent.Version)
     has_many(:operations, Accent.Operation)
-    has_many(:collaborators, Accent.Collaborator)
+    has_many(:collaborators, Accent.Collaborator, where: [role: {:in, ["reviewer", "admin", "developer", "owner"]}])
+    has_many(:all_collaborators, Accent.Collaborator)
     belongs_to(:language, Accent.Language)
 
     timestamps()

@@ -5,6 +5,7 @@ defmodule Accent.AccessToken do
     field(:token, :string)
     field(:global, :boolean)
     field(:revoked_at, :naive_datetime)
+    field(:custom_permissions, {:array, :string})
 
     belongs_to(:user, Accent.User)
 

@@ -1,12 +1,14 @@
 <div local-class="project-settings-collaborators">
   <div local-class="columns">
     <div local-class="columns-item">
+      {{#if (get @permissions "create_collaborator")}}
       <div local-class="createForm">
         <ProjectSettings::Collaborators::CreateForm
           @project={{@project}}
           @onCreate={{@onCreateCollaborator}}
         />
       </div>
+      {{/if}}
 
       <ProjectSettings::Collaborators::List
         @permissions={{@permissions}}

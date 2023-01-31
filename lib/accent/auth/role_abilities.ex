@@ -1,4 +1,6 @@
 defmodule Accent.RoleAbilities do
+  require Logger
+
   alias Accent.MachineTranslations
 
   @owner_role "owner"
@@ -7,27 +9,17 @@ defmodule Accent.RoleAbilities do
   @developer_role "developer"
   @reviewer_role "reviewer"
 
-  @any_actions ~w(
+  @read_actions ~w(
     lint
     format
     index_permissions
     index_versions
-    create_version
-    update_version
     export_version
     index_translations
     index_comments
-    create_comment
-    delete_comment
-    update_comment
     show_comment
-    correct_all_revision
-    uncorrect_all_revision
     show_project
     index_collaborators
-    correct_translation
-    uncorrect_translation
-    update_translation
     show_translation
     index_project_activities
     index_related_translations
@@ -38,9 +30,22 @@ defmodule Accent.RoleAbilities do
     show_activity
     index_translation_activities
     index_translation_comments_subscriptions
+  )a
+
+  @write_actions ~w(
+    create_comment
+    delete_comment
+    update_comment
+    correct_all_revision
+    uncorrect_all_revision
+    correct_translation
+    uncorrect_translation
+    update_translation
     create_translation_comments_subscription
     delete_translation_comments_subscription
   )a
+
+  @any_actions @read_actions ++ @write_actions
 
   @bot_actions ~w(
     peek_sync
@@ -48,7 +53,7 @@ defmodule Accent.RoleAbilities do
     merge
     sync
     hook_update
-  )a ++ @any_actions
+  )a ++ @read_actions
 
   @developer_actions ~w(
     peek_sync
@@ -57,11 +62,15 @@ defmodule Accent.RoleAbilities do
     sync
     delete_document
     update_document
-    show_project_access_token
+    list_project_api_tokens
+    create_project_api_token
+    revoke_project_api_token
     index_project_integrations
     create_project_integration
     update_project_integration
     delete_project_integration
+    create_version
+    update_version
   )a ++ @any_actions
 
   @admin_actions ~w(
@@ -78,8 +87,10 @@ defmodule Accent.RoleAbilities do
     delete_project
   )a ++ @developer_actions
 
-  @configurable_actions ~w(machine_translations_translate_document achine_translations_translate_file machine_translations_translate_text)a
+  @configurable_actions ~w(machine_translations_translate_document machine_translations_translate_file machine_translations_translate_text)a
 
+  def actions_for(:all), do: add_configurable_actions(@admin_actions, @owner_role)
+  def actions_for({:custom, permissions}), do: permissions
   def actions_for(@owner_role), do: add_configurable_actions(@admin_actions, @owner_role)
   def actions_for(@admin_role), do: add_configurable_actions(@admin_actions, @admin_role)
   def actions_for(@bot_role), do: add_configurable_actions(@bot_actions, @bot_role)
@@ -96,16 +107,26 @@ defmodule Accent.RoleAbilities do
     MachineTranslations.translate_list_enabled?()
   end
 
+  def can?(_role, :machine_translations_translate_document), do: false
+
   def can?(role, :machine_translations_translate_file) when role in [@owner_role, @admin_role, @developer_role] do
     MachineTranslations.translate_list_enabled?()
   end
+
+  def can?(_role, :machine_translations_translate_file), do: false
 
   def can?(role, :machine_translations_translate_text) when role in [@owner_role, @admin_role, @developer_role] do
     MachineTranslations.translate_text_enabled?()
   end
 
+  def can?(_role, :machine_translations_translate_text), do: false
+
   # Define abilities function at compile time to remove list lookup at runtime
   def can?(@owner_role, _action), do: true
+
+  def can?({:custom, permissions}, action) do
+    to_string(action) in permissions
+  end
 
   for action <- @admin_actions do
     def can?(@admin_role, unquote(action)), do: true
@@ -124,5 +145,10 @@ defmodule Accent.RoleAbilities do
   end
 
   # Fallback if no permission has been found for the user on the project
-  def can?(_role, _action), do: false
+  def can?(nil, _action), do: false
+
+  def can?(role, action) do
+    Logger.warn("Unauthorized action: #{action} for #{role}")
+    false
+  end
 end

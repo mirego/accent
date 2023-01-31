@@ -119,6 +119,7 @@ input[type="radio"] {
 }
 
 input[type="checkbox"] {
+  flex-shrink: 0;
   vertical-align: bottom;
 }
 

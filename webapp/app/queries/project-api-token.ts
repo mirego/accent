@@ -8,7 +8,18 @@ export default gql`
       project(id: $projectId) {
         id
         name
-        accessToken
+
+        apiTokens {
+          id
+          token
+          insertedAt
+          customPermissions
+          user {
+            id
+            fullname
+            pictureUrl
+          }
+        }
       }
     }
   }

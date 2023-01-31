@@ -45,8 +45,8 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(project_authorize(:lint, &Accent.GraphQL.Resolvers.Project.lint_translations/3))
     end
 
-    field :access_token, :string do
-      resolve(project_authorize(:show_project_access_token, &Accent.GraphQL.Resolvers.AccessToken.show_project/3))
+    field :api_tokens, list_of(non_null(:api_token)) do
+      resolve(project_authorize(:list_project_api_tokens, &Accent.GraphQL.Resolvers.APIToken.list_project/3))
     end
 
     field :viewer_permissions, list_of(:string) do

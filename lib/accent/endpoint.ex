@@ -49,7 +49,7 @@ defmodule Accent.Endpoint do
   end
 
   # sobelow_skip ["XSS.SendResp"]
-  defp ping(%{request_path: "/ping"} = conn, _opts) do
+  defp ping(conn = %{request_path: "/ping"}, _opts) do
     alias Plug.Conn
     version = Application.get_env(:accent, :version)
 
@@ -61,7 +61,7 @@ defmodule Accent.Endpoint do
 
   defp ping(conn, _opts), do: conn
 
-  defp canonical_host(%{request_path: "/health"} = conn, _opts), do: conn
+  defp canonical_host(conn = %{request_path: "/health"}, _opts), do: conn
 
   defp canonical_host(conn, _opts) do
     opts = PlugCanonicalHost.init(canonical_host: Application.get_env(:accent, :canonical_host))

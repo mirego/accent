@@ -17,7 +17,8 @@ export default class ApplicationRoute extends Route {
   router: RouterService;
 
   async beforeModel() {
-    this.intl.setLocale('en-us');
+    const locale = localStorage.getItem('locale') || 'en-us';
+    this.intl.setLocale(locale);
 
     raven.config(config.SENTRY.DSN).install();
 

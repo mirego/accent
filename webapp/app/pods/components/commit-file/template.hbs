@@ -62,6 +62,7 @@
   {{#if this.file}}
     <div>
       {{#if @documents}}
+        {{#if this.isSync}}
         <div local-class="option">
           <p local-class="textHelper">
             {{t "components.commit_file.file_source"}}
@@ -79,6 +80,7 @@
           </p>
           <Input @value={{this.documentPath}} local-class="fileSourceName" />
         </div>
+        {{/if}}
       {{/if}}
 
       <div local-class="option">

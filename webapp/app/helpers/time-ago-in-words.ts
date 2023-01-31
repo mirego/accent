@@ -1,6 +1,12 @@
 import {isBlank} from '@ember/utils';
 import {helper} from '@ember/component/helper';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import {frCA, enUS} from 'date-fns/locale';
+
+const LOCALES = {
+  'fr-ca': frCA,
+  'en-us': enUS,
+} as any;
 
 const OPTIONS = {
   addSuffix: true,
@@ -9,8 +15,14 @@ const OPTIONS = {
 
 const timeAgoInWords = ([date]: [string]) => {
   if (isBlank(date)) return '';
+  const locale = LOCALES[localStorage.getItem('locale') || 'en-us'] || enUS;
 
-  return formatDistanceToNow(new Date(date), OPTIONS);
+  const options = {
+    locale,
+    ...OPTIONS,
+  };
+
+  return formatDistanceToNow(new Date(date), options);
 };
 
 export default helper(timeAgoInWords);

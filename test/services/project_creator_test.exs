@@ -34,7 +34,7 @@ defmodule AccentTest.ProjectCreator do
     params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
-    bot_collaborator = project |> Ecto.assoc(:collaborators) |> Ecto.Query.where([c], c.role == "bot") |> Repo.one()
+    bot_collaborator = project |> Ecto.assoc(:all_collaborators) |> Ecto.Query.where([c], c.role == "bot") |> Repo.one()
     bot_user = Repo.preload(bot_collaborator, :user).user
     bot_access = Repo.preload(bot_collaborator, user: :access_tokens).user.access_tokens |> hd()
 

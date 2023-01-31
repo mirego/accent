@@ -39,7 +39,6 @@ defmodule AccentTest.GraphQL.Resolvers.Permission do
     {:ok, permissions} = Resolver.list_project(project, %{}, context)
 
     assert :create_slave in permissions
-    assert :show_project_access_token in permissions
     assert :show_project in permissions
   end
 

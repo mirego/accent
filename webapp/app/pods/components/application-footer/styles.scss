@@ -14,9 +14,40 @@
   max-width: var(--screen-lg);
 }
 
-.meta {
+.left {
   display: flex;
   align-items: center;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select {
+  position: relative;
+  font-size: 11px;
+
+  select {
+    appearance: none;
+    border: 1px solid var(--background-light-highlight);
+    border-radius: 3px;
+    padding: 2px 15px 2px 4px;
+  }
+}
+
+.select::after {
+  display: block;
+  pointer-events: none;
+  cursor: pointer;
+  content: '›';
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  font-size: 140%;
+  transform: translateY(-50%) rotate(90deg);
+  color: var(--text-color-normal);
 }
 
 .version {

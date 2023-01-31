@@ -43,6 +43,13 @@ export interface Paginated<T> {
   meta: DocumentsMeta;
 }
 
+export interface ProjectViewer {
+  user: {
+    fullname: string;
+  };
+  project: Project;
+}
+
 export interface Project {
   id: string;
   name: string;

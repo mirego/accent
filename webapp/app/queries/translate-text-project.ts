@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export default gql`
   query TranslateTextProject(
     $projectId: ID!
-    $text: String
+    $text: String!
     $sourceLanguageSlug: String!
     $targetLanguageSlug: String!
   ) {

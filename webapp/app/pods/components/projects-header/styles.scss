@@ -1,5 +1,5 @@
 .projects-header {
-  padding: 64px 0 20px;
+  padding: 40px 0 20px;
   background-image: linear-gradient(
     0,
     var(--body-background),
@@ -8,8 +8,6 @@
 }
 
 .projects-header.withProject {
-  padding-top: 59px;
-
   .applicationLogo {
     position: absolute;
     padding-right: 10px;
@@ -143,7 +141,7 @@
 
 .search-icon {
   position: absolute;
-  top: 8px;
+  top: 6px;
   left: 10px;
   width: 15px;
   height: 15px;

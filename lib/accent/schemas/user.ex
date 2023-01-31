@@ -12,6 +12,7 @@ defmodule Accent.User do
     has_many(:private_access_tokens, Accent.AccessToken, where: [global: false])
     has_many(:auth_providers, Accent.AuthProvider)
     has_many(:collaborations, Accent.Collaborator)
+    has_many(:bot_collaborations, Accent.Collaborator, where: [role: "bot"])
     has_many(:collaboration_assigns, Accent.Collaborator, foreign_key: :assigner_id)
 
     field(:permissions, :map, virtual: true)

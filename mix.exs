@@ -94,13 +94,13 @@ defmodule Accent.Mixfile do
       {:bamboo_smtp, "~> 2.0"},
 
       # Events handling
-      {:oban, "~> 2.0"},
+      {:oban, "~> 2.13.0"},
 
       # Metrics and monitoring
       {:new_relic_agent, "~> 1.27"},
       {:new_relic_absinthe, "~> 0.0"},
       {:telemetry, "~> 1.0", override: true},
-      {:telemetry_ui, "~> 1.1"},
+      {:telemetry_ui, path: "../mirego/telemetry_ui"},
 
       # Mock testing
       {:mox, "~> 0.3", only: :test},

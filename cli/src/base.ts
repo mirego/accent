@@ -9,7 +9,7 @@ import ConfigFetcher from './services/config';
 import ProjectFetcher from './services/project-fetcher';
 
 // Types
-import {Project} from './types/project';
+import {Project, ProjectViewer} from './types/project';
 
 const sleep = async (ms: number) =>
   new Promise((resolve: (value: unknown) => void) => setTimeout(resolve, ms));
@@ -17,6 +17,7 @@ const sleep = async (ms: number) =>
 export default abstract class extends Command {
   projectConfig: ConfigFetcher = new ConfigFetcher();
   project?: Project;
+  viewer?: ProjectViewer;
 
   async init() {
     const config = this.projectConfig.config;
@@ -26,10 +27,13 @@ export default abstract class extends Command {
     await sleep(1000);
 
     const fetcher = new ProjectFetcher();
-    this.project = await fetcher.fetch(config);
+    const response = await fetcher.fetch(config);
+    this.project = response.project;
+    this.viewer = response;
+
     if (!this.project) error('Unable to fetch project');
 
-    cli.action.stop(chalk.green('✓'));
+    cli.action.stop(chalk.green(`${this.viewer.user.fullname} ✓`));
 
     if (this.projectConfig.warnings.length) {
       console.log('');

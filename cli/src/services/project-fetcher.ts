@@ -5,10 +5,10 @@ import fetch from 'node-fetch';
 
 // Types
 import {Config} from '../types/config';
-import {Project} from '../types/project';
+import {ProjectViewer} from '../types/project';
 
 export default class ProjectFetcher {
-  async fetch(config: Config): Promise<Project> {
+  async fetch(config: Config): Promise<ProjectViewer> {
     const response = await this.graphql(config);
     try {
       const data = await response.json();
@@ -20,7 +20,7 @@ export default class ProjectFetcher {
         );
       }
 
-      return data.data && data.data.viewer.project;
+      return data.data && data.data.viewer;
     } catch (_) {
       throw new CLIError(
         chalk.red(`Can not fetch the project on ${config.apiUrl}`),
@@ -32,6 +32,10 @@ export default class ProjectFetcher {
   private async graphql(config: Config) {
     const query = `query ProjectDetails($project_id: ID!) {
       viewer {
+        user {
+          fullname
+        }
+
         project(id: $project_id) {
           id
           name

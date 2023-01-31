@@ -2,9 +2,13 @@ import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
 import {action} from '@ember/object';
 
-export default class AccAvatarImg extends Component {
+interface Args {
+  showFallback?: boolean;
+}
+
+export default class AccAvatarImg extends Component<Args> {
   @tracked
-  showFallback = false;
+  showFallback = this.args.showFallback || false;
 
   @action
   fallbackImage() {

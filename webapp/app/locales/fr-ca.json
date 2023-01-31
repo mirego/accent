@@ -1,0 +1,1079 @@
+{
+  "addon": {
+    "channel": {
+      "handle_in": {
+        "create_collaborator": "{user} a invité {collaboratorEmail} sur le projet",
+        "create_resource": "Nouvelle ressource",
+        "create_comment": "{user} a commenté {translationKey} : {commentText}",
+        "sync": "{user} a synchronisé un fichier : {documentPath}"
+      }
+    }
+  },
+  "components": {
+    "jipt": {
+      "back_to_translations": {
+        "back": "Retour",
+        "forward": "En avant"
+      },
+      "translations_filtered_title": {
+        "title_count": "{count, plural, =1 {Cet élément contient 1 chaîne} other {Cet élément contient # chaînes}}"
+      }
+    },
+    "machine_translations_translate_upload_form": {
+      "select_target": "Sélectionnez une langue cible différente pour traduire le fichier",
+      "translate": "Traduire",
+      "new_file": "Nouveau fichier",
+      "step_1": "Sélectionnez ou déposez un fichier ici pour le traduire.",
+      "step_1_text": "Vous pouvez ensuite exporter le fichier pour ajouter des traductions dans la langue sélectionnée",
+      "step_2": "Choisissez le format correct et soumettez pour traduire <code>{name}</code> dans la langue cible choisie"
+    },
+    "documents_add_button": {
+      "link": "Synchroniser un nouveau fichier"
+    },
+    "documents_machine_translations_button": {
+      "link": "Traduire avec des traductions automatiques"
+    },
+    "versions_add_button": {
+      "link": "Créer une nouvelle version"
+    },
+    "revision_selector": {
+      "languages_count": "{count, plural, =1 {1 autre langue} other {# autres langues}}",
+      "master": "Principale"
+    },
+    "translation_comments_subscriptions": {
+      "title": "Notifier les nouveaux messages"
+    },
+    "login_header": {
+      "text": "Connectez-vous avec n’importe quel service ci-dessous,",
+      "subtext": "Votre adresse e-mail sera utilisée pour vous identifier de manière unique à travers tous les services."
+    },
+    "login_footer": {
+      "text": "Rien à cacher, vérifiez le code source :",
+      "link": "mirego/accent"
+    },
+    "login_forms": {
+      "github": "Connectez-vous avec GitHub →",
+      "gitlab": "Connectez-vous avec GitLab →",
+      "google": "Connectez-vous avec Google →",
+      "slack": "Se connecter avec Slack →",
+      "discord": "Se connecter avec Discord →",
+      "microsoft": "Se connecter avec Microsoft →",
+      "dummy": "Entrez un courriel et connectez-vous →"
+    },
+    "dummy_login_form": {
+      "title": "Fausse authentification",
+      "warning": "Il semble que vous n’ayez pas une configuration d’API Google valide :(",
+      "subtitle": "Vous pouvez utiliser n’importe quel e-mail pour être automatiquement connecté à la plateforme. Assurez-vous que l’API à laquelle vous vous connectez est en mode développement et n’est pas conçue pour la production. <strong>La fausse configuration de connexion est désactivée en production.</strong>",
+      "login_button": "Connectez-vous avec n’importe quel e-mail"
+    },
+    "activity_item": {
+      "batch_operations_hidden_count": "et {count} de plus",
+      "rollbacked": "Annulé",
+      "details": "Détails",
+      "empty_text": "Texte vide"
+    },
+    "application_footer": {
+      "accent_bot": "Accéder à la CLI",
+      "text": "Réalisé avec des ordinateurs par"
+    },
+    "collaborator_create_form": {
+      "create_button": "Ajouter un collaborateur",
+      "cancel_button": "Annuler",
+      "email_placeholder": "Ajouter un collaborateur par courriel…"
+    },
+    "commit_file": {
+      "cancel_button": "Annuler",
+      "file_input_button": "Choisissez un fichier",
+      "commit_error": "Une erreur s’est produite lors du téléchargement du fichier",
+      "document_format": "Format du fichier",
+      "document_path": "Nom du fichier",
+      "version_tag": "Version",
+      "no_version_label": "Aucune version",
+      "language": "Langue",
+      "commit_type": "Mode",
+      "file_source": "Chemin d’accès aux documents",
+      "merge_button": "Ajouter des traductions",
+      "pattern_help": "Vous devez spécifier le modèle des fichiers inclus dans le zip qui seront importés, \"par exemple\": **/*.strings",
+      "new_document_warning": "Les modifications créeront un nouveau fichier.",
+      "existing_document_warning": "Les modifications seront appliquées au fichier déjà existant.",
+      "peek_button": "Synchronisation de l’aperçu",
+      "peek_error": "Une erreur s’est produite lors de la prévisualisation du fichier",
+      "peek_help": "Cette action n’aura aucun effet sur votre projet.",
+      "sync_button": "Synchroniser",
+      "upload_help": "Après avoir choisi un fichier, vous pourrez prévisualiser les modifications apportées à votre projet",
+      "upload_title": "Sélectionner un fichier",
+      "merge_options": "Choix",
+      "correct_on_merge": "Marquer les chaînes comme révisées",
+      "instructions": {
+        "sync": {
+          "title": "Synchroniser",
+          "text": "Mettez à jour la liste des chaînes dans Accent, en supprimant celles qui manquent dans le fichier et en en ajoutant de nouvelles.<em>La synchronisation est toujours effectuée dans la langue principale.</em>Les nouvelles chaînes et les modifications des chaînes supprimées seront reflétées dans toutes les langues traduites."
+        },
+        "merge": {
+          "title": "Ajouter des traductions",
+          "text": "Fusionnez les traductions présentes dans le fichier téléchargé avec les chaînes existantes dans Accent. L’ajout de traductions est généralement effectué lorsque vous traduisez la chaîne directement dans votre projet pour faire gagner du temps aux réviseurs."
+        },
+        "mistakes": {
+          "title": "Erreurs fréquentes",
+          "item_1": "Exportez les fichiers Accent localement avant une synchronisation. Cela vous obligera à résoudre les conflits localement et à remplacer potentiellement les textes révisés ou à ajouter des chaînes supprimées.",
+          "item_2": "Synchronisez une langue traduite (pas votre langue principale). Cela générera effectivement des conflits pour toutes vos clés, changeant le texte de la langue principale pour votre langue traduite.",
+          "item_3": "Synchronisez un fichier par langue. Le \"fichier\" dans Accent a pour but d’être traduit en X langues. Synchronisez votre langue principale et laissez les langues traduites être traduites dans l’interface utilisateur."
+        }
+      }
+    },
+    "conflict_item": {
+      "correct_error_text": "Impossible de corriger le conflit. Réessayez plus tard.",
+      "conflicted_label": "à réviser",
+      "in_review_tooltip": "Voir à réviser",
+      "translate_tooltip": "Traduire à partir de ce texte",
+      "translation_tooltip": "Afficher les détails de la chaîne",
+      "uncorrect_error_text": "Impossible de corriger le conflit. Réessayez plus tard."
+    },
+    "conflicts_actions": {
+      "reload_button": "Recharger"
+    },
+    "conflicts_filters": {
+      "total_entries_count": "{count, plural, =0 {Aucune chaîne à vérifier} =1 {1 chaîne à vérifier} other {# chaînes à vérifier}}",
+      "reference_default_option_text": "Pas de langue de référence",
+      "version_default_option_text": "Dernière version",
+      "document_default_option_text": "Tous les documents",
+      "input_placeholder_text": "Rechercher une chaîne"
+    },
+    "conflicts_items": {
+      "correct_all_button": "Marquer toutes les chaînes comme révisées pour cette langue",
+      "no_translations": "Aucune chaîne à examiner pour : {query}",
+      "all_reviewed_title": "Tous revus",
+      "all_reviewed_subtitle": "Toutes les chaînes ont été marquées comme révisées"
+    },
+    "dashboard_master_revision": {
+      "features": {
+        "documents": {
+          "text": "Gérez vos fichiers, visualisez un aperçu du contenu exporté et enfin, enregistrez votre fichier sur votre machine.",
+          "title": "Fichiers"
+        },
+        "export": {
+          "text": "Enregistrez toutes les chaînes dans un fichier pour l’inclure dans votre projet.",
+          "title": "Exportation"
+        },
+        "review": {
+          "text": "Marquez les chaînes comme révisées, corrigez-les tout en voyant un diff textuel du contenu précédent. Vous pouvez même voir le texte d’une autre langue pour la chaîne correspondante.",
+          "title": "Révisions"
+        },
+        "sync": {
+          "text": "Téléchargez vos fichiers de localisation pour ajouter, supprimer et mettre à jour des chaînes.",
+          "title": "Synchroniser"
+        },
+        "translations": {
+          "text": "Recherchez et filtrez vos chaînes pour naviguer rapidement dans votre projet et voir quelles chaînes sont en révision, commentées ou récemment mises à jour.",
+          "title": "Toutes les chaînes"
+        }
+      },
+      "keys": "chaînes",
+      "last_synced_at_label": "Dernière synchronisation :",
+      "master_language_label": "La langue principale est :",
+      "never_synced": "Synchroniser le projet pour la première fois",
+      "reviewed": "revu"
+    },
+    "dashboard_navigation": {
+      "collaborators_link_title": "Collaborateurs",
+      "edit_link_title": "Éditer",
+      "overview_link_title": "Aperçu"
+    },
+    "dashboard_revisions": {
+      "last_synced_at_label": "Dernière synchronisation :",
+      "manage_languages_link_title": "Gérer les langues",
+      "new_language_link_title": "Nouveau langage",
+      "new_language_link_text": "Avec une autre langue, vous pouvez suivre la traduction en fonction de la langue principale.",
+      "view_more_activities": "Voir plus d’activités →",
+      "title": "Tableau de bord",
+      "master": "Langue principale",
+      "slaves": "Traductions",
+      "sync": "Synchroniser",
+      "strings": "chaînes",
+      "all_reviewed": "Tous revus !",
+      "reviewed": "revu",
+      "activities_title": "Dernières activités",
+      "item": {
+        "correct_all_button": "Marquer toutes les chaînes comme vérifiées",
+        "uncorrect_all_button": "Remettre toutes les chaînes à réviser"
+      }
+    },
+    "date_tag": {
+      "formatted_date_time_format": "yyyy-MM-d'T'HH:mm:ss",
+      "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
+    },
+    "versions_list": {
+      "empty_text": "Le versionning vous permet de réviser/exporter/synchroniser les traductions indépendamment de votre projet principal. Cela signifie que la prise en charge des versions précédentes de votre application sera aussi simple que l’ajout de nouvelles fonctionnalités !",
+      "export": "Exportation",
+      "update": "Éditer"
+    },
+    "documents_list": {
+      "empty_text": "Les fichiers sont la liste réelle des fichiers de langue principaux de votre projet. Ajoutez-les ici ou depuis la CLI et gardez-les synchronisés avec votre projet.",
+      "format": "Format",
+      "review": "À réviser",
+      "total": "Le total",
+      "sync": "Synchroniser",
+      "merge": "Ajouter des traductions",
+      "machine_translations": "Traduire",
+      "export": "Exportation",
+      "export_jipt": "Traductions juste en place",
+      "no_strings": "Aucune chaîne",
+      "total_strings_count": "{count, plural, =0 {Aucune chaîne} =1 {1 chaîne} other {# chaînes}}",
+      "language_strings_count": "{count, plural, =0 {} =1 {1 chaîne par langue} other {# chaînes par langue}}",
+      "delete_document": "Supprimer ce fichier",
+      "save_button": "Sauver",
+      "cancel_button": "Annuler",
+      "item": {
+        "deleting_label": "Suppression de {path}.{extension}…",
+        "path_label": "Chemin",
+        "path_help": "Utilisé pour délimiter vos chaînes. Le chemin sera utilisé pour exporter toutes vos langues (en/<em>path</em>.format, fr/<em>path</em>.format)"
+      }
+    },
+    "error_section": {
+      "logout": "Se déconnecter",
+      "or": "ou alors",
+      "return": "retourner à la maison"
+    },
+    "operations_peek": {
+      "item": {
+        "overview": "Aperçu",
+        "details": "Détails",
+        "hide": "Cacher",
+        "empty_changes": "Aucun changement sur cette langue",
+        "empty_results": "Pas de résultat pour cette recherche",
+        "text_label": "Texte:",
+        "previous_label": "Avant la synchronisation :"
+      }
+    },
+    "project_activity": {
+      "stats_label": "Activités réalisées :",
+      "overview_label": "Aperçu:",
+      "review_label": "A été revu ?",
+      "reviewed_yes": "Oui",
+      "reviewed_no": "Non",
+      "last_synced_text_label": "Dernier texte synchronisé :",
+      "text_before_action_label": "Texte avant l’activité :",
+      "new_text_label": "Nouveau texte :",
+      "empty_value": "Texte vide",
+      "text_differences_label": "Différences:",
+      "rollback_operation_label": "Annulé par cette activité :",
+      "rollbacked_operation_label": "Annulation de cette activité :",
+      "batch_operation_label": "Généré par cette activité :",
+      "operations_label": "Généré ces activités :",
+      "rollbacked_label": "Annulé",
+      "file_label": "Fichier:",
+      "key_label": "Clé:",
+      "details_label": "Détails:",
+      "explanation_label": "Pourquoi est-ce arrivé?",
+      "rollback_confirm": "Voulez-vous vraiment annuler cette activité ? Vous ne pouvez pas annuler une restauration.",
+      "rollback": "Retour en arriere",
+      "stats_label_text": "Activités réalisées :",
+      "stats_text": {
+        "merge_on_corrected": "Chaîne traduite",
+        "add_to_version": "Chaînes versionnées",
+        "version_new": "Chaînes versionnées",
+        "merge_on_proposed": "Chaîne traduite",
+        "merge_on_proposed_force": "Chaîne traduite (force)",
+        "merge_on_corrected_force": "Chaîne traduite (force)",
+        "conflict_on_proposed": "Nouveau conflit",
+        "conflict_on_corrected": "Nouveau conflit",
+        "conflict_on_slave": "Nouveau conflit reflété dans une autre langue",
+        "correct_conflict": "Chaînes marquées comme vérifiées",
+        "uncorrect_conflict": "Chaînes marquées comme non vérifiées",
+        "update": "Mettre à jour la chaîne",
+        "new": "Nouvelle chaîne",
+        "renew": "Renouveler la chaîne",
+        "remove": "Supprimer la chaîne",
+        "merge": "Ajouter des traductions aux fichiers",
+        "sync": "Synchroniser les fichiers",
+        "update_proposed": "Mettre à jour la référence de texte synchronisé"
+      },
+      "action_explanation": {
+        "add_to_version": "Lorsqu’un utilisateur crée une version, la chaîne est copiée en tant que chaîne versionnée. La chaîne restera intacte par la version \"principale\"",
+        "version_new": "Lorsqu’un utilisateur crée une version, la chaîne est copiée en tant que chaîne versionnée. La chaîne restera intacte par la version \"principale\"",
+        "create_version": "Lorsqu’un utilisateur fige l’état de toutes les chaînes pour le marquer avec une version. Utilisé pour gérer plusieurs versions de la même application en parallèle.",
+        "conflict_on_corrected": "Lorsque le texte téléchargé est différent du dernier texte synchronisé et que le dernier texte synchronisé est différent du texte actuel. Cela se produit si le texte a été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé par une différence entre une synchronisation et la version modifiée dans Accent.",
+        "conflict_on_proposed": "Lorsque le texte téléchargé est différent du dernier texte téléchargé et que le dernier texte synchronisé est égal au texte actuel. Cela se produit si le texte n’a pas été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé uniquement par une synchronisation et non par une intervention humaine.",
+        "conflict_on_slave": "Lorsque l’activité \"conflit sur proposition\" ou \"conflit sur corrigé\" se produit sur une chaîne, les clés correspondantes dans d’autres langues appliquent cette activité. Le but de cette activité est de signaler un changement de sens dans la langue principale dans les traductions. La chaîne sera signalée comme \"en révision\"",
+        "correct_all": "Lorsque toutes les chaînes sont marquées manuellement comme révisées.",
+        "correct_conflict": "Lorsqu’une chaîne est marquée manuellement comme révisée.",
+        "batch_correct_conflict": "Lorsque plusieurs chaînes ont été marquées comme révisées dans un court laps de temps.",
+        "document_delete": "Lorsqu’un fichier a été supprimé.",
+        "batch_merge": "Lorsque les chaînes sont mises à jour avec de nouvelles traductions à partir des téléchargements de fichiers. Cela applique la même logique que l’activité de synchronisation mais sans supprimer les chaînes.",
+        "merge": "Lorsque les chaînes sont mises à jour avec de nouvelles traductions à partir d’un téléchargement de fichier. Cela applique la même logique que l’activité de synchronisation mais sans supprimer les chaînes.",
+        "merge_on_corrected": "Lorsque le texte téléchargé est différent du dernier texte synchronisé et que le dernier texte synchronisé est différent du texte actuel. Cela se produit si le texte a été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé par une différence entre le téléchargement de la synchronisation et la version modifiée dans Accent.",
+        "merge_on_proposed": "Lorsque le texte téléchargé est différent du dernier texte synchronisé et que le dernier texte synchronisé est égal au texte actuel. Cela se produit si le texte n’a pas été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé uniquement par le téléchargement de la synchronisation et non par une intervention humaine.",
+        "merge_on_corrected_force": "Lorsque le texte téléchargé est différent du dernier texte synchronisé et que le dernier texte synchronisé est différent du texte actuel. Cela se produit si le texte a été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé par une différence entre le téléchargement de la synchronisation et la version modifiée dans Accent.",
+        "merge_on_proposed_force": "Lorsque le texte téléchargé est différent du dernier texte synchronisé et que le dernier texte synchronisé est égal au texte actuel. Cela se produit si le texte n’a pas été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé uniquement par le téléchargement de la synchronisation et non par une intervention humaine.",
+        "remove": "Lorsque le fichier synchronisé ne contient pas la clé.",
+        "new": "Lorsque le fichier synchronisé contient une clé qui n’est pas présente dans le fichier.",
+        "renew": "Lorsque le fichier synchronisé contient une clé qui a été précédemment supprimée.",
+        "new_slave": "Lorsqu’une nouvelle langue est ajoutée au projet.",
+        "rollback": "Lorsqu’un utilisateur annule manuellement une activité.",
+        "sync": "Lorsqu’un document est synchronisé avec un fichier.",
+        "batch_sync": "Lorsque les documents sont synchronisés avec les fichiers.",
+        "uncorrect_all": "Lorsque toutes les chaînes sont remises à réviser manuellement.",
+        "uncorrect_conflict": "Lorsque la chaîne est remise manuellement à réviser.",
+        "batch_update": "Lorsque plusieurs chaînes sont mises à jour manuellement par quelqu’un.",
+        "update": "Lorsque la chaîne est mise à jour manuellement par quelqu’un.",
+        "update_proposed": "Lorsque le texte synchronisé est identique au texte actuel mais différent du dernier texte synchronisé. La seule chose que fait cette activité est de s’assurer que la référence du dernier texte synchronisé est mise à jour. Cela n’affecte pas le texte de la chaîne."
+      },
+      "action_text": {
+        "add_to_version": "a gelé la chaîne dans une version",
+        "version_new": "ajouté la chaîne à une version",
+        "create_version": "créé une nouvelle version",
+        "conflict_on_corrected": "L’activité de synchronisation de a créé un conflit",
+        "conflict_on_proposed": "L’activité de synchronisation de a créé un conflit",
+        "conflict_on_slave": "L’activité de synchronisation de a créé un conflit reflété dans une autre langue",
+        "correct_conflict": "a marqué la chaîne comme révisée",
+        "batch_correct_conflict": "marqué plusieurs chaînes comme examinées",
+        "merge_on_corrected": "Les ajouts de traductions ont modifié la chaîne",
+        "merge_on_proposed": "Les ajouts de traductions ont modifié la chaîne",
+        "merge_on_corrected_force": "Les ajouts de traductions de (force) ont modifié la chaîne :",
+        "merge_on_proposed_force": "Les ajouts de traductions de (force) ont modifié la chaîne :",
+        "new": "a ajouté une chaîne",
+        "renew": "rajouté une chaîne",
+        "remove": "supprimé une chaîne",
+        "rollback": "annulé une opération",
+        "uncorrect_conflict": "remettre une chaîne à révisée",
+        "update": "mis à jour une chaîne",
+        "batch_update": "mise à jour de plusieurs chaînes",
+        "update_proposed": "mis à jour une référence de texte téléchargée",
+        "sync": "a synchronisé un fichier : {document}",
+        "batch_sync": "fichiers synchronisés",
+        "new_slave": "ajouté une nouvelle langue",
+        "uncorrect_all": "remettre toutes les chaînes à révisée",
+        "correct_all": "a marqué toutes les chaînes comme révisées",
+        "document_delete": "supprimé un fichier",
+        "batch_merge": "traductions ajoutées pour les fichiers :",
+        "merge": "traductions ajoutées pour un fichier :"
+      },
+      "label_text": {
+        "conflict_on_corrected": "Le texte a été déplacé en révision et est maintenant :",
+        "conflict_on_proposed": "Le texte est toujours en révision et est maintenant :",
+        "conflict_on_slave": "Le texte a été déplacé en révision et est maintenant :"
+      }
+    },
+    "project_settings": {
+      "back_link": {
+        "title": "← Retour aux paramètres"
+      },
+      "links_list": {
+        "collaborators": "Collaborateurs",
+        "collaborators_text": "Gérer qui a accès à quelles fonctionnalités de ce projet",
+        "badges": "Insignes",
+        "badges_text": "Aperçu rapide des statistiques du projet, intégrées dans les images",
+        "api_token": "Jetons d’API",
+        "api_token_text": "Intégrez le flux de travail Accent avec les requêtes CLI ou API simples",
+        "service_integrations": "Service & intégrations",
+        "service_integrations_text": "Notifier et interagir avec des systèmes externes en fonction des événements Accent",
+        "manage_languages": "Gérer les langues",
+        "manage_languages_text": "Ajouter/supprimer des langues traduites dans le projet",
+        "jipt": "Traductions JIPT",
+        "jipt_text": "Traduction en direct sur toutes les applications, avec bibliothèque Javascript intégrée"
+      },
+      "delete_form": {
+        "title": "Zone dangereuse",
+        "delete_project_title": "Supprimer ce projet",
+        "delete_project_text": "Une fois que vous avez supprimé un projet, il n’y a plus de retour en arrière.",
+        "delete_project_button": "Supprimer ce projet",
+        "delete_project_confirm": "Voulez-vous vraiment supprimer ce projet ? Cette action ne peut pas être annulée."
+      },
+      "form": {
+        "update_button": "Projet de mise à jour",
+        "unsupported_logo_type": "Seuls les fichiers SVG sont pris en charge comme logo de projet.",
+        "reset_logo_button": "Réinitialiser le logo",
+        "lock_file_operations": {
+          "text_1": "Lorsque les opérations sur les fichiers sont verrouillées, la synchronisation et l’ajout de traductions seront désactivés.",
+          "remove_lock_button": "Déverrouiller les opérations sur les fichiers",
+          "add_lock_button": "Verrouiller les opérations sur les fichiers"
+        }
+      },
+      "jipt": {
+        "title": "Traductions JIPT",
+        "integration_help": "Cette étape vous guidera à travers la configuration dont vous avez besoin dans votre projet pour traduire vos chaînes dans votre navigateur, à l’intérieur de votre projet.",
+        "integration_link": "Voir les guides officiels sur la façon d’intégrer l’édition en direct dans votre site Web",
+        "script_title": "Ajoutez le script à la racine de votre application",
+        "add_language_title": "Ajoutez le pseudo langage à votre projet",
+        "add_language_image_1": "Voici un langage comme vous en avez déjà dans votre projet :",
+        "add_language_image_2": "Voici le pseudo langage nommé \"accent\" qui agit comme une traduction normale dans votre projet :",
+        "use_language_title": "Utiliser le pseudo langage",
+        "pseudo_language_text": "Le script Accent analyse le DOM pour les chaînes qui correspondent à l’exportation Just In Place Translations. Allez dans la section \"Fichiers\" pour exporter le fichier ou utilisez la CLI pour ajouter le pseudo langage à votre projet.",
+        "use_language_text": "En passant au langage Accent à l’aide de votre outil framework i18n préféré, la page affichera les chaînes dans les fichiers de pseudo langage et le script Accent remplacera ceux-ci par les chaînes dans Accent. Il liera également l’événement de clic sur les éléments afin que vous puissiez sélectionner des chaînes directement dans votre application et les modifier via Accent."
+      },
+      "api_token": {
+        "title": "Jetons d’API",
+        "text_1": "Avec ce jeton, vous pouvez effectuer des appels authentifiés à l’API d’Accent. Tous les tokens ont les permissions ’bot’ : synchroniser et ajouter des traductions. Vous pouvez spécifier des autorisations personnalisées pour avoir des jetons plus précis dans votre projet. Définissez le jeton sur <code>ACCENT_API_KEY</code> dans vos workflows d’actions GitHub à authentifier à l’aide d’accent-cli.",
+        "revoke_button": "Révoquer",
+        "revoke_confirm": "Voulez-vous vraiment révoquer le jeton ? Cette opération ne peut pas être annulée.",
+        "inserted_at": "Créé:",
+        "create_title": "Ajouter un nouveau jeton d’API",
+        "create_button": "Créer",
+        "create_name_placeholder": "Afficher un nom",
+        "create_picture_url_placeholder": "URL de l’avatar (facultatif)"
+      },
+      "user_token": {
+        "title": "Votre jeton personnel",
+        "text_1": "Vous pouvez également utiliser votre jeton personnel pour effectuer un appel API en tant que vous-même. Attention, ce jeton est global pour tout votre projet.",
+        "text_shell": "Vous pouvez définir une variable d’environnement globale nommée <code>ACCENT_API_KEY</code> dans votre shell (bash, zsh, fish, etc) pour qu’elle soit authentifiée lorsque vous utilisez accent-cli."
+      },
+      "badges": {
+        "title": "Insignes",
+        "text": "Peut être intégré dans des fichiers de démarquage ou affiché sur une page Web pour afficher les statistiques publiques d’un projet donné.",
+        "percentage_reviewed": "Pourcentage examiné",
+        "conflicts": "Conflits",
+        "translations": "Traductions",
+        "reviewed": "Révisé"
+      },
+      "collaborators": {
+        "admin_text": "Peut ajouter des langues, mettre à jour le projet et ajouter/supprimer des collaborateurs.",
+        "developer_text": "Peut effectuer des opérations sur les fichiers : synchroniser, ajouter des traductions et prévisualiser ces opérations dans l’interface utilisateur.",
+        "owner_text": "Avec les mêmes rôles que l’administrateur, les propriétaires sont les personnes à qui appartient le projet.",
+        "reviewer_text": "Peut effectuer toutes les tâches sauf celles énumérées dans les rôles ci-dessus. Réviser, mettre à jour les chaînes, les commentaires, etc.",
+        "title": "Collaborateurs"
+      },
+      "collaborators_item": {
+        "by": "par",
+        "cancel_save_role": "Annuler",
+        "delete_button": "Supprimer un collaborateur",
+        "edit_role": "Modifier le rôle",
+        "joined": "A rejoint le projet",
+        "invited": "Invité",
+        "save_role": "Enregistrer le rôle",
+        "uninvite_button": "Supprimer l’invitation"
+      },
+      "integrations": {
+        "title": "Service & intégrations",
+        "help": "Les services sont des intégrations prédéfinies qui effectuent certaines actions lorsque des événements se produisent sur Accent. <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.accent.reviews/guides/service-integrations.html\">Plus d’infos -></a>",
+        "save": "Sauver",
+        "cancel": "Annuler",
+        "edit": "Éditer",
+        "delete": "Supprimer",
+        "data": {
+          "default_ref": "Réf par défaut",
+          "repository": "Dépôt",
+          "token": "Jeton",
+          "url": "URL"
+        },
+        "token_how": "Comment?",
+        "github_webhook_url_how": "Comment?",
+        "github_webhook_accent_cli_1": "Vous devez avoir une configuration <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> valide pour le crochet au travail.",
+        "github_webhook_accent_cli_2": "Le <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json\">accent.json</a > fichier à la racine de votre projet sera utilisé.",
+        "github_webhook_url": "Assurez-vous d’ajouter le webhook dans les paramètres de votre projet",
+        "webhook_url_how": "Comment obtenir une URL de webhook ?",
+        "events": {
+          "title": "Quels événements souhaitez-vous déclencher ce webhook ?",
+          "options": {
+            "sync": "Synchroniser avec n’importe quelles modifications",
+            "new_conflicts": "Nouvelles chaîne à réviser",
+            "complete_review": "Le projet est revu à 100%"
+          }
+        }
+      }
+    },
+    "project_activities_filter": {
+      "actions": {
+        "conflict_on_corrected": "Conflit sur corrigé",
+        "conflict_on_proposed": "Conflit sur la proposition",
+        "conflict_on_slave": "Conflit sur l’esclave",
+        "correct_all": "Corrigez tout",
+        "correct_conflict": "Corriger le conflit",
+        "batch_correct_conflict": "Corriger les conflits",
+        "document_delete": "Suppression de fichier",
+        "new": "Nouveau",
+        "renew": "Renouveler",
+        "new_comment": "Nouveau commentaire",
+        "remove": "Éliminer",
+        "rollback": "Retour en arriere",
+        "batch_merge": "Ajouter des traductions aux fichiers",
+        "merge": "Ajouter des traductions au fichier",
+        "sync": "Synchroniser le fichier",
+        "batch_sync": "Synchroniser les fichiers",
+        "uncorrect_all": "Ne pas corriger tout",
+        "uncorrect_conflict": "Conflit incorrect",
+        "update": "Mettre à jour la chaîne",
+        "batch_update": "Mettre à jour les chaînes"
+      },
+      "actions_default_option_text": "L’ensemble des Activités",
+      "collaborators_default_option_text": "Tous les collaborateurs",
+      "versions_default_option_text": "Toutes les versions",
+      "only_important_activities_text": "Seules les activités importantes"
+    },
+    "project_activities_list": {
+      "title": "Activités",
+      "empty_activities_text": "Aucune activité trouvée"
+    },
+    "project_activities_list_item": {
+      "stats_label_text": "Activités réalisées :",
+      "stats_text": {
+        "add_to_version": "Chaînes versionnées",
+        "version_new": "Chaînes versionnées",
+        "merge_on_corrected": "Chaîne traduite",
+        "merge_on_proposed": "Chaîne traduite",
+        "merge_on_proposed_force": "Chaîne traduite (force)",
+        "merge_on_corrected_force": "Chaîne traduite (force)",
+        "conflict_on_proposed": "Nouveau conflit",
+        "conflict_on_corrected": "Nouveau conflit",
+        "conflict_on_slave": "Nouveau conflit reflété dans une autre langue",
+        "correct_conflict": "Chaînes marquées comme vérifiées",
+        "uncorrect_conflict": "Chaînes marquées comme non vérifiées",
+        "update": "Chaîne mise à jour",
+        "new": "Nouvelle chaîne",
+        "renew": "Renouveler la chaîne",
+        "remove": "Supprimer la chaîne",
+        "merge": "Ajouter des traductions aux fichiers",
+        "sync": "Synchroniser les fichiers",
+        "update_proposed": "Mettre à jour la référence du texte importé :"
+      },
+      "action_text": {
+        "add_to_version": "a gelé la chaîne dans une version :",
+        "version_new": "ajouté la chaîne à la version :",
+        "create_version": "créé une nouvelle version :",
+        "remove": "supprimé la chaîne :",
+        "renew": "ajouté la chaîne précédemment supprimée :",
+        "new": "a ajouté la chaîne :",
+        "conflict_on_corrected": "la dernière activité de synchronisation a créé un conflit :",
+        "conflict_on_proposed": "la dernière activité de synchronisation a créé un conflit :",
+        "conflict_on_slave": "la dernière activité de synchronisation a créé un conflit reflété dans une autre langue :",
+        "correct_all": "a marqué toutes les chaînes comme révisées",
+        "correct_conflict": "a marqué une chaîne comme révisée:",
+        "batch_correct_conflict": "a marqué plusieurs chaînes comme examinées :",
+        "document_delete": "supprimé un fichier :",
+        "batch_merge": "traductions ajoutées pour les fichiers :",
+        "merge": "traductions ajoutées pour un fichier :",
+        "merge_on_corrected": "les derniers ajouts de traductions ont modifié une chaîne :",
+        "merge_on_proposed": "les derniers ajouts de traductions ont modifié une chaîne :",
+        "merge_on_corrected_force": "les derniers ajouts de traductions (force) ont modifié une chaîne :",
+        "merge_on_proposed_force": "les derniers ajouts de traductions (force) ont modifié une chaîne :",
+        "new_comment": "a ajouté un nouveau commentaire :",
+        "new_slave": "ajouté une nouvelle langue",
+        "rollback": "annulé une opération :",
+        "sync": "synchronisé un fichier :",
+        "batch_sync": "fichiers synchronisés :",
+        "uncorrect_all": "remettre toutes les chaînes à révisée",
+        "uncorrect_conflict": "remettre une chaîne à révisée:",
+        "update": "mis à jour la chaîne :",
+        "batch_update": "mis à jour plusieurs chaînes :",
+        "update_proposed": "mis à jour la référence de texte téléchargé :"
+      },
+      "label_text": {
+        "conflict_on_corrected": "Le texte a été déplacé en révision et est maintenant :",
+        "conflict_on_proposed": "Le texte est toujours en révision et est maintenant :",
+        "conflict_on_slave": "Le texte a été déplacé en révision et est maintenant :"
+      }
+    },
+    "project_comments_list": {
+      "no_comments": "Aucun commentaire sur les chaînes pour le moment. Vous pouvez commenter n’importe quelle chaîne pour fournir un contexte à un traducteur ou pour discuter du contenu de la chaîne.",
+      "title": "Conversation"
+    },
+    "project_create_form": {
+      "title": "Nouveau projet",
+      "error": "Projet invalide",
+      "cancel_button": "Annuler",
+      "language_label": "Langue principale :",
+      "language_search_placeholder": "Recherche…",
+      "name_label": "Nom:",
+      "save_button": "Créer"
+    },
+    "revision_update_form": {
+      "title": "Modifier la langue",
+      "error": "Langue invalide",
+      "cancel_button": "Annuler",
+      "name_label": "Nom:",
+      "slug_label": "Limace:",
+      "save_button": "Mettre à jour"
+    },
+    "version_create_form": {
+      "title": "Nouvelle version",
+      "text": "La création d’une version crée un instantané de toutes les chaînes actives (révisées ou non) pour être visible avec la certitude qu’il restera intact. Cela peut être utile lors de la maintenance de plusieurs versions de la même application.",
+      "error": "Version invalide",
+      "cancel_button": "Annuler",
+      "name_label": "Nom:",
+      "tag_label": "Étiqueter:",
+      "save_button": "Créer"
+    },
+    "version_update_form": {
+      "title": "Version de mise à jour",
+      "error": "Version invalide",
+      "cancel_button": "Annuler",
+      "name_label": "Nom:",
+      "tag_label": "Étiqueter:",
+      "save_button": "Mettre à jour"
+    },
+    "page_title": {
+      "versions": "Versions",
+      "comments": "Conversation",
+      "collaborators": "Collaborateurs",
+      "manage_languages": "Langues",
+      "files": "Fichiers",
+      "project_edit": "Paramètres",
+      "activities": "Activités",
+      "lint_translations": "Vérifications"
+    },
+    "project_file_operations": {
+      "sync": "Synchroniser",
+      "merge": "Ajouter des traductions",
+      "export": "Exportation",
+      "translate": "Traduire",
+      "document_format": "Format",
+      "preview_title": "Aperçu",
+      "preview_text": "Vous devez choisir un fichier, puis cliquer sur le bouton Aperçu.",
+      "export_jipt": "Traduction JIPT"
+    },
+    "project_navigation": {
+      "engage": "Engager",
+      "revise": "Réviser",
+      "manage": "Gérer",
+      "activities_link_title": "Activités",
+      "conversation_link_title": "Conversation",
+      "collaborators_link_title": "Collaborateurs",
+      "manage_languages_link_title": "Langues",
+      "translations_link_title": "Chaînes",
+      "lint_link_title": "Vérifier",
+      "conflicts_link_title": "Réviser",
+      "dashboard_link_title": "Tableau de bord",
+      "settings_link_title": "Paramètres",
+      "sync_link_title": "Fichiers",
+      "versions_link_title": "Versions"
+    },
+    "lint_translations_page": {
+      "empty_text": "Aucune vérification des avertissements ou des erreurs. Vous êtes tous bons !"
+    },
+    "project_manage_languages": {
+      "create_error": "La langue ne peut pas être ajoutée pour le moment. Réessayez plus tard.",
+      "conflicts_explain_title": "Sur les conflits",
+      "conflicts_explain_text": "Chaque ajout ou suppression de chaîne sera reflété dans la langue. Lorsqu’un texte change dans la révision principale, la chaîne dans la langue sera marquée comme étant en cours de révision.",
+      "sync_explain_title": "Sur synchronisation",
+      "sync_explain_text": "La langue principale sera la source par défaut lors de la synchronisation d’un fichier. Les autres langues ne sont jamais \"synchronisées\", elles suivent simplement la langue principale.",
+      "add_translations_explain_title": "Sur ajouter des traductions",
+      "add_translations_explain_text": "Toutes les langues peuvent avoir des chaînes \"fusionnées\" en y ajoutant des traductions. La résolution des conflits fonctionnera de la même manière mais n’ajoutera ni ne supprimera jamais de chaînes.",
+      "main_text": "Vous pouvez ajouter une nouvelle langue qui suivra la langue principale.",
+      "title": "Gérer les langues"
+    },
+    "projects_filters": {
+      "searching_for": "À la recherche de:",
+      "input_placeholder_text": "Rechercher un projet",
+      "new_project": "Nouveau projet"
+    },
+    "recent_projects_list": {
+      "title": "Les projets récents:"
+    },
+    "projects_list": {
+      "last_synced_at_label": "Dernière synchronisation :",
+      "last_activity_at_label": "Dernière Activité:",
+      "never_synced": "Le projet n’a jamais été synchronisé",
+      "no_projects": "Vous n’avez pas encore de projets",
+      "no_projects_query": "Aucun projet trouvé pour : {query}",
+      "maybe_create_one": "Créez votre premier projet ici →"
+    },
+    "related_translations_list": {
+      "comments_label": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} other {# commentaires}}",
+      "conflicted_label": "à réviser",
+      "master_label": "Principale",
+      "save_button": "Sauver",
+      "last_updated_label": "Dernière mise à jour:",
+      "new_language_link": "Nouveau langage",
+      "no_related_translations": "Pas encore de traductions. Vous devez ajouter une autre langue à votre projet."
+    },
+    "removed_translation_edit": {
+      "cant_edit": "Cette chaîne ne peut pas être modifiée car elle a été supprimée."
+    },
+    "project_manage_languages_create_form": {
+      "default_null": "Initialiser le langage avec des chaînes vides",
+      "language_search_placeholder": "Recherche…",
+      "save_button": "Ajouter une langue"
+    },
+    "project_manage_languages_overview": {
+      "list_languages": "Langues :",
+      "revision_inserted_at_label": "Créé",
+      "master_badge": "principale",
+      "delete_revision_confirm": "Voulez-vous vraiment supprimer cette langue de votre projet ? Cette action ne peut pas être annulée.",
+      "delete_revision_button": "Supprimer cette langue",
+      "promote_revision_master_confirm": "Voulez-vous vraiment utiliser cette langue comme langue principale de votre projet ?",
+      "promote_revision_master_button": "Utiliser comme principale"
+    },
+    "revision_export_options": {
+      "default_format": "Format par défaut",
+      "default_version": "Version par défaut",
+      "orders": {
+        "az": "Ordre alphabétique",
+        "original": "Ordre originale"
+      },
+      "advanced_filters_title": "Filtres de traduction",
+      "advanced_filters": {
+        "empty": "Le texte est vide (\"\" ou valeur nulle)",
+        "added_last_sync": "Ajoutées à la dernière synchronisation",
+        "conflicted": "À réviser"
+      },
+      "save_button": "Exportation"
+    },
+    "revision_navigation": {
+      "documents_link_title": "Fichiers",
+      "merge_link_title": "Ajouter des traductions",
+      "review_link_title": "Réviser",
+      "translations_link_title": "Toutes les chaînes"
+    },
+    "time_ago_in_words_tag": {
+      "formatted_date_time_format": "yyyy-MM-dd'T'HH:mm:ss",
+      "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
+    },
+    "translation_activities_list_item": {
+      "action_text": {
+        "add_to_version": "a gelé la chaîne dans une version :",
+        "version_new": "ajouté la chaîne à la version :",
+        "create_version": "créé une nouvelle version",
+        "conflict_on_corrected": "la dernière activité de synchronisation a créé un conflit",
+        "conflict_on_proposed": "la dernière activité de synchronisation a créé un conflit",
+        "conflict_on_slave": "la dernière activité de synchronisation a créé un conflit reflété dans une autre langue",
+        "correct_conflict": "a marqué la chaîne comme révisée",
+        "merge_on_corrected": "les dernières traductions les ajouts ont modifié la chaîne",
+        "merge_on_proposed": "les dernières traductions les ajouts ont modifié la chaîne",
+        "merge_on_corrected_force": "les derniers ajouts de traductions (force) ont modifié la chaîne :",
+        "merge_on_proposed_force": "les derniers ajouts de traductions (force) ont modifié la chaîne :",
+        "new": "ajouté la chaîne",
+        "renew": "rajouté la chaîne",
+        "new_comment": "a ajouté un nouveau commentaire :",
+        "remove": "supprimé la chaîne",
+        "rollback": "annulé une opération",
+        "uncorrect_conflict": "remettre la chaîne à révisée",
+        "update": "mis à jour le texte",
+        "update_proposed": "mis à jour la référence de texte téléchargée"
+      },
+      "label_text": {
+        "conflict_on_corrected": "Le texte a été déplacé en révision et est maintenant :",
+        "conflict_on_proposed": "Le texte est toujours en révision et est maintenant :",
+        "conflict_on_slave": "Le texte a été déplacé en révision et est maintenant :"
+      }
+    },
+    "translation_comment_delete": {
+      "delete": "Supprimer",
+      "delete_comment_confirm": "Êtes-vous sûr de vouloir supprimer ce commentaire? Cette action ne peut pas être annulée."
+    },
+    "translation_comment_form": {
+      "comment_button": "Commenter",
+      "comment_placeholder": "Laissez un commentaire…",
+      "submit_error": "Votre soumission de commentaire n’a pas réussi, réessayez plus tard."
+    },
+    "translation_comments_list": {
+      "no_comments": "Sans commentaire"
+    },
+    "translation_edit": {
+      "source_translation": "Voir la dernière version de la chaîne",
+      "correct_button": "Mettre à jour et marquer comme révisé",
+      "previous_text": "Texte précédent :",
+      "uncorrect_button": "Remettre à révisée",
+      "uneditable": "Le texte n’est pas modifiable car il a été marqué comme révisé",
+      "update_text": "Mettre à jour le texte",
+      "form": {
+        "true_option": "vrai",
+        "false_option": "faux",
+        "boolean_type_notice": "Le texte doit être vrai ou faux",
+        "integer_type_notice": "Le texte a été défini avec une valeur entière.",
+        "float_type_notice": "Le texte a été défini avec une valeur flottante.",
+        "empty_type_notice": "Le texte a été défini sur une chaîne vide",
+        "empty_type_placeholder": "Texte vide",
+        "null_type_notice": "Le texte a été défini sur null",
+        "file_comment": {
+          "title": "Commentaire de fichier"
+        },
+        "placeholders": {
+          "title": "Espaces réservés",
+          "text": "Ces expressions personnalisées marquent des chaînes spéciales qui seront remplacées par des valeurs dynamiques. Vous n’avez pas à les réviser ou à les traduire."
+        }
+      },
+      "lint_message": {
+        "arrow": "→",
+        "replace": "Remplacer",
+        "checks": {
+          "PLACEHOLDER_COUNT": "Le nombre d’espaces réservés ne correspond pas à la chaîne principale",
+          "TRAILING_SPACE": "La chaîne contient un espace de fin",
+          "LEADING_SPACES": "La chaîne contient des espaces de début",
+          "DOUBLE_SPACES": "La chaîne contient des espaces doubles",
+          "APOSTROPHE_AS_SINGLE_QUOTE": "Un guillemet simple a été utilisé à la place d’une apostrophe",
+          "FIRST_LETTER_CASE": "La première lettre de traduction ne correspond pas à la casse du master",
+          "THREE_DOTS_ELLIPSIS": "La chaîne contient trois points au lieu de points de suspension",
+          "SAME_TRAILING_CHARACTER": "La chaîne ne correspond pas au caractère de fin de master",
+          "URL_COUNT": "Le numéro d’URL ne correspond pas à la chaîne principale"
+        }
+      }
+    },
+    "translation_navigation": {
+      "activities_link_title": "Activités",
+      "comments_link_title": "{count, plural, =0 {Conversation} other {Conversation (#)}}",
+      "edit_link_title": "Éditer",
+      "merge_link_title": "Ajouter des traductions",
+      "related_translations_link_title": "Traductions"
+    },
+    "translation_splash_title": {
+      "plural_label": "pluriel",
+      "conflicted_label": "à réviser",
+      "master_label": "Principale",
+      "last_updated_label": "Dernière mise à jour:",
+      "removed_label": "Cette chaîne a été supprimée {removedAt}"
+    },
+    "translations_filter": {
+      "advanced_filters_button": "Filtres avancés",
+      "input_placeholder_text": "Rechercher une chaîne",
+      "documents_label": "Filtrer à partir du document :",
+      "document_default_option_text": "Tous les documents",
+      "version_default_option_text": "Dernière version",
+      "total_entries_count": "{count, plural, =0 {Aucune chaîne trouvée} =1 {1 chaîne trouvée} other {# chaînes trouvées}}",
+      "advanced_filters_title": "Filtres avancés",
+      "advanced_filters": {
+        "empty": "Le texte est vide (\"\" ou valeur nulle)",
+        "not_empty": "Le texte n’est pas vide",
+        "added_last_sync": "Ajoutées à la dernière synchronisation",
+        "commented_on": "Chaînes avec commentaires",
+        "conflicted": "À réviser"
+      }
+    },
+    "translations_list": {
+      "comments_count": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} other {# commentaires}}",
+      "save": "Sauver",
+      "empty_text": "Texte vide",
+      "in_review_label": "à réviser",
+      "in_review_tooltip": "Voir à réviser",
+      "lint_messages_label": "{count, plural, =0 {Aucun avertissement de vérification} =1 {1 avertissement de vérification} other {# avertissement de vérification}}",
+      "last_updated_label": "Dernière mise à jour:",
+      "maybe_sync_before": "Essayez peut-être de",
+      "maybe_sync_link": "synchroniser certains fichiers →",
+      "no_translations": "Il semble qu’aucune chaîne n’ait été ajoutée pour votre projet.",
+      "no_translations_query": "Aucune chaîne trouvée pour : {query}",
+      "no_translations_filters": "Aucune chaîne trouvée pour les filtres donnés"
+    },
+    "welcome_project": {
+      "welcome": "Bienvenue!",
+      "welcome_translations": "Bienvenue Bienvenido 환영 欢迎 тавтай морилно уу Welkom Tervetuloa",
+      "first_step": "Premiers pas",
+      "after_steps": "Après cela, vous pourrez",
+      "sync_file": "Synchroniser un nouveau fichier",
+      "sync_file_text": "Ajoutez des chaînes à partir de plusieurs formats de fichiers pour les examiner",
+      "manage_languages": "Ajouter des langues",
+      "manage_languages_text": "Les langues cibles suivent les chaînes et les conflits de votre langue principale",
+      "add_collaborator": "Ajouter un collaborateur",
+      "add_collaborator_text": "Traducteurs, développeurs, etc.",
+      "api_token": "Obtenir un jeton API",
+      "api_token_text": "Interagissez avec l’API de votre projet",
+      "start_review": "Commencez à réviser et à traduire",
+      "export": "Exporter le fichier corrigé",
+      "help": "Aider?"
+    }
+  },
+  "general": {
+    "application_name": "Accent",
+    "company_name": "Mirego",
+    "logout_button": "Se déconnecter",
+    "roles": {
+      "ADMIN": "Administrateur",
+      "DEVELOPER": "Développeur",
+      "OWNER": "Propriétaire",
+      "BOT": "Jeton d’API",
+      "REVIEWER": "Traducteur"
+    },
+    "integration_services": {
+      "DISCORD": "Discord",
+      "GITHUB": "GitHub",
+      "SLACK": "Slack",
+      "MICROSOFT": "Microsoft"
+    },
+    "search_input_placeholder_text": "Rechercher une chaîne…"
+  },
+  "pods": {
+    "login": {
+      "title": "Identifiez-vous ou inscrivez-vous"
+    },
+    "error": {
+      "not_found": {
+        "status": "404",
+        "title": "Pas trouvé",
+        "text": "Cette page n’existe pas."
+      },
+      "unauthorized": {
+        "status": "401",
+        "title": "Non autorisé",
+        "text": "Vous n’êtes pas autorisé à voir cette ressource."
+      },
+      "internal_error": {
+        "status": "500",
+        "title": "Erreur interne du serveur",
+        "text": "Quelque chose de mal s’est produit et quelqu’un a été averti."
+      }
+    },
+    "document": {
+      "sync": {
+        "flash_messages": {
+          "create_error": "Le document n’a pas pu être synchronisé avec le fichier téléchargé",
+          "create_success": "Le document a été synchronisé avec succès"
+        }
+      },
+      "machine_translations": {
+        "flash_messages": {
+          "translate_error": "Le document n’a pas pu être traduit avec le fichier téléchargé. Vérifiez que le format est valide."
+        }
+      },
+      "merge": {
+        "flash_messages": {
+          "create_error": "Le document n’a pas pu être téléchargé avec le fichier téléchargé",
+          "create_success": "Le document a été téléchargé avec succès"
+        }
+      },
+      "index": {
+        "flash_messages": {
+          "update_error": "Le document n’a pas pu être mis à jour",
+          "update_success": "Le document a été mis à jour avec succès",
+          "delete_error": "Le document n’a pas pu être supprimé du projet",
+          "delete_success": "Le document a été supprimé du projet avec succès"
+        }
+      }
+    },
+    "new_project": {
+      "title": "Créer un nouveau projet"
+    },
+    "project": {
+      "loading_content": "Chargement de votre projet…",
+      "index": {
+        "loading_content": "Récupération du tableau de bord…",
+        "flash_messages": {
+          "revision_correct_success": "Toutes les chaînes de la langue ont été marquées comme révisées",
+          "revision_correct_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
+          "revision_uncorrect_success": "Toutes les chaînes de la langue ont été marquées pour être révisées",
+          "revision_uncorrect_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue à examiner"
+        }
+      },
+      "activities": {
+        "show": {
+          "loading_activities": "Récupération des activités…",
+          "loading_content": "Récupération des détails de l’activité…"
+        },
+        "flash_messages": {
+          "rollback_success": "L’activité a été annulée avec succès",
+          "rollback_error": "L’activité n’a pas pu être annulée"
+        }
+      },
+      "translations": {
+        "loading_content": "Recherche des chaînes…"
+      },
+      "conflicts": {
+        "loading_content": "Recherche des chaînes à réviser…",
+        "flash_messages": {
+          "revision_correct_success": "Toutes les chaînes de la langue ont été marquées comme révisées",
+          "revision_correct_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
+          "correct_error": "Impossible de marquer la chaîne comme vérifiée",
+          "correct_success": "La chaîne a été marquée comme révisée avec succès"
+        }
+      },
+      "edit": {
+        "title": "Paramètres",
+        "loading_content": "Récupération des paramètres du projet…",
+        "flash_messages": {
+          "collaborator_add_error": "Le collaborateur n’a pas pu être ajouté",
+          "collaborator_add_success": "Le collaborateur a été ajouté avec succès",
+          "collaborator_remove_error": "Le collaborateur n’a pas pu être supprimé",
+          "collaborator_remove_success": "Le collaborateur a été supprimé avec succès",
+          "collaborator_update_error": "Le collaborateur n’a pas pu être mis à jour",
+          "collaborator_update_success": "Le collaborateur a été mis à jour avec succès",
+          "integration_add_error": "L’intégration n’a pas pu être ajoutée",
+          "integration_add_success": "L’intégration a été ajoutée avec succès",
+          "integration_update_error": "L’intégration n’a pas pu être mise à jour",
+          "integration_update_success": "L’intégration a été mise à jour avec succès",
+          "integration_remove_error": "L’intégration n’a pas pu être supprimée",
+          "integration_remove_success": "L’intégration a été supprimée avec succès",
+          "update_error": "Le projet n’a pas pu être mis à jour",
+          "update_success": "Le projet a été mis à jour avec succès",
+          "delete_error": "Le projet n’a pas pu être supprimé",
+          "delete_success": "Le projet a été supprimé avec succès"
+        },
+        "badges": {
+          "loading_content": "Récupération des badges du projet…"
+        },
+        "api_token": {
+          "loading_content": "Récupération des paramètres d’API du projet…",
+          "api_token_add_success": "Le jeton d’API a été créé avec succès",
+          "api_token_add_error": "Le jeton d’API n’a pas pu être créé",
+          "api_token_revoke_success": "Le jeton d’API a été révoqué avec succès",
+          "api_token_revoke_error": "Le jeton d’API n’a pas pu être révoqué"
+        },
+        "jipt": {
+          "loading_content": "Récupération des paramètres de traduction JIPT du projet…"
+        },
+        "service_integrations": {
+          "loading_content": "Récupération du service et des intégrations du projet…"
+        }
+      },
+      "collaborators": {
+        "loading_content": "Récupération des collaborateurs du projet…"
+      },
+      "export": {
+        "loading_content": "Rendu de l’exportation de la langue"
+      },
+      "files": {
+        "loading_content": "Récupération des fichiers…",
+        "title": "Fichiers"
+      },
+      "versions": {
+        "loading_content": "Récupération des versions…",
+        "title": "Versions",
+        "export": {
+          "empty_documents": "Aucun document n’a été trouvé pour cette version"
+        }
+      },
+      "manage_languages": {
+        "loading_content": "Récupération des langues…",
+        "flash_messages": {
+          "add_revision_failure": "La nouvelle langue n’a pas pu être créée",
+          "add_revision_success": "La nouvelle langue a été créée avec succès",
+          "delete_revision_failure": "La langue n’a pas pu être supprimée",
+          "delete_revision_success": "La langue a été supprimée avec succès",
+          "promote_master_revision_failure": "La langue n’a pas pu être promue en tant que principal",
+          "promote_master_revision_success": "La langue a été promue comme principal avec succès"
+        }
+      },
+      "comments": {
+        "flash_messages": {
+          "delete_error": "Le commentaire n’a pas pu être supprimé",
+          "delete_success": "Le commentaire a été supprimé avec succès"
+        }
+      },
+      "lint_translations": {
+        "loading_content": "Récupération des règles de vérifications…",
+        "header_link": "Voir toutes les règles de vérifications →"
+      }
+    },
+    "projects": {
+      "loading_content": "Récupération de vos projets…"
+    },
+    "versions": {
+      "new": {
+        "flash_messages": {
+          "create_error": "La version n’a pas pu être créée",
+          "create_success": "La version a été créée avec succès"
+        }
+      },
+      "edit": {
+        "flash_messages": {
+          "update_error": "La version n’a pas pu être mise à jour",
+          "update_success": "La version a été mise à jour avec succès"
+        }
+      }
+    },
+    "translation": {
+      "edit": {
+        "flash_messages": {
+          "correct_error": "Impossible de marquer la chaîne comme vérifiée",
+          "correct_success": "La chaîne a été marquée comme révisée avec succès",
+          "uncorrect_error": "La chaîne n’a pas pu être remise à l’examen",
+          "uncorrect_success": "La chaîne a été remise à réviser avec succès",
+          "update_error": "La chaîne n’a pas pu être mise à jour",
+          "update_success": "La chaîne a été mise à jour avec succès"
+        }
+      },
+      "comments": {
+        "loading_content": "Récupération des commentaires…",
+        "flash_messages": {
+          "delete_error": "Le commentaire n’a pas pu être supprimé",
+          "delete_success": "Le commentaire a été supprimé avec succès"
+        }
+      }
+    }
+  }
+}
