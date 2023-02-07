@@ -42,7 +42,8 @@ config :accent, Accent.Repo,
 
 config :accent, Accent.MachineTranslations,
   default_providers_config: %{
-    "google_translate" => %{"key" => get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")}
+    "google_translate" => %{"key" => get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")},
+    "deepl" => %{"key" => get_env("DEEPL_TRANSLATIONS_KEY")}
   }
 
 providers = []
