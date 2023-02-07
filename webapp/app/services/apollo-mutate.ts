@@ -10,16 +10,20 @@ export default class ApolloMutate extends Service {
   apollo: Apollo;
 
   async mutate(args: any) {
-    const {data} = await this.apollo.client.mutate(args);
-    const operationName = Object.keys(data)[0];
+    try {
+      const {data} = await this.apollo.client.mutate(args);
+      const operationName = Object.keys(data)[0];
 
-    if (!data[operationName]?.errors?.length) {
-      data[operationName].errors = null;
+      if (!data[operationName]?.errors?.length) {
+        data[operationName].errors = null;
+
+        return data[operationName];
+      }
 
       return data[operationName];
+    } catch {
+      return {errors: ['internal_server_error'], data: null};
     }
-
-    return data[operationName];
   }
 }
 

@@ -54,6 +54,7 @@ defmodule Accent.Mixfile do
       {:ecto_sql, "~> 3.2"},
       {:ecto_dev_logger, "~> 0.4"},
       {:postgrex, "~> 0.14"},
+      {:cloak_ecto, "~> 1.2"},
 
       # Phoenix data helpers
       {:phoenix_ecto, "~> 4.0"},
@@ -100,7 +101,7 @@ defmodule Accent.Mixfile do
       {:new_relic_agent, "~> 1.27"},
       {:new_relic_absinthe, "~> 0.0"},
       {:telemetry, "~> 1.0", override: true},
-      {:telemetry_ui, path: "../mirego/telemetry_ui"},
+      {:telemetry_ui, "~> 2.0"},
 
       # Mock testing
       {:mox, "~> 0.3", only: :test},

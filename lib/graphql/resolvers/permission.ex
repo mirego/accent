@@ -20,7 +20,7 @@ defmodule Accent.GraphQL.Resolvers.Permission do
     permissions =
       context[:conn].assigns[:current_user].permissions
       |> Map.get(project.id)
-      |> Accent.RoleAbilities.actions_for()
+      |> Accent.RoleAbilities.actions_for(project)
 
     {:ok, permissions}
   end

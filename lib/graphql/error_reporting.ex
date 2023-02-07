@@ -4,8 +4,12 @@ defmodule Accent.GraphQL.ErrorReporting do
   def run(%{result: %{errors: errors}, source: source} = blueprint, _) when not is_nil(errors) do
     Logger.error("""
     #{operation_name(Absinthe.Blueprint.current_operation(blueprint))}
-    Errors: #{inspect(errors)}
-    Source: #{inspect(source)}
+
+    Errors:
+    #{inspect(errors)}
+
+    Source:
+    #{inspect(source)}
     """)
 
     {:ok, blueprint}

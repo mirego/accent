@@ -7,13 +7,12 @@ defmodule Accent.MachineTranslationsController do
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
 
-  plug(Plug.Assign, %{canary_action: :machine_translations_translate_file} when action === :translate_file)
-  plug(Plug.Assign, %{canary_action: :machine_translations_translate_document} when action === :translate_document)
+  plug(Plug.Assign, %{canary_action: :machine_translations_translate})
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
   plug(:fetch_master_revision)
   plug(:load_resource, model: Language, id_name: "language", as: :source_language)
   plug(:load_resource, model: Language, id_name: "to_language_id", as: :target_language)
-  plug(:load_resource, model: Document, id_name: "document_id", as: :document, only: [:machine_translations_translate_document])
+  plug(:load_resource, model: Document, id_name: "document_id", as: :document, only: [:machine_translations_translate])
   plug(:fetch_order when action === :translate_document)
   plug(:fetch_format when action === :translate_document)
   plug(Accent.Plugs.MovementContextParser when action === :translate_file)
@@ -54,10 +53,11 @@ defmodule Accent.MachineTranslationsController do
       |> Enum.map(&Translation.to_langue_entry(&1, nil, true, conn.assigns[:source_language].slug))
 
     entries =
-      Accent.MachineTranslations.translate_entries(
+      Accent.MachineTranslations.translate(
         entries,
         conn.assigns[:source_language],
-        conn.assigns[:target_language]
+        conn.assigns[:target_language],
+        conn.assigns[:project].machine_translations_config
       )
 
     %{render: render} =
@@ -97,10 +97,11 @@ defmodule Accent.MachineTranslationsController do
   """
   def translate_file(conn, _params) do
     entries =
-      Accent.MachineTranslations.translate_entries(
+      Accent.MachineTranslations.translate(
         conn.assigns[:movement_context].entries,
         conn.assigns[:source_language],
-        conn.assigns[:target_language]
+        conn.assigns[:target_language],
+        conn.assigns[:project].machine_translations_config
       )
 
     %{render: render} =

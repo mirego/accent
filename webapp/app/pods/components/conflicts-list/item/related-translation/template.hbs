@@ -22,7 +22,7 @@
       {{inline-svg "assets/eye.svg" local-class="item-actions-icon"}}
     </LinkTo>
 
-    {{#if (get @permissions "machine_translations_translate_text")}}
+    {{#if (get @permissions "machine_translations_translate")}}
       <button
         title={{t "components.conflict_item.translate_tooltip"}}
         class="tooltip tooltip--top"

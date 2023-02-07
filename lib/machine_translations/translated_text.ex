@@ -1,3 +1,3 @@
 defmodule Accent.MachineTranslations.TranslatedText do
-  defstruct id: nil, text: nil
+  defstruct text: nil
 end

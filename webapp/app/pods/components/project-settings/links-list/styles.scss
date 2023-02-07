@@ -60,6 +60,7 @@
   opacity: 0.6;
   stroke: var(--color-black);
 
+  &.link-icon--machine-translations path:nth-child(2),
   &.link-icon--jipt path:nth-child(2),
   &.link-icon--integrations circle:nth-child(3),
   &.link-icon--badges path:nth-child(2) {

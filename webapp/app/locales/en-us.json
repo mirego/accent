@@ -368,7 +368,17 @@
         "manage_languages": "Manage languages",
         "manage_languages_text": "Add/remove languages translated in the project",
         "jipt": "Just In Place Translations",
-        "jipt_text": "Live translation on any applications, with builtin Javascript library"
+        "jipt_text": "Live translation on any applications, with builtin Javascript library",
+        "machine_translations": "Machine translations",
+        "machine_translations_text": "Configure an external service to translate languages automatically"
+      },
+      "machine_translations": {
+        "title": "Machine translations",
+        "text": "Add a valid configuration to enable translating directly in the Review page. You can also translate your project’s file as well as arbirtary files that you upload on Accent.",
+        "use_platform_label": "Use the platform config if available",
+        "config_key_help_present": "Config key has been set but the value will never be exposed via the API.",
+        "config_key_help_not_present": "Once saved, the config key will never be shown.",
+        "config_key_placeholder": "Paste the config key here…"
       },
       "delete_form": {
         "title": "Danger zone",
@@ -868,6 +878,10 @@
       "BOT": "API Token",
       "REVIEWER": "Reviewer"
     },
+    "machine_translations_providers": {
+      "google_translate": "Google Translate",
+      "deepl": "DeepL"
+    },
     "integration_services": {
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
@@ -976,6 +990,8 @@
           "integration_update_success": "The integration has been updated with success",
           "integration_remove_error": "The integration could not be removed",
           "integration_remove_success": "The integration has been removed with success",
+          "machine_translations_config_error": "The machine translations config could not be saved",
+          "machine_translations_config_success": "The machine translations config has been saved with success",
           "update_error": "The project could not be updated",
           "update_success": "The project has been updated with success",
           "delete_error": "The project could not be deleted",
@@ -993,6 +1009,9 @@
         },
         "jipt": {
           "loading_content": "Fetching project’s Just In Place Translations settings…"
+        },
+        "machine_translations": {
+          "loading_content": "Fetching project’s machine translations settings…"
         },
         "service_integrations": {
           "loading_content": "Fetching project’s service & integrations…"

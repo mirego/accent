@@ -12,8 +12,13 @@ defmodule Accent.GraphQL.Types.Project do
   end
 
   object :project_translated_text do
-    field(:id, non_null(:id))
     field(:text, :string)
+  end
+
+  object :machine_translations_config do
+    field(:provider, non_null(:string))
+    field(:use_platform, non_null(:boolean))
+    field(:use_config_key, non_null(:boolean))
   end
 
   object :project do
@@ -27,6 +32,21 @@ defmodule Accent.GraphQL.Types.Project do
     field(:conflicts_count, non_null(:integer))
     field(:reviewed_count, non_null(:integer))
 
+    field(:machine_translations_config, :machine_translations_config,
+      resolve: fn project, _, _ ->
+        if project.machine_translations_config do
+          {:ok,
+           %{
+             provider: project.machine_translations_config["provider"],
+             use_platform: project.machine_translations_config["use_platform"],
+             use_config_key: not is_nil(project.machine_translations_config["config"]["key"])
+           }}
+        else
+          {:ok, nil}
+        end
+      end
+    )
+
     field :last_activity, :activity do
       arg(:action, :string)
       resolve(&Accent.GraphQL.Resolvers.Project.last_activity/3)
@@ -34,11 +54,11 @@ defmodule Accent.GraphQL.Types.Project do
 
     field(:is_file_operations_locked, non_null(:boolean), resolve: field_alias(:locked_file_operations))
 
-    field :translated_text, list_of(non_null(:project_translated_text)) do
+    field :translated_text, :project_translated_text do
       arg(:text, non_null(:string))
       arg(:source_language_slug, non_null(:string))
       arg(:target_language_slug, non_null(:string))
-      resolve(project_authorize(:machine_translations_translate_text, &Accent.GraphQL.Resolvers.MachineTranslation.translate_text/3))
+      resolve(project_authorize(:machine_translations_translate, &Accent.GraphQL.Resolvers.MachineTranslation.translate_text/3))
     end
 
     field :lint_translations, list_of(non_null(:lint_translation)) do

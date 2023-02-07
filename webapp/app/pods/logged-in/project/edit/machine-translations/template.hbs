@@ -1,0 +1,11 @@
+{{#if this.showLoading}}
+  <LoadingContent @label={{t "pods.project.edit.machine_translations.loading_content"}} />
+{{else}}
+  <ProjectSettings::BackLink @project={{this.project}} />
+
+  <ProjectSettings::MachineTranslations
+    @project={{this.project}}
+    @onSave={{fn this.saveMachineTranslationsConfig}}
+    @onDelete={{fn this.deleteMachineTranslationsConfig}}
+  />
+{{/if}}

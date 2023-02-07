@@ -20,7 +20,7 @@ defmodule Accent.APITokenManager do
         token: Accent.Utils.SecureRandom.urlsafe_base64(70)
       }
       |> cast(params, [:custom_permissions])
-      |> validate_subset(:custom_permissions, Enum.map(RoleAbilities.actions_for(:all), &to_string/1))
+      |> validate_subset(:custom_permissions, Enum.map(RoleAbilities.actions_for(:all, project), &to_string/1))
       |> cast_assoc(:user,
         with: fn changeset, params ->
           changeset

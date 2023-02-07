@@ -84,8 +84,8 @@ export default class ConflictsController extends Controller {
       },
     });
 
-    if (data.viewer?.project?.translatedText?.[0]) {
-      return data.viewer.project.translatedText[0];
+    if (data.viewer?.project?.translatedText) {
+      return data.viewer.project.translatedText;
     } else {
       return {text: null};
     }

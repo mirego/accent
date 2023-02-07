@@ -1,0 +1,75 @@
+<div local-class="project-settings-form">
+  <ProjectSettings::Title
+    @title={{t "components.project_settings.machine_translations.title"}}
+  />
+
+  <p local-class="text">
+    {{t "components.project_settings.machine_translations.text"}}
+  </p>
+
+  <div local-class="form">
+    <div local-class="provider">
+      {{inline-svg this.logoProvider local-class="logo"}}
+
+      <AccSelect
+        local-class="select"
+        @searchEnabled={{false}}
+        @selected={{this.providerValue}}
+        @renderInPlace={{true}}
+        @options={{this.mappedProviders}}
+        @onchange={{fn this.setProvider}}
+      />
+    <label local-class="platform-checkbox">
+
+    <input
+      value={{this.usePlatform}}
+      type="checkbox"
+      checked={{this.usePlatform}}
+      {{on "change" (fn this.onUsePlatformChange)}}
+    >
+      {{t "components.project_settings.machine_translations.use_platform_label"}}
+    </label>
+
+    </div>
+
+    {{#unless this.usePlatform}}
+
+    {{#if @project.machineTranslationsConfig.useConfigKey}}
+      <p local-class="config-key-help">
+        {{t "components.project_settings.machine_translations.config_key_help_present"}}
+      </p>
+    {{else}}
+      <p local-class="config-key-help">
+        {{t "components.project_settings.machine_translations.config_key_help_not_present"}}
+      </p>
+    {{/if}}
+
+    <textarea
+      placeholder={{if @project.machineTranslationsConfig.useConfigKey "••••••••••••••" (t "components.project_settings.machine_translations.config_key_placeholder")}}
+      local-class="textInput"
+      rows={{if @project.machineTranslationsConfig.useConfigKey 1 8}}
+      {{on "change" (fn this.onConfigKeyChange)}}
+    >{{this.configKey}}</textarea>
+    {{/unless}}
+  </div>
+
+    <div local-class="actions">
+      {{#if @project.machineTranslationsConfig}}
+        <AsyncButton
+          @onClick={{perform this.remove}}
+          @loading={{this.isRemoving}}
+          class="button button--red button--borderless"
+        >
+          {{t "components.project_settings.integrations.delete"}}
+        </AsyncButton>
+      {{/if}}
+
+      <AsyncButton
+        @onClick={{perform this.submit}}
+        @loading={{this.isSubmitting}}
+        class="button button--filled"
+      >
+        {{t "components.project_settings.integrations.save"}}
+      </AsyncButton>
+  </div>
+</div>

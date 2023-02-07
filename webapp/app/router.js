@@ -31,6 +31,7 @@ export default Router.map(function () {
         this.route('api-token');
         this.route('service-integrations');
         this.route('jipt');
+        this.route('machine-translations');
       });
 
       this.route('collaborators');

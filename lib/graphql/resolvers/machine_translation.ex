@@ -17,7 +17,10 @@ defmodule Accent.GraphQL.Resolvers.MachineTranslation do
     source_language = slug_language(project.id, args.source_language_slug)
     target_language = slug_language(project.id, args.target_language_slug)
 
-    {:ok, MachineTranslations.translate_text(args.text, source_language, target_language)}
+    case MachineTranslations.translate([%{value: args.text}], source_language, target_language, project.machine_translations_config) do
+      [%{value: text}] -> {:ok, %{text: text}}
+      _ -> {:ok, nil}
+    end
   end
 
   defp slug_language(project_id, slug) do

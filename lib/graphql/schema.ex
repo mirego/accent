@@ -56,6 +56,7 @@ defmodule Accent.GraphQL.Schema do
   mutation do
     # Mutation types
     import_types(Accent.GraphQL.Mutations.APIToken)
+    import_types(Accent.GraphQL.Mutations.MachineTranslationsConfig)
     import_types(Accent.GraphQL.Mutations.Translation)
     import_types(Accent.GraphQL.Mutations.Comment)
     import_types(Accent.GraphQL.Mutations.Collaborator)
@@ -67,6 +68,7 @@ defmodule Accent.GraphQL.Schema do
     import_types(Accent.GraphQL.Mutations.Version)
 
     import_fields(:api_token_mutations)
+    import_fields(:machine_translations_config_mutations)
     import_fields(:comment_mutations)
     import_fields(:translation_mutations)
     import_fields(:collaborator_mutations)

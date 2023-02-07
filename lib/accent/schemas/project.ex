@@ -1,6 +1,10 @@
 defmodule Accent.Project do
   use Accent.Schema
 
+  defmodule MachineTranslationsConfig do
+    use Cloak.Ecto.Map, vault: Accent.Vault
+  end
+
   schema "projects" do
     field(:name, :string)
     field(:main_color, :string)
@@ -20,6 +24,8 @@ defmodule Accent.Project do
     has_many(:collaborators, Accent.Collaborator, where: [role: {:in, ["reviewer", "admin", "developer", "owner"]}])
     has_many(:all_collaborators, Accent.Collaborator)
     belongs_to(:language, Accent.Language)
+
+    field :machine_translations_config, MachineTranslationsConfig
 
     timestamps()
   end

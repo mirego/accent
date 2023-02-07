@@ -15,7 +15,6 @@ export default gql`
           sourceLanguageSlug: $sourceLanguageSlug
           targetLanguageSlug: $targetLanguageSlug
         ) {
-          id
           text
         }
       }

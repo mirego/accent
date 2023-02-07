@@ -40,20 +40,10 @@ config :accent, Accent.Repo,
   url: get_env("DATABASE_URL") || "postgres://localhost/accent_development",
   socket_options: if(ecto_ipv6?, do: [:inet6], else: [])
 
-google_translate_provider = {Accent.MachineTranslations.Adapter.GoogleTranslations, [key: get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")]}
-
-translate_list_provider = if get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY"), do: google_translate_provider, else: nil
-
-translate_text_providers = []
-
-translate_text_providers =
-  if get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY"),
-    do: [google_translate_provider | translate_text_providers],
-    else: translate_text_providers
-
 config :accent, Accent.MachineTranslations,
-  translate_list: translate_list_provider,
-  translate_text: translate_text_providers
+  default_providers_config: %{
+    "google_translate" => %{"key" => get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")}
+  }
 
 providers = []
 providers = if get_env("GOOGLE_API_CLIENT_ID"), do: [{:google, {Ueberauth.Strategy.Google, [scope: "email openid"]}} | providers], else: providers

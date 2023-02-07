@@ -30,12 +30,12 @@ defmodule Accent.GraphQL.Helpers.Authorization do
   def project_authorize(action, func, id \\ :id) do
     fn
       project = %Project{}, args, info ->
-        authorize(action, project.id, info, do: func.(project, args, info))
+        authorize(action, project, info, do: func.(project, args, info))
 
       _, args, info ->
         project = Repo.get(Project, args[id]) || %{id: nil}
 
-        authorize(action, project.id, info, do: func.(project, args, info))
+        authorize(action, project, info, do: func.(project, args, info))
     end
   end
 

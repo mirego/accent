@@ -1,8 +1,6 @@
 defmodule Accent.RoleAbilities do
   require Logger
 
-  alias Accent.MachineTranslations
-
   @owner_role "owner"
   @admin_role "admin"
   @bot_role "bot"
@@ -71,6 +69,8 @@ defmodule Accent.RoleAbilities do
     delete_project_integration
     create_version
     update_version
+    save_project_machine_translations_config
+    delete_project_machine_translations_config
   )a ++ @any_actions
 
   @admin_actions ~w(
@@ -87,68 +87,65 @@ defmodule Accent.RoleAbilities do
     delete_project
   )a ++ @developer_actions
 
-  @configurable_actions ~w(machine_translations_translate_document machine_translations_translate_file machine_translations_translate_text)a
+  @actions_with_target ~w(machine_translations_translate)a
 
-  def actions_for(:all), do: add_configurable_actions(@admin_actions, @owner_role)
-  def actions_for({:custom, permissions}), do: permissions
-  def actions_for(@owner_role), do: add_configurable_actions(@admin_actions, @owner_role)
-  def actions_for(@admin_role), do: add_configurable_actions(@admin_actions, @admin_role)
-  def actions_for(@bot_role), do: add_configurable_actions(@bot_actions, @bot_role)
-  def actions_for(@developer_role), do: add_configurable_actions(@developer_actions, @developer_role)
-  def actions_for(@reviewer_role), do: add_configurable_actions(@any_actions, @reviewer_role)
+  def actions_for(role, target)
 
-  def add_configurable_actions(actions, role) do
-    Enum.reduce(@configurable_actions, actions, fn action, actions ->
-      if can?(role, action), do: [action | actions], else: actions
+  def actions_for(:all, target), do: add_actions_with_target(@admin_actions, @owner_role, target)
+  def actions_for({:custom, permissions}, _target), do: permissions
+  def actions_for(@owner_role, target), do: add_actions_with_target(@admin_actions, @owner_role, target)
+  def actions_for(@admin_role, target), do: add_actions_with_target(@admin_actions, @admin_role, target)
+  def actions_for(@bot_role, target), do: add_actions_with_target(@bot_actions, @bot_role, target)
+  def actions_for(@developer_role, target), do: add_actions_with_target(@developer_actions, @developer_role, target)
+  def actions_for(@reviewer_role, target), do: add_actions_with_target(@any_actions, @reviewer_role, target)
+
+  defp add_actions_with_target(actions, role, target) do
+    Enum.reduce(@actions_with_target, actions, fn action, actions ->
+      if can?(role, action, target), do: [action | actions], else: actions
     end)
   end
 
-  def can?(role, :machine_translations_translate_document) when role in [@owner_role, @admin_role, @developer_role] do
-    MachineTranslations.translate_list_enabled?()
+  def can?(role, action, target \\ nil)
+
+  def can?(_role, :machine_translations_translate, nil), do: false
+
+  def can?(_role, :machine_translations_translate, project) do
+    Accent.MachineTranslations.enabled?(project.machine_translations_config)
   end
-
-  def can?(_role, :machine_translations_translate_document), do: false
-
-  def can?(role, :machine_translations_translate_file) when role in [@owner_role, @admin_role, @developer_role] do
-    MachineTranslations.translate_list_enabled?()
-  end
-
-  def can?(_role, :machine_translations_translate_file), do: false
-
-  def can?(role, :machine_translations_translate_text) when role in [@owner_role, @admin_role, @developer_role] do
-    MachineTranslations.translate_text_enabled?()
-  end
-
-  def can?(_role, :machine_translations_translate_text), do: false
 
   # Define abilities function at compile time to remove list lookup at runtime
-  def can?(@owner_role, _action), do: true
+  def can?(@owner_role, _action, _), do: true
 
-  def can?({:custom, permissions}, action) do
+  def can?({:custom, permissions}, action, _) do
     to_string(action) in permissions
   end
 
   for action <- @admin_actions do
-    def can?(@admin_role, unquote(action)), do: true
+    def can?(@admin_role, unquote(action), _), do: true
   end
 
   for action <- @bot_actions do
-    def can?(@bot_role, unquote(action)), do: true
+    def can?(@bot_role, unquote(action), _), do: true
   end
 
   for action <- @developer_actions do
-    def can?(@developer_role, unquote(action)), do: true
+    def can?(@developer_role, unquote(action), _), do: true
   end
 
   for action <- @any_actions do
-    def can?(@reviewer_role, unquote(action)), do: true
+    def can?(@reviewer_role, unquote(action), _), do: true
   end
 
   # Fallback if no permission has been found for the user on the project
-  def can?(nil, _action), do: false
+  def can?(nil, _action, _), do: false
 
-  def can?(role, action) do
+  def can?(role, action, nil) do
     Logger.warn("Unauthorized action: #{action} for #{role}")
+    false
+  end
+
+  def can?(role, action, target) do
+    Logger.warn("Unauthorized action: #{action} for #{role} on #{inspect(target)}")
     false
   end
 end

@@ -22,7 +22,7 @@
     <DocumentsAddButton @project={{this.model.project}} />
   {{/if}}
 
-  {{#if (get this.permissions "machine_translations_translate_file")}}
+  {{#if (get this.permissions "machine_translations_translate")}}
     <DocumentsMachineTranslationsButton @project={{this.model.project}} />
   {{/if}}
 

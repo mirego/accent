@@ -1,0 +1,15 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path
+    d="M4 17l9.21-9.244C14.405 6.306 15 5.054 15 4M1 3.5h15M8.5 1v3M6.234 9c-.877 4.463.712 6.796 4.766 7"
+  />
+  <path stroke-linejoin="round" d="M14 21.87L18.584 12 23 22" />
+  <path stroke-linejoin="bevel" d="M16 18.5h7" />
+</svg>
