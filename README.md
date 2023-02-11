@@ -122,17 +122,18 @@ Accent provides a default value for every required environment variable. This me
 
 ### Production setup
 
-| Variable                                  | Default | Description                                                                                                                |
-| ----------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN` | _none_  | If specified, only authenticated users from this domain name will be able to create new projects.                          |
-| `FORCE_SSL`                               | _false_ | If the app should always be served by https (and wss for websocket)                                                        |
-| `SENTRY_DSN`                              | _none_  | The _secret_ Sentry DSN used to collect API runtime errors                                                                 |
-| `WEBAPP_SENTRY_DSN`                       | _none_  | The _public_ Sentry DSN used to collect Webapp runtime errors                                                              |
-| `CANONICAL_URL`                           | _none_  | The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.      |
-| `STATIC_URL`                              | _none_  | The URL of the app. Default to the CANONICAL_URL value.                                                                    |
-| `WEBAPP_SKIP_SUBRESOURCE_INTEGRITY`       | _none_  | Remove integrity attributes on link and script tag. Useful when using a proxy that compress resources before serving them. |
-| `DATABASE_SSL`                            | _false_ | If SSL should be used to connect to the database                                                                           |
-| `DATABASE_POOL_SIZE`                      | _10_    | The size of the pool used by the database connection module                                                                |
+| Variable                                  | Default                    | Description                                                                                                                |
+| ----------------------------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN` | _none_                     | If specified, only authenticated users from this domain name will be able to create new projects.                          |
+| `FORCE_SSL`                               | _false_                    | If the app should always be served by https (and wss for websocket)                                                        |
+| `SENTRY_DSN`                              | _none_                     | The _secret_ Sentry DSN used to collect API runtime errors                                                                 |
+| `WEBAPP_SENTRY_DSN`                       | _none_                     | The _public_ Sentry DSN used to collect Webapp runtime errors                                                              |
+| `CANONICAL_URL`                           | _none_                     | The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.      |
+| `STATIC_URL`                              | _none_                     | The URL of the app. Default to the CANONICAL_URL value.                                                                    |
+| `WEBAPP_SKIP_SUBRESOURCE_INTEGRITY`       | _none_                     | Remove integrity attributes on link and script tag. Useful when using a proxy that compress resources before serving them. |
+| `DATABASE_SSL`                            | _false_                    | If SSL should be used to connect to the database                                                                           |
+| `DATABASE_POOL_SIZE`                      | _10_                       | The size of the pool used by the database connection module                                                                |
+| `MACHINE_TRANSLATIONS_VAULT_KEY`          | _DEFAULT_UNSAFE_VAULT_KEY_ | The secret key that is used to encrypt machine translations services config key                                            |
 
 ### Authentication setup
 

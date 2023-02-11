@@ -7,15 +7,12 @@ defmodule Accent.Vault do
       Keyword.put(
         config,
         :ciphers,
-        default: {Cloak.Ciphers.AES.GCM, tag: "AES.GCM.V1", key: decode_env!("MACHINE_TRANSLATIONS_VAULT_KEY")}
+        default: {
+          Cloak.Ciphers.AES.GCM,
+          tag: "AES.GCM.V1", key: System.get_env("MACHINE_TRANSLATIONS_VAULT_KEY", "DEFAULT_UNSAFE_VAULT_KEY")
+        }
       )
 
     {:ok, config}
-  end
-
-  defp decode_env!(key_name) do
-    key_name
-    |> System.get_env()
-    |> Base.decode64!()
   end
 end
