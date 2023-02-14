@@ -102,6 +102,7 @@ defmodule Accent.Mixfile do
       {:new_relic_absinthe, "~> 0.0"},
       {:telemetry, "~> 1.0", override: true},
       {:telemetry_ui, "~> 2.0"},
+      {:ecto_psql_extras, "~> 0.7"},
 
       # Mock testing
       {:mox, "~> 0.3", only: :test},
