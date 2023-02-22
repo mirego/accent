@@ -1,7 +1,7 @@
 defmodule Accent.Plugs.MovementContextParser do
   use Plug.Builder
 
-  alias Accent.{Document, Repo, Version}
+  alias Accent.{Document, Repo, Version, CleanContext}
   alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Version, as: VersionScope
   alias Movement.Context
@@ -85,7 +85,12 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   def assign_movement_entries(conn = %{assigns: %{movement_context: context}, params: %{"file" => file}}, _) do
-    render = File.read!(file.path)
+    raw = File.read!(file.path)
+    render = String.printable?(raw)
+      |> case do
+        true -> raw
+        false -> CleanContext.unicode_only(raw)
+      end
 
     conn
     |> parser_result(render)
