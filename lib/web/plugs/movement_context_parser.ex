@@ -86,11 +86,7 @@ defmodule Accent.Plugs.MovementContextParser do
 
   def assign_movement_entries(conn = %{assigns: %{movement_context: context}, params: %{"file" => file}}, _) do
     raw = File.read!(file.path)
-    render = String.printable?(raw)
-      |> case do
-        true -> raw
-        false -> CleanContext.unicode_only(raw)
-      end
+    render = CleanContext.unicode_only(raw)
 
     conn
     |> parser_result(render)

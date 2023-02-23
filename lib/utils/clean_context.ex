@@ -32,10 +32,15 @@ defmodule Accent.CleanContext do
   end
 
   def unicode_only(<<head::binary-size(1)>> <> tail, new_string) do
-    if String.printable?(head) do
-      unicode_only(tail, head <> new_string)
-    else
-      unicode_only(tail, new_string)
+    printable_head? = String.printable?(head)
+    printable_tail? = String.printable?(tail)
+    cond do
+      printable_head? and printable_tail? ->
+        String.reverse(new_string) <> head <> tail
+      printable_head? ->
+        unicode_only(tail, head <> new_string)
+      true ->
+        unicode_only(tail, new_string)
     end
   end
 
