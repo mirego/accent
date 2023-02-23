@@ -1,64 +1,37 @@
-<div local-class="navigation navigation--alt">
-  <ul local-class="navigation-list">
-    {{#if (get @permissions "show_project")}}
-      <li local-class="navigation-list-item">
-        <LinkTo
-          @route="logged-in.project.translation.index"
-          @models={{array @project.id @translation.id}}
-          local-class="navigation-list-item-link"
-        >
-          {{inline-svg
-            "assets/pencil.svg"
-            local-class="navigation-list-item-link-icon"
-          }}
-          <span local-class="navigation-list-item-link-text">
-            {{t "components.translation_navigation.edit_link_title"}}
+<div local-class='navigation navigation--alt'>
+  <ul local-class='navigation-list'>
+    {{#if (get @permissions 'show_project')}}
+      <li local-class='navigation-list-item'>
+        <LinkTo @route='logged-in.project.translation.index' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
+          {{inline-svg 'assets/pencil.svg' local-class='navigation-list-item-link-icon'}}
+          <span local-class='navigation-list-item-link-text'>
+            {{t 'components.translation_navigation.edit_link_title'}}
           </span>
         </LinkTo>
       </li>
     {{/if}}
 
-    {{#if (get @permissions "index_comments")}}
-      <li local-class="navigation-list-item">
-        <LinkTo
-          @route="logged-in.project.translation.comments"
-          @models={{array @project.id @translation.id}}
-          local-class="navigation-list-item-link"
-        >
-          {{inline-svg
-            "assets/bubble.svg"
-            local-class="navigation-list-item-link-icon"
-          }}
-          <span local-class="navigation-list-item-link-text">
+    {{#if (get @permissions 'index_comments')}}
+      <li local-class='navigation-list-item'>
+        <LinkTo @route='logged-in.project.translation.comments' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
+          {{inline-svg 'assets/bubble.svg' local-class='navigation-list-item-link-icon'}}
+          <span local-class='navigation-list-item-link-text'>
             {{#if @translation.commentsCount}}
-              {{t
-                "components.translation_navigation.comments_link_title"
-                count=@translation.commentsCount
-              }}
+              {{t 'components.translation_navigation.comments_link_title' count=@translation.commentsCount}}
             {{else}}
-              {{t
-                "components.translation_navigation.comments_link_title"
-                count=0
-              }}
+              {{t 'components.translation_navigation.comments_link_title' count=0}}
             {{/if}}
           </span>
         </LinkTo>
       </li>
     {{/if}}
 
-    {{#if (get @permissions "index_translation_activities")}}
-      <li local-class="navigation-list-item">
-        <LinkTo
-          @route="logged-in.project.translation.activities"
-          @models={{array @project.id @translation.id}}
-          local-class="navigation-list-item-link"
-        >
-          {{inline-svg
-            "assets/activity.svg"
-            local-class="navigation-list-item-link-icon"
-          }}
-          <span local-class="navigation-list-item-link-text">
-            {{t "components.translation_navigation.activities_link_title"}}
+    {{#if (get @permissions 'index_translation_activities')}}
+      <li local-class='navigation-list-item'>
+        <LinkTo @route='logged-in.project.translation.activities' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
+          {{inline-svg 'assets/activity.svg' local-class='navigation-list-item-link-icon'}}
+          <span local-class='navigation-list-item-link-text'>
+            {{t 'components.translation_navigation.activities_link_title'}}
           </span>
         </LinkTo>
       </li>

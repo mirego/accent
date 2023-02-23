@@ -24,6 +24,7 @@ interface Args {
 
 const PROVIDERS = ['google_translate', 'deepl'];
 
+/* eslint-disable camelcase */
 const LOGOS = {
   deepl: 'assets/machine_translations_providers/deepl.svg',
   google_translate:
@@ -72,8 +73,18 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
     });
   }
 
+  get configKeyPlaceholder() {
+    if (this.args.project.machineTranslationsConfig?.useConfigKey) {
+      return '••••••••••••••';
+    } else {
+      return this.intl.t(
+        'components.project_settings.machine_translations.config_key_placeholder'
+      );
+    }
+  }
+
   get logoProvider() {
-    const provider: keyof typeof LOGOS = this.provider as any;
+    const provider: keyof typeof LOGOS = this.provider;
 
     return LOGOS[provider];
   }

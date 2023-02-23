@@ -1,5 +1,5 @@
-<ul local-class="list">
-  {{#each @revisions key="id" as |revision|}}
+<ul local-class='list'>
+  {{#each @revisions key='id' as |revision|}}
     <ProjectSettings::ManageLanguages::Overview::Item
       @master={{revision.isMaster}}
       @permissions={{@permissions}}

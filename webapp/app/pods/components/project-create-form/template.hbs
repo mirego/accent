@@ -1,48 +1,35 @@
-<div local-class="project-create-form">
-  <h1 local-class="title">
-    {{t "components.project_create_form.title"}}
+<div local-class='project-create-form'>
+  <h1 local-class='title'>
+    {{t 'components.project_create_form.title'}}
   </h1>
 
   {{#if @error}}
-    <div local-class="errors">
-      <div local-class="error">
-        {{t "components.project_create_form.error"}}
+    <div local-class='errors'>
+      <div local-class='error'>
+        {{t 'components.project_create_form.error'}}
       </div>
     </div>
   {{/if}}
 
-  <div local-class="formItem">
-    <label local-class="formItem-label">
-      {{t "components.project_create_form.name_label"}}
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.project_create_form.name_label'}}
     </label>
 
-    <div local-class="formItem-fields">
-      <input
-        value={{this.name}}
-        local-class="textInput"
-        {{on "keyup" (fn this.setName)}}
-      >
+    <div local-class='formItem-fields'>
+      <input value={{this.name}} local-class='textInput' {{on 'keyup' (fn this.setName)}} />
 
-      <input
-        type="color"
-        value={{this.mainColor}}
-        local-class="colorInput"
-        {{on "change" (fn this.setMainColor)}}
-      >
+      <input type='color' value={{this.mainColor}} local-class='colorInput' {{on 'change' (fn this.setMainColor)}} />
 
-      <AccEmojiPicker
-        role="button"
-        local-class="logoInput"
-        @onPicked={{fn this.logoPicked}}
-        >
+      <AccEmojiPicker local-class='logoInput' @onPicked={{fn this.logoPicked}}>
         <ProjectLogo @logo={{this.logo}} />
       </AccEmojiPicker>
     </div>
   </div>
 
-  <div local-class="formItem">
-    <label local-class="formItem-label">
-      {{t "components.project_create_form.language_label"}}
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.project_create_form.language_label'}}
     </label>
 
     {{#if @languages}}
@@ -51,31 +38,20 @@
         @search={{fn this.searchLanguages}}
         @options={{this.mappedLanguages}}
         @selected={{this.languageValue}}
-        @searchPlaceholder={{t
-          "components.project_create_form.language_search_placeholder"
-        }}
+        @searchPlaceholder={{t 'components.project_create_form.language_search_placeholder'}}
         @onchange={{fn this.setLanguage}}
       />
     {{else}}
-      <LoadingContent local-class="formItem-loading" />
+      <LoadingContent local-class='formItem-loading' />
     {{/if}}
   </div>
 
-  <div local-class="formActions">
-    <LinkTo
-      @route="logged-in.projects"
-      local-class="cancelButton"
-      class="button button--filled button--white"
-    >
-      {{t "components.project_create_form.cancel_button"}}
+  <div local-class='formActions'>
+    <LinkTo @route='logged-in.projects' local-class='cancelButton' class='button button--filled button--white'>
+      {{t 'components.project_create_form.cancel_button'}}
     </LinkTo>
-    <AsyncButton
-      @disabled={{this.emptyLanguage}}
-      @loading={{this.isCreating}}
-      @onClick={{fn this.submit}}
-      class="button button--filled button--green"
-    >
-      {{t "components.project_create_form.save_button"}}
+    <AsyncButton @disabled={{this.emptyLanguage}} @loading={{this.isCreating}} @onClick={{fn this.submit}} class='button button--filled button--green'>
+      {{t 'components.project_create_form.save_button'}}
     </AsyncButton>
   </div>
 </div>

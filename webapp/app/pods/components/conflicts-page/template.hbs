@@ -1,4 +1,4 @@
-<div local-class="conflicts-page">
+<div local-class='conflicts-page'>
   <ConflictsFilters
     @meta={{@translations.meta}}
     @conflicts={{@translations.entries}}
@@ -19,7 +19,7 @@
   {{#if @showSkeleton}}
     <SkeletonUi::ConflictsItems />
   {{else if @showLoading}}
-    <LoadingContent @label={{t "pods.project.conflicts.loading_content"}} />
+    <LoadingContent @label={{t 'pods.project.conflicts.loading_content'}} />
   {{else}}
     <ConflictsList
       @permissions={{@permissions}}
@@ -29,9 +29,6 @@
       @onCorrect={{@onCorrect}}
       @onCopyTranslation={{@onCopyTranslation}}
     />
-    <ResourcePagination
-      @meta={{@translations.meta}}
-      @onSelectPage={{@onSelectPage}}
-    />
+    <ResourcePagination @meta={{@translations.meta}} @onSelectPage={{@onSelectPage}} />
   {{/if}}
 </div>

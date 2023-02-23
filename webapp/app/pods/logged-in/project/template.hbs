@@ -3,8 +3,7 @@
   <style>
     html body {
     {{{this.colors}}}
-    }
-    html[data-theme='dark'] body {
+    } html[data-theme='dark'] body {
     {{{this.darkColors}}}
     }
   </style>
@@ -17,11 +16,7 @@
         {{else if this.showError}}
           <SkeletonUi::ProjectNavigation />
         {{else}}
-          <ProjectNavigation
-            @project={{this.project}}
-            @permissions={{this.permissions}}
-            @revisions={{this.revisions}}
-          />
+          <ProjectNavigation @project={{this.project}} @permissions={{this.permissions}} @revisions={{this.revisions}} />
         {{/if}}
       </AccWrapper::Sidebar>
     {{/unless}}
@@ -34,9 +29,9 @@
 
       {{#if this.showError}}
         <ErrorSection
-          @status={{t "pods.error.unauthorized.status"}}
-          @title={{t "pods.error.unauthorized.title"}}
-          @text={{t "pods.error.unauthorized.text"}}
+          @status={{t 'pods.error.unauthorized.status'}}
+          @title={{t 'pods.error.unauthorized.title'}}
+          @text={{t 'pods.error.unauthorized.text'}}
           @isAuthenticated={{false}}
         />
       {{else}}

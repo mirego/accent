@@ -1,7 +1,7 @@
-<EmberWormhole @to="modals" {{on-key "Escape" @onClose}}>
-  <div local-class="wrapper">
-    <div role="button" local-class="overlay" {{on "click" (fn @onClose)}}></div>
-    <div role="dialog" local-class="container {{if @small "container--small"}} {{if @large "container--large"}}">
+<EmberWormhole @to='modals' {{on-key 'Escape' @onClose}}>
+  <div local-class='wrapper'>
+    <div role='button' local-class='overlay' {{on 'click' (fn @onClose)}}></div>
+    <div role='dialog' local-class='container {{if @small "container--small"}} {{if @large "container--large"}}'>
       {{yield}}
     </div>
   </div>

@@ -1,26 +1,16 @@
 <PageTitle>
-  {{inline-svg "/assets/gear.svg"}}
-  <h1>{{t "components.page_title.project_edit"}}</h1>
+  {{inline-svg '/assets/gear.svg'}}
+  <h1>{{t 'components.page_title.project_edit'}}</h1>
 </PageTitle>
 
 {{#if this.showLoading}}
-  <LoadingContent @label={{t "pods.project.edit.loading_content"}} />
+  <LoadingContent @label={{t 'pods.project.edit.loading_content'}} />
 {{else}}
-  <ProjectSettings::Form
-    @project={{this.project}}
-    @permissions={{this.permissions}}
-    @onUpdateProject={{fn this.updateProject}}
-  />
+  <ProjectSettings::Form @project={{this.project}} @permissions={{this.permissions}} @onUpdateProject={{fn this.updateProject}} />
 
-  <ProjectSettings::LinksList
-    @project={{this.project}}
-    @permissions={{this.permissions}}
-  />
+  <ProjectSettings::LinksList @project={{this.project}} @permissions={{this.permissions}} />
 
-  {{#if (get this.permissions "delete_project")}}
-    <ProjectSettings::DeleteForm
-      @project={{this.project}}
-      @onSubmit={{fn this.deleteProject}}
-    />
+  {{#if (get this.permissions 'delete_project')}}
+    <ProjectSettings::DeleteForm @project={{this.project}} @onSubmit={{fn this.deleteProject}} />
   {{/if}}
 {{/if}}

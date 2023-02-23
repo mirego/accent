@@ -91,11 +91,11 @@ lint-eslint:
 
 .PHONY: lint-prettier
 lint-prettier:
-	npx prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md}' '*.md'
+	npx prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
 
 .PHONY: lint-template-hbs
 lint-template-hbs:
-	npx ember-template-lint './webapp/app/**/*.hbs' --config-path './webapp/.template-lintrc'
+	npx ember-template-lint 'webapp/app/**/*.hbs' --config-path './webapp/.template-lintrc'
 
 .PHONY: type-check
 type-check: ## Type-check typescript files
@@ -127,7 +127,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	npx prettier --write --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md}' '*.md'
+	npx prettier --write --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
 
 # Development targets
 # -------------------

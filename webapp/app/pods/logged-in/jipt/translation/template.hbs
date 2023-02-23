@@ -3,11 +3,7 @@
     <SkeletonUi::TranslationSplashTitle />
   {{else}}
     <JiptBackToTranslations />
-    <TranslationSplashTitle
-      @project={{this.model.project}}
-      @translation={{this.model.translation}}
-      @withRevisionLink={{false}}
-    />
+    <TranslationSplashTitle @project={{this.model.project}} @translation={{this.model.translation}} @withRevisionLink={{false}} />
   {{/if}}
 
   {{#if this.model.loading}}

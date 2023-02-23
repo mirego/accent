@@ -1,18 +1,18 @@
 <AccModal @onClose={{fn this.closeModal}}>
   <ProjectFileOperation>
-    <button class="closeButton" {{on "click" (fn this.closeModal)}}>
-      <div class="closeButton-content">
-        {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
+    <button class='closeButton' {{on 'click' (fn this.closeModal)}}>
+      <div class='closeButton-content'>
+        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
       </div>
     </button>
 
-    <div class="title">
-      <div class="sectionType">
-        <div class="versionTitle">
-          <strong class="versionTitle-name">
+    <div class='title'>
+      <div class='sectionType'>
+        <div class='versionTitle'>
+          <strong class='versionTitle-name'>
             {{this.version.name}}
           </strong>
-          <span class="versionTitle-tag">
+          <span class='versionTitle-tag'>
             {{this.version.tag}}
           </span>
         </div>
@@ -34,12 +34,8 @@
       />
     {{/if}}
 
-    <AsyncButton
-      @onClick={{fn this.exportFile}}
-      @disabled={{this.exportButtonDisabled}}
-      class="button button--filled renderExport"
-    >
-      {{t "components.project_file_operations.export"}}
+    <AsyncButton @onClick={{fn this.exportFile}} @disabled={{this.exportButtonDisabled}} class='button button--filled renderExport'>
+      {{t 'components.project_file_operations.export'}}
     </AsyncButton>
 
     {{#if this.document}}
@@ -47,15 +43,11 @@
         <SkeletonUi::ProgressLine />
       {{/if}}
     {{else}}
-      <EmptyContent
-        @text={{t "pods.project.versions.export.empty_documents"}}
-        @iconPath="assets/empty.svg"
-        @center={{true}}
-      />
+      <EmptyContent @text={{t 'pods.project.versions.export.empty_documents'}} @iconPath='assets/empty.svg' @center={{true}} />
     {{/if}}
 
     <FileExport
-      class="render"
+      class='render'
       @onFileLoaded={{fn this.onFileLoaded}}
       @project={{this.project}}
       @revisions={{this.revisions}}

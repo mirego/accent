@@ -1,5 +1,5 @@
-<ul local-class="conflicts-items" class="conflict-items">
-  {{#each @conflicts key="id" as |conflict index|}}
+<ul local-class='conflicts-items' class='conflict-items'>
+  {{#each @conflicts key='id' as |conflict index|}}
     <ConflictsList::Item
       @index={{index}}
       @permissions={{@permissions}}
@@ -9,22 +9,17 @@
       @onCopyTranslation={{@onCopyTranslation}}
     />
   {{else if @query}}
-    <EmptyContent
-      local-class="empty-content"
-      @center={{true}}
-      @iconPath="assets/empty.svg"
-      @text={{t "components.conflicts_items.no_translations" query=@query}}
-    />
+    <EmptyContent local-class='empty-content' @center={{true}} @iconPath='assets/empty.svg' @text={{t 'components.conflicts_items.no_translations' query=@query}} />
   {{else}}
-    <div local-class="all-reviewed">
-      <img local-class="all-reviewed-image" src="/assets/all-reviewed-splash.svg">
+    <div local-class='all-reviewed'>
+      <img local-class='all-reviewed-image' src='/assets/all-reviewed-splash.svg' />
 
-      <div local-class="all-reviewed-title">
-        {{t "components.conflicts_items.all_reviewed_title"}}
+      <div local-class='all-reviewed-title'>
+        {{t 'components.conflicts_items.all_reviewed_title'}}
       </div>
 
-      <div local-class="all-reviewed-subtitle">
-        {{t "components.conflicts_items.all_reviewed_subtitle"}}
+      <div local-class='all-reviewed-subtitle'>
+        {{t 'components.conflicts_items.all_reviewed_subtitle'}}
       </div>
     </div>
   {{/each}}

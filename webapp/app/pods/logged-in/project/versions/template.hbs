@@ -1,6 +1,6 @@
 <PageTitle>
-  {{inline-svg "/assets/tag.svg"}}
-  <h1>{{t "components.page_title.versions"}}</h1>
+  {{inline-svg '/assets/tag.svg'}}
+  <h1>{{t 'components.page_title.versions'}}</h1>
 </PageTitle>
 
 {{#if this.model.loading}}
@@ -10,19 +10,12 @@
 {{#if this.showSkeleton}}
   <SkeletonUi::VersionsList />
 {{else}}
-  <VersionsList
-    @permissions={{this.permissions}}
-    @versions={{this.model.versions.entries}}
-    @project={{this.model.project}}
-  />
+  <VersionsList @permissions={{this.permissions}} @versions={{this.model.versions.entries}} @project={{this.model.project}} />
 
-  {{#if (get this.permissions "create_version")}}
+  {{#if (get this.permissions 'create_version')}}
     <VersionsAddButton @project={{this.model.project}} />
   {{/if}}
 
-  <ResourcePagination
-    @meta={{this.model.versions.meta}}
-    @onSelectPage={{fn this.selectPage}}
-  />
+  <ResourcePagination @meta={{this.model.versions.meta}} @onSelectPage={{fn this.selectPage}} />
   {{outlet}}
 {{/if}}

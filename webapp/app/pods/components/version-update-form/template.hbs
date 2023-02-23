@@ -1,55 +1,39 @@
-<div {{did-insert this.focusTextarea}} local-class="version-update-form">
-  <h1 local-class="title">
-    {{t "components.version_update_form.title"}}
+<div {{did-insert this.focusTextarea}} local-class='version-update-form'>
+  <h1 local-class='title'>
+    {{t 'components.version_update_form.title'}}
   </h1>
 
   {{#if @error}}
-    <div local-class="errors">
-      <div local-class="error">
-        {{t "components.version_update_form.error"}}
+    <div local-class='errors'>
+      <div local-class='error'>
+        {{t 'components.version_update_form.error'}}
       </div>
     </div>
   {{/if}}
 
-  <div local-class="formItem">
-    <label local-class="formItem-label">
-      {{t "components.version_update_form.name_label"}}
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.version_update_form.name_label'}}
     </label>
 
-    <input
-      value={{this.name}}
-      local-class="textInput"
-      {{on "keyup" (fn this.setName)}}
-    >
+    <input value={{this.name}} local-class='textInput' {{on 'keyup' (fn this.setName)}} />
   </div>
 
-  <div local-class="formItem">
-    <label local-class="formItem-label">
-      {{t "components.version_update_form.tag_label"}}
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.version_update_form.tag_label'}}
     </label>
 
-    <input
-      value={{this.tag}}
-      local-class="textInput"
-      {{on "keyup" (fn this.setTag)}}
-    >
+    <input value={{this.tag}} local-class='textInput' {{on 'keyup' (fn this.setTag)}} />
   </div>
 
-  <div local-class="formActions">
-    <LinkTo
-      @route="logged-in.project.versions"
-      @model={{@project.id}}
-      class="button button--filled button--white"
-    >
-      {{t "components.version_update_form.cancel_button"}}
+  <div local-class='formActions'>
+    <LinkTo @route='logged-in.project.versions' @model={{@project.id}} class='button button--filled button--white'>
+      {{t 'components.version_update_form.cancel_button'}}
     </LinkTo>
 
-    <AsyncButton
-      class="button button--filled"
-      @loading={{this.isCreating}}
-      @onClick={{fn this.submit}}
-    >
-      {{t "components.version_update_form.save_button"}}
+    <AsyncButton class='button button--filled' @loading={{this.isCreating}} @onClick={{fn this.submit}}>
+      {{t 'components.version_update_form.save_button'}}
     </AsyncButton>
   </div>
 </div>

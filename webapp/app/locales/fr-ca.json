@@ -410,7 +410,14 @@
         "create_title": "Ajouter un nouveau jeton d’API",
         "create_button": "Créer",
         "create_name_placeholder": "Afficher un nom",
-        "create_picture_url_placeholder": "URL de l’avatar (facultatif)"
+        "create_picture_url_placeholder": "URL de l’avatar (facultatif)",
+        "permissions": {
+          "select_all": "Tous",
+          "unselect_all": "Aucun",
+          "custom_permissions": "Permissions personnalisées",
+          "custom_permissions_arrow": "↓",
+          "use_custom_permissions": "Utiliser des permissions personnalisées"
+        }
       },
       "user_token": {
         "title": "Votre jeton personnel",

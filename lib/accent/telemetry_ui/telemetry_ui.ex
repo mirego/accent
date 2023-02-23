@@ -1,6 +1,8 @@
 defmodule Accent.TelemetryUI do
   import TelemetryUI.Metrics
 
+  alias Accent.TelemetryUI.EctoPSQLExtras
+
   def config do
     [
       metrics: [
@@ -8,6 +10,7 @@ defmodule Accent.TelemetryUI do
         {"GraphQL", graphql_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"Absinthe", absinthe_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"Ecto", ecto_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
+        {"PSQL Extras", EctoPSQLExtras.all(Accent.Repo)},
         {"System", system_metrics()}
       ],
       theme: theme(),

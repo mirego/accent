@@ -1,31 +1,24 @@
-<div local-class="translation-comment-form">
-  <form
-    {{on "submit" (perform this.submitTask)}}
-    local-class="form"
-  >
+<div local-class='translation-comment-form'>
+  <form {{on 'submit' (perform this.submitTask)}} local-class='form'>
     {{#if this.error}}
-      <span local-class="error">
-        {{t "components.translation_comment_form.submit_error"}}
+      <span local-class='error'>
+        {{t 'components.translation_comment_form.submit_error'}}
       </span>
     {{/if}}
 
-    <div local-class="form-content">
+    <div local-class='form-content'>
       <textarea
         {{autoresize this.text}}
-        {{on-key "cmd+Enter" (perform this.submitTask)}}
-        {{on "input" this.setText}}
-        local-class="inputText"
-        placeholder={{t "components.translation_comment_form.comment_placeholder"}}
-        rows="1"
+        {{on-key 'cmd+Enter' (perform this.submitTask)}}
+        {{on 'input' this.setText}}
+        local-class='inputText'
+        placeholder={{t 'components.translation_comment_form.comment_placeholder'}}
+        rows='1'
         disabled={{this.isSubmitting}}
         value={{this.text}}
-      />
-      <AsyncButton
-        @loading={{this.isSubmitting}}
-        class="button button--filled"
-        {{on "click" (perform this.submitTask)}}
-      >
-        {{t "components.translation_comment_form.comment_button"}}
+      ></textarea>
+      <AsyncButton @loading={{this.isSubmitting}} class='button button--filled' {{on 'click' (perform this.submitTask)}}>
+        {{t 'components.translation_comment_form.comment_button'}}
       </AsyncButton>
     </div>
   </form>

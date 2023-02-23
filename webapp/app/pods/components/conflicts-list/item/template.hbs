@@ -1,19 +1,12 @@
-<div
-  local-class="root"
-  {{in-viewport onEnter=(fn this.didEnterViewport) scrollableArea=".conflict-items"}}
->
+<div local-class='root' {{in-viewport onEnter=(fn this.didEnterViewport) scrollableArea='.conflict-items'}}>
   {{#if this.show}}
-    <div local-class="conflict-item {{if this.resolved "resolved"}} {{if this.error "errored"}}">
+    <div local-class='conflict-item {{if this.resolved "resolved"}} {{if this.error "errored"}}'>
       <li>
         {{#if this.resolved}}
-          <div local-class="textResolved">
-            <LinkTo
-              @route="logged-in.project.translation"
-              @models={{array @project.id @conflict.id}}
-              local-class="key"
-            >
-              <strong local-class="item-key">
-                <small local-class="item-key-prefix">
+          <div local-class='textResolved'>
+            <LinkTo @route='logged-in.project.translation' @models={{array @project.id @conflict.id}} local-class='key'>
+              <strong local-class='item-key'>
+                <small local-class='item-key-prefix'>
                   {{#if this.conflictKey.prefix}}
                     {{this.conflictKey.prefix}}
                   {{else}}
@@ -24,24 +17,20 @@
               </strong>
             </LinkTo>
 
-            <div local-class="textResolved-content">
+            <div local-class='textResolved-content'>
               {{#if this.error}}
-                <div local-class="error">
-                  {{t "components.conflict_item.uncorrect_error_text"}}
+                <div local-class='error'>
+                  {{t 'components.conflict_item.uncorrect_error_text'}}
                 </div>
               {{/if}}
             </div>
           </div>
         {{else}}
-          <div local-class="item-details">
-            <div local-class="item-details__column">
-              <LinkTo
-                @route="logged-in.project.translation"
-                @models={{array @project.id @conflict.id}}
-                local-class="key"
-              >
-                <strong local-class="item-key">
-                  <small local-class="item-key-prefix">
+          <div local-class='item-details'>
+            <div local-class='item-details__column'>
+              <LinkTo @route='logged-in.project.translation' @models={{array @project.id @conflict.id}} local-class='key'>
+                <strong local-class='item-key'>
+                  <small local-class='item-key-prefix'>
                     {{#if this.conflictKey.prefix}}
                       {{this.conflictKey.prefix}}
                     {{else}}
@@ -53,13 +42,13 @@
               </LinkTo>
 
               {{#if this.error}}
-                <div local-class="error">
-                  {{t "components.conflict_item.correct_error_text"}}
+                <div local-class='error'>
+                  {{t 'components.conflict_item.correct_error_text'}}
                 </div>
               {{/if}}
             </div>
-            <div local-class="item-details__column">
-              <div local-class="textInput">
+            <div local-class='item-details__column'>
+              <div local-class='textInput'>
                 <TranslationEdit::Form
                   @projectId={{@project.id}}
                   @translationId={{@conflict.id}}
@@ -75,22 +64,15 @@
                   as |form|
                 >
                   {{#component form.submit}}
-                    <div local-class="button-submit" data-dir={{form.dir}}>
+                    <div local-class='button-submit' data-dir={{form.dir}}>
                       {{#if this.showOriginalButton}}
-                        <AsyncButton
-                          @onClick={{fn this.setOriginalText}}
-                          class="button button--iconOnly button--white"
-                        >
-                          {{inline-svg "/assets/revert.svg" class="button-icon"}}
+                        <AsyncButton @onClick={{fn this.setOriginalText}} class='button button--iconOnly button--white'>
+                          {{inline-svg '/assets/revert.svg' class='button-icon'}}
                         </AsyncButton>
                       {{/if}}
-                      {{#if (get @permissions "correct_translation")}}
-                        <AsyncButton
-                          @onClick={{fn this.correct}}
-                          @loading={{this.loading}}
-                          class="button button--iconOnly button--filled button--green"
-                        >
-                          {{inline-svg "/assets/check.svg" class="button-icon"}}
+                      {{#if (get @permissions 'correct_translation')}}
+                        <AsyncButton @onClick={{fn this.correct}} @loading={{this.loading}} class='button button--iconOnly button--filled button--green'>
+                          {{inline-svg '/assets/check.svg' class='button-icon'}}
                         </AsyncButton>
                       {{/if}}
                     </div>
@@ -98,19 +80,19 @@
                 </TranslationEdit::Form>
               </div>
 
-              <div local-class="conflictedText-references">
+              <div local-class='conflictedText-references'>
                 {{#if this.showTextDiff}}
-                  <div local-class="conflictedText-references-conflicted">
-                    <span local-class="conflictedText-references-conflicted-label">
-                      {{inline-svg "/assets/diff.svg" local-class="conflictedText-references-conflicted-icon"}}
+                  <div local-class='conflictedText-references-conflicted'>
+                    <span local-class='conflictedText-references-conflicted-label'>
+                      {{inline-svg '/assets/diff.svg' local-class='conflictedText-references-conflicted-icon'}}
                     </span>
 
-                    <div local-class="conflictedText-references-conflicted-value">{{string-diff this.textInput @conflict.conflictedText}}</div>
+                    <div local-class='conflictedText-references-conflicted-value'>{{string-diff this.textInput @conflict.conflictedText}}</div>
                   </div>
                 {{/if}}
 
                 {{#if @conflict.relatedTranslations}}
-                  {{#each this.relatedTranslations key="id" as |relatedTranslation|}}
+                  {{#each this.relatedTranslations key='id' as |relatedTranslation|}}
                     <ConflictsList::Item::RelatedTranslation
                       @project={{@project}}
                       @translation={{relatedTranslation}}

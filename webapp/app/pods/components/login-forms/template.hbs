@@ -1,85 +1,51 @@
-<div local-class="login-forms">
+<div local-class='login-forms'>
   {{#if @providers}}
     {{#if this.dummyLoginEnabled}}
-      <input
-        value={{this.username}}
-        local-class="input"
-        {{did-insert this.focusInput}}
-        {{on "keyup" (fn this.setUsername)}}
-      >
-      <a
-        href={{this.dummyUrl}}
-        class="button button--filled"
-        local-class="loginButton loginButton--dummy"
-        disabled={{this.emptyUsername}}
-      >
-        <img src="assets/auth_providers/dummy.svg" local-class="loginButton-logo">
-        {{t "components.login_forms.dummy"}}
+      <input value={{this.username}} local-class='input' {{did-insert this.focusInput}} {{on 'keyup' (fn this.setUsername)}} />
+      <a href={{this.dummyUrl}} class='button button--filled' local-class='loginButton loginButton--dummy' disabled={{this.emptyUsername}}>
+        <img src='assets/auth_providers/dummy.svg' local-class='loginButton-logo' />
+        {{t 'components.login_forms.dummy'}}
       </a>
     {{/if}}
 
     {{#if this.googleLoginEnabled}}
-      <a
-        href={{this.googleUrl}}
-        class="button button--filled"
-        local-class="loginButton loginButton--google"
-      >
-        <img src="assets/auth_providers/google.svg" local-class="loginButton-logo">
-        {{t "components.login_forms.google"}}
+      <a href={{this.googleUrl}} class='button button--filled' local-class='loginButton loginButton--google'>
+        <img src='assets/auth_providers/google.svg' local-class='loginButton-logo' />
+        {{t 'components.login_forms.google'}}
       </a>
     {{/if}}
 
     {{#if this.githubLoginEnabled}}
-      <a
-        href={{this.githubUrl}}
-        class="button button--filled"
-        local-class="loginButton loginButton--github"
-      >
-        <img src="assets/auth_providers/github.svg" local-class="loginButton-logo">
-        {{t "components.login_forms.github"}}
+      <a href={{this.githubUrl}} class='button button--filled' local-class='loginButton loginButton--github'>
+        <img src='assets/auth_providers/github.svg' local-class='loginButton-logo' />
+        {{t 'components.login_forms.github'}}
       </a>
     {{/if}}
 
     {{#if this.gitlabLoginEnabled}}
-      <a
-        href={{this.gitlabUrl}}
-        class="button button--filled"
-        local-class="loginButton loginButton--gitlab"
-      >
-        <img src="assets/auth_providers/gitlab.svg" local-class="loginButton-logo">
-        {{t "components.login_forms.gitlab"}}
+      <a href={{this.gitlabUrl}} class='button button--filled' local-class='loginButton loginButton--gitlab'>
+        <img src='assets/auth_providers/gitlab.svg' local-class='loginButton-logo' />
+        {{t 'components.login_forms.gitlab'}}
       </a>
     {{/if}}
 
     {{#if this.slackLoginEnabled}}
-      <a
-        href={{this.slackUrl}}
-        class="button button--filled"
-        local-class="loginButton loginButton--slack"
-      >
-        <img src="assets/auth_providers/slack.svg" local-class="loginButton-logo">
-        {{t "components.login_forms.slack"}}
+      <a href={{this.slackUrl}} class='button button--filled' local-class='loginButton loginButton--slack'>
+        <img src='assets/auth_providers/slack.svg' local-class='loginButton-logo' />
+        {{t 'components.login_forms.slack'}}
       </a>
     {{/if}}
 
     {{#if this.discordLoginEnabled}}
-      <a
-        href={{this.discordUrl}}
-        class="button button--filled"
-        local-class="loginButton loginButton--discord"
-      >
-        <img src="assets/auth_providers/discord.svg" local-class="loginButton-logo">
-        {{t "components.login_forms.discord"}}
+      <a href={{this.discordUrl}} class='button button--filled' local-class='loginButton loginButton--discord'>
+        <img src='assets/auth_providers/discord.svg' local-class='loginButton-logo' />
+        {{t 'components.login_forms.discord'}}
       </a>
     {{/if}}
     {{#if this.microsoftLoginEnabled}}
-      <a
-        href={{this.microsoftUrl}}
-        class="button button--filled"
-        local-class="loginButton loginButton--microsoft"
-      >
-        <img src="assets/auth_providers/microsoft.svg" local-class="loginButton-logo">
-        {{t "components.login_forms.microsoft"}}
+      <a href={{this.microsoftUrl}} class='button button--filled' local-class='loginButton loginButton--microsoft'>
+        <img src='assets/auth_providers/microsoft.svg' local-class='loginButton-logo' />
+        {{t 'components.login_forms.microsoft'}}
       </a>
     {{/if}}
   {{/if}}

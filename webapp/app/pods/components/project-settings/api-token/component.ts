@@ -59,7 +59,6 @@ export default class APIToken extends Component<Args> {
       pictureUrl: this.apiTokenPictureUrl,
       permissions: this.apiTokenPermissions,
     });
-    console.log(response);
 
     if (response.apiToken) {
       this.apiTokenName = '';

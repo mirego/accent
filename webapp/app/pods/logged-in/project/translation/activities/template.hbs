@@ -5,13 +5,6 @@
 {{#if this.showSkeleton}}
   <SkeletonUi::ActivitiesList @showTranslationLink={{false}} />
 {{else}}
-  <TranslationActivitiesList
-    @permissions={{this.permissions}}
-    @project={{this.model.project}}
-    @activities={{this.model.activities.entries}}
-  />
-  <ResourcePagination
-    @meta={{this.model.activities.meta}}
-    @onSelectPage={{fn this.selectPage}}
-  />
+  <TranslationActivitiesList @permissions={{this.permissions}} @project={{this.model.project}} @activities={{this.model.activities.entries}} />
+  <ResourcePagination @meta={{this.model.activities.meta}} @onSelectPage={{fn this.selectPage}} />
 {{/if}}

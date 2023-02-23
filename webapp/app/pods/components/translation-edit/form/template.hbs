@@ -1,25 +1,22 @@
-<div local-class="translation-edit-form" {{did-update (perform this.onUpdateValue) @value}}>
+<div local-class='translation-edit-form' {{did-update (perform this.onUpdateValue) @value}}>
   {{#if @placeholders}}
-    <div local-class="placeholders">
-      <span local-class="placeholders-title">
-        {{inline-svg "assets/code.svg" local-class="placeholders-title-icon"}}
-        {{t "components.translation_edit.form.placeholders.title"}}
+    <div local-class='placeholders'>
+      <span local-class='placeholders-title'>
+        {{inline-svg 'assets/code.svg' local-class='placeholders-title-icon'}}
+        {{t 'components.translation_edit.form.placeholders.title'}}
       </span>
 
-      <div local-class="placeholders-text">
-        <p local-class="placeholders-text-content">
-          {{t "components.translation_edit.form.placeholders.text"}}
+      <div local-class='placeholders-text'>
+        <p local-class='placeholders-text-content'>
+          {{t 'components.translation_edit.form.placeholders.text'}}
         </p>
       </div>
 
       <ul>
         {{#each @placeholders as |placeholder|}}
           <li
-            local-class="placeholders-item
-              {{if
-                (get this.unusedPlaceholders placeholder)
-                "placeholders-item--warning"
-              }}"
+            local-class='placeholders-item
+              {{if (get this.unusedPlaceholders placeholder) "placeholders-item--warning"}}'
           >
             <code>
               {{placeholder}}
@@ -32,92 +29,85 @@
 
   {{#if this.showTypeHints}}
     {{#if this.isIntegerType}}
-      <span local-class="label">
-        {{t "components.translation_edit.form.integer_type_notice"}}
+      <span local-class='label'>
+        {{t 'components.translation_edit.form.integer_type_notice'}}
       </span>
     {{/if}}
 
     {{#if this.isFloatType}}
-      <span local-class="label">
-        {{t "components.translation_edit.form.float_type_notice"}}
+      <span local-class='label'>
+        {{t 'components.translation_edit.form.float_type_notice'}}
       </span>
     {{/if}}
 
     {{#if this.isEmptyType}}
-      <span local-class="label">
-        {{t "components.translation_edit.form.empty_type_notice"}}
+      <span local-class='label'>
+        {{t 'components.translation_edit.form.empty_type_notice'}}
       </span>
     {{/if}}
 
     {{#if this.isNullType}}
-      <span local-class="label">
-        {{t "components.translation_edit.form.null_type_notice"}}
+      <span local-class='label'>
+        {{t 'components.translation_edit.form.null_type_notice'}}
       </span>
     {{/if}}
   {{/if}}
 
   {{#if @fileComment}}
-    <div local-class="file-comment">
-      <span local-class="file-comment-title">
-        {{inline-svg "assets/bubble.svg" local-class="file-comment-title-icon"}}
-        {{t "components.translation_edit.form.file_comment.title"}}
+    <div local-class='file-comment'>
+      <span local-class='file-comment-title'>
+        {{inline-svg 'assets/bubble.svg' local-class='file-comment-title-icon'}}
+        {{t 'components.translation_edit.form.file_comment.title'}}
       </span>
 
-      <div local-class="file-comment-text">
-        <div local-class="file-comment-text-content">{{this.fileComment}}</div>
+      <div local-class='file-comment-text'>
+        <div local-class='file-comment-text-content'>{{this.fileComment}}</div>
       </div>
     </div>
   {{/if}}
 
   {{#if this.isBooleanType}}
-    <div local-class="input-wrapper">
-      <span local-class="label">
-        {{t "components.translation_edit.form.boolean_type_notice"}}
+    <div local-class='input-wrapper'>
+      <span local-class='label'>
+        {{t 'components.translation_edit.form.boolean_type_notice'}}
       </span>
 
-      <div local-class="radio-wrapper">
-        <label local-class="radio-label">
-          <input type="radio" {{on "change" (fn this.changeText)}} checked={{this.valueTrue}} name="value" value="true">
-          {{t "components.translation_edit.form.true_option"}}
+      <div local-class='radio-wrapper'>
+        <label local-class='radio-label'>
+          <input type='radio' {{on 'change' (fn this.changeText)}} checked={{this.valueTrue}} name='value' value='true' />
+          {{t 'components.translation_edit.form.true_option'}}
         </label>
 
-        <label local-class="radio-label">
-          <input type="radio" {{on "change" (fn this.changeText)}} checked={{this.valueFalse}} name="value" value="false">
-          {{t "components.translation_edit.form.false_option"}}
+        <label local-class='radio-label'>
+          <input type='radio' {{on 'change' (fn this.changeText)}} checked={{this.valueFalse}} name='value' value='false' />
+          {{t 'components.translation_edit.form.false_option'}}
         </label>
       </div>
     </div>
   {{else if this.isHTMLType}}
-    <div local-class="input-wrapper">
-      <HtmlTextarea
-        @value={{@value}}
-        @onChange={{fn this.changeHTML}}
-        @wysiwygOptions={{this.wysiwygOptions}}
-      />
+    <div local-class='input-wrapper'>
+      <HtmlTextarea @value={{@value}} @onChange={{fn this.changeHTML}} @wysiwygOptions={{this.wysiwygOptions}} />
 
-      {{yield (hash submit=(component "translation-edit/form/submit"))}}
+      {{yield (hash submit=(component 'translation-edit/form/submit'))}}
     </div>
   {{else}}
-    <div local-class="input-wrapper" data-dir={{if @rtl "rtl"}}>
+    <div local-class='input-wrapper' data-dir={{if @rtl 'rtl'}}>
       <textarea
         {{autoresize @value}}
-        {{on-key "Escape" (fn this.cancel)}}
-        {{on-key "cmd+Enter" @onSubmit}}
-        {{on "input" (fn this.changeText)}}
-        local-class="inputText"
+        {{on-key 'Escape' (fn this.cancel)}}
+        {{on-key 'cmd+Enter' @onSubmit}}
+        {{on 'input' (fn this.changeText)}}
+        local-class='inputText'
         disabled={{@inputDisabled}}
         value={{@value}}
-        dir={{if @rtl "rtl"}}
+        dir={{if @rtl 'rtl'}}
         ...attributes
-      />
-      {{yield (hash dir=(if @rtl "rtl") submit=(component "translation-edit/form/submit"))}}
+      ></textarea>
+      {{yield (hash dir=(if @rtl 'rtl') submit=(component 'translation-edit/form/submit'))}}
     </div>
   {{/if}}
 
   {{#each this.lintMessages as |message|}}
-    <TranslationEdit::LintMessage
-      @message={{message}}
-      @onReplaceText={{fn this.replaceText}}
-    />
+    <TranslationEdit::LintMessage @message={{message}} @onReplaceText={{fn this.replaceText}} />
   {{/each}}
 </div>

@@ -1,6 +1,6 @@
 <PageTitle>
-  {{inline-svg "/assets/users.svg"}}
-  <h1>{{t "components.page_title.collaborators"}}</h1>
+  {{inline-svg '/assets/users.svg'}}
+  <h1>{{t 'components.page_title.collaborators'}}</h1>
 </PageTitle>
 
 {{#if this.model.loading}}
@@ -8,9 +8,7 @@
 {{/if}}
 
 {{#if this.showLoading}}
-  <LoadingContent
-    @label={{t "pods.project.collaborators.loading_content"}}
-  />
+  <LoadingContent @label={{t 'pods.project.collaborators.loading_content'}} />
 {{else}}
   <ProjectSettings::Collaborators
     @project={{this.project}}

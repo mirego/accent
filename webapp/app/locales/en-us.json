@@ -72,7 +72,11 @@
     },
     "application_footer": {
       "accent_bot": "Accent CLI",
-      "text": "Made with computers by"
+      "text": "Made with computers by",
+      "language_select": {
+        "english": "En",
+        "french": "Fr"
+      }
     },
     "collaborator_create_form": {
       "create_button": "Add collaborator",
@@ -418,7 +422,14 @@
         "create_title": "Add a new API token",
         "create_button": "Create",
         "create_name_placeholder": "Display name",
-        "create_picture_url_placeholder": "Avatar URL (optional)"
+        "create_picture_url_placeholder": "Avatar URL (optional)",
+        "permissions": {
+          "select_all": "Select all",
+          "unselect_all": "Unselect all",
+          "custom_permissions": "Custom permissions",
+          "custom_permissions_arrow": "↓",
+          "use_custom_permissions": "Use custom permissions"
+        }
       },
       "user_token": {
         "title": "Your personal token",

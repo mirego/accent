@@ -1,6 +1,6 @@
 <PageTitle>
-  {{inline-svg "/assets/bubble.svg"}}
-  <h1>{{t "components.page_title.comments"}}</h1>
+  {{inline-svg '/assets/bubble.svg'}}
+  <h1>{{t 'components.page_title.comments'}}</h1>
 </PageTitle>
 
 {{#if this.model.loading}}
@@ -16,8 +16,5 @@
     @onUpdateComment={{fn this.updateComment}}
     @onDeleteComment={{fn this.deleteComment}}
   />
-  <ResourcePagination
-    @meta={{this.model.comments.meta}}
-    @onSelectPage={{fn this.selectPage}}
-  />
+  <ResourcePagination @meta={{this.model.comments.meta}} @onSelectPage={{fn this.selectPage}} />
 {{/if}}

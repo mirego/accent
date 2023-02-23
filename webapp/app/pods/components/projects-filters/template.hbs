@@ -1,34 +1,30 @@
-<div local-class="filters" class="filters filters--transparent">
-  <form local-class="filters-wrapper" class="filters-wrapper" {{on "submit" (fn this.submitForm)}}>
-    <div local-class="queryFilter">
-      {{inline-svg "/assets/search.svg" local-class="search-icon"}}
+<div local-class='filters' class='filters filters--transparent'>
+  <form local-class='filters-wrapper' class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
+    <div local-class='queryFilter'>
+      {{inline-svg '/assets/search.svg' local-class='search-icon'}}
       <input
-        {{on "keyup" this.setDebouncedQuery}}
-        local-class="input"
-        type="text"
-        placeholder={{t "components.projects_filters.input_placeholder_text"}}
+        {{on 'keyup' this.setDebouncedQuery}}
+        local-class='input'
+        type='text'
+        placeholder={{t 'components.projects_filters.input_placeholder_text'}}
         value={{this.debouncedQuery}}
-      >
+      />
     </div>
 
     {{#unless this.debouncedQuery}}
-      {{#if (get @permissions "create_project")}}
-        <LinkTo
-          @route="logged-in.projects.new"
-          class="button button--filled button--green"
-          local-class="createProjectButton"
-        >
-          {{inline-svg "/assets/add.svg" class="button-icon"}}
-          {{t "components.projects_filters.new_project"}}
+      {{#if (get @permissions 'create_project')}}
+        <LinkTo @route='logged-in.projects.new' class='button button--filled button--green' local-class='createProjectButton'>
+          {{inline-svg '/assets/add.svg' class='button-icon'}}
+          {{t 'components.projects_filters.new_project'}}
         </LinkTo>
       {{/if}}
     {{/unless}}
   </form>
 
-  <div local-class="filters-meta">
+  <div local-class='filters-meta'>
     {{#if @query}}
-      {{t "components.projects_filters.searching_for"}}
-      <em local-class="filters-meta-keyword">
+      {{t 'components.projects_filters.searching_for'}}
+      <em local-class='filters-meta-keyword'>
         {{@query}}
       </em>
     {{/if}}

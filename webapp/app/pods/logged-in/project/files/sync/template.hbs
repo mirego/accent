@@ -1,37 +1,37 @@
 <AccModal @large={{true}} @onClose={{fn this.closeModal}}>
   <ProjectFileOperation>
-    <button class="closeButton" {{on "click" (fn this.closeModal)}}>
-      <div class="closeButton-content">
-        {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
+    <button class='closeButton' {{on 'click' (fn this.closeModal)}}>
+      <div class='closeButton-content'>
+        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
       </div>
     </button>
 
-    <div class="title">
-      <div class="sectionType">
-        {{inline-svg "/assets/sync.svg" class="sectionType-icon"}}
-        {{t "components.project_file_operations.sync"}}
+    <div class='title'>
+      <div class='sectionType'>
+        {{inline-svg '/assets/sync.svg' class='sectionType-icon'}}
+        {{t 'components.project_file_operations.sync'}}
       </div>
 
-      <div class="title-document">
+      <div class='title-document'>
         {{this.document.path}}
-        <span class="title-documentExtension">
+        <span class='title-documentExtension'>
           .
           {{this.documentFormatItem.extension}}
         </span>
       </div>
     </div>
 
-    <div class="sections">
-      <div class="sections-file">
+    <div class='sections'>
+      <div class='sections-file'>
         <CommitFile
           @permissions={{this.permissions}}
           @revisions={{this.revisions}}
           @versions={{this.versions}}
           @document={{this.document}}
           @canCommit={{true}}
-          @commitAction="sync"
-          @peekAction="peek_sync"
-          @commitButtonText={{t "components.commit_file.sync_button"}}
+          @commitAction='sync'
+          @peekAction='peek_sync'
+          @commitButtonText={{t 'components.commit_file.sync_button'}}
           @onFileCancel={{fn this.cancelFile}}
           @onPeek={{fn this.peek}}
           @onCommit={{fn this.sync}}
@@ -39,7 +39,7 @@
       </div>
 
       {{#if this.revisionOperations.length}}
-        <div class="sections-preview">
+        <div class='sections-preview'>
           <OperationsPeek @revisionOperations={{this.revisionOperations}} />
         </div>
       {{/if}}

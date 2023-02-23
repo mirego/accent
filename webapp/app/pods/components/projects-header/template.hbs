@@ -1,59 +1,52 @@
-<header local-class="projects-header {{if @project "withProject"}}">
-  <div local-class="content">
-    <div local-class="content-left">
+<header local-class='projects-header {{if @project "withProject"}}'>
+  <div local-class='content'>
+    <div local-class='content-left'>
       {{#if @project}}
-        <LinkTo @route="logged-in.projects" local-class="applicationLogo">
-          {{inline-svg
-            "assets/chevron-left.svg"
-            local-class="applicationLogo-back"
-          }}
+        <LinkTo @route='logged-in.projects' local-class='applicationLogo'>
+          {{inline-svg 'assets/chevron-left.svg' local-class='applicationLogo-back'}}
         </LinkTo>
 
-        <LinkTo
-          @route="logged-in.project.index"
-          @model={{@project.id}}
-          local-class="project"
-        >
-          <span local-class="project-logo">
+        <LinkTo @route='logged-in.project.index' @model={{@project.id}} local-class='project'>
+          <span local-class='project-logo'>
             <ProjectLogo @logo={{@project.logo}} />
           </span>
 
           {{@project.name}}
         </LinkTo>
 
-        <div local-class="search">
-          {{inline-svg "/assets/search.svg" local-class="search-icon"}}
+        <div local-class='search'>
+          {{inline-svg '/assets/search.svg' local-class='search-icon'}}
           <input
-            {{on "keyup" this.setDebouncedQuery}}
-            local-class="search-input"
-            type="text"
-            placeholder={{t "general.search_input_placeholder_text"}}
+            {{on 'keyup' this.setDebouncedQuery}}
+            local-class='search-input'
+            type='text'
+            placeholder={{t 'general.search_input_placeholder_text'}}
             value={{this.debouncedQuery}}
-          >
+          />
         </div>
       {{else}}
-        <div local-class="applicationLogo">
-          {{inline-svg "assets/logo.svg" local-class="applicationLogo-image"}}
-          <span local-class="applicationLogo-accent">
-            {{t "general.application_name"}}
+        <div local-class='applicationLogo'>
+          {{inline-svg 'assets/logo.svg' local-class='applicationLogo-image'}}
+          <span local-class='applicationLogo-accent'>
+            {{t 'general.application_name'}}
           </span>
         </div>
       {{/if}}
     </div>
 
     {{#if @session.credentials.user}}
-      <div local-class="content-right">
+      <div local-class='content-right'>
         {{#if @session.credentials.user.pictureUrl}}
-          <AccAvatarImg local-class="picture" src={{@session.credentials.user.pictureUrl}} />
+          <AccAvatarImg local-class='picture' src={{@session.credentials.user.pictureUrl}} />
         {{/if}}
 
-        <span local-class="username">
+        <span local-class='username'>
           {{@session.credentials.user.fullname}}
         </span>
 
         {{#unless @project}}
-          <button class="button button--white" {{on "click" (fn this.logout)}}>
-            {{t "general.logout_button"}}
+          <button class='button button--white' {{on 'click' (fn this.logout)}}>
+            {{t 'general.logout_button'}}
           </button>
         {{/unless}}
       </div>

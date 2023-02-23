@@ -8,25 +8,20 @@
     @placeholder={{@placeholder}}
     @searchPlaceholder={{@searchPlaceholder}}
     @renderInPlace={{@renderInPlace}}
-    @onChange={{@onchange}} as |option|
+    @onChange={{@onchange}}
+    as |option|
   >
     {{option.label}}
   </PowerSelect>
 {{else if @customSelect}}
-  <PowerSelect
-    @options={{@options}}
-    @selected={{@selected}}
-    @placeholder={{@placeholder}}
-    @renderInPlace={{@renderInPlace}}
-    @onChange={{@onchange}} as |option|
-  >
+  <PowerSelect @options={{@options}} @selected={{@selected}} @placeholder={{@placeholder}} @renderInPlace={{@renderInPlace}} @onChange={{@onchange}} as |option|>
     {{option.label}}
   </PowerSelect>
 {{else}}
-  <div local-class="root" ...attributes>
-    <select {{on "change" this.selectChange}}>
-      {{#each @options key="value" as |selectOption|}}
-        <option value={{selectOption.value}} selected="{{if (eq @selected.value selectOption.value) "selected"}}">
+  <div local-class='root' ...attributes>
+    <select {{on 'change' this.selectChange}}>
+      {{#each @options key='value' as |selectOption|}}
+        <option value={{selectOption.value}} selected='{{if (eq @selected.value selectOption.value) "selected"}}'>
           {{selectOption.label}}
         </option>
       {{/each}}

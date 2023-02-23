@@ -1,19 +1,10 @@
-<div local-class="content"
-  {{did-insert (perform this.submitTask)}}
-  >
-  <div local-class="filters">
-    <div local-class="languages">
-      <AccSelect
-        @customSelect={{true}}
-        @selected={{this.fromRevision}}
-        @options={{this.mappedRevisions}}
-        @onchange={{fn this.onSelectFromRevision}}
-      />
+<div local-class='content' {{did-insert (perform this.submitTask)}}>
+  <div local-class='filters'>
+    <div local-class='languages'>
+      <AccSelect @customSelect={{true}} @selected={{this.fromRevision}} @options={{this.mappedRevisions}} @onchange={{fn this.onSelectFromRevision}} />
 
-      <div
-        local-class="arrow"
-      >
-        {{inline-svg "/assets/chevron-right.svg" local-class="arrow-icon"}}
+      <div local-class='arrow'>
+        {{inline-svg '/assets/chevron-right.svg' local-class='arrow-icon'}}
       </div>
 
       <AccSelect
@@ -25,50 +16,40 @@
       />
     </div>
 
-    <div local-class="translate-action">
+    <div local-class='translate-action'>
       <AccSelect
         @searchEnabled={{false}}
         @selected={{this.documentFormat}}
         @options={{this.mappedDocumentFormats}}
         @onchange={{fn this.onSelectDocumentFormat}}
-        local-class="translate-action-select"
+        local-class='translate-action-select'
       />
 
-      <AsyncButton
-        class="button button--filled"
-        @loading={{this.isSubmitting}}
-        @onClick={{perform this.submitTask}}
-        local-class="translate-action-button"
-      >
-        {{inline-svg "/assets/language.svg" class="button-icon"}}
-        {{t "components.machine_translations_translate_upload_form.translate"}}
+      <AsyncButton class='button button--filled' @loading={{this.isSubmitting}} @onClick={{perform this.submitTask}} local-class='translate-action-button'>
+        {{inline-svg '/assets/language.svg' class='button-icon'}}
+        {{t 'components.machine_translations_translate_upload_form.translate'}}
       </AsyncButton>
     </div>
   </div>
 
-  <div local-class="preview">
-    <div local-class="preview-file-content">
+  <div local-class='preview'>
+    <div local-class='preview-file-content'>
       {{#if this.fileContent}}
         <HighlightRender @content={{this.fileContent}} />
       {{/if}}
     </div>
 
-    <div local-class="preview-translated-content">
+    <div local-class='preview-translated-content'>
       {{#if @translatedFileContent}}
-        <AsyncButton
-          @onClick={{fn this.exportFile}}
-          @disabled={{this.exportButtonDisabled}}
-          class="button button--filled"
-          local-class="button-export"
-        >
-          {{inline-svg "/assets/export.svg" class="button-icon"}}
-          {{t "components.project_file_operations.export"}}
+        <AsyncButton @onClick={{fn this.exportFile}} @disabled={{this.exportButtonDisabled}} class='button button--filled' local-class='button-export'>
+          {{inline-svg '/assets/export.svg' class='button-icon'}}
+          {{t 'components.project_file_operations.export'}}
         </AsyncButton>
 
-        <HighlightRender @content={{@translatedFileContent}}/>
+        <HighlightRender @content={{@translatedFileContent}} />
       {{else if this.sameLanguages}}
-        <div local-class="preview-translated-content-empty">
-          {{t "components.machine_translations_translate_upload_form.select_target"}}
+        <div local-class='preview-translated-content-empty'>
+          {{t 'components.machine_translations_translate_upload_form.select_target'}}
         </div>
       {{/if}}
     </div>

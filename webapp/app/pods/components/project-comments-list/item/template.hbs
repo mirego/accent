@@ -1,18 +1,10 @@
-<li local-class="project-comments-list-item">
-  <div local-class="item-header">
-    <LinkTo
-      @route="logged-in.project.revision.translations"
-      @models={{array @project.id @groupedComment.value.revision.id}}
-      local-class="item-language"
-    >
+<li local-class='project-comments-list-item'>
+  <div local-class='item-header'>
+    <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @groupedComment.value.revision.id}} local-class='item-language'>
       {{@groupedComment.value.revision.language.name}}
     </LinkTo>
-    <LinkTo
-      @route="logged-in.project.translation.comments"
-      @models={{array @project.id @groupedComment.value.id}}
-      local-class="item-link"
-    >
-      <small local-class="item-key-prefix">
+    <LinkTo @route='logged-in.project.translation.comments' @models={{array @project.id @groupedComment.value.id}} local-class='item-link'>
+      <small local-class='item-key-prefix'>
         {{#if this.translationKey.prefix}}
           {{this.translationKey.prefix}}
         {{else}}
@@ -22,22 +14,15 @@
       {{this.translationKey.value}}
     </LinkTo>
     {{#if @groupedComment.value.removed}}
-      <div local-class="removedBadge">
-        {{t
-          "components.translation_splash_title.removed_label"
-          removedAt=(time-ago-in-words @groupedComment.value.updatedAt)
-        }}
+      <div local-class='removedBadge'>
+        {{t 'components.translation_splash_title.removed_label' removedAt=(time-ago-in-words @groupedComment.value.updatedAt)}}
       </div>
     {{/if}}
   </div>
 
   <TranslationCommentsList
     @comments={{@groupedComment.items}}
-    local-class={{if
-      @groupedComment.value.removed
-      "translationCommentsList translationRemoved"
-      "translationCommentsList"
-    }}
+    local-class={{if @groupedComment.value.removed 'translationCommentsList translationRemoved' 'translationCommentsList'}}
     @onDeleteComment={{@onDeleteComment}}
     @onUpdateComment={{@onUpdateComment}}
   />

@@ -1,56 +1,39 @@
 <AccModal @onClose={{fn this.closeModal}}>
   <ProjectFileOperation>
-    <button class="closeButton" {{on "click" (fn this.closeModal)}}>
-      <div class="closeButton-content">
-        {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
+    <button class='closeButton' {{on 'click' (fn this.closeModal)}}>
+      <div class='closeButton-content'>
+        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
       </div>
     </button>
 
-    <div class="title">
-      <div class="sectionType">
-        {{inline-svg "/assets/edit-in-place.svg" class="sectionType-icon"}}
-        {{t "components.project_file_operations.export_jipt"}}
+    <div class='title'>
+      <div class='sectionType'>
+        {{inline-svg '/assets/edit-in-place.svg' class='sectionType-icon'}}
+        {{t 'components.project_file_operations.export_jipt'}}
       </div>
 
-      <div class="title-document">
+      <div class='title-document'>
         {{this.document.path}}
 
-        <span class="title-documentExtension">.{{this.documentFormatItem.extension}}</span>
+        <span class='title-documentExtension'>.{{this.documentFormatItem.extension}}</span>
       </div>
     </div>
 
-    <RevisionExportOptions
-      @format={{this.documentFormatFilter}}
-      @onChangeFormat={{fn (mut this.documentFormatFilter)}}
-    />
+    <RevisionExportOptions @format={{this.documentFormatFilter}} @onChangeFormat={{fn (mut this.documentFormatFilter)}} />
 
-    <LinkTo
-      @route="logged-in.project.files.export"
-      @models={{array this.project.id this.document.id}}
-      class="button button--filled button--white button--small toggleJiptExport"
-    >
-      {{inline-svg "/assets/export.svg" class="button-icon"}}
-      {{t "components.project_file_operations.export"}}
+    <LinkTo @route='logged-in.project.files.export' @models={{array this.project.id this.document.id}} class='button button--filled button--white button--small toggleJiptExport'>
+      {{inline-svg '/assets/export.svg' class='button-icon'}}
+      {{t 'components.project_file_operations.export'}}
     </LinkTo>
 
-    <AsyncButton
-      @onClick={{fn this.exportFile}}
-      @disabled={{this.exportButtonDisabled}}
-      class="button button--filled renderExport"
-    >
-      {{t "components.project_file_operations.export"}}
+    <AsyncButton @onClick={{fn this.exportFile}} @disabled={{this.exportButtonDisabled}} class='button button--filled renderExport'>
+      {{t 'components.project_file_operations.export'}}
     </AsyncButton>
 
     {{#if this.exportLoading}}
       <SkeletonUi::ProgressLine />
     {{/if}}
 
-    <JiptExport
-      class="render"
-      @onFileLoaded={{fn this.onFileLoaded}}
-      @project={{this.project}}
-      @document={{this.document}}
-      @documentFormat={{this.documentFormatFilter}}
-    />
+    <JiptExport class='render' @onFileLoaded={{fn this.onFileLoaded}} @project={{this.project}} @document={{this.document}} @documentFormat={{this.documentFormatFilter}} />
   </ProjectFileOperation>
 </AccModal>

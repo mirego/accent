@@ -10,12 +10,8 @@
     />
 
     {{#if this.model.relatedTranslations}}
-      {{#if (get this.permissions "index_related_translations")}}
-        <RelatedTranslationsList
-          @project={{this.model.project}}
-          @translations={{this.model.relatedTranslations}}
-          @onUpdateText={{fn this.updateTranslation}}
-        />
+      {{#if (get this.permissions 'index_related_translations')}}
+        <RelatedTranslationsList @project={{this.model.project}} @translations={{this.model.relatedTranslations}} @onUpdateText={{fn this.updateTranslation}} />
       {{/if}}
     {{/if}}
   </TranslationIndex>

@@ -50,6 +50,8 @@ export default abstract class extends Command {
     const config = this.projectConfig.config;
 
     const fetcher = new ProjectFetcher();
-    this.project = await fetcher.fetch(config);
+    const response = await fetcher.fetch(config);
+    this.project = response.project;
+    this.viewer = response;
   }
 }

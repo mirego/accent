@@ -1,76 +1,54 @@
-<div local-class="project-settings-badges">
-  <ProjectSettings::Title
-    @title={{t "components.project_settings.badges.title"}}
-  />
+<div local-class='project-settings-badges'>
+  <ProjectSettings::Title @title={{t 'components.project_settings.badges.title'}} />
 
-  <p local-class="text">
-    {{t "components.project_settings.badges.text"}}
+  <p local-class='text'>
+    {{t 'components.project_settings.badges.text'}}
   </p>
 
-  <div local-class="badge-item">
-    <div local-class="badge">
-      <span local-class="badge-title">
-        {{t "components.project_settings.badges.percentage_reviewed"}}
+  <div local-class='badge-item'>
+    <div local-class='badge'>
+      <span local-class='badge-title'>
+        {{t 'components.project_settings.badges.percentage_reviewed'}}
       </span>
 
-      <img src={{concat this.percentageReviewedBadgeUrl "?digest=" this.digest}}>
+      <img src={{concat this.percentageReviewedBadgeUrl '?digest=' this.digest}} />
     </div>
 
-    <input
-      readonly=""
-      onClick="this.select();"
-      local-class="badge-code"
-      value={{this.percentageReviewedBadgeCode}}
-    >
+    <input readonly='' onClick='this.select();' local-class='badge-code' value={{this.percentageReviewedBadgeCode}} />
   </div>
 
-  <div local-class="badge-item">
-    <div local-class="badge">
-      <span local-class="badge-title">
-        {{t "components.project_settings.badges.translations"}}
+  <div local-class='badge-item'>
+    <div local-class='badge'>
+      <span local-class='badge-title'>
+        {{t 'components.project_settings.badges.translations'}}
       </span>
 
-      <img src={{concat this.translationsBadgeUrl "?digest=" this.digest}}>
+      <img src={{concat this.translationsBadgeUrl '?digest=' this.digest}} />
     </div>
 
-    <input
-      readonly=""
-      onClick="this.select();"
-      local-class="badge-code"
-      value={{this.translationsBadgeCode}}
-    >
+    <input readonly='' onClick='this.select();' local-class='badge-code' value={{this.translationsBadgeCode}} />
   </div>
 
-  <div local-class="badge-item">
-    <div local-class="badge">
-      <span local-class="badge-title">
-        {{t "components.project_settings.badges.reviewed"}}
+  <div local-class='badge-item'>
+    <div local-class='badge'>
+      <span local-class='badge-title'>
+        {{t 'components.project_settings.badges.reviewed'}}
       </span>
 
-      <img src={{concat this.reviewedBadgeUrl "?digest=" this.digest}}>
+      <img src={{concat this.reviewedBadgeUrl '?digest=' this.digest}} />
     </div>
 
-    <input
-      readonly=""
-      onClick="this.select();"
-      local-class="badge-code"
-      value={{this.reviewedBadgeCode}}
-    >
+    <input readonly='' onClick='this.select();' local-class='badge-code' value={{this.reviewedBadgeCode}} />
   </div>
 
-  <div local-class="badge-item">
-    <div local-class="badge">
-      <span local-class="badge-title">
-        {{t "components.project_settings.badges.conflicts"}}
+  <div local-class='badge-item'>
+    <div local-class='badge'>
+      <span local-class='badge-title'>
+        {{t 'components.project_settings.badges.conflicts'}}
       </span>
-      <img src={{concat this.conflictsBadgeUrl "?digest=" this.digest}}>
+      <img src={{concat this.conflictsBadgeUrl '?digest=' this.digest}} />
     </div>
 
-    <input
-      readonly=""
-      onClick="this.select();"
-      local-class="badge-code"
-      value={{this.conflictsBadgeCode}}
-    >
+    <input readonly='' onClick='this.select();' local-class='badge-code' value={{this.conflictsBadgeCode}} />
   </div>
 </div>
