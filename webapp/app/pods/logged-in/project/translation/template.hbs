@@ -1,17 +1,10 @@
 {{#if this.showSkeleton}}
   <SkeletonUi::TranslationSplashTitle />
 {{else}}
-  <TranslationSplashTitle
-    @project={{this.model.project}}
-    @translation={{this.model.translation}}
-  />
+  <TranslationSplashTitle @project={{this.model.project}} @translation={{this.model.translation}} />
 {{/if}}
 
-<TranslationNavigation
-  @project={{this.model.project}}
-  @permissions={{this.permissions}}
-  @translation={{this.model.translation}}
-/>
+<TranslationNavigation @project={{this.model.project}} @permissions={{this.permissions}} @translation={{this.model.translation}} />
 
 {{#if this.model.loading}}
   <SkeletonUi::ProgressLine />

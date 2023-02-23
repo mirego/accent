@@ -1,17 +1,13 @@
 {{#if @projects}}
-  <div local-class="projects">
-    <h2 local-class="projects-title">
-      {{t "components.recent_projects_list.title"}}
+  <div local-class='projects'>
+    <h2 local-class='projects-title'>
+      {{t 'components.recent_projects_list.title'}}
     </h2>
 
-    <ul local-class="projects-list" data-test-recent-projects-list>
-      {{#each @projects key="id" as |project index|}}
+    <ul local-class='projects-list' data-test-recent-projects-list>
+      {{#each @projects key='id' as |project index|}}
         <li data-test-recent-project={{index}}>
-          <LinkTo
-            @route="logged-in.project"
-            @model={{project.id}}
-            local-class="item-link"
-          >
+          <LinkTo @route='logged-in.project' @model={{project.id}} local-class='item-link'>
             <RecentProjectsList::Item @project={{project}} />
           </LinkTo>
         </li>

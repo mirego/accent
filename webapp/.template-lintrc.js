@@ -1,18 +1,23 @@
 'use strict';
 
 module.exports = {
-  extends: 'octane',
+  plugins: ["ember-template-lint-plugin-prettier"],
+  extends: ["recommended", "ember-template-lint-plugin-prettier:recommended"],
   rules: {
     'attribute-indentation': {'open-invocation-max-len': 120},
     'block-indentation': 2,
-    'eol-last': 'always',
+    'eol-last': false,
+    'prettier': false,
     'inline-link-to': true,
     'link-href-attributes': true,
     'link-rel-noopener': true,
     'no-abstract-roles': true,
     'no-bare-strings': true,
+    'no-potential-path-strings': false,
+    'no-yield-only': false,
+    'no-forbidden-elements': false,
     'no-curly-component-invocation': {
-      allow: ['inline-svg', 't', 'string-diff', 'time-ago-in-words'],
+      allow: ['humanizedDate', 'inline-svg', 't', 'string-diff', 'time-ago-in-words'],
     },
     'no-debugger': true,
     'no-element-event-actions': true,
@@ -21,6 +26,7 @@ module.exports = {
     'no-implicit-this': false,
     'no-invalid-interactive': false,
     'no-log': true,
+    'no-redundant-fn': false,
     'no-nested-interactive': true,
     'no-outlet-outside-routes': true,
     'no-obsolete-elements': true,
@@ -28,12 +34,14 @@ module.exports = {
     'no-trailing-spaces': true,
     'no-triple-curlies': false,
     'no-unused-block-params': true,
-    quotes: 'double',
+    quotes: false,
     'require-valid-alt-text': false,
-    'self-closing-void-elements': true,
+    'require-input-label': false,
+    'require-button-type': false,
+    'self-closing-void-elements': false,
     'simple-unless': false,
     'style-concatenation': true,
     'table-groups': true,
     'template-length': [true, {min: 1, max: 200}],
-  },
+  }
 };

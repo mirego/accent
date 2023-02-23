@@ -1,30 +1,24 @@
-<div local-class="translations-filter">
-  <div class="filters">
-    <form
-      local-class="filters-wrapper"
-      class="filters-wrapper"
-      {{on "submit" (fn this.submitForm)}}
-    >
-      <div local-class="filters-content">
-        <div local-class="queryForm">
-          {{inline-svg "/assets/search.svg" local-class="search-icon"}}
+<div local-class='translations-filter'>
+  <div class='filters'>
+    <form local-class='filters-wrapper' class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
+      <div local-class='filters-content'>
+        <div local-class='queryForm'>
+          {{inline-svg '/assets/search.svg' local-class='search-icon'}}
           <input
-            local-class="input"
-            type="text"
-            placeholder={{t
-              "components.translations_filter.input_placeholder_text"
-            }}
+            local-class='input'
+            type='text'
+            placeholder={{t 'components.translations_filter.input_placeholder_text'}}
             value={{this.debouncedQuery}}
-            {{on-key "Enter" (fn this.submitForm)}}
-            {{on "keyup" (fn this.setDebouncedQuery)}}
-          >
+            {{on-key 'Enter' (fn this.submitForm)}}
+            {{on 'keyup' (fn this.setDebouncedQuery)}}
+          />
         </div>
 
-        <div class="queryForm-filters">
-          <div class="queryForm-filters-column">
+        <div class='queryForm-filters'>
+          <div class='queryForm-filters-column'>
             {{#if this.showDocumentsSelect}}
-              <div class="queryForm-filter">
-                <div class="queryForm-filter-select">
+              <div class='queryForm-filter'>
+                <div class='queryForm-filter-select'>
                   <AccSelect
                     @matchTriggerWidth={{false}}
                     @searchEnabled={{false}}
@@ -37,8 +31,8 @@
             {{/if}}
 
             {{#if this.showVersionsSelect}}
-              <div class="queryForm-filter">
-                <div class="queryForm-filter-select">
+              <div class='queryForm-filter'>
+                <div class='queryForm-filter-select'>
                   <AccSelect
                     @matchTriggerWidth={{false}}
                     @searchEnabled={{false}}
@@ -52,14 +46,12 @@
           </div>
 
           {{#if @onChangeAdvancedFilterBoolean}}
-            <button {{on "click" (fn this.toggleAdvancedFilters)}} local-class="advancedFilters" class="button button--filled button--white">
-              {{inline-svg "assets/filter.svg" class="button-icon"}}
-              {{t
-                "components.translations_filter.advanced_filters_button"
-              }}
+            <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
+              {{inline-svg 'assets/filter.svg' class='button-icon'}}
+              {{t 'components.translations_filter.advanced_filters_button'}}
 
               {{#if @withAdvancedFilters}}
-                <span local-class="advancedFilters-badge">
+                <span local-class='advancedFilters-badge'>
                   {{@withAdvancedFilters}}
                 </span>
               {{/if}}
@@ -80,11 +72,8 @@
       </div>
 
       {{#if @meta.totalEntries}}
-        <span local-class="totalEntries">
-          {{t
-            "components.translations_filter.total_entries_count"
-            count=@meta.totalEntries
-          }}
+        <span local-class='totalEntries'>
+          {{t 'components.translations_filter.total_entries_count' count=@meta.totalEntries}}
         </span>
       {{/if}}
     </form>

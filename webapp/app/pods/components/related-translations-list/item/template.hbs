@@ -1,16 +1,11 @@
-<li local-class="related-translations-list-item">
-  <div local-class="header">
+<li local-class='related-translations-list-item'>
+  <div local-class='header'>
     <div>
-      <LinkTo
-        @route="logged-in.project.translation"
-        @models={{array @project.id @translation.id}}
-        local-class="revision"
-        tabindex="-1"
-      >
+      <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} local-class='revision' tabindex='-1'>
         {{this.revisionName}}
 
-        <span local-class="updatedAt">
-          {{t "components.related_translations_list.last_updated_label"}}
+        <span local-class='updatedAt'>
+          {{t 'components.related_translations_list.last_updated_label'}}
           <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
         </span>
       </LinkTo>
@@ -20,28 +15,16 @@
       {{#unless @translation.isRemoved}}
         {{#if @translation.commentsCount}}
           <AccBadge @link={{true}}>
-            <LinkTo
-              tabindex="-1"
-              @route="logged-in.project.translation.comments"
-              @models={{array @project.id @translation.id}}
-            >
-              {{t
-                "components.related_translations_list.comments_label"
-                count=@translation.commentsCount
-              }}
+            <LinkTo tabindex='-1' @route='logged-in.project.translation.comments' @models={{array @project.id @translation.id}}>
+              {{t 'components.related_translations_list.comments_label' count=@translation.commentsCount}}
             </LinkTo>
           </AccBadge>
         {{/if}}
 
         {{#if @translation.isConflicted}}
           <AccBadge @link={{true}}>
-            <LinkTo
-              tabindex="-1"
-              @route="logged-in.project.revision.conflicts"
-              @models={{array @project.id @translation.revision.id}}
-              @query={{hash query=@translation.id}}
-            >
-              {{t "components.related_translations_list.conflicted_label"}}
+            <LinkTo tabindex='-1' @route='logged-in.project.revision.conflicts' @models={{array @project.id @translation.revision.id}} @query={{hash query=@translation.id}}>
+              {{t 'components.related_translations_list.conflicted_label'}}
             </LinkTo>
           </AccBadge>
         {{/if}}
@@ -49,7 +32,7 @@
 
       {{#if @translation.revision.isMaster}}
         <AccBadge>
-          {{t "components.related_translations_list.master_label"}}
+          {{t 'components.related_translations_list.master_label'}}
         </AccBadge>
       {{/if}}
     </div>
@@ -69,14 +52,9 @@
     as |form|
   >
     {{#component form.submit}}
-      <div local-class="textEdit-actions" data-dir={{form.dir}}>
-        <AsyncButton
-          @onClick={{fn this.save}}
-          @loading={{this.isSaving}}
-          @disabled={{not this.showSaveButton}}
-          class="button button--filled button--iconOnly"
-        >
-          {{t "components.related_translations_list.save_button"}}
+      <div local-class='textEdit-actions' data-dir={{form.dir}}>
+        <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} @disabled={{not this.showSaveButton}} class='button button--filled button--iconOnly'>
+          {{t 'components.related_translations_list.save_button'}}
         </AsyncButton>
       </div>
     {{/component}}

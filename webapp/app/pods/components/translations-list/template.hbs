@@ -1,30 +1,18 @@
-<ul local-class="translations-list">
-  {{#each @translations key="id" as |translation|}}
-    <TranslationsList::Item
-      @translation={{translation}}
-      @project={{@project}}
-      @onUpdateText={{@onUpdateText}}
-    />
+<ul local-class='translations-list'>
+  {{#each @translations key='id' as |translation|}}
+    <TranslationsList::Item @translation={{translation}} @project={{@project}} @onUpdateText={{@onUpdateText}} />
   {{else if @query}}
-    <EmptyContent
-      local-class="empty-content"
-      @center={{true}}
-      @text={{t "components.translations_list.no_translations_query" query=@query}}
-    />
+    <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_query' query=@query}} />
   {{else if @withAdvancedFilters}}
-    <EmptyContent
-      local-class="empty-content"
-      @center={{true}}
-      @text={{t "components.translations_list.no_translations_filters"}}
-    />
+    <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_filters'}} />
   {{else}}
-    <EmptyContent local-class="empty-content" @center={{true}}>
-      {{inline-svg "assets/empty.svg" local-class="icon"}}
-      {{t "components.translations_list.no_translations"}}
+    <EmptyContent local-class='empty-content' @center={{true}}>
+      {{inline-svg 'assets/empty.svg' local-class='icon'}}
+      {{t 'components.translations_list.no_translations'}}
       <div>
-        {{t "components.translations_list.maybe_sync_before"}}
-        <LinkTo @route="logged-in.project.files" class="link">
-          {{t "components.translations_list.maybe_sync_link"}}
+        {{t 'components.translations_list.maybe_sync_before'}}
+        <LinkTo @route='logged-in.project.files' class='link'>
+          {{t 'components.translations_list.maybe_sync_link'}}
         </LinkTo>
       </div>
     </EmptyContent>

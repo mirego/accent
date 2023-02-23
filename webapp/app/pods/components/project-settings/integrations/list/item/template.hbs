@@ -1,4 +1,4 @@
-<li local-class="project-settings-integrations-list-item">
+<li local-class='project-settings-integrations-list-item'>
   {{#if this.isEditing}}
     <ProjectSettings::Integrations::Form
       @integration={{@integration}}
@@ -8,36 +8,29 @@
       @onCancel={{fn this.toggleEdit}}
     />
   {{else}}
-    <div local-class="details">
-      <div local-class="details-info">
-        {{inline-svg this.logoService local-class="details-logo"}}
-        <span local-class="details-service">
+    <div local-class='details'>
+      <div local-class='details-info'>
+        {{inline-svg this.logoService local-class='details-logo'}}
+        <span local-class='details-service'>
           {{t this.mappedServiceTranslationKey}}
         </span>
 
-        <span local-class="details-preview">
+        <span local-class='details-preview'>
           {{@integration.data.url}}
           {{@integration.data.repository}}
         </span>
       </div>
 
-      <div local-class="details-actions">
-        {{#if (get @permissions "update_project_integration")}}
-          <button
-            class="button button--filled button--white"
-            {{on "click" (fn this.toggleEdit)}}
-          >
-            {{t "components.project_settings.integrations.edit"}}
+      <div local-class='details-actions'>
+        {{#if (get @permissions 'update_project_integration')}}
+          <button class='button button--filled button--white' {{on 'click' (fn this.toggleEdit)}}>
+            {{t 'components.project_settings.integrations.edit'}}
           </button>
         {{/if}}
 
-        {{#if (get @permissions "delete_project_integration")}}
-          <AsyncButton
-            @onClick={{fn this.delete}}
-            @loading={{this.isDeleting}}
-            class="button button--filled button--red"
-          >
-            {{t "components.project_settings.integrations.delete"}}
+        {{#if (get @permissions 'delete_project_integration')}}
+          <AsyncButton @onClick={{fn this.delete}} @loading={{this.isDeleting}} class='button button--filled button--red'>
+            {{t 'components.project_settings.integrations.delete'}}
           </AsyncButton>
         {{/if}}
       </div>

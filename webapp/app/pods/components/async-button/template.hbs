@@ -1,13 +1,7 @@
-<button
-  local-class="button {{if @loading "button--loading"}}"
-  class="button"
-  disabled={{this.disabled}}
-  ...attributes
-  {{on "click" (fn this.onClick)}}
->
-  <div local-class="content">
-    <span local-class="label" class="label">{{yield}}</span>
+<button local-class='button {{if @loading "button--loading"}}' class='button' disabled={{this.disabled}} ...attributes {{on 'click' (fn this.onClick)}}>
+  <div local-class='content'>
+    <span local-class='label' class='label'>{{yield}}</span>
 
-    {{inline-svg "/assets/loading.svg" local-class="loading"}}
+    {{inline-svg '/assets/loading.svg' local-class='loading'}}
   </div>
 </button>

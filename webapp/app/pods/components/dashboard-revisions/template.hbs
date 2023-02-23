@@ -1,77 +1,59 @@
-<div local-class="dashboard-revisions {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}">
-  <div local-class="content">
+<div local-class='dashboard-revisions {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}'>
+  <div local-class='content'>
     {{#if @project.lastSyncedAt}}
-      <div local-class="numberStat">
+      <div local-class='numberStat'>
         {{#if this.reviewCompleted}}
-          <span local-class="numberStat-reviewCompleted">
-            {{inline-svg
-              "/assets/thumbs-up.svg"
-              local-class="numberStat-reviewCompleted-successIcon"
-            }}
-            {{t "components.dashboard_revisions.all_reviewed"}}
+          <span local-class='numberStat-reviewCompleted'>
+            {{inline-svg '/assets/thumbs-up.svg' local-class='numberStat-reviewCompleted-successIcon'}}
+            {{t 'components.dashboard_revisions.all_reviewed'}}
           </span>
         {{else}}
-          <span local-class="numberStat-reviewPercentage">
+          <span local-class='numberStat-reviewPercentage'>
             {{this.reviewedPercentage}}
-            <span local-class="numberStat-reviewPercentage-unit">
-              {{inline-svg
-                "/assets/percent.svg"
-                local-class="numberStat-reviewPercentage-icon"
-              }}
+            <span local-class='numberStat-reviewPercentage-unit'>
+              {{inline-svg '/assets/percent.svg' local-class='numberStat-reviewPercentage-icon'}}
             </span>
           </span>
         {{/if}}
 
-        <small local-class="numberStat-totalKeys">
+        <small local-class='numberStat-totalKeys'>
           {{this.totalReviewed}}
           /
           {{this.totalStrings}}
-          <span local-class="numberStat-totalKeys-label">
-            {{t "components.dashboard_revisions.strings"}}
+          <span local-class='numberStat-totalKeys-label'>
+            {{t 'components.dashboard_revisions.strings'}}
           </span>
         </small>
       </div>
 
-      <div local-class="stats">
-        <h2 local-class="stats-title">
+      <div local-class='stats'>
+        <h2 local-class='stats-title'>
           <span>
-            {{t "components.dashboard_revisions.master"}}
+            {{t 'components.dashboard_revisions.master'}}
             :
           </span>
 
-          <div local-class="stats-title-links">
-            {{#if (get @permissions "sync")}}
-              <LinkTo
-                @route="logged-in.project.files.sync"
-                @models={{array @project.id @document.id}}
-                class="button button--borderLess button--filled button--white"
-              >
-                {{inline-svg "/assets/sync.svg" class="button-icon"}}
-                {{t "components.documents_list.sync"}}
+          <div local-class='stats-title-links'>
+            {{#if (get @permissions 'sync')}}
+              <LinkTo @route='logged-in.project.files.sync' @models={{array @project.id @document.id}} class='button button--borderLess button--filled button--white'>
+                {{inline-svg '/assets/sync.svg' class='button-icon'}}
+                {{t 'components.documents_list.sync'}}
               </LinkTo>
             {{/if}}
-            {{#if (get @permissions "merge")}}
-              <LinkTo
-                @route="logged-in.project.files.add-translations"
-                @models={{array @project.id @document.id}}
-                class="button button--borderLess button--filled button--white"
-              >
-                {{inline-svg "/assets/merge.svg" class="button-icon"}}
-                {{t "components.documents_list.merge"}}
+            {{#if (get @permissions 'merge')}}
+              <LinkTo @route='logged-in.project.files.add-translations' @models={{array @project.id @document.id}} class='button button--borderLess button--filled button--white'>
+                {{inline-svg '/assets/merge.svg' class='button-icon'}}
+                {{t 'components.documents_list.merge'}}
               </LinkTo>
             {{/if}}
-            <LinkTo
-              @route="logged-in.project.files.export"
-              @models={{array @project.id @document.id}}
-              class="button button--borderLess button--filled button--white"
-            >
-              {{inline-svg "/assets/export.svg" class="button-icon"}}
-              {{t "components.documents_list.export"}}
+            <LinkTo @route='logged-in.project.files.export' @models={{array @project.id @document.id}} class='button button--borderLess button--filled button--white'>
+              {{inline-svg '/assets/export.svg' class='button-icon'}}
+              {{t 'components.documents_list.export'}}
             </LinkTo>
           </div>
         </h2>
 
-        <div local-class="master">
+        <div local-class='master'>
           <DashboardRevisions::Item
             @project={{@project}}
             @revision={{this.masterRevision}}
@@ -82,26 +64,22 @@
         </div>
 
         {{#if this.slaveRevisions}}
-          <h2 local-class="stats-title">
+          <h2 local-class='stats-title'>
             <span>
-              {{t "components.dashboard_revisions.slaves"}}
+              {{t 'components.dashboard_revisions.slaves'}}
               :
             </span>
-            <div local-class="stats-title-links">
-              {{#if (get @permissions "create_slave")}}
-                <LinkTo
-                  @route="logged-in.project.manage-languages"
-                  @model={{@project.id}}
-                  class="button button--filled button--white button--borderLess"
-                >
-                  {{inline-svg "assets/language.svg" class="button-icon"}}
-                  {{t "components.dashboard_revisions.manage_languages_link_title"}}
+            <div local-class='stats-title-links'>
+              {{#if (get @permissions 'create_slave')}}
+                <LinkTo @route='logged-in.project.manage-languages' @model={{@project.id}} class='button button--filled button--white button--borderLess'>
+                  {{inline-svg 'assets/language.svg' class='button-icon'}}
+                  {{t 'components.dashboard_revisions.manage_languages_link_title'}}
                 </LinkTo>
               {{/if}}
             </div>
           </h2>
-          <div local-class="slaves">
-            {{#each this.slaveRevisions key="id" as |revision|}}
+          <div local-class='slaves'>
+            {{#each this.slaveRevisions key='id' as |revision|}}
               <DashboardRevisions::Item
                 @project={{@project}}
                 @revision={{revision}}
@@ -112,20 +90,16 @@
             {{/each}}
           </div>
         {{else}}
-          <div local-class="empty-slaves">
-            {{#if (get @permissions "create_slave")}}
-              <LinkTo
-                @route="logged-in.project.manage-languages"
-                @model={{@project.id}}
-                local-class="empty-slaves-button"
-              >
-                <span local-class="empty-slaves-button-action">
-                  {{inline-svg "assets/add.svg" local-class="empty-slaves-button-icon"}}
-                  {{t "components.dashboard_revisions.new_language_link_title"}}
+          <div local-class='empty-slaves'>
+            {{#if (get @permissions 'create_slave')}}
+              <LinkTo @route='logged-in.project.manage-languages' @model={{@project.id}} local-class='empty-slaves-button'>
+                <span local-class='empty-slaves-button-action'>
+                  {{inline-svg 'assets/add.svg' local-class='empty-slaves-button-icon'}}
+                  {{t 'components.dashboard_revisions.new_language_link_title'}}
                 </span>
 
-                <span local-class="empty-slaves-button-text">
-                  {{t "components.dashboard_revisions.new_language_link_text"}}
+                <span local-class='empty-slaves-button-text'>
+                  {{t 'components.dashboard_revisions.new_language_link_text'}}
                 </span>
               </LinkTo>
             {{/if}}
@@ -138,37 +112,23 @@
   </div>
 
   {{#if @activities}}
-    <div local-class="activities">
-      <h2 local-class="activities-title">
-        <span local-class="activities-title-text">
-          {{inline-svg "assets/activity.svg" local-class="activities-title-icon"}}
-          {{t "components.dashboard_revisions.activities_title"}}
+    <div local-class='activities'>
+      <h2 local-class='activities-title'>
+        <span local-class='activities-title-text'>
+          {{inline-svg 'assets/activity.svg' local-class='activities-title-icon'}}
+          {{t 'components.dashboard_revisions.activities_title'}}
         </span>
 
         {{#if @project.lastActivitySync.insertedAt}}
-          <LinkTo
-            @route="logged-in.project.activity"
-            @models={{array @project.id @project.lastActivitySync.id}}
-            local-class="activities-last-sync"
-          >
-            {{t "components.dashboard_revisions.last_synced_at_label"}}
+          <LinkTo @route='logged-in.project.activity' @models={{array @project.id @project.lastActivitySync.id}} local-class='activities-last-sync'>
+            {{t 'components.dashboard_revisions.last_synced_at_label'}}
             <TimeAgoInWordsTag @date={{@project.lastActivitySync.insertedAt}} />
           </LinkTo>
         {{/if}}
       </h2>
-      <ProjectActivitiesList
-        @permissions={{@permissions}}
-        @activities={{@activities}}
-        @project={{@project}}
-        @compact={{true}}
-      />
-      <LinkTo
-        @route="logged-in.project.activities"
-        @model={{@project.id}}
-        class="button button--filled button--white button--borderLess"
-        local-class="activities-viewMoreButton"
-      >
-        {{t "components.dashboard_revisions.view_more_activities"}}
+      <ProjectActivitiesList @permissions={{@permissions}} @activities={{@activities}} @project={{@project}} @compact={{true}} />
+      <LinkTo @route='logged-in.project.activities' @model={{@project.id}} class='button button--filled button--white button--borderLess' local-class='activities-viewMoreButton'>
+        {{t 'components.dashboard_revisions.view_more_activities'}}
       </LinkTo>
     </div>
   {{/if}}

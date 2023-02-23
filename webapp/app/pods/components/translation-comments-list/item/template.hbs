@@ -1,50 +1,31 @@
-<div local-class="wrapper">
-  <div local-class="header">
-    <div local-class="meta">
-      <span local-class="user">
+<div local-class='wrapper'>
+  <div local-class='header'>
+    <div local-class='meta'>
+      <span local-class='user'>
         {{#if @comment.user.pictureUrl}}
-          <AccAvatarImg
-            local-class="user-picture"
-            src="{{@comment.user.pictureUrl}}"
-          />
+          <AccAvatarImg local-class='user-picture' src='{{@comment.user.pictureUrl}}' />
         {{/if}}
         {{@comment.user.fullname}}
       </span>
 
-      <span local-class="date">
+      <span local-class='date'>
         <TimeAgoInWordsTag @date={{@comment.insertedAt}} />
       </span>
     </div>
 
-    {{#if this.isAuthor }}
+    {{#if this.isAuthor}}
       <div>
-        <button
-          {{on "click" this.toggleEditComment}}
-          class="button button--small button--borderless"
-          local-class="button-edit"
-        >
+        <button {{on 'click' this.toggleEditComment}} class='button button--small button--borderless' local-class='button-edit'>
           {{#if this.editComment}}
-            {{inline-svg
-              "assets/x.svg"
-              class="button-icon"
-            }}
+            {{inline-svg 'assets/x.svg' class='button-icon'}}
           {{else}}
-            {{inline-svg
-              "assets/pencil.svg"
-              class="button-icon"
-            }}
+            {{inline-svg 'assets/pencil.svg' class='button-icon'}}
           {{/if}}
         </button>
 
         {{#unless this.editComment}}
-          <TranslationCommentDelete
-            class="button button--small button--red button--borderless"
-            local-class="button-delete" @onSubmit={{perform this.deleteComment}}
-          >
-            {{inline-svg
-              "assets/x.svg"
-              class="button-icon"
-            }}
+          <TranslationCommentDelete class='button button--small button--red button--borderless' local-class='button-delete' @onSubmit={{perform this.deleteComment}}>
+            {{inline-svg 'assets/x.svg' class='button-icon'}}
           </TranslationCommentDelete>
         {{/unless}}
       </div>
@@ -52,11 +33,11 @@
   </div>
 
   {{#if this.editComment}}
-    <div local-class="comment-form" {{did-insert this.focusTextarea}}>
+    <div local-class='comment-form' {{did-insert this.focusTextarea}}>
       <TranslationCommentForm @value={{@comment.text}} @onSubmit={{perform this.updateComment}} />
     </div>
   {{else}}
-    <div local-class="content">
+    <div local-class='content'>
       {{this.text}}
     </div>
   {{/if}}

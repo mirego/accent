@@ -24,7 +24,7 @@
 {{#if this.showSkeleton}}
   <SkeletonUi::TranslationsList />
 {{else if this.showLoading}}
-  <LoadingContent @label={{t "pods.project.translations.loading_content"}} />
+  <LoadingContent @label={{t 'pods.project.translations.loading_content'}} />
 {{else}}
   <TranslationsList
     @project={{this.model.project}}
@@ -33,8 +33,5 @@
     @query={{this.query}}
     @onUpdateText={{fn this.updateText}}
   />
-  <ResourcePagination
-    @meta={{this.model.translations.meta}}
-    @onSelectPage={{fn this.selectPage}}
-  />
+  <ResourcePagination @meta={{this.model.translations.meta}} @onSelectPage={{fn this.selectPage}} />
 {{/if}}

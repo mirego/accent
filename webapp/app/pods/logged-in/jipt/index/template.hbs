@@ -19,8 +19,5 @@
 <JiptTranslationsList @translations={{this.filteredTranslations}} />
 
 {{#unless this.withSelectedTranslations}}
-  <ResourcePagination
-    @meta={{this.model.project.revision.translations.meta}}
-    @onSelectPage={{fn this.selectPage}}
-  />
+  <ResourcePagination @meta={{this.model.project.revision.translations.meta}} @onSelectPage={{fn this.selectPage}} />
 {{/unless}}

@@ -1,17 +1,11 @@
 {{#if @versions}}
-  <ul local-class="versions-list">
-    {{#each @versions key="id" as |version|}}
-      <VersionsList::Item
-        @permissions={{@permissions}}
-        @version={{version}}
-        @project={{@project}}
-      />
+  <ul local-class='versions-list'>
+    {{#each @versions key='id' as |version|}}
+      <VersionsList::Item @permissions={{@permissions}} @version={{version}} @project={{@project}} />
     {{/each}}
   </ul>
 {{else}}
-  <div local-class="empty-content">
-    <EmptyContent
-      @text={{t "components.versions_list.empty_text"}}
-    />
+  <div local-class='empty-content'>
+    <EmptyContent @text={{t 'components.versions_list.empty_text'}} />
   </div>
 {{/if}}

@@ -1,19 +1,11 @@
 {{#if @comments}}
-  <ul local-class="translation-comments-list" ...attributes>
-    {{#each @comments key="id" as |comment|}}
-      <li local-class="itemComment">
-        <TranslationCommentsList::Item
-          @comment={{comment}}
-          @onDeleteComment={{@onDeleteComment}}
-          @onUpdateComment={{@onUpdateComment}}
-        />
+  <ul local-class='translation-comments-list' ...attributes>
+    {{#each @comments key='id' as |comment|}}
+      <li local-class='itemComment'>
+        <TranslationCommentsList::Item @comment={{comment}} @onDeleteComment={{@onDeleteComment}} @onUpdateComment={{@onUpdateComment}} />
       </li>
     {{/each}}
   </ul>
 {{else}}
-  <EmptyContent
-    @center={{true}}
-    @iconPath="assets/bubble.svg"
-    @text={{t "components.translation_comments_list.no_comments"}}
-  />
+  <EmptyContent @center={{true}} @iconPath='assets/bubble.svg' @text={{t 'components.translation_comments_list.no_comments'}} />
 {{/if}}

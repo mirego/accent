@@ -1,6 +1,6 @@
 <PageTitle>
-  {{inline-svg "/assets/file.svg"}}
-  <h1>{{t "components.page_title.files"}}</h1>
+  {{inline-svg '/assets/file.svg'}}
+  <h1>{{t 'components.page_title.files'}}</h1>
 </PageTitle>
 
 {{#if this.model.loading}}
@@ -18,18 +18,15 @@
     @onUpdate={{fn this.updateDocument}}
   />
 
-  {{#if (get this.permissions "sync")}}
+  {{#if (get this.permissions 'sync')}}
     <DocumentsAddButton @project={{this.model.project}} />
   {{/if}}
 
-  {{#if (get this.permissions "machine_translations_translate")}}
+  {{#if (get this.permissions 'machine_translations_translate')}}
     <DocumentsMachineTranslationsButton @project={{this.model.project}} />
   {{/if}}
 
-  <ResourcePagination
-    @meta={{this.model.documents.meta}}
-    @onSelectPage={{fn this.selectPage}}
-  />
+  <ResourcePagination @meta={{this.model.documents.meta}} @onSelectPage={{fn this.selectPage}} />
 
   {{outlet}}
 {{/if}}

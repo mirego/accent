@@ -1,15 +1,15 @@
-<div local-class="flash {{if this.isExiting "is-exiting"}} {{this.type}}">
-  <button local-class="deleteButton" {{on "click" (fn this.close)}}>
-    {{inline-svg "assets/x.svg" local-class="deleteButton-icon"}}
+<div local-class='flash {{if this.isExiting "is-exiting"}} {{this.type}}'>
+  <button local-class='deleteButton' {{on 'click' (fn this.close)}}>
+    {{inline-svg 'assets/x.svg' local-class='deleteButton-icon'}}
   </button>
 
-  <div local-class="content">
+  <div local-class='content'>
     {{#if this.iconPath}}
-      <div local-class="icon">
+      <div local-class='icon'>
         {{inline-svg this.iconPath}}
       </div>
     {{/if}}
-    <p local-class="text">
+    <p local-class='text'>
       {{@flash.message}}
     </p>
   </div>

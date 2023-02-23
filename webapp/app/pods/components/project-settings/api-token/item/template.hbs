@@ -1,52 +1,50 @@
-    <div local-class="api-token">
-      <div local-class="api-token-header">
-        <div local-class="api-token-meta">
-        <div local-class="api-token-user">
-          {{#if @token.user.pictureUrl}}
-            <AccAvatarImg local-class="picture" src={{@token.user.pictureUrl}} />
-          {{else}}
-            <AccAvatarImg local-class="picture" src={{@token.user.pictureUrl}} @showFallback={{true}} />
-          {{/if}}
+<div local-class='api-token'>
+  <div local-class='api-token-header'>
+    <div local-class='api-token-meta'>
+      <div local-class='api-token-user'>
+        {{#if @token.user.pictureUrl}}
+          <AccAvatarImg local-class='picture' src={{@token.user.pictureUrl}} />
+        {{else}}
+          <AccAvatarImg local-class='picture' src={{@token.user.pictureUrl}} @showFallback={{true}} />
+        {{/if}}
 
-          <span local-class="api-token-name">{{@token.user.fullname}}</span>
-        </div>
-          <span local-class="api-token-inserted">
-            {{t "components.project_settings.api_token.inserted_at"}}
-            <TimeAgoInWordsTag @date={{@token.insertedAt}} />
-          </span>
-        </div>
-
-        <div>
-        {{#if (get @permissions "revoke_project_api_token")}}
-          <AsyncButton
-            @onClick={{perform this.revokeTask}}
-            @loading={{this.isRevoking}}
-            @disabled={{this.isRevoking}}
-            local-class="revoke-button"
-            class="button button--small button--filled button--red"
-          >
-            {{inline-svg "/assets/x.svg" class="button-icon"}}
-            {{t "components.project_settings.api_token.revoke_button"}}
-          </AsyncButton>
-          {{/if}}
-        </div>
+        <span local-class='api-token-name'>{{@token.user.fullname}}</span>
       </div>
+      <span local-class='api-token-inserted'>
+        {{t 'components.project_settings.api_token.inserted_at'}}
+        <TimeAgoInWordsTag @date={{@token.insertedAt}} />
+      </span>
+    </div>
 
-      <input readonly="" onClick="this.select();" local-class="token" value={{@token.token}}>
-      {{#if @token.customPermissions}}
-     <button
-       {{on "click" (fn this.togglePermissions)}}
-       local-class="toggle-permissions {{if this.showPermissions 'toggle-permissions--open'}}"
-       >Custom permissions
-       <span local-class="toggle-permissions-icon">↓</span>
-       </button>
-
-      {{#if this.showPermissions}}
-      <ul local-class="api-token-permissions">
-      {{#each @token.customPermissions as |permission|}}
-      <li local-class="api-token-permission">{{permission}}</li>
-      {{/each}}
-      </ul>
-      {{/if}}
+    <div>
+      {{#if (get @permissions 'revoke_project_api_token')}}
+        <AsyncButton
+          @onClick={{perform this.revokeTask}}
+          @loading={{this.isRevoking}}
+          @disabled={{this.isRevoking}}
+          local-class='revoke-button'
+          class='button button--small button--filled button--red'
+        >
+          {{inline-svg '/assets/x.svg' class='button-icon'}}
+          {{t 'components.project_settings.api_token.revoke_button'}}
+        </AsyncButton>
       {{/if}}
     </div>
+  </div>
+
+  <input readonly='' onClick='this.select();' local-class='token' value={{@token.token}} />
+  {{#if @token.customPermissions}}
+    <button {{on 'click' (fn this.togglePermissions)}} local-class='toggle-permissions {{if this.showPermissions "toggle-permissions--open"}}'>
+      {{t 'components.project_settings.api_token.permissions.custom_permissions'}}
+      <span local-class='toggle-permissions-icon'>{{t 'components.project_settings.api_token.permissions.custom_permissions_arrow'}}</span>
+    </button>
+
+    {{#if this.showPermissions}}
+      <ul local-class='api-token-permissions'>
+        {{#each @token.customPermissions as |permission|}}
+          <li local-class='api-token-permission'>{{permission}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  {{/if}}
+</div>

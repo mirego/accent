@@ -1,6 +1,6 @@
 <PageTitle>
-  {{inline-svg "/assets/language.svg"}}
-  <h1>{{t "components.page_title.manage_languages"}}</h1>
+  {{inline-svg '/assets/language.svg'}}
+  <h1>{{t 'components.page_title.manage_languages'}}</h1>
 </PageTitle>
 
 {{#if this.model.loading}}
@@ -8,9 +8,7 @@
 {{/if}}
 
 {{#if this.showLoading}}
-  <LoadingContent
-    @label={{t "pods.project.manage_languages.loading_content"}}
-  />
+  <LoadingContent @label={{t 'pods.project.manage_languages.loading_content'}} />
 {{else}}
   <ProjectSettings::ManageLanguages
     @project={{this.model.project}}

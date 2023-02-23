@@ -1,20 +1,20 @@
 <AccModal @onClose={{fn this.closeModal}} @large={{true}}>
   <ProjectFileOperation>
-    <button class="closeButton" {{on "click" (fn this.closeModal)}}>
-      <div class="closeButton-content">
-        {{inline-svg "/assets/x.svg" class="closeButton-icon"}}
+    <button class='closeButton' {{on 'click' (fn this.closeModal)}}>
+      <div class='closeButton-content'>
+        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
       </div>
     </button>
 
-    <div class="title">
-      <div class="sectionType">
-        {{inline-svg "/assets/language.svg" class="sectionType-icon"}}
-        {{t "components.project_file_operations.translate"}}
+    <div class='title'>
+      <div class='sectionType'>
+        {{inline-svg '/assets/language.svg' class='sectionType-icon'}}
+        {{t 'components.project_file_operations.translate'}}
       </div>
 
-      <div class="title-document">
+      <div class='title-document'>
         {{this.document.path}}
-        <span class="title-documentExtension">
+        <span class='title-documentExtension'>
           .
           {{this.documentFormatItem.extension}}
         </span>

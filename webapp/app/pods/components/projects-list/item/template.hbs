@@ -1,12 +1,12 @@
-<div local-class="projects-list-item {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}">
-  <div local-class="projectHeader" class="projectId-{{@project.id}}">
+<div local-class='projects-list-item {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}'>
+  <div local-class='projectHeader' class='projectId-{{@project.id}}'>
     {{#if @project.logo}}
-      <span local-class="projectLogo">
+      <span local-class='projectLogo'>
         <ProjectLogo @logo={{@project.logo}} />
       </span>
     {{/if}}
 
-    <span local-class="projectName" data-test-project-name>
+    <span local-class='projectName' data-test-project-name>
       {{@project.name}}
     </span>
     <style>
@@ -14,27 +14,27 @@
     </style>
   </div>
 
-  <div local-class="numberStat">
-    <span local-class="projectUpdates">
+  <div local-class='numberStat'>
+    <span local-class='projectUpdates'>
       {{#if @project.lastSyncedAt}}
-        <span local-class="projectUpdate">
-          {{t "components.projects_list.last_synced_at_label"}}
-          <span local-class="lastSyncedAt-date">
+        <span local-class='projectUpdate'>
+          {{t 'components.projects_list.last_synced_at_label'}}
+          <span local-class='lastSyncedAt-date'>
             <TimeAgoInWordsTag @date={{@project.lastSyncedAt}} />
           </span>
         </span>
       {{else}}
-        {{t "components.projects_list.never_synced"}}
+        {{t 'components.projects_list.never_synced'}}
       {{/if}}
     </span>
 
-    <span local-class="numberStat-totals">
+    <span local-class='numberStat-totals'>
       {{this.totalStrings}}
-      {{t "components.dashboard_revisions.strings"}}
+      {{t 'components.dashboard_revisions.strings'}}
     </span>
   </div>
 
-  <div local-class="progress">
+  <div local-class='progress'>
     <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
   </div>
 </div>

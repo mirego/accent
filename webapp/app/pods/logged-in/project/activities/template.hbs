@@ -1,6 +1,6 @@
 <PageTitle>
-  {{inline-svg "/assets/activity.svg"}}
-  <h1>{{t "components.page_title.activities"}}</h1>
+  {{inline-svg '/assets/activity.svg'}}
+  <h1>{{t 'components.page_title.activities'}}</h1>
 </PageTitle>
 
 {{#if this.showSkeleton}}
@@ -30,14 +30,7 @@
     <SkeletonUi::ProgressLine />
   {{/if}}
 
-  <ProjectActivitiesList
-    @permissions={{this.permissions}}
-    @activities={{this.model.activities.entries}}
-    @project={{this.model.project}}
-  />
+  <ProjectActivitiesList @permissions={{this.permissions}} @activities={{this.model.activities.entries}} @project={{this.model.project}} />
 
-  <ResourcePagination
-    @meta={{this.model.activities.meta}}
-    @onSelectPage={{fn this.selectPage}}
-  />
+  <ResourcePagination @meta={{this.model.activities.meta}} @onSelectPage={{fn this.selectPage}} />
 {{/if}}

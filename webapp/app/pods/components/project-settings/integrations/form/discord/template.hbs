@@ -1,15 +1,15 @@
 <ProjectSettings::Integrations::Form::DataControlText
-  @error={{field-error @errors "data.url"}}
-  @label={{t "components.project_settings.integrations.data.url"}}
-  @placeholder={{"https://discordapp.com/api/webhooks/aaaa/bbbb/cccc"}}
+  @error={{field-error @errors 'data.url'}}
+  @label={{t 'components.project_settings.integrations.data.url'}}
+  @placeholder={{'https://discordapp.com/api/webhooks/aaaa/bbbb/cccc'}}
   @value={{@url}}
   @onChange={{this.changeUrl}}
-  @helpLinkHref={{"https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks"}}
-  @helpLinkTitle={{t "components.project_settings.integrations.webhook_url_how"}}
+  @helpLinkHref={{'https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks'}}
+  @helpLinkTitle={{t 'components.project_settings.integrations.webhook_url_how'}}
 />
 
 <ProjectSettings::Integrations::Form::DataControlCheckboxes
-  @title={{t "components.project_settings.integrations.events.title"}}
+  @title={{t 'components.project_settings.integrations.events.title'}}
   @events={{@events}}
   @onChangeEventsChecked={{@onChangeEventsChecked}}
 />

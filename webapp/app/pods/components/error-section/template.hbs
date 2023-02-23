@@ -1,31 +1,31 @@
-<div local-class="error-section">
-  {{inline-svg "assets/logo-bw.svg" local-class="logo"}}
+<div local-class='error-section'>
+  {{inline-svg 'assets/logo-bw.svg' local-class='logo'}}
 
-  <div local-class="header">
-    <h1 local-class="status">
+  <div local-class='header'>
+    <h1 local-class='status'>
       {{@status}}
     </h1>
 
-    <h2 local-class="title">
+    <h2 local-class='title'>
       {{@title}}
     </h2>
   </div>
 
-  <p local-class="text">
+  <p local-class='text'>
     {{@text}}
   </p>
 
   {{#if @isAuthenticated}}
-    <button class="button button--red button--borderless" {{on "click" @onLogout}}>
-      {{t "components.error_section.logout"}}
+    <button class='button button--red button--borderless' {{on 'click' @onLogout}}>
+      {{t 'components.error_section.logout'}}
     </button>
 
-    <span local-class="or">
-      {{t "components.error_section.or"}}
+    <span local-class='or'>
+      {{t 'components.error_section.or'}}
     </span>
   {{/if}}
 
-  <LinkTo @route="login" local-class="link">
-    {{t "components.error_section.return"}}
+  <LinkTo @route='login' local-class='link'>
+    {{t 'components.error_section.return'}}
   </LinkTo>
 </div>

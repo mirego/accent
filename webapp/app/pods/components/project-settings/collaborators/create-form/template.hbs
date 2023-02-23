@@ -1,29 +1,17 @@
-<div local-class="project-settings-collaborators-create-form">
-  <AccSelect
-    @searchEnabled={{false}}
-    @selected={{this.roleValue}}
-    @options={{this.mappedPossibleRoles}}
-    @onchange={{fn this.setRole}}
-    local-class="select"
-  />
+<div local-class='project-settings-collaborators-create-form'>
+  <AccSelect @searchEnabled={{false}} @selected={{this.roleValue}} @options={{this.mappedPossibleRoles}} @onchange={{fn this.setRole}} local-class='select' />
 
   <input
-    {{on-key "cmd+Enter" (perform this.submitTask)}}
-    {{on "input" (fn this.emailChanged)}}
-    local-class="textInput"
-    type="email"
+    {{on-key 'cmd+Enter' (perform this.submitTask)}}
+    {{on 'input' (fn this.emailChanged)}}
+    local-class='textInput'
+    type='email'
     value={{this.email}}
-    placeholder={{t "components.collaborator_create_form.email_placeholder"}}
+    placeholder={{t 'components.collaborator_create_form.email_placeholder'}}
     data-test-new-collaborator-email
-  >
+  />
 
-  <AsyncButton
-    @onClick={{perform this.submitTask}}
-    @loading={{this.isCreating}}
-    @disabled={{this.invalidEmail}}
-    class="button button--filled"
-    data-test-new-collaborator-submit
-  >
-    {{t "components.collaborator_create_form.create_button"}}
+  <AsyncButton @onClick={{perform this.submitTask}} @loading={{this.isCreating}} @disabled={{this.invalidEmail}} class='button button--filled' data-test-new-collaborator-submit>
+    {{t 'components.collaborator_create_form.create_button'}}
   </AsyncButton>
 </div>

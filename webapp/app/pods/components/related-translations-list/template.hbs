@@ -1,14 +1,8 @@
 {{#if @translations}}
-  <div local-class="list">
+  <div local-class='list'>
     <ul>
-      {{#each @translations key="id" as |translation|}}
-        <RelatedTranslationsList::Item
-          @onUpdateText={{@onUpdateText}}
-          @isInEditMode={{true}}
-          @showEditButton={{false}}
-          @translation={{translation}}
-          @project={{@project}}
-        />
+      {{#each @translations key='id' as |translation|}}
+        <RelatedTranslationsList::Item @onUpdateText={{@onUpdateText}} @isInEditMode={{true}} @showEditButton={{false}} @translation={{translation}} @project={{@project}} />
       {{/each}}
     </ul>
   </div>

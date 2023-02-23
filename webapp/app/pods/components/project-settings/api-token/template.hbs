@@ -1,115 +1,99 @@
-<div local-class="project-settings-api-token">
-  {{#if (get @permissions "list_project_api_tokens")}}
-  <div local-class="tokens">
-  <ProjectSettings::Title
-    @icon="/assets/code.svg"
-    @title={{t "components.project_settings.api_token.title"}}
-  />
+<div local-class='project-settings-api-token'>
+  {{#if (get @permissions 'list_project_api_tokens')}}
+    <div local-class='tokens'>
+      <ProjectSettings::Title @icon='/assets/code.svg' @title={{t 'components.project_settings.api_token.title'}} />
 
-  <p local-class="text">
-    {{{t "components.project_settings.api_token.text_1"}}}
-  </p>
+      <p local-class='text'>
+        {{{t 'components.project_settings.api_token.text_1'}}}
+      </p>
 
-  <div local-class="api-tokens {{if this.isRevoking 'overlay'}}">
-  {{#each @projectTokens key="id" as |token|}}
-    <ProjectSettings::ApiToken::Item @token={{token}} @permissions={{@permissions}} @onRevoke={{@onRevoke}}/>
-  {{/each}}
-  </div>
+      <div local-class='api-tokens {{if this.isRevoking "overlay"}}'>
+        {{#each @projectTokens key='id' as |token|}}
+          <ProjectSettings::ApiToken::Item @token={{token}} @permissions={{@permissions}} @onRevoke={{@onRevoke}} />
+        {{/each}}
+      </div>
 
-  {{#if (get @permissions "create_project_api_token")}}
-<div local-class="form">
-  <ProjectSettings::Title
-    @title={{t "components.project_settings.api_token.create_title"}}
-  />
+      {{#if (get @permissions 'create_project_api_token')}}
+        <div local-class='form'>
+          <ProjectSettings::Title @title={{t 'components.project_settings.api_token.create_title'}} />
 
-  <input
-    {{on-key "cmd+Enter" (perform this.submitTask)}}
-    {{on "input" (fn this.apiTokenNameChanged)}}
-    local-class="textInput"
-    type="text"
-    value={{this.apiTokenName}}
-    placeholder={{t "components.project_settings.api_token.create_name_placeholder"}}
-  >
+          <input
+            {{on-key 'cmd+Enter' (perform this.submitTask)}}
+            {{on 'input' (fn this.apiTokenNameChanged)}}
+            local-class='textInput'
+            type='text'
+            value={{this.apiTokenName}}
+            placeholder={{t 'components.project_settings.api_token.create_name_placeholder'}}
+          />
 
-  <input
-    {{on-key "cmd+Enter" (perform this.submitTask)}}
-    {{on "input" (fn this.apiTokenPictureUrlChanged)}}
-    local-class="textInput"
-    type="url"
-    value={{this.apiTokenPictureUrl}}
-    placeholder={{t "components.project_settings.api_token.create_picture_url_placeholder"}}
-  >
-  <div local-class="toggle-permissions-header">
+          <input
+            {{on-key 'cmd+Enter' (perform this.submitTask)}}
+            {{on 'input' (fn this.apiTokenPictureUrlChanged)}}
+            local-class='textInput'
+            type='url'
+            value={{this.apiTokenPictureUrl}}
+            placeholder={{t 'components.project_settings.api_token.create_picture_url_placeholder'}}
+          />
+          <div local-class='toggle-permissions-header'>
 
-  <button
-    {{on "click" (fn this.togglePermissionsInput)}}
-    local-class="toggle-permissions-input {{if this.showPermissionsInput 'toggle-permissions-input--open'}}"
-    >Use custom permissions
-    <span local-class="toggle-permissions-input-icon">↓</span>
-    </button>
+            <button {{on 'click' (fn this.togglePermissionsInput)}} local-class='toggle-permissions-input {{if this.showPermissionsInput "toggle-permissions-input--open"}}'>
+              {{t 'components.project_settings.api_token.permissions.use_custom_permissions'}}
+              <span local-class='toggle-permissions-input-icon'>
+                {{t 'components.project_settings.api_token.permissions.custom_permissions_arrow'}}
+              </span>
+            </button>
 
-  {{#if this.showPermissionsInput}}
-  <div>
-  <button
-    {{on "click" (fn this.selectAllPermissions)}}
-    local-class="toggle-permissions-header-button"
-    >Select all
-    </button>
-  <button
-    {{on "click" (fn this.unselectAllPermissions)}}
-    local-class="toggle-permissions-header-button"
-    >Unselect all
-    </button>
-</div>
-  {{/if}}
-  </div>
+            {{#if this.showPermissionsInput}}
+              <div>
+                <button {{on 'click' (fn this.selectAllPermissions)}} local-class='toggle-permissions-header-button'>
+                  {{t 'components.project_settings.api_token.permissions.select_all'}}
+                </button>
+                <button {{on 'click' (fn this.unselectAllPermissions)}} local-class='toggle-permissions-header-button'>
+                  {{t 'components.project_settings.api_token.permissions.unselect_all'}}
+                </button>
+              </div>
+            {{/if}}
+          </div>
 
-  {{#if this.showPermissionsInput}}
-  <ul local-class="permissions-inputs">
-  {{#each-in @permissions as |permission|}}
-  <li local-class="permissions-input">
-    <label for={{concat "permission-" permission}}>
+          {{#if this.showPermissionsInput}}
+            <ul local-class='permissions-inputs'>
+              {{#each-in @permissions as |permission|}}
+                <li local-class='permissions-input'>
+                  <label for={{concat 'permission-' permission}}>
+                    <input name='permiss' value={{permission}} type='checkbox' id={{concat 'permission-' permission}} {{on 'input' (fn this.changePermission)}} />
+                    {{permission}}
+                  </label>
+                </li>
+              {{/each-in}}
+            </ul>
+          {{/if}}
 
-    <input name="permiss" value={{permission}} type="checkbox"
-    id={{concat "permission-" permission}}
-    {{on "input" (fn this.changePermission)}}
-    />
-    {{permission}}
-    </label>
-    </li>
-  {{/each-in}}
-</ul>
-{{/if}}
+          <AsyncButton
+            local-class='create-button'
+            class='button button--filled'
+            @disabled={{this.isSubmitDisabled}}
+            @onClick={{perform this.submitTask}}
+            @loading={{this.isSubmitting}}
+          >
+            {{t 'components.project_settings.api_token.create_button'}}
+          </AsyncButton>
+        </div>
+      {{/if}}
 
-  <AsyncButton
-    local-class="create-button"
-    class="button button--filled"
-    @disabled={{this.isSubmitDisabled}}
-    @onClick={{perform this.submitTask}}
-    @loading={{this.isSubmitting}}
-  >
-    {{t "components.project_settings.api_token.create_button"}}
-  </AsyncButton>
-</div>
+    </div>
   {{/if}}
 
-  </div>
-  {{/if}}
+  <div local-class='user-token'>
+    <ProjectSettings::Title @icon='/assets/users.svg' @title={{t 'components.project_settings.user_token.title'}} />
 
-  <div local-class="user-token">
-    <ProjectSettings::Title
-      @icon="/assets/users.svg"
-      @title={{t "components.project_settings.user_token.title"}}
-    />
-
-    <p local-class="text">
-      {{t "components.project_settings.user_token.text_1"}}
+    <p local-class='text'>
+      {{t 'components.project_settings.user_token.text_1'}}
     </p>
 
-    <p local-class="text">
-      {{{t "components.project_settings.user_token.text_shell"}}}
+    <p local-class='text'>
+      {{{t 'components.project_settings.user_token.text_shell'}}}
     </p>
 
-    <input readonly="" onClick="this.select();" local-class="token" value={{@userToken}}>
+    <input readonly='' onClick='this.select();' local-class='token' value={{@userToken}} />
   </div>
 </div>

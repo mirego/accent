@@ -1,64 +1,39 @@
-<div local-class="revision-export-options">
-  <div class="filters" local-class="filters">
-    <div class="filters-wrapper">
-      <div local-class="exportOptions">
+<div local-class='revision-export-options'>
+  <div class='filters' local-class='filters'>
+    <div class='filters-wrapper'>
+      <div local-class='exportOptions'>
         {{#if this.showRevisions}}
-          <div local-class="exportOptions-item">
-            <AccSelect
-              @searchEnabled={{false}}
-              @selected={{this.revisionValue}}
-              @options={{this.mappedRevisions}}
-              @onchange={{fn this.revisionChanged}}
-            />
+          <div local-class='exportOptions-item'>
+            <AccSelect @searchEnabled={{false}} @selected={{this.revisionValue}} @options={{this.mappedRevisions}} @onchange={{fn this.revisionChanged}} />
           </div>
         {{/if}}
 
         {{#if this.showOrders}}
-          <div local-class="exportOptions-item">
-            <AccSelect
-              @searchEnabled={{false}}
-              @selected={{this.orderByValue}}
-              @options={{this.orderByOptions}}
-              @onchange={{fn this.orderByChanged}}
-            />
+          <div local-class='exportOptions-item'>
+            <AccSelect @searchEnabled={{false}} @selected={{this.orderByValue}} @options={{this.orderByOptions}} @onchange={{fn this.orderByChanged}} />
           </div>
         {{/if}}
 
-        <div local-class="exportOptions-item">
-          <AccSelect
-            @searchEnabled={{false}}
-            @selected={{this.formatValue}}
-            @options={{this.formatOptions}}
-            @onchange={{fn this.formatChanged}}
-          />
+        <div local-class='exportOptions-item'>
+          <AccSelect @searchEnabled={{false}} @selected={{this.formatValue}} @options={{this.formatOptions}} @onchange={{fn this.formatChanged}} />
         </div>
 
         {{#if this.showDocuments}}
-          <div local-class="exportOptions-item">
-            <AccSelect
-              @searchEnabled={{false}}
-              @selected={{this.documentValue}}
-              @options={{this.mappedDocuments}}
-              @onchange={{fn this.documentChanged}}
-            />
+          <div local-class='exportOptions-item'>
+            <AccSelect @searchEnabled={{false}} @selected={{this.documentValue}} @options={{this.mappedDocuments}} @onchange={{fn this.documentChanged}} />
           </div>
         {{/if}}
 
         {{#if this.showVersions}}
-          <div local-class="exportOptions-item">
-            <AccSelect
-              @searchEnabled={{false}}
-              @selected={{this.versionValue}}
-              @options={{this.mappedVersions}}
-              @onchange={{fn this.versionChanged}}
-            />
+          <div local-class='exportOptions-item'>
+            <AccSelect @searchEnabled={{false}} @selected={{this.versionValue}} @options={{this.mappedVersions}} @onchange={{fn this.versionChanged}} />
           </div>
         {{/if}}
       </div>
     </div>
 
     {{#if @onChangeAdvancedFilterBoolean}}
-      <div local-class="exportOptions-advancedFilters">
+      <div local-class='exportOptions-advancedFilters'>
         <RevisionExportOptions::AdvancedFilters
           @isTextEmptyFilter={{@isTextEmptyFilter}}
           @isAddedLastSyncFilter={{@isAddedLastSyncFilter}}

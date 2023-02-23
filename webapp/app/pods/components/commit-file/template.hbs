@@ -1,60 +1,45 @@
-<div local-class="commit-file">
+<div local-class='commit-file'>
   {{#if this.isPeekingError}}
-    <div local-class="errorMessage">
-      {{t "components.commit_file.peek_error"}}
+    <div local-class='errorMessage'>
+      {{t 'components.commit_file.peek_error'}}
     </div>
   {{/if}}
   {{#if this.isCommitingError}}
-    <div local-class="errorMessage">
-      {{t "components.commit_file.commit_error"}}
+    <div local-class='errorMessage'>
+      {{t 'components.commit_file.commit_error'}}
     </div>
   {{/if}}
   {{#if this.isMerge}}
     {{#if this.file}}
-      <div local-class="options">
-        <div local-class="option option--borderless">
-          <p local-class="textHelper">
-            {{t "components.commit_file.language"}}
+      <div local-class='options'>
+        <div local-class='option option--borderless'>
+          <p local-class='textHelper'>
+            {{t 'components.commit_file.language'}}
             :
           </p>
-          <AccSelect
-            @searchEnabled={{false}}
-            @selected={{this.revisionValue}}
-            @options={{this.mappedRevisions}}
-            @onchange={{fn this.onSelectRevision}}
-          />
+          <AccSelect @searchEnabled={{false}} @selected={{this.revisionValue}} @options={{this.mappedRevisions}} @onchange={{fn this.onSelectRevision}} />
         </div>
-        <div local-class="option option--borderless">
-          <p local-class="textHelper">
-            {{t "components.commit_file.commit_type"}}
+        <div local-class='option option--borderless'>
+          <p local-class='textHelper'>
+            {{t 'components.commit_file.commit_type'}}
             :
           </p>
-          <AccSelect
-            @searchEnabled={{false}}
-            @selected={{this.mergeType}}
-            @options={{this.mappedMergeTypes}}
-            @onchange={{fn this.onSelectMergeType}}
-          />
+          <AccSelect @searchEnabled={{false}} @selected={{this.mergeType}} @options={{this.mappedMergeTypes}} @onchange={{fn this.onSelectMergeType}} />
         </div>
       </div>
     {{/if}}
   {{/if}}
   {{#if this.isSync}}
     {{#if this.file}}
-      <div local-class="options">
-        <div local-class="option option--borderless">
-          <p local-class="textHelper">
-            {{t "components.commit_file.commit_type"}}
+      <div local-class='options'>
+        <div local-class='option option--borderless'>
+          <p local-class='textHelper'>
+            {{t 'components.commit_file.commit_type'}}
             :
           </p>
-          <AccSelect
-            @searchEnabled={{false}}
-            @selected={{this.syncType}}
-            @options={{this.mappedSyncTypes}}
-            @onchange={{fn this.onSelectSyncType}}
-          />
+          <AccSelect @searchEnabled={{false}} @selected={{this.syncType}} @options={{this.mappedSyncTypes}} @onchange={{fn this.onSelectSyncType}} />
         </div>
-        <div local-class="option option--borderless"></div>
+        <div local-class='option option--borderless'></div>
       </div>
     {{/if}}
   {{/if}}
@@ -63,108 +48,80 @@
     <div>
       {{#if @documents}}
         {{#if this.isSync}}
-        <div local-class="option">
-          <p local-class="textHelper">
-            {{t "components.commit_file.file_source"}}
-          </p>
-          <p>
-            {{#if this.existingDocumentPath}}
-              <span local-class="documentHelper">
-                {{t "components.commit_file.existing_document_warning"}}
-              </span>
-            {{else}}
-              <span local-class="documentHelper documentHelper--new">
-                {{t "components.commit_file.new_document_warning"}}
-              </span>
-            {{/if}}
-          </p>
-          <Input @value={{this.documentPath}} local-class="fileSourceName" />
-        </div>
+          <div local-class='option'>
+            <p local-class='textHelper'>
+              {{t 'components.commit_file.file_source'}}
+            </p>
+            <p>
+              {{#if this.existingDocumentPath}}
+                <span local-class='documentHelper'>
+                  {{t 'components.commit_file.existing_document_warning'}}
+                </span>
+              {{else}}
+                <span local-class='documentHelper documentHelper--new'>
+                  {{t 'components.commit_file.new_document_warning'}}
+                </span>
+              {{/if}}
+            </p>
+            <Input @value={{this.documentPath}} local-class='fileSourceName' />
+          </div>
         {{/if}}
       {{/if}}
 
-      <div local-class="option">
-        <p local-class="textHelper">
-          {{t "components.commit_file.document_format"}}
+      <div local-class='option'>
+        <p local-class='textHelper'>
+          {{t 'components.commit_file.document_format'}}
         </p>
-        <AccSelect
-          @searchEnabled={{false}}
-          @selected={{this.documentFormatValue}}
-          @options={{this.documentFormatOptions}}
-          @onchange={{fn this.onSelectDocumentFormat}}
-        />
+        <AccSelect @searchEnabled={{false}} @selected={{this.documentFormatValue}} @options={{this.documentFormatOptions}} @onchange={{fn this.onSelectDocumentFormat}} />
       </div>
 
       {{#if this.hasVersions}}
-        <div local-class="option">
-          <p local-class="textHelper">
-            {{t "components.commit_file.version_tag"}}
+        <div local-class='option'>
+          <p local-class='textHelper'>
+            {{t 'components.commit_file.version_tag'}}
           </p>
-          <AccSelect
-            @searchEnabled={{false}}
-            @selected={{this.versionValue}}
-            @options={{this.mappedVersions}}
-            @onchange={{fn this.onSelectVersion}}
-          />
+          <AccSelect @searchEnabled={{false}} @selected={{this.versionValue}} @options={{this.mappedVersions}} @onchange={{fn this.onSelectVersion}} />
         </div>
       {{/if}}
 
       {{#if this.isMerge}}
-        <div local-class="option">
-          <p local-class="textHelper">
-            {{t "components.commit_file.merge_options"}}
+        <div local-class='option'>
+          <p local-class='textHelper'>
+            {{t 'components.commit_file.merge_options'}}
           </p>
 
-          <label local-class="optionLabel">
-            <input
-              type="checkbox"
-              checked={{this.correctOnMerge}}
-              {{on "change" (fn this.onChangeCorrectOnMerge )}}
-            >
-            <span local-class="optionLabelText">
-              {{t
-                "components.commit_file.correct_on_merge"
-              }}
+          <label local-class='optionLabel'>
+            <input type='checkbox' checked={{this.correctOnMerge}} {{on 'change' (fn this.onChangeCorrectOnMerge)}} />
+            <span local-class='optionLabelText'>
+              {{t 'components.commit_file.correct_on_merge'}}
             </span>
           </label>
         </div>
       {{/if}}
 
       {{#if (get @permissions @peekAction)}}
-        <div local-class="option">
-          <p local-class="textHelper">
-            {{t "components.commit_file.peek_help"}}
+        <div local-class='option'>
+          <p local-class='textHelper'>
+            {{t 'components.commit_file.peek_help'}}
           </p>
-          <AsyncButton
-            @onClick={{fn this.peek}}
-            @loading={{this.isPeeking}}
-            class="button button--filled button--blue"
-            local-class="peekButton"
-          >
-            {{t "components.commit_file.peek_button"}}
+          <AsyncButton @onClick={{fn this.peek}} @loading={{this.isPeeking}} class='button button--filled button--blue' local-class='peekButton'>
+            {{t 'components.commit_file.peek_button'}}
           </AsyncButton>
         </div>
       {{/if}}
 
       {{#if (get @permissions @commitAction)}}
-        <div local-class="actions">
-          <AsyncButton
-            @onClick={{fn this.fileCancel}}
-            class="button button--filled button--white"
-          >
-            {{t "components.commit_file.cancel_button"}}
+        <div local-class='actions'>
+          <AsyncButton @onClick={{fn this.fileCancel}} class='button button--filled button--white'>
+            {{t 'components.commit_file.cancel_button'}}
           </AsyncButton>
 
           {{#if @canCommit}}
-            <AsyncButton
-              @onClick={{fn this.commit}}
-              @loading={{this.isCommiting}}
-              class="button button--filled"
-            >
+            <AsyncButton @onClick={{fn this.commit}} @loading={{this.isCommiting}} class='button button--filled'>
               {{@commitButtonText}}
             </AsyncButton>
           {{else}}
-            <AsyncButton class="button button--filled button--disabled">
+            <AsyncButton class='button button--filled button--disabled'>
               {{@commitButtonText}}
             </AsyncButton>
           {{/if}}
@@ -172,52 +129,47 @@
       {{/if}}
     </div>
   {{else}}
-    <div local-class="emptyFile">
-      <div local-class="emptyFile-upload">
-        <FileInput
-          name="file-input"
-          id="file-input"
-          @onChange={{this.fileChange}}
-          local-class="fileInput"
-        />
+    <div local-class='emptyFile'>
+      <div local-class='emptyFile-upload'>
+        <FileInput name='file-input' id='file-input' @onChange={{this.fileChange}} local-class='fileInput' />
 
-        <strong local-class="fileInputTitle">
-          {{inline-svg "/assets/folder.svg" local-class="fileInputIcon"}}
-          {{t "components.commit_file.upload_title"}}
+        <strong local-class='fileInputTitle'>
+          {{inline-svg '/assets/folder.svg' local-class='fileInputIcon'}}
+          {{t 'components.commit_file.upload_title'}}
         </strong>
 
-        <p local-class="fileInputHelper">
-          {{t "components.commit_file.upload_help"}}
+        <p local-class='fileInputHelper'>
+          {{t 'components.commit_file.upload_help'}}
         </p>
 
-        <label for="file-input" class="button button--filled" local-class="fileButton">
-          {{inline-svg "/assets/import.svg" class="button-icon" local-class="button-icon"}}
-          {{t "components.commit_file.file_input_button"}}
+        <label for='file-input' class='button button--filled' local-class='fileButton'>
+          {{inline-svg '/assets/import.svg' class='button-icon' local-class='button-icon'}}
+          {{t 'components.commit_file.file_input_button'}}
         </label>
       </div>
 
       <div>
-        <a local-class="instructions-title" rel="noopener noreferrer" href="https://www.accent.reviews/guides/glossary.html#sync" target="_blank">
-          {{t "components.commit_file.instructions.sync.title"}}
+        <a local-class='instructions-title' rel='noopener noreferrer' href='https://www.accent.reviews/guides/glossary.html#sync' target='_blank'>
+          {{t 'components.commit_file.instructions.sync.title'}}
         </a>
-        <p local-class="instructions-text">
-          {{{t "components.commit_file.instructions.sync.text"}}}
+        <p local-class='instructions-text'>
+          {{{t 'components.commit_file.instructions.sync.text'}}}
         </p>
 
-        <a local-class="instructions-title" rel="noopener noreferrer" href="https://www.accent.reviews/guides/glossary.html#add-translations" target="_blank">
-          {{t "components.commit_file.instructions.merge.title"}}
+        <a local-class='instructions-title' rel='noopener noreferrer' href='https://www.accent.reviews/guides/glossary.html#add-translations' target='_blank'>
+          {{t 'components.commit_file.instructions.merge.title'}}
         </a>
-        <p local-class="instructions-text">
-          {{{t "components.commit_file.instructions.merge.text"}}}
+        <p local-class='instructions-text'>
+          {{{t 'components.commit_file.instructions.merge.text'}}}
         </p>
 
-        <h3 local-class="instructions-title">
-          {{t "components.commit_file.instructions.mistakes.title"}}
+        <h3 local-class='instructions-title'>
+          {{t 'components.commit_file.instructions.mistakes.title'}}
         </h3>
-        <ul local-class="instructions-list">
-          <li local-class="instructions-list-item">{{t "components.commit_file.instructions.mistakes.item_1"}}</li>
-          <li local-class="instructions-list-item">{{t "components.commit_file.instructions.mistakes.item_2"}}</li>
-          <li local-class="instructions-list-item">{{t "components.commit_file.instructions.mistakes.item_3"}}</li>
+        <ul local-class='instructions-list'>
+          <li local-class='instructions-list-item'>{{t 'components.commit_file.instructions.mistakes.item_1'}}</li>
+          <li local-class='instructions-list-item'>{{t 'components.commit_file.instructions.mistakes.item_2'}}</li>
+          <li local-class='instructions-list-item'>{{t 'components.commit_file.instructions.mistakes.item_3'}}</li>
         </ul>
       </div>
     </div>

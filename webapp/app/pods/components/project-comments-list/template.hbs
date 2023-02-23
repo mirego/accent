@@ -1,14 +1,7 @@
-<ul local-class="project-comments-list">
+<ul local-class='project-comments-list'>
   {{#each this.commentsByTranslation as |groupedComment|}}
-    <ProjectCommentsList::Item
-      @project={{@project}}
-      @groupedComment={{groupedComment}}
-      @onDeleteComment={{@onDeleteComment}}
-      @onUpdateComment={{@onUpdateComment}}
-    />
+    <ProjectCommentsList::Item @project={{@project}} @groupedComment={{groupedComment}} @onDeleteComment={{@onDeleteComment}} @onUpdateComment={{@onUpdateComment}} />
   {{else}}
-    <EmptyContent
-      @text={{t "components.project_comments_list.no_comments"}}
-    />
+    <EmptyContent @text={{t 'components.project_comments_list.no_comments'}} />
   {{/each}}
 </ul>

@@ -1,11 +1,11 @@
-<div local-class="project" class="projectId-{{@project.id}}">
+<div local-class='project' class='projectId-{{@project.id}}'>
   {{#if @project.logo}}
-    <span local-class="projectLogo">
+    <span local-class='projectLogo'>
       <ProjectLogo @logo={{@project.logo}} />
     </span>
   {{/if}}
 
-  <span local-class="projectName" data-test-project-name>
+  <span local-class='projectName' data-test-project-name>
     {{@project.name}}
   </span>
   <style>

@@ -1,22 +1,14 @@
-<div local-class="wrapper">
-  <div local-class="details">
+<div local-class='wrapper'>
+  <div local-class='details'>
     {{#if this.showRevisionLink}}
-      <LinkTo
-        @route="logged-in.project.revision.translations"
-        @models={{array @project.id @lintTranslation.translation.revision.id}}
-        local-class="item-language"
-      >
+      <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @lintTranslation.translation.revision.id}} local-class='item-language'>
         {{this.revisionName}}
       </LinkTo>
     {{/if}}
 
-    <LinkTo
-      @route="logged-in.project.translation"
-      @models={{array @project.id @lintTranslation.translation.id}}
-      local-class="item-link"
-    >
-      <strong local-class="item-key">
-        <small local-class="item-key-prefix">
+    <LinkTo @route='logged-in.project.translation' @models={{array @project.id @lintTranslation.translation.id}} local-class='item-link'>
+      <strong local-class='item-key'>
+        <small local-class='item-key-prefix'>
           {{#if this.translationKey.prefix}}
             {{this.translationKey.prefix}}
           {{else}}
@@ -27,14 +19,12 @@
       </strong>
     </LinkTo>
 
-    <div local-class="item-text">{{truncate @lintTranslation.translation.text 600}}</div>
+    <div local-class='item-text'>{{truncate @lintTranslation.translation.text 600}}</div>
   </div>
 
-  <ul local-class="messages">
+  <ul local-class='messages'>
     {{#each @lintTranslation.messages as |message|}}
-      <TranslationEdit::LintMessage
-        @message={{message}}
-      />
+      <TranslationEdit::LintMessage @message={{message}} />
     {{/each}}
   </ul>
 </div>

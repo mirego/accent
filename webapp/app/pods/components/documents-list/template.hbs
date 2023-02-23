@@ -1,17 +1,9 @@
-<ul local-class="documents-list">
-  {{#each @documents key="id" as |document|}}
-    <DocumentsList::Item
-      @permissions={{@permissions}}
-      @document={{document}}
-      @onDelete={{@onDelete}}
-      @onUpdate={{@onUpdate}}
-      @project={{@project}}
-    />
+<ul local-class='documents-list'>
+  {{#each @documents key='id' as |document|}}
+    <DocumentsList::Item @permissions={{@permissions}} @document={{document}} @onDelete={{@onDelete}} @onUpdate={{@onUpdate}} @project={{@project}} />
   {{else}}
-    <div local-class="empty-content">
-      <EmptyContent
-        @text={{t "components.documents_list.empty_text"}}
-      />
+    <div local-class='empty-content'>
+      <EmptyContent @text={{t 'components.documents_list.empty_text'}} />
     </div>
   {{/each}}
 </ul>

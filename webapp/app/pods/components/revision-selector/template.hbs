@@ -1,18 +1,10 @@
 {{#if this.hasManyRevisions}}
-  <div local-class="revision-selector">
+  <div local-class='revision-selector'>
     {{#if @revisions.length}}
       <div>
-        <AccSelect
-          @searchEnabled={{false}}
-          @selected={{this.revisionValue}}
-          @options={{this.mappedRevisions}}
-          @onchange={{fn this.selectRevision}}
-        />
-        <span local-class="otherLanguages">
-          {{t
-            "components.revision_selector.languages_count"
-            count=this.otherRevisionsCount
-          }}
+        <AccSelect @searchEnabled={{false}} @selected={{this.revisionValue}} @options={{this.mappedRevisions}} @onchange={{fn this.selectRevision}} />
+        <span local-class='otherLanguages'>
+          {{t 'components.revision_selector.languages_count' count=this.otherRevisionsCount}}
         </span>
       </div>
     {{/if}}

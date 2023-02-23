@@ -1,13 +1,10 @@
-<div local-class="project-settings-collaborators">
-  <div local-class="columns">
-    <div local-class="columns-item">
-      {{#if (get @permissions "create_collaborator")}}
-      <div local-class="createForm">
-        <ProjectSettings::Collaborators::CreateForm
-          @project={{@project}}
-          @onCreate={{@onCreateCollaborator}}
-        />
-      </div>
+<div local-class='project-settings-collaborators'>
+  <div local-class='columns'>
+    <div local-class='columns-item'>
+      {{#if (get @permissions 'create_collaborator')}}
+        <div local-class='createForm'>
+          <ProjectSettings::Collaborators::CreateForm @project={{@project}} @onCreate={{@onCreateCollaborator}} />
+        </div>
       {{/if}}
 
       <ProjectSettings::Collaborators::List
@@ -18,33 +15,33 @@
       />
     </div>
 
-    <div local-class="columns-item rolesList">
-      <span local-class="rolesList-title">
-        {{t "general.roles.OWNER"}}
+    <div local-class='columns-item rolesList'>
+      <span local-class='rolesList-title'>
+        {{t 'general.roles.OWNER'}}
       </span>
-      <p local-class="rolesList-text">
-        {{t "components.project_settings.collaborators.owner_text"}}
+      <p local-class='rolesList-text'>
+        {{t 'components.project_settings.collaborators.owner_text'}}
       </p>
 
-      <span local-class="rolesList-title">
-        {{t "general.roles.ADMIN"}}
+      <span local-class='rolesList-title'>
+        {{t 'general.roles.ADMIN'}}
       </span>
-      <p local-class="rolesList-text">
-        {{t "components.project_settings.collaborators.admin_text"}}
+      <p local-class='rolesList-text'>
+        {{t 'components.project_settings.collaborators.admin_text'}}
       </p>
 
-      <span local-class="rolesList-title">
-        {{t "general.roles.DEVELOPER"}}
+      <span local-class='rolesList-title'>
+        {{t 'general.roles.DEVELOPER'}}
       </span>
-      <p local-class="rolesList-text">
-        {{t "components.project_settings.collaborators.developer_text"}}
+      <p local-class='rolesList-text'>
+        {{t 'components.project_settings.collaborators.developer_text'}}
       </p>
 
-      <span local-class="rolesList-title">
-        {{t "general.roles.REVIEWER"}}
+      <span local-class='rolesList-title'>
+        {{t 'general.roles.REVIEWER'}}
       </span>
-      <p local-class="rolesList-text">
-        {{t "components.project_settings.collaborators.reviewer_text"}}
+      <p local-class='rolesList-text'>
+        {{t 'components.project_settings.collaborators.reviewer_text'}}
       </p>
     </div>
   </div>

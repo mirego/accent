@@ -1,15 +1,11 @@
-<div local-class="data-control">
-  <h3 local-class="data-title">
+<div local-class='data-control'>
+  <h3 local-class='data-title'>
     {{@title}}
   </h3>
 
   {{#each this.allEvents as |event|}}
-    <label local-class="checkbox">
-      <Input
-        @type="checkbox"
-          @checked={{if (array-includes @events event.value) "checked"}}
-        {{on "change" (fn this.changeEventChecked event.value)}}
-      />
+    <label local-class='checkbox'>
+      <Input @type='checkbox' @checked={{if (array-includes @events event.value) 'checked'}} {{on 'change' (fn this.changeEventChecked event.value)}} />
       {{t event.label}}
     </label>
   {{/each}}

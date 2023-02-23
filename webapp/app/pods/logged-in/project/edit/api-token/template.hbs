@@ -1,13 +1,13 @@
 {{#if this.showLoading}}
-  <LoadingContent @label={{t "pods.project.edit.api_token.loading_content"}} />
+  <LoadingContent @label={{t 'pods.project.edit.api_token.loading_content'}} />
 {{else}}
   <ProjectSettings::BackLink @project={{this.project}} />
 
   <ProjectSettings::ApiToken
-  @projectTokens={{this.project.apiTokens}}
+    @projectTokens={{this.project.apiTokens}}
     @permissions={{this.permissions}}
-  @userToken={{this.accessToken}}
-  @onCreate={{fn this.createApiToken}}
-  @onRevoke={{fn this.revokeApiToken}}
+    @userToken={{this.accessToken}}
+    @onCreate={{fn this.createApiToken}}
+    @onRevoke={{fn this.revokeApiToken}}
   />
 {{/if}}

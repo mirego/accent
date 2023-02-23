@@ -107,6 +107,7 @@
     "ember-native-dom-helpers": "0.7.0",
     "ember-sinon": "5.0.0",
     "ember-test-selectors": "6.0.0",
+    "eslint-plugin-mirego": "^1.0.0",
     "pretender": "3.4.7",
     "sinon": "13.0.1",
     "sinon-chai": "3.7.0",

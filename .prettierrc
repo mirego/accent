@@ -3,6 +3,12 @@
   "bracketSpacing": false,
   "overrides": [
     {
+      "files": ["*.hbs"],
+      "options": {
+        "printWidth": 180
+      }
+    },
+    {
       "files": "*.svg",
       "options": {
         "parser": "html"

@@ -1,7 +1,3 @@
-<AsyncButton
-  onClick={{fn this.deleteComment}}
-  local-class="button"
-  ...attributes
->
+<AsyncButton @onClick={{fn this.deleteComment}} local-class='button' ...attributes>
   {{yield}}
 </AsyncButton>
