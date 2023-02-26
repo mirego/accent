@@ -259,8 +259,8 @@ export default class Document {
       mkdirp.sync(path.dirname(file));
 
       const fileStream = fs.createWriteStream(file, {autoClose: true});
-      response.body.pipe(fileStream);
-      response.body.on('error', reject);
+      response.body?.pipe(fileStream);
+      response.body?.on('error', reject);
       fileStream.on('finish', resolve);
     });
   }
@@ -273,7 +273,7 @@ export default class Document {
     if (!options['dry-run']) {
       return {peek: false, ...info};
     } else {
-      const {data} = await response.json();
+      const {data} = (await response.json()) as {data: any};
 
       return {peek: data, ...info};
     }

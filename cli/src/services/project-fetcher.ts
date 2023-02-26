@@ -11,7 +11,7 @@ export default class ProjectFetcher {
   async fetch(config: Config): Promise<ProjectViewer> {
     const response = await this.graphql(config);
     try {
-      const data = await response.json();
+      const data = (await response.json()) as {data: any};
 
       if (!data.data) {
         throw new CLIError(

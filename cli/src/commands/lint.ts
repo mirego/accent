@@ -31,7 +31,7 @@ export default class Lint extends Command {
         if (fs.existsSync(path)) {
           const {
             data: {lint_translations: lintTranslations},
-          } = await document.lint(path, language);
+          } = (await document.lint(path, language)) as {data: any};
 
           const lintTranslationsWithLocalPath = lintTranslations.map(
             (lintTranslation: LintTranslation) => ({
