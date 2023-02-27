@@ -1,5 +1,5 @@
 // Vendor
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import {FormattedFile} from '../../commands/format';
 import Base from './base';
 

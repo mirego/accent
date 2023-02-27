@@ -1,5 +1,5 @@
 // Vendor
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 // Types
 import {Project} from '../../types/project';

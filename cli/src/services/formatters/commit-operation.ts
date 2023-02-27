@@ -1,5 +1,5 @@
 // Vendor
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 // Types
 import {PeekOperation} from '../../types/operation';

@@ -2,7 +2,7 @@
 import {error} from '@oclif/errors';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 
 // Services
 import Document from './document';

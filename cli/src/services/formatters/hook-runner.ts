@@ -1,5 +1,5 @@
 // Vendor
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import decamelize from 'decamelize';
 
 const capitalizeFirstLetter = (str: string) =>

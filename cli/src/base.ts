@@ -1,7 +1,7 @@
 // Vendor
 import Command from '@oclif/command';
 import {error} from '@oclif/errors';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import cli from 'cli-ux';
 
 // Services

@@ -1,6 +1,6 @@
 // Vendor
 import {CLIError} from '@oclif/errors';
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import fetch from 'node-fetch';
 
 // Types
@@ -15,7 +15,7 @@ export default class ProjectFetcher {
 
       if (!data.data) {
         throw new CLIError(
-          chalk.red(`Can not find the project for the key: ${config.apiKey}`),
+          chalk.red(`Can’t find the project for the key: ${config.apiKey}`),
           {exit: 1}
         );
       }
@@ -23,7 +23,9 @@ export default class ProjectFetcher {
       return data.data && data.data.viewer;
     } catch (_) {
       throw new CLIError(
-        chalk.red(`Can not fetch the project on ${config.apiUrl}`),
+        chalk.red(
+          `Can’t fetch the project on ${config.apiUrl} with key ${config.apiKey}`
+        ),
         {exit: 1}
       );
     }

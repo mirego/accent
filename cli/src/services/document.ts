@@ -3,9 +3,9 @@ import * as FormData from 'form-data';
 import {CLIError} from '@oclif/errors';
 import * as fs from 'fs-extra';
 import * as mkdirp from 'mkdirp';
-import chalk from 'chalk';
-import fetch, {Response} from 'node-fetch';
+import * as chalk from 'chalk';
 import * as path from 'path';
+import fetch, {Response} from 'node-fetch';
 
 // Services
 import {fetchFromRevision} from './revision-slug-fetcher';
