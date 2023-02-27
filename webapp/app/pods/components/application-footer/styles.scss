@@ -32,6 +32,8 @@
   select {
     appearance: none;
     border: 1px solid var(--background-light-highlight);
+    background: var(--background-light);
+    color: var(--text-color-normal);
     border-radius: 3px;
     padding: 2px 15px 2px 4px;
   }

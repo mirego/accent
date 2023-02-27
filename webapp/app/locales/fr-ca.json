@@ -74,7 +74,11 @@
     },
     "application_footer": {
       "accent_bot": "Accéder à la CLI",
-      "text": "Réalisé avec des ordinateurs par"
+      "text": "Réalisé avec des ordinateurs par",
+      "language_select": {
+        "english": "En",
+        "french": "Fr"
+      }
     },
     "collaborator_create_form": {
       "create_button": "Ajouter un collaborateur",
@@ -370,7 +374,17 @@
         "manage_languages": "Gérer les langues",
         "manage_languages_text": "Ajouter/supprimer des langues traduites dans le projet",
         "jipt": "Traductions JIPT",
-        "jipt_text": "Traduction en direct sur toutes les applications, avec bibliothèque Javascript intégrée"
+        "jipt_text": "Traduction en direct sur toutes les applications, avec bibliothèque Javascript intégrée",
+        "machine_translations": "Traductions machines",
+        "machine_translations_text": "Configurer un service externe pour traduire automatiquement les langues"
+      },
+      "machine_translations": {
+        "title": "Traductions machines",
+        "text": "Ajoutez une configuration valide pour activer la traduction directement dans la page Réviser. Vous pouvez également traduire le fichier de votre projet ainsi que les fichiers arbirtaires que vous téléchargez sur Accent.",
+        "use_platform_label": "Utilisez la configuration de la plate-forme si disponible",
+        "config_key_help_present": "La clé de configuration a été définie, la valeur ne sera jamais exposée via l’API.",
+        "config_key_help_not_present": "Une fois enregistrée, la clé de configuration ne sera plus jamais affichée.",
+        "config_key_placeholder": "Copiez la clé de configuration ici…"
       },
       "delete_form": {
         "title": "Zone dangereuse",
@@ -877,6 +891,10 @@
       "BOT": "Jeton d’API",
       "REVIEWER": "Traducteur"
     },
+    "machine_translations_providers": {
+      "google_translate": "Google Translate",
+      "deepl": "DeepL"
+    },
     "integration_services": {
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
@@ -1002,6 +1020,9 @@
         },
         "jipt": {
           "loading_content": "Récupération des paramètres de traduction JIPT du projet…"
+        },
+        "machine_translations": {
+          "loading_content": "Récupération de la configuration de traductions machines du projet…"
         },
         "service_integrations": {
           "loading_content": "Récupération du service et des intégrations du projet…"
