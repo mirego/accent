@@ -6,6 +6,31 @@ defmodule Accent.Plugs.MovementContextParser do
   alias Accent.Scopes.Version, as: VersionScope
   alias Movement.Context
 
+  @non_printable_characters [
+    <<255, 240>>,
+    <<255, 241>>,
+    <<255, 242>>,
+    <<255, 243>>,
+    <<255, 244>>,
+    <<255, 245>>,
+    <<255, 246>>,
+    <<255, 247>>,
+    <<255, 248>>,
+    <<255, 240>>,
+    <<255, 16>>,
+    <<255, 17>>,
+    <<255, 18>>,
+    <<255, 19>>,
+    <<255, 20>>,
+    <<255, 250>>,
+    <<255, 251>>,
+    <<255, 252>>,
+    <<255, 254>>,
+    <<255, 255>>
+  ]
+
+  @replacement_character "�"
+
   plug(:validate_params)
   plug(:assign_document_format)
   plug(:assign_document_parser)
@@ -85,7 +110,8 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   def assign_movement_entries(conn = %{assigns: %{movement_context: context}, params: %{"file" => file}}, _) do
-    render = File.read!(file.path)
+    raw = File.read!(file.path)
+    render = if String.printable?(raw), do: raw, else: unicode_only(raw)
 
     conn
     |> parser_result(render)
@@ -133,4 +159,29 @@ defmodule Accent.Plugs.MovementContextParser do
   def extract_path_from_filename(filename) do
     Regex.replace(~r/(\w)(\.\w+)$/, filename, "\\1")
   end
+
+  def unicode_only(string, new_string \\ "")
+
+  def unicode_only(<<head::binary-size(2)>> <> tail, new_string)
+      when head in @non_printable_characters do
+    unicode_only(tail, @replacement_character <> new_string)
+  end
+
+  def unicode_only(<<head::binary-size(1)>> <> tail, new_string) do
+    printable_head? = String.printable?(head)
+    printable_tail? = String.printable?(tail)
+
+    cond do
+      printable_head? and printable_tail? ->
+        String.reverse(new_string) <> head <> tail
+
+      printable_head? ->
+        unicode_only(tail, head <> new_string)
+
+      true ->
+        unicode_only(tail, new_string)
+    end
+  end
+
+  def unicode_only("", new_string), do: String.trim_leading(String.reverse(new_string), @replacement_character)
 end

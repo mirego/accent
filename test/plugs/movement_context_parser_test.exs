@@ -23,6 +23,10 @@ defmodule AccentTest.Plugs.MovementContextParser do
     %Plug.Upload{content_type: "application/json", filename: "simple.json", path: "test/support/invalid_file.json"}
   end
 
+  def invalid_unicode do
+    %Plug.Upload{content_type: "text/plain", filename: "unicode.strings", path: "test/support/invalid_unicode.strings"}
+  end
+
   @user %User{email: "test@test.com"}
   setup do
     user = Repo.insert!(@user)
@@ -211,5 +215,27 @@ defmodule AccentTest.Plugs.MovementContextParser do
     assert conn.state == :sent
     assert conn.status == 422
     assert conn.resp_body == "file cannot be parsed"
+  end
+
+  test "invalid unicode", %{project: project} do
+    conn =
+      :post
+      |> conn("/foo", %{document_path: "test.strings", document_format: "strings", file: invalid_unicode(), language: "fr"})
+      |> assign(:project, project)
+      |> MovementContextParser.call([])
+
+    context =
+      conn.assigns
+      |> Map.get(:movement_context)
+
+    assert context.entries == [
+             %Langue.Entry{
+               key: "accountOverview.empty.noPayments",
+               value_type: "string",
+               value:
+                 "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.",
+               index: 1
+             }
+           ]
   end
 end
