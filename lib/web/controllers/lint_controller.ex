@@ -42,6 +42,7 @@ defmodule Accent.LintController do
     lint_translations =
       conn.assigns[:context].entries
       |> Enum.map(&map_entry(&1, conn))
+      |> dbg
       |> Accent.Lint.lint()
       |> map_lint_translations()
 
