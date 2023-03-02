@@ -15,7 +15,9 @@ export default gql`
           sourceLanguageSlug: $sourceLanguageSlug
           targetLanguageSlug: $targetLanguageSlug
         ) {
+          error
           text
+          provider
         }
       }
     }

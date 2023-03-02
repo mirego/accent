@@ -23,7 +23,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
         |> String.replace(~r/\n(\w)/, "_\\1")
         |> String.split("_", trim: true)
       else
-        ""
+        []
       end
 
     render =

@@ -12,6 +12,8 @@ defmodule Accent.GraphQL.Types.Project do
   end
 
   object :project_translated_text do
+    field(:provider, non_null(:string))
+    field(:error, :string)
     field(:text, :string)
   end
 

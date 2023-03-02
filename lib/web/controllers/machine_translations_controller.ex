@@ -52,25 +52,30 @@ defmodule Accent.MachineTranslationsController do
       |> Repo.all()
       |> Enum.map(&Translation.to_langue_entry(&1, nil, true, conn.assigns[:source_language].slug))
 
-    entries =
-      Accent.MachineTranslations.translate(
-        entries,
-        conn.assigns[:source_language],
-        conn.assigns[:target_language],
-        conn.assigns[:project].machine_translations_config
-      )
+    case Accent.MachineTranslations.translate(
+           entries,
+           conn.assigns[:source_language],
+           conn.assigns[:target_language],
+           conn.assigns[:project].machine_translations_config
+         ) do
+      entries when is_list(entries) ->
+        %{render: render} =
+          Accent.TranslationsRenderer.render_entries(%{
+            entries: entries,
+            language: conn.assigns[:target_language],
+            master_language: Accent.Revision.language(conn.assigns[:master_revision]),
+            document: document
+          })
 
-    %{render: render} =
-      Accent.TranslationsRenderer.render_entries(%{
-        entries: entries,
-        language: conn.assigns[:target_language],
-        master_language: Accent.Revision.language(conn.assigns[:master_revision]),
-        document: document
-      })
+        conn
+        |> put_resp_header("content-type", "text/plain")
+        |> send_resp(:ok, render)
 
-    conn
-    |> put_resp_header("content-type", "text/plain")
-    |> send_resp(:ok, render)
+      {:error, error} when is_atom(error) ->
+        conn
+        |> put_resp_header("content-type", "text/plain")
+        |> send_resp(:unprocessable_entity, to_string(error))
+    end
   end
 
   @doc """

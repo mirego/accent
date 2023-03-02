@@ -117,6 +117,8 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     alias Accent.MachineTranslations.TranslatedText
     alias Tesla.Middleware
 
+    def id(_), do: :google_translate
+
     def enabled?(%{config: %{"key" => key}}) do
       not is_nil(key) and match?({:ok, %{"project_id" => _}}, Jason.decode(key))
     end
@@ -124,13 +126,11 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     def enabled?(_), do: false
 
     def translate(provider, contents, source, target) do
-      target = to_language_code(target)
-      source = to_language_code(source)
-
-      case Tesla.post(client(provider.config), ":translateText", %{contents: contents, mimeType: "text/plain", sourceLanguageCode: source, targetLanguageCode: target}) do
-        {:ok, %{body: %{"translations" => translations}}} ->
-          {:ok, Enum.map(translations, &%TranslatedText{text: &1["translatedText"]})}
-
+      with {:ok, {source, target}} <- Accent.MachineTranslations.map_source_and_target(source, target, @supported_languages),
+           params = %{contents: contents, mimeType: "text/plain", sourceLanguageCode: source, targetLanguageCode: target},
+           {:ok, %{body: %{"translations" => translations}}} <- Tesla.post(client(provider.config), ":translateText", params) do
+        {:ok, Enum.map(translations, &%TranslatedText{text: &1["translatedText"]})}
+      else
         {:ok, %{status: status, body: body}} when status > 201 ->
           {:error, body}
 
@@ -180,17 +180,6 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     defp project_id_from_config(config) do
       key = Map.fetch!(config, "key")
       Jason.decode!(key)["project_id"]
-    end
-
-    defp to_language_code(language) when language in @supported_languages do
-      language
-    end
-
-    defp to_language_code(language) do
-      case String.split(language, "-", parts: 2) do
-        [prefix, _] when prefix in @supported_languages -> prefix
-        _ -> :unsupported
-      end
     end
   end
 end

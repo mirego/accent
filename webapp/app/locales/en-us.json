@@ -931,7 +931,7 @@
       },
       "machine_translations": {
         "flash_messages": {
-          "translate_error": "The document could not be translated with the uploaded file. Verify that the format is valid."
+          "translate_error": "The document could not be translated with the uploaded file. Verify that the format and the target language are valid."
         }
       },
       "merge": {
@@ -981,6 +981,12 @@
         "flash_messages": {
           "revision_correct_success": "All strings in the language have been marked as reviewed",
           "revision_correct_error": "An error has occured when marking all the strings in that language as reviewed",
+          "translate_provider_error": "The string could not be translated by: {provider}",
+          "translate_error": {
+            "unsupported_target": "The string could not be translated: Unsupported target {target}",
+            "unsupported_source": "The string could not be translated: Unsupported source {source}",
+            "unsupported_source_and_target": "The string could not be translated: Unsupported source {source} and target {target}"
+          },
           "correct_error": "The string could not be marked as reviewed",
           "correct_success": "The string as been marked as reviewed with success"
         }

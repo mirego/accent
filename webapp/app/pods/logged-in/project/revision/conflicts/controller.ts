@@ -1,3 +1,4 @@
+import {camelize} from '@ember/string';
 import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
 import {readOnly, equal, empty, and} from '@ember/object/computed';
@@ -15,6 +16,10 @@ const FLASH_MESSAGE_CORRECT_SUCCESS =
   'pods.project.conflicts.flash_messages.correct_success';
 const FLASH_MESSAGE_CORRECT_ERROR =
   'pods.project.conflicts.flash_messages.correct_error';
+const FLASH_MESSAGE_TRANSLATE_ERROR_PREFIX =
+  'pods.project.conflicts.flash_messages.translate_error';
+const FLASH_MESSAGE_TRANSLATE_PROVIDER_ERROR =
+  'pods.project.conflicts.flash_messages.translate_provider_error';
 
 export default class ConflictsController extends Controller {
   @tracked
@@ -84,10 +89,24 @@ export default class ConflictsController extends Controller {
       },
     });
 
-    if (data.viewer?.project?.translatedText) {
+    if (data.viewer?.project?.translatedText?.text) {
       return data.viewer.project.translatedText;
+    } else if (data.viewer?.project?.translatedText?.error) {
+      const error = data.viewer?.project?.translatedText?.error;
+      const source = sourceLanguageSlug;
+      const target = targetLanguageSlug;
+
+      this.flashMessages.error(
+        this.intl.t(`${FLASH_MESSAGE_TRANSLATE_ERROR_PREFIX}.${error}`, {
+          source,
+          target,
+        })
+      );
     } else {
-      return {text: null};
+      const provider = camelize(data.viewer?.project?.translatedText?.provider);
+      this.flashMessages.error(
+        this.intl.t(FLASH_MESSAGE_TRANSLATE_PROVIDER_ERROR, {provider})
+      );
     }
   }
 
