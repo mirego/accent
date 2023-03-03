@@ -50,6 +50,7 @@
       "link": "mirego/accent"
     },
     "login_forms": {
+      "auth0": "Login with Auth0 →",
       "github": "Login with GitHub →",
       "gitlab": "Login with GitLab →",
       "google": "Login with Google →",

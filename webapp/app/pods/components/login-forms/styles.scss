@@ -28,13 +28,14 @@ a.loginButton {
   margin-bottom: 15px;
   text-align: center;
   background: var(--input-background);
-  border: 2px solid #888;
+  border: 1px solid #888;
   font-size: 13px;
 
   &.loginButton--google {
-    border: 2px solid darken(#4d90fe, 5%);
+    border-color: darken(#4d90fe, 5%);
     text-shadow: none;
     color: #4d90fe;
+    --shadow-color: #d1e2fc;
 
     &:focus,
     &:hover {
@@ -49,6 +50,7 @@ a.loginButton {
     text-shadow: none;
     border-radius: 0 0 4px 4px;
     margin-top: -3px;
+    --shadow-color: #bafbe0;
 
     &[disabled] {
       pointer-events: none;
@@ -82,8 +84,20 @@ a.loginButton {
     }
   }
 
+  &.loginButton--auth0 {
+    border-color: #eb5424;
+    text-shadow: none;
+    color: #eb5424;
+    --shadow-color: #fcd6ca;
+
+    &:focus,
+    &:hover {
+      background: lighten(#eb5424, 40%);
+    }
+  }
+
   &.loginButton--gitlab {
-    border: 2px solid #fc6d26;
+    border-color: #fc6d26;
     text-shadow: none;
     color: #fc6d26;
 
@@ -94,7 +108,7 @@ a.loginButton {
   }
 
   &.loginButton--slack {
-    border: 2px solid #913d91;
+    border-color: #913d91;
     text-shadow: none;
     color: #913d91;
 
@@ -105,7 +119,7 @@ a.loginButton {
   }
 
   &.loginButton--discord {
-    border: 2px solid #7289da;
+    border-color: #7289da;
     text-shadow: none;
     color: #7289da;
 
@@ -116,7 +130,7 @@ a.loginButton {
   }
 
   &.loginButton--microsoft {
-    border: 2px solid #03a5f0;
+    border-color: #03a5f0;
     text-shadow: none;
     color: #03a5f0;
 

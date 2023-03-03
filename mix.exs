@@ -86,6 +86,7 @@ defmodule Accent.Mixfile do
       {:ueberauth_slack, github: "ueberauth/ueberauth_slack", ref: "525594c870f959ab"},
       {:ueberauth_discord, "~> 0.5"},
       {:ueberauth_microsoft, "~> 0.7"},
+      {:ueberauth_auth0, "~> 0.8"},
 
       # Errors
       {:sentry, "~> 7.0"},

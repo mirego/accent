@@ -53,6 +53,7 @@ providers = if get_env("GITHUB_CLIENT_ID"), do: [{:github, {Ueberauth.Strategy.G
 providers = if get_env("GITLAB_CLIENT_ID"), do: [{:gitlab, {Ueberauth.Strategy.Gitlab, [default_scope: "read_user"]}} | providers], else: providers
 providers = if get_env("DISCORD_CLIENT_ID"), do: [{:discord, {Ueberauth.Strategy.Discord, [default_scope: "identify email"]}} | providers], else: providers
 providers = if get_env("MICROSOFT_CLIENT_ID"), do: [{:microsoft, {Ueberauth.Strategy.Microsoft, []}} | providers], else: providers
+providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Auth0, []}} | providers], else: providers
 providers = if get_env("DUMMY_LOGIN_ENABLED"), do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers], else: providers
 
 config :ueberauth, Ueberauth, providers: providers
@@ -64,6 +65,11 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
   client_id: get_env("GITHUB_CLIENT_ID"),
   client_secret: get_env("GITHUB_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Auth0.OAuth,
+  domain: System.get_env("AUTH0_DOMAIN"),
+  client_id: System.get_env("AUTH0_CLIENT_ID"),
+  client_secret: System.get_env("AUTH0_CLIENT_SECRET")
 
 config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
   client_id: get_env("GITLAB_CLIENT_ID"),

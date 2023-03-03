@@ -42,10 +42,18 @@
         {{t 'components.login_forms.discord'}}
       </a>
     {{/if}}
+
     {{#if this.microsoftLoginEnabled}}
       <a href={{this.microsoftUrl}} class='button button--filled' local-class='loginButton loginButton--microsoft'>
         <img src='assets/auth_providers/microsoft.svg' local-class='loginButton-logo' />
         {{t 'components.login_forms.microsoft'}}
+      </a>
+    {{/if}}
+
+    {{#if this.authZeroLoginEnabled}}
+      <a href={{this.auth0Url}} class='button button--filled' local-class='loginButton loginButton--auth0'>
+        <img src='assets/auth_providers/auth0.svg' local-class='loginButton-logo' />
+        {{t 'components.login_forms.auth0'}}
       </a>
     {{/if}}
   {{/if}}
