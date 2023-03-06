@@ -3,7 +3,6 @@
     "channel": {
       "handle_in": {
         "create_collaborator": "{user} a invité {collaboratorEmail} sur le projet",
-        "create_resource": "Nouvelle ressource",
         "create_comment": "{user} a commenté {translationKey} : {commentText}",
         "sync": "{user} a synchronisé un fichier : {documentPath}"
       }
@@ -12,8 +11,7 @@
   "components": {
     "jipt": {
       "back_to_translations": {
-        "back": "Retour",
-        "forward": "En avant"
+        "back": "Retour"
       },
       "translations_filtered_title": {
         "title_count": "{count, plural, =1 {Cet élément contient 1 chaîne} other {Cet élément contient # chaînes}}"
@@ -52,6 +50,7 @@
       "footer": ", fait avec ♥ par"
     },
     "login_forms": {
+      "auth0": "Connectez-vous avec Auth0 →",
       "github": "Connectez-vous avec GitHub →",
       "gitlab": "Connectez-vous avec GitLab →",
       "google": "Connectez-vous avec Google →",
@@ -984,7 +983,13 @@
           "revision_correct_success": "Toutes les chaînes de la langue ont été marquées comme révisées",
           "revision_correct_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
           "correct_error": "Impossible de marquer la chaîne comme vérifiée",
-          "correct_success": "La chaîne a été marquée comme révisée avec succès"
+          "correct_success": "La chaîne a été marquée comme révisée avec succès",
+          "translate_provider_error": "La chaîne n’a pas pu être traduite : {provider}",
+          "translate_error": {
+            "unsupported_target": "La chaîne n’a pas pu être traduite : Langue non prise en charge {target}",
+            "unsupported_source": "La chaîne n’a pas pu être traduite : Langue non prise en charge {source}",
+            "unsupported_source_and_target": "La chaîne n’a pas pu être traduite : Langues non prise en charge {source} et {target}"
+          }
         }
       },
       "edit": {
@@ -1003,6 +1008,8 @@
           "integration_update_success": "L’intégration a été mise à jour avec succès",
           "integration_remove_error": "L’intégration n’a pas pu être supprimée",
           "integration_remove_success": "L’intégration a été supprimée avec succès",
+          "machine_translations_config_error": "La configuration n’a pas pu être mise à jour",
+          "machine_translations_config_success": "La configuration a été mise à jour avec succès",
           "update_error": "Le projet n’a pas pu être mis à jour",
           "update_success": "Le projet a été mis à jour avec succès",
           "delete_error": "Le projet n’a pas pu être supprimé",
