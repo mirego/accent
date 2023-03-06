@@ -22,12 +22,15 @@ export default class LoginForms extends Component<Args> {
   microsoftUrl = `${config.API.AUTHENTICATION_PATH}/microsoft`;
   auth0Url = `${config.API.AUTHENTICATION_PATH}/auth0`;
 
+  get version() {
+    return config.version === '__VERSION__' ? 'dev' : config.version;
+  }
+
   get providerIds() {
     return this.args.providers.map(({id}: {id: string}) => id);
   }
 
   get authZeroLoginEnabled() {
-    console.log(this.providerIds);
     return this.providerIds.includes('auth0');
   }
 

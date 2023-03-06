@@ -44,12 +44,12 @@
       "title": "Notifier les nouveaux messages"
     },
     "login_header": {
-      "text": "Connectez-vous avec n’importe quel service ci-dessous,",
-      "subtext": "Votre adresse e-mail sera utilisée pour vous identifier de manière unique à travers tous les services."
-    },
-    "login_footer": {
-      "text": "Rien à cacher, vérifiez le code source :",
-      "link": "mirego/accent"
+      "text": "Se connecter",
+      "subtext": "Seules votre adresse e-mail, votre nom complet et votre photo de profil seront utilisés pour votre profil Accent.",
+      "subtitle": "Votre outil de traduction fiable, <em>simple</em> et axé sur le développeur",
+      "footer_open_source_link": "100% open-source",
+      "footer_mirego_link": "Mirego",
+      "footer": ", fait avec ♥ par"
     },
     "login_forms": {
       "github": "Connectez-vous avec GitHub →",

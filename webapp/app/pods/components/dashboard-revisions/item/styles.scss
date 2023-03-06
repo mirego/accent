@@ -56,11 +56,14 @@
   }
 }
 
+.item {
+  padding: 8px 10px;
+}
+
 .language {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 8px 10px;
   color: var(--color-grey);
 }
 
@@ -125,8 +128,7 @@
 }
 
 .actions {
-  margin: 0;
-  padding: 8px;
+  margin: 10px 0 0;
   display: flex;
   flex-direction: column;
   gap: 4px;

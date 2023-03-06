@@ -1,7 +1,1 @@
-<div>
-  <LoginHeader />
-  <LoginForms @providers={{this.model.authenticationProviders}} />
-  <LoginFooter />
-</div>
-
-<ApplicationFooter />
+<LoginForms @showLoading={{this.showLoading}} @providers={{this.model.authenticationProviders}} />

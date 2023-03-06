@@ -42,12 +42,12 @@
       "title": "Notify on new messages"
     },
     "login_header": {
-      "text": "Login with any service below,",
-      "subtext": "Your email address will be used to identify you uniquely through all services."
-    },
-    "login_footer": {
-      "text": "Nothing to hide, check the source code:",
-      "link": "mirego/accent"
+      "text": "Login",
+      "subtext": "Only your email address, fullname and profile picture will be used for your Accent profile.",
+      "subtitle": "Your reliable, <em>simple</em>, developer-oriented translation tool",
+      "footer_open_source_link": "100% open-source",
+      "footer_mirego_link": "Mirego",
+      "footer": ", made with ♥ by"
     },
     "login_forms": {
       "auth0": "Login with Auth0 →",

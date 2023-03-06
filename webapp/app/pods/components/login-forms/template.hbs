@@ -1,60 +1,98 @@
-<div local-class='login-forms'>
-  {{#if @providers}}
-    {{#if this.dummyLoginEnabled}}
-      <input value={{this.username}} local-class='input' {{did-insert this.focusInput}} {{on 'keyup' (fn this.setUsername)}} />
-      <a href={{this.dummyUrl}} class='button button--filled' local-class='loginButton loginButton--dummy' disabled={{this.emptyUsername}}>
-        <img src='assets/auth_providers/dummy.svg' local-class='loginButton-logo' />
-        {{t 'components.login_forms.dummy'}}
-      </a>
-    {{/if}}
+<div local-class='container'>
+  <div local-class='container-left'>
+    <header local-class='login-header'>
+      <h1 local-class='title'>
+        {{inline-svg 'assets/logo.svg' local-class='logo'}}
+        {{t 'general.application_name'}}
+      </h1>
 
-    {{#if this.googleLoginEnabled}}
-      <a href={{this.googleUrl}} class='button button--filled' local-class='loginButton loginButton--google'>
-        <img src='assets/auth_providers/google.svg' local-class='loginButton-logo' />
-        {{t 'components.login_forms.google'}}
-      </a>
-    {{/if}}
+      <p local-class='subtitle'>
+        {{{t 'components.login_header.subtitle'}}}
+      </p>
 
-    {{#if this.githubLoginEnabled}}
-      <a href={{this.githubUrl}} class='button button--filled' local-class='loginButton loginButton--github'>
-        <img src='assets/auth_providers/github.svg' local-class='loginButton-logo' />
-        {{t 'components.login_forms.github'}}
-      </a>
-    {{/if}}
+      <p local-class='footer'>
+        <a href='https://github.com/mirego/accent'>{{t 'components.login_header.footer_open_source_link'}}</a>
+        {{t 'components.login_header.footer'}}
+        <a href='https://www.mirego.com'>{{t 'components.login_header.footer_mirego_link'}}</a>
+        <span local-class='version'>{{this.version}}</span>
+      </p>
+    </header>
+  </div>
 
-    {{#if this.gitlabLoginEnabled}}
-      <a href={{this.gitlabUrl}} class='button button--filled' local-class='loginButton loginButton--gitlab'>
-        <img src='assets/auth_providers/gitlab.svg' local-class='loginButton-logo' />
-        {{t 'components.login_forms.gitlab'}}
-      </a>
-    {{/if}}
+  <div local-class='container-right'>
+    <div local-class='login-forms'>
 
-    {{#if this.slackLoginEnabled}}
-      <a href={{this.slackUrl}} class='button button--filled' local-class='loginButton loginButton--slack'>
-        <img src='assets/auth_providers/slack.svg' local-class='loginButton-logo' />
-        {{t 'components.login_forms.slack'}}
-      </a>
-    {{/if}}
+      <h2 local-class='text'>
+        <strong>
+          {{t 'components.login_header.text'}}
+        </strong>
 
-    {{#if this.discordLoginEnabled}}
-      <a href={{this.discordUrl}} class='button button--filled' local-class='loginButton loginButton--discord'>
-        <img src='assets/auth_providers/discord.svg' local-class='loginButton-logo' />
-        {{t 'components.login_forms.discord'}}
-      </a>
-    {{/if}}
+        <p>
+          {{t 'components.login_header.subtext'}}
+        </p>
+      </h2>
 
-    {{#if this.microsoftLoginEnabled}}
-      <a href={{this.microsoftUrl}} class='button button--filled' local-class='loginButton loginButton--microsoft'>
-        <img src='assets/auth_providers/microsoft.svg' local-class='loginButton-logo' />
-        {{t 'components.login_forms.microsoft'}}
-      </a>
-    {{/if}}
+      {{#if @showLoading}}
+        <LoadingContent local-class='loading' />
+      {{/if}}
 
-    {{#if this.authZeroLoginEnabled}}
-      <a href={{this.auth0Url}} class='button button--filled' local-class='loginButton loginButton--auth0'>
-        <img src='assets/auth_providers/auth0.svg' local-class='loginButton-logo' />
-        {{t 'components.login_forms.auth0'}}
-      </a>
-    {{/if}}
-  {{/if}}
+      {{#if @providers}}
+        {{#if this.dummyLoginEnabled}}
+          <input value={{this.username}} local-class='input' {{did-insert this.focusInput}} {{on 'keyup' (fn this.setUsername)}} />
+          <a href={{this.dummyUrl}} class='button button--filled' local-class='loginButton loginButton--dummy' disabled={{this.emptyUsername}}>
+            {{t 'components.login_forms.dummy'}}
+          </a>
+        {{/if}}
+
+        {{#if this.googleLoginEnabled}}
+          <a href={{this.googleUrl}} class='button button--filled' local-class='loginButton loginButton--google'>
+            <img src='assets/auth_providers/google.svg' local-class='loginButton-logo' />
+            {{t 'components.login_forms.google'}}
+          </a>
+        {{/if}}
+
+        {{#if this.githubLoginEnabled}}
+          <a href={{this.githubUrl}} class='button button--filled' local-class='loginButton loginButton--github'>
+            <img src='assets/auth_providers/github.svg' local-class='loginButton-logo' />
+            {{t 'components.login_forms.github'}}
+          </a>
+        {{/if}}
+
+        {{#if this.gitlabLoginEnabled}}
+          <a href={{this.gitlabUrl}} class='button button--filled' local-class='loginButton loginButton--gitlab'>
+            <img src='assets/auth_providers/gitlab.svg' local-class='loginButton-logo' />
+            {{t 'components.login_forms.gitlab'}}
+          </a>
+        {{/if}}
+
+        {{#if this.slackLoginEnabled}}
+          <a href={{this.slackUrl}} class='button button--filled' local-class='loginButton loginButton--slack'>
+            <img src='assets/auth_providers/slack.svg' local-class='loginButton-logo' />
+            {{t 'components.login_forms.slack'}}
+          </a>
+        {{/if}}
+
+        {{#if this.discordLoginEnabled}}
+          <a href={{this.discordUrl}} class='button button--filled' local-class='loginButton loginButton--discord'>
+            <img src='assets/auth_providers/discord.svg' local-class='loginButton-logo' />
+            {{t 'components.login_forms.discord'}}
+          </a>
+        {{/if}}
+
+        {{#if this.microsoftLoginEnabled}}
+          <a href={{this.microsoftUrl}} class='button button--filled' local-class='loginButton loginButton--microsoft'>
+            <img src='assets/auth_providers/microsoft.svg' local-class='loginButton-logo' />
+            {{t 'components.login_forms.microsoft'}}
+          </a>
+        {{/if}}
+
+        {{#if this.authZeroLoginEnabled}}
+          <a href={{this.auth0Url}} class='button button--filled' local-class='loginButton loginButton--auth0'>
+            <img src='assets/auth_providers/auth0.svg' local-class='loginButton-logo' />
+            {{t 'components.login_forms.auth0'}}
+          </a>
+        {{/if}}
+      {{/if}}
+    </div>
+  </div>
 </div>

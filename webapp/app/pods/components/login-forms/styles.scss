@@ -1,7 +1,87 @@
 .login-forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 500px;
-  margin: 0 auto 30px;
+  margin: 0 0 0 50px;
+  padding: 30px 30px 20px 30px;
+  border-radius: 6px;
+  background: var(--body-background);
+  box-shadow: 0 1px 4px var(--shadow-color), 0 7px 12px var(--shadow-color);
+
+  .text {
+    max-width: 300px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--text-color-normal);
+
+    strong {
+      display: block;
+      font-size: 25px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    p {
+      opacity: 0.6;
+    }
+  }
+}
+
+.loading {
+  padding: 0;
+  margin: 0;
+  svg {
+    width: 20px;
+  }
+}
+
+.version {
+  font-family: var(--font-monospace);
+  margin-left: 10px;
+  opacity: 0.4;
+}
+
+.login-header {
+  max-width: 570px;
+  margin: -60px 50px 0 auto;
   padding: 0 10px;
+
+  .title {
+    font-weight: 900;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 0;
+  }
+
+  .subtitle {
+    line-height: 1.1;
+    font-size: 55px;
+    font-weight: 900;
+    letter-spacing: -1px;
+
+    em {
+      font-style: normal;
+      position: relative;
+    }
+  }
+
+  .footer {
+    opacity: 0.5;
+    font-size: 12px;
+    margin-top: 20px;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  .logo {
+    width: 25px;
+  }
 }
 
 .input {
@@ -10,12 +90,37 @@
   padding: 10px;
   width: 100%;
   font-size: 13px;
-  border-color: var(--color-green) !important;
-  border-bottom-width: 0 !important;
 
   &:focus {
     border-color: var(--color-green);
   }
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.container-left {
+  background: linear-gradient(
+    0deg,
+    var(--background-light-highlight) 0%,
+    var(--background-light) 100%
+  );
+}
+
+.container-right {
+  background: var(--background-light);
+}
+
+.container-right,
+.container-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+  padding: 30px;
 }
 
 a.loginButton {
@@ -28,6 +133,7 @@ a.loginButton {
   margin-bottom: 15px;
   text-align: center;
   background: var(--input-background);
+  border-radius: 5px;
   border: 1px solid #888;
   font-size: 13px;
 
@@ -35,22 +141,18 @@ a.loginButton {
     border-color: darken(#4d90fe, 5%);
     text-shadow: none;
     color: #4d90fe;
-    --shadow-color: #d1e2fc;
-
-    &:focus,
-    &:hover {
-      background: lighten(#4d90fe, 30%);
-    }
+    background: lighten(#4d90fe, 30%);
   }
 
   &.loginButton--dummy {
-    border: 1px solid var(--color-green);
-    background: var(--color-green);
-    color: #111;
+    border: 1px solid var(--body-background-border);
+    color: var(--input-color);
     text-shadow: none;
-    border-radius: 0 0 4px 4px;
-    margin-top: -3px;
-    --shadow-color: #bafbe0;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    padding-top: 7px;
+    padding-bottom: 7px;
 
     &[disabled] {
       pointer-events: none;
@@ -58,7 +160,7 @@ a.loginButton {
 
     .loginButton-logo {
       left: 15px;
-      top: 14px;
+      top: 8px;
       width: 16px;
       opacity: 0.9;
     }
@@ -66,10 +168,7 @@ a.loginButton {
     &:hover[disabled],
     &:focus,
     &:hover {
-      margin-top: -3px;
-      border-color: var(--color-green);
-      background: var(--color-green);
-      color: #111;
+      background: var(--background-light);
     }
   }
 
@@ -77,77 +176,79 @@ a.loginButton {
     text-shadow: none;
     color: #000;
     background: #fff;
-
-    &:focus,
-    &:hover {
-      background: #eee;
-    }
+    background: #eee;
   }
 
   &.loginButton--auth0 {
     border-color: #eb5424;
     text-shadow: none;
     color: #eb5424;
-    --shadow-color: #fcd6ca;
-
-    &:focus,
-    &:hover {
-      background: lighten(#eb5424, 40%);
-    }
+    background: lighten(#eb5424, 43%);
   }
 
   &.loginButton--gitlab {
     border-color: #fc6d26;
     text-shadow: none;
     color: #fc6d26;
-
-    &:focus,
-    &:hover {
-      background: lighten(#fc6d26, 40%);
-    }
+    background: lighten(#fc6d26, 40%);
   }
 
   &.loginButton--slack {
     border-color: #913d91;
     text-shadow: none;
     color: #913d91;
-
-    &:focus,
-    &:hover {
-      background: lighten(#913d91, 79%);
-    }
+    background: lighten(#913d91, 53%);
   }
 
   &.loginButton--discord {
     border-color: #7289da;
     text-shadow: none;
     color: #7289da;
-
-    &:focus,
-    &:hover {
-      background: lighten(#7289da, 30%);
-    }
+    background: lighten(#7289da, 30%);
   }
 
   &.loginButton--microsoft {
     border-color: #03a5f0;
     text-shadow: none;
     color: #03a5f0;
-
-    &:focus,
-    &:hover {
-      background: lighten(#03a5f0, 48%);
-    }
+    background: lighten(#03a5f0, 48%);
   }
 }
 
 .loginButton-logo {
   position: absolute;
-  left: 10px;
-  top: 9px;
-  width: 26px;
+  left: 14px;
+  top: 12px;
+  width: 20px;
   margin-right: 10px;
   color: #fff;
   font-size: 26px;
   line-height: 1;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .container-left,
+  .container-right {
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+    background: transparent;
+  }
+
+  .login-header {
+    margin: 0;
+    padding: 0;
+
+    .subtitle {
+      font-size: 30px;
+    }
+  }
+
+  .login-forms {
+    margin: 0;
+  }
 }

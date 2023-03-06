@@ -33,13 +33,11 @@
   transition: 0.2s ease-in-out;
   transition-property: box-shadow;
   border-radius: 3px;
-  box-shadow: 0 1px 4px var(--shadow-color), 0 4px 15px var(--shadow-color);
+  border: 1px solid var(--background-light-highlight);
   color: var(--color-black);
 
   &:focus,
   &:hover {
-    box-shadow: 0 1px 6px var(--shadow-color), 0 5px 18px var(--shadow-color);
-
     .projectName {
       color: var(--color-primary);
     }
