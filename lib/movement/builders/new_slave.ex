@@ -19,6 +19,7 @@ defmodule Movement.Builders.NewSlave do
 
   defp process_operations(context = %Movement.Context{assigns: assigns, operations: operations}) do
     default_null = "default_null" in assigns.new_slave_options
+    machine_translations_enabled = "machine_translations_enabled" in assigns.new_slave_options
 
     new_operations =
       Enum.map(assigns[:translations], fn translation ->
@@ -33,9 +34,17 @@ defmodule Movement.Builders.NewSlave do
           plural: translation.plural,
           locked: translation.locked,
           placeholders: translation.placeholders,
-          options: assigns.new_slave_options
+          options: assigns.new_slave_options,
+          machine_translations_enabled: machine_translations_enabled
         })
       end)
+
+    new_operations =
+      if machine_translations_enabled do
+        Movement.MachineTranslations.translate(new_operations, assigns[:project], assigns[:master_revision], assigns[:language])
+      else
+        new_operations
+      end
 
     %{context | operations: Enum.concat(operations, new_operations)}
   end
@@ -56,6 +65,7 @@ defmodule Movement.Builders.NewSlave do
       |> RevisionScope.from_project(assigns[:project].id)
       |> RevisionScope.master()
       |> Repo.one!()
+      |> Repo.preload(:language)
 
     assign(context, :master_revision, master_revision)
   end

@@ -12,7 +12,7 @@ defmodule Accent.MachineTranslationsController do
   plug(:fetch_master_revision)
   plug(:load_resource, model: Language, id_name: "language", as: :source_language)
   plug(:load_resource, model: Language, id_name: "to_language_id", as: :target_language)
-  plug(:load_resource, model: Document, id_name: "document_id", as: :document, only: [:machine_translations_translate])
+  plug(:fetch_document when action === :translate_document)
   plug(:fetch_order when action === :translate_document)
   plug(:fetch_format when action === :translate_document)
   plug(Accent.Plugs.MovementContextParser when action === :translate_file)
@@ -128,6 +128,10 @@ defmodule Accent.MachineTranslationsController do
 
   defp fetch_format(conn, _) do
     assign(conn, :document_format, conn.assigns[:document].format)
+  end
+
+  defp fetch_document(conn, _) do
+    assign(conn, :document, Repo.get(Document, conn.params["document_id"]))
   end
 
   defp fetch_order(conn = %{params: %{"order_by" => ""}}, _), do: assign(conn, :order, "index")

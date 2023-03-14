@@ -1,4 +1,4 @@
-<div local-class='fields'>
+<div local-class='form'>
   <AccSelect
     @search={{fn this.searchLanguages}}
     @searchEnabled={{true}}
@@ -9,16 +9,31 @@
     @onchange={{fn this.setLanguage}}
   />
 
-  <div local-class='option'>
-    <label local-class='optionLabel'>
-      <input type='checkbox' checked={{this.defaultNull}} {{on 'change' (fn this.onChangeDefaultNull)}} />
-      <span local-class='optionLabelText'>
-        {{t 'components.project_manage_languages_create_form.default_null'}}
-      </span>
-    </label>
-  </div>
-</div>
+  <div local-class='options'>
+    <div local-class='option'>
+      <label local-class='optionLabel'>
+        <input type='checkbox' checked={{this.defaultNull}} {{on 'change' (fn this.onChangeDefaultNull)}} />
+        <span local-class='optionLabelText'>
+          {{t 'components.project_manage_languages_create_form.default_null'}}
+        </span>
+      </label>
+    </div>
 
-<AsyncButton @onClick={{fn this.submit}} class='button button--filled' @loading={{this.isLoading}} @disabled={{this.emptyLanguage}}>
-  {{t 'components.project_manage_languages_create_form.save_button'}}
-</AsyncButton>
+    {{#if (get @permissions 'machine_translations_translate')}}
+      <div local-class='option'>
+        <label local-class='optionLabel'>
+          <input type='checkbox' checked={{this.machineTranslationsEnabled}} {{on 'change' (fn this.onChangeMachineTranslationsEnabled)}} />
+          <span local-class='optionLabelText'>
+            {{t 'components.project_manage_languages_create_form.machine_translations_enabled'}}
+          </span>
+
+          {{inline-svg 'assets/rocket.svg' local-class='optionLabel-icon'}}
+        </label>
+      </div>
+    {{/if}}
+  </div>
+
+  <AsyncButton @onClick={{fn this.submit}} class='button button--filled' @loading={{this.isLoading}} @disabled={{this.emptyLanguage}}>
+    {{t 'components.project_manage_languages_create_form.save_button'}}
+  </AsyncButton>
+</div>

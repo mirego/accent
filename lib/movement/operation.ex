@@ -20,7 +20,9 @@ defmodule Movement.Operation do
             project_id: nil,
             previous_translation: nil,
             placeholders: [],
-            options: []
+            options: [],
+            machine_translated: false,
+            machine_translations_enabled: false
 
   @type t :: %__MODULE__{}
 end

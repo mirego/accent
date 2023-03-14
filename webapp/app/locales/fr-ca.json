@@ -381,6 +381,7 @@
         "title": "Traductions machines",
         "text": "Ajoutez une configuration valide pour activer la traduction directement dans la page Réviser. Vous pouvez également traduire le fichier de votre projet ainsi que les fichiers arbirtaires que vous téléchargez sur Accent.",
         "use_platform_label": "Utilisez la configuration de la plate-forme si disponible",
+        "enabled_actions_sync": "Exécution automatique lors de la synchronisation du projet",
         "config_key_help_present": "La clé de configuration a été définie, la valeur ne sera jamais exposée via l’API.",
         "config_key_help_not_present": "Une fois enregistrée, la clé de configuration ne sera plus jamais affichée.",
         "config_key_placeholder": "Copiez la clé de configuration ici…"
@@ -700,6 +701,7 @@
     },
     "project_manage_languages_create_form": {
       "default_null": "Initialiser le langage avec des chaînes vides",
+      "machine_translations_enabled": "Initialiser le langage avec des traductions externes",
       "language_search_placeholder": "Recherche…",
       "save_button": "Ajouter une langue"
     },

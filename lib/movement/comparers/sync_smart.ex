@@ -33,8 +33,8 @@ defmodule Movement.Comparers.SyncSmart do
   """
   def compare(translation, suggested_translation) do
     case TranslationComparer.compare(translation, suggested_translation.text) do
-      {action, _text} when action in ~w(autocorrect) ->
-        %Operation{action: action, key: translation.key}
+      {action, text} when action === "autocorrect" ->
+        %Operation{action: action, key: translation.key, text: text}
 
       {action, text} ->
         suggested_translation = %{suggested_translation | text: text}

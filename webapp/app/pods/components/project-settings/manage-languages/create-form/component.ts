@@ -29,6 +29,9 @@ export default class CreateForm extends Component<Args> {
   @tracked
   defaultNull = false;
 
+  @tracked
+  machineTranslationsEnabled = false;
+
   @not('language')
   emptyLanguage: boolean;
 
@@ -50,10 +53,18 @@ export default class CreateForm extends Component<Args> {
   }
 
   @action
+  onChangeMachineTranslationsEnabled() {
+    this.machineTranslationsEnabled = !this.machineTranslationsEnabled;
+  }
+
+  @action
   async submit() {
     this.isLoading = true;
 
-    await this.args.onCreate(this.language, {defaultNull: this.defaultNull});
+    await this.args.onCreate(this.language, {
+      machineTranslationsEnabled: this.machineTranslationsEnabled,
+      defaultNull: this.defaultNull,
+    });
 
     this.isLoading = false;
   }

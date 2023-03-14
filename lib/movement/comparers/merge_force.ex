@@ -47,8 +47,8 @@ defmodule Movement.Comparers.MergeForce do
       {"conflict_on_proposed", _text} ->
         OperationMapper.map("merge_on_proposed_force", translation, suggested_translation)
 
-      {_action, _text} ->
-        %Operation{action: "noop", key: translation.key}
+      {_action, text} ->
+        %Operation{action: "noop", key: translation.key, text: text}
     end
   end
 end

@@ -54,6 +54,7 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
     |> Context.assign(:document, document)
     |> Context.assign(:revision, revision)
     |> Context.assign(:user_id, user.id)
+    |> Context.assign(:batch_action, "sync")
     |> ProjectSyncPersister.persist()
 
     batch_operation =

@@ -17,15 +17,21 @@
         @options={{this.mappedProviders}}
         @onchange={{fn this.setProvider}}
       />
-      <label local-class='platform-checkbox'>
+    </div>
+
+    <div local-class='options'>
+      <label local-class='option-checkbox'>
         <input value={{this.usePlatform}} type='checkbox' checked={{this.usePlatform}} {{on 'change' (fn this.onUsePlatformChange)}} />
         {{t 'components.project_settings.machine_translations.use_platform_label'}}
       </label>
 
+      <label local-class='option-checkbox'>
+        <input value={{this.enabledActionsSync}} type='checkbox' checked={{this.enabledActionsSync}} {{on 'change' (fn this.onEnabledActionsChange 'sync')}} />
+        {{t 'components.project_settings.machine_translations.enabled_actions_sync'}}
+      </label>
     </div>
 
     {{#unless this.usePlatform}}
-
       {{#if @project.machineTranslationsConfig.useConfigKey}}
         <p local-class='config-key-help'>
           {{t 'components.project_settings.machine_translations.config_key_help_present'}}

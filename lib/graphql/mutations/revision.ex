@@ -10,6 +10,7 @@ defmodule Accent.GraphQL.Mutations.Revision do
       arg(:project_id, non_null(:id))
       arg(:language_id, non_null(:id))
       arg(:default_null, :boolean, default_value: false)
+      arg(:machine_translations_enabled, :boolean, default_value: false)
 
       resolve(project_authorize(:create_slave, &RevisionResolver.create/3, :project_id))
     end

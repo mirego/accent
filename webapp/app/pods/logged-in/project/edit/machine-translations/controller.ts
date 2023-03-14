@@ -7,7 +7,9 @@ import GlobalState from 'accent-webapp/services/global-state';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 
-import machineTranslationsConfigSaveQuery from 'accent-webapp/queries/save-project-machine-translations-config';
+import machineTranslationsConfigSaveQuery, {
+  SaveProjectMachineTranslationsConfigVariables,
+} from 'accent-webapp/queries/save-project-machine-translations-config';
 import machineTranslationsConfigDeleteQuery from 'accent-webapp/queries/delete-project-machine-translations-config';
 
 const FLASH_MESSAGE_PREFIX = 'pods.project.edit.flash_messages.';
@@ -42,16 +44,14 @@ export default class MachineTranslationController extends Controller {
   showLoading: boolean;
 
   @action
-  async saveMachineTranslationsConfig(config: {
-    provider: string;
-    usePlatform: boolean;
-    configKey: string | null;
-  }) {
+  async saveMachineTranslationsConfig(
+    config: SaveProjectMachineTranslationsConfigVariables
+  ) {
     return this.mutateResource({
       mutation: machineTranslationsConfigSaveQuery,
       successMessage: FLASH_MESSAGE_CONFIG_SUCCESS,
       errorMessage: FLASH_MESSAGE_CONFIG_ERROR,
-      variables: {projectId: this.project.id, ...config},
+      variables: {...config, projectId: this.project.id},
     });
   }
 
@@ -79,7 +79,7 @@ export default class MachineTranslationController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation,
       variables,
-      refetchQueries: ['ProjectMachineTranslationsConfig'],
+      refetchQueries: ['Project', 'ProjectMachineTranslationsConfig'],
     });
 
     if (response.errors) {

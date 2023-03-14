@@ -65,6 +65,11 @@ export default class ProjectCreateForm extends Component<Args> {
   }
 
   @action
+  autofocus(input: HTMLInputElement) {
+    input.focus();
+  }
+
+  @action
   async submit() {
     this.isCreating = true;
 

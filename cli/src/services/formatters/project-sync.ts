@@ -14,17 +14,17 @@ export default class ProjectSyncFormatter extends Base {
     if (flags.version) logFlags.push(chalk.gray(`${flags.version}`));
 
     console.log(
-      chalk.magenta(
-        'Syncing sources',
-        `(${fetchFromRevision(project.masterRevision)})`,
-        logFlags.join('')
-      )
+      chalk.white.bold('Syncing sources →'),
+      chalk.white(
+        `${fetchFromRevision(project.masterRevision)}`,
+        logFlags.join('') || null
+      ),
+      chalk.green('✓')
     );
-
-    console.log('');
   }
 
   footerDryRun(time: number) {
+    console.log('');
     console.log(
       chalk.gray.dim(
         'For more informations on operations: https://www.accent.reviews/guides/glossary.html#sync'
@@ -38,6 +38,7 @@ export default class ProjectSyncFormatter extends Base {
   }
 
   footer(time: number) {
+    console.log('');
     console.log(
       chalk.gray.dim(
         'For more informations on operations: https://www.accent.reviews/guides/glossary.html#sync'

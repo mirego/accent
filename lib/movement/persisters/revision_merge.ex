@@ -4,13 +4,7 @@ defmodule Movement.Persisters.RevisionMerge do
   alias Accent.Repo
   alias Movement.Persisters.Base, as: BasePersister
 
-  @batch_action "merge"
-
   def persist(context) do
-    Repo.transaction(fn ->
-      context
-      |> Movement.Context.assign(:batch_action, @batch_action)
-      |> BasePersister.execute()
-    end)
+    Repo.transaction(fn -> BasePersister.execute(context) end)
   end
 end

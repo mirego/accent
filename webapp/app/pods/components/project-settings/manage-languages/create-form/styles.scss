@@ -1,24 +1,40 @@
-.fields {
+.form {
   margin-bottom: 25px;
+  padding: 12px;
+  border-radius: 3px;
+  background: var(--background-light);
+  border: 1px solid var(--background-light-highlight);
 
   :global(.ember-power-select-trigger) {
     min-height: 31px;
     max-width: 400px;
     margin-bottom: 10px;
-    background: var(--background-light);
+    background: var(--body-background);
     border: 1px solid var(--background-light-highlight);
   }
 }
 
+.options {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 .option {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .optionLabel {
   display: flex;
-  font-size: 12px;
+  align-items: center;
+  font-size: 13px;
 }
 
 .optionLabelText {
   margin-left: 5px;
+}
+
+.optionLabel-icon {
+  width: 15px;
+  margin-left: 3px;
+  transform: rotate(45deg);
 }

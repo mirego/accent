@@ -84,7 +84,7 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   def assign_movement_context(conn, _) do
-    assign(conn, :movement_context, %Context{})
+    assign(conn, :movement_context, %Context{assigns: %{options: [], project: conn.assigns[:project]}})
   end
 
   def assign_movement_version(conn = %{assigns: %{version: version, movement_context: context}}, _opts) do

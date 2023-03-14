@@ -11,6 +11,11 @@ defmodule Accent.MachineTranslations do
     Provider.id(provider)
   end
 
+  def enabled_on_action?(config, action) do
+    config = config || %{}
+    to_string(action) in Map.get(config, "enabled_actions", [])
+  end
+
   def enabled?(config) do
     provider = provider_from_config(config)
     Provider.enabled?(provider)

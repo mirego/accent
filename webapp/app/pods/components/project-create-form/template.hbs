@@ -17,7 +17,7 @@
     </label>
 
     <div local-class='formItem-fields'>
-      <input value={{this.name}} local-class='textInput' {{on 'keyup' (fn this.setName)}} />
+      <input {{did-insert (fn this.autofocus)}} value={{this.name}} autofocus local-class='textInput' {{on 'keyup' (fn this.setName)}} />
 
       <input type='color' value={{this.mainColor}} local-class='colorInput' {{on 'change' (fn this.setMainColor)}} />
 

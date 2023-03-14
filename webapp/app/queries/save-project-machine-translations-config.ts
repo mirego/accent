@@ -1,10 +1,11 @@
 import gql from 'graphql-tag';
 
 export interface SaveProjectMachineTranslationsConfigVariables {
-  name: string;
   projectId: string;
-  pictureUrl: string;
-  permissions: string[];
+  provider: string;
+  configKey: string;
+  enabledActions: string[];
+  usePlatform: boolean;
 }
 
 export interface SaveProjectMachineTranslationsConfigResponse {
@@ -20,12 +21,14 @@ export default gql`
     $provider: String!
     $configKey: String
     $usePlatform: Boolean!
+    $enabledActions: [String!]!
     $projectId: ID!
   ) {
     saveProjectMachineTranslationsConfig(
       provider: $provider
       configKey: $configKey
       usePlatform: $usePlatform
+      enabledActions: $enabledActions
       projectId: $projectId
     ) {
       project {

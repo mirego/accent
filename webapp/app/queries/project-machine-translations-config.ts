@@ -8,6 +8,7 @@ export default gql`
         machineTranslationsConfig {
           provider
           usePlatform
+          enabledActions
           useConfigKey
         }
       }

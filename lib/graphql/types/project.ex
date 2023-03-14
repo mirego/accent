@@ -19,6 +19,7 @@ defmodule Accent.GraphQL.Types.Project do
 
   object :machine_translations_config do
     field(:provider, non_null(:string))
+    field(:enabled_actions, non_null(list_of(non_null(:string))))
     field(:use_platform, non_null(:boolean))
     field(:use_config_key, non_null(:boolean))
   end
@@ -40,6 +41,7 @@ defmodule Accent.GraphQL.Types.Project do
           {:ok,
            %{
              provider: project.machine_translations_config["provider"],
+             enabled_actions: project.machine_translations_config["enabled_actions"] || [],
              use_platform: project.machine_translations_config["use_platform"],
              use_config_key: not is_nil(project.machine_translations_config["config"]["key"])
            }}

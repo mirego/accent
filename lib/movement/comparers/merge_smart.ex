@@ -56,8 +56,8 @@ defmodule Movement.Comparers.MergeSmart do
 
         OperationMapper.map("merge_on_corrected", translation, suggested_translation)
 
-      {_action, _text} ->
-        %Operation{action: "noop", key: translation.key}
+      {_action, text} ->
+        %Operation{action: "noop", key: translation.key, text: text}
     end
   end
 end

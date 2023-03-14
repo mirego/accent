@@ -11,13 +11,13 @@
     {{#if (get @permissions 'create_slave')}}
       <div local-class='createSlaveForm'>
         {{#if @errors}}
-          <div local-class='error'>
+          <ul local-class='error'>
             {{#each @errors as |error|}}
               <li>
                 {{error}}
               </li>
             {{/each}}
-          </div>
+          </ul>
         {{/if}}
         <ProjectSettings::ManageLanguages::CreateForm @permissions={{@permissions}} @project={{@project}} @languages={{@languages}} @onCreate={{@onCreate}} />
       </div>

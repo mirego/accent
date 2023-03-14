@@ -17,6 +17,7 @@ defmodule Movement.Mappers.Operation do
       version_id: Map.get(suggested_translation, :version_id),
       translation_id: Map.get(suggested_translation, :translation_id),
       previous_translation: PreviousTranslation.from_translation(current_translation),
+      machine_translations_enabled: suggested_translation.machine_translations_enabled,
       placeholders: suggested_translation.placeholders
     }
   end
@@ -35,6 +36,7 @@ defmodule Movement.Mappers.Operation do
       plural: Map.get(suggested_translation, :plural, current_translation.plural),
       locked: Map.get(suggested_translation, :locked, current_translation.locked),
       translation_id: Map.get(current_translation, :id),
+      machine_translations_enabled: Map.get(suggested_translation, :machine_translations_enabled, false),
       previous_translation: PreviousTranslation.from_translation(current_translation),
       placeholders: Map.get(suggested_translation, :placeholders, current_translation.placeholders)
     }

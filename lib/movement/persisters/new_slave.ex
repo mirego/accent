@@ -26,6 +26,7 @@ defmodule Movement.Persisters.NewSlave do
     |> Repo.insert()
     |> case do
       {:ok, revision} ->
+        revision = Repo.preload(revision, :language)
         Movement.Context.assign(context, :revision, revision)
 
       {:error, changeset} ->

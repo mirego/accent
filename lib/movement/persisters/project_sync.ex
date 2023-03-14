@@ -6,15 +6,12 @@ defmodule Movement.Persisters.ProjectSync do
   alias Accent.{Document, Project, Repo}
   alias Movement.Persisters.Base, as: BasePersister
 
-  @batch_action "sync"
-
   def persist(context = %Movement.Context{operations: []}), do: {:ok, {context, []}}
 
   def persist(context) do
     Repo.transaction(fn ->
       context
       |> persist_document()
-      |> Movement.Context.assign(:batch_action, @batch_action)
       |> BasePersister.execute()
       |> case do
         {context, operations} ->

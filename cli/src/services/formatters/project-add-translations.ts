@@ -18,11 +18,10 @@ export default class ProjectAddTranslationsFormatter {
       .map(fetchFromRevision)
       .join(', ');
 
-    const title = `Adding translations paths (${languages})`;
-
-    console.log(chalk.gray.dim('⎯'.repeat(title.length - 1)));
-    console.log(chalk.magenta(title));
-
-    console.log('');
+    console.log(
+      chalk.white.bold('Adding translations paths →'),
+      chalk.white(languages),
+      chalk.green('✓')
+    );
   }
 }

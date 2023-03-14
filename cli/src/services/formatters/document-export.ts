@@ -9,6 +9,5 @@ export default class DocumentExportFormatter {
       chalk.bold.white(documentPath),
       chalk.gray.dim.underline(path)
     );
-    console.log('');
   }
 }

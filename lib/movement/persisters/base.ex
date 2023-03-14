@@ -100,6 +100,7 @@ defmodule Movement.Persisters.Base do
             version_id: operation.version_id || placeholder_values[:version_id],
             revision_id: operation.revision_id || placeholder_values[:revision_id]
         })
+        |> Map.delete(:machine_translations_enabled)
       end)
       |> Stream.chunk_every(@operations_inserts_chunk)
       |> Stream.flat_map(fn operations ->

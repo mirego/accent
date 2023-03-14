@@ -10,6 +10,7 @@ defmodule Accent.MachineTranslationsConfigManager do
         "config" => %{
           "key" => params[:config_key]
         },
+        "enabled_actions" => params[:enabled_actions],
         "provider" => params[:provider],
         "use_platform" => params[:use_platform]
       }

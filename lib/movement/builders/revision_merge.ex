@@ -3,14 +3,30 @@ defmodule Movement.Builders.RevisionMerge do
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Repo, Translation}
+  alias Accent.{Repo, Revision, Translation}
   alias Movement.EntriesCommitProcessor
+
+  @batch_action "merge"
 
   def build(context) do
     context
     |> assign_translations()
+    |> assign_master_revision()
+    |> Movement.Context.assign(:batch_action, @batch_action)
     |> EntriesCommitProcessor.process()
+  end
+
+  defp assign_master_revision(context) do
+    master_revision =
+      Revision
+      |> RevisionScope.from_project(context.assigns[:project].id)
+      |> RevisionScope.master()
+      |> Repo.one!()
+      |> Repo.preload(:language)
+
+    assign(context, :master_revision, master_revision)
   end
 
   defp assign_translations(context) do

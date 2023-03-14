@@ -155,6 +155,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   defp parse_new_slave_options(args) do
     options = []
     options = if args[:default_null], do: ["default_null" | options], else: options
+    options = if args[:machine_translations_enabled], do: ["machine_translations_enabled" | options], else: options
 
     options
   end

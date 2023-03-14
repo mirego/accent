@@ -10,6 +10,7 @@ defmodule Accent.GraphQL.Mutations.MachineTranslationsConfig do
       arg(:project_id, non_null(:id))
       arg(:provider, non_null(:string))
       arg(:use_platform, non_null(:boolean))
+      arg(:enabled_actions, non_null(list_of(non_null(:string))))
       arg(:config_key, :string)
 
       resolve(project_authorize(:save_project_machine_translations_config, &Resolver.save/3, :project_id))

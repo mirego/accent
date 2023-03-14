@@ -25,7 +25,7 @@ defmodule Accent.Project do
     has_many(:all_collaborators, Accent.Collaborator)
     belongs_to(:language, Accent.Language)
 
-    field :machine_translations_config, MachineTranslationsConfig
+    field(:machine_translations_config, MachineTranslationsConfig)
 
     timestamps()
   end

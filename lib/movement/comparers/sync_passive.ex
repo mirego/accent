@@ -34,8 +34,8 @@ defmodule Movement.Comparers.SyncPassive do
 
         OperationMapper.map(action, translation, suggested_translation)
 
-      _ ->
-        %Operation{action: "noop", key: suggested_translation.key}
+      {_, text} ->
+        %Operation{action: "noop", key: suggested_translation.key, text: text}
     end
   end
 end

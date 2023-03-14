@@ -2,6 +2,8 @@ defmodule Movement.EntriesCommitProcessor do
   @no_action_keys ~w(noop autocorrect)
   @included_slave_actions ~w(new remove renew merge_on_corrected merge_on_proposed merge_on_proposed_force merge_on_corrected_force)
 
+  alias Movement.MachineTranslations
+
   @doc """
   For list of translations, new data (like the content of a file upload) and a given function,
   returns the list of operations that will be executed. The operations will be neither persisted nor run.
@@ -33,9 +35,18 @@ defmodule Movement.EntriesCommitProcessor do
         }
 
         operation = assigns[:comparer].(current_translation, suggested_translation)
+
+        operation =
+          if MachineTranslations.enable_machine_translation?(operation, entry, assigns[:revision], assigns[:project], assigns[:batch_action]) do
+            %{operation | machine_translations_enabled: true}
+          else
+            operation
+          end
+
         %{operation | options: assigns[:options]}
       end)
       |> filter_for_revision(assigns[:revision])
+      |> MachineTranslations.translate(assigns[:project], assigns[:master_revision], assigns[:revision])
 
     %{context | operations: Enum.concat(operations, new_operations)}
   end
@@ -73,15 +84,19 @@ defmodule Movement.EntriesCommitProcessor do
   end
 
   defp filter_for_revision(operations, %{master: true}) do
-    operations
-    |> Enum.filter(fn %{action: operation} -> operation not in @no_action_keys end)
+    Enum.filter(
+      operations,
+      fn operation ->
+        operation.action not in @no_action_keys
+      end
+    )
   end
 
   defp filter_for_revision(operations, _) do
     Enum.filter(
       operations,
-      fn %{action: operation} ->
-        operation in @included_slave_actions and operation not in @no_action_keys
+      fn operation ->
+        operation.action in @included_slave_actions and operation.action not in @no_action_keys
       end
     )
   end

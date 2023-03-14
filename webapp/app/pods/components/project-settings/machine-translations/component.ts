@@ -13,10 +13,12 @@ interface Args {
   onDelete: () => void;
   onSave: ({
     provider,
+    enabledActions,
     usePlatform,
     configKey,
   }: {
     provider: string;
+    enabledActions: string[];
     usePlatform: boolean;
     configKey: string | null;
   }) => Promise<any>;
@@ -42,6 +44,10 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
   intl: IntlService;
 
   @tracked
+  enabledActions =
+    this.args.project.machineTranslationsConfig?.enabledActions || [];
+
+  @tracked
   provider =
     this.args.project.machineTranslationsConfig?.provider || 'google_translate';
 
@@ -51,6 +57,10 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
 
   @tracked
   configKey: any;
+
+  get enabledActionsSync() {
+    return this.enabledActions.includes('sync');
+  }
 
   get providerValue() {
     return this.mappedProviders.find(({value}) => value === this.provider);
@@ -95,6 +105,17 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
   }
 
   @action
+  onEnabledActionsChange(action: string) {
+    if (this.enabledActions.includes(action)) {
+      this.enabledActions = this.enabledActions.filter(
+        (enabledAction: string) => enabledAction !== action
+      );
+    } else {
+      this.enabledActions = this.enabledActions.concat([action]);
+    }
+  }
+
+  @action
   onUsePlatformChange(event: InputEvent) {
     const checked = (event.target as HTMLInputElement).checked;
 
@@ -111,6 +132,7 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
   *submit() {
     yield this.args.onSave({
       provider: this.provider,
+      enabledActions: this.enabledActions,
       usePlatform: this.usePlatform,
       configKey: this.configKey,
     });

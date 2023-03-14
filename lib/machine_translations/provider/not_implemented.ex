@@ -4,6 +4,6 @@ defmodule Accent.MachineTranslations.Provider.NotImplemented do
   defimpl Accent.MachineTranslations.Provider do
     def id(_provider), do: :not_implemented
     def enabled?(_provider), do: false
-    def translate(_provider, entries, _source_language, _target_language), do: entries
+    def translate(_provider, entries, _source_language, _target_language), do: {:ok, entries}
   end
 end
