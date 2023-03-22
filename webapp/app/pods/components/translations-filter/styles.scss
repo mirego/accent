@@ -40,8 +40,13 @@
   }
 }
 
-.advancedFilters {
+button.advancedFilters {
   position: relative;
+  box-shadow: none;
+  &:focus,
+  &:hover {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .advancedFilters-badge {

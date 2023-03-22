@@ -32,6 +32,26 @@ export default class RevisionSelector extends Component<Args> {
     );
   }
 
+  get revision() {
+    return this.args.revisions.find(({id}: {id: string}) => {
+      return id === this.args.revision;
+    });
+  }
+
+  get masterRevision() {
+    return this.args.revisions.find(({isMaster}: {isMaster: boolean}) => {
+      return isMaster;
+    });
+  }
+
+  get revisionName() {
+    return this.revision.name || this.revision.language.name;
+  }
+
+  get masterRevisionName() {
+    return this.masterRevision.name || this.masterRevision.language.name;
+  }
+
   get mappedRevisions() {
     return this.args.revisions.map(
       ({id, name, language}: {id: string; name: string; language: any}) => {

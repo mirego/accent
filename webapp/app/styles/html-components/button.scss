@@ -213,9 +213,9 @@
   &.button--white {
     --button-text-hover-color: var(--color-black);
     --button-text-color: var(--color-black);
-    --button-background-color: var(--body-background);
+    --button-background-color: var(--content-background);
     --button-background-hover-color: var(--color-primary-opacity-10);
-    --button-border-color: var(--body-background-border);
+    --button-border-color: var(--content-background-border);
     --button-shadow-focus-color: var(--shadow-color);
     --button-loading-color: var(--color-black);
     text-shadow: none;
@@ -223,7 +223,7 @@
     &[disabled] {
       &:hover,
       &:focus {
-        background: var(--body-background);
+        background: var(--content-background);
         color: var(--color-black);
       }
     }

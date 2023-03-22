@@ -15,7 +15,7 @@
   flex-direction: column;
   margin: 0 30px 30px 0;
   max-width: 275px;
-  background: var(--body-background);
+  background: var(--content-background);
   border-radius: 3px;
   color: var(--color-black);
   box-shadow: 0 1px 4px var(--shadow-color), 0 9px 19px var(--shadow-color);
@@ -35,7 +35,7 @@
     padding: 10px 20px;
     margin-top: 10px;
     font-size: 11px;
-    border-top: 1px solid var(--body-background-border);
+    border-top: 1px solid var(--content-background-border);
     color: var(--color-grey);
     background: var(--background-light);
   }
@@ -75,8 +75,9 @@
   }
 
   .link {
-    width: calc(50% - 20px);
+    width: 100%;
     min-width: 0;
-    margin: 0 10px 20px;
+    max-width: none;
+    margin: 0 0 20px;
   }
 }

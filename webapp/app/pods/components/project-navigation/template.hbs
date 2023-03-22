@@ -1,3 +1,24 @@
 <div local-class='project-navigation'>
-  <ProjectNavigation::List @selectedRevision={{this.selectedRevision}} @permissions={{@permissions}} @project={{@project}} />
+  <div>
+    <LinkTo @route='logged-in.project.index' @model={{@project.id}} local-class='project'>
+      <span local-class='project-logo'>
+        <ProjectLogo @logo={{@project.logo}} />
+      </span>
+
+      <span local-class='project-name'>
+        {{@project.name}}
+      </span>
+    </LinkTo>
+    <ProjectNavigation::List @selectedRevision={{this.selectedRevision}} @permissions={{@permissions}} @project={{@project}} />
+  </div>
+
+  <div local-class='footer'>
+    <LinkTo @route='logged-in.projects' local-class='back-to-projects'>
+
+      {{inline-svg '/assets/chevron-left.svg' local-class='back-to-projects-icon'}}
+      <span local-class='back-to-projects-text'>{{t 'components.project_navigation.back_to_projects'}}</span>
+    </LinkTo>
+
+    <ApplicationFooter />
+  </div>
 </div>

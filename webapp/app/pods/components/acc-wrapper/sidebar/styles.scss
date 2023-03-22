@@ -1,6 +1,7 @@
 .sidebar {
-  flex: 0 0 225px;
-  margin-top: 30px;
+  flex: 0 0 255px;
+  padding-top: 10px;
+  background: var(--body-background);
 }
 
 @media (max-width: 800px) {
@@ -8,13 +9,5 @@
     margin-top: -10px;
     flex: 0 0 55px;
     width: 100%;
-  }
-}
-
-@media (max-width: 440px) {
-  .sidebar {
-    flex: 0 0 auto;
-    width: 100%;
-    border: 0;
   }
 }

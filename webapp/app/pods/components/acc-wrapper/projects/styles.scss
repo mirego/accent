@@ -1,0 +1,38 @@
+.content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  border-radius: 3px;
+  border: 1px solid var(--content-background-border);
+  overflow: hidden;
+  background: var(--content-background);
+}
+
+.footer {
+  padding: 0 20px 10px;
+}
+
+.mirego {
+  display: flex;
+  justify-content: end;
+  padding: 20px;
+  opacity: 0.1;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
+
+  &:focus,
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.mirego svg {
+  width: 70px;
+  fill: var(--text-color-normal);
+}
+
+@media (max-width: 800px) {
+  .content {
+    margin-top: 0;
+  }
+}

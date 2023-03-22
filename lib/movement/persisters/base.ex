@@ -89,18 +89,20 @@ defmodule Movement.Persisters.Base do
     operations =
       context.operations
       |> Stream.map(fn operation ->
-        Map.from_struct(%{
-          operation
-          | inserted_at: {:placeholder, :now},
-            updated_at: {:placeholder, :now},
-            user_id: placeholder_values[:user_id] || operation.user_id,
-            document_id: placeholder_values[:document_id] || operation.document_id,
-            project_id: placeholder_values[:project_id] || operation.project_id,
-            batch_operation_id: placeholder_values[:batch_operation_id] || operation.batch_operation_id,
-            version_id: operation.version_id || placeholder_values[:version_id],
-            revision_id: operation.revision_id || placeholder_values[:revision_id]
-        })
-        |> Map.delete(:machine_translations_enabled)
+        operation =
+          Map.from_struct(%{
+            operation
+            | inserted_at: {:placeholder, :now},
+              updated_at: {:placeholder, :now},
+              user_id: placeholder_values[:user_id] || operation.user_id,
+              document_id: placeholder_values[:document_id] || operation.document_id,
+              project_id: placeholder_values[:project_id] || operation.project_id,
+              batch_operation_id: placeholder_values[:batch_operation_id] || operation.batch_operation_id,
+              version_id: operation.version_id || placeholder_values[:version_id],
+              revision_id: operation.revision_id || placeholder_values[:revision_id]
+          })
+
+        Map.delete(operation, :machine_translations_enabled)
       end)
       |> Stream.chunk_every(@operations_inserts_chunk)
       |> Stream.flat_map(fn operations ->

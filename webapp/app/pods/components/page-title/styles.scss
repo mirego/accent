@@ -2,11 +2,12 @@
   padding: 0;
   text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   color: var(--color-black);
   font-size: 13px;
+  gap: 13px;
 
   h1 {
     font-size: 35px;

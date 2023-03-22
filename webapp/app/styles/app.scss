@@ -167,7 +167,7 @@ html {
     'Segoe UI Symbol';
   --font-monospace: 'Fira Code', 'Monaco', Courrier, monospace;
 
-  --screen-lg: 1400px;
+  --screen-lg: 100%;
   --screen-md: 640px;
   --screen-sm: 440px;
 
@@ -179,8 +179,11 @@ html {
 
   --text-color-normal: hsl(var(--accent-hue), 30%, 5%);
 
-  --body-background: #fff;
-  --body-background-border: #eaeaea;
+  --content-background: #fff;
+  --content-background-border: #eaeaea;
+
+  --html-background: #f7f7f7;
+  --body-background: #f7f7f7;
 
   --logo-background: #eee;
   --logo-foreground: #bbb;
@@ -238,8 +241,11 @@ html {
 }
 
 html[data-theme='dark'] {
-  --body-background: #191919;
-  --body-background-border: #232323;
+  --content-background: #191919;
+  --content-background-border: #232323;
+
+  --html-background: #191919;
+  --body-background: #161616;
 
   --logo-background: #333;
   --logo-foreground: #777;
@@ -255,7 +261,7 @@ html[data-theme='dark'] {
   --background-light: #1f1f1f;
   --background-light-highlight: #3c3c3c;
 
-  --shadow-color: rgba(0, 0, 0, 0.24);
+  --shadow-color: rgba(0, 0, 0, 0.14);
 
   --color-highlight-lighteness: 12%;
   --color-black: #adadad;
@@ -264,11 +270,11 @@ html[data-theme='dark'] {
   --background-tooltip: #111;
   --text-color-tooltip: #fff;
 
-  background: #171717;
+  background: #191919;
 }
 
 body {
-  background: var(--body-background);
+  background: var(--html-background);
   color: var(--text-color-normal);
   font-family: var(--font-primary);
   line-height: 1.5;
@@ -306,8 +312,8 @@ input[type='radio'] {
   position: relative;
   width: 1rem;
   height: 1rem;
-  background: var(--body-background);
-  accent-color: var(--body-background);
+  background: var(--content-background);
+  accent-color: var(--content-background);
   border: 2px solid var(--color-grey);
 
   &:checked {
@@ -324,7 +330,7 @@ input[type='radio'] {
       content: '';
       background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20405.272%20405.272%22%3E%3Cg%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M393.401%2C124.425L179.603%2C338.208c-15.832%2C15.835-41.514%2C15.835-57.361%2C0L11.878%2C227.836%20%20%20c-15.838-15.835-15.838-41.52%2C0-57.358c15.841-15.841%2C41.521-15.841%2C57.355-0.006l81.698%2C81.699L336.037%2C67.064%20%20%20c15.841-15.841%2C41.523-15.829%2C57.358%2C0C409.23%2C82.902%2C409.23%2C108.578%2C393.401%2C124.425z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
       background-size: 100%;
-      color: var(--body-background);
+      color: var(--content-background);
     }
   }
 }
@@ -342,6 +348,7 @@ input[type='radio'] {
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
+  background: var(--body-background);
 }
 
 :global(.tooltip) {

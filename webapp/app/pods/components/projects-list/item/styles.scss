@@ -33,7 +33,8 @@
   transition: 0.2s ease-in-out;
   transition-property: box-shadow;
   border-radius: 3px;
-  border: 1px solid var(--background-light-highlight);
+  border: 1px solid var(--content-background-border);
+  background: var(--content-background);
   color: var(--color-black);
 
   &:focus,

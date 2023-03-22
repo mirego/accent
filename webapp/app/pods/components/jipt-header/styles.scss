@@ -5,7 +5,7 @@
   display: flex;
   padding: 14px 10px;
   box-shadow: 0 3px 10px var(--shadow-color);
-  background: var(--body-background);
+  background: var(--content-background);
 }
 
 .project {
@@ -21,7 +21,7 @@
   text-decoration: none;
 
   circle {
-    fill: var(--body-background);
+    fill: var(--content-background);
   }
 
   path {

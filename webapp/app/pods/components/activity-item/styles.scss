@@ -21,7 +21,7 @@
   left: 10px;
   width: calc(100% + -9px);
   padding: 5px;
-  background: var(--body-background);
+  background: var(--content-background);
   border: 1px solid var(--background-light-highlight);
   border-left: 0;
 
@@ -34,7 +34,7 @@
     width: 100%;
     padding: 5px 5px 0 2px;
     margin-left: -16px;
-    background: var(--body-background);
+    background: var(--content-background);
     border-bottom: 0;
   }
 }
@@ -66,7 +66,7 @@
   }
 
   .item-iconContainer-icon {
-    stroke: var(--body-background);
+    stroke: var(--content-background);
   }
 
   .item-stats {
@@ -147,7 +147,7 @@
   }
 
   .item-iconContainer-icon {
-    stroke: var(--body-background);
+    stroke: var(--content-background);
   }
 
   &.compact {
@@ -170,7 +170,7 @@
   }
 
   .item-iconContainer-icon {
-    stroke: var(--body-background);
+    stroke: var(--content-background);
   }
 }
 
@@ -181,7 +181,7 @@
   }
 
   .item-iconContainer-icon {
-    stroke: var(--body-background);
+    stroke: var(--content-background);
   }
 
   &.compact {
@@ -246,14 +246,14 @@
   }
 
   .item-iconContainer {
-    background: var(--body-background);
-    border-color: var(--body-background-border);
+    background: var(--content-background);
+    border-color: var(--content-background-border);
   }
 
   .item-iconContainer-icon {
     width: 11px;
     height: 11px;
-    stroke: var(--body-background-border);
+    stroke: var(--content-background-border);
   }
 
   &.rollback,
@@ -330,8 +330,8 @@
   }
 
   .item-iconContainer {
-    border-color: var(--body-background);
-    background: var(--body-background);
+    border-color: var(--content-background);
+    background: var(--content-background);
   }
 
   .item-rollback-content {
@@ -410,8 +410,8 @@
   margin-right: 10px;
   border-radius: 50%;
   border: 1px solid var(--color-grey);
-  box-shadow: 0 0 0 5px var(--body-background);
-  background: var(--body-background);
+  box-shadow: 0 0 0 5px var(--content-background);
+  background: var(--content-background);
 }
 
 .item-iconContainer-icon {
@@ -448,7 +448,6 @@
   flex-wrap: wrap;
   align-items: center;
   flex: 1 1 auto;
-  width: 100%;
   font-size: 12px;
 }
 
@@ -602,8 +601,7 @@ a.item-documentPath {
 }
 
 .item-actions {
-  flex: 1 1 auto;
-  width: 360px;
+  flex: 0 1 auto;
   margin: 0;
   text-align: right;
 }
@@ -640,7 +638,7 @@ a.item-documentPath {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  background: var(--body-background);
+  background: var(--content-background);
   font-size: 12px;
   font-style: italic;
   color: #5d6863;

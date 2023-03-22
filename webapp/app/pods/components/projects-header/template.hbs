@@ -1,19 +1,16 @@
 <header local-class='projects-header {{if @project "withProject"}}'>
   <div local-class='content'>
     <div local-class='content-left'>
-      {{#if @project}}
-        <LinkTo @route='logged-in.projects' local-class='applicationLogo'>
-          {{inline-svg 'assets/chevron-left.svg' local-class='applicationLogo-back'}}
-        </LinkTo>
+      <div local-class='applicationLogo'>
+        {{inline-svg 'assets/logo.svg' local-class='applicationLogo-image'}}
+        <span local-class='applicationLogo-accent'>
+          {{t 'general.application_name'}}
+        </span>
+      </div>
+    </div>
 
-        <LinkTo @route='logged-in.project.index' @model={{@project.id}} local-class='project'>
-          <span local-class='project-logo'>
-            <ProjectLogo @logo={{@project.logo}} />
-          </span>
-
-          {{@project.name}}
-        </LinkTo>
-
+    {{#if @project}}
+      <div local-class='content-center'>
         <div local-class='search'>
           {{inline-svg '/assets/search.svg' local-class='search-icon'}}
           <input
@@ -24,15 +21,8 @@
             value={{this.debouncedQuery}}
           />
         </div>
-      {{else}}
-        <div local-class='applicationLogo'>
-          {{inline-svg 'assets/logo.svg' local-class='applicationLogo-image'}}
-          <span local-class='applicationLogo-accent'>
-            {{t 'general.application_name'}}
-          </span>
-        </div>
-      {{/if}}
-    </div>
+      </div>
+    {{/if}}
 
     {{#if @session.credentials.user}}
       <div local-class='content-right'>

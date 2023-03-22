@@ -1,11 +1,10 @@
 .projects-list {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 25px;
-  margin: 0 auto;
+  padding: 0 10px;
+  margin: 10px auto 0;
   max-width: var(--screen-lg);
   position: relative;
-  margin-top: 20px;
 }
 
 .item {

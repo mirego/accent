@@ -1,7 +1,6 @@
 .revision-selector {
   position: relative;
-  background: var(--body-background);
-  box-shadow: 0 2px 4px var(--shadow-color);
+  margin-bottom: 15px;
 
   select {
     padding: 10px 10px 10px 7px;
@@ -11,6 +10,7 @@
     flex-direction: row-reverse;
     cursor: pointer;
     pointer-events: all;
+    border-color: transparent;
 
     &:hover {
       background: var(--background-light);
@@ -18,11 +18,26 @@
   }
 }
 
-.otherLanguages {
+.overlay {
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  bottom: 8px;
-  left: 11px;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  width: 100%;
+  pointer-events: none;
+  z-index: 10;
+  border-radius: 3px;
+  background: var(--content-background);
+  border: 1px solid var(--content-background-border);
+
+  &:hover {
+    background: var(--background-light);
+  }
+}
+
+.otherLanguages {
   font-size: 12px;
   color: #ccc;
-  pointer-events: none;
 }

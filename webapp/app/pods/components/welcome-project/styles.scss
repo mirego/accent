@@ -57,7 +57,7 @@
   text-decoration: none;
   transition: 0.2s ease-in-out;
   transition-property: background, box-shadow;
-  background: var(--body-background);
+  background: var(--content-background);
 
   &:focus,
   &:hover {

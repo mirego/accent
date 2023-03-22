@@ -3,4 +3,93 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: sticky;
+  position: -webkit-sticky;
+  margin-top: -64px;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  justify-content: space-between;
+}
+
+.footer {
+  margin: 0 15px;
+}
+
+.back-to-projects {
+  display: flex;
+  gap: 4px;
+  opacity: 0.6;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 3px;
+  text-decoration: none;
+  padding: 5px 0;
+  font-size: 11px;
+  color: var(--text-color-normal);
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
+  &:focus,
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.back-to-projects-icon {
+  width: 12px;
+}
+
+.project {
+  padding: 20px 0 20px 20px;
+  margin-left: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+.project-logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  top: 2px;
+  font-size: 22px;
+  margin-right: 10px;
+  line-height: 1;
+
+  svg {
+    position: relative;
+    top: -2px;
+    width: 25px;
+    height: 25px;
+
+    circle {
+      fill: var(--logo-background);
+    }
+
+    path {
+      fill: var(--logo-foreground);
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .project-navigation {
+    height: auto;
+  }
+
+  .back-to-projects-text {
+    display: none;
+  }
+
+  .project {
+    padding: 15px 0 25px 14px;
+  }
+
+  .project-name {
+    display: none;
+  }
 }

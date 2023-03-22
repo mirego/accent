@@ -15,6 +15,7 @@ module.exports = {
     'no-bare-strings': true,
     'no-potential-path-strings': false,
     'no-yield-only': false,
+    'no-autofocus-attribute': false,
     'no-forbidden-elements': false,
     'no-curly-component-invocation': {
       allow: ['humanizedDate', 'inline-svg', 't', 'string-diff', 'time-ago-in-words'],

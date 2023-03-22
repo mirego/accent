@@ -2,7 +2,8 @@
   padding: 15px;
   border-radius: 0 0 3px 3px;
   background: var(--background-light);
-  box-shadow: 0 1px 4px var(--shadow-color), 0 9px 19px var(--shadow-color);
+  border-radius: 3px;
+  border: 1px solid var(--background-light-highlight);
   margin-top: -2px;
 
   &.filters--transparent {
@@ -13,7 +14,7 @@
 
   .ember-power-select-trigger {
     padding: 5px 10px;
-    background: var(--body-background);
+    background: var(--content-background);
     box-shadow: none;
     border: 1px solid transparent;
     border-color: var(--background-light-highlight);
@@ -41,13 +42,12 @@
 .queryForm-filters-column {
   display: flex;
   flex-grow: 1;
+  gap: 10px;
 }
 
 .queryForm-filter {
   display: flex;
   align-items: center;
-  margin-top: 2px;
-  margin-right: 15px;
 }
 
 .queryForm-filter-label {

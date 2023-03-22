@@ -1,11 +1,22 @@
 {{#if this.hasManyRevisions}}
   <div local-class='revision-selector'>
     {{#if @revisions.length}}
-      <div>
+      <div local-class='select'>
+        <div local-class='overlay'>
+          <span>
+            <strong>{{this.revisionName}}</strong>
+            {{#if this.revision.isMaster}}
+              <AccBadge>
+                {{t 'components.revision_selector.master'}}
+              </AccBadge>
+            {{/if}}
+          </span>
+
+          <span local-class='otherLanguages'>
+            {{t 'components.revision_selector.languages_count' count=this.otherRevisionsCount}}
+          </span>
+        </div>
         <AccSelect @searchEnabled={{false}} @selected={{this.revisionValue}} @options={{this.mappedRevisions}} @onchange={{fn this.selectRevision}} />
-        <span local-class='otherLanguages'>
-          {{t 'components.revision_selector.languages_count' count=this.otherRevisionsCount}}
-        </span>
       </div>
     {{/if}}
   </div>

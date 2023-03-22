@@ -1,8 +1,8 @@
 .projects {
   display: flex;
   align-items: center;
-  padding: 10px 30px;
-  margin: 0 auto 20px;
+  padding: 10px;
+  margin: 0 auto;
   max-width: calc(var(--screen-lg) - 25px);
 }
 
@@ -38,7 +38,7 @@
 
   &:hover {
     box-shadow: 0 2px 5px var(--shadow-color);
-    background: var(--body-background);
+    background: var(--content-background);
   }
 }
 

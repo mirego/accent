@@ -1,5 +1,5 @@
 defmodule Movement.MachineTranslations do
-  alias Accent.{Language, MachineTranslations, Operation, Revision}
+  alias Accent.{MachineTranslations, Operation}
 
   def enable_machine_translation?(_operation, _entry, %{master: true}, _, _), do: false
 
@@ -36,11 +36,5 @@ defmodule Movement.MachineTranslations do
     end)
   end
 
-  defp language_slug(%Revision{} = revision) do
-    revision.slug || revision.language.slug
-  end
-
-  defp language_slug(%Language{} = language) do
-    language.slug
-  end
+  defp language_slug(revision), do: revision.slug || revision.language.slug
 end

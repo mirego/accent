@@ -43,20 +43,19 @@
                 </div>
               </div>
             {{/if}}
+            {{#if @onChangeAdvancedFilterBoolean}}
+              <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
+                {{inline-svg 'assets/filter.svg' class='button-icon'}}
+                {{t 'components.translations_filter.advanced_filters_button'}}
+
+                {{#if @withAdvancedFilters}}
+                  <span local-class='advancedFilters-badge'>
+                    {{@withAdvancedFilters}}
+                  </span>
+                {{/if}}
+              </button>
+            {{/if}}
           </div>
-
-          {{#if @onChangeAdvancedFilterBoolean}}
-            <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
-              {{inline-svg 'assets/filter.svg' class='button-icon'}}
-              {{t 'components.translations_filter.advanced_filters_button'}}
-
-              {{#if @withAdvancedFilters}}
-                <span local-class='advancedFilters-badge'>
-                  {{@withAdvancedFilters}}
-                </span>
-              {{/if}}
-            </button>
-          {{/if}}
         </div>
 
         {{#if this.displayAdvancedFilters}}

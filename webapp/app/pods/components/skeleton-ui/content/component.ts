@@ -7,10 +7,10 @@ interface Args {
 
 export default class SkeletonUiContent extends Component<Args> {
   get primaryColor() {
-    return 'var(--body-background-border)';
+    return 'var(--content-background-border)';
   }
 
   get secondaryColor() {
-    return 'var(--body-background)';
+    return 'var(--content-background)';
   }
 }

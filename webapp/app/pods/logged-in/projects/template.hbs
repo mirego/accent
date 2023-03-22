@@ -1,4 +1,4 @@
-<div>
+<AccWrapper::Projects>
   <ProjectsHeader @session={{this.session}} />
   <ProjectsFilters @permissions={{this.permissions}} @query={{this.query}} @onChangeQuery={{fn this.changeQuery}} />
 
@@ -11,6 +11,4 @@
   {{/if}}
 
   {{outlet}}
-</div>
-
-<ApplicationFooter />
+</AccWrapper::Projects>

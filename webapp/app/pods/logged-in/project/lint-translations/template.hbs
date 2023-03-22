@@ -1,8 +1,9 @@
 <PageTitle>
   {{inline-svg '/assets/warning.svg'}}
   <h1>{{t 'components.page_title.lint_translations'}}</h1>
-  <a href='https://www.accent.reviews/guides/linting.html'>{{t 'pods.project.lint_translations.header_link'}}</a>
 </PageTitle>
+
+<a href='https://www.accent.reviews/guides/linting.html'>{{t 'pods.project.lint_translations.header_link'}}</a>
 
 {{#if this.model.loading}}
   <SkeletonUi::ProgressLine />

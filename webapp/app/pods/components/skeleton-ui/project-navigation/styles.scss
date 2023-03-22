@@ -1,5 +1,14 @@
-.skeleton {
-  padding: 10px;
-  margin-top: 20px;
-  margin-left: 28px;
+div.skeleton {
+  padding: 0 10px;
+  margin-left: 18px;
+  background: var(--body-background);
+
+  &:after {
+    background: var(--body-background);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0,
+      var(--body-background) 90%
+    );
+  }
 }

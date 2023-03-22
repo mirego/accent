@@ -1,13 +1,8 @@
 .wrapper {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   margin: 0 auto;
   max-width: var(--screen-lg);
   width: 100%;
-}
-
-@media (max-width: 640px) {
-  .wrapper {
-    flex-direction: column;
-  }
+  min-height: 100vh;
 }

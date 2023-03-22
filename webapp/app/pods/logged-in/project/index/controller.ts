@@ -59,6 +59,7 @@ export default class ProjectIndexController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation: correctAllRevisionQuery,
       variables: {revisionId: revision.id},
+      refetchQueries: ['Dashboard'],
     });
 
     if (response.errors) {
@@ -77,6 +78,7 @@ export default class ProjectIndexController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation: uncorrectAllRevisionQuery,
       variables: {revisionId: revision.id},
+      refetchQueries: ['Dashboard'],
     });
 
     if (response.errors) {

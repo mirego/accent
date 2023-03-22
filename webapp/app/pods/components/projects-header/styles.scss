@@ -1,32 +1,5 @@
 .projects-header {
-  padding: 40px 0 20px;
-  background-image: linear-gradient(
-    0,
-    var(--body-background),
-    var(--gradient-header-color)
-  );
-}
-
-.projects-header.withProject {
-  .applicationLogo {
-    position: absolute;
-    padding-right: 10px;
-    transition: 0.2s ease-in-out;
-    transition-property: transform, opacity;
-    transform: translate3d(0, 0, 0);
-    opacity: 0;
-  }
-
-  .content-left:hover {
-    .applicationLogo {
-      transform: translate3d(-30px, 0, 0);
-      opacity: 1;
-    }
-  }
-
-  .content {
-    padding: 0 30px;
-  }
+  padding: 20px 0 0;
 }
 
 .content {
@@ -35,7 +8,7 @@
   justify-content: space-between;
   margin: 0 auto;
   max-width: var(--screen-lg);
-  padding: 0 30px;
+  padding: 0 15px 0 20px;
   width: 100%;
 }
 
@@ -86,45 +59,10 @@
   color: var(--color-black);
 }
 
-.project {
-  margin-left: 0;
-  position: relative;
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-black);
-  text-decoration: none;
-}
-
-.project-logo {
-  position: relative;
-  display: flex;
-  align-items: center;
-  top: 2px;
-  font-size: 25px;
-  margin-right: 10px;
-
-  svg {
-    position: relative;
-    top: -2px;
-    width: 25px;
-    height: 25px;
-
-    circle {
-      fill: var(--logo-background);
-    }
-
-    path {
-      fill: var(--logo-foreground);
-    }
-  }
-}
-
 .picture {
   width: 18px;
   height: 18px;
-  margin-right: 10px;
+  margin-right: 4px;
   border-radius: 3px;
 }
 
@@ -132,44 +70,6 @@
   opacity: 0.5;
   margin-right: 15px;
   font-size: 12px;
-}
-
-.search {
-  position: relative;
-  margin-left: 30px;
-}
-
-.search-icon {
-  position: absolute;
-  top: 6px;
-  left: 10px;
-  width: 15px;
-  height: 15px;
-  stroke: #b7b7b7;
-}
-
-.search-input {
-  padding: 6px 5px 6px 32px;
-  transition: 0.2s ease-in-out;
-  transition-property: padding, background, border, border-radius, box-shadow;
-  border: 1px solid transparent;
-  border-left-color: var(--input-border-color);
-  background: none;
-  color: var(--text-color-normal);
-
-  &::placeholder {
-    color: #aaa;
-  }
-
-  &:focus {
-    outline: none;
-    border-color: var(--input-border-color);
-    border-radius: 3px;
-    border: 1px solid var(--input-border-color);
-    background: var(--input-background);
-    padding-right: 40px;
-    box-shadow: 0 2px 9px var(--shadow-color);
-  }
 }
 
 @media (max-width: 640px) {
@@ -180,26 +80,6 @@
     .content {
       padding: 0 10px;
     }
-
-    &.withProject {
-      padding: 10px 0;
-
-      .content {
-        padding: 0 10px;
-      }
-
-      .content-left {
-        transition: padding-left linear 0.1s;
-      }
-
-      .content-left:hover {
-        padding-left: 30px;
-      }
-    }
-  }
-
-  .search {
-    display: none;
   }
 }
 

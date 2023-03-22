@@ -1,6 +1,6 @@
 .project-file-operation {
   position: relative;
-  background: var(--body-background);
+  background: var(--content-background);
 
   :global(.closeButton) {
     position: absolute;
@@ -70,7 +70,7 @@
   :global(.title) {
     display: flex;
     padding: 12px 20px 12px 12px;
-    background: var(--body-background);
+    background: var(--content-background);
     border-bottom: 1px solid var(--background-light-highlight);
     font-size: 15px;
   }

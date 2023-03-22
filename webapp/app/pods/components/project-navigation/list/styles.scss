@@ -1,26 +1,28 @@
 .project-navigation-list {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  margin-left: 15px;
+  padding: 0;
+  margin: 0 15px;
 }
 
 .section {
   display: flex;
   flex-direction: column;
   margin: 10px 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--background-light);
 }
 
 .section-title {
   display: block;
   margin-left: 0;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   padding-bottom: 3px;
   padding-left: 14px;
   font-weight: 500;
-  font-size: 11px;
-  border-bottom: 1px solid var(--background-light-highlight);
+  font-size: 12px;
   color: var(--color-grey);
+  opacity: 0.7;
   width: 100%;
 }
 
@@ -37,15 +39,14 @@
   align-items: center;
   position: relative;
   left: 1px;
-  transition: 0.2s ease-in-out;
-  transition-property: color, opacity, background;
-  padding: 7px 12px 6px;
+  padding: 5px 12px 4px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 13px;
-  border-radius: 3px;
-  color: var(--color-black);
+  font-size: 14px;
+  border-radius: 4px;
   opacity: 0.6;
+  margin-bottom: 4px;
+  color: var(--text-color-normal);
 
   &:hover,
   &:focus {
@@ -75,16 +76,14 @@
 
     .list-item-link-text {
       color: #fff;
+      opacity: 1;
     }
   }
 }
 
 .list-item-link-text {
   width: 127px;
-  padding: 0 0 0 12px;
-  color: var(--color-black);
-  transition: 0.2s ease-in-out;
-  transition-property: color;
+  padding: 0 0 0 10px;
   opacity: 0.8;
 }
 
@@ -92,16 +91,15 @@
   transition: 0.2s ease-in-out;
   transition-property: fill, opacity;
   display: inline-block;
-  width: 13px;
-  height: 13px;
+  width: 15px;
+  height: 15px;
   opacity: 0.6;
 }
 
 @media (max-width: 800px) {
   .project-navigation-list {
-    margin-left: 0;
-    margin-right: 10px;
-    background: var(--background-light);
+    margin-left: 4px;
+    margin-right: 6px;
   }
 
   .section-title,
@@ -122,23 +120,5 @@
     margin: 10px 0;
     padding: 0 0 14px;
     border-bottom: 1px solid var(--color-primary-opacity-10);
-  }
-}
-
-@media (max-width: 640px) {
-  .project-navigation-list {
-    flex-direction: row;
-    overflow-x: scroll;
-    justify-content: space-between;
-    padding-top: 15px;
-    margin: 0;
-  }
-
-  .section {
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 0;
-    padding: 0;
-    border-bottom: 0;
   }
 }

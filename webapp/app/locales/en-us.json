@@ -642,6 +642,7 @@
       "export_jipt": "Just In Place Translation"
     },
     "project_navigation": {
+      "back_to_projects": "Back to projects",
       "engage": "Engage",
       "revise": "Revise",
       "manage": "Manage",

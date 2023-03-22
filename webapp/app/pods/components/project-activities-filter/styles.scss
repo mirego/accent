@@ -1,6 +1,6 @@
 :global(.filters).filters {
   margin-top: 20px;
-  border: 1px solid var(--body-background-border);
+  border: 1px solid var(--content-background-border);
   border-radius: 3px;
   box-shadow: none;
 }
@@ -8,13 +8,15 @@
 .filterList {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  column-gap: 20px;
+  row-gap: 5px;
   position: relative;
 }
 
 .filterList-item {
   min-width: 150px;
-  margin-left: 20px;
   font-size: 12px;
 }
 
