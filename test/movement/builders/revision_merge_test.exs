@@ -19,7 +19,7 @@ defmodule AccentTest.Movement.Builders.RevisionMerge do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
     {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
-    revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
+    revision = project |> Repo.preload(revisions: [:language]) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
     translation =
@@ -37,6 +37,7 @@ defmodule AccentTest.Movement.Builders.RevisionMerge do
       %Context{entries: entries}
       |> Context.assign(:comparer, fn x, _y -> %Movement.Operation{action: "merge_on_proposed", key: x.key} end)
       |> Context.assign(:document, document)
+      |> Context.assign(:project, project)
       |> Context.assign(:revision, revision)
       |> RevisionMergeBuilder.build()
 
