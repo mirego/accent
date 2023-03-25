@@ -88,12 +88,12 @@ defmodule Accent.ExportController do
     translations =
       Translation
       |> Scope.active()
-      |> Scope.from_document(document.id)
+      |> Scope.from_document((document && document.id) || :all)
       |> Scope.from_revision(revision.id)
       |> Scope.from_version(version && version.id)
       |> Scope.parse_order(order)
       |> Scope.parse_conflicted(filters[:is_conflicted])
-      |> Scope.parse_added_last_sync(filters[:is_added_last_sync], revision.project_id, document.id)
+      |> Scope.parse_added_last_sync(filters[:is_added_last_sync], revision.project_id, document && document.id)
       |> Scope.parse_empty(filters[:is_text_empty])
       |> Repo.all()
 
@@ -129,7 +129,7 @@ defmodule Accent.ExportController do
     translations =
       Translation
       |> Scope.active()
-      |> Scope.from_document(document.id)
+      |> Scope.from_document((document && document.id) || :all)
       |> Scope.from_revision(master_revision.id)
       |> Scope.from_version(version && version.id)
       |> Repo.all()
@@ -137,10 +137,10 @@ defmodule Accent.ExportController do
     assign(conn, :master_translations, translations)
   end
 
-  defp fetch_document(conn = %{params: params, assigns: %{project: project}}, _) do
+  defp fetch_document(conn = %{params: %{"document_path" => path} = params, assigns: %{project: project}}, _) do
     Document
     |> DocumentScope.from_project(project.id)
-    |> DocumentScope.from_path(params["document_path"])
+    |> DocumentScope.from_path(path)
     |> Repo.one()
     |> case do
       document = %Document{} ->
@@ -150,6 +150,10 @@ defmodule Accent.ExportController do
       _ ->
         Accent.ErrorController.handle_not_found(conn)
     end
+  end
+
+  defp fetch_document(conn, _) do
+    assign(conn, :document, nil)
   end
 
   defp fetch_version(conn = %{params: %{"version" => version_param}, assigns: %{project: project}}, _) do
@@ -172,6 +176,8 @@ defmodule Accent.ExportController do
          conn = %{assigns: %{master_revision: master_revision, master_translations: master_translations, translations: translations, revision: revision, document: document}},
          _
        ) do
+    document = document || %Accent.Document{format: conn.params["document_format"]}
+
     %{render: render} =
       Accent.TranslationsRenderer.render_translations(%{
         master_translations: master_translations,

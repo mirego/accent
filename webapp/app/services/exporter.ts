@@ -2,6 +2,19 @@ import Service, {inject as service} from '@ember/service';
 import config from 'accent-webapp/config/environment';
 import AuthenticatedRequest from 'accent-webapp/services/authenticated-request';
 
+interface ExportAllOptions {
+  project: any;
+  revision: any;
+  version?: string;
+  documentFormat: string;
+  orderBy?: string;
+  filters?: {
+    isTextEmptyFilter?: boolean;
+    isAddedLastSyncFilter?: boolean;
+    isConflictedFilter?: boolean;
+  };
+}
+
 interface ExportOptions {
   project: any;
   document: any;
@@ -42,6 +55,28 @@ export default class Exporter extends Service {
         order_by: options.orderBy,
         document_path: document.path,
         document_format: (documentFormat || document.format).toLowerCase(),
+        'filters[is_text_empty]': options.filters?.isTextEmptyFilter,
+        'filters[is_added_last_sync]': options.filters?.isAddedLastSyncFilter,
+        'filters[is_conflicted]': options.filters?.isConflictedFilter,
+      })}`
+    );
+    /* eslint-enable camelcase */
+  }
+
+  async exportAll(options: ExportAllOptions) {
+    const {project, revision, version, documentFormat} = options;
+
+    const url = config.API.EXPORT_DOCUMENT;
+
+    /* eslint-disable camelcase */
+    return this.authenticatedRequest.export(
+      `${url}?${this.queryParams({
+        inline_render: true,
+        language: revision.language.slug,
+        project_id: project.id,
+        version,
+        order_by: options.orderBy,
+        document_format: documentFormat.toLowerCase(),
         'filters[is_text_empty]': options.filters?.isTextEmptyFilter,
         'filters[is_added_last_sync]': options.filters?.isAddedLastSyncFilter,
         'filters[is_conflicted]': options.filters?.isConflictedFilter,

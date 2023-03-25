@@ -86,7 +86,8 @@
   margin-left: -4px;
   font-size: 14px;
   font-weight: normal;
-  color: #bbb;
+  color: var(--color-black);
+  opacity: 0.3;
 }
 
 .item-subtitle-label {

@@ -635,6 +635,7 @@
       "sync": "Synchroniser",
       "merge": "Ajouter des traductions",
       "export": "Exportation",
+      "export_all": "Exporter tout",
       "translate": "Traduire",
       "document_format": "Format",
       "preview_title": "Aperçu",

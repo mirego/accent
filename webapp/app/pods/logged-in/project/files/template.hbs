@@ -1,6 +1,8 @@
 <PageTitle>
   {{inline-svg '/assets/file.svg'}}
   <h1>{{t 'components.page_title.files'}}</h1>
+
+  <DocumentsExportAll @project={{this.model.project}} />
 </PageTitle>
 
 {{#if this.model.loading}}

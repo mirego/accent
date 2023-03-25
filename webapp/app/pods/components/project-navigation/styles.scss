@@ -44,11 +44,12 @@
   margin-left: 0;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-size: 18px;
   font-weight: 700;
   color: var(--color-black);
   text-decoration: none;
+  line-height: 1;
 }
 
 .project-logo {
@@ -58,7 +59,7 @@
   top: 2px;
   font-size: 22px;
   margin-right: 10px;
-  line-height: 1;
+  line-height: 1.1;
 
   svg {
     position: relative;
@@ -74,6 +75,10 @@
       fill: var(--logo-foreground);
     }
   }
+}
+
+.project-name {
+  margin-top: 5px;
 }
 
 @media (max-width: 800px) {

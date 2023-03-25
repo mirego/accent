@@ -1,0 +1,53 @@
+<AccModal @onClose={{fn this.closeModal}}>
+  <ProjectFileOperation>
+    <button class='closeButton' {{on 'click' (fn this.closeModal)}}>
+      <div class='closeButton-content'>
+        {{inline-svg '/assets/x.svg' class='closeButton-icon'}}
+      </div>
+    </button>
+
+    <div class='title'>
+      <div class='sectionType'>
+        {{inline-svg '/assets/export.svg' class='sectionType-icon'}}
+        {{t 'components.project_file_operations.export_all'}}
+      </div>
+    </div>
+    <RevisionExportOptions
+      @format={{this.documentFormatFilter}}
+      @version={{this.versionFilter}}
+      @orderBy={{this.orderByFilter}}
+      @revision={{this.revisionFilter}}
+      @revisions={{this.revisions}}
+      @versions={{this.versions}}
+      @onChangeVersion={{fn (mut this.versionFilter)}}
+      @onChangeRevision={{fn (mut this.revisionFilter)}}
+      @onChangeFormat={{fn (mut this.documentFormatFilter)}}
+      @onChangeOrderBy={{fn (mut this.orderByFilter)}}
+      @isTextEmptyFilter={{this.isTextEmpty}}
+      @isAddedLastSyncFilter={{this.isAddedLastSync}}
+      @isConflictedFilter={{this.isConflicted}}
+      @onChangeAdvancedFilterBoolean={{fn this.changeAdvancedFilterBoolean}}
+    />
+    <AsyncButton @onClick={{fn this.exportFile}} @disabled={{this.exportButtonDisabled}} class='button button--filled renderExport'>
+      {{t 'components.project_file_operations.export'}}
+    </AsyncButton>
+
+    {{#if this.exportLoading}}
+      <SkeletonUi::ProgressLine />
+    {{/if}}
+
+    <FileExportAll
+      class='render'
+      @onFileLoaded={{fn this.onFileLoaded}}
+      @project={{this.project}}
+      @revisions={{this.revisions}}
+      @revision={{this.revision}}
+      @version={{this.versionFilter}}
+      @documentFormat={{this.documentFormatFilter}}
+      @isTextEmptyFilter={{this.isTextEmpty}}
+      @isAddedLastSyncFilter={{this.isAddedLastSync}}
+      @isConflictedFilter={{this.isConflicted}}
+      @orderBy={{this.orderByFilter}}
+    />
+  </ProjectFileOperation>
+</AccModal>

@@ -42,6 +42,7 @@ export default Router.map(function () {
       this.route('activity', {path: 'activities/:activityId'});
       this.route('activities');
       this.route('files', function () {
+        this.route('export-all');
         this.route('new-sync');
         this.route('new-machine-translations');
         this.route('sync', {path: ':fileId/sync'});

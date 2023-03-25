@@ -90,14 +90,16 @@
             {{inline-svg '/assets/merge.svg' class='button-icon'}}
           </LinkTo>
         {{/if}}
-        <LinkTo
-          @route='logged-in.project.files.machine-translations'
-          @models={{array @project.id @document.id}}
-          title={{t 'components.documents_list.machine_translations'}}
-          class='tooltip tooltip--top button button--filled button--white button--iconOnly'
-        >
-          {{inline-svg '/assets/language.svg' class='button-icon'}}
-        </LinkTo>
+        {{#if (get @permissions 'machine_translations_translate')}}
+          <LinkTo
+            @route='logged-in.project.files.machine-translations'
+            @models={{array @project.id @document.id}}
+            title={{t 'components.documents_list.machine_translations'}}
+            class='tooltip tooltip--top button button--filled button--white button--iconOnly'
+          >
+            {{inline-svg '/assets/language.svg' class='button-icon'}}
+          </LinkTo>
+        {{/if}}
         <LinkTo
           @route='logged-in.project.files.export'
           @models={{array @project.id @document.id}}

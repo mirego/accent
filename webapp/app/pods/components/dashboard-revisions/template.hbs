@@ -28,11 +28,6 @@
 
       <div local-class='stats'>
         <h2 local-class='stats-title'>
-          <span>
-            {{t 'components.dashboard_revisions.master'}}
-            :
-          </span>
-
           <div local-class='stats-title-links'>
             {{#if (get @permissions 'sync')}}
               <LinkTo @route='logged-in.project.files.sync' @models={{array @project.id @document.id}} class='button button--borderLess button--filled button--white'>
@@ -65,10 +60,6 @@
 
         {{#if this.slaveRevisions}}
           <h2 local-class='stats-title'>
-            <span>
-              {{t 'components.dashboard_revisions.slaves'}}
-              :
-            </span>
             <div local-class='stats-title-links'>
               {{#if (get @permissions 'create_slave')}}
                 <LinkTo @route='logged-in.project.manage-languages' @model={{@project.id}} class='button button--filled button--white button--borderLess'>
@@ -78,6 +69,7 @@
               {{/if}}
             </div>
           </h2>
+
           <div local-class='slaves'>
             {{#each this.slaveRevisions key='id' as |revision|}}
               <DashboardRevisions::Item
