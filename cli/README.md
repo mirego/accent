@@ -230,8 +230,8 @@ jobs:
         with:
           add-paths: "*.json"
           commit-message: Update translations
-          committer: github-actions[bot]@users.noreply.github.com
-          author: github-actions[bot]@users.noreply.github.com
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           branch: accent
           draft: false
           delete-branch: true
