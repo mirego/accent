@@ -160,6 +160,7 @@
   font-size: 12px;
   font-weight: bold;
   opacity: 0.7;
+  color: var(--text-color-normal);
 }
 
 .toggle-permissions-input-icon {
@@ -212,8 +213,8 @@
 .token {
   display: inline-block;
   width: 100%;
-  margin: 0;
-  padding: 2px 8px;
+  margin: 10px 0 0;
+  padding: 14px 8px;
   overflow-x: scroll;
   word-break: keep-all;
   background: var(--background-light);
