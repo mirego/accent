@@ -118,9 +118,10 @@
   opacity: 0.8;
 
   &.item-text--empty {
+    white-space: normal;
     font-style: italic;
     font-size: 11px;
-    color: #ddd;
+    opacity: 0.4;
   }
 
   &[data-dir='rtl'] {
@@ -153,13 +154,25 @@
 
 .item-textEdit-button {
   padding: 1px 9px !important;
-  position: absolute !important;
-  top: 14px !important;
-  right: 16px !important;
+}
+
+.form-improve {
+  position: relative;
+  z-index: 1;
+}
+
+.textEdit-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  gap: 8px;
+  top: 14px;
+  right: 14px;
 
   &[data-dir='rtl'] {
     right: auto;
-    left: 16px !important;
+    left: 14px;
   }
 }
 

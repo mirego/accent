@@ -54,6 +54,7 @@ export default class ConflictsRoute extends Route {
         props: (data) => ({
           documents: data.viewer.project.documents.entries,
           versions: data.viewer.project.versions.entries,
+          prompts: data.viewer.project.prompts,
           project: data.viewer.project,
           translations: data.viewer.project.revision.translations,
         }),

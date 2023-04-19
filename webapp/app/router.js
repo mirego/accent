@@ -32,6 +32,10 @@ export default Router.map(function () {
         this.route('service-integrations');
         this.route('jipt');
         this.route('machine-translations');
+        this.route('prompts', function () {
+          this.route('new');
+          this.route('edit', {path: '/:promptId'});
+        });
       });
 
       this.route('collaborators');

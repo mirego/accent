@@ -1,0 +1,28 @@
+<div local-class='wrapper'>
+  <div local-class='content'>
+    <h2 local-class='title'>
+      {{t 'components.project_settings.prompts.title'}}
+    </h2>
+    <p local-class='text'>
+
+      {{t 'components.project_settings.prompts.help'}}
+    </p>
+
+    <ul local-class='list'>
+      {{#each @prompts as |prompt|}}
+        <li>
+          <ProjectSettings::Prompts::Item @project={{@project}} @prompt={{prompt}} @onDelete={{@onDeletePrompt}} />
+        </li>
+      {{/each}}
+    </ul>
+
+    <LinkTo @route='logged-in.project.edit.prompts.new' @models={{array @project.id}} class='button button--xl button--primary button--highlight'>
+      {{inline-svg '/assets/add.svg' class='button-icon'}}
+      {{t 'components.project_settings.prompts.new_button'}}
+    </LinkTo>
+  </div>
+
+  <div local-class='config'>
+    <ProjectSettings::Prompts::Config @project={{@project}} @onSave={{@onSaveConfig}} @onDelete={{@onDeleteConfig}} />
+  </div>
+</div>

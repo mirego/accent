@@ -28,6 +28,8 @@
 {{else}}
   <TranslationsList
     @project={{this.model.project}}
+    @prompts={{this.model.prompts}}
+    @permissions={{this.permissions}}
     @translations={{this.model.translations.entries}}
     @withAdvancedFilters={{this.withAdvancedFilters}}
     @query={{this.query}}

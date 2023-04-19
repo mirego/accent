@@ -5,10 +5,29 @@
 
 .form {
   margin-top: 25px;
-  padding: 12px;
-  border-radius: 3px;
+  padding: 16px;
+  border-radius: 4px;
   background: var(--background-light);
   border: 1px solid var(--background-light-highlight);
+
+  &.form--configured {
+    background: var(--color-primary-opacity-10);
+    border-color: var(--color-primary-opacity-50);
+
+    .config-key-help {
+      color: var(--color-primary-darken-10);
+      opacity: 1;
+    }
+    .select select {
+      border-color: var(--color-primary-opacity-50);
+      background: var(--color-primary-opacity-10);
+    }
+  }
+}
+
+.check {
+  width: 18px;
+  stroke: var(--color-primary-darken-10);
 }
 
 .select {
@@ -17,7 +36,7 @@
 }
 
 .select select {
-  background: var(--content-background);
+  background: transparent;
   border: 1px solid var(--background-light-highlight);
   padding: 7px 10px;
   font-weight: bold;
@@ -38,9 +57,9 @@
 .config-key-help {
   margin-top: 10px;
   font-size: 12px;
-  color: var(--color-warning);
   padding: 6px 0;
   font-weight: bold;
+  opacity: 0.4;
 }
 
 .provider {

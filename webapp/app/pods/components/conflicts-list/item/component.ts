@@ -37,6 +37,7 @@ interface Args {
   permissions: Record<string, true>;
   index: number;
   project: any;
+  prompts: any[];
   conflict: Conflict;
   onCorrect: (conflict: any, textInput: string) => Promise<MutationResponse>;
   onCopyTranslation: (
@@ -128,6 +129,17 @@ export default class ConflictItem extends Component<Args> {
   @action
   setOriginalText() {
     this.textInput = this.textOriginal;
+  }
+
+  @action
+  onImprovingPrompt() {
+    this.inputDisabled = true;
+  }
+
+  @action
+  onImprovePrompt(value: string) {
+    this.textInput = value;
+    this.inputDisabled = false;
   }
 
   @dropTask

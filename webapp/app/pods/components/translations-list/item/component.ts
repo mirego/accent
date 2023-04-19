@@ -18,10 +18,16 @@ export default class TranslationsListItem extends Component<Args> {
   isInEditMode = false;
 
   @tracked
+  inputDisabled = this.args.translation.isRemoved;
+
+  @tracked
   editText = this.args.translation.correctedText;
 
   @equal('args.translation.valueType', 'EMPTY')
   isTextEmpty: boolean;
+
+  @equal('args.translation.valueType', 'NULL')
+  isTextNull: boolean;
 
   translationKey = parsedKeyProperty(this.args.translation.key);
 
@@ -62,5 +68,16 @@ export default class TranslationsListItem extends Component<Args> {
   @action
   focusTextarea(element: HTMLElement) {
     element.querySelector('textarea')?.focus();
+  }
+
+  @action
+  onImprovePrompt(value: string) {
+    this.editText = value;
+    this.inputDisabled = false;
+  }
+
+  @action
+  onImprovingPrompt() {
+    this.inputDisabled = true;
   }
 }

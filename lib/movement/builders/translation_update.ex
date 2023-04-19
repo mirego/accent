@@ -8,17 +8,9 @@ defmodule Movement.Builders.TranslationUpdate do
   def build(context = %Movement.Context{assigns: %{text: text, translation: %{corrected_text: corrected_text}}}) when text === corrected_text, do: context
 
   def build(context = %Movement.Context{assigns: %{translation: translation, text: text}, operations: operations}) do
-    value_type = parse_value_type(translation, text)
+    value_type = Movement.Mappers.ValueType.from_translation_new_value(translation, text)
     operation = OperationMapper.map(@action, translation, %{text: text, value_type: value_type})
 
     %{context | operations: Enum.concat(operations, [operation])}
   end
-
-  defp parse_value_type(_translation, ""), do: "empty"
-  defp parse_value_type(%{value_type: "null"}, value) when value != "null", do: "string"
-  defp parse_value_type(%{value_type: "empty"}, value) when value != "", do: "string"
-  defp parse_value_type(%{value_type: "html"}, _value), do: "html"
-  defp parse_value_type(%{value_type: "boolean"}, "false"), do: "boolean"
-  defp parse_value_type(%{value_type: "boolean"}, "true"), do: "boolean"
-  defp parse_value_type(_translation, _value), do: "string"
 end

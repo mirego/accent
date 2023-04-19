@@ -17,6 +17,7 @@ defmodule Accent.RoleAbilities do
     index_comments
     show_comment
     show_project
+    index_prompts
     index_collaborators
     show_translation
     index_project_activities
@@ -71,6 +72,8 @@ defmodule Accent.RoleAbilities do
     update_version
     save_project_machine_translations_config
     delete_project_machine_translations_config
+    save_project_prompt_config
+    delete_project_prompt_config
   )a ++ @any_actions
 
   @admin_actions ~w(
@@ -87,7 +90,7 @@ defmodule Accent.RoleAbilities do
     delete_project
   )a ++ @developer_actions
 
-  @actions_with_target ~w(machine_translations_translate)a
+  @actions_with_target ~w(machine_translations_translate use_prompt_improve_text)a
 
   def actions_for(role, target)
 
@@ -108,9 +111,14 @@ defmodule Accent.RoleAbilities do
   def can?(role, action, target \\ nil)
 
   def can?(_role, :machine_translations_translate, nil), do: false
+  def can?(_role, :use_prompt_improve_text, nil), do: false
 
   def can?(_role, :machine_translations_translate, project) do
     Accent.MachineTranslations.enabled?(project.machine_translations_config)
+  end
+
+  def can?(_role, :use_prompt_improve_text, project) do
+    Accent.Prompts.enabled?(project.prompt_config)
   end
 
   # Define abilities function at compile time to remove list lookup at runtime

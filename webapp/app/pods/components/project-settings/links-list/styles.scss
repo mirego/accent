@@ -9,6 +9,7 @@
 }
 
 .link {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -38,17 +39,38 @@
     border-top: 1px solid var(--content-background-border);
     color: var(--color-grey);
     background: var(--background-light);
+    transition: 0.2s ease-in-out;
+    transition-property: color;
   }
 
   &:focus,
   &:hover {
     color: var(--color-primary);
-    box-shadow: 0 1px 2px var(--shadow-color), 0 9px 12px var(--shadow-color);
+    box-shadow: 0 3px 8px var(--shadow-color), 0 9px 12px var(--shadow-color);
 
-    .link-icon {
-      stroke: var(--color-primary);
+    .link-check {
+      color: var(--color-primary);
     }
   }
+}
+
+.link-check-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.link-check {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  height: 26px;
+  width: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  color: var(--color-primary);
+  background: var(--color-primary-opacity-10);
 }
 
 .link-icon {
@@ -59,7 +81,10 @@
   transition-property: stroke;
   opacity: 0.6;
   stroke: var(--color-black);
+  transition: 0.2s ease-in-out;
+  transition-property: stroke;
 
+  &.link-icon--prompts path:nth-child(3),
   &.link-icon--machine-translations path:nth-child(2),
   &.link-icon--jipt path:nth-child(2),
   &.link-icon--integrations circle:nth-child(3),

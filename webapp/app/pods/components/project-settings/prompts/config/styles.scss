@@ -1,0 +1,75 @@
+.form {
+  margin-top: 25px;
+  padding: 16px;
+  border-radius: 4px;
+  background: var(--background-light);
+  border: 1px solid var(--background-light-highlight);
+
+  &.form--configured {
+    background: var(--color-primary-opacity-10);
+    border-color: var(--color-primary-opacity-50);
+
+    .config-key-help {
+      color: var(--color-primary-darken-10);
+      opacity: 1;
+    }
+    .select select {
+      border-color: var(--color-primary-opacity-50);
+      background: var(--color-primary-opacity-10);
+    }
+  }
+}
+
+.check {
+  width: 18px;
+  stroke: var(--color-primary-darken-10);
+}
+
+.select {
+  flex-grow: 1;
+  max-width: 200px;
+}
+
+.select select {
+  background: transparent;
+  border: 1px solid var(--background-light-highlight);
+  padding: 7px 10px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.logo {
+  width: 25px;
+}
+
+.config-key-help {
+  margin-top: 10px;
+  font-size: 11px;
+  padding: 6px 0;
+  font-weight: bold;
+  opacity: 0.4;
+}
+
+.provider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 8px 10px;
+  margin-right: 10px;
+  width: 100%;
+  font-family: var(--font-monospace);
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}

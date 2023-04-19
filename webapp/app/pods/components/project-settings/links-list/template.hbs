@@ -6,11 +6,13 @@
       <p>{{t 'components.project_settings.links_list.api_token_text'}}</p>
     </LinkTo>
 
-    <LinkTo @route='logged-in.project.edit.service-integrations' local-class='link'>
-      {{inline-svg 'assets/share.svg' local-class='link-icon link-icon--integrations'}}
-      <strong>{{t 'components.project_settings.links_list.service_integrations'}}</strong>
-      <p>{{t 'components.project_settings.links_list.service_integrations_text'}}</p>
-    </LinkTo>
+    {{#if (get @permissions 'index_project_integrations')}}
+      <LinkTo @route='logged-in.project.edit.service-integrations' local-class='link'>
+        {{inline-svg 'assets/share.svg' local-class='link-icon link-icon--integrations'}}
+        <strong>{{t 'components.project_settings.links_list.service_integrations'}}</strong>
+        <p>{{t 'components.project_settings.links_list.service_integrations_text'}}</p>
+      </LinkTo>
+    {{/if}}
 
     <LinkTo @route='logged-in.project.edit.badges' local-class='link'>
       {{inline-svg 'assets/badge.svg' local-class='link-icon link-icon--badges'}}
@@ -24,10 +26,32 @@
       <p>{{t 'components.project_settings.links_list.jipt_text'}}</p>
     </LinkTo>
 
-    <LinkTo @route='logged-in.project.edit.machine-translations' local-class='link'>
-      {{inline-svg 'assets/rocket.svg' local-class='link-icon link-icon--machine-translations'}}
-      <strong>{{t 'components.project_settings.links_list.machine_translations'}}</strong>
-      <p>{{t 'components.project_settings.links_list.machine_translations_text'}}</p>
-    </LinkTo>
+    {{#if (get @permissions 'save_project_machine_translations_config')}}
+      <LinkTo @route='logged-in.project.edit.machine-translations' local-class='link'>
+        {{inline-svg 'assets/rocket.svg' local-class='link-icon link-icon--machine-translations'}}
+        <strong>{{t 'components.project_settings.links_list.machine_translations'}}</strong>
+        <p>{{t 'components.project_settings.links_list.machine_translations_text'}}</p>
+
+        {{#if (get @permissions 'machine_translations_translate')}}
+          <span local-class='link-check'>
+            {{inline-svg 'assets/check.svg' local-class='link-check-icon'}}
+          </span>
+        {{/if}}
+      </LinkTo>
+    {{/if}}
+
+    {{#if (get @permissions 'save_project_prompt_config')}}
+      <LinkTo @route='logged-in.project.edit.prompts' local-class='link'>
+        {{inline-svg 'assets/sparkle.svg' local-class='link-icon link-icon--prompts'}}
+        <strong>{{t 'components.project_settings.links_list.prompts'}}</strong>
+        <p>{{t 'components.project_settings.links_list.prompts_text'}}</p>
+
+        {{#if (get @permissions 'use_prompt_improve_text')}}
+          <span local-class='link-check'>
+            {{inline-svg 'assets/check.svg' local-class='link-check-icon'}}
+          </span>
+        {{/if}}
+      </LinkTo>
+    {{/if}}
   </div>
 </div>

@@ -25,6 +25,9 @@ export default class TranslationEdit extends Component<Args> {
   isUpdatingText = false;
 
   @tracked
+  inputDisabled = this.args.translation.isRemoved;
+
+  @tracked
   text = this.args.translation.correctedText;
 
   get latestActivity() {
@@ -72,6 +75,17 @@ export default class TranslationEdit extends Component<Args> {
     await this.args.onCorrectConflict(this.text);
 
     this.isCorrectingConflict = false;
+  }
+
+  @action
+  onImprovePrompt(value: string) {
+    this.text = value;
+    this.inputDisabled = false;
+  }
+
+  @action
+  onImprovingPrompt() {
+    this.inputDisabled = true;
   }
 
   @action

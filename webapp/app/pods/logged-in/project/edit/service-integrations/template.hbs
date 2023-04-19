@@ -1,8 +1,8 @@
+<ProjectSettings::BackLink @project={{this.project}} />
+
 {{#if this.showLoading}}
   <LoadingContent @label={{t 'pods.project.edit.service_integrations.loading_content'}} />
 {{else}}
-  <ProjectSettings::BackLink @project={{this.project}} />
-
   <ProjectSettings::Integrations
     @project={{this.project}}
     @permissions={{this.permissions}}

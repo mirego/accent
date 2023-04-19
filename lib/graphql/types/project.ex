@@ -24,6 +24,10 @@ defmodule Accent.GraphQL.Types.Project do
     field(:use_config_key, non_null(:boolean))
   end
 
+  object :prompt_config do
+    field(:provider, non_null(:string))
+  end
+
   object :project do
     field(:id, :id)
     field(:name, :string)
@@ -44,6 +48,19 @@ defmodule Accent.GraphQL.Types.Project do
              enabled_actions: project.machine_translations_config["enabled_actions"] || [],
              use_platform: project.machine_translations_config["use_platform"],
              use_config_key: not is_nil(project.machine_translations_config["config"]["key"])
+           }}
+        else
+          {:ok, nil}
+        end
+      end
+    )
+
+    field(:prompt_config, :prompt_config,
+      resolve: fn project, _, _ ->
+        if project.prompt_config do
+          {:ok,
+           %{
+             provider: project.prompt_config["provider"]
            }}
         else
           {:ok, nil}
@@ -79,6 +96,10 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :collaborators, list_of(:collaborator) do
       resolve(project_authorize(:index_collaborators, dataloader(Accent.Collaborator)))
+    end
+
+    field :prompts, list_of(:prompt) do
+      resolve(project_authorize(:index_prompt, dataloader(Accent.Prompt)))
     end
 
     field(:language, :language, resolve: dataloader(Accent.Language))

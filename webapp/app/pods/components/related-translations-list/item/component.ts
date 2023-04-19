@@ -15,6 +15,9 @@ export default class RelatedTranslationsListItem extends Component<Args> {
   isSaving = false;
 
   @tracked
+  inputDisabled = this.args.translation.isRemoved;
+
+  @tracked
   editText = this.args.translation.correctedText;
 
   get showSaveButton() {
@@ -41,6 +44,17 @@ export default class RelatedTranslationsListItem extends Component<Args> {
     return this.args.translation.revision.rtl !== null
       ? this.args.translation.revision.rtl
       : this.args.translation.revision.language.rtl;
+  }
+
+  @action
+  onImprovePrompt(value: string) {
+    this.editText = value;
+    this.inputDisabled = false;
+  }
+
+  @action
+  onImprovingPrompt() {
+    this.inputDisabled = true;
   }
 
   @action

@@ -1,0 +1,57 @@
+{{#if @prompts}}
+  <div local-class='prompt-button'>
+    <div local-class='prompt-button-quick-access' data-rtl={{@rtl}}>
+      {{#each this.quickAccessPrompts as |prompt|}}
+        <AsyncButton
+          title={{prompt.name}}
+          @onClick={{(perform this.submitTask prompt.id)}}
+          @loading={{this.improveTextTask.isPending}}
+          class='button button--iconOnly button--filled button--borderless button--white'
+        >
+          {{prompt.quickAccess}}
+        </AsyncButton>
+      {{/each}}
+    </div>
+
+    <button {{on 'click' (fn this.onPromptClick)}} local-class='button' class='button button--iconOnly button--borderless button--filled button--white'>
+      {{inline-svg '/assets/sparkle.svg' class='button-icon'}}
+    </button>
+  </div>
+{{/if}}
+
+{{#if this.promptOpened}}
+  <AccModal @small={{true}} @onClose={{fn this.onPromptClose}}>
+    <div local-class='content' {{did-insert (perform this.fetchPromptOptions)}}>
+      <div local-class='title'>
+        {{inline-svg 'assets/sparkle.svg' local-class='title-icon'}}
+        {{t 'components.improve_prompt.title'}}
+      </div>
+
+      <div local-class='current-text'>
+        {{@text}}
+      </div>
+
+      {{#if this.promptOptions}}
+        <AccSelect @selected={{this.promptOptionValue}} @options={{this.promptOptions}} @onchange={{fn this.onSelectPromptOption}} />
+      {{/if}}
+
+      {{#if this.promptResult}}
+        <div local-class='result-text'>
+          {{this.promptResult}}
+        </div>
+      {{/if}}
+
+      <div local-class='actions'>
+        <AsyncButton @onClick={{perform this.submitTask}} @loading={{this.isSubmitting}} class='button button--filled button--white'>
+          {{t 'components.improve_prompt.run'}}
+        </AsyncButton>
+
+        {{#if this.promptResult}}
+          <button {{on 'click' (fn this.onAcceptText)}} class='button button--filled'>
+            {{t 'components.improve_prompt.accept'}}
+          </button>
+        {{/if}}
+      </div>
+    </div>
+  </AccModal>
+{{/if}}

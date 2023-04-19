@@ -35,6 +35,21 @@
   margin-top: 15px;
 }
 
+.form {
+  position: relative;
+}
+
+.form-improve[data-rtl] {
+  left: 6px;
+  right: auto;
+}
+
+.form-improve {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+}
+
 .actions-link {
   display: flex;
   align-items: center;

@@ -39,6 +39,11 @@
   font-weight: normal;
 }
 
+.form-improve {
+  position: relative;
+  z-index: 1;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -60,6 +65,7 @@
   justify-content: flex-end;
   align-items: center;
   position: absolute;
+  gap: 8px;
   top: 14px;
   right: 14px;
 

@@ -5,7 +5,7 @@ defmodule Movement.Persisters.OperationsUpdateAllDynamic do
 
   @uuid_fragment "SELECT * FROM unnest(?::uuid[], ?::uuid[]) AS t(a, b)"
   @text_text_bool_bool_fragment "SELECT * FROM unnest(?::uuid[], ?::text[], ?::text[], ?::boolean[], ?::boolean[]) AS t(a, b, c, d, e)"
-  @text_bool_fragment "SELECT * FROM unnest(?::uuid[], ?::text[], ?::boolean[]) AS t(a, b, c)"
+  @text_text_bool_fragment "SELECT * FROM unnest(?::uuid[], ?::text[], ?::text[], ?::boolean[]) AS t(a, b, c, d)"
 
   def update({{schema, [:text, :text, :boolean, :boolean], fields}, records}) do
     [bind_1, bind_2, bind_3, bind_4] = values_binding(records, fields)
@@ -46,20 +46,21 @@ defmodule Movement.Persisters.OperationsUpdateAllDynamic do
     )
   end
 
-  def update({{schema, [:text, :boolean], fields}, records}) do
-    [bind_1, bind_2] = values_binding(records, fields)
+  def update({{schema, [:text, :text, :boolean], fields}, records}) do
+    [bind_1, bind_2, bind_3] = values_binding(records, fields)
 
     update_all(
       from(entries in schema,
         join:
           values_list in fragment(
-            @text_bool_fragment,
+            @text_text_bool_fragment,
             ^ids_binding(records),
             ^bind_1,
-            ^bind_2
+            ^bind_2,
+            ^bind_3
           ),
         on: values_list.a == entries.id,
-        update: [set: [{^Enum.at(fields, 0), values_list.b}, {^Enum.at(fields, 1), values_list.c}]]
+        update: [set: [{^Enum.at(fields, 0), values_list.b}, {^Enum.at(fields, 1), values_list.c}, {^Enum.at(fields, 2), values_list.d}]]
       )
     )
   end

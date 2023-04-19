@@ -28,6 +28,12 @@ export default gql`
           }
         }
 
+        prompts {
+          id
+          quickAccess
+          name
+        }
+
         revision(id: $revisionId) {
           id
 

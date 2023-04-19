@@ -1,0 +1,15 @@
+<ProjectSettings::BackLink @project={{this.project}} />
+
+{{#if this.showLoading}}
+  <LoadingContent @label={{t 'pods.project.edit.prompts.loading_content'}} />
+{{else}}
+  <ProjectSettings::Prompts
+    @project={{this.project}}
+    @prompts={{this.prompts}}
+    @onSaveConfig={{fn this.savePromptConfig}}
+    @onDeleteConfig={{fn this.deletePromptConfig}}
+    @onDeletePrompt={{fn this.deletePrompt}}
+  />
+
+  {{outlet}}
+{{/if}}

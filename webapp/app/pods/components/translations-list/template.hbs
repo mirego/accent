@@ -1,6 +1,6 @@
 <ul local-class='translations-list'>
   {{#each @translations key='id' as |translation|}}
-    <TranslationsList::Item @translation={{translation}} @project={{@project}} @onUpdateText={{@onUpdateText}} />
+    <TranslationsList::Item @translation={{translation}} @prompts={{@prompts}} @permissions={{@permissions}} @project={{@project}} @onUpdateText={{@onUpdateText}} />
   {{else if @query}}
     <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_query' query=@query}} />
   {{else if @withAdvancedFilters}}

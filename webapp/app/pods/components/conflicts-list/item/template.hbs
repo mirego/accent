@@ -66,10 +66,21 @@
                   {{#component form.submit}}
                     <div local-class='button-submit' data-dir={{form.dir}}>
                       {{#if this.showOriginalButton}}
-                        <AsyncButton @onClick={{fn this.setOriginalText}} class='button button--iconOnly button--white'>
+                        <AsyncButton @onClick={{fn this.setOriginalText}} local-class='revert-button' class='button button--iconOnly button--white'>
                           {{inline-svg '/assets/revert.svg' class='button-icon'}}
                         </AsyncButton>
                       {{/if}}
+
+                      {{#if (get @permissions 'use_prompt_improve_text')}}
+                        <ImprovePrompt
+                          @project={{@project}}
+                          @prompts={{@prompts}}
+                          @text={{this.textInput}}
+                          @onUpdatingText={{fn this.onImprovingPrompt}}
+                          @onUpdateText={{fn this.onImprovePrompt}}
+                        />
+                      {{/if}}
+
                       {{#if (get @permissions 'correct_translation')}}
                         <AsyncButton @onClick={{fn this.correct}} @loading={{this.loading}} class='button button--iconOnly button--filled button--green'>
                           {{inline-svg '/assets/check.svg' class='button-icon'}}

@@ -66,7 +66,7 @@
         @projectId={{@project.id}}
         @translationId={{@translation.id}}
         @lintMessages={{@translation.lintMessages}}
-        @inputDisabled={{@translation.isRemoved}}
+        @inputDisabled={{this.inputDisabled}}
         @valueType={{@translation.valueType}}
         @value={{this.editText}}
         @onKeyUp={{fn this.changeTranslationText}}
@@ -77,21 +77,35 @@
         as |form|
       >
         {{#component form.submit}}
-          <AsyncButton
-            @onClick={{fn this.save}}
-            @loading={{this.isSaving}}
-            class='button button--filled button--iconOnly'
-            data-dir={{form.dir}}
-            local-class=' item-textEdit-button'
-          >
-            {{t 'components.translations_list.save'}}
-          </AsyncButton>
+          <div local-class='textEdit-actions' data-dir={{form.dir}}>
+            {{#unless @translation.isRemoved}}
+              {{#if (get @permissions 'use_prompt_improve_text')}}
+                <div local-class='form-improve'>
+                  <ImprovePrompt
+                    @rtl={{this.revisionTextDirRtl}}
+                    @project={{@project}}
+                    @prompts={{@prompts}}
+                    @text={{this.editText}}
+                    @onUpdatingText={{fn this.onImprovingPrompt}}
+                    @onUpdateText={{fn this.onImprovePrompt}}
+                  />
+                </div>
+              {{/if}}
+            {{/unless}}
+            <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} class='button button--filled button--iconOnly' local-class='item-textEdit-button'>
+              {{t 'components.translations_list.save'}}
+            </AsyncButton>
+          </div>
         {{/component}}
       </TranslationEdit::Form>
     </div>
   {{else if this.isTextEmpty}}
     <span role='button' local-class='item-text item-text--empty' data-dir={{if this.revisionTextDirRtl 'rtl'}} {{on 'click' (fn this.toggleEdit)}}>
       {{t 'components.translations_list.empty_text'}}
+    </span>
+  {{else if this.isTextNull}}
+    <span role='button' local-class='item-text item-text--empty' data-dir={{if this.revisionTextDirRtl 'rtl'}} {{on 'click' (fn this.toggleEdit)}}>
+      {{t 'components.translations_list.null_text'}}
     </span>
   {{else}}
     <span role='button' local-class='item-text' data-dir={{if this.revisionTextDirRtl 'rtl'}} {{on 'click' (fn this.toggleEdit)}}>{{truncate @translation.correctedText 600}}</span>

@@ -5,6 +5,13 @@ export default gql`
     viewer {
       project(id: $projectId) {
         id
+
+        prompts {
+          id
+          name
+          quickAccess
+        }
+
         translation(id: $translationId) {
           id
           key

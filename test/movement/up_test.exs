@@ -28,6 +28,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         proposed_text: "proposed_text",
         conflicted_text: nil,
         conflicted: true,
+        value_type: "string",
         removed: false
       })
 
@@ -38,6 +39,7 @@ defmodule AccentTest.Movement.Migrator.Up do
       revision_id: revision.id,
       user_id: user.id,
       text: "new proposed text",
+      value_type: "string",
       previous_translation: PreviousTranslation.from_translation(translation)
     })
 
@@ -59,6 +61,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         file_comment: "",
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
+        value_type: "string",
         conflicted_text: nil,
         conflicted: true,
         removed: false

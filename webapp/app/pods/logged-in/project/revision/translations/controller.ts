@@ -1,10 +1,11 @@
 import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
-import {equal, and} from '@ember/object/computed';
+import {equal, and, readOnly} from '@ember/object/computed';
 import Controller from '@ember/controller';
 import translationUpdateQuery from 'accent-webapp/queries/update-translation';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 import IntlService from 'ember-intl/services/intl';
+import GlobalState from 'accent-webapp/services/global-state';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import {tracked} from '@glimmer/tracking';
 
@@ -16,6 +17,9 @@ const FLASH_MESSAGE_UPDATE_ERROR =
 export default class TranslationsController extends Controller {
   @service('apollo-mutate')
   apolloMutate: ApolloMutate;
+
+  @service('global-state')
+  globalState: GlobalState;
 
   @service('intl')
   intl: IntlService;
@@ -61,6 +65,9 @@ export default class TranslationsController extends Controller {
 
   @tracked
   isCommentedOn: 'true' | null = null;
+
+  @readOnly('globalState.permissions')
+  permissions: any;
 
   @equal('model.translations.entries', undefined)
   emptyEntries: boolean;

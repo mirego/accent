@@ -5,6 +5,10 @@ defmodule Accent.Project do
     use Cloak.Ecto.Map, vault: Accent.Vault
   end
 
+  defmodule PromptConfig do
+    use Cloak.Ecto.Map, vault: Accent.Vault
+  end
+
   schema "projects" do
     field(:name, :string)
     field(:main_color, :string)
@@ -21,11 +25,13 @@ defmodule Accent.Project do
     has_many(:target_revisions, Accent.Revision, where: [master: false])
     has_many(:versions, Accent.Version)
     has_many(:operations, Accent.Operation)
+    has_many(:prompts, Accent.Prompt)
     has_many(:collaborators, Accent.Collaborator, where: [role: {:in, ["reviewer", "admin", "developer", "owner"]}])
     has_many(:all_collaborators, Accent.Collaborator)
     belongs_to(:language, Accent.Language)
 
     field(:machine_translations_config, MachineTranslationsConfig)
+    field(:prompt_config, PromptConfig)
 
     timestamps()
   end

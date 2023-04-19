@@ -18,6 +18,12 @@ export default gql`
       project(id: $projectId) {
         id
 
+        prompts {
+          id
+          quickAccess
+          name
+        }
+
         documents {
           entries {
             id

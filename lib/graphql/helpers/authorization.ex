@@ -10,6 +10,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
     Integration,
     Operation,
     Project,
+    Prompt,
     Repo,
     Revision,
     Translation,
@@ -51,6 +52,20 @@ defmodule Accent.GraphQL.Helpers.Authorization do
           |> Repo.preload(:language)
 
         authorize(action, revision.project_id, info, do: func.(revision, args, info))
+    end
+  end
+
+  def prompt_authorize(action, func, id \\ :id) do
+    fn
+      prompt = %Prompt{}, args, info ->
+        prompt = Repo.preload(prompt, :project)
+        authorize(action, prompt.project, info, do: func.(prompt, args, info))
+
+      _, args, info ->
+        prompt = Repo.get(Prompt, args[id])
+        prompt = Repo.preload(prompt, :project)
+
+        authorize(action, prompt.project, info, do: func.(prompt, args, info))
     end
   end
 

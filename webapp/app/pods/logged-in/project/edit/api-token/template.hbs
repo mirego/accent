@@ -1,8 +1,8 @@
+<ProjectSettings::BackLink @project={{this.project}} />
+
 {{#if this.showLoading}}
   <LoadingContent @label={{t 'pods.project.edit.api_token.loading_content'}} />
 {{else}}
-  <ProjectSettings::BackLink @project={{this.project}} />
-
   <ProjectSettings::ApiToken
     @projectTokens={{this.project.apiTokens}}
     @permissions={{this.permissions}}

@@ -2,7 +2,15 @@
   <div local-class='list'>
     <ul>
       {{#each @translations key='id' as |translation|}}
-        <RelatedTranslationsList::Item @onUpdateText={{@onUpdateText}} @isInEditMode={{true}} @showEditButton={{false}} @translation={{translation}} @project={{@project}} />
+        <RelatedTranslationsList::Item
+          @permissions={{@permissions}}
+          @prompts={{@prompts}}
+          @onUpdateText={{@onUpdateText}}
+          @isInEditMode={{true}}
+          @showEditButton={{false}}
+          @translation={{translation}}
+          @project={{@project}}
+        />
       {{/each}}
     </ul>
   </div>

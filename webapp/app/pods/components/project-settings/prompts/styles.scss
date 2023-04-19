@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  margin-top: 25px;
+}
+
+.content {
+  flex: 1 1 auto;
+  padding-right: 30px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.config {
+  flex: 0 1 auto;
+  max-width: 450px;
+  width: 100%;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 17px;
+  padding-bottom: 4px;
+}
+
+.text {
+  display: block;
+  font-size: 13px;
+  padding-bottom: 22px;
+}

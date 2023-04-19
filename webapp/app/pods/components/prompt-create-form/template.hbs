@@ -1,0 +1,53 @@
+<div {{did-insert this.focusTextarea}} local-class='prompt-create-form'>
+  <h1 local-class='title'>
+    {{t 'components.prompt_create_form.title'}}
+  </h1>
+
+  {{#if @error}}
+    <div local-class='errors'>
+      <div local-class='error'>
+        {{t 'components.prompt_create_form.error'}}
+      </div>
+    </div>
+  {{/if}}
+
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.prompt_create_form.name_label'}}
+    </label>
+
+    <div local-class='quickAccess-picker'>
+      <input value={{this.name}} local-class='textInput' {{on 'keyup' (fn this.setName)}} />
+      <AccEmojiPicker local-class='quickAccess-emoji' @onPicked={{fn this.setQuickAccess}}>
+        {{#if this.quickAccess}}
+          {{this.quickAccess}}
+        {{else}}
+          {{inline-svg 'assets/pencil.svg' local-class='quickAccess-picker-empty'}}
+        {{/if}}
+      </AccEmojiPicker>
+      {{#if this.quickAccess}}
+        <button {{on 'click' this.clearQuickAccess}} local-class='quickAccess-picker-remove'>
+          {{inline-svg 'assets/x.svg' local-class='quickAccess-picker-remove-icon'}}
+        </button>
+      {{/if}}
+    </div>
+  </div>
+
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.prompt_create_form.content_label'}}
+    </label>
+
+    <textarea local-class='textInput' rows='8' {{on 'keyup' (fn this.setContent)}}>{{this.content}}</textarea>
+  </div>
+
+  <div local-class='formActions'>
+    <LinkTo @route='logged-in.project.edit.prompts' @model={{@project.id}} class='button button--filled button--white'>
+      {{t 'components.prompt_create_form.cancel_button'}}
+    </LinkTo>
+
+    <AsyncButton class='button button--filled' @loading={{this.isCreating}} @onClick={{fn this.submit}}>
+      {{t 'components.prompt_create_form.save_button'}}
+    </AsyncButton>
+  </div>
+</div>

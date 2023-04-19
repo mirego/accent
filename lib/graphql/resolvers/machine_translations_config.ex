@@ -5,7 +5,7 @@ defmodule Accent.GraphQL.Resolvers.MachineTranslationsConfig do
     Project
   }
 
-  @spec save(Project.t(), any(), GraphQLContext.t()) :: {:ok, Project.t() | nil}
+  @spec save(Project.t(), any(), GraphQLContext.t()) :: {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
   def save(project, args, _info) do
     case MachineTranslationsConfigManager.save(project, args) do
       {:ok, %{project: project}} ->
@@ -16,7 +16,7 @@ defmodule Accent.GraphQL.Resolvers.MachineTranslationsConfig do
     end
   end
 
-  @spec delete(Project.t(), any(), GraphQLContext.t()) :: {:ok, Project.t() | nil}
+  @spec delete(Project.t(), any(), GraphQLContext.t()) :: {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
   def delete(project, _args, _info) do
     case MachineTranslationsConfigManager.delete(project) do
       {:ok, %{project: project}} ->

@@ -6,8 +6,19 @@ defmodule Accent.GraphQL.Types.MutationResult do
     field(:errors, list_of(:string))
   end
 
+  object :mutated_improved_text do
+    field(:text, non_null(:string))
+    field(:provider, non_null(:prompt_provider))
+    field(:errors, list_of(:string))
+  end
+
   object :mutated_project do
     field(:project, :project)
+    field(:errors, list_of(:string))
+  end
+
+  object :mutated_prompt do
+    field(:prompt, :prompt)
     field(:errors, list_of(:string))
   end
 

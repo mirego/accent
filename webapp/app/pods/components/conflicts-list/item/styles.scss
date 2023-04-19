@@ -12,6 +12,13 @@
   }
 }
 
+.revert-button {
+  :global(.label) {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+}
+
 .item-details__column {
   position: relative;
 }
@@ -194,6 +201,7 @@
   display: flex;
   justify-content: flex-end;
   position: absolute;
+  gap: 10px;
   top: 7px;
   right: 7px;
   z-index: 3;

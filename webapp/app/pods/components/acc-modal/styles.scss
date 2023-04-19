@@ -21,6 +21,12 @@
   min-height: calc(100vh - 130px);
   background-color: #000;
   opacity: 0.6;
+
+  animation-name: animate-overlay;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.2s;
+  animation-delay: 0;
+  animation-fill-mode: forwards;
 }
 
 .container {
@@ -34,6 +40,12 @@
   box-shadow: 0 2px 20px 0 var(--shadow-color);
   background: var(--content-background);
 
+  animation-name: animate-content;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.3s;
+  animation-delay: 0;
+  animation-fill-mode: forwards;
+
   &.container--small {
     max-width: 500px;
   }
@@ -46,5 +58,25 @@
 @media (max-width: 440px) {
   .wrapper {
     padding: 30px 10px;
+  }
+}
+
+@keyframes animate-content {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animate-overlay {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
   }
 }

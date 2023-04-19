@@ -1,6 +1,6 @@
+<ProjectSettings::BackLink @project={{this.project}} />
 {{#if this.showLoading}}
   <LoadingContent @label={{t 'pods.project.edit.badges.loading_content'}} />
 {{else}}
-  <ProjectSettings::BackLink @project={{this.project}} />
   <ProjectSettings::Badges @project={{this.project}} />
 {{/if}}

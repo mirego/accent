@@ -5,7 +5,7 @@
     {{t 'components.project_settings.machine_translations.text'}}
   </p>
 
-  <div local-class='form'>
+  <div local-class='form {{if @project.machineTranslationsConfig "form--configured"}}'>
     <div local-class='provider'>
       {{inline-svg this.logoProvider local-class='logo'}}
 
@@ -17,6 +17,10 @@
         @options={{this.mappedProviders}}
         @onchange={{fn this.setProvider}}
       />
+
+      {{#if @project.machineTranslationsConfig}}
+        {{inline-svg 'assets/check.svg' local-class='check'}}
+      {{/if}}
     </div>
 
     <div local-class='options'>

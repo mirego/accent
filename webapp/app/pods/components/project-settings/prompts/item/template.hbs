@@ -1,0 +1,17 @@
+<div local-class='wrapper'>
+  <strong local-class='name'>
+    {{#if @prompt.quickAccess}}
+      <span local-class='quick-access'>{{@prompt.quickAccess}}</span>
+    {{/if}}
+    {{@prompt.displayName}}
+  </strong>
+
+  <div local-class='actions'>
+    <LinkTo @route='logged-in.project.edit.prompts.edit' @models={{array @project.id @prompt.id}} class='button button--iconOnly button--filled button--white button--borderless'>
+      {{inline-svg 'assets/pencil.svg' class='button-icon'}}
+    </LinkTo>
+    <AsyncButton @onClick={{perform this.deletePrompt}} @loading={{this.deletePrompt.isPending}} class='button button--iconOnly button--borderless button--red button--small'>
+      {{inline-svg 'assets/x.svg' class='button-icon'}}
+    </AsyncButton>
+  </div>
+</div>

@@ -2,6 +2,7 @@
   <TranslationIndex>
     <TranslationEdit
       @translation={{this.model.translation}}
+      @prompts={{this.model.prompts}}
       @project={{this.model.project}}
       @permissions={{this.permissions}}
       @onUpdateText={{fn this.updateText}}
@@ -11,7 +12,13 @@
 
     {{#if this.model.relatedTranslations}}
       {{#if (get this.permissions 'index_related_translations')}}
-        <RelatedTranslationsList @project={{this.model.project}} @translations={{this.model.relatedTranslations}} @onUpdateText={{fn this.updateTranslation}} />
+        <RelatedTranslationsList
+          @project={{this.model.project}}
+          @permissions={{this.permissions}}
+          @prompts={{this.model.prompts}}
+          @translations={{this.model.relatedTranslations}}
+          @onUpdateText={{fn this.updateTranslation}}
+        />
       {{/if}}
     {{/if}}
   </TranslationIndex>

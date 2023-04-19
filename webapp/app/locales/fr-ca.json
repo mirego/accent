@@ -9,6 +9,27 @@
     }
   },
   "components": {
+    "improve_prompt": {
+      "title": "Améliorer le texte",
+      "run": "Instructions d’exécution",
+      "accept": "Accepter et fermer"
+    },
+    "prompt_create_form": {
+      "title": "Créer une instruction",
+      "error": "Instruction invalide",
+      "cancel_button": "Annuler",
+      "name_label": "Nom:",
+      "content_label": "Contenu:",
+      "save_button": "Créer"
+    },
+    "prompt_update_form": {
+      "title": "Instructions de mise à jour",
+      "error": "Instruction invalide",
+      "cancel_button": "Annuler",
+      "name_label": "Nom:",
+      "content_label": "Contenu:",
+      "save_button": "Mise à jour"
+    },
     "jipt": {
       "back_to_translations": {
         "back": "Retour"
@@ -361,7 +382,17 @@
       "back_link": {
         "title": "← Retour aux paramètres"
       },
+      "prompts": {
+        "title": "Assistant IA",
+        "help": "Des instructions seront disponibles sur chaque entrée de chaîne pour vous aider à améliorer votre contenu. Plus les instructions que vous donnez à l’assistant sont claires, meilleur sera le résultat.",
+        "new_button": "Ajouter une nouvelle instruction",
+        "config_key_help_present": "La clé de configuration a été définie, mais la valeur ne sera jamais exposée via l’API.",
+        "config_key_help_not_present": "Une fois enregistrée, la clé de configuration ne sera jamais affichée.",
+        "delete_confirm": "Voulez-vous vraiment supprimer cette instruction ?"
+      },
       "links_list": {
+        "prompts": "Assistant IA",
+        "prompts_text": "Configurez votre assistant pour vous aider à rédiger, améliorer, corriger votre texte",
         "collaborators": "Collaborateurs",
         "collaborators_text": "Gérer qui a accès à quelles fonctionnalités de ce projet",
         "badges": "Insignes",
@@ -635,7 +666,7 @@
       "sync": "Synchroniser",
       "merge": "Ajouter des traductions",
       "export": "Exportation",
-      "export_all": "Exporter tout",
+      "export_all": "Tout exporter",
       "translate": "Traduire",
       "document_format": "Format",
       "preview_title": "Aperçu",
@@ -852,6 +883,7 @@
       }
     },
     "translations_list": {
+      "null_text": "Texte nul",
       "comments_count": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} other {# commentaires}}",
       "save": "Sauver",
       "empty_text": "Texte vide",
@@ -887,6 +919,9 @@
     "application_name": "Accent",
     "company_name": "Mirego",
     "logout_button": "Se déconnecter",
+    "prompts_providers": {
+      "openai": "OpenAI"
+    },
     "roles": {
       "ADMIN": "Administrateur",
       "DEVELOPER": "Développeur",
@@ -1000,6 +1035,18 @@
         "title": "Paramètres",
         "loading_content": "Récupération des paramètres du projet…",
         "flash_messages": {
+          "machine_translations_config_remove_error": "La configuration des traductions automatiques n’a pas pu être supprimée",
+          "machine_translations_config_remove_success": "La configuration des traductions automatiques a été supprimée avec succès",
+          "prompts_update_success": "L’instruction a été mise à jour avec succès",
+          "prompts_update_error": "L’instruction n'a pas pu être mise à jour",
+          "prompts_create_success": "L’instruction a été créée avec succès",
+          "prompts_create_error": "Impossible de créer l’instruction",
+          "prompts_remove_success": "L’instruction a été supprimée avec succès",
+          "prompts_remove_error": "Impossible de supprimer l’instruction",
+          "prompts_config_error": "La configuration de l’assistant AI n'a pas pu être enregistrée",
+          "prompts_config_success": "La configuration de l’assistant AI a été enregistrée avec succès",
+          "prompts_config_remove_error": "La configuration de l’assistant AI n'a pas pu être supprimée",
+          "prompts_config_remove_success": "La configuration de l’assistant AI a été supprimée avec succès",
           "collaborator_add_error": "Le collaborateur n’a pas pu être ajouté",
           "collaborator_add_success": "Le collaborateur a été ajouté avec succès",
           "collaborator_remove_error": "Le collaborateur n’a pas pu être supprimé",
@@ -1018,6 +1065,9 @@
           "update_success": "Le projet a été mis à jour avec succès",
           "delete_error": "Le projet n’a pas pu être supprimé",
           "delete_success": "Le projet a été supprimé avec succès"
+        },
+        "prompts": {
+          "loading_content": "Récupération des paramètres de l’assistant IA du projet…"
         },
         "badges": {
           "loading_content": "Récupération des badges du projet…"

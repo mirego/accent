@@ -19,6 +19,7 @@ defmodule Accent.GraphQL.Schema do
   import_types(Accent.GraphQL.Types.Revision)
   import_types(Accent.GraphQL.Types.Integration)
   import_types(Accent.GraphQL.Types.Project)
+  import_types(Accent.GraphQL.Types.Prompt)
   import_types(Accent.GraphQL.Types.Activity)
   import_types(Accent.GraphQL.Types.Document)
   import_types(Accent.GraphQL.Types.Collaborator)
@@ -63,10 +64,12 @@ defmodule Accent.GraphQL.Schema do
     import_types(Accent.GraphQL.Mutations.Document)
     import_types(Accent.GraphQL.Mutations.Revision)
     import_types(Accent.GraphQL.Mutations.Project)
+    import_types(Accent.GraphQL.Mutations.Prompt)
     import_types(Accent.GraphQL.Mutations.Integration)
     import_types(Accent.GraphQL.Mutations.Operation)
     import_types(Accent.GraphQL.Mutations.Version)
 
+    import_fields(:prompt_mutations)
     import_fields(:api_token_mutations)
     import_fields(:machine_translations_config_mutations)
     import_fields(:comment_mutations)
@@ -94,6 +97,7 @@ defmodule Accent.GraphQL.Schema do
         Accent.Language,
         Accent.Operation,
         Accent.Project,
+        Accent.Prompt,
         Accent.Revision,
         Accent.Translation,
         Accent.TranslationCommentsSubscription,
