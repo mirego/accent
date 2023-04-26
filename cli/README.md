@@ -20,7 +20,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.12.0 darwin-x64 node-v16.15.1
+accent-cli/0.13.0 darwin-arm64 node-v16.15.1
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -89,13 +89,15 @@ USAGE
   $ accent export
 
 OPTIONS
-  --order-by=index|key  [default: index] Will be used in the export call as the order of the keys
+  --order-by=index|key  [default: index] Order of the keys
+  --version=version     Fetch a specific version
 
-EXAMPLE
+EXAMPLES
   $ accent export
+  $ accent export --order-by=key --version=build.myapp.com:0.12.345
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.12.0/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/export.ts)_
 
 ## `accent format`
 
@@ -106,13 +108,13 @@ USAGE
   $ accent format
 
 OPTIONS
-  --order-by=index|key  [default: index] Order of the keys
+  --order-by=index|key|-index|-key  [default: index] Order of the keys
 
 EXAMPLE
   $ accent format
 ```
 
-_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.12.0/src/commands/format.ts)_
+_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/format.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -129,7 +131,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.18/src/commands/help.ts)_
 
 ## `accent jipt PSEUDOLANGUAGENAME`
 
@@ -146,7 +148,7 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.12.0/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/jipt.ts)_
 
 ## `accent lint`
 
@@ -160,7 +162,7 @@ EXAMPLE
   $ accent lint
 ```
 
-_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.12.0/src/commands/lint.ts)_
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/lint.ts)_
 
 ## `accent stats`
 
@@ -174,7 +176,7 @@ EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.12.0/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -186,21 +188,25 @@ USAGE
 
 OPTIONS
   --add-translations                Add translations in Accent to help translators if you already have translated
-                                    strings
+                                    strings locally
 
   --dry-run                         Do not write the file from the export _after_ the operation
 
-  --merge-type=smart|passive|force  [default: smart] Will be used in the add translations call as the "merge_type" param
+  --merge-type=smart|passive|force  [default: passive] Algorithm to use on existing strings when adding translation
 
   --order-by=index|key              [default: index] Will be used in the export call as the order of the keys
 
-  --sync-type=smart|passive         [default: smart] Will be used in the sync call as the "sync_type" param
+  --sync-type=smart|passive         [default: smart] Algorithm to use on existing strings when syncing the main language
 
-EXAMPLE
+  --version=version                 Sync a specific version, the tag needs to exists in Accent first
+
+EXAMPLES
   $ accent sync
+  $ accent sync --dry-run --sync-type=force
+  $ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.12.0/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # GitHub Actions
