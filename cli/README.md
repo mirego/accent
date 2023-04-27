@@ -20,7 +20,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.13.0 darwin-arm64 node-v16.15.1
+accent-cli/0.13.1 darwin-arm64 node-v16.15.1
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -97,7 +97,7 @@ EXAMPLES
   $ accent export --order-by=key --version=build.myapp.com:0.12.345
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/export.ts)_
 
 ## `accent format`
 
@@ -114,7 +114,7 @@ EXAMPLE
   $ accent format
 ```
 
-_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/format.ts)_
+_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/format.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -148,7 +148,7 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/jipt.ts)_
 
 ## `accent lint`
 
@@ -162,7 +162,7 @@ EXAMPLE
   $ accent lint
 ```
 
-_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/lint.ts)_
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/lint.ts)_
 
 ## `accent stats`
 
@@ -176,7 +176,7 @@ EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -206,7 +206,7 @@ EXAMPLES
   $ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.13.0/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # GitHub Actions
