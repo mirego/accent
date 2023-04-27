@@ -12,6 +12,7 @@
     "@oclif/core": "^2.3.1",
     "@oclif/plugin-help": "^5.2.6",
     "@oclif/plugin-not-found": "^2.3.21",
+    "cli-ux": "5.6.7",
     "chalk": "4.1.2",
     "decamelize": "5.0.1",
     "form-data": "^4.0.0",
