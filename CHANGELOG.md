@@ -1,5 +1,32 @@
 # Changelog
 
+## v1.16.0
+
+### 1. Enhancements
+
+- AI assistant with OpenAI integration
+
+## v1.15.0
+
+### 1. Enhancements
+
+- New UI :tada:
+
+## v1.14.0
+
+### 1. Enhancements
+
+- Canonical host redirect
+- Add API token management with granular permissions
+- Add machine translations config with Google Translate and DeepL integration
+- Add `ecto_psql_extras` to TelemetryUI
+- Add auth0 uberauth provider
+
+### 2. Bug fixes
+
+- Fix invalid unicode file parsing
+- Fix placeholder and url linting rule
+
 ## v1.12.0
 
 ### 1. Enhancements
