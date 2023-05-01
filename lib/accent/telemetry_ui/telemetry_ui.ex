@@ -240,6 +240,7 @@ defmodule Accent.TelemetryUI do
       primary_color: "#28cb87",
       title: "Accent metrics",
       share_key: "012345678912345",
+      share_path: "/metrics-public",
       logo: """
       <svg
         viewBox="0 0 480 480"

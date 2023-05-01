@@ -97,7 +97,11 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
   defp memory_unit(:KB), do: 1024
 
   defimpl TelemetryUI.Web.Component do
-    def render(metric, _assigns) do
+    def to_image(_metric, _, _assigns) do
+      raise("not implemented")
+    end
+
+    def to_html(metric, _assigns) do
       {:safe,
        """
        <details class="relative flex flex-col bg-white dark:bg-black/40 text-slate dark:text-white p-3 pt-2 shadow">

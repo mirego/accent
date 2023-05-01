@@ -1,7 +1,7 @@
 defmodule Accent.Mixfile do
   use Mix.Project
 
-  @version "1.16.0"
+  @version "1.16.1"
 
   def project do
     [
@@ -45,8 +45,8 @@ defmodule Accent.Mixfile do
       {:canary, "~> 1.1.0"},
       {:corsica, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:cowboy, "~> 2.0", override: true},
-      {:plug, "1.10.4", override: true},
+      {:cowboy, "~> 2.0"},
+      {:plug, "~> 1.10"},
       {:plug_canonical_host, "~> 2.0"},
 
       # Database
@@ -102,7 +102,7 @@ defmodule Accent.Mixfile do
       {:new_relic_agent, "~> 1.27"},
       {:new_relic_absinthe, "~> 0.0"},
       {:telemetry, "~> 1.0", override: true},
-      {:telemetry_ui, "~> 2.0"},
+      {:telemetry_ui, "~> 3.0"},
       {:ecto_psql_extras, "~> 0.7"},
 
       # Mock testing
