@@ -50,6 +50,8 @@ defmodule Accent.Router do
     end
   end
 
+  get("/metrics-public", TelemetryUI.Web.Share, [])
+
   scope "/" do
     pipe_through(:metrics)
     get("/metrics", TelemetryUI.Web, [], assigns: %{telemetry_ui_allowed: true})
@@ -95,6 +97,6 @@ defmodule Accent.Router do
 
     # Catch all route to serve the webapp from static dir
     get("/", WebAppController, [])
-    get("/app*path", WebAppController, [])
+    get("/app/*path", WebAppController, [])
   end
 end
