@@ -1,19 +1,21 @@
 #
 # Build webapp and jipt deps
 #
-FROM node:16.19.0-alpine3.17 AS webapp-builder
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk --no-cache add git g++ make py3-pip
+FROM node:16.19-bullseye-slim AS webapp-builder
+RUN apt-get update -y && \
+    apt-get install -y build-essential git python3 python3-pip && \
+    apt-get clean && \
+    rm -f /var/lib/apt/lists/*_*
 WORKDIR /opt/build
 COPY webapp .
 RUN npm ci --no-audit --no-color && \
     npm run build-production
 
-FROM node:16.19.0-alpine3.17 AS jipt-builder
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk --no-cache add git g++ make py3-pip
+FROM node:16.19-bullseye-slim AS jipt-builder
+RUN apt-get update -y && \
+    apt-get install -y build-essential git python3 python3-pip && \
+    apt-get clean && \
+    rm -f /var/lib/apt/lists/*_*
 WORKDIR /opt/build
 COPY jipt .
 RUN npm ci --no-audit --no-color && \
@@ -22,15 +24,17 @@ RUN npm ci --no-audit --no-color && \
 #
 # Build the OTP binary
 #
-FROM hexpm/elixir:1.14.2-erlang-25.1-alpine-3.17.0 AS builder
+FROM hexpm/elixir:1.14.3-erlang-25.1.2-debian-bullseye-20221004-slim AS builder
 
 ENV MIX_ENV=prod
 
 WORKDIR /build
 
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk --no-cache add make g++ git yaml-dev
+# Install Debian dependencies
+RUN apt-get update -y && \
+    apt-get install -y build-essential git libyaml-dev && \
+    apt-get clean && \
+    rm -f /var/lib/apt/lists/*_*
 
 RUN mix local.rebar --force && \
     mix local.hex --force
@@ -63,21 +67,34 @@ RUN mkdir -p /opt/build && \
 #
 FROM alpine:3.17.0
 
-RUN apk --no-cache update && \
-    apk --no-cache upgrade && \
-    apk --no-cache add bash yaml-dev openssl ncurses-libs libstdc++
+FROM debian:bullseye-20230109
+
+RUN apt-get update -y && \
+    apt-get install -y bash libyaml-dev openssl libncurses5 locales && \
+    apt-get clean && \
+    rm -f /var/lib/apt/lists/*_*
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+
+ENV MIX_ENV="prod"
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 WORKDIR /opt/accent
-COPY --from=builder /opt/build .
+
+# Create a non-root user
+RUN chown nobody /opt/accent
+
+COPY --from=builder --chown=nobody:root /opt/build .
 
 # Copy the entrypoint script
 COPY priv/scripts/docker-entrypoint.sh /usr/local/bin
 RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
 
-# Create a non-root user
-RUN adduser -D accent && chown -R accent: /opt/accent
-
-USER accent
+USER nobody
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["start"]
+
