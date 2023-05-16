@@ -1,6 +1,5 @@
 // Command
 import Command from '../base';
-import {flags} from '@oclif/command';
 
 // Formatters
 import ExportFormatter from '../services/formatters/project-export';
@@ -26,17 +25,9 @@ export default class Jipt extends Command {
       required: true,
     },
   ];
-  static flags = {
-    config: flags.string({
-      default: 'accent.json',
-      description: 'Path to the config file',
-    }),
-  };
 
   async run() {
     const {args} = this.parse(Jipt);
-    const {flags} = this.parse(Jipt);
-    super.initialize(flags.config);
     const documents = this.projectConfig.files();
     const formatter = new DocumentExportFormatter();
 

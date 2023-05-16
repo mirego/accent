@@ -66,16 +66,10 @@ export default class Sync extends Command {
       description:
         'Sync a specific version, the tag needs to exists in Accent first',
     }),
-    config: flags.string({
-      default: 'accent.json',
-      description: 'Path to the config file',
-    }),
   };
 
   async run() {
     const t0 = process.hrtime();
-    const {flags} = this.parse(Sync);
-    super.initialize(flags.config);
     const documents = this.projectConfig.files();
 
     // From all the documentConfigs, do the sync or peek operations and log the results.

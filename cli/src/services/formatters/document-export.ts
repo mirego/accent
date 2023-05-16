@@ -10,4 +10,7 @@ export default class DocumentExportFormatter {
       chalk.gray.dim.underline(path)
     );
   }
+  done() {
+    console.log('');
+  }
 }

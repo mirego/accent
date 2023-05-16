@@ -33,15 +33,10 @@ export default class Export extends Command {
       default: '',
       description: 'Fetch a specific version',
     }),
-    config: flags.string({
-      default: 'accent.json',
-      description: 'Path to the config file',
-    }),
   };
 
   async run() {
     const {flags} = this.parse(Export);
-    super.initialize(flags.config);
     const documents = this.projectConfig.files();
     const formatter = new DocumentExportFormatter();
 
@@ -61,6 +56,8 @@ export default class Export extends Command {
 
         await document.export(localFile, language, documentPath, flags);
       }
+
+      formatter.done();
 
       await new HookRunner(document).run(Hooks.afterExport);
     }

@@ -3,6 +3,7 @@ import Command from '@oclif/command';
 import {error} from '@oclif/errors';
 import * as chalk from 'chalk';
 import cli from 'cli-ux';
+import {flags} from '@oclif/command';
 
 // Services
 import ConfigFetcher from './services/config';
@@ -14,18 +15,26 @@ import {Project, ProjectViewer} from './types/project';
 const sleep = async (ms: number) =>
   new Promise((resolve: (value: unknown) => void) => setTimeout(resolve, ms));
 
-export default abstract class extends Command {
+export default class Base extends Command {
+  static flags = {
+    config: flags.string({
+      default: 'accent.json',
+      description: 'Path to the config file',
+    }),
+  };
+
   projectConfig!: ConfigFetcher;
   project?: Project;
   viewer?: ProjectViewer;
 
-  async initialize(configFilePath: string) {
-    this.projectConfig = new ConfigFetcher(configFilePath);
+  async init() {
+    const {flags} = this.parse(Base);
+    this.projectConfig = new ConfigFetcher(flags.config);
 
     const config = this.projectConfig.config;
 
     // Fetch project from the GraphQL API.
-    cli.action.start(chalk.white('Fetch config'));
+    cli.action.start(chalk.white(`Fetch config in ${flags.config}`));
     await sleep(1000);
 
     const fetcher = new ProjectFetcher();
