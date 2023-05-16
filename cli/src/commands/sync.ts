@@ -3,7 +3,7 @@ import {flags} from '@oclif/command';
 import {existsSync} from 'fs';
 
 // Command
-import Command from '../base';
+import Command, {configFlag} from '../base';
 
 // Formatters
 import AddTranslationsFormatter from '../services/formatters/project-add-translations';
@@ -66,9 +66,11 @@ export default class Sync extends Command {
       description:
         'Sync a specific version, the tag needs to exists in Accent first',
     }),
+    config: configFlag,
   };
 
   async run() {
+    const {flags} = this.parse(Sync);
     const t0 = process.hrtime();
     const documents = this.projectConfig.files();
 

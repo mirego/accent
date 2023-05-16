@@ -2,7 +2,7 @@ import * as fs from 'fs';
 
 // Command
 import {flags} from '@oclif/command';
-import Command from '../base';
+import Command, {configFlag} from '../base';
 import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import DocumentFormatter from '../services/formatters/document-format';
 
@@ -23,6 +23,7 @@ export default class Format extends Command {
       description: 'Order of the keys',
       options: ['index', 'key', '-index', '-key'],
     }),
+    config: configFlag,
   };
 
   async run() {

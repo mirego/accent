@@ -1,6 +1,6 @@
 // Command
 import {flags} from '@oclif/command';
-import Command from '../base';
+import Command, {configFlag} from '../base';
 
 // Formatters
 import ExportFormatter from '../services/formatters/project-export';
@@ -33,6 +33,7 @@ export default class Export extends Command {
       default: '',
       description: 'Fetch a specific version',
     }),
+    config: configFlag,
   };
 
   async run() {

@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 
 // Command
-import Command from '../base';
+import Command, {configFlag} from '../base';
 import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import Formatter from '../services/formatters/project-lint';
 import {LintTranslation} from '../types/lint-translation';
@@ -11,6 +11,7 @@ export default class Lint extends Command {
     'Lint local files and display errors if any. Exit code is 1 if there are errors.';
 
   static examples = [`$ accent lint`];
+  static flags = {config: configFlag};
 
   async run() {
     const documents = this.projectConfig.files();

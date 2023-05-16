@@ -15,14 +15,13 @@ import {Project, ProjectViewer} from './types/project';
 const sleep = async (ms: number) =>
   new Promise((resolve: (value: unknown) => void) => setTimeout(resolve, ms));
 
-export default class Base extends Command {
-  static flags = {
-    config: flags.string({
-      default: 'accent.json',
-      description: 'Path to the config file',
-    }),
-  };
+export const configFlag = flags.string({
+  default: 'accent.json',
+  description: 'Path to the config file',
+});
 
+export default abstract class Base extends Command {
+  static flags = {config: configFlag};
   projectConfig!: ConfigFetcher;
   project?: Project;
   viewer?: ProjectViewer;

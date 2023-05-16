@@ -1,5 +1,5 @@
 // Command
-import Command from '../base';
+import Command, {configFlag} from '../base';
 
 // Formatters
 import ExportFormatter from '../services/formatters/project-export';
@@ -25,6 +25,8 @@ export default class Jipt extends Command {
       required: true,
     },
   ];
+
+  static flags = {config: configFlag};
 
   async run() {
     const {args} = this.parse(Jipt);
