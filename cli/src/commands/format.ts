@@ -23,10 +23,15 @@ export default class Format extends Command {
       description: 'Order of the keys',
       options: ['index', 'key', '-index', '-key'],
     }),
+    config: flags.string({
+      default: 'accent.json',
+      description: 'Path to the config file',
+    }),
   };
 
   async run() {
     const {flags} = this.parse(Format);
+    super.initialize(flags.config);
     const documents = this.projectConfig.files();
     const t0 = process.hrtime();
     const formattedPaths: FormattedFile[] = [];

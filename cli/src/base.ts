@@ -15,11 +15,13 @@ const sleep = async (ms: number) =>
   new Promise((resolve: (value: unknown) => void) => setTimeout(resolve, ms));
 
 export default abstract class extends Command {
-  projectConfig: ConfigFetcher = new ConfigFetcher();
+  projectConfig!: ConfigFetcher;
   project?: Project;
   viewer?: ProjectViewer;
 
-  async init() {
+  async initialize(configFilePath: string) {
+    this.projectConfig = new ConfigFetcher(configFilePath);
+
     const config = this.projectConfig.config;
 
     // Fetch project from the GraphQL API.

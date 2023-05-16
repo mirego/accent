@@ -5,6 +5,7 @@ import Command from '../base';
 import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import Formatter from '../services/formatters/project-lint';
 import {LintTranslation} from '../types/lint-translation';
+import {flags} from '@oclif/command';
 
 export default class Lint extends Command {
   static description =
@@ -12,7 +13,16 @@ export default class Lint extends Command {
 
   static examples = [`$ accent lint`];
 
+  static flags = {
+    config: flags.string({
+      default: 'accent.json',
+      description: 'Path to the config file',
+    }),
+  };
+
   async run() {
+    const {flags} = this.parse(Lint);
+    super.initialize(flags.config);
     const documents = this.projectConfig.files();
     const results: LintTranslation[] = [];
     const t0 = process.hrtime();
