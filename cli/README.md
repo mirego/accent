@@ -20,7 +20,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.13.1 darwin-arm64 node-v16.15.1
+accent-cli/0.13.2 darwin-arm64 node-v16.15.1
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -89,6 +89,7 @@ USAGE
   $ accent export
 
 OPTIONS
+  --config=config       [default: accent.json] Path to the config file
   --order-by=index|key  [default: index] Order of the keys
   --version=version     Fetch a specific version
 
@@ -97,7 +98,7 @@ EXAMPLES
   $ accent export --order-by=key --version=build.myapp.com:0.12.345
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.13.2/src/commands/export.ts)_
 
 ## `accent format`
 
@@ -108,13 +109,14 @@ USAGE
   $ accent format
 
 OPTIONS
+  --config=config                   [default: accent.json] Path to the config file
   --order-by=index|key|-index|-key  [default: index] Order of the keys
 
 EXAMPLE
   $ accent format
 ```
 
-_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/format.ts)_
+_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.13.2/src/commands/format.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -144,11 +146,14 @@ USAGE
 ARGUMENTS
   PSEUDOLANGUAGENAME  The pseudo language for in-place-translation-editing
 
+OPTIONS
+  --config=config  [default: accent.json] Path to the config file
+
 EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.13.2/src/commands/jipt.ts)_
 
 ## `accent lint`
 
@@ -158,11 +163,14 @@ Lint local files and display errors if any. Exit code is 1 if there are errors.
 USAGE
   $ accent lint
 
+OPTIONS
+  --config=config  [default: accent.json] Path to the config file
+
 EXAMPLE
   $ accent lint
 ```
 
-_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/lint.ts)_
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.13.2/src/commands/lint.ts)_
 
 ## `accent stats`
 
@@ -172,11 +180,14 @@ Fetch stats from the API and display it beautifully
 USAGE
   $ accent stats
 
+OPTIONS
+  --config=config  [default: accent.json] Path to the config file
+
 EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.13.2/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -189,6 +200,8 @@ USAGE
 OPTIONS
   --add-translations                Add translations in Accent to help translators if you already have translated
                                     strings locally
+
+  --config=config                   [default: accent.json] Path to the config file
 
   --dry-run                         Do not write the file from the export _after_ the operation
 
@@ -206,7 +219,7 @@ EXAMPLES
   $ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.13.1/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.13.2/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # GitHub Actions
