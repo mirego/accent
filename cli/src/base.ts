@@ -19,7 +19,7 @@ export default abstract class extends Command {
   project?: Project;
   viewer?: ProjectViewer;
 
-  async initialize(configFilePath: String) {
+  async initialize(configFilePath: string) {
     this.projectConfig = new ConfigFetcher(configFilePath);
 
     const config = this.projectConfig.config;

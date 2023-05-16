@@ -41,7 +41,7 @@ export default class Export extends Command {
 
   async run() {
     const {flags} = this.parse(Export);
-    super.initialize(flags['config']);
+    super.initialize(flags.config);
     const documents = this.projectConfig.files();
     const formatter = new DocumentExportFormatter();
 

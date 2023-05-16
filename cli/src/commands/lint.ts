@@ -22,7 +22,7 @@ export default class Lint extends Command {
 
   async run() {
     const {flags} = this.parse(Lint);
-    super.initialize(flags['config']);
+    super.initialize(flags.config);
     const documents = this.projectConfig.files();
     const results: LintTranslation[] = [];
     const t0 = process.hrtime();

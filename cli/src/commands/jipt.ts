@@ -36,7 +36,7 @@ export default class Jipt extends Command {
   async run() {
     const {args} = this.parse(Jipt);
     const {flags} = this.parse(Jipt);
-    super.initialize(flags['config']);
+    super.initialize(flags.config);
     const documents = this.projectConfig.files();
     const formatter = new DocumentExportFormatter();
 

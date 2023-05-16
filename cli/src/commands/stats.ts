@@ -20,7 +20,7 @@ export default class Stats extends Command {
   /* eslint-disable @typescript-eslint/require-await */
   async run() {
     const {flags} = this.parse(Stats);
-    super.initialize(flags['config']);
+    super.initialize(flags.config);
     const formatter = new Formatter(this.project!, this.projectConfig.config);
 
     formatter.log();

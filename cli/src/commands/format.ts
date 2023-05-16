@@ -31,7 +31,7 @@ export default class Format extends Command {
 
   async run() {
     const {flags} = this.parse(Format);
-    super.initialize(flags['config']);
+    super.initialize(flags.config);
     const documents = this.projectConfig.files();
     const t0 = process.hrtime();
     const formattedPaths: FormattedFile[] = [];
