@@ -14,8 +14,9 @@ export default class ConfigFetcher {
   readonly config: Config;
   readonly warnings: string[];
 
-  constructor() {
-    this.config = fs.readJsonSync('accent.json');
+  constructor(configFilePath: String) {
+    console.log('Loading configuration file: ' + configFilePath);
+    this.config = fs.readJsonSync('' + configFilePath);
     this.config.apiKey = process.env.ACCENT_API_KEY || this.config.apiKey;
     this.config.apiUrl = process.env.ACCENT_API_URL || this.config.apiUrl;
     this.config.project = process.env.ACCENT_PROJECT || this.config.project;
