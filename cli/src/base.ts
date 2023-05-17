@@ -20,20 +20,27 @@ export const configFlag = flags.string({
   description: 'Path to the config file',
 });
 
-export default abstract class Base extends Command {
-  static flags = {config: configFlag};
+const parseConfigFlag = (argv: string[]) => {
+  const configFlag = argv.findIndex((arg) => arg.match('--config'));
+  if (configFlag >= 0 && !argv[configFlag + 1])
+    error('Flag --config expects a value');
+
+  return (configFlag >= 0 ? argv[configFlag + 1] : null) || 'accent.json';
+};
+
+export default abstract class extends Command {
   projectConfig!: ConfigFetcher;
   project?: Project;
   viewer?: ProjectViewer;
 
   async init() {
-    const {flags} = this.parse(Base);
-    this.projectConfig = new ConfigFetcher(flags.config);
+    const configFlag = parseConfigFlag(this.argv);
+    this.projectConfig = new ConfigFetcher(configFlag);
 
     const config = this.projectConfig.config;
 
     // Fetch project from the GraphQL API.
-    cli.action.start(chalk.white(`Fetch config in ${flags.config}`));
+    cli.action.start(chalk.white(`Fetch config in ${configFlag}`));
     await sleep(1000);
 
     const fetcher = new ProjectFetcher();

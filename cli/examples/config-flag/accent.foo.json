@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "format": "simple_json",
+      "source": "common/src/commonMain/resources/translations/iga/translations_en.json",
+      "target": "common/src/commonMain/resources/translations/iga/translations_%slug%.json"
+    }
+  ]
+}

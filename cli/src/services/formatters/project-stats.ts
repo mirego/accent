@@ -60,7 +60,9 @@ export default class ProjectStatsFormatter extends Base {
     }
 
     console.log(
-      this.project.logo ? this.project.logo : chalk.bgGreenBright.bold(' ^ '),
+      this.project.logo
+        ? this.project.logo
+        : chalk.bgGreenBright.black.bold(' ^ '),
       chalk.white.bold(this.project.name),
       chalk.dim(' • '),
       percentageReviewedFormat
