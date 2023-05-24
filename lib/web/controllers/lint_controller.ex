@@ -103,11 +103,8 @@ defmodule Accent.LintController do
   defp assign_translations(conn, _) do
     translations =
       Translation
-      |> TranslationScope.from_project(conn.assigns[:project].id)
+      |> base_translations(conn)
       |> TranslationScope.from_revision(conn.assigns[:revision].id)
-      |> TranslationScope.from_document(conn.assigns[:document].id)
-      |> TranslationScope.active()
-      |> TranslationScope.not_locked()
       |> Repo.all()
       |> Repo.preload(:revision)
       |> Enum.map(&{{&1.key, &1.document_id}, &1})
@@ -119,11 +116,8 @@ defmodule Accent.LintController do
   defp assign_master_translations(conn, _) do
     master_translations =
       Translation
-      |> TranslationScope.from_project(conn.assigns[:project].id)
+      |> base_translations(conn)
       |> TranslationScope.from_revision(conn.assigns[:master_revision].id)
-      |> TranslationScope.from_document(conn.assigns[:document].id)
-      |> TranslationScope.active()
-      |> TranslationScope.not_locked()
       |> Repo.all()
       |> Enum.map(&{{&1.key, &1.document_id}, &1})
       |> Enum.into(%{})
@@ -140,5 +134,14 @@ defmodule Accent.LintController do
       |> Repo.preload(:language)
 
     assign(conn, :master_revision, master_revision)
+  end
+
+  defp base_translations(query, conn) do
+    query
+    |> TranslationScope.from_project(conn.assigns[:project].id)
+    |> TranslationScope.from_document(conn.assigns[:document].id)
+    |> TranslationScope.from_version(nil)
+    |> TranslationScope.active()
+    |> TranslationScope.not_locked()
   end
 end

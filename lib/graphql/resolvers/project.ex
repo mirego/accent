@@ -8,7 +8,6 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
   alias Accent.{
     GraphQL.Paginated,
-    Language,
     Operation,
     Plugs.GraphQLContext,
     Project,
@@ -120,13 +119,14 @@ defmodule Accent.GraphQL.Resolvers.Project do
     |> then(&{:ok, &1})
   end
 
-  @spec lint_translations(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Language.Entry.t())}
+  @spec lint_translations(Project.t(), any(), GraphQLContext.t()) :: {:ok, [Accent.TranslationLint.t()]}
   def lint_translations(project, _args, _) do
     translations =
       Translation
+      |> TranslationScope.from_project(project.id)
+      |> TranslationScope.from_version(nil)
       |> TranslationScope.active()
       |> TranslationScope.not_locked()
-      |> TranslationScope.from_project(project.id)
       |> Query.distinct(true)
       |> Query.preload(revision: :language)
       |> Query.order_by({:asc, :key})
@@ -142,6 +142,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
       Translation
       |> TranslationScope.from_project(project.id)
       |> TranslationScope.from_revision(master_revision.id)
+      |> TranslationScope.from_version(nil)
       |> TranslationScope.active()
       |> TranslationScope.not_locked()
       |> Repo.all()

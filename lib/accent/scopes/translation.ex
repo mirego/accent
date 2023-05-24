@@ -242,7 +242,7 @@ defmodule Accent.Scopes.Translation do
     iex> Accent.Scopes.Translation.not_from_revision(Accent.Translation, "test")
     #Ecto.Query<from t0 in Accent.Translation, where: t0.revision_id != ^"test">
   """
-  @spec from_revision(Queryable.t(), String.t()) :: Queryable.t()
+  @spec not_from_revision(Queryable.t(), String.t()) :: Queryable.t()
   def not_from_revision(query, nil), do: query
   def not_from_revision(query, revision_id), do: from(t in query, where: t.revision_id != ^revision_id)
 

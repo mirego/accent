@@ -9,7 +9,9 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     Project,
     ProjectCreator,
     Repo,
-    User
+    Translation,
+    User,
+    Version
   }
 
   defmodule PlugConn do
@@ -172,5 +174,35 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     {:ok, latest_activity} = Resolver.last_activity(project, %{}, context)
 
     assert latest_activity.id === operation.id
+  end
+
+  test "lint_translations", %{user: user, project: project} do
+    [revision] = project.revisions
+    Repo.insert!(%Translation{revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A"})
+
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    {:ok, [lint]} = Resolver.lint_translations(project, %{}, context)
+
+    assert lint.messages === [
+             %Accent.Lint.Message{
+               check: :leading_spaces,
+               text: " A",
+               replacement: %Accent.Lint.Replacement{value: "A", label: "A"}
+             }
+           ]
+  end
+
+  test "lint_translations on current version only", %{user: user, project: project} do
+    [revision] = project.revisions
+    version = Repo.insert!(%Version{project_id: project.id, name: "foo", tag: "bar", user_id: user.id})
+    Repo.insert!(%Translation{revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A"})
+    Repo.insert!(%Translation{version_id: version.id, revision_id: revision.id, key: "b", proposed_text: " B", corrected_text: " B"})
+
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    {:ok, result} = Resolver.lint_translations(project, %{}, context)
+
+    assert Enum.count(result) === 1
   end
 end
