@@ -12,10 +12,13 @@ defmodule Accent.Hook.Outbounds.Email do
   def perform(%Oban.Job{args: args}) do
     context = Accent.Hook.Context.from_worker(args)
 
-    context
-    |> fetch_emails()
-    |> build_email(context)
-    |> Accent.Mailer.deliver_later()
+    email =
+      context
+      |> fetch_emails()
+      |> build_email(context)
+      |> Accent.Mailer.deliver_later()
+
+    {:ok, email}
   end
 
   defp build_email(emails, %{event: "create_collaborator", project: project, user: user}) do
