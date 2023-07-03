@@ -245,7 +245,7 @@ jobs:
           node-version: 16
       - run: npm install -g accent-cli
       - run: accent sync --add-translations --merge-type=passive --order-by=key
-      - uses: peter-evans/create-pull-request@v4
+      - uses: mirego/create-pull-request@v5
         with:
           add-paths: "*.json"
           commit-message: Update translations
