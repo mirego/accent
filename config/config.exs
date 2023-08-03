@@ -37,7 +37,7 @@ config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServer.
 
 config :accent, Oban,
   plugins: [Oban.Plugins.Pruner],
-  queues: [hook: 10],
+  queues: [hook: 10, operations: 10],
   repo: Accent.Repo
 
 config :absinthe, :schema, Accent.GraphQL.Schema

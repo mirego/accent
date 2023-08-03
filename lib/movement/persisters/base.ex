@@ -52,7 +52,9 @@ defmodule Movement.Persisters.Base do
     context
     |> persist_operations()
     |> migrate_up_operations()
-    |> tap(fn _ -> Oban.insert(ProjectStateChangeWorker.new(project_state_change_context)) end)
+    |> tap(fn _ ->
+      project_state_change_context.previous_project_state && Oban.insert(ProjectStateChangeWorker.new(project_state_change_context))
+    end)
   end
 
   @spec rollback(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}

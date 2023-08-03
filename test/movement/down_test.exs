@@ -5,6 +5,7 @@ defmodule AccentTest.Migrator.Down do
     Operation,
     PreviousTranslation,
     Repo,
+    Revision,
     Translation
   }
 
@@ -28,6 +29,7 @@ defmodule AccentTest.Migrator.Down do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_in_conflict",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: nil,
         proposed_text: "new proposed text",
         conflicted_text: "corrected_text",
@@ -65,6 +67,7 @@ defmodule AccentTest.Migrator.Down do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_in_proposed",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: nil,
         proposed_text: "new proposed text",
         conflicted_text: "proposed_text",
@@ -92,6 +95,7 @@ defmodule AccentTest.Migrator.Down do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_added_down",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: nil,
         proposed_text: "new text",
         conflicted_text: nil,
@@ -115,6 +119,7 @@ defmodule AccentTest.Migrator.Down do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_added_down",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: nil,
         proposed_text: "new text",
         conflicted_text: nil,
@@ -138,6 +143,7 @@ defmodule AccentTest.Migrator.Down do
     translation =
       Repo.insert!(%Translation{
         value_type: "",
+        revision: Repo.insert!(%Revision{}),
         key: "to_be_added_down",
         corrected_text: nil,
         proposed_text: "new text",

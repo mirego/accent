@@ -8,8 +8,18 @@ defmodule AccentTest.RevisionDeleter do
     french_language = %Language{name: "french"} |> Repo.insert!()
     english_language = %Language{name: "english"} |> Repo.insert!()
 
-    master_revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
-    slave_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: master_revision.id} |> Repo.insert!()
+    master_revision =
+      %Revision{language_id: french_language.id, project_id: project.id, master: true}
+      |> Repo.insert!()
+
+    slave_revision =
+      %Revision{
+        language_id: english_language.id,
+        project_id: project.id,
+        master: false,
+        master_revision_id: master_revision.id
+      }
+      |> Repo.insert!()
 
     {:ok, [master_revision: master_revision, slave_revision: slave_revision]}
   end
@@ -17,7 +27,7 @@ defmodule AccentTest.RevisionDeleter do
   test "delete slave", %{slave_revision: revision} do
     {:ok, _revision} = RevisionManager.delete(revision)
 
-    assert Repo.get(Revision, revision.id) == nil
+    assert Repo.get(Revision, revision.id).marked_as_deleted
   end
 
   test "delete master", %{master_revision: revision} do
@@ -29,7 +39,7 @@ defmodule AccentTest.RevisionDeleter do
   test "delete operations", %{slave_revision: revision} do
     operation = %Operation{action: "new", key: "a", revision_id: revision.id} |> Repo.insert!()
 
-    {:ok, _revision} = RevisionManager.delete(revision)
+    Accent.Revisions.DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
 
     assert Repo.get(Operation, operation.id) == nil
   end
@@ -37,7 +47,7 @@ defmodule AccentTest.RevisionDeleter do
   test "delete translations", %{slave_revision: revision} do
     translation = %Translation{key: "a", revision_id: revision.id} |> Repo.insert!()
 
-    {:ok, _revision} = RevisionManager.delete(revision)
+    Accent.Revisions.DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
 
     assert Repo.get(Translation, translation.id) == nil
   end

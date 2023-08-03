@@ -106,12 +106,15 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "new operation with removed translation" do
+    revision = %Revision{} |> Repo.insert!()
+
     translation =
       %Translation{
         key: "a",
         proposed_text: "A",
         conflicted: true,
-        removed: true
+        removed: true,
+        revision_id: revision.id
       }
       |> Repo.insert!()
 
@@ -120,6 +123,7 @@ defmodule AccentTest.Movement.Persisters.Base do
         action: "new",
         key: "a",
         text: "B",
+        revision_id: revision.id,
         previous_translation: %PreviousTranslation{
           removed: true
         }
@@ -138,9 +142,12 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "version operation with source translation" do
+    revision = %Revision{} |> Repo.insert!()
+
     translation =
       %Translation{
         key: "a",
+        revision_id: revision.id,
         proposed_text: "A",
         conflicted: true,
         removed: true
@@ -152,6 +159,7 @@ defmodule AccentTest.Movement.Persisters.Base do
         action: "version_new",
         key: "a",
         text: "B",
+        revision_id: revision.id,
         translation_id: translation.id
       }
     ]
@@ -168,9 +176,12 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "version operation add operation on source translation" do
+    revision = %Revision{} |> Repo.insert!()
+
     translation =
       %Translation{
         key: "a",
+        revision_id: revision.id,
         proposed_text: "A",
         conflicted: true,
         removed: true
@@ -182,6 +193,7 @@ defmodule AccentTest.Movement.Persisters.Base do
         action: "version_new",
         key: "a",
         text: "B",
+        revision_id: revision.id,
         translation_id: translation.id
       }
     ]
@@ -211,6 +223,7 @@ defmodule AccentTest.Movement.Persisters.Base do
     translation =
       %Translation{
         key: "a",
+        revision_id: revision.id,
         proposed_text: "A",
         conflicted: true,
         removed: true,
@@ -223,6 +236,7 @@ defmodule AccentTest.Movement.Persisters.Base do
         action: "update",
         key: "a",
         text: "B",
+        revision_id: revision.id,
         value_type: "string",
         translation_id: translation.id,
         version_id: version.id

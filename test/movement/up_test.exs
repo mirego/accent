@@ -23,6 +23,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_corrected",
+        revision: Repo.insert!(%Revision{}),
         file_comment: "",
         corrected_text: nil,
         proposed_text: "proposed_text",
@@ -58,6 +59,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_merged",
+        revision: Repo.insert!(%Revision{}),
         file_comment: "",
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
@@ -92,6 +94,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_merged",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted_text: nil,
@@ -119,6 +122,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_uncorrected",
+        revision: Repo.insert!(%Revision{}),
         file_comment: "",
         file_index: 1,
         corrected_text: "new proposed text",
@@ -146,6 +150,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_uncorrected",
+        revision: Repo.insert!(%Revision{}),
         file_comment: "",
         file_index: 1,
         corrected_text: "proposed_text",
@@ -173,6 +178,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_in_conflict",
+        revision: Repo.insert!(%Revision{}),
         file_comment: "",
         file_index: 1,
         corrected_text: "corrected_text",
@@ -201,6 +207,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_in_conflict",
+        revision: Repo.insert!(%Revision{}),
         file_comment: "",
         file_index: 1,
         corrected_text: "corrected_text",
@@ -228,6 +235,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_removed",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
@@ -249,6 +257,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_renewed",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
@@ -273,6 +282,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "to_be_rollbacked",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
@@ -298,6 +308,7 @@ defmodule AccentTest.Movement.Migrator.Up do
       Repo.insert!(%Translation{
         value_type: "",
         key: "to_be_conflict_on_proposed",
+        revision: Repo.insert!(%Revision{}),
         file_comment: "",
         file_index: 1,
         corrected_text: "corrected_text",
@@ -331,6 +342,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Repo.insert!(%Translation{
         key: "updated_proposed",
+        revision: Repo.insert!(%Revision{}),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted_text: "conflict",

@@ -18,6 +18,7 @@ export default gql`
           name
           slug
           isMaster
+          markedAsDeleted
           insertedAt
 
           language {

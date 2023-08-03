@@ -22,6 +22,8 @@ defmodule Accent.Revision do
     has_many(:translations, Accent.Translation)
     has_many(:operations, Accent.Operation)
 
+    field(:marked_as_deleted, :boolean)
+
     field(:translations_count, :any, virtual: true, default: :not_loaded)
     field(:reviewed_count, :any, virtual: true, default: :not_loaded)
     field(:conflicts_count, :any, virtual: true, default: :not_loaded)
