@@ -241,6 +241,15 @@ defmodule Accent.TelemetryUI do
       title: "Accent metrics",
       share_key: "012345678912345",
       share_path: "/metrics-public",
+      frame_options: [
+        {:last_5_minutes, 5, :minute},
+        {:last_30_minutes, 30, :minute},
+        {:last_2_hours, 120, :minute},
+        {:last_1_day, 1, :day},
+        {:last_7_days, 7, :day},
+        {:last_1_month, 1, :month},
+        {:custom, 0, nil}
+      ],
       logo: """
       <svg
         viewBox="0 0 480 480"
