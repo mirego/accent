@@ -26,26 +26,19 @@ defmodule Accent.Project do
     has_many(:versions, Accent.Version)
     has_many(:operations, Accent.Operation)
     has_many(:prompts, Accent.Prompt)
-    has_many(:collaborators, Accent.Collaborator, where: [role: {:in, ["reviewer", "admin", "developer", "owner"]}])
+
+    has_many(:collaborators, Accent.Collaborator,
+      where: [role: {:in, ["reviewer", "admin", "developer", "owner"]}]
+    )
+
     has_many(:all_collaborators, Accent.Collaborator)
     belongs_to(:language, Accent.Language)
 
     field(:machine_translations_config, MachineTranslationsConfig)
     field(:prompt_config, PromptConfig)
 
-    timestamps()
-  end
+    field(:sync_lock_version, :integer, default: 1)
 
-  @optional_fields ~w(
-    name
-    main_color
-    logo
-    last_synced_at
-    locked_file_operations
-  )a
-  def changeset(model, params) do
-    model
-    |> cast(params, @optional_fields)
-    |> validate_required([:name, :main_color])
+    timestamps()
   end
 end
