@@ -3,7 +3,7 @@ defmodule Movement.Persisters.ProjectSync do
 
   import Movement.Context, only: [assign: 3]
 
-  alias Accent.{Document, Project, Repo}
+  alias Accent.{Document, Repo}
   alias Movement.Persisters.Base, as: BasePersister
 
   def persist(context = %Movement.Context{operations: []}), do: {:ok, {context, []}}
@@ -16,7 +16,8 @@ defmodule Movement.Persisters.ProjectSync do
       |> case do
         {context, operations} ->
           context.assigns[:project]
-          |> Project.changeset(%{last_synced_at: DateTime.utc_now()})
+          |> Ecto.Changeset.change(last_synced_at: DateTime.truncate(DateTime.utc_now(), :second))
+          |> Ecto.Changeset.optimistic_lock(:sync_lock_version)
           |> Repo.update()
 
           {context, operations}
