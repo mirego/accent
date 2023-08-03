@@ -741,6 +741,7 @@
     "project_manage_languages_overview": {
       "list_languages": "Langues :",
       "revision_inserted_at_label": "Créé",
+      "revision_deleted_label": "La langue est en cours de suppression de votre projet. Elle disparaîtra automatiquement une fois toutes les opérations propagées dans le système.",
       "master_badge": "principale",
       "delete_revision_confirm": "Voulez-vous vraiment supprimer cette langue de votre projet ? Cette action ne peut pas être annulée.",
       "delete_revision_button": "Supprimer cette langue",

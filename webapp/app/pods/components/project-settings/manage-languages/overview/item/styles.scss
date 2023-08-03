@@ -5,7 +5,14 @@
   font-size: 14px;
 
   &.list-item--deleted {
-    display: none;
+    background: var(--background-light);
+    border: 1px dashed var(--background-light-highlight);
+    padding: 6px 10px;
+    pointer-events: none;
+
+    .list-item-infos-date {
+      font-size: 11px;
+    }
   }
 
   &.list-item--deleting {

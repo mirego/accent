@@ -24,7 +24,7 @@ export default class OverviewItem extends Component<Args> {
   isDeleting = false;
 
   @tracked
-  isDeleted = false;
+  isDeleted = this.args.revision.markedAsDeleted;
 
   get name() {
     return this.args.revision.name || this.args.revision.language.name;
