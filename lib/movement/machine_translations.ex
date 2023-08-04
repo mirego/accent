@@ -29,7 +29,7 @@ defmodule Movement.MachineTranslations do
       with true <- operation.machine_translations_enabled,
            text = Map.get(translated_texts, operation.key),
            true <- text !== operation.text do
-        dbg(%{operation | text: text, machine_translated: true})
+        %{operation | text: text, machine_translated: true}
       else
         _ -> operation
       end
