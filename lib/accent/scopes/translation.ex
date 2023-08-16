@@ -49,6 +49,15 @@ defmodule Accent.Scopes.Translation do
   @doc """
   ## Examples
 
+    iex> Accent.Scopes.Translation.removed(Accent.Translation)
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.removed == true>
+  """
+  @spec removed(Queryable.t()) :: Queryable.t()
+  def removed(query), do: from(query, where: [removed: true])
+
+  @doc """
+  ## Examples
+
     iex> Accent.Scopes.Translation.active(Accent.Translation)
     #Ecto.Query<from t0 in Accent.Translation, where: t0.removed == false>
   """
@@ -178,6 +187,9 @@ defmodule Accent.Scopes.Translation do
     |> from_key(translation.key)
     |> from_document(translation.document_id)
     |> from_version(translation.version_id)
+    |> then(fn query ->
+      if translation.removed, do: removed(query), else: active(query)
+    end)
     |> distinct([translations], translations.revision_id)
     |> subquery()
     |> from()
