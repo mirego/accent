@@ -1,9 +1,8 @@
-const NANOSECONDS = 1000000;
-const PRECISION = 4;
+const NANOSECONDS = 1000000n;
 
 export default class Base {
-  formatTiming(time: number, template: (time: string) => string) {
-    const count = (time / NANOSECONDS).toPrecision(PRECISION);
+  formatTiming(time: bigint, template: (time: string) => string) {
+    const count = String(time / NANOSECONDS);
     return template(count);
   }
 }

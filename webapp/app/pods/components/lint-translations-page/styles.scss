@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   padding: 5px 9px 5px 6px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   color: var(--color-warning);
   font-weight: 500;
   font-size: 12px;

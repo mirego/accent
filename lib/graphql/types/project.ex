@@ -79,7 +79,13 @@ defmodule Accent.GraphQL.Types.Project do
       arg(:text, non_null(:string))
       arg(:source_language_slug, non_null(:string))
       arg(:target_language_slug, non_null(:string))
-      resolve(project_authorize(:machine_translations_translate, &Accent.GraphQL.Resolvers.MachineTranslation.translate_text/3))
+
+      resolve(
+        project_authorize(
+          :machine_translations_translate,
+          &Accent.GraphQL.Resolvers.MachineTranslation.translate_text/3
+        )
+      )
     end
 
     field :lint_translations, list_of(non_null(:lint_translation)) do
@@ -87,7 +93,12 @@ defmodule Accent.GraphQL.Types.Project do
     end
 
     field :api_tokens, list_of(non_null(:api_token)) do
-      resolve(project_authorize(:list_project_api_tokens, &Accent.GraphQL.Resolvers.APIToken.list_project/3))
+      resolve(
+        project_authorize(
+          :list_project_api_tokens,
+          &Accent.GraphQL.Resolvers.APIToken.list_project/3
+        )
+      )
     end
 
     field :viewer_permissions, list_of(:string) do
@@ -114,6 +125,7 @@ defmodule Accent.GraphQL.Types.Project do
     field :documents, :documents do
       arg(:page, :integer)
       arg(:page_size, :integer)
+      arg(:exclude_empty_translations, :boolean, default_value: true)
 
       resolve(project_authorize(:index_documents, &Accent.GraphQL.Resolvers.Document.list_project/3))
     end
@@ -131,7 +143,12 @@ defmodule Accent.GraphQL.Types.Project do
       arg(:is_added_last_sync, :boolean)
       arg(:is_commented_on, :boolean)
 
-      resolve(project_authorize(:index_translations, &Accent.GraphQL.Resolvers.Translation.list_project/3))
+      resolve(
+        project_authorize(
+          :index_translations,
+          &Accent.GraphQL.Resolvers.Translation.list_project/3
+        )
+      )
     end
 
     field :activities, :activities do
@@ -142,7 +159,12 @@ defmodule Accent.GraphQL.Types.Project do
       arg(:user_id, :id)
       arg(:version_id, :id)
 
-      resolve(project_authorize(:index_project_activities, &Accent.GraphQL.Resolvers.Activity.list_project/3))
+      resolve(
+        project_authorize(
+          :index_project_activities,
+          &Accent.GraphQL.Resolvers.Activity.list_project/3
+        )
+      )
     end
 
     field :comments, :comments do

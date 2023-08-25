@@ -148,7 +148,7 @@ a.loginButton {
     border: 1px solid var(--content-background-border);
     color: var(--input-color);
     text-shadow: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     margin-top: 5px;
     margin-bottom: 25px;
     padding-top: 7px;

@@ -68,4 +68,14 @@ defmodule Accent.Translation do
       language_slug: language_slug
     }
   end
+
+  def maybe_natural_order_by(translations, "key") do
+    Enum.sort_by(translations, & &1.key)
+  end
+
+  def maybe_natural_order_by(translations, "-key") do
+    Enum.sort_by(translations, & &1.key, &>=/2)
+  end
+
+  def maybe_natural_order_by(translations, _), do: translations
 end

@@ -21,7 +21,7 @@ defmodule Accent.MachineTranslations do
     Provider.enabled?(provider)
   end
 
-  @spec translate([map()], String.t(), String.t(), struct()) :: [map()]
+  @spec translate([map()], String.t(), String.t(), struct()) :: [map()] | {:error, any()}
   def translate(entries, source_language, target_language, config) do
     provider = provider_from_config(config)
 

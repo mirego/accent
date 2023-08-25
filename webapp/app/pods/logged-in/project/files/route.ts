@@ -20,11 +20,20 @@ export default class FilesRoute extends Route {
     page: {
       refreshModel: true,
     },
+    excludeEmptyTranslations: {
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
 
-  model({page}: {page: string}, transition: Transition) {
+  model(
+    {
+      page,
+      excludeEmptyTranslations,
+    }: {page: string; excludeEmptyTranslations: boolean},
+    transition: Transition
+  ) {
     const pageNumber = page ? parseInt(page, 10) : null;
 
     this.subscription = this.apolloSubscription.graphql(
@@ -41,6 +50,7 @@ export default class FilesRoute extends Route {
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId,
+            excludeEmptyTranslations,
             page: pageNumber,
           },
         },

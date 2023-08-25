@@ -3,7 +3,7 @@
   margin-bottom: 10px;
   width: 400px;
   background: #fff;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   box-shadow: 0 1px 12px var(--shadow-color);
   text-shadow: 0 1px 1px rgba(#000, 0.1);
   color: #fff;

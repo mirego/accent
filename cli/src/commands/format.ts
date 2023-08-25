@@ -29,7 +29,7 @@ export default class Format extends Command {
   async run() {
     const {flags} = this.parse(Format);
     const documents = this.projectConfig.files();
-    const t0 = process.hrtime();
+    const t0 = process.hrtime.bigint();
     const formattedPaths: FormattedFile[] = [];
 
     for (const document of documents) {
@@ -54,8 +54,8 @@ export default class Format extends Command {
       }
     }
 
-    const [, t1] = process.hrtime(t0);
-    const stats = {time: t1};
+    const t2 = process.hrtime.bigint();
+    const stats = {time: t2 - t0};
 
     const formatter = new DocumentFormatter(formattedPaths, stats);
 

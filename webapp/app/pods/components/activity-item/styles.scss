@@ -42,8 +42,14 @@
 .item.batch-sync,
 .item.sync {
   position: relative;
+  transform: translateX(-1px);
   padding: 6px 10px 5px;
   border-color: transparent;
+  border-left: 1px solid var(--color-primary-darken-10);
+
+  &.compact {
+    border-left: 1px solid var(--color-primary-darken-10);
+  }
 
   &:before {
     display: block;
@@ -72,7 +78,7 @@
   .item-stats {
     padding: 0;
     background: transparent;
-    color: var(--color-primary-darken-50);
+    color: var(--text-color-normal);
   }
 
   .item-date {
@@ -85,6 +91,7 @@
 
   .item-content {
     background: var(--color-primary-lighten-95);
+    color: var(--color-primary-darken-50);
   }
 
   .item-documentPath {
@@ -390,7 +397,7 @@
   text-decoration: none;
   background: var(--background-tooltip);
   padding: 1px 3px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
 
   &:focus,
   &:hover {
@@ -463,7 +470,7 @@
   width: 17px;
   height: 17px;
   margin-right: 5px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
 }
 
 .item-translationFromOperationText,
@@ -613,8 +620,8 @@ a.item-documentPath {
 }
 
 .item-stats {
-  font-size: 14px;
   list-style: none;
+  border-radius: var(--border-radius);
 }
 
 .item-rollback {

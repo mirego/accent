@@ -155,13 +155,13 @@ export default class Document {
   }
 
   fetchLocalFile(documentPath: string, localPath: string) {
-    return this.paths.reduce((memo: string | null, path: string) => {
+    return this.paths.reduce((memo: string, path: string) => {
       if (this.parseDocumentName(path, this.config) === documentPath) {
         return localPath;
       } else {
         return memo;
       }
-    }, null);
+    }, localPath);
   }
 
   async export(

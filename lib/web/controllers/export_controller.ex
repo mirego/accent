@@ -96,6 +96,7 @@ defmodule Accent.ExportController do
       |> Scope.parse_added_last_sync(filters[:is_added_last_sync], revision.project_id, document && document.id)
       |> Scope.parse_empty(filters[:is_text_empty])
       |> Repo.all()
+      |> Translation.maybe_natural_order_by(order)
 
     assign(conn, :translations, translations)
   end

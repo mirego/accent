@@ -71,7 +71,7 @@ export default class Sync extends Command {
 
   async run() {
     const {flags} = this.parse(Sync);
-    const t0 = process.hrtime();
+    const t0 = process.hrtime.bigint();
     const documents = this.projectConfig.files();
 
     // From all the documentConfigs, do the sync or peek operations and log the results.
@@ -101,8 +101,8 @@ export default class Sync extends Command {
     }
 
     if (flags['dry-run']) {
-      const [, t1] = process.hrtime(t0);
-      syncFormatter.footerDryRun(t1);
+      const t1 = process.hrtime.bigint();
+      syncFormatter.footerDryRun(t1 - t0);
       return;
     }
 
@@ -119,19 +119,16 @@ export default class Sync extends Command {
       for (const target of targets) {
         const {path, language, documentPath} = target;
         const localFile = document.fetchLocalFile(documentPath, path);
+        formatter.log(path, documentPath);
 
-        if (localFile) {
-          formatter.log(path, documentPath);
-
-          await document.export(localFile, language, documentPath, flags);
-        }
+        await document.export(localFile, language, documentPath, flags);
       }
 
       await new HookRunner(document).run(Hooks.afterExport);
     }
 
-    const [, t2] = process.hrtime(t0);
-    syncFormatter.footer(t2);
+    const t2 = process.hrtime.bigint();
+    syncFormatter.footer(t2 - t0);
   }
 
   private async syncDocumentConfig(document: Document) {

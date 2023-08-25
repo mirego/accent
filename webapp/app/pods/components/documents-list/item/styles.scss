@@ -11,6 +11,26 @@
   }
 }
 
+.documents-list-item.empty {
+  padding: 0 6px 4px;
+  margin-left: -6px;
+  margin-bottom: 10px;
+  width: calc(100% - 6px);
+  background: var(--body-background);
+  border-radius: var(--border-radius);
+
+  &.editing {
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    margin-left: 0;
+
+    .removed-badge {
+      display: none;
+    }
+  }
+}
+
 .documents-list-item.low-percentage {
   .reviewedPercentage {
     color: var(--color-error);
@@ -76,9 +96,13 @@
 .item-title {
   display: inline-flex;
   width: 100%;
-  margin-bottom: 7px;
   font-size: 15px;
-  cursor: pointer;
+  margin-left: -2px;
+}
+
+.removed-badge {
+  font-size: 11px;
+  opacity: 0.4;
 }
 
 .item-subtitle {
@@ -150,7 +174,7 @@
     margin: 0 2px;
     padding: 0 2px;
     border: 1px solid var(--background-light-border);
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     background: var(--background-light);
     font-family: var(--font-monospace);
     font-style: normal;

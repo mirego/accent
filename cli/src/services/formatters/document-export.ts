@@ -1,7 +1,9 @@
 // Vendor
 import * as chalk from 'chalk';
 
-export default class DocumentExportFormatter {
+import Base from './base';
+
+export default class DocumentExportFormatter extends Base {
   log(path: string, documentPath: string) {
     console.log(
       '  ',
@@ -10,7 +12,20 @@ export default class DocumentExportFormatter {
       chalk.gray.dim.underline(path)
     );
   }
-  done() {
+
+  footer(time: bigint) {
     console.log('');
+    console.log(
+      chalk.gray.dim(this.formatTime(time)),
+      'completed without issues'
+    );
+    console.log('');
+  }
+
+  formatTime(time: bigint) {
+    return this.formatTiming(
+      time,
+      (count) => `Exporting took ${count} milliseconds,`
+    );
   }
 }

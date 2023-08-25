@@ -17,7 +17,7 @@
   margin: 0 30px 30px 0;
   max-width: 275px;
   background: var(--content-background);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   color: var(--color-black);
   box-shadow: 0 1px 4px var(--shadow-color), 0 9px 19px var(--shadow-color);
   text-decoration: none;

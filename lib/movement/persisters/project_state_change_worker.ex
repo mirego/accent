@@ -10,28 +10,28 @@ defmodule Movement.Persisters.ProjectStateChangeWorker do
   @impl Oban.Worker
   def perform(%Oban.Job{args: args}) do
     args = cast_args(args)
-    project_state = get_project_state(args.project)
+    current_project_state = get_project_state(args.project)
 
-    if new_conflicts_to_review?(args.previous_project_state, project_state) do
+    if new_conflicts_to_review?(args.previous_project_state, current_project_state) do
       Hook.outbound(%Hook.Context{
         event: "new_conflicts",
         project_id: args.project.id,
         user_id: args.user.id,
         payload: %{
-          reviewed_count: project_state.project.reviewed_count,
-          translations_count: project_state.project.translations_count,
-          new_conflicts_count: project_state.project.translations_count - args.previous_project_state.project.translations_count
+          reviewed_count: current_project_state.project.reviewed_count,
+          translations_count: current_project_state.project.translations_count,
+          new_conflicts_count: current_project_state.project.conflicts_count - args.previous_project_state.project.conflicts_count
         }
       })
     end
 
-    if all_reviewed?(args.previous_project_state, project_state) do
+    if all_reviewed?(args.previous_project_state, current_project_state) do
       Hook.outbound(%Hook.Context{
         event: "complete_review",
         project_id: args.project.id,
         user_id: args.user.id,
         payload: %{
-          translations_count: project_state.project.translations_count
+          translations_count: current_project_state.project.translations_count
         }
       })
     end

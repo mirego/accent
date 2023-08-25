@@ -217,6 +217,9 @@
     },
     "documents_list": {
       "empty_text": "Files are the actual listing of your project’s master language files. Add them here or from the CLI and keep them in sync with your project.",
+      "export_all": "Export all",
+      "show_deleted": "Show deleted",
+      "hide_deleted": "Hide deleted",
       "format": "Format",
       "review": "In review",
       "total": "Total",
@@ -232,6 +235,7 @@
       "save_button": "Save",
       "cancel_button": "Cancel",
       "item": {
+        "removed_label": "Removed",
         "deleting_label": "Deleting {path}.{extension}…",
         "path_label": "Path",
         "path_help": "Used to scope your strings. The path will be used to export all your languages (en/<em>path</em>.format, fr/<em>path</em>.format)"
@@ -559,7 +563,7 @@
         "remove": "Delete string",
         "merge": "Add translations to files",
         "sync": "Sync files",
-        "update_proposed": "Update uploaded text reference:"
+        "update_proposed": "Update uploaded text reference"
       },
       "action_text": {
         "add_to_version": "froze the string in a version:",

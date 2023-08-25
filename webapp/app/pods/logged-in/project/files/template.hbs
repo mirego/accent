@@ -2,7 +2,22 @@
   {{inline-svg '/assets/file.svg'}}
   <h1>{{t 'components.page_title.files'}}</h1>
 
-  <DocumentsExportAll @project={{this.model.project}} />
+  <PageTitle::End>
+    <LinkTo @route='logged-in.project.files.export-all' @model={{this.model.project.id}} class='button button--white button--filled'>
+      {{inline-svg '/assets/export.svg' class='button-icon'}}
+      {{t 'components.documents_list.export_all'}}
+    </LinkTo>
+
+    <button class='button {{if this.excludeEmptyTranslations "button--grey" "button--white"}} button--filled' {{on 'click' this.toggleExcludeEmptyTranslations}}>
+      {{#if this.excludeEmptyTranslations}}
+        {{inline-svg '/assets/eye.svg' class='button-icon'}}
+        {{t 'components.documents_list.show_deleted'}}
+      {{else}}
+        {{inline-svg '/assets/eye.svg' class='button-icon'}}
+        {{t 'components.documents_list.hide_deleted'}}
+      {{/if}}
+    </button>
+  </PageTitle::End>
 </PageTitle>
 
 {{#if this.model.loading}}

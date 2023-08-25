@@ -37,7 +37,7 @@
   user-select: none;
   font-size: 13px;
   color: $ember-power-select-text-color;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   cursor: pointer;
 }
 

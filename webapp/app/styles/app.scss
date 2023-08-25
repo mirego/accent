@@ -171,7 +171,7 @@ html {
   --screen-md: 640px;
   --screen-sm: 440px;
 
-  --border-radius: 3px;
+  --border-radius: 6px;
 
   --accent-hue: 155;
   --accent-saturation: 67%;
@@ -336,7 +336,7 @@ input[type='radio'] {
 }
 
 input[type='checkbox'] {
-  border-radius: 3px;
+  border-radius: var(--border-radius);
 }
 
 input[type='radio'] {
@@ -404,7 +404,7 @@ input[type='radio'] {
     text-transform: none;
     padding: 5px 10px;
     white-space: nowrap;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     background: var(--background-tooltip);
     color: var(--text-color-tooltip);
     text-align: left;

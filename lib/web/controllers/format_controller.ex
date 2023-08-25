@@ -3,6 +3,8 @@ defmodule Accent.FormatController do
 
   import Canary.Plugs
 
+  alias Accent.Translation
+
   plug(Plug.Assign, %{canary_action: :format})
   plug(:load_resource, model: Accent.Project, id_name: "project_id")
   plug(Accent.Plugs.MovementContextParser)
@@ -55,16 +57,7 @@ defmodule Accent.FormatController do
   end
 
   defp fetch_entries(conn, _) do
-    context = conn.assigns[:movement_context]
-
-    entries =
-      case Map.get(conn.params, "order_by") do
-        "-index" -> Enum.reverse(context.entries)
-        "key" -> Enum.sort_by(context.entries, & &1.key)
-        "-key" -> Enum.sort_by(context.entries, & &1.key, &>=/2)
-        _ -> context.entries
-      end
-
+    entries = Translation.maybe_natural_order_by(conn.assigns[:movement_context].entries, Map.get(conn.params, "order_by"))
     assign(conn, :entries, entries)
   end
 

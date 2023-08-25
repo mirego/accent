@@ -35,6 +35,9 @@ export default class FilesController extends Controller {
   @tracked
   page = 1;
 
+  @tracked
+  excludeEmptyTranslations = true;
+
   @equal('model.documents', undefined)
   emptyEntries: boolean;
 
@@ -77,6 +80,11 @@ export default class FilesController extends Controller {
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_UPDATE_SUCCESS));
       this.send('onRefresh');
     }
+  }
+
+  @action
+  toggleExcludeEmptyTranslations() {
+    this.excludeEmptyTranslations = !this.excludeEmptyTranslations;
   }
 
   @action

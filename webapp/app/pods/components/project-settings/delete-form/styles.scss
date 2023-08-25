@@ -14,7 +14,7 @@
 .zone {
   margin-top: 12px;
   padding: 10px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   background: var(--background-light);
   color: var(--color-error);
 }

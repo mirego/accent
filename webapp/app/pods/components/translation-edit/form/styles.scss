@@ -6,7 +6,7 @@
     align-items: center;
     padding: 10px;
     margin-bottom: 3px;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     font-weight: bold;
     font-size: 13px;
     color: #444;
@@ -46,7 +46,7 @@
 .label {
   display: inline-block;
   padding: 5px 8px 4px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   margin-bottom: 5px;
   background: hsl(
     var(--color-blue-hue),
@@ -78,7 +78,7 @@
 .placeholders {
   margin: 0 0 15px;
   padding: 15px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   font-size: 12px;
   background: hsl(
     var(--color-blue-hue),
@@ -135,7 +135,7 @@
 .file-comment {
   margin: 0 0 15px;
   padding: 15px 15px 5px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   font-size: 12px;
   background: var(--background-light);
   color: var(--color-black);

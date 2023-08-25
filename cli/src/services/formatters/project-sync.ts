@@ -21,9 +21,10 @@ export default class ProjectSyncFormatter extends Base {
       ),
       chalk.green('✓')
     );
+    console.log('');
   }
 
-  footerDryRun(time: number) {
+  footerDryRun(time: bigint) {
     console.log('');
     console.log(
       chalk.gray.dim(
@@ -37,7 +38,7 @@ export default class ProjectSyncFormatter extends Base {
     console.log('');
   }
 
-  footer(time: number) {
+  footer(time: bigint) {
     console.log('');
     console.log(
       chalk.gray.dim(
@@ -51,7 +52,7 @@ export default class ProjectSyncFormatter extends Base {
     console.log('');
   }
 
-  formatSyncingTime(time: number) {
+  formatSyncingTime(time: bigint) {
     return this.formatTiming(
       time,
       (count) => `Syncing took ${count} milliseconds,`

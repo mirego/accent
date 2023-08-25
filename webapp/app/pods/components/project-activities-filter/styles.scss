@@ -1,7 +1,7 @@
 :global(.filters).filters {
   margin-top: 20px;
   border: 1px solid var(--content-background-border);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   box-shadow: none;
 }
 

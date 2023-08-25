@@ -1,7 +1,7 @@
 .form {
   margin-bottom: 25px;
   padding: 12px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   background: var(--background-light);
   border: 1px solid var(--background-light-highlight);
 

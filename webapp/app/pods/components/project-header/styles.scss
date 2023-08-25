@@ -27,7 +27,7 @@
   width: 18px;
   height: 18px;
   margin-right: 4px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
 }
 
 .username {
@@ -55,7 +55,7 @@
   transition: 0.2s ease-in-out;
   transition-property: padding, background, border, border-radius, box-shadow;
   border: 1px solid var(--input-border-color);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   background: var(--body-background);
   color: var(--text-color-normal);
 
@@ -66,7 +66,7 @@
   &:focus {
     outline: none;
     border-color: var(--input-border-color);
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     border: 1px solid var(--input-border-color);
     background: var(--input-background);
     padding-right: 40px;

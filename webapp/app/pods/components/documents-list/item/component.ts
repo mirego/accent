@@ -56,6 +56,14 @@ export default class DocumentsListItem extends Component<Args> {
     });
   }
 
+  get empty() {
+    return this.args.document.translationsCount === 0;
+  }
+
+  get showStats() {
+    return !this.empty && !this.isEditing;
+  }
+
   get correctedKeysPercentage() {
     return percentage(
       this.args.document.translationsCount - this.args.document.conflictsCount,

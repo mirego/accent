@@ -52,7 +52,7 @@
   margin-bottom: 10px;
   margin-right: 10px;
   box-shadow: 0 4px 8px var(--shadow-color), 0 5px 15px var(--shadow-color);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   color: var(--color-primary);
   text-decoration: none;
   transition: 0.2s ease-in-out;

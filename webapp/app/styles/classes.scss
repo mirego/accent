@@ -3,7 +3,7 @@
   transition-property: background, border, box-shadow;
   resize: vertical;
   outline: 0;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   border: 2px solid var(--input-border-color);
   background: var(--input-background);
   color: var(--input-color);

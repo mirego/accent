@@ -5,7 +5,7 @@
 .conflict-item {
   padding: 10px;
   margin-bottom: 15px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
 
   &:nth-child(even) {
     background: var(--background-light);

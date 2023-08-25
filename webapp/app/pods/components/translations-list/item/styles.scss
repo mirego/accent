@@ -5,7 +5,7 @@
   margin: 8px 0 4px;
   padding: 10px;
   border: 1px solid transparent;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
 
   &:focus,
   &:hover {

@@ -5,7 +5,7 @@ import Base from './base';
 
 // Types
 interface Stats {
-  time: number;
+  time: bigint;
 }
 
 export default class DocumentFormatFormatter extends Base {
@@ -34,7 +34,7 @@ export default class DocumentFormatFormatter extends Base {
     console.log('');
   }
 
-  formatFormattingTime(time: number) {
+  formatFormattingTime(time: bigint) {
     return this.formatTiming(
       time,
       (count) => `Formatting took ${count} milliseconds`

@@ -85,7 +85,7 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
     %Translation{revision_id: revision.id, document_id: document.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: false} |> Repo.insert!()
     %Translation{revision_id: revision.id, document_id: other_document.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: true} |> Repo.insert!()
 
-    {:ok, result} = Resolver.list_project(project, %{}, %{})
+    {:ok, result} = Resolver.list_project(project, %{exclude_empty_translations: true}, %{})
 
     assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [other_document.id, document.id]
     assert get_in(result, [:entries, Access.all(), Access.key(:translations_count)]) == [1, 1]
@@ -100,7 +100,7 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
       %Document{project_id: project.id, path: "doc-#{i}", format: "json"} |> Repo.insert!()
     end
 
-    {:ok, result} = Resolver.list_project(project, %{}, %{})
+    {:ok, result} = Resolver.list_project(project, %{exclude_empty_translations: true}, %{})
 
     assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [document.id]
     assert get_in(result, [:meta, Access.key(:total_entries)]) == 1

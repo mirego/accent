@@ -7,7 +7,7 @@
     margin-right: 10px;
     border: 1px solid var(--background-light-highlight);
     padding: 4px 6px;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     background: var(--input-background);
     cursor: pointer;
     transition: 0.2s ease-in-out;

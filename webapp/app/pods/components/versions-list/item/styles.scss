@@ -40,7 +40,7 @@
   text-decoration: none;
   background: var(--background-tooltip);
   padding: 1px 3px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
 }
 
 .item-meta {

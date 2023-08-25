@@ -37,7 +37,7 @@
   font-size: 11px;
   background: var(--background-light);
   border: 2px solid var(--background-light-highlight);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   transition-property: border-color, box-shadow;
   transition: 0.3s ease-in-out;
   color: var(--color-black);

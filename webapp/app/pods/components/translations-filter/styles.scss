@@ -54,7 +54,7 @@ button.advancedFilters {
   top: -4px;
   right: -7px;
   background: var(--color-primary);
-  border-radius: 2px;
+  border-radius: var(--border-radius);
   padding: 0 4px 1px;
   color: #fff;
   font-size: 10px;

@@ -234,6 +234,9 @@
     "documents_list": {
       "empty_text": "Les fichiers sont la liste réelle des fichiers de langue principaux de votre projet. Ajoutez-les ici ou depuis la CLI et gardez-les synchronisés avec votre projet.",
       "format": "Format",
+      "export_all": "Tout exporter",
+      "show_deleted": "Voir les fichiers supprimés",
+      "hide_deleted": "Filtrer les fichiers supprimés",
       "review": "À réviser",
       "total": "Le total",
       "sync": "Synchroniser",
@@ -248,6 +251,7 @@
       "save_button": "Sauver",
       "cancel_button": "Annuler",
       "item": {
+        "removed_label": "Supprimé",
         "deleting_label": "Suppression de {path}.{extension}…",
         "path_label": "Chemin",
         "path_help": "Utilisé pour délimiter vos chaînes. Le chemin sera utilisé pour exporter toutes vos langues (en/<em>path</em>.format, fr/<em>path</em>.format)"

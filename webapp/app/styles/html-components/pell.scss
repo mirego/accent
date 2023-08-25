@@ -12,7 +12,7 @@
   position: relative;
   z-index: 2;
   outline: 0;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   border: 2px solid var(--input-border-color);
   background: var(--input-background);
   color: var(--input-color);

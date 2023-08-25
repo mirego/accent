@@ -2,7 +2,7 @@
   padding: 15px;
   border-radius: 0 0 3px 3px;
   background: var(--background-light);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--background-light-highlight);
   margin-top: -2px;
 
@@ -42,7 +42,7 @@
 .queryForm-filters-column {
   display: flex;
   flex-grow: 1;
-  gap: 10px;
+  gap: 6px;
 }
 
 .queryForm-filter {
@@ -51,7 +51,7 @@
 }
 
 .queryForm-filter-label {
-  margin-right: 10px;
+  margin-right: 6px;
   color: var(--color-grey);
   font-size: 12px;
   font-style: italic;

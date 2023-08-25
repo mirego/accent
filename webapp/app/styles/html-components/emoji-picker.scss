@@ -17,7 +17,7 @@ div.emoji-picker__wrapper {
   }
 
   .emoji-picker__variant-popup {
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     box-shadow: 0 3px 10px rgba(#3a3a3a, 0.1);
   }
 

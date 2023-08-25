@@ -63,7 +63,7 @@
   width: 18px;
   height: 18px;
   margin-right: 4px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
 }
 
 .username {

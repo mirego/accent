@@ -16,6 +16,18 @@
 
         <div class='queryForm-filters'>
           <div class='queryForm-filters-column'>
+            {{#if @onChangeAdvancedFilterBoolean}}
+              <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
+                {{inline-svg 'assets/filter.svg' class='button-icon'}}
+                {{t 'components.translations_filter.advanced_filters_button'}}
+
+                {{#if @withAdvancedFilters}}
+                  <span local-class='advancedFilters-badge'>
+                    {{@withAdvancedFilters}}
+                  </span>
+                {{/if}}
+              </button>
+            {{/if}}
             {{#if this.showDocumentsSelect}}
               <div class='queryForm-filter'>
                 <div class='queryForm-filter-select'>
@@ -42,18 +54,6 @@
                   />
                 </div>
               </div>
-            {{/if}}
-            {{#if @onChangeAdvancedFilterBoolean}}
-              <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
-                {{inline-svg 'assets/filter.svg' class='button-icon'}}
-                {{t 'components.translations_filter.advanced_filters_button'}}
-
-                {{#if @withAdvancedFilters}}
-                  <span local-class='advancedFilters-badge'>
-                    {{@withAdvancedFilters}}
-                  </span>
-                {{/if}}
-              </button>
             {{/if}}
           </div>
         </div>

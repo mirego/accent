@@ -14,7 +14,7 @@
   appearance: none;
   border: 0;
   text-decoration: none;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   outline: none;
   cursor: pointer;
   background: none;

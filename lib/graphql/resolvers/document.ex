@@ -45,21 +45,27 @@ defmodule Accent.GraphQL.Resolvers.Document do
     end
   end
 
-  @spec show_project(Project.t(), %{id: String.t()}, GraphQLContext.t()) :: {:ok, Document.t() | nil}
+  @spec show_project(Project.t(), %{id: String.t()}, GraphQLContext.t()) ::
+          {:ok, Document.t() | nil}
   def show_project(project, %{id: id}, _) do
     Document
     |> DocumentScope.from_project(project.id)
-    |> DocumentScope.with_stats()
+    |> DocumentScope.with_stats(exclude_empty_translations: true)
     |> Ecto.Query.where(id: ^id)
     |> Repo.one()
     |> then(&{:ok, &1})
   end
 
-  @spec list_project(Project.t(), %{page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Document.t())}
+  @spec list_project(
+          Project.t(),
+          %{page: number(), exclude_empty_translations: boolean()},
+          GraphQLContext.t()
+        ) ::
+          {:ok, Paginated.t(Document.t())}
   def list_project(project, args, _) do
     Document
     |> DocumentScope.from_project(project.id)
-    |> DocumentScope.with_stats()
+    |> DocumentScope.with_stats(exclude_empty_translations: args.exclude_empty_translations)
     |> Ecto.Query.order_by(desc: :updated_at)
     |> Paginated.paginate(args)
     |> Paginated.format()

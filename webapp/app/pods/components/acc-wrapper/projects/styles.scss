@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 40px auto;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--content-background-border);
   overflow: hidden;
   background: var(--content-background);

@@ -1,6 +1,17 @@
-<li local-class='documents-list-item {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}'>
+<li
+  local-class='documents-list-item {{if this.isEditing "editing"}} {{if this.empty "empty"}} {{if this.lowPercentage "low-percentage"}} {{if
+    this.mediumPercentage
+    "medium-percentage"
+  }} {{if this.highPercentage "high-percentage"}}'
+>
   <form local-class='item-form {{if this.isDeleting "item-form--deleting"}}' {{on 'submit' (fn this.updateDocument)}}>
     <div local-class='item-form-content'>
+
+      {{#if this.empty}}
+        <span local-class='removed-badge'>
+          {{t 'components.documents_list.item.removed_label'}}
+        </span>
+      {{/if}}
       <div local-class='item-form-inputs'>
         <h2 local-class='item-title'>
           {{#if this.isEditing}}
@@ -35,7 +46,7 @@
         </h2>
       </div>
 
-      {{#unless this.isEditing}}
+      {{#if this.showStats}}
         <div local-class='stat'>
           <span local-class='reviewedPercentage'>
             {{this.correctedKeysPercentage}}
@@ -55,7 +66,7 @@
         <div local-class='progress'>
           <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
         </div>
-      {{/unless}}
+      {{/if}}
     </div>
 
     {{#if this.isEditing}}
@@ -68,63 +79,65 @@
         </button>
       </div>
     {{else}}
-      <div local-class='links'>
-        {{#if (get @permissions 'sync')}}
-          <LinkTo
-            @route='logged-in.project.files.sync'
-            @models={{array @project.id @document.id}}
-            local-class='button-sync'
-            title={{t 'components.documents_list.sync'}}
-            class='tooltip tooltip--top button button--filled button--white button--iconOnly'
-          >
-            {{inline-svg '/assets/sync.svg' class='button-icon'}}
-          </LinkTo>
-        {{/if}}
-        {{#if (get @permissions 'merge')}}
-          <LinkTo
-            @route='logged-in.project.files.add-translations'
-            @models={{array @project.id @document.id}}
-            title={{t 'components.documents_list.merge'}}
-            class='tooltip tooltip--top button button--filled button--white button--iconOnly'
-          >
-            {{inline-svg '/assets/merge.svg' class='button-icon'}}
-          </LinkTo>
-        {{/if}}
-        {{#if (get @permissions 'machine_translations_translate')}}
-          <LinkTo
-            @route='logged-in.project.files.machine-translations'
-            @models={{array @project.id @document.id}}
-            title={{t 'components.documents_list.machine_translations'}}
-            class='tooltip tooltip--top button button--filled button--white button--iconOnly'
-          >
-            {{inline-svg '/assets/language.svg' class='button-icon'}}
-          </LinkTo>
-        {{/if}}
-        <LinkTo
-          @route='logged-in.project.files.export'
-          @models={{array @project.id @document.id}}
-          title={{t 'components.documents_list.export'}}
-          class='tooltip tooltip--top button button--filled button--white button--iconOnly'
-        >
-          {{inline-svg '/assets/export.svg' class='button-icon'}}
-        </LinkTo>
-      </div>
-
-      <div local-class='deleteDocumentButton-container'>
-        {{#if (get @permissions 'delete_document')}}
-          {{#if this.canDeleteFile}}
-            <AsyncButton
-              @onClick={{fn this.deleteFile @document}}
-              @loading={{this.isDeleting}}
-              title={{t 'components.documents_list.delete_document'}}
-              class='tooltip tooltip--top button button--small button--red button--borderless button--iconOnly'
-              local-class='deleteDocumentButton'
+      {{#unless this.empty}}
+        <div local-class='links'>
+          {{#if (get @permissions 'sync')}}
+            <LinkTo
+              @route='logged-in.project.files.sync'
+              @models={{array @project.id @document.id}}
+              local-class='button-sync'
+              title={{t 'components.documents_list.sync'}}
+              class='tooltip tooltip--top button button--filled button--white button--iconOnly'
             >
-              {{inline-svg '/assets/x.svg' class='button-icon'}}
-            </AsyncButton>
+              {{inline-svg '/assets/sync.svg' class='button-icon'}}
+            </LinkTo>
           {{/if}}
-        {{/if}}
-      </div>
+          {{#if (get @permissions 'merge')}}
+            <LinkTo
+              @route='logged-in.project.files.add-translations'
+              @models={{array @project.id @document.id}}
+              title={{t 'components.documents_list.merge'}}
+              class='tooltip tooltip--top button button--filled button--white button--iconOnly'
+            >
+              {{inline-svg '/assets/merge.svg' class='button-icon'}}
+            </LinkTo>
+          {{/if}}
+          {{#if (get @permissions 'machine_translations_translate')}}
+            <LinkTo
+              @route='logged-in.project.files.machine-translations'
+              @models={{array @project.id @document.id}}
+              title={{t 'components.documents_list.machine_translations'}}
+              class='tooltip tooltip--top button button--filled button--white button--iconOnly'
+            >
+              {{inline-svg '/assets/language.svg' class='button-icon'}}
+            </LinkTo>
+          {{/if}}
+          <LinkTo
+            @route='logged-in.project.files.export'
+            @models={{array @project.id @document.id}}
+            title={{t 'components.documents_list.export'}}
+            class='tooltip tooltip--top button button--filled button--white button--iconOnly'
+          >
+            {{inline-svg '/assets/export.svg' class='button-icon'}}
+          </LinkTo>
+        </div>
+
+        <div local-class='deleteDocumentButton-container'>
+          {{#if (get @permissions 'delete_document')}}
+            {{#if this.canDeleteFile}}
+              <AsyncButton
+                @onClick={{fn this.deleteFile @document}}
+                @loading={{this.isDeleting}}
+                title={{t 'components.documents_list.delete_document'}}
+                class='tooltip tooltip--top button button--small button--red button--borderless button--iconOnly'
+                local-class='deleteDocumentButton'
+              >
+                {{inline-svg '/assets/x.svg' class='button-icon'}}
+              </AsyncButton>
+            {{/if}}
+          {{/if}}
+        </div>
+      {{/unless}}
     {{/if}}
   </form>
 </li>

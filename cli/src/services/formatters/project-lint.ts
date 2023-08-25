@@ -8,7 +8,7 @@ const MAX_TEXT_SIZE = 30;
 
 // Types
 interface Stats {
-  time: number;
+  time: bigint;
 }
 
 export default class ProjectLintFormatter extends Base {
@@ -80,7 +80,7 @@ export default class ProjectLintFormatter extends Base {
     }
   }
 
-  formatLintingTime(time: number) {
+  formatLintingTime(time: bigint) {
     return this.formatTiming(
       time,
       (count) => `Linting took ${count} milliseconds,`

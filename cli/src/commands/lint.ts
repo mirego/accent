@@ -16,7 +16,7 @@ export default class Lint extends Command {
   async run() {
     const documents = this.projectConfig.files();
     const results: LintTranslation[] = [];
-    const t0 = process.hrtime();
+    const t0 = process.hrtime.bigint();
 
     for (const document of documents) {
       const targets = new DocumentPathsFetcher()
@@ -46,8 +46,8 @@ export default class Lint extends Command {
       }
     }
 
-    const [, t1] = process.hrtime(t0);
-    const stats = {time: t1};
+    const t2 = process.hrtime.bigint();
+    const stats = {time: t2 - t0};
 
     const formatter = new Formatter(results, stats);
 

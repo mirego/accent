@@ -31,14 +31,14 @@
 
 .select {
   position: relative;
-  font-size: 11px;
 
   select {
+    font-size: 11px;
     appearance: none;
     border: 1px solid var(--background-light-highlight);
     background: var(--background-light);
     color: var(--text-color-normal);
-    border-radius: 3px;
+    border-radius: var(--border-radius);
     padding: 2px 15px 2px 4px;
   }
 }

@@ -9,7 +9,7 @@ defmodule Hook.Outbounds.Slack.Templates do
   """
   @new_conflicts_template """
   *<%= @user %>* just added _<%= @new_conflicts_count %> strings_ to review.
-  The project is currently *<%= @reviewed_count / @translations_count %>* reviewed (<%= @reviewed_count %>/<%= @translations_count %>)
+  The project is currently *<%= Float.round(@reviewed_count / @translations_count * 100, 2) %>* reviewed (<%= @reviewed_count %>/<%= @translations_count %>)
   """
   @complete_review_template """
   *<%= @user %>* just finished reviewing all strings!

@@ -38,6 +38,7 @@ export default class Export extends Command {
 
   async run() {
     const {flags} = this.parse(Export);
+    const t0 = process.hrtime.bigint();
     const documents = this.projectConfig.files();
     const formatter = new DocumentExportFormatter();
 
@@ -52,13 +53,13 @@ export default class Export extends Command {
       for (const target of targets) {
         const {path, language, documentPath} = target;
         const localFile = document.fetchLocalFile(documentPath, path);
-        if (!localFile) return new Promise((resolve) => resolve(undefined));
         formatter.log(localFile, documentPath);
 
         await document.export(localFile, language, documentPath, flags);
       }
 
-      formatter.done();
+      const t2 = process.hrtime.bigint();
+      formatter.footer(t2 - t0);
 
       await new HookRunner(document).run(Hooks.afterExport);
     }

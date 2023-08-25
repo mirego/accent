@@ -14,7 +14,7 @@
     border: 1px solid var(--background-light-highlight);
     background: var(--content-background);
     padding: 4px 8px;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
   }
 }
 

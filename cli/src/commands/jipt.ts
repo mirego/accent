@@ -30,6 +30,7 @@ export default class Jipt extends Command {
 
   async run() {
     const {args} = this.parse(Jipt);
+    const t0 = process.hrtime.bigint();
     const documents = this.projectConfig.files();
     const formatter = new DocumentExportFormatter();
 
@@ -51,6 +52,9 @@ export default class Jipt extends Command {
 
         await document.exportJipt(path, documentPath);
       }
+
+      const t2 = process.hrtime.bigint();
+      formatter.footer(t2 - t0);
 
       await new HookRunner(document).run(Hooks.afterExport);
     }

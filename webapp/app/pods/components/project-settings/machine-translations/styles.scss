@@ -6,7 +6,7 @@
 .form {
   margin-top: 25px;
   padding: 16px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   background: var(--background-light);
   border: 1px solid var(--background-light-highlight);
 

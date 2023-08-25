@@ -32,7 +32,7 @@
   padding: 12px 15px;
   transition: 0.2s ease-in-out;
   transition-property: box-shadow;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--content-background-border);
   background: var(--content-background);
   color: var(--color-black);

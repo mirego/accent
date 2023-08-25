@@ -7,7 +7,7 @@
   max-width: 50%;
   margin-bottom: 20px;
   margin-right: 20px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--background-light-highlight);
 
   &:nth-child(even) {
@@ -91,7 +91,7 @@
 
 .reviewedStats {
   padding: 2px 0 1px 7px;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   color: var(--color-grey);
   font-size: 12px;
   font-family: var(--font-monospace);
