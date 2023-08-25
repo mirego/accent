@@ -39,7 +39,7 @@ defmodule AccentTest.Hook.Outbounds.Discord do
 
     received_body =
       Jason.encode!(%{
-        text:
+        content:
           String.trim_trailing("""
           **Test** just synced a file: *foo.json*
 

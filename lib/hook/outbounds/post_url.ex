@@ -7,11 +7,19 @@ defmodule Accent.Hook.Outbounds.PostURL do
 
   require Logger
 
-  def perform(service, context, templates) do
+  def perform(service, context, options) do
     urls = fetch_service_integration_urls(context.project, context.event, service)
-    body = build_body(templates, context)
 
-    post_urls(urls, body, service)
+    if Enum.any?(urls) do
+      templates = options[:templates]
+      http_body = options[:http_body]
+      content = build_content(templates, context)
+      body = http_body.(content)
+
+      post_urls(urls, body, service)
+    else
+      :ok
+    end
   end
 
   defp fetch_service_integration_urls(project, event, service) do
@@ -50,37 +58,27 @@ defmodule Accent.Hook.Outbounds.PostURL do
   defp formatted_diff(diff) when diff > 1000, do: [diff |> div(1000) |> Integer.to_string(), "ms"]
   defp formatted_diff(diff), do: [Integer.to_string(diff), "µs"]
 
-  defp build_body(templates, %{
-         event: "sync",
-         user: user,
-         payload: %{"document_path" => document_path, "batch_operation_stats" => stats}
-       }) do
-    assigns = %{
+  defp build_content(templates, %{event: "sync", user: user, payload: payload}) do
+    templates.sync(%{
       user: User.name_with_fallback(user),
-      document_path: document_path,
-      stats: stats
-    }
-
-    %{text: templates.sync(assigns)}
+      document_path: payload["document_path"],
+      stats: payload["batch_operation_stats"]
+    })
   end
 
-  defp build_body(templates, %{event: "new_conflicts", user: user, payload: payload}) do
-    assigns = %{
+  defp build_content(templates, %{event: "new_conflicts", user: user, payload: payload}) do
+    templates.new_conflicts(%{
       user: User.name_with_fallback(user),
       reviewed_count: payload["reviewed_count"],
       new_conflicts_count: payload["new_conflicts_count"],
       translations_count: payload["translations_count"]
-    }
-
-    %{text: templates.new_conflicts(assigns)}
+    })
   end
 
-  defp build_body(templates, %{event: "complete_review", user: user, payload: payload}) do
-    assigns = %{
+  defp build_content(templates, %{event: "complete_review", user: user, payload: payload}) do
+    templates.complete_review(%{
       user: User.name_with_fallback(user),
       translations_count: payload["translations_count"]
-    }
-
-    %{text: templates.complete_review(assigns)}
+    })
   end
 end

@@ -5,6 +5,11 @@ defmodule Accent.Hook.Outbounds.Slack do
   @impl Oban.Worker
   def perform(%Oban.Job{args: args}) do
     context = Accent.Hook.Context.from_worker(args)
-    Accent.Hook.Outbounds.PostURL.perform("slack", context, Hook.Outbounds.Slack.Templates)
+    http_body = fn content -> %{text: content} end
+
+    Accent.Hook.Outbounds.PostURL.perform("slack", context,
+      http_body: http_body,
+      templates: Hook.Outbounds.Slack.Templates
+    )
   end
 end
