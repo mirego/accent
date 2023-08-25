@@ -1,6 +1,7 @@
 Mox.defmock(Accent.Hook.Inbounds.GitHub.FileServerMock, for: Accent.Hook.Inbounds.GitHub.FileServer)
 
 defmodule Accent.Hook.Inbounds.Mock do
+  @moduledoc false
   use Oban.Worker, queue: :hook
 
   @impl Oban.Worker
@@ -10,6 +11,7 @@ defmodule Accent.Hook.Inbounds.Mock do
 end
 
 defmodule Accent.Hook.Outbounds.Mock do
+  @moduledoc false
   use Oban.Worker, queue: :hook
 
   @impl Oban.Worker

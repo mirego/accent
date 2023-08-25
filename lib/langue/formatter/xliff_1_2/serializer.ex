@@ -1,7 +1,9 @@
 defmodule Langue.Formatter.XLIFF12.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
-  def serialize(%{entries: entries, language: %{slug: slug}, document: %{master_language: master_language, path: path}}) when slug === master_language do
+  def serialize(%{entries: entries, language: %{slug: slug}, document: %{master_language: master_language, path: path}})
+      when slug === master_language do
     file_attributes = [
       original: path,
       datatype: "plaintext",

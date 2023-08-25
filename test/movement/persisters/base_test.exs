@@ -1,24 +1,22 @@
 defmodule AccentTest.Movement.Persisters.Base do
+  @moduledoc false
   use Accent.RepoCase
 
   import Ecto.Query
 
-  alias Accent.{
-    Operation,
-    PreviousTranslation,
-    Project,
-    Repo,
-    Revision,
-    Translation,
-    User,
-    Version
-  }
-
+  alias Accent.Operation
+  alias Accent.PreviousTranslation
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.User
+  alias Accent.Version
   alias Movement.Persisters.Base, as: BasePersister
 
   test "don’t overwrite revision" do
-    revision = %Revision{} |> Repo.insert!()
-    revision_two = %Revision{} |> Repo.insert!()
+    revision = Repo.insert!(%Revision{})
+    revision_two = Repo.insert!(%Revision{})
 
     translation = %Translation{
       key: "a",
@@ -37,11 +35,9 @@ defmodule AccentTest.Movement.Persisters.Base do
       }
     ]
 
-    %Movement.Context{operations: operations, assigns: %{revision: revision_two}}
-    |> BasePersister.execute()
-
-    [updated_translation] = Translation |> Repo.all()
-    [operation] = Operation |> Repo.all()
+    BasePersister.execute(%Movement.Context{operations: operations, assigns: %{revision: revision_two}})
+    [updated_translation] = Repo.all(Translation)
+    [operation] = Repo.all(Operation)
 
     assert operation.action == "new"
     assert operation.key == "a"
@@ -52,9 +48,7 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "persist and execute empty operations" do
-    {context, operations} =
-      %Movement.Context{operations: []}
-      |> BasePersister.execute()
+    {context, operations} = BasePersister.execute(%Movement.Context{operations: []})
 
     assert context.operations == []
     assert operations == []
@@ -62,16 +56,9 @@ defmodule AccentTest.Movement.Persisters.Base do
 
   test "persist and execute operations" do
     user = Repo.insert!(%User{email: "test@test.com"})
-    revision = %Revision{} |> Repo.insert!()
+    revision = Repo.insert!(%Revision{})
 
-    translation =
-      %Translation{
-        key: "a",
-        proposed_text: "A",
-        conflicted: true,
-        revision_id: revision.id
-      }
-      |> Repo.insert!()
+    translation = Repo.insert!(%Translation{key: "a", proposed_text: "A", conflicted: true, revision_id: revision.id})
 
     operations = [
       %Movement.Operation{
@@ -85,8 +72,7 @@ defmodule AccentTest.Movement.Persisters.Base do
       }
     ]
 
-    %Movement.Context{operations: operations, assigns: %{user_id: user.id}}
-    |> BasePersister.execute()
+    BasePersister.execute(%Movement.Context{operations: operations, assigns: %{user_id: user.id}})
 
     operation =
       Operation
@@ -106,17 +92,10 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "new operation with removed translation" do
-    revision = %Revision{} |> Repo.insert!()
+    revision = Repo.insert!(%Revision{})
 
     translation =
-      %Translation{
-        key: "a",
-        proposed_text: "A",
-        conflicted: true,
-        removed: true,
-        revision_id: revision.id
-      }
-      |> Repo.insert!()
+      Repo.insert!(%Translation{key: "a", proposed_text: "A", conflicted: true, removed: true, revision_id: revision.id})
 
     operations = [
       %Movement.Operation{
@@ -130,8 +109,7 @@ defmodule AccentTest.Movement.Persisters.Base do
       }
     ]
 
-    %Movement.Context{operations: operations}
-    |> BasePersister.execute()
+    BasePersister.execute(%Movement.Context{operations: operations})
 
     new_translation =
       Translation
@@ -142,17 +120,10 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "version operation with source translation" do
-    revision = %Revision{} |> Repo.insert!()
+    revision = Repo.insert!(%Revision{})
 
     translation =
-      %Translation{
-        key: "a",
-        revision_id: revision.id,
-        proposed_text: "A",
-        conflicted: true,
-        removed: true
-      }
-      |> Repo.insert!()
+      Repo.insert!(%Translation{key: "a", revision_id: revision.id, proposed_text: "A", conflicted: true, removed: true})
 
     operations = [
       %Movement.Operation{
@@ -164,8 +135,7 @@ defmodule AccentTest.Movement.Persisters.Base do
       }
     ]
 
-    %Movement.Context{operations: operations}
-    |> BasePersister.execute()
+    BasePersister.execute(%Movement.Context{operations: operations})
 
     new_translation =
       Translation
@@ -176,17 +146,10 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "version operation add operation on source translation" do
-    revision = %Revision{} |> Repo.insert!()
+    revision = Repo.insert!(%Revision{})
 
     translation =
-      %Translation{
-        key: "a",
-        revision_id: revision.id,
-        proposed_text: "A",
-        conflicted: true,
-        removed: true
-      }
-      |> Repo.insert!()
+      Repo.insert!(%Translation{key: "a", revision_id: revision.id, proposed_text: "A", conflicted: true, removed: true})
 
     operations = [
       %Movement.Operation{
@@ -198,8 +161,7 @@ defmodule AccentTest.Movement.Persisters.Base do
       }
     ]
 
-    %Movement.Context{operations: operations}
-    |> BasePersister.execute()
+    BasePersister.execute(%Movement.Context{operations: operations})
 
     new_translation =
       Translation
@@ -215,21 +177,20 @@ defmodule AccentTest.Movement.Persisters.Base do
   end
 
   test "update operation add operation on version source translation" do
-    user = %User{email: "user@example.com"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "project"} |> Repo.insert!()
-    revision = %Revision{project_id: project.id} |> Repo.insert!()
-    version = %Version{name: "foo", tag: "0.1", project: project, user: user} |> Repo.insert!()
+    user = Repo.insert!(%User{email: "user@example.com"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "project"})
+    revision = Repo.insert!(%Revision{project_id: project.id})
+    version = Repo.insert!(%Version{name: "foo", tag: "0.1", project: project, user: user})
 
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         revision_id: revision.id,
         proposed_text: "A",
         conflicted: true,
         removed: true,
         version: version
-      }
-      |> Repo.insert!()
+      })
 
     operations = [
       %Movement.Operation{

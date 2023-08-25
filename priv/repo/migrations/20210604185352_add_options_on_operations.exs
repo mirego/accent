@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.AddOptionsOnOperations do
+  @moduledoc false
   use Ecto.Migration
 
   def change do

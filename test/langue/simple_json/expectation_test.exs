@@ -1,7 +1,9 @@
 defmodule LangueTest.Formatter.SimpleJson.Expectation do
+  @moduledoc false
   alias Langue.Entry
 
   defmodule Empty do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render, do: "{}\n"
@@ -9,6 +11,7 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
   end
 
   defmodule SimpleParse do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -35,6 +38,7 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
   end
 
   defmodule SimpleSerialize do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -59,6 +63,7 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
   end
 
   defmodule PlaceholderValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -74,9 +79,27 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "single", value: "Hello, {{username}}.", placeholders: ~w({{username}}), value_type: "string"},
-        %Entry{index: 2, key: "multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}}), value_type: "string"},
-        %Entry{index: 3, key: "duplicate", value: "Hello, {{username}}. Welcome back {{username}}.", placeholders: ~w({{username}} {{username}}), value_type: "string"},
+        %Entry{
+          index: 1,
+          key: "single",
+          value: "Hello, {{username}}.",
+          placeholders: ~w({{username}}),
+          value_type: "string"
+        },
+        %Entry{
+          index: 2,
+          key: "multiple",
+          value: "Hello, {{firstname}} {{lastname}}.",
+          placeholders: ~w({{firstname}} {{lastname}}),
+          value_type: "string"
+        },
+        %Entry{
+          index: 3,
+          key: "duplicate",
+          value: "Hello, {{username}}. Welcome back {{username}}.",
+          placeholders: ~w({{username}} {{username}}),
+          value_type: "string"
+        },
         %Entry{index: 4, key: "empty", value: "Hello, {{}}.", placeholders: ~w({{}}), value_type: "string"}
       ]
     end

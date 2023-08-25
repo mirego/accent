@@ -1,4 +1,5 @@
 defmodule Accent.Prompts.Provider.OpenAI do
+  @moduledoc false
   defstruct config: nil
 
   defimpl Accent.Prompts.Provider do
@@ -10,7 +11,8 @@ defmodule Accent.Prompts.Provider.OpenAI do
     def completions(provider, prompt, user_input) do
       config = provider.config["config"]
 
-      message_prompt = ~s{Following instructions (A) on text (B), respond with new, improved text in the same format without label or wrapping quotes.
+      message_prompt =
+        ~s{Following instructions (A) on text (B), respond with new, improved text in the same format without label or wrapping quotes.
 
       A: """
 #{prompt.content}
@@ -34,6 +36,7 @@ defmodule Accent.Prompts.Provider.OpenAI do
     end
 
     defmodule Auth do
+      @moduledoc false
       @behaviour Tesla.Middleware
 
       @impl Tesla.Middleware

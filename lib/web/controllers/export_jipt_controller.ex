@@ -3,18 +3,15 @@ defmodule Accent.ExportJIPTController do
 
   import Canary.Plugs
 
+  alias Accent.Document
+  alias Accent.Project
+  alias Accent.Repo
   alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: Scope
   alias Accent.Scopes.Version, as: VersionScope
-
-  alias Accent.{
-    Document,
-    Project,
-    Repo,
-    Translation,
-    Version
-  }
+  alias Accent.Translation
+  alias Accent.Version
 
   plug(Plug.Assign, %{canary_action: :export_revision})
   plug(:load_resource, model: Project, id_name: "project_id")
@@ -47,19 +44,14 @@ defmodule Accent.ExportJIPTController do
     #### Error
     - `404` Unknown revision id.
   """
-  def index(conn = %{query_params: %{"inline_render" => "true"}}, _) do
+  def index(%{query_params: %{"inline_render" => "true"}} = conn, _) do
     conn
     |> put_resp_header("content-type", "text/plain")
     |> send_resp(:ok, conn.assigns[:document].render)
   end
 
   def index(conn, _) do
-    file =
-      [
-        System.tmp_dir(),
-        Accent.Utils.SecureRandom.urlsafe_base64(16)
-      ]
-      |> Path.join()
+    file = Path.join([System.tmp_dir(), Accent.Utils.SecureRandom.urlsafe_base64(16)])
 
     :ok = File.write(file, conn.assigns[:document].render)
 
@@ -68,7 +60,7 @@ defmodule Accent.ExportJIPTController do
     |> send_file(:ok, file)
   end
 
-  defp fetch_translations(conn = %{assigns: %{document: document, version: version, project: project}}, _) do
+  defp fetch_translations(%{assigns: %{document: document, version: version, project: project}} = conn, _) do
     revision =
       project
       |> Ecto.assoc(:revisions)
@@ -87,7 +79,7 @@ defmodule Accent.ExportJIPTController do
     assign(conn, :translations, translations)
   end
 
-  defp fetch_document(conn = %{params: params, assigns: %{project: project}}, _) do
+  defp fetch_document(%{params: params, assigns: %{project: project}} = conn, _) do
     Document
     |> DocumentScope.from_project(project.id)
     |> DocumentScope.from_path(params["document_path"])
@@ -102,7 +94,7 @@ defmodule Accent.ExportJIPTController do
     end
   end
 
-  defp fetch_version(conn = %{params: %{"version" => version_param}, assigns: %{project: project}}, _) do
+  defp fetch_version(%{params: %{"version" => version_param}, assigns: %{project: project}} = conn, _) do
     Version
     |> VersionScope.from_project(project.id)
     |> VersionScope.from_tag(version_param)
@@ -118,7 +110,10 @@ defmodule Accent.ExportJIPTController do
 
   defp fetch_version(conn, _), do: assign(conn, :version, nil)
 
-  defp fetch_rendered_document(conn = %{assigns: %{project: project, translations: translations, document: document}}, _) do
+  defp fetch_rendered_document(
+         %{assigns: %{project: project, translations: translations, document: document}} = conn,
+         _
+       ) do
     project = Repo.preload(project, revisions: :language)
     revision = Enum.at(project.revisions, 0)
 

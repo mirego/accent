@@ -1,15 +1,13 @@
 defmodule AccentTest.Movement.Builders.RevisionSync do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{
-    Document,
-    Language,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User
-  }
-
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
   alias Movement.Builders.RevisionSync, as: RevisionSyncBuilder
   alias Movement.Context
 
@@ -18,7 +16,10 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -27,13 +28,7 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
 
   test "builder fetch translations and use comparer", %{revision: revision, document: document} do
     translation =
-      %Translation{
-        key: "a",
-        proposed_text: "A",
-        revision_id: revision.id,
-        document_id: document.id
-      }
-      |> Repo.insert!()
+      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
 
     entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 
@@ -44,8 +39,8 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
       |> Context.assign(:revision, revision)
       |> RevisionSyncBuilder.build()
 
-    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.get(&1, :action))
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+    operations = Enum.map(context.operations, &Map.get(&1, :action))
 
     assert translation_ids === [translation.id]
     assert operations === ["conflict_on_proposed"]
@@ -53,13 +48,7 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
 
   test "builder fetch translations and process to remove with empty entries", %{revision: revision, document: document} do
     translation =
-      %Translation{
-        key: "a",
-        proposed_text: "A",
-        revision_id: revision.id,
-        document_id: document.id
-      }
-      |> Repo.insert!()
+      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
 
     context =
       %Context{entries: []}
@@ -68,8 +57,8 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
       |> Context.assign(:revision, revision)
       |> RevisionSyncBuilder.build()
 
-    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.get(&1, :action))
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+    operations = Enum.map(context.operations, &Map.get(&1, :action))
 
     assert translation_ids === [translation.id]
     assert operations === ["remove"]
@@ -77,14 +66,13 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
 
   test "builder fetch translations and process to renew with entries", %{revision: revision, document: document} do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         proposed_text: "A",
         revision_id: revision.id,
         document_id: document.id,
         removed: true
-      }
-      |> Repo.insert!()
+      })
 
     entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 
@@ -95,8 +83,8 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
       |> Context.assign(:revision, revision)
       |> RevisionSyncBuilder.build()
 
-    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.get(&1, :action))
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+    operations = Enum.map(context.operations, &Map.get(&1, :action))
 
     assert translation_ids === [translation.id]
     assert operations === ["renew"]

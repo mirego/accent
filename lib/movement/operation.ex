@@ -1,4 +1,5 @@
 defmodule Movement.Operation do
+  @moduledoc false
   defstruct action: nil,
             key: nil,
             text: nil,

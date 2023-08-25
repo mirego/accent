@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Response do
+  @moduledoc false
   alias AbsintheErrorPayload.ValidationMessage
 
   @type t :: {:ok, nil | map() | list() | {:error, String.t()}}
@@ -38,14 +39,11 @@ defmodule Accent.GraphQL.Response do
 
   def build({:error, %ValidationMessage{} = error}), do: {:ok, error}
 
-  def build({:error, %{field: field, code: code}}),
-    do: {:ok, %ValidationMessage{field: field, code: code}}
+  def build({:error, %{field: field, code: code}}), do: {:ok, %ValidationMessage{field: field, code: code}}
 
-  def build({:error, %{code: code, message: message}}),
-    do: {:ok, %ValidationMessage{code: code, message: message}}
+  def build({:error, %{code: code, message: message}}), do: {:ok, %ValidationMessage{code: code, message: message}}
 
-  def build({:error, error}) when is_binary(error),
-    do: {:ok, %ValidationMessage{code: error}}
+  def build({:error, error}) when is_binary(error), do: {:ok, %ValidationMessage{code: error}}
 
   def build(_), do: {:ok, {:error, "internal server error"}}
 end

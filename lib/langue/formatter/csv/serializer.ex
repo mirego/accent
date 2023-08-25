@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.CSV.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   def serialize(%{entries: entries}) do

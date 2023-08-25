@@ -1,16 +1,14 @@
 defmodule AccentTest.Movement.Builders.NewVersion do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{
-    Document,
-    Language,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User,
-    Version
-  }
-
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
+  alias Accent.Version
   alias Movement.Builders.NewVersion, as: NewVersionBuilder
 
   @user %User{email: "test@test.com"}
@@ -18,7 +16,10 @@ defmodule AccentTest.Movement.Builders.NewVersion do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -27,7 +28,7 @@ defmodule AccentTest.Movement.Builders.NewVersion do
 
   test "builder fetch translations and process operations", %{revision: revision, project: project, document: document} do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -37,16 +38,20 @@ defmodule AccentTest.Movement.Builders.NewVersion do
         locked: true,
         revision_id: revision.id,
         document_id: document.id
-      }
-      |> Repo.insert!()
+      })
 
     context =
       %Movement.Context{}
       |> Movement.Context.assign(:project, project)
       |> NewVersionBuilder.build()
 
-    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index, :plural, :locked]))
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+
+    operations =
+      Enum.map(
+        context.operations,
+        &Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index, :plural, :locked])
+      )
 
     assert translation_ids === [translation.id]
 
@@ -65,10 +70,10 @@ defmodule AccentTest.Movement.Builders.NewVersion do
   end
 
   test "builder with existing version", %{revision: revision, project: project, document: document, user: user} do
-    version = %Version{user_id: user.id, tag: "v3.2", name: "Release", project_id: project.id} |> Repo.insert!()
+    version = Repo.insert!(%Version{user_id: user.id, tag: "v3.2", name: "Release", project_id: project.id})
 
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -76,10 +81,9 @@ defmodule AccentTest.Movement.Builders.NewVersion do
         file_comment: "comment",
         revision_id: revision.id,
         document_id: document.id
-      }
-      |> Repo.insert!()
+      })
 
-    %Translation{
+    Repo.insert!(%Translation{
       key: "a",
       proposed_text: "A",
       corrected_text: "A",
@@ -89,16 +93,17 @@ defmodule AccentTest.Movement.Builders.NewVersion do
       version_id: version.id,
       document_id: document.id,
       source_translation_id: translation.id
-    }
-    |> Repo.insert!()
+    })
 
     context =
       %Movement.Context{}
       |> Movement.Context.assign(:project, project)
       |> NewVersionBuilder.build()
 
-    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index]))
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+
+    operations =
+      Enum.map(context.operations, &Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index]))
 
     assert translation_ids === [translation.id]
 

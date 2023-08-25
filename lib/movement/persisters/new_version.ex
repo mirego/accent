@@ -1,7 +1,9 @@
 defmodule Movement.Persisters.NewVersion do
+  @moduledoc false
   @behaviour Movement.Persister
 
-  alias Accent.{Repo, Version}
+  alias Accent.Repo
+  alias Accent.Version
   alias Movement.Persisters.Base, as: BasePersister
 
   @batch_action "create_version"
@@ -15,7 +17,7 @@ defmodule Movement.Persisters.NewVersion do
     end)
   end
 
-  defp assign_new_version(context = %Movement.Context{assigns: assigns}) do
+  defp assign_new_version(%Movement.Context{assigns: assigns} = context) do
     %Version{}
     |> Version.changeset(%{
       "project_id" => assigns[:project].id,

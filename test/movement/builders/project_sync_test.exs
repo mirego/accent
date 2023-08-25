@@ -1,16 +1,14 @@
 defmodule AccentTest.Movement.Builders.ProjectSync do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{
-    Document,
-    Language,
-    ProjectCreator,
-    Repo,
-    Revision,
-    Translation,
-    User
-  }
-
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.User
   alias Movement.Builders.ProjectSync, as: ProjectSyncBuilder
   alias Movement.Context
 
@@ -20,7 +18,10 @@ defmodule AccentTest.Movement.Builders.ProjectSync do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
     other_language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     other_revision = Repo.insert!(%Revision{master: false, project_id: project.id, language_id: other_language.id})
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
@@ -28,31 +29,15 @@ defmodule AccentTest.Movement.Builders.ProjectSync do
     {:ok, [revision: revision, document: document, project: project, other_revision: other_revision]}
   end
 
-  test "builder fetch translations and use process operations", %{revision: revision, document: document, project: project, other_revision: other_revision} do
-    %Translation{
-      key: "a",
-      proposed_text: "A",
-      revision_id: revision.id,
-      document_id: document.id
-    }
-    |> Repo.insert!()
-
-    %Translation{
-      key: "b",
-      proposed_text: "B",
-      revision_id: revision.id,
-      document_id: document.id
-    }
-    |> Repo.insert!()
-
-    %Translation{
-      key: "a",
-      proposed_text: "C",
-      revision_id: other_revision.id,
-      document_id: document.id
-    }
-    |> Repo.insert!()
-
+  test "builder fetch translations and use process operations", %{
+    revision: revision,
+    document: document,
+    project: project,
+    other_revision: other_revision
+  } do
+    Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
+    Repo.insert!(%Translation{key: "b", proposed_text: "B", revision_id: revision.id, document_id: document.id})
+    Repo.insert!(%Translation{key: "a", proposed_text: "C", revision_id: other_revision.id, document_id: document.id})
     entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 
     context =
@@ -69,7 +54,7 @@ defmodule AccentTest.Movement.Builders.ProjectSync do
       |> Context.assign(:document, document)
       |> ProjectSyncBuilder.build()
 
-    operations = context.operations |> Enum.map(&Map.get(&1, :action))
+    operations = Enum.map(context.operations, &Map.get(&1, :action))
 
     assert operations === ["conflict_on_proposed", "remove", "conflict_on_slave"]
   end

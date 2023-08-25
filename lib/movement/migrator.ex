@@ -18,41 +18,43 @@ defmodule Movement.Migrator do
 
   # Inserts operations by batch of 500 to prevent parameters
   # overflow in database adapter
-  @operations_chunk 500
+  alias Accent.Repo
+  alias Movement.Migration.Conflict
+  alias Movement.Migration.Rollback
+  alias Movement.Migration.Translation
 
   require Ecto.Query
 
-  alias Accent.Repo
-  alias Movement.Migration.{Conflict, Rollback, Translation}
+  @operations_chunk 500
 
   def down(operations), do: persist(Enum.map(List.wrap(operations), &do_down/1))
   def up(operations), do: persist(Enum.map(List.wrap(operations), &do_up/1))
 
   defp do_up(%{action: "noop"}), do: []
   defp do_up(%{action: "autocorrect"}), do: []
-  defp do_up(operation = %{action: "correct_conflict"}), do: Conflict.call(:correct, operation)
-  defp do_up(operation = %{action: "uncorrect_conflict"}), do: Conflict.call(:uncorrect, operation)
-  defp do_up(operation = %{action: "conflict_on_proposed"}), do: Conflict.call(:on_proposed, operation)
-  defp do_up(operation = %{action: "merge_on_proposed"}), do: Conflict.call(:on_proposed, operation)
-  defp do_up(operation = %{action: "merge_on_proposed_force"}), do: Conflict.call(:on_proposed, operation)
-  defp do_up(operation = %{action: "merge_on_corrected_force"}), do: Conflict.call(:on_proposed, operation)
-  defp do_up(operation = %{action: "conflict_on_slave"}), do: Conflict.call(:on_slave, operation)
-  defp do_up(operation = %{action: "conflict_on_corrected"}), do: Conflict.call(:on_corrected, operation)
-  defp do_up(operation = %{action: "merge_on_corrected"}), do: Conflict.call(:on_corrected, operation)
-  defp do_up(operation = %{action: "remove"}), do: Translation.call(:remove, operation)
-  defp do_up(operation = %{action: "update"}), do: Translation.call(:update, operation)
-  defp do_up(operation = %{action: "update_proposed"}), do: Translation.call(:update_proposed, operation)
-  defp do_up(operation = %{action: "version_new"}), do: Translation.call(:version_new, operation)
-  defp do_up(operation = %{action: "new"}), do: Translation.call(:new, operation)
-  defp do_up(operation = %{action: "renew"}), do: Translation.call(:renew, operation)
-  defp do_up(operation = %{action: "rollback"}), do: Translation.call(:restore, operation)
+  defp do_up(%{action: "correct_conflict"} = operation), do: Conflict.call(:correct, operation)
+  defp do_up(%{action: "uncorrect_conflict"} = operation), do: Conflict.call(:uncorrect, operation)
+  defp do_up(%{action: "conflict_on_proposed"} = operation), do: Conflict.call(:on_proposed, operation)
+  defp do_up(%{action: "merge_on_proposed"} = operation), do: Conflict.call(:on_proposed, operation)
+  defp do_up(%{action: "merge_on_proposed_force"} = operation), do: Conflict.call(:on_proposed, operation)
+  defp do_up(%{action: "merge_on_corrected_force"} = operation), do: Conflict.call(:on_proposed, operation)
+  defp do_up(%{action: "conflict_on_slave"} = operation), do: Conflict.call(:on_slave, operation)
+  defp do_up(%{action: "conflict_on_corrected"} = operation), do: Conflict.call(:on_corrected, operation)
+  defp do_up(%{action: "merge_on_corrected"} = operation), do: Conflict.call(:on_corrected, operation)
+  defp do_up(%{action: "remove"} = operation), do: Translation.call(:remove, operation)
+  defp do_up(%{action: "update"} = operation), do: Translation.call(:update, operation)
+  defp do_up(%{action: "update_proposed"} = operation), do: Translation.call(:update_proposed, operation)
+  defp do_up(%{action: "version_new"} = operation), do: Translation.call(:version_new, operation)
+  defp do_up(%{action: "new"} = operation), do: Translation.call(:new, operation)
+  defp do_up(%{action: "renew"} = operation), do: Translation.call(:renew, operation)
+  defp do_up(%{action: "rollback"} = operation), do: Translation.call(:restore, operation)
 
   defp do_down(%{action: "noop"}), do: []
   defp do_down(%{action: "autocorrect"}), do: []
-  defp do_down(operation = %{action: "new"}), do: Rollback.call(:new, operation)
-  defp do_down(operation = %{action: "renew"}), do: Rollback.call(:new, operation)
-  defp do_down(operation = %{action: "remove"}), do: Rollback.call(:remove, operation)
-  defp do_down(operation = %{action: _}), do: Rollback.call(:restore, operation)
+  defp do_down(%{action: "new"} = operation), do: Rollback.call(:new, operation)
+  defp do_down(%{action: "renew"} = operation), do: Rollback.call(:new, operation)
+  defp do_down(%{action: "remove"} = operation), do: Rollback.call(:remove, operation)
+  defp do_down(%{action: _} = operation), do: Rollback.call(:restore, operation)
 
   defp persist(operations) do
     operations = List.flatten(operations)
@@ -105,7 +107,10 @@ defmodule Movement.Migrator do
 
   defp migrate_update_all_dynamic_operations(operations) do
     operations
-    |> Enum.group_by(fn {schema, _struct_id, types, fields, _values} -> {schema, types, fields} end, &{elem(&1, 1), elem(&1, 4)})
+    |> Enum.group_by(
+      fn {schema, _struct_id, types, fields, _values} -> {schema, types, fields} end,
+      &{elem(&1, 1), elem(&1, 4)}
+    )
     |> Enum.map(fn {{schema, types, fields}, records} ->
       records
       |> Enum.chunk_every(@operations_chunk)

@@ -1,4 +1,5 @@
 defmodule Accent.Lint.Checks.PlaceholderCount do
+  @moduledoc false
   alias Accent.Lint.Message
 
   @regex Langue.placeholder_regex()

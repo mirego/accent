@@ -1,4 +1,5 @@
 defmodule Accent.TelemetryUI.EctoPSQLExtras do
+  @moduledoc false
   use TelemetryUI.Metrics
 
   @queries [
@@ -60,8 +61,7 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
   end
 
   @doc false
-  def format_value({%struct{} = value, _}) when struct in [Decimal, Postgrex.Interval],
-    do: struct.to_string(value)
+  def format_value({%struct{} = value, _}) when struct in [Decimal, Postgrex.Interval], do: struct.to_string(value)
 
   def format_value({nil, _}), do: ""
   def format_value({number, :percent}), do: format_percent(number)

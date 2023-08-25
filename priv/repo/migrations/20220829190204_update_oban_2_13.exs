@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.UpdateOban213 do
+  @moduledoc false
   use Ecto.Migration
 
   def up do

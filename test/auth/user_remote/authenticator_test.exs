@@ -1,15 +1,13 @@
 defmodule AccentTest.UserRemote.Authenticator do
+  @moduledoc false
   use Accent.RepoCase
 
+  alias Accent.Collaborator
+  alias Accent.Language
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
   alias Accent.UserRemote.Authenticator
-
-  alias Accent.{
-    Collaborator,
-    Language,
-    Project,
-    Repo,
-    User
-  }
 
   test "grant token new user" do
     {:ok, token} = Authenticator.authenticate(%{provider: :dummy, info: %{email: "test@example.com"}})
@@ -27,10 +25,17 @@ defmodule AccentTest.UserRemote.Authenticator do
   end
 
   test "normalize collaborators with email" do
-    assigner = %User{email: "foo@example.com"} |> Repo.insert!()
-    language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "My project", language_id: language.id} |> Repo.insert!()
-    collaborator = %Collaborator{project_id: project.id, role: "admin", assigner_id: assigner.id, email: "test@example.com"} |> Repo.insert!()
+    assigner = Repo.insert!(%User{email: "foo@example.com"})
+    language = Repo.insert!(%Language{name: "french"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project", language_id: language.id})
+
+    collaborator =
+      Repo.insert!(%Collaborator{
+        project_id: project.id,
+        role: "admin",
+        assigner_id: assigner.id,
+        email: "test@example.com"
+      })
 
     {:ok, _token} = Authenticator.authenticate(%{provider: :dummy, info: %{email: "test@example.com"}})
     user = Repo.get_by(User, email: "test@example.com")
@@ -40,10 +45,17 @@ defmodule AccentTest.UserRemote.Authenticator do
   end
 
   test "normalize collaborators with uppercased email" do
-    assigner = %User{email: "foo@example.com"} |> Repo.insert!()
-    language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "My project", language_id: language.id} |> Repo.insert!()
-    collaborator = %Collaborator{project_id: project.id, role: "admin", assigner_id: assigner.id, email: "test@example.com"} |> Repo.insert!()
+    assigner = Repo.insert!(%User{email: "foo@example.com"})
+    language = Repo.insert!(%Language{name: "french"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project", language_id: language.id})
+
+    collaborator =
+      Repo.insert!(%Collaborator{
+        project_id: project.id,
+        role: "admin",
+        assigner_id: assigner.id,
+        email: "test@example.com"
+      })
 
     {:ok, _token} = Authenticator.authenticate(%{provider: :dummy, info: %{email: "TeSt@eXamPle.com"}})
     user = Repo.get_by(User, email: "test@example.com")

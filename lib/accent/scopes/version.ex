@@ -1,4 +1,5 @@
 defmodule Accent.Scopes.Version do
+  @moduledoc false
   import Ecto.Query, only: [from: 2]
 
   alias Accent.Repo

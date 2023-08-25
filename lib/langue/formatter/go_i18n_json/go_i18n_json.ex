@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.GoI18nJson do
+  @moduledoc false
   use Langue.Formatter,
     id: "go_i18n_json",
     display_name: "Go I18n JSON",

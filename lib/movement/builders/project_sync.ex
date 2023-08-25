@@ -1,14 +1,14 @@
 defmodule Movement.Builders.ProjectSync do
+  @moduledoc false
   @behaviour Movement.Builder
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Scopes.Revision, as: RevisionScope
   alias Movement.Builders.RevisionSync, as: RevisionSyncBuilder
   alias Movement.Builders.SlaveConflictSync, as: SlaveConflictSyncBuilder
-
-  alias Accent.Scopes.Revision, as: RevisionScope
-
-  alias Accent.{Repo, Revision}
 
   @batch_action "sync"
 
@@ -21,7 +21,7 @@ defmodule Movement.Builders.ProjectSync do
     |> assign(:revision, nil)
   end
 
-  defp generate_operations(context = %Movement.Context{assigns: assigns}) do
+  defp generate_operations(%Movement.Context{assigns: assigns} = context) do
     master_revision =
       Revision
       |> RevisionScope.from_project(assigns[:project].id)

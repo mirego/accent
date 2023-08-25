@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Es6Module do
+  @moduledoc false
   use Langue.Formatter,
     id: "es6_module",
     display_name: "ES6 module",

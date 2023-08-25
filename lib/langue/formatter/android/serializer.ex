@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Android.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   @xml_template """
@@ -43,13 +44,11 @@ defmodule Langue.Formatter.Android.Serializer do
   end
 
   defp parse_line(%{key: key, value: value, value_type: "array"}, acc) do
-    acc
-    |> add_array_item(key, value)
+    add_array_item(acc, key, value)
   end
 
   defp parse_line(%{key: key, value: value, plural: true}, acc) do
-    acc
-    |> add_plural_item(key, value)
+    add_plural_item(acc, key, value)
   end
 
   defp parse_line(%{key: key, value: value, comment: comment}, acc) when is_nil(comment) or comment === "" do
@@ -78,7 +77,9 @@ defmodule Langue.Formatter.Android.Serializer do
   end
 
   defp add_comment(acc, comment), do: Map.put(acc, :lines, Enum.concat(acc.lines, [{:comment, comment}]))
-  defp add_string(acc, key, value), do: Map.put(acc, :lines, Enum.concat(acc.lines, [xml_element("string", [{"name", key}], value)]))
+
+  defp add_string(acc, key, value),
+    do: Map.put(acc, :lines, Enum.concat(acc.lines, [xml_element("string", [{"name", key}], value)]))
 
   defp add_array_item(acc, key, value) do
     acc
@@ -90,11 +91,14 @@ defmodule Langue.Formatter.Android.Serializer do
     quantity_key = String.replace(key, ~r/.+\./, "")
 
     acc
-    |> Map.put(:current_plural, Enum.concat(acc[:current_plural], [xml_element("item", [quantity: quantity_key], value)]))
+    |> Map.put(
+      :current_plural,
+      Enum.concat(acc[:current_plural], [xml_element("item", [quantity: quantity_key], value)])
+    )
     |> Map.put(:current_plural_key, acc.current_array_key || key)
   end
 
-  defp maybe_add_array_items(acc = %{current_array: array}) when array == [], do: acc
+  defp maybe_add_array_items(%{current_array: array} = acc) when array == [], do: acc
 
   defp maybe_add_array_items(acc) do
     key = String.replace(acc[:current_array_key], ".__KEY__0", "")
@@ -105,7 +109,7 @@ defmodule Langue.Formatter.Android.Serializer do
     |> Map.put(:lines, Enum.concat(acc[:lines], [xml_element("string-array", [{"name", key}], acc[:current_array])]))
   end
 
-  defp maybe_add_plural_items(acc = %{current_plural: plural}) when plural == [], do: acc
+  defp maybe_add_plural_items(%{current_plural: plural} = acc) when plural == [], do: acc
 
   defp maybe_add_plural_items(acc) do
     key = String.replace(acc[:current_plural_key], ~r/\..+/, "")

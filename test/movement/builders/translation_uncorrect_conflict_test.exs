@@ -1,4 +1,5 @@
 defmodule AccentTest.Movement.Builders.TranslationUncorrectConflict do
+  @moduledoc false
   use Accent.RepoCase
 
   alias Movement.Builders.TranslationUncorrectConflict, as: TranslationUncorrectConflictBuilder
@@ -14,7 +15,7 @@ defmodule AccentTest.Movement.Builders.TranslationUncorrectConflict do
       |> Movement.Context.assign(:translation, translation)
       |> TranslationUncorrectConflictBuilder.build()
 
-    operations = context.operations |> Enum.map(&Map.take(&1, [:key, :action]))
+    operations = Enum.map(context.operations, &Map.take(&1, [:key, :action]))
 
     assert operations === [
              %{

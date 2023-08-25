@@ -1,4 +1,5 @@
 defmodule Accent.Translation do
+  @moduledoc false
   use Accent.Schema
 
   schema "translations" do

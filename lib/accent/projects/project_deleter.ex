@@ -1,4 +1,5 @@
 defmodule Accent.ProjectDeleter do
+  @moduledoc false
   alias Accent.Repo
 
   def delete(project: project) do

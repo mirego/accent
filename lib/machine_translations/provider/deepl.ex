@@ -1,7 +1,11 @@
 defmodule Accent.MachineTranslations.Provider.Deepl do
+  @moduledoc false
   defstruct config: nil
 
   defimpl Accent.MachineTranslations.Provider do
+    alias Accent.MachineTranslations.TranslatedText
+    alias Tesla.Middleware
+
     @supported_languages ~w(
       bg
       cs
@@ -34,18 +38,17 @@ defmodule Accent.MachineTranslations.Provider.Deepl do
       zh
     )
 
-    alias Accent.MachineTranslations.TranslatedText
-    alias Tesla.Middleware
-
     def id(_), do: :deepl
 
     def enabled?(%{config: %{"key" => key}}), do: not is_nil(key)
     def enabled?(_), do: false
 
     def translate(provider, contents, source, target) do
-      with {:ok, {source, target}} <- Accent.MachineTranslations.map_source_and_target(source, target, @supported_languages),
+      with {:ok, {source, target}} <-
+             Accent.MachineTranslations.map_source_and_target(source, target, @supported_languages),
            params = %{text: contents, source_lang: String.upcase(source), target_lang: String.upcase(target)},
-           {:ok, %{body: %{"translations" => translations}}} <- Tesla.post(client(provider.config["key"]), "translate", params) do
+           {:ok, %{body: %{"translations" => translations}}} <-
+             Tesla.post(client(provider.config["key"]), "translate", params) do
         {:ok, Enum.map(translations, &%TranslatedText{text: &1["text"]})}
       else
         {:ok, %{status: status, body: body}} when status > 201 ->
@@ -57,6 +60,7 @@ defmodule Accent.MachineTranslations.Provider.Deepl do
     end
 
     defmodule Auth do
+      @moduledoc false
       @behaviour Tesla.Middleware
 
       @impl Tesla.Middleware

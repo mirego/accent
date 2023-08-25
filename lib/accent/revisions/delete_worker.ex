@@ -1,4 +1,5 @@
 defmodule Accent.Revisions.DeleteWorker do
+  @moduledoc false
   use Oban.Worker, queue: :operations
 
   alias Accent.Repo

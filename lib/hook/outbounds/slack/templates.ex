@@ -1,4 +1,5 @@
 defmodule Hook.Outbounds.Slack.Templates do
+  @moduledoc false
   require EEx
 
   @sync_template """

@@ -1,12 +1,11 @@
 defmodule Accent.GraphQL.Resolvers.Integration do
+  @moduledoc false
   import Accent.GraphQL.Response
 
-  alias Accent.{
-    Integration,
-    IntegrationManager,
-    Plugs.GraphQLContext,
-    Project
-  }
+  alias Accent.Integration
+  alias Accent.IntegrationManager
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
 
   @typep integration_operation :: Accent.GraphQL.Response.t()
 

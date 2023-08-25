@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.LaravelPhp.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   alias Langue.Utils.NestedSerializerHelper

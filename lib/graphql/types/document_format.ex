@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.DocumentFormat do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   enum :document_format do

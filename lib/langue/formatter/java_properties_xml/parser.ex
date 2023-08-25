@@ -1,7 +1,9 @@
 defmodule Langue.Formatter.JavaPropertiesXml.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Utils.{LineByLineHelper, Placeholders}
+  alias Langue.Utils.LineByLineHelper
+  alias Langue.Utils.Placeholders
 
   @header """
   <?xml version="1.0" encoding="UTF-8" standalone="no"?>

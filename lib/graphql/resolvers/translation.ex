@@ -1,23 +1,20 @@
 defmodule Accent.GraphQL.Resolvers.Translation do
-  require Ecto.Query
-  alias Ecto.Query
-
+  @moduledoc false
+  alias Accent.GraphQL.Paginated
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
   alias Accent.Scopes.Translation, as: TranslationScope
-
+  alias Accent.Translation
+  alias Ecto.Query
   alias Movement.Builders.TranslationCorrectConflict, as: TranslationCorrectConflictBuilder
   alias Movement.Builders.TranslationUncorrectConflict, as: TranslationUncorrectConflictBuilder
   alias Movement.Builders.TranslationUpdate, as: TranslationUpdateBuilder
   alias Movement.Context
   alias Movement.Persisters.Base, as: BasePersister
 
-  alias Accent.{
-    GraphQL.Paginated,
-    Plugs.GraphQLContext,
-    Project,
-    Repo,
-    Revision,
-    Translation
-  }
+  require Ecto.Query
 
   @internal_nested_separator ~r/__KEY__(\d+)/
   @typep translation_operation :: {:ok, %{translation: Translation.t() | nil, errors: [String.t()] | nil}}
@@ -37,7 +34,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> Context.assign(:text, text)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> TranslationCorrectConflictBuilder.build()
-    |> (&fn -> BasePersister.execute(&1) end).()
+    |> then(&fn -> BasePersister.execute(&1) end)
     |> Repo.transaction()
     |> case do
       {:ok, {_context, _}} ->
@@ -60,7 +57,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> Context.assign(:translation, translation)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> TranslationUncorrectConflictBuilder.build()
-    |> (&fn -> BasePersister.execute(&1) end).()
+    |> then(&fn -> BasePersister.execute(&1) end)
     |> Repo.transaction()
     |> case do
       {:ok, {_context, _}} ->
@@ -84,7 +81,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> Context.assign(:text, text)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> TranslationUpdateBuilder.build()
-    |> (&fn -> BasePersister.execute(&1) end).()
+    |> then(&fn -> BasePersister.execute(&1) end)
     |> Repo.transaction()
     |> case do
       {:ok, {_context, [translation]}} ->

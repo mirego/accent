@@ -1,4 +1,5 @@
 defmodule Movement.Persisters.ProjectStateChangeWorker do
+  @moduledoc false
   use Oban.Worker, queue: :hook
 
   import Ecto.Query
@@ -20,7 +21,8 @@ defmodule Movement.Persisters.ProjectStateChangeWorker do
         payload: %{
           reviewed_count: current_project_state.project.reviewed_count,
           translations_count: current_project_state.project.translations_count,
-          new_conflicts_count: current_project_state.project.conflicts_count - args.previous_project_state.project.conflicts_count
+          new_conflicts_count:
+            current_project_state.project.conflicts_count - args.previous_project_state.project.conflicts_count
         }
       })
     end

@@ -1,4 +1,5 @@
 defmodule Accent.MachineTranslations.Provider.NotImplemented do
+  @moduledoc false
   defstruct config: nil
 
   defimpl Accent.MachineTranslations.Provider do

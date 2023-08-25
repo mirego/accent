@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.AddLockFileOperationsForProjects do
+  @moduledoc false
   use Ecto.Migration
 
   def change do

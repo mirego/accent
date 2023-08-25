@@ -1,8 +1,9 @@
 defmodule Accent.GraphQL.Mutations.Integration do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
-  import Accent.GraphQL.Helpers.Authorization
   import AbsintheErrorPayload.Payload
+  import Accent.GraphQL.Helpers.Authorization
 
   alias Accent.GraphQL.Resolvers.Integration, as: IntegrationResolver
 

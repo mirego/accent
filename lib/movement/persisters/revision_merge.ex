@@ -1,4 +1,5 @@
 defmodule Movement.Persisters.RevisionMerge do
+  @moduledoc false
   @behaviour Movement.Persister
 
   alias Accent.Repo

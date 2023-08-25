@@ -1,10 +1,8 @@
 defmodule Accent.GraphQL.Resolvers.Language do
-  alias Accent.{
-    GraphQL.Paginated,
-    Language,
-    Plugs.GraphQLContext
-  }
-
+  @moduledoc false
+  alias Accent.GraphQL.Paginated
+  alias Accent.Language
+  alias Accent.Plugs.GraphQLContext
   alias Accent.Scopes.Language, as: LanguageScope
 
   @spec list(any(), %{page: number(), query: String.t()}, GraphQLContext.t()) :: {:ok, Paginated.t(Language.t())}

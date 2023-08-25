@@ -1,13 +1,12 @@
 defmodule AccentTest.Plugs.AssignCurrentUser do
+  @moduledoc false
   use Accent.RepoCase
   use Plug.Test
 
-  alias Accent.{
-    AccessToken,
-    Plugs.AssignCurrentUser,
-    Repo,
-    User
-  }
+  alias Accent.AccessToken
+  alias Accent.Plugs.AssignCurrentUser
+  alias Accent.Repo
+  alias Accent.User
 
   @user %User{email: "test@test.com"}
   @token %AccessToken{revoked_at: nil, token: "1234"}

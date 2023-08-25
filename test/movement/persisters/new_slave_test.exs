@@ -1,13 +1,11 @@
 defmodule AccentTest.Movement.Persisters.NewSlave do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{
-    Language,
-    ProjectCreator,
-    Repo,
-    User
-  }
-
+  alias Accent.Language
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.User
   alias Movement.Persisters.NewSlave, as: NewSlavePersister
 
   @user %User{email: "test@test.com"}
@@ -15,7 +13,10 @@ defmodule AccentTest.Movement.Persisters.NewSlave do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
 
     {:ok, [project: project, revision: revision]}
@@ -25,8 +26,9 @@ defmodule AccentTest.Movement.Persisters.NewSlave do
     new_language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
 
     {:ok, {context, _}} =
-      %Movement.Context{assigns: %{project: project, language: new_language, master_revision: master_revision}}
-      |> NewSlavePersister.persist()
+      NewSlavePersister.persist(%Movement.Context{
+        assigns: %{project: project, language: new_language, master_revision: master_revision}
+      })
 
     revision = context.assigns[:revision]
 
@@ -38,8 +40,9 @@ defmodule AccentTest.Movement.Persisters.NewSlave do
 
   test "create revision error", %{project: project, revision: revision} do
     {:error, changeset} =
-      %Movement.Context{assigns: %{project: project, language: %Language{}, master_revision: revision}}
-      |> NewSlavePersister.persist()
+      NewSlavePersister.persist(%Movement.Context{
+        assigns: %{project: project, language: %Language{}, master_revision: revision}
+      })
 
     assert changeset.errors == [language_id: {"can't be blank", [validation: :required]}]
   end

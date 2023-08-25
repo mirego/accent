@@ -1,10 +1,12 @@
 defmodule Movement.Builders.RevisionCorrectAll do
+  @moduledoc false
   @behaviour Movement.Builder
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Repo
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Repo, Translation}
+  alias Accent.Translation
   alias Movement.Mappers.Operation, as: OperationMapper
 
   @action "correct_conflict"
@@ -15,7 +17,7 @@ defmodule Movement.Builders.RevisionCorrectAll do
     |> process_operations()
   end
 
-  defp process_operations(context = %Movement.Context{assigns: assigns, operations: operations}) do
+  defp process_operations(%Movement.Context{assigns: assigns, operations: operations} = context) do
     new_operations =
       Enum.map(assigns[:translations], fn translation ->
         OperationMapper.map(@action, translation, %{text: translation.corrected_text})
@@ -24,7 +26,7 @@ defmodule Movement.Builders.RevisionCorrectAll do
     %{context | operations: Enum.concat(operations, new_operations)}
   end
 
-  defp assign_translations(context = %Movement.Context{assigns: assigns}) do
+  defp assign_translations(%Movement.Context{assigns: assigns} = context) do
     translations =
       Translation
       |> TranslationScope.active()

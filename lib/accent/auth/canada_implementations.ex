@@ -1,11 +1,13 @@
 defimpl Canada.Can, for: Accent.User do
-  alias Accent.{User, Project, Comment}
+  alias Accent.Comment
+  alias Accent.Project
+  alias Accent.User
 
   def can?(%User{permissions: permissions}, action, project_id) when is_binary(project_id) do
     validate_role(permissions, action, project_id)
   end
 
-  def can?(%User{permissions: permissions}, action, project = %Project{}) do
+  def can?(%User{permissions: permissions}, action, %Project{} = project) do
     validate_role(permissions, action, project)
   end
 
@@ -21,7 +23,7 @@ defimpl Canada.Can, for: Accent.User do
 
   def validate_role(nil, _action, _project_id), do: false
 
-  def validate_role(permissions, action, project = %Project{}) do
+  def validate_role(permissions, action, %Project{} = project) do
     permissions
     |> Map.get(project.id)
     |> Accent.RoleAbilities.can?(action, project)

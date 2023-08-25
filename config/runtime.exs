@@ -1,5 +1,5 @@
-import Config
 import Accent.Config
+import Config
 
 port = get_env("PORT", :integer) || 4000
 canonical_uri = get_env("CANONICAL_URL", :uri) || parse_env("http://localhost:#{port}", :uri)
@@ -32,7 +32,7 @@ end
 ecto_ipv6? = get_env("ECTO_IPV6", :boolean)
 
 config :accent, Accent.Repo,
-  timeout: get_env("DATABASE_TIMEOUT", :integer) || 29000,
+  timeout: get_env("DATABASE_TIMEOUT", :integer) || 29_000,
   queue_target: get_env("DATABASE_QUEUE_TARGET", :integer) || 500,
   queue_interval: get_env("DATABASE_QUEUE_INTERVAL", :integer) || 2000,
   pool_size: get_env("DATABASE_POOL_SIZE", :integer),
@@ -47,14 +47,41 @@ config :accent, Accent.MachineTranslations,
   }
 
 providers = []
-providers = if get_env("GOOGLE_API_CLIENT_ID"), do: [{:google, {Ueberauth.Strategy.Google, [scope: "email openid"]}} | providers], else: providers
-providers = if get_env("SLACK_CLIENT_ID"), do: [{:slack, {Ueberauth.Strategy.Slack, [team: get_env("SLACK_TEAM_ID")]}} | providers], else: providers
-providers = if get_env("GITHUB_CLIENT_ID"), do: [{:github, {Ueberauth.Strategy.Github, [default_scope: "user"]}} | providers], else: providers
-providers = if get_env("GITLAB_CLIENT_ID"), do: [{:gitlab, {Ueberauth.Strategy.Gitlab, [default_scope: "read_user"]}} | providers], else: providers
-providers = if get_env("DISCORD_CLIENT_ID"), do: [{:discord, {Ueberauth.Strategy.Discord, [default_scope: "identify email"]}} | providers], else: providers
-providers = if get_env("MICROSOFT_CLIENT_ID"), do: [{:microsoft, {Ueberauth.Strategy.Microsoft, []}} | providers], else: providers
+
+providers =
+  if get_env("GOOGLE_API_CLIENT_ID"),
+    do: [{:google, {Ueberauth.Strategy.Google, [scope: "email openid"]}} | providers],
+    else: providers
+
+providers =
+  if get_env("SLACK_CLIENT_ID"),
+    do: [{:slack, {Ueberauth.Strategy.Slack, [team: get_env("SLACK_TEAM_ID")]}} | providers],
+    else: providers
+
+providers =
+  if get_env("GITHUB_CLIENT_ID"),
+    do: [{:github, {Ueberauth.Strategy.Github, [default_scope: "user"]}} | providers],
+    else: providers
+
+providers =
+  if get_env("GITLAB_CLIENT_ID"),
+    do: [{:gitlab, {Ueberauth.Strategy.Gitlab, [default_scope: "read_user"]}} | providers],
+    else: providers
+
+providers =
+  if get_env("DISCORD_CLIENT_ID"),
+    do: [{:discord, {Ueberauth.Strategy.Discord, [default_scope: "identify email"]}} | providers],
+    else: providers
+
+providers =
+  if get_env("MICROSOFT_CLIENT_ID"), do: [{:microsoft, {Ueberauth.Strategy.Microsoft, []}} | providers], else: providers
+
 providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Auth0, []}} | providers], else: providers
-providers = if get_env("DUMMY_LOGIN_ENABLED"), do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers], else: providers
+
+providers =
+  if get_env("DUMMY_LOGIN_ENABLED"),
+    do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers],
+    else: providers
 
 config :ueberauth, Ueberauth, providers: providers
 

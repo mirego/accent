@@ -1,4 +1,5 @@
 defmodule Accent.EmailViewConfigHelper do
+  @moduledoc false
   alias Accent.Router.Helpers, as: Routes
 
   def x_smtpapi_header, do: config()[:x_smtpapi_header]

@@ -17,15 +17,15 @@ defmodule Accent.ConnCase do
 
   alias Accent.Endpoint
   alias Accent.Repo
-  alias Ecto.{Adapters.SQL.Sandbox}
+  alias Ecto.Adapters.SQL.Sandbox
   alias Phoenix.ConnTest
 
   using do
     quote do
       # Import conveniences for testing with connections
-      import Plug.Conn
-      import Phoenix.ConnTest
       import Accent.Router.Helpers
+      import Phoenix.ConnTest
+      import Plug.Conn
 
       # The default endpoint for testing
       @endpoint Endpoint

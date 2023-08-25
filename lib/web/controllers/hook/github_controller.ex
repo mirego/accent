@@ -5,7 +5,9 @@ defmodule Accent.Hook.GitHubController do
   import Ecto.Query, only: [first: 1]
 
   alias Accent.Hook.Context, as: HookContext
-  alias Accent.{Integration, Project, Repo}
+  alias Accent.Integration
+  alias Accent.Project
+  alias Accent.Repo
   alias Accent.Scopes.Integration, as: IntegrationScope
 
   plug(Plug.Assign, canary_action: :hook_update)
@@ -28,7 +30,8 @@ defmodule Accent.Hook.GitHubController do
   defp assign_payload(conn, _) do
     with repository when is_binary(repository) <- conn.params["repository"]["full_name"],
          ref when is_binary(ref) <- conn.params["ref"],
-         %{data: %{token: token, default_ref: default_ref}} <- repository_integration(conn.assigns[:project], repository) do
+         %{data: %{token: token, default_ref: default_ref}} <-
+           repository_integration(conn.assigns[:project], repository) do
       assign(conn, :payload, %{
         default_ref: default_ref,
         ref: ref,

@@ -1,10 +1,9 @@
 defmodule Accent.GraphQL.Resolvers.APIToken do
-  alias Accent.{
-    AccessToken,
-    APITokenManager,
-    Plugs.GraphQLContext,
-    Project
-  }
+  @moduledoc false
+  alias Accent.AccessToken
+  alias Accent.APITokenManager
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
 
   @spec create(Project.t(), any(), GraphQLContext.t()) :: {:ok, AccessToken.t() | nil}
   def create(project, args, info) do

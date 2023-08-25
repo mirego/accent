@@ -1,17 +1,16 @@
 defmodule AccentTest.Hook do
+  @moduledoc false
   use Accent.RepoCase, async: true
   use Oban.Testing, repo: Accent.Repo
 
-  alias Accent.{
-    Hook,
-    Project,
-    Repo,
-    User
-  }
+  alias Accent.Hook
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
 
   setup do
-    project = %Project{main_color: "#f00", name: "Test"} |> Repo.insert!()
-    user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "Test"})
+    user = Repo.insert!(%User{fullname: "Test", email: "foo@test.com"})
     payload = %{test: "hook"}
     context = %Hook.Context{project_id: project.id, user_id: user.id, event: "event", payload: payload}
 

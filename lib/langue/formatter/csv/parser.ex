@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.CSV.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Formatter.ParserResult, as: Output

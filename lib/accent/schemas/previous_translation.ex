@@ -1,4 +1,5 @@
 defmodule Accent.PreviousTranslation do
+  @moduledoc false
   use Ecto.Schema
 
   @fields ~w(
@@ -35,6 +36,6 @@ defmodule Accent.PreviousTranslation do
   def from_translation(translation) do
     translation
     |> Map.take(@fields)
-    |> (&struct(__MODULE__, &1)).()
+    |> then(&struct(__MODULE__, &1))
   end
 end

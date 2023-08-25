@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Helpers.Fields do
+  @moduledoc false
   @doc """
   ## Examples
 

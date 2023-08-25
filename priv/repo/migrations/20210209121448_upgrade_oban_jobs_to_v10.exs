@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.UpgradeObanJobsToV10 do
+  @moduledoc false
   use Ecto.Migration
 
   def up do

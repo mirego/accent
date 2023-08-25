@@ -1,9 +1,10 @@
 defmodule LangueTest.Formatter.Strings do
+  @moduledoc false
   use ExUnit.Case, async: true
 
-  Code.require_file("expectation_test.exs", __DIR__)
-
   alias Langue.Formatter.Strings
+
+  Code.require_file("expectation_test.exs", __DIR__)
 
   @tests [
     Simple,

@@ -1,4 +1,5 @@
 defmodule Accent.Scopes.Language do
+  @moduledoc false
   import Ecto.Query, only: [from: 2]
 
   @doc """

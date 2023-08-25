@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.JavaPropertiesXml do
+  @moduledoc false
   use Langue.Formatter,
     id: "java_properties_xml",
     display_name: "Java properties XML",

@@ -1,12 +1,10 @@
 defmodule Accent.GraphQL.Resolvers.Operation do
+  @moduledoc false
+  alias Accent.Operation
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Repo
   alias Movement.Builders.Rollback, as: RollbackBuilder
   alias Movement.Persisters.Rollback, as: RollbackPersister
-
-  alias Accent.{
-    Operation,
-    Plugs.GraphQLContext,
-    Repo
-  }
 
   @spec rollback(Operation.t(), any(), GraphQLContext.t()) :: {:ok, %{operation: boolean(), errors: [String.t()] | nil}}
   def rollback(operation, _, info) do

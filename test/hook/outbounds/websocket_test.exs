@@ -1,26 +1,27 @@
 defmodule AccentTest.Hook.Outbounds.Websocket do
+  @moduledoc false
   use Accent.ChannelCase
 
-  alias Accent.{
-    Collaborator,
-    Comment,
-    Hook.Outbounds.Websocket,
-    Language,
-    Project,
-    ProjectChannel,
-    Repo,
-    Revision,
-    Translation,
-    User,
-    UserSocket
-  }
+  alias Accent.Collaborator
+  alias Accent.Comment
+  alias Accent.Hook.Outbounds.Websocket
+  alias Accent.Language
+  alias Accent.Project
+  alias Accent.ProjectChannel
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.User
+  alias Accent.UserSocket
 
   setup do
-    language = %Language{name: "Test"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "Test"} |> Repo.insert!()
-    user = %User{fullname: "Test", email: "foo@test.com", permissions: %{project.id => "admin"}} |> Repo.insert!()
-    revision = %Revision{project_id: project.id, language_id: language.id, master: true} |> Repo.insert!()
-    translation = %Translation{key: "foo", corrected_text: "bar", proposed_text: "bar", revision_id: revision.id} |> Repo.insert!()
+    language = Repo.insert!(%Language{name: "Test"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "Test"})
+    user = Repo.insert!(%User{fullname: "Test", email: "foo@test.com", permissions: %{project.id => "admin"}})
+    revision = Repo.insert!(%Revision{project_id: project.id, language_id: language.id, master: true})
+
+    translation =
+      Repo.insert!(%Translation{key: "foo", corrected_text: "bar", proposed_text: "bar", revision_id: revision.id})
 
     {:ok, _, socket} =
       UserSocket
@@ -31,8 +32,8 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
   end
 
   test "comment", %{project: project, translation: translation, user: user} do
-    commenter = %User{fullname: "Commenter", email: "comment@test.com"} |> Repo.insert!()
-    comment = %Comment{translation_id: translation.id, user_id: commenter.id, text: "This is a comment"} |> Repo.insert!()
+    commenter = Repo.insert!(%User{fullname: "Commenter", email: "comment@test.com"})
+    comment = Repo.insert!(%Comment{translation_id: translation.id, user_id: commenter.id, text: "This is a comment"})
     comment = Repo.preload(comment, [:user, translation: [revision: :project]])
 
     payload = %{
@@ -41,7 +42,13 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
       "translation" => %{"id" => comment.translation.id, "key" => comment.translation.key}
     }
 
-    context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "create_comment", payload: payload})
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        project_id: project.id,
+        user_id: user.id,
+        event: "create_comment",
+        payload: payload
+      })
 
     _ = Websocket.perform(%Oban.Job{args: context})
 
@@ -65,7 +72,8 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
       "document_path" => "foo.json"
     }
 
-    context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "sync", payload: payload})
+    context =
+      to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "sync", payload: payload})
 
     _ = Websocket.perform(%Oban.Job{args: context})
 
@@ -83,7 +91,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
   end
 
   test "collaborator", %{project: project, user: user} do
-    collaborator = %Collaborator{email: "collab@test.com", project_id: project.id} |> Repo.insert!()
+    collaborator = Repo.insert!(%Collaborator{email: "collab@test.com", project_id: project.id})
 
     payload = %{
       "collaborator" => %{
@@ -91,7 +99,13 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
       }
     }
 
-    context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "create_collaborator", payload: payload})
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        project_id: project.id,
+        user_id: user.id,
+        event: "create_collaborator",
+        payload: payload
+      })
 
     _ = Websocket.perform(%Oban.Job{args: context})
 

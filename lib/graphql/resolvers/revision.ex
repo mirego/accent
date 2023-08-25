@@ -1,18 +1,13 @@
 defmodule Accent.GraphQL.Resolvers.Revision do
-  require Ecto.Query
-  alias Ecto.Query
-
+  @moduledoc false
+  alias Accent.Language
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.RevisionManager
   alias Accent.Scopes.Revision, as: RevisionScope
-
-  alias Accent.{
-    Language,
-    Plugs.GraphQLContext,
-    Project,
-    Repo,
-    Revision,
-    RevisionManager
-  }
-
+  alias Ecto.Query
   alias Movement.Builders.NewSlave, as: NewSlaveBuilder
   alias Movement.Builders.RevisionCorrectAll, as: RevisionCorrectAllBuilder
   alias Movement.Builders.RevisionUncorrectAll, as: RevisionUncorrectAllBuilder
@@ -20,6 +15,8 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   alias Movement.Persisters.NewSlave, as: NewSlavePersister
   alias Movement.Persisters.RevisionCorrectAll, as: RevisionCorrectAllPersister
   alias Movement.Persisters.RevisionUncorrectAll, as: RevisionUncorrectAllPersister
+
+  require Ecto.Query
 
   @typep revision_operation :: {:ok, %{revision: Revision.t() | nil, errors: [String.t()] | nil}}
 

@@ -1,4 +1,5 @@
 defmodule Langue.Formatter do
+  @moduledoc false
   alias Langue.Formatter.ParserResult
   alias Langue.Formatter.SerializerResult
 
@@ -11,6 +12,7 @@ defmodule Langue.Formatter do
   @callback serialize(ParserResult.t()) :: Langue.Formatter.Serializer.result()
 
   defmodule Unreachable do
+    @moduledoc false
     defexception [:message]
   end
 

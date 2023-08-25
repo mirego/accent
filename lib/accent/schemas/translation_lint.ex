@@ -1,4 +1,5 @@
 defmodule Accent.TranslationLint do
+  @moduledoc false
   use Accent.Schema
 
   embedded_schema do

@@ -1,4 +1,5 @@
 defmodule Langue.Entry do
+  @moduledoc false
   @enforce_keys ~w(key value value_type)a
   defstruct id: nil,
             key: nil,

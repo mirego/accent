@@ -2,21 +2,21 @@ defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
   use Accent.RepoCase
   use Oban.Testing, repo: Accent.Repo
 
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
   alias Movement.Persisters.ProjectStateChangeWorker, as: Worker
-
-  alias Accent.{
-    Document,
-    Language,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User
-  }
 
   setup do
     user = Repo.insert!(%User{email: "test@test.com"})
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -41,15 +41,14 @@ defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
   end
 
   test "new_conflicts", %{user: user, project: project, revision: revision, document: document} do
-    %Translation{
+    Repo.insert!(%Translation{
       key: "a",
       proposed_text: "A",
       conflicted: true,
       corrected_text: "Test",
       revision_id: revision.id,
       document_id: document.id
-    }
-    |> Repo.insert!()
+    })
 
     args = %{
       "project_id" => project.id,
@@ -81,15 +80,14 @@ defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
   end
 
   test "complete_review", %{user: user, project: project, revision: revision, document: document} do
-    %Translation{
+    Repo.insert!(%Translation{
       key: "a",
       proposed_text: "A",
       conflicted: false,
       corrected_text: "Test",
       revision_id: revision.id,
       document_id: document.id
-    }
-    |> Repo.insert!()
+    })
 
     args = %{
       "project_id" => project.id,

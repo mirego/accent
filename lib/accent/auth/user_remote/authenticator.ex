@@ -1,5 +1,9 @@
 defmodule Accent.UserRemote.Authenticator do
-  alias Accent.UserRemote.{CollaboratorNormalizer, Persister, TokenGiver, User}
+  @moduledoc false
+  alias Accent.UserRemote.CollaboratorNormalizer
+  alias Accent.UserRemote.Persister
+  alias Accent.UserRemote.TokenGiver
+  alias Accent.UserRemote.User
 
   def authenticate(%{provider: provider, info: info}) do
     info

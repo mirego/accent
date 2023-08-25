@@ -1,9 +1,10 @@
 defmodule Accent.GraphQL.Types.Project do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   import Absinthe.Resolution.Helpers, only: [dataloader: 1]
-  import Accent.GraphQL.Helpers.Fields
   import Accent.GraphQL.Helpers.Authorization
+  import Accent.GraphQL.Helpers.Fields
 
   object :projects do
     field(:meta, non_null(:pagination_meta))

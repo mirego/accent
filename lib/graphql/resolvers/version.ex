@@ -1,17 +1,15 @@
 defmodule Accent.GraphQL.Resolvers.Version do
-  require Ecto.Query
-
-  alias Accent.{
-    GraphQL.Paginated,
-    Plugs.GraphQLContext,
-    Project,
-    Repo,
-    Version
-  }
-
+  @moduledoc false
+  alias Accent.GraphQL.Paginated
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Version
   alias Movement.Builders.NewVersion, as: NewVersionBuilder
   alias Movement.Context
   alias Movement.Persisters.NewVersion, as: NewVersionPersister
+
+  require Ecto.Query
 
   @typep version_operation :: {:ok, %{version: Version.t() | nil, errors: [String.t()] | nil}}
 

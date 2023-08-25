@@ -1,10 +1,12 @@
 defmodule Movement.Builders.NewVersion do
+  @moduledoc false
   @behaviour Movement.Builder
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Repo
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Repo, Translation}
+  alias Accent.Translation
   alias Movement.Mappers.Operation, as: OperationMapper
 
   @action "version_new"
@@ -15,7 +17,7 @@ defmodule Movement.Builders.NewVersion do
     |> process_operations()
   end
 
-  defp process_operations(context = %Movement.Context{assigns: assigns, operations: operations}) do
+  defp process_operations(%Movement.Context{assigns: assigns, operations: operations} = context) do
     new_operations =
       Enum.map(assigns[:translations], fn translation ->
         OperationMapper.map(@action, translation, %{
@@ -26,7 +28,7 @@ defmodule Movement.Builders.NewVersion do
     %{context | operations: Enum.concat(operations, new_operations)}
   end
 
-  defp assign_translations(context = %Movement.Context{assigns: assigns}) do
+  defp assign_translations(%Movement.Context{assigns: assigns} = context) do
     translations =
       Translation
       |> TranslationScope.from_project(assigns[:project].id)

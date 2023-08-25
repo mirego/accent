@@ -1,8 +1,11 @@
 defmodule Accent.Scopes.Translation do
+  @moduledoc false
   import Ecto.Query
 
+  alias Accent.Operation
+  alias Accent.Repo
+  alias Accent.Translation
   alias Ecto.Queryable
-  alias Accent.{Operation, Repo, Translation}
 
   @doc """
   Default ordering is by ascending key
@@ -98,7 +101,12 @@ defmodule Accent.Scopes.Translation do
   """
   @spec parse_empty(Queryable.t(), nil | boolean()) :: Queryable.t()
   def parse_empty(query, nil), do: query
-  def parse_empty(query, true), do: from(translations in query, where: translations.value_type in ^["empty", "null"] or translations.corrected_text == "")
+
+  def parse_empty(query, true),
+    do:
+      from(translations in query,
+        where: translations.value_type in ^["empty", "null"] or translations.corrected_text == ""
+      )
 
   @doc """
   ## Examples
@@ -242,8 +250,7 @@ defmodule Accent.Scopes.Translation do
   @spec from_language(Queryable.t(), String.t()) :: Queryable.t()
   def from_language(query, language_id),
     do:
-      from(
-        translations in query,
+      from(translations in query,
         inner_join: revisions in assoc(translations, :revision),
         where: revisions.language_id == ^language_id
       )
@@ -344,11 +351,10 @@ defmodule Accent.Scopes.Translation do
   def from_search(query, search_term) do
     term = "%" <> search_term <> "%"
 
-    from(
-      translation in query,
-      where: ilike(translation.key, ^term) or ilike(translation.corrected_text, ^term)
+    from_search_id(
+      from(translation in query, where: ilike(translation.key, ^term) or ilike(translation.corrected_text, ^term)),
+      search_term
     )
-    |> from_search_id(search_term)
   end
 
   defp from_search_id(query, key) do

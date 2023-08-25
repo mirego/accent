@@ -1,24 +1,22 @@
 defmodule AccentTest.Movement.Migrator.Up do
+  @moduledoc false
   use Accent.RepoCase
 
+  alias Accent.Operation
+  alias Accent.PreviousTranslation
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.User
   alias Movement.Migrator
-
-  alias Accent.{
-    Operation,
-    PreviousTranslation,
-    Repo,
-    Revision,
-    Translation,
-    User
-  }
 
   test ":noop" do
     assert [] === Migrator.up(%{action: "noop"})
   end
 
   test ":correct" do
-    user = %User{} |> Repo.insert!()
-    revision = %Revision{} |> Repo.insert!()
+    user = Repo.insert!(%User{})
+    revision = Repo.insert!(%Revision{})
 
     translation =
       Repo.insert!(%Translation{
@@ -53,8 +51,8 @@ defmodule AccentTest.Movement.Migrator.Up do
   end
 
   test ":merge_on_proposed_force" do
-    user = %User{} |> Repo.insert!()
-    revision = %Revision{} |> Repo.insert!()
+    user = Repo.insert!(%User{})
+    revision = Repo.insert!(%Revision{})
 
     translation =
       Repo.insert!(%Translation{
@@ -88,8 +86,8 @@ defmodule AccentTest.Movement.Migrator.Up do
   end
 
   test ":merge_on_corrected" do
-    user = %User{} |> Repo.insert!()
-    revision = %Revision{} |> Repo.insert!()
+    user = Repo.insert!(%User{})
+    revision = Repo.insert!(%Revision{})
 
     translation =
       Repo.insert!(%Translation{

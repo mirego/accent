@@ -1,16 +1,14 @@
 defmodule AccentTest.Movement.Builders.NewSlave do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{
-    Document,
-    Language,
-    PreviousTranslation,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User
-  }
-
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.PreviousTranslation
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
   alias Movement.Builders.NewSlave, as: NewSlaveBuilder
   alias Movement.Context
 
@@ -19,7 +17,10 @@ defmodule AccentTest.Movement.Builders.NewSlave do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -28,7 +29,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
 
   test "builder fetch translations and process operations", %{revision: revision, project: project, document: document} do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -36,8 +37,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
         file_comment: "comment",
         revision_id: revision.id,
         document_id: document.id
-      }
-      |> Repo.insert!()
+      })
 
     context =
       %Context{}
@@ -45,8 +45,10 @@ defmodule AccentTest.Movement.Builders.NewSlave do
       |> Context.assign(:new_slave_options, [])
       |> NewSlaveBuilder.build()
 
-    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index]))
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+
+    operations =
+      Enum.map(context.operations, &Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index]))
 
     assert translation_ids === [translation.id]
 
@@ -62,9 +64,13 @@ defmodule AccentTest.Movement.Builders.NewSlave do
            ]
   end
 
-  test "builder fetch translations and process operations with default null", %{revision: revision, project: project, document: document} do
+  test "builder fetch translations and process operations with default null", %{
+    revision: revision,
+    project: project,
+    document: document
+  } do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -72,8 +78,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
         file_comment: "comment",
         revision_id: revision.id,
         document_id: document.id
-      }
-      |> Repo.insert!()
+      })
 
     context =
       %Context{}
@@ -81,8 +86,8 @@ defmodule AccentTest.Movement.Builders.NewSlave do
       |> Context.assign(:new_slave_options, ["default_null"])
       |> NewSlaveBuilder.build()
 
-    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.take(&1, [:text]))
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+    operations = Enum.map(context.operations, &Map.take(&1, [:text]))
 
     assert translation_ids === [translation.id]
     assert operations === [%{text: ""}]
@@ -90,7 +95,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
 
   test "with removed translation", %{revision: revision, project: project, document: document} do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -99,8 +104,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
         revision_id: revision.id,
         document_id: document.id,
         removed: true
-      }
-      |> Repo.insert!()
+      })
 
     context =
       %Context{}
@@ -108,8 +112,13 @@ defmodule AccentTest.Movement.Builders.NewSlave do
       |> Context.assign(:new_slave_options, [])
       |> NewSlaveBuilder.build()
 
-    translation_ids = context.assigns[:translations] |> Enum.map(&Map.get(&1, :id))
-    operations = context.operations |> Enum.map(&Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index, :previous_translation]))
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+
+    operations =
+      Enum.map(
+        context.operations,
+        &Map.take(&1, [:key, :action, :text, :document_id, :file_comment, :file_index, :previous_translation])
+      )
 
     assert translation_ids === [translation.id]
 

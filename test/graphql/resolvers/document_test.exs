@@ -1,19 +1,18 @@
 defmodule AccentTest.GraphQL.Resolvers.Document do
+  @moduledoc false
   use Accent.RepoCase
 
+  alias Accent.Document
   alias Accent.GraphQL.Resolvers.Document, as: Resolver
-
-  alias Accent.{
-    Document,
-    Language,
-    Project,
-    Repo,
-    Revision,
-    Translation,
-    User
-  }
+  alias Accent.Language
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.User
 
   defmodule PlugConn do
+    @moduledoc false
     defstruct [:assigns]
   end
 
@@ -21,17 +20,30 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
 
   setup do
     user = Repo.insert!(@user)
-    french_language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    french_language = Repo.insert!(%Language{name: "french"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
-    revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
-    document = %Document{project_id: project.id, path: "test", format: "json", updated_at: DateTime.from_unix!(1_432_560_368_868_569, :microsecond)} |> Repo.insert!()
+    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+
+    document =
+      Repo.insert!(%Document{
+        project_id: project.id,
+        path: "test",
+        format: "json",
+        updated_at: DateTime.from_unix!(1_432_560_368_868_569, :microsecond)
+      })
 
     {:ok, [user: user, project: project, document: document, revision: revision]}
   end
 
   test "delete", %{document: document, revision: revision, user: user} do
-    %Translation{revision_id: revision.id, document_id: document.id, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
+    Repo.insert!(%Translation{
+      revision_id: revision.id,
+      document_id: document.id,
+      key: "ok",
+      corrected_text: "bar",
+      proposed_text: "bar"
+    })
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
     {:ok, result} = Resolver.delete(document, %{}, context)
@@ -58,7 +70,14 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   end
 
   test "update with existing path", %{document: document, project: project, user: user} do
-    other_document = %Document{project_id: project.id, path: "test2", format: "json", updated_at: DateTime.add(document.updated_at, 3600, :second)} |> Repo.insert!()
+    other_document =
+      Repo.insert!(%Document{
+        project_id: project.id,
+        path: "test2",
+        format: "json",
+        updated_at: DateTime.add(document.updated_at, 3600, :second)
+      })
+
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
     {:ok, result} = Resolver.update(document, %{path: other_document.path}, context)
     updated_document = Repo.get(Document, document.id)
@@ -68,7 +87,14 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   end
 
   test "show project", %{document: document, project: project, revision: revision} do
-    %Translation{revision_id: revision.id, document_id: document.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: false} |> Repo.insert!()
+    Repo.insert!(%Translation{
+      revision_id: revision.id,
+      document_id: document.id,
+      key: "ok",
+      corrected_text: "bar",
+      proposed_text: "bar",
+      conflicted: false
+    })
 
     {:ok, result} = Resolver.show_project(project, %{id: document.id}, %{})
 
@@ -79,11 +105,33 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   end
 
   test "list project", %{document: document, project: project, revision: revision} do
-    other_document = %Document{project_id: project.id, path: "test2", format: "json", updated_at: DateTime.add(document.updated_at, 3600, :second)} |> Repo.insert!()
-    _empty_document = %Document{project_id: project.id, path: "test3", format: "json"} |> Repo.insert!()
+    other_document =
+      Repo.insert!(%Document{
+        project_id: project.id,
+        path: "test2",
+        format: "json",
+        updated_at: DateTime.add(document.updated_at, 3600, :second)
+      })
 
-    %Translation{revision_id: revision.id, document_id: document.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: false} |> Repo.insert!()
-    %Translation{revision_id: revision.id, document_id: other_document.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: true} |> Repo.insert!()
+    _empty_document = Repo.insert!(%Document{project_id: project.id, path: "test3", format: "json"})
+
+    Repo.insert!(%Translation{
+      revision_id: revision.id,
+      document_id: document.id,
+      key: "ok",
+      corrected_text: "bar",
+      proposed_text: "bar",
+      conflicted: false
+    })
+
+    Repo.insert!(%Translation{
+      revision_id: revision.id,
+      document_id: other_document.id,
+      key: "ok",
+      corrected_text: "bar",
+      proposed_text: "bar",
+      conflicted: true
+    })
 
     {:ok, result} = Resolver.list_project(project, %{exclude_empty_translations: true}, %{})
 
@@ -94,10 +142,17 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   end
 
   test "list project with many deleted documents", %{document: document, project: project, revision: revision} do
-    %Translation{revision_id: revision.id, document_id: document.id, key: "ok", corrected_text: "bar", proposed_text: "bar", conflicted: false} |> Repo.insert!()
+    Repo.insert!(%Translation{
+      revision_id: revision.id,
+      document_id: document.id,
+      key: "ok",
+      corrected_text: "bar",
+      proposed_text: "bar",
+      conflicted: false
+    })
 
     for i <- 1..80 do
-      %Document{project_id: project.id, path: "doc-#{i}", format: "json"} |> Repo.insert!()
+      Repo.insert!(%Document{project_id: project.id, path: "doc-#{i}", format: "json"})
     end
 
     {:ok, result} = Resolver.list_project(project, %{exclude_empty_translations: true}, %{})

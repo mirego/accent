@@ -1,10 +1,13 @@
 defmodule Movement.Builders.DocumentDelete do
+  @moduledoc false
   @behaviour Movement.Builder
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Project
+  alias Accent.Repo
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Project, Repo, Translation}
+  alias Accent.Translation
   alias Movement.Mappers.Operation, as: OperationMapper
 
   @action "remove"
@@ -32,7 +35,7 @@ defmodule Movement.Builders.DocumentDelete do
     assign(context, :project, project)
   end
 
-  defp process_operations(context = %Movement.Context{assigns: %{translations: translations}, operations: operations}) do
+  defp process_operations(%Movement.Context{assigns: %{translations: translations}, operations: operations} = context) do
     new_operations =
       Enum.map(translations, fn translation ->
         OperationMapper.map(@action, translation, %{translation | marked_as_removed: true})

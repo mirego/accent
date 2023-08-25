@@ -1,9 +1,9 @@
 defmodule Langue.Formatter.CSVTest do
   use ExUnit.Case, async: true
 
-  Code.require_file("expectation_test.exs", __DIR__)
-
   alias Langue.Formatter.CSV
+
+  Code.require_file("expectation_test.exs", __DIR__)
 
   @tests [
     Simple

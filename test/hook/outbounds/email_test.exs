@@ -1,35 +1,36 @@
 defmodule AccentTest.Hook.Outbounds.Email do
+  @moduledoc false
   use Accent.RepoCase
   use Bamboo.Test
 
-  alias Accent.{
-    Collaborator,
-    Comment,
-    CreateCommentEmail,
-    Hook.Outbounds.Email,
-    Language,
-    Project,
-    ProjectInviteEmail,
-    Repo,
-    Revision,
-    Translation,
-    TranslationCommentsSubscription,
-    User
-  }
+  alias Accent.Collaborator
+  alias Accent.Comment
+  alias Accent.CreateCommentEmail
+  alias Accent.Hook.Outbounds.Email
+  alias Accent.Language
+  alias Accent.Project
+  alias Accent.ProjectInviteEmail
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.TranslationCommentsSubscription
+  alias Accent.User
 
   setup do
-    language = %Language{name: "Test"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "Test"} |> Repo.insert!()
-    user = %User{fullname: "Test", email: "foo@test.com"} |> Repo.insert!()
-    revision = %Revision{project_id: project.id, language_id: language.id, master: true} |> Repo.insert!()
-    translation = %Translation{key: "foo", corrected_text: "bar", proposed_text: "bar", revision_id: revision.id} |> Repo.insert!()
+    language = Repo.insert!(%Language{name: "Test"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "Test"})
+    user = Repo.insert!(%User{fullname: "Test", email: "foo@test.com"})
+    revision = Repo.insert!(%Revision{project_id: project.id, language_id: language.id, master: true})
+
+    translation =
+      Repo.insert!(%Translation{key: "foo", corrected_text: "bar", proposed_text: "bar", revision_id: revision.id})
 
     [project: project, translation: translation, user: user]
   end
 
   test "commenter subscribed", %{project: project, translation: translation, user: user} do
-    %TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id} |> Repo.insert!()
-    comment = %Comment{translation_id: translation.id, user_id: user.id, text: "This is a comment"} |> Repo.insert!()
+    Repo.insert!(%TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id})
+    comment = Repo.insert!(%Comment{translation_id: translation.id, user_id: user.id, text: "This is a comment"})
     comment = Repo.preload(comment, [:user, translation: [revision: :project]])
 
     payload = %{
@@ -37,7 +38,13 @@ defmodule AccentTest.Hook.Outbounds.Email do
       "translation" => %{"id" => translation.id, "key" => translation.key}
     }
 
-    context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "create_comment", payload: payload})
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        project_id: project.id,
+        user_id: user.id,
+        event: "create_comment",
+        payload: payload
+      })
 
     _ = Email.perform(%Oban.Job{args: context})
 
@@ -45,16 +52,22 @@ defmodule AccentTest.Hook.Outbounds.Email do
   end
 
   test "comment", %{project: project, translation: translation, user: user} do
-    %TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id} |> Repo.insert!()
-    commenter = %User{fullname: "Commenter", email: "comment@test.com"} |> Repo.insert!()
-    comment = %Comment{translation_id: translation.id, user_id: commenter.id, text: "This is a comment"} |> Repo.insert!()
+    Repo.insert!(%TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id})
+    commenter = Repo.insert!(%User{fullname: "Commenter", email: "comment@test.com"})
+    comment = Repo.insert!(%Comment{translation_id: translation.id, user_id: commenter.id, text: "This is a comment"})
 
     payload = %{
       "text" => comment.text,
       "translation" => %{"id" => translation.id, "key" => translation.key}
     }
 
-    context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: commenter.id, event: "create_comment", payload: payload})
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        project_id: project.id,
+        user_id: commenter.id,
+        event: "create_comment",
+        payload: payload
+      })
 
     _ = Email.perform(%Oban.Job{args: context})
 
@@ -62,7 +75,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
   end
 
   test "collaborator", %{project: project, user: user} do
-    collaborator = %Collaborator{email: "collab@test.com", project_id: project.id} |> Repo.insert!()
+    collaborator = Repo.insert!(%Collaborator{email: "collab@test.com", project_id: project.id})
 
     payload = %{
       "collaborator" => %{
@@ -70,7 +83,13 @@ defmodule AccentTest.Hook.Outbounds.Email do
       }
     }
 
-    context = to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "create_collaborator", payload: payload})
+    context =
+      to_worker_args(%Accent.Hook.Context{
+        project_id: project.id,
+        user_id: user.id,
+        event: "create_collaborator",
+        payload: payload
+      })
 
     _ = Email.perform(%Oban.Job{args: context})
 

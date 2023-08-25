@@ -1,8 +1,10 @@
 if Langue.Formatter.Rails.enabled?() do
   defmodule Langue.Formatter.Rails.Parser do
+    @moduledoc false
     @behaviour Langue.Formatter.Parser
 
-    alias Langue.Utils.{NestedParserHelper, Placeholders}
+    alias Langue.Utils.NestedParserHelper
+    alias Langue.Utils.Placeholders
 
     def parse(%{render: render}) do
       {:ok, [content]} = :fast_yaml.decode(render)
@@ -19,5 +21,6 @@ if Langue.Formatter.Rails.enabled?() do
   end
 else
   defmodule Langue.Formatter.Rails.Parser do
+    @moduledoc false
   end
 end

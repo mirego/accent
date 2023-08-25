@@ -4,17 +4,15 @@ defmodule AccentTest.SyncController do
 
   import Ecto.Query, only: [from: 2]
 
-  alias Accent.{
-    AccessToken,
-    Collaborator,
-    Document,
-    Language,
-    Operation,
-    Project,
-    Repo,
-    Revision,
-    User
-  }
+  alias Accent.AccessToken
+  alias Accent.Collaborator
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.User
 
   @user %User{email: "test@test.com"}
 
@@ -24,18 +22,29 @@ defmodule AccentTest.SyncController do
 
   setup do
     user = Repo.insert!(@user)
-    access_token = %AccessToken{user_id: user.id, token: "test-token"} |> Repo.insert!()
-    french_language = %Language{name: "french", slug: Ecto.UUID.generate()} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    access_token = Repo.insert!(%AccessToken{user_id: user.id, token: "test-token"})
+    french_language = Repo.insert!(%Language{name: "french", slug: Ecto.UUID.generate()})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
-    %Collaborator{project_id: project.id, user_id: user.id, role: "admin"} |> Repo.insert!()
-    %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
-
+    Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "admin"})
+    Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
     {:ok, [access_token: access_token, user: user, project: project, language: french_language]}
   end
 
-  test "sync with operations", %{user: user, access_token: access_token, conn: conn, project: project, language: language} do
-    body = %{file: file(), project_id: project.id, language: language.slug, document_format: "json", document_path: "simple"}
+  test "sync with operations", %{
+    user: user,
+    access_token: access_token,
+    conn: conn,
+    project: project,
+    language: language
+  } do
+    body = %{
+      file: file(),
+      project_id: project.id,
+      language: language.slug,
+      document_format: "json",
+      document_path: "simple"
+    }
 
     response =
       conn
@@ -59,8 +68,8 @@ defmodule AccentTest.SyncController do
 
     assert Enum.map(Repo.all(Document), &Map.get(&1, :path)) == ["simple"]
 
-    new_operations = from(o in Operation, where: [action: ^"new"]) |> Repo.all()
-    sync_operation = from(o in Operation, where: [action: ^"sync"]) |> Repo.one()
+    new_operations = Repo.all(from(o in Operation, where: [action: ^"new"]))
+    sync_operation = Repo.one(from(o in Operation, where: [action: ^"sync"]))
 
     assert length(new_operations) == 3
     assert sync_operation.user_id == user.id

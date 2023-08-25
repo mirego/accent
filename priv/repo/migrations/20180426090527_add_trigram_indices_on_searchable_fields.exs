@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.AddTrigramIndicesOnSearchableFields do
+  @moduledoc false
   use Ecto.Migration
 
   require Logger
@@ -14,7 +15,7 @@ defmodule Accent.Repo.Migrations.AddTrigramIndicesOnSearchableFields do
       create(index(:translations, ["key gin_trgm_ops"], using: :gin))
       create(index(:translations, ["corrected_text gin_trgm_ops"], using: :gin))
     else
-      Logger.warn("""
+      Logger.warning("""
       Can’t create pg_trgm extension.
 
       Only superuser can create extensions. If you are not superuser of the database (like on Heroku PostgreSQL), you need to create the extension manually before executing the migration. Without this migration, the search index will be less performant.

@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.XLIFF12.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Entry
@@ -8,7 +9,7 @@ defmodule Langue.Formatter.XLIFF12.Parser do
     render
     |> :erlsom.simple_form()
     |> case do
-      {:ok, {'file', _attributes, [{'body', _, body}]}, _} ->
+      {:ok, {~c"file", _attributes, [{~c"body", _, body}]}, _} ->
         entries =
           body
           |> Enum.with_index(1)
@@ -23,7 +24,7 @@ defmodule Langue.Formatter.XLIFF12.Parser do
     end
   end
 
-  defp parse_line({{'trans-unit', [{'id', key}], [{'source', _, source}, {'target', _, value}]}, index}) do
+  defp parse_line({{~c"trans-unit", [{~c"id", key}], [{~c"source", _, source}, {~c"target", _, value}]}, index}) do
     value =
       case value do
         [value] -> IO.chardata_to_string(value)

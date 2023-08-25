@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Resolvers.AuthenticationProvider do
+  @moduledoc false
   @spec list(any(), any(), GraphQLContext.t()) :: {:ok, list(%{id: atom()})}
   def list(_, _, _) do
     {:ok, Enum.map(config()[:providers], &%{id: elem(&1, 0)})}

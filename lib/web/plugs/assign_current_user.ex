@@ -1,4 +1,5 @@
 defmodule Accent.Plugs.AssignCurrentUser do
+  @moduledoc false
   import Plug.Conn
 
   alias Accent.UserAuthFetcher

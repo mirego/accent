@@ -1,25 +1,29 @@
 defmodule AccentTest.RevisionDeleter do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{Language, Operation, Project, Repo, Revision, RevisionManager, Translation}
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.RevisionManager
+  alias Accent.Translation
 
   setup do
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
-    french_language = %Language{name: "french"} |> Repo.insert!()
-    english_language = %Language{name: "english"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    french_language = Repo.insert!(%Language{name: "french"})
+    english_language = Repo.insert!(%Language{name: "english"})
 
-    master_revision =
-      %Revision{language_id: french_language.id, project_id: project.id, master: true}
-      |> Repo.insert!()
+    master_revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
 
     slave_revision =
-      %Revision{
+      Repo.insert!(%Revision{
         language_id: english_language.id,
         project_id: project.id,
         master: false,
         master_revision_id: master_revision.id
-      }
-      |> Repo.insert!()
+      })
 
     {:ok, [master_revision: master_revision, slave_revision: slave_revision]}
   end
@@ -37,7 +41,7 @@ defmodule AccentTest.RevisionDeleter do
   end
 
   test "delete operations", %{slave_revision: revision} do
-    operation = %Operation{action: "new", key: "a", revision_id: revision.id} |> Repo.insert!()
+    operation = Repo.insert!(%Operation{action: "new", key: "a", revision_id: revision.id})
 
     Accent.Revisions.DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
 
@@ -45,7 +49,7 @@ defmodule AccentTest.RevisionDeleter do
   end
 
   test "delete translations", %{slave_revision: revision} do
-    translation = %Translation{key: "a", revision_id: revision.id} |> Repo.insert!()
+    translation = Repo.insert!(%Translation{key: "a", revision_id: revision.id})
 
     Accent.Revisions.DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
 

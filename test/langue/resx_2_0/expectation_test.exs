@@ -1,7 +1,9 @@
 defmodule LangueTest.Formatter.Resx20.Expectation do
+  @moduledoc false
   alias Langue.Entry
 
   defmodule Simple do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -84,7 +86,8 @@ defmodule LangueTest.Formatter.Resx20.Expectation do
         %Entry{
           key: "text",
           value_type: "string",
-          value: "Los siguientes recursos no se pudieron cargar. \n    Asegúrese de que estén en el formato correcto y no estén dañados.\n\n{0}",
+          value:
+            "Los siguientes recursos no se pudieron cargar. \n    Asegúrese de que estén en el formato correcto y no estén dañados.\n\n{0}",
           index: 1
         },
         %Entry{key: "key", value_type: "string", value: "value", index: 2}

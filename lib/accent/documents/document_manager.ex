@@ -1,7 +1,8 @@
 defmodule Accent.DocumentManager do
-  alias Accent.Repo
-
+  @moduledoc false
   import Ecto.Changeset
+
+  alias Accent.Repo
 
   def update(document, params) do
     document

@@ -1,4 +1,5 @@
 defmodule Accent.EmailAbilities do
+  @moduledoc false
   @restricted_actions ~w(
     create_project
   )a

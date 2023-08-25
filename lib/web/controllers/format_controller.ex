@@ -35,19 +35,14 @@ defmodule Accent.FormatController do
     #### Error
     - `404` Unknown project id.
   """
-  def format(conn = %{query_params: %{"inline_render" => "true"}}, _) do
+  def format(%{query_params: %{"inline_render" => "true"}} = conn, _) do
     conn
     |> put_resp_header("content-type", "text/plain")
     |> send_resp(:ok, conn.assigns.render)
   end
 
   def format(conn, _) do
-    file =
-      [
-        System.tmp_dir(),
-        Accent.Utils.SecureRandom.urlsafe_base64(16)
-      ]
-      |> Path.join()
+    file = Path.join([System.tmp_dir(), Accent.Utils.SecureRandom.urlsafe_base64(16)])
 
     :ok = File.write(file, conn.assigns.render)
 
@@ -57,7 +52,9 @@ defmodule Accent.FormatController do
   end
 
   defp fetch_entries(conn, _) do
-    entries = Translation.maybe_natural_order_by(conn.assigns[:movement_context].entries, Map.get(conn.params, "order_by"))
+    entries =
+      Translation.maybe_natural_order_by(conn.assigns[:movement_context].entries, Map.get(conn.params, "order_by"))
+
     assign(conn, :entries, entries)
   end
 

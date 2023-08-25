@@ -1,7 +1,9 @@
 defmodule LangueTest.Formatter.Rails.Expectation do
+  @moduledoc false
   alias Langue.Entry
 
   defmodule NestedValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -19,13 +21,19 @@ defmodule LangueTest.Formatter.Rails.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "errors.model.user", value: "Utilisateur", value_type: "string"},
-        %Entry{index: 2, key: "errors.messages.invalid_email", value: "n'est pas une adresse courriel valide", value_type: "string"},
+        %Entry{
+          index: 2,
+          key: "errors.messages.invalid_email",
+          value: "n'est pas une adresse courriel valide",
+          value_type: "string"
+        },
         %Entry{index: 3, key: "errors.messages.invalid_url", value: "n'est pas un URL valide", value_type: "string"}
       ]
     end
   end
 
   defmodule UnicodeValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -45,6 +53,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
   end
 
   defmodule EmptyValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -62,6 +71,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
   end
 
   defmodule IntegerValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -79,6 +89,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
   end
 
   defmodule PluralValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -94,13 +105,21 @@ defmodule LangueTest.Formatter.Rails.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "count_something.one", value: "1 item", value_type: "string", plural: true},
-        %Entry{index: 2, key: "count_something.other", value: "%{count} items", value_type: "string", plural: true, placeholders: ~w(%{count})},
+        %Entry{
+          index: 2,
+          key: "count_something.other",
+          value: "%{count} items",
+          value_type: "string",
+          plural: true,
+          placeholders: ~w(%{count})
+        },
         %Entry{index: 3, key: "count_something.zero", value: "No items", value_type: "string", plural: true}
       ]
     end
   end
 
   defmodule ArrayValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -125,7 +144,12 @@ defmodule LangueTest.Formatter.Rails.Expectation do
         %Entry{index: 1, key: "errors.__KEY__0", value: "First error", value_type: "string"},
         %Entry{index: 2, key: "errors.__KEY__1", value: "Second error", value_type: "string"},
         %Entry{index: 3, key: "errors.__KEY__2.nested.__KEY__0", value: "of course", value_type: "string"},
-        %Entry{index: 4, key: "errors.__KEY__2.nested.__KEY__1.nested_agin.__KEY__0", value: "ok", value_type: "string"},
+        %Entry{
+          index: 4,
+          key: "errors.__KEY__2.nested.__KEY__1.nested_agin.__KEY__0",
+          value: "ok",
+          value_type: "string"
+        },
         %Entry{index: 5, key: "errors.__KEY__2.nested.__KEY__2", value: "it works", value_type: "string"},
         %Entry{index: 6, key: "root", value: "AWESOME", value_type: "string"}
       ]
@@ -133,6 +157,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
   end
 
   defmodule PlaceholderValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -148,9 +173,27 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "placeholders.single", value: "Hello, %{username}.", placeholders: ~w(%{username}), value_type: "string"},
-        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, %{firstname} %{lastname}.", placeholders: ~w(%{firstname} %{lastname}), value_type: "string"},
-        %Entry{index: 3, key: "placeholders.duplicate", value: "Hello, %{username}. Welcome back %{username}.", placeholders: ~w(%{username} %{username}), value_type: "string"},
+        %Entry{
+          index: 1,
+          key: "placeholders.single",
+          value: "Hello, %{username}.",
+          placeholders: ~w(%{username}),
+          value_type: "string"
+        },
+        %Entry{
+          index: 2,
+          key: "placeholders.multiple",
+          value: "Hello, %{firstname} %{lastname}.",
+          placeholders: ~w(%{firstname} %{lastname}),
+          value_type: "string"
+        },
+        %Entry{
+          index: 3,
+          key: "placeholders.duplicate",
+          value: "Hello, %{username}. Welcome back %{username}.",
+          placeholders: ~w(%{username} %{username}),
+          value_type: "string"
+        },
         %Entry{index: 4, key: "placeholders.empty", value: "Hello, %{}.", placeholders: ~w(%{}), value_type: "string"}
       ]
     end

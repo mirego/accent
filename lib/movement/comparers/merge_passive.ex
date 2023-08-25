@@ -1,12 +1,10 @@
 defmodule Movement.Comparers.MergePassive do
+  @moduledoc false
   @behaviour Movement.Comparer
 
   alias Movement.Mappers.Operation, as: OperationMapper
-
-  alias Movement.{
-    Operation,
-    TranslationComparer
-  }
+  alias Movement.Operation
+  alias Movement.TranslationComparer
 
   @doc """
     ## Examples
@@ -41,7 +39,9 @@ defmodule Movement.Comparers.MergePassive do
     "noop"
   """
   def compare(nil, suggested_translation), do: %Operation{action: "noop", key: suggested_translation.key}
-  def compare(%{conflicted: false}, suggested_translation), do: %Operation{action: "noop", key: suggested_translation.key}
+
+  def compare(%{conflicted: false}, suggested_translation),
+    do: %Operation{action: "noop", key: suggested_translation.key}
 
   def compare(translation, suggested_translation) do
     case TranslationComparer.compare(translation, suggested_translation.text) do

@@ -24,7 +24,8 @@ else
       {Accent.Hook.Outbounds.Discord, events: ~w(sync complete_review new_conflicts)},
       {Accent.Hook.Outbounds.Email, events: ~w(create_collaborator create_comment)},
       {Accent.Hook.Outbounds.Slack, events: ~w(sync complete_review new_conflicts)},
-      {Accent.Hook.Outbounds.Websocket, events: ~w(sync create_collaborator create_comment complete_review new_conflicts)}
+      {Accent.Hook.Outbounds.Websocket,
+       events: ~w(sync create_collaborator create_comment complete_review new_conflicts)}
     ],
     inbounds: [{Accent.Hook.Inbounds.GitHub, events: ~w(sync)}]
 end

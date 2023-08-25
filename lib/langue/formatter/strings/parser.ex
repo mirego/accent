@@ -1,7 +1,9 @@
 defmodule Langue.Formatter.Strings.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Utils.{LineByLineHelper, Placeholders}
+  alias Langue.Utils.LineByLineHelper
+  alias Langue.Utils.Placeholders
 
   @prop_line_regex ~r/^(?<comment>.+)?"(?<key>.+)" ?= ?"(?<value>.*)"$/sm
 

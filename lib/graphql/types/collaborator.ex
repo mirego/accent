@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.Collaborator do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   import Absinthe.Resolution.Helpers, only: [dataloader: 1, dataloader: 2]

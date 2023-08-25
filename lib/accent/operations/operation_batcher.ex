@@ -1,7 +1,9 @@
 defmodule Accent.OperationBatcher do
+  @moduledoc false
   import Ecto.Query, only: [from: 2]
 
-  alias Accent.{Operation, Repo}
+  alias Accent.Operation
+  alias Accent.Repo
 
   @time_limit 60
   @time_unit "minute"
@@ -12,11 +14,9 @@ defmodule Accent.OperationBatcher do
   def batch(operation) do
     with existing_operation when not is_nil(existing_operation) <- find_existing_operation(operation),
          batch_operation when not is_nil(batch_operation) <- maybe_batch(existing_operation) do
-      from(
-        o in Operation,
-        where: o.id in ^[existing_operation.id, operation.id]
+      Repo.update_all(from(o in Operation, where: o.id in ^[existing_operation.id, operation.id]),
+        set: [batch_operation_id: batch_operation.id]
       )
-      |> Repo.update_all(set: [batch_operation_id: batch_operation.id])
     else
       _ -> {0, nil}
     end
@@ -48,7 +48,7 @@ defmodule Accent.OperationBatcher do
   end
 
   defp maybe_batch(nil), do: nil
-  defp maybe_batch(operation = %{batch_operation_id: nil}), do: create_batch_operation(operation)
+  defp maybe_batch(%{batch_operation_id: nil} = operation), do: create_batch_operation(operation)
   defp maybe_batch(%{batch_operation: batch_operation}), do: update_batch_operation(batch_operation)
 
   defp update_batch_operation(batch_operation) do

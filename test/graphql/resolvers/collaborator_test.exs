@@ -1,17 +1,16 @@
 defmodule AccentTest.GraphQL.Resolvers.Collaborator do
+  @moduledoc false
   use Accent.RepoCase
   use Oban.Testing, repo: Accent.Repo
 
+  alias Accent.Collaborator
   alias Accent.GraphQL.Resolvers.Collaborator, as: Resolver
-
-  alias Accent.{
-    Collaborator,
-    Project,
-    Repo,
-    User
-  }
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
 
   defmodule PlugConn do
+    @moduledoc false
     defstruct [:assigns]
   end
 
@@ -19,7 +18,7 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
 
   setup do
     user = Repo.insert!(@user)
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
     {:ok, [user: user, project: project]}
   end
@@ -46,7 +45,7 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
 
   test "update", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    collaborator = %Collaborator{email: "test@example.com", role: "reviewer", project_id: project.id} |> Repo.insert!()
+    collaborator = Repo.insert!(%Collaborator{email: "test@example.com", role: "reviewer", project_id: project.id})
 
     {:ok, result} = Resolver.update(collaborator, %{role: "owner"}, context)
 
@@ -56,7 +55,7 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
 
   test "delete", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    collaborator = %Collaborator{email: "test@example.com", role: "reviewer", project_id: project.id} |> Repo.insert!()
+    collaborator = Repo.insert!(%Collaborator{email: "test@example.com", role: "reviewer", project_id: project.id})
 
     {:ok, result} = Resolver.delete(collaborator, %{}, context)
 

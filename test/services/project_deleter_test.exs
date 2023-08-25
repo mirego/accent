@@ -1,11 +1,15 @@
 defmodule AccentTest.ProjectDeleter do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{Collaborator, Project, ProjectDeleter, Repo}
+  alias Accent.Collaborator
+  alias Accent.Project
+  alias Accent.ProjectDeleter
+  alias Accent.Repo
 
   test "create with language and user" do
-    project = %Project{main_color: "#f00", name: "french"} |> Repo.insert!()
-    collaborator = %Collaborator{project_id: project.id, role: "reviewer"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "french"})
+    collaborator = Repo.insert!(%Collaborator{project_id: project.id, role: "reviewer"})
 
     assert project
            |> Ecto.assoc(:all_collaborators)

@@ -1,4 +1,5 @@
 defmodule Accent.Scopes.Search do
+  @moduledoc false
   import Ecto.Query, only: [from: 2, dynamic: 2]
 
   @doc """

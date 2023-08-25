@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.SimpleJson.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   alias Langue.Formatter.Json.Serializer, as: JsonSerializer

@@ -1,15 +1,16 @@
 defmodule Accent.ChannelCase do
+  @moduledoc false
   use ExUnit.CaseTemplate
 
   alias Accent.Endpoint
   alias Accent.Repo
-  alias Ecto.{Adapters.SQL.Sandbox}
+  alias Ecto.Adapters.SQL.Sandbox
 
   using do
     quote do
+      import Accent.Router.Helpers
       # Import conveniences for testing with connections
       import Phoenix.ChannelTest
-      import Accent.Router.Helpers
 
       # The default endpoint for testing
       @endpoint Endpoint

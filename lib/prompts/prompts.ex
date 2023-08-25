@@ -1,4 +1,5 @@
 defmodule Accent.Prompts do
+  @moduledoc false
   alias Accent.Prompts.Provider
 
   def id_from_config(config) do

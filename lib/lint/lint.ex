@@ -1,4 +1,5 @@
 defmodule Accent.Lint do
+  @moduledoc false
   @checks [
     Accent.Lint.Checks.DoubleSpace,
     Accent.Lint.Checks.FirstLetterCase,
@@ -13,11 +14,13 @@ defmodule Accent.Lint do
   @typep entry :: Langue.Entry.t()
 
   defmodule Message do
+    @moduledoc false
     @enforce_keys ~w(check text)a
     defstruct check: nil, text: nil, replacement: nil
   end
 
   defmodule Replacement do
+    @moduledoc false
     @enforce_keys ~w(value label)a
     defstruct value: nil, label: nil
   end

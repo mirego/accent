@@ -3,9 +3,11 @@ defmodule Accent.LintController do
 
   import Canary.Plugs
 
-  alias Accent.{Project, Repo, Translation}
+  alias Accent.Project
+  alias Accent.Repo
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
+  alias Accent.Translation
   alias Movement.Context
 
   plug(Plug.Assign, canary_action: :sync)
@@ -50,11 +52,15 @@ defmodule Accent.LintController do
 
   defp map_entry(entry, conn) do
     translation = Map.get(conn.assigns[:translations], {entry.key, conn.assigns[:document].id})
-    master_translation = Map.get(conn.assigns[:master_translations], {entry.key, conn.assigns[:document].id}, translation)
+
+    master_translation =
+      Map.get(conn.assigns[:master_translations], {entry.key, conn.assigns[:document].id}, translation)
+
     language_slug = conn.assigns[:revision].slug || conn.assigns[:revision].language.slug
 
     if translation do
-      translation_entry = Translation.to_langue_entry(translation, master_translation, translation.revision.master, language_slug)
+      translation_entry =
+        Translation.to_langue_entry(translation, master_translation, translation.revision.master, language_slug)
 
       %{
         translation_entry
@@ -107,8 +113,7 @@ defmodule Accent.LintController do
       |> TranslationScope.from_revision(conn.assigns[:revision].id)
       |> Repo.all()
       |> Repo.preload(:revision)
-      |> Enum.map(&{{&1.key, &1.document_id}, &1})
-      |> Enum.into(%{})
+      |> Map.new(&{{&1.key, &1.document_id}, &1})
 
     assign(conn, :translations, translations)
   end
@@ -119,8 +124,7 @@ defmodule Accent.LintController do
       |> base_translations(conn)
       |> TranslationScope.from_revision(conn.assigns[:master_revision].id)
       |> Repo.all()
-      |> Enum.map(&{{&1.key, &1.document_id}, &1})
-      |> Enum.into(%{})
+      |> Map.new(&{{&1.key, &1.document_id}, &1})
 
     assign(conn, :master_translations, master_translations)
   end

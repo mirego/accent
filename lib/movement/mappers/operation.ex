@@ -1,8 +1,9 @@
 defmodule Movement.Mappers.Operation do
+  @moduledoc false
   alias Accent.PreviousTranslation
 
   @spec map(binary, map, map) :: Movement.Operation.t()
-  def map(action = "new", current_translation, suggested_translation) do
+  def map("new" = action, current_translation, suggested_translation) do
     %Movement.Operation{
       action: action,
       text: suggested_translation.text,

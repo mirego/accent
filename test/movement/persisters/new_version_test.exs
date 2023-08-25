@@ -1,19 +1,17 @@
 defmodule AccentTest.Movement.Persisters.NewVersion do
+  @moduledoc false
   use Accent.RepoCase
 
   import Ecto.Query
 
-  alias Accent.{
-    Document,
-    Language,
-    Operation,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User,
-    Version
-  }
-
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
+  alias Accent.Version
   alias Movement.Context
   alias Movement.Persisters.NewVersion, as: NewVersionPersister
 
@@ -42,7 +40,7 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
     document: document
   } do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -52,8 +50,7 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
         locked: true,
         revision_id: revision.id,
         document_id: document.id
-      }
-      |> Repo.insert!()
+      })
 
     operations = [
       %Movement.Operation{

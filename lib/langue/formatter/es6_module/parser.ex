@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Es6Module.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Formatter.Json.Parser, as: JsonParser
@@ -14,10 +15,10 @@ defmodule Langue.Formatter.Es6Module.Parser do
     entries =
       render
       |> String.split("\n")
-      |> tl
+      |> tl()
       |> Enum.reverse()
-      |> tl
-      |> tl
+      |> tl()
+      |> tl()
       |> Kernel.++(["{"])
       |> Enum.reverse()
       |> Kernel.++(["}"])

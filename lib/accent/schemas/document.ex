@@ -1,4 +1,5 @@
 defmodule Accent.Document do
+  @moduledoc false
   use Accent.Schema
 
   require Accent.DocumentFormat

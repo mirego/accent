@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.User do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   import Accent.GraphQL.Helpers.Fields

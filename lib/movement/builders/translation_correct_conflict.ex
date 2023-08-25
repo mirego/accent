@@ -1,11 +1,12 @@
 defmodule Movement.Builders.TranslationCorrectConflict do
+  @moduledoc false
   @behaviour Movement.Builder
 
   alias Movement.Mappers.Operation, as: OperationMapper
 
   @action "correct_conflict"
 
-  def build(context = %Movement.Context{assigns: %{translation: translation, text: text}, operations: operations}) do
+  def build(%Movement.Context{assigns: %{translation: translation, text: text}, operations: operations} = context) do
     value_type = Movement.Mappers.ValueType.from_translation_new_value(translation, text)
     operation = OperationMapper.map(@action, translation, %{text: text, value_type: value_type})
 

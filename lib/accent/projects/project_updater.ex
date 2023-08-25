@@ -1,7 +1,8 @@
 defmodule Accent.ProjectUpdater do
-  alias Accent.Repo
-
+  @moduledoc false
   import Canada, only: [can?: 2]
+
+  alias Accent.Repo
 
   @optional_fields ~w(name main_color logo)a
 

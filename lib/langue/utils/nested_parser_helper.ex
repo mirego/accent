@@ -1,4 +1,5 @@
 defmodule Langue.Utils.NestedParserHelper do
+  @moduledoc false
   alias Langue.Entry
 
   @nested_separator "."

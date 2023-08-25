@@ -1,5 +1,7 @@
 defmodule Accent.BadgeGenerator do
-  alias Accent.{PrettyFloat, Repo}
+  @moduledoc false
+  alias Accent.PrettyFloat
+  alias Accent.Repo
   alias Accent.Scopes.Revision, as: RevisionScope
 
   @badge_service_timeout 20_000
@@ -46,7 +48,7 @@ defmodule Accent.BadgeGenerator do
       |> Map.put(:reviewed_count, acc[:reviewed_count] + revision.reviewed_count)
     end)
     |> then(fn
-      stats = %{translations_count: 0} ->
+      %{translations_count: 0} = stats ->
         Map.put(stats, :percentage_reviewed_count, 0)
 
       stats ->

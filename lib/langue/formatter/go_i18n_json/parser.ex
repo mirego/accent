@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.GoI18nJson.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Entry

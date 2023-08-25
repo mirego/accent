@@ -1,4 +1,5 @@
 defmodule Movement.Migration.Conflict do
+  @moduledoc false
   @behaviour Movement.Migration
 
   import Movement.EctoMigrationHelper

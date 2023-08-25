@@ -1,9 +1,8 @@
 defmodule Accent.GraphQL.Resolvers.Permission do
-  alias Accent.{
-    Plugs.GraphQLContext,
-    Project,
-    User
-  }
+  @moduledoc false
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
+  alias Accent.User
 
   @spec list_viewer(User.t(), any(), GraphQLContext.t()) :: {:ok, [atom()]}
   def list_viewer(current_user, _, _) do

@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.MutationResult do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   object :mutated_translation do

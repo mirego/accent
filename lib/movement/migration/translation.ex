@@ -1,9 +1,11 @@
 defmodule Movement.Migration.Translation do
+  @moduledoc false
   @behaviour Movement.Migration
 
   import Movement.EctoMigrationHelper
 
-  alias Accent.{Operation, Translation}
+  alias Accent.Operation
+  alias Accent.Translation
   alias Ecto.UUID
 
   def call(:update_proposed, operation) do

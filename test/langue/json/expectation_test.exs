@@ -1,7 +1,9 @@
 defmodule LangueTest.Formatter.Json.Expectation do
+  @moduledoc false
   alias Langue.Entry
 
   defmodule Empty do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render, do: "{}\n"
@@ -9,6 +11,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule NilValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -27,6 +30,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule EmptyValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -45,6 +49,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule BooleanValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -65,6 +70,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule FloatValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -83,6 +89,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule IntegerValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -101,6 +108,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule InvalidIntegerValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -119,6 +127,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule InvalidFloatValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -137,6 +146,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule Array do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -167,6 +177,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule Simple do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -189,6 +200,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule Nested do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -217,6 +229,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule Complexe do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -280,10 +293,30 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "activerecord.errors.models.result.attributes.video_url.invalid_url", value: "n’est pas valide", value_type: "string"},
-        %Entry{index: 2, key: "activerecord.errors.models.season.attributes.base.current_season_must_be_unique", value: "Les saisons", value_type: "string"},
-        %Entry{index: 3, key: "activerecord.errors.models.season.attributes.starts_at.cant_be_changed", value: "ne peut pas être changé", value_type: "string"},
-        %Entry{index: 4, key: "activerecord.errors.models.season.attributes.workouts_count.cant_be_changed", value: "ne peut pas être changé", value_type: "string"},
+        %Entry{
+          index: 1,
+          key: "activerecord.errors.models.result.attributes.video_url.invalid_url",
+          value: "n’est pas valide",
+          value_type: "string"
+        },
+        %Entry{
+          index: 2,
+          key: "activerecord.errors.models.season.attributes.base.current_season_must_be_unique",
+          value: "Les saisons",
+          value_type: "string"
+        },
+        %Entry{
+          index: 3,
+          key: "activerecord.errors.models.season.attributes.starts_at.cant_be_changed",
+          value: "ne peut pas être changé",
+          value_type: "string"
+        },
+        %Entry{
+          index: 4,
+          key: "activerecord.errors.models.season.attributes.workouts_count.cant_be_changed",
+          value: "ne peut pas être changé",
+          value_type: "string"
+        },
         %Entry{index: 5, key: "attributes.country_code", value: "Pays", value_type: "string"},
         %Entry{index: 6, key: "attributes.credit_card", value: "Carte de crédit", value_type: "string"},
         %Entry{index: 7, key: "attributes.email", value: "Courriel", value_type: "string"},
@@ -305,6 +338,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
   end
 
   defmodule PlaceholderValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -322,8 +356,20 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "placeholders.single", value: "Hello, {{username}}.", placeholders: ~w({{username}}), value_type: "string"},
-        %Entry{index: 2, key: "placeholders.multiple", value: "Hello, {{firstname}} {{lastname}}.", placeholders: ~w({{firstname}} {{lastname}}), value_type: "string"},
+        %Entry{
+          index: 1,
+          key: "placeholders.single",
+          value: "Hello, {{username}}.",
+          placeholders: ~w({{username}}),
+          value_type: "string"
+        },
+        %Entry{
+          index: 2,
+          key: "placeholders.multiple",
+          value: "Hello, {{firstname}} {{lastname}}.",
+          placeholders: ~w({{firstname}} {{lastname}}),
+          value_type: "string"
+        },
         %Entry{
           index: 3,
           key: "placeholders.duplicate",

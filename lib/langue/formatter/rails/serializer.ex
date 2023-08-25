@@ -1,5 +1,6 @@
 if Langue.Formatter.Rails.enabled?() do
   defmodule Langue.Formatter.Rails.Serializer do
+    @moduledoc false
     @behaviour Langue.Formatter.Serializer
 
     alias Langue.Utils.NestedSerializerHelper
@@ -21,5 +22,6 @@ if Langue.Formatter.Rails.enabled?() do
   end
 else
   defmodule Langue.Formatter.Rails.Serializer do
+    @moduledoc false
   end
 end

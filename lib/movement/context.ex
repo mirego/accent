@@ -1,4 +1,5 @@
 defmodule Movement.Context do
+  @moduledoc false
   defstruct entries: [], operations: [], assigns: %{options: []}, render: ""
 
   @type t :: %__MODULE__{}

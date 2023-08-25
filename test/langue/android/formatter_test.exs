@@ -1,9 +1,10 @@
 defmodule LangueTest.Formatter.Android do
+  @moduledoc false
   use ExUnit.Case, async: true
 
-  Code.require_file("expectation_test.exs", __DIR__)
-
   alias Langue.Formatter.Android
+
+  Code.require_file("expectation_test.exs", __DIR__)
 
   @tests [
     Simple,

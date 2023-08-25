@@ -3,9 +3,13 @@ defmodule Accent.MachineTranslationsController do
 
   import Canary.Plugs
 
-  alias Accent.{Document, Language, Project, Repo, Translation}
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.Project
+  alias Accent.Repo
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
+  alias Accent.Translation
 
   plug(Plug.Assign, %{canary_action: :machine_translations_translate})
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
@@ -123,7 +127,7 @@ defmodule Accent.MachineTranslationsController do
     |> send_resp(:ok, render)
   end
 
-  defp fetch_format(conn = %{params: %{"document_format" => format}}, _) do
+  defp fetch_format(%{params: %{"document_format" => format}} = conn, _) do
     assign(conn, :document_format, String.downcase(format))
   end
 
@@ -135,11 +139,11 @@ defmodule Accent.MachineTranslationsController do
     assign(conn, :document, Repo.get(Document, conn.params["document_id"]))
   end
 
-  defp fetch_order(conn = %{params: %{"order_by" => ""}}, _), do: assign(conn, :order, "index")
-  defp fetch_order(conn = %{params: %{"order_by" => order}}, _), do: assign(conn, :order, order)
+  defp fetch_order(%{params: %{"order_by" => ""}} = conn, _), do: assign(conn, :order, "index")
+  defp fetch_order(%{params: %{"order_by" => order}} = conn, _), do: assign(conn, :order, order)
   defp fetch_order(conn, _), do: assign(conn, :order, "index")
 
-  defp fetch_master_revision(conn = %{assigns: %{project: project}}, _) do
+  defp fetch_master_revision(%{assigns: %{project: project}} = conn, _) do
     revision =
       project
       |> Ecto.assoc(:revisions)

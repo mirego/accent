@@ -1,20 +1,17 @@
 defmodule Accent.GraphQL.Resolvers.Document do
-  require Ecto.Query
-
-  alias Accent.{
-    Document,
-    DocumentManager,
-    GraphQL.Paginated,
-    Plugs.GraphQLContext,
-    Project,
-    Repo
-  }
-
+  @moduledoc false
+  alias Accent.Document
+  alias Accent.DocumentManager
+  alias Accent.GraphQL.Paginated
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
+  alias Accent.Repo
   alias Accent.Scopes.Document, as: DocumentScope
-
   alias Movement.Builders.DocumentDelete, as: DocumentDeleteBuilder
   alias Movement.Context
   alias Movement.Persisters.DocumentDelete, as: DocumentDeletePersister
+
+  require Ecto.Query
 
   @typep document_operation :: {:ok, %{document: Document.t() | nil, errors: [String.t()] | nil}}
 

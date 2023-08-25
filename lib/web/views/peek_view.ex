@@ -8,8 +8,7 @@ defmodule Accent.PeekView do
       end)
 
     stats =
-      operations
-      |> Enum.reduce(%{}, fn {revision_id, operations}, acc ->
+      Enum.reduce(operations, %{}, fn {revision_id, operations}, acc ->
         stat = fetch_stats(operations)
 
         Map.put(acc, revision_id, stat)

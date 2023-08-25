@@ -1,10 +1,9 @@
 defmodule Accent.GraphQL.Resolvers.Viewer do
-  alias Accent.{
-    AccessToken,
-    Plugs.GraphQLContext,
-    Repo,
-    User
-  }
+  @moduledoc false
+  alias Accent.AccessToken
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Repo
+  alias Accent.User
 
   @spec show(nil, map(), GraphQLContext.t()) :: {:ok, User.t() | nil}
   def show(_, _, %{context: context}) do

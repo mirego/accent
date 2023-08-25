@@ -1,4 +1,5 @@
 defmodule Accent.UserRemote.TokenGiver do
+  @moduledoc false
   alias Accent.Repo
   alias Accent.Utils.SecureRandom
 

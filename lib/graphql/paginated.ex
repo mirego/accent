@@ -1,5 +1,9 @@
 defmodule Accent.GraphQL.Paginated do
+  @moduledoc false
+  use Accessible
+
   defmodule Meta do
+    @moduledoc false
     @type t :: %__MODULE__{}
 
     @enforce_keys [:current_page, :total_pages, :total_entries, :next_page, :previous_page]
@@ -10,8 +14,6 @@ defmodule Accent.GraphQL.Paginated do
 
   @enforce_keys [:entries, :meta]
   defstruct entries: [], meta: %{}
-
-  use Accessible
 
   def paginate(query, args) do
     Accent.Repo.paginate(query, page: args[:page], page_size: args[:page_size])

@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Strings do
+  @moduledoc false
   use Langue.Formatter,
     id: "strings",
     display_name: "Apple .strings",

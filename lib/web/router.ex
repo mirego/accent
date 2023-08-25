@@ -37,7 +37,7 @@ defmodule Accent.Router do
     plug :metrics_auth
   end
 
-  defp metrics_auth(conn = %{query_params: %{"share" => share}}, _opts) when is_binary(share), do: conn
+  defp metrics_auth(%{query_params: %{"share" => share}} = conn, _opts) when is_binary(share), do: conn
 
   defp metrics_auth(conn, _opts) do
     if System.get_env("METRICS_BASIC_AUTH") do
@@ -69,7 +69,10 @@ defmodule Accent.Router do
     post("/merge", MergeController, [])
     post("/merge/peek", PeekController, :merge, as: :peek_merge)
     post("/machine-translations/translate-file", MachineTranslationsController, :translate_file, as: :translate_file)
-    post("/machine-translations/translate-document", MachineTranslationsController, :translate_document, as: :translate_document)
+
+    post("/machine-translations/translate-document", MachineTranslationsController, :translate_document,
+      as: :translate_document
+    )
 
     # File export
     get("/export", ExportController, [])

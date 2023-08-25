@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Json do
+  @moduledoc false
   use Langue.Formatter,
     id: "json",
     display_name: "JSON",

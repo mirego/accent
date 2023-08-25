@@ -1,4 +1,5 @@
 defmodule Accent.Prompt do
+  @moduledoc false
   use Accent.Schema
 
   schema "prompts" do

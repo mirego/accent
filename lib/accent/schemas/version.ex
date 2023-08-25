@@ -1,4 +1,5 @@
 defmodule Accent.Version do
+  @moduledoc false
   use Accent.Schema
 
   schema "versions" do

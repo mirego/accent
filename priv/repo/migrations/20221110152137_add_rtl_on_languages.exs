@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.AddRtlOnLanguages do
+  @moduledoc false
   use Ecto.Migration
 
   @rtl_languages ~w(

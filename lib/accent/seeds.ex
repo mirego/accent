@@ -1,7 +1,9 @@
 defmodule Accent.Seeds do
+  @moduledoc false
   import Ecto.Query
 
   defmodule Language do
+    @moduledoc false
     use Accent.Schema
 
     schema "languages" do
@@ -29,7 +31,7 @@ defmodule Accent.Seeds do
     "languages.json"
     |> fetch()
     |> Enum.map(&Map.merge(&1, timestamps))
-    |> (&repo.insert_all(Language, &1, on_conflict: :nothing, conflict_target: :slug)).()
+    |> then(&repo.insert_all(Language, &1, on_conflict: :nothing, conflict_target: :slug))
 
     "languages-plural-forms.json"
     |> fetch()

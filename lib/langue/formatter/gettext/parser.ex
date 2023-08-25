@@ -1,8 +1,10 @@
 defmodule Langue.Formatter.Gettext.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.{Entry, ValueType}
+  alias Langue.Entry
   alias Langue.Utils.Placeholders
+  alias Langue.ValueType
 
   def parse(%{render: render, document: document}) do
     {:ok, po} = Gettext.PO.parse_string(render)
@@ -28,7 +30,7 @@ defmodule Langue.Formatter.Gettext.Parser do
     |> Placeholders.parse(Langue.Formatter.Gettext.placeholder_regex())
   end
 
-  defp parse_translation(translation = %{msgid_plural: _}) do
+  defp parse_translation(%{msgid_plural: _} = translation) do
     plural_entry = %Entry{
       comment: join_string(translation.comments),
       key: join_string(translation.msgid) <> key_suffix("_"),
@@ -38,8 +40,7 @@ defmodule Langue.Formatter.Gettext.Parser do
       locked: true
     }
 
-    translation.msgstr
-    |> Enum.reduce([plural_entry], fn {plural_index, value}, acc ->
+    Enum.reduce(translation.msgstr, [plural_entry], fn {plural_index, value}, acc ->
       Enum.concat(acc, [
         %Entry{
           key: join_string(translation.msgid) <> key_suffix(plural_index),
@@ -51,7 +52,7 @@ defmodule Langue.Formatter.Gettext.Parser do
     end)
   end
 
-  defp parse_translation(translation = %{msgctxt: nil}) do
+  defp parse_translation(%{msgctxt: nil} = translation) do
     [
       %Entry{
         comment: join_string(translation.comments),

@@ -1,8 +1,9 @@
 defmodule Accent.MachineTranslationsConfigManager do
+  @moduledoc false
+  import Ecto.Changeset
+
   alias Accent.Repo
   alias Ecto.Multi
-
-  import Ecto.Changeset
 
   def save(project, params) do
     params = %{

@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Resx20.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   @xml_template """
@@ -6,7 +7,13 @@ defmodule Langue.Formatter.Resx20.Serializer do
   """
 
   @xsd [
-    {"xsd:schema", [{"id", "root"}, {"xmlns", ""}, {"xmlns:xsd", "http://www.w3.org/2001/XMLSchema"}, {"xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata"}],
+    {"xsd:schema",
+     [
+       {"id", "root"},
+       {"xmlns", ""},
+       {"xmlns:xsd", "http://www.w3.org/2001/XMLSchema"},
+       {"xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata"}
+     ],
      [
        {"xsd:import", [{"namespace", "http://www.w3.org/XML/1998/namespace"}], []},
        {"xsd:element",
@@ -127,11 +134,17 @@ defmodule Langue.Formatter.Resx20.Serializer do
     {"resheader", [{"name", "version"}], [{"value", [], ["2.0"]}]},
     {"resheader", [{"name", "reader"}],
      [
-       {"value", [], ["System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"]}
+       {"value", [],
+        [
+          "System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+        ]}
      ]},
     {"resheader", [{"name", "writer"}],
      [
-       {"value", [], ["System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"]}
+       {"value", [],
+        [
+          "System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+        ]}
      ]}
   ]
 

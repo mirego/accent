@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Android do
+  @moduledoc false
   use Langue.Formatter,
     id: "android_xml",
     display_name: "Android XML",

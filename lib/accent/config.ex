@@ -42,7 +42,9 @@ defmodule Accent.Config do
   def parse_env(value, :uri), do: URI.parse(value)
 
   @spec get_endpoint_url_config(URI.t() | any()) :: nil | [scheme: String.t(), host: String.t(), port: String.t()]
-  def get_endpoint_url_config(%URI{scheme: scheme, host: host, port: port}), do: [scheme: scheme, host: host, port: port]
+  def get_endpoint_url_config(%URI{scheme: scheme, host: host, port: port}),
+    do: [scheme: scheme, host: host, port: port]
+
   def get_endpoint_url_config(_invalid), do: nil
 
   @spec get_uri_part(URI.t() | any(), :scheme | :host | :port) :: String.t() | nil

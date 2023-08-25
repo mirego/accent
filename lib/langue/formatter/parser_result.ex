@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.ParserResult do
+  @moduledoc false
   @type t :: struct
 
   @enforce_keys [:entries]

@@ -3,18 +3,15 @@ defmodule Accent.ExportController do
 
   import Canary.Plugs
 
+  alias Accent.Document
+  alias Accent.Project
+  alias Accent.Repo
   alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: Scope
   alias Accent.Scopes.Version, as: VersionScope
-
-  alias Accent.{
-    Document,
-    Project,
-    Repo,
-    Translation,
-    Version
-  }
+  alias Accent.Translation
+  alias Accent.Version
 
   plug(Plug.Assign, %{canary_action: :export_revision})
   plug(:load_resource, model: Project, id_name: "project_id")
@@ -57,19 +54,14 @@ defmodule Accent.ExportController do
     #### Error
     - `404` Unknown revision id.
   """
-  def index(conn = %{query_params: %{"inline_render" => "true"}}, _) do
+  def index(%{query_params: %{"inline_render" => "true"}} = conn, _) do
     conn
     |> put_resp_header("content-type", "text/plain")
     |> send_resp(:ok, conn.assigns[:document].render)
   end
 
   def index(conn, _) do
-    file =
-      [
-        System.tmp_dir(),
-        Accent.Utils.SecureRandom.urlsafe_base64(16)
-      ]
-      |> Path.join()
+    file = Path.join([System.tmp_dir(), Accent.Utils.SecureRandom.urlsafe_base64(16)])
 
     :ok = File.write(file, conn.assigns[:document].render)
 
@@ -78,11 +70,14 @@ defmodule Accent.ExportController do
     |> send_file(:ok, file)
   end
 
-  defp fetch_order(conn = %{params: %{"order_by" => ""}}, _), do: assign(conn, :order, "index")
-  defp fetch_order(conn = %{params: %{"order_by" => order}}, _), do: assign(conn, :order, order)
+  defp fetch_order(%{params: %{"order_by" => ""}} = conn, _), do: assign(conn, :order, "index")
+  defp fetch_order(%{params: %{"order_by" => order}} = conn, _), do: assign(conn, :order, order)
   defp fetch_order(conn, _), do: assign(conn, :order, "index")
 
-  defp fetch_translations(conn = %{assigns: %{document: document, order: order, revision: revision, version: version}}, _) do
+  defp fetch_translations(
+         %{assigns: %{document: document, order: order, revision: revision, version: version}} = conn,
+         _
+       ) do
     filters = parse_filters(conn.params["filters"])
 
     translations =
@@ -111,7 +106,7 @@ defmodule Accent.ExportController do
 
   defp parse_filters(_), do: %{}
 
-  defp fetch_master_revision(conn = %{assigns: %{project: project}}, _) do
+  defp fetch_master_revision(%{assigns: %{project: project}} = conn, _) do
     revision =
       project
       |> Ecto.assoc(:revisions)
@@ -122,11 +117,14 @@ defmodule Accent.ExportController do
     assign(conn, :master_revision, revision)
   end
 
-  defp fetch_master_translations(conn = %{assigns: %{revision: %{master: true}, translations: translations}}, _) do
+  defp fetch_master_translations(%{assigns: %{revision: %{master: true}, translations: translations}} = conn, _) do
     assign(conn, :master_translations, translations)
   end
 
-  defp fetch_master_translations(conn = %{assigns: %{document: document, version: version, master_revision: master_revision}}, _) do
+  defp fetch_master_translations(
+         %{assigns: %{document: document, version: version, master_revision: master_revision}} = conn,
+         _
+       ) do
     translations =
       Translation
       |> Scope.active()
@@ -138,7 +136,7 @@ defmodule Accent.ExportController do
     assign(conn, :master_translations, translations)
   end
 
-  defp fetch_document(conn = %{params: %{"document_path" => path} = params, assigns: %{project: project}}, _) do
+  defp fetch_document(%{params: %{"document_path" => path} = params, assigns: %{project: project}} = conn, _) do
     Document
     |> DocumentScope.from_project(project.id)
     |> DocumentScope.from_path(path)
@@ -157,7 +155,7 @@ defmodule Accent.ExportController do
     assign(conn, :document, nil)
   end
 
-  defp fetch_version(conn = %{params: %{"version" => version_param}, assigns: %{project: project}}, _) do
+  defp fetch_version(%{params: %{"version" => version_param}, assigns: %{project: project}} = conn, _) do
     Version
     |> VersionScope.from_project(project.id)
     |> VersionScope.from_tag(version_param)
@@ -174,7 +172,15 @@ defmodule Accent.ExportController do
   defp fetch_version(conn, _), do: assign(conn, :version, nil)
 
   defp fetch_rendered_document(
-         conn = %{assigns: %{master_revision: master_revision, master_translations: master_translations, translations: translations, revision: revision, document: document}},
+         %{
+           assigns: %{
+             master_revision: master_revision,
+             master_translations: master_translations,
+             translations: translations,
+             revision: revision,
+             document: document
+           }
+         } = conn,
          _
        ) do
     document = document || %Accent.Document{format: conn.params["document_format"]}

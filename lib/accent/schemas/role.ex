@@ -1,4 +1,5 @@
 defmodule Accent.Role do
+  @moduledoc false
   defstruct slug: nil
 
   @type t :: struct

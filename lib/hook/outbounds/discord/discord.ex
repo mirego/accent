@@ -1,4 +1,5 @@
 defmodule Accent.Hook.Outbounds.Discord do
+  @moduledoc false
   use Oban.Worker, queue: :hook
 
   @impl Oban.Worker

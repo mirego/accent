@@ -1,5 +1,8 @@
 defmodule Accent.Hook.Context do
-  alias Accent.{Project, Repo, User}
+  @moduledoc false
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
 
   @derive {Jason.Encoder, except: ~w(project user)a}
   @enforce_keys ~w(project_id user_id event payload)a

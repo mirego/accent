@@ -1,14 +1,15 @@
 defmodule Accent.Plugs.GraphQLOperationNameLogger do
+  @moduledoc false
   @behaviour Plug
 
   def init(options), do: options
 
-  def call(conn = %{params: %{"operationName" => name, "query" => _}}, _) do
+  def call(%{params: %{"operationName" => name, "query" => _}} = conn, _) do
     put_metadata(name)
     conn
   end
 
-  def call(conn = %{params: %{"_json" => operations}}, _) do
+  def call(%{params: %{"_json" => operations}} = conn, _) do
     operation_names =
       operations
       |> Enum.filter(&Map.has_key?(&1, "operationName"))

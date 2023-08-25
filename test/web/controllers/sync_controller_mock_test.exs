@@ -1,17 +1,16 @@
 defmodule AccentTest.SyncControllerMock do
+  @moduledoc false
   use Accent.ConnCase
 
   import Mock
 
-  alias Accent.{
-    AccessToken,
-    Collaborator,
-    Language,
-    Project,
-    Repo,
-    Revision,
-    User
-  }
+  alias Accent.AccessToken
+  alias Accent.Collaborator
+  alias Accent.Language
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.User
 
   @user %User{email: "test@test.com"}
 
@@ -21,18 +20,23 @@ defmodule AccentTest.SyncControllerMock do
 
   setup do
     user = Repo.insert!(@user)
-    access_token = %AccessToken{user_id: user.id, token: "test-token"} |> Repo.insert!()
-    french_language = %Language{name: "french", slug: Ecto.UUID.generate()} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    access_token = Repo.insert!(%AccessToken{user_id: user.id, token: "test-token"})
+    french_language = Repo.insert!(%Language{name: "french", slug: Ecto.UUID.generate()})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
-    %Collaborator{project_id: project.id, user_id: user.id, role: "admin"} |> Repo.insert!()
-    %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
-
+    Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "admin"})
+    Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
     {:ok, [access_token: access_token, project: project, language: french_language]}
   end
 
   test "sync with failure", %{access_token: access_token, conn: conn, project: project, language: language} do
-    body = %{file: file(), project_id: project.id, language: language.slug, document_format: "json", document_path: "simple"}
+    body = %{
+      file: file(),
+      project_id: project.id,
+      language: language.slug,
+      document_format: "json",
+      document_path: "simple"
+    }
 
     with_mock(Movement.Persisters.ProjectSync, persist: fn _ -> {:error, "oups"} end) do
       response =

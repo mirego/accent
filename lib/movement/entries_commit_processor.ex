@@ -1,8 +1,9 @@
 defmodule Movement.EntriesCommitProcessor do
+  @moduledoc false
+  alias Movement.MachineTranslations
+
   @no_action_keys ~w(noop autocorrect)
   @included_slave_actions ~w(new remove renew merge_on_corrected merge_on_proposed merge_on_proposed_force merge_on_corrected_force)
-
-  alias Movement.MachineTranslations
 
   @doc """
   For list of translations, new data (like the content of a file upload) and a given function,
@@ -12,7 +13,7 @@ defmodule Movement.EntriesCommitProcessor do
   keys, use the process_for_remove/3 function.
   """
   @spec process(Movement.Context.t()) :: Movement.Context.t()
-  def process(context = %Movement.Context{entries: entries, assigns: assigns, operations: operations}) do
+  def process(%Movement.Context{entries: entries, assigns: assigns, operations: operations} = context) do
     grouped_translations = group_by_key(assigns[:translations])
 
     new_operations =
@@ -37,7 +38,13 @@ defmodule Movement.EntriesCommitProcessor do
         operation = assigns[:comparer].(current_translation, suggested_translation)
 
         operation =
-          if MachineTranslations.enable_machine_translation?(operation, entry, assigns[:revision], assigns[:project], assigns[:batch_action]) do
+          if MachineTranslations.enable_machine_translation?(
+               operation,
+               entry,
+               assigns[:revision],
+               assigns[:project],
+               assigns[:batch_action]
+             ) do
             %{operation | machine_translations_enabled: true}
           else
             operation
@@ -56,7 +63,7 @@ defmodule Movement.EntriesCommitProcessor do
   returns the list of operations concerning removed keys from the content that will be exectued.
   """
   @spec process_for_remove(Movement.Context.t()) :: Movement.Context.t()
-  def process_for_remove(context = %Movement.Context{entries: entries, assigns: assigns, operations: operations}) do
+  def process_for_remove(%Movement.Context{entries: entries, assigns: assigns, operations: operations} = context) do
     grouped_entries = group_by_key(entries)
     grouped_entries_keys = Map.keys(grouped_entries)
 

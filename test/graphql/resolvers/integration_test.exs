@@ -1,16 +1,15 @@
 defmodule AccentTest.GraphQL.Resolvers.Integration do
+  @moduledoc false
   use Accent.RepoCase
 
   alias Accent.GraphQL.Resolvers.Integration, as: Resolver
-
-  alias Accent.{
-    Integration,
-    Project,
-    Repo,
-    User
-  }
+  alias Accent.Integration
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
 
   defmodule PlugConn do
+    @moduledoc false
     defstruct [:assigns]
   end
 
@@ -18,7 +17,7 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
 
   setup do
     user = Repo.insert!(@user)
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
     {:ok, [user: user, project: project]}
   end
@@ -26,7 +25,8 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
   test "create slack", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, integration} = Resolver.create(project, %{service: "slack", events: ["sync"], data: %{url: "http://google.ca"}}, context)
+    {:ok, integration} =
+      Resolver.create(project, %{service: "slack", events: ["sync"], data: %{url: "http://google.ca"}}, context)
 
     assert integration.service == "slack"
     assert integration.data.url == "http://google.ca"
@@ -39,7 +39,8 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
   test "create discord", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, integration} = Resolver.create(project, %{service: "discord", events: ["sync"], data: %{url: "http://google.ca"}}, context)
+    {:ok, integration} =
+      Resolver.create(project, %{service: "discord", events: ["sync"], data: %{url: "http://google.ca"}}, context)
 
     assert integration.service == "discord"
     assert integration.data.url == "http://google.ca"
@@ -52,7 +53,12 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
   test "create github", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, integration} = Resolver.create(project, %{service: "github", data: %{repository: "root/test", default_ref: "master", token: "1234"}}, context)
+    {:ok, integration} =
+      Resolver.create(
+        project,
+        %{service: "github", data: %{repository: "root/test", default_ref: "master", token: "1234"}},
+        context
+      )
 
     assert integration.service == "github"
     assert integration.data.repository == "root/test"
@@ -65,7 +71,12 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
   test "create github error", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, integration} = Resolver.create(project, %{service: "github", data: %{repository: "", default_ref: "master", token: "1234"}}, context)
+    {:ok, integration} =
+      Resolver.create(
+        project,
+        %{service: "github", data: %{repository: "", default_ref: "master", token: "1234"}},
+        context
+      )
 
     assert integration.changes.data.errors == [repository: {"can't be blank", [validation: :required]}]
 
@@ -97,14 +108,24 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
 
     {:ok, integration} = Resolver.create(project, %{service: "foo", data: %{url: ""}}, context)
 
-    assert integration.errors == [service: {"is invalid", [validation: :inclusion, enum: ["slack", "github", "discord"]]}]
+    assert integration.errors == [
+             service: {"is invalid", [validation: :inclusion, enum: ["slack", "github", "discord"]]}
+           ]
 
     assert Repo.all(Integration) == []
   end
 
   test "update", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    integration = %Integration{project_id: project.id, user_id: user.id, service: "slack", events: ["sync"], data: %{url: "http://google.ca"}} |> Repo.insert!()
+
+    integration =
+      Repo.insert!(%Integration{
+        project_id: project.id,
+        user_id: user.id,
+        service: "slack",
+        events: ["sync"],
+        data: %{url: "http://google.ca"}
+      })
 
     {:ok, updated_integration} = Resolver.update(integration, %{data: %{url: "http://example.com/update"}}, context)
 
@@ -113,7 +134,15 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
 
   test "delete", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    integration = %Integration{project_id: project.id, user_id: user.id, service: "slack", events: ["sync"], data: %{url: "http://google.ca"}} |> Repo.insert!()
+
+    integration =
+      Repo.insert!(%Integration{
+        project_id: project.id,
+        user_id: user.id,
+        service: "slack",
+        events: ["sync"],
+        data: %{url: "http://google.ca"}
+      })
 
     {:ok, deleted_integration} = Resolver.delete(integration, %{}, context)
 

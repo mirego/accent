@@ -1,4 +1,5 @@
 defmodule AccentTest.EmailAbilities do
+  @moduledoc false
   use ExUnit.Case, async: false
 
   alias Accent.EmailAbilities

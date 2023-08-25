@@ -1,4 +1,5 @@
 defmodule Accent.User do
+  @moduledoc false
   use Accent.Schema
 
   schema "users" do

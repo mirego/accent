@@ -1,14 +1,19 @@
 defmodule AccentTest.CollaboratorUpdater do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{Collaborator, CollaboratorUpdater, Project, Repo, User}
+  alias Accent.Collaborator
+  alias Accent.CollaboratorUpdater
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
 
   test "update" do
     email = "test@test.com"
-    project = %Project{main_color: "#f00", name: "com"} |> Repo.insert!()
-    assigner = %User{email: "lol@test.com"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "com"})
+    assigner = Repo.insert!(%User{email: "lol@test.com"})
     role = "admin"
-    collaborator = %Collaborator{role: role, assigner: assigner, project: project, email: email} |> Repo.insert!()
+    collaborator = Repo.insert!(%Collaborator{role: role, assigner: assigner, project: project, email: email})
 
     {:ok, updated_collaborator} = CollaboratorUpdater.update(collaborator, %{"role" => "reviewer"})
 

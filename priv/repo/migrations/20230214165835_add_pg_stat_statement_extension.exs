@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.AddPgStatStatementExtension do
+  @moduledoc false
   use Ecto.Migration
 
   require Logger
@@ -9,7 +10,7 @@ defmodule Accent.Repo.Migrations.AddPgStatStatementExtension do
     if superuser?() do
       execute("CREATE EXTENSION IF NOT EXISTS pg_stat_statements", "DROP EXTENSION IF EXISTS pg_stat_statements")
     else
-      Logger.warn("""
+      Logger.warning("""
       Can’t create pg_stat_statements extension.
 
       Only superuser can create extensions. If you are not superuser of the database (like on Heroku PostgreSQL), you need to create the extension manually before executing the migration.

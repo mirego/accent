@@ -1,4 +1,5 @@
 defmodule Accent.AccessToken do
+  @moduledoc false
   use Accent.Schema
 
   schema "auth_access_tokens" do

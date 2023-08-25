@@ -1,4 +1,5 @@
 defmodule Accent.Comment do
+  @moduledoc false
   use Accent.Schema
 
   import Ecto.Query, only: [where: 2]

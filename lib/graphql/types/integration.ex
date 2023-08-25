@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.Integration do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   enum :project_integration_service do

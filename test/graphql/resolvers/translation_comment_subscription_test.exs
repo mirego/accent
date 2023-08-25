@@ -1,22 +1,22 @@
 defmodule AccentTest.GraphQL.Resolvers.TranslationCommentSubscription do
+  @moduledoc false
   use Accent.RepoCase
 
   import Mox
-  setup :verify_on_exit!
 
   alias Accent.GraphQL.Resolvers.TranslationCommentSubscription, as: Resolver
+  alias Accent.Language
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.TranslationCommentsSubscription
+  alias Accent.User
 
-  alias Accent.{
-    Language,
-    Project,
-    Repo,
-    Revision,
-    Translation,
-    TranslationCommentsSubscription,
-    User
-  }
+  setup :verify_on_exit!
 
   defmodule PlugConn do
+    @moduledoc false
     defstruct [:assigns]
   end
 
@@ -24,16 +24,18 @@ defmodule AccentTest.GraphQL.Resolvers.TranslationCommentSubscription do
 
   setup do
     user = Repo.insert!(@user)
-    french_language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    french_language = Repo.insert!(%Language{name: "french"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
-    revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
+    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
 
     {:ok, [user: user, project: project, revision: revision]}
   end
 
   test "create", %{user: user, revision: revision} do
-    translation = %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
+    translation =
+      Repo.insert!(%Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar"})
+
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     {:ok, result} = Resolver.create(translation, %{user_id: user.id}, context)
@@ -43,9 +45,11 @@ defmodule AccentTest.GraphQL.Resolvers.TranslationCommentSubscription do
   end
 
   test "delete", %{user: user, revision: revision} do
-    translation = %Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar"} |> Repo.insert!()
+    translation =
+      Repo.insert!(%Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar"})
+
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    subscription = %TranslationCommentsSubscription{user_id: user.id, translation_id: translation.id} |> Repo.insert!()
+    subscription = Repo.insert!(%TranslationCommentsSubscription{user_id: user.id, translation_id: translation.id})
 
     {:ok, result} = Resolver.delete(subscription, %{}, context)
 

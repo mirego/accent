@@ -1,4 +1,5 @@
 defmodule Accent.Plugs.BotParamsInjector do
+  @moduledoc false
   use Plug.Builder
 
   plug(:assign_project_id)
@@ -9,7 +10,7 @@ defmodule Accent.Plugs.BotParamsInjector do
 
   Fallback to doing nothing with the connection
   """
-  def assign_project_id(conn = %{assigns: %{current_user: user = %{bot: true}}}, _) do
+  def assign_project_id(%{assigns: %{current_user: %{bot: true} = user}} = conn, _) do
     user.permissions
     |> Map.to_list()
     |> case do

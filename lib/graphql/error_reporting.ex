@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.ErrorReporting do
+  @moduledoc false
   require Logger
 
   def run(%{result: %{errors: errors}, source: source} = blueprint, _) when not is_nil(errors) do

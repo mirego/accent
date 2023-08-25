@@ -12,11 +12,11 @@ defmodule Langue.Formatter.GoI18nJson.Serializer do
 
   @behaviour Langue.Formatter.Serializer
 
+  alias Langue.Utils.NestedSerializerHelper
+
   # Constants
   @plural_leaf ~r/\.\w+$/
   @plural_root ~r/^\w+\./
-
-  alias Langue.Utils.NestedSerializerHelper
 
   def serialize(%{entries: entries}) do
     render =
@@ -31,7 +31,7 @@ defmodule Langue.Formatter.GoI18nJson.Serializer do
     %Langue.Formatter.SerializerResult{render: render}
   end
 
-  defp process_entry(entry = %{plural: true}, acc), do: accumulate_plural(entry, acc)
+  defp process_entry(%{plural: true} = entry, acc), do: accumulate_plural(entry, acc)
 
   defp process_entry(entry, acc) do
     acc
@@ -52,9 +52,9 @@ defmodule Langue.Formatter.GoI18nJson.Serializer do
     update_in(acc, [:entries], &(&1 ++ entry))
   end
 
-  defp append_plurals(acc = %{plurals: []}), do: acc
+  defp append_plurals(%{plurals: []} = acc), do: acc
 
-  defp append_plurals(acc = %{plurals: plurals}) do
+  defp append_plurals(%{plurals: plurals} = acc) do
     mapped_plurals =
       Enum.map(plurals, fn entry ->
         {plural_to_leaf_key(entry), entry_value(entry)}

@@ -1,25 +1,22 @@
 defmodule Accent.GraphQL.Resolvers.Project do
-  require Ecto.Query
-
+  @moduledoc false
+  alias Accent.GraphQL.Paginated
+  alias Accent.Operation
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
+  alias Accent.ProjectCreator
+  alias Accent.ProjectDeleter
+  alias Accent.ProjectUpdater
+  alias Accent.Repo
   alias Accent.Scopes.Operation, as: OperationScope
   alias Accent.Scopes.Project, as: ProjectScope
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
-
-  alias Accent.{
-    GraphQL.Paginated,
-    Operation,
-    Plugs.GraphQLContext,
-    Project,
-    ProjectCreator,
-    ProjectDeleter,
-    ProjectUpdater,
-    Repo,
-    Translation,
-    User
-  }
-
+  alias Accent.Translation
+  alias Accent.User
   alias Ecto.Query
+
+  require Ecto.Query
 
   @typep project_operation :: {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
 
@@ -75,7 +72,8 @@ defmodule Accent.GraphQL.Resolvers.Project do
     end
   end
 
-  @spec list_viewer(User.t(), %{query: String.t(), page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Project.t())}
+  @spec list_viewer(User.t(), %{query: String.t(), page: number()}, GraphQLContext.t()) ::
+          {:ok, Paginated.t(Project.t())}
   def list_viewer(viewer, args, _info) do
     paginated_projects =
       Project
@@ -146,8 +144,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
       |> TranslationScope.active()
       |> TranslationScope.not_locked()
       |> Repo.all()
-      |> Enum.map(&{{&1.key, &1.document_id}, &1})
-      |> Enum.into(%{})
+      |> Map.new(&{{&1.key, &1.document_id}, &1})
 
     entries =
       Enum.map(translations, fn translation ->

@@ -1,4 +1,5 @@
 defmodule Accent.Lint.Checks.LeadingSpaces do
+  @moduledoc false
   alias Accent.Lint.Message
   alias Accent.Lint.Replacement
 

@@ -1,7 +1,10 @@
 defmodule AccentTest.AuthenticationController do
   use Accent.ConnCase
 
-  alias Accent.{AccessToken, AuthController, Repo, User}
+  alias Accent.AccessToken
+  alias Accent.AuthController
+  alias Accent.Repo
+  alias Accent.User
 
   test "create responds with error when invalid params", %{conn: conn} do
     conn = AuthController.callback(conn, nil)

@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.Role do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   enum :role do

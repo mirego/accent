@@ -1,7 +1,11 @@
 defmodule Accent.ProjectCreator do
+  @moduledoc false
   import Ecto.Changeset
 
-  alias Accent.{Project, Repo, User, UserRemote.TokenGiver}
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
+  alias Accent.UserRemote.TokenGiver
   alias Ecto.Changeset
 
   @required_fields ~w(name main_color language_id)a

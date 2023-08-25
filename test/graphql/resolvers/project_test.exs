@@ -1,20 +1,19 @@
 defmodule AccentTest.GraphQL.Resolvers.Project do
+  @moduledoc false
   use Accent.RepoCase
 
   alias Accent.GraphQL.Resolvers.Project, as: Resolver
-
-  alias Accent.{
-    Language,
-    Operation,
-    Project,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User,
-    Version
-  }
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.Project
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
+  alias Accent.Version
 
   defmodule PlugConn do
+    @moduledoc false
     defstruct [:assigns]
   end
 
@@ -23,7 +22,10 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     user = %{user | permissions: %{project.id => "owner"}}
 
     {:ok,
@@ -49,7 +51,13 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "list viewer search", %{user: user, language: language} do
     Repo.insert!(%Project{main_color: "#f00", name: "Other project"})
-    {:ok, project_two} = ProjectCreator.create(params: %{main_color: "#f00", name: "My second project", language_id: language.id}, user: user)
+
+    {:ok, project_two} =
+      ProjectCreator.create(
+        params: %{main_color: "#f00", name: "My second project", language_id: language.id},
+        user: user
+      )
+
     ProjectCreator.create(params: %{main_color: "#f00", name: "My third project", language_id: language.id}, user: user)
 
     {:ok, result} = Resolver.list_viewer(user, %{query: "second"}, %{})
@@ -70,12 +78,15 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "list viewer paginated", %{user: user, language: language} do
     for index <- 1..50 do
-      ProjectCreator.create(params: %{main_color: "#f00", name: "My project #{index}", language_id: language.id}, user: user)
+      ProjectCreator.create(
+        params: %{main_color: "#f00", name: "My project #{index}", language_id: language.id},
+        user: user
+      )
     end
 
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_viewer(user, %{}, %{})
 
-    assert entries |> Enum.count() == 30
+    assert Enum.count(entries) == 30
     assert meta.current_page == 1
     assert meta.total_pages == 2
     assert meta.total_entries == 51
@@ -85,12 +96,15 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "list viewer paginated page 2", %{user: user, language: language} do
     for index <- 1..50 do
-      ProjectCreator.create(params: %{main_color: "#f00", name: "My project #{index}", language_id: language.id}, user: user)
+      ProjectCreator.create(
+        params: %{main_color: "#f00", name: "My project #{index}", language_id: language.id},
+        user: user
+      )
     end
 
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_viewer(user, %{page: 2}, %{})
 
-    assert entries |> Enum.count() == 21
+    assert Enum.count(entries) == 21
     assert meta.current_page == 2
     assert meta.total_pages == 2
     assert meta.total_entries == 51
@@ -100,12 +114,26 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "list viewer ordering", %{user: user, language: language, project: project_one} do
     Repo.insert!(%Project{main_color: "#f00", name: "Other project"})
-    {:ok, project_two} = ProjectCreator.create(params: %{main_color: "#f00", name: "X - My second project", language_id: language.id}, user: user)
-    {:ok, project_three} = ProjectCreator.create(params: %{main_color: "#f00", name: "A - My third project", language_id: language.id}, user: user)
+
+    {:ok, project_two} =
+      ProjectCreator.create(
+        params: %{main_color: "#f00", name: "X - My second project", language_id: language.id},
+        user: user
+      )
+
+    {:ok, project_three} =
+      ProjectCreator.create(
+        params: %{main_color: "#f00", name: "A - My third project", language_id: language.id},
+        user: user
+      )
 
     {:ok, result} = Resolver.list_viewer(user, %{}, %{})
 
-    assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [project_three.id, project_one.id, project_two.id]
+    assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [
+             project_three.id,
+             project_one.id,
+             project_two.id
+           ]
   end
 
   test "show viewer", %{user: user, project: project} do
@@ -117,7 +145,8 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "create", %{user: user, language: language} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.create(nil, %{main_color: "#f00", language_id: language.id, name: "Foo bar", logo: nil}, context)
+    {:ok, result} =
+      Resolver.create(nil, %{main_color: "#f00", language_id: language.id, name: "Foo bar", logo: nil}, context)
 
     assert get_in(result, [:project, Access.key(:name)]) == "Foo bar"
   end
@@ -162,14 +191,19 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   test "update with file operation locked", %{user: user, project: project} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.update(project, %{main_color: project.main_color, name: project.name, is_file_operations_locked: true, logo: nil}, context)
+    {:ok, result} =
+      Resolver.update(
+        project,
+        %{main_color: project.main_color, name: project.name, is_file_operations_locked: true, logo: nil},
+        context
+      )
 
     assert get_in(result, [:project, Access.key(:locked_file_operations)]) == true
   end
 
   test "get latest activity", %{user: user, project: project} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    operation = %Operation{user_id: user.id, project_id: project.id, action: "sync"} |> Repo.insert!()
+    operation = Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
 
     {:ok, latest_activity} = Resolver.last_activity(project, %{}, context)
 
@@ -197,7 +231,14 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     [revision] = project.revisions
     version = Repo.insert!(%Version{project_id: project.id, name: "foo", tag: "bar", user_id: user.id})
     Repo.insert!(%Translation{revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A"})
-    Repo.insert!(%Translation{version_id: version.id, revision_id: revision.id, key: "b", proposed_text: " B", corrected_text: " B"})
+
+    Repo.insert!(%Translation{
+      version_id: version.id,
+      revision_id: revision.id,
+      key: "b",
+      proposed_text: " B",
+      corrected_text: " B"
+    })
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 

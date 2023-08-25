@@ -1,7 +1,9 @@
 defmodule LangueTest.Formatter.Android.Expectation do
+  @moduledoc false
   alias Langue.Entry
 
   defmodule Simple do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -23,6 +25,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
   end
 
   defmodule Plural do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -40,14 +43,34 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "pluralized_key.one", value: "Only one pluralization found.", value_type: "string", plural: true},
-        %Entry{index: 2, key: "pluralized_key.other", value: "Wow, you have %@ pluralizations!", value_type: "string", plural: true, placeholders: ["%@"]},
-        %Entry{index: 3, key: "pluralized_key.zero", value: "You have no pluralization.", value_type: "string", plural: true}
+        %Entry{
+          index: 1,
+          key: "pluralized_key.one",
+          value: "Only one pluralization found.",
+          value_type: "string",
+          plural: true
+        },
+        %Entry{
+          index: 2,
+          key: "pluralized_key.other",
+          value: "Wow, you have %@ pluralizations!",
+          value_type: "string",
+          plural: true,
+          placeholders: ["%@"]
+        },
+        %Entry{
+          index: 3,
+          key: "pluralized_key.zero",
+          value: "You have no pluralization.",
+          value_type: "string",
+          plural: true
+        }
       ]
     end
   end
 
   defmodule EmptyValue do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -67,6 +90,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
   end
 
   defmodule UnsupportedTag do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -84,6 +108,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
   end
 
   defmodule RuntimeError do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -99,6 +124,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
   end
 
   defmodule Commented do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -114,13 +140,20 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "activity_open_in_chrome", value: "Ouvrir avec Chrome", comment: " Comment ", value_type: "string"},
+        %Entry{
+          index: 1,
+          key: "activity_open_in_chrome",
+          value: "Ouvrir avec Chrome",
+          comment: " Comment ",
+          value_type: "string"
+        },
         %Entry{index: 2, key: "activity_open_in_safari", value: "Ouvrir avec Safari", value_type: "string"}
       ]
     end
   end
 
   defmodule Array do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -137,13 +170,19 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
     def entries do
       [
-        %Entry{index: 1, key: "drawer_menu_array.__KEY__0", value: "@string/browse_profile_view_title", value_type: "array"},
+        %Entry{
+          index: 1,
+          key: "drawer_menu_array.__KEY__0",
+          value: "@string/browse_profile_view_title",
+          value_type: "array"
+        },
         %Entry{index: 2, key: "drawer_menu_array.__KEY__1", value: "@string/find_a_user", value_type: "array"}
       ]
     end
   end
 
   defmodule StringsFormatEscape do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -159,12 +198,19 @@ defmodule LangueTest.Formatter.Android.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "height", value: "Height (%@)", placeholders: ~w(%@), value_type: "string"},
-        %Entry{index: 2, key: "agree_terms_policy", value: "By using this application, you agree to the %1$@ and %2$@.", placeholders: ~w(%1$@ %2$@), value_type: "string"}
+        %Entry{
+          index: 2,
+          key: "agree_terms_policy",
+          value: "By using this application, you agree to the %1$@ and %2$@.",
+          placeholders: ~w(%1$@ %2$@),
+          value_type: "string"
+        }
       ]
     end
   end
 
   defmodule ValueEscaping do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -184,6 +230,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
   end
 
   defmodule PlaceholderValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -200,8 +247,20 @@ defmodule LangueTest.Formatter.Android.Expectation do
     def entries do
       [
         %Entry{index: 1, key: "single", value: "Hello, %@.", placeholders: ~w(%@), value_type: "string"},
-        %Entry{index: 2, key: "multiple", value: "Hello, %1$@ %2$@.", placeholders: ~w(%1$@ %2$@), value_type: "string"},
-        %Entry{index: 3, key: "duplicate", value: "Hello, %1$@ %2$@. Welcome back %1$@ %2$@.", placeholders: ~w(%1$@ %2$@ %1$@ %2$@), value_type: "string"}
+        %Entry{
+          index: 2,
+          key: "multiple",
+          value: "Hello, %1$@ %2$@.",
+          placeholders: ~w(%1$@ %2$@),
+          value_type: "string"
+        },
+        %Entry{
+          index: 3,
+          key: "duplicate",
+          value: "Hello, %1$@ %2$@. Welcome back %1$@ %2$@.",
+          placeholders: ~w(%1$@ %2$@ %1$@ %2$@),
+          value_type: "string"
+        }
       ]
     end
   end

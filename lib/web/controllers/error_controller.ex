@@ -4,12 +4,12 @@ defmodule Accent.ErrorController do
   def handle_unauthorized(conn) do
     conn
     |> send_resp(:unauthorized, "Unauthorized")
-    |> halt
+    |> halt()
   end
 
   def handle_not_found(conn) do
     conn
     |> send_resp(:not_found, "Not found")
-    |> halt
+    |> halt()
   end
 end

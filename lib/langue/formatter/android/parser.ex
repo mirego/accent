@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Android.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Entry
@@ -60,8 +61,7 @@ defmodule Langue.Formatter.Android.Parser do
 
   # Comments are only appended in the comments key of the accumulator
   defp parse_line({:comment, comment}, acc) do
-    acc
-    |> Map.put(:comment, Enum.concat(acc.comment, [comment]))
+    Map.put(acc, :comment, Enum.concat(acc.comment, [comment]))
   end
 
   # Unsupported elements are simply ignored

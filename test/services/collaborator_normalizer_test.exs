@@ -1,14 +1,19 @@
 defmodule AccentTest.CollaboratorNormalizer do
+  @moduledoc false
   use Accent.RepoCase
 
   import Ecto.Query
 
-  alias Accent.{Collaborator, Project, Repo, User, UserRemote.CollaboratorNormalizer}
+  alias Accent.Collaborator
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
+  alias Accent.UserRemote.CollaboratorNormalizer
 
   test "create with many collaborations" do
-    project = %Project{main_color: "#f00", name: "Ha"} |> Repo.insert!()
-    project2 = %Project{main_color: "#f00", name: "Oh"} |> Repo.insert!()
-    assigner = %User{email: "assigner@test.com"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "Ha"})
+    project2 = Repo.insert!(%Project{main_color: "#f00", name: "Oh"})
+    assigner = Repo.insert!(%User{email: "assigner@test.com"})
 
     collaborators = [
       %Collaborator{role: "admin", project_id: project.id, assigner_id: assigner.id},
@@ -21,7 +26,7 @@ defmodule AccentTest.CollaboratorNormalizer do
       |> Enum.map(&Repo.insert!/1)
       |> Enum.map(&Map.get(&1, :id))
 
-    new_user = %User{email: "test@test.com"} |> Repo.insert!()
+    new_user = Repo.insert!(%User{email: "test@test.com"})
 
     %User{} = CollaboratorNormalizer.normalize(new_user)
 
@@ -31,9 +36,9 @@ defmodule AccentTest.CollaboratorNormalizer do
   end
 
   test "create with case insensitive email" do
-    project = %Project{main_color: "#f00", name: "Ha"} |> Repo.insert!()
-    project2 = %Project{main_color: "#f00", name: "Oh"} |> Repo.insert!()
-    assigner = %User{email: "assigner@test.com"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "Ha"})
+    project2 = Repo.insert!(%Project{main_color: "#f00", name: "Oh"})
+    assigner = Repo.insert!(%User{email: "assigner@test.com"})
 
     collaborators = [
       %Collaborator{role: "admin", project_id: project.id, assigner_id: assigner.id},
@@ -46,7 +51,7 @@ defmodule AccentTest.CollaboratorNormalizer do
       |> Enum.map(&Repo.insert!/1)
       |> Enum.map(&Map.get(&1, :id))
 
-    new_user = %User{email: "Test@test.com"} |> Repo.insert!()
+    new_user = Repo.insert!(%User{email: "Test@test.com"})
 
     %User{} = CollaboratorNormalizer.normalize(new_user)
 
@@ -56,11 +61,11 @@ defmodule AccentTest.CollaboratorNormalizer do
   end
 
   test "create without collaborations" do
-    new_user = %User{email: "Test@test.com"} |> Repo.insert!()
+    new_user = Repo.insert!(%User{email: "Test@test.com"})
 
     %User{} = CollaboratorNormalizer.normalize(new_user)
 
-    new_collaborators = Collaborator |> Repo.all()
+    new_collaborators = Repo.all(Collaborator)
 
     assert new_collaborators === []
   end

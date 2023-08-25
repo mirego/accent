@@ -1,4 +1,5 @@
 defmodule Langue.Utils.NestedSerializerHelper do
+  @moduledoc false
   alias Langue.Utils.NestedParserHelper
 
   def map_value({nil, [%{value: value, value_type: type} | _t]}, _index), do: entry_value_to_string(value, type)
@@ -10,9 +11,8 @@ defmodule Langue.Utils.NestedSerializerHelper do
     |> parse_children(index)
   end
 
-  defp parse_children(entries = [{"__KEY__" <> _array_index, _values} | _rest], index) do
-    entries
-    |> Enum.map(fn {_key, values} -> group_by(values, index + 1) end)
+  defp parse_children([{"__KEY__" <> _array_index, _values} | _rest] = entries, index) do
+    Enum.map(entries, fn {_key, values} -> group_by(values, index + 1) end)
   end
 
   defp parse_children(entries, index) do

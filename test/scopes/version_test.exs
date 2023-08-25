@@ -1,15 +1,14 @@
 defmodule AccentTest.Scopes.Version do
+  @moduledoc false
   use Accent.RepoCase, async: true
-  doctest Accent.Scopes.Version
 
-  alias Accent.{
-    Project,
-    Repo,
-    User,
-    Version
-  }
-
+  alias Accent.Project
+  alias Accent.Repo
   alias Accent.Scopes.Version, as: VersionScope
+  alias Accent.User
+  alias Accent.Version
+
+  doctest Accent.Scopes.Version
 
   defp assert_match_version(versions, version) do
     assert length(versions) === 1
@@ -17,12 +16,12 @@ defmodule AccentTest.Scopes.Version do
   end
 
   defp insert_version(tag, project, user) do
-    %Version{name: "foo", tag: tag, project_id: project.id, user_id: user.id} |> Repo.insert!()
+    Repo.insert!(%Version{name: "foo", tag: tag, project_id: project.id, user_id: user.id})
   end
 
   setup do
     user = Repo.insert!(%User{email: "test@test.com"})
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
     {:ok, [user: user, project: project]}
   end

@@ -1,11 +1,13 @@
 defmodule LangueTest.Formatter.SimpleJson do
+  @moduledoc false
   use ExUnit.Case, async: true
-
-  Code.require_file("expectation_test.exs", __DIR__)
 
   alias Accent.FormatterTestHelper
   alias Langue.Formatter.SimpleJson
-  alias LangueTest.Formatter.SimpleJson.Expectation.{SimpleParse, SimpleSerialize}
+  alias LangueTest.Formatter.SimpleJson.Expectation.SimpleParse
+  alias LangueTest.Formatter.SimpleJson.Expectation.SimpleSerialize
+
+  Code.require_file("expectation_test.exs", __DIR__)
 
   @tests [
     Empty,

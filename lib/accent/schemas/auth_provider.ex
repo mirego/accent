@@ -1,4 +1,5 @@
 defmodule Accent.AuthProvider do
+  @moduledoc false
   use Accent.Schema
 
   schema "auth_providers" do

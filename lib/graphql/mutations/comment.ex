@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Mutations.Comment do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   import Accent.GraphQL.Helpers.Authorization
@@ -30,13 +31,23 @@ defmodule Accent.GraphQL.Mutations.Comment do
       arg(:translation_id, non_null(:id))
       arg(:user_id, non_null(:id))
 
-      resolve(translation_authorize(:create_translation_comments_subscription, &Accent.GraphQL.Resolvers.TranslationCommentSubscription.create/3))
+      resolve(
+        translation_authorize(
+          :create_translation_comments_subscription,
+          &Accent.GraphQL.Resolvers.TranslationCommentSubscription.create/3
+        )
+      )
     end
 
     field :delete_translation_comments_subscription, :mutated_translation_comments_subscription do
       arg(:id, non_null(:id))
 
-      resolve(translation_comment_subscription_authorize(:delete_translation_comments_subscription, &Accent.GraphQL.Resolvers.TranslationCommentSubscription.delete/3))
+      resolve(
+        translation_comment_subscription_authorize(
+          :delete_translation_comments_subscription,
+          &Accent.GraphQL.Resolvers.TranslationCommentSubscription.delete/3
+        )
+      )
     end
   end
 end

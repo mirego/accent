@@ -1,12 +1,17 @@
 defmodule AccentTest.ProjectCreator do
+  @moduledoc false
   use Accent.RepoCase
+
+  alias Accent.Language
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.User
+
   require Ecto.Query
 
-  alias Accent.{Language, ProjectCreator, Repo, User}
-
   test "create with language and user" do
-    language = %Language{name: "french"} |> Repo.insert!()
-    user = %User{email: "lol@test.com"} |> Repo.insert!()
+    language = Repo.insert!(%Language{name: "french"})
+    user = Repo.insert!(%User{email: "lol@test.com"})
     params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
@@ -18,8 +23,8 @@ defmodule AccentTest.ProjectCreator do
   end
 
   test "create owner collaborator" do
-    language = %Language{name: "french"} |> Repo.insert!()
-    user = %User{email: "lol@test.com"} |> Repo.insert!()
+    language = Repo.insert!(%Language{name: "french"})
+    user = Repo.insert!(%User{email: "lol@test.com"})
     params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
@@ -29,14 +34,14 @@ defmodule AccentTest.ProjectCreator do
   end
 
   test "create bot collaborator" do
-    language = %Language{name: "french"} |> Repo.insert!()
-    user = %User{email: "lol@test.com"} |> Repo.insert!()
+    language = Repo.insert!(%Language{name: "french"})
+    user = Repo.insert!(%User{email: "lol@test.com"})
     params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
     bot_collaborator = project |> Ecto.assoc(:all_collaborators) |> Ecto.Query.where([c], c.role == "bot") |> Repo.one()
     bot_user = Repo.preload(bot_collaborator, :user).user
-    bot_access = Repo.preload(bot_collaborator, user: :access_tokens).user.access_tokens |> hd()
+    bot_access = hd(Repo.preload(bot_collaborator, user: :access_tokens).user.access_tokens)
 
     refute is_nil(bot_collaborator.user_id)
     refute is_nil(bot_access.token)

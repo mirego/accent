@@ -1,12 +1,10 @@
 defmodule Movement.Comparers.MergeForce do
+  @moduledoc false
   @behaviour Movement.Comparer
 
   alias Movement.Mappers.Operation, as: OperationMapper
-
-  alias Movement.{
-    Operation,
-    TranslationComparer
-  }
+  alias Movement.Operation
+  alias Movement.TranslationComparer
 
   @doc """
     ## Examples

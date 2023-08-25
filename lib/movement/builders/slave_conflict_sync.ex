@@ -1,16 +1,18 @@
 defmodule Movement.Builders.SlaveConflictSync do
+  @moduledoc false
   @behaviour Movement.Builder
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Repo
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Repo, Translation}
+  alias Accent.Translation
   alias Movement.Mappers.Operation, as: OperationMapper
 
   @included_actions ~w(conflict_on_corrected conflict_on_proposed)
   @action "conflict_on_slave"
 
-  def build(context = %Movement.Context{}) do
+  def build(%Movement.Context{} = context) do
     context
     |> assign_revision_ids()
     |> assign_operation_keys()
@@ -18,7 +20,7 @@ defmodule Movement.Builders.SlaveConflictSync do
     |> process_operations()
   end
 
-  defp process_operations(context = %Movement.Context{assigns: assigns}) do
+  defp process_operations(%Movement.Context{assigns: assigns} = context) do
     new_operations =
       Enum.map(assigns[:translations], fn translation ->
         OperationMapper.map(@action, translation, %{
@@ -32,7 +34,7 @@ defmodule Movement.Builders.SlaveConflictSync do
     %{context | operations: Enum.concat(context.operations, new_operations)}
   end
 
-  defp assign_translations(context = %Movement.Context{assigns: assigns}) do
+  defp assign_translations(%Movement.Context{assigns: assigns} = context) do
     translations =
       Translation
       |> TranslationScope.active()
@@ -46,11 +48,11 @@ defmodule Movement.Builders.SlaveConflictSync do
     assign(context, :translations, translations)
   end
 
-  defp assign_revision_ids(context = %Movement.Context{assigns: assigns}) do
+  defp assign_revision_ids(%Movement.Context{assigns: assigns} = context) do
     assign(context, :revision_ids, Enum.map(assigns[:revisions], &Map.get(&1, :id)))
   end
 
-  defp assign_operation_keys(context = %Movement.Context{operations: operations}) do
+  defp assign_operation_keys(%Movement.Context{operations: operations} = context) do
     keys =
       operations
       |> Enum.filter(fn %{action: action} -> action in @included_actions end)

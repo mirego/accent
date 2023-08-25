@@ -1,21 +1,24 @@
 defmodule Langue do
-  @format_modules [
-                    Langue.Formatter.Android,
-                    Langue.Formatter.CSV,
-                    Langue.Formatter.Es6Module,
-                    Langue.Formatter.Gettext,
-                    Langue.Formatter.JavaProperties,
-                    Langue.Formatter.JavaPropertiesXml,
-                    Langue.Formatter.Json,
-                    Langue.Formatter.Rails,
-                    Langue.Formatter.SimpleJson,
-                    Langue.Formatter.Strings,
-                    Langue.Formatter.LaravelPhp,
-                    Langue.Formatter.GoI18nJson,
-                    Langue.Formatter.XLIFF12,
-                    Langue.Formatter.Resx20
-                  ]
-                  |> Enum.filter(& &1.enabled?())
+  @moduledoc false
+  @format_modules Enum.filter(
+                    [
+                      Langue.Formatter.Android,
+                      Langue.Formatter.CSV,
+                      Langue.Formatter.Es6Module,
+                      Langue.Formatter.Gettext,
+                      Langue.Formatter.JavaProperties,
+                      Langue.Formatter.JavaPropertiesXml,
+                      Langue.Formatter.Json,
+                      Langue.Formatter.Rails,
+                      Langue.Formatter.SimpleJson,
+                      Langue.Formatter.Strings,
+                      Langue.Formatter.LaravelPhp,
+                      Langue.Formatter.GoI18nJson,
+                      Langue.Formatter.XLIFF12,
+                      Langue.Formatter.Resx20
+                    ],
+                    & &1.enabled?()
+                  )
 
   def modules, do: @format_modules
 

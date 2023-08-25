@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Resx20 do
+  @moduledoc false
   use Langue.Formatter,
     id: "resx_2_0",
     display_name: "Resx 2.0",

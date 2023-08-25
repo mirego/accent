@@ -1,4 +1,5 @@
 defmodule Accent.ProjectInviteEmail do
+  @moduledoc false
   use Bamboo.Phoenix, view: Accent.EmailView
 
   import Accent.EmailViewConfigHelper, only: [mailer_from: 0, x_smtpapi_header: 0]
@@ -15,8 +16,7 @@ defmodule Accent.ProjectInviteEmail do
   end
 
   defp mailer_subject(email, project) do
-    email
-    |> subject(~s(Accent – Invitation to collaborate on "#{project.name}"))
+    subject(email, ~s(Accent – Invitation to collaborate on "#{project.name}"))
   end
 
   defp base_email do

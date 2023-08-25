@@ -1,22 +1,25 @@
 defmodule AccentTest.Plugs.MovementContextParser do
+  @moduledoc false
   use Accent.RepoCase
   use Plug.Test
 
-  alias Accent.{
-    Document,
-    Language,
-    Plugs.MovementContextParser,
-    ProjectCreator,
-    Repo,
-    User
-  }
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.Plugs.MovementContextParser
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.User
 
   def file(filename \\ "simple.json") do
     %Plug.Upload{content_type: "application/json", filename: filename, path: "test/support/formatter/json/simple.json"}
   end
 
   def file_with_header do
-    %Plug.Upload{content_type: "plain/text", filename: "simple.gettext", path: "test/support/formatter/gettext/simple.po"}
+    %Plug.Upload{
+      content_type: "plain/text",
+      filename: "simple.gettext",
+      path: "test/support/formatter/gettext/simple.po"
+    }
   end
 
   def invalid_file do
@@ -31,7 +34,10 @@ defmodule AccentTest.Plugs.MovementContextParser do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -74,7 +80,12 @@ defmodule AccentTest.Plugs.MovementContextParser do
   test "fetch document path with file param containing multiple dots", %{project: project} do
     conn =
       :post
-      |> conn("/foo", %{document_path: "admin.common.test", document_format: "json", file: file("foo.json"), language: "fr"})
+      |> conn("/foo", %{
+        document_path: "admin.common.test",
+        document_format: "json",
+        file: file("foo.json"),
+        language: "fr"
+      })
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
@@ -123,9 +134,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
-    context =
-      conn.assigns
-      |> Map.get(:movement_context)
+    context = Map.get(conn.assigns, :movement_context)
 
     assert context.render == File.read!(file().path)
     assert conn.state == :unset
@@ -138,9 +147,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
-    context =
-      conn.assigns
-      |> Map.get(:movement_context)
+    context = Map.get(conn.assigns, :movement_context)
 
     assert context.assigns[:document] == %Document{path: "hello", format: "json", project_id: project.id}
     assert conn.state == :unset
@@ -153,9 +160,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
-    context =
-      conn.assigns
-      |> Map.get(:movement_context)
+    context = Map.get(conn.assigns, :movement_context)
 
     assert context.assigns[:document] == %Document{
              project_id: project.id,
@@ -179,9 +184,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
-    context =
-      conn.assigns
-      |> Map.get(:movement_context)
+    context = Map.get(conn.assigns, :movement_context)
 
     assert context.assigns[:document].id == document.id
     assert conn.state == :unset
@@ -194,9 +197,7 @@ defmodule AccentTest.Plugs.MovementContextParser do
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
-    context =
-      conn.assigns
-      |> Map.get(:movement_context)
+    context = Map.get(conn.assigns, :movement_context)
 
     assert context.entries == [
              %Langue.Entry{index: 1, key: "test", value: "F", value_type: "string"},
@@ -220,13 +221,16 @@ defmodule AccentTest.Plugs.MovementContextParser do
   test "invalid unicode", %{project: project} do
     conn =
       :post
-      |> conn("/foo", %{document_path: "test.strings", document_format: "strings", file: invalid_unicode(), language: "fr"})
+      |> conn("/foo", %{
+        document_path: "test.strings",
+        document_format: "strings",
+        file: invalid_unicode(),
+        language: "fr"
+      })
       |> assign(:project, project)
       |> MovementContextParser.call([])
 
-    context =
-      conn.assigns
-      |> Map.get(:movement_context)
+    context = Map.get(conn.assigns, :movement_context)
 
     assert context.entries == [
              %Langue.Entry{

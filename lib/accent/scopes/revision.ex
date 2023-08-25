@@ -1,4 +1,5 @@
 defmodule Accent.Scopes.Revision do
+  @moduledoc false
   import Ecto.Query, only: [from: 2]
 
   @doc """

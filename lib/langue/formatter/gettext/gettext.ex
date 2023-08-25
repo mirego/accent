@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Gettext do
+  @moduledoc false
   use Langue.Formatter,
     id: "gettext",
     display_name: "Gettext",

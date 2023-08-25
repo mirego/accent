@@ -1,11 +1,14 @@
 defmodule Movement.Builders.RevisionMerge do
+  @moduledoc false
   @behaviour Movement.Builder
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Repo
+  alias Accent.Revision
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Repo, Revision, Translation}
+  alias Accent.Translation
   alias Movement.EntriesCommitProcessor
 
   @batch_action "merge"

@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Rails do
+  @moduledoc false
   @enabled Code.ensure_loaded?(:fast_yaml)
 
   if @enabled do

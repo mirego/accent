@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.Prompt do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   enum :prompt_provider do

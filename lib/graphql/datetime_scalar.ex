@@ -1,10 +1,10 @@
 defmodule Accent.GraphQL.DatetimeScalar do
-  use Absinthe.Schema.Notation
-
   @moduledoc """
   This module contains additional data types.
   To use: `import_types Absinthe.Type.Extensions`.
   """
+
+  use Absinthe.Schema.Notation
 
   scalar :datetime, name: "DateTime" do
     description("""
@@ -18,9 +18,8 @@ defmodule Accent.GraphQL.DatetimeScalar do
   end
 
   @spec serialize_datetime(any) :: {:ok, String.t()} | :error
-  defp serialize_datetime(datetime = %DateTime{}) do
-    datetime
-    |> DateTime.to_iso8601()
+  defp serialize_datetime(%DateTime{} = datetime) do
+    DateTime.to_iso8601(datetime)
   end
 
   defp serialize_datetime(_) do

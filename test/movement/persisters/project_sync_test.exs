@@ -1,18 +1,16 @@
 defmodule AccentTest.Movement.Persisters.ProjectSync do
+  @moduledoc false
   use Accent.RepoCase
 
   import Ecto.Query
 
-  alias Accent.{
-    Document,
-    Language,
-    Operation,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User
-  }
-
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
   alias Movement.Context
   alias Movement.Persisters.ProjectSync, as: ProjectSyncPersister
 
@@ -21,7 +19,10 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -30,13 +31,7 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
 
   test "persist operations", %{project: project, revision: revision, document: document, user: user} do
     translation =
-      %Translation{
-        key: "a",
-        proposed_text: "A",
-        revision_id: revision.id,
-        document_id: document.id
-      }
-      |> Repo.insert!()
+      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
 
     operations = [
       %Movement.Operation{
@@ -135,9 +130,7 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
     |> Context.assign(:user_id, user.id)
     |> ProjectSyncPersister.persist()
 
-    new_document =
-      Document
-      |> Repo.get(document.id)
+    new_document = Repo.get(Document, document.id)
 
     assert new_document.top_of_the_file_comment == "hello"
     assert new_document.header == "foobar"

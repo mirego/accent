@@ -1,4 +1,5 @@
 defmodule Accent.CreateCommentEmail do
+  @moduledoc false
   use Bamboo.Phoenix, view: Accent.EmailView
 
   import Accent.EmailViewConfigHelper, only: [mailer_from: 0, x_smtpapi_header: 0]
@@ -16,8 +17,7 @@ defmodule Accent.CreateCommentEmail do
   end
 
   defp mailer_subject(email, project) do
-    email
-    |> subject(~s(Accent – New comment on "#{project.name}"))
+    subject(email, ~s(Accent – New comment on "#{project.name}"))
   end
 
   defp base_email do
@@ -30,5 +30,6 @@ defmodule Accent.CreateCommentEmail do
   defp add_x_smtpapi_header(email, nil), do: email
   defp add_x_smtpapi_header(email, header), do: put_header(email, "X-SMTPAPI", header)
 
-  defp translation_path(project, translation_id), do: "app/projects/#{project.id}/translations/#{translation_id}/conversation"
+  defp translation_path(project, translation_id),
+    do: "app/projects/#{project.id}/translations/#{translation_id}/conversation"
 end

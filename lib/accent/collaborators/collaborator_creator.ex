@@ -1,10 +1,13 @@
 defmodule Accent.CollaboratorCreator do
-  alias Accent.{Collaborator, Repo, User}
+  @moduledoc false
+  alias Accent.Collaborator
+  alias Accent.Repo
+  alias Accent.User
 
   def create(params) do
     %Collaborator{}
     |> Collaborator.create_changeset(params)
-    |> assign_user
+    |> assign_user()
     |> Repo.insert()
   end
 

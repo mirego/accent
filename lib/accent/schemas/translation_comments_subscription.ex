@@ -1,4 +1,5 @@
 defmodule Accent.TranslationCommentsSubscription do
+  @moduledoc false
   use Accent.Schema
 
   schema "translation_comments_subscriptions" do

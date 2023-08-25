@@ -1,9 +1,10 @@
 defmodule Accent.Plugs.EnsureUnlockedFileOperations do
+  @moduledoc false
   import Plug.Conn
 
   def init(_), do: nil
 
-  def call(conn = %{assigns: %{project: %{locked_file_operations: true}}}, _) do
+  def call(%{assigns: %{project: %{locked_file_operations: true}}} = conn, _) do
     conn
     |> send_resp(:forbidden, "File operations are locked")
     |> halt()

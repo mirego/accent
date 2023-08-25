@@ -1,4 +1,5 @@
 defmodule Accent.Collaborator do
+  @moduledoc false
   use Accent.Schema
 
   require Accent.Role

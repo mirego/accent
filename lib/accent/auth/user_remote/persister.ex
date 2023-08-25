@@ -20,7 +20,7 @@ defmodule Accent.UserRemote.Persister do
   alias Ecto.Changeset
 
   @spec persist(FetchedUser.t()) :: RepoUser.t()
-  def persist(user = %FetchedUser{provider: provider, uid: uid}) do
+  def persist(%FetchedUser{provider: provider, uid: uid} = user) do
     user
     |> find_or_create_user()
     |> find_or_create_provider(provider, uid)
@@ -47,7 +47,13 @@ defmodule Accent.UserRemote.Persister do
   defp create_provider(user, name, uid), do: Repo.insert!(%AuthProvider{name: name, uid: uid, user_id: user.id})
 
   defp create_user(fetched_user) do
-    user = Repo.insert!(%RepoUser{email: fetched_user.email, fullname: fetched_user.fullname, picture_url: fetched_user.picture_url})
+    user =
+      Repo.insert!(%RepoUser{
+        email: fetched_user.email,
+        fullname: fetched_user.fullname,
+        picture_url: fetched_user.picture_url
+      })
+
     TokenGiver.grant_global_token(user)
     user
   end

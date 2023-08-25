@@ -1,7 +1,8 @@
 defmodule Accent.ReleaseTasks do
-  @app :accent
-
+  @moduledoc false
   alias Ecto.Migrator
+
+  @app :accent
 
   def migrate do
     IO.puts("Running migrations for #{@app}…")

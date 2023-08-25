@@ -1,7 +1,9 @@
 defmodule LangueTest.Formatter.JavaPropertiesXml.Expectation do
+  @moduledoc false
   alias Langue.Entry
 
   defmodule Simple do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -29,6 +31,7 @@ defmodule LangueTest.Formatter.JavaPropertiesXml.Expectation do
   end
 
   defmodule PlaceholderValues do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do

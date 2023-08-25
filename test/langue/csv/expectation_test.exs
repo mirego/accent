@@ -2,6 +2,7 @@ defmodule Langue.Formatter.CSV.ExpectationTest do
   alias Langue.Entry
 
   defmodule Simple do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do

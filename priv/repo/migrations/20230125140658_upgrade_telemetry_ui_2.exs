@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.UpgradeTelemetryUi2 do
+  @moduledoc false
   use Ecto.Migration
 
   def up do

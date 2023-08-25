@@ -1,4 +1,5 @@
 defmodule AccentTest.GraphQL.Resolvers.AuthenticationProvider do
+  @moduledoc false
   use ExUnit.Case, async: true
 
   alias Accent.GraphQL.Resolvers.AuthenticationProvider, as: Resolver

@@ -1,9 +1,10 @@
 defmodule LangueTest.Formatter.LaravelPhp do
+  @moduledoc false
   use ExUnit.Case, async: true
 
-  Code.require_file("expectation_test.exs", __DIR__)
-
   alias Langue.Formatter.LaravelPhp
+
+  Code.require_file("expectation_test.exs", __DIR__)
 
   @tests [
     ParsesDoubleQuotations

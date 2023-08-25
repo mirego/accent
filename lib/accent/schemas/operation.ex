@@ -1,4 +1,5 @@
 defmodule Accent.Operation do
+  @moduledoc false
   use Accent.Schema
 
   schema "operations" do

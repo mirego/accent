@@ -1,10 +1,10 @@
 defmodule Accent.Hook.Inbounds.GitHub.AddTranslations do
+  @moduledoc false
+  alias Accent.Hook.Inbounds.GitHub
   alias Accent.Plugs.MovementContextParser
   alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
   alias Movement.Context
   alias Movement.Persisters.RevisionMerge, as: RevisionMergePersister
-
-  alias Accent.Hook.Inbounds.GitHub
 
   def persist(trees, configs, project, user, revision, token, version) do
     trees

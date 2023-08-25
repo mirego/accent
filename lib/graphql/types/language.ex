@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.Language do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   object :language do

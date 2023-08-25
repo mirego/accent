@@ -1,7 +1,8 @@
 defmodule Accent.Hook.Inbounds.GitHub.FileServer.HTTP do
-  use HTTPoison.Base
-
+  @moduledoc false
   @behaviour Accent.Hook.Inbounds.GitHub.FileServer
+
+  use HTTPoison.Base
 
   @base_url "https://api.github.com/repos/"
 

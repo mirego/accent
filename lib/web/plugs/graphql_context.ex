@@ -1,9 +1,10 @@
 defmodule Accent.Plugs.GraphQLContext do
+  @moduledoc false
   @behaviour Plug
 
-  @type t :: %{context: map()}
-
   import Plug.Conn
+
+  @type t :: %{context: map()}
 
   def init(opts), do: opts
 

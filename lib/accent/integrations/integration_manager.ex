@@ -1,7 +1,9 @@
 defmodule Accent.IntegrationManager do
-  alias Accent.{Integration, Repo}
-
+  @moduledoc false
   import Ecto.Changeset
+
+  alias Accent.Integration
+  alias Accent.Repo
 
   @spec create(map()) :: {:ok, Integration.t()} | {:error, Ecto.Changeset.t()}
   def create(params) do
@@ -20,8 +22,7 @@ defmodule Accent.IntegrationManager do
 
   @spec delete(Integration.t()) :: {:ok, Integration.t()} | {:error, Ecto.Changeset.t()}
   def delete(integration) do
-    integration
-    |> Repo.delete()
+    Repo.delete(integration)
   end
 
   defp changeset(model, params) do

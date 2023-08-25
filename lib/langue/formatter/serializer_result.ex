@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.SerializerResult do
+  @moduledoc false
   @type t :: struct
 
   @enforce_keys [:render]

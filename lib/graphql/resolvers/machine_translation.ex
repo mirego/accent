@@ -1,18 +1,20 @@
 defmodule Accent.GraphQL.Resolvers.MachineTranslation do
-  require Ecto.Query
+  @moduledoc false
+  alias Accent.Language
+  alias Accent.MachineTranslations
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Scopes.Revision, as: RevisionScope
   alias Ecto.Query
 
-  alias Accent.Scopes.Revision, as: RevisionScope
+  require Ecto.Query
 
-  alias Accent.{
-    Language,
-    MachineTranslations,
-    Project,
-    Repo,
-    Revision
-  }
-
-  @spec translate_text(Project.t(), %{text: String.t(), source_language_slug: String.t(), target_language_slug: String.t()}, GraphQLContext.t()) :: nil
+  @spec translate_text(
+          Project.t(),
+          %{text: String.t(), source_language_slug: String.t(), target_language_slug: String.t()},
+          GraphQLContext.t()
+        ) :: nil
   def translate_text(project, args, _info) do
     source_language = slug_language(project.id, args.source_language_slug)
     target_language = slug_language(project.id, args.target_language_slug)
@@ -24,7 +26,12 @@ defmodule Accent.GraphQL.Resolvers.MachineTranslation do
     }
 
     result =
-      case MachineTranslations.translate([%{value: args.text}], source_language, target_language, project.machine_translations_config) do
+      case MachineTranslations.translate(
+             [%{value: args.text}],
+             source_language,
+             target_language,
+             project.machine_translations_config
+           ) do
         [%{value: text}] -> %{result | text: text}
         {:error, error} when is_atom(error) -> %{result | error: to_string(error)}
         _ -> result

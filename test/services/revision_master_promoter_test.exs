@@ -1,15 +1,27 @@
 defmodule AccentTest.RevisionMasterPromoter do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{Language, Project, Repo, Revision, RevisionManager}
+  alias Accent.Language
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.RevisionManager
 
   setup do
-    french_language = %Language{name: "french"} |> Repo.insert!()
-    english_language = %Language{name: "english"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    french_language = Repo.insert!(%Language{name: "french"})
+    english_language = Repo.insert!(%Language{name: "english"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
-    master_revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
-    slave_revision = %Revision{language_id: english_language.id, project_id: project.id, master: false, master_revision_id: master_revision.id} |> Repo.insert!()
+    master_revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+
+    slave_revision =
+      Repo.insert!(%Revision{
+        language_id: english_language.id,
+        project_id: project.id,
+        master: false,
+        master_revision_id: master_revision.id
+      })
 
     {:ok, [master_revision: master_revision, slave_revision: slave_revision]}
   end

@@ -1,4 +1,5 @@
 defmodule Movement.Persisters.OperationsUpdateAllDynamic do
+  @moduledoc false
   import Ecto.Query
 
   alias Accent.Repo
@@ -23,7 +24,12 @@ defmodule Movement.Persisters.OperationsUpdateAllDynamic do
           ),
         on: values_list.a == entries.id,
         update: [
-          set: [{^Enum.at(fields, 0), values_list.b}, {^Enum.at(fields, 1), values_list.c}, {^Enum.at(fields, 2), values_list.d}, {^Enum.at(fields, 3), values_list.e}]
+          set: [
+            {^Enum.at(fields, 0), values_list.b},
+            {^Enum.at(fields, 1), values_list.c},
+            {^Enum.at(fields, 2), values_list.d},
+            {^Enum.at(fields, 3), values_list.e}
+          ]
         ]
       )
     )
@@ -60,7 +66,13 @@ defmodule Movement.Persisters.OperationsUpdateAllDynamic do
             ^bind_3
           ),
         on: values_list.a == entries.id,
-        update: [set: [{^Enum.at(fields, 0), values_list.b}, {^Enum.at(fields, 1), values_list.c}, {^Enum.at(fields, 2), values_list.d}]]
+        update: [
+          set: [
+            {^Enum.at(fields, 0), values_list.b},
+            {^Enum.at(fields, 1), values_list.c},
+            {^Enum.at(fields, 2), values_list.d}
+          ]
+        ]
       )
     )
   end

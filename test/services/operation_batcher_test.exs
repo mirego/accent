@@ -1,38 +1,25 @@
 defmodule AccentTest.OperationBatcher do
+  @moduledoc false
   use Accent.RepoCase
 
   import Ecto.Query
 
-  alias Accent.{
-    Operation,
-    OperationBatcher,
-    Repo,
-    Revision,
-    Translation,
-    User
-  }
+  alias Accent.Operation
+  alias Accent.OperationBatcher
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.User
 
   setup do
-    user = %User{} |> Repo.insert!()
-    revision = %Revision{} |> Repo.insert!()
+    user = Repo.insert!(%User{})
+    revision = Repo.insert!(%Revision{})
 
     translation_one =
-      %Translation{
-        key: "a",
-        conflicted: true,
-        revision_id: revision.id,
-        revision: revision
-      }
-      |> Repo.insert!()
+      Repo.insert!(%Translation{key: "a", conflicted: true, revision_id: revision.id, revision: revision})
 
     translation_two =
-      %Translation{
-        key: "b",
-        conflicted: true,
-        revision_id: revision.id,
-        revision: revision
-      }
-      |> Repo.insert!()
+      Repo.insert!(%Translation{key: "b", conflicted: true, revision_id: revision.id, revision: revision})
 
     [user: user, revision: revision, translations: [translation_one, translation_two]]
   end
@@ -54,7 +41,7 @@ defmodule AccentTest.OperationBatcher do
       |> Enum.map(&Map.get(&1, :id))
 
     operation =
-      %Operation{
+      Repo.insert!(%Operation{
         action: "correct_conflict",
         key: "a",
         text: "B",
@@ -62,8 +49,7 @@ defmodule AccentTest.OperationBatcher do
         user_id: user.id,
         revision_id: revision.id,
         inserted_at: DateTime.utc_now()
-      }
-      |> Repo.insert!()
+      })
 
     batch_responses = OperationBatcher.batch(operation)
 
@@ -82,16 +68,23 @@ defmodule AccentTest.OperationBatcher do
     assert batch_operation.stats == [%{"count" => 2, "action" => "correct_conflict"}]
   end
 
-  test "create batch with close operations but some not so close with existing batch operation", %{user: user, revision: revision, translations: [translation_one, translation_two]} do
+  test "create batch with close operations but some not so close with existing batch operation", %{
+    user: user,
+    revision: revision,
+    translations: [translation_one, translation_two]
+  } do
     batch_operation =
-      %Operation{
+      Repo.insert!(%Operation{
         action: "batch_correct_conflict",
         user_id: user.id,
         revision_id: revision.id,
         stats: [%{"count" => 2, "action" => "correct_conflict"}],
-        inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-960, :second) |> DateTime.from_naive!("Etc/UTC")
-      }
-      |> Repo.insert!()
+        inserted_at:
+          DateTime.utc_now()
+          |> DateTime.to_naive()
+          |> NaiveDateTime.add(-960, :second)
+          |> DateTime.from_naive!("Etc/UTC")
+      })
 
     operations =
       [
@@ -103,7 +96,11 @@ defmodule AccentTest.OperationBatcher do
           user_id: user.id,
           revision_id: revision.id,
           batch_operation_id: batch_operation.id,
-          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-960, :second) |> DateTime.from_naive!("Etc/UTC")
+          inserted_at:
+            DateTime.utc_now()
+            |> DateTime.to_naive()
+            |> NaiveDateTime.add(-960, :second)
+            |> DateTime.from_naive!("Etc/UTC")
         },
         %Operation{
           action: "correct_conflict",
@@ -120,7 +117,7 @@ defmodule AccentTest.OperationBatcher do
       |> Enum.map(&Map.get(&1, :id))
 
     operation =
-      %Operation{
+      Repo.insert!(%Operation{
         action: "correct_conflict",
         key: "a",
         text: "B",
@@ -128,8 +125,7 @@ defmodule AccentTest.OperationBatcher do
         user_id: user.id,
         revision_id: revision.id,
         inserted_at: DateTime.utc_now()
-      }
-      |> Repo.insert!()
+      })
 
     batch_responses = Accent.OperationBatcher.batch(operation)
 
@@ -148,7 +144,11 @@ defmodule AccentTest.OperationBatcher do
     assert batch_operation.stats == [%{"count" => 3, "action" => "correct_conflict"}]
   end
 
-  test "don’t create batch with operations happening in more than 60 minutes", %{user: user, revision: revision, translations: [translation_one, translation_two]} do
+  test "don’t create batch with operations happening in more than 60 minutes", %{
+    user: user,
+    revision: revision,
+    translations: [translation_one, translation_two]
+  } do
     operations =
       [
         %Operation{
@@ -158,7 +158,11 @@ defmodule AccentTest.OperationBatcher do
           translation_id: translation_one.id,
           user_id: user.id,
           revision_id: revision.id,
-          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-3960, :second) |> DateTime.from_naive!("Etc/UTC")
+          inserted_at:
+            DateTime.utc_now()
+            |> DateTime.to_naive()
+            |> NaiveDateTime.add(-3960, :second)
+            |> DateTime.from_naive!("Etc/UTC")
         },
         %Operation{
           action: "correct_conflict",
@@ -167,14 +171,18 @@ defmodule AccentTest.OperationBatcher do
           translation_id: translation_two.id,
           user_id: user.id,
           revision_id: revision.id,
-          inserted_at: DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.add(-3960, :second) |> DateTime.from_naive!("Etc/UTC")
+          inserted_at:
+            DateTime.utc_now()
+            |> DateTime.to_naive()
+            |> NaiveDateTime.add(-3960, :second)
+            |> DateTime.from_naive!("Etc/UTC")
         }
       ]
       |> Enum.map(&Repo.insert!/1)
       |> Enum.map(&Map.get(&1, :id))
 
     operation =
-      %Operation{
+      Repo.insert!(%Operation{
         action: "correct_conflict",
         key: "a",
         text: "B",
@@ -182,8 +190,7 @@ defmodule AccentTest.OperationBatcher do
         user_id: user.id,
         revision_id: revision.id,
         inserted_at: DateTime.utc_now()
-      }
-      |> Repo.insert!()
+      })
 
     batch_responses = Accent.OperationBatcher.batch(operation)
 

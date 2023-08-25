@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.Document do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   object :documents do

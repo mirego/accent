@@ -1,4 +1,5 @@
 defmodule Accent.EmailViewStyleHelper do
+  @moduledoc false
   @default_link_styles [
     "font-family": ~s(Helvetica, Arial, sans-serif),
     color: "#1ecd8d",

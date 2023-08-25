@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.Translation do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   import Absinthe.Resolution.Helpers, only: [dataloader: 1, dataloader: 2]
@@ -57,7 +58,12 @@ defmodule Accent.GraphQL.Types.Translation do
     end
 
     field :comments_subscriptions, list_of(:translation_comments_subscription) do
-      resolve(translation_authorize(:index_translation_comments_subscriptions, dataloader(Accent.TranslationCommentsSubscription, :comments_subscriptions)))
+      resolve(
+        translation_authorize(
+          :index_translation_comments_subscriptions,
+          dataloader(Accent.TranslationCommentsSubscription, :comments_subscriptions)
+        )
+      )
     end
 
     field :comments, :comments do
@@ -75,11 +81,18 @@ defmodule Accent.GraphQL.Types.Translation do
       arg(:user_id, :id)
       arg(:version_id, :id)
 
-      resolve(translation_authorize(:index_translation_activities, &Accent.GraphQL.Resolvers.Activity.list_translation/3))
+      resolve(
+        translation_authorize(:index_translation_activities, &Accent.GraphQL.Resolvers.Activity.list_translation/3)
+      )
     end
 
     field :related_translations, list_of(:translation) do
-      resolve(translation_authorize(:index_translation_activities, &Accent.GraphQL.Resolvers.Translation.related_translations/3))
+      resolve(
+        translation_authorize(
+          :index_translation_activities,
+          &Accent.GraphQL.Resolvers.Translation.related_translations/3
+        )
+      )
     end
   end
 

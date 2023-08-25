@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Schema do
+  @moduledoc false
   use Absinthe.Schema
 
   alias Accent.Repo
@@ -88,23 +89,26 @@ defmodule Accent.GraphQL.Schema do
     default_source = Dataloader.Ecto.new(Repo, query: default_query)
 
     loader =
-      [
-        Accent.AccessToken,
-        Accent.Collaborator,
-        Accent.Comment,
-        Accent.Document,
-        Accent.Integration,
-        Accent.Language,
-        Accent.Operation,
-        Accent.Project,
-        Accent.Prompt,
-        Accent.Revision,
-        Accent.Translation,
-        Accent.TranslationCommentsSubscription,
-        Accent.User,
-        Accent.Version
-      ]
-      |> Enum.reduce(Dataloader.new(), &Dataloader.add_source(&2, &1, default_source))
+      Enum.reduce(
+        [
+          Accent.AccessToken,
+          Accent.Collaborator,
+          Accent.Comment,
+          Accent.Document,
+          Accent.Integration,
+          Accent.Language,
+          Accent.Operation,
+          Accent.Project,
+          Accent.Prompt,
+          Accent.Revision,
+          Accent.Translation,
+          Accent.TranslationCommentsSubscription,
+          Accent.User,
+          Accent.Version
+        ],
+        Dataloader.new(),
+        &Dataloader.add_source(&2, &1, default_source)
+      )
 
     Map.put(absinthe_context, :loader, loader)
   end

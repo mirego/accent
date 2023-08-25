@@ -1,4 +1,5 @@
 defmodule AccentTest.Plugs.BotParamsInjector do
+  @moduledoc false
   use ExUnit.Case, async: true
   use Plug.Test
 
@@ -46,9 +47,7 @@ defmodule AccentTest.Plugs.BotParamsInjector do
   end
 
   test "unknown project id param when user is bot" do
-    updated_conn =
-      %User{email: "bot", bot: true, permissions: %{}}
-      |> call_plug()
+    updated_conn = call_plug(%User{email: "bot", bot: true, permissions: %{}})
 
     assert updated_conn.state == :sent
     assert updated_conn.status == 401
@@ -56,9 +55,7 @@ defmodule AccentTest.Plugs.BotParamsInjector do
   end
 
   test "user is not bot" do
-    updated_conn =
-      %User{email: "not-a-bot@example.com", bot: false, permissions: %{}}
-      |> call_plug()
+    updated_conn = call_plug(%User{email: "not-a-bot@example.com", bot: false, permissions: %{}})
 
     assert updated_conn.state == :unset
   end

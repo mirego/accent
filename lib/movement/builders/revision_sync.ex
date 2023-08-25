@@ -1,10 +1,12 @@
 defmodule Movement.Builders.RevisionSync do
+  @moduledoc false
   @behaviour Movement.Builder
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Repo
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Repo, Translation}
+  alias Accent.Translation
   alias Movement.EntriesCommitProcessor
 
   def build(context) do

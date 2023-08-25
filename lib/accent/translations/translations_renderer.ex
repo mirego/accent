@@ -1,4 +1,5 @@
 defmodule Accent.TranslationsRenderer do
+  @moduledoc false
   alias Langue
 
   def render_entries(args) do

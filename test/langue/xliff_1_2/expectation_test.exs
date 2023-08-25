@@ -1,7 +1,9 @@
 defmodule LangueTest.Formatter.XLIFF12.Expectation do
+  @moduledoc false
   alias Langue.Entry
 
   defmodule Simple do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do

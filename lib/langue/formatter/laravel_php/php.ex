@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.LaravelPhp do
+  @moduledoc false
   use Langue.Formatter,
     id: "laravel_php",
     display_name: "Laravel PHP",

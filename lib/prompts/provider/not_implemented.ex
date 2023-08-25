@@ -1,4 +1,5 @@
 defmodule Accent.Prompts.Provider.NotImplemented do
+  @moduledoc false
   defstruct config: nil
 
   defimpl Accent.Prompts.Provider do

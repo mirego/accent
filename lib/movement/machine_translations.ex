@@ -1,5 +1,7 @@
 defmodule Movement.MachineTranslations do
-  alias Accent.{MachineTranslations, Operation}
+  @moduledoc false
+  alias Accent.MachineTranslations
+  alias Accent.Operation
 
   def enable_machine_translation?(_operation, _entry, %{master: true}, _, _), do: false
 
@@ -16,7 +18,11 @@ defmodule Movement.MachineTranslations do
       operations
       |> Enum.filter(& &1.machine_translations_enabled)
       |> Enum.map(&Operation.to_langue_entry(&1, master_revision.id === &1.revision_id, language_slug(revision)))
-      |> MachineTranslations.translate(%{slug: language_slug(master_revision)}, %{slug: language_slug(revision)}, project.machine_translations_config)
+      |> MachineTranslations.translate(
+        %{slug: language_slug(master_revision)},
+        %{slug: language_slug(revision)},
+        project.machine_translations_config
+      )
       |> case do
         entries when is_list(entries) ->
           Map.new(Enum.map(entries, &{&1.id, &1.value}))

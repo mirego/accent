@@ -1,8 +1,9 @@
 defmodule Accent.RevisionManager do
-  alias Accent.Repo
-
+  @moduledoc false
   import Ecto.Changeset
   import Ecto.Query
+
+  alias Accent.Repo
 
   def update(integration, params) do
     integration
@@ -10,7 +11,7 @@ defmodule Accent.RevisionManager do
     |> Repo.update()
   end
 
-  def delete(revision = %{master: true}) do
+  def delete(%{master: true} = revision) do
     changeset =
       revision
       |> change()
@@ -28,7 +29,7 @@ defmodule Accent.RevisionManager do
     end
   end
 
-  def promote(revision = %{master: true}) do
+  def promote(%{master: true} = revision) do
     changeset =
       revision
       |> change()

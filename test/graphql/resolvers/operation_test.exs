@@ -1,35 +1,46 @@
 defmodule AccentTest.GraphQL.Resolvers.Operation do
+  @moduledoc false
   use Accent.RepoCase
 
   alias Accent.GraphQL.Resolvers.Operation, as: Resolver
-
-  alias Accent.{
-    Language,
-    Operation,
-    PreviousTranslation,
-    Project,
-    Repo,
-    Revision,
-    Translation,
-    User
-  }
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.PreviousTranslation
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.User
 
   @user %User{email: "test@test.com"}
 
   setup do
     user = Repo.insert!(@user)
-    french_language = %Language{name: "french"} |> Repo.insert!()
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    french_language = Repo.insert!(%Language{name: "french"})
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
-    revision = %Revision{language_id: french_language.id, project_id: project.id, master: true} |> Repo.insert!()
+    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
     context = %{context: %{conn: %Plug.Conn{assigns: %{current_user: user}}}}
 
     {:ok, [user: user, project: project, revision: revision, context: context]}
   end
 
   test "rollback", %{revision: revision, context: context} do
-    translation = %Translation{revision_id: revision.id, conflicted: true, key: "ok", corrected_text: "baz", proposed_text: "bar"} |> Repo.insert!()
-    previous_translation = %PreviousTranslation{conflicted: false, corrected_text: "bar", proposed_text: "bar", value_type: "string"}
+    translation =
+      Repo.insert!(%Translation{
+        revision_id: revision.id,
+        conflicted: true,
+        key: "ok",
+        corrected_text: "baz",
+        proposed_text: "bar"
+      })
+
+    previous_translation = %PreviousTranslation{
+      conflicted: false,
+      corrected_text: "bar",
+      proposed_text: "bar",
+      value_type: "string"
+    }
 
     operation =
       %Operation{

@@ -1,7 +1,11 @@
 defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
+  @moduledoc false
   defstruct config: nil
 
   defimpl Accent.MachineTranslations.Provider do
+    alias Accent.MachineTranslations.TranslatedText
+    alias Tesla.Middleware
+
     @supported_languages ~w(
     af
     sq
@@ -114,9 +118,6 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     yo
     zu
   )
-    alias Accent.MachineTranslations.TranslatedText
-    alias Tesla.Middleware
-
     def id(_), do: :google_translate
 
     def enabled?(%{config: %{"key" => key}}) do
@@ -126,9 +127,16 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     def enabled?(_), do: false
 
     def translate(provider, contents, source, target) do
-      with {:ok, {source, target}} <- Accent.MachineTranslations.map_source_and_target(source, target, @supported_languages),
-           params = %{contents: contents, mimeType: "text/plain", sourceLanguageCode: source, targetLanguageCode: target},
-           {:ok, %{body: %{"translations" => translations}}} <- Tesla.post(client(provider.config), ":translateText", params) do
+      with {:ok, {source, target}} <-
+             Accent.MachineTranslations.map_source_and_target(source, target, @supported_languages),
+           params = %{
+             contents: contents,
+             mimeType: "text/plain",
+             sourceLanguageCode: source,
+             targetLanguageCode: target
+           },
+           {:ok, %{body: %{"translations" => translations}}} <-
+             Tesla.post(client(provider.config), ":translateText", params) do
         {:ok, Enum.map(translations, &%TranslatedText{text: &1["translatedText"]})}
       else
         {:ok, %{status: status, body: body}} when status > 201 ->
@@ -140,6 +148,7 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     end
 
     defmodule Auth do
+      @moduledoc false
       @behaviour Tesla.Middleware
 
       @impl Tesla.Middleware

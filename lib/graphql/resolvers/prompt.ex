@@ -1,14 +1,14 @@
 defmodule Accent.GraphQL.Resolvers.Prompt do
-  alias Accent.{
-    Plugs.GraphQLContext,
-    Project,
-    Prompt,
-    PromptConfigManager,
-    PromptManager,
-    Prompts
-  }
+  @moduledoc false
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
+  alias Accent.Prompt
+  alias Accent.PromptConfigManager
+  alias Accent.PromptManager
+  alias Accent.Prompts
 
-  @spec improve_text(Accent.Prompt.t(), any(), GraphQLContext.t()) :: {:ok, %{provider: atom(), text: String.t(), error: String.t() | nil}}
+  @spec improve_text(Accent.Prompt.t(), any(), GraphQLContext.t()) ::
+          {:ok, %{provider: atom(), text: String.t(), error: String.t() | nil}}
   def improve_text(prompt, args, _info) do
     result = %{
       text: nil,
@@ -26,7 +26,8 @@ defmodule Accent.GraphQL.Resolvers.Prompt do
     {:ok, result}
   end
 
-  @spec save_config(Project.t(), any(), GraphQLContext.t()) :: {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
+  @spec save_config(Project.t(), any(), GraphQLContext.t()) ::
+          {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
   def save_config(project, args, _info) do
     case PromptConfigManager.save(project, args) do
       {:ok, %{project: project}} ->
@@ -37,7 +38,8 @@ defmodule Accent.GraphQL.Resolvers.Prompt do
     end
   end
 
-  @spec delete_config(Project.t(), any(), GraphQLContext.t()) :: {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
+  @spec delete_config(Project.t(), any(), GraphQLContext.t()) ::
+          {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
   def delete_config(project, _args, _info) do
     case PromptConfigManager.delete(project) do
       {:ok, %{project: project}} ->

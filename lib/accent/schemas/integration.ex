@@ -1,4 +1,5 @@
 defmodule Accent.Integration do
+  @moduledoc false
   use Accent.Schema
 
   schema "integrations" do

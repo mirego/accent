@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.ModifyRevisionForeignKeyToAllowDelete do
+  @moduledoc false
   use Ecto.Migration
 
   def change do
@@ -27,7 +28,9 @@ defmodule Accent.Repo.Migrations.ModifyRevisionForeignKeyToAllowDelete do
       modify(:translation_id, references(:translations, type: :uuid, on_delete: :delete_all), null: false)
     end
 
-    execute("ALTER TABLE translation_comments_subscriptions DROP CONSTRAINT translation_comments_subscriptions_translation_id_fkey")
+    execute(
+      "ALTER TABLE translation_comments_subscriptions DROP CONSTRAINT translation_comments_subscriptions_translation_id_fkey"
+    )
 
     alter table(:translation_comments_subscriptions) do
       modify(:translation_id, references(:translations, type: :uuid, on_delete: :delete_all), null: false)

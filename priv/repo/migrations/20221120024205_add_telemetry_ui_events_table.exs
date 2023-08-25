@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.AddTelemetryUiEventsTable do
+  @moduledoc false
   use Ecto.Migration
 
   def up do

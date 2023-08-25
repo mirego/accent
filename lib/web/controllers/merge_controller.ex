@@ -3,11 +3,10 @@ defmodule Accent.MergeController do
 
   import Canary.Plugs
 
-  alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
-  alias Movement.Persisters.RevisionMerge, as: RevisionMergePersister
-
   alias Accent.Hook.Context, as: HookContext
   alias Accent.Project
+  alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
+  alias Movement.Persisters.RevisionMerge, as: RevisionMergePersister
 
   plug(Plug.Assign, canary_action: :merge)
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")

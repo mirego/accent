@@ -1,21 +1,19 @@
 defmodule AccentTest.ProjectChannel do
+  @moduledoc false
   use Accent.ChannelCase, async: true
 
-  alias Accent.{
-    AccessToken,
-    Collaborator,
-    Project,
-    Repo,
-    User,
-    UserSocket
-  }
+  alias Accent.AccessToken
+  alias Accent.Collaborator
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
+  alias Accent.UserSocket
 
   setup do
     user = Repo.insert!(%User{email: "test@test.com"})
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
-    access_token = %AccessToken{user_id: user.id, token: "test-token"} |> Repo.insert!()
-    %Collaborator{project_id: project.id, user_id: user.id, role: "admin"} |> Repo.insert!()
-
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    access_token = Repo.insert!(%AccessToken{user_id: user.id, token: "test-token"})
+    Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "admin"})
     socket = socket(UserSocket, "will-autenticated-user", %{})
     {:ok, socket} = UserSocket.connect(%{"token" => "Bearer #{access_token.token}"}, socket)
 
@@ -36,7 +34,7 @@ defmodule AccentTest.ProjectChannel do
 
   test "join with unauthorized user", %{project: project} do
     user = Repo.insert!(%User{email: "test2@test.com"})
-    access_token = %AccessToken{user_id: user.id, token: "test-token-2"} |> Repo.insert!()
+    access_token = Repo.insert!(%AccessToken{user_id: user.id, token: "test-token-2"})
 
     socket = socket(UserSocket, "unauthorized-user", %{})
     {:ok, socket} = UserSocket.connect(%{"token" => "Bearer #{access_token.token}"}, socket)

@@ -1,10 +1,10 @@
 defmodule Accent.Hook.Inbounds.GitHub.Sync do
+  @moduledoc false
+  alias Accent.Hook.Inbounds.GitHub
   alias Accent.Plugs.MovementContextParser
   alias Movement.Builders.ProjectSync, as: SyncBuilder
   alias Movement.Context
   alias Movement.Persisters.ProjectSync, as: SyncPersister
-
-  alias Accent.Hook.Inbounds.GitHub
 
   def persist(trees, configs, project, user, token, version) do
     trees
@@ -43,7 +43,8 @@ defmodule Accent.Hook.Inbounds.GitHub.Sync do
          document <- GitHub.movement_document(project, file["path"]),
          document <- %{document | format: format},
          {:ok, file_content} <- GitHub.fetch_content(file["url"], token),
-         %{entries: entries, document: parsed_document} <- MovementContextParser.to_entries(document, file_content, parser) do
+         %{entries: entries, document: parsed_document} <-
+           MovementContextParser.to_entries(document, file_content, parser) do
       %Context{
         render: file_content,
         entries: entries,

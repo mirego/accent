@@ -1,10 +1,13 @@
 defmodule Accent.UserRemote.CollaboratorNormalizer do
+  @moduledoc false
   import Ecto.Query, only: [from: 2]
 
-  alias Accent.{Collaborator, Repo, User}
+  alias Accent.Collaborator
+  alias Accent.Repo
+  alias Accent.User
 
   @spec normalize(User.t()) :: User.t()
-  def normalize(user = %User{id: id, email: email}) do
+  def normalize(%User{id: id, email: email} = user) do
     email
     |> fetch_collaborators()
     |> assign_user_id(id)

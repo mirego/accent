@@ -1,4 +1,5 @@
 defmodule Movement.Mappers.OperationsStats do
+  @moduledoc false
   def map(operations) do
     operations
     |> Enum.group_by(&Map.get(&1, :action))

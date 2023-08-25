@@ -1,4 +1,5 @@
 defmodule Movement.Builders.Rollback do
+  @moduledoc false
   @behaviour Movement.Builder
 
   alias Accent.PreviousTranslation
@@ -7,7 +8,7 @@ defmodule Movement.Builders.Rollback do
   @action "rollback"
 
   # Batch operation
-  def build(context = %Movement.Context{assigns: %{operation: operation = %{batch: true}}, operations: operations}) do
+  def build(%Movement.Context{assigns: %{operation: %{batch: true} = operation}, operations: operations} = context) do
     new_operation = %Operation{
       action: @action,
       key: operation.key,
@@ -23,7 +24,7 @@ defmodule Movement.Builders.Rollback do
   end
 
   # Translation operation
-  def build(context = %Movement.Context{assigns: %{operation: operation}, operations: operations}) do
+  def build(%Movement.Context{assigns: %{operation: operation}, operations: operations} = context) do
     new_operation = %Operation{
       action: @action,
       key: operation.translation.key,

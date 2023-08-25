@@ -1,8 +1,10 @@
 defmodule Accent.PromptManager do
-  alias Accent.{Prompt, Repo}
-  alias Ecto.Multi
-
+  @moduledoc false
   import Ecto.Changeset
+
+  alias Accent.Prompt
+  alias Accent.Repo
+  alias Ecto.Multi
 
   def create(project, params, user) do
     changeset =

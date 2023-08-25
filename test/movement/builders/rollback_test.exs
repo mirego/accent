@@ -1,25 +1,26 @@
 defmodule AccentTest.Movement.Builders.Rollback do
+  @moduledoc false
   use Accent.RepoCase
 
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.PreviousTranslation
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
   alias Movement.Builders.Rollback, as: RollbackBuilder
-
-  alias Accent.{
-    Document,
-    Language,
-    Operation,
-    PreviousTranslation,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User
-  }
 
   @user %User{email: "test@test.com"}
 
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -27,13 +28,7 @@ defmodule AccentTest.Movement.Builders.Rollback do
   end
 
   test "builder process operations for batch", %{project: project} do
-    operation =
-      %Operation{
-        project_id: project.id,
-        batch: true,
-        action: "sync"
-      }
-      |> Repo.insert!()
+    operation = Repo.insert!(%Operation{project_id: project.id, batch: true, action: "sync"})
 
     context =
       %Movement.Context{}
@@ -48,7 +43,7 @@ defmodule AccentTest.Movement.Builders.Rollback do
 
   test "builder process operations for translation", %{project: project, revision: revision, document: document} do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "A",
         proposed_text: "TEXT",
         conflicted_text: "Ex-TEXT",
@@ -57,8 +52,7 @@ defmodule AccentTest.Movement.Builders.Rollback do
         revision_id: revision.id,
         value_type: "string",
         placeholders: []
-      }
-      |> Repo.insert!()
+      })
 
     operation =
       %Operation{

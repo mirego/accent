@@ -1,10 +1,13 @@
 defmodule Accent.APITokenManager do
-  alias Accent.RoleAbilities
-  alias Accent.{AccessToken, Collaborator, Repo}
-  alias Ecto.Multi
-
+  @moduledoc false
   import Ecto.Changeset
   import Ecto.Query
+
+  alias Accent.AccessToken
+  alias Accent.Collaborator
+  alias Accent.Repo
+  alias Accent.RoleAbilities
+  alias Ecto.Multi
 
   def create(project, user, params) do
     params = %{

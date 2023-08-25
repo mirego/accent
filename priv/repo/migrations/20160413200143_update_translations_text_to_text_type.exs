@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.UpdateTranslationsTextToTextType do
+  @moduledoc false
   use Ecto.Migration
 
   def up do

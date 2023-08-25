@@ -1,19 +1,17 @@
 defmodule AccentTest.Movement.Persisters.Rollback do
+  @moduledoc false
   use Accent.RepoCase
 
   import Ecto.Query
 
-  alias Accent.{
-    Document,
-    Language,
-    Operation,
-    PreviousTranslation,
-    ProjectCreator,
-    Repo,
-    Translation,
-    User
-  }
-
+  alias Accent.Document
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.PreviousTranslation
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.User
   alias Movement.Context
   alias Movement.Persisters.Rollback, as: RollbackPersister
 
@@ -22,7 +20,10 @@ defmodule AccentTest.Movement.Persisters.Rollback do
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
 
@@ -31,18 +32,17 @@ defmodule AccentTest.Movement.Persisters.Rollback do
 
   test "persist operations", %{project: project, revision: revision, document: document, user: user} do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         proposed_text: "A",
         conflicted: false,
         corrected_text: "Test",
         revision_id: revision.id,
         document_id: document.id
-      }
-      |> Repo.insert!()
+      })
 
     operation =
-      %Accent.Operation{
+      Repo.insert!(%Accent.Operation{
         text: "B",
         inserted_at: DateTime.utc_now(),
         updated_at: DateTime.utc_now(),
@@ -52,8 +52,7 @@ defmodule AccentTest.Movement.Persisters.Rollback do
         translation_id: translation.id,
         revision_id: translation.revision_id,
         project_id: project.id
-      }
-      |> Repo.insert!()
+      })
 
     operations = [
       %Movement.Operation{
@@ -98,34 +97,26 @@ defmodule AccentTest.Movement.Persisters.Rollback do
 
   test "rollback batch", %{revision: revision} do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         corrected_text: "B",
         conflicted: true,
         revision_id: revision.id,
         revision: revision
-      }
-      |> Repo.insert!()
+      })
 
-    %Operation{
+    Repo.insert!(%Operation{
       action: "new",
       key: "a",
       text: "B",
       translation_id: translation.id,
       revision_id: revision.id
-    }
-    |> Repo.insert!()
+    })
 
-    batch_operation =
-      %Operation{
-        action: "sync",
-        batch: true,
-        revision_id: revision.id
-      }
-      |> Repo.insert!()
+    batch_operation = Repo.insert!(%Operation{action: "sync", batch: true, revision_id: revision.id})
 
     operation =
-      %Operation{
+      Repo.insert!(%Operation{
         action: "update",
         key: "a",
         text: "UPDATED",
@@ -133,8 +124,7 @@ defmodule AccentTest.Movement.Persisters.Rollback do
         translation_id: translation.id,
         revision_id: revision.id,
         batch_operation_id: batch_operation.id
-      }
-      |> Repo.insert!()
+      })
 
     rollback_operation = %Movement.Operation{
       action: "rollback",
@@ -144,9 +134,7 @@ defmodule AccentTest.Movement.Persisters.Rollback do
       rollbacked_operation_id: batch_operation.id
     }
 
-    %Context{operations: [rollback_operation], assigns: %{operation: batch_operation}}
-    |> RollbackPersister.persist()
-
+    RollbackPersister.persist(%Context{operations: [rollback_operation], assigns: %{operation: batch_operation}})
     updated_operation = Repo.get(Operation, operation.id)
     updated_batch_operation = Repo.get(Operation, batch_operation.id)
     updated_rollback_operation = Operation |> where(action: ^"rollback") |> Repo.one()
@@ -159,26 +147,24 @@ defmodule AccentTest.Movement.Persisters.Rollback do
 
   test "rollback rollback does nothing", %{revision: revision} do
     translation =
-      %Translation{
+      Repo.insert!(%Translation{
         key: "a",
         corrected_text: "B",
         conflicted: true,
         revision_id: revision.id,
         revision: revision
-      }
-      |> Repo.insert!()
+      })
 
-    %Operation{
+    Repo.insert!(%Operation{
       action: "new",
       key: "a",
       text: "B",
       translation_id: translation.id,
       revision_id: revision.id
-    }
-    |> Repo.insert!()
+    })
 
     operation =
-      %Operation{
+      Repo.insert!(%Operation{
         action: "update",
         key: "a",
         text: "UPDATED",
@@ -186,19 +172,17 @@ defmodule AccentTest.Movement.Persisters.Rollback do
         translation_id: translation.id,
         revision_id: revision.id,
         rollbacked: true
-      }
-      |> Repo.insert!()
+      })
 
     rollback_operation =
-      %Operation{
+      Repo.insert!(%Operation{
         action: "rollback",
         key: "a",
         previous_translation: PreviousTranslation.from_translation(translation),
         translation_id: translation.id,
         revision_id: revision.id,
         rollbacked_operation_id: operation.id
-      }
-      |> Repo.insert!()
+      })
 
     rollback_rollback_operation = %Movement.Operation{
       action: "rollback",
@@ -207,8 +191,10 @@ defmodule AccentTest.Movement.Persisters.Rollback do
     }
 
     result =
-      %Context{operations: [rollback_rollback_operation], assigns: %{operation: rollback_operation}}
-      |> RollbackPersister.persist()
+      RollbackPersister.persist(%Context{
+        operations: [rollback_rollback_operation],
+        assigns: %{operation: rollback_operation}
+      })
 
     assert result == {:error, :cannot_rollback_rollback}
   end

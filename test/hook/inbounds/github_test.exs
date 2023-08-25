@@ -1,20 +1,33 @@
 defmodule AccentTest.Hook.Inbounds.GitHub do
+  @moduledoc false
   use Accent.RepoCase
 
+  import Ecto.Query
+  import Mox
+
+  alias Accent.Document
   alias Accent.Hook.Inbounds.GitHub, as: Consumer
   alias Accent.Hook.Inbounds.GitHub.FileServerMock
-  alias Accent.{Document, Integration, Language, Operation, ProjectCreator, Repo, Revision, Translation, User, Version}
+  alias Accent.Integration
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.User
+  alias Accent.Version
   alias Ecto.UUID
 
-  import Ecto.Query
-
-  import Mox
   setup :verify_on_exit!
 
   setup do
     user = Repo.insert!(%User{email: "test@test.com"})
     language = Repo.insert!(%Language{name: "English", slug: UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     document = Repo.insert!(%Document{project_id: project.id, path: "admin", format: "json"})
 
     [project: project, document: document, user: user]
@@ -58,17 +71,42 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
        %{
          body: %{
            "tree" => [
-             %{"path" => "accent.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"},
-             %{"path" => "Dockerfile", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"},
-             %{"path" => "priv/fr", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/3"},
-             %{"path" => "priv/fr", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"},
-             %{"path" => "priv/fr/admin.po", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/5"},
-             %{"path" => "priv/en/admin.po", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"}
+             %{
+               "path" => "accent.json",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"
+             },
+             %{
+               "path" => "Dockerfile",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"
+             },
+             %{
+               "path" => "priv/fr",
+               "type" => "tree",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/3"
+             },
+             %{
+               "path" => "priv/fr",
+               "type" => "tree",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"
+             },
+             %{
+               "path" => "priv/fr/admin.po",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/5"
+             },
+             %{
+               "path" => "priv/en/admin.po",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"
+             }
            ]
          }
        }}
     end)
-    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5",
+                            [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => gettext_file()}}}
     end)
 
@@ -134,17 +172,42 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
        %{
          body: %{
            "tree" => [
-             %{"path" => "accent.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"},
-             %{"path" => "Dockerfile", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"},
-             %{"path" => "priv/fr", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/3"},
-             %{"path" => "priv/fr", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"},
-             %{"path" => "priv/fr/admin.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/5"},
-             %{"path" => "priv/en/admin.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"}
+             %{
+               "path" => "accent.json",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"
+             },
+             %{
+               "path" => "Dockerfile",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"
+             },
+             %{
+               "path" => "priv/fr",
+               "type" => "tree",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/3"
+             },
+             %{
+               "path" => "priv/fr",
+               "type" => "tree",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"
+             },
+             %{
+               "path" => "priv/fr/admin.json",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/5"
+             },
+             %{
+               "path" => "priv/en/admin.json",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"
+             }
            ]
          }
        }}
     end)
-    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5",
+                            [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => json_file()}}}
     end)
 
@@ -237,17 +300,42 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
        %{
          body: %{
            "tree" => [
-             %{"path" => "accent.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"},
-             %{"path" => "Dockerfile", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"},
-             %{"path" => "priv/fr", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/3"},
-             %{"path" => "priv/fr", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"},
-             %{"path" => "priv/fr/admin.po", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/5"},
-             %{"path" => "priv/en/admin.po", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"}
+             %{
+               "path" => "accent.json",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"
+             },
+             %{
+               "path" => "Dockerfile",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"
+             },
+             %{
+               "path" => "priv/fr",
+               "type" => "tree",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/3"
+             },
+             %{
+               "path" => "priv/fr",
+               "type" => "tree",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"
+             },
+             %{
+               "path" => "priv/fr/admin.po",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/5"
+             },
+             %{
+               "path" => "priv/en/admin.po",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"
+             }
            ]
          }
        }}
     end)
-    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/5",
+                            [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => gettext_file()}}}
     end)
 
@@ -295,7 +383,15 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
     language_slug = UUID.generate()
     language = Repo.insert!(%Language{name: "Other french", slug: language_slug})
     revision = Repo.insert!(%Revision{project_id: project.id, master: false, language: language})
-    translation = Repo.insert!(%Translation{revision_id: revision.id, document_id: document.id, key: "key", proposed_text: "a", corrected_text: "a"})
+
+    translation =
+      Repo.insert!(%Translation{
+        revision_id: revision.id,
+        document_id: document.id,
+        key: "key",
+        proposed_text: "a",
+        corrected_text: "a"
+      })
 
     config =
       %{
@@ -320,15 +416,32 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
        %{
          body: %{
            "tree" => [
-             %{"path" => "accent.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"},
-             %{"path" => "Dockerfile", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"},
-             %{"path" => "priv/#{language_slug}", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"},
-             %{"path" => "priv/#{language_slug}/admin.po", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"}
+             %{
+               "path" => "accent.json",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"
+             },
+             %{
+               "path" => "Dockerfile",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"
+             },
+             %{
+               "path" => "priv/#{language_slug}",
+               "type" => "tree",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"
+             },
+             %{
+               "path" => "priv/#{language_slug}/admin.po",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"
+             }
            ]
          }
        }}
     end)
-    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6",
+                            [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => gettext_file()}}}
     end)
 
@@ -383,8 +496,18 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
     language_override = UUID.generate()
     language_slug = UUID.generate()
     language = Repo.insert!(%Language{name: "Other french", slug: language_slug})
-    revision = Repo.insert!(%Revision{project_id: project.id, master: false, language: language, slug: language_override})
-    translation = Repo.insert!(%Translation{revision_id: revision.id, document_id: document.id, key: "key", proposed_text: "a", corrected_text: "a"})
+
+    revision =
+      Repo.insert!(%Revision{project_id: project.id, master: false, language: language, slug: language_override})
+
+    translation =
+      Repo.insert!(%Translation{
+        revision_id: revision.id,
+        document_id: document.id,
+        key: "key",
+        proposed_text: "a",
+        corrected_text: "a"
+      })
 
     config =
       %{
@@ -409,15 +532,32 @@ defmodule AccentTest.Hook.Inbounds.GitHub do
        %{
          body: %{
            "tree" => [
-             %{"path" => "accent.json", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"},
-             %{"path" => "Dockerfile", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"},
-             %{"path" => "priv/#{language_override}", "type" => "tree", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"},
-             %{"path" => "priv/#{language_override}/admin.po", "type" => "blob", "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"}
+             %{
+               "path" => "accent.json",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/1"
+             },
+             %{
+               "path" => "Dockerfile",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/2"
+             },
+             %{
+               "path" => "priv/#{language_override}",
+               "type" => "tree",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/4"
+             },
+             %{
+               "path" => "priv/#{language_override}/admin.po",
+               "type" => "blob",
+               "url" => "https://api.github.com/repos/accent/test-repo/git/blobs/6"
+             }
            ]
          }
        }}
     end)
-    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6", [{"Authorization", "token 1234"}] ->
+    |> expect(:get_path, fn "https://api.github.com/repos/accent/test-repo/git/blobs/6",
+                            [{"Authorization", "token 1234"}] ->
       {:ok, %{body: %{"content" => gettext_file()}}}
     end)
 

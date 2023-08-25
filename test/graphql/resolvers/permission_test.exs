@@ -1,15 +1,14 @@
 defmodule AccentTest.GraphQL.Resolvers.Permission do
+  @moduledoc false
   use Accent.RepoCase
 
   alias Accent.GraphQL.Resolvers.Permission, as: Resolver
-
-  alias Accent.{
-    Project,
-    Repo,
-    User
-  }
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.User
 
   defmodule PlugConn do
+    @moduledoc false
     defstruct [:assigns]
   end
 
@@ -17,7 +16,7 @@ defmodule AccentTest.GraphQL.Resolvers.Permission do
 
   setup do
     user = Repo.insert!(@user)
-    project = %Project{main_color: "#f00", name: "My project"} |> Repo.insert!()
+    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
 
     {:ok, [user: user, project: project]}
   end

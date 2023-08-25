@@ -1,9 +1,10 @@
 defmodule LangueTest.Formatter.GoI18nJson do
-  Code.require_file("expectation_test.exs", __DIR__)
-
+  @moduledoc false
   use ExUnit.Case, async: true
 
   alias Langue.Formatter.GoI18nJson
+
+  Code.require_file("expectation_test.exs", __DIR__)
 
   @tests [
     Simple,

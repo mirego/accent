@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Resx20.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
   def parse(%{render: render}) do
@@ -6,12 +7,12 @@ defmodule Langue.Formatter.Resx20.Parser do
       render
       |> :erlsom.simple_form()
       |> case do
-        {:ok, {'root', [], nodes}, _} ->
-          Enum.filter(nodes, &match?({'data', _, _}, &1))
+        {:ok, {~c"root", [], nodes}, _} ->
+          Enum.filter(nodes, &match?({~c"data", _, _}, &1))
       end
       |> Enum.reduce([], fn {_, attributes, body}, acc ->
-        key = List.keyfind(attributes, 'name', 0)
-        value = List.keyfind(body, 'value', 0)
+        key = List.keyfind(attributes, ~c"name", 0)
+        value = List.keyfind(body, ~c"value", 0)
 
         case to_entry(key, value) do
           nil -> acc
@@ -25,7 +26,7 @@ defmodule Langue.Formatter.Resx20.Parser do
     %Langue.Formatter.ParserResult{entries: entries}
   end
 
-  defp to_entry({'name', key}, {'value', _, [value]}) do
+  defp to_entry({~c"name", key}, {~c"value", _, [value]}) do
     %Langue.Entry{
       key: to_string(key),
       value: to_string(value),

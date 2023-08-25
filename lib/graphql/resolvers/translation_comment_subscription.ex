@@ -1,14 +1,16 @@
 defmodule Accent.GraphQL.Resolvers.TranslationCommentSubscription do
-  alias Accent.{
-    Plugs.GraphQLContext,
-    Repo,
-    Translation,
-    TranslationCommentsSubscription
-  }
+  @moduledoc false
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.TranslationCommentsSubscription
 
-  @typep translation_comments_subscription_operation :: {:ok, %{translation_comments_subscription: TranslationCommentsSubscription.t() | nil, errors: [String.t()] | nil}}
+  @typep translation_comments_subscription_operation ::
+           {:ok,
+            %{translation_comments_subscription: TranslationCommentsSubscription.t() | nil, errors: [String.t()] | nil}}
 
-  @spec create(Translation.t(), %{user_id: String.t(), translation_id: String.t()}, GraphQLContext.t()) :: translation_comments_subscription_operation
+  @spec create(Translation.t(), %{user_id: String.t(), translation_id: String.t()}, GraphQLContext.t()) ::
+          translation_comments_subscription_operation
   def create(translation, args, _info) do
     comment_subscription_params = %{
       "user_id" => args.user_id,
@@ -27,7 +29,8 @@ defmodule Accent.GraphQL.Resolvers.TranslationCommentSubscription do
     end
   end
 
-  @spec delete(TranslationCommentsSubscription.t(), any(), GraphQLContext.t()) :: translation_comments_subscription_operation
+  @spec delete(TranslationCommentsSubscription.t(), any(), GraphQLContext.t()) ::
+          translation_comments_subscription_operation
   def delete(translation_comments_subscription, _args, _info) do
     translation_comments_subscription
     |> Repo.delete()

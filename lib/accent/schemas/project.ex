@@ -1,11 +1,14 @@
 defmodule Accent.Project do
+  @moduledoc false
   use Accent.Schema
 
   defmodule MachineTranslationsConfig do
+    @moduledoc false
     use Cloak.Ecto.Map, vault: Accent.Vault
   end
 
   defmodule PromptConfig do
+    @moduledoc false
     use Cloak.Ecto.Map, vault: Accent.Vault
   end
 

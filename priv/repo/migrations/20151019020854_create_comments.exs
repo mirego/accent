@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.CreateComments do
+  @moduledoc false
   use Ecto.Migration
 
   def change do

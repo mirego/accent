@@ -1,11 +1,14 @@
 defmodule Movement.Builders.NewSlave do
+  @moduledoc false
   @behaviour Movement.Builder
 
   import Movement.Context, only: [assign: 3]
 
+  alias Accent.Repo
+  alias Accent.Revision
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.{Repo, Revision, Translation}
+  alias Accent.Translation
   alias Movement.Mappers.Operation, as: OperationMapper
 
   @action "new"
@@ -17,7 +20,7 @@ defmodule Movement.Builders.NewSlave do
     |> process_operations()
   end
 
-  defp process_operations(context = %Movement.Context{assigns: assigns, operations: operations}) do
+  defp process_operations(%Movement.Context{assigns: assigns, operations: operations} = context) do
     default_null = "default_null" in assigns.new_slave_options
     machine_translations_enabled = "machine_translations_enabled" in assigns.new_slave_options
 
@@ -41,7 +44,12 @@ defmodule Movement.Builders.NewSlave do
 
     new_operations =
       if machine_translations_enabled do
-        Movement.MachineTranslations.translate(new_operations, assigns[:project], assigns[:master_revision], assigns[:language])
+        Movement.MachineTranslations.translate(
+          new_operations,
+          assigns[:project],
+          assigns[:master_revision],
+          assigns[:language]
+        )
       else
         new_operations
       end
@@ -49,7 +57,7 @@ defmodule Movement.Builders.NewSlave do
     %{context | operations: Enum.concat(operations, new_operations)}
   end
 
-  defp assign_translations(context = %Movement.Context{assigns: assigns}) do
+  defp assign_translations(%Movement.Context{assigns: assigns} = context) do
     translations =
       Translation
       |> TranslationScope.from_revision(assigns[:master_revision].id)
@@ -59,7 +67,7 @@ defmodule Movement.Builders.NewSlave do
     assign(context, :translations, translations)
   end
 
-  defp assign_master_revision(context = %Movement.Context{assigns: assigns}) do
+  defp assign_master_revision(%Movement.Context{assigns: assigns} = context) do
     master_revision =
       Revision
       |> RevisionScope.from_project(assigns[:project].id)

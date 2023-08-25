@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.XLIFF12 do
+  @moduledoc false
   use Langue.Formatter,
     id: "xliff_1_2",
     display_name: "XLIFF 1.2",

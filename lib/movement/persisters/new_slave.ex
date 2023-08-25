@@ -1,7 +1,9 @@
 defmodule Movement.Persisters.NewSlave do
+  @moduledoc false
   @behaviour Movement.Persister
 
-  alias Accent.{Repo, Revision}
+  alias Accent.Repo
+  alias Accent.Revision
   alias Movement.Persisters.Base, as: BasePersister
 
   @batch_action "new_slave"
@@ -15,7 +17,7 @@ defmodule Movement.Persisters.NewSlave do
     end)
   end
 
-  defp assign_new_revision(context = %Movement.Context{assigns: assigns}) do
+  defp assign_new_revision(%Movement.Context{assigns: assigns} = context) do
     %Revision{}
     |> Revision.changeset(%{
       "project_id" => assigns[:project].id,

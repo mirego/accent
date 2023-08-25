@@ -1,11 +1,10 @@
 defmodule Accent.UserAuthFetcher do
+  @moduledoc false
   import Ecto.Query, only: [from: 2]
 
-  alias Accent.{
-    Collaborator,
-    Repo,
-    User
-  }
+  alias Accent.Collaborator
+  alias Accent.Repo
+  alias Accent.User
 
   @doc """
   fetch the associated user. It also fetches the permissions
@@ -18,15 +17,15 @@ defmodule Accent.UserAuthFetcher do
   end
 
   defp fetch_user("Bearer " <> token) when is_binary(token) do
-    from(
-      user in User,
-      inner_join: access_token in assoc(user, :access_tokens),
-      left_join: collaboration in assoc(user, :bot_collaborations),
-      where: access_token.token == ^token,
-      where: is_nil(access_token.revoked_at),
-      select: {user, access_token.custom_permissions, collaboration}
+    Repo.one(
+      from(user in User,
+        inner_join: access_token in assoc(user, :access_tokens),
+        left_join: collaboration in assoc(user, :bot_collaborations),
+        where: access_token.token == ^token,
+        where: is_nil(access_token.revoked_at),
+        select: {user, access_token.custom_permissions, collaboration}
+      )
     )
-    |> Repo.one()
   end
 
   defp fetch_user(_any), do: nil
@@ -43,7 +42,7 @@ defmodule Accent.UserAuthFetcher do
         select: {collaborator.project_id, collaborator.role}
       )
       |> Repo.all()
-      |> Enum.into(%{})
+      |> Map.new()
 
     %{user | permissions: permissions}
   end

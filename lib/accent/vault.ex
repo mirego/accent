@@ -1,4 +1,5 @@
 defmodule Accent.Vault do
+  @moduledoc false
   use Cloak.Vault, otp_app: :accent, json_library: Jason
 
   # Reference: https://hexdocs.pm/cloak_ecto/generate_keys.html

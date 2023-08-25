@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.JavaProperties.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   alias Langue.Utils.LineByLineHelper

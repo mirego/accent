@@ -1,4 +1,5 @@
 defmodule Accent.Scopes.Project do
+  @moduledoc false
   import Ecto.Query
 
   @doc """

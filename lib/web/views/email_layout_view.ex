@@ -1,9 +1,9 @@
 defmodule Accent.EmailLayoutView do
   use Phoenix.View, root: "lib/web/templates"
 
-  import Accent.Router.Helpers, only: [static_url: 2]
-  import Accent.EmailViewStyleHelper
   import Accent.EmailViewConfigHelper
+  import Accent.EmailViewStyleHelper
+  import Accent.Router.Helpers, only: [static_url: 2]
 
   def logo_url do
     Accent.Endpoint

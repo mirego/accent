@@ -1,4 +1,5 @@
 defmodule Accent.Scopes.TranslationsCount do
+  @moduledoc false
   import Ecto.Query
 
   def with_stats(query, column, options \\ []) do
@@ -28,12 +29,20 @@ defmodule Accent.Scopes.TranslationsCount do
     )
   end
 
-  defp count_translations(query, translations, _exclude_empty_translations = true) do
-    from(q in query, inner_join: translations in subquery(translations), as: :translations, on: translations.field_id == q.id)
+  defp count_translations(query, translations, true = _exclude_empty_translations) do
+    from(q in query,
+      inner_join: translations in subquery(translations),
+      as: :translations,
+      on: translations.field_id == q.id
+    )
   end
 
-  defp count_translations(query, translations, _exclude_empty_translations = false) do
-    from(q in query, left_join: translations in subquery(translations), as: :translations, on: translations.field_id == q.id)
+  defp count_translations(query, translations, false = _exclude_empty_translations) do
+    from(q in query,
+      left_join: translations in subquery(translations),
+      as: :translations,
+      on: translations.field_id == q.id
+    )
   end
 
   defp count_reviewed(query, translations) do

@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Mutations.Operation do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   import Accent.GraphQL.Helpers.Authorization

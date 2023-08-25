@@ -1,12 +1,15 @@
 defmodule Accent.Hook.Inbounds.GitHub do
+  @moduledoc false
   use Oban.Worker, queue: :hook
 
-  alias Accent.{Document, Repo, Version}
+  alias Accent.Document
   alias Accent.Hook.Inbounds.GitHub.AddTranslations
   alias Accent.Hook.Inbounds.GitHub.Sync
   alias Accent.Plugs.MovementContextParser
+  alias Accent.Repo
   alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Version, as: VersionScope
+  alias Accent.Version
 
   @impl Oban.Worker
   def perform(%Oban.Job{args: args}) do

@@ -1,12 +1,14 @@
 defmodule Movement.Persisters.ProjectSync do
+  @moduledoc false
   @behaviour Movement.Persister
 
   import Movement.Context, only: [assign: 3]
 
-  alias Accent.{Document, Repo}
+  alias Accent.Document
+  alias Accent.Repo
   alias Movement.Persisters.Base, as: BasePersister
 
-  def persist(context = %Movement.Context{operations: []}), do: {:ok, {context, []}}
+  def persist(%Movement.Context{operations: []} = context), do: {:ok, {context, []}}
 
   def persist(context) do
     Repo.transaction(fn ->
@@ -25,9 +27,14 @@ defmodule Movement.Persisters.ProjectSync do
     end)
   end
 
-  defp persist_document(context = %Movement.Context{assigns: %{document_update: nil, document: %{id: id}}}) when not is_nil(id), do: context
+  defp persist_document(%Movement.Context{assigns: %{document_update: nil, document: %{id: id}}} = context)
+       when not is_nil(id),
+       do: context
 
-  defp persist_document(context = %Movement.Context{assigns: %{document_update: document_update, document: document = %{id: id}}}) when not is_nil(id) do
+  defp persist_document(
+         %Movement.Context{assigns: %{document_update: document_update, document: %{id: id} = document}} = context
+       )
+       when not is_nil(id) do
     document =
       document
       |> Document.changeset(document_update)
@@ -36,9 +43,9 @@ defmodule Movement.Persisters.ProjectSync do
     assign(context, :document, document)
   end
 
-  defp persist_document(context = %Movement.Context{assigns: %{document: %{id: id}}}) when not is_nil(id), do: context
+  defp persist_document(%Movement.Context{assigns: %{document: %{id: id}}} = context) when not is_nil(id), do: context
 
-  defp persist_document(context = %Movement.Context{assigns: %{document: document}}) do
+  defp persist_document(%Movement.Context{assigns: %{document: document}} = context) do
     document =
       document
       |> Document.changeset(context.assigns[:document_update] || %{})

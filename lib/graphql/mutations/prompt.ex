@@ -1,7 +1,9 @@
 defmodule Accent.GraphQL.Mutations.Prompt do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   import Accent.GraphQL.Helpers.Authorization
+
   alias Accent.GraphQL.Resolvers.Prompt, as: Resolver
 
   object :prompt_mutations do

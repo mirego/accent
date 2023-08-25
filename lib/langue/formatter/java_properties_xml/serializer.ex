@@ -1,12 +1,11 @@
 defmodule Langue.Formatter.JavaPropertiesXml.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   alias Langue.Utils.LineByLineHelper
 
   def serialize(%{entries: entries}) do
-    render =
-      entries
-      |> LineByLineHelper.Serializer.lines(&prop_line/1)
+    render = LineByLineHelper.Serializer.lines(entries, &prop_line/1)
 
     render = [xml_template() | render]
 

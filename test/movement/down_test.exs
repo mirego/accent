@@ -1,14 +1,12 @@
 defmodule AccentTest.Migrator.Down do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{
-    Operation,
-    PreviousTranslation,
-    Repo,
-    Revision,
-    Translation
-  }
-
+  alias Accent.Operation
+  alias Accent.PreviousTranslation
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
   alias Movement.Migrator
 
   test ":noop" do
@@ -37,12 +35,11 @@ defmodule AccentTest.Migrator.Down do
       })
 
     Migrator.down(
-      %Operation{
+      Repo.insert!(%Operation{
         action: "conflict_on_corrected",
         translation: translation,
         previous_translation: PreviousTranslation.from_translation(previous_translation)
-      }
-      |> Repo.insert!()
+      })
     )
 
     new_translation = Repo.get!(Translation, translation.id)
@@ -75,12 +72,11 @@ defmodule AccentTest.Migrator.Down do
       })
 
     Migrator.down(
-      %Operation{
+      Repo.insert!(%Operation{
         action: "conflict_on_proposed",
         translation: translation,
         previous_translation: PreviousTranslation.from_translation(previous_translation)
-      }
-      |> Repo.insert!()
+      })
     )
 
     new_translation = Repo.get!(Translation, translation.id)
@@ -102,13 +98,7 @@ defmodule AccentTest.Migrator.Down do
         conflicted: true
       })
 
-    Migrator.down(
-      %Operation{
-        action: "new",
-        translation: translation
-      }
-      |> Repo.insert!()
-    )
+    Migrator.down(Repo.insert!(%Operation{action: "new", translation: translation}))
 
     new_translation = Repo.get!(Translation, translation.id)
 
@@ -126,13 +116,7 @@ defmodule AccentTest.Migrator.Down do
         conflicted: true
       })
 
-    Migrator.down(
-      %Operation{
-        action: "renew",
-        translation: translation
-      }
-      |> Repo.insert!()
-    )
+    Migrator.down(Repo.insert!(%Operation{action: "renew", translation: translation}))
 
     new_translation = Repo.get!(Translation, translation.id)
 
@@ -152,13 +136,7 @@ defmodule AccentTest.Migrator.Down do
         placeholders: []
       })
 
-    Migrator.down(
-      %Operation{
-        action: "remove",
-        translation: translation
-      }
-      |> Repo.insert!()
-    )
+    Migrator.down(Repo.insert!(%Operation{action: "remove", translation: translation}))
 
     new_translation = Repo.get!(Translation, translation.id)
 

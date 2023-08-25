@@ -1,4 +1,5 @@
 defmodule Accent.Revision do
+  @moduledoc false
   use Accent.Schema
 
   schema "revisions" do
@@ -57,7 +58,7 @@ defmodule Accent.Revision do
       plural_forms
     )a)
       |> Enum.reject(fn {_key, value} -> value in [nil, ""] end)
-      |> Enum.into(%{})
+      |> Map.new()
 
     Map.merge(revision.language, language_override)
   end

@@ -1,17 +1,15 @@
 defmodule Accent.GraphQL.Resolvers.Lint do
-  require Ecto.Query
-
+  @moduledoc false
   import Absinthe.Resolution.Helpers, only: [batch: 3]
 
+  alias Accent.Language
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.Repo
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
+  alias Accent.Translation
 
-  alias Accent.{
-    Language,
-    Plugs.GraphQLContext,
-    Repo,
-    Translation
-  }
+  require Ecto.Query
 
   @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Language.Entry.t())}
   def lint_translation(translation, args, resolution) do
@@ -24,13 +22,21 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   def lint_batched_translation(translation, args, _) do
     translation = overwrite_text_args(translation, args)
     language_slug = translation.revision.slug || translation.revision.language.slug
-    entry = Translation.to_langue_entry(translation, translation.master_translation, translation.revision.master, language_slug)
+
+    entry =
+      Translation.to_langue_entry(
+        translation,
+        translation.master_translation,
+        translation.revision.master,
+        language_slug
+      )
+
     [{_, messages}] = Accent.Lint.lint([entry])
 
     {:ok, messages}
   end
 
-  def preload_translations(_, translations = [translation | _]) do
+  def preload_translations(_, [translation | _] = translations) do
     translations = Repo.preload(translations, revision: :language)
 
     project =
@@ -50,8 +56,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       |> TranslationScope.from_revision(master_revision.id)
       |> TranslationScope.active()
       |> Repo.all()
-      |> Enum.map(&{{&1.key, &1.document_id}, &1})
-      |> Enum.into(%{})
+      |> Map.new(&{{&1.key, &1.document_id}, &1})
 
     Enum.reduce(translations, %{}, fn translation, acc ->
       master_translation = Map.get(master_translations, {translation.key, translation.document_id})

@@ -1,7 +1,9 @@
 defmodule LangueTest.Formatter.GoI18nJson.Expectation do
+  @moduledoc false
   alias Langue.Entry
 
   defmodule Simple do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do
@@ -43,17 +45,41 @@ defmodule LangueTest.Formatter.GoI18nJson.Expectation do
       [
         %Entry{key: "empty_string_translation", value: "", value_type: "empty", index: 1},
         %Entry{key: "key_with_description", value: "Check it out!", index: 2, value_type: "string"},
-        %Entry{key: "key_with_line-break", value: "This translations contains\na line-break.", index: 3, value_type: "string"},
+        %Entry{
+          key: "key_with_line-break",
+          value: "This translations contains\na line-break.",
+          index: 3,
+          value_type: "string"
+        },
         %Entry{key: "nested.key", value: "This key is nested inside a namespace.", index: 4, value_type: "string"},
         %Entry{key: "null_translation", value: "null", value_type: "null", index: 5},
-        %Entry{key: "pluralized_key.one", value: "Only one pluralization found.", index: 6, plural: true, value_type: "string"},
-        %Entry{key: "pluralized_key.other", value: "Wow, you have %s pluralizations!", index: 7, plural: true, value_type: "string"},
-        %Entry{key: "pluralized_key.zero", value: "You have no pluralization.", index: 8, plural: true, value_type: "string"}
+        %Entry{
+          key: "pluralized_key.one",
+          value: "Only one pluralization found.",
+          index: 6,
+          plural: true,
+          value_type: "string"
+        },
+        %Entry{
+          key: "pluralized_key.other",
+          value: "Wow, you have %s pluralizations!",
+          index: 7,
+          plural: true,
+          value_type: "string"
+        },
+        %Entry{
+          key: "pluralized_key.zero",
+          value: "You have no pluralization.",
+          index: 8,
+          plural: true,
+          value_type: "string"
+        }
       ]
     end
   end
 
   defmodule UTF8 do
+    @moduledoc false
     use Langue.Expectation.Case
 
     def render do

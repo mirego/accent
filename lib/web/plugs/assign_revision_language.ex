@@ -1,7 +1,10 @@
 defmodule Accent.Plugs.AssignRevisionLanguage do
+  @moduledoc false
   use Plug.Builder
 
-  alias Accent.{Language, Repo, Revision}
+  alias Accent.Language
+  alias Accent.Repo
+  alias Accent.Revision
 
   def fetch_revision_id_from_project_language(conn, _) do
     conn
@@ -14,7 +17,7 @@ defmodule Accent.Plugs.AssignRevisionLanguage do
     |> assign_language_and_revision()
   end
 
-  defp maybe_add_language_from_revision(conn = %{params: %{"language" => slug}, assigns: %{project: project}}) do
+  defp maybe_add_language_from_revision(%{params: %{"language" => slug}, assigns: %{project: project}} = conn) do
     revision = get_revision_by_slug(slug, project)
 
     if revision do
@@ -26,7 +29,7 @@ defmodule Accent.Plugs.AssignRevisionLanguage do
 
   defp maybe_add_language_with_revision({conn, revision, language}), do: {conn, revision, language}
 
-  defp maybe_add_language_with_revision(conn = %{params: %{"language" => slug}, assigns: %{project: project}}) do
+  defp maybe_add_language_with_revision(%{params: %{"language" => slug}, assigns: %{project: project}} = conn) do
     language = Repo.get_by(Language, slug: slug)
     revision = get_revision_by_language(language, project)
 

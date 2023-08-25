@@ -1,4 +1,5 @@
 defmodule AccentTest.Movement.Builders.TranslationUpdate do
+  @moduledoc false
   use Accent.RepoCase
 
   alias Accent.Translation
@@ -18,7 +19,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       |> Context.assign(:translation, translation)
       |> TranslationUpdateBuilder.build()
 
-    operations = context.operations |> Enum.map(&Map.take(&1, [:key, :text, :action]))
+    operations = Enum.map(context.operations, &Map.take(&1, [:key, :text, :action]))
 
     assert operations === [
              %{
@@ -60,7 +61,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       |> Context.assign(:translation, translation)
       |> TranslationUpdateBuilder.build()
 
-    operations = context.operations |> Enum.map(&Map.take(&1, [:value_type]))
+    operations = Enum.map(context.operations, &Map.take(&1, [:value_type]))
 
     assert operations === [%{value_type: "string"}]
   end
@@ -80,7 +81,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       |> Context.assign(:translation, translation)
       |> TranslationUpdateBuilder.build()
 
-    operations = context.operations |> Enum.map(&Map.take(&1, [:value_type]))
+    operations = Enum.map(context.operations, &Map.take(&1, [:value_type]))
 
     assert operations === [%{value_type: "string"}]
   end
@@ -100,7 +101,7 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       |> Context.assign(:translation, translation)
       |> TranslationUpdateBuilder.build()
 
-    operations = context.operations |> Enum.map(&Map.take(&1, [:value_type]))
+    operations = Enum.map(context.operations, &Map.take(&1, [:value_type]))
 
     assert operations === [%{value_type: "empty"}]
   end

@@ -1,10 +1,11 @@
 defmodule Accent.Hook.Outbounds.PostURL do
-  require Logger
-
+  @moduledoc false
   import Ecto.Query, only: [where: 2]
 
   alias Accent.Repo
   alias Accent.User
+
+  require Logger
 
   def perform(service, context, templates) do
     urls = fetch_service_integration_urls(context.project, context.event, service)
@@ -49,7 +50,11 @@ defmodule Accent.Hook.Outbounds.PostURL do
   defp formatted_diff(diff) when diff > 1000, do: [diff |> div(1000) |> Integer.to_string(), "ms"]
   defp formatted_diff(diff), do: [Integer.to_string(diff), "µs"]
 
-  defp build_body(templates, %{event: "sync", user: user, payload: %{"document_path" => document_path, "batch_operation_stats" => stats}}) do
+  defp build_body(templates, %{
+         event: "sync",
+         user: user,
+         payload: %{"document_path" => document_path, "batch_operation_stats" => stats}
+       }) do
     assigns = %{
       user: User.name_with_fallback(user),
       document_path: document_path,

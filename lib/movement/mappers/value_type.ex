@@ -1,4 +1,5 @@
 defmodule Movement.Mappers.ValueType do
+  @moduledoc false
   def from_translation_new_value(_translation, ""), do: "empty"
   def from_translation_new_value(%{value_type: "null"}, value) when value != "null", do: "string"
   def from_translation_new_value(%{value_type: "empty"}, value) when value != "", do: "string"

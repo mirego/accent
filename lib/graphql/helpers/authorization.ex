@@ -1,22 +1,20 @@
 defmodule Accent.GraphQL.Helpers.Authorization do
+  @moduledoc false
   import Accent.GraphQL.Plugins.Authorization
 
   alias Accent.AccessToken
-
-  alias Accent.{
-    Collaborator,
-    Comment,
-    Document,
-    Integration,
-    Operation,
-    Project,
-    Prompt,
-    Repo,
-    Revision,
-    Translation,
-    TranslationCommentsSubscription,
-    Version
-  }
+  alias Accent.Collaborator
+  alias Accent.Comment
+  alias Accent.Document
+  alias Accent.Integration
+  alias Accent.Operation
+  alias Accent.Project
+  alias Accent.Prompt
+  alias Accent.Repo
+  alias Accent.Revision
+  alias Accent.Translation
+  alias Accent.TranslationCommentsSubscription
+  alias Accent.Version
 
   def viewer_authorize(action, func) do
     fn
@@ -30,7 +28,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   def project_authorize(action, func, id \\ :id) do
     fn
-      project = %Project{}, args, info ->
+      %Project{} = project, args, info ->
         authorize(action, project, info, do: func.(project, args, info))
 
       _, args, info ->
@@ -42,7 +40,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   def revision_authorize(action, func) do
     fn
-      revision = %Revision{}, args, info ->
+      %Revision{} = revision, args, info ->
         authorize(action, revision.project_id, info, do: func.(revision, args, info))
 
       _, args, info ->
@@ -57,7 +55,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   def prompt_authorize(action, func, id \\ :id) do
     fn
-      prompt = %Prompt{}, args, info ->
+      %Prompt{} = prompt, args, info ->
         prompt = Repo.preload(prompt, :project)
         authorize(action, prompt.project, info, do: func.(prompt, args, info))
 
@@ -71,13 +69,11 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   def version_authorize(action, func) do
     fn
-      version = %Version{}, args, info ->
+      %Version{} = version, args, info ->
         authorize(action, version.project_id, info, do: func.(version, args, info))
 
       _, args, info ->
-        version =
-          Version
-          |> Repo.get(args.id)
+        version = Repo.get(Version, args.id)
 
         authorize(action, version.project_id, info, do: func.(version, args, info))
     end
@@ -85,7 +81,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   def translation_authorize(action, func) do
     fn
-      translation = %Translation{}, args, info ->
+      %Translation{} = translation, args, info ->
         revision =
           case translation.revision do
             %Revision{} = revision ->
@@ -149,9 +145,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   def collaborator_authorize(action, func) do
     fn _, args, info ->
-      collaborator =
-        Collaborator
-        |> Repo.get(args.id)
+      collaborator = Repo.get(Collaborator, args.id)
 
       authorize(action, collaborator.project_id, info, do: func.(collaborator, args, info))
     end
@@ -172,9 +166,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
 
   def integration_authorize(action, func) do
     fn _, args, info ->
-      integration =
-        Integration
-        |> Repo.get(args.id)
+      integration = Repo.get(Integration, args.id)
 
       authorize(action, integration.project_id, info, do: func.(integration, args, info))
     end

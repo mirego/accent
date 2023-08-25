@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.SimpleJson do
+  @moduledoc false
   use Langue.Formatter,
     id: "simple_json",
     display_name: "Simple JSON",

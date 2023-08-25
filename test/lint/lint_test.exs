@@ -1,4 +1,5 @@
 defmodule AccentTest.Lint do
+  @moduledoc false
   use ExUnit.Case, async: true
 
   alias Accent.Lint

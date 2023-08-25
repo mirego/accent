@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.AddGlobalAccessTokens do
+  @moduledoc false
   use Ecto.Migration
 
   import Ecto.Query
@@ -8,7 +9,9 @@ defmodule Accent.Repo.Migrations.AddGlobalAccessTokens do
       add(:global, :boolean, default: false, null: false)
     end
 
-    create(unique_index(:auth_access_tokens, [:user_id, :global], where: "revoked_at::timestamp IS NULL AND global = true"))
+    create(
+      unique_index(:auth_access_tokens, [:user_id, :global], where: "revoked_at::timestamp IS NULL AND global = true")
+    )
 
     flush()
 

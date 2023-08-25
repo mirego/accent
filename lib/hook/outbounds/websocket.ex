@@ -1,4 +1,5 @@
 defmodule Accent.Hook.Outbounds.Websocket do
+  @moduledoc false
   use Oban.Worker, queue: :hook
 
   @impl Oban.Worker
@@ -13,7 +14,7 @@ defmodule Accent.Hook.Outbounds.Websocket do
     Accent.Endpoint.broadcast("projects:" <> event.project.id, event.event, event.payload)
   end
 
-  defp merge_user(event = %{user: user, payload: payload}) do
+  defp merge_user(%{user: user, payload: payload} = event) do
     %{
       event
       | payload: %{

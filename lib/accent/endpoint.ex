@@ -13,7 +13,13 @@ defmodule Accent.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug(Plug.Static, at: "/static", from: {:accent, "priv/static"}, gzip: true, only: ~w(jipt images))
-  plug(Plug.Static, at: "/", from: {:accent, "priv/static/webapp"}, gzip: true, only: ~w(favicon.ico assets index.html robot.txt))
+
+  plug(Plug.Static,
+    at: "/",
+    from: {:accent, "priv/static/webapp"},
+    gzip: true,
+    only: ~w(favicon.ico assets index.html robot.txt)
+  )
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -49,8 +55,9 @@ defmodule Accent.Endpoint do
   end
 
   # sobelow_skip ["XSS.SendResp"]
-  defp ping(conn = %{request_path: "/ping"}, _opts) do
+  defp ping(%{request_path: "/ping"} = conn, _opts) do
     alias Plug.Conn
+
     version = Application.get_env(:accent, :version)
 
     conn
@@ -61,7 +68,7 @@ defmodule Accent.Endpoint do
 
   defp ping(conn, _opts), do: conn
 
-  defp canonical_host(conn = %{request_path: "/health"}, _opts), do: conn
+  defp canonical_host(%{request_path: "/health"} = conn, _opts), do: conn
 
   defp canonical_host(conn, _opts) do
     opts = PlugCanonicalHost.init(canonical_host: Application.get_env(:accent, :canonical_host))
@@ -76,7 +83,10 @@ defmodule Accent.Endpoint do
   """
   def init(_key, config) do
     if config[:load_from_system_env] do
-      port = Application.get_env(:accent, Accent.Endpoint)[:http][:port] || raise "expected the PORT environment variable to be set"
+      port =
+        Application.get_env(:accent, Accent.Endpoint)[:http][:port] ||
+          raise "expected the PORT environment variable to be set"
+
       {:ok, Keyword.put(config, :http, [:inet6, port: port])}
     else
       {:ok, config}

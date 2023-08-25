@@ -1,18 +1,16 @@
 defmodule Accent.GraphQL.Resolvers.Activity do
-  require Ecto.Query
+  @moduledoc false
+  alias Accent.GraphQL.Paginated
+  alias Accent.Operation
+  alias Accent.Plugs.GraphQLContext
+  alias Accent.PreviousTranslation
+  alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Scopes.Operation, as: OperationScope
+  alias Accent.Translation
   alias Ecto.Query
 
-  alias Accent.Scopes.Operation, as: OperationScope
-
-  alias Accent.{
-    GraphQL.Paginated,
-    Operation,
-    Plugs.GraphQLContext,
-    PreviousTranslation,
-    Project,
-    Repo,
-    Translation
-  }
+  require Ecto.Query
 
   @spec list_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Operation.t())}
   def list_project(project, args, _) do

@@ -1,4 +1,5 @@
 defmodule Accent.RoleAbilities do
+  @moduledoc false
   require Logger
 
   @owner_role "owner"
@@ -148,12 +149,12 @@ defmodule Accent.RoleAbilities do
   def can?(nil, _action, _), do: false
 
   def can?(role, action, nil) do
-    Logger.warn("Unauthorized action: #{action} for #{role}")
+    Logger.warning("Unauthorized action: #{action} for #{role}")
     false
   end
 
   def can?(role, action, target) do
-    Logger.warn("Unauthorized action: #{action} for #{role} on #{inspect(target)}")
+    Logger.warning("Unauthorized action: #{action} for #{role} on #{inspect(target)}")
     false
   end
 end

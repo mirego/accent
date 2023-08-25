@@ -1,4 +1,5 @@
 defmodule Movement.Persisters.DocumentDelete do
+  @moduledoc false
   @behaviour Movement.Persister
 
   alias Accent.Repo

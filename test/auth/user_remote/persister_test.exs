@@ -1,4 +1,5 @@
 defmodule AccentTest.UserRemote.Persister do
+  @moduledoc false
   use Accent.RepoCase
 
   alias Accent.AuthProvider

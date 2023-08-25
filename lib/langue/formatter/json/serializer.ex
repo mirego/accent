@@ -1,4 +1,5 @@
 defmodule Langue.Formatter.Json.Serializer do
+  @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   alias Langue.Utils.NestedSerializerHelper
@@ -6,7 +7,7 @@ defmodule Langue.Formatter.Json.Serializer do
   def serialize(%{entries: entries}) do
     render =
       entries
-      |> serialize_json
+      |> serialize_json()
       |> Kernel.<>("\n")
 
     %Langue.Formatter.SerializerResult{render: render}
@@ -24,20 +25,25 @@ defmodule Langue.Formatter.Json.Serializer do
   def encode_json(content) do
     content
     |> Enum.map(&add_extra/1)
-    |> (&{&1}).()
-    |> :jsone.encode([:native_utf8, :native_forward_slash, {:indent, 2}, {:space, 1}, {:float_format, [{:decimals, 4}, :compact]}])
+    |> then(&{&1})
+    |> :jsone.encode([
+      :native_utf8,
+      :native_forward_slash,
+      {:indent, 2},
+      {:space, 1},
+      {:float_format, [{:decimals, 4}, :compact]}
+    ])
     |> prettify_json()
   end
 
   def prettify_json(string) do
-    string
-    |> String.replace(~r/\" : (\"|{|\[|null|false|true|\d)/, "\": \\1")
+    String.replace(string, ~r/\" : (\"|{|\[|null|false|true|\d)/, "\": \\1")
   end
 
   defp add_extra({key, [{_, _} | _] = values}), do: {key, {Enum.map(values, &add_extra/1)}}
   defp add_extra({key, values}) when is_list(values), do: {key, Enum.map(values, &add_extra/1)}
   defp add_extra({key, values}), do: {key, add_extra(values)}
-  defp add_extra(values = [{_key, _} | _]), do: {Enum.map(values, &add_extra/1)}
+  defp add_extra([{_key, _} | _] = values), do: {Enum.map(values, &add_extra/1)}
   defp add_extra(nil), do: :null
   defp add_extra(value), do: value
 end

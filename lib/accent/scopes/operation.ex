@@ -1,4 +1,5 @@
 defmodule Accent.Scopes.Operation do
+  @moduledoc false
   import Ecto.Query, only: [from: 2]
 
   @doc """
@@ -43,7 +44,10 @@ defmodule Accent.Scopes.Operation do
   def filter_from_project(query, nil), do: query
 
   def filter_from_project(query, project_id) do
-    from(o in query, left_join: r in assoc(o, :revision), where: r.project_id == ^project_id or o.project_id == ^project_id)
+    from(o in query,
+      left_join: r in assoc(o, :revision),
+      where: r.project_id == ^project_id or o.project_id == ^project_id
+    )
   end
 
   @doc """

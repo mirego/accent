@@ -1,4 +1,5 @@
 defmodule AccentTest.ProjectInviteEmail do
+  @moduledoc false
   use ExUnit.Case
 
   test "create" do

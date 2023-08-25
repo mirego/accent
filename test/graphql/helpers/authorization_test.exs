@@ -1,34 +1,45 @@
 defmodule AccentTest.GraphQL.Helpers.Authorization do
+  @moduledoc false
   use Accent.RepoCase
 
-  alias Accent.{
-    Collaborator,
-    Document,
-    GraphQL.Helpers.Authorization,
-    Integration,
-    Language,
-    Operation,
-    ProjectCreator,
-    Repo,
-    Translation,
-    TranslationCommentsSubscription,
-    User,
-    Version
-  }
+  alias Accent.Collaborator
+  alias Accent.Document
+  alias Accent.GraphQL.Helpers.Authorization
+  alias Accent.Integration
+  alias Accent.Language
+  alias Accent.Operation
+  alias Accent.ProjectCreator
+  alias Accent.Repo
+  alias Accent.Translation
+  alias Accent.TranslationCommentsSubscription
+  alias Accent.User
+  alias Accent.Version
 
   @user %User{email: "test@test.com"}
 
   setup do
     user = Repo.insert!(@user)
     language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    {:ok, project} = ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
+    {:ok, project} =
+      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
     version = Repo.insert!(%Version{project_id: project.id, name: "test", tag: "v1.0", user_id: user.id})
     translation = Repo.insert!(%Translation{revision_id: revision.id, key: "test", corrected_text: "bar"})
     collaborator = Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "owner"})
-    integration = Repo.insert!(%Integration{project_id: project.id, user_id: user.id, service: "slack", data: %{url: "http://example.com"}})
-    translation_comments_subscription = Repo.insert!(%TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id})
+
+    integration =
+      Repo.insert!(%Integration{
+        project_id: project.id,
+        user_id: user.id,
+        service: "slack",
+        data: %{url: "http://example.com"}
+      })
+
+    translation_comments_subscription =
+      Repo.insert!(%TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id})
 
     {:ok,
      [
@@ -116,7 +127,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized project root", %{project: project} do
-    user = %User{email: "test+2@test.com"} |> Repo.insert!()
+    user = Repo.insert!(%User{email: "test+2@test.com"})
     user = Map.put(user, :permissions, %{})
     root = project
     args = %{}
@@ -167,7 +178,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized revision root", %{revision: revision} do
-    user = %User{email: "test+2@test.com"} |> Repo.insert!()
+    user = Repo.insert!(%User{email: "test+2@test.com"})
     user = Map.put(user, :permissions, %{})
     root = revision
     args = %{}
@@ -218,7 +229,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized version root", %{version: version} do
-    user = %User{email: "test+2@test.com"} |> Repo.insert!()
+    user = Repo.insert!(%User{email: "test+2@test.com"})
     user = Map.put(user, :permissions, %{})
     root = version
     args = %{}
@@ -243,7 +254,12 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
     assert_receive :ok
   end
 
-  test "authorized translation revision preloaded root", %{user: user, revision: revision, translation: translation, project: project} do
+  test "authorized translation revision preloaded root", %{
+    user: user,
+    revision: revision,
+    translation: translation,
+    project: project
+  } do
     translation = %{translation | revision: revision}
     user = Map.put(user, :permissions, %{project.id => "owner"})
     root = translation
@@ -282,7 +298,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized translation root", %{translation: translation} do
-    user = %User{email: "test+2@test.com"} |> Repo.insert!()
+    user = Repo.insert!(%User{email: "test+2@test.com"})
     user = Map.put(user, :permissions, %{})
     root = translation
     args = %{}
@@ -427,7 +443,11 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
     refute_receive :ok
   end
 
-  test "authorized translation_comments_subscription args", %{user: user, translation_comments_subscription: translation_comments_subscription, project: project} do
+  test "authorized translation_comments_subscription args", %{
+    user: user,
+    translation_comments_subscription: translation_comments_subscription,
+    project: project
+  } do
     user = Map.put(user, :permissions, %{project.id => "owner"})
     root = nil
     args = %{id: translation_comments_subscription.id}
@@ -439,7 +459,11 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
     assert_receive :ok
   end
 
-  test "unauthorized translation_comments_subscription role", %{user: user, translation_comments_subscription: translation_comments_subscription, project: project} do
+  test "unauthorized translation_comments_subscription role", %{
+    user: user,
+    translation_comments_subscription: translation_comments_subscription,
+    project: project
+  } do
     user = Map.put(user, :permissions, %{project.id => "reviewer"})
     root = nil
     args = %{id: translation_comments_subscription.id}

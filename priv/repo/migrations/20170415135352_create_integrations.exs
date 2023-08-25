@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.CreateIntegrations do
+  @moduledoc false
   use Ecto.Migration
 
   def change do

@@ -1,4 +1,5 @@
 defmodule Accent.GraphQL.Types.Pagination do
+  @moduledoc false
   use Absinthe.Schema.Notation
 
   object :pagination_meta do

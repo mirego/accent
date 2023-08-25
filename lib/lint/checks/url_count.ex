@@ -1,4 +1,5 @@
 defmodule Accent.Lint.Checks.URLCount do
+  @moduledoc false
   alias Accent.Lint.Message
 
   def applicable(entry), do: not entry.is_master and is_binary(entry.master_value)

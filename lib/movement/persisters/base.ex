@@ -1,10 +1,12 @@
 defmodule Movement.Persisters.Base do
-  require Ecto.Query
-
-  alias Accent.{Operation, Repo}
+  @moduledoc false
+  alias Accent.Operation
+  alias Accent.Repo
   alias Movement.Mappers.OperationsStats, as: StatMapper
   alias Movement.Migrator
   alias Movement.Persisters.ProjectStateChangeWorker
+
+  require Ecto.Query
 
   # Inserts operations by batch of 500 to prevent parameters
   # overflow in database adapter
@@ -13,10 +15,9 @@ defmodule Movement.Persisters.Base do
   @options_keys ~w(new_slave_options merge_options sync_options)a
 
   @spec execute(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}
-  def execute(context = %Movement.Context{operations: []}), do: {context, []}
+  def execute(%Movement.Context{operations: []} = context), do: {context, []}
 
-  def execute(context = %Movement.Context{assigns: assigns = %{batch_action: action}})
-      when is_binary(action) do
+  def execute(%Movement.Context{assigns: %{batch_action: action} = assigns} = context) when is_binary(action) do
     stats = StatMapper.map(context.operations)
 
     batch_operation =
@@ -53,7 +54,8 @@ defmodule Movement.Persisters.Base do
     |> persist_operations()
     |> migrate_up_operations()
     |> tap(fn _ ->
-      project_state_change_context.previous_project_state && Oban.insert(ProjectStateChangeWorker.new(project_state_change_context))
+      project_state_change_context.previous_project_state &&
+        Oban.insert(ProjectStateChangeWorker.new(project_state_change_context))
     end)
   end
 
@@ -61,7 +63,7 @@ defmodule Movement.Persisters.Base do
   def rollback(%Movement.Context{assigns: %{operation: %{action: "rollback"}}}),
     do: Repo.rollback(:cannot_rollback_rollback)
 
-  def rollback(context = %Movement.Context{operations: []}), do: {context, []}
+  def rollback(%Movement.Context{operations: []} = context), do: {context, []}
 
   def rollback(context) do
     context
@@ -69,7 +71,7 @@ defmodule Movement.Persisters.Base do
     |> migrate_down_operations()
   end
 
-  defp persist_operations(context = %Movement.Context{assigns: assigns}) do
+  defp persist_operations(%Movement.Context{assigns: assigns} = context) do
     placeholders =
       %{
         now: DateTime.utc_now(),
@@ -118,11 +120,11 @@ defmodule Movement.Persisters.Base do
     %{context | operations: operations}
   end
 
-  defp migrate_up_operations(context = %Movement.Context{operations: operations}) do
+  defp migrate_up_operations(%Movement.Context{operations: operations} = context) do
     {context, Migrator.up(operations)}
   end
 
-  defp migrate_down_operations(context = %Movement.Context{assigns: %{operation: operation = %{batch: true}}}) do
+  defp migrate_down_operations(%Movement.Context{assigns: %{operation: %{batch: true} = operation}} = context) do
     operations =
       operation
       |> Ecto.assoc(:operations)
@@ -133,7 +135,7 @@ defmodule Movement.Persisters.Base do
     {context, operations}
   end
 
-  defp migrate_down_operations(context = %Movement.Context{assigns: %{operation: operation}}) do
+  defp migrate_down_operations(%Movement.Context{assigns: %{operation: operation}} = context) do
     operation = Repo.preload(operation, :translation)
 
     {context, Migrator.down([operation])}
@@ -141,8 +143,7 @@ defmodule Movement.Persisters.Base do
 
   defp assign_project(placeholders, nil), do: placeholders
 
-  defp assign_project(placeholders, project),
-    do: Map.put(placeholders, :project_id, project && project.id)
+  defp assign_project(placeholders, project), do: Map.put(placeholders, :project_id, project && project.id)
 
   defp assign_batch_operation(placeholders, nil), do: placeholders
 
@@ -151,18 +152,15 @@ defmodule Movement.Persisters.Base do
 
   defp assign_document(placeholders, nil), do: placeholders
 
-  defp assign_document(placeholders, document),
-    do: Map.put(placeholders, :document_id, document && document.id)
+  defp assign_document(placeholders, document), do: Map.put(placeholders, :document_id, document && document.id)
 
   defp assign_revision(placeholders, nil), do: placeholders
 
-  defp assign_revision(placeholders, revision),
-    do: Map.put(placeholders, :revision_id, revision && revision.id)
+  defp assign_revision(placeholders, revision), do: Map.put(placeholders, :revision_id, revision && revision.id)
 
   defp assign_version(placeholders, nil), do: placeholders
 
-  defp assign_version(placeholders, version),
-    do: Map.put(placeholders, :version_id, version && version.id)
+  defp assign_version(placeholders, version), do: Map.put(placeholders, :version_id, version && version.id)
 
   defp assign_options(operations, assigns) do
     options = Enum.flat_map(@options_keys, &Map.get(assigns, &1, []))

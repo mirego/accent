@@ -1,7 +1,9 @@
 defmodule Langue.Formatter.Json.Parser do
+  @moduledoc false
   @behaviour Langue.Formatter.Parser
 
-  alias Langue.Utils.{NestedParserHelper, Placeholders}
+  alias Langue.Utils.NestedParserHelper
+  alias Langue.Utils.Placeholders
 
   def parse(%{render: render}) do
     entries =

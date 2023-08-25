@@ -1,4 +1,5 @@
 defmodule Accent.MachineTranslations do
+  @moduledoc false
   alias Accent.MachineTranslations.Provider
   alias Accent.MachineTranslations.TranslatedText
 
@@ -53,8 +54,12 @@ defmodule Accent.MachineTranslations do
   def map_source_and_target(source, target, supported_languages) do
     source = String.downcase(source)
     target = String.downcase(target)
-    source = if source in supported_languages, do: source, else: fallback_split_lanugage_slug(source, supported_languages)
-    target = if target in supported_languages, do: target, else: fallback_split_lanugage_slug(target, supported_languages)
+
+    source =
+      if source in supported_languages, do: source, else: fallback_split_lanugage_slug(source, supported_languages)
+
+    target =
+      if target in supported_languages, do: target, else: fallback_split_lanugage_slug(target, supported_languages)
 
     cond do
       is_nil(source) and is_nil(target) -> {:error, :unsupported_source_and_target}

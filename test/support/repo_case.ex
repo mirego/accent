@@ -1,4 +1,5 @@
 defmodule Accent.RepoCase do
+  @moduledoc false
   use ExUnit.CaseTemplate, async: true
 
   using do

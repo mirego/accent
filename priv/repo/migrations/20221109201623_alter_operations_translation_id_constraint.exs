@@ -1,4 +1,5 @@
 defmodule Accent.Repo.Migrations.AlterOperationsTranslationIdConstraint do
+  @moduledoc false
   use Ecto.Migration
 
   def up do

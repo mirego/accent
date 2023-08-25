@@ -1,4 +1,5 @@
 defmodule Accent.Hook do
+  @moduledoc false
   def outbound(context), do: run(outbounds_modules(), context)
   def inbound(context), do: run(inbounds_modules(), context)
 

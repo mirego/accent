@@ -1,9 +1,12 @@
 defmodule Accent.Plugs.MovementContextParser do
+  @moduledoc false
   use Plug.Builder
 
-  alias Accent.{Document, Repo, Version}
+  alias Accent.Document
+  alias Accent.Repo
   alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Version, as: VersionScope
+  alias Accent.Version
   alias Movement.Context
 
   @non_printable_characters [
@@ -41,29 +44,32 @@ defmodule Accent.Plugs.MovementContextParser do
   plug(:assign_movement_version)
   plug(:assign_movement_entries)
 
-  def validate_params(conn = %{params: %{"document_format" => _format, "file" => _file, "language" => _language}}, _), do: conn
-  def validate_params(conn, _), do: conn |> send_resp(:unprocessable_entity, "file, language and document_format are required") |> halt
+  def validate_params(%{params: %{"document_format" => _format, "file" => _file, "language" => _language}} = conn, _),
+    do: conn
 
-  def assign_document_parser(conn = %{assigns: %{document_format: document_format}}, _) do
+  def validate_params(conn, _),
+    do: conn |> send_resp(:unprocessable_entity, "file, language and document_format are required") |> halt()
+
+  def assign_document_parser(%{assigns: %{document_format: document_format}} = conn, _) do
     case Langue.parser_from_format(document_format) do
       {:ok, parser} -> assign(conn, :document_parser, parser)
-      {:error, _reason} -> conn |> send_resp(:unprocessable_entity, "document_format is invalid") |> halt
+      {:error, _reason} -> conn |> send_resp(:unprocessable_entity, "document_format is invalid") |> halt()
     end
   end
 
-  def assign_document_format(conn = %{params: %{"document_format" => format}}, _) do
+  def assign_document_format(%{params: %{"document_format" => format}} = conn, _) do
     assign(conn, :document_format, String.downcase(format))
   end
 
-  def assign_document_path(conn = %{params: %{"document_path" => path}}, _) when path !== "" and not is_nil(path) do
+  def assign_document_path(%{params: %{"document_path" => path}} = conn, _) when path !== "" and not is_nil(path) do
     assign(conn, :document_path, path)
   end
 
-  def assign_document_path(conn = %{params: %{"file" => file}}, _) do
+  def assign_document_path(%{params: %{"file" => file}} = conn, _) do
     assign(conn, :document_path, extract_path_from_filename(file.filename))
   end
 
-  def assign_version(conn = %{assigns: %{project: project}, params: %{"version" => version}}, _) do
+  def assign_version(%{assigns: %{project: project}, params: %{"version" => version}} = conn, _) do
     Version
     |> VersionScope.from_project(project.id)
     |> VersionScope.from_tag(version)
@@ -87,12 +93,15 @@ defmodule Accent.Plugs.MovementContextParser do
     assign(conn, :movement_context, %Context{assigns: %{options: [], project: conn.assigns[:project]}})
   end
 
-  def assign_movement_version(conn = %{assigns: %{version: version, movement_context: context}}, _opts) do
+  def assign_movement_version(%{assigns: %{version: version, movement_context: context}} = conn, _opts) do
     context = Context.assign(context, :version, version)
     assign(conn, :movement_context, context)
   end
 
-  def assign_movement_document(conn = %{assigns: %{project: project, movement_context: context, document_path: path, document_format: format}}, _opts) do
+  def assign_movement_document(
+        %{assigns: %{project: project, movement_context: context, document_path: path, document_format: format}} = conn,
+        _opts
+      ) do
     Document
     |> DocumentScope.from_path(path)
     |> DocumentScope.from_project(project.id)
@@ -109,7 +118,7 @@ defmodule Accent.Plugs.MovementContextParser do
     end
   end
 
-  def assign_movement_entries(conn = %{assigns: %{movement_context: context}, params: %{"file" => file}}, _) do
+  def assign_movement_entries(%{assigns: %{movement_context: context}, params: %{"file" => file}} = conn, _) do
     raw = File.read!(file.path)
     render = if String.printable?(raw), do: raw, else: unicode_only(raw)
 
@@ -120,7 +129,10 @@ defmodule Accent.Plugs.MovementContextParser do
         context =
           context
           |> Context.assign(:document, context.assigns[:document])
-          |> Context.assign(:document_update, document && %{top_of_the_file_comment: document.top_of_the_file_comment, header: document.header})
+          |> Context.assign(
+            :document_update,
+            document && %{top_of_the_file_comment: document.top_of_the_file_comment, header: document.header}
+          )
           |> Map.put(:render, render)
           |> Map.put(:entries, entries)
 
@@ -162,8 +174,7 @@ defmodule Accent.Plugs.MovementContextParser do
 
   def unicode_only(string, new_string \\ "")
 
-  def unicode_only(<<head::binary-size(2)>> <> tail, new_string)
-      when head in @non_printable_characters do
+  def unicode_only(<<head::binary-size(2)>> <> tail, new_string) when head in @non_printable_characters do
     unicode_only(tail, @replacement_character <> new_string)
   end
 
