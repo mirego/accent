@@ -4,13 +4,14 @@ defmodule Accent.Hook do
   def inbound(context), do: run(inbounds_modules(), context)
 
   defp run(modules, context) do
-    modules
-    |> Enum.reduce([], fn {module, opts}, acc ->
-      if context.event in Keyword.fetch!(opts, :events),
-        do: [module.new(context) | acc],
-        else: acc
-    end)
-    |> Oban.insert_all()
+    jobs =
+      Enum.reduce(modules, [], fn {module, opts}, acc ->
+        if context.event in Keyword.fetch!(opts, :events),
+          do: [module.new(context) | acc],
+          else: acc
+      end)
+
+    Oban.insert_all(jobs)
   end
 
   defp outbounds_modules do

@@ -15,7 +15,7 @@ defmodule Accent.Hook.Outbounds.Email do
       context
       |> fetch_emails()
       |> build_email(context)
-      |> Accent.Mailer.deliver_later()
+      |> Accent.Mailer.deliver_later!()
 
     {:ok, email}
   end

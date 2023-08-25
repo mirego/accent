@@ -1,6 +1,5 @@
 defmodule AccentTest.Hook.GitHubController do
   use Accent.ConnCase
-  use Oban.Testing, repo: Accent.Repo
 
   alias Accent.AccessToken
   alias Accent.Collaborator

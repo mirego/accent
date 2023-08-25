@@ -1,6 +1,6 @@
 defmodule AccentTest.UserRemote.TokenGiver do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Accent.AccessToken
   alias Accent.Repo

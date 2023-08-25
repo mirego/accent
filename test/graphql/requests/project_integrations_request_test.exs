@@ -1,6 +1,6 @@
 defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Accent.Collaborator
   alias Accent.Integration

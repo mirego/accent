@@ -22,6 +22,8 @@ defmodule Accent.ConnCase do
 
   using do
     quote do
+      use Oban.Testing, repo: Accent.Repo
+
       # Import conveniences for testing with connections
       import Accent.Router.Helpers
       import Phoenix.ConnTest

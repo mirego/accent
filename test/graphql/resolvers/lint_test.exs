@@ -1,6 +1,6 @@
 defmodule AccentTest.GraphQL.Resolvers.Lint do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Accent.GraphQL.Resolvers.Lint, as: Resolver
   alias Accent.Language

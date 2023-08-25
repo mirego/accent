@@ -1,6 +1,6 @@
 defmodule AccentTest.Movement.Migrator.Up do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Accent.Operation
   alias Accent.PreviousTranslation

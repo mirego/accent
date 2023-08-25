@@ -1,6 +1,6 @@
 defmodule AccentTest.Movement.Builders.TranslationUncorrectConflict do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Movement.Builders.TranslationUncorrectConflict, as: TranslationUncorrectConflictBuilder
 

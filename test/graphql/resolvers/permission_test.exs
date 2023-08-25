@@ -1,6 +1,6 @@
 defmodule AccentTest.GraphQL.Resolvers.Permission do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Accent.GraphQL.Resolvers.Permission, as: Resolver
   alias Accent.Project

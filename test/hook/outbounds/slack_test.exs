@@ -7,7 +7,7 @@ end
 
 defmodule AccentTest.Hook.Outbounds.Slack do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   import Mock
 

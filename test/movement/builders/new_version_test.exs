@@ -1,6 +1,6 @@
 defmodule AccentTest.Movement.Builders.NewVersion do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Accent.Document
   alias Accent.Language

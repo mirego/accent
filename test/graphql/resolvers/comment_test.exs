@@ -1,7 +1,6 @@
 defmodule AccentTest.GraphQL.Resolvers.Comment do
   @moduledoc false
-  use Accent.RepoCase
-  use Oban.Testing, repo: Accent.Repo
+  use Accent.RepoCase, async: true
 
   alias Accent.Comment
   alias Accent.GraphQL.Resolvers.Comment, as: Resolver

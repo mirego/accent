@@ -94,6 +94,9 @@
       {{{t 'components.project_settings.user_token.text_shell'}}}
     </p>
 
-    <input readonly='' onClick='this.select();' local-class='token' value={{@userToken}} />
+    <div local-class='token-wrapper'>
+      {{inline-svg '/assets/key.svg' local-class='token-icon'}}
+      <input readonly='' onClick='this.select();' local-class='token' value={{@userToken}} />
+    </div>
   </div>
 </div>

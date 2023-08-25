@@ -32,7 +32,11 @@
     </div>
   </div>
 
-  <input readonly='' onClick='this.select();' local-class='token' value={{@token.token}} />
+  <div local-class='token-wrapper'>
+    {{inline-svg '/assets/key.svg' local-class='token-icon'}}
+    <input readonly='' onClick='this.select();' local-class='token' value={{@token.token}} />
+  </div>
+
   {{#if @token.customPermissions}}
     <button {{on 'click' (fn this.togglePermissions)}} local-class='toggle-permissions {{if this.showPermissions "toggle-permissions--open"}}'>
       {{t 'components.project_settings.api_token.permissions.custom_permissions'}}

@@ -1,6 +1,6 @@
 defmodule AccentTest.GraphQL.Resolvers.TranslationCommentSubscription do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   import Mox
 

@@ -1,6 +1,5 @@
 defmodule AccentTest.MergeController do
   use Accent.ConnCase
-  use Oban.Testing, repo: Accent.Repo
 
   import Ecto.Query, only: [from: 2]
 

@@ -1,6 +1,6 @@
 defmodule AccentTest.BadgeGenerator do
   @moduledoc false
-  use Accent.RepoCase, async: false
+  use Accent.RepoCase, async: true, async: false
 
   import Mock
 

@@ -1,6 +1,6 @@
 defmodule AccentTest.Movement.Persisters.ProjectSync do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   import Ecto.Query
 

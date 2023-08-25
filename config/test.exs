@@ -8,7 +8,7 @@ config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServerM
 
 config :ueberauth, Ueberauth, providers: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}}]
 
-config :accent, Oban, crontab: false, queues: false, plugins: false
+config :accent, Oban, crontab: false, testing: :manual
 
 config :telemetry_ui, disabled: true
 config :goth, disabled: true

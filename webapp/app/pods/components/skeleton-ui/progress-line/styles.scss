@@ -11,6 +11,7 @@
   position: relative;
   bottom: 1px;
   margin-bottom: -2px;
+  animation: progress-line-appear 1.8s ease-in forwards;
 }
 
 .progress-line:before {
@@ -18,6 +19,15 @@
   content: '';
   animation: progress-line-running-progress 1.8s cubic-bezier(0.5, 0, 0.1, 1)
     infinite;
+}
+
+@keyframes progress-line-appear {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes progress-line-running-progress {

@@ -1,6 +1,5 @@
 defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
-  use Accent.RepoCase
-  use Oban.Testing, repo: Accent.Repo
+  use Accent.RepoCase, async: true
 
   alias Accent.Document
   alias Accent.Language

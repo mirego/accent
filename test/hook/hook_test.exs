@@ -1,7 +1,6 @@
 defmodule AccentTest.Hook do
   @moduledoc false
   use Accent.RepoCase, async: true
-  use Oban.Testing, repo: Accent.Repo
 
   alias Accent.Hook
   alias Accent.Project

@@ -28,7 +28,8 @@
 }
 
 .user-token .token {
-  background-color: var(--background-light-highlight);
+  margin-top: 0;
+  border: 2px solid var(--background-light-highlight);
 }
 
 .user-token h2 {
@@ -214,7 +215,7 @@
   display: inline-block;
   width: 100%;
   margin: 10px 0 0;
-  padding: 14px 8px;
+  padding: 14px 8px 14px 30px;
   overflow-x: scroll;
   word-break: keep-all;
   background: var(--background-light);
@@ -224,6 +225,7 @@
   transition-property: border-color, box-shadow;
   transition: 0.3s ease-in-out;
   color: var(--text-color-normal);
+  cursor: pointer;
 
   &:focus {
     outline: none;
@@ -238,6 +240,20 @@
       background: var(--color-primary-opacity-10);
     }
   }
+}
+
+.token-wrapper {
+  position: relative;
+}
+
+.token-icon {
+  position: absolute;
+  left: 12px;
+  top: 16px;
+  width: 14px;
+  height: 14px;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 @media (max-width: 840px) {

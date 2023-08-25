@@ -1,6 +1,6 @@
 defmodule AccentTest.Movement.Builders.TranslationUpdate do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Accent.Translation
   alias Movement.Builders.TranslationUpdate, as: TranslationUpdateBuilder

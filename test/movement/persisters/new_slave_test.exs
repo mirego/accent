@@ -1,6 +1,6 @@
 defmodule AccentTest.Movement.Persisters.NewSlave do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
 
   alias Accent.Language
   alias Accent.ProjectCreator

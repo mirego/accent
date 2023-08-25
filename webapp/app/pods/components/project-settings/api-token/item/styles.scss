@@ -58,16 +58,17 @@
   display: inline-block;
   width: 100%;
   margin: 10px 0 0;
-  padding: 14px 8px;
+  padding: 14px 8px 14px 30px;
   overflow-x: scroll;
   word-break: keep-all;
-  background: var(--background-light);
+  border: 1px solid var(--input-border-color);
   font-family: var(--font-monospace);
   font-size: 11px;
   border-radius: 8px;
   transition-property: border-color, box-shadow;
   transition: 0.3s ease-in-out;
   color: var(--text-color-normal);
+  cursor: pointer;
 
   &:focus {
     outline: none;
@@ -82,6 +83,20 @@
       background: var(--color-primary-opacity-10);
     }
   }
+}
+
+.token-wrapper {
+  position: relative;
+}
+
+.token-icon {
+  position: absolute;
+  left: 12px;
+  top: 25px;
+  width: 14px;
+  height: 14px;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .toggle-permissions {

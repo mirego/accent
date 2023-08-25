@@ -1,6 +1,6 @@
 defmodule AccentTest.Hook.Outbounds.Email do
   @moduledoc false
-  use Accent.RepoCase
+  use Accent.RepoCase, async: true
   use Bamboo.Test
 
   alias Accent.Collaborator

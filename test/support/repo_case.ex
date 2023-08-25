@@ -4,6 +4,8 @@ defmodule Accent.RepoCase do
 
   using do
     quote do
+      use Oban.Testing, repo: Accent.Repo
+
       def to_worker_args(struct) do
         struct
         |> Jason.encode!()

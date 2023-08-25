@@ -43,7 +43,7 @@ defmodule Accent.Mixfile do
       # Plugs
       {:plug_assign, "~> 1.0.0"},
       {:canary, "~> 1.1.0"},
-      {:corsica, "~> 1.0"},
+      {:corsica, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.0"},
       {:plug, "~> 1.10"},
@@ -59,7 +59,7 @@ defmodule Accent.Mixfile do
       # Phoenix data helpers
       {:phoenix_ecto, "~> 4.0"},
       {:scrivener_ecto, "~> 2.0"},
-      {:dataloader, "~> 1.0"},
+      {:dataloader, "~> 2.0"},
 
       # GraphQL
       {:absinthe, "~> 1.4"},
@@ -92,11 +92,12 @@ defmodule Accent.Mixfile do
       {:sentry, "~> 7.0"},
 
       # Mails
-      {:bamboo, "~> 1.0"},
-      {:bamboo_smtp, "~> 2.0"},
+      {:bamboo, "~> 2.0"},
+      {:bamboo_phoenix, "~> 1.0"},
+      {:bamboo_smtp, "~> 4.0"},
 
       # Events handling
-      {:oban, "~> 2.13.0"},
+      {:oban, "~> 2.13"},
 
       # Metrics and monitoring
       {:new_relic_agent, "~> 1.27"},
@@ -106,7 +107,7 @@ defmodule Accent.Mixfile do
       {:ecto_psql_extras, "~> 0.7"},
 
       # Mock testing
-      {:mox, "~> 0.3", only: :test},
+      {:mox, "~> 1.0", only: :test},
       {:mock, "~> 0.3.0", only: :test},
 
       # Google API authentication
