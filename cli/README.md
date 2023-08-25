@@ -53,6 +53,18 @@ accent-cli reads from a `accent.json` file. The file should contain valid JSON r
 
 ## Document configuration
 
+Format for the `accent.json` file.
+
+- `apiUrl`: The base URL of your Accent Instance
+- `apiKey`: Api Key to your Accent Instance
+- `project`: Your Project uuid
+
+Available ENV variables. (Each variable will override `accent.json` variables if set)
+
+- `ACCENT_API_KEY`: The base URL of your Accent Instance
+- `ACCENT_API_URL`: Api Key to your Accent Instance
+- `ACCENT_PROJECT`: Your Project uuid
+
 Each operation section `sync` and `addTranslations` can contain the following object:
 
 - `language`: The identifier of the document’s language
