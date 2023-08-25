@@ -165,7 +165,8 @@ cond do
     config :accent, Accent.Mailer,
       adapter: Bamboo.MailgunAdapter,
       api_key: get_env("MAILGUN_API_KEY"),
-      domain: get_env("MAILGUN_DOMAIN")
+      domain: get_env("MAILGUN_DOMAIN"),
+      base_uri: get_env("MAILGUN_BASE_URI")
 
   get_env("SMTP_ADDRESS") ->
     config :accent, Accent.Mailer,
