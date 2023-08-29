@@ -137,6 +137,10 @@ a.loginButton {
   border: 1px solid #888;
   font-size: 13px;
 
+  &:focus {
+    box-shadow: 0 3px 10px var(--shadow-color);
+  }
+
   &.loginButton--google {
     border-color: darken(#4d90fe, 5%);
     text-shadow: none;
@@ -169,6 +173,7 @@ a.loginButton {
     &:focus,
     &:hover {
       background: var(--background-light);
+      color: var(--text-color-normal);
     }
   }
 

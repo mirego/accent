@@ -28,7 +28,9 @@ defmodule Accent.User do
     "test"
     iex> Accent.User.name_with_fallback(%{fullname: nil, email: "foo@bar.com"})
     "foo@bar.com"
+    iex> Accent.User.name_with_fallback(%{fullname: "", email: "foo@bar.com"})
+    "foo@bar.com"
   """
-  def name_with_fallback(%{fullname: fullname, email: email}) when is_nil(fullname), do: email
+  def name_with_fallback(%{fullname: fullname, email: email}) when fullname in ["", nil], do: email
   def name_with_fallback(%{fullname: fullname}), do: fullname
 end

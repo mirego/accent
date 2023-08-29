@@ -3,7 +3,7 @@ defmodule Accent.Auth.Ueberauth.DummyStrategy do
   A username strategy for Ueberauth
   """
 
-  use Ueberauth.Strategy
+  use Ueberauth.Strategy, ignores_csrf_attack: true
 
   alias Ueberauth.Auth.Credentials
   alias Ueberauth.Auth.Extra
