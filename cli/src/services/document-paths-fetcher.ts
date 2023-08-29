@@ -4,6 +4,7 @@ import * as path from 'path';
 import {DocumentPath} from '../types/document-path';
 import {Project} from '../types/project';
 import Document from './document';
+import {DocumentConfig} from '../types/document-config';
 import {fetchFromRevisions} from './revision-slug-fetcher';
 
 export default class DocumentPathsFetcher {
@@ -11,11 +12,10 @@ export default class DocumentPathsFetcher {
     const languageSlugs = fetchFromRevisions(project.revisions);
     const documentPaths: Set<string> = new Set();
     project.documents.entries.forEach(({path}) => documentPaths.add(path));
-    document.paths.forEach((documentPath) =>
-      documentPaths.add(
-        path.basename(documentPath).replace(path.extname(documentPath), '')
-      )
-    );
+    document.paths.forEach((documentPath) => {
+      const name = document.parseDocumentName(documentPath, document.config);
+      documentPaths.add(name);
+    });
 
     return languageSlugs.reduce((memo: DocumentPath[], slug) => {
       documentPaths.forEach((path) => {

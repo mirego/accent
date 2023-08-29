@@ -1,0 +1,10 @@
+{
+  "files": [
+    {
+      "format": "json",
+      "namePattern": "parentDirectory",
+      "source": "foo/translations.en.json",
+      "target": "foo/translations.%slug%.json"
+    }
+  ]
+}

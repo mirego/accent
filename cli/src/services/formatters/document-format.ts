@@ -19,7 +19,7 @@ export default class DocumentFormatFormatter extends Base {
   }
 
   log() {
-    console.log(chalk.magenta(`Formatted files (${this.paths.length})`));
+    console.log(chalk.magenta(`Formatting files (${this.paths.length})`));
     console.log('');
 
     for (const path of this.paths) {

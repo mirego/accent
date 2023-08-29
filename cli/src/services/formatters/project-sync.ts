@@ -14,7 +14,8 @@ export default class ProjectSyncFormatter extends Base {
     if (flags.version) logFlags.push(chalk.gray(`${flags.version}`));
 
     console.log(
-      chalk.white.bold('Syncing sources →'),
+      chalk.magenta('Syncing sources'),
+      '→',
       chalk.white(
         `${fetchFromRevision(project.masterRevision)}`,
         logFlags.join('') || null

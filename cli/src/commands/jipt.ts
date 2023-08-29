@@ -48,7 +48,7 @@ export default class Jipt extends Command {
 
       for (const target of targets) {
         const {path, documentPath} = target;
-        formatter.log(path, documentPath);
+        formatter.log(path, documentPath, 'jipt');
 
         await document.exportJipt(path, documentPath);
       }

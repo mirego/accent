@@ -119,7 +119,7 @@ export default class Sync extends Command {
       for (const target of targets) {
         const {path, language, documentPath} = target;
         const localFile = document.fetchLocalFile(documentPath, path);
-        formatter.log(path, documentPath);
+        formatter.log(path, documentPath, language);
 
         await document.export(localFile, language, documentPath, flags);
       }

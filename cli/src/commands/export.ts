@@ -53,7 +53,7 @@ export default class Export extends Command {
       for (const target of targets) {
         const {path, language, documentPath} = target;
         const localFile = document.fetchLocalFile(documentPath, path);
-        formatter.log(localFile, documentPath);
+        formatter.log(localFile, documentPath, language);
 
         await document.export(localFile, language, documentPath, flags);
       }

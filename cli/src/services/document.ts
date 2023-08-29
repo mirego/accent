@@ -221,7 +221,7 @@ export default class Document {
     const basename = path.basename(file).replace(path.extname(file), '');
 
     if (config.namePattern === NamePattern.fileWithSlugSuffix) {
-      return basename.replace(path.extname(basename), '');
+      return basename.split('.')[0];
     }
 
     return basename;

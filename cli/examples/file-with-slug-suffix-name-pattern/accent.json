@@ -1,0 +1,10 @@
+{
+  "files": [
+    {
+      "format": "json",
+      "namePattern": "fileWithSlugSuffix",
+      "source": "translate/test.en.json",
+      "target": "translate/test.%slug%.json"
+    }
+  ]
+}

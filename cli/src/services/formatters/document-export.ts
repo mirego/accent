@@ -4,12 +4,13 @@ import * as chalk from 'chalk';
 import Base from './base';
 
 export default class DocumentExportFormatter extends Base {
-  log(path: string, documentPath: string) {
+  log(path: string, documentPath: string, language: string) {
     console.log(
       '  ',
       chalk.green('↓'),
-      chalk.bold.white(documentPath),
-      chalk.gray.dim.underline(path)
+      chalk.bold.white(path),
+      chalk.gray.dim(documentPath),
+      chalk.gray.dim(`→ ${language}`),
     );
   }
 

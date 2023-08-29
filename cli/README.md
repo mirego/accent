@@ -71,7 +71,55 @@ Each operation section `sync` and `addTranslations` can contain the following ob
 - `format`: The format of the document
 - `source`: The path of the document. This can contain glob pattern (See [the node glob library] used as a dependancy (https://github.com/isaacs/node-glob))
 - `target`: Path of the target languages
+- `namePattern`: Pattern to use to save the document name in Accent.
 - `hooks`: List of hooks to be run
+
+## Name pattern
+
+`file` (default): Use the name of the file without the extension. In the example, the document name in Accent will be `Localizable`.
+
+```
+{
+  "files": [
+    {
+      "namePattern": "file",
+      "format": "strings",
+      "source": "Project/Resources/en.lproj/Localizable.strings",
+      "target": "Project/Resources/%slug%.lproj/%document_path%.strings"
+    }
+  ]
+}
+```
+
+`fileWithSlugSuffix`: Use the name of the file without the extension but also stripping the language slug in the file suffix. In the example, the document name in Accent will be `Localizable`.
+
+```
+{
+  "files": [
+    {
+      "namePattern": "fileWithSlugSuffix",
+      "format": "strings",
+      "source": "Project/Resources/Localizable.en.strings",
+      "target": "Project/Resources/%document_path%.%slug%.strings"
+    }
+  ]
+}
+```
+
+`parentDirectory`: Use the name of the directory instead of the file name. This is useful for framework which name the file with only the language. In the example, the document name in Accent will be `translations`.
+
+```
+{
+  "files": [
+    {
+      "namePattern": "parentDirectory",
+      "format": "json",
+      "source": "translations/en.json",
+      "target": "translations/%slug%.json"
+    }
+  ]
+}
+```
 
 ## Hooks
 

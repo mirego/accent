@@ -19,9 +19,12 @@ export default class ProjectAddTranslationsFormatter {
       .join(', ');
 
     console.log(
-      chalk.white.bold('Adding translations paths →'),
+      chalk.magenta('Adding translations paths'),
+      '→',
       chalk.white(languages),
       chalk.green('✓')
     );
+
+    console.log('');
   }
 }
