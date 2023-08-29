@@ -7,7 +7,7 @@ defmodule Accent.AuthController do
   plug(Ueberauth, base_path: "/auth")
 
   def request(conn, _params) do
-    redirect(conn, to: Helpers.callback_url(conn))
+    redirect(conn, external: Helpers.callback_url(conn))
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _) do
