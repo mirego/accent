@@ -55,7 +55,10 @@ providers =
 
 providers =
   if get_env("SLACK_CLIENT_ID"),
-    do: [{:slack, {Ueberauth.Strategy.Slack, [team: get_env("SLACK_TEAM_ID")]}} | providers],
+    do: [
+      {:slack, {Ueberauth.Strategy.Slack, [default_user_scope: "users:read", team: get_env("SLACK_TEAM_ID")]}}
+      | providers
+    ],
     else: providers
 
 providers =
@@ -74,7 +77,9 @@ providers =
     else: providers
 
 providers =
-  if get_env("MICROSOFT_CLIENT_ID"), do: [{:microsoft, {Ueberauth.Strategy.Microsoft, []}} | providers], else: providers
+  if get_env("MICROSOFT_CLIENT_ID"),
+    do: [{:microsoft, {Ueberauth.Strategy.Microsoft, [prompt: "select_account"]}} | providers],
+    else: providers
 
 providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Auth0, []}} | providers], else: providers
 

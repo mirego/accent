@@ -78,15 +78,13 @@ defmodule Accent.Mixfile do
       {:xml_builder, "~> 2.0"},
 
       # Auth
-      {:oauth2, "~> 2.0", override: true},
-      {:ueberauth, "~> 0.6.0"},
+      {:ueberauth, "~> 0.10"},
+      {:oauth2, "~> 2.0"},
+      {:ueberauth_microsoft, "~> 0.21"},
       {:ueberauth_google, "~> 0.6"},
       {:ueberauth_github, "~> 0.7"},
-      {:ueberauth_gitlab_strategy, "~> 0.3"},
-      {:ueberauth_slack, github: "ueberauth/ueberauth_slack", ref: "525594c870f959ab"},
       {:ueberauth_discord, "~> 0.5"},
-      {:ueberauth_microsoft, "~> 0.7"},
-      {:ueberauth_auth0, "~> 0.8"},
+      {:ueberauth_auth0, "~> 2.0"},
 
       # Errors
       {:sentry, "~> 7.0"},

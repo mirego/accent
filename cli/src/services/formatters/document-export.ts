@@ -10,7 +10,7 @@ export default class DocumentExportFormatter extends Base {
       chalk.green('↓'),
       chalk.bold.white(path),
       chalk.gray.dim(documentPath),
-      chalk.gray.dim(`→ ${language}`),
+      chalk.gray.dim(`→ ${language}`)
     );
   }
 

@@ -29,6 +29,7 @@ defmodule Accent.Endpoint do
     plug(Phoenix.CodeReloader)
   end
 
+  plug(Plug.Session, store: :cookie, key: "accent", signing_salt: "accent-signing-salt-used-for-callback-auth")
   plug(Plug.RequestId)
   plug(Plug.Logger)
 

@@ -2,8 +2,13 @@ defmodule Accent.AuthController do
   use Phoenix.Controller
 
   alias Accent.UserRemote.Authenticator
+  alias Ueberauth.Strategy.Helpers
 
-  plug :ueberauth
+  plug(Ueberauth, base_path: "/auth")
+
+  def request(conn, _params) do
+    render(conn, "request.html", callback_url: Helpers.callback_url(conn))
+  end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _) do
     case Authenticator.authenticate(auth) do
@@ -17,9 +22,5 @@ defmodule Accent.AuthController do
 
   def callback(conn, _) do
     redirect(conn, to: "/")
-  end
-
-  def ueberauth(conn, _) do
-    Ueberauth.call(conn, Ueberauth.init())
   end
 end

@@ -1,10 +1,7 @@
-import * as path from 'path';
-
 // Types
 import {DocumentPath} from '../types/document-path';
 import {Project} from '../types/project';
 import Document from './document';
-import {DocumentConfig} from '../types/document-config';
 import {fetchFromRevisions} from './revision-slug-fetcher';
 
 export default class DocumentPathsFetcher {

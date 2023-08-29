@@ -25,7 +25,7 @@ defmodule Accent.UserRemote.Authenticator do
   defp map_user(info, provider) do
     %User{
       provider: to_string(provider),
-      fullname: info.name,
+      fullname: normalize_name(info.name),
       picture_url: normalize_picture_url(info.image, provider),
       email: normalize_email(info.email),
       uid: normalize_email(info.email)
@@ -34,6 +34,12 @@ defmodule Accent.UserRemote.Authenticator do
 
   defp normalize_picture_url("https://lh3.googleusercontent.com/a/default-user" <> _, :google), do: nil
   defp normalize_picture_url(url, _provider), do: url
+
+  defp normalize_name(nil), do: nil
+
+  defp normalize_name(name) do
+    String.trim(name)
+  end
 
   defp normalize_email(email) do
     String.downcase(email)
