@@ -24,7 +24,7 @@ RUN npm ci --no-audit --no-color && \
 #
 # Build the OTP binary
 #
-FROM hexpm/elixir:1.14.3-erlang-25.1.2-debian-bullseye-20221004-slim AS builder
+FROM hexpm/elixir:1.14.4-erlang-26.0-debian-buster-20230227-slim AS builder
 
 ENV MIX_ENV=prod
 
@@ -65,9 +65,7 @@ RUN mkdir -p /opt/build && \
 #
 # Build a lean runtime container
 #
-FROM alpine:3.17.0
-
-FROM debian:bullseye-20230109
+FROM debian:buster-20230227
 
 RUN apt-get update -y && \
     apt-get install -y bash libyaml-dev openssl libncurses5 locales fontconfig && \
@@ -97,4 +95,3 @@ USER nobody
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["start"]
-
