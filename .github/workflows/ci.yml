@@ -24,15 +24,29 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - uses: erlef/setup-elixir@v1
+      - uses: erlef/setup-beam@v1
+        id: setup-beam
         with:
-          otp-version: 25.0.2
-          elixir-version: 1.14.x
+          version-file: .tool-versions
+          version-type: strict
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            deps
+            _build
+            priv/plts
+          key: ${{ runner.os }}-mix-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-${{ hashFiles(format('{0}/mix.lock', github.workspace)) }}
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
-          cache: 'npm'
+          node-version-file: .tool-versions
+          cache: npm
+          cache-dependency-path: |
+            - package-lock.json
+            - cli/package-lock.json
+            - jipt/package-lock.json
+            - webapp/package-lock.json
 
       - name: Install System Dependencies
         run: |
