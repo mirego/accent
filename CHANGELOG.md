@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.18.4
+
+### 1. Enhancements
+
+- Release to GCR
+
 ## v1.16.0
 
 ### 1. Enhancements
