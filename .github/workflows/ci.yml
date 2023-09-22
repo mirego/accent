@@ -93,7 +93,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.MIREGO_GITHUB_PACKAGES_ACCESS_TOKEN }}
 
       - name: Docker meta
         id: meta
