@@ -103,10 +103,11 @@ jobs:
             mirego/accent
             ghcr.io/mirego/accent
           tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern={{raw}}
       - uses: docker/build-push-action@v5
         with:
           context: .
-          push: ${{ startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master' }}
+          push: ${{ startsWith(github.ref, 'refs/tags/') || is_default_branch }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
