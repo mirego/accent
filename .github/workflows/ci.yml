@@ -103,6 +103,7 @@ jobs:
             mirego/accent
             ghcr.io/mirego/accent
           tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern={{raw}}
       - uses: docker/build-push-action@v5
         with:
