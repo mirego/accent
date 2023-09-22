@@ -4,7 +4,7 @@ on: push
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     services:
       db:
@@ -20,7 +20,9 @@ jobs:
       DATABASE_URL: postgres://postgres:password@localhost/accent_test
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - uses: erlef/setup-elixir@v1
         with:
@@ -35,7 +37,7 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc libyaml-dev python-yaml
+          sudo apt-get install -y gcc libyaml-dev
 
       - name: Install Elixir Dependencies
         run: |
@@ -67,11 +69,30 @@ jobs:
       - name: Coverage report
         run: mix coveralls.post --token ${{ secrets.COVERALLS_REPO_TOKEN }} --name 'github-actions' --branch ${{ github.ref }} --committer ${{ github.actor }} --sha ${{ github.sha }}
 
-      - uses: docker/build-push-action@v1
-        if: ${{ startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master' }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: mirego/accent
-          tag_with_ref: true
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            mirego/accent
+            ghcr.io/mirego/accent
+          tags: |
+            type=semver,pattern={{raw}}
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
           push: ${{ startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/master' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
