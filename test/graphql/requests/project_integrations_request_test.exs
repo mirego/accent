@@ -99,10 +99,10 @@ defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
     assert Repo.all(Integration) == []
     assert get_in(data, [:data, "createProjectIntegration", "successful"]) === false
 
-    assert get_in(data, [:data, "createProjectIntegration", "messages"]) === [
-             %{"code" => "required", "field" => "data.defaultRef"},
-             %{"code" => "required", "field" => "data.repository"},
-             %{"code" => "required", "field" => "data.token"}
-           ]
+    errors = get_in(data, [:data, "createProjectIntegration", "messages"])
+    assert length(errors) === 3
+    assert %{"code" => "required", "field" => "data.defaultRef"} in errors
+    assert %{"code" => "required", "field" => "data.repository"} in errors
+    assert %{"code" => "required", "field" => "data.token"} in errors
   end
 end
