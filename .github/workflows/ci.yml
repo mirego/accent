@@ -43,10 +43,10 @@ jobs:
           node-version-file: .tool-versions
           cache: npm
           cache-dependency-path: |
-            - package-lock.json
-            - cli/package-lock.json
-            - jipt/package-lock.json
-            - webapp/package-lock.json
+            package-lock.json
+            cli/package-lock.json
+            jipt/package-lock.json
+            webapp/package-lock.json
 
       - name: Install System Dependencies
         run: |
