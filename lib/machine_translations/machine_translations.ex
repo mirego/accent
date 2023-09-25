@@ -76,7 +76,7 @@ defmodule Accent.MachineTranslations do
         _ -> nil
       end
 
-    if prefix in supported_languages, do: prefix, else: nil
+    if prefix in supported_languages, do: prefix
   end
 
   defp provider_from_config(nil), do: %Provider.NotImplemented{}

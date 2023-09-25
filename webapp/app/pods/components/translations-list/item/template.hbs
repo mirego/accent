@@ -12,6 +12,7 @@
       </span>
       <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} local-class='item-link'>
         <strong local-class='item-key'>
+          {{this.translationKey.value}}
           <small local-class='item-key-prefix'>
             {{#if this.translationKey.prefix}}
               {{this.translationKey.prefix}}
@@ -19,29 +20,42 @@
               {{@translation.document.path}}
             {{/if}}
           </small>
-          {{this.translationKey.value}}
         </strong>
       </LinkTo>
     </span>
 
     <span local-class='item-meta'>
+      {{#if @translation.lintMessages}}
+        {{#if (gt @translation.lintMessages.length 1)}}
+          <AccBadge
+            {{on 'click' (fn this.toggleEdit)}}
+            @warning={{true}}
+            @icon={{true}}
+            class='tooltip tooltip--top'
+            title={{t 'components.translations_list.lint_messages_label' count=@translation.lintMessages.length}}
+          >
+            {{inline-svg '/assets/warning.svg'}}
+          </AccBadge>
+        {{else}}
+          {{#each @translation.lintMessages as |message|}}
+            <AccBadge
+              {{on 'click' (fn this.toggleEdit)}}
+              @warning={{true}}
+              @icon={{true}}
+              class='tooltip tooltip--top'
+              title={{if message.message message.message (t (concat 'components.translation_edit.lint_message.checks.' message.check))}}
+            >
+              {{inline-svg '/assets/warning.svg'}}
+            </AccBadge>
+          {{/each}}
+        {{/if}}
+      {{/if}}
+
       {{#if @translation.isConflicted}}
-        <AccBadge title={{t 'components.translations_list.in_review_tooltip'}} class='tooltip tooltip--top' @link={{true}} @primary={{true}}>
+        <AccBadge title={{t 'components.translations_list.in_review_tooltip'}} class='tooltip tooltip--top' @link={{true}}>
           <LinkTo @route='logged-in.project.revision.conflicts' @models={{array @project.id @translation.revision.id}} @query={{hash query=@translation.id}}>
             {{t 'components.translations_list.in_review_label'}}
           </LinkTo>
-        </AccBadge>
-      {{/if}}
-
-      {{#if @translation.lintMessages}}
-        <AccBadge
-          {{on 'click' (fn this.toggleEdit)}}
-          @warning={{true}}
-          @icon={{true}}
-          class='tooltip tooltip--top'
-          title={{t 'components.translations_list.lint_messages_label' count=@translation.lintMessages.length}}
-        >
-          {{inline-svg '/assets/warning.svg'}}
         </AccBadge>
       {{/if}}
 

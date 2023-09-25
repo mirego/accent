@@ -1,8 +1,14 @@
 defmodule Accent.Lint.Checks.FirstLetterCase do
   @moduledoc false
+  @behaviour Accent.Lint.Check
+
   alias Accent.Lint.Message
   alias Accent.Lint.Replacement
 
+  @impl true
+  def enabled?, do: true
+
+  @impl true
   def applicable(entry) do
     letter = entry_first_letter(entry.value)
     capitalized_letter = String.capitalize(letter)
@@ -11,6 +17,7 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
     is_binary(entry.master_value) && !entry.is_master && capitalized_letter !== downcased_letter
   end
 
+  @impl true
   def check(entry) do
     master_has_first_letter = starts_with_letter?(entry.master_value)
     value_has_first_letter = starts_with_letter?(entry.value)

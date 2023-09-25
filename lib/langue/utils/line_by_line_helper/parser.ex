@@ -24,14 +24,14 @@ defmodule Langue.Utils.LineByLineHelper.Parser do
   end
 
   defp build_entry(%{captures: %{"key" => key, "value" => value, "comment" => comment}} = acc) do
-    comment = if(comment !== "", do: String.trim_trailing(comment, "\n"), else: nil)
+    comment = if(comment !== "", do: String.trim_trailing(comment, "\n"))
     entry = %Entry{key: key, value: value, index: acc.index, comment: comment, value_type: ValueType.parse(value)}
 
     %{acc | entry: entry}
   end
 
   defp build_entry(%{comments: comments, captures: %{"key" => key, "value" => value}} = acc) do
-    comment = if(comments !== [], do: Enum.join(comments, "\n"), else: nil)
+    comment = if(comments !== [], do: Enum.join(comments, "\n"))
     entry = %Entry{key: key, value: value, index: acc.index, comment: comment, value_type: ValueType.parse(value)}
 
     %{acc | entry: entry, comments: []}

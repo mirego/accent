@@ -515,7 +515,7 @@
       "actions": {
         "conflict_on_corrected": "Conflict on corrected",
         "conflict_on_proposed": "Conflict on proposed",
-        "conflict_on_slave": "Conflict on slave",
+        "conflict_on_slave": "Conflict on translation",
         "correct_all": "Correct all",
         "correct_conflict": "Correct conflict",
         "batch_correct_conflict": "Correct conflicts",
@@ -754,7 +754,7 @@
     },
     "revision_export_options": {
       "default_format": "Default format",
-      "default_version": "Default version",
+      "default_version": "Latest version",
       "orders": {
         "az": "Alphabetical order",
         "original": "Original order"
@@ -844,6 +844,19 @@
       "lint_message": {
         "arrow": "→",
         "replace": "Replace",
+        "title_checks": {
+          "all": "All",
+          "PLACEHOLDER_COUNT": "Placeholders count",
+          "TRAILING_SPACE": "Trailing space",
+          "LEADING_SPACES": "Leading spaces",
+          "DOUBLE_SPACES": "Double spaces",
+          "APOSTROPHE_AS_SINGLE_QUOTE": "Single quote to apostrophe",
+          "FIRST_LETTER_CASE": "First letter mismatch",
+          "THREE_DOTS_ELLIPSIS": "Three dots to ellipsis",
+          "SAME_TRAILING_CHARACTER": "Trailing character mismatch",
+          "SPELLING": "Spelling",
+          "URL_COUNT": "URLs count"
+        },
         "checks": {
           "PLACEHOLDER_COUNT": "Number of placeholders does not match the master string",
           "TRAILING_SPACE": "String contains a trailing space",

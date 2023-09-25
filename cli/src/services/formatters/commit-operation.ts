@@ -12,8 +12,8 @@ export default class CommitOperationFormatter {
     console.log(
       '  ',
       chalk.green('↑'),
-      chalk.bold.white(documentPath),
-      chalk.gray.dim.underline(path)
+      chalk.bold.white(path),
+      chalk.gray.dim(documentPath)
     );
     console.log('');
   }
@@ -22,8 +22,8 @@ export default class CommitOperationFormatter {
     console.log(
       '  ',
       chalk.green('↑'),
-      chalk.bold.white(documentPath),
-      chalk.gray.dim.underline(path)
+      chalk.bold.white(path),
+      chalk.gray.dim(documentPath)
     );
     console.log('');
   }
@@ -41,11 +41,7 @@ export default class CommitOperationFormatter {
   }
 
   logPeek(path: string, documentPath: string, operations: PeekOperation) {
-    console.log(
-      '  ',
-      chalk.bold.white(documentPath),
-      chalk.gray.dim.underline(path)
-    );
+    console.log('  ', chalk.bold.white(path), chalk.gray.dim(documentPath));
 
     if (!Object.keys(operations.stats).length) {
       console.log('  ', chalk.gray('~~ No changes for this file ~~'));

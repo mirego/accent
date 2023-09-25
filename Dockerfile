@@ -70,7 +70,7 @@ FROM alpine:3.17.0
 FROM debian:bullseye-20230109
 
 RUN apt-get update -y && \
-    apt-get install -y bash libyaml-dev openssl libncurses5 locales fontconfig && \
+    apt-get install -y bash libyaml-dev openssl libncurses5 locales fontconfig hunspell hunspell-fr hunspell-en-ca hunspell-en-us hunspell-es && \
     apt-get clean && \
     rm -f /var/lib/apt/lists/*_*
 

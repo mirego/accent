@@ -20,7 +20,8 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
   @typep project_operation :: {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
 
-  @spec create(any(), %{name: String.t(), language_id: String.t()}, GraphQLContext.t()) :: project_operation
+  @spec create(any(), %{name: String.t(), language_id: String.t()}, GraphQLContext.t()) ::
+          project_operation
   def create(_, args, info) do
     params = %{
       "name" => args.name,
@@ -45,7 +46,8 @@ defmodule Accent.GraphQL.Resolvers.Project do
     {:ok, %{project: project, errors: nil}}
   end
 
-  @spec update(Project.t(), %{name: String.t(), main_color: String.t()}, GraphQLContext.t()) :: project_operation
+  @spec update(Project.t(), %{name: String.t(), main_color: String.t()}, GraphQLContext.t()) ::
+          project_operation
   def update(project, args, info) do
     args =
       Map.merge(
@@ -63,7 +65,11 @@ defmodule Accent.GraphQL.Resolvers.Project do
       "locked_file_operations" => args.is_file_operations_locked
     }
 
-    case ProjectUpdater.update(project: project, params: params, user: info.context[:conn].assigns[:current_user]) do
+    case ProjectUpdater.update(
+           project: project,
+           params: params,
+           user: info.context[:conn].assigns[:current_user]
+         ) do
       {:ok, project} ->
         {:ok, %{project: project, errors: nil}}
 
@@ -117,12 +123,15 @@ defmodule Accent.GraphQL.Resolvers.Project do
     |> then(&{:ok, &1})
   end
 
-  @spec lint_translations(Project.t(), any(), GraphQLContext.t()) :: {:ok, [Accent.TranslationLint.t()]}
-  def lint_translations(project, _args, _) do
+  @spec lint_translations(Project.t(), any(), GraphQLContext.t()) ::
+          {:ok, [Accent.TranslationLint.t()]}
+  def lint_translations(project, args, _) do
     translations =
       Translation
       |> TranslationScope.from_project(project.id)
+      |> TranslationScope.from_revision(args.revision_id || :all)
       |> TranslationScope.from_version(nil)
+      |> TranslationScope.from_search(args.query)
       |> TranslationScope.active()
       |> TranslationScope.not_locked()
       |> Query.distinct(true)
@@ -148,14 +157,22 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
     entries =
       Enum.map(translations, fn translation ->
-        master_translation = Map.get(master_translations, {translation.key, translation.document_id})
+        master_translation =
+          Map.get(master_translations, {translation.key, translation.document_id})
+
         language_slug = translation.revision.slug || translation.revision.language.slug
-        Translation.to_langue_entry(translation, master_translation, translation.revision.master, language_slug)
+
+        Translation.to_langue_entry(
+          translation,
+          master_translation,
+          translation.revision.master,
+          language_slug
+        )
       end)
 
     translations =
       entries
-      |> Accent.Lint.lint()
+      |> Accent.Lint.lint(%Accent.Lint.Config{enabled_rule_ids: args.rule_ids})
       |> Enum.filter(&Enum.any?(elem(&1, 1)))
       |> Enum.map(fn {entry, messages} ->
         %Accent.TranslationLint{id: entry.id, translation_id: entry.id, messages: messages}

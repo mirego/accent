@@ -139,12 +139,10 @@ export default class Sync extends Command {
       const operations = await document.sync(this.project!, path, flags);
       const documentPath = document.parseDocumentName(path, document.config);
 
-      if (operations.sync && !operations.peek) {
-        formatter.logSync(path, documentPath);
-      }
-
       if (operations.peek) {
         formatter.logPeek(path, documentPath, operations.peek);
+      } else {
+        formatter.logSync(path, documentPath);
       }
     }
   }

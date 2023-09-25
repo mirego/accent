@@ -1,11 +1,18 @@
 defmodule Accent.Lint.Checks.PlaceholderCount do
   @moduledoc false
+  @behaviour Accent.Lint.Check
+
   alias Accent.Lint.Message
 
   @regex Langue.placeholder_regex()
 
+  @impl true
+  def enabled?, do: true
+
+  @impl true
   def applicable(entry), do: not entry.is_master and is_binary(entry.master_value)
 
+  @impl true
   def check(entry) do
     master_matches = master_placeholders(entry.master_value)
 

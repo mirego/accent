@@ -37,7 +37,7 @@
 
     {{#if (get @permissions 'lint')}}
       <li local-class='list-item'>
-        <LinkTo @route='logged-in.project.lint-translations' @model={{@project.id}} local-class='list-item-link'>
+        <LinkTo @route='logged-in.project.revision.lint-translations' @models={{array @project.id @selectedRevision}} local-class='list-item-link'>
           {{inline-svg '/assets/warning.svg' local-class='list-item-link-icon'}}
           <span local-class='list-item-link-text'>
             {{t 'components.project_navigation.lint_link_title'}}

@@ -1,5 +1,19 @@
 {{#if @lintTranslations}}
   <div local-class='content'>
+    <div local-class='stats'>
+      <button local-class='stats-item'>
+        <span>{{t 'components.translation_edit.lint_message.title_checks.all'}}</span>
+        <strong>{{this.lintTranslationsStatsCount}}</strong>
+      </button>
+
+      {{#each this.lintTranslationsStats as |stat|}}
+        <button local-class='stats-item'>
+          <span>{{t (concat 'components.translation_edit.lint_message.title_checks.' stat.title)}}</span>
+          <strong>{{stat.count}}</strong>
+        </button>
+      {{/each}}
+    </div>
+
     {{#each @lintTranslations key='id' as |lintTranslation|}}
       <LintTranslationsPage::Item @project={{@project}} @lintTranslation={{lintTranslation}} />
     {{/each}}

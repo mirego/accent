@@ -57,6 +57,18 @@
   color: var(--color-blue);
 }
 
+.lint-loading {
+  position: absolute;
+  left: 0px;
+  top: -22px;
+  opacity: 0.5;
+  font-size: 13px;
+}
+
+.lint-loading-icon {
+  width: 10px;
+}
+
 .inputText {
   @extend %textInput;
   width: 100%;

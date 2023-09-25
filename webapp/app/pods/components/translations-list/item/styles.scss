@@ -2,8 +2,8 @@
   transition: 0.2s ease-in-out;
   transition-property: background, transform;
   display: block;
-  margin: 8px 0 4px;
-  padding: 10px;
+  margin: 4px 0 0;
+  padding: 10px 10px 4px;
   border: 1px solid transparent;
   border-radius: var(--border-radius);
 
@@ -12,17 +12,16 @@
     background: var(--background-light);
 
     .item-edit {
-      transform: translateX(-45px);
+      transform: translateX(-40px);
       opacity: 1;
     }
   }
 
   &.item--editMode {
     background: var(--background-light);
-    transform: scale(1.02);
 
     .item-edit {
-      transform: translateX(-50px);
+      transform: translateX(-40px);
       opacity: 1;
     }
 
@@ -49,7 +48,6 @@
 .item-header {
   position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 1px;
@@ -66,8 +64,8 @@
 }
 
 .item-edit-icon {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
   stroke: var(--color-grey);
   transition: 0.2s ease-in-out;
@@ -85,10 +83,17 @@
   font-size: 11px;
   color: #959595;
   font-weight: 300;
+
+  &::before {
+    content: '/';
+    margin-right: -5px;
+  }
 }
 
 .item-key {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 2px;
   transition: 0.2s ease-in-out;
   transition-property: color;
   margin-right: 15px;
@@ -108,9 +113,9 @@
 .item-text {
   display: block;
   width: 100%;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-black);
-  padding: 6px 0;
+  padding: 2px 0;
   cursor: text;
   white-space: pre-wrap;
   transition: 0.2s ease-in-out;

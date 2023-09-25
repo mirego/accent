@@ -88,7 +88,7 @@ defmodule Accent.Hook.Inbounds.GitHub do
 
   defp version_from_ref(ref, project) do
     with %{"tag" => tag} <- Regex.named_captures(~r/refs\/tags\/(?<tag>.+)/, ref),
-         version = %Version{} <-
+         %Version{} = version <-
            Version
            |> VersionScope.from_project(project.id)
            |> VersionScope.from_tag(tag)

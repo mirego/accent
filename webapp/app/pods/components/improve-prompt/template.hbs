@@ -1,5 +1,5 @@
 {{#if @prompts}}
-  <div local-class='prompt-button'>
+  <div local-class='prompt-button' tabindex='0'>
     <div local-class='prompt-button-quick-access' data-rtl={{@rtl}}>
       {{#each this.quickAccessPrompts as |prompt|}}
         <AsyncButton
@@ -36,9 +36,7 @@
       {{/if}}
 
       {{#if this.promptResult}}
-        <div local-class='result-text'>
-          {{this.promptResult}}
-        </div>
+        <div local-class='result-text'>{{this.promptResult}}</div>
       {{/if}}
 
       <div local-class='actions'>

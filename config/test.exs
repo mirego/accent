@@ -14,4 +14,4 @@ config :telemetry_ui, disabled: true
 config :goth, disabled: true
 config :tesla, logger_enabled: false, adapter: Tesla.Mock
 
-config :logger, level: :warn
+config :logger, level: :warning

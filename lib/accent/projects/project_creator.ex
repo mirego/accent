@@ -14,9 +14,9 @@ defmodule Accent.ProjectCreator do
 
   def create(params: params, user: user) do
     changeset =
-      with changeset = %Changeset{valid?: true} <- cast_changeset(%Project{}, params),
-           changeset = %Changeset{valid?: true} <- build_master_revision(changeset),
-           changeset = %Changeset{valid?: true} <- build_collaborations(changeset, user),
+      with %Changeset{valid?: true} = changeset <- cast_changeset(%Project{}, params),
+           %Changeset{valid?: true} = changeset <- build_master_revision(changeset),
+           %Changeset{valid?: true} = changeset <- build_collaborations(changeset, user),
            do: changeset
 
     Repo.insert(changeset)

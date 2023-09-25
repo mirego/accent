@@ -118,9 +118,11 @@ defmodule Accent.Scopes.Translation do
   """
   @spec parse_not_empty(Queryable.t(), nil | boolean()) :: Queryable.t()
   def parse_not_empty(query, nil), do: query
+
   def parse_not_empty(query, true), do: from(translations in query, where: translations.corrected_text != "")
 
-  @spec parse_added_last_sync(Queryable.t(), nil | boolean(), String.t(), String.t() | nil) :: Queryable.t()
+  @spec parse_added_last_sync(Queryable.t(), nil | boolean(), String.t(), String.t() | nil) ::
+          Queryable.t()
   def parse_added_last_sync(query, nil, _, _), do: query
 
   def parse_added_last_sync(query, true, project_id, document_id) do
@@ -238,7 +240,8 @@ defmodule Accent.Scopes.Translation do
     iex> Accent.Scopes.Translation.from_revision(Accent.Translation, "test")
     #Ecto.Query<from t0 in Accent.Translation, where: t0.revision_id == ^"test">
   """
-  @spec from_revision(Queryable.t(), String.t()) :: Queryable.t()
+  @spec from_revision(Queryable.t(), String.t() | :all) :: Queryable.t()
+  def from_revision(query, :all), do: query
   def from_revision(query, revision_id), do: from(query, where: [revision_id: ^revision_id])
 
   @doc """
@@ -263,6 +266,7 @@ defmodule Accent.Scopes.Translation do
   """
   @spec not_from_revision(Queryable.t(), String.t()) :: Queryable.t()
   def not_from_revision(query, nil), do: query
+
   def not_from_revision(query, revision_id), do: from(t in query, where: t.revision_id != ^revision_id)
 
   @doc """
@@ -352,7 +356,9 @@ defmodule Accent.Scopes.Translation do
     term = "%" <> search_term <> "%"
 
     from_search_id(
-      from(translation in query, where: ilike(translation.key, ^term) or ilike(translation.corrected_text, ^term)),
+      from(translation in query,
+        where: ilike(translation.key, ^term) or ilike(translation.corrected_text, ^term)
+      ),
       search_term
     )
   end

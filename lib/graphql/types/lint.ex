@@ -5,7 +5,7 @@ defmodule Accent.GraphQL.Types.Lint do
   import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
   enum :lint_check do
-    value(:autocorrect)
+    value(:spelling)
     value(:leading_spaces)
     value(:double_spaces)
     value(:first_letter_case)
@@ -23,6 +23,9 @@ defmodule Accent.GraphQL.Types.Lint do
   end
 
   object :lint_translation_message do
+    field(:message, :string)
+    field(:offset, :integer)
+    field(:length, :integer)
     field(:text, non_null(:string))
     field(:check, non_null(:lint_check))
     field(:replacement, :lint_translation_message_replacement)

@@ -1,7 +1,5 @@
 .content {
-  margin-top: 25px;
   padding-top: 25px;
-  border-top: 1px solid var(--background-light-highlight);
 }
 
 .empty-content {
@@ -31,4 +29,24 @@
 
 .icon-success {
   stroke: var(--color-success);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 5px;
+  margin-bottom: 20px;
+  max-width: 800px;
+}
+
+.stats-item {
+  display: inline-flex;
+  gap: 4px;
+  padding: 2px 12px;
+  border-radius: 30px;
+  border: 1px solid var(--background-light-highlight);
+  background: var(--background-light);
+  color: var(--text-color-normal);
+  font-size: 12px;
+  cursor: default;
 }

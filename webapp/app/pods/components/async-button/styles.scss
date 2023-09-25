@@ -20,6 +20,12 @@
     }
   }
 
+  &:global(.button--filled.button--white) {
+    .loading {
+      fill: currentColor;
+    }
+  }
+
   &:global(.button--small) {
     &.button--loading {
       .loading {

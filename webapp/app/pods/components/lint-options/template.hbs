@@ -1,0 +1,38 @@
+<div local-class='lint-options'>
+  <div class='filters' local-class='filters'>
+    <div class='filters-wrapper'>
+      <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
+        <div class='queryForm' local-class='queryForm'>
+          {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+
+          <input
+            local-class='input'
+            type='text'
+            placeholder={{t 'components.conflicts_filters.input_placeholder_text'}}
+            value={{this.debouncedQuery}}
+            {{on-key 'Enter' (fn this.submitForm)}}
+            {{on 'keyup' this.setDebouncedQuery}}
+          />
+        </div>
+
+        <div class='queryForm-filters'>
+          {{#if this.showDocuments}}
+            <div class='queryForm-filters-column'>
+              <div local-class='exportOptions-item'>
+                <AccSelect @searchEnabled={{false}} @selected={{this.documentValue}} @options={{this.mappedDocuments}} @onchange={{fn this.documentChanged}} />
+              </div>
+            </div>
+          {{/if}}
+
+          {{#if this.showVersions}}
+            <div class='queryForm-filters-column'>
+              <div local-class='exportOptions-item'>
+                <AccSelect @searchEnabled={{false}} @selected={{this.versionValue}} @options={{this.mappedVersions}} @onchange={{fn this.versionChanged}} />
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -11,26 +11,27 @@ defmodule Accent.Prompts.Provider.OpenAI do
     def completions(provider, prompt, user_input) do
       config = provider.config["config"]
 
-      message_prompt =
-        ~s{Following instructions (A) on text (B), respond with new, improved text in the same format without label or wrapping quotes.
-
-      A: """
-#{prompt.content}
-"""
-      B: """
-#{user_input}
-"""}
-
       params = %{
-        prompt: message_prompt,
-        model: config["model"] || "text-davinci-003",
+        messages: [
+          %{
+            "role" => "system",
+            "content" =>
+              ~s{Following this instruction "#{prompt.content}", respond with the improved text in the user’s message format.}
+          },
+          %{
+            "role" => "user",
+            "content" => user_input
+          }
+        ],
+        model: config["model"] || "gpt-3.5-turbo",
         max_tokens: config["max_tokens"] || 1000,
         temperature: config["temperature"] || 0
       }
 
-      with {:ok, %{body: %{"choices" => choices}}} <- Tesla.post(client(config["key"]), "completions", params) do
+      with {:ok, %{body: %{"choices" => choices}}} <-
+             Tesla.post(client(config["key"]), "chat/completions", params) do
         Enum.map(choices, fn choice ->
-          %{text: String.trim_leading(choice["text"])}
+          %{text: String.trim_leading(choice["message"]["content"])}
         end)
       end
     end

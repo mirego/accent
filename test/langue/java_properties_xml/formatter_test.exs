@@ -12,7 +12,7 @@ defmodule LangueTest.Formatter.JavaPropertiesXml do
   ]
 
   for test <- @tests, module = Module.concat(LangueTest.Formatter.JavaPropertiesXml.Expectation, test) do
-    test "java properties #{test}" do
+    test "java properties xml #{test}" do
       {expected_parse, result_parse} = Accent.FormatterTestHelper.test_parse(unquote(module), JavaPropertiesXml)
 
       {expected_serialize, result_serialize} =

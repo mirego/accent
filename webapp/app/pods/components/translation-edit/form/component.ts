@@ -18,7 +18,7 @@ const markdown = MarkdownIt({
   typographer: true,
 });
 
-const DEBOUNCE_LINT_MESSAGES = 1000;
+const DEBOUNCE_LINT_MESSAGES = 800;
 
 interface Args {
   projectId: string;
@@ -120,13 +120,13 @@ export default class TranslationEditForm extends Component<Args> {
     _element: HTMLElement,
     [value]: string[]
   ): TaskGenerator<void> {
+    yield timeout(DEBOUNCE_LINT_MESSAGES);
+
     yield perform(this.fetchLintMessagesTask, value);
   }
 
   @restartableTask
   *fetchLintMessagesTask(value: string) {
-    yield timeout(DEBOUNCE_LINT_MESSAGES);
-
     const {data} = yield this.apollo.client.query({
       fetchPolicy: 'network-only',
       query: translationLintQuery,

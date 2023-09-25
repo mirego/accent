@@ -1,10 +1,69 @@
 # Changelog
 
+## v1.19.0
+
+Added: Optional spelling server to add spelling check to linting.
+
 ## v1.18.4
 
-### 1. Enhancements
+Updated: Dockerfile fixes
 
-- Release to GCR
+## v1.18.3 - Released on 2023-08-29
+
+Fixed: Compilation issues with the route ueberauth controller.
+
+## v1.18.2 - Released on 2023-08-29
+
+Fixed: A redirect issue.
+
+## v1.18.1 - Released on 2023-08-29
+
+Fixed: An authentication request issue.
+
+## v1.18.0 - Released on 2023-08-29
+
+Fixed: Slack and GitLab login issues.
+Fixed: Parsing of namePattern and added documentation in README.
+Updated: Bumped CLI to version 0.14.0.
+
+## v1.17.0 - Released on 2023-08-25
+
+Reverted: A Docker action.
+Fixed: A Discord webhook issue.
+Added: MAILGUN_BASE_URI and documented missing environment variable.
+Updated: Docker/build-push-action to version v4.
+Updated: CLI README.md.
+
+## v1.16.7 - Released on 2023-08-16
+
+Fixed: Related translation with duplicate keys (one removed, one active).
+
+## v1.16.6 - Released on 2023-08-07
+
+Fixed: A Credo issue.
+
+## v1.16.5 - Released on 2023-08-04
+
+Removed: Debug code.
+
+## v1.16.4 - Released on 2023-08-04
+
+Updated: Dependencies.
+Added: Sync lock version on project to prevent race condition on sync.
+Added: Revision deleter in worker to use an infinite repo transaction timeout.
+Fixed: Oban perform result for outbound email.
+Used: @mirego’s fork for create-pull-request action in workflow.
+
+## v1.16.3 - Released on 2023-05-24
+
+Fixed: Lint on all versions instead of the current one.
+Updated: Bumped CLI to version 0.13.3.
+Fixed: Flags override issue.
+
+## v1.16.2 - Released on 2023-05-02
+
+Fixed: An issue with CLI configuration.
+Please replace "Released on" with the actual release date of each version. Additionally, you can include more details if needed, such as specific bug numbers or contributors, to make the changelog more informative.
 
 ## v1.16.0
 

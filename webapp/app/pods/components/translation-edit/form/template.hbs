@@ -104,6 +104,12 @@
         ...attributes
       ></textarea>
       {{yield (hash dir=(if @rtl 'rtl') submit=(component 'translation-edit/form/submit'))}}
+
+      {{#if this.fetchLintMessagesTask.isRunning}}
+        <div local-class='lint-loading'>
+          {{inline-svg '/assets/loading.svg' local-class='lint-loading-icon'}}
+        </div>
+      {{/if}}
     </div>
   {{/if}}
 

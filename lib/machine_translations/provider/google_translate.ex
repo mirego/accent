@@ -128,7 +128,11 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
 
     def translate(provider, contents, source, target) do
       with {:ok, {source, target}} <-
-             Accent.MachineTranslations.map_source_and_target(source, target, @supported_languages),
+             Accent.MachineTranslations.map_source_and_target(
+               source,
+               target,
+               @supported_languages
+             ),
            params = %{
              contents: contents,
              mimeType: "text/plain",

@@ -9,7 +9,10 @@ export default gql`
           id
           lintMessages(text: $text) {
             text
+            message
             check
+            offset
+            length
             replacement {
               value
               label

@@ -1,16 +1,36 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query Lint($projectId: ID!) {
+  query Lint(
+    $projectId: ID!
+    $revisionId: ID
+    $ruleIds: [ID!]
+    $query: String
+  ) {
     viewer {
       project(id: $projectId) {
         id
 
-        revisions {
-          id
+        documents {
+          entries {
+            id
+            path
+            format
+          }
         }
 
-        lintTranslations {
+        versions {
+          entries {
+            id
+            tag
+          }
+        }
+
+        lintTranslations(
+          revisionId: $revisionId
+          ruleIds: $ruleIds
+          query: $query
+        ) {
           translation {
             id
             key
@@ -37,6 +57,9 @@ export default gql`
           messages {
             text
             check
+            message
+            offset
+            length
             replacement {
               value
               label

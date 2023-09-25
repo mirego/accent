@@ -11,7 +11,8 @@ defmodule Accent.GraphQL.Resolvers.Lint do
 
   require Ecto.Query
 
-  @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Language.Entry.t())}
+  @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) ::
+          {:ok, Paginated.t(Language.Entry.t())}
   def lint_translation(translation, args, resolution) do
     batch({__MODULE__, :preload_translations}, translation, fn batch_results ->
       translation = Map.get(batch_results, translation.id)
@@ -59,7 +60,9 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       |> Map.new(&{{&1.key, &1.document_id}, &1})
 
     Enum.reduce(translations, %{}, fn translation, acc ->
-      master_translation = Map.get(master_translations, {translation.key, translation.document_id})
+      master_translation =
+        Map.get(master_translations, {translation.key, translation.document_id})
+
       Map.put(acc, translation.id, %{translation | master_translation: master_translation})
     end)
   end

@@ -52,7 +52,7 @@ defmodule Accent.Hook.Inbounds.GitHub.AddTranslations do
 
   defp build_context(file, project, token, format) do
     with {:ok, parser} <- Langue.parser_from_format(format),
-         document = %{id: id} when not is_nil(id) <- GitHub.movement_document(project, file["path"]),
+         %{id: id} = document when not is_nil(id) <- GitHub.movement_document(project, file["path"]),
          document <- %{document | format: format},
          {:ok, file_content} <- GitHub.fetch_content(file["url"], token),
          %{entries: entries} <- MovementContextParser.to_entries(document, file_content, parser) do

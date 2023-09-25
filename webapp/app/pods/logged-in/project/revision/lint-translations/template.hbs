@@ -1,0 +1,19 @@
+<LintOptions
+  @documents={{this.model.documents.entries}}
+  @document={{this.documentFilter}}
+  @version={{this.versionFilter}}
+  @versions={{this.model.versions.entries}}
+  @query={{this.query}}
+  @onChangeDocument={{fn (mut this.documentFilter)}}
+  @onChangeVersion={{fn (mut this.versionFilter)}}
+  @onChangeQuery={{fn (mut this.query)}}
+/>
+{{#if this.showSkeleton}}
+  <SkeletonUi::ConflictsItems />
+{{else}}
+  {{#if this.model.loading}}
+    <SkeletonUi::ProgressLine />
+  {{/if}}
+
+  <LintTranslationsPage @project={{this.model.project}} @lintTranslations={{this.model.lintTranslations}} @permissions={{this.permissions}} />
+{{/if}}

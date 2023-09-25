@@ -70,6 +70,7 @@ export default gql`
               lintMessages {
                 text
                 check
+                message
                 replacement {
                   value
                   label

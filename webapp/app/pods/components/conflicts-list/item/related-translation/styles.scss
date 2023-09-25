@@ -1,21 +1,19 @@
 .item {
   display: flex;
   flex-direction: row;
-  padding: 8px 0 3px;
+  padding: 5px 0 3px;
   color: var(--color-grey);
   font-size: 13px;
 }
 
 .item-link {
   flex-shrink: 0;
-  width: 90px;
   margin-right: 4px;
   color: var(--color-black);
   opacity: 0.6;
   text-decoration: none;
   font-weight: bold;
   font-size: 12px;
-  text-align: right;
 
   &:focus,
   &:hover {

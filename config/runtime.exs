@@ -124,6 +124,8 @@ config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
   client_secret: get_env("MICROSOFT_CLIENT_SECRET"),
   tenant_id: get_env("MICROSOFT_TENANT_ID")
 
+config :accent, Accent.Lint, spelling_server_url: get_env("SPELLING_SERVER_URL")
+
 config :accent, Accent.WebappView,
   path: "priv/static/webapp/index.html",
   sentry_dsn: get_env("WEBAPP_SENTRY_DSN") || "",
@@ -141,14 +143,14 @@ config :new_relic_agent,
   app_name: get_env("NEW_RELIC_APP_NAME"),
   license_key: get_env("NEW_RELIC_LICENSE_KEY")
 
-if !get_env("SENTRY_DSN") do
-  config :sentry, included_environments: []
-else
+if get_env("SENTRY_DSN") do
   config :sentry,
     dsn: get_env("SENTRY_DSN"),
     environment_name: get_env("SENTRY_ENVIRONMENT_NAME"),
     included_environments: ~w(dev prod production),
     root_source_code_path: File.cwd!()
+else
+  config :sentry, included_environments: []
 end
 
 config :accent, Accent.Mailer,

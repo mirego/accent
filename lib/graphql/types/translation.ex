@@ -45,6 +45,7 @@ defmodule Accent.GraphQL.Types.Translation do
     field(:document, :document, resolve: dataloader(Accent.Document))
     field(:revision, :revision, resolve: dataloader(Accent.Revision))
     field(:version, :version, resolve: dataloader(Accent.Version))
+
     field(:source_translation, :translation, resolve: dataloader(Accent.Translation, :source_translation))
 
     field :lint_messages, non_null(list_of(non_null(:lint_translation_message))) do
@@ -70,7 +71,12 @@ defmodule Accent.GraphQL.Types.Translation do
       arg(:page, :integer)
       arg(:page_size, :integer)
 
-      resolve(translation_authorize(:index_comments, &Accent.GraphQL.Resolvers.Comment.list_translation/3))
+      resolve(
+        translation_authorize(
+          :index_comments,
+          &Accent.GraphQL.Resolvers.Comment.list_translation/3
+        )
+      )
     end
 
     field :activities, :activities do
@@ -82,7 +88,10 @@ defmodule Accent.GraphQL.Types.Translation do
       arg(:version_id, :id)
 
       resolve(
-        translation_authorize(:index_translation_activities, &Accent.GraphQL.Resolvers.Activity.list_translation/3)
+        translation_authorize(
+          :index_translation_activities,
+          &Accent.GraphQL.Resolvers.Activity.list_translation/3
+        )
       )
     end
 

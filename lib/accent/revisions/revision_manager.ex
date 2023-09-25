@@ -21,11 +21,13 @@ defmodule Accent.RevisionManager do
   end
 
   def delete(revision) do
-    with {:ok, revision} <- Repo.update(change(revision, marked_as_deleted: true)) do
-      Oban.insert(Accent.Revisions.DeleteWorker.new(%{revision_id: revision.id}))
-      {:ok, %{revision: revision}}
-    else
-      _ -> {:error, nil}
+    case Repo.update(change(revision, marked_as_deleted: true)) do
+      {:ok, revision} ->
+        Oban.insert(Accent.Revisions.DeleteWorker.new(%{revision_id: revision.id}))
+        {:ok, %{revision: revision}}
+
+      _ ->
+        {:error, nil}
     end
   end
 

@@ -6,6 +6,7 @@
           <div local-class='textResolved'>
             <LinkTo @route='logged-in.project.translation' @models={{array @project.id @conflict.id}} local-class='key'>
               <strong local-class='item-key'>
+                {{this.conflictKey.value}}
                 <small local-class='item-key-prefix'>
                   {{#if this.conflictKey.prefix}}
                     {{this.conflictKey.prefix}}
@@ -13,7 +14,6 @@
                     {{@conflict.document.path}}
                   {{/if}}
                 </small>
-                {{this.conflictKey.value}}
               </strong>
             </LinkTo>
 
@@ -30,6 +30,7 @@
             <div local-class='item-details__column'>
               <LinkTo @route='logged-in.project.translation' @models={{array @project.id @conflict.id}} local-class='key'>
                 <strong local-class='item-key'>
+                  {{this.conflictKey.value}}
                   <small local-class='item-key-prefix'>
                     {{#if this.conflictKey.prefix}}
                       {{this.conflictKey.prefix}}
@@ -37,7 +38,6 @@
                       {{@conflict.document.path}}
                     {{/if}}
                   </small>
-                  {{this.conflictKey.value}}
                 </strong>
               </LinkTo>
 

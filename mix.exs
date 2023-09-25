@@ -7,7 +7,7 @@ defmodule Accent.Mixfile do
     [
       app: :accent,
       version: @version,
-      elixir: "~> 1.14",
+      elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       build_embedded: Mix.env() == :prod,
@@ -55,6 +55,9 @@ defmodule Accent.Mixfile do
       {:ecto_dev_logger, "~> 0.4"},
       {:postgrex, "~> 0.14"},
       {:cloak_ecto, "~> 1.2"},
+
+      # Spelling
+      {:req, "~> 0.1"},
 
       # Phoenix data helpers
       {:phoenix_ecto, "~> 4.0"},

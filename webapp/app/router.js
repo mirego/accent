@@ -67,9 +67,8 @@ export default Router.map(function () {
       this.route('revision', {path: 'revisions/:revisionId'}, function () {
         this.route('translations');
         this.route('conflicts');
+        this.route('lint-translations');
       });
-
-      this.route('lint-translations');
 
       this.route(
         'translation',

@@ -1,10 +1,17 @@
 defmodule Accent.Lint.Checks.DoubleSpace do
   @moduledoc false
+  @behaviour Accent.Lint.Check
+
   alias Accent.Lint.Message
   alias Accent.Lint.Replacement
 
+  @impl true
+  def enabled?, do: not Accent.Lint.Checks.Spelling.enabled?()
+
+  @impl true
   def applicable(_), do: true
 
+  @impl true
   def check(entry) do
     fixed_text = String.replace(entry.value, "  ", " ")
 
