@@ -349,4 +349,53 @@ defmodule AccentTest.ExportController do
              """
     end
   end
+
+  test "export with plurals and android formatter", %{
+    conn: conn,
+    project: project,
+    revision: revision,
+    language: language
+  } do
+    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "android_xml"})
+
+    Repo.insert!(%Translation{
+      revision_id: revision.id,
+      key: "days.one",
+      corrected_text: "bar",
+      proposed_text: "bar",
+      plural: true,
+      document_id: document.id,
+      file_index: 2
+    })
+
+    Repo.insert!(%Translation{
+      revision_id: revision.id,
+      key: "days.other",
+      corrected_text: "foo",
+      proposed_text: "foo",
+      plural: true,
+      document_id: document.id,
+      file_index: 1
+    })
+
+    params = %{
+      order_by: "",
+      project_id: project.id,
+      language: language.slug,
+      document_format: document.format,
+      document_path: document.path
+    }
+
+    response = get(conn, export_path(conn, [], params))
+
+    assert response.resp_body == """
+           <?xml version="1.0" encoding="utf-8"?>
+           <resources>
+             <plurals name="days">
+               <item quantity="other">foo</item>
+               <item quantity="one">bar</item>
+             </plurals>
+           </resources>
+           """
+  end
 end
