@@ -118,6 +118,16 @@ defmodule Accent.TelemetryUI do
       %{operation_name: operation_name}
     end
 
+    list_keep = fn metadata ->
+      metadata.measurements.duration > System.convert_time_unit(50, :millisecond, :native)
+    end
+
+    list_tag_values = fn metadata ->
+      resolution_path = Enum.filter(Absinthe.Resolution.path(metadata.resolution), &is_binary/1)
+
+      %{resolution_path: Enum.join(resolution_path, ".")}
+    end
+
     [
       average("absinthe.execute.operation.stop.duration",
         description: "Absinthe operation duration",
@@ -139,6 +149,20 @@ defmodule Accent.TelemetryUI do
         description: "Absinthe duration per operation",
         tags: [:operation_name],
         tag_values: absinthe_tag_values,
+        unit: {:native, :millisecond}
+      ),
+      count_list("absinthe.resolve.field.stop.duration",
+        description: "Absinthe field resolve count",
+        tags: [:resolution_path],
+        keep: list_keep,
+        tag_values: list_tag_values,
+        unit: {:native, :millisecond}
+      ),
+      average_list("absinthe.resolve.field.stop.duration",
+        description: "Absinthe field resolve",
+        tags: [:resolution_path],
+        keep: list_keep,
+        tag_values: list_tag_values,
         unit: {:native, :millisecond}
       )
     ]
@@ -281,7 +305,7 @@ defmodule Accent.TelemetryUI do
       pruner_threshold: [months: -1],
       pruner_interval_ms: 84_000,
       max_buffer_size: 10_000,
-      flush_interval_ms: 30_000,
+      flush_interval_ms: 1_000,
       verbose: false
     }
   end

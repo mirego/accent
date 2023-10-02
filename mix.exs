@@ -42,11 +42,12 @@ defmodule Accent.Mixfile do
 
       # Plugs
       {:plug_assign, "~> 1.0.0"},
+      {:canada, "~> 1.0"},
       {:canary, "~> 1.1.0"},
       {:corsica, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.0"},
-      {:plug, "~> 1.10"},
+      {:plug, "1.14.2"},
       {:plug_canonical_host, "~> 2.0"},
 
       # Database

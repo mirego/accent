@@ -30,7 +30,19 @@ defmodule Accent.GraphQL.Schema do
   import_types(Accent.GraphQL.Types.MutationResult)
   import_types(Accent.GraphQL.Types.Lint)
 
+  object :application do
+    field(:version, :string,
+      resolve: fn _, _ ->
+        {:ok, "1.2.3"}
+      end
+    )
+  end
+
   query do
+    field :application, :application do
+      resolve(fn _, _ -> {:ok, %{}} end)
+    end
+
     field :viewer, :viewer do
       resolve(&Accent.GraphQL.Resolvers.Viewer.show/3)
     end
