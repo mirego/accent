@@ -34,6 +34,12 @@ defmodule Langue do
 
   def serializer_from_format(_), do: {:error, :unknown_serializer}
 
+  for module <- @format_modules, id = module.id() do
+    def placeholder_regex_from_format(unquote(id)), do: {:ok, unquote(module).placeholder_regex()}
+  end
+
+  def placeholder_regex_from_format(_), do: {:error, :unknown_format}
+
   def placeholder_regex do
     @format_modules
     |> Enum.map(& &1.placeholder_regex())

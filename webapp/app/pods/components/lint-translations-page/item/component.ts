@@ -9,23 +9,54 @@ interface Args {
 export default class LintTranslationsPageItem extends Component<Args> {
   translationKey = parsedKeyProperty(this.args.lintTranslation.translation.key);
 
+  get messages() {
+    const mapSet = new Set();
+    return this.args.lintTranslation.messages.flatMap((message: any) => {
+      if (mapSet.has(message.check)) {
+        return [];
+      } else {
+        mapSet.add(message.check);
+        return [message];
+      }
+    });
+  }
+
   get annotatedText() {
-    return this.args.lintTranslation.messages.reduce(
-      (text: string, message: any) => {
-        if (message.offset && message.length && message.replacement) {
+    let offsetTotal = 0;
+
+    return this.args.lintTranslation.messages
+      .sort((a: any, b: any) => a.offset || 0 >= b.offset || 0)
+      .reduce((text: string, message: any) => {
+        if (message.length) {
           const error = text.slice(
-            message.offset,
-            message.offset + message.length
+            message.offset + offsetTotal,
+            message.offset + message.length + offsetTotal
           );
-          return String(text).replace(
-            error,
-            `<span>${error}</span><strong>${message.replacement.label}</strong>`
-          );
+
+          if (message.replacement) {
+            const replacement = `<span data-underline>${error}</span><strong>${message.replacement.label}</strong>`;
+            offsetTotal += replacement.length - error.length;
+
+            return String(text).replace(error, replacement);
+          } else {
+            const replacement = `<span data-underline>${error}</span>`;
+            offsetTotal += replacement.length - error.length;
+
+            return String(text).replace(error, replacement);
+          }
+        } else if (message.check === 'LEADING_SPACES') {
+          const replacement = `<span data-rect> </span>`;
+          offsetTotal += replacement.length - 1;
+
+          return String(text).replace(/^ /, replacement);
+        } else if (message.check === 'TRAILING_SPACE') {
+          const replacement = `<span data-rect> </span>`;
+          offsetTotal += replacement.length - 1;
+
+          return String(text).replace(/ $/, replacement);
         } else {
           return text;
         }
-      },
-      this.args.lintTranslation.translation.text
-    );
+      }, this.args.lintTranslation.messages[0].text);
   }
 }

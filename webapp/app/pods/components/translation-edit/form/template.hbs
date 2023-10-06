@@ -113,7 +113,5 @@
     </div>
   {{/if}}
 
-  {{#each this.lintMessages as |message|}}
-    <TranslationEdit::LintMessage @message={{message}} @onReplaceText={{fn this.replaceText}} />
-  {{/each}}
+  <LintTranslationsPage::Item @lintTranslation={{this.lintTranslation}} />
 </div>

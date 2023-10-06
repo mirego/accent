@@ -2,8 +2,8 @@
   transition: 0.2s ease-in-out;
   transition-property: background, transform;
   display: block;
-  margin: 4px 0 0;
-  padding: 10px 10px 4px;
+  margin: 0;
+  padding: 4px 10px;
   border: 1px solid transparent;
   border-radius: var(--border-radius);
 
@@ -14,6 +14,11 @@
     .item-edit {
       transform: translateX(-40px);
       opacity: 1;
+    }
+
+    .item-updatedAt {
+      opacity: 1;
+      transform: translateX(0);
     }
   }
 
@@ -82,6 +87,7 @@
   display: block;
   font-size: 11px;
   color: #959595;
+  flex-shrink: 0;
   font-weight: 300;
 
   &::before {
@@ -96,12 +102,12 @@
   gap: 2px;
   transition: 0.2s ease-in-out;
   transition-property: color;
-  margin-right: 15px;
+  margin-right: 10px;
   color: var(--color-primary);
   line-height: 1.5;
   word-break: break-all;
   font-family: var(--font-monospace);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: bold;
 }
 
@@ -113,7 +119,7 @@
 .item-text {
   display: block;
   width: 100%;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-black);
   padding: 2px 0;
   cursor: text;
@@ -140,9 +146,13 @@
 }
 
 .item-updatedAt {
+  opacity: 0;
+  transform: translateX(-10px);
   margin-left: 5px;
   color: var(--color-grey);
   font-size: 11px;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity, transform;
 }
 
 .item-textEdit {

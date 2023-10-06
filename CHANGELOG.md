@@ -2,7 +2,10 @@
 
 ## v1.19.0
 
-Added: Optional spelling server to add spelling check to linting.
+Added: Spellchecker with https://languagetool.org/
+
+We bundle a jar file and install Java runtime in docker to be able to use languagetool spellchecker locally and very fast.
+This is the first version of the integration, we are still missing some important feature like "Ignore rules", "Custom project dictionary" or "Placeholder handling".
 
 ## v1.18.4
 

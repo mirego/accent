@@ -7,6 +7,9 @@ export default gql`
         id
         translation(id: $translationId) {
           id
+          key
+          text: correctedText
+
           lintMessages(text: $text) {
             text
             message

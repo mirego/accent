@@ -262,10 +262,6 @@
   padding: 2px 6px !important;
 }
 
-:global(.button).button-sync {
-  color: var(--color-primary);
-}
-
 @media (max-width: (1300px)) {
   .links {
     transform: translate3d(0, 0, 0);

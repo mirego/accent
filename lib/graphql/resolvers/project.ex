@@ -135,7 +135,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
       |> TranslationScope.active()
       |> TranslationScope.not_locked()
       |> Query.distinct(true)
-      |> Query.preload(revision: :language)
+      |> Query.preload([:document, [revision: :language]])
       |> Query.order_by({:asc, :key})
       |> Repo.all()
 

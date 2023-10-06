@@ -112,7 +112,7 @@ defmodule Accent.LintController do
       |> base_translations(conn)
       |> TranslationScope.from_revision(conn.assigns[:revision].id)
       |> Repo.all()
-      |> Repo.preload(:revision)
+      |> Repo.preload([:revision, :document])
       |> Map.new(&{{&1.key, &1.document_id}, &1})
 
     assign(conn, :translations, translations)

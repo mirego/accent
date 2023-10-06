@@ -345,7 +345,7 @@ defmodule Accent.Scopes.Translation do
     iex> Accent.Scopes.Translation.from_search(Accent.Translation, 1234)
     Accent.Translation
     iex> Accent.Scopes.Translation.from_search(Accent.Translation, "test")
-    #Ecto.Query<from t0 in Accent.Translation, where: ilike(t0.key, ^\"%test%\") or ilike(t0.corrected_text, ^\"%test%\")>
+    #Ecto.Query<from t0 in Accent.Translation, where: ilike(t0.corrected_text, ^\"%test%\") or (ilike(t0.key, ^\"%test%\") or ^false)>
   """
   @spec from_search(Queryable.t(), any()) :: Queryable.t()
   def from_search(query, nil), do: query
@@ -353,12 +353,8 @@ defmodule Accent.Scopes.Translation do
   def from_search(query, term) when not is_binary(term), do: query
 
   def from_search(query, search_term) do
-    term = "%" <> search_term <> "%"
-
     from_search_id(
-      from(translation in query,
-        where: ilike(translation.key, ^term) or ilike(translation.corrected_text, ^term)
-      ),
+      Accent.Scopes.Search.from_search(query, search_term, [:key, :corrected_text]),
       search_term
     )
   end

@@ -24,7 +24,7 @@ RUN npm ci --no-audit --no-color && \
 #
 # Build the OTP binary
 #
-FROM hexpm/elixir:1.14.3-erlang-25.1.2-debian-bullseye-20221004-slim AS builder
+FROM hexpm/elixir:1.15.7-erlang-26.1.2-debian-bullseye-20230612-slim AS builder
 
 ENV MIX_ENV=prod
 
@@ -32,7 +32,7 @@ WORKDIR /build
 
 # Install Debian dependencies
 RUN apt-get update -y && \
-    apt-get install -y build-essential git libyaml-dev && \
+    apt-get install -y build-essential git libyaml-dev default-jre && \
     apt-get clean && \
     rm -f /var/lib/apt/lists/*_*
 
@@ -48,6 +48,12 @@ COPY mix.lock .
 
 RUN mix deps.get --only prod
 RUN mix deps.compile --only prod
+
+COPY vendor vendor
+
+RUN cd ./vendor/language_tool/priv/native/languagetool && ./gradlew shadowJar
+RUN cp ./vendor/language_tool/priv/native/languagetool/app/build/libs/language-tool.jar priv/native/language-tool.jar
+
 RUN mix compile --only prod
 
 # Move static assets from other stages into the OTP release.
@@ -65,12 +71,10 @@ RUN mkdir -p /opt/build && \
 #
 # Build a lean runtime container
 #
-FROM alpine:3.17.0
-
-FROM debian:bullseye-20230109
+FROM debian:bullseye-20231009
 
 RUN apt-get update -y && \
-    apt-get install -y bash libyaml-dev openssl libncurses5 locales fontconfig hunspell hunspell-fr hunspell-en-ca hunspell-en-us hunspell-es && \
+    apt-get install -y default-jre bash libyaml-dev openssl libncurses5 locales fontconfig hunspell hunspell-fr hunspell-en-ca hunspell-en-us hunspell-es && \
     apt-get clean && \
     rm -f /var/lib/apt/lists/*_*
 

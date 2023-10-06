@@ -38,7 +38,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   end
 
   def preload_translations(_, [translation | _] = translations) do
-    translations = Repo.preload(translations, revision: :language)
+    translations = Repo.preload(translations, [:document, [revision: :language]])
 
     project =
       translation

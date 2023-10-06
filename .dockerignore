@@ -33,3 +33,5 @@ jipt/.cache
 jipt/dist
 jipt/webapp-dist
 cli
+
+priv/native/language-tool.jar

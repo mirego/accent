@@ -48,7 +48,7 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
         master_translation: master_translation,
         conflicted: false,
         key: "ok",
-        corrected_text: "bar  foo",
+        corrected_text: " bar foo",
         proposed_text: "bar"
       })
 
@@ -57,8 +57,8 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
     assert result === [
              %Message{
                replacement: %Replacement{value: "bar foo", label: "bar foo"},
-               check: :double_spaces,
-               text: "bar  foo"
+               check: :leading_spaces,
+               text: " bar foo"
              }
            ]
   end

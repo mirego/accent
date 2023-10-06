@@ -4,11 +4,6 @@
   margin-bottom: 20px;
 }
 
-.details,
-.messages {
-  width: 50%;
-}
-
 .details {
   padding-right: 25px;
 }
@@ -54,6 +49,7 @@
   display: block;
   color: #959595;
   font-weight: 300;
+  flex-shrink: 0;
 
   &::before {
     content: '/';
@@ -79,7 +75,7 @@
   display: block;
   width: 100%;
   font-size: 13px;
-  color: var(--color-black);
+  color: var(--text-color-normal);
   padding: 0;
   cursor: text;
   white-space: pre-wrap;
@@ -102,23 +98,23 @@
 .item-text {
   strong {
     color: var(--color-green);
-    font-weight: normal;
+    margin-left: 3px;
+    font-weight: bold;
   }
 
-  span {
+  span[data-underline] {
     position: relative;
-    color: var(--color-error);
-    margin-right: 4px;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--color-error);
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 1px;
   }
 
-  span::after {
-    content: '';
-    width: 100%;
-    height: 1px;
-    background: var(--color-error);
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    left: 0;
+  span[data-rect] {
+    position: relative;
+    background-color: var(--color-error);
+    padding: 0 2px;
+    opacity: 0.4;
   }
 }

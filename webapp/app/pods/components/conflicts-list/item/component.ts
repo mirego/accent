@@ -6,8 +6,6 @@ import {dropTask} from 'ember-concurrency-decorators';
 import {tracked} from '@glimmer/tracking';
 import {MutationResponse} from 'accent-webapp/services/apollo-mutate';
 
-const ALWAYS_SHOWN_COUNT = 3;
-
 interface Conflict {
   id: string;
   key: string;
@@ -66,9 +64,6 @@ export default class ConflictItem extends Component<Args> {
   @tracked
   inputDisabled = false;
 
-  @tracked
-  show = this.args.index <= ALWAYS_SHOWN_COUNT;
-
   conflictKey = parsedKeyProperty(this.args.conflict.key);
   textOriginal = this.args.conflict.correctedText;
 
@@ -114,11 +109,6 @@ export default class ConflictItem extends Component<Args> {
     return this.args.conflict.revision.rtl !== null
       ? this.args.conflict.revision.rtl
       : this.args.conflict.revision.language.rtl;
-  }
-
-  @action
-  didEnterViewport() {
-    this.show = true;
   }
 
   @action

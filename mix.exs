@@ -42,7 +42,6 @@ defmodule Accent.Mixfile do
 
       # Plugs
       {:plug_assign, "~> 1.0.0"},
-      {:canada, "~> 1.0"},
       {:canary, "~> 1.1.0"},
       {:corsica, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
@@ -57,8 +56,8 @@ defmodule Accent.Mixfile do
       {:postgrex, "~> 0.14"},
       {:cloak_ecto, "~> 1.2"},
 
-      # Spelling
-      {:req, "~> 0.1"},
+      # Spelling interop with Java runtime
+      {:exile, "~> 0.7"},
 
       # Phoenix data helpers
       {:phoenix_ecto, "~> 4.0"},
@@ -113,7 +112,7 @@ defmodule Accent.Mixfile do
       {:mock, "~> 0.3.0", only: :test},
 
       # Google API authentication
-      {:goth, "~> 1.2.0"},
+      {:goth, "~> 1.4"},
 
       # Network request
       {:tesla, "~> 1.3"},

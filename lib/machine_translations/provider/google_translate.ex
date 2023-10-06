@@ -157,7 +157,7 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
 
       @impl Tesla.Middleware
       def call(env, next, opts) do
-        case auth_enabled?() && Goth.Token.for_scope(opts[:scope]) do
+        case auth_enabled?() && Goth.Token.fetch(%{source: opts}) do
           {:ok, %{token: token, type: type}} ->
             env
             |> Tesla.put_header("authorization", type <> " " <> token)
@@ -174,13 +174,13 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     end
 
     defp client(config) do
-      project_id = project_id_from_config(config)
+      {base_url, auth_source} = parse_auth_config(config)
 
       middlewares =
         List.flatten([
           {Middleware.Timeout, [timeout: :infinity]},
-          {Middleware.BaseUrl, "https://translation.googleapis.com/v3/projects/#{project_id}"},
-          {Auth, [scope: "https://www.googleapis.com/auth/cloud-translation"]},
+          {Middleware.BaseUrl, base_url},
+          {Auth, auth_source},
           Middleware.DecodeJson,
           Middleware.EncodeJson,
           Middleware.Logger,
@@ -190,9 +190,16 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
       Tesla.client(middlewares)
     end
 
-    defp project_id_from_config(config) do
-      key = Map.fetch!(config, "key")
-      Jason.decode!(key)["project_id"]
+    defp parse_auth_config(config) do
+      config = Jason.decode!(Map.fetch!(config, "key"))
+
+      case config do
+        %{"project_id" => project_id, "type" => "service_account"} = credentials ->
+          {
+            "https://translation.googleapis.com/v3/projects/#{project_id}",
+            {:service_account, credentials, [scopes: ["https://www.googleapis.com/auth/cloud-translation"]]}
+          }
+      end
     end
   end
 end

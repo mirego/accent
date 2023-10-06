@@ -124,18 +124,10 @@ config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
   client_secret: get_env("MICROSOFT_CLIENT_SECRET"),
   tenant_id: get_env("MICROSOFT_TENANT_ID")
 
-config :accent, Accent.Lint, spelling_server_url: get_env("SPELLING_SERVER_URL")
-
 config :accent, Accent.WebappView,
   path: "priv/static/webapp/index.html",
   sentry_dsn: get_env("WEBAPP_SENTRY_DSN") || "",
   skip_subresource_integrity: get_env("WEBAPP_SKIP_SUBRESOURCE_INTEGRITY", :boolean)
-
-if get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY") do
-  config :goth, json: get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")
-else
-  config :goth, disabled: true
-end
 
 config :tesla, logger_enabled: true
 

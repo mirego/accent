@@ -7,7 +7,7 @@ export default class FromRoute extends Service {
   router: RouterService;
 
   transitionTo(from: any | null, current: string, ...fallback: any[]) {
-    if (from && !from.name.startsWith(current)) {
+    if (from && from.name && !from.name.startsWith(current)) {
       this.router.transitionTo(
         from.name,
         ...Object.values(from.parent.params as object)

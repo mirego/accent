@@ -66,8 +66,18 @@ defmodule Accent.Translation do
       locked: translation.locked,
       plural: translation.plural,
       placeholders: translation.placeholders,
+      placeholder_regex: extract_translation_document_placeholder_regex(translation),
       language_slug: language_slug
     }
+  end
+
+  defp extract_translation_document_placeholder_regex(translation) do
+    with true <- is_struct(translation.document, Accent.Document),
+         {:ok, regex} <- Langue.placeholder_regex_from_format(translation.document.format) do
+      regex
+    else
+      _ -> nil
+    end
   end
 
   def maybe_natural_order_by(translations, "key") do

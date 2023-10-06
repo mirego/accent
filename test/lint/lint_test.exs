@@ -62,19 +62,6 @@ defmodule AccentTest.Lint do
              ]
     end
 
-    test "lint double spaces entry" do
-      entry = %Entry{key: "a", value: "fo  o", master_value: "foo", value_type: "string"}
-      [{_, messages}] = Lint.lint([entry])
-
-      assert messages === [
-               %Message{
-                 replacement: %Replacement{value: "fo o", label: "fo o"},
-                 check: :double_spaces,
-                 text: "fo  o"
-               }
-             ]
-    end
-
     test "lint three dots ellipsis entry" do
       entry = %Entry{key: "a", value: "foo...", master_value: "foo...", value_type: "string"}
       [{_, messages}] = Lint.lint([entry])

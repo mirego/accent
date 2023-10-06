@@ -12,6 +12,7 @@ defmodule Langue.Entry do
             locked: false,
             plural: false,
             placeholders: [],
+            placeholder_regex: nil,
             language_slug: nil
 
   @type t :: %__MODULE__{
@@ -26,6 +27,7 @@ defmodule Langue.Entry do
           locked: boolean(),
           plural: boolean(),
           placeholders: list(binary),
+          placeholder_regex: Regex.t() | nil,
           language_slug: String.t()
         }
 end

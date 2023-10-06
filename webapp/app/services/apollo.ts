@@ -1,7 +1,7 @@
-import Service, { inject as service } from '@ember/service';
+import Service, {inject as service} from '@ember/service';
 import RouterService from '@ember/routing/router-service';
-import { ApolloClient } from 'apollo-client';
-import { BatchHttpLink } from 'apollo-link-batch-http';
+import {ApolloClient} from 'apollo-client';
+import {BatchHttpLink} from 'apollo-link-batch-http';
 import {
   IntrospectionFragmentMatcher,
   InMemoryCache,
@@ -11,7 +11,7 @@ import {
 
 import Session from 'accent-webapp/services/session';
 
-const dataIdFromObject = (result: { id?: string; __typename: string }) => {
+const dataIdFromObject = (result: {id?: string; __typename: string}) => {
   if (result.id && result.__typename) return `${result.__typename}${result.id}`;
 
   return null;
@@ -25,9 +25,9 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
           kind: 'INTERFACE',
           name: 'ProjectIntegration',
           possibleTypes: [
-            { name: 'ProjectIntegrationDiscord' },
-            { name: 'ProjectIntegrationSlack' },
-            { name: 'ProjectIntegrationGitHub' },
+            {name: 'ProjectIntegrationDiscord'},
+            {name: 'ProjectIntegrationSlack'},
+            {name: 'ProjectIntegrationGitHub'},
           ],
         },
       ],
@@ -36,8 +36,8 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 });
 
 const uri = '/graphql';
-const cache = new InMemoryCache({ dataIdFromObject, fragmentMatcher });
-const link = new BatchHttpLink({ uri, batchInterval: 1, batchMax: 1 });
+const cache = new InMemoryCache({dataIdFromObject, fragmentMatcher});
+const link = new BatchHttpLink({uri, batchInterval: 1, batchMax: 1});
 
 const absintheBatchLink = new ApolloLink((operation, forward) => {
   return forward(operation).map((response: any) => response.payload);
@@ -48,7 +48,7 @@ const authLink = (getSession: any) => {
     const token = getSession().credentials.token;
 
     if (token) {
-      operation.setContext(({ headers = {} }: any) => ({
+      operation.setContext(({headers = {}}: any) => ({
         headers: {
           ...headers,
           authorization: `Bearer ${token}`,

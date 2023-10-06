@@ -12,10 +12,52 @@ defmodule Accent.TelemetryUI do
         {"Absinthe", absinthe_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"Ecto", ecto_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"PSQL Extras", EctoPSQLExtras.all(Accent.Repo)},
+        {"Lint", lint_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"System", system_metrics()}
       ],
       theme: theme(),
       backend: backend()
+    ]
+  end
+
+  def lint_metrics do
+    [
+      counter("accent.language_tool.check.stop.duration",
+        description: "Number of spellchecks",
+        unit: {:native, :millisecond},
+        ui_options: [class: "col-span-3", unit: " checks"]
+      ),
+      count_over_time("accent.language_tool.check.stop.duration",
+        description: "Number of spellchecks over time",
+        unit: {:native, :millisecond},
+        ui_options: [class: "col-span-5", unit: " checks"]
+      ),
+      average("accent.language_tool.check.stop.duration",
+        description: "Spellchecks duration",
+        unit: {:native, :millisecond},
+        ui_options: [class: "col-span-3", unit: " ms"]
+      ),
+      average_over_time("accent.language_tool.check.stop.duration",
+        description: "Spellchecks duration over time",
+        unit: {:native, :millisecond},
+        ui_options: [class: "col-span-5", unit: " ms"]
+      ),
+      count_over_time("accent.language_tool.check.stop.duration",
+        description: "Spellchecks per language over time",
+        tags: [:language_code],
+        unit: {:native, :millisecond},
+        ui_options: [unit: " checks"]
+      ),
+      count_list("accent.language_tool.check.stop.duration",
+        description: "Count spellchecks by language",
+        tags: [:language_code],
+        unit: {:native, :millisecond},
+        ui_options: [unit: " checks"]
+      ),
+      average_over_time("accent.language_tool.check.stop.duration",
+        description: "Spellchecks duration per language",
+        tags: [:language_code]
+      )
     ]
   end
 
@@ -52,23 +94,20 @@ defmodule Accent.TelemetryUI do
         keep: http_keep,
         tags: [:route],
         unit: {:native, :millisecond},
-        ui_options: [unit: " requests"],
-        reporter_options: [class: "col-span-4"]
+        ui_options: [unit: " requests"]
       ),
-      counter("phoenix.router_dispatch.stop.duration",
+      count_list("phoenix.router_dispatch.stop.duration",
         description: "Count HTTP requests by route",
         keep: http_keep,
         tags: [:route],
         unit: {:native, :millisecond},
-        ui_options: [unit: " requests"],
-        reporter_options: [class: "col-span-4"]
+        ui_options: [unit: " requests"]
       ),
       average_over_time("phoenix.router_dispatch.stop.duration",
         description: "HTTP requests duration per route",
         keep: http_keep,
         tags: [:route],
-        unit: {:native, :millisecond},
-        reporter_options: [class: "col-span-4"]
+        unit: {:native, :millisecond}
       ),
       distribution("phoenix.router_dispatch.stop.duration",
         description: "Requests duration",
@@ -97,8 +136,15 @@ defmodule Accent.TelemetryUI do
         unit: {:native, :millisecond},
         ui_options: [class: "col-span-5", unit: " ms"]
       ),
-      average("accent.repo.query.total_time",
+      average_list("accent.repo.query.total_time",
         description: "Database query total time per source",
+        keep: ecto_keep,
+        tags: [:source],
+        unit: {:native, :millisecond},
+        ui_options: [class: "col-span-full", unit: " ms"]
+      ),
+      count_list("accent.repo.query.total_time",
+        description: "Database query count per source",
         keep: ecto_keep,
         tags: [:source],
         unit: {:native, :millisecond},
@@ -139,7 +185,7 @@ defmodule Accent.TelemetryUI do
         unit: {:native, :millisecond},
         ui_options: [class: "col-span-5", unit: " ms"]
       ),
-      counter("absinthe.execute.operation.stop.duration",
+      count_list("absinthe.execute.operation.stop.duration",
         description: "Count Absinthe executions per operation",
         tags: [:operation_name],
         tag_values: absinthe_tag_values,
@@ -149,13 +195,6 @@ defmodule Accent.TelemetryUI do
         description: "Absinthe duration per operation",
         tags: [:operation_name],
         tag_values: absinthe_tag_values,
-        unit: {:native, :millisecond}
-      ),
-      count_list("absinthe.resolve.field.stop.duration",
-        description: "Absinthe field resolve count",
-        tags: [:resolution_path],
-        keep: list_keep,
-        tag_values: list_tag_values,
         unit: {:native, :millisecond}
       ),
       average_list("absinthe.resolve.field.stop.duration",
@@ -305,7 +344,7 @@ defmodule Accent.TelemetryUI do
       pruner_threshold: [months: -1],
       pruner_interval_ms: 84_000,
       max_buffer_size: 10_000,
-      flush_interval_ms: 1_000,
+      flush_interval_ms: 30_000,
       verbose: false
     }
   end

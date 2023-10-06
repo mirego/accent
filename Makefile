@@ -67,6 +67,12 @@ build: ## Build the Docker image for the OTP release
 compose-build: ## Build the Docker image from the docker-compose.yml file
 	docker-compose build
 
+.PHONY: build-language-tool
+build-language-tool:
+	rm -f vendor/language_tool/priv/native/language-tool.jar
+	cd vendor/language_tool/priv/native/languagetool && ./gradlew shadowJar
+	cp vendor/language_tool/priv/native/languagetool/app/build/libs/language-tool.jar priv/native/language-tool.jar
+
 # CI targets
 # ----------
 

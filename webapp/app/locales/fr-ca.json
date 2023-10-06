@@ -854,6 +854,7 @@
           "FIRST_LETTER_CASE": "La casse de la première lettre ne concorde pas",
           "THREE_DOTS_ELLIPSIS": "Trois points pour des points de suspension",
           "SAME_TRAILING_CHARACTER": "Le caractère de fin ne concorde pas",
+          "SPELLING": "Ortographe",
           "URL_COUNT": "Le nombre d’URL ne concorde pas"
         },
         "checks": {
@@ -865,6 +866,7 @@
           "FIRST_LETTER_CASE": "La première lettre de traduction ne correspond pas à la casse de la langue principal",
           "THREE_DOTS_ELLIPSIS": "La chaîne contient trois points au lieu de points de suspension",
           "SAME_TRAILING_CHARACTER": "La chaîne ne correspond pas au caractère de fin de la langue principal",
+          "SPELLING": "La chaîne contient une faute d’ortographe",
           "URL_COUNT": "Le cnombre d’URL ne correspond pas à la chaîne principale"
         }
       }

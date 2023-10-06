@@ -27,6 +27,8 @@ export default gql`
           lintMessages {
             text
             check
+            offset
+            length
             message
             replacement {
               value

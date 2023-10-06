@@ -6,32 +6,35 @@ defmodule Accent.Lint.Checks.Spelling do
   alias Accent.Lint.Replacement
 
   @impl true
-  def enabled?, do: not is_nil(base_url())
+  def enabled?, do: LanguageTool.available?()
 
   @impl true
   def applicable(entry) do
-    ((!entry.is_master and entry.value !== entry.master_value) or entry.is_master) and
+    LanguageTool.ready?() and
+      not String.match?(entry.value, ~r/MMM|YYY|HH|AA/i) and
+      not String.starts_with?(entry.value, "{") and
+      ((!entry.is_master and entry.value !== entry.master_value) or entry.is_master) and
       String.length(entry.value) < 100 and String.length(entry.value) > 3
   end
 
   @impl true
   def check(entry) do
-    req =
-      Req.new(
-        base_url: base_url(),
-        params: %{text: entry.value, language: build_language_slug(entry.language_slug)}
-      )
-
-    matches = Req.get!(req, url: "/v2/check").body["matches"]
+    {matches, markups} =
+      case LanguageTool.check(entry.language_slug, entry.value, placeholder_regex: entry.placeholder_regex) do
+        %{"matches" => matches, "markups" => markups} -> {matches, markups}
+        _ -> {[], []}
+      end
 
     for match <- matches do
+      offset = match["offset"] + length(markups)
+
       replacement =
         case match["replacements"] do
           [%{"value" => fixed_value} | _] ->
             value =
               String.replace(
                 entry.value,
-                String.slice(entry.value, match["offset"], match["length"]),
+                String.slice(entry.value, offset, match["length"]),
                 fixed_value
               )
 
@@ -44,23 +47,11 @@ defmodule Accent.Lint.Checks.Spelling do
       %Message{
         check: :spelling,
         text: entry.value,
-        offset: match["offset"],
+        offset: offset,
         length: match["length"],
         message: match["message"],
         replacement: replacement
       }
     end
-  end
-
-  defp build_language_slug(slug) do
-    if String.match?(slug, ~r/..-.*/) do
-      slug
-    else
-      slug <> "-CA"
-    end
-  end
-
-  defp base_url do
-    Application.get_env(:accent, Accent.Lint)[:spelling_server_url]
   end
 end

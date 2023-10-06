@@ -8,7 +8,7 @@
 .section {
   display: flex;
   flex-direction: column;
-  margin: 10px 0;
+  margin: 6px 0;
   padding-bottom: 4px;
 }
 
@@ -41,7 +41,7 @@
   padding: 5px 12px 4px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   border-radius: var(--border-radius);
   margin-bottom: 3px;
   color: var(--text-color-normal);
@@ -74,9 +74,9 @@
 }
 
 .list-item-link-text {
-  width: 127px;
-  padding: 0 0 0 10px;
+  padding: 0 0 0 7px;
   opacity: 0.9;
+  letter-spacing: -0.4px;
 }
 
 .list-item-link-icon {

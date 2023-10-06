@@ -43,3 +43,7 @@ cli/*-debug.log
 cli/*-error.log
 cli/.oclif.manifest.json
 .elixir_ls
+
+priv/native/language-tool.jar
+vendor/language_tool/priv/native/languagetool/.gradle
+vendor/language_tool/priv/native/languagetool/app/build

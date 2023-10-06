@@ -24,7 +24,7 @@
   font-weight: 600;
   font-size: 13px;
   transition: 0.2s ease-in-out;
-  transition-property: background, box-shadow, color;
+  transition-property: background, box-shadow, color, transform;
 
   strong {
     padding: 10px 20px 5px;
@@ -47,6 +47,7 @@
   &:hover {
     color: var(--color-primary);
     box-shadow: 0 3px 8px var(--shadow-color), 0 9px 12px var(--shadow-color);
+    transform: scale(1.02);
 
     .link-check {
       color: var(--color-primary);
