@@ -4,31 +4,37 @@ defmodule LanguageTool.Backend do
   require Logger
 
   def start(config) do
-    path = Application.app_dir(:accent, "priv/native")
+    if File.exists?(jar_file()) do
+      args = [
+        executable(),
+        "-cp",
+        jar_file(),
+        "com.mirego.accent.languagetool.AppKt",
+        "--languages",
+        Enum.join(config.languages, ",")
+      ]
 
-    args = [
-      executable(),
-      "-cp",
-      Path.join(path, "language-tool.jar"),
-      "com.mirego.accent.languagetool.AppKt",
-      "--languages",
-      Enum.join(config.languages, ",")
-    ]
+      args =
+        if Enum.any?(config.disabled_rule_ids) do
+          args ++ ["--disabledRuleIds", Enum.join(config.disabled_rule_ids, ",")]
+        else
+          args
+        end
 
-    args =
-      if Enum.any?(config.disabled_rule_ids) do
-        args ++ ["--disabledRuleIds", Enum.join(config.disabled_rule_ids, ",")]
-      else
-        args
-      end
-
-    {:ok, backend} = Exile.Process.start_link(args)
-    receive_ready?(backend)
-    backend
+      {:ok, backend} = Exile.Process.start_link(args)
+      receive_ready?(backend)
+      backend
+    else
+      Logger.warning("LanguageTool could not be started. Install JRE and build the jar in #{jar_file()} to enable it")
+    end
   end
 
   def available? do
-    !!executable()
+    !!executable() and File.exists?(jar_file())
+  end
+
+  defp jar_file do
+    Path.join(Application.app_dir(:accent, "priv/native"), "language-tool.jar")
   end
 
   defp executable do

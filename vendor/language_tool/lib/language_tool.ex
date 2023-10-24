@@ -19,14 +19,14 @@ defmodule LanguageTool do
         end
       )
     else
-      empty_matches(lang, text)
+      empty_matches(lang, text, :unsupported_language)
     end
   catch
-    _ -> empty_matches(lang, text)
+    _ -> empty_matches(lang, text, :check_internal_error)
   end
 
-  defp empty_matches(lang, text) do
-    %{"error" => nil, "language" => lang, "matches" => [], "text" => text, "markups" => []}
+  defp empty_matches(lang, text, error) do
+    %{"error" => error, "language" => lang, "matches" => [], "text" => text, "markups" => []}
   end
 
   def available? do

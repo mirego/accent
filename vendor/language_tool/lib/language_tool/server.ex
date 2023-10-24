@@ -46,12 +46,17 @@ defmodule LanguageTool.Server do
   end
 
   def handle_info(:init_server_process, state) do
-    backend = LanguageTool.Backend.start(state.config)
-    state = %{state | backend: backend}
+    case LanguageTool.Backend.start(state.config) do
+      nil ->
+        :persistent_term.put({:language_tool, :ready}, false)
+        {:noreply, state}
 
-    :persistent_term.put({:language_tool, :ready}, true)
+      backend ->
+        state = %{state | backend: backend}
+        :persistent_term.put({:language_tool, :ready}, true)
 
-    {:noreply, state}
+        {:noreply, state}
+    end
   end
 
   def handle_info(_message, state) do
