@@ -50,7 +50,10 @@ defmodule Accent.TranslationsRenderer do
         value: value_map.(translation),
         comment: translation.file_comment,
         index: translation.file_index,
-        value_type: translation.value_type
+        value_type: translation.value_type,
+        plural: translation.plural,
+        placeholders: translation.placeholders,
+        locked: translation.locked
       }
     end)
   end
