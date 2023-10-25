@@ -37,6 +37,7 @@ config :accent, Accent.Repo,
   queue_interval: get_env("DATABASE_QUEUE_INTERVAL", :integer) || 2000,
   pool_size: get_env("DATABASE_POOL_SIZE", :integer),
   ssl: get_env("DATABASE_SSL", :boolean),
+  ssl_opts: [verify: :verify_none],
   url: get_env("DATABASE_URL") || "postgres://localhost/accent_development",
   socket_options: if(ecto_ipv6?, do: [:inet6], else: [])
 
