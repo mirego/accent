@@ -28,6 +28,12 @@ defmodule Accent.Config do
   def parse_env("", :boolean), do: false
   def parse_env(value, :boolean), do: String.downcase(value) in ~w(true 1)
 
+  def parse_env(value, :comma_separated_list) when is_bitstring(value) do
+    String.split(value, ",")
+  end
+
+  def parse_env(_value, :comma_separated_list), do: []
+
   def parse_env(nil, :cors), do: nil
 
   def parse_env(value, :cors) when is_bitstring(value) do

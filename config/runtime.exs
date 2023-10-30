@@ -47,6 +47,8 @@ config :accent, Accent.MachineTranslations,
     "deepl" => %{"key" => get_env("DEEPL_TRANSLATIONS_KEY")}
   }
 
+config :accent, LanguageTool, languages: get_env("LANGUAGE_TOOL_LANGUAGES", :comma_separated_list)
+
 providers = []
 
 providers =

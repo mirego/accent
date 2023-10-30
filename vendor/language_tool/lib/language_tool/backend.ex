@@ -73,7 +73,6 @@ defmodule LanguageTool.Backend do
   defp receive_ready?(backend) do
     case Exile.Process.read(backend) do
       {:ok, ">\n"} ->
-        Logger.info("LanguageTool is ready to spellcheck")
         true
 
       _ ->

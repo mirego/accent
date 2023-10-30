@@ -36,8 +36,7 @@ defmodule Accent do
 
   defp language_tool_config do
     [
-      languages:
-        ~w(ar be-BY br-FR ca-ES da-DK de de-AT de-CH de-DE de-LU el-GR en en-AU en-CA en-GB en-NZ en-US en-ZA eo es es-AR es-ES fa fa-IR fr fr-BE fr-CA fr-CH fr-FR it it-IT ja-JP nl nl-BE nl-NL pl-PL pt pt-AO pt-BR pt-MZ pt-PT ro-RO ru-RU sk-SK sl-SI sv sv-SE ta-IN tl-PH uk-UA zh-CN),
+      languages: Application.get_env(:accent, LanguageTool)[:languages],
       disabled_rule_ids: ~w(UPPERCASE_SENTENCE_START POINTS_2 FRENCH_WHITESPACE DETERMINER_SENT_END)
     ]
   end
