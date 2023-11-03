@@ -15,7 +15,7 @@ defmodule Langue.Utils.NestedParserHelper do
       if MapSet.member?(acc.keys, key) do
         acc
       else
-        key_entries = grouped_entries[key]
+        key_entries = Enum.sort_by(grouped_entries[key], &String.ends_with?(&1.key, "_"), :desc)
 
         acc
         |> Map.put(:results, [{key, key_entries} | acc.results])

@@ -146,15 +146,5 @@ defmodule Accent.RoleAbilities do
   end
 
   # Fallback if no permission has been found for the user on the project
-  def can?(nil, _action, _), do: false
-
-  def can?(role, action, nil) do
-    Logger.warning("Unauthorized action: #{action} for #{role}")
-    false
-  end
-
-  def can?(role, action, target) do
-    Logger.warning("Unauthorized action: #{action} for #{role} on #{inspect(target)}")
-    false
-  end
+  def can?(_role, _action, _), do: false
 end

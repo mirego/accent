@@ -9,7 +9,7 @@ defmodule Accent.Lint.Checks.DoubleSpace do
   def enabled?, do: not Accent.Lint.Checks.Spelling.enabled?()
 
   @impl true
-  def applicable(_), do: true
+  def applicable(entry), do: is_binary(entry.value)
 
   @impl true
   def check(entry) do

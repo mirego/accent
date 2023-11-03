@@ -18,12 +18,12 @@
   display: flex;
   flex-wrap: wrap;
   position: relative;
+  gap: 4px 10px;
 }
 
 .item-link {
   display: block;
   padding: 4px 10px 5px;
-  margin-right: 12px;
   background: var(--background-light);
   border-radius: var(--border-radius);
   text-decoration: none;
@@ -46,11 +46,10 @@
   .projects {
     align-items: flex-start;
     flex-direction: column;
-    padding: 10px 15px;
-    margin-bottom: 0;
+    padding: 0;
+    margin-bottom: 14px;
   }
-
-  .item-link {
-    margin-bottom: 10px;
+  .projects-title {
+    margin-bottom: 4px;
   }
 }

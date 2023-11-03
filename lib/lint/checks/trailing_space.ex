@@ -9,7 +9,7 @@ defmodule Accent.Lint.Checks.TrailingSpaces do
   def enabled?, do: true
 
   @impl true
-  def applicable(entry), do: entry.value not in ["", " "]
+  def applicable(entry), do: entry.value not in ["", " ", nil]
 
   @impl true
   def check(entry) do

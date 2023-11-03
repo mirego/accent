@@ -2,8 +2,12 @@ defmodule LanguageTool.AnnotatedText do
   @moduledoc false
   def build(input, regex) do
     matches = if regex, do: Regex.scan(regex, input, return: :index), else: []
+    # Ignore HTML
     matches = matches ++ Regex.scan(~r/<[^>]*>/, input, return: :index)
+    # Ignore % and $ often used as placeholders
+    matches = matches ++ Regex.scan(~r/[%$][\w\d]+/, input, return: :index)
     matches = Enum.sort_by(matches, fn [{match_index, _}] -> match_index end)
+
     split_tokens(input, matches, 0, [])
   end
 
