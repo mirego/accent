@@ -55,6 +55,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       Accent.Translation
       |> TranslationScope.from_project(project.id)
       |> TranslationScope.from_revision(master_revision.id)
+      |> TranslationScope.from_version(translation.version_id)
       |> TranslationScope.active()
       |> Repo.all()
       |> Map.new(&{{&1.key, &1.document_id}, &1})
