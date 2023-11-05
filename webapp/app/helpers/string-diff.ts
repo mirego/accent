@@ -1,6 +1,7 @@
 import {helper} from '@ember/component/helper';
 import {htmlSafe} from '@ember/template';
-import {diffWords} from 'diff';
+import DiffMatchPatch from 'diff-match-patch';
+const diffMatchPatch = new DiffMatchPatch();
 
 const SIMILARITY_THRESHOLD = 0.4;
 
@@ -82,14 +83,15 @@ const stringDiff = ([text1, text2]: [string, string]) => {
   if (similarity < SIMILARITY_THRESHOLD)
     return htmlSafe(UNDIFFABLE_TAG_TEMPLATE(text2));
 
-  const diff = diffWords(text2 || '', text1 || '');
+  const diff = diffMatchPatch.diff_main(text2 || '', text1 || '');
+  diffMatchPatch.diff_cleanupSemantic(diff);
 
   return htmlSafe(
     diff
-      .map((part: {value: string; removed: string; added: string}) => {
-        const value = escapeExpression(part.value);
-        if (part.removed) return REMOVED_TAG_TEMPLATE(value);
-        if (part.added) return ADDED_TAG_TEMPLATE(value);
+      .map(([op, text]: [number, string]) => {
+        const value = escapeExpression(text);
+        if (op === -1) return REMOVED_TAG_TEMPLATE(value);
+        if (op === 1) return ADDED_TAG_TEMPLATE(value);
 
         return value;
       })

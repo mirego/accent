@@ -10,6 +10,7 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
   alias Accent.Translation
   alias Accent.User
   alias Movement.Builders.SlaveConflictSync, as: SlaveConflictSyncBuilder
+  alias Movement.Context
 
   @user %User{email: "test@test.com"}
 
@@ -40,8 +41,8 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
       Repo.insert!(%Translation{key: "a", proposed_text: "C", revision_id: other_revision.id, document_id: document.id})
 
     context =
-      %Movement.Context{operations: [%{key: "a", action: "conflict_on_proposed"}]}
-      |> Movement.Context.assign(:revisions, [revision, other_revision])
+      %Context{operations: [%{key: "a", action: "conflict_on_proposed"}]}
+      |> Context.assign(:revisions, [revision, other_revision])
       |> SlaveConflictSyncBuilder.build()
 
     operations = Enum.map(context.operations, &Map.get(&1, :action))
@@ -73,9 +74,9 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
       })
 
     context =
-      %Movement.Context{operations: [%{key: "a", action: "conflict_on_proposed"}]}
-      |> Movement.Context.assign(:revisions, [revision, other_revision])
-      |> Movement.Context.assign(:document, document)
+      %Context{operations: [%{key: "a", action: "conflict_on_proposed"}]}
+      |> Context.assign(:revisions, [revision, other_revision])
+      |> Context.assign(:document, document)
       |> SlaveConflictSyncBuilder.build()
 
     operations = Enum.map(context.operations, &Map.get(&1, :action))

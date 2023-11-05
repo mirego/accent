@@ -118,7 +118,9 @@ export default class CommitFile extends Component<Args> {
   @tracked
   revisionValue =
     this.mappedRevisions.find(({value}) => value === this.revision) ||
-    this.mappedRevisions[0];
+    (this.args.commitAction === 'merge' && this.mappedRevisions[1])
+      ? this.mappedRevisions[1]
+      : this.mappedRevisions[0];
 
   @tracked
   versionValue =
@@ -127,7 +129,11 @@ export default class CommitFile extends Component<Args> {
     ) || this.mappedVersions[0];
 
   @tracked
-  revision = this.args.revisions.find((revision: any) => revision.isMaster);
+  revision =
+    this.args.revisions.find((revision: any) => revision.isMaster) ||
+    (this.args.commitAction === 'merge' && this.args.revisions[1])
+      ? this.args.revisions[1]
+      : this.args.revisions[0];
 
   @tracked
   version: {id: string; tag: string} | null = null;

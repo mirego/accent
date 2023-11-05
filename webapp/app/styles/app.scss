@@ -428,7 +428,7 @@ input[type='radio'] {
 }
 
 :global(.added) {
-  padding: 0 3px;
+  padding: 0 1px;
   background: hsl(
     var(--color-green-hue),
     var(--color-green-saturation),
@@ -438,13 +438,13 @@ input[type='radio'] {
 }
 
 :global(.undiffable) {
-  padding: 0 3px;
+  padding: 0 1px;
   background: var(--background-light-highlight);
   color: var(--color-gray);
 }
 
 :global(.removed) {
-  padding: 0 3px;
+  padding: 0 1px;
   background: hsl(
     var(--color-error-hue),
     var(--color-error-saturation),
