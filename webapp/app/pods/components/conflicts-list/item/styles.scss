@@ -8,6 +8,13 @@
   padding: 10px;
   margin-bottom: 15px;
   border-radius: var(--border-radius);
+
+  &:hover {
+    .form-helpers {
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
 }
 
 .revert-button {
@@ -277,6 +284,15 @@
   margin-top: 7px;
   font-size: 12px;
   color: var(--color-black);
+}
+
+.form-helpers {
+  pointer-events: none;
+  opacity: 0;
+  position: relative;
+  z-index: 1;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
 }
 
 .conflictedText-references-conflicted-label {

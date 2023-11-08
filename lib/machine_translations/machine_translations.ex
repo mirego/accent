@@ -29,11 +29,13 @@ defmodule Accent.MachineTranslations do
     entries
     |> Enum.map(&filter_long_value/1)
     |> Enum.chunk_every(@translation_chunk_size)
-    |> Enum.reduce_while([], fn values, acc ->
+    |> Enum.reduce_while([], fn chunked_entries, acc ->
+      values = Enum.map(chunked_entries, & &1.value)
+
       case Provider.translate(provider, values, source_language.slug, target_language.slug) do
         {:ok, translated_values} ->
           translated_entries =
-            entries
+            chunked_entries
             |> Enum.zip(translated_values)
             |> Enum.map(fn {entry, translated_text} ->
               case translated_text do
@@ -43,7 +45,7 @@ defmodule Accent.MachineTranslations do
               end
             end)
 
-          {:cont, translated_entries ++ acc}
+          {:cont, acc ++ translated_entries}
 
         error ->
           {:halt, error}
@@ -98,13 +100,14 @@ defmodule Accent.MachineTranslations do
 
   defp fetch_config(%{"config" => config}), do: config
 
-  defp filter_long_value(%{value: value}) when value in ["", nil], do: @untranslatable_placeholder
+  defp filter_long_value(%{value: value} = entry) when value in ["", nil],
+    do: %{entry | value: @untranslatable_placeholder}
 
   defp filter_long_value(entry) do
     if String.length(entry.value) > @untranslatable_string_length_limit do
-      @untranslatable_placeholder
+      %{entry | value: @untranslatable_placeholder}
     else
-      entry.value
+      entry
     end
   end
 end

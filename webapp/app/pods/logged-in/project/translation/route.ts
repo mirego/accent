@@ -24,6 +24,7 @@ export default class TranslationsRoute extends Route {
       {
         props: (data) => ({
           project: data.viewer.project,
+          revisions: data.viewer.project.revisions,
           translation: data.viewer.project.translation,
           prompts: data.viewer.project.prompts,
           relatedTranslations:

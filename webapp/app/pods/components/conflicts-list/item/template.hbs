@@ -70,15 +70,19 @@
                       </AsyncButton>
                     {{/if}}
 
-                    {{#if (get @permissions 'use_prompt_improve_text')}}
-                      <ImprovePrompt
+                    <div local-class='form-helpers'>
+                      <TranslationEdit::Helpers
+                        @permissions={{@permissions}}
                         @project={{@project}}
+                        @revisions={{@revisions}}
                         @prompts={{@prompts}}
+                        @rtl={{this.revisionTextDirRtl}}
                         @text={{this.textInput}}
-                        @onUpdatingText={{fn this.onImprovingPrompt}}
-                        @onUpdateText={{fn this.onImprovePrompt}}
+                        @sourceLanguageSlug={{this.revisionSlug}}
+                        @onUpdatingText={{fn this.onUpdatingText}}
+                        @onUpdateText={{fn this.onUpdateText}}
                       />
-                    {{/if}}
+                    </div>
 
                     {{#if (get @permissions 'correct_translation')}}
                       <AsyncButton @onClick={{fn this.correct}} @loading={{this.loading}} class='button button--iconOnly button--filled button--green'>

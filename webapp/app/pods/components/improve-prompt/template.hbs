@@ -2,12 +2,7 @@
   <div local-class='prompt-button' tabindex='0'>
     <div local-class='prompt-button-quick-access' data-rtl={{@rtl}}>
       {{#each this.quickAccessPrompts as |prompt|}}
-        <AsyncButton
-          title={{prompt.name}}
-          @onClick={{(perform this.submitTask prompt.id)}}
-          @loading={{this.improveTextTask.isPending}}
-          class='button button--iconOnly button--filled button--borderless button--white'
-        >
+        <AsyncButton title={{prompt.name}} @onClick={{(perform this.submitTask prompt.id)}} class='button button--iconOnly button--filled button--borderless button--white'>
           {{prompt.quickAccess}}
         </AsyncButton>
       {{/each}}

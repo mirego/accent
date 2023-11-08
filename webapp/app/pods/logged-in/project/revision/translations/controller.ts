@@ -69,6 +69,9 @@ export default class TranslationsController extends Controller {
   @readOnly('globalState.permissions')
   permissions: any;
 
+  @readOnly('model.revisionModel.project.revisions')
+  revisions: any;
+
   @equal('model.translations.entries', undefined)
   emptyEntries: boolean;
 

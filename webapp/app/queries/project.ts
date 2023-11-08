@@ -92,6 +92,7 @@ export default gql`
         revisions {
           id
           name
+          slug
           isMaster
           translationsCount
           conflictsCount

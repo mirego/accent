@@ -78,13 +78,13 @@ export default class TranslationEdit extends Component<Args> {
   }
 
   @action
-  onImprovePrompt(value: string) {
+  onUpdateText(value: string) {
     this.text = value;
     this.inputDisabled = false;
   }
 
   @action
-  onImprovingPrompt() {
+  onUpdatingText() {
     this.inputDisabled = true;
   }
 

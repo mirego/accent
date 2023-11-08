@@ -11,6 +11,11 @@
   &:hover {
     background: var(--background-light);
 
+    .form-helpers {
+      pointer-events: all;
+      opacity: 1;
+    }
+
     .item-edit {
       transform: translateX(-40px);
       opacity: 1;
@@ -171,9 +176,13 @@
   padding: 1px 9px !important;
 }
 
-.form-improve {
+.form-helpers {
+  pointer-events: none;
+  opacity: 0;
   position: relative;
   z-index: 1;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
 }
 
 .textEdit-actions {

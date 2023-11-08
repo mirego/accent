@@ -4,6 +4,7 @@
       @translation={{this.model.translation}}
       @prompts={{this.model.prompts}}
       @project={{this.model.project}}
+      @revisions={{this.model.revisions}}
       @permissions={{this.permissions}}
       @onUpdateText={{fn this.updateText}}
       @onCorrectConflict={{fn this.correctConflict}}
@@ -15,6 +16,7 @@
         <RelatedTranslationsList
           @project={{this.model.project}}
           @permissions={{this.permissions}}
+          @revisions={{this.model.revisions}}
           @prompts={{this.model.prompts}}
           @translations={{this.model.relatedTranslations}}
           @onUpdateText={{fn this.updateTranslation}}

@@ -47,13 +47,13 @@ export default class RelatedTranslationsListItem extends Component<Args> {
   }
 
   @action
-  onImprovePrompt(value: string) {
+  onUpdateText(value: string) {
     this.editText = value;
     this.inputDisabled = false;
   }
 
   @action
-  onImprovingPrompt() {
+  onUpdatingText() {
     this.inputDisabled = true;
   }
 

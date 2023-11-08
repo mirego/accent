@@ -4,6 +4,7 @@
       {{#each @translations key='id' as |translation|}}
         <RelatedTranslationsList::Item
           @permissions={{@permissions}}
+          @revisions={{@revisions}}
           @prompts={{@prompts}}
           @onUpdateText={{@onUpdateText}}
           @isInEditMode={{true}}
