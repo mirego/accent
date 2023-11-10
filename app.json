@@ -27,6 +27,11 @@
       "description": "The default login to quickly test the instance. It only requires the user to enter a valid email to login.",
       "value": "true",
       "required": false
+    },
+    "DATABASE_SSL": {
+      "description": "Indicates that SSL is required for the database connection.",
+      "value": "true",
+      "required": false
     }
   },
   "addons": [
