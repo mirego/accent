@@ -230,8 +230,8 @@ $> heroku addons:create heroku-postgresql:hobby-dev --app peaceful-badlands-8588
 Creating heroku-postgresql:hobby-dev on ⬢ peaceful-badlands-85887... free
 Database has been created and is available
 
-$> heroku config:set FORCE_SSL=true DUMMY_LOGIN_ENABLED=true --app peaceful-badlands-85887
-Setting FORCE_SSL, DUMMY_LOGIN_ENABLED and restarting ⬢ peaceful-badlands-85887... done
+$> heroku config:set FORCE_SSL=true DATABASE_SSL=true DUMMY_LOGIN_ENABLED=true --app peaceful-badlands-85887
+Setting FORCE_SSL, DATABASE_SSL, DUMMY_LOGIN_ENABLED and restarting ⬢ peaceful-badlands-85887... done
 
 $> heroku container:push web --app peaceful-badlands-85887
 === Building web
