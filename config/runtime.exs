@@ -7,6 +7,7 @@ static_uri = get_env("STATIC_URL", :uri) || canonical_uri
 
 if config_env() === :test do
   config :accent, Accent.Endpoint,
+    adapter: Bandit.PhoenixAdapter,
     http: [port: 4001],
     server: false,
     url: [port: 80, scheme: "http", host: "example.com"],
@@ -23,6 +24,7 @@ else
     restricted_domain: get_env("RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN") || get_env("RESTRICTED_DOMAIN")
 
   config :accent, Accent.Endpoint,
+    adapter: Bandit.PhoenixAdapter,
     http: [port: port],
     url: get_endpoint_url_config(canonical_uri),
     static_url: get_endpoint_url_config(static_uri),

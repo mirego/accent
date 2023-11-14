@@ -82,6 +82,7 @@ lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-templat
 .PHONY: lint-compile
 lint-compile:
 	mix compile --warnings-as-errors --force
+	mix deps.unlock --check-unused
 
 .PHONY: lint-format
 lint-format:
