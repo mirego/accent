@@ -21,6 +21,7 @@ defmodule Langue.Formatter.LaravelPhp.Serializer do
   defp wrap_values(values) do
     """
     <?php
+
     return #{values};
     """
   end
