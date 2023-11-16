@@ -11,7 +11,7 @@ defmodule LangueTest.Formatter.LaravelPhp.Expectation do
       <?php
 
       return [
-        'required' => 'Le champ :attribute est obligatoire.',
+        'required'=>'Le champ :attribute est obligatoire.',
         'required_if'=>'Le champ :attribute est obligatoire quand la valeur de :other est :value.',
         'required_with'=>'Le champ :attribute est obligatoire quand :values est présent.',
         'same'=>'Les champs :attribute et :other doivent être identiques.',
