@@ -75,7 +75,7 @@ defmodule Accent.Mixfile do
       {:httpoison, "~> 1.1"},
       {:gettext, "~> 0.20.0"},
       {:csv, "~> 2.0"},
-      {:php_assoc_map, "~> 0.5"},
+      {:php_assoc_map, "~> 2.0"},
       {:jason, "~> 1.2", override: true},
       {:erlsom, "~> 1.5"},
       {:xml_builder, "~> 2.0"},
