@@ -8,7 +8,7 @@ defmodule Accent.Repo.Migrations.AddTrigramIndicesOnSearchableFields do
 
   def change do
     if superuser?() do
-      execute("CREATE EXTENSION pg_trgm", "DROP EXTENSION pg_trgm")
+      execute("CREATE EXTENSION IF NOT EXISTS pg_trgm", "DROP EXTENSION IF EXISTS pg_trgm")
 
       create(index(:languages, ["name gin_trgm_ops"], using: :gin))
       create(index(:projects, ["name gin_trgm_ops"], using: :gin))
