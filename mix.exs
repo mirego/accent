@@ -59,6 +59,9 @@ defmodule Accent.Mixfile do
       # Spelling interop with Java runtime
       {:exile, "~> 0.7"},
 
+      # Cache
+      {:cachex, "~> 3.6"},
+
       # Phoenix data helpers
       {:phoenix_ecto, "~> 4.0"},
       {:scrivener_ecto, "~> 2.0"},

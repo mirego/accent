@@ -10,6 +10,7 @@ defmodule Accent do
       Accent.Repo,
       {Oban, oban_config()},
       Accent.Vault,
+      {Cachex, name: :language_tool_cache, limit: 10_000},
       {LanguageTool.Server, language_tool_config()},
       {TelemetryUI, Accent.TelemetryUI.config()},
       {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}

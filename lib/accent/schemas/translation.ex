@@ -52,7 +52,7 @@ defmodule Accent.Translation do
     cast(struct, params, @optional_fields)
   end
 
-  @spec to_langue_entry(map(), map(), boolean, String.t()) :: Langue.Entry.t()
+  @spec to_langue_entry(map(), map() | nil, boolean, String.t()) :: Langue.Entry.t()
   def to_langue_entry(translation, master_translation, is_master, language_slug) do
     %Langue.Entry{
       id: translation.id,

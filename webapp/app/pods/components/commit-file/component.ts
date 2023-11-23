@@ -116,11 +116,19 @@ export default class CommitFile extends Component<Args> {
   correctOnMerge = false;
 
   @tracked
+  revision =
+    this.args.commitAction === 'merge' && this.args.revisions[1]
+      ? this.args.revisions[1]
+      : this.args.revisions.find((revision: any) => revision.isMaster);
+
+  @tracked
   revisionValue =
-    this.mappedRevisions.find(({value}) => value === this.revision) ||
-    (this.args.commitAction === 'merge' && this.mappedRevisions[1])
-      ? this.mappedRevisions[1]
-      : this.mappedRevisions[0];
+    this.mappedRevisions.find(
+      ({value}) => value === (this.revision && this.revision.id)
+    ) || this.mappedRevisions[0];
+
+  @tracked
+  version: {id: string; tag: string} | null = null;
 
   @tracked
   versionValue =
@@ -128,15 +136,14 @@ export default class CommitFile extends Component<Args> {
       ({value}) => value === (this.version && this.version.id)
     ) || this.mappedVersions[0];
 
-  @tracked
-  revision =
-    this.args.revisions.find((revision: any) => revision.isMaster) ||
-    (this.args.commitAction === 'merge' && this.args.revisions[1])
-      ? this.args.revisions[1]
-      : this.args.revisions[0];
-
-  @tracked
-  version: {id: string; tag: string} | null = null;
+  get mappedRevisions(): Array<{label: string; value: string}> {
+    return this.args.revisions.map(
+      ({id, language}: {id: string; language: {name: string}}) => ({
+        label: language.name,
+        value: id,
+      })
+    );
+  }
 
   get hasVersions() {
     return this.args.versions.length > 0;
@@ -154,15 +161,6 @@ export default class CommitFile extends Component<Args> {
       label: name,
       value: name,
     }));
-  }
-
-  get mappedRevisions(): Array<{label: string; value: string}> {
-    return this.args.revisions.map(
-      ({id, language}: {id: string; language: {name: string}}) => ({
-        label: language.name,
-        value: id,
-      })
-    );
   }
 
   get mappedVersions(): Array<{label: string; value: string}> {

@@ -78,7 +78,7 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :translated_text, :project_translated_text do
       arg(:text, non_null(:string))
-      arg(:source_language_slug, non_null(:string))
+      arg(:source_language_slug, :string)
       arg(:target_language_slug, non_null(:string))
 
       resolve(

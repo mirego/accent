@@ -49,7 +49,7 @@
   pointer-events: none;
   right: 0;
   display: flex;
-  gap: 4px;
+  gap: 0;
   justify-content: flex-end;
   align-items: center;
   position: absolute;
@@ -59,11 +59,11 @@
   > button {
     font-size: 11px;
     flex-shrink: 0;
-    font-weight: normal;
   }
 
   > button:focus,
   > button:hover {
+    background: var(--background-light);
     transform: translate3d(0, 0, 0);
   }
 

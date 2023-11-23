@@ -8,7 +8,6 @@ import projectTranslateTextQuery from 'accent-webapp/queries/translate-text-proj
 
 interface Args {
   text: string;
-  sourceLanguageSlug: string;
   project: {id: string};
   onUpdatingText: () => void;
   onUpdateText: (value: string) => void;
@@ -29,7 +28,6 @@ export default class ImprovePrompt extends Component<Args> {
     const variables = {
       projectId: this.args.project.id,
       text: this.args.text,
-      sourceLanguageSlug: this.args.sourceLanguageSlug,
       targetLanguageSlug,
     };
 

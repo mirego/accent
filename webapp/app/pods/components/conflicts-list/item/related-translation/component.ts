@@ -20,8 +20,8 @@ export default class ConflictItemRelatedTranslation extends Component<Args> {
 
   get revisionName() {
     return (
-      this.args.translation.revision.name ||
-      this.args.translation.revision.language.name
+      this.args.translation.revision.slug ||
+      this.args.translation.revision.language.slug
     );
   }
 

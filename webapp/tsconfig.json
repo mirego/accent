@@ -21,12 +21,24 @@
     "inlineSources": true,
     "baseUrl": ".",
     "module": "es6",
-    "lib": ["dom", "es2020", "esnext.asynciterable"],
+    "lib": [
+      "dom",
+      "es2021",
+      "esnext.asynciterable"
+    ],
     "paths": {
-      "accent-webapp/tests/*": ["tests/*"],
-      "accent-webapp/*": ["app/*"],
-      "fetch": ["node_modules/ember-fetch"],
-      "*": ["types/*"]
+      "accent-webapp/tests/*": [
+        "tests/*"
+      ],
+      "accent-webapp/*": [
+        "app/*"
+      ],
+      "fetch": [
+        "node_modules/ember-fetch"
+      ],
+      "*": [
+        "types/*"
+      ]
     }
   },
   "include": [

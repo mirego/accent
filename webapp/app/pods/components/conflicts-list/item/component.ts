@@ -40,7 +40,7 @@ interface Args {
   onCorrect: (conflict: any, textInput: string) => Promise<MutationResponse>;
   onCopyTranslation: (
     text: string,
-    sourceLanguageSlug: string,
+    sourceLanguageSlug: string | null,
     targetLanguageSlug: string
   ) => Promise<{text: string | null}>;
 }

@@ -21,8 +21,8 @@ defmodule AccentTest.MachineTranslations do
       end)
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
-      source_language = %{slug: "fr"}
-      target_language = %{slug: "en"}
+      source_language = "fr"
+      target_language = "en"
       provider_config = %{"key" => Jason.encode!(%{"project_id" => "1234", "type" => "service_account"})}
       config = %{"provider" => "google_translate", "config" => provider_config}
 
@@ -49,8 +49,8 @@ defmodule AccentTest.MachineTranslations do
       end)
 
       entries = [%Langue.Entry{value: "Test %{placeholder} bla", value_type: "string", key: "."}]
-      source_language = %{slug: "fr"}
-      target_language = %{slug: "en"}
+      source_language = "fr"
+      target_language = "en"
       provider_config = %{"key" => Jason.encode!(%{"project_id" => "1234", "type" => "service_account"})}
       config = %{"provider" => "google_translate", "config" => provider_config}
 
@@ -65,8 +65,8 @@ defmodule AccentTest.MachineTranslations do
       end)
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
-      source_language = %{slug: "fr"}
-      target_language = %{slug: "en"}
+      source_language = "fr"
+      target_language = "en"
       provider_config = %{"key" => Jason.encode!(%{"project_id" => "1234", "type" => "service_account"})}
       config = %{"provider" => "google_translate", "config" => provider_config}
 

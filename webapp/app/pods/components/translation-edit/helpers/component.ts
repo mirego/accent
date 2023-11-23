@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 
 interface Args {
   revisions: any[];
-  sourceLanguageSlug: string;
 }
 
 export default class TranslationEditHelpers extends Component<Args> {

@@ -18,7 +18,7 @@ import kotlinx.serialization.json.*
 data class Base(val items: Array<Item>)
 
 @Serializable
-data class Item(val markup: String = "", val text: String = "")
+data class Item(val markup: String = "", val text: String = "", val markupAs: String = "x")
 
 fun main(args: Array<String>) {
     val reader = BufferedReader(InputStreamReader(System.`in`))
@@ -54,7 +54,6 @@ fun main(args: Array<String>) {
     }
 
     for (code in languages) {
-        val cache = ResultCache(10000, 600, TimeUnit.SECONDS)
         val globalConfig = GlobalConfig()
         val userConfig = UserConfig()
 
@@ -63,7 +62,7 @@ fun main(args: Array<String>) {
                 Languages.getLanguageForShortCode(code),
                 ArrayList(),
                 null,
-                cache,
+                null,
                 globalConfig,
                 userConfig
             )
@@ -103,7 +102,7 @@ fun main(args: Array<String>) {
         for (item in parsedText.items) {
           if (item.markup != "") {
             markups.add(item.markup)
-            annotatedBuilder.addMarkup(item.markup, "x");
+            annotatedBuilder.addMarkup(item.markup, item.markupAs);
           } else {
             annotatedBuilder.addText(item.text);
           }

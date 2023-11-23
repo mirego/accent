@@ -4,7 +4,7 @@ export default gql`
   query TranslateTextProject(
     $projectId: ID!
     $text: String!
-    $sourceLanguageSlug: String!
+    $sourceLanguageSlug: String
     $targetLanguageSlug: String!
   ) {
     viewer {
