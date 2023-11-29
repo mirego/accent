@@ -1,5 +1,7 @@
 defmodule Accent.UserRemote.TokenGiver do
   @moduledoc false
+  import Ecto.Query
+
   alias Accent.Repo
   alias Accent.Utils.SecureRandom
 
@@ -17,9 +19,9 @@ defmodule Accent.UserRemote.TokenGiver do
   end
 
   defp invalidate_tokens(user) do
-    user
-    |> Ecto.assoc(:private_access_tokens)
-    |> Repo.update_all(set: [revoked_at: DateTime.utc_now(), updated_at: DateTime.utc_now()])
+    query = from(access_tokens in Ecto.assoc(user, :private_access_tokens), where: is_nil(access_tokens.revoked_at))
+
+    Repo.update_all(query, set: [revoked_at: DateTime.utc_now(), updated_at: DateTime.utc_now()])
   end
 
   defp create_token(user) do
