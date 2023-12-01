@@ -4,19 +4,18 @@ import {action} from '@ember/object';
 import config from 'accent-webapp/config/environment';
 
 interface Args {
-  accessKey: any;
   defaultRef: any;
   errors: any;
   project: any;
-  secretKey: any;
   targetVersion: any;
   specificVersion: any;
   url: any;
   onChangeAccountName: (token: string) => void;
-  onChangeSecretKey: (defaultRef: string) => void;
-  onChangeUrl: (url: string) => void;
-  onChangeTargetVersion: (url: string) => void;
+  onChangeAccountKey: (token: string) => void;
+  onChangeContainerName: (token: string) => void;
   onChangeSpecificVersion: (url: string) => void;
+  onChangeTargetVersion: (url: string) => void;
+  onChangeUrl: (url: string) => void;
 }
 
 export default class Azure extends Component<Args> {
@@ -39,10 +38,17 @@ export default class Azure extends Component<Args> {
   }
 
   @action
-  changeSecretKey(event: Event) {
+  changeAccountKey(event: Event) {
     const target = event.target as HTMLInputElement;
 
-    this.args.onChangeSecretKey(target.value);
+    this.args.onChangeAccountKey(target.value);
+  }
+
+  @action
+  changeContainerName(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    this.args.onChangeContainerName(target.value);
   }
 
   @action

@@ -510,13 +510,13 @@
         "data": {
           "account_name": "Nom du compte",
           "account_key": "Clé du compte",
+          "container_name": "Nom du conteneur",
           "default_ref": "Réf par défaut",
           "repository": "Dépôt",
           "token": "Jeton",
           "url": "URL"
         },
         "token_how": "Comment?",
-        "key_pair_how": "Comment obtenir une paire de clés?",
         "github_webhook_url_how": "Comment?",
         "github_webhook_accent_cli_1": "Vous devez avoir une configuration <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> valide pour le crochet au travail.",
         "github_webhook_accent_cli_2": "Le <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json\">accent.json</a > fichier à la racine de votre projet sera utilisé.",

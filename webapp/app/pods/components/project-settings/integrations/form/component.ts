@@ -67,6 +67,12 @@ export default class IntegrationsForm extends Component<Args> {
   accountName: string;
 
   @tracked
+  accountKey: string;
+
+  @tracked
+  containerName: string;
+
+  @tracked
   targetVersion: string;
 
   @tracked
@@ -139,7 +145,6 @@ export default class IntegrationsForm extends Component<Args> {
 
   @action
   setUrl(url: string) {
-    console.log(url)
     this.url = url;
   }
 
@@ -167,6 +172,16 @@ export default class IntegrationsForm extends Component<Args> {
   setAccountName(accountName: string) {
     console.log(accountName)
     this.accountName = accountName;
+  }
+
+  @action
+  setAccountKey(accountKey: string) {
+    this.accountKey = accountKey;
+  }
+
+  @action
+  setContainerName(containerName: string) {
+    this.containerName = containerName;
   }
 
   @action
