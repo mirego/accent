@@ -508,12 +508,15 @@
         "edit": "Éditer",
         "delete": "Supprimer",
         "data": {
+          "account_name": "Nom du compte",
+          "account_key": "Clé du compte",
           "default_ref": "Réf par défaut",
           "repository": "Dépôt",
           "token": "Jeton",
           "url": "URL"
         },
         "token_how": "Comment?",
+        "key_pair_how": "Comment obtenir une paire de clés?",
         "github_webhook_url_how": "Comment?",
         "github_webhook_accent_cli_1": "Vous devez avoir une configuration <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> valide pour le crochet au travail.",
         "github_webhook_accent_cli_2": "Le <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json\">accent.json</a > fichier à la racine de votre projet sera utilisé.",
@@ -525,6 +528,14 @@
             "sync": "Synchroniser avec n’importe quelles modifications",
             "new_conflicts": "Nouvelles chaîne à réviser",
             "complete_review": "Le projet est revu à 100%"
+          }
+        },
+        "target_version": {
+          "label": "Version Cible",
+          "options": {
+            "all": "Toutes les versions",
+            "latest": "Dernière version",
+            "specific": "Version spécifique"
           }
         }
       }
@@ -959,7 +970,8 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "MICROSOFT": "Microsoft"
+      "MICROSOFT": "Microsoft",
+      "AZURE": "Azure"
     },
     "search_input_placeholder_text": "Rechercher une chaîne…"
   },

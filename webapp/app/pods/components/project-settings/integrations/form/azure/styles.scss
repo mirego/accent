@@ -1,0 +1,60 @@
+.instructions {
+  border-top: 1px solid var(--background-light-highlight);
+  padding-top: 10px;
+  margin: 20px 0 10px;
+}
+
+.instructions-text {
+  margin-top: 7px;
+  font-style: italic;
+  color: #555;
+
+  a {
+    font-family: var(--font-monospace);
+    color: var(--color-primary);
+    text-decoration: none;
+
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+  }
+}
+
+.data-control {
+  margin-bottom: 15px;
+}
+
+.data-title {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.data-title-help {
+  margin-left: 4px;
+  font-size: 11px;
+  font-weight: normal;
+  text-decoration: none;
+  color: var(--color-primary);
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 8px 10px;
+  margin-right: 10px;
+  background: #fafafa;
+  max-width: 500px;
+  width: 100%;
+  font-family: var(--font-monospace);
+  font-size: 11px;
+}

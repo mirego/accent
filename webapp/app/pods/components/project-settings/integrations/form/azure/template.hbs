@@ -1,0 +1,70 @@
+<ProjectSettings::Integrations::Form::DataControlText
+  @error={{field-error @errors 'data.accountKey'}}
+  @label={{t 'components.project_settings.integrations.data.account_name'}}
+  @placeholder='myazureaccount'
+  @value={{@accountName}}
+  @onChange={{this.changeAccountName}}
+  @helpLinkHref='https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html'
+  @helpLinkTitle={{t 'components.project_settings.integrations.key_pair_how'}}
+/>
+
+<ProjectSettings::Integrations::Form::DataControlText
+  @error={{field-error @errors 'data.token'}}
+  @label={{t 'components.project_settings.integrations.data.account_key'}}
+  @placeholder='Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=='
+  @value={{@token}}
+  @onChange={{this.changeSecretKey}}
+  @helpLinkHref='https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html'
+  @helpLinkTitle={{t 'components.project_settings.integrations.key_pair_how'}}
+/>
+
+<ProjectSettings::Integrations::Form::DataControlText
+  @error={{field-error @errors 'data.token'}}
+  @label={{t 'components.project_settings.integrations.data.account_key'}}
+  @placeholder='Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=='
+  @value={{@token}}
+  @onChange={{this.changeSecretKey}}
+  @helpLinkHref='https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html'
+  @helpLinkTitle={{t 'components.project_settings.integrations.key_pair_how'}}
+/>
+
+<ProjectSettings::Integrations::Form::DataControlText
+  @error={{field-error @errors 'data.token'}}
+  @label={{t 'components.project_settings.integrations.data.url'}}
+  @placeholder='https://mystorageaccount.blob.core.windows.net/mycontainer/myblob'
+  @value={{@token}}
+  @onChange={{this.changeUrl}}
+  @helpLinkHref='https://learn.microsoft.com/en-us/rest/api/storageservices/put-blob-from-url?tabs=microsoft-entra-id'
+  @helpLinkTitle={{t 'components.project_settings.integrations.webhook_url_how'}}
+/>
+
+<ProjectSettings::Integrations::Form::DataControlRadio
+  @label={{t 'components.project_settings.integrations.target_version.label'}}
+  @value={{this.targetVersion}}
+  @onChange={{this.changeTargetVersion}}
+  @onChangeTargetVersion={{this.changeTargetVersion}}
+  @onChangeSpecificVersion={{this.changeSpecificVersion}}
+/>
+
+{{#if this.webhookUrl}}
+  <div local-class='instructions'>
+    <label local-class='data-title'>
+      {{t 'components.project_settings.integrations.github_webhook_url'}}
+      <a local-class='data-title-help' target='_blank' rel='noopener noreferrer' href='https://developer.github.com/webhooks/creating'>
+        {{t 'components.project_settings.integrations.github_webhook_url_how'}}
+      </a>
+    </label>
+
+    <input readonly='' onClick='this.select();' local-class='textInput' value={{this.webhookUrl}} />
+
+    <div local-class='instructions-text'>
+      <p>
+        {{t 'components.project_settings.integrations.github_webhook_accent_cli_1' htmlSafe=true}}
+      </p>
+
+      <p>
+        {{t 'components.project_settings.integrations.github_webhook_accent_cli_2' htmlSafe=true}}
+      </p>
+    </div>
+  </div>
+{{/if}}

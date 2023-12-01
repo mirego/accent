@@ -492,12 +492,16 @@
         "edit": "Edit",
         "delete": "Delete",
         "data": {
+          "account_name": "Account Name",
+          "account_key": "Account Key",
+          "container_name": "Container Name",
           "default_ref": "Default ref",
           "repository": "Repository",
           "token": "Token",
           "url": "URL"
         },
         "token_how": "How?",
+        "key_pair_how": "How to obtain a key pair?",
         "github_webhook_url_how": "How?",
         "github_webhook_accent_cli_1": "You need to have a valid <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> setup for the hook to work.",
         "github_webhook_accent_cli_2": "The <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json\">accent.json</a> file at the root of your project will be used.",
@@ -509,6 +513,14 @@
             "sync": "Sync with any changes",
             "new_conflicts": "New strings to review",
             "complete_review": "Project is 100% reviewed"
+          }
+        },
+        "target_version": {
+          "label": "Target Version",
+          "options": {
+            "all": "All Versions",
+            "latest": "Latest Version",
+            "specific": "Specific Version"
           }
         }
       }
@@ -959,7 +971,8 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "MICROSOFT": "Microsoft"
+      "MICROSOFT": "Microsoft",
+      "AZURE": "Azure"
     },
     "search_input_placeholder_text": "Search for a string…"
   },

@@ -6,6 +6,7 @@ import IntlService from 'ember-intl/services/intl';
 import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
+  AZURE: 'assets/services/azure.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
   SLACK: 'assets/services/slack.svg',
@@ -63,9 +64,16 @@ export default class IntegrationsForm extends Component<Args> {
   token: string;
 
   @tracked
+  accountName: string;
+
+  @tracked
+  targetVersion: string;
+
+  @tracked
   defaultRef = 'main';
 
-  services = ['SLACK', 'GITHUB', 'DISCORD'];
+  // services = ['SLACK', 'GITHUB', 'DISCORD', 'AZURE'];
+  services = ['AZURE', 'SLACK', 'GITHUB', 'DISCORD'];
 
   @not('url')
   emptyUrl: boolean;
@@ -131,6 +139,7 @@ export default class IntegrationsForm extends Component<Args> {
 
   @action
   setUrl(url: string) {
+    console.log(url)
     this.url = url;
   }
 
@@ -152,6 +161,17 @@ export default class IntegrationsForm extends Component<Args> {
   @action
   setDefaultRef(defaultRef: string) {
     this.defaultRef = defaultRef;
+  }
+
+  @action
+  setAccountName(accountName: string) {
+    console.log(accountName)
+    this.accountName = accountName;
+  }
+
+  @action
+  setTargetVersion(targetVersion: string) {
+    this.targetVersion = targetVersion;
   }
 
   @action

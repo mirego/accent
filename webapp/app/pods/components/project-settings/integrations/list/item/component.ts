@@ -3,6 +3,7 @@ import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
+  AZURE: 'assets/services/azure.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
   SLACK: 'assets/services/slack.svg',

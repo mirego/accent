@@ -1,0 +1,20 @@
+<div local-class='data-control'>
+  <h3 local-class='data-title'>
+    {{@label}}
+  </h3>
+
+  {{#each this.allTargetVersions as |targetVersion|}}
+    <label local-class='radio'>
+      <Input @type='radio' @checked={{eq targetVersion.value this.targetVersion}} {{on 'change' (fn this.changeTargetVersion targetVersion.value)}} />
+      {{t targetVersion.label}}
+    </label>
+  {{/each}}
+
+  {{#if (eq this.targetVersion 'SPECIFIC')}}
+    <ProjectSettings::Integrations::Form::DataControlText
+      @placeholder='1.0.0'
+      @value={{this.specificVersion}}
+      @onChange={{this.changeSpecificVersion}}
+    />
+  {{/if}}
+</div>
