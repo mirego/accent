@@ -1,12 +1,11 @@
 import {inject as service} from '@ember/service';
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
-import {tracked} from '@glimmer/tracking';
 import IntlService from 'ember-intl/services/intl';
 
 interface Args {
   title: string;
-  events: string[];
+  targetVersion: string;
   onChangeTargetVersion: (targetVersion: string) => void;
   onChangeSpecificVersion: (specificVersion: string) => void;
 }
@@ -32,29 +31,13 @@ export default class DataControlRadio extends Component<Args> {
     },
   ];
 
-  @tracked
-  targetVersion: string = this.allTargetVersions[0].value;
-  specificVersion: string | null = null;
-
-  // @action
-  // changeTargetVersion(targetVersion: string) {
-  //   this.targetVersion = targetVersion;
-  //   this.args.onChangeTargetVersion(targetVersion);
-  // }
-
   @action
   changeTargetVersion(targetVersion: string) {
-    this.targetVersion = targetVersion;
-    if (typeof this.args.onChangeTargetVersion === 'function') {
-      this.args.onChangeTargetVersion(targetVersion);
-    }
+    this.args.onChangeTargetVersion(targetVersion);
   }
 
   @action
-  changeSpecificVersion(event: Event) {
-    const target = event.target as HTMLInputElement;
-    console.log("Changing specific version")
-    this.args.onChangeSpecificVersion(target.value);
-    console.log(this.specificVersion);
+  changeSpecificVersion(specificVersion: string) {
+    this.args.onChangeSpecificVersion(specificVersion);
   }
 }

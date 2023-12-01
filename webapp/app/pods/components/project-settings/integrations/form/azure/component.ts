@@ -59,10 +59,8 @@ export default class Azure extends Component<Args> {
   }
 
   @action
-  changeTargetVersion(event: Event) {
-    const target = event.target as HTMLInputElement;
-
-    this.args.onChangeTargetVersion(target.value);
+  changeTargetVersion(targetVersion: string) {
+    this.args.onChangeTargetVersion(targetVersion);
   }
 
   @action

@@ -3,14 +3,14 @@
     {{@label}}
   </h3>
 
-  {{#each this.allTargetVersions as |targetVersion|}}
+  {{#each this.allTargetVersions as |target|}}
     <label local-class='radio'>
-      <Input @type='radio' @checked={{eq targetVersion.value this.targetVersion}} {{on 'change' (fn this.changeTargetVersion targetVersion.value)}} />
-      {{t targetVersion.label}}
+      <Input @type='radio' name="target_version" {{on 'change' (fn this.changeTargetVersion target.value)}} required />
+      {{t target.label}}
     </label>
   {{/each}}
 
-  {{#if (eq this.targetVersion 'SPECIFIC')}}
+  {{#if (eq @targetVersion 'SPECIFIC')}}
     <ProjectSettings::Integrations::Form::DataControlText
       @placeholder='1.0.0'
       @value={{this.specificVersion}}

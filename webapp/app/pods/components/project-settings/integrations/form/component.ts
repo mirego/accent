@@ -76,6 +76,9 @@ export default class IntegrationsForm extends Component<Args> {
   targetVersion: string;
 
   @tracked
+  specificVersion: string;
+
+  @tracked
   defaultRef = 'main';
 
   // services = ['SLACK', 'GITHUB', 'DISCORD', 'AZURE'];
@@ -131,6 +134,7 @@ export default class IntegrationsForm extends Component<Args> {
     this.repository = this.integration.data.repository;
     this.token = this.integration.data.token;
     this.defaultRef = this.integration.data.defaultRef;
+    this.targetVersion = this.integration.data.targetVersion;
   }
 
   @action
@@ -170,7 +174,6 @@ export default class IntegrationsForm extends Component<Args> {
 
   @action
   setAccountName(accountName: string) {
-    console.log(accountName)
     this.accountName = accountName;
   }
 
@@ -186,7 +189,13 @@ export default class IntegrationsForm extends Component<Args> {
 
   @action
   setTargetVersion(targetVersion: string) {
+    console.log(targetVersion)
     this.targetVersion = targetVersion;
+  }
+
+  @action
+  setSpecificVersion(specificVersion: string) {
+    this.specificVersion = specificVersion;
   }
 
   @action

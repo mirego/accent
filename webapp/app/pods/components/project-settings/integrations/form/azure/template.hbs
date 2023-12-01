@@ -1,7 +1,7 @@
 <ProjectSettings::Integrations::Form::DataControlText
   @error={{field-error @errors 'data.accountName'}}
   @label={{t 'components.project_settings.integrations.data.account_name'}}
-  @placeholder='myazureaccount'
+  @placeholder={{t 'components.project_settings.integrations.placeholders.account_name'}}
   @value={{@accountName}}
   @onChange={{this.changeAccountName}}
 />
@@ -17,21 +17,7 @@
 <ProjectSettings::Integrations::Form::DataControlText
   @error={{field-error @errors 'data.token'}}
   @label={{t 'components.project_settings.integrations.data.container_name'}}
-  @placeholder='mycontainer'
+  @placeholder={{t 'components.project_settings.integrations.placeholders.container_name'}}
   @value={{@containerName}}
   @onChange={{this.changeContainerName}}
-/>
-
-<ProjectSettings::Integrations::Form::DataControlRadio
-  @label={{t 'components.project_settings.integrations.target_version.label'}}
-  @value={{this.targetVersion}}
-  @onChange={{this.changeTargetVersion}}
-  @onChangeTargetVersion={{this.changeTargetVersion}}
-  @onChangeSpecificVersion={{this.changeSpecificVersion}}
-/>
-
-<ProjectSettings::Integrations::Form::DataControlCheckboxes
-  @title={{t 'components.project_settings.integrations.events.title'}}
-  @events={{@events}}
-  @onChangeEventsChecked={{@onChangeEventsChecked}}
 />

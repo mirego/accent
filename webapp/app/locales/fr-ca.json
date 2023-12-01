@@ -516,6 +516,10 @@
           "token": "Jeton",
           "url": "URL"
         },
+        "placeholders": {
+          "account_name": "moncompteazure",
+          "container_name": "monconteneur"
+        },
         "token_how": "Comment?",
         "github_webhook_url_how": "Comment?",
         "github_webhook_accent_cli_1": "Vous devez avoir une configuration <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> valide pour le crochet au travail.",

@@ -500,6 +500,10 @@
           "token": "Token",
           "url": "URL"
         },
+        "placeholders": {
+          "account_name": "myazureaccount",
+          "container_name": "mycontainer"
+        },
         "token_how": "How?",
         "github_webhook_url_how": "How?",
         "github_webhook_accent_cli_1": "You need to have a valid <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> setup for the hook to work.",
