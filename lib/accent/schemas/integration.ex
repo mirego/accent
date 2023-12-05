@@ -11,6 +11,9 @@ defmodule Accent.Integration do
       field(:repository)
       field(:token)
       field(:default_ref)
+      field(:account_name)
+      field(:account_key)
+      field(:container_name)
     end
 
     belongs_to(:project, Accent.Project)

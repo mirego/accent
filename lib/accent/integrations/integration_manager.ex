@@ -28,7 +28,7 @@ defmodule Accent.IntegrationManager do
   defp changeset(model, params) do
     model
     |> cast(params, [:project_id, :user_id, :service, :events])
-    |> validate_inclusion(:service, ~w(slack github discord))
+    |> validate_inclusion(:service, ~w(slack github discord azure))
     |> cast_embed(:data, with: changeset_data(params[:service] || model.service))
     |> foreign_key_constraint(:project_id)
     |> validate_required([:service, :data])
@@ -55,6 +55,14 @@ defmodule Accent.IntegrationManager do
       model
       |> cast(params, [:repository, :default_ref, :token])
       |> validate_required([:repository, :default_ref, :token])
+    end
+  end
+
+  defp changeset_data("azure") do
+    fn model, params ->
+      model
+      |> cast(params, [:account_name, :account_key, :container_name])
+      |> validate_required([:account_name, :account_key, :container_name])
     end
   end
 

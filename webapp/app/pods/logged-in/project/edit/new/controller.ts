@@ -49,7 +49,7 @@ export default class AzurePushController extends Controller {
 
     await this.delay(1000);
 
-    console.log('ready to call the pushStrings mutation');
+    console.log('TODO: call the pushStrings mutation');
     console.log(props);
 
     this.router.transitionTo(

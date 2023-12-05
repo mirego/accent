@@ -13,6 +13,9 @@ defmodule Accent.GraphQL.Mutations.Integration do
     field(:repository, :string)
     field(:default_ref, :string)
     field(:token, :string)
+    field(:account_name, :string)
+    field(:account_key, :string)
+    field(:container_name, :string)
   end
 
   payload_object(:project_integration_payload, :project_integration)

@@ -35,6 +35,15 @@ export default gql`
               defaultRef
             }
           }
+
+          ... on ProjectIntegrationAzure {
+            data {
+              id
+              accountName
+              accountKey
+              containerName
+            }
+          }
         }
       }
     }
