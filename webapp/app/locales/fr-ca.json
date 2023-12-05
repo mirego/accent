@@ -22,6 +22,12 @@
       "content_label": "Contenu:",
       "save_button": "Créer"
     },
+    "azure_push_form": {
+      "title": "Publier sur Azure",
+      "cancel_button": "Annuler",
+      "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
+      "push_button": "Publier"
+    },
     "prompt_update_form": {
       "title": "Instructions de mise à jour",
       "error": "Instruction invalide",
@@ -507,6 +513,7 @@
         "cancel": "Annuler",
         "edit": "Éditer",
         "delete": "Supprimer",
+        "push_strings": "Publier les traductions",
         "data": {
           "account_name": "Nom du compte",
           "account_key": "Clé du compte",

@@ -22,6 +22,12 @@
       </div>
 
       <div local-class='details-actions'>
+        {{#if (eq @integration.service 'AZURE')}}
+          <LinkTo @route='logged-in.project.edit.new' @model={{@project.id}} class='button button--filled button--green'>
+            {{t 'components.project_settings.integrations.push_strings'}}
+          </LinkTo>
+        {{/if}}
+
         {{#if (get @permissions 'update_project_integration')}}
           <button class='button button--filled button--white' {{on 'click' (fn this.toggleEdit)}}>
             {{t 'components.project_settings.integrations.edit'}}

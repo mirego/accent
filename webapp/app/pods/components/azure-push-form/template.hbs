@@ -1,0 +1,33 @@
+<div {{did-insert this.focusTextarea}} local-class='azure-push-form'>
+  <h1 local-class='title'>
+    {{t 'components.azure_push_form.title'}}
+  </h1>
+
+  {{#if @error}}
+    <div local-class='errors'>
+      <div local-class='error'>
+        {{t 'components.azure_push_form.error'}}
+      </div>
+    </div>
+  {{/if}}
+
+  <div local-class='formItem'>
+    <ProjectSettings::Integrations::Form::DataControlRadio
+      @allTargetVersions={{this.allTargetVersions}}
+      @specificVersion={{this.specificVersion}}
+      @targetVersion={{this.targetVersion}}
+      @onChangeTargetVersion={{this.setTargetVersion}}
+      @onChangeSpecificVersion={{this.setSpecificVersion}}
+    />
+  </div>
+
+  <div local-class='formActions'>
+    <LinkTo @route='logged-in.project.edit.service-integrations' @model={{@project.id}} class='button button--filled button--white'>
+      {{t 'components.azure_push_form.cancel_button'}}
+    </LinkTo>
+
+    <AsyncButton class='button button--filled' @loading={{this.isSubmitting}} @onClick={{fn this.submit}}>
+      {{t 'components.azure_push_form.push_button'}}
+    </AsyncButton>
+  </div>
+</div>

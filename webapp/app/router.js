@@ -30,6 +30,9 @@ export default Router.map(function () {
         this.route('badges');
         this.route('api-token');
         this.route('service-integrations');
+        this.route('new');
+        // this.route('service-integrations', function () {
+        // });
         this.route('jipt');
         this.route('machine-translations');
         this.route('prompts', function () {

@@ -189,7 +189,6 @@ export default class IntegrationsForm extends Component<Args> {
 
   @action
   setTargetVersion(targetVersion: string) {
-    console.log(targetVersion)
     this.targetVersion = targetVersion;
   }
 

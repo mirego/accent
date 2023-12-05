@@ -491,6 +491,7 @@
         "cancel": "Cancel",
         "edit": "Edit",
         "delete": "Delete",
+        "push_strings": "Push strings",
         "data": {
           "account_name": "Account Name",
           "account_key": "Account Key",
@@ -672,6 +673,12 @@
       "name_label": "Name:",
       "content_label": "Content:",
       "save_button": "Create"
+    },
+    "azure_push_form": {
+      "title": "Push to Azure",
+      "cancel_button": "Cancel",
+      "error": "Error while pushing to Azure. Check your credentials and try again.",
+      "push_button": "Push"
     },
     "page_title": {
       "versions": "Versions",
