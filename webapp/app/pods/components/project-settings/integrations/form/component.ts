@@ -28,6 +28,9 @@ interface Args {
       repository: string;
       token: string;
       defaultRef: string;
+      accountName: string;
+      accountKey: string;
+      containerName: string;
     };
   }) => Promise<{errors: any}>;
   onCancel: () => void;
@@ -71,12 +74,6 @@ export default class IntegrationsForm extends Component<Args> {
 
   @tracked
   containerName: string;
-
-  @tracked
-  targetVersion: string;
-
-  @tracked
-  specificVersion: string;
 
   @tracked
   defaultRef = 'main';
@@ -124,6 +121,9 @@ export default class IntegrationsForm extends Component<Args> {
           repository: this.repository,
           token: this.token,
           defaultRef: this.defaultRef,
+          accountName: this.accountName,
+          accountKey: this.accountKey,
+          containerName: this.containerName,
         },
       };
     }
@@ -134,7 +134,9 @@ export default class IntegrationsForm extends Component<Args> {
     this.repository = this.integration.data.repository;
     this.token = this.integration.data.token;
     this.defaultRef = this.integration.data.defaultRef;
-    this.targetVersion = this.integration.data.targetVersion;
+    this.accountName = this.integration.data.accountName;
+    this.accountKey = this.integration.data.accountKey;
+    this.containerName = this.integration.data.containerName;
   }
 
   @action
@@ -188,16 +190,6 @@ export default class IntegrationsForm extends Component<Args> {
   }
 
   @action
-  setTargetVersion(targetVersion: string) {
-    this.targetVersion = targetVersion;
-  }
-
-  @action
-  setSpecificVersion(specificVersion: string) {
-    this.specificVersion = specificVersion;
-  }
-
-  @action
   async submit() {
     this.isSubmiting = true;
 
@@ -210,6 +202,9 @@ export default class IntegrationsForm extends Component<Args> {
         repository: this.repository,
         token: this.token,
         defaultRef: this.defaultRef,
+        accountName: this.accountName,
+        accountKey: this.accountKey,
+        containerName: this.containerName,
       },
     });
 

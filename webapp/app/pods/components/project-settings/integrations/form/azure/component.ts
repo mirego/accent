@@ -1,35 +1,18 @@
-import fmt from 'simple-fmt';
 import Component from '@glimmer/component';
 import {action} from '@ember/object';
-import config from 'accent-webapp/config/environment';
 
 interface Args {
-  defaultRef: any;
   errors: any;
   project: any;
-  targetVersion: any;
-  specificVersion: any;
-  url: any;
+  accountName: any;
+  accountKey: any;
+  containerName: any;
   onChangeAccountName: (token: string) => void;
   onChangeAccountKey: (token: string) => void;
   onChangeContainerName: (token: string) => void;
-  onChangeSpecificVersion: (url: string) => void;
-  onChangeTargetVersion: (url: string) => void;
-  onChangeUrl: (url: string) => void;
 }
 
 export default class Azure extends Component<Args> {
-  get webhookUrl() {
-    const host = window.location.origin;
-
-    return `${host}${fmt(
-      config.API.HOOKS_PATH,
-      'azure',
-      this.args.project.id,
-      '<YOUR_API_TOKEN_HERE>'
-    )}`;
-  }
-
   @action
   changeAccountName(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -49,24 +32,5 @@ export default class Azure extends Component<Args> {
     const target = event.target as HTMLInputElement;
 
     this.args.onChangeContainerName(target.value);
-  }
-
-  @action
-  changeUrl(event: Event) {
-    const target = event.target as HTMLInputElement;
-
-    this.args.onChangeUrl(target.value);
-  }
-
-  @action
-  changeTargetVersion(targetVersion: string) {
-    this.args.onChangeTargetVersion(targetVersion);
-  }
-
-  @action
-  changeSpecificVersion(event: Event) {
-    const target = event.target as HTMLInputElement;
-
-    this.args.onChangeTargetVersion(target.value);
   }
 }
