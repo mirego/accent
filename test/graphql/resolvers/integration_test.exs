@@ -109,7 +109,7 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     {:ok, integration} = Resolver.create(project, %{service: "foo", data: %{url: ""}}, context)
 
     assert integration.errors == [
-             service: {"is invalid", [validation: :inclusion, enum: ["slack", "github", "discord"]]}
+             service: {"is invalid", [validation: :inclusion, enum: ["slack", "github", "discord", "azure"]]}
            ]
 
     assert Repo.all(Integration) == []
