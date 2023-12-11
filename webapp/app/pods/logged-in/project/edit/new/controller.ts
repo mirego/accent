@@ -8,10 +8,10 @@ import GlobalState from 'accent-webapp/services/global-state';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import RouterService from '@ember/routing/router-service';
 
-interface PushStringsProps {
-  targetVersion: string;
-  specificVersion: string | null;
-}
+// interface PushStringsProps {
+//   targetVersion: string;
+//   specificVersion: string | null;
+// }
 
 export default class AzurePushController extends Controller {
   @tracked
@@ -44,13 +44,13 @@ export default class AzurePushController extends Controller {
   }
 
   @action
-  async pushStrings(props: PushStringsProps) {
-    const {targetVersion, specificVersion} = props;
+  async pushStrings() {
+    // const {targetVersion, specificVersion} = props;
 
     await this.delay(1000);
 
-    console.log('TODO: call the pushStrings mutation');
-    console.log(props);
+    // console.log('TODO: call the pushStrings mutation');
+    // console.log(props);
 
     this.router.transitionTo(
       'logged-in.project.edit.service-integrations',
