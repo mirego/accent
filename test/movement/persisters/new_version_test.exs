@@ -48,6 +48,7 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
         file_comment: "comment",
         plural: true,
         locked: true,
+        conflicted: true,
         revision_id: revision.id,
         document_id: document.id
       })
@@ -59,6 +60,9 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
         text: "B",
         translation_id: translation.id,
         value_type: "string",
+        previous_translation: %Accent.PreviousTranslation{
+          conflicted: translation.conflicted
+        },
         revision_id: revision.id,
         placeholders: []
       }
@@ -91,5 +95,6 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
     assert version_translation.key === "a"
     assert version_translation.proposed_text === "B"
     assert version_translation.value_type === "string"
+    assert version_translation.conflicted
   end
 end
