@@ -14,8 +14,8 @@
   <div local-class='formItem'>
     <ProjectSettings::Integrations::Form::DataControlRadio
       @allTargetVersions={{this.allTargetVersions}}
-      @specificVersion={{this.specificVersion}}
       @targetVersion={{this.targetVersion}}
+      @specificVersion={{this.specificVersion}}
       @onChangeTargetVersion={{this.setTargetVersion}}
       @onChangeSpecificVersion={{this.setSpecificVersion}}
     />
@@ -26,7 +26,7 @@
       {{t 'components.azure_push_form.cancel_button'}}
     </LinkTo>
 
-    <AsyncButton class='button button--filled' @loading={{this.isSubmitting}} @onClick={{fn this.submit}}>
+    <AsyncButton class='button button--filled' @loading={{this.isSubmitting}} @onClick={{this.submit}}>
       {{t 'components.azure_push_form.push_button'}}
     </AsyncButton>
   </div>

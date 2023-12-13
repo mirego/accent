@@ -7,11 +7,13 @@ import IntlService from 'ember-intl/services/intl';
 import GlobalState from 'accent-webapp/services/global-state';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import RouterService from '@ember/routing/router-service';
+import ApolloMutate from 'accent-webapp/services/apollo-mutate';
+import pushToAzureBlobStorage from 'accent-webapp/queries/push-to-azure-blob-storage';
 
-// interface PushStringsProps {
-//   targetVersion: string;
-//   specificVersion: string | null;
-// }
+const FLASH_MESSAGE_CREATE_SUCCESS =
+  'pods.versions.new.flash_messages.create_success';
+const FLASH_MESSAGE_CREATE_ERROR =
+  'pods.versions.new.flash_messages.create_error';
 
 export default class AzurePushController extends Controller {
   @tracked
@@ -19,6 +21,9 @@ export default class AzurePushController extends Controller {
 
   @service('intl')
   intl: IntlService;
+
+  @service('apollo-mutate')
+  apolloMutate: ApolloMutate;
 
   @service('global-state')
   globalState: GlobalState;
@@ -44,18 +49,34 @@ export default class AzurePushController extends Controller {
   }
 
   @action
-  async pushStrings() {
-    // const {targetVersion, specificVersion} = props;
+  async pushStrings({
+    targetVersion,
+    specificVersion,
+  }: {
+    targetVersion: string;
+    specificVersion: string | null;
+  }) {
+    const response = await this.apolloMutate.mutate({
+      mutation: pushToAzureBlobStorage,
+      variables: {
+        targetVersion,
+        specificVersion,
+        projectId: this.project.id,
+      },
+    });
 
-    await this.delay(1000);
-
-    // console.log('TODO: call the pushStrings mutation');
-    // console.log(props);
+    if (response.errors) {
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CREATE_ERROR));
+    } else {
+      this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CREATE_SUCCESS));
+    }
 
     this.router.transitionTo(
       'logged-in.project.edit.service-integrations',
       this.project.id
     );
+
+    return response;
   }
 
   async delay(ms: number) {
