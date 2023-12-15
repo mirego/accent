@@ -18,16 +18,43 @@ import {
 } from '../revision-slug-fetcher';
 import Base from './base';
 
-const TITLE_LENGTH_PADDING = 4;
-
 export default class ProjectStatsFormatter extends Base {
   private readonly project: Project;
   private readonly config: Config;
+  private readonly version: string | undefined;
 
-  constructor(project: Project, config: Config) {
+  constructor(project: Project, config: Config, version?: string) {
     super();
     this.project = project;
     this.config = config;
+    this.version = version;
+  }
+
+  percentageReviewedString(number: number, translationsCount: number) {
+    const prettyFloat = (number: string) => {
+      if (number.endsWith('.00')) {
+        return parseInt(number, 10).toString();
+      } else {
+        return number;
+      }
+    };
+
+    const percentageReviewedString = `${prettyFloat(
+      number.toFixed(2)
+    )}% reviewed`;
+    let percentageReviewedFormat = chalk.green(percentageReviewedString);
+
+    if (number === 100) {
+      percentageReviewedFormat = chalk.green(percentageReviewedString);
+    } else if (number > 100 / 2) {
+      percentageReviewedFormat = chalk.yellow(percentageReviewedString);
+    } else if (number <= 0 && translationsCount === 0) {
+      percentageReviewedFormat = chalk.dim('No strings');
+    } else {
+      percentageReviewedFormat = chalk.red(percentageReviewedString);
+    }
+
+    return percentageReviewedFormat;
   }
 
   log() {
@@ -44,20 +71,12 @@ export default class ProjectStatsFormatter extends Base {
       0
     );
     const percentageReviewed =
-      translationsCount > 0 ? reviewedCount / translationsCount : 0;
+      translationsCount > 0 ? (reviewedCount / translationsCount) * 100 : 0;
 
-    const percentageReviewedString = `${percentageReviewed}% reviewed`;
-    let percentageReviewedFormat = chalk.green(percentageReviewedString);
-
-    if (percentageReviewed === 100) {
-      percentageReviewedFormat = chalk.green(percentageReviewedString);
-    } else if (percentageReviewed > 100 / 2) {
-      percentageReviewedFormat = chalk.yellow(percentageReviewedString);
-    } else if (percentageReviewed <= 0 && translationsCount === 0) {
-      percentageReviewedFormat = chalk.dim('No strings');
-    } else {
-      percentageReviewedFormat = chalk.red(percentageReviewedString);
-    }
+    const percentageReviewedFormat = this.percentageReviewedString(
+      percentageReviewed,
+      translationsCount
+    );
 
     console.log(
       this.project.logo
@@ -67,12 +86,7 @@ export default class ProjectStatsFormatter extends Base {
       chalk.dim(' • '),
       percentageReviewedFormat
     );
-    const titleLength =
-      (this.project.logo ? this.project.logo.length + 1 : 0) +
-      this.project.name.length +
-      percentageReviewedString.length +
-      TITLE_LENGTH_PADDING;
-    console.log(chalk.gray.dim('⎯'.repeat(titleLength)));
+    console.log(chalk.gray.dim('⎯'));
 
     console.log(chalk.magenta('Last synced'));
     if (this.project.lastSyncedAt) {
@@ -99,18 +113,12 @@ export default class ProjectStatsFormatter extends Base {
       this.project.revisions.forEach((revision: Revision) => {
         if (this.project.masterRevision.id !== revision.id) {
           const percentageReviewed =
-            revision.reviewedCount / revision.translationsCount;
+            (revision.reviewedCount / revision.translationsCount) * 100;
 
-          const percentageReviewedString = `${percentageReviewed}% reviewed`;
-          let percentageReviewedFormat = chalk.green(percentageReviewedString);
-
-          if (percentageReviewed === 100) {
-            percentageReviewedFormat = chalk.green(percentageReviewedString);
-          } else if (percentageReviewed > 100 / 2) {
-            percentageReviewedFormat = chalk.yellow(percentageReviewedString);
-          } else {
-            percentageReviewedFormat = chalk.red(percentageReviewedString);
-          }
+          const percentageReviewedFormat = this.percentageReviewedString(
+            percentageReviewed,
+            translationsCount
+          );
 
           console.log(
             `${chalk.white.bold(
@@ -147,13 +155,16 @@ export default class ProjectStatsFormatter extends Base {
         )
       );
       this.project.versions.entries.forEach((version: Version) => {
-        console.log(chalk.bgBlack.white(` ${version.tag} `));
+        if (version.tag === this.version) {
+          console.log(chalk.bgBlack.whiteBright(` ${version.tag} `));
+        } else {
+          console.log(chalk.white(`${version.tag}`));
+        }
       });
       console.log('');
     }
 
-    console.log(chalk.magenta('Strings'));
-    console.log(chalk.white('# Strings:'), chalk.white(`${translationsCount}`));
+    console.log(chalk.magenta(`Strings (${translationsCount})`));
     console.log(chalk.green('✓ Reviewed:'), chalk.green(`${reviewedCount}`));
     console.log(chalk.red('× In review:'), chalk.red(`${conflictsCount}`));
     console.log('');
