@@ -52,9 +52,10 @@ defmodule Accent.GraphQL.Resolvers.Translation do
   end
 
   @spec uncorrect(Translation.t(), map(), GraphQLContext.t()) :: translation_operation
-  def uncorrect(translation, _, info) do
+  def uncorrect(translation, %{text: text}, info) do
     %Context{}
     |> Context.assign(:translation, translation)
+    |> Context.assign(:text, text)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> TranslationUncorrectConflictBuilder.build()
     |> then(&fn -> BasePersister.execute(&1) end)

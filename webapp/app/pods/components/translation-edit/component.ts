@@ -11,7 +11,7 @@ interface Args {
   onChangeText?: (text: string) => void;
   onUpdateText: (text: string) => Promise<void>;
   onCorrectConflict: (text: string) => Promise<void>;
-  onUncorrectConflict: () => Promise<void>;
+  onUncorrectConflict: (text: string) => Promise<void>;
 }
 
 export default class TranslationEdit extends Component<Args> {
@@ -92,7 +92,7 @@ export default class TranslationEdit extends Component<Args> {
   async uncorrectConflict() {
     this.isUncorrectingConflict = true;
 
-    await this.args.onUncorrectConflict();
+    await this.args.onUncorrectConflict(this.text);
 
     this.isUncorrectingConflict = false;
   }
