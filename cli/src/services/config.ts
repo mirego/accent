@@ -93,7 +93,7 @@ Only your master language should be listed in your files config.`
       }
   }
 
-  private exctractVersionFromBranch(
+  private extractVersionFromBranch(
     branchName: string,
     gitBranchVersionMatch: string
   ): string {
