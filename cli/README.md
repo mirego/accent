@@ -1,20 +1,22 @@
-Accent CLI
-======
+# Accent CLI
 
 [![Version](https://img.shields.io/npm/v/accent-cli.svg)](https://npmjs.org/package/accent-cli)
 [![Build Status](https://img.shields.io/travis/v/accent-cli.svg?branch=master)](https://travis-ci.com/mirego/accent-cli)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Configuration](#configuration)
-* [Commands](#commands)
-* [GitHub Actions](#github-actions)
-* [License](#license)
-* [About Mirego](#about-mirego)
+
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Commands](#commands)
+- [GitHub Actions](#github-actions)
+- [License](#license)
+- [About Mirego](#about-mirego)
 <!-- tocstop -->
 
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g accent-cli
 $ accent COMMAND
@@ -26,6 +28,7 @@ USAGE
   $ accent COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Configuration
@@ -52,6 +55,29 @@ accent-cli reads from a `accent.json` file. The file should contain valid JSON r
 ```
 
 ## Document configuration
+
+Format for the `accent.json` file.
+
+- `apiUrl`: The base URL of your Accent Instance
+- `apiKey`: Api Key to your Accent Instance
+- `project`: Your Project uuid
+
+Available ENV variables. (Each variable will override `accent.json` variables if set)
+
+- `ACCENT_API_KEY`: The base URL of your Accent Instance
+- `ACCENT_API_URL`: Api Key to your Accent Instance
+- `ACCENT_PROJECT`: Your Project uuid
+
+Each operation section `sync` and `addTranslations` can contain the following object:
+
+- `language`: The identifier of the document’s language
+- `format`: The format of the document
+- `source`: The path of the document. This can contain glob pattern (See [the node glob library] used as a dependancy (https://github.com/isaacs/node-glob))
+- `target`: Path of the target languages
+- `namePattern`: Pattern to use to save the document name in Accent.
+- `hooks`: List of hooks to be run
+
+## Version configuration
 
 Format for the `accent.json` file.
 
@@ -131,14 +157,16 @@ Here is a list of available hooks. Those are self-explanatory
 - `afterExport`
 
 # Commands
+
 <!-- commands -->
-* [`accent export`](#accent-export)
-* [`accent format`](#accent-format)
-* [`accent help [COMMAND]`](#accent-help-command)
-* [`accent jipt PSEUDOLANGUAGENAME`](#accent-jipt-pseudolanguagename)
-* [`accent lint`](#accent-lint)
-* [`accent stats`](#accent-stats)
-* [`accent sync`](#accent-sync)
+
+- [`accent export`](#accent-export)
+- [`accent format`](#accent-format)
+- [`accent help [COMMAND]`](#accent-help-command)
+- [`accent jipt PSEUDOLANGUAGENAME`](#accent-jipt-pseudolanguagename)
+- [`accent lint`](#accent-lint)
+- [`accent stats`](#accent-stats)
+- [`accent sync`](#accent-sync)
 
 ## `accent export`
 
@@ -280,6 +308,7 @@ EXAMPLES
 ```
 
 _See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.14.2/src/commands/sync.ts)_
+
 <!-- commandsstop -->
 
 # GitHub Actions
@@ -293,7 +322,7 @@ name: Accent
 
 on:
   schedule:
-    - cron: "0 4 * * *"
+    - cron: '0 4 * * *'
 
 jobs:
   build:
@@ -307,7 +336,7 @@ jobs:
       - run: accent sync --add-translations --merge-type=passive --order-by=key
       - uses: mirego/create-pull-request@v5
         with:
-          add-paths: "*.json"
+          add-paths: '*.json'
           commit-message: Update translations
           committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
@@ -322,7 +351,7 @@ In this example the translations will be synchronized daily at midnight eastern 
 
 # License
 
-`accent-cli` is © 2019 [Mirego](http://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause).  See the [`LICENSE.md`](https://github.com/mirego/accent-cli/blob/master/LICENSE.md) file.
+`accent-cli` is © 2019 [Mirego](http://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause). See the [`LICENSE.md`](https://github.com/mirego/accent-cli/blob/master/LICENSE.md) file.
 
 # About Mirego
 

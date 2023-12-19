@@ -9,6 +9,7 @@ services:
     depends_on:
       - postgresql
     environment:
+      - DUMMY_LOGIN_ENABLED=1
       - PORT=4000
       - DATABASE_URL=postgres://postgres@postgresql:5432/accent_development
   postgresql:

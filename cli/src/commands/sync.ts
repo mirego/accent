@@ -1,9 +1,9 @@
 // Vendor
-import {flags} from '@oclif/command';
-import {existsSync} from 'fs';
+import { flags } from '@oclif/command';
+import { existsSync } from 'fs';
 
 // Command
-import Command, {configFlag} from '../base';
+import Command, { configFlag } from '../base';
 
 // Formatters
 import AddTranslationsFormatter from '../services/formatters/project-add-translations';
@@ -17,10 +17,10 @@ import CommitOperationFormatter from '../services/formatters/commit-operation';
 import DocumentExportFormatter from '../services/formatters/document-export';
 import HookRunner from '../services/hook-runner';
 
-import {fetchFromRevision} from '../services/revision-slug-fetcher';
+import { fetchFromRevision } from '../services/revision-slug-fetcher';
 
 // Types
-import {Hooks} from '../types/document-config';
+import { Hooks } from '../types/document-config';
 
 export default class Sync extends Command {
   static description =
@@ -70,9 +70,13 @@ export default class Sync extends Command {
   };
 
   async run() {
-    const {flags} = this.parse(Sync);
+    const { flags } = this.parse(Sync);
     const t0 = process.hrtime.bigint();
     const documents = this.projectConfig.files();
+
+    if (this.projectConfig.config.version?.identifier && !flags.version) {
+      flags.version = this.config.version
+    }
 
     // From all the documentConfigs, do the sync or peek operations and log the results.
     const syncFormatter = new SyncFormatter();
@@ -117,7 +121,7 @@ export default class Sync extends Command {
       const targets = new DocumentPathsFetcher().fetch(this.project!, document);
 
       for (const target of targets) {
-        const {path, language, documentPath} = target;
+        const { path, language, documentPath } = target;
         const localFile = document.fetchLocalFile(documentPath, path);
         formatter.log(path, documentPath, language);
 
@@ -132,7 +136,7 @@ export default class Sync extends Command {
   }
 
   private async syncDocumentConfig(document: Document) {
-    const {flags} = this.parse(Sync);
+    const { flags } = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
 
     for (const path of document.paths) {
@@ -148,25 +152,25 @@ export default class Sync extends Command {
   }
 
   private async addTranslationsDocumentConfig(document: Document) {
-    const {flags} = this.parse(Sync);
+    const { flags } = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
     const masterLanguage = fetchFromRevision(this.project!.masterRevision);
 
     const targets = new DocumentPathsFetcher()
       .fetch(this.project!, document)
-      .filter(({language}) => language !== masterLanguage);
+      .filter(({ language }) => language !== masterLanguage);
 
-    const existingTargets = targets.filter(({path}) => existsSync(path));
+    const existingTargets = targets.filter(({ path }) => existsSync(path));
 
     if (existingTargets.length === 0) {
-      targets.forEach(({path}) => formatter.logEmptyExistingTarget(path));
+      targets.forEach(({ path }) => formatter.logEmptyExistingTarget(path));
     }
     if (targets.length === 0) {
       formatter.logEmptyTarget(document.config.source);
     }
 
     for (const target of existingTargets) {
-      const {path, language} = target;
+      const { path, language } = target;
       const documentPath = document.parseDocumentName(path, document.config);
       const operation = await document.addTranslations(
         path,
