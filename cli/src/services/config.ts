@@ -1,6 +1,6 @@
 // Vendor
-import { error } from '@oclif/errors';
-import { execSync } from 'child_process';
+import {error} from '@oclif/errors';
+import {execSync} from 'child_process';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as chalk from 'chalk';
@@ -8,7 +8,7 @@ import * as chalk from 'chalk';
 import Document from './document';
 
 // Types
-import { Config } from '../types/config';
+import {Config} from '../types/config';
 
 export default class ConfigFetcher {
   readonly config: Config;
@@ -40,8 +40,14 @@ export default class ConfigFetcher {
 
     const branchName = this.getCurrentBranchName();
 
-    if (this.config.version?.branchVersionPrefix && branchName.startsWith(this.config.version?.branchVersionPrefix)) {
-      this.config.version.identifier = this.exctractVersionFromBranch(branchName, this.config.version?.branchVersionPrefix)
+    if (
+      this.config.version?.branchVersionPrefix &&
+      branchName.startsWith(this.config.version?.branchVersionPrefix)
+    ) {
+      this.config.version.identifier = this.exctractVersionFromBranch(
+        branchName,
+        this.config.version?.branchVersionPrefix
+      );
     }
 
     const sameFolderPathWarning: Set<string> = new Set();
@@ -50,7 +56,7 @@ export default class ConfigFetcher {
       const folderPath = this.sourceFolderPath(documentConfig.source);
 
       const sameFolderPath = this.config.files
-        .filter(({ source }) => source !== documentConfig.source)
+        .filter(({source}) => source !== documentConfig.source)
         .some(
           (otherDocumentConfig) =>
             this.sourceFolderPath(otherDocumentConfig.source) === folderPath
@@ -85,7 +91,10 @@ Only your master language should be listed in your files config.`
       .replace(/[\n\r\s]+$/, '');
   }
 
-  private exctractVersionFromBranch(branchName: string, gitBranchVersionMatch: string): string {
+  private exctractVersionFromBranch(
+    branchName: string,
+    gitBranchVersionMatch: string
+  ): string {
     return branchName.replace(gitBranchVersionMatch, '');
   }
 }

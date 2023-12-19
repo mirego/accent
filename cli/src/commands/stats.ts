@@ -2,14 +2,14 @@
 import * as chalk from 'chalk';
 
 // Command
-import { flags } from '@oclif/command';
-import Command, { configFlag } from '../base';
-import { CLIError } from '@oclif/errors';
+import {flags} from '@oclif/command';
+import Command, {configFlag} from '../base';
+import {CLIError} from '@oclif/errors';
 
 // Services
 import Formatter from '../services/formatters/project-stats';
 import ProjectFetcher from '../services/project-fetcher';
-import { Revision } from '../types/project';
+import {Revision} from '../types/project';
 
 export default class Stats extends Command {
   static description = 'Fetch stats from the API and display them beautifully';
@@ -27,16 +27,16 @@ export default class Stats extends Command {
   };
 
   async run() {
-    const { flags } = this.parse(Stats);
+    const {flags} = this.parse(Stats);
 
     if (this.projectConfig.config.version?.identifier && !flags.version) {
-      flags.version = this.projectConfig.config.version.identifier
+      flags.version = this.projectConfig.config.version.identifier;
     }
 
     if (flags.version) {
       const config = this.projectConfig.config;
       const fetcher = new ProjectFetcher();
-      const response = await fetcher.fetch(config, { versionId: flags.version });
+      const response = await fetcher.fetch(config, {versionId: flags.version});
 
       this.project = response.project;
     }
@@ -61,7 +61,7 @@ export default class Stats extends Command {
           chalk.red(
             `Project${versionFormat} has ${conflictsCount} strings to be reviewed`
           ),
-          { exit: 1 }
+          {exit: 1}
         );
       }
     }
