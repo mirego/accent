@@ -84,9 +84,13 @@ Only your master language should be listed in your files config.`
   }
 
   private getCurrentBranchName() {
-    return execSync('git rev-parse --abbrev-ref HEAD')
-      .toString('utf8')
-      .replace(/[\n\r\s]+$/, '');
+      try {
+        return execSync('git rev-parse --abbrev-ref HEAD')
+          .toString('utf8')
+          .replace(/[\n\r\s]+$/, '');
+      } catch {
+        return ""
+      }
   }
 
   private exctractVersionFromBranch(
