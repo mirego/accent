@@ -38,14 +38,12 @@ export default class ConfigFetcher {
       error('You must have at least 1 document set in your config');
     }
 
-    const branchName = this.getCurrentBranchName();
-
     if (
       this.config.version?.branchVersionPrefix &&
-      branchName.startsWith(this.config.version?.branchVersionPrefix)
+      this.getCurrentBranchName().startsWith(this.config.version?.branchVersionPrefix)
     ) {
-      this.config.version.identifier = this.exctractVersionFromBranch(
-        branchName,
+      this.config.version.tag = this.exctractVersionFromBranch(
+        this.getCurrentBranchName(),
         this.config.version?.branchVersionPrefix
       );
     }
