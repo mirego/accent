@@ -40,7 +40,9 @@ export default class ConfigFetcher {
 
     if (
       this.config.version?.branchVersionPrefix &&
-      this.getCurrentBranchName().startsWith(this.config.version?.branchVersionPrefix)
+      this.getCurrentBranchName().startsWith(
+        this.config.version?.branchVersionPrefix
+      )
     ) {
       this.config.version.tag = this.exctractVersionFromBranch(
         this.getCurrentBranchName(),
@@ -84,13 +86,13 @@ Only your master language should be listed in your files config.`
   }
 
   private getCurrentBranchName() {
-      try {
-        return execSync('git rev-parse --abbrev-ref HEAD')
-          .toString('utf8')
-          .replace(/[\n\r\s]+$/, '');
-      } catch {
-        return ""
-      }
+    try {
+      return execSync('git rev-parse --abbrev-ref HEAD')
+        .toString('utf8')
+        .replace(/[\n\r\s]+$/, '');
+    } catch {
+      return '';
+    }
   }
 
   private extractVersionFromBranch(
