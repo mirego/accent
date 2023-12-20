@@ -23,6 +23,9 @@ export default class Stats extends Command {
     'check-reviewed': flags.boolean({
       description: 'Exit 1 when reviewed percentage is not 100%',
     }),
+    'check-translated': flags.boolean({
+      description: 'Exit 1 when translated percentage is not 100%',
+    }),
     config: configFlag,
   };
 
@@ -56,6 +59,27 @@ export default class Stats extends Command {
         throw new CLIError(
           chalk.red(
             `Project${versionFormat} has ${conflictsCount} strings to be reviewed`
+          ),
+          {exit: 1}
+        );
+      }
+    }
+
+    if (flags['check-translated']) {
+      const translatedCount = this.project!.revisions.reduce(
+        (memo, revision: Revision) => memo + revision.translatedCount,
+        0
+      );
+      const translationsCount = this.project!.revisions.reduce(
+        (memo, revision: Revision) => memo + revision.translationsCount,
+        0
+      );
+
+      if (translationsCount - translatedCount !== 0) {
+        const versionFormat = flags.version ? ` ${flags.version}` : '';
+        throw new CLIError(
+          chalk.red(
+            `Project${versionFormat} has ${translatedCount} strings to be translated`
           ),
           {exit: 1}
         );

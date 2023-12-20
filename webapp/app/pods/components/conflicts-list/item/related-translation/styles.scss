@@ -1,6 +1,6 @@
 .item {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   flex-direction: row;
   padding: 5px 0 3px;
   color: var(--color-grey);
@@ -31,7 +31,7 @@
 .item-text {
   width: 100%;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .item-text-content {

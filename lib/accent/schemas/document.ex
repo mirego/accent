@@ -17,6 +17,7 @@ defmodule Accent.Document do
     has_many(:translations, Accent.Translation)
 
     field(:translations_count, :any, virtual: true, default: :not_loaded)
+    field(:translated_count, :any, virtual: true, default: :not_loaded)
     field(:reviewed_count, :any, virtual: true, default: :not_loaded)
     field(:conflicts_count, :any, virtual: true, default: :not_loaded)
 

@@ -17,6 +17,7 @@ defmodule Accent.Translation do
     field(:value_type, :string, default: "string")
     field(:plural, :boolean, default: false)
     field(:locked, :boolean, default: false)
+    field(:translated, :boolean, default: false)
     field(:placeholders, {:array, :string}, default: [])
 
     belongs_to(:document, Accent.Document)
@@ -42,6 +43,7 @@ defmodule Accent.Translation do
     conflicted
     removed
     comments_count
+    translated
     file_index
     file_comment
     value_type

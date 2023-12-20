@@ -50,7 +50,7 @@
           {{/unless}}
 
           {{#if (get @permissions 'update_translation')}}
-            <AsyncButton @loading={{this.isUpdatingText}} @disabled={{this.hasTextNotChanged}} class='button button--filled button--white' @onClick={{fn this.updateText}}>
+            <AsyncButton @loading={{this.isUpdatingText}} class='button button--filled button--white' @onClick={{fn this.updateText}}>
               {{t 'components.translation_edit.update_text'}}
             </AsyncButton>
           {{/if}}

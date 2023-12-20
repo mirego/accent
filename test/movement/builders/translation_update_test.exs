@@ -30,11 +30,12 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
            ]
   end
 
-  test "builder same text" do
+  test "builder same text translated" do
     translation = %Translation{
       key: "a",
       proposed_text: "A",
-      corrected_text: "A"
+      corrected_text: "A",
+      translated: true
     }
 
     context =
@@ -44,6 +45,23 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       |> TranslationUpdateBuilder.build()
 
     assert context.operations == []
+  end
+
+  test "builder same text not translated" do
+    translation = %Translation{
+      key: "a",
+      proposed_text: "A",
+      corrected_text: "A",
+      translated: false
+    }
+
+    context =
+      %Context{}
+      |> Context.assign(:text, "A")
+      |> Context.assign(:translation, translation)
+      |> TranslationUpdateBuilder.build()
+
+    assert length(context.operations) === 1
   end
 
   test "builder value type null to nothing" do

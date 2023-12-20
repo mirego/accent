@@ -32,13 +32,13 @@ export default class ProjectFetcher {
   }
 
   private async graphql(config: Config, params: object) {
-    const query = `query ProjectDetails($projectId: ID! $versionId: ID) {
+    const query = `query ProjectDetails($project_id: ID! $version_id: ID) {
       viewer {
         user {
           fullname
         }
 
-        project(id: $projectId) {
+        project(id: $project_id) {
           id
           name
           logo
@@ -88,9 +88,10 @@ export default class ProjectFetcher {
             }
           }
 
-          revisions(versionId: $versionId) {
+          revisions(versionId: $version_id) {
             id
             isMaster
+            translatedCount
             translationsCount
             conflictsCount
             reviewedCount
@@ -106,7 +107,8 @@ export default class ProjectFetcher {
       }
     }`;
 
-    const configParams = config.project ? {projectId: config.project} : {};
+    // eslint-disable-next-line camelcase
+    const configParams = config.project ? {project_id: config.project} : {};
     const variables = {...configParams, ...params};
 
     return await fetch(`${config.apiUrl}/graphql`, {

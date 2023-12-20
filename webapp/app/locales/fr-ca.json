@@ -946,7 +946,8 @@
       "DEVELOPER": "Développeur",
       "OWNER": "Propriétaire",
       "BOT": "Jeton d’API",
-      "REVIEWER": "Traducteur"
+      "REVIEWER": "Correcteur",
+      "TRANSLATOR": "Traducteur"
     },
     "machine_translations_providers": {
       "google_translate": "Google Translate",

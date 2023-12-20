@@ -10,6 +10,7 @@ defmodule Accent.GraphQL.Types.Revision do
     field(:id, :id)
     field(:is_master, non_null(:boolean), resolve: field_alias(:master))
     field(:translations_count, non_null(:integer))
+    field(:translated_count, non_null(:integer))
     field(:conflicts_count, non_null(:integer))
     field(:reviewed_count, non_null(:integer))
     field(:inserted_at, non_null(:datetime))

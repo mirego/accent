@@ -127,11 +127,14 @@ defmodule AccentTest.Movement.Migrator.Up do
         proposed_text: "proposed_text",
         conflicted_text: "foo",
         conflicted: false,
-        removed: false
+        removed: false,
+        value_type: "string"
       })
 
     Migrator.up(%Operation{
       action: "uncorrect_conflict",
+      value_type: "string",
+      text: "new proposed text",
       translation: translation,
       previous_translation: PreviousTranslation.from_translation(translation)
     })
@@ -154,12 +157,16 @@ defmodule AccentTest.Movement.Migrator.Up do
         corrected_text: "proposed_text",
         proposed_text: "proposed_text",
         conflicted_text: "previous conflicted",
+        value_type: "string",
         conflicted: false,
+        translated: true,
         removed: false
       })
 
     Migrator.up(%Operation{
       action: "uncorrect_conflict",
+      value_type: "string",
+      text: "proposed_text",
       translation: translation,
       previous_translation: PreviousTranslation.from_translation(translation)
     })

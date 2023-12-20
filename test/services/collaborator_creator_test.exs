@@ -63,7 +63,8 @@ defmodule AccentTest.CollaboratorCreator do
       })
 
     assert collaborator.errors === [
-             role: {"is invalid", [validation: :inclusion, enum: ["owner", "admin", "developer", "reviewer"]]}
+             role:
+               {"is invalid", [validation: :inclusion, enum: ["owner", "admin", "developer", "reviewer", "translator"]]}
            ]
   end
 

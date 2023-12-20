@@ -7,6 +7,7 @@ defmodule Accent.GraphQL.Types.Role do
     value(:owner, as: "owner")
     value(:admin, as: "admin")
     value(:developer, as: "developer")
+    value(:translator, as: "translator")
     value(:reviewer, as: "reviewer")
   end
 

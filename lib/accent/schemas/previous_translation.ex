@@ -19,6 +19,7 @@ defmodule Accent.PreviousTranslation do
     field(:conflicted_text, :string, default: "")
     field(:conflicted, :boolean, default: false)
     field(:removed, :boolean, default: false)
+    field(:translated, :boolean, default: false)
     field(:value_type, :string)
     field(:placeholders, {:array, :string}, default: [])
   end
@@ -28,8 +29,8 @@ defmodule Accent.PreviousTranslation do
 
     iex> Accent.PreviousTranslation.from_translation(nil)
     %Accent.PreviousTranslation{}
-    iex> Accent.PreviousTranslation.from_translation(%Accent.Translation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string", placeholders: ["foo"]})
-    %Accent.PreviousTranslation{proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string", placeholders: ["foo"]}
+    iex> Accent.PreviousTranslation.from_translation(%Accent.Translation{translated: true, proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string", placeholders: ["foo"]})
+    %Accent.PreviousTranslation{translated: false, proposed_text: "a", corrected_text: "b", conflicted_text: "c", conflicted: true, removed: false, value_type: "string", placeholders: ["foo"]}
   """
   def from_translation(nil), do: from_translation(%{})
 

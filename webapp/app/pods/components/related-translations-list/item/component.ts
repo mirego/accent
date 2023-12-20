@@ -20,12 +20,6 @@ export default class RelatedTranslationsListItem extends Component<Args> {
   @tracked
   editText = this.args.translation.correctedText;
 
-  get showSaveButton() {
-    if (this.args.translation.isRemoved) return false;
-
-    return this.args.translation.correctedText !== this.editText;
-  }
-
   get revisionName() {
     return (
       this.args.translation.revision.name ||

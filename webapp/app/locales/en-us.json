@@ -943,7 +943,8 @@
       "DEVELOPER": "Developer",
       "OWNER": "Owner",
       "BOT": "API Token",
-      "REVIEWER": "Reviewer"
+      "REVIEWER": "Reviewer",
+      "TRANSLATOR": "Translator"
     },
     "machine_translations_providers": {
       "google_translate": "Google Translate",
