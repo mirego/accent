@@ -62,6 +62,10 @@ export default class ProjectStatsFormatter extends Base {
       (memo, revision: Revision) => memo + revision.translationsCount,
       0
     );
+    const translatedCount = this.project.revisions.reduce(
+      (memo, revision: Revision) => memo + revision.translatedCount,
+      0
+    );
     const conflictsCount = this.project.revisions.reduce(
       (memo, revision: Revision) => memo + revision.conflictsCount,
       0
@@ -79,10 +83,8 @@ export default class ProjectStatsFormatter extends Base {
     );
 
     console.log(
-      this.project.logo
-        ? this.project.logo
-        : chalk.bgGreenBright.black.bold(' ^ '),
-      chalk.white.bold(this.project.name),
+      this.project.logo ? this.project.logo : chalk.bgGreen.black.bold(' ^ '),
+      chalk.whiteBright.bold(this.project.name),
       chalk.dim(' • '),
       percentageReviewedFormat
     );
@@ -167,6 +169,10 @@ export default class ProjectStatsFormatter extends Base {
     console.log(chalk.magenta(`Strings (${translationsCount})`));
     console.log(chalk.green('✓ Reviewed:'), chalk.green(`${reviewedCount}`));
     console.log(chalk.red('× In review:'), chalk.red(`${conflictsCount}`));
+    console.log(
+      chalk.white('✎ Translated:'),
+      chalk.white(`${translatedCount}`)
+    );
     console.log('');
 
     const owners = this.project.collaborators.filter(

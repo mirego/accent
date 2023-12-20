@@ -10,6 +10,7 @@ export interface Revision {
   slug: string | null;
   language: Language;
   isMaster: boolean;
+  translatedCount: number;
   translationsCount: number;
   conflictsCount: number;
   reviewedCount: number;

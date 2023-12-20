@@ -25,7 +25,7 @@ defmodule Accent.GraphQL.Types.Viewer do
     end
 
     field :project, :project do
-      arg(:id, non_null(:id))
+      arg(:id, :id, default_value: nil)
 
       resolve(project_authorize(:show_project, &Accent.GraphQL.Resolvers.Project.show_viewer/3))
     end

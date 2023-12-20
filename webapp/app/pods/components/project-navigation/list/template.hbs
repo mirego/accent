@@ -24,7 +24,7 @@
       </li>
     {{/if}}
 
-    {{#if (get @permissions 'index_translations')}}
+    {{#if (get @permissions 'correct_translation')}}
       <li local-class='list-item'>
         <LinkTo @route='logged-in.project.revision.conflicts' @models={{array @project.id @selectedRevision}} local-class='list-item-link'>
           {{inline-svg '/assets/check.svg' local-class='list-item-link-icon'}}

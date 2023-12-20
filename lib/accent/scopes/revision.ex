@@ -63,7 +63,7 @@ defmodule Accent.Scopes.Revision do
   end
 
   @doc """
-  Fill `translations_count`, `conflicts_count` and `reviewed_count` for revisions.
+  Fill `translations_count`, `conflicts_count`, `translated_count` and `reviewed_count` for revisions.
   """
   @spec with_stats(Ecto.Queryable.t(), Keyword.t() | nil) :: Ecto.Queryable.t()
   def with_stats(query, options \\ []) do

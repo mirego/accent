@@ -67,7 +67,7 @@
             />
           </div>
         {{/unless}}
-        <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} @disabled={{not this.showSaveButton}} class='button button--filled button--iconOnly'>
+        <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} @disabled={{@translation.isRemoved}} class='button button--filled button--iconOnly'>
           {{t 'components.related_translations_list.save_button'}}
         </AsyncButton>
       </div>

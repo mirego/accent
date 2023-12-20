@@ -16,13 +16,14 @@ defmodule Accent.GraphQL.Mutations.Translation do
 
     field :uncorrect_translation, :mutated_translation do
       arg(:id, non_null(:id))
+      arg(:text, non_null(:string))
 
       resolve(translation_authorize(:uncorrect_translation, &TranslationResolver.uncorrect/3))
     end
 
     field :update_translation, :mutated_translation do
       arg(:id, non_null(:id))
-      arg(:text, :string)
+      arg(:text, non_null(:string))
 
       resolve(translation_authorize(:update_translation, &TranslationResolver.update/3))
     end

@@ -12,6 +12,7 @@ defmodule Accent.GraphQL.Types.Document do
     field(:path, non_null(:string))
     field(:format, non_null(:document_format))
     field(:translations_count, non_null(:integer))
+    field(:translated_count, non_null(:integer))
     field(:conflicts_count, non_null(:integer))
     field(:reviewed_count, non_null(:integer))
   end

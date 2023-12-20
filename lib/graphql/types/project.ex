@@ -37,6 +37,7 @@ defmodule Accent.GraphQL.Types.Project do
     field(:logo, :string)
 
     field(:translations_count, non_null(:integer))
+    field(:translated_count, non_null(:integer))
     field(:conflicts_count, non_null(:integer))
     field(:reviewed_count, non_null(:integer))
 

@@ -68,11 +68,12 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
         proposed_text: "bar"
       })
 
-    {:ok, result} = Resolver.uncorrect(translation, %{}, context)
+    {:ok, result} = Resolver.uncorrect(translation, %{text: "baz"}, context)
 
     assert get_in(result, [:errors]) == nil
     assert get_in(result, [:translation, Access.key(:id)]) == translation.id
-    assert get_in(Repo.all(Translation), [Access.all(), Access.key(:corrected_text)]) == ["bar"]
+    assert get_in(Repo.all(Translation), [Access.all(), Access.key(:corrected_text)]) == ["baz"]
+    assert get_in(Repo.all(Translation), [Access.all(), Access.key(:conflicted_text)]) == ["bar"]
     assert get_in(Repo.all(Translation), [Access.all(), Access.key(:conflicted)]) == [true]
   end
 

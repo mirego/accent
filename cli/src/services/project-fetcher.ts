@@ -88,9 +88,10 @@ export default class ProjectFetcher {
             }
           }
 
-          revisions(versionId: $versionId) {
+          revisions(versionId: $version_id) {
             id
             isMaster
+            translatedCount
             translationsCount
             conflictsCount
             reviewedCount

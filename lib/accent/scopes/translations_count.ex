@@ -28,11 +28,13 @@ defmodule Accent.Scopes.TranslationsCount do
       query
       |> count_translations(translations, exclude_empty_translations)
       |> count_reviewed(translations)
+      |> count_translated(translations)
 
     from(
-      [translations: t, reviewed: r] in query,
+      [translations: t, reviewed: r, translated: td] in query,
       select_merge: %{
         translations_count: coalesce(t.count, 0),
+        translated_count: coalesce(td.count, 0),
         reviewed_count: coalesce(r.count, 0),
         conflicts_count: coalesce(t.count, 0) - coalesce(r.count, 0)
       }
@@ -58,5 +60,15 @@ defmodule Accent.Scopes.TranslationsCount do
   defp count_reviewed(query, translations) do
     reviewed = from(translations, where: [conflicted: false])
     from(q in query, left_join: translations in subquery(reviewed), as: :reviewed, on: translations.field_id == q.id)
+  end
+
+  defp count_translated(query, translations) do
+    translated = from(translations, where: [translated: true])
+
+    from(q in query,
+      left_join: translations in subquery(translated),
+      as: :translated,
+      on: translations.field_id == q.id
+    )
   end
 end

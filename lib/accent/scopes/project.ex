@@ -37,7 +37,7 @@ defmodule Accent.Scopes.Project do
   end
 
   @doc """
-  Fill `translations_count`, `conflicts_count` and `reviewed_count` for projects.
+  Fill `translations_count`, `conflicts_count`, `translated_count` and `reviewed_count` for projects.
   """
   @spec with_stats(Ecto.Queryable.t()) :: Ecto.Queryable.t()
   def with_stats(query) do
@@ -52,6 +52,7 @@ defmodule Accent.Scopes.Project do
       )
 
     reviewed = from(translations, where: [conflicted: false])
+    translated = from(translations, where: [translated: true])
 
     from(
       projects in query,
@@ -59,8 +60,11 @@ defmodule Accent.Scopes.Project do
       on: translations.field_id == projects.id,
       left_join: reviewed in subquery(reviewed),
       on: reviewed.field_id == projects.id,
+      left_join: translated in subquery(translated),
+      on: translated.field_id == projects.id,
       select_merge: %{
         translations_count: coalesce(translations.count, 0),
+        translated_count: coalesce(translated.count, 0),
         reviewed_count: coalesce(reviewed.count, 0),
         conflicts_count: coalesce(translations.count, 0) - coalesce(reviewed.count, 0)
       }

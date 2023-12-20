@@ -6,7 +6,10 @@ defmodule Movement.Builders.TranslationUpdate do
 
   @action "update"
 
-  def build(%Movement.Context{assigns: %{text: text, translation: %{corrected_text: corrected_text}}} = context)
+  def build(
+        %Movement.Context{assigns: %{text: text, translation: %{corrected_text: corrected_text, translated: true}}} =
+          context
+      )
       when text === corrected_text,
       do: context
 

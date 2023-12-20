@@ -6,8 +6,9 @@ defmodule Movement.Builders.TranslationUncorrectConflict do
 
   @action "uncorrect_conflict"
 
-  def build(%Movement.Context{assigns: %{translation: translation}, operations: operations} = context) do
-    operation = OperationMapper.map(@action, translation, %{text: nil})
+  def build(%Movement.Context{assigns: %{translation: translation, text: text}, operations: operations} = context) do
+    value_type = Movement.Mappers.ValueType.from_translation_new_value(translation, text)
+    operation = OperationMapper.map(@action, translation, %{text: text, value_type: value_type})
 
     %{context | operations: Enum.concat(operations, [operation])}
   end
