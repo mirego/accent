@@ -203,7 +203,7 @@ Accent provides a default value for every required environment variable. This me
 
 ```shell
 $ npm --prefix webapp run build
-$ mix run ./priv/repo/seeds.exs
+$ mix ecto.setup
 $ mix test
 ```
 
