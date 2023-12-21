@@ -57,10 +57,10 @@ This will start the webserver on port 4000, migrate the database to have an up a
 
 ## 🚧 Requirements
 
-- `erlang ~> 24.0`
-- `elixir ~> 1.13`
+- `erlang ~> 26.1`
+- `elixir ~> 1.15`
 - `postgres >= 9.4`
-- `node.js >= 16.13`
+- `node.js >= 16.19`
 - `libyaml >= 0.1.7`
 
 ## 🎛 Executing mix commands
@@ -203,7 +203,7 @@ Accent provides a default value for every required environment variable. This me
 
 ```shell
 $ npm --prefix webapp run build
-$ mix run ./priv/repo/seeds.exs
+$ mix ecto.setup
 $ mix test
 ```
 
