@@ -32,7 +32,7 @@ export default class ProjectFetcher {
   }
 
   private async graphql(config: Config, params: object) {
-    const query = `query ProjectDetails($project_id: ID! $version_id: ID) {
+    const query = `query ProjectDetails($project_id: ID! $versionId: ID) {
       viewer {
         user {
           fullname

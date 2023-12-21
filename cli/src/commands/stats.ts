@@ -32,6 +32,10 @@ export default class Stats extends Command {
   async run() {
     const {flags} = this.parse(Stats);
 
+    if (this.projectConfig.config.version?.tag && !flags.version) {
+      flags.version = this.projectConfig.config.version.tag;
+    }
+
     if (flags.version) {
       const config = this.projectConfig.config;
       const fetcher = new ProjectFetcher();

@@ -38,6 +38,9 @@ accent-cli reads from a `accent.json` file. The file should contain valid JSON r
 {
   "apiUrl": "http://your.accent.instance",
   "apiKey": "2nziVSaa8yUJxLkwoZA",
+  "version": {
+    "branchVersionPrefix": "release/"
+  }
   "files": [
     {
       "format": "json",
@@ -64,6 +67,10 @@ Available ENV variables. (Each variable will override `accent.json` variables if
 - `ACCENT_API_KEY`: The base URL of your Accent Instance
 - `ACCENT_API_URL`: Api Key to your Accent Instance
 - `ACCENT_PROJECT`: Your Project uuid
+
+Version object configuration
+
+- `branchVersionPrefix`: The Git branch prefix use to extract the file version
 
 Each operation section `sync` and `addTranslations` can contain the following object:
 
@@ -129,6 +136,18 @@ Here is a list of available hooks. Those are self-explanatory
 - `afterSync`
 - `beforeExport`
 - `afterExport`
+
+## Version
+
+Version can be extracted from the current Git branch name.
+
+```
+  "version": {
+    "branchVersionPrefix": "release/"
+  }
+```
+
+Naming a branch `release/v1.0.0` will cause the `sync` and `stats` CLI commands to be invoked as if `--version=1.0.0` had been specified.
 
 # Commands
 <!-- commands -->
@@ -323,7 +342,6 @@ In this example the translations will be synchronized daily at midnight eastern 
 # License
 
 `accent-cli` is © 2019 [Mirego](http://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause).  See the [`LICENSE.md`](https://github.com/mirego/accent-cli/blob/master/LICENSE.md) file.
-
 # About Mirego
 
 [Mirego](http://mirego.com) is a team of passionate people who believe that work is a place where you can innovate and have fun. We’re a team of [talented people](http://life.mirego.com) who imagine and build beautiful Web and mobile applications. We come together to share ideas and [change the world](http://mirego.org).

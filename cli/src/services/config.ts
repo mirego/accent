@@ -1,9 +1,9 @@
 // Vendor
 import {error} from '@oclif/errors';
+import {execSync} from 'child_process';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as chalk from 'chalk';
-
 // Services
 import Document from './document';
 
@@ -19,6 +19,7 @@ export default class ConfigFetcher {
     this.config.apiKey = process.env.ACCENT_API_KEY || this.config.apiKey;
     this.config.apiUrl = process.env.ACCENT_API_URL || this.config.apiUrl;
     this.config.project = process.env.ACCENT_PROJECT || this.config.project;
+
     this.warnings = [];
 
     if (!this.config.apiKey) {
@@ -35,6 +36,18 @@ export default class ConfigFetcher {
 
     if (!this.config.files) {
       error('You must have at least 1 document set in your config');
+    }
+
+    if (
+      this.config.version?.branchVersionPrefix &&
+      this.getCurrentBranchName().startsWith(
+        this.config.version?.branchVersionPrefix
+      )
+    ) {
+      this.config.version.tag = this.extractVersionFromBranch(
+        this.getCurrentBranchName(),
+        this.config.version?.branchVersionPrefix
+      );
     }
 
     const sameFolderPathWarning: Set<string> = new Set();
@@ -70,5 +83,22 @@ Only your master language should be listed in your files config.`
 
   private sourceFolderPath(source: string) {
     return source.replace(path.basename(source), '');
+  }
+
+  private getCurrentBranchName() {
+    try {
+      return execSync('git rev-parse --abbrev-ref HEAD')
+        .toString('utf8')
+        .replace(/[\n\r\s]+$/, '');
+    } catch {
+      return '';
+    }
+  }
+
+  private extractVersionFromBranch(
+    branchName: string,
+    gitBranchVersionMatch: string
+  ): string {
+    return branchName.replace(gitBranchVersionMatch, '');
   }
 }
