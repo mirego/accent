@@ -102,8 +102,9 @@ defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
     validation_messages = get_in(data, [:data, "createProjectIntegration", "messages"])
 
     assert length(validation_messages) === 3
-    assert Enum.member?(validation_messages, %{"code" => "required", "field" => "data.defaultRef"})
-    assert Enum.member?(validation_messages, %{"code" => "required", "field" => "data.repository"})
-    assert Enum.member?(validation_messages, %{"code" => "required", "field" => "data.token"})
+
+    assert %{"code" => "required", "field" => "data.defaultRef"} in validation_messages
+    assert %{"code" => "required", "field" => "data.repository"} in validation_messages
+    assert %{"code" => "required", "field" => "data.token"} in validation_messages
   end
 end
