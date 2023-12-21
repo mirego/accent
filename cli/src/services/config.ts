@@ -44,7 +44,7 @@ export default class ConfigFetcher {
         this.config.version?.branchVersionPrefix
       )
     ) {
-      this.config.version.tag = this.exctractVersionFromBranch(
+      this.config.version.tag = this.extractVersionFromBranch(
         this.getCurrentBranchName(),
         this.config.version?.branchVersionPrefix
       );
