@@ -57,7 +57,7 @@ defmodule Movement.Migration.Translation do
       file_index: operation.file_index,
       file_comment: operation.file_comment,
       removed: operation.previous_translation && operation.previous_translation.removed,
-      translated: (operation.previous_translation && operation.previous_translation.translated) || false,
+      translated: is_nil(operation.translation_id),
       revision_id: operation.revision_id,
       document_id: operation.document_id,
       version_id: operation.version_id,

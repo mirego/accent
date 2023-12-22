@@ -52,6 +52,13 @@ defmodule Accent.RoleAbilities do
     hook_update
   )a ++ @read_actions
 
+  @reviewer_actions ~w(
+    correct_all_revision
+    uncorrect_all_revision
+    correct_translation
+    uncorrect_translation
+  )a ++ @any_actions
+
   @developer_actions ~w(
     peek_sync
     peek_merge
@@ -72,7 +79,7 @@ defmodule Accent.RoleAbilities do
     delete_project_machine_translations_config
     save_project_prompt_config
     delete_project_prompt_config
-  )a ++ @any_actions
+  )a ++ @reviewer_actions
 
   @admin_actions ~w(
     create_slave
@@ -87,13 +94,6 @@ defmodule Accent.RoleAbilities do
     lock_project_file_operations
     delete_project
   )a ++ @developer_actions
-
-  @reviewer_actions ~w(
-    correct_all_revision
-    uncorrect_all_revision
-    correct_translation
-    uncorrect_translation
-  )a ++ @any_actions
 
   @actions_with_target ~w(machine_translations_translate use_prompt_improve_text)a
 
