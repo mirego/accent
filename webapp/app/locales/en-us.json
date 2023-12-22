@@ -1091,10 +1091,12 @@
         },
         "api_token": {
           "loading_content": "Fetching project’s API settings…",
-          "api_token_add_success": "API token has been created with success",
-          "api_token_add_error": "API token could not be created",
-          "api_token_revoke_success": "API token has been revoked with success",
-          "api_token_revoke_error": "API token could not be revoked"
+          "flash_messages": {
+            "api_token_add_success": "API token has been created with success",
+            "api_token_add_error": "API token could not be created",
+            "api_token_revoke_success": "API token has been revoked with success",
+            "api_token_revoke_error": "API token could not be revoked"
+          }
         },
         "jipt": {
           "loading_content": "Fetching project’s Just In Place Translations settings…"

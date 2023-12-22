@@ -10,7 +10,7 @@ import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 import apiTokenCreateQuery from 'accent-webapp/queries/create-api-token';
 import apiTokenRevokeQuery from 'accent-webapp/queries/revoke-api-token';
 
-const FLASH_MESSAGE_PREFIX = 'pods.project.edit.flash_messages.';
+const FLASH_MESSAGE_PREFIX = 'pods.project.edit.api_token.flash_messages.';
 const FLASH_MESSAGE_API_TOKEN_ADD_SUCCESS = `${FLASH_MESSAGE_PREFIX}api_token_add_success`;
 const FLASH_MESSAGE_API_TOKEN_ADD_ERROR = `${FLASH_MESSAGE_PREFIX}api_token_add_error`;
 const FLASH_MESSAGE_API_TOKEN_REVOKE_SUCCESS = `${FLASH_MESSAGE_PREFIX}api_token_revoke_success`;

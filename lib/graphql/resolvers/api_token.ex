@@ -5,21 +5,22 @@ defmodule Accent.GraphQL.Resolvers.APIToken do
   alias Accent.Plugs.GraphQLContext
   alias Accent.Project
 
-  @spec create(Project.t(), any(), GraphQLContext.t()) :: {:ok, AccessToken.t() | nil}
+  @spec create(Project.t(), any(), GraphQLContext.t()) ::
+          {:ok, %{api_token: AccessToken.t() | nil, errors: list(String.t()) | nil}}
   def create(project, args, info) do
     case APITokenManager.create(project, info.context[:conn].assigns[:current_user], args) do
       {:ok, %{access_token: api_token}} ->
         {:ok, %{api_token: api_token, errors: nil}}
 
       {:error, _reason, _, _} ->
-        {:ok, %{access_token: nil, errors: ["unprocessable_entity"]}}
+        {:ok, %{api_token: nil, errors: ["unprocessable_entity"]}}
     end
   end
 
-  @spec revoke(Project.t(), any(), GraphQLContext.t()) :: {:ok, AccessToken.t() | nil}
+  @spec revoke(Project.t(), any(), GraphQLContext.t()) :: {:ok, AccessToken.t()}
   def revoke(access_token, _args, _) do
     APITokenManager.revoke(access_token)
-    {:ok, true}
+    {:ok, access_token}
   end
 
   @spec list_project(Project.t(), any(), GraphQLContext.t()) :: {:ok, AccessToken.t() | nil}

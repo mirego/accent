@@ -1094,10 +1094,12 @@
         },
         "api_token": {
           "loading_content": "Récupération des paramètres d’API du projet…",
-          "api_token_add_success": "Le jeton d’API a été créé avec succès",
-          "api_token_add_error": "Le jeton d’API n’a pas pu être créé",
-          "api_token_revoke_success": "Le jeton d’API a été révoqué avec succès",
-          "api_token_revoke_error": "Le jeton d’API n’a pas pu être révoqué"
+          "flash_messages": {
+            "api_token_add_success": "Le jeton d’API a été créé avec succès",
+            "api_token_add_error": "Le jeton d’API n’a pas pu être créé",
+            "api_token_revoke_success": "Le jeton d’API a été révoqué avec succès",
+            "api_token_revoke_error": "Le jeton d’API n’a pas pu être révoqué"
+          }
         },
         "jipt": {
           "loading_content": "Récupération des paramètres de traduction JIPT du projet…"
