@@ -105,7 +105,7 @@ defmodule Accent.RoleAbilities do
   def actions_for(@admin_role, target), do: add_actions_with_target(@admin_actions, @admin_role, target)
   def actions_for(@bot_role, target), do: add_actions_with_target(@bot_actions, @bot_role, target)
   def actions_for(@developer_role, target), do: add_actions_with_target(@developer_actions, @developer_role, target)
-  def actions_for(@reviewer_role, target), do: add_actions_with_target(@any_actions, @reviewer_role, target)
+  def actions_for(@reviewer_role, target), do: add_actions_with_target(@reviewer_actions, @reviewer_role, target)
   def actions_for(@translator_role, target), do: add_actions_with_target(@any_actions, @translator_role, target)
 
   defp add_actions_with_target(actions, role, target) do
