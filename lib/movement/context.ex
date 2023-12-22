@@ -5,6 +5,6 @@ defmodule Movement.Context do
   @type t :: %__MODULE__{}
 
   def assign(context, key, value) do
-    Map.put(context, :assigns, Map.merge(context.assigns, %{key => value}))
+    Map.put(context, :assigns, Map.put(context.assigns, key, value))
   end
 end

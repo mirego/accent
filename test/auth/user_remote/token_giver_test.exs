@@ -12,7 +12,7 @@ defmodule AccentTest.UserRemote.TokenGiver do
 
   test "revoke existing token" do
     user = Repo.insert!(@user)
-    token = Repo.insert!(Map.merge(@token, %{user_id: user.id}))
+    token = Repo.insert!(Map.put(@token, :user_id, user.id))
 
     existing_revoked_token =
       Repo.insert!(%AccessToken{token: "revoked", revoked_at: NaiveDateTime.utc_now(:second), user_id: user.id})

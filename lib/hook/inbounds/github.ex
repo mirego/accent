@@ -62,13 +62,13 @@ defmodule Accent.Hook.Inbounds.GitHub do
 
   def fetch_content(path, token) do
     with {:ok, %{body: %{"content" => content}}} <- file_server().get_path(path, headers(token)),
-         decoded_contents <-
+         decoded_contents =
            content
            |> String.split("\n")
            |> Enum.reject(&(&1 === ""))
            |> Enum.map(&Base.decode64/1),
-         true <- Enum.all?(decoded_contents, &match?({:ok, _}, &1)),
-         decoded_content <- Enum.map_join(decoded_contents, "", &elem(&1, 1)) do
+         true <- Enum.all?(decoded_contents, &match?({:ok, _}, &1)) do
+      decoded_content = Enum.map_join(decoded_contents, "", &elem(&1, 1))
       {:ok, decoded_content}
     else
       _ -> {:ok, nil}
@@ -101,8 +101,9 @@ defmodule Accent.Hook.Inbounds.GitHub do
   end
 
   defp fetch_config(repo, token, ref) do
-    with path <- Path.join([repo, "contents", "accent.json"]) <> "?ref=#{ref}",
-         {:ok, config} when is_binary(config) <- fetch_content(path, token),
+    path = Path.join([repo, "contents", "accent.json"]) <> "?ref=#{ref}"
+
+    with {:ok, config} when is_binary(config) <- fetch_content(path, token),
          {:ok, %{"files" => files}} <- Jason.decode(config) do
       files
     else
@@ -111,10 +112,10 @@ defmodule Accent.Hook.Inbounds.GitHub do
   end
 
   defp fetch_trees(repo, token, ref) do
-    with path <- Path.join([repo, "git", "trees", ref]) <> "?recursive=1",
-         {:ok, %{body: %{"tree" => tree}}} <- file_server().get_path(path, headers(token)) do
-      Enum.filter(tree, &(&1["type"] === "blob"))
-    else
+    path = Path.join([repo, "git", "trees", ref]) <> "?recursive=1"
+
+    case file_server().get_path(path, headers(token)) do
+      {:ok, %{body: %{"tree" => tree}}} -> Enum.filter(tree, &(&1["type"] === "blob"))
       _ -> []
     end
   end
