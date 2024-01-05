@@ -81,6 +81,7 @@
   right: 14px;
 
   &[data-dir='rtl'] {
+    flex-direction: row-reverse;
     right: auto;
     left: 14px;
   }

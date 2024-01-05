@@ -25,7 +25,7 @@
           </div>
         </div>
       {{else}}
-        <div local-class='item-details'>
+        <div local-class='item-details' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
           <div local-class='item-details__column'>
             <LinkTo @route='logged-in.project.translation' @models={{array @project.id @conflict.id}} local-class='key'>
               <strong local-class='item-key'>

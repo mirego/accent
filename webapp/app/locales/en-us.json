@@ -202,6 +202,8 @@
       "reviewed": "reviewed",
       "activities_title": "Latest activities",
       "item": {
+        "rtl_badge": "RTL",
+        "rtl": "Right to left text",
         "correct_all_button": "Mark all strings as reviewed",
         "uncorrect_all_button": "Put all strings back in review"
       }

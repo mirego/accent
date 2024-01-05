@@ -1,6 +1,6 @@
-<li local-class='translations-list-item {{if this.isInEditMode "item--editMode"}}'>
-  <span local-class='item-header'>
-    <span>
+<li local-class='translations-list-item {{if this.isInEditMode "item--editMode"}}' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
+  <span local-class='item-header' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
+    <span local-class='item-edit-wrapper'>
       <span local-class='item-edit'>
         <span role='button' {{on 'click' (fn this.toggleEdit)}}>
           {{#if this.isInEditMode}}

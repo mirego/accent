@@ -12,6 +12,11 @@
       {{#if (get @permissions 'index_translations')}}
         <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @revision.id}} local-class='language-name'>
           {{this.languageName}}
+          {{#if this.rtl}}
+            <AccBadge class='tooltip tooltip--top' title={{t 'components.dashboard_revisions.item.rtl'}}>
+              {{t 'components.dashboard_revisions.item.rtl_badge'}}
+            </AccBadge>
+          {{/if}}
           <span local-class='language-reviewedPercentage'>
             {{this.correctedKeysPercentage}}
             %

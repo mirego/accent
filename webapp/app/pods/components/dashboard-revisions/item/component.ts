@@ -68,6 +68,10 @@ export default class DashboardRevisionsItem extends Component<Args> {
     return this.args.revision.name || this.args.revision.language.name;
   }
 
+  get rtl() {
+    return this.args.revision.rtl || this.args.revision.language.rtl;
+  }
+
   @action
   toggleShowActions() {
     this.showActions = !this.showActions;
