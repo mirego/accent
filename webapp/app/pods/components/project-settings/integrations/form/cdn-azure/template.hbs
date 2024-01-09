@@ -1,5 +1,5 @@
 <ProjectSettings::Integrations::Form::DataControlText
-  {{!-- @error={{field-error @errors 'data.account_name'}} --}}
+  @error={{field-error @errors 'data.accountName'}}
   @label={{t 'components.project_settings.integrations.data.account_name'}}
   @placeholder={{t 'components.project_settings.integrations.placeholders.account_name'}}
   @value={{@accountName}}
@@ -7,15 +7,14 @@
 />
 
 <ProjectSettings::Integrations::Form::DataControlText
-  {{!-- @error={{field-error @errors 'data.account_key'}} --}}
+  @error={{field-error @errors 'data.accountKey'}}
   @label={{t 'components.project_settings.integrations.data.account_key'}}
-  @placeholder='Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=='
-  @value={{@accountKey}}
+  @placeholder='••••••••••••••'
   @onChange={{this.changeAccountKey}}
 />
 
 <ProjectSettings::Integrations::Form::DataControlText
-  {{!-- @error={{field-error @errors 'data.container_name'}} --}}
+  @error={{field-error @errors 'data.containerName'}}
   @label={{t 'components.project_settings.integrations.data.container_name'}}
   @placeholder={{t 'components.project_settings.integrations.placeholders.container_name'}}
   @value={{@containerName}}

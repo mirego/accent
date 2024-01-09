@@ -27,20 +27,18 @@ export default gql`
             }
           }
 
-          ... on ProjectIntegrationGitHub {
+          ... on ProjectIntegrationGithub {
             data {
               id
               repository
-              token
               defaultRef
             }
           }
 
-          ... on ProjectIntegrationAzure {
+          ... on ProjectIntegrationCdnAzure {
             data {
               id
               accountName
-              accountKey
               containerName
             }
           }

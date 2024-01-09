@@ -22,12 +22,6 @@
       "content_label": "Contenu:",
       "save_button": "Créer"
     },
-    "azure_push_form": {
-      "title": "Publier sur Azure",
-      "cancel_button": "Annuler",
-      "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
-      "push_button": "Publier"
-    },
     "prompt_update_form": {
       "title": "Instructions de mise à jour",
       "error": "Instruction invalide",
@@ -513,7 +507,6 @@
         "cancel": "Annuler",
         "edit": "Éditer",
         "delete": "Supprimer",
-        "push_strings": "Publier les traductions",
         "data": {
           "account_name": "Nom du compte",
           "account_key": "Clé du compte",
@@ -541,12 +534,19 @@
             "complete_review": "Le projet est revu à 100%"
           }
         },
-        "target_version": {
-          "label": "Version Cible",
-          "options": {
-            "all": "Toutes les versions",
-            "latest": "Dernière version",
-            "specific": "Version spécifique"
+        "execute": {
+          "cdn_azure": {
+            "title": "Publier sur Azure CDN",
+            "cancel_button": "Annuler",
+            "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
+            "push_button": "Publier",
+            "target_version": {
+              "label": "Version Cible",
+              "options": {
+                "latest": "Dernière version",
+                "specific": "Version spécifique"
+              }
+            }
           }
         }
       }
@@ -981,8 +981,7 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "MICROSOFT": "Microsoft",
-      "AZURE": "Azure"
+      "CDN_AZURE": "Azure CDN"
     },
     "search_input_placeholder_text": "Rechercher une chaîne…"
   },

@@ -5,14 +5,13 @@ interface Args {
   errors: any;
   project: any;
   accountName: any;
-  accountKey: any;
   containerName: any;
   onChangeAccountName: (token: string) => void;
   onChangeAccountKey: (token: string) => void;
   onChangeContainerName: (token: string) => void;
 }
 
-export default class Azure extends Component<Args> {
+export default class CdnAzure extends Component<Args> {
   @action
   changeAccountName(event: Event) {
     const target = event.target as HTMLInputElement;

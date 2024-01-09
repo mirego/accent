@@ -71,6 +71,7 @@ defmodule Accent.RoleAbilities do
     revoke_project_api_token
     index_project_integrations
     create_project_integration
+    execute_project_integration
     update_project_integration
     delete_project_integration
     create_version

@@ -22,10 +22,10 @@
       </div>
 
       <div local-class='details-actions'>
-        {{#if (eq @integration.service 'AZURE')}}
-          <LinkTo @route='logged-in.project.edit.new' @model={{@project.id}} class='button button--filled button--green'>
-            {{t 'components.project_settings.integrations.push_strings'}}
-          </LinkTo>
+        {{#if this.serviceIsExecutable}}
+          <button class='button button--filled button--iconOnly' {{on 'click' (fn this.toggleExecuting)}}>
+            {{inline-svg '/assets/arrow-up-right.svg' class='button-icon'}}
+          </button>
         {{/if}}
 
         {{#if (get @permissions 'update_project_integration')}}
@@ -43,3 +43,9 @@
     </div>
   {{/if}}
 </li>
+
+{{#if this.isExecuting}}
+  <AccModal @small={{true}} @onClose={{fn this.toggleExecuting}}>
+    {{component this.dataExecuteComponent integration=@integration}}
+  </AccModal>
+{{/if}}

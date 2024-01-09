@@ -25,6 +25,13 @@ defmodule Accent.GraphQL.Resolvers.Integration do
     |> build()
   end
 
+  @spec execute(Integration.t(), map(), GraphQLContext.t()) :: integration_operation
+  def execute(integration, args, _info) do
+    integration
+    |> IntegrationManager.execute(args)
+    |> build()
+  end
+
   @spec delete(Integration.t(), map(), GraphQLContext.t()) :: integration_operation
   def delete(integration, _args, _info) do
     integration
