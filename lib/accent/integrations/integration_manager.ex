@@ -52,7 +52,10 @@ defmodule Accent.IntegrationManager do
   end
 
   defp execute_integration(%{service: "azure_storage_container"} = integration, params) do
-    Accent.IntegrationManager.Execute.AzureStorageContainer.upload_translations(integration, params)
+    Accent.IntegrationManager.Execute.AzureStorageContainer.upload_translations(
+      integration,
+      params[:azure_storage_container]
+    )
 
     :ok
   end

@@ -535,6 +535,8 @@
             "cancel_button": "Annuler",
             "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
             "push_button": "Publier",
+            "sas_base_url": "Base de l’URL de publication",
+            "submit_confirm": "La publication de fichiers vers Azure Storage Container peut remplacer les fichiers existants si vous publiez la dernière version ou une version déjà publiée.",
             "target_version": {
               "label": "Version Cible",
               "options": {

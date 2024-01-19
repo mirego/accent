@@ -6,6 +6,7 @@
 .title {
   margin-bottom: 20px;
   text-align: center;
+  line-height: 1.2;
   font-size: 27px;
   font-weight: 300;
   color: var(--color-primary);
@@ -19,6 +20,7 @@
   padding-bottom: 16px;
   border-bottom: 1px solid var(--background-light-highlight);
   font-size: 13px;
+
   div {
     display: flex;
     flex-direction: column;
@@ -28,6 +30,7 @@
   span {
     font-size: 12px;
     font-family: var(--font-monospace);
+    opacity: 0.6;
   }
 }
 

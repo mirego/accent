@@ -73,8 +73,17 @@ export default class IntegrationExecuteAzureStorageContainer extends Component<A
 
   @action
   async submit() {
+    const confirmMessage = this.intl.t(
+      'components.project_settings.integrations.execute.azure_storage_container.submit_confirm'
+    );
+    /* eslint-disable-next-line no-alert */
+    if (!window.confirm(confirmMessage)) {
+      return;
+    }
+
     const response = await this.apolloMutate.mutate({
       mutation: executeIntegration,
+      refetchQueries: ['ProjectServiceIntegrations'],
       variables: {
         integrationId: this.args.integration.id,
         azureStorageContainer: {

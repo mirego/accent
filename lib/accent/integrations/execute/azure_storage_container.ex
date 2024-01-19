@@ -13,7 +13,7 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
 
   def upload_translations(integration, params) do
     project = Repo.one!(Ecto.assoc(integration, :project))
-    version = fetch_version(project, params.azure_storage_container)
+    version = fetch_version(project, params)
     documents = fetch_documents(project)
     revisions = fetch_revisions(project)
     master_revision = Repo.preload(Repo.one!(RevisionScope.master(Ecto.assoc(project, :revisions))), :language)
@@ -23,15 +23,19 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
         Enum.flat_map(revisions, fn revision ->
           translations = fetch_translations(document, revision, version)
 
-          render_options = %{
-            translations: translations,
-            master_language: Accent.Revision.language(master_revision),
-            language: Accent.Revision.language(revision),
-            document: document
-          }
+          if Enum.any?(translations) do
+            render_options = %{
+              translations: translations,
+              master_language: Revision.language(master_revision),
+              language: Revision.language(revision),
+              document: document
+            }
 
-          %{render: render} = Accent.TranslationsRenderer.render_translations(render_options)
-          [%{document: %{document | render: render}, language: Accent.Revision.language(revision)}]
+            %{render: render} = Accent.TranslationsRenderer.render_translations(render_options)
+            [%{document: %{document | render: render}, language: Accent.Revision.language(revision)}]
+          else
+            []
+          end
         end)
       end)
 
@@ -40,12 +44,14 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
       :ok = File.write(file, upload.document.render)
 
       uri = URI.parse(integration.data.azure_storage_container_sas)
+      extension = Accent.DocumentFormat.extension_by_format(upload.document.format)
+
       path =
         Path.join([
           uri.path,
           (version && version.tag) || "latest",
           upload.language.slug,
-          upload.document.path <> "." <> upload.document.format
+          upload.document.path <> "." <> extension
         ])
 
       HTTPoison.put(URI.to_string(%{uri | path: path}), {:file, file}, [{"x-ms-blob-type", "BlockBlob"}])
@@ -56,7 +62,7 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
 
   defp fetch_version(project, %{target_version: :specific, tag: tag}) do
     Version
-    |> VersionScope.from_project(project)
+    |> VersionScope.from_project(project.id)
     |> VersionScope.from_tag(tag)
     |> Repo.one()
   end

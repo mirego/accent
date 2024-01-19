@@ -519,7 +519,8 @@
             "cancel_button": "Cancel",
             "error": "Error while pushing to Azure. Check your credentials and try again.",
             "push_button": "Upload",
-            "sas_base_url": "SAS base URL",
+            "sas_base_url": "Base upload URL",
+            "submit_confirm": "Uploading files to Azure Storage Container can override existing files if you upload for the latest or an already uploaded version tag.",
             "target_version": {
               "label": "Target Version",
               "options": {
