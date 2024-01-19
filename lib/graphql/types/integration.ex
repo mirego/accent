@@ -6,7 +6,7 @@ defmodule Accent.GraphQL.Types.Integration do
     value(:slack, as: "slack")
     value(:discord, as: "discord")
     value(:github, as: "github")
-    value(:cdn_azure, as: "cdn_azure")
+    value(:azure_storage_container, as: "azure_storage_container")
   end
 
   enum :project_integration_event do
@@ -25,7 +25,7 @@ defmodule Accent.GraphQL.Types.Integration do
       %{service: "discord"}, _ -> :project_integration_discord
       %{service: "slack"}, _ -> :project_integration_slack
       %{service: "github"}, _ -> :project_integration_github
-      %{service: "cdn_azure"}, _ -> :project_integration_cdn_azure
+      %{service: "azure_storage_container"}, _ -> :project_integration_azure_storage_container
     end)
   end
 
@@ -56,9 +56,10 @@ defmodule Accent.GraphQL.Types.Integration do
     interfaces([:project_integration])
   end
 
-  object :project_integration_cdn_azure do
+  object :project_integration_azure_storage_container do
     field(:id, non_null(:id))
     field(:service, non_null(:project_integration_service))
+    field(:last_executed_at, :datetime)
     field(:data, non_null(:project_integration_azure_data))
 
     interfaces([:project_integration])
@@ -77,7 +78,13 @@ defmodule Accent.GraphQL.Types.Integration do
 
   object :project_integration_azure_data do
     field(:id, non_null(:id))
-    field(:account_name, non_null(:string))
-    field(:container_name, non_null(:string))
+
+    field(:sas_base_url, non_null(:string),
+      resolve: fn data, _, _ ->
+        uri = URI.parse(data.azure_storage_container_sas)
+        uri = URI.to_string(%{uri | query: nil})
+        {:ok, uri}
+      end
+    )
   end
 end

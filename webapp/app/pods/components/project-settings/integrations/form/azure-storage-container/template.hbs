@@ -1,0 +1,8 @@
+<ProjectSettings::Integrations::Form::DataControlText
+  @error={{field-error @errors 'data.azureStorageContainerSas'}}
+  @label={{t 'components.project_settings.integrations.data.azure_storage_container_sas'}}
+  @helpLinkTitle='How to create a SAS URL?'
+  @helpLinkHref='https://learn.microsoft.com/en-us/rest/api/storageservices/delegate-access-with-shared-access-signature'
+  @placeholder='https://<account-name>.blob.core.windows.net/<container-name>/?<SAS-token>'
+  @onChange={{this.changeSas}}
+/>

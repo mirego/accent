@@ -491,18 +491,13 @@
         "cancel": "Cancel",
         "edit": "Edit",
         "delete": "Delete",
+        "last_executed_at": "Last executed at:",
         "data": {
-          "account_name": "Account Name",
-          "account_key": "Account Key",
-          "container_name": "Container Name",
+          "azure_storage_container_sas": "SAS URL",
           "default_ref": "Default ref",
           "repository": "Repository",
           "token": "Token",
           "url": "URL"
-        },
-        "placeholders": {
-          "account_name": "myazureaccount",
-          "container_name": "mycontainer"
         },
         "token_how": "How?",
         "github_webhook_url_how": "How?",
@@ -519,13 +514,12 @@
           }
         },
         "execute": {
-          "cdn_azure": {
-            "title": "Upload files to Azure CDN",
+          "azure_storage_container": {
+            "title": "Upload files to Azure Storage Container",
             "cancel_button": "Cancel",
             "error": "Error while pushing to Azure. Check your credentials and try again.",
             "push_button": "Upload",
-            "container_name": "Container",
-            "account_name": "Account",
+            "sas_base_url": "SAS base URL",
             "target_version": {
               "label": "Target Version",
               "options": {
@@ -983,7 +977,7 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "CDN_AZURE": "Azure CDN"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
     },
     "search_input_placeholder_text": "Search for a string…"
   },

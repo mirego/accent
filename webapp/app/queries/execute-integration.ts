@@ -3,9 +3,12 @@ import gql from 'graphql-tag';
 export default gql`
   mutation IntegrationExecute(
     $integrationId: ID!
-    $cdnAzure: ProjectIntegrationExecuteCdnAzureInput
+    $azureStorageContainer: ProjectIntegrationExecuteAzureStorageContainerInput
   ) {
-    executeProjectIntegration(id: $integrationId, cdnAzure: $cdnAzure) {
+    executeProjectIntegration(
+      id: $integrationId
+      azureStorageContainer: $azureStorageContainer
+    ) {
       projectIntegration: result {
         id
       }

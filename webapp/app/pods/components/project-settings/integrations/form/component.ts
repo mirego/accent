@@ -6,7 +6,7 @@ import IntlService from 'ember-intl/services/intl';
 import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
-  CDN_AZURE: 'assets/services/azure.svg',
+  AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
   SLACK: 'assets/services/slack.svg',
@@ -18,7 +18,7 @@ interface Args {
     service,
     events,
     integration,
-    data: {url, repository, token, defaultRef},
+    data: {url, repository, token, defaultRef, azureStorageContainerSas},
   }: {
     service: any;
     events: any;
@@ -28,9 +28,7 @@ interface Args {
       repository: string;
       token: string;
       defaultRef: string;
-      accountName: string;
-      accountKey: string;
-      containerName: string;
+      azureStorageContainerSas: string;
     };
   }) => Promise<{errors: any}>;
   onCancel: () => void;
@@ -67,18 +65,15 @@ export default class IntegrationsForm extends Component<Args> {
   token: string;
 
   @tracked
-  accountName: string;
+  azureStorageContainerSas: string;
 
   @tracked
-  accountKey: string;
-
-  @tracked
-  containerName: string;
+  azureStorageContainerSasBaseUrl: string;
 
   @tracked
   defaultRef = 'main';
 
-  services = ['CDN_AZURE', 'SLACK', 'GITHUB', 'DISCORD'];
+  services = ['AZURE_STORAGE_CONTAINER', 'SLACK', 'GITHUB', 'DISCORD'];
 
   @not('url')
   emptyUrl: boolean;
@@ -119,8 +114,6 @@ export default class IntegrationsForm extends Component<Args> {
           url: this.url,
           repository: this.repository,
           defaultRef: this.defaultRef,
-          accountName: this.accountName,
-          containerName: this.containerName,
         },
       };
     }
@@ -130,8 +123,7 @@ export default class IntegrationsForm extends Component<Args> {
     this.events = this.integration.events;
     this.repository = this.integration.data.repository;
     this.defaultRef = this.integration.data.defaultRef;
-    this.accountName = this.integration.data.accountName;
-    this.containerName = this.integration.data.containerName;
+    this.azureStorageContainerSasBaseUrl = this.integration.data.sasBaseUrl;
   }
 
   @action
@@ -170,18 +162,8 @@ export default class IntegrationsForm extends Component<Args> {
   }
 
   @action
-  setAccountName(accountName: string) {
-    this.accountName = accountName;
-  }
-
-  @action
-  setAccountKey(accountKey: string) {
-    this.accountKey = accountKey;
-  }
-
-  @action
-  setContainerName(containerName: string) {
-    this.containerName = containerName;
+  setAzureStorageContainerSas(sas: string) {
+    this.azureStorageContainerSas = sas;
   }
 
   @action
@@ -197,9 +179,7 @@ export default class IntegrationsForm extends Component<Args> {
         repository: this.repository,
         token: this.token,
         defaultRef: this.defaultRef,
-        accountName: this.accountName,
-        accountKey: this.accountKey,
-        containerName: this.containerName,
+        azureStorageContainerSas: this.azureStorageContainerSas,
       },
     });
 

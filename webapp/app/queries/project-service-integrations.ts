@@ -35,11 +35,11 @@ export default gql`
             }
           }
 
-          ... on ProjectIntegrationCdnAzure {
+          ... on ProjectIntegrationAzureStorageContainer {
+            lastExecutedAt
             data {
               id
-              accountName
-              containerName
+              sasBaseUrl
             }
           }
         }

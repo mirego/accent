@@ -3,13 +3,13 @@ import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
-  CDN_AZURE: 'assets/services/azure.svg',
+  AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
   SLACK: 'assets/services/slack.svg',
 };
 
-const EXECUTABLE_SERVICES = ['CDN_AZURE'];
+const EXECUTABLE_SERVICES = ['AZURE_STORAGE_CONTAINER'];
 
 interface Args {
   project: any;

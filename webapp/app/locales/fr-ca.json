@@ -506,19 +506,14 @@
         "save": "Sauver",
         "cancel": "Annuler",
         "edit": "Éditer",
+        "last_executed_at": "Dernière exécution:",
         "delete": "Supprimer",
         "data": {
-          "account_name": "Nom du compte",
-          "account_key": "Clé du compte",
-          "container_name": "Nom du conteneur",
+          "azure_storage_container_sas": "SAS URL",
           "default_ref": "Réf par défaut",
           "repository": "Dépôt",
           "token": "Jeton",
           "url": "URL"
-        },
-        "placeholders": {
-          "account_name": "moncompteazure",
-          "container_name": "monconteneur"
         },
         "token_how": "Comment?",
         "github_webhook_url_how": "Comment?",
@@ -535,8 +530,8 @@
           }
         },
         "execute": {
-          "cdn_azure": {
-            "title": "Publier sur Azure CDN",
+          "azure_storage_container": {
+            "title": "Publier sur Azure Storage Container",
             "cancel_button": "Annuler",
             "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
             "push_button": "Publier",
@@ -981,7 +976,7 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "CDN_AZURE": "Azure CDN"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
     },
     "search_input_placeholder_text": "Rechercher une chaîne…"
   },

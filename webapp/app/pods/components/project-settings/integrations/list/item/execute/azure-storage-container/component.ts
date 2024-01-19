@@ -14,12 +14,13 @@ const FLASH_MESSAGE_CREATE_ERROR =
   'pods.versions.new.flash_messages.create_error';
 
 interface Args {
+  close: () => void;
   integration: {
     id: string;
   };
 }
 
-export default class IntegrationExecuteCdnAzure extends Component<Args> {
+export default class IntegrationExecuteAzureStorageContainer extends Component<Args> {
   @service('intl')
   intl: IntlService;
 
@@ -39,12 +40,12 @@ export default class IntegrationExecuteCdnAzure extends Component<Args> {
     {
       value: 'LATEST',
       label:
-        'components.project_settings.integrations.execute.cdn_azure.target_version.options.latest',
+        'components.project_settings.integrations.execute.azure_storage_container.target_version.options.latest',
     },
     {
       value: 'SPECIFIC',
       label:
-        'components.project_settings.integrations.execute.cdn_azure.target_version.options.specific',
+        'components.project_settings.integrations.execute.azure_storage_container.target_version.options.specific',
     },
   ];
 
@@ -76,7 +77,7 @@ export default class IntegrationExecuteCdnAzure extends Component<Args> {
       mutation: executeIntegration,
       variables: {
         integrationId: this.args.integration.id,
-        cdnAzure: {
+        azureStorageContainer: {
           tag: this.tag,
           targetVersion: this.targetVersion,
         },
@@ -86,6 +87,7 @@ export default class IntegrationExecuteCdnAzure extends Component<Args> {
     if (response.errors) {
       this.flashMessages.error(this.intl.t(FLASH_MESSAGE_CREATE_ERROR));
     } else {
+      this.args.close();
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CREATE_SUCCESS));
     }
 

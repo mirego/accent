@@ -4,6 +4,7 @@ defmodule Accent.IntegrationManager do
 
   alias Accent.Integration
   alias Accent.Repo
+  alias Accent.User
 
   @spec create(map()) :: {:ok, Integration.t()} | {:error, Ecto.Changeset.t()}
   def create(params) do
@@ -20,10 +21,18 @@ defmodule Accent.IntegrationManager do
     |> Repo.update()
   end
 
-  @spec execute(Integration.t(), map()) :: {:ok, Integration.t()}
-  def execute(integration, params) do
-    # Maybe log the execution somewhere like "last_executed_at" in the integrations table with who dunnit.
-    execute_integration(integration, params)
+  @spec execute(Integration.t(), User.t(), map()) :: {:ok, Integration.t()}
+  def execute(integration, user, params) do
+    case execute_integration(integration, params) do
+      :ok ->
+        integration
+        |> change(%{last_executed_at: DateTime.utc_now(), last_executed_by_user_id: user.id})
+        |> force_change(:updated_at, integration.updated_at)
+        |> Repo.update!()
+
+      _ ->
+        :ok
+    end
 
     {:ok, integration}
   end
@@ -36,20 +45,20 @@ defmodule Accent.IntegrationManager do
   defp changeset(model, params) do
     model
     |> cast(params, [:project_id, :user_id, :service, :events])
-    |> validate_inclusion(:service, ~w(slack github discord cdn_azure))
+    |> validate_inclusion(:service, ~w(slack github discord azure_storage_container))
     |> cast_embed(:data, with: changeset_data(params[:service] || model.service))
     |> foreign_key_constraint(:project_id)
     |> validate_required([:service, :data])
   end
 
-  defp execute_integration(%{service: "cdn_azure"} = integration, params) do
-    Accent.IntegrationManager.Execute.CdnAzure.upload_translations(integration, params)
+  defp execute_integration(%{service: "azure_storage_container"} = integration, params) do
+    Accent.IntegrationManager.Execute.AzureStorageContainer.upload_translations(integration, params)
 
     :ok
   end
 
   defp execute_integration(_integration, _params) do
-    :ok
+    :noop
   end
 
   defp changeset_data("slack") do
@@ -76,11 +85,11 @@ defmodule Accent.IntegrationManager do
     end
   end
 
-  defp changeset_data("cdn_azure") do
+  defp changeset_data("azure_storage_container") do
     fn model, params ->
       model
-      |> cast(params, [:account_name, :account_key, :container_name])
-      |> validate_required([:account_name, :account_key, :container_name])
+      |> cast(params, [:azure_storage_container_sas])
+      |> validate_required([:azure_storage_container_sas])
     end
   end
 

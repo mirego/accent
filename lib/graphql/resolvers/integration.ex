@@ -26,9 +26,9 @@ defmodule Accent.GraphQL.Resolvers.Integration do
   end
 
   @spec execute(Integration.t(), map(), GraphQLContext.t()) :: integration_operation
-  def execute(integration, args, _info) do
+  def execute(integration, args, info) do
     integration
-    |> IntegrationManager.execute(args)
+    |> IntegrationManager.execute(info.context[:conn].assigns[:current_user], args)
     |> build()
   end
 
