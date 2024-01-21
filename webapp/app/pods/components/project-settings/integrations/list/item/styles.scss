@@ -33,6 +33,12 @@
   color: var(--color-black);
 }
 
+.details-last-executed-at {
+  margin-left: 5px;
+  font-size: 11px;
+  opacity: 0.4;
+}
+
 .details-logo {
   flex: 0 0 20px;
   margin-right: 8px;
@@ -40,5 +46,7 @@
 }
 
 .details-actions {
+  display: flex;
+  gap: 10px;
   flex: 0 0 auto;
 }

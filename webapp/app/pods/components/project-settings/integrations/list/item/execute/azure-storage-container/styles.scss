@@ -1,0 +1,103 @@
+.azure-push-form {
+  padding: 20px;
+  background: var(--content-background);
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 27px;
+  font-weight: 300;
+  color: var(--color-primary);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--background-light-highlight);
+  font-size: 13px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  span {
+    font-size: 12px;
+    font-family: var(--font-monospace);
+    opacity: 0.6;
+  }
+}
+
+.text {
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 10px;
+  min-width: 250px;
+  width: 100%;
+  font-size: 12px;
+  font-family: var(--font-primary);
+}
+
+.errors {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+.error {
+  margin-bottom: 5px;
+  color: var(--color-error);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.data-control {
+  .radio {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+    border: 1px solid var(--background-light-highlight);
+    padding: 4px 6px;
+    border-radius: var(--border-radius);
+    background: var(--input-background);
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.2s ease-in-out;
+    transition-property: background;
+
+    &:hover,
+    &:focus {
+      background: var(--background-light);
+    }
+
+    input {
+      margin-right: 5px;
+      cursor: pointer;
+    }
+  }
+}
+
+.data-title {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  font-weight: bold;
+}

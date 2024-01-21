@@ -25,9 +25,10 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
           kind: 'INTERFACE',
           name: 'ProjectIntegration',
           possibleTypes: [
+            {name: 'ProjectIntegrationAzureStorageContainer'},
             {name: 'ProjectIntegrationDiscord'},
             {name: 'ProjectIntegrationSlack'},
-            {name: 'ProjectIntegrationGitHub'},
+            {name: 'ProjectIntegrationGithub'},
           ],
         },
       ],

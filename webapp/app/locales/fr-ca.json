@@ -506,8 +506,10 @@
         "save": "Sauver",
         "cancel": "Annuler",
         "edit": "Éditer",
+        "last_executed_at": "Dernière exécution:",
         "delete": "Supprimer",
         "data": {
+          "azure_storage_container_sas": "SAS URL",
           "default_ref": "Réf par défaut",
           "repository": "Dépôt",
           "token": "Jeton",
@@ -525,6 +527,23 @@
             "sync": "Synchroniser avec n’importe quelles modifications",
             "new_conflicts": "Nouvelles chaîne à réviser",
             "complete_review": "Le projet est revu à 100%"
+          }
+        },
+        "execute": {
+          "azure_storage_container": {
+            "title": "Publier sur Azure Storage Container",
+            "cancel_button": "Annuler",
+            "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
+            "push_button": "Publier",
+            "sas_base_url": "Base de l’URL de publication",
+            "submit_confirm": "La publication de fichiers vers Azure Storage Container peut remplacer les fichiers existants si vous publiez la dernière version ou une version déjà publiée.",
+            "target_version": {
+              "label": "Version Cible",
+              "options": {
+                "latest": "Dernière version",
+                "specific": "Version spécifique"
+              }
+            }
           }
         }
       }
@@ -959,7 +978,7 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "MICROSOFT": "Microsoft"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
     },
     "search_input_placeholder_text": "Rechercher une chaîne…"
   },

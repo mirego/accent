@@ -491,7 +491,9 @@
         "cancel": "Cancel",
         "edit": "Edit",
         "delete": "Delete",
+        "last_executed_at": "Last executed at:",
         "data": {
+          "azure_storage_container_sas": "SAS URL",
           "default_ref": "Default ref",
           "repository": "Repository",
           "token": "Token",
@@ -509,6 +511,23 @@
             "sync": "Sync with any changes",
             "new_conflicts": "New strings to review",
             "complete_review": "Project is 100% reviewed"
+          }
+        },
+        "execute": {
+          "azure_storage_container": {
+            "title": "Upload files to Azure Storage Container",
+            "cancel_button": "Cancel",
+            "error": "Error while pushing to Azure. Check your credentials and try again.",
+            "push_button": "Upload",
+            "sas_base_url": "Base upload URL",
+            "submit_confirm": "Uploading files to Azure Storage Container can override existing files if you upload for the latest or an already uploaded version tag.",
+            "target_version": {
+              "label": "Target Version",
+              "options": {
+                "latest": "Latest Version",
+                "specific": "Specific Version"
+              }
+            }
           }
         }
       }
@@ -959,7 +978,7 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "MICROSOFT": "Microsoft"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
     },
     "search_input_placeholder_text": "Search for a string…"
   },

@@ -6,6 +6,7 @@ import IntlService from 'ember-intl/services/intl';
 import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
+  AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
   SLACK: 'assets/services/slack.svg',
@@ -17,7 +18,7 @@ interface Args {
     service,
     events,
     integration,
-    data: {url, repository, token, defaultRef},
+    data: {url, repository, token, defaultRef, azureStorageContainerSas},
   }: {
     service: any;
     events: any;
@@ -27,6 +28,7 @@ interface Args {
       repository: string;
       token: string;
       defaultRef: string;
+      azureStorageContainerSas: string;
     };
   }) => Promise<{errors: any}>;
   onCancel: () => void;
@@ -63,9 +65,15 @@ export default class IntegrationsForm extends Component<Args> {
   token: string;
 
   @tracked
+  azureStorageContainerSas: string;
+
+  @tracked
+  azureStorageContainerSasBaseUrl: string;
+
+  @tracked
   defaultRef = 'main';
 
-  services = ['SLACK', 'GITHUB', 'DISCORD'];
+  services = ['AZURE_STORAGE_CONTAINER', 'SLACK', 'GITHUB', 'DISCORD'];
 
   @not('url')
   emptyUrl: boolean;
@@ -105,7 +113,6 @@ export default class IntegrationsForm extends Component<Args> {
         data: {
           url: this.url,
           repository: this.repository,
-          token: this.token,
           defaultRef: this.defaultRef,
         },
       };
@@ -115,8 +122,8 @@ export default class IntegrationsForm extends Component<Args> {
     this.url = this.integration.data.url;
     this.events = this.integration.events;
     this.repository = this.integration.data.repository;
-    this.token = this.integration.data.token;
     this.defaultRef = this.integration.data.defaultRef;
+    this.azureStorageContainerSasBaseUrl = this.integration.data.sasBaseUrl;
   }
 
   @action
@@ -155,6 +162,11 @@ export default class IntegrationsForm extends Component<Args> {
   }
 
   @action
+  setAzureStorageContainerSas(sas: string) {
+    this.azureStorageContainerSas = sas;
+  }
+
+  @action
   async submit() {
     this.isSubmiting = true;
 
@@ -167,6 +179,7 @@ export default class IntegrationsForm extends Component<Args> {
         repository: this.repository,
         token: this.token,
         defaultRef: this.defaultRef,
+        azureStorageContainerSas: this.azureStorageContainerSas,
       },
     });
 

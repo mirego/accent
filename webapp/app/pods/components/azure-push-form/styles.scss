@@ -1,0 +1,50 @@
+.azure-push-form {
+  padding: 20px;
+  background: var(--content-background);
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 27px;
+  font-weight: 300;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.text {
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 10px;
+  min-width: 250px;
+  width: 100%;
+  font-size: 12px;
+  font-family: var(--font-primary);
+}
+
+.errors {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+.error {
+  margin-bottom: 5px;
+  color: var(--color-error);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.formItem {
+  margin-bottom: 20px;
+}
+
+.formActions {
+  padding-top: 10px;
+}

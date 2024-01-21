@@ -43,7 +43,7 @@ defmodule Accent.Mixfile do
       # Plugs
       {:plug_assign, "~> 1.0.0"},
       {:canada, "~> 2.0.0", override: true},
-      {:canary, "~> 1.1.0"},
+      {:canary, github: "runhyve/canary"},
       {:corsica, "~> 2.0"},
       {:bandit, "~> 1.0"},
       {:plug, "1.14.2"},
