@@ -79,6 +79,7 @@ Each operation section `sync` and `addTranslations` can contain the following ob
 - `source`: The path of the document. This can contain glob pattern (See [the node glob library] used as a dependancy (https://github.com/isaacs/node-glob))
 - `target`: Path of the target languages
 - `namePattern`: Pattern to use to save the document name in Accent.
+- `root`: Only for the name pattern `fileWithParentDirectory`, relative path to the source root directory
 - `hooks`: List of hooks to be run
 
 ## Name pattern
@@ -124,6 +125,20 @@ Each operation section `sync` and `addTranslations` can contain the following ob
       "source": "translations/en.json",
       "target": "translations/%slug%.json"
     }
+  ]
+}
+```
+
+`fileWithParentDirectory`: Use the path of the file in addition to the file name. This is useful if you want to keep your file i multiple nested directories, per language. You need to provide the root of the files, which will be exclude of the name.
+```
+{
+  "files": [
+      {
+          "namePattern": "fileWithParentDirectory",
+          "source": "translations/en/**/*.json",
+          "target": "translations/%slug%/%document_path%.json",
+          "root": "translations/en/"
+      }
   ]
 }
 ```
