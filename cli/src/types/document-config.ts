@@ -11,6 +11,7 @@ export enum NamePattern {
   file = 'file',
   fileWithSlugSuffix = 'fileWithSlugSuffix',
   parentDirectory = 'parentDirectory',
+  fileWithParentDirectory = 'fileWithParentDirectory',
 }
 
 export interface HookConfig {
@@ -28,4 +29,5 @@ export interface DocumentConfig {
   target: string;
   namePattern?: NamePattern;
   hooks?: HookConfig;
+  root?: string;
 }
