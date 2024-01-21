@@ -15,7 +15,6 @@ export default class CommitOperationFormatter {
       chalk.bold.white(path),
       chalk.gray.dim(documentPath)
     );
-    console.log('');
   }
 
   logAddTranslations(path: string, documentPath: string) {
@@ -25,7 +24,6 @@ export default class CommitOperationFormatter {
       chalk.bold.white(path),
       chalk.gray.dim(documentPath)
     );
-    console.log('');
   }
 
   logEmptyExistingTarget(path: string) {

@@ -10,6 +10,7 @@ import {CLIError} from '@oclif/errors';
 import Formatter from '../services/formatters/project-stats';
 import ProjectFetcher from '../services/project-fetcher';
 import {Revision} from '../types/project';
+import DocumentPathsFetcher from '../services/document-paths-fetcher';
 
 export default class Stats extends Command {
   static description = 'Fetch stats from the API and display them beautifully';
@@ -44,9 +45,15 @@ export default class Stats extends Command {
       this.project = response.project;
     }
 
+    const documents = this.projectConfig.files();
+    const targets = documents.flatMap((document) => {
+      return new DocumentPathsFetcher().fetch(this.project!, document);
+    });
+
     const formatter = new Formatter(
       this.project!,
       this.projectConfig.config,
+      targets,
       flags.version
     );
 

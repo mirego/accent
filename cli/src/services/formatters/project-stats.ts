@@ -18,16 +18,29 @@ import {
 } from '../revision-slug-fetcher';
 import Base from './base';
 
+interface DocumentTarget {
+  documentPath: string;
+  path: string;
+  language: string;
+}
+
 export default class ProjectStatsFormatter extends Base {
   private readonly project: Project;
   private readonly config: Config;
+  private readonly targets: DocumentTarget[];
   private readonly version: string | undefined;
 
-  constructor(project: Project, config: Config, version?: string) {
+  constructor(
+    project: Project,
+    config: Config,
+    targets: DocumentTarget[],
+    version?: string
+  ) {
     super();
     this.project = project;
     this.config = config;
     this.version = version;
+    this.targets = targets;
   }
 
   percentageReviewedString(number: number, translationsCount: number) {
@@ -142,11 +155,39 @@ export default class ProjectStatsFormatter extends Base {
           `(${this.project.documents.meta.totalEntries})`
         )
       );
-      this.project.documents.entries.forEach((document: Document) => {
-        console.log(chalk.gray('Format:'), chalk.white.bold(document.format));
-        console.log(chalk.gray('Path:'), chalk.white.bold(document.path));
-        console.log('');
-      });
+      this.project.documents.entries
+        .sort((a, b) => {
+          const existingTargetA = this.targets.find(
+            (target) => a.path === target.documentPath
+          );
+          const existingTargetB = this.targets.find(
+            (target) => b.path === target.documentPath
+          );
+
+          if (existingTargetA) return -1;
+          if (existingTargetB) return 1;
+          return 0;
+        })
+        .forEach((document: Document) => {
+          const existingTarget = this.targets.find(
+            (target) => document.path === target.documentPath
+          );
+
+          if (existingTarget) {
+            console.log(
+              chalk.white(document.path),
+              chalk.whiteBright.underline(existingTarget.path)
+            );
+          } else {
+            console.log(
+              chalk.gray.dim(document.path),
+              chalk.gray.dim('-'),
+              chalk.gray.dim(document.format),
+              chalk.gray.dim('(No matches in config file)')
+            );
+          }
+        });
+      console.log('');
     }
 
     if (this.project.versions.meta.totalEntries !== 0) {
@@ -196,7 +237,7 @@ export default class ProjectStatsFormatter extends Base {
 
     console.log(
       chalk.magenta('Project URL:'),
-      chalk.gray.dim(`${this.config.apiUrl}/app/projects/${this.project.id}`)
+      chalk.gray(`${this.config.apiUrl}/app/projects/${this.project.id}`)
     );
     console.log('');
   }

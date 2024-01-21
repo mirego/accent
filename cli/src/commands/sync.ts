@@ -149,6 +149,7 @@ export default class Sync extends Command {
         formatter.logSync(path, documentPath);
       }
     }
+    console.log('');
   }
 
   private async addTranslationsDocumentConfig(document: Document) {
@@ -191,5 +192,6 @@ export default class Sync extends Command {
         );
       }
     }
+    console.log('');
   }
 }
