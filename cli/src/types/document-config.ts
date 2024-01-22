@@ -29,5 +29,4 @@ export interface DocumentConfig {
   target: string;
   namePattern?: NamePattern;
   hooks?: HookConfig;
-  root?: string;
 }
