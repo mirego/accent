@@ -919,7 +919,8 @@
         "not_empty": "Le texte n’est pas vide",
         "added_last_sync": "Ajoutées à la dernière synchronisation",
         "commented_on": "Chaînes avec commentaires",
-        "conflicted": "À réviser"
+        "conflicted": "À réviser",
+        "translated": "À traduire"
       }
     },
     "translations_list": {
@@ -928,7 +929,9 @@
       "save": "Sauver",
       "empty_text": "Texte vide",
       "in_review_label": "à réviser",
+      "to_translate_label": "à traduire",
       "in_review_tooltip": "Voir à réviser",
+      "to_translate_tooltip": "Traduction jamais mise à jour",
       "lint_messages_label": "{count, plural, =0 {Aucun avertissement de vérification} =1 {1 avertissement de vérification} other {# avertissement de vérification}}",
       "last_updated_label": "Dernière mise à jour:",
       "maybe_sync_before": "Essayez peut-être de",

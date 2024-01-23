@@ -30,6 +30,7 @@ defmodule Accent.GraphQL.Types.Revision do
       arg(:version, :id)
       arg(:query, :string)
       arg(:is_conflicted, :boolean)
+      arg(:is_translated, :boolean)
       arg(:is_text_empty, :boolean)
       arg(:is_text_not_empty, :boolean)
       arg(:is_added_last_sync, :boolean)

@@ -919,7 +919,8 @@
         "not_empty": "Text is not empty",
         "added_last_sync": "Strings added last sync",
         "commented_on": "Strings with comments",
-        "conflicted": "In review"
+        "conflicted": "In review",
+        "translated": "To translate"
       }
     },
     "translations_list": {
@@ -928,7 +929,9 @@
       "empty_text": "Empty text",
       "null_text": "Null text",
       "in_review_label": "in review",
+      "to_translate_label": "to translate",
       "in_review_tooltip": "View in review",
+      "to_translate_tooltip": "Translation was never touched",
       "lint_messages_label": "{count, plural, =0 {No linting warnings} =1 {1 linting warning} other {# linting warnings}}",
       "last_updated_label": "Last updated:",
       "maybe_sync_before": "Maybe try to",

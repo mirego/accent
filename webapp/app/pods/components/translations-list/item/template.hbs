@@ -59,6 +59,12 @@
         </AccBadge>
       {{/if}}
 
+      {{#unless @translation.isTranslated}}
+        <AccBadge title={{t 'components.translations_list.to_translate_tooltip'}} class='tooltip tooltip--top'>
+          {{t 'components.translations_list.to_translate_label'}}
+        </AccBadge>
+      {{/unless}}
+
       {{#if @translation.commentsCount}}
         <AccBadge @link={{true}}>
           <LinkTo @route='logged-in.project.translation.comments' @models={{array @project.id @translation.id}}>

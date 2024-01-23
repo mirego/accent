@@ -37,11 +37,14 @@
       <div local-class='actions'>
         <div local-class='actions-links'>
           {{#if @translation.sourceTranslation}}
-            <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.sourceTranslation.id}} local-class='actions-link'>
-              {{t 'components.translation_edit.source_translation'}}
-            </LinkTo>
+            {{#if @translation.version}}
+              <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.sourceTranslation.id}} local-class='actions-link'>
+                {{t 'components.translation_edit.source_translation'}}
+              </LinkTo>
+            {{/if}}
           {{/if}}
         </div>
+
         <div local-class='actions-buttons'>
           {{#unless this.hasTextNotChanged}}
             <AsyncButton @onClick={{fn this.setOriginalText}} local-class='actions-button-revert' class='button button--iconOnly button--white'>

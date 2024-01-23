@@ -29,6 +29,7 @@ export default gql`
           id
           key
           isConflicted
+          isTranslated
           isRemoved
           valueType
           plural

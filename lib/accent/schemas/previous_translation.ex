@@ -21,7 +21,7 @@ defmodule Accent.PreviousTranslation do
     field(:conflicted, :boolean, default: false)
     field(:removed, :boolean, default: false)
     field(:translated, :boolean, default: false)
-    field(:value_type, :string)
+    field(:value_type, :string, default: "string")
     field(:placeholders, {:array, :string}, default: [])
   end
 
