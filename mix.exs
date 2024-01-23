@@ -96,9 +96,9 @@ defmodule Accent.Mixfile do
       {:sentry, "~> 7.0"},
 
       # Mails
-      {:bamboo, "~> 2.0"},
+      {:bamboo, "~> 2.3", override: true},
       {:bamboo_phoenix, "~> 1.0"},
-      {:bamboo_smtp, "~> 4.0"},
+      {:bamboo_smtp, "~> 4.2"},
 
       # Events handling
       {:oban, "~> 2.13"},
