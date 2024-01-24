@@ -174,8 +174,7 @@ cond do
 
   get_env("SMTP_ADDRESS") ->
     config :accent, Accent.Mailer,
-      tls: :never,
-      adapter: Bamboo.SMTPAdapter,
+      adapter: BambooSMTPAdapterWithTlsOptions,
       server: get_env("SMTP_ADDRESS"),
       port: get_env("SMTP_PORT"),
       username: get_env("SMTP_USERNAME"),

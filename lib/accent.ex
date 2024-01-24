@@ -20,6 +20,10 @@ defmodule Accent do
       {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
     end
 
+    if Application.get_env(:accent, Accent.Mailer)[:adapter] === BambooSMTPAdapterWithTlsOptions do
+      add_tls_options_to_mailer_smtp_adapter()
+    end
+
     Ecto.DevLogger.install(Accent.Repo,
       ignore_event: fn metadata ->
         not is_nil(metadata[:options][:telemetry_ui_conf])
@@ -33,6 +37,12 @@ defmodule Accent do
   def config_change(changed, _new, removed) do
     Accent.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp add_tls_options_to_mailer_smtp_adapter do
+    config = Application.get_env(:accent, Accent.Mailer)
+    new_config = Keyword.put(config, :tls_options, :tls_certificate_check.options(config[:server]))
+    Application.put_env(:accent, Accent.Mailer, new_config)
   end
 
   defp language_tool_config do

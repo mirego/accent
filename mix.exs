@@ -97,6 +97,7 @@ defmodule Accent.Mixfile do
 
       # Mails
       {:bamboo, "~> 2.3", override: true},
+      {:tls_certificate_check, "~> 1.21"},
       {:bamboo_phoenix, "~> 1.0"},
       {:bamboo_smtp, "~> 4.2"},
 
