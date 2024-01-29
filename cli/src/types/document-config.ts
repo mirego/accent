@@ -11,6 +11,7 @@ export enum NamePattern {
   file = 'file',
   fileWithSlugSuffix = 'fileWithSlugSuffix',
   parentDirectory = 'parentDirectory',
+  fileWithParentDirectory = 'fileWithParentDirectory',
 }
 
 export interface HookConfig {

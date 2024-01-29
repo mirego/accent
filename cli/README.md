@@ -128,6 +128,19 @@ Each operation section `sync` and `addTranslations` can contain the following ob
 }
 ```
 
+`fileWithParentDirectory`: Use the path of the file in addition to the file name. This is useful if you want to keep your file i multiple nested directories, per language. Use the position of the `%slug%` placeholder in the `target` as the root of the path.
+```
+{
+  "files": [
+      {
+          "namePattern": "fileWithParentDirectory",
+          "source": "translations/en/**/*.json",
+          "target": "translations/%slug%/%document_path%.json",
+      }
+  ]
+}
+```
+
 ## Hooks
 
 Here is a list of available hooks. Those are self-explanatory
