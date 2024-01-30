@@ -128,7 +128,8 @@ Each operation section `sync` and `addTranslations` can contain the following ob
 }
 ```
 
-`fileWithParentDirectory`: Use the path of the file in addition to the file name. This is useful if you want to keep your file i multiple nested directories, per language. Use the position of the `%slug%` placeholder in the `target` as the root of the path.
+`fileWithParentDirectory`: Use the path of the file in addition to the file name. This is useful if you want to keep your file in multiple nested directories, per language. Use the position of the `%slug%` placeholder in the `target` as the root of the path.
+
 ```
 {
   "files": [
@@ -140,6 +141,22 @@ Each operation section `sync` and `addTranslations` can contain the following ob
   ]
 }
 ```
+
+Given this configuration and a file layout like this:
+
+```
+my-project/
+  accent.json
+  translations/
+    en/
+      foo/
+        locales.json
+    fr/
+      foo/
+        locales.json
+```
+
+The document name in Accent will be named `foo/locales`.
 
 ## Hooks
 
