@@ -180,7 +180,7 @@ export default class Sync extends Command {
         flags
       );
 
-      if (operation.addTranslations && !operation.peek) {
+      if (!operation.peek) {
         formatter.logAddTranslations(operation.file, operation.documentPath);
       }
 
