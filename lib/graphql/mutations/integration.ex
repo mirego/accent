@@ -20,9 +20,6 @@ defmodule Accent.GraphQL.Mutations.Integration do
   input_object :project_integration_data_input do
     field(:id, :id)
     field(:url, :string)
-    field(:repository, :string)
-    field(:default_ref, :string)
-    field(:token, :string)
     field(:azure_storage_container_sas, :string)
   end
 

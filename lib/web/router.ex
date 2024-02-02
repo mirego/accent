@@ -79,8 +79,6 @@ defmodule Accent.Router do
     # File export
     get("/export", ExportController, [])
     get("/jipt-export", ExportJIPTController, [])
-
-    post("/hooks/github", Hook.GitHubController, [], as: :hooks_github)
   end
 
   scope "/", Accent do

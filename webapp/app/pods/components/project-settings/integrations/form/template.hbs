@@ -22,19 +22,13 @@
     <div local-class='data'>
       {{component
         this.dataFormComponent
-        repository=this.repository
-        defaultRef=this.defaultRef
-        token=this.token
         errors=this.errors
         url=this.url
         project=@project
         events=this.events
         onChangeUrl=(fn this.setUrl)
-        onChangeEventsChecked=(fn this.setEventsChecked)
-        onChangeRepository=(fn this.setRepository)
-        onChangeToken=(fn this.setToken)
-        onChangeDefaultRef=(fn this.setDefaultRef)
         onChangeSas=(fn this.setAzureStorageContainerSas)
+        onChangeEventsChecked=(fn this.setEventsChecked)
       }}
     </div>
 

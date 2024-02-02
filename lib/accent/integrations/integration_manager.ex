@@ -80,14 +80,6 @@ defmodule Accent.IntegrationManager do
     end
   end
 
-  defp changeset_data("github") do
-    fn model, params ->
-      model
-      |> cast(params, [:repository, :default_ref, :token])
-      |> validate_required([:repository, :default_ref, :token])
-    end
-  end
-
   defp changeset_data("azure_storage_container") do
     fn model, params ->
       model

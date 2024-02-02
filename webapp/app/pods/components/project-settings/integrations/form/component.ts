@@ -18,16 +18,13 @@ interface Args {
     service,
     events,
     integration,
-    data: {url, repository, token, defaultRef, azureStorageContainerSas},
+    data: {url, azureStorageContainerSas},
   }: {
     service: any;
     events: any;
     integration: any;
     data: {
       url: string;
-      repository: string;
-      token: string;
-      defaultRef: string;
       azureStorageContainerSas: string;
     };
   }) => Promise<{errors: any}>;
@@ -59,21 +56,12 @@ export default class IntegrationsForm extends Component<Args> {
   events: string[];
 
   @tracked
-  repository: string;
-
-  @tracked
-  token: string;
-
-  @tracked
   azureStorageContainerSas: string;
 
   @tracked
   azureStorageContainerSasBaseUrl: string;
 
-  @tracked
-  defaultRef = 'main';
-
-  services = ['AZURE_STORAGE_CONTAINER', 'SLACK', 'GITHUB', 'DISCORD'];
+  services = ['AZURE_STORAGE_CONTAINER', 'SLACK', 'DISCORD'];
 
   @not('url')
   emptyUrl: boolean;
@@ -112,8 +100,6 @@ export default class IntegrationsForm extends Component<Args> {
         events: [],
         data: {
           url: this.url,
-          repository: this.repository,
-          defaultRef: this.defaultRef,
         },
       };
     }
@@ -121,8 +107,6 @@ export default class IntegrationsForm extends Component<Args> {
     this.service = this.integration.service || this.services[0];
     this.url = this.integration.data.url;
     this.events = this.integration.events;
-    this.repository = this.integration.data.repository;
-    this.defaultRef = this.integration.data.defaultRef;
     this.azureStorageContainerSasBaseUrl = this.integration.data.sasBaseUrl;
   }
 
@@ -147,21 +131,6 @@ export default class IntegrationsForm extends Component<Args> {
   }
 
   @action
-  setRepository(repository: string) {
-    this.repository = repository;
-  }
-
-  @action
-  setToken(token: string) {
-    this.token = token;
-  }
-
-  @action
-  setDefaultRef(defaultRef: string) {
-    this.defaultRef = defaultRef;
-  }
-
-  @action
   setAzureStorageContainerSas(sas: string) {
     this.azureStorageContainerSas = sas;
   }
@@ -176,9 +145,6 @@ export default class IntegrationsForm extends Component<Args> {
       integration: this.integration.newRecord ? null : this.integration,
       data: {
         url: this.url,
-        repository: this.repository,
-        token: this.token,
-        defaultRef: this.defaultRef,
         azureStorageContainerSas: this.azureStorageContainerSas,
       },
     });

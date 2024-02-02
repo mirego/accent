@@ -15,9 +15,7 @@ end
 if config_env() == :test do
   events = ~w(sync add_translations create_collaborator create_comment complete_review new_conflicts)
 
-  config :accent, Accent.Hook,
-    outbounds: [{Accent.Hook.Outbounds.Mock, events: events}],
-    inbounds: [{Accent.Hook.Inbounds.Mock, events: events}]
+  config :accent, Accent.Hook, outbounds: [{Accent.Hook.Outbounds.Mock, events: events}]
 else
   config :accent, Accent.Hook,
     outbounds: [
@@ -26,15 +24,12 @@ else
       {Accent.Hook.Outbounds.Slack, events: ~w(sync complete_review new_conflicts)},
       {Accent.Hook.Outbounds.Websocket,
        events: ~w(sync create_collaborator create_comment complete_review new_conflicts)}
-    ],
-    inbounds: [{Accent.Hook.Inbounds.GitHub, events: ~w(sync)}]
+    ]
 end
 
 config :accent, Accent.Endpoint,
   render_errors: [accepts: ~w(json)],
   pubsub_server: Accent.PubSub
-
-config :accent, hook_github_file_server: Accent.Hook.Inbounds.GitHub.FileServer.HTTP
 
 config :accent, Oban,
   plugins: [Oban.Plugins.Pruner],

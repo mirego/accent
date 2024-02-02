@@ -50,39 +50,6 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     assert get_in(Repo.all(Integration), [Access.all(), Access.key(:events)]) == [["sync"]]
   end
 
-  test "create github", %{project: project, user: user} do
-    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-
-    {:ok, integration} =
-      Resolver.create(
-        project,
-        %{service: "github", data: %{repository: "root/test", default_ref: "master", token: "1234"}},
-        context
-      )
-
-    assert integration.service == "github"
-    assert integration.data.repository == "root/test"
-    assert integration.data.default_ref == "master"
-    assert integration.data.token == "1234"
-
-    assert get_in(Repo.all(Integration), [Access.all(), Access.key(:service)]) == ["github"]
-  end
-
-  test "create github error", %{project: project, user: user} do
-    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-
-    {:ok, integration} =
-      Resolver.create(
-        project,
-        %{service: "github", data: %{repository: "", default_ref: "master", token: "1234"}},
-        context
-      )
-
-    assert integration.changes.data.errors == [repository: {"can't be blank", [validation: :required]}]
-
-    assert Repo.all(Integration) == []
-  end
-
   test "create slack error", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 

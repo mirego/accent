@@ -494,9 +494,6 @@
         "last_executed_at": "Last executed at:",
         "data": {
           "azure_storage_container_sas": "SAS URL",
-          "default_ref": "Default ref",
-          "repository": "Repository",
-          "token": "Token",
           "url": "URL"
         },
         "token_how": "How?",
@@ -979,7 +976,6 @@
     },
     "integration_services": {
       "DISCORD": "Discord",
-      "GITHUB": "GitHub",
       "SLACK": "Slack",
       "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
     },

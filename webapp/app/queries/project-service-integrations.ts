@@ -27,14 +27,6 @@ export default gql`
             }
           }
 
-          ... on ProjectIntegrationGithub {
-            data {
-              id
-              repository
-              defaultRef
-            }
-          }
-
           ... on ProjectIntegrationAzureStorageContainer {
             lastExecutedAt
             data {

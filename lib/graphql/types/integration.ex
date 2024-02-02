@@ -72,8 +72,6 @@ defmodule Accent.GraphQL.Types.Integration do
 
   object :project_integration_github_data do
     field(:id, non_null(:id))
-    field(:repository, non_null(:string))
-    field(:default_ref, non_null(:string))
   end
 
   object :project_integration_azure_data do

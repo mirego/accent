@@ -510,9 +510,6 @@
         "delete": "Supprimer",
         "data": {
           "azure_storage_container_sas": "SAS URL",
-          "default_ref": "Réf par défaut",
-          "repository": "Dépôt",
-          "token": "Jeton",
           "url": "URL"
         },
         "token_how": "Comment?",
@@ -979,7 +976,6 @@
     },
     "integration_services": {
       "DISCORD": "Discord",
-      "GITHUB": "GitHub",
       "SLACK": "Slack",
       "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
     },
