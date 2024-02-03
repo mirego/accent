@@ -19,6 +19,8 @@
 button.button {
   padding-left: 10px;
   padding-right: 10px;
+  border-radius: var(--border-radius);
+
   &:focus,
   &:hover {
     transform: translate3d(0, 0, 0);
@@ -47,7 +49,6 @@ button.button {
   position: relative;
   display: flex;
   align-items: center;
-  background: var(--content-background);
 
   > .button {
     transition: opacity 0.2s ease-in-out;
@@ -70,7 +71,7 @@ button.button {
     .prompt-button-quick-access {
       opacity: 1;
       right: 36px;
-      padding: 0 5px;
+      padding: 0 7px;
       top: -1px;
       pointer-events: all;
     }

@@ -220,6 +220,18 @@ export default class Document {
 
     const basename = path.basename(file).replace(path.extname(file), '');
 
+    if (config.namePattern === NamePattern.fileWithParentDirectory) {
+      const languageIndex = config.target.split(path.sep).indexOf('%slug%') + 1;
+      const pathParts = file.split(path.sep);
+      const resultPath = pathParts.splice(
+        languageIndex,
+        pathParts.length - languageIndex - 1
+      );
+      return resultPath.length > 0
+        ? resultPath.join(path.sep).concat(path.sep).concat(basename)
+        : basename;
+    }
+
     if (config.namePattern === NamePattern.fileWithSlugSuffix) {
       return basename.split('.')[0];
     }

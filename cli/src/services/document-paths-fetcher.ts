@@ -8,7 +8,7 @@ export default class DocumentPathsFetcher {
   fetch(project: Project, document: Document): DocumentPath[] {
     const languageSlugs = fetchFromRevisions(project.revisions);
     const documentPaths: Set<string> = new Set();
-    project.documents.entries.forEach(({path}) => documentPaths.add(path));
+
     document.paths.forEach((documentPath) => {
       const name = document.parseDocumentName(documentPath, document.config);
       documentPaths.add(name);

@@ -19,8 +19,8 @@ defmodule Movement.MachineTranslations do
       |> Enum.filter(& &1.machine_translations_enabled)
       |> Enum.map(&Operation.to_langue_entry(&1, master_revision.id === &1.revision_id, language_slug(revision)))
       |> MachineTranslations.translate(
-        %{slug: language_slug(master_revision)},
-        %{slug: language_slug(revision)},
+        language_slug(master_revision),
+        language_slug(revision),
         project.machine_translations_config
       )
       |> case do

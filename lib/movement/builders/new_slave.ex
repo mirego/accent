@@ -37,6 +37,7 @@ defmodule Movement.Builders.NewSlave do
           plural: translation.plural,
           locked: translation.locked,
           placeholders: translation.placeholders,
+          translation_id: translation.id,
           options: assigns.new_slave_options,
           machine_translations_enabled: machine_translations_enabled
         })

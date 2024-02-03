@@ -18,10 +18,21 @@
         <span local-class='details-preview'>
           {{@integration.data.url}}
           {{@integration.data.repository}}
+          {{@integration.data.sasBaseUrl}}
+
+          {{#if @integration.lastExecutedAt}}
+            <span local-class='details-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}} {{time-ago-in-words @integration.lastExecutedAt}}</span>
+          {{/if}}
         </span>
       </div>
 
       <div local-class='details-actions'>
+        {{#if this.serviceIsExecutable}}
+          <button class='button button--filled button--iconOnly' {{on 'click' (fn this.toggleExecuting)}}>
+            {{inline-svg '/assets/arrow-up-right.svg' class='button-icon'}}
+          </button>
+        {{/if}}
+
         {{#if (get @permissions 'update_project_integration')}}
           <button class='button button--filled button--white' {{on 'click' (fn this.toggleEdit)}}>
             {{t 'components.project_settings.integrations.edit'}}
@@ -37,3 +48,9 @@
     </div>
   {{/if}}
 </li>
+
+{{#if this.isExecuting}}
+  <AccModal @small={{true}} @onClose={{fn this.toggleExecuting}}>
+    {{component this.dataExecuteComponent integration=@integration close=this.toggleExecuting}}
+  </AccModal>
+{{/if}}

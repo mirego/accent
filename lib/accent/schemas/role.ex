@@ -8,14 +8,15 @@ defmodule Accent.Role do
     %{slug: "owner"},
     %{slug: "admin"},
     %{slug: "developer"},
-    %{slug: "reviewer"}
+    %{slug: "reviewer"},
+    %{slug: "translator"}
   ]
 
   @doc """
   ## Examples
 
     iex> Accent.Role.slugs()
-    ["owner", "admin", "developer", "reviewer"]
+    ["owner", "admin", "developer", "reviewer", "translator"]
   """
   defmacro slugs, do: Enum.map(@all, &Map.get(&1, :slug))
 
@@ -27,7 +28,8 @@ defmodule Accent.Role do
       %Accent.Role{slug: "owner"},
       %Accent.Role{slug: "admin"},
       %Accent.Role{slug: "developer"},
-      %Accent.Role{slug: "reviewer"}
+      %Accent.Role{slug: "reviewer"},
+      %Accent.Role{slug: "translator"}
     ]
   """
   def all, do: Enum.map(@all, &struct(__MODULE__, &1))

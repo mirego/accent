@@ -17,6 +17,7 @@ defmodule Accent.Translation do
     field(:value_type, :string, default: "string")
     field(:plural, :boolean, default: false)
     field(:locked, :boolean, default: false)
+    field(:translated, :boolean, default: false)
     field(:placeholders, {:array, :string}, default: [])
 
     belongs_to(:document, Accent.Document)
@@ -42,6 +43,7 @@ defmodule Accent.Translation do
     conflicted
     removed
     comments_count
+    translated
     file_index
     file_comment
     value_type
@@ -52,7 +54,7 @@ defmodule Accent.Translation do
     cast(struct, params, @optional_fields)
   end
 
-  @spec to_langue_entry(map(), map(), boolean, String.t()) :: Langue.Entry.t()
+  @spec to_langue_entry(map(), map() | nil, boolean, String.t()) :: Langue.Entry.t()
   def to_langue_entry(translation, master_translation, is_master, language_slug) do
     %Langue.Entry{
       id: translation.id,

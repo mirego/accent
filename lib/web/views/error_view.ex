@@ -21,7 +21,7 @@ defmodule Accent.ErrorView do
     %{error: "Not found", message: "-"}
 
     iex> Accent.ErrorView.render("500.json", %{})
-    %{error: "Internal error", message: "An error occured, someone as been notified"}
+    %{error: "Internal error", message: "An error occurred, someone as been notified"}
 
     iex> Accent.ErrorView.render("404.html", %{})
     "Page not found"
@@ -66,7 +66,7 @@ defmodule Accent.ErrorView do
   def render("500.json", _assigns) do
     %{
       error: "Internal error",
-      message: "An error occured, someone as been notified"
+      message: "An error occurred, someone as been notified"
     }
   end
 

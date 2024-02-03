@@ -24,7 +24,7 @@ defmodule AccentTest.Plugs.AssignCurrentUser do
       |> Repo.insert!()
       |> Map.put(:permissions, %{})
 
-    token = Repo.insert!(Map.merge(@token, %{user_id: user.id}))
+    token = Repo.insert!(Map.put(@token, :user_id, user.id))
 
     assigned_user =
       token.token

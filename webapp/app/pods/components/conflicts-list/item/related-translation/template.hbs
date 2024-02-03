@@ -5,36 +5,13 @@
 
   <div local-class='item-text'>
     <span local-class='item-text-content'>{{this.text}}</span>
-  </div>
 
-  <div local-class='item-actions'>
-    <LinkTo
-      title={{t 'components.conflict_item.translation_tooltip'}}
-      class='tooltip tooltip--top'
-      @route='logged-in.project.translation'
-      @models={{array @project.id @translation.id}}
-      local-class='item-actions-link'
-    >
-      {{inline-svg 'assets/eye.svg' local-class='item-actions-icon'}}
-    </LinkTo>
-
-    {{#if (get @permissions 'machine_translations_translate')}}
-      <button title={{t 'components.conflict_item.translate_tooltip'}} class='tooltip tooltip--top' local-class='item-actions-link' {{on 'click' this.translate}}>
-        {{inline-svg 'assets/language.svg' local-class='item-actions-icon'}}
-      </button>
-    {{/if}}
-
-    {{#if @translation.isConflicted}}
-      <LinkTo
-        title={{t 'components.conflict_item.in_review_tooltip'}}
-        class='tooltip tooltip--top'
-        @route='logged-in.project.revision.conflicts'
-        @models={{array @project.id @translation.revision.id}}
-        @query={{hash query=@translation.id}}
-        local-class='item-actions-flag item-actions-flag--link'
-      >
-        {{t 'components.conflict_item.conflicted_label'}}
-      </LinkTo>
-    {{/if}}
+    <div local-class='item-actions'>
+      {{#if (get @permissions 'machine_translations_translate')}}
+        <button title={{t 'components.conflict_item.translate_tooltip'}} class='tooltip tooltip--top' local-class='item-actions-link' {{on 'click' this.translate}}>
+          {{inline-svg 'assets/language.svg' local-class='item-actions-icon'}}
+        </button>
+      {{/if}}
+    </div>
   </div>
 </div>

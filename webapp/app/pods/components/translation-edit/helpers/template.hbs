@@ -1,0 +1,16 @@
+<div local-class='root'>
+  {{#if (get @permissions 'machine_translations_translate')}}
+    <InlineMachineTranslate
+      @rtl={{@rtl}}
+      @project={{@project}}
+      @text={{@text}}
+      @languages={{this.machineTranslationLanguages}}
+      @onUpdatingText={{@onUpdatingText}}
+      @onUpdateText={{@onUpdateText}}
+    />
+  {{/if}}
+
+  {{#if (get @permissions 'use_prompt_improve_text')}}
+    <ImprovePrompt @rtl={{@rtl}} @project={{@project}} @prompts={{@prompts}} @text={{@text}} @onUpdatingText={{@onUpdatingText}} @onUpdateText={{@onUpdateText}} />
+  {{/if}}
+</div>

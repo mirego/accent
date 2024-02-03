@@ -1,0 +1,19 @@
+{{#if @languages}}
+  <div local-class='prompt-button' tabindex='0'>
+    <div local-class='prompt-button-quick-access' data-rtl={{@rtl}}>
+      {{#each @languages as |language|}}
+        <AsyncButton
+          title={{language.name}}
+          @onClick={{(perform this.submitTask language.slug)}}
+          class='tooltip tooltip--top button button--iconOnly button--borderless button--white'
+        >
+          {{language.slug}}
+        </AsyncButton>
+      {{/each}}
+    </div>
+
+    <button local-class='button' class='button button--iconOnly button--borderless button--filled button--white'>
+      {{inline-svg '/assets/language.svg' class='button-icon'}}
+    </button>
+  </div>
+{{/if}}

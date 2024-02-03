@@ -60,6 +60,9 @@ export default class ConflictsController extends Controller {
   @equal('model.translations.entries', undefined)
   emptyEntries: boolean;
 
+  @readOnly('model.revisionModel.project.revisions')
+  revisions: any;
+
   @empty('document')
   emptyDocument: boolean;
 

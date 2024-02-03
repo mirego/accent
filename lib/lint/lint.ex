@@ -40,7 +40,7 @@ defmodule Accent.Lint do
             fn {_, check} -> check.enabled?() end
           )
 
-  @spec lint(list(entry), Config.t()) :: list(map())
+  @spec lint(list(entry), Config.t()) :: list({entry, list(map())})
   def lint(entries, config \\ %Config{}) do
     Enum.map(entries, &entry_to_messages(&1, config))
   end

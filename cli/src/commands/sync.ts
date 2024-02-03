@@ -74,6 +74,10 @@ export default class Sync extends Command {
     const t0 = process.hrtime.bigint();
     const documents = this.projectConfig.files();
 
+    if (this.projectConfig.config.version?.tag && !flags.version) {
+      flags.version = this.config.version;
+    }
+
     // From all the documentConfigs, do the sync or peek operations and log the results.
     const syncFormatter = new SyncFormatter();
     syncFormatter.log(this.project!, flags);
@@ -145,6 +149,7 @@ export default class Sync extends Command {
         formatter.logSync(path, documentPath);
       }
     }
+    console.log('');
   }
 
   private async addTranslationsDocumentConfig(document: Document) {
@@ -187,5 +192,6 @@ export default class Sync extends Command {
         );
       }
     }
+    console.log('');
   }
 }

@@ -4,12 +4,14 @@
   @documents={{this.model.documents}}
   @version={{this.version}}
   @versions={{this.model.project.versions.entries}}
+  @revisions={{this.revisions}}
   @withAdvancedFilters={{this.withAdvancedFilters}}
   @isTextEmptyFilter={{this.isTextEmpty}}
   @isTextNotEmptyFilter={{this.isTextNotEmpty}}
   @isAddedLastSyncFilter={{this.isAddedLastSync}}
   @isCommentedOnFilter={{this.isCommentedOn}}
   @isConflictedFilter={{this.isConflicted}}
+  @isTranslatedFilter={{this.isTranslated}}
   @onChangeQuery={{fn this.changeQuery}}
   @onChangeAdvancedFilterBoolean={{fn this.changeAdvancedFilterBoolean}}
   @onChangeDocument={{fn this.changeDocument}}
@@ -29,6 +31,7 @@
   <TranslationsList
     @project={{this.model.project}}
     @prompts={{this.model.prompts}}
+    @revisions={{this.revisions}}
     @permissions={{this.permissions}}
     @translations={{this.model.translations.entries}}
     @withAdvancedFilters={{this.withAdvancedFilters}}

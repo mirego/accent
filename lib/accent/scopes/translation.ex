@@ -94,6 +94,21 @@ defmodule Accent.Scopes.Translation do
   @doc """
   ## Examples
 
+    iex> Accent.Scopes.Translation.parse_translated(Accent.Translation, nil)
+    Accent.Translation
+    iex> Accent.Scopes.Translation.parse_translated(Accent.Translation, false)
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.translated == false>
+    iex> Accent.Scopes.Translation.parse_translated(Accent.Translation, true)
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.translated == true>
+  """
+  @spec parse_translated(Queryable.t(), nil | boolean()) :: Queryable.t()
+  def parse_translated(query, nil), do: query
+  def parse_translated(query, false), do: not_translated(query)
+  def parse_translated(query, true), do: translated(query)
+
+  @doc """
+  ## Examples
+
     iex> Accent.Scopes.Translation.parse_empty(Accent.Translation, nil)
     Accent.Translation
     iex> Accent.Scopes.Translation.parse_empty(Accent.Translation, true)
@@ -190,6 +205,24 @@ defmodule Accent.Scopes.Translation do
   """
   @spec not_conflicted(Queryable.t()) :: Queryable.t()
   def not_conflicted(query), do: from(query, where: [conflicted: false])
+
+  @doc """
+  ## Examples
+
+    iex> Accent.Scopes.Translation.translated(Accent.Translation)
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.translated == true>
+  """
+  @spec translated(Queryable.t()) :: Queryable.t()
+  def translated(query), do: from(query, where: [translated: true])
+
+  @doc """
+  ## Examples
+
+    iex> Accent.Scopes.Translation.not_translated(Accent.Translation)
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.translated == false>
+  """
+  @spec not_translated(Queryable.t()) :: Queryable.t()
+  def not_translated(query), do: from(query, where: [translated: false])
 
   @spec related_to(Queryable.t(), Translation.t()) :: Queryable.t()
   def related_to(query, translation) do

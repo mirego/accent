@@ -3,10 +3,13 @@ import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
+  AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
   SLACK: 'assets/services/slack.svg',
 };
+
+const EXECUTABLE_SERVICES = ['AZURE_STORAGE_CONTAINER'];
 
 interface Args {
   project: any;
@@ -26,6 +29,13 @@ export default class IntegrationsListItem extends Component<Args> {
   @tracked
   isDeleting = false;
 
+  @tracked
+  isExecuting = false;
+
+  get serviceIsExecutable() {
+    return EXECUTABLE_SERVICES.includes(this.args.integration.service);
+  }
+
   get logoService() {
     const service: keyof typeof LOGOS = this.args.integration.service;
 
@@ -34,6 +44,16 @@ export default class IntegrationsListItem extends Component<Args> {
 
   get mappedServiceTranslationKey() {
     return `general.integration_services.${this.args.integration.service}`;
+  }
+
+  get dataExecuteComponent() {
+    return `project-settings/integrations/list/item/execute/${this.args.integration.service.toLowerCase()}`;
+  }
+
+  @action
+  toggleExecuting() {
+    this.errors = [];
+    this.isExecuting = !this.isExecuting;
   }
 
   @action

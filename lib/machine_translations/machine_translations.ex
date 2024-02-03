@@ -23,17 +23,19 @@ defmodule Accent.MachineTranslations do
   end
 
   @spec translate([map()], String.t(), String.t(), struct()) :: [map()] | {:error, any()}
-  def translate(entries, source_language, target_language, config) do
+  def translate(entries, source_language_slug, target_language_slug, config) do
     provider = provider_from_config(config)
 
     entries
     |> Enum.map(&filter_long_value/1)
     |> Enum.chunk_every(@translation_chunk_size)
-    |> Enum.reduce_while([], fn values, acc ->
-      case Provider.translate(provider, values, source_language.slug, target_language.slug) do
+    |> Enum.reduce_while([], fn chunked_entries, acc ->
+      values = Enum.map(chunked_entries, & &1.value)
+
+      case Provider.translate(provider, values, source_language_slug, target_language_slug) do
         {:ok, translated_values} ->
           translated_entries =
-            entries
+            chunked_entries
             |> Enum.zip(translated_values)
             |> Enum.map(fn {entry, translated_text} ->
               case translated_text do
@@ -43,7 +45,7 @@ defmodule Accent.MachineTranslations do
               end
             end)
 
-          {:cont, translated_entries ++ acc}
+          {:cont, acc ++ translated_entries}
 
         error ->
           {:halt, error}
@@ -51,8 +53,10 @@ defmodule Accent.MachineTranslations do
     end)
   end
 
+  @spec map_source_and_target(String.t() | nil, String.t(), list(String.t())) ::
+          {:ok, {String.t(), String.t()}} | {:error, atom()}
   def map_source_and_target(source, target, supported_languages) do
-    source = String.downcase(source)
+    source = source && String.downcase(source)
     target = String.downcase(target)
 
     source =
@@ -62,12 +66,14 @@ defmodule Accent.MachineTranslations do
       if target in supported_languages, do: target, else: fallback_split_lanugage_slug(target, supported_languages)
 
     cond do
-      is_nil(source) and is_nil(target) -> {:error, :unsupported_source_and_target}
-      is_nil(source) -> {:error, :unsupported_source}
-      is_nil(target) -> {:error, :unsupported_target}
+      source === :unsupported and target === :unsupported -> {:error, :unsupported_source_and_target}
+      source === :unsupported -> {:error, :unsupported_source}
+      target === :unsupported -> {:error, :unsupported_target}
       true -> {:ok, {source, target}}
     end
   end
+
+  defp fallback_split_lanugage_slug(nil, _supported_languages), do: nil
 
   defp fallback_split_lanugage_slug(language, supported_languages) do
     prefix =
@@ -76,7 +82,7 @@ defmodule Accent.MachineTranslations do
         _ -> nil
       end
 
-    if prefix in supported_languages, do: prefix
+    if prefix in supported_languages, do: prefix, else: :unsupported
   end
 
   defp provider_from_config(nil), do: %Provider.NotImplemented{}
@@ -98,13 +104,14 @@ defmodule Accent.MachineTranslations do
 
   defp fetch_config(%{"config" => config}), do: config
 
-  defp filter_long_value(%{value: value}) when value in ["", nil], do: @untranslatable_placeholder
+  defp filter_long_value(%{value: value} = entry) when value in ["", nil],
+    do: %{entry | value: @untranslatable_placeholder}
 
   defp filter_long_value(entry) do
     if String.length(entry.value) > @untranslatable_string_length_limit do
-      @untranslatable_placeholder
+      %{entry | value: @untranslatable_placeholder}
     else
-      entry.value
+      entry
     end
   end
 end

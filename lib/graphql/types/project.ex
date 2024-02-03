@@ -37,6 +37,7 @@ defmodule Accent.GraphQL.Types.Project do
     field(:logo, :string)
 
     field(:translations_count, non_null(:integer))
+    field(:translated_count, non_null(:integer))
     field(:conflicts_count, non_null(:integer))
     field(:reviewed_count, non_null(:integer))
 
@@ -78,7 +79,7 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :translated_text, :project_translated_text do
       arg(:text, non_null(:string))
-      arg(:source_language_slug, non_null(:string))
+      arg(:source_language_slug, :string)
       arg(:target_language_slug, non_null(:string))
 
       resolve(
@@ -192,11 +193,13 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :revision, :revision do
       arg(:id, :id)
+      arg(:version_id, :id)
 
       resolve(project_authorize(:show_revision, &Accent.GraphQL.Resolvers.Revision.show_project/3))
     end
 
     field :revisions, list_of(:revision) do
+      arg(:version_id, :id)
       resolve(project_authorize(:index_revisions, &Accent.GraphQL.Resolvers.Revision.list_project/3))
     end
 

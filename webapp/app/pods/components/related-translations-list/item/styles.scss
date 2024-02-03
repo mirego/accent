@@ -9,6 +9,13 @@
     font-style: italic;
     text-align: center;
   }
+
+  &:hover {
+    .form-helpers {
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
 }
 
 .textEmpty {
@@ -39,9 +46,13 @@
   font-weight: normal;
 }
 
-.form-improve {
+.form-helpers {
+  pointer-events: none;
+  opacity: 0;
   position: relative;
   z-index: 1;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
 }
 
 .header {
@@ -70,6 +81,7 @@
   right: 14px;
 
   &[data-dir='rtl'] {
+    flex-direction: row-reverse;
     right: auto;
     left: 14px;
   }

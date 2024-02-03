@@ -146,12 +146,12 @@
       }
     },
     "conflict_item": {
-      "correct_error_text": "Impossible de corriger le conflit. Réessayez plus tard.",
+      "correct_error_text": "Impossible de réviser le conflit. Réessayez plus tard.",
       "conflicted_label": "à réviser",
       "in_review_tooltip": "Voir à réviser",
       "translate_tooltip": "Traduire à partir de ce texte",
       "translation_tooltip": "Afficher les détails de la chaîne",
-      "uncorrect_error_text": "Impossible de corriger le conflit. Réessayez plus tard."
+      "uncorrect_error_text": "Impossible de réviser le conflit. Réessayez plus tard."
     },
     "conflicts_actions": {
       "reload_button": "Recharger"
@@ -180,7 +180,7 @@
           "title": "Exportation"
         },
         "review": {
-          "text": "Marquez les chaînes comme révisées, corrigez-les tout en voyant un diff textuel du contenu précédent. Vous pouvez même voir le texte d’une autre langue pour la chaîne correspondante.",
+          "text": "Marquez les chaînes comme révisées, révisez-les tout en voyant un diff textuel du contenu précédent. Vous pouvez même voir le texte d’une autre langue pour la chaîne correspondante.",
           "title": "Révisions"
         },
         "sync": {
@@ -218,6 +218,8 @@
       "reviewed": "revu",
       "activities_title": "Dernières activités",
       "item": {
+        "rtl_badge": "RTL",
+        "rtl": "Texte de droite à gauche",
         "correct_all_button": "Marquer toutes les chaînes comme vérifiées",
         "uncorrect_all_button": "Remettre toutes les chaînes à réviser"
       }
@@ -294,7 +296,7 @@
       "details_label": "Détails:",
       "explanation_label": "Pourquoi est-ce arrivé?",
       "rollback_confirm": "Voulez-vous vraiment annuler cette activité ? Vous ne pouvez pas annuler une restauration.",
-      "rollback": "Retour en arriere",
+      "rollback": "Retour en arrière",
       "stats_label_text": "Activités réalisées :",
       "stats_text": {
         "merge_on_corrected": "Chaîne traduite",
@@ -322,7 +324,7 @@
         "create_version": "Lorsqu’un utilisateur fige l’état de toutes les chaînes pour le marquer avec une version. Utilisé pour gérer plusieurs versions de la même application en parallèle.",
         "conflict_on_corrected": "Lorsque le texte téléchargé est différent du dernier texte synchronisé et que le dernier texte synchronisé est différent du texte actuel. Cela se produit si le texte a été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé par une différence entre une synchronisation et la version modifiée dans Accent.",
         "conflict_on_proposed": "Lorsque le texte téléchargé est différent du dernier texte téléchargé et que le dernier texte synchronisé est égal au texte actuel. Cela se produit si le texte n’a pas été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé uniquement par une synchronisation et non par une intervention humaine.",
-        "conflict_on_slave": "Lorsque l’activité \"conflit sur proposition\" ou \"conflit sur corrigé\" se produit sur une chaîne, les clés correspondantes dans d’autres langues appliquent cette activité. Le but de cette activité est de signaler un changement de sens dans la langue principale dans les traductions. La chaîne sera signalée comme \"en révision\"",
+        "conflict_on_slave": "Lorsque l’activité \"conflit sur proposition\" ou \"conflit sur révisé\" se produit sur une chaîne, les clés correspondantes dans d’autres langues appliquent cette activité. Le but de cette activité est de signaler un changement de sens dans la langue principale dans les traductions. La chaîne sera signalée comme \"en révision\"",
         "correct_all": "Lorsque toutes les chaînes sont marquées manuellement comme révisées.",
         "correct_conflict": "Lorsqu’une chaîne est marquée manuellement comme révisée.",
         "batch_correct_conflict": "Lorsque plusieurs chaînes ont été marquées comme révisées dans un court laps de temps.",
@@ -396,7 +398,7 @@
       },
       "links_list": {
         "prompts": "Assistant IA",
-        "prompts_text": "Configurez votre assistant pour vous aider à rédiger, améliorer, corriger votre texte",
+        "prompts_text": "Configurez votre assistant pour vous aider à rédiger, améliorer, réviser votre texte",
         "collaborators": "Collaborateurs",
         "collaborators_text": "Gérer qui a accès à quelles fonctionnalités de ce projet",
         "badges": "Insignes",
@@ -408,7 +410,7 @@
         "manage_languages": "Gérer les langues",
         "manage_languages_text": "Ajouter/supprimer des langues traduites dans le projet",
         "jipt": "Traductions JIPT",
-        "jipt_text": "Traduction en direct sur toutes les applications, avec bibliothèque Javascript intégrée",
+        "jipt_text": "Traduction en direct sur toutes les applications, avec bibliothèque JavaScript intégrée",
         "machine_translations": "Traductions machines",
         "machine_translations_text": "Configurer un service externe pour traduire automatiquement les langues"
       },
@@ -504,8 +506,10 @@
         "save": "Sauver",
         "cancel": "Annuler",
         "edit": "Éditer",
+        "last_executed_at": "Dernière exécution:",
         "delete": "Supprimer",
         "data": {
+          "azure_storage_container_sas": "SAS URL",
           "default_ref": "Réf par défaut",
           "repository": "Dépôt",
           "token": "Jeton",
@@ -524,28 +528,45 @@
             "new_conflicts": "Nouvelles chaîne à réviser",
             "complete_review": "Le projet est revu à 100%"
           }
+        },
+        "execute": {
+          "azure_storage_container": {
+            "title": "Publier sur Azure Storage Container",
+            "cancel_button": "Annuler",
+            "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
+            "push_button": "Publier",
+            "sas_base_url": "Base de l’URL de publication",
+            "submit_confirm": "La publication de fichiers vers Azure Storage Container peut remplacer les fichiers existants si vous publiez la dernière version ou une version déjà publiée.",
+            "target_version": {
+              "label": "Version Cible",
+              "options": {
+                "latest": "Dernière version",
+                "specific": "Version spécifique"
+              }
+            }
+          }
         }
       }
     },
     "project_activities_filter": {
       "actions": {
-        "conflict_on_corrected": "Conflit sur corrigé",
+        "conflict_on_corrected": "Conflit sur révisé",
         "conflict_on_proposed": "Conflit sur la proposition",
         "conflict_on_slave": "Conflit sur l’esclave",
-        "correct_all": "Corrigez tout",
-        "correct_conflict": "Corriger le conflit",
-        "batch_correct_conflict": "Corriger les conflits",
+        "correct_all": "Révisez tout",
+        "correct_conflict": "Réviser le conflit",
+        "batch_correct_conflict": "Réviser les conflits",
         "document_delete": "Suppression de fichier",
         "new": "Nouveau",
         "renew": "Renouveler",
         "new_comment": "Nouveau commentaire",
         "remove": "Éliminer",
-        "rollback": "Retour en arriere",
+        "rollback": "Retour en arrière",
         "batch_merge": "Ajouter des traductions aux fichiers",
         "merge": "Ajouter des traductions au fichier",
         "sync": "Synchroniser le fichier",
         "batch_sync": "Synchroniser les fichiers",
-        "uncorrect_all": "Ne pas corriger tout",
+        "uncorrect_all": "Ne pas réviser tout",
         "uncorrect_conflict": "Conflit incorrect",
         "update": "Mettre à jour la chaîne",
         "batch_update": "Mettre à jour les chaînes"
@@ -678,7 +699,7 @@
       "export_jipt": "Traduction JIPT"
     },
     "project_navigation": {
-      "back_to_projects": "Retour au projets",
+      "back_to_projects": "Retour aux projets",
       "engage": "Engager",
       "revise": "Réviser",
       "manage": "Gérer",
@@ -727,14 +748,14 @@
     "related_translations_list": {
       "comments_label": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} other {# commentaires}}",
       "conflicted_label": "à réviser",
-      "master_label": "Principale",
+      "master_label": "principale",
       "save_button": "Sauver",
       "last_updated_label": "Dernière mise à jour:",
       "new_language_link": "Nouveau langage",
       "no_related_translations": "Pas encore de traductions. Vous devez ajouter une autre langue à votre projet."
     },
     "removed_translation_edit": {
-      "cant_edit": "Cette chaîne ne peut pas être modifiée car elle a été supprimée."
+      "cant_edit": "Cette chaîne ne peut pas être modifiée, car elle a été supprimée."
     },
     "project_manage_languages_create_form": {
       "default_null": "Initialiser le langage avec des chaînes vides",
@@ -757,7 +778,7 @@
       "default_version": "Version par défaut",
       "orders": {
         "az": "Ordre alphabétique",
-        "original": "Ordre originale"
+        "original": "Ordre original"
       },
       "advanced_filters_title": "Filtres de traduction",
       "advanced_filters": {
@@ -822,7 +843,7 @@
       "correct_button": "Mettre à jour et marquer comme révisé",
       "previous_text": "Texte précédent :",
       "uncorrect_button": "Remettre à révisée",
-      "uneditable": "Le texte n’est pas modifiable car il a été marqué comme révisé",
+      "uneditable": "Le texte n’est pas modifiable, car il a été marqué comme révisé",
       "update_text": "Mettre à jour le texte",
       "form": {
         "true_option": "vrai",
@@ -832,7 +853,7 @@
         "float_type_notice": "Le texte a été défini avec une valeur flottante.",
         "empty_type_notice": "Le texte a été défini sur une chaîne vide",
         "empty_type_placeholder": "Texte vide",
-        "null_type_notice": "Le texte a été défini sur null",
+        "null_type_notice": "Le texte a été défini sur nulle",
         "file_comment": {
           "title": "Commentaire de fichier"
         },
@@ -854,7 +875,7 @@
           "FIRST_LETTER_CASE": "La casse de la première lettre ne concorde pas",
           "THREE_DOTS_ELLIPSIS": "Trois points pour des points de suspension",
           "SAME_TRAILING_CHARACTER": "Le caractère de fin ne concorde pas",
-          "SPELLING": "Ortographe",
+          "SPELLING": "Orthographe",
           "URL_COUNT": "Le nombre d’URL ne concorde pas"
         },
         "checks": {
@@ -866,8 +887,8 @@
           "FIRST_LETTER_CASE": "La première lettre de traduction ne correspond pas à la casse de la langue principal",
           "THREE_DOTS_ELLIPSIS": "La chaîne contient trois points au lieu de points de suspension",
           "SAME_TRAILING_CHARACTER": "La chaîne ne correspond pas au caractère de fin de la langue principal",
-          "SPELLING": "La chaîne contient une faute d’ortographe",
-          "URL_COUNT": "Le cnombre d’URL ne correspond pas à la chaîne principale"
+          "SPELLING": "La chaîne contient une faute d’orthographe",
+          "URL_COUNT": "Le nombre d’URL ne correspond pas à la chaîne principale"
         }
       }
     },
@@ -881,7 +902,7 @@
     "translation_splash_title": {
       "plural_label": "pluriel",
       "conflicted_label": "à réviser",
-      "master_label": "Principale",
+      "master_label": "principale",
       "last_updated_label": "Dernière mise à jour:",
       "removed_label": "Cette chaîne a été supprimée {removedAt}"
     },
@@ -898,7 +919,8 @@
         "not_empty": "Le texte n’est pas vide",
         "added_last_sync": "Ajoutées à la dernière synchronisation",
         "commented_on": "Chaînes avec commentaires",
-        "conflicted": "À réviser"
+        "conflicted": "À réviser",
+        "translated": "À traduire"
       }
     },
     "translations_list": {
@@ -907,7 +929,9 @@
       "save": "Sauver",
       "empty_text": "Texte vide",
       "in_review_label": "à réviser",
+      "to_translate_label": "à traduire",
       "in_review_tooltip": "Voir à réviser",
+      "to_translate_tooltip": "Traduction jamais mise à jour",
       "lint_messages_label": "{count, plural, =0 {Aucun avertissement de vérification} =1 {1 avertissement de vérification} other {# avertissement de vérification}}",
       "last_updated_label": "Dernière mise à jour:",
       "maybe_sync_before": "Essayez peut-être de",
@@ -930,7 +954,7 @@
       "api_token": "Obtenir un jeton API",
       "api_token_text": "Interagissez avec l’API de votre projet",
       "start_review": "Commencez à réviser et à traduire",
-      "export": "Exporter le fichier corrigé",
+      "export": "Exporter le fichier révisé",
       "help": "Aider?"
     }
   },
@@ -946,7 +970,8 @@
       "DEVELOPER": "Développeur",
       "OWNER": "Propriétaire",
       "BOT": "Jeton d’API",
-      "REVIEWER": "Traducteur"
+      "REVIEWER": "Correcteur",
+      "TRANSLATOR": "Traducteur"
     },
     "machine_translations_providers": {
       "google_translate": "Google Translate",
@@ -956,7 +981,7 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "MICROSOFT": "Microsoft"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
     },
     "search_input_placeholder_text": "Rechercher une chaîne…"
   },
@@ -1057,14 +1082,14 @@
           "machine_translations_config_remove_error": "La configuration des traductions automatiques n’a pas pu être supprimée",
           "machine_translations_config_remove_success": "La configuration des traductions automatiques a été supprimée avec succès",
           "prompts_update_success": "L’instruction a été mise à jour avec succès",
-          "prompts_update_error": "L’instruction n'a pas pu être mise à jour",
+          "prompts_update_error": "L’instruction n’a pas pu être mise à jour",
           "prompts_create_success": "L’instruction a été créée avec succès",
           "prompts_create_error": "Impossible de créer l’instruction",
           "prompts_remove_success": "L’instruction a été supprimée avec succès",
           "prompts_remove_error": "Impossible de supprimer l’instruction",
-          "prompts_config_error": "La configuration de l’assistant AI n'a pas pu être enregistrée",
+          "prompts_config_error": "La configuration de l’assistant AI n’a pas pu être enregistrée",
           "prompts_config_success": "La configuration de l’assistant AI a été enregistrée avec succès",
-          "prompts_config_remove_error": "La configuration de l’assistant AI n'a pas pu être supprimée",
+          "prompts_config_remove_error": "La configuration de l’assistant AI n’a pas pu être supprimée",
           "prompts_config_remove_success": "La configuration de l’assistant AI a été supprimée avec succès",
           "collaborator_add_error": "Le collaborateur n’a pas pu être ajouté",
           "collaborator_add_success": "Le collaborateur a été ajouté avec succès",
@@ -1093,10 +1118,12 @@
         },
         "api_token": {
           "loading_content": "Récupération des paramètres d’API du projet…",
-          "api_token_add_success": "Le jeton d’API a été créé avec succès",
-          "api_token_add_error": "Le jeton d’API n’a pas pu être créé",
-          "api_token_revoke_success": "Le jeton d’API a été révoqué avec succès",
-          "api_token_revoke_error": "Le jeton d’API n’a pas pu être révoqué"
+          "flash_messages": {
+            "api_token_add_success": "Le jeton d’API a été créé avec succès",
+            "api_token_add_error": "Le jeton d’API n’a pas pu être créé",
+            "api_token_revoke_success": "Le jeton d’API a été révoqué avec succès",
+            "api_token_revoke_error": "Le jeton d’API n’a pas pu être révoqué"
+          }
         },
         "jipt": {
           "loading_content": "Récupération des paramètres de traduction JIPT du projet…"

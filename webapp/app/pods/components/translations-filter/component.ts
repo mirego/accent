@@ -13,9 +13,10 @@ const DEBOUNCE_OFFSET = 1000; // ms
 interface Args {
   query: string;
   document: any;
-  documents: any;
+  documents: any[];
   version: any;
-  versions: any;
+  versions: any[];
+  revisions: any[];
   meta: any;
   withAdvancedFilters: boolean;
   isTextEmptyFilter: boolean;
@@ -23,6 +24,7 @@ interface Args {
   isAddedLastSyncFilter: boolean;
   isCommentedOnFilter: boolean;
   isConflictedFilter: boolean;
+  isTranslatedFilter: boolean;
   onChangeQuery: (query: string) => void;
   onChangeDocument: () => void;
   onChangeVersion: () => void;

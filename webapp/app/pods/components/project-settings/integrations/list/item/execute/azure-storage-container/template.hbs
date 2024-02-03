@@ -1,0 +1,46 @@
+<div local-class='azure-push-form'>
+  <h1 local-class='title'>
+    {{t 'components.project_settings.integrations.execute.azure_storage_container.title'}}
+  </h1>
+
+  <div local-class='info'>
+    <div>
+      <strong>{{t 'components.project_settings.integrations.execute.azure_storage_container.sas_base_url'}}</strong>
+      <span>{{@integration.data.sasBaseUrl}}</span>
+    </div>
+  </div>
+
+  {{#if this.error}}
+    <div local-class='errors'>
+      <div local-class='error'>
+        {{t 'components.project_settings.integrations.execute.azure_storage_container.error'}}
+      </div>
+    </div>
+  {{/if}}
+
+  <div local-class='formItem'>
+    <div local-class='data-control'>
+      <h3 local-class='data-title'>
+        {{t 'components.project_settings.integrations.execute.azure_storage_container.target_version.label'}}
+      </h3>
+
+      {{#each this.allTargetVersions as |target|}}
+        <label local-class='radio'>
+          <input type='radio' checked={{eq this.targetVersion target.value}} name='target_version' {{on 'change' (fn this.setTargetVersion target.value)}} required />
+          {{t target.label}}
+        </label>
+      {{/each}}
+
+      {{#if (eq this.targetVersion 'SPECIFIC')}}
+        <ProjectSettings::Integrations::Form::DataControlText @placeholder='1.0.0' @value={{this.tag}} @onChange={{this.setTag}} />
+      {{/if}}
+    </div>
+  </div>
+
+  <div local-class='formActions'>
+    <AsyncButton class='button button--filled' @loading={{this.isSubmitting}} @onClick={{this.submit}}>
+      {{inline-svg '/assets/arrow-up-right.svg' class='button-icon'}}
+      {{t 'components.project_settings.integrations.execute.azure_storage_container.push_button'}}
+    </AsyncButton>
+  </div>
+</div>

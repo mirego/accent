@@ -19,6 +19,7 @@ defmodule Movement.Migration.Translation do
 
     update(operation.translation, %{
       value_type: operation.value_type,
+      translated: true,
       corrected_text: operation.text,
       conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text,
       placeholders: operation.placeholders
@@ -56,6 +57,7 @@ defmodule Movement.Migration.Translation do
       file_index: operation.file_index,
       file_comment: operation.file_comment,
       removed: operation.previous_translation && operation.previous_translation.removed,
+      translated: is_nil(operation.translation_id),
       revision_id: operation.revision_id,
       document_id: operation.document_id,
       version_id: operation.version_id,
@@ -79,7 +81,8 @@ defmodule Movement.Migration.Translation do
       key: operation.key,
       proposed_text: operation.text,
       corrected_text: operation.text,
-      conflicted: false,
+      translated: (operation.previous_translation && operation.previous_translation.translated) || false,
+      conflicted: operation.previous_translation && operation.previous_translation.conflicted,
       value_type: operation.value_type,
       file_index: operation.file_index,
       file_comment: operation.file_comment,
@@ -99,7 +102,6 @@ defmodule Movement.Migration.Translation do
         :action,
         :key,
         :text,
-        :conflicted,
         :value_type,
         :plural,
         :locked,

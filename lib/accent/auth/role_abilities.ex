@@ -7,6 +7,7 @@ defmodule Accent.RoleAbilities do
   @bot_role "bot"
   @developer_role "developer"
   @reviewer_role "reviewer"
+  @translator_role "translator"
 
   @read_actions ~w(
     lint
@@ -36,10 +37,6 @@ defmodule Accent.RoleAbilities do
     create_comment
     delete_comment
     update_comment
-    correct_all_revision
-    uncorrect_all_revision
-    correct_translation
-    uncorrect_translation
     update_translation
     create_translation_comments_subscription
     delete_translation_comments_subscription
@@ -55,6 +52,13 @@ defmodule Accent.RoleAbilities do
     hook_update
   )a ++ @read_actions
 
+  @reviewer_actions ~w(
+    correct_all_revision
+    uncorrect_all_revision
+    correct_translation
+    uncorrect_translation
+  )a ++ @any_actions
+
   @developer_actions ~w(
     peek_sync
     peek_merge
@@ -67,6 +71,7 @@ defmodule Accent.RoleAbilities do
     revoke_project_api_token
     index_project_integrations
     create_project_integration
+    execute_project_integration
     update_project_integration
     delete_project_integration
     create_version
@@ -75,7 +80,7 @@ defmodule Accent.RoleAbilities do
     delete_project_machine_translations_config
     save_project_prompt_config
     delete_project_prompt_config
-  )a ++ @any_actions
+  )a ++ @reviewer_actions
 
   @admin_actions ~w(
     create_slave
@@ -101,7 +106,8 @@ defmodule Accent.RoleAbilities do
   def actions_for(@admin_role, target), do: add_actions_with_target(@admin_actions, @admin_role, target)
   def actions_for(@bot_role, target), do: add_actions_with_target(@bot_actions, @bot_role, target)
   def actions_for(@developer_role, target), do: add_actions_with_target(@developer_actions, @developer_role, target)
-  def actions_for(@reviewer_role, target), do: add_actions_with_target(@any_actions, @reviewer_role, target)
+  def actions_for(@reviewer_role, target), do: add_actions_with_target(@reviewer_actions, @reviewer_role, target)
+  def actions_for(@translator_role, target), do: add_actions_with_target(@any_actions, @translator_role, target)
 
   defp add_actions_with_target(actions, role, target) do
     Enum.reduce(@actions_with_target, actions, fn action, actions ->
@@ -141,8 +147,12 @@ defmodule Accent.RoleAbilities do
     def can?(@developer_role, unquote(action), _), do: true
   end
 
-  for action <- @any_actions do
+  for action <- @reviewer_actions do
     def can?(@reviewer_role, unquote(action), _), do: true
+  end
+
+  for action <- @any_actions do
+    def can?(@translator_role, unquote(action), _), do: true
   end
 
   # Fallback if no permission has been found for the user on the project

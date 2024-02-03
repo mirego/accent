@@ -1,6 +1,6 @@
 // Vendor
 import * as chalk from 'chalk';
-import decamelize from 'decamelize';
+import * as decamelize from 'decamelize';
 
 const capitalizeFirstLetter = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1);

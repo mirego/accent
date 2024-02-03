@@ -37,22 +37,22 @@ RUN apt-get update -y && \
     rm -f /var/lib/apt/lists/*_*
 
 COPY priv priv
-COPY vendor vendor
-
-RUN cd ./vendor/language_tool/priv/native/languagetool && ./gradlew shadowJar
-RUN cp ./vendor/language_tool/priv/native/languagetool/app/build/libs/language-tool.jar priv/native/language-tool.jar
 
 RUN mix local.rebar --force && \
     mix local.hex --force
 
 COPY mix.* ./
-COPY lib lib
 COPY config config
-COPY mix.exs .
-COPY mix.lock .
 
 RUN mix deps.get --only prod
 RUN mix deps.compile --only prod
+
+COPY vendor vendor
+RUN cd ./vendor/language_tool/priv/native/languagetool && ./gradlew shadowJar
+RUN cp ./vendor/language_tool/priv/native/languagetool/app/build/libs/language-tool.jar priv/native/language-tool.jar
+
+COPY lib lib
+
 RUN mix compile --only prod
 
 # Move static assets from other stages into the OTP release.

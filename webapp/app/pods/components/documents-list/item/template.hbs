@@ -38,7 +38,6 @@
 
                 <LinkTo @route='logged-in.project.files.export' @models={{array @project.id @document.id}} local-class='item-document'>
                   {{@document.path}}
-                  <span local-class='item-subtitle'>.{{this.documentFormatItem.extension}}</span>
                 </LinkTo>
               {{/if}}
             </span>
@@ -92,15 +91,17 @@
               {{inline-svg '/assets/sync.svg' class='button-icon'}}
             </LinkTo>
           {{/if}}
-          {{#if (get @permissions 'merge')}}
-            <LinkTo
-              @route='logged-in.project.files.add-translations'
-              @models={{array @project.id @document.id}}
-              title={{t 'components.documents_list.merge'}}
-              class='tooltip tooltip--top button button--filled button--white button--iconOnly'
-            >
-              {{inline-svg '/assets/merge.svg' class='button-icon'}}
-            </LinkTo>
+          {{#if this.multipleRevisions}}
+            {{#if (get @permissions 'merge')}}
+              <LinkTo
+                @route='logged-in.project.files.add-translations'
+                @models={{array @project.id @document.id}}
+                title={{t 'components.documents_list.merge'}}
+                class='tooltip tooltip--top button button--filled button--white button--iconOnly'
+              >
+                {{inline-svg '/assets/merge.svg' class='button-icon'}}
+              </LinkTo>
+            {{/if}}
           {{/if}}
           {{#if (get @permissions 'machine_translations_translate')}}
             <LinkTo

@@ -38,5 +38,14 @@
         {{t 'components.translations_filter.advanced_filters.conflicted'}}
       </span>
     </label>
+
+    {{#if this.showTranslatedFilter}}
+      <label local-class='label'>
+        <input type='checkbox' checked={{@isTranslatedFilter}} {{on 'change' (fn @onChangeAdvancedFilterBoolean 'isTranslated')}} />
+        <span>
+          {{t 'components.translations_filter.advanced_filters.translated'}}
+        </span>
+      </label>
+    {{/if}}
   </div>
 </div>

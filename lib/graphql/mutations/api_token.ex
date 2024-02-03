@@ -16,7 +16,7 @@ defmodule Accent.GraphQL.Mutations.APIToken do
       resolve(project_authorize(:create_project_api_token, &APITokenResolver.create/3, :project_id))
     end
 
-    field :revoke_api_token, :boolean do
+    field :revoke_api_token, :mutated_api_token do
       arg(:id, non_null(:id))
 
       resolve(api_token_authorize(:revoke_project_api_token, &APITokenResolver.revoke/3))

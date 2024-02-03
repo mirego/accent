@@ -20,7 +20,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.14.1 darwin-arm64 node-v16.15.1
+accent-cli/0.16.0 darwin-arm64 node-v16.19.1
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -38,6 +38,9 @@ accent-cli reads from a `accent.json` file. The file should contain valid JSON r
 {
   "apiUrl": "http://your.accent.instance",
   "apiKey": "2nziVSaa8yUJxLkwoZA",
+  "version": {
+    "branchVersionPrefix": "release/"
+  }
   "files": [
     {
       "format": "json",
@@ -64,6 +67,10 @@ Available ENV variables. (Each variable will override `accent.json` variables if
 - `ACCENT_API_KEY`: The base URL of your Accent Instance
 - `ACCENT_API_URL`: Api Key to your Accent Instance
 - `ACCENT_PROJECT`: Your Project uuid
+
+Version object configuration
+
+- `branchVersionPrefix`: The Git branch prefix use to extract the file version
 
 Each operation section `sync` and `addTranslations` can contain the following object:
 
@@ -121,6 +128,36 @@ Each operation section `sync` and `addTranslations` can contain the following ob
 }
 ```
 
+`fileWithParentDirectory`: Use the path of the file in addition to the file name. This is useful if you want to keep your file in multiple nested directories, per language. Use the position of the `%slug%` placeholder in the `target` as the root of the path.
+
+```
+{
+  "files": [
+      {
+          "namePattern": "fileWithParentDirectory",
+          "source": "translations/en/**/*.json",
+          "target": "translations/%slug%/%document_path%.json",
+      }
+  ]
+}
+```
+
+Given this configuration and a file layout like this:
+
+```
+my-project/
+  accent.json
+  translations/
+    en/
+      foo/
+        locales.json
+    fr/
+      foo/
+        locales.json
+```
+
+The document name in Accent will be named `foo/locales`.
+
 ## Hooks
 
 Here is a list of available hooks. Those are self-explanatory
@@ -129,6 +166,18 @@ Here is a list of available hooks. Those are self-explanatory
 - `afterSync`
 - `beforeExport`
 - `afterExport`
+
+## Version
+
+Version can be extracted from the current Git branch name.
+
+```
+  "version": {
+    "branchVersionPrefix": "release/"
+  }
+```
+
+Naming a branch `release/v1.0.0` will cause the `sync` and `stats` CLI commands to be invoked as if `--version=1.0.0` had been specified.
 
 # Commands
 <!-- commands -->
@@ -158,7 +207,7 @@ EXAMPLES
   $ accent export --order-by=key --version=build.myapp.com:0.12.345
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.14.1/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.16.0/src/commands/export.ts)_
 
 ## `accent format`
 
@@ -176,7 +225,7 @@ EXAMPLE
   $ accent format
 ```
 
-_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.14.1/src/commands/format.ts)_
+_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.16.0/src/commands/format.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -213,7 +262,7 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.14.1/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.16.0/src/commands/jipt.ts)_
 
 ## `accent lint`
 
@@ -230,24 +279,27 @@ EXAMPLE
   $ accent lint
 ```
 
-_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.14.1/src/commands/lint.ts)_
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.16.0/src/commands/lint.ts)_
 
 ## `accent stats`
 
-Fetch stats from the API and display it beautifully
+Fetch stats from the API and display them beautifully
 
 ```
 USAGE
   $ accent stats
 
 OPTIONS
-  --config=config  [default: accent.json] Path to the config file
+  --check-reviewed    Exit 1 when reviewed percentage is not 100%
+  --check-translated  Exit 1 when translated percentage is not 100%
+  --config=config     [default: accent.json] Path to the config file
+  --version=version   View stats for a specific version
 
 EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.14.1/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.16.0/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -279,7 +331,7 @@ EXAMPLES
   $ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.14.1/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.16.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # GitHub Actions
@@ -323,7 +375,6 @@ In this example the translations will be synchronized daily at midnight eastern 
 # License
 
 `accent-cli` is © 2019 [Mirego](http://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause).  See the [`LICENSE.md`](https://github.com/mirego/accent-cli/blob/master/LICENSE.md) file.
-
 # About Mirego
 
 [Mirego](http://mirego.com) is a team of passionate people who believe that work is a place where you can innovate and have fun. We’re a team of [talented people](http://life.mirego.com) who imagine and build beautiful Web and mobile applications. We come together to share ideas and [change the world](http://mirego.org).

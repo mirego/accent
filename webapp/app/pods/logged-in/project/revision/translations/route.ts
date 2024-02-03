@@ -49,6 +49,9 @@ export default class TranslationsRoute extends Route {
     isConflicted: {
       refreshModel: true,
     },
+    isTranslated: {
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
@@ -59,12 +62,14 @@ export default class TranslationsRoute extends Route {
     params.isAddedLastSync = params.isAddedLastSync === 'true' ? true : null;
     params.isCommentedOn = params.isCommentedOn === 'true' ? true : null;
     params.isConflicted = params.isConflicted === 'true' ? true : null;
+    params.isTranslated = params.isTranslated === 'true' ? false : null;
 
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       translationsQuery,
       {
         props: (data) => ({
+          revisionModel: this.modelFor('logged-in.project.revision'),
           project: data.viewer.project,
           prompts: data.viewer.project.prompts,
           documents: data.viewer.project.documents.entries,

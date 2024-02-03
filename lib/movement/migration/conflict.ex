@@ -9,20 +9,31 @@ defmodule Movement.Migration.Conflict do
 
     update_all_dynamic(
       operation.translation,
-      [:text, :text, :boolean],
-      [:corrected_text, :value_type, :conflicted],
-      [operation.text, operation.value_type, false]
+      [:text, :text, :boolean, :boolean],
+      [:corrected_text, :value_type, :conflicted, :translated],
+      [operation.text, operation.value_type, false, true]
     )
   end
 
   def call(:uncorrect, operation) do
+    conflicted_text =
+      if operation.previous_translation do
+        if operation.text === operation.previous_translation.corrected_text do
+          operation.previous_translation.conflicted_text
+        else
+          operation.previous_translation.corrected_text
+        end
+      end
+
     update_all_dynamic(
       operation.translation,
-      [:text, :text, :boolean],
-      [:conflicted_text, :value_type, :conflicted],
+      [:text, :text, :text, :boolean, :boolean],
+      [:corrected_text, :conflicted_text, :value_type, :conflicted, :translated],
       [
-        operation.previous_translation && operation.previous_translation.conflicted_text,
-        operation.previous_translation && operation.previous_translation.value_type,
+        operation.text,
+        conflicted_text,
+        operation.value_type,
+        true,
         true
       ]
     )

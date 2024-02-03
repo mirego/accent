@@ -5,5 +5,8 @@
       "source": "localization.json",
       "target": "%document_path%.json"
     }
-  ]
+  ],
+  "version": {
+    "branchVersionPrefix": "release/"
+  }
 }

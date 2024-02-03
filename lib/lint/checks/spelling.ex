@@ -13,21 +13,33 @@ defmodule Accent.Lint.Checks.Spelling do
     LanguageTool.ready?() and
       is_binary(entry.value) and
       not String.match?(entry.value, ~r/MMM|YYY|HH|AA/i) and
-      not String.starts_with?(entry.value, "{") and
       ((!entry.is_master and entry.value !== entry.master_value) or entry.is_master) and
       String.length(entry.value) < 100 and String.length(entry.value) > 3
   end
 
   @impl true
   def check(entry) do
-    {matches, markups} =
+    matches =
       case LanguageTool.check(entry.language_slug, entry.value, placeholder_regex: entry.placeholder_regex) do
-        %{"matches" => matches, "markups" => markups} -> {matches, markups}
-        _ -> {[], []}
+        %{"matches" => matches} -> matches
+        _ -> []
+      end
+
+    matches =
+      case matches do
+        [%{"offset" => 0} | rest] ->
+          if String.starts_with?(entry.value, "{") do
+            rest
+          else
+            matches
+          end
+
+        matches ->
+          matches
       end
 
     for match <- matches do
-      offset = match["offset"] + length(markups)
+      offset = match["offset"]
 
       replacement =
         case match["replacements"] do

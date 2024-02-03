@@ -134,9 +134,11 @@ export default gql`
           translationsCount
           isMaster
           name
+          rtl
           language {
             id
             name
+            rtl
           }
         }
 

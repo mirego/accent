@@ -36,6 +36,12 @@ export default class DocumentsListItem extends Component<Args> {
   @tracked
   isUpdating = false;
 
+  get multipleRevisions() {
+    return (
+      this.args.project.revisions && this.args.project.revisions.length > 1
+    );
+  }
+
   get lowPercentage() {
     return this.correctedKeysPercentage < LOW_PERCENTAGE;
   }

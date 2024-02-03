@@ -12,11 +12,11 @@ defmodule Accent.GraphQL.Resolvers.MachineTranslation do
 
   @spec translate_text(
           Project.t(),
-          %{text: String.t(), source_language_slug: String.t(), target_language_slug: String.t()},
+          %{text: String.t(), source_language_slug: String.t() | nil, target_language_slug: String.t()},
           GraphQLContext.t()
-        ) :: nil
+        ) :: {:ok, %{error: nil | binary(), provider: atom(), text: binary()}}
   def translate_text(project, args, _info) do
-    source_language = slug_language(project.id, args.source_language_slug)
+    source_language = args[:source_language_slug] && slug_language(project.id, args.source_language_slug)
     target_language = slug_language(project.id, args.target_language_slug)
 
     result = %{
@@ -28,8 +28,8 @@ defmodule Accent.GraphQL.Resolvers.MachineTranslation do
     result =
       case MachineTranslations.translate(
              [%{value: args.text}],
-             source_language,
-             target_language,
+             source_language && source_language.slug,
+             target_language.slug,
              project.machine_translations_config
            ) do
         [%{value: text}] -> %{result | text: text}

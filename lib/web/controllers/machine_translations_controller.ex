@@ -59,8 +59,8 @@ defmodule Accent.MachineTranslationsController do
 
     case Accent.MachineTranslations.translate(
            entries,
-           conn.assigns[:source_language],
-           conn.assigns[:target_language],
+           conn.assigns[:source_language].slug,
+           conn.assigns[:target_language].slug,
            conn.assigns[:project].machine_translations_config
          ) do
       entries when is_list(entries) ->
@@ -109,8 +109,8 @@ defmodule Accent.MachineTranslationsController do
     entries =
       Accent.MachineTranslations.translate(
         conn.assigns[:movement_context].entries,
-        conn.assigns[:source_language],
-        conn.assigns[:target_language],
+        conn.assigns[:source_language].slug,
+        conn.assigns[:target_language].slug,
         conn.assigns[:project].machine_translations_config
       )
 

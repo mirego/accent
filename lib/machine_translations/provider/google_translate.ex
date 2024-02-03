@@ -127,6 +127,8 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     def enabled?(_), do: false
 
     def translate(provider, contents, source, target) do
+      contents_with_no_translate = Enum.map(contents, &mark_no_translate/1)
+
       with {:ok, {source, target}} <-
              Accent.MachineTranslations.map_source_and_target(
                source,
@@ -134,14 +136,14 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
                @supported_languages
              ),
            params = %{
-             contents: contents,
-             mimeType: "text/plain",
+             contents: contents_with_no_translate,
+             mimeType: "text/html",
              sourceLanguageCode: source,
              targetLanguageCode: target
            },
            {:ok, %{body: %{"translations" => translations}}} <-
              Tesla.post(client(provider.config), ":translateText", params) do
-        {:ok, Enum.map(translations, &%TranslatedText{text: &1["translatedText"]})}
+        {:ok, Enum.map(translations, &%TranslatedText{text: unmark_no_translate(&1["translatedText"])})}
       else
         {:ok, %{status: status, body: body}} when status > 201 ->
           {:error, body}
@@ -149,6 +151,22 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
         error ->
           error
       end
+    end
+
+    defp mark_no_translate(value) do
+      Enum.find_value(Langue.placeholder_regex(), fn regex ->
+        matches = Regex.scan(regex, value)
+
+        if Enum.any?(matches) do
+          Enum.reduce(List.flatten(matches), value, fn match, value ->
+            String.replace(value, match, ~s(<span translate="no">#{match}</span>))
+          end)
+        end
+      end) || value
+    end
+
+    defp unmark_no_translate(value) do
+      String.replace(value, ~r/<span translate="no">([^<]+)<\/span>/, "\\1")
     end
 
     defmodule Auth do
@@ -191,13 +209,17 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     end
 
     defp parse_auth_config(config) do
-      config = Jason.decode!(Map.fetch!(config, "key"))
-
-      case config do
+      case Jason.decode!(Map.fetch!(config, "key")) do
         %{"project_id" => project_id, "type" => "service_account"} = credentials ->
           {
             "https://translation.googleapis.com/v3/projects/#{project_id}",
-            {:service_account, credentials, [scopes: ["https://www.googleapis.com/auth/cloud-translation"]]}
+            {:service_account, credentials,
+             [
+               scopes: [
+                 "https://www.googleapis.com/auth/cloud-translation",
+                 "https://www.googleapis.com/auth/cloud-platform"
+               ]
+             ]}
           }
       end
     end

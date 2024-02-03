@@ -20,6 +20,7 @@ defmodule Accent.Project do
     field(:locked_file_operations, :boolean, default: false)
 
     field(:translations_count, :any, virtual: true, default: :not_loaded)
+    field(:translated_count, :any, virtual: true, default: :not_loaded)
     field(:reviewed_count, :any, virtual: true, default: :not_loaded)
     field(:conflicts_count, :any, virtual: true, default: :not_loaded)
 
@@ -30,7 +31,9 @@ defmodule Accent.Project do
     has_many(:operations, Accent.Operation)
     has_many(:prompts, Accent.Prompt)
 
-    has_many(:collaborators, Accent.Collaborator, where: [role: {:in, ["reviewer", "admin", "developer", "owner"]}])
+    has_many(:collaborators, Accent.Collaborator,
+      where: [role: {:in, ["reviewer", "admin", "developer", "owner", "translator"]}]
+    )
 
     has_many(:all_collaborators, Accent.Collaborator)
     belongs_to(:language, Accent.Language)

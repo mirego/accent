@@ -8,8 +8,8 @@ import {Config} from '../types/config';
 import {ProjectViewer} from '../types/project';
 
 export default class ProjectFetcher {
-  async fetch(config: Config): Promise<ProjectViewer> {
-    const response = await this.graphql(config);
+  async fetch(config: Config, params?: object): Promise<ProjectViewer> {
+    const response = await this.graphql(config, params || {});
     try {
       const data = (await response.json()) as {data: any};
 
@@ -31,8 +31,8 @@ export default class ProjectFetcher {
     }
   }
 
-  private async graphql(config: Config) {
-    const query = `query ProjectDetails($project_id: ID!) {
+  private async graphql(config: Config, params: object) {
+    const query = `query ProjectDetails($project_id: ID! $versionId: ID) {
       viewer {
         user {
           fullname
@@ -88,9 +88,10 @@ export default class ProjectFetcher {
             }
           }
 
-          revisions {
+          revisions(versionId: $versionId) {
             id
             isMaster
+            translatedCount
             translationsCount
             conflictsCount
             reviewedCount
@@ -107,7 +108,8 @@ export default class ProjectFetcher {
     }`;
 
     // eslint-disable-next-line camelcase
-    const variables = config.project ? {project_id: config.project} : {};
+    const configParams = config.project ? {project_id: config.project} : {};
+    const variables = {...configParams, ...params};
 
     return await fetch(`${config.apiUrl}/graphql`, {
       body: JSON.stringify({query, variables}),

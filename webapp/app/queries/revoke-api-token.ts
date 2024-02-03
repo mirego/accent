@@ -6,6 +6,12 @@ export interface RevokeApiTokenVariables {
 
 export default gql`
   mutation ApiTokenRevoke($id: ID!) {
-    revokeApiToken(id: $id)
+    revokeApiToken(id: $id) {
+      apiToken {
+        id
+      }
+
+      errors
+    }
   }
 `;

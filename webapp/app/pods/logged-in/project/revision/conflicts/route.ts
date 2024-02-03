@@ -52,6 +52,7 @@ export default class ConflictsRoute extends Route {
       translationsQuery,
       {
         props: (data) => ({
+          revisionModel: this.modelFor('logged-in.project.revision'),
           documents: data.viewer.project.documents.entries,
           versions: data.viewer.project.versions.entries,
           prompts: data.viewer.project.prompts,

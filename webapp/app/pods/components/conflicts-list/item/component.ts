@@ -40,7 +40,7 @@ interface Args {
   onCorrect: (conflict: any, textInput: string) => Promise<MutationResponse>;
   onCopyTranslation: (
     text: string,
-    sourceLanguageSlug: string,
+    sourceLanguageSlug: string | null,
     targetLanguageSlug: string
   ) => Promise<{text: string | null}>;
 }
@@ -122,12 +122,12 @@ export default class ConflictItem extends Component<Args> {
   }
 
   @action
-  onImprovingPrompt() {
+  onUpdatingText() {
     this.inputDisabled = true;
   }
 
   @action
-  onImprovePrompt(value: string) {
+  onUpdateText(value: string) {
     this.textInput = value;
     this.inputDisabled = false;
   }

@@ -24,6 +24,7 @@ defmodule Accent.BadgeController do
   def conflicts_count(conn, _params), do: send_badge_resp(conn)
   def reviewed_count(conn, _params), do: send_badge_resp(conn)
   def translations_count(conn, _params), do: send_badge_resp(conn)
+  def translated_count(conn, _params), do: send_badge_resp(conn)
 
   defp send_badge_resp(conn) do
     conn

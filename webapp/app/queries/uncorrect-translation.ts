@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation TranslationUncorrect($translationId: ID!) {
-    uncorrectTranslation(id: $translationId) {
+  mutation TranslationUncorrect($translationId: ID!, $text: String!) {
+    uncorrectTranslation(id: $translationId, text: $text) {
       translation {
         id
         correctedText

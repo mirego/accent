@@ -15,7 +15,9 @@
     </div>
 
     {{#each @lintTranslations key='id' as |lintTranslation|}}
-      <LintTranslationsPage::Item @project={{@project}} @lintTranslation={{lintTranslation}} />
+      <div local-class='item'>
+        <LintTranslationsPage::Item @project={{@project}} @lintTranslation={{lintTranslation}} />
+      </div>
     {{/each}}
   </div>
 {{else}}

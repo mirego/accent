@@ -42,6 +42,13 @@ defmodule Movement.Builders.SlaveConflictSync do
       |> TranslationScope.from_revisions(assigns[:revision_ids])
       |> TranslationScope.from_keys(assigns[:translation_keys])
       |> TranslationScope.from_version(assigns[:version] && assigns[:version].id)
+      |> then(fn query ->
+        if assigns[:document] && assigns[:document].id do
+          TranslationScope.from_document(query, assigns.document.id)
+        else
+          query
+        end
+      end)
       |> Repo.all()
       |> Repo.preload(:revision)
 

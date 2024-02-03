@@ -12,10 +12,24 @@ export default gql`
           quickAccess
         }
 
+        revisions {
+          id
+          name
+          slug
+          isMaster
+
+          language {
+            id
+            name
+            slug
+          }
+        }
+
         translation(id: $translationId) {
           id
           key
           isConflicted
+          isTranslated
           isRemoved
           valueType
           plural

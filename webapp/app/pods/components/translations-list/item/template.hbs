@@ -1,6 +1,6 @@
-<li local-class='translations-list-item {{if this.isInEditMode "item--editMode"}}'>
-  <span local-class='item-header'>
-    <span>
+<li local-class='translations-list-item {{if this.isInEditMode "item--editMode"}}' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
+  <span local-class='item-header' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
+    <span local-class='item-edit-wrapper'>
       <span local-class='item-edit'>
         <span role='button' {{on 'click' (fn this.toggleEdit)}}>
           {{#if this.isInEditMode}}
@@ -59,6 +59,12 @@
         </AccBadge>
       {{/if}}
 
+      {{#unless @translation.isTranslated}}
+        <AccBadge title={{t 'components.translations_list.to_translate_tooltip'}} class='tooltip tooltip--top'>
+          {{t 'components.translations_list.to_translate_label'}}
+        </AccBadge>
+      {{/unless}}
+
       {{#if @translation.commentsCount}}
         <AccBadge @link={{true}}>
           <LinkTo @route='logged-in.project.translation.comments' @models={{array @project.id @translation.id}}>
@@ -93,19 +99,20 @@
         {{#component form.submit}}
           <div local-class='textEdit-actions' data-dir={{form.dir}}>
             {{#unless @translation.isRemoved}}
-              {{#if (get @permissions 'use_prompt_improve_text')}}
-                <div local-class='form-improve'>
-                  <ImprovePrompt
-                    @rtl={{this.revisionTextDirRtl}}
-                    @project={{@project}}
-                    @prompts={{@prompts}}
-                    @text={{this.editText}}
-                    @onUpdatingText={{fn this.onImprovingPrompt}}
-                    @onUpdateText={{fn this.onImprovePrompt}}
-                  />
-                </div>
-              {{/if}}
+              <div local-class='form-helpers'>
+                <TranslationEdit::Helpers
+                  @permissions={{@permissions}}
+                  @project={{@project}}
+                  @revisions={{@revisions}}
+                  @prompts={{@prompts}}
+                  @rtl={{this.revisionTextDirRtl}}
+                  @text={{this.editText}}
+                  @onUpdatingText={{fn this.onUpdatingText}}
+                  @onUpdateText={{fn this.onUpdateText}}
+                />
+              </div>
             {{/unless}}
+
             <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} class='button button--filled button--iconOnly' local-class='item-textEdit-button'>
               {{t 'components.translations_list.save'}}
             </AsyncButton>

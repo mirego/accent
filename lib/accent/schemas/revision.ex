@@ -27,6 +27,7 @@ defmodule Accent.Revision do
 
     field(:translations_count, :any, virtual: true, default: :not_loaded)
     field(:reviewed_count, :any, virtual: true, default: :not_loaded)
+    field(:translated_count, :any, virtual: true, default: :not_loaded)
     field(:conflicts_count, :any, virtual: true, default: :not_loaded)
 
     field(:translation_ids, {:array, :string}, virtual: true)

@@ -7,5 +7,5 @@ defmodule Langue.Formatter.SimpleJson do
     parser: Langue.Formatter.SimpleJson.Parser,
     serializer: Langue.Formatter.SimpleJson.Serializer
 
-  def placeholder_regex, do: ~r/{{?[^}]*}?}/
+  def placeholder_regex, do: Langue.Formatter.Json.placeholder_regex()
 end

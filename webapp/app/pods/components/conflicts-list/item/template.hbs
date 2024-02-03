@@ -25,7 +25,7 @@
           </div>
         </div>
       {{else}}
-        <div local-class='item-details'>
+        <div local-class='item-details' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
           <div local-class='item-details__column'>
             <LinkTo @route='logged-in.project.translation' @models={{array @project.id @conflict.id}} local-class='key'>
               <strong local-class='item-key'>
@@ -70,15 +70,18 @@
                       </AsyncButton>
                     {{/if}}
 
-                    {{#if (get @permissions 'use_prompt_improve_text')}}
-                      <ImprovePrompt
+                    <div local-class='form-helpers'>
+                      <TranslationEdit::Helpers
+                        @permissions={{@permissions}}
                         @project={{@project}}
+                        @revisions={{@revisions}}
                         @prompts={{@prompts}}
+                        @rtl={{this.revisionTextDirRtl}}
                         @text={{this.textInput}}
-                        @onUpdatingText={{fn this.onImprovingPrompt}}
-                        @onUpdateText={{fn this.onImprovePrompt}}
+                        @onUpdatingText={{fn this.onUpdatingText}}
+                        @onUpdateText={{fn this.onUpdateText}}
                       />
-                    {{/if}}
+                    </div>
 
                     {{#if (get @permissions 'correct_translation')}}
                       <AsyncButton @onClick={{fn this.correct}} @loading={{this.loading}} class='button button--iconOnly button--filled button--green'>

@@ -13,6 +13,7 @@ export default gql`
     $isAddedLastSync: Boolean
     $isCommentedOn: Boolean
     $isConflicted: Boolean
+    $isTranslated: Boolean
   ) {
     viewer {
       project(id: $projectId) {
@@ -50,6 +51,7 @@ export default gql`
             isTextNotEmpty: $isTextNotEmpty
             isAddedLastSync: $isAddedLastSync
             isConflicted: $isConflicted
+            isTranslated: $isTranslated
             isCommentedOn: $isCommentedOn
           ) {
             meta {
@@ -63,6 +65,7 @@ export default gql`
               id
               key
               isConflicted
+              isTranslated
               correctedText
               updatedAt
               commentsCount
@@ -70,12 +73,15 @@ export default gql`
               lintMessages {
                 text
                 check
+                offset
+                length
                 message
                 replacement {
                   value
                   label
                 }
               }
+
               revision {
                 id
                 slug

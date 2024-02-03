@@ -105,20 +105,6 @@
   opacity: 0.4;
 }
 
-.item-subtitle {
-  display: inline-block;
-  margin-left: -4px;
-  font-size: 14px;
-  font-weight: normal;
-  color: var(--color-black);
-  opacity: 0.3;
-}
-
-.item-subtitle-label {
-  font-size: 13px;
-  font-weight: normal;
-}
-
 .textInput {
   @extend %textInput;
   padding: 5px 8px 4px;

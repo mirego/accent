@@ -37,15 +37,19 @@ defmodule Accent.BadgeGenerator do
   defp label(value, :percentage_reviewed_count), do: "#{value}%25"
   defp label(value, :translations_count), do: "#{value}%20strings"
   defp label(value, :reviewed_count), do: "#{value}%20reviewed"
+  defp label(value, :translated_count), do: "#{value}%20translated"
   defp label(value, :conflicts_count), do: "#{value}%20conflicts"
 
   defp merge_project_stats(revisions) do
+    initial_state = %{translations_count: 0, conflicts_count: 0, reviewed_count: 0, translated_count: 0}
+
     revisions
-    |> Enum.reduce(%{translations_count: 0, conflicts_count: 0, reviewed_count: 0}, fn revision, acc ->
+    |> Enum.reduce(initial_state, fn revision, acc ->
       acc
       |> Map.put(:translations_count, acc[:translations_count] + revision.translations_count)
       |> Map.put(:conflicts_count, acc[:conflicts_count] + revision.conflicts_count)
       |> Map.put(:reviewed_count, acc[:reviewed_count] + revision.reviewed_count)
+      |> Map.put(:translated_count, acc[:translated_count] + revision.reviewed_count)
     end)
     |> then(fn
       %{translations_count: 0} = stats ->

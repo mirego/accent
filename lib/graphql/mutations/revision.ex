@@ -27,7 +27,7 @@ defmodule Accent.GraphQL.Mutations.Revision do
       arg(:name, :string)
       arg(:slug, :string)
 
-      resolve(revision_authorize(:udpate_slave, &RevisionResolver.update/3))
+      resolve(revision_authorize(:update_slave, &RevisionResolver.update/3))
     end
 
     field :promote_revision_master, :mutated_revision do

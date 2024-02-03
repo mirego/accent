@@ -16,6 +16,7 @@ interface Project {
 
 interface Document {
   id: string;
+  path: string;
   format: string;
 }
 
@@ -178,6 +179,14 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
     this.fileContent = data;
   }
 
+  get documentFormatItem() {
+    if (!this.globalState.documentFormats) return {extension: null};
+
+    return this.globalState.documentFormats.find(({slug}) => {
+      return slug === this.args.document.format;
+    });
+  }
+
   @action
   exportFile() {
     if (!this.args.translatedFileContent) return;
@@ -186,7 +195,12 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
       type: 'charset=utf-8',
     });
 
-    this.fileSaver.saveAs(blob, 'doc.txt');
+    if (this.documentFormatItem?.extension) {
+      this.fileSaver.saveAs(
+        blob,
+        `${this.args.document.path}.${this.documentFormatItem.extension}`
+      );
+    }
   }
 
   private mapRevisions(revisions: Revision[]) {

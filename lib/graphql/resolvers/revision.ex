@@ -113,31 +113,31 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   end
 
   @spec show_project(Project.t(), %{id: String.t()}, GraphQLContext.t()) :: {:ok, Revision.t() | nil}
-  def show_project(project, %{id: id}, _) do
+  def show_project(project, %{id: id} = args, _) do
     Revision
     |> RevisionScope.from_project(project.id)
-    |> RevisionScope.with_stats()
+    |> RevisionScope.with_stats(version_id: args[:version_id])
     |> Query.where(id: ^id)
     |> Repo.one()
     |> then(&{:ok, &1})
   end
 
-  def show_project(project, _, _) do
+  def show_project(project, args, _) do
     Revision
     |> RevisionScope.from_project(project.id)
-    |> RevisionScope.with_stats()
+    |> RevisionScope.with_stats(version_id: args[:version_id])
     |> RevisionScope.master()
     |> Repo.one()
     |> then(&{:ok, &1})
   end
 
   @spec list_project(Project.t(), any(), GraphQLContext.t()) :: {:ok, [Revision.t()]}
-  def list_project(project, _, _) do
+  def list_project(project, args, _) do
     project
     |> Ecto.assoc(:revisions)
     |> Query.join(:inner, [revisions], languages in assoc(revisions, :language), as: :languages)
     |> Query.order_by([revisions, languages: languages], desc: :master, asc: revisions.name, asc: languages.name)
-    |> RevisionScope.with_stats()
+    |> RevisionScope.with_stats(version_id: args[:version_id])
     |> Repo.all()
     |> then(&{:ok, &1})
   end

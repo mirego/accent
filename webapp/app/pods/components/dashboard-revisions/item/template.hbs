@@ -12,6 +12,11 @@
       {{#if (get @permissions 'index_translations')}}
         <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @revision.id}} local-class='language-name'>
           {{this.languageName}}
+          {{#if this.rtl}}
+            <AccBadge class='tooltip tooltip--top' title={{t 'components.dashboard_revisions.item.rtl'}}>
+              {{t 'components.dashboard_revisions.item.rtl_badge'}}
+            </AccBadge>
+          {{/if}}
           <span local-class='language-reviewedPercentage'>
             {{this.correctedKeysPercentage}}
             %
@@ -44,29 +49,33 @@
 
     {{#if this.showActions}}
       <div local-class='actions'>
-        {{#if this.showCorrectAllAction}}
-          <AsyncButton
-            @onClick={{fn this.correctAllConflicts}}
-            @loading={{this.isCorrectAllConflictLoading}}
-            @disabled={{this.isAnyActionsLoading}}
-            class='button button--green button--highlight button--borderless'
-            local-class='actionItem-button'
-          >
-            {{inline-svg '/assets/check.svg' class='button-icon'}}
-            {{t 'components.dashboard_revisions.item.correct_all_button'}}
-          </AsyncButton>
+        {{#if (get @permissions 'correct_all_revision')}}
+          {{#if this.showCorrectAllAction}}
+            <AsyncButton
+              @onClick={{fn this.correctAllConflicts}}
+              @loading={{this.isCorrectAllConflictLoading}}
+              @disabled={{this.isAnyActionsLoading}}
+              class='button button--green button--highlight button--borderless'
+              local-class='actionItem-button'
+            >
+              {{inline-svg '/assets/check.svg' class='button-icon'}}
+              {{t 'components.dashboard_revisions.item.correct_all_button'}}
+            </AsyncButton>
+          {{/if}}
         {{/if}}
-        {{#if this.showUncorrectAllAction}}
-          <AsyncButton
-            @onClick={{fn this.uncorrectAllConflicts}}
-            @loading={{this.isUncorrectAllConflictLoading}}
-            @disabled={{this.isAnyActionsLoading}}
-            class='button button--red button--highlight button--borderless'
-            local-class='actionItem-button'
-          >
-            {{inline-svg '/assets/revert.svg' class='button-icon'}}
-            {{t 'components.dashboard_revisions.item.uncorrect_all_button'}}
-          </AsyncButton>
+        {{#if (get @permissions 'uncorrect_all_revision')}}
+          {{#if this.showUncorrectAllAction}}
+            <AsyncButton
+              @onClick={{fn this.uncorrectAllConflicts}}
+              @loading={{this.isUncorrectAllConflictLoading}}
+              @disabled={{this.isAnyActionsLoading}}
+              class='button button--red button--highlight button--borderless'
+              local-class='actionItem-button'
+            >
+              {{inline-svg '/assets/revert.svg' class='button-icon'}}
+              {{t 'components.dashboard_revisions.item.uncorrect_all_button'}}
+            </AsyncButton>
+          {{/if}}
         {{/if}}
       </div>
     {{/if}}

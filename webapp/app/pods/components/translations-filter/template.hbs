@@ -60,11 +60,13 @@
 
         {{#if this.displayAdvancedFilters}}
           <TranslationsFilter::AdvancedFilters
+            @revisions={{@revisions}}
             @isTextEmptyFilter={{@isTextEmptyFilter}}
             @isTextNotEmptyFilter={{@isTextNotEmptyFilter}}
             @isAddedLastSyncFilter={{@isAddedLastSyncFilter}}
             @isCommentedOnFilter={{@isCommentedOnFilter}}
             @isConflictedFilter={{@isConflictedFilter}}
+            @isTranslatedFilter={{@isTranslatedFilter}}
             @onChangeAdvancedFilterBoolean={{@onChangeAdvancedFilterBoolean}}
           />
         {{/if}}

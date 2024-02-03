@@ -1,0 +1,10 @@
+{
+  "files": [
+    {
+      "namePattern": "fileWithParentDirectory",
+      "format": "json",
+      "source": "nested/fr/**/*.json",
+      "target": "nested/%slug%/%document_path%.json"
+    }
+  ]
+}

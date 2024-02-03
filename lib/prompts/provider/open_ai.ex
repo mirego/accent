@@ -16,7 +16,7 @@ defmodule Accent.Prompts.Provider.OpenAI do
           %{
             "role" => "system",
             "content" =>
-              ~s{Following this instruction "#{prompt.content}", respond with the improved text in the user’s message format.}
+              ~s{Following this instruction "#{prompt.content}", respond with the improved text in the user’s message format without repeating the instructions.}
           },
           %{
             "role" => "user",

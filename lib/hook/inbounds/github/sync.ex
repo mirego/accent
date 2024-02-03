@@ -40,8 +40,8 @@ defmodule Accent.Hook.Inbounds.GitHub.Sync do
 
   defp build_context(file, project, token, format) do
     with {:ok, parser} <- Langue.parser_from_format(format),
-         document <- GitHub.movement_document(project, file["path"]),
-         document <- %{document | format: format},
+         document = GitHub.movement_document(project, file["path"]),
+         document = %{document | format: format},
          {:ok, file_content} <- GitHub.fetch_content(file["url"], token),
          %{entries: entries, document: parsed_document} <-
            MovementContextParser.to_entries(document, file_content, parser) do

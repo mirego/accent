@@ -8,6 +8,13 @@
   padding: 10px;
   margin-bottom: 15px;
   border-radius: var(--border-radius);
+
+  &:hover {
+    .form-helpers {
+      pointer-events: all;
+      opacity: 1;
+    }
+  }
 }
 
 .revert-button {
@@ -24,6 +31,30 @@
 .item-details {
   display: flex;
   flex-direction: column;
+
+  &[data-dir='rtl'] {
+    .item-details__column {
+      align-items: flex-end;
+    }
+    .item-details__column:first-of-type {
+      margin-right: 0;
+      margin-left: 15px;
+    }
+
+    .item-key {
+      margin-right: 0;
+      margin-left: 15px;
+      flex-direction: row-reverse;
+    }
+
+    .item-key-prefix::before {
+      content: '';
+    }
+
+    .item-key-prefix::after {
+      content: '/';
+    }
+  }
 }
 
 .item-details__column {
@@ -147,21 +178,21 @@
 }
 
 .item-key-prefix {
-  display: block;
+  display: inline-flex;
   font-size: 11px;
   color: #959595;
+  gap: 6px;
   font-weight: 300;
 
   &::before {
     content: '/';
-    margin-right: -5px;
   }
 }
 
 .item-key {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
   margin-bottom: 12px;
   font-family: var(--font-monospace);
   word-break: break-all;
@@ -207,8 +238,8 @@
   justify-content: flex-end;
   position: absolute;
   gap: 10px;
-  top: 7px;
-  right: 7px;
+  top: 10px;
+  right: 10px;
   z-index: 3;
 
   &[data-dir='rtl'] {
@@ -274,9 +305,18 @@
 .conflictedText-references-conflicted {
   display: flex;
   align-items: flex-start;
-  margin-top: 10px;
+  margin-top: 7px;
   font-size: 12px;
   color: var(--color-black);
+}
+
+.form-helpers {
+  pointer-events: none;
+  opacity: 0;
+  position: relative;
+  z-index: 1;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
 }
 
 .conflictedText-references-conflicted-label {

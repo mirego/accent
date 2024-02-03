@@ -48,7 +48,7 @@
     },
     "login_header": {
       "text": "Login",
-      "subtext": "Only your email address, fullname and profile picture will be used for your Accent profile.",
+      "subtext": "Only your email address, full name and profile picture will be used for your Accent profile.",
       "subtitle": "Your reliable, <em>simple</em>, developer-oriented translation tool",
       "footer_open_source_link": "100% open-source",
       "footer_mirego_link": "Mirego",
@@ -92,7 +92,7 @@
     "commit_file": {
       "cancel_button": "Cancel",
       "file_input_button": "Choose a file",
-      "commit_error": "An error occured while uploading the file",
+      "commit_error": "An error occurred while uploading the file",
       "document_format": "Format of the file",
       "document_path": "Name of the file",
       "version_tag": "Version",
@@ -105,7 +105,7 @@
       "new_document_warning": "The changes will create a new file.",
       "existing_document_warning": "The changes will be applied to the already existing file.",
       "peek_button": "Preview sync",
-      "peek_error": "An error occured while previewing the file",
+      "peek_error": "An error occurred while previewing the file",
       "peek_help": "This action will have no effects on your project.",
       "sync_button": "Sync",
       "upload_help": "After choosing a file you will be able to preview the changes on your project",
@@ -151,7 +151,7 @@
       "correct_all_button": "Mark all strings as reviewed for this language",
       "no_translations": "No strings to review for: {query}",
       "all_reviewed_title": "All reviewed",
-      "all_reviewed_subtitle": "Every strings have been marked as reviewed"
+      "all_reviewed_subtitle": "All strings have been marked as reviewed"
     },
     "dashboard_master_revision": {
       "features": {
@@ -202,6 +202,8 @@
       "reviewed": "reviewed",
       "activities_title": "Latest activities",
       "item": {
+        "rtl_badge": "RTL",
+        "rtl": "Right to left text",
         "correct_all_button": "Mark all strings as reviewed",
         "uncorrect_all_button": "Put all strings back in review"
       }
@@ -382,26 +384,26 @@
         "manage_languages": "Manage languages",
         "manage_languages_text": "Add/remove languages translated in the project",
         "jipt": "Just In Place Translations",
-        "jipt_text": "Live translation on any applications, with builtin Javascript library",
+        "jipt_text": "Live translation on any applications, with built-in JavaScript library",
         "machine_translations": "Machine translations",
         "machine_translations_text": "Configure an external service to translate languages automatically",
         "prompts": "AI Assistant",
-        "prompts_text": "Configure your assistant to help you writing, improving, correcting your text"
+        "prompts_text": "Configure your assistant to help write, improve or correct your strings"
       },
       "machine_translations": {
         "title": "Machine translations",
         "text": "Add a valid configuration to enable translating directly in the Review page. You can also translate your project’s file as well as arbirtary files that you upload on Accent.",
         "enabled_actions_sync": "Automatically run on project sync",
         "use_platform_label": "Use the platform config if available",
-        "config_key_help_present": "Config key has been set but the value will never be exposed via the API.",
+        "config_key_help_present": "Config key has been set, but the value will never be exposed via the API.",
         "config_key_help_not_present": "Once saved, the config key will never be shown.",
         "config_key_placeholder": "Paste the config key here…"
       },
       "prompts": {
         "title": "AI Assistant",
-        "help": "Instructions will be available on every string inputs to help you improve your content. The clearer the instructions you give to the assistant, to better the output will be.",
+        "help": "Instructions will be available on all string inputs to help you improve your content. The clearer the instructions you give to the assistant, to better the output will be.",
         "new_button": "Add a new instruction",
-        "config_key_help_present": "Config key has been set but the value will never be exposed via the API.",
+        "config_key_help_present": "Config key has been set, but the value will never be exposed via the API.",
         "config_key_help_not_present": "Once saved, the config key will never be shown.",
         "delete_confirm": "Are you sure you want to delete this instruction?"
       },
@@ -429,7 +431,7 @@
         "script_title": "Add the script at the root of your app",
         "add_language_title": "Add the pseudo language to your project",
         "add_language_image_1": "Here is a language like you already have in your project:",
-        "add_language_image_2": "Here is the pseudo language named \"accent\" that act as a normal translsation in your project:",
+        "add_language_image_2": "Here is the pseudo language named \"accent\" that act as a normal translation in your project:",
         "use_language_title": "Use the pseudo language",
         "pseudo_language_text": "The Accent script parses the DOM for strings that match the Just In Place Translations export. Go in the \"Files\" section to export the file or use the CLI to add the pseudo language to your project.",
         "use_language_text": "By switching to the Accent language using your favorite framework i18n tool, the page will display the strings in the pseudo language files and the Accent script will replace those by the strings in Accent. It will also bind click event on the elements so that you can select strings directly in your app and edit them via Accent."
@@ -489,7 +491,9 @@
         "cancel": "Cancel",
         "edit": "Edit",
         "delete": "Delete",
+        "last_executed_at": "Last executed at:",
         "data": {
+          "azure_storage_container_sas": "SAS URL",
           "default_ref": "Default ref",
           "repository": "Repository",
           "token": "Token",
@@ -507,6 +511,23 @@
             "sync": "Sync with any changes",
             "new_conflicts": "New strings to review",
             "complete_review": "Project is 100% reviewed"
+          }
+        },
+        "execute": {
+          "azure_storage_container": {
+            "title": "Upload files to Azure Storage Container",
+            "cancel_button": "Cancel",
+            "error": "Error while pushing to Azure. Check your credentials and try again.",
+            "push_button": "Upload",
+            "sas_base_url": "Base upload URL",
+            "submit_confirm": "Uploading files to Azure Storage Container can override existing files if you upload for the latest or an already uploaded version tag.",
+            "target_version": {
+              "label": "Target Version",
+              "options": {
+                "latest": "Latest Version",
+                "specific": "Specific Version"
+              }
+            }
           }
         }
       }
@@ -700,11 +721,11 @@
     "project_manage_languages": {
       "create_error": "Language can not be added right now. Try again later.",
       "conflicts_explain_title": "On conflicts",
-      "conflicts_explain_text": "Every string addition or deletion will be reflected in the language. When a text changes in the main revision, the string in the language will be marked as in review.",
+      "conflicts_explain_text": "All string addition or deletion will be reflected in the language. When a text changes in the main revision, the string in the language will be marked as in review.",
       "sync_explain_title": "On sync",
       "sync_explain_text": "The main language will be the default source when syncing a file. The other languages are never \"synced\", they just follow the main language.",
       "add_translations_explain_title": "On add translations",
-      "add_translations_explain_text": "Every languages can have strings \"merged\" into it by adding translations. Conflict resolution will work the same but will never add or remove strings.",
+      "add_translations_explain_text": "All languages can have strings \"merged\" into it by adding translations. Conflict resolution will work the same but will never add or remove strings.",
       "main_text": "You can add a new language that will follow the main language.",
       "title": "Manage languages"
     },
@@ -898,7 +919,8 @@
         "not_empty": "Text is not empty",
         "added_last_sync": "Strings added last sync",
         "commented_on": "Strings with comments",
-        "conflicted": "In review"
+        "conflicted": "In review",
+        "translated": "To translate"
       }
     },
     "translations_list": {
@@ -907,7 +929,9 @@
       "empty_text": "Empty text",
       "null_text": "Null text",
       "in_review_label": "in review",
+      "to_translate_label": "to translate",
       "in_review_tooltip": "View in review",
+      "to_translate_tooltip": "Translation was never touched",
       "lint_messages_label": "{count, plural, =0 {No linting warnings} =1 {1 linting warning} other {# linting warnings}}",
       "last_updated_label": "Last updated:",
       "maybe_sync_before": "Maybe try to",
@@ -943,7 +967,8 @@
       "DEVELOPER": "Developer",
       "OWNER": "Owner",
       "BOT": "API Token",
-      "REVIEWER": "Reviewer"
+      "REVIEWER": "Reviewer",
+      "TRANSLATOR": "Translator"
     },
     "machine_translations_providers": {
       "google_translate": "Google Translate",
@@ -956,7 +981,7 @@
       "DISCORD": "Discord",
       "GITHUB": "GitHub",
       "SLACK": "Slack",
-      "MICROSOFT": "Microsoft"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
     },
     "search_input_placeholder_text": "Search for a string…"
   },
@@ -1017,9 +1042,9 @@
         "loading_content": "Fetching dashboard…",
         "flash_messages": {
           "revision_correct_success": "All strings in the language have been marked as reviewed",
-          "revision_correct_error": "An error has occured when marking all the strings in that language as reviewed",
+          "revision_correct_error": "An error has occurred when marking all the strings in that language as reviewed",
           "revision_uncorrect_success": "All strings in the language have been marked to be reviewed",
-          "revision_uncorrect_error": "An error has occured when marking all the strings in that language to be reviewed"
+          "revision_uncorrect_error": "An error has occurred when marking all the strings in that language to be reviewed"
         }
       },
       "activities": {
@@ -1039,7 +1064,7 @@
         "loading_content": "Searching the strings in review…",
         "flash_messages": {
           "revision_correct_success": "All strings in the language have been marked as reviewed",
-          "revision_correct_error": "An error has occured when marking all the strings in that language as reviewed",
+          "revision_correct_error": "An error has occurred when marking all the strings in that language as reviewed",
           "translate_provider_error": "The string could not be translated by: {provider}",
           "translate_error": {
             "unsupported_target": "The string could not be translated: Unsupported target {target}",
@@ -1090,10 +1115,12 @@
         },
         "api_token": {
           "loading_content": "Fetching project’s API settings…",
-          "api_token_add_success": "API token has been created with success",
-          "api_token_add_error": "API token could not be created",
-          "api_token_revoke_success": "API token has been revoked with success",
-          "api_token_revoke_error": "API token could not be revoked"
+          "flash_messages": {
+            "api_token_add_success": "API token has been created with success",
+            "api_token_add_error": "API token could not be created",
+            "api_token_revoke_success": "API token has been revoked with success",
+            "api_token_revoke_error": "API token could not be revoked"
+          }
         },
         "jipt": {
           "loading_content": "Fetching project’s Just In Place Translations settings…"
