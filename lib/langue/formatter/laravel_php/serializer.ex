@@ -11,8 +11,7 @@ defmodule Langue.Formatter.LaravelPhp.Serializer do
       |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
       |> hd()
       |> elem(1)
-      |> PhpAssocMap.from_tuple()
-      |> PhpAssocMap.Exploder.explode()
+      |> PhpAssocMap.from_tuple({:spaces, 2})
 
     %Langue.Formatter.SerializerResult{render: wrap_values(render)}
   end
