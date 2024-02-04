@@ -12,7 +12,12 @@ defmodule Accent.Endpoint do
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
-  plug(Plug.Static, at: "/static", from: {:accent, "priv/static"}, gzip: true, only: ~w(jipt images))
+  plug(Plug.Static,
+    at: "/static",
+    from: {:accent, "priv/static"},
+    gzip: true,
+    only: ~w(jipt images)
+  )
 
   plug(Plug.Static,
     at: "/",
@@ -29,7 +34,12 @@ defmodule Accent.Endpoint do
     plug(Phoenix.CodeReloader)
   end
 
-  plug(Plug.Session, store: :cookie, key: "accent", signing_salt: "accent-signing-salt-used-for-callback-auth")
+  plug(Plug.Session,
+    store: :cookie,
+    key: "accent",
+    signing_salt: "accent-signing-salt-used-for-callback-auth"
+  )
+
   plug(Plug.RequestId)
   plug(Plug.Logger)
 
@@ -75,22 +85,5 @@ defmodule Accent.Endpoint do
     opts = PlugCanonicalHost.init(canonical_host: Application.get_env(:accent, :canonical_host))
 
     PlugCanonicalHost.call(conn, opts)
-  end
-
-  @doc """
-  Callback invoked for dynamically configuring the endpoint.
-  It receives the endpoint configuration and checks if
-  configuration should be loaded from the system environment.
-  """
-  def init(_key, config) do
-    if config[:load_from_system_env] do
-      port =
-        Application.get_env(:accent, Accent.Endpoint)[:http][:port] ||
-          raise "expected the PORT environment variable to be set"
-
-      {:ok, Keyword.put(config, :http, [:inet6, port: port])}
-    else
-      {:ok, config}
-    end
   end
 end
