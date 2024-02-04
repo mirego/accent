@@ -21,7 +21,34 @@
 
   {{#if this.showCreateForm}}
     <div local-class='createForm'>
-      <ProjectSettings::Integrations::Form @project={{@project}} @onCancel={{fn this.toggleCreateForm}} @onSubmit={{fn this.create}} />
+      <ProjectSettings::Integrations::Form
+        @project={{@project}}
+        @selectedServiceValue={{this.selectedServiceValue}}
+        @onCancel={{fn this.toggleCreateForm}}
+        @onSubmit={{fn this.create}}
+      />
+    </div>
+  {{/if}}
+
+  {{#if this.showEmptyDescription}}
+    <div local-class='empty-description'>
+      <button local-class='empty-description-item' {{on 'click' (fn this.toggleCreateForm 'AZURE_STORAGE_CONTAINER')}}>
+        {{inline-svg 'assets/services/azure.svg' local-class='empty-description-icon'}}
+        <strong>{{t 'components.project_settings.integrations.empty_description.azure_storage_container.title'}}</strong>
+        <p>{{t 'components.project_settings.integrations.empty_description.azure_storage_container.text'}}</p>
+      </button>
+
+      <button local-class='empty-description-item' {{on 'click' (fn this.toggleCreateForm 'SLACK')}}>
+        {{inline-svg 'assets/services/slack.svg' local-class='empty-description-icon'}}
+        <strong>{{t 'components.project_settings.integrations.empty_description.slack.title'}}</strong>
+        <p>{{t 'components.project_settings.integrations.empty_description.slack.text'}}</p>
+      </button>
+
+      <button local-class='empty-description-item' {{on 'click' (fn this.toggleCreateForm 'DISCORD')}}>
+        {{inline-svg 'assets/services/discord.svg' local-class='empty-description-icon'}}
+        <strong>{{t 'components.project_settings.integrations.empty_description.discord.title'}}</strong>
+        <p>{{t 'components.project_settings.integrations.empty_description.discord.text'}}</p>
+      </button>
     </div>
   {{/if}}
 

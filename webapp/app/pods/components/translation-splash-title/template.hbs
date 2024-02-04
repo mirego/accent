@@ -19,10 +19,8 @@
 
   <div local-class='badges'>
     {{#if @translation.version}}
-      <AccBadge>
-        <span local-class='version-tag'>
-          {{@translation.version.tag}}
-        </span>
+      <AccBadge @primary={{true}} local-class='version-tag'>
+        {{@translation.version.tag}}
       </AccBadge>
     {{/if}}
 

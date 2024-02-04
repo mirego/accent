@@ -4,18 +4,22 @@
 
 .text {
   max-width: 490px;
-  margin: 10px 0 15px;
+  margin: 10px 0;
   font-size: 13px;
   font-style: italic;
 }
 
 .title {
-  margin-top: 30px;
+  margin-top: 20px;
   border-bottom: 1px solid var(--background-light-highlight);
   padding-bottom: 10px;
   font-size: 16px;
   font-weight: 300;
   color: var(--text-color-normal);
+}
+
+.link {
+  font-size: 12px;
 }
 
 .code {

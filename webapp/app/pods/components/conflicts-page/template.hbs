@@ -22,6 +22,8 @@
     <LoadingContent @label={{t 'pods.project.conflicts.loading_content'}} />
   {{else}}
     <ConflictsList
+      @version={{@version}}
+      @versions={{@versions}}
       @permissions={{@permissions}}
       @project={{@project}}
       @revisions={{@revisions}}

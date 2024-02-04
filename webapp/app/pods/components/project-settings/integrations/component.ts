@@ -12,10 +12,20 @@ interface Args {
 
 export default class Integrations extends Component<Args> {
   @tracked
-  showCreateForm = this.args.project.integrations.length === 0;
+  showCreateForm = false;
+
+  @tracked
+  selectedServiceValue: string | null;
+
+  @tracked
+  showEmptyDescription = this.args.project.integrations.length === 0;
 
   @action
-  toggleCreateForm() {
+  toggleCreateForm(serviceValue: string | PointerEvent) {
+    this.selectedServiceValue =
+      typeof serviceValue == 'string' ? serviceValue : null;
+    this.showEmptyDescription =
+      this.showCreateForm && this.args.project.integrations.length === 0;
     this.showCreateForm = !this.showCreateForm;
   }
 

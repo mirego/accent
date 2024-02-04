@@ -21,9 +21,65 @@
   right: 0;
 }
 
+.empty-description {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.empty-description-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--background-light-highlight);
+  background: var(--background-light);
+  border-radius: var(--border-radius);
+  padding: 20px 30px;
+  gap: 2px;
+  transition: 0.2s ease-in-out;
+  transition-property: box-shadow;
+  line-height: 1.4;
+
+  strong {
+    display: block;
+  }
+
+  p {
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  &:focus,
+  &:hover {
+    box-shadow: 0 1px 6px var(--shadow-color), 0 2px 19px var(--shadow-color);
+  }
+}
+
+.empty-description-icon {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
+
 .help {
   margin: 10px 0;
   font-size: 13px;
   font-style: italic;
   color: var(--color-black);
+}
+
+@media (max-width: 940px) {
+  .empty-description {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 540px) {
+  .empty-description {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }

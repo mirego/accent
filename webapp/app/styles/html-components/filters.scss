@@ -45,6 +45,10 @@
   gap: 6px;
 }
 
+.queryForm-filters-column--end {
+  justify-content: flex-end;
+}
+
 .queryForm-filter {
   display: flex;
   align-items: center;

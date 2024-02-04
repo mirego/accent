@@ -148,6 +148,7 @@
       "input_placeholder_text": "Search for a string"
     },
     "conflicts_items": {
+      "translations_version_notice": "You are viewing strings to review for the version",
       "correct_all_button": "Mark all strings as reviewed for this language",
       "no_translations": "No strings to review for: {query}",
       "all_reviewed_title": "All reviewed",
@@ -427,8 +428,7 @@
       "jipt": {
         "title": "Just In Place Translations",
         "integration_help": "This steps will walk you throught the setup you need to have in your project to translate your strings in your browser, inside your project.",
-        "integration_link": "See official guides on how to integrate live editing in your website",
-        "script_title": "Add the script at the root of your app",
+        "integration_link": "See official guides on how to integrate live editing in your website ->",
         "add_language_title": "Add the pseudo language to your project",
         "add_language_image_1": "Here is a language like you already have in your project:",
         "add_language_image_2": "Here is the pseudo language named \"accent\" that act as a normal translation in your project:",
@@ -495,6 +495,20 @@
         "data": {
           "azure_storage_container_sas": "SAS URL",
           "url": "URL"
+        },
+        "empty_description": {
+          "azure_storage_container": {
+            "title": "Azure Storage Container",
+            "text": "Upload your files in Azure Storage Container to serve them directly in your application"
+          },
+          "discord": {
+            "title": "Discord",
+            "text": "Post your project’s notifications in Discord"
+          },
+          "slack": {
+            "title": "Slack",
+            "text": "Post your project’s notifications in Slack"
+          }
         },
         "token_how": "How?",
         "github_webhook_url_how": "How?",
@@ -890,6 +904,7 @@
       }
     },
     "translation_navigation": {
+      "editions_link_title": "Editions",
       "activities_link_title": "Activities",
       "comments_link_title": "{count, plural, =0 {Conversation} other {Conversation (#)}}",
       "edit_link_title": "Edit",
@@ -920,7 +935,14 @@
         "translated": "To translate"
       }
     },
+    "translation_editions_list": {
+      "no_translations": "Looks like no versions strings were added for your project.",
+      "no_versions": "Try to",
+      "no_versions_link": "create a new version →"
+    },
     "translations_list": {
+      "latest_version_label": "Latest",
+      "translations_version_notice": "You are viewing strings for the version",
       "comments_count": "{count, plural, =0 {No comments} =1 {1 comment} other {# comments}}",
       "save": "Save",
       "empty_text": "Empty text",

@@ -45,9 +45,11 @@
           {{/if}}
 
           {{#if this.showVersionInfo}}
-            <LinkTo @route='logged-in.project.versions.export' @models={{array @project.id @activity.version.id}} local-class='item-version-tag'>
-              {{@activity.version.tag}}
-            </LinkTo>
+            <AccBadge @link={{true}} @primary={{true}} local-class='item-version-tag'>
+              <LinkTo @route='logged-in.project.versions.export' @models={{array @project.id @activity.version.id}}>
+                {{@activity.version.tag}}
+              </LinkTo>
+            </AccBadge>
           {{/if}}
 
           {{#if this.showRevisionInfo}}

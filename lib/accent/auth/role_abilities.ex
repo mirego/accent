@@ -30,6 +30,8 @@ defmodule Accent.RoleAbilities do
     show_document
     show_activity
     index_translation_activities
+    index_translation_related
+    index_translation_editions
     index_translation_comments_subscriptions
   )a
 

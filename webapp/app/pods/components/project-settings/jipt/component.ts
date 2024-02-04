@@ -14,7 +14,7 @@ export default class JIPT extends Component<Args> {
   window.accent=window.accent||function(){(accent.q=accent.q||[]).push(arguments);};
   accent('init',{h:'${host}',i:'${this.args.project.id}'});
 </script>
-<script async="" src="${host}${path}"></script>
+<script async src="${host}${path}"></script>
 `;
   }
 }

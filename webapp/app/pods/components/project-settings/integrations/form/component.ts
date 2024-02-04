@@ -13,6 +13,7 @@ const LOGOS = {
 };
 
 interface Args {
+  selectedServiceValue: string;
   project: any;
   onSubmit: ({
     service,
@@ -96,7 +97,7 @@ export default class IntegrationsForm extends Component<Args> {
     } else {
       this.integration = {
         newRecord: true,
-        service: this.services[0],
+        service: this.args.selectedServiceValue || this.services[0],
         events: [],
         data: {
           url: this.url,
@@ -104,7 +105,7 @@ export default class IntegrationsForm extends Component<Args> {
       };
     }
 
-    this.service = this.integration.service || this.services[0];
+    this.service = this.integration.service;
     this.url = this.integration.data.url;
     this.events = this.integration.events;
     this.azureStorageContainerSasBaseUrl = this.integration.data.sasBaseUrl;

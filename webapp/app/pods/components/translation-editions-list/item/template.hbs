@@ -1,0 +1,83 @@
+<li local-class='translations-list-item item--editMode' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
+  <span local-class='item-header' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
+    <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} local-class='item-link'>
+      <AccBadge @primary={{true}}>
+        <span local-class='item-key'>
+          {{#if @translation.version}}
+            {{@translation.version.tag}}
+          {{else}}
+            {{t 'components.translations_list.latest_version_label'}}
+          {{/if}}
+        </span>
+      </AccBadge>
+    </LinkTo>
+
+    <span local-class='item-meta'>
+      {{#if @translation.isConflicted}}
+        <AccBadge title={{t 'components.translations_list.in_review_tooltip'}} class='tooltip tooltip--top' @link={{true}}>
+          <LinkTo @route='logged-in.project.revision.conflicts' @models={{array @project.id @translation.revision.id}} @query={{hash query=@translation.id}}>
+            {{t 'components.translations_list.in_review_label'}}
+          </LinkTo>
+        </AccBadge>
+      {{/if}}
+
+      {{#unless @translation.isTranslated}}
+        <AccBadge title={{t 'components.translations_list.to_translate_tooltip'}} class='tooltip tooltip--top'>
+          {{t 'components.translations_list.to_translate_label'}}
+        </AccBadge>
+      {{/unless}}
+
+      {{#if @translation.commentsCount}}
+        <AccBadge @link={{true}}>
+          <LinkTo @route='logged-in.project.translation.comments' @models={{array @project.id @translation.id}}>
+            {{t 'components.translations_list.comments_count' count=@translation.commentsCount}}
+          </LinkTo>
+        </AccBadge>
+      {{/if}}
+
+      <span local-class='item-updatedAt'>
+        {{t 'components.translations_list.last_updated_label'}}
+        <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
+      </span>
+    </span>
+  </span>
+
+  <div local-class='item-textEdit'>
+    <TranslationEdit::Form
+      @projectId={{@project.id}}
+      @translationId={{@translation.id}}
+      @lintMessages={{@translation.lintMessages}}
+      @inputDisabled={{this.inputDisabled}}
+      @valueType={{@translation.valueType}}
+      @value={{this.editText}}
+      @onKeyUp={{fn this.changeTranslationText}}
+      @onSubmit={{fn this.save}}
+      @rtl={{this.revisionTextDirRtl}}
+      lang={{this.revisionSlug}}
+      as |form|
+    >
+      {{#component form.submit}}
+        <div local-class='textEdit-actions' data-dir={{form.dir}}>
+          {{#unless @translation.isRemoved}}
+            <div local-class='form-helpers'>
+              <TranslationEdit::Helpers
+                @permissions={{@permissions}}
+                @project={{@project}}
+                @revisions={{@revisions}}
+                @prompts={{@prompts}}
+                @rtl={{this.revisionTextDirRtl}}
+                @text={{this.editText}}
+                @onUpdatingText={{fn this.onUpdatingText}}
+                @onUpdateText={{fn this.onUpdateText}}
+              />
+            </div>
+          {{/unless}}
+
+          <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} class='button button--filled button--iconOnly' local-class='item-textEdit-button'>
+            {{t 'components.translations_list.save'}}
+          </AsyncButton>
+        </div>
+      {{/component}}
+    </TranslationEdit::Form>
+  </div>
+</li>

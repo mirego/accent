@@ -3,6 +3,29 @@
   margin-top: 20px;
 }
 
+.conflicts-items-version {
+  margin: 0 0 15px;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  font-size: 12px;
+  background: hsl(
+    var(--color-blue-hue),
+    var(--color-blue-saturation),
+    var(--color-highlight-lighteness)
+  );
+  color: var(--color-blue);
+}
+
+.conflicts-items-version-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 2px;
+  font-size: 11px;
+  font-family: var(--font-monospace);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
 .all-reviewed {
   max-width: 400px;
   margin: 100px auto 20px;

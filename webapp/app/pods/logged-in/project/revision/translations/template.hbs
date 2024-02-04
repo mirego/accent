@@ -29,6 +29,8 @@
   <LoadingContent @label={{t 'pods.project.translations.loading_content'}} />
 {{else}}
   <TranslationsList
+    @version={{this.version}}
+    @versions={{this.model.project.versions.entries}}
     @project={{this.model.project}}
     @prompts={{this.model.prompts}}
     @revisions={{this.revisions}}

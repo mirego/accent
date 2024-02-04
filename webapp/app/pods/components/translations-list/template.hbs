@@ -1,4 +1,12 @@
 <ul local-class='translations-list'>
+  {{#if this.currentVersion}}
+    <div local-class='translations-list-version'>
+
+      {{t 'components.translations_list.translations_version_notice'}}
+      <span local-class='translations-list-version-tag'>{{this.currentVersion.tag}}</span>
+    </div>
+  {{/if}}
+
   {{#each @translations key='id' as |translation|}}
     <TranslationsList::Item
       @translation={{translation}}

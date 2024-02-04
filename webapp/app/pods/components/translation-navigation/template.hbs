@@ -36,5 +36,16 @@
         </LinkTo>
       </li>
     {{/if}}
+
+    {{#if (get @permissions 'index_translation_editions')}}
+      <li local-class='navigation-list-item'>
+        <LinkTo @route='logged-in.project.translation.editions' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
+          {{inline-svg 'assets/tag.svg' local-class='navigation-list-item-link-icon'}}
+          <span local-class='navigation-list-item-link-text'>
+            {{t 'components.translation_navigation.editions_link_title'}}
+          </span>
+        </LinkTo>
+      </li>
+    {{/if}}
   </ul>
 </div>

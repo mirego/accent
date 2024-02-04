@@ -52,13 +52,8 @@
 }
 
 .version-tag {
-  position: relative;
-  display: flex;
-  align-items: center;
-  text-transform: none;
   font-family: var(--font-monospace);
-  font-weight: normal;
-  color: #888;
+  text-transform: none;
 }
 
 .removedBadge {

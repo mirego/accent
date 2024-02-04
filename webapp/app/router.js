@@ -76,6 +76,7 @@ export default Router.map(function () {
         function () {
           this.route('activities');
           this.route('related-translations');
+          this.route('editions');
           this.route('comments', {path: 'conversation'});
         }
       );

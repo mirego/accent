@@ -1,4 +1,11 @@
 <ul local-class='conflicts-items'>
+  {{#if this.currentVersion}}
+    <div local-class='conflicts-items-version'>
+
+      {{t 'components.conflicts_items.translations_version_notice'}}
+      <span local-class='conflicts-items-version-tag'>{{this.currentVersion.tag}}</span>
+    </div>
+  {{/if}}
   {{#each @conflicts key='id' as |conflict index|}}
     <ConflictsList::Item
       @index={{index}}

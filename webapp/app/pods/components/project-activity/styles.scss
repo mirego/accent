@@ -11,11 +11,15 @@
 .activity-explanation {
   padding: 10px 12px;
   margin: 0 0 20px;
-  background: var(--color-blue);
   font-weight: 300;
   font-size: 13px;
-  color: #fff;
   border-radius: var(--border-radius);
+  background: hsl(
+    var(--color-blue-hue),
+    var(--color-blue-saturation),
+    var(--color-highlight-lighteness)
+  );
+  color: var(--color-blue);
 }
 
 .activity-explanation-label {
@@ -23,7 +27,6 @@
   margin-bottom: 4px;
   font-size: 12px;
   font-weight: 500;
-  color: #fff;
 }
 
 .activity-date {

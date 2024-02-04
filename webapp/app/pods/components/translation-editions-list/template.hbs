@@ -1,0 +1,23 @@
+<ul local-class='translations-list'>
+  {{#each @translations key='id' as |translation|}}
+    <TranslationEditionsList::Item
+      @translation={{translation}}
+      @revisions={{@revisions}}
+      @prompts={{@prompts}}
+      @permissions={{@permissions}}
+      @project={{@project}}
+      @onUpdateText={{@onUpdateText}}
+    />
+  {{else}}
+    <EmptyContent local-class='empty-content'>
+      {{inline-svg 'assets/tag.svg' local-class='icon'}}
+      {{t 'components.translation_editions_list.no_translations'}}
+      <div>
+        {{t 'components.translation_editions_list.no_versions'}}
+        <LinkTo @route='logged-in.project.versions' class='link'>
+          {{t 'components.translation_editions_list.no_versions_link'}}
+        </LinkTo>
+      </div>
+    </EmptyContent>
+  {{/each}}
+</ul>

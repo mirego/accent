@@ -3,15 +3,12 @@
 
   <p local-class='text'>
     {{t 'components.project_settings.jipt.integration_help'}}
+    <br />
+    <a local-class='link' href='https://www.accent.reviews/guides/live-editing.html'>
+      {{t 'components.project_settings.jipt.integration_link'}}
+    </a>
+
   </p>
-
-  <a class='button button--filled' href='https://www.accent.reviews/guides/live-editing.html'>
-    {{t 'components.project_settings.jipt.integration_link'}}
-  </a>
-
-  <h2 local-class='title'>
-    {{t 'components.project_settings.jipt.script_title'}}
-  </h2>
 
   <textarea readonly='' onClick='this.select();' local-class='code'>{{this.scriptContent}}</textarea>
 </div>

@@ -388,21 +388,10 @@
 }
 
 .item-version-tag {
-  display: inline-flex;
-  align-items: baseline;
   margin-left: 6px;
   font-size: 11px;
   font-family: var(--font-monospace);
-  color: var(--color-primary);
-  text-decoration: none;
-  background: var(--background-tooltip);
-  padding: 1px 3px;
-  border-radius: var(--border-radius);
-
-  &:focus,
-  &:hover {
-    text-decoration: underline;
-  }
+  text-transform: none;
 }
 
 .item-iconContainer {

@@ -164,6 +164,7 @@
       "input_placeholder_text": "Rechercher une chaîne"
     },
     "conflicts_items": {
+      "translations_version_notice": "Vous consultez les textes à réviser de la version",
       "correct_all_button": "Marquer toutes les chaînes comme révisées pour cette langue",
       "no_translations": "Aucune chaîne à examiner pour : {query}",
       "all_reviewed_title": "Tous revus",
@@ -443,8 +444,7 @@
       "jipt": {
         "title": "Traductions JIPT",
         "integration_help": "Cette étape vous guidera à travers la configuration dont vous avez besoin dans votre projet pour traduire vos chaînes dans votre navigateur, à l’intérieur de votre projet.",
-        "integration_link": "Voir les guides officiels sur la façon d’intégrer l’édition en direct dans votre site Web",
-        "script_title": "Ajoutez le script à la racine de votre application",
+        "integration_link": "Voir les guides officiels sur la façon d’intégrer l’édition en direct dans votre site Web ->",
         "add_language_title": "Ajoutez le pseudo langage à votre projet",
         "add_language_image_1": "Voici un langage comme vous en avez déjà dans votre projet :",
         "add_language_image_2": "Voici le pseudo langage nommé \"accent\" qui agit comme une traduction normale dans votre projet :",
@@ -511,6 +511,20 @@
         "data": {
           "azure_storage_container_sas": "SAS URL",
           "url": "URL"
+        },
+        "empty_description": {
+          "azure_storage_container": {
+            "title": "Azure Storage Container",
+            "text": "Téléchargez vos fichiers dans Azure Storage Container pour les servir directement dans votre application"
+          },
+          "discord": {
+            "title": "Discord",
+            "text": "Publiez les notifications de votre projet dans Discord"
+          },
+          "slack": {
+            "title": "Slack",
+            "text": "Publiez les notifications de votre projet dans Slack"
+          }
         },
         "token_how": "Comment?",
         "github_webhook_url_how": "Comment?",
@@ -663,7 +677,7 @@
       "error": "Version invalide",
       "cancel_button": "Annuler",
       "name_label": "Nom:",
-      "tag_label": "Étiqueter:",
+      "tag_label": "Étiquette:",
       "save_button": "Créer"
     },
     "version_update_form": {
@@ -671,7 +685,7 @@
       "error": "Version invalide",
       "cancel_button": "Annuler",
       "name_label": "Nom:",
-      "tag_label": "Étiqueter:",
+      "tag_label": "Étiquette:",
       "save_button": "Mettre à jour"
     },
     "page_title": {
@@ -890,6 +904,7 @@
       }
     },
     "translation_navigation": {
+      "editions_link_title": "Éditions",
       "activities_link_title": "Activités",
       "comments_link_title": "{count, plural, =0 {Conversation} other {Conversation (#)}}",
       "edit_link_title": "Éditer",
@@ -920,8 +935,15 @@
         "translated": "À traduire"
       }
     },
+    "translation_editions_list": {
+      "no_translations": "Aucune autre version du texte n’existe dans votre projet",
+      "no_versions": "Essayez de",
+      "no_versions_link": "créer une nouvelle version →"
+    },
     "translations_list": {
+      "latest_version_label": "Dernière",
       "null_text": "Texte nul",
+      "translations_version_notice": "Vous consultez les textes de la version",
       "comments_count": "{count, plural, =0 {Aucun commentaire} =1 {1 commentaire} other {# commentaires}}",
       "save": "Sauver",
       "empty_text": "Texte vide",

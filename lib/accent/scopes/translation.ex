@@ -49,6 +49,29 @@ defmodule Accent.Scopes.Translation do
 
   def parse_order(query, _), do: from(query, order_by: [asc: :key])
 
+  def editions(query, translation) do
+    query =
+      from(
+        translations in query,
+        left_join: versions in assoc(translations, :version),
+        where: [revision_id: ^translation.revision_id],
+        order_by: [
+          {:desc_nulls_first, versions.inserted_at}
+        ]
+      )
+
+    if translation.version_id do
+      from(translations in query,
+        where:
+          (translations.source_translation_id == ^translation.source_translation_id or
+             translations.id == ^translation.source_translation_id) and
+            translations.id != ^translation.id
+      )
+    else
+      from(query, where: [source_translation_id: ^translation.id])
+    end
+  end
+
   @doc """
   ## Examples
 

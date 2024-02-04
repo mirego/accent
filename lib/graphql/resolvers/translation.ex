@@ -141,6 +141,16 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     {:ok, translations}
   end
 
+  @spec editions(Translation.t(), map(), struct()) :: {:ok, [Translation.t()]}
+  def editions(translation, _, _) do
+    translations =
+      Translation
+      |> TranslationScope.editions(translation)
+      |> Repo.all()
+
+    {:ok, translations}
+  end
+
   @spec master_translation(Translation.t(), map(), struct()) :: {:ok, Translation.t() | nil}
   def master_translation(translation, _, _) do
     translation

@@ -1,0 +1,18 @@
+{{#if this.model.loading}}
+  <SkeletonUi::ProgressLine />
+{{/if}}
+
+{{#if this.showSkeleton}}
+  <SkeletonUi::TranslationsList />
+{{else if this.showLoading}}
+  <LoadingContent @label={{t 'pods.project.translations.loading_content'}} />
+{{else}}
+  <TranslationEditionsList
+    @project={{this.model.project}}
+    @prompts={{this.model.prompts}}
+    @revisions={{this.revisions}}
+    @permissions={{this.permissions}}
+    @translations={{this.model.translations}}
+    @onUpdateText={{fn this.updateText}}
+  />
+{{/if}}
