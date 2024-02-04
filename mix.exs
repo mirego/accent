@@ -38,15 +38,15 @@ defmodule Accent.Mixfile do
     [
       # Framework
       {:phoenix, "~> 1.4"},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix_html, "~> 4.0", override: true},
 
       # Plugs
-      {:plug_assign, "~> 1.0.0"},
+      {:plug_assign, "~> 2.0"},
       {:canada, "~> 2.0.0", override: true},
       {:canary, github: "runhyve/canary"},
       {:corsica, "~> 2.0"},
       {:bandit, "~> 1.0"},
-      {:plug, "1.14.2"},
+      {:plug, "~> 1.14"},
       {:plug_canonical_host, "~> 2.0"},
 
       # Database
@@ -142,7 +142,8 @@ defmodule Accent.Mixfile do
     else
       [
         {:p1_utils, "1.0.15", override: true},
-        {:fast_yaml, github: "processone/fast_yaml", ref: "e789f68895f71b7ad31057177810ca0161bf790e"}
+        {:fast_yaml,
+         github: "processone/fast_yaml", ref: "e789f68895f71b7ad31057177810ca0161bf790e"}
       ]
     end
   end
