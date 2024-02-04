@@ -38,7 +38,7 @@ defmodule Accent.Mixfile do
     [
       # Framework
       {:phoenix, "~> 1.4"},
-      {:phoenix_html, "~> 4.0", override: true},
+      {:phoenix_html, "~> 3.0"},
 
       # Plugs
       {:plug_assign, "~> 2.0"},
