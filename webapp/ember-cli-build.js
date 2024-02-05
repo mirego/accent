@@ -23,10 +23,6 @@ module.exports = function (defaults) {
       sourceMaps: 'inline',
     },
 
-    'ember-cli-babel-polyfills': {
-      evergreenTargets: target.browsers,
-    },
-
     svg: {
       paths: ['public'],
     },

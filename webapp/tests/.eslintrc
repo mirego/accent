@@ -1,7 +1,0 @@
-{
-  "rules": {
-    "no-magic-numbers": 0,
-    "max-nested-callbacks": 0,
-    "ember/named-functions-in-promises": 0
-  }
-}

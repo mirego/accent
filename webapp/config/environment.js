@@ -15,7 +15,7 @@ module.exports = function (environment) {
     podModulePrefix: 'accent-webapp/pods',
     environment,
     rootURL: '/',
-    locationType: 'auto',
+    locationType: 'history',
   };
 
   ENV.SENTRY = {
