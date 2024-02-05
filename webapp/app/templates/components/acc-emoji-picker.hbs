@@ -1,0 +1,16 @@
+<button {{on 'click' (fn this.togglePicker)}} ...attributes>
+  <div>
+    {{yield}}
+  </div>
+</button>
+
+{{#if this.picker}}
+  <EmberWormhole @to='modals' {{on-key 'Escape' this.togglePicker}}>
+    <div local-class='wrapper'>
+      <div role='button' local-class='overlay' {{on 'click' (fn this.togglePicker)}}></div>
+      <div role='dialog' local-class='container'>
+        {{this.picker}}
+      </div>
+    </div>
+  </EmberWormhole>
+{{/if}}

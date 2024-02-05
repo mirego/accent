@@ -1,7 +1,7 @@
 import RSVP from 'rsvp';
 import Service from '@ember/service';
-import { computed } from '@ember/object';
-import { typeOf } from '@ember/utils';
+import {computed} from '@ember/object';
+import {typeOf} from '@ember/utils';
 import Ember from 'ember';
 import Raven from 'raven-js';
 

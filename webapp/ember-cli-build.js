@@ -19,9 +19,11 @@ module.exports = function (defaults) {
     },
 
     babel: {
-      plugins: ['graphql-tag', require('ember-auto-import/babel-plugin')],
+      plugins: ['graphql-tag', require('ember-auto-import/babel-plugin'), require.resolve("ember-concurrency/async-arrow-task-transform")],
       sourceMaps: 'inline',
     },
+
+    'ember-cli-babel': { enableTypeScriptTransform: true },
 
     svg: {
       paths: ['public'],

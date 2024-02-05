@@ -12,7 +12,6 @@ module.exports = function (environment) {
   const ENV = {
     version: '__VERSION__',
     modulePrefix: 'accent-webapp',
-    podModulePrefix: 'accent-webapp/pods',
     environment,
     rootURL: '/',
     locationType: 'history',
@@ -72,20 +71,6 @@ module.exports = function (environment) {
     types: ['info', 'success', 'error', 'socket'],
     injectionFactories: [],
   };
-
-  if (environment === 'test') {
-    ENV.locationType = 'none';
-
-    ENV.APP.LOG_ACTIVE_GENERATION = false;
-    ENV.APP.LOG_VIEW_LOOKUPS = false;
-
-    ENV.APP.rootElement = '#ember-testing';
-    ENV.APP.autoboot = false;
-
-    ENV.API.WS_ENABLED = false;
-
-    ENV.APP.LOCAL_STORAGE.SESSION_NAMESPACE = 'accent-session-test';
-  }
 
   return ENV;
 };

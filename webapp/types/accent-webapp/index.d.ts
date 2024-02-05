@@ -1,3 +1,1 @@
-declare global {}
-
-export {};
+import 'ember-source/types';

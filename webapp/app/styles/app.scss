@@ -5,7 +5,6 @@
 @import 'highlight-theme';
 
 @import 'html-components/button';
-@import 'html-components/emoji-picker';
 @import 'html-components/filters';
 @import 'html-components/power-select';
 @import 'html-components/pell';
@@ -343,6 +342,21 @@ input[type='checkbox'] {
 
 input[type='radio'] {
   border-radius: 18px;
+}
+
+emoji-picker {
+  --num-columns: 9;
+  --emoji-size: 1.3rem;
+  --background: var(--background-light);
+  --border-color: var(--background-light-highlight);
+  --input-border-color: transparent;
+  --input-padding: 4px 0;
+  --outline-size: 0;
+  --input-font-color: var(--text-color-normal);
+  --input-placeholder-color: var(--color-grey);
+  --indicator-color: hsl(var(--accent-hue), 55%, 55%);
+  --button-hover-background: var(--background-light-highlight);
+  --button-active-background: var(--background-light-highlight);
 }
 
 :global(.app) {

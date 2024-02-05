@@ -1,0 +1,71 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: fixed;
+  z-index: 4000;
+  height: 100vh;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow-y: scroll;
+  padding: 130px 30px 100px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  min-height: calc(100vh - 130px);
+  background-color: #000;
+  opacity: 0.6;
+
+  animation-name: animate-overlay;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.2s;
+  animation-delay: 0;
+  animation-fill-mode: forwards;
+}
+
+.container {
+  display: block;
+  position: relative;
+  z-index: 3;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 20px 0 var(--shadow-color);
+
+  animation-name: animate-content;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.3s;
+  animation-delay: 0;
+  animation-fill-mode: forwards;
+}
+
+@media (max-width: 440px) {
+  .wrapper {
+    padding: 30px 10px;
+  }
+}
+
+@keyframes animate-content {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animate-overlay {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
