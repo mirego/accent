@@ -3,7 +3,6 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const target = require('./config/targets');
 const sass = require('sass');
 
 module.exports = function (defaults) {
@@ -14,12 +13,8 @@ module.exports = function (defaults) {
       'jquery.js': null,
     },
 
-    autoImport: {
-      exclude: ['graphql-tag'],
-    },
-
     babel: {
-      plugins: ['graphql-tag', require('ember-auto-import/babel-plugin'), require.resolve("ember-concurrency/async-arrow-task-transform")],
+      plugins: [require('ember-auto-import/babel-plugin'), require.resolve("ember-concurrency/async-arrow-task-transform")],
       sourceMaps: 'inline',
     },
 

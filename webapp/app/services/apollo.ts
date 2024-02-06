@@ -47,7 +47,11 @@ export default class Apollo extends Service {
   session: Session;
 
   client = new ApolloClient({
-    link: ApolloLink.from([authLink(() => this.session), absintheBatchLink, link]),
+    link: ApolloLink.from([
+      authLink(() => this.session),
+      absintheBatchLink,
+      link,
+    ]),
     cache,
   });
 }

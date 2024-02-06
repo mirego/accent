@@ -60,7 +60,7 @@ export default class LintTranslationsPageItem extends Component<Args> {
           const replacement = `(span data-rect) (/span)`;
           offsetTotal += replacement.length - 1;
 
-          return String(text).replace(/ $/, replacement) as string;
+          return String(text).replace(/ $/, replacement);
         } else {
           return text;
         }

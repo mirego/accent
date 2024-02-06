@@ -1,3 +1,3 @@
 declare module '@ember/runloop/types' {
-  type EmberRunTimer = any
+  type EmberRunTimer = any;
 }

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client/core';
+import {gql} from '@apollo/client/core';
 
 export default gql`
   mutation CollaboratorUpdate($collaboratorId: ID!, $role: Role!) {
