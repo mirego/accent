@@ -1,6 +1,6 @@
 import {isBlank} from '@ember/utils';
 import {helper} from '@ember/component/helper';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import {formatDistanceToNow} from 'date-fns';
 import {frCA, enUS} from 'date-fns/locale';
 
 const LOCALES = {

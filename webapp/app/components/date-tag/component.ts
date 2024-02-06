@@ -1,6 +1,6 @@
 import {inject as service} from '@ember/service';
 import Component from '@glimmer/component';
-import dateFormat from 'date-fns/format';
+import {format as dateFormat} from 'date-fns';
 import IntlService from 'ember-intl/services/intl';
 
 interface Args {
