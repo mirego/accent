@@ -15,7 +15,7 @@ import promptDeleteQuery from 'accent-webapp/queries/delete-project-prompt';
 import projectPromptConfigQuery, {
   ProjectPromptConfigResponse,
 } from 'accent-webapp/queries/project-prompt-config';
-import {InMemoryCache} from 'apollo-boost';
+import {InMemoryCache} from '@apollo/client/cache';
 
 const FLASH_MESSAGE_PREFIX = 'pods.project.edit.flash_messages.';
 const FLASH_MESSAGE_CONFIG_SUCCESS = `${FLASH_MESSAGE_PREFIX}prompts_config_success`;

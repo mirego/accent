@@ -7,7 +7,7 @@ interface Args {
 }
 
 const escape = document.createElement('textarea');
-const escapeHTML = (html: string) => {
+const escapeHTML = (html: string): string => {
   escape.textContent = html;
   return escape.innerHTML;
 };
@@ -30,7 +30,7 @@ export default class LintTranslationsPageItem extends Component<Args> {
   get annotatedText() {
     let offsetTotal = 0;
 
-    let text = this.args.lintTranslation.messages
+    let text = Array.from(this.args.lintTranslation.messages)
       .sort((a: any, b: any) => a.offset || 0 >= b.offset || 0)
       .reduce((text: string, message: any) => {
         if (message.length) {
@@ -60,11 +60,11 @@ export default class LintTranslationsPageItem extends Component<Args> {
           const replacement = `(span data-rect) (/span)`;
           offsetTotal += replacement.length - 1;
 
-          return String(text).replace(/ $/, replacement);
+          return String(text).replace(/ $/, replacement) as string;
         } else {
           return text;
         }
-      }, this.args.lintTranslation.messages[0].text);
+      }, this.args.lintTranslation.messages[0].text) as string;
 
     text = escapeHTML(text);
     text = text.replaceAll('(span data-underline)', '<span data-underline>');

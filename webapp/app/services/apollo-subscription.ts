@@ -34,7 +34,7 @@ export class Subscription {
 
   currentResult() {
     const queryObservable = this.queryObservable;
-    const result = queryObservable.currentResult();
+    const result = queryObservable.getCurrentResult();
     const mappedResult = this.mapResult(result, this.props);
 
     return mappedResult;

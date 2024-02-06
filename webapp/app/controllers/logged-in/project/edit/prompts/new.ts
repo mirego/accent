@@ -15,7 +15,7 @@ import promptCreateQuery, {
 import projectPromptConfigQuery, {
   ProjectPromptConfigResponse,
 } from 'accent-webapp/queries/project-prompt-config';
-import {InMemoryCache} from 'apollo-boost';
+import {InMemoryCache} from '@apollo/client/cache';
 
 const FLASH_MESSAGE_PREFIX = 'pods.project.edit.flash_messages.';
 const FLASH_MESSAGE_PROMPT_CREATE_SUCCESS = `${FLASH_MESSAGE_PREFIX}prompts_create_success`;

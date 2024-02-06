@@ -172,8 +172,8 @@
   }
 
   &.button--grey {
-    --button-text-hover-color: #fff;
-    --button-text-color: #fff;
+    --button-text-hover-color: var(--color-black);
+    --button-text-color: var(--color-black);
     --button-background-color: var(--background-light);
     --button-background-hover-color: darken(#ccc, 4%);
     --button-border-color: darken(#ccc, 4%);
@@ -236,19 +236,8 @@
 }
 
 .button--grey {
-  color: #000;
-  border-color: var(--background-light);
-
-  &.button--loading svg.loading {
-    fill: #8a8a8a;
-  }
-
-  &:hover,
-  &:focus {
-    color: darken(#8a8a8a, 10%);
-    background: lighten(#8a8a8a, 43%);
-    border-color: var(--background-light-highlight);
-  }
+  --button-text-color: var(--color-grey);
+  --button-text-hover-color: var(--color-grey);
 }
 
 .button--green {
