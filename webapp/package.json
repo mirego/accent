@@ -21,13 +21,13 @@
   },
   "repository": "https://github.com/mirego/accent",
   "engines": {
-    "node": ">= 16.13.0"
+    "node": ">= 21.6.0"
   },
   "ember": {
     "edition": "octane"
   },
   "dependencies": {
-    "@apollo/client": "3.9.2",
+    "@apollo/client": "3.9.3",
     "@glimmer/tracking": "1.1.2",
     "broccoli-asset-rev": "3.0.0",
     "color": "4.2.3",
