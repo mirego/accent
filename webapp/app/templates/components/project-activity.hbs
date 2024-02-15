@@ -208,18 +208,16 @@
         {{t 'components.project_activity.operations_label'}}
       </span>
 
-      <div local-class='details-associations-overflow'>
-        {{#each this.operations.entries key='id' as |activity|}}
-          <ActivityItem
-            @compact={{true}}
-            @permissions={{@permissions}}
-            @showTranslationLink={{true}}
-            @componentTranslationPrefix='project_activities_list_item'
-            @project={{@project}}
-            @activity={{activity}}
-          />
-        {{/each}}
-      </div>
+      {{#each this.operations.entries key='id' as |activity|}}
+        <ActivityItem
+          @compact={{true}}
+          @permissions={{@permissions}}
+          @showTranslationLink={{true}}
+          @componentTranslationPrefix='project_activities_list_item'
+          @project={{@project}}
+          @activity={{activity}}
+        />
+      {{/each}}
       {{#if this.operations.meta.nextPage}}
         <div local-class='details-associations-pagination'>
           <ResourcePagination @meta={{this.operations.meta}} @onSelectPage={{fn this.refreshActivities}} />

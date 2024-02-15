@@ -8,7 +8,7 @@
   margin-bottom: 20px;
   margin-right: 20px;
   border-radius: var(--border-radius);
-  border: 1px solid var(--background-light-highlight);
+  box-shadow: 0 6px 25px var(--shadow-color), 0 2px 7px var(--shadow-color);
 
   &:nth-child(even) {
     flex: 1 1 50%;

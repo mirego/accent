@@ -235,6 +235,10 @@
   }
 }
 
+.button--borderLess {
+  border-color: transparent;
+}
+
 .button--grey {
   --button-text-color: var(--color-grey);
   --button-text-hover-color: var(--color-grey);

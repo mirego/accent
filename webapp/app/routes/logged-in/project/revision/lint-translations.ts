@@ -43,6 +43,9 @@ export default class LintRoute extends Route {
   };
 
   model(params: any, transition: Transition) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       lintQuery,

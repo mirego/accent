@@ -1,5 +1,8 @@
 defmodule Accent.GraphQL.Resolvers.Translation do
   @moduledoc false
+  import Absinthe.Resolution.Helpers, only: [batch: 3]
+
+  alias Accent.Document
   alias Accent.GraphQL.Paginated
   alias Accent.Plugs.GraphQLContext
   alias Accent.Project
@@ -25,6 +28,59 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> Map.get(:key)
     |> String.replace(@internal_nested_separator, "[\\1]")
     |> then(&{:ok, &1})
+  end
+
+  def batch_translation_ids(grouped_translation, _args, _resolution) do
+    ids = Enum.reject(grouped_translation.translation_ids, &is_nil/1)
+
+    batch(
+      {__MODULE__, :from_translation_ids},
+      ids,
+      fn batch_results ->
+        translations =
+          Map.get(batch_results, {grouped_translation.key, grouped_translation.document_id}, [])
+
+        translations =
+          Enum.sort(translations, fn a, b ->
+            cond do
+              a.revision.master == true -> true
+              DateTime.compare(a.revision.inserted_at, b.revision.inserted_at) === :lt -> true
+              true -> false
+            end
+          end)
+
+        {:ok, translations}
+      end
+    )
+  end
+
+  def from_translation_ids(_, ids) do
+    ids = Enum.map(List.flatten(ids), &Ecto.UUID.cast!(&1))
+
+    query =
+      Query.from(translations in Translation,
+        preload: [:revision],
+        where: translations.id in ^ids
+      )
+
+    query
+    |> Repo.all()
+    |> Enum.group_by(&{&1.key, &1.document_id})
+  end
+
+  def batch_document(grouped_translation, _args, _resolution) do
+    batch({__MODULE__, :from_document_id}, grouped_translation.document_id, fn batch_results ->
+      [document | _] = Map.get(batch_results, grouped_translation.document_id)
+      {:ok, document}
+    end)
+  end
+
+  def from_document_id(_, ids) do
+    query = Query.from(documents in Document, where: documents.id in ^ids)
+
+    query
+    |> Repo.all()
+    |> Enum.group_by(& &1.id)
   end
 
   @spec correct(Translation.t(), %{text: String.t()}, GraphQLContext.t()) :: translation_operation
@@ -124,10 +180,27 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     translations =
       Translation
       |> list(args, project.id)
-      |> TranslationScope.from_project(project.id)
       |> Paginated.paginate(args)
 
     {:ok, Paginated.format(translations)}
+  end
+
+  @spec list_grouped_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Translation.t())}
+  def list_grouped_project(project, args, _) do
+    total_entries =
+      Translation
+      |> list_grouped_count(args, project.id)
+      |> Repo.all()
+      |> Enum.count()
+
+    translations =
+      Translation
+      |> list_grouped(args, project.id)
+      |> Paginated.paginate(args, total_entries: total_entries)
+
+    revisions = grouped_related_revisions(Map.put(args, :project_id, project.id))
+
+    {:ok, Map.put(Paginated.format(translations), :revisions, revisions)}
   end
 
   @spec related_translations(Translation.t(), map(), struct()) :: {:ok, [Translation.t()]}
@@ -179,7 +252,112 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     end
   end
 
+  defp grouped_related_revisions(args) do
+    query_revision_ids =
+      if Enum.empty?(args[:related_revisions]) do
+        Query.from(
+          revisions in Revision,
+          where: revisions.project_id == ^args[:project_id],
+          order_by: [asc: :inserted_at],
+          limit: 2
+        )
+      else
+        Query.from(
+          revisions in Revision,
+          where: revisions.id in ^args[:related_revisions],
+          order_by: [asc: :inserted_at],
+          limit: 2
+        )
+      end
+
+    Repo.all(query_revision_ids)
+  end
+
+  defp grouped_related_query(schema, args, project_id) do
+    revision_ids =
+      if Enum.empty?(args[:related_revisions]) do
+        Enum.map(grouped_related_revisions(Map.put(args, :project_id, project_id)), & &1.id)
+      else
+        args[:related_revisions]
+      end
+
+    query =
+      schema
+      |> TranslationScope.from_version(args[:version])
+      |> TranslationScope.from_project(project_id)
+      |> TranslationScope.from_revisions(revision_ids)
+      |> TranslationScope.active()
+      |> TranslationScope.not_locked()
+
+    {query, revision_ids}
+  end
+
+  defp list_grouped_count(schema, args, project_id) do
+    query = list_base_query(schema, args, project_id)
+    {related_query, revision_ids} = grouped_related_query(schema, args, project_id)
+
+    query =
+      Query.from(
+        translations in query,
+        left_join: related_translations in subquery(related_query),
+        as: :related_translations,
+        on:
+          related_translations.revision_id in ^revision_ids and
+            related_translations.key == translations.key and
+            related_translations.document_id == translations.document_id,
+        distinct: [translations.key, translations.document_id],
+        select: translations.key,
+        group_by: [translations.key, translations.document_id]
+      )
+
+    if args[:is_conflicted] do
+      Query.from([related_translations: related_translations] in query,
+        having: fragment("array_agg(distinct(?))", related_translations.conflicted) != [false]
+      )
+    else
+      query
+    end
+  end
+
+  defp list_grouped(schema, args, project_id) do
+    query = list_base_query(schema, args, project_id)
+    {related_query, revision_ids} = grouped_related_query(schema, args, project_id)
+
+    query =
+      Query.from(
+        translations in query,
+        left_join: related_translations in subquery(related_query),
+        as: :related_translations,
+        on:
+          related_translations.revision_id in ^revision_ids and
+            related_translations.key == translations.key and
+            related_translations.document_id == translations.document_id,
+        distinct: translations.key,
+        select: %{
+          key: translations.key,
+          document_id: translations.document_id,
+          translation_ids: fragment("array_agg(distinct(?))", related_translations.id)
+        },
+        group_by: [translations.key, translations.document_id]
+      )
+
+    if args[:is_conflicted] do
+      Query.from([related_translations: related_translations] in query,
+        having: fragment("array_agg(distinct(?))", related_translations.conflicted) != [false]
+      )
+    else
+      query
+    end
+  end
+
   defp list(schema, args, project_id) do
+    schema
+    |> list_base_query(args, project_id)
+    |> Query.distinct(true)
+    |> Query.preload(:revision)
+  end
+
+  defp list_base_query(schema, args, project_id) do
     schema
     |> TranslationScope.active()
     |> TranslationScope.not_locked()
@@ -193,7 +371,6 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> TranslationScope.parse_empty(args[:is_text_empty])
     |> TranslationScope.parse_commented_on(args[:is_commented_on])
     |> TranslationScope.from_version(args[:version])
-    |> Query.distinct(true)
-    |> Query.preload(:revision)
+    |> TranslationScope.from_project(project_id)
   end
 end

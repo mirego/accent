@@ -12,9 +12,7 @@ import promptConfigSaveQuery, {
 } from 'accent-webapp/queries/save-project-prompt-config';
 import promptConfigDeleteQuery from 'accent-webapp/queries/delete-project-prompt-config';
 import promptDeleteQuery from 'accent-webapp/queries/delete-project-prompt';
-import projectPromptConfigQuery, {
-  ProjectPromptConfigResponse,
-} from 'accent-webapp/queries/project-prompt-config';
+import projectPromptConfigQuery from 'accent-webapp/queries/project-prompt-config';
 import {InMemoryCache} from '@apollo/client/cache';
 
 const FLASH_MESSAGE_PREFIX = 'pods.project.edit.flash_messages.';
@@ -125,21 +123,25 @@ export default class PromptsController extends Controller {
       variables,
       refetchQueries: ['Project'],
       update: (cache: InMemoryCache) => {
-        const data = cache.readQuery({
-          query: projectPromptConfigQuery,
-          variables: {projectId: this.project.id},
-        }) as ProjectPromptConfigResponse;
-
-        const prompts = data.viewer.project.prompts.filter(
-          (prompt) => prompt.id !== variables.promptId
+        cache.updateQuery(
+          {
+            query: projectPromptConfigQuery,
+            variables: {projectId: this.project.id},
+          },
+          (data) => {
+            return {
+              viewer: {
+                ...data.viewer,
+                project: {
+                  ...data.viewer.project,
+                  prompts: data.viewer.project.prompts.filter(
+                    (prompt: any) => prompt.id !== variables.promptId
+                  ),
+                },
+              },
+            };
+          }
         );
-        data.viewer.project.prompts = prompts;
-
-        cache.writeQuery({
-          query: projectPromptConfigQuery,
-          variables: {projectId: this.project.id},
-          data,
-        });
       },
     });
 

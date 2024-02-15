@@ -74,10 +74,19 @@
   width: 100%;
   height: 100%;
   padding: 10px 130px 10px 10px;
-  font-size: 12px;
 
   &[dir='rtl'] {
     padding: 10px 10px 10px 130px;
+  }
+
+  &.inputText--borderless {
+    border-color: transparent;
+    background: transparent;
+
+    &:focus {
+      border-color: transparent;
+      background: transparent;
+    }
   }
 
   &::placeholder {

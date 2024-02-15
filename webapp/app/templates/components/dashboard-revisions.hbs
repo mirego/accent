@@ -30,7 +30,7 @@
         <h2 local-class='stats-title'>
           <div local-class='stats-title-links'>
             {{#if (get @permissions 'sync')}}
-              <LinkTo @route='logged-in.project.files.sync' @models={{array @project.id @document.id}} class='button button--borderLess button--filled button--white'>
+              <LinkTo @route='logged-in.project.files.sync' @models={{array @project.id @document.id}} class='button button--filled button--white'>
                 {{inline-svg '/assets/sync.svg' class='button-icon'}}
                 {{t 'components.documents_list.sync'}}
               </LinkTo>
@@ -59,17 +59,6 @@
         </div>
 
         {{#if this.slaveRevisions}}
-          <h2 local-class='stats-title'>
-            <div local-class='stats-title-links'>
-              {{#if (get @permissions 'create_slave')}}
-                <LinkTo @route='logged-in.project.manage-languages' @model={{@project.id}} class='button button--filled button--white button--borderLess'>
-                  {{inline-svg 'assets/language.svg' class='button-icon'}}
-                  {{t 'components.dashboard_revisions.manage_languages_link_title'}}
-                </LinkTo>
-              {{/if}}
-            </div>
-          </h2>
-
           <div local-class='slaves'>
             {{#each this.slaveRevisions key='id' as |revision|}}
               <DashboardRevisions::Item

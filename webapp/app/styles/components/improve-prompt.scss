@@ -64,13 +64,13 @@ button.button {
       opacity: 1;
     }
     .prompt-button-quick-access[data-rtl] {
-      left: 36px;
+      transform: translateX(36px);
       right: auto;
     }
 
     .prompt-button-quick-access {
       opacity: 1;
-      right: 36px;
+      transform: translateX(-36px);
       padding: 0 7px;
       top: -1px;
       pointer-events: all;
@@ -87,6 +87,7 @@ button.button {
   background: var(--input-background);
   opacity: 0;
   pointer-events: none;
+  transform: translateX(0);
   right: 0;
   display: flex;
   gap: 4px;

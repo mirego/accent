@@ -1,7 +1,7 @@
 <div local-class='lint-options'>
   <div class='filters' local-class='filters'>
-    <div class='filters-wrapper'>
-      <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
+    <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
+      <div class='filters-content' local-class='filters-content'>
         <div class='queryForm' local-class='queryForm'>
           {{inline-svg '/assets/search.svg' local-class='search-icon'}}
 
@@ -15,24 +15,26 @@
           />
         </div>
 
-        <div class='queryForm-filters'>
-          {{#if this.showDocuments}}
-            <div class='queryForm-filters-column'>
-              <div local-class='exportOptions-item'>
-                <AccSelect @searchEnabled={{false}} @selected={{this.documentValue}} @options={{this.mappedDocuments}} @onchange={{fn this.documentChanged}} />
+        {{#if this.showSomeFilters}}
+          <div class='queryForm-filters'>
+            {{#if this.showDocuments}}
+              <div class='queryForm-filters-column'>
+                <div local-class='exportOptions-item'>
+                  <AccSelect @searchEnabled={{false}} @selected={{this.documentValue}} @options={{this.mappedDocuments}} @onchange={{fn this.documentChanged}} />
+                </div>
               </div>
-            </div>
-          {{/if}}
+            {{/if}}
 
-          {{#if this.showVersions}}
-            <div class='queryForm-filters-column'>
-              <div local-class='exportOptions-item'>
-                <AccSelect @searchEnabled={{false}} @selected={{this.versionValue}} @options={{this.mappedVersions}} @onchange={{fn this.versionChanged}} />
+            {{#if this.showVersions}}
+              <div class='queryForm-filters-column'>
+                <div local-class='exportOptions-item'>
+                  <AccSelect @searchEnabled={{false}} @selected={{this.versionValue}} @options={{this.mappedVersions}} @onchange={{fn this.versionChanged}} />
+                </div>
               </div>
-            </div>
-          {{/if}}
-        </div>
-      </form>
-    </div>
+            {{/if}}
+          </div>
+        {{/if}}
+      </div>
+    </form>
   </div>
 </div>

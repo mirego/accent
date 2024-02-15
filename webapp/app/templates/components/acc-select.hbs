@@ -17,6 +17,10 @@
   <PowerSelect @options={{@options}} @selected={{@selected}} @placeholder={{@placeholder}} @renderInPlace={{@renderInPlace}} @onChange={{@onchange}} as |option|>
     {{option.label}}
   </PowerSelect>
+{{else if @multi}}
+  <PowerSelectMultiple @options={{@options}} @selected={{@selected}} @placeholder={{@placeholder}} @renderInPlace={{@renderInPlace}} @onChange={{@onchange}} as |option|>
+    {{option.label}}
+  </PowerSelectMultiple>
 {{else}}
   <div local-class='root' ...attributes>
     <select {{on 'change' this.selectChange}}>

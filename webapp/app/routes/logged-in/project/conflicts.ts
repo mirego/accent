@@ -8,7 +8,7 @@ import ApolloSubscription, {
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/transition';
-import ConflictsController from 'accent-webapp/controllers/logged-in/project/revision/conflicts';
+import ConflictsController from 'accent-webapp/controllers/logged-in/project/conflicts';
 import RouterService from '@ember/routing/router-service';
 
 export default class ConflictsRoute extends Route {
@@ -34,44 +34,58 @@ export default class ConflictsRoute extends Route {
     version: {
       refreshModel: true,
     },
+    relatedRevisions: {
+      refreshModel: true,
+    },
+    isTextEmpty: {
+      refreshModel: true,
+    },
+    isTextNotEmpty: {
+      refreshModel: true,
+    },
+    isAddedLastSync: {
+      refreshModel: true,
+    },
+    isCommentedOn: {
+      refreshModel: true,
+    },
+    isConflicted: {
+      refreshModel: true,
+    },
+    isTranslated: {
+      refreshModel: true,
+    },
   };
 
   subscription: Subscription;
 
-  model(
-    {
-      query,
-      page,
-      document,
-      version,
-    }: {query: any; page: number; document: any; version: any},
-    transition: Transition
-  ) {
+  model(params: any, transition: Transition) {
+    params.isTextEmpty = params.isTextEmpty === 'true' ? true : null;
+    params.isTextNotEmpty = params.isTextNotEmpty === 'true' ? true : null;
+    params.isAddedLastSync = params.isAddedLastSync === 'true' ? true : null;
+    params.isCommentedOn = params.isCommentedOn === 'true' ? true : null;
+    params.isTranslated = params.isTranslated === 'true' ? false : null;
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       translationsQuery,
       {
         props: (data) => ({
-          revisionModel: this.modelFor('logged-in.project.revision'),
+          projectModel: this.modelFor('logged-in.project'),
+          prompts: data.viewer.project.prompts,
           documents: data.viewer.project.documents.entries,
           versions: data.viewer.project.versions.entries,
-          prompts: data.viewer.project.prompts,
+          revisions: data.viewer.project.revisions,
+          relatedRevisions: data.viewer.project.groupedTranslations.revisions,
           project: data.viewer.project,
-          translations: data.viewer.project.revision.translations,
+          groupedTranslations: data.viewer.project.groupedTranslations,
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId,
-            revisionId: this.routeParams.fetch(
-              transition,
-              'logged-in.project.revision'
-            ).revisionId,
-            query,
-            page,
-            document,
-            version,
+            ...params,
           },
         },
       }
@@ -97,31 +111,5 @@ export default class ConflictsRoute extends Route {
   @action
   onRefresh() {
     this.refresh();
-  }
-
-  @action
-  onRevisionChange({revisionId}: {revisionId: string}) {
-    const {project} = this.modelFor('logged-in.project') as {project: any};
-
-    this.apolloSubscription.clearSubscription(this.subscription);
-
-    this.router.transitionTo(
-      'logged-in.project.revision.conflicts',
-      project.id,
-      revisionId,
-      {
-        queryParams: this.fetchQueryParams(
-          this.controller as ConflictsController
-        ),
-      }
-    );
-  }
-
-  private fetchQueryParams(controller: ConflictsController) {
-    const query = controller.query;
-
-    return {
-      query,
-    };
   }
 }

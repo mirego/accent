@@ -1,9 +1,11 @@
+import {tracked} from '@glimmer/tracking';
+import {action} from '@ember/object';
 import Component from '@glimmer/component';
 
 interface Args {
   permissions: Record<string, true>;
   project: any;
-  conflicts: any;
+  groupedTranslations: any;
   version: any;
   versions: any[];
   query: any;
@@ -15,7 +17,10 @@ interface Args {
   ) => void;
 }
 
-export default class ConflictsItems extends Component<Args> {
+export default class ConflictsList extends Component<Args> {
+  @tracked
+  selectedTranslationId: string | null = null;
+
   get currentVersion() {
     if (!this.args.versions) return;
     if (!this.args.version) return;
@@ -23,5 +28,35 @@ export default class ConflictsItems extends Component<Args> {
     return this.args.versions.find(
       (version) => version.id === this.args.version
     );
+  }
+
+  get revisions() {
+    if (this.args.groupedTranslations.length === 0) return [];
+
+    return this.args.groupedTranslations[0].translations.map(
+      ({revision}: any) => revision
+    );
+  }
+
+  get mappedRevisions() {
+    if (this.args.groupedTranslations.length === 0) return [];
+
+    return this.args.groupedTranslations[0].translations.map(
+      ({revision}: any) => {
+        return {
+          name: revision.name || revision.language.name,
+          slug: revision.slug || revision.language.slug,
+        };
+      }
+    );
+  }
+
+  get showRevisionsHeader() {
+    return this.revisions.length > 1;
+  }
+
+  @action
+  handleFocus(id: string) {
+    this.selectedTranslationId = id;
   }
 }

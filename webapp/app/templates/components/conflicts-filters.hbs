@@ -2,6 +2,18 @@
   <div class='filters'>
     <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
       <div class='filters-content' local-class='filters-content'>
+
+        {{#if this.showRevisionsSelect}}
+          <AccSelect
+            @matchTriggerWidth={{false}}
+            @searchEnabled={{false}}
+            @multi={{true}}
+            @selected={{this.relatedRevisionsValue}}
+            @options={{this.mappedRevisionsOptions}}
+            @onchange={{fn @onChangeRevisions}}
+          />
+        {{/if}}
+
         <div class='queryForm' local-class='queryForm'>
           {{inline-svg '/assets/search.svg' local-class='search-icon'}}
 
@@ -13,46 +25,66 @@
             {{on-key 'Enter' (fn this.submitForm)}}
             {{on 'keyup' this.setDebouncedQuery}}
           />
+
+          {{#if @onChangeAdvancedFilterBoolean}}
+            <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
+              {{inline-svg 'assets/filter.svg' class='button-icon'}}
+              {{t 'components.conflicts_filters.advanced_filters_button'}}
+
+              {{#if @withAdvancedFilters}}
+                <span local-class='advancedFilters-badge'>
+                  {{@withAdvancedFilters}}
+                </span>
+              {{/if}}
+            </button>
+          {{/if}}
         </div>
 
-        <div class='queryForm-filters'>
-          <div class='queryForm-filters-column'>
-            {{#if this.showDocumentsSelect}}
-              <div class='queryForm-filter'>
-                <div class='queryForm-filter-select'>
-                  <AccSelect
-                    @matchTriggerWidth={{false}}
-                    @searchEnabled={{false}}
-                    @selected={{this.documentValue}}
-                    @options={{this.mappedDocuments}}
-                    @onchange={{fn @onChangeDocument}}
-                  />
+        {{#if this.showSomeFilters}}
+          <div class='queryForm-filters'>
+            <div class='queryForm-filters-column'>
+              {{#if this.showDocumentsSelect}}
+                <div class='queryForm-filter'>
+                  <div class='queryForm-filter-select'>
+                    <AccSelect
+                      @matchTriggerWidth={{false}}
+                      @searchEnabled={{false}}
+                      @selected={{this.documentValue}}
+                      @options={{this.mappedDocuments}}
+                      @onchange={{fn @onChangeDocument}}
+                    />
+                  </div>
                 </div>
-              </div>
-            {{/if}}
+              {{/if}}
 
-            {{#if this.showVersionsSelect}}
-              <div class='queryForm-filter'>
-                <div class='queryForm-filter-select'>
-                  <AccSelect
-                    @matchTriggerWidth={{false}}
-                    @searchEnabled={{false}}
-                    @selected={{this.versionValue}}
-                    @options={{this.mappedVersions}}
-                    @onchange={{fn @onChangeVersion}}
-                  />
+              {{#if this.showVersionsSelect}}
+                <div class='queryForm-filter'>
+                  <div class='queryForm-filter-select'>
+                    <AccSelect
+                      @matchTriggerWidth={{false}}
+                      @searchEnabled={{false}}
+                      @selected={{this.versionValue}}
+                      @options={{this.mappedVersions}}
+                      @onchange={{fn @onChangeVersion}}
+                    />
+                  </div>
                 </div>
-              </div>
-            {{/if}}
+              {{/if}}
+            </div>
           </div>
-        </div>
-      </div>
+        {{/if}}
 
-      {{#if @meta.totalEntries}}
-        <span local-class='totalEntries'>
-          {{t 'components.conflicts_filters.total_entries_count' count=@meta.totalEntries}}
-        </span>
-      {{/if}}
+        {{#if this.displayAdvancedFilters}}
+          <ConflictsList::AdvancedFilters
+            @isTextEmptyFilter={{@isTextEmptyFilter}}
+            @isTextNotEmptyFilter={{@isTextNotEmptyFilter}}
+            @isAddedLastSyncFilter={{@isAddedLastSyncFilter}}
+            @isCommentedOnFilter={{@isCommentedOnFilter}}
+            @isTranslatedFilter={{@isTranslatedFilter}}
+            @onChangeAdvancedFilterBoolean={{@onChangeAdvancedFilterBoolean}}
+          />
+        {{/if}}
+      </div>
     </form>
   </div>
 </div>

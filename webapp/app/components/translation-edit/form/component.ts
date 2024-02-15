@@ -1,5 +1,6 @@
 import {inject as service} from '@ember/service';
 import {equal} from '@ember/object/computed';
+import {next} from '@ember/runloop';
 import {action} from '@ember/object';
 import Component from '@glimmer/component';
 
@@ -103,6 +104,21 @@ export default class TranslationEditForm extends Component<Args> {
   @action
   changeHTML(value: string) {
     this.args.onKeyUp?.(value);
+  }
+
+  @action
+  handleFocus() {
+    this.args.onFocus?.();
+  }
+
+  @action
+  handleBlur() {
+    next(this, () => this.args.onBlur?.());
+  }
+
+  @action
+  handleSubmit() {
+    this.args.onSubmit();
   }
 
   @action

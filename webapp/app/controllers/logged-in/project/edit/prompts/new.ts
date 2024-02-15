@@ -12,9 +12,7 @@ import RouterService from '@ember/routing/router-service';
 import promptCreateQuery, {
   CreatePromptResponse,
 } from 'accent-webapp/queries/create-project-prompt';
-import projectPromptConfigQuery, {
-  ProjectPromptConfigResponse,
-} from 'accent-webapp/queries/project-prompt-config';
+import projectPromptConfigQuery from 'accent-webapp/queries/project-prompt-config';
 import {InMemoryCache} from '@apollo/client/cache';
 
 const FLASH_MESSAGE_PREFIX = 'pods.project.edit.flash_messages.';
@@ -87,20 +85,25 @@ export default class PromptsNewController extends Controller {
           data: {createProjectPrompt},
         }: {data: {createProjectPrompt: CreatePromptResponse}}
       ) => {
-        const data = cache.readQuery({
-          query: projectPromptConfigQuery,
-          variables: {projectId: this.project.id},
-        }) as ProjectPromptConfigResponse;
-        const prompts = data.viewer.project.prompts.concat([
-          createProjectPrompt.prompt,
-        ]);
-        data.viewer.project.prompts = prompts;
-
-        cache.writeQuery({
-          query: projectPromptConfigQuery,
-          variables: {projectId: this.project.id},
-          data,
-        });
+        cache.updateQuery(
+          {
+            query: projectPromptConfigQuery,
+            variables: {projectId: this.project.id},
+          },
+          (data) => {
+            return {
+              viewer: {
+                ...data.viewer,
+                project: {
+                  ...data.viewer.project,
+                  prompts: data.viewer.project.prompts.concat([
+                    createProjectPrompt.prompt,
+                  ]),
+                },
+              },
+            };
+          }
+        );
       },
     });
 

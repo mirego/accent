@@ -157,13 +157,23 @@
       "reload_button": "Recharger"
     },
     "conflicts_filters": {
+      "advanced_filters_button": "Filtres avancés",
       "total_entries_count": "{count, plural, =0 {Aucune chaîne à vérifier} =1 {1 chaîne à vérifier} other {# chaînes à vérifier}}",
       "reference_default_option_text": "Pas de langue de référence",
       "version_default_option_text": "Dernière version",
       "document_default_option_text": "Tous les documents",
-      "input_placeholder_text": "Rechercher une chaîne"
+      "input_placeholder_text": "Rechercher une chaîne",
+      "advanced_filters_title": "Filtres avancés",
+      "advanced_filters": {
+        "empty": "Le texte est vide (\"\" ou valeur nulle)",
+        "not_empty": "Le texte n’est pas vide",
+        "added_last_sync": "Ajoutées à la dernière synchronisation",
+        "commented_on": "Chaînes avec commentaires",
+        "conflicted": "À réviser",
+        "translated": "À traduire"
+      }
     },
-    "conflicts_items": {
+    "conflicts_list": {
       "translations_version_notice": "Vous consultez les textes à réviser de la version",
       "correct_all_button": "Marquer toutes les chaînes comme révisées pour cette langue",
       "no_translations": "Aucune chaîne à examiner pour : {query}",

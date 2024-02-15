@@ -15,8 +15,8 @@ defmodule Accent.GraphQL.Paginated do
   @enforce_keys [:entries, :meta]
   defstruct entries: [], meta: %{}
 
-  def paginate(query, args) do
-    Accent.Repo.paginate(query, page: args[:page], page_size: args[:page_size])
+  def paginate(query, args, options \\ []) do
+    Accent.Repo.paginate(query, page: args[:page], page_size: args[:page_size], options: options)
   end
 
   def format(paginated_list) do

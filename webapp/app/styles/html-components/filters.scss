@@ -10,10 +10,11 @@
     background: none;
     border-color: transparent;
     box-shadow: none;
+    padding: 0;
   }
 
   .ember-power-select-trigger {
-    padding: 5px 10px;
+    padding: 5px 27px 5px 5px;
     background: var(--content-background);
     box-shadow: none;
     border: 1px solid transparent;
@@ -30,13 +31,28 @@
 
 .filters-wrapper {
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.filters-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.queryForm {
+  position: relative;
+  display: flex;
+  gap: 10px;
 }
 
 .queryForm-filters {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 6px;
 }
 
 .queryForm-filters-column {

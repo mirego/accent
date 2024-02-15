@@ -6,6 +6,8 @@ defmodule Accent.GraphQL.Types.Project do
   import Accent.GraphQL.Helpers.Authorization
   import Accent.GraphQL.Helpers.Fields
 
+  alias Accent.GraphQL.Resolvers.Translation, as: TranslationResolver
+
   object :projects do
     field(:meta, non_null(:pagination_meta))
     field(:entries, list_of(:project))
@@ -135,13 +137,14 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(project_authorize(:index_documents, &Accent.GraphQL.Resolvers.Document.list_project/3))
     end
 
-    field :translations, :translations do
+    field :grouped_translations, :grouped_translations do
       arg(:page, :integer)
       arg(:page_size, :integer)
-      arg(:order, :string)
       arg(:document, :id)
       arg(:version, :id)
+      arg(:related_revisions, list_of(non_null(:id)))
       arg(:query, :string)
+      arg(:is_translated, :boolean)
       arg(:is_conflicted, :boolean)
       arg(:is_text_empty, :boolean)
       arg(:is_text_not_empty, :boolean)
@@ -151,9 +154,26 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(
         project_authorize(
           :index_translations,
-          &Accent.GraphQL.Resolvers.Translation.list_project/3
+          &TranslationResolver.list_grouped_project/3
         )
       )
+    end
+
+    field :translations, :translations do
+      arg(:page, :integer)
+      arg(:page_size, :integer)
+      arg(:order, :string)
+      arg(:document, :id)
+      arg(:version, :id)
+      arg(:query, :string)
+      arg(:is_translated, :boolean)
+      arg(:is_conflicted, :boolean)
+      arg(:is_text_empty, :boolean)
+      arg(:is_text_not_empty, :boolean)
+      arg(:is_added_last_sync, :boolean)
+      arg(:is_commented_on, :boolean)
+
+      resolve(project_authorize(:index_translations, &TranslationResolver.list_project/3))
     end
 
     field :activities, :activities do
@@ -182,7 +202,7 @@ defmodule Accent.GraphQL.Types.Project do
     field :translation, :translation do
       arg(:id, non_null(:id))
 
-      resolve(project_authorize(:show_translation, &Accent.GraphQL.Resolvers.Translation.show_project/3))
+      resolve(project_authorize(:show_translation, &TranslationResolver.show_project/3))
     end
 
     field :activity, :activity do
@@ -200,6 +220,7 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :revisions, list_of(:revision) do
       arg(:version_id, :id)
+
       resolve(project_authorize(:index_revisions, &Accent.GraphQL.Resolvers.Revision.list_project/3))
     end
 

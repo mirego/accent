@@ -1,0 +1,110 @@
+.item {
+  --grid-item-reviewed-opacity: 0.5;
+  --grid-item-actions-opacity: 0;
+  border-bottom: 1px solid var(--background-light-highlight);
+  transition: 0.2s ease-in-out;
+  transition-property: border-color;
+  background: var(--content-background);
+
+  :global(.lint-translations-item) {
+    display: none;
+    padding: 2px 6px;
+    border-radius: var(--border-radius);
+    margin: 0 15px 10px;
+
+    background: var(--background-light);
+  }
+
+  &.item--focus {
+    background: var(--background-light);
+
+    :global(.lint-translations-item) {
+      display: block;
+    }
+
+    .item-key {
+      transform: translateY(2px);
+    }
+
+    --grid-item-reviewed-opacity: 1;
+    --grid-item-actions-opacity: 1;
+  }
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--group-columns-count, 1), 1fr);
+}
+
+.item-grid-item {
+  --border-color: var(--background-light-highlight);
+  position: relative;
+  padding: 0;
+  border-left: 2px solid var(--border-color);
+  opacity: 1;
+
+  &.item-grid-item--translated {
+    --border-color: var(--color-warning);
+    opacity: 1;
+  }
+
+  &.item-grid-item--reviewed {
+    --border-color: var(--color-green);
+    opacity: var(--grid-item-reviewed-opacity);
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: -24px;
+    left: -2px;
+    height: 32px;
+    width: 2px;
+    background: var(--border-color);
+  }
+}
+
+.item-key-prefix {
+  display: inline-flex;
+  font-size: 11px;
+  color: #959595;
+  gap: 6px;
+  font-weight: 300;
+
+  &::before {
+    content: '/';
+  }
+}
+
+.item-key {
+  position: sticky;
+  top: 46px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--content-background);
+  padding: 2px 6px;
+  text-decoration: none;
+  font-family: var(--font-monospace);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  z-index: 2;
+  word-break: break-all;
+  transition: 0.2s ease-in-out;
+  transition-property: color;
+  margin-left: 4px;
+  line-height: 1.5;
+  font-size: 11px;
+  color: var(--text-color-normal);
+  transition: 0.2s ease-in-out;
+  transition-property: transform;
+}
+
+.key {
+  text-decoration: none;
+}

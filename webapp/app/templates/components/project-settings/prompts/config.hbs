@@ -24,16 +24,16 @@
   </p>
 
   <textarea placeholder={{this.configKeyPlaceholder}} local-class='textInput' rows='1' {{on 'change' (fn this.onConfigKeyChange)}}>{{this.configKey}}</textarea>
-</div>
 
-<div local-class='actions'>
-  {{#if @project.promptConfig}}
-    <AsyncButton @onClick={{perform this.remove}} @loading={{this.isRemoving}} class='button button--red button--borderless'>
-      {{t 'components.project_settings.integrations.delete'}}
+  <div local-class='actions'>
+    {{#if @project.promptConfig}}
+      <AsyncButton @onClick={{perform this.remove}} @loading={{this.isRemoving}} class='button button--red button--borderless'>
+        {{t 'components.project_settings.integrations.delete'}}
+      </AsyncButton>
+    {{/if}}
+
+    <AsyncButton @onClick={{perform this.submit}} @loading={{this.isSubmitting}} class='button button--filled'>
+      {{t 'components.project_settings.integrations.save'}}
     </AsyncButton>
-  {{/if}}
-
-  <AsyncButton @onClick={{perform this.submit}} @loading={{this.isSubmitting}} class='button button--filled'>
-    {{t 'components.project_settings.integrations.save'}}
-  </AsyncButton>
+  </div>
 </div>

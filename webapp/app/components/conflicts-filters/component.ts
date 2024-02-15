@@ -14,12 +14,16 @@ interface Args {
   conflicts: any;
   document: any;
   documents: any;
+  relatedRevisions: any;
+  defaultRelatedRevisions: any[];
+  revisions: any;
   version: any;
   versions: any;
   query: any;
+  withAdvancedFilters: boolean;
   onChangeDocument: () => void;
-  onChangeReference: () => void;
   onChangeVersion: () => void;
+  onChangeRevisions: () => void;
   onChangeQuery: (query: string) => void;
 }
 
@@ -30,8 +34,18 @@ export default class ConflictsFilters extends Component<Args> {
   @gt('args.documents.length', 1)
   showDocumentsSelect: boolean;
 
+  @gt('args.revisions.length', 1)
+  showRevisionsSelect: boolean;
+
   @gt('args.versions.length', 0)
   showVersionsSelect: boolean;
+
+  get showSomeFilters() {
+    return this.showDocumentsSelect || this.showVersionsSelect;
+  }
+
+  @tracked
+  displayAdvancedFilters = this.args.withAdvancedFilters;
 
   @tracked
   debouncedQuery = this.args.query;
@@ -64,6 +78,29 @@ export default class ConflictsFilters extends Component<Args> {
     return documents;
   }
 
+  get relatedRevisionsValue() {
+    if (this.args.relatedRevisions.length === 0) {
+      const revisionIds = this.args.defaultRelatedRevisions.map(
+        ({id}: any) => id
+      );
+      return this.mappedRevisions.filter(({value}: {value: string}) =>
+        revisionIds.includes(value)
+      );
+    }
+
+    return this.mappedRevisions.filter(({value}: {value: string}) =>
+      this.args.relatedRevisions?.includes(value)
+    );
+  }
+
+  get mappedRevisionsOptions() {
+    const values = this.relatedRevisionsValue.map(({value}: any) => value);
+
+    return this.mappedRevisions.filter(
+      ({value}: {value: string}) => !values.includes(value)
+    );
+  }
+
   get documentValue() {
     return this.mappedDocuments.find(
       ({value}: {value: string}) => value === this.args.document
@@ -88,6 +125,20 @@ export default class ConflictsFilters extends Component<Args> {
     return versions;
   }
 
+  get mappedRevisions() {
+    return this.args.revisions.map(
+      (revision: {
+        id: string;
+        name: string | null;
+        slug: string | null;
+        language: {slug: string; name: string};
+      }) => ({
+        label: revision.name || revision.language.name,
+        value: revision.id,
+      })
+    );
+  }
+
   get versionValue() {
     return this.mappedVersions.find(
       ({value}: {value: string}) => value === this.args.version
@@ -99,6 +150,11 @@ export default class ConflictsFilters extends Component<Args> {
     const target = event.target as HTMLInputElement;
 
     this.debounceQuery.perform(target.value);
+  }
+
+  @action
+  toggleAdvancedFilters() {
+    this.displayAdvancedFilters = !this.displayAdvancedFilters;
   }
 
   @action

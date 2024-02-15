@@ -26,6 +26,9 @@ export default class ActivitiesRoute extends Route {
   subscription: Subscription;
 
   model({page}: {page: string}, transition: Transition) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       translationActivitiesQuery,

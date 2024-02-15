@@ -18,6 +18,9 @@ export default class ProjectIndexRoute extends Route {
   subscription: Subscription;
 
   model(_params: object, transition: Transition) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     const props = (data: any) => ({project: data.viewer.project});
 
     this.subscription = this.apolloSubscription.graphql(

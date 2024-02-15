@@ -1,9 +1,10 @@
 <div local-class='translations-filter'>
   <div class='filters'>
-    <form local-class='filters-wrapper' class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
-      <div local-class='filters-content'>
-        <div local-class='queryForm'>
+    <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
+      <div class='filters-content' local-class='filters-content'>
+        <div class='queryForm' local-class='queryForm'>
           {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+
           <input
             local-class='input'
             type='text'
@@ -12,6 +13,19 @@
             {{on-key 'Enter' (fn this.submitForm)}}
             {{on 'keyup' (fn this.setDebouncedQuery)}}
           />
+
+          {{#if @onChangeAdvancedFilterBoolean}}
+            <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
+              {{inline-svg 'assets/filter.svg' class='button-icon'}}
+              {{t 'components.translations_filter.advanced_filters_button'}}
+
+              {{#if @withAdvancedFilters}}
+                <span local-class='advancedFilters-badge'>
+                  {{@withAdvancedFilters}}
+                </span>
+              {{/if}}
+            </button>
+          {{/if}}
         </div>
 
         <div class='queryForm-filters'>
@@ -44,20 +58,6 @@
               </div>
             {{/if}}
           </div>
-          <div class='queryForm-filters-column queryForm-filters-column--end'>
-            {{#if @onChangeAdvancedFilterBoolean}}
-              <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
-                {{inline-svg 'assets/filter.svg' class='button-icon'}}
-                {{t 'components.translations_filter.advanced_filters_button'}}
-
-                {{#if @withAdvancedFilters}}
-                  <span local-class='advancedFilters-badge'>
-                    {{@withAdvancedFilters}}
-                  </span>
-                {{/if}}
-              </button>
-            {{/if}}
-          </div>
         </div>
 
         {{#if this.displayAdvancedFilters}}
@@ -73,12 +73,6 @@
           />
         {{/if}}
       </div>
-
-      {{#if @meta.totalEntries}}
-        <span local-class='totalEntries'>
-          {{t 'components.translations_filter.total_entries_count' count=@meta.totalEntries}}
-        </span>
-      {{/if}}
     </form>
   </div>
 </div>

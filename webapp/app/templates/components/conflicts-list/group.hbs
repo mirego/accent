@@ -1,0 +1,38 @@
+<li local-class='item {{if this.isFocused "item--focus"}}'>
+  <LinkTo @route='logged-in.project.translation' @models={{array @project.id this.masterTranslation.id}} local-class='item-key' tabindex='-1'>
+    {{this.translationKey.value}}
+
+    <small local-class='item-key-prefix'>
+      {{#if this.translationKey.prefix}}
+        {{this.translationKey.prefix}}
+      {{else}}
+        {{@groupedTranslation.document.path}}
+      {{/if}}
+    </small>
+  </LinkTo>
+
+  <ul local-class='item-grid'>
+    {{#each @groupedTranslation.translations as |translation|}}
+      <li
+        local-class='item-grid-item {{if translation.isTranslated "item-grid-item--translated"}} {{if
+          translation.isConflicted
+          "item-grid-item--conflicted"
+          "item-grid-item--reviewed"
+        }}'
+      >
+        <ConflictsList::Item
+          @permissions={{@permissions}}
+          @project={{@project}}
+          @revisions={{@revisions}}
+          @prompts={{@prompts}}
+          @translation={{translation}}
+          @onCorrect={{@onCorrect}}
+          @onUncorrect={{@onUncorrect}}
+          @onUpdate={{@onUpdate}}
+          @isFocused={{this.isFocused}}
+          @onFocus={{this.handleFocus}}
+        />
+      </li>
+    {{/each}}
+  </ul>
+</li>

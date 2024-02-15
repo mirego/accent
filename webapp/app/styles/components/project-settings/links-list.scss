@@ -25,6 +25,7 @@
   font-size: 13px;
   transition: 0.2s ease-in-out;
   transition-property: background, box-shadow, color, transform;
+  overflow: hidden;
 
   strong {
     padding: 10px 20px 5px;

@@ -23,7 +23,7 @@
 
         {{#if @translation.isConflicted}}
           <AccBadge @link={{true}}>
-            <LinkTo tabindex='-1' @route='logged-in.project.revision.conflicts' @models={{array @project.id @translation.revision.id}} @query={{hash query=@translation.id}}>
+            <LinkTo tabindex='-1' @route='logged-in.project.conflicts' @model={{@project.id}} @query={{hash query=@translation.id}}>
               {{t 'components.related_translations_list.conflicted_label'}}
             </LinkTo>
           </AccBadge>

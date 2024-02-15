@@ -34,7 +34,7 @@
 }
 
 :global([data-theme='dark']) .list-item-link:global(.active) {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--color-primary);
 }
 
 .list-item-link {

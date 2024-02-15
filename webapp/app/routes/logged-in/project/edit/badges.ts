@@ -19,6 +19,9 @@ export default class BadgesRoute extends Route {
   subscription: Subscription;
 
   model(_params: any, transition: Transition) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       projectEditQuery,

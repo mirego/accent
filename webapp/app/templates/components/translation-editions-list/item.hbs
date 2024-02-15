@@ -15,7 +15,7 @@
     <span local-class='item-meta'>
       {{#if @translation.isConflicted}}
         <AccBadge title={{t 'components.translations_list.in_review_tooltip'}} class='tooltip tooltip--top' @link={{true}}>
-          <LinkTo @route='logged-in.project.revision.conflicts' @models={{array @project.id @translation.revision.id}} @query={{hash query=@translation.id}}>
+          <LinkTo @route='logged-in.project.conflicts' @model={{@project.id}} @query={{hash query=@translation.id}}>
             {{t 'components.translations_list.in_review_label'}}
           </LinkTo>
         </AccBadge>

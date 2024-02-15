@@ -18,6 +18,15 @@ defmodule Accent.GraphQL.Types.Translation do
     value(:float, as: "float")
   end
 
+  object :grouped_translation do
+    field(:key, non_null(:string))
+    field(:document, non_null(:document), resolve: &Accent.GraphQL.Resolvers.Translation.batch_document/3)
+
+    field(:translations, non_null(list_of(non_null(:translation))),
+      resolve: &Accent.GraphQL.Resolvers.Translation.batch_translation_ids/3
+    )
+  end
+
   object :translation do
     field(:id, non_null(:id))
     field(:key, non_null(:string), resolve: &Accent.GraphQL.Resolvers.Translation.key/3)
@@ -118,5 +127,11 @@ defmodule Accent.GraphQL.Types.Translation do
   object :translations do
     field(:meta, :pagination_meta)
     field(:entries, list_of(:translation))
+  end
+
+  object :grouped_translations do
+    field(:meta, :pagination_meta)
+    field(:entries, list_of(:grouped_translation))
+    field(:revisions, non_null(list_of(non_null(:revision))))
   end
 end

@@ -44,6 +44,7 @@ export default gql`
           id
           translations(
             query: $query
+            pageSize: 50
             page: $page
             document: $document
             version: $version

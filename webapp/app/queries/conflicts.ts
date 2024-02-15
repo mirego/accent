@@ -3,11 +3,16 @@ import {gql} from '@apollo/client/core';
 export default gql`
   query Conflicts(
     $projectId: ID!
-    $revisionId: ID!
     $query: String
     $page: Int
     $document: ID
+    $relatedRevisions: [ID!]
     $version: ID
+    $isTextEmpty: Boolean
+    $isTextNotEmpty: Boolean
+    $isAddedLastSync: Boolean
+    $isCommentedOn: Boolean
+    $isTranslated: Boolean
   ) {
     viewer {
       project(id: $projectId) {
@@ -34,30 +39,60 @@ export default gql`
           name
         }
 
-        revision(id: $revisionId) {
+        revisions {
           id
+          isMaster
+          slug
+          name
 
-          translations(
-            query: $query
-            page: $page
-            pageSize: 20
-            document: $document
-            version: $version
-            isConflicted: true
-          ) {
-            meta {
-              totalEntries
-              totalPages
-              currentPage
-              nextPage
-              previousPage
+          language {
+            id
+            slug
+            name
+          }
+        }
+
+        groupedTranslations(
+          query: $query
+          page: $page
+          pageSize: 20
+          document: $document
+          version: $version
+          relatedRevisions: $relatedRevisions
+          isConflicted: true
+          isTextEmpty: $isTextEmpty
+          isTextNotEmpty: $isTextNotEmpty
+          isAddedLastSync: $isAddedLastSync
+          isTranslated: $isTranslated
+          isCommentedOn: $isCommentedOn
+        ) {
+          meta {
+            totalEntries
+            totalPages
+            currentPage
+            nextPage
+            previousPage
+          }
+
+          revisions {
+            id
+          }
+
+          entries {
+            key
+            document {
+              id
+              path
             }
-            entries {
+
+            translations {
               id
               key
               conflictedText
               correctedText
               valueType
+              isConflicted
+              isTranslated
 
               lintMessages {
                 text
@@ -82,31 +117,6 @@ export default gql`
                   name
                   rtl
                 }
-              }
-
-              relatedTranslations {
-                id
-                correctedText
-                isConflicted
-                revision {
-                  id
-                  isMaster
-                  name
-                  slug
-                  rtl
-
-                  language {
-                    id
-                    name
-                    slug
-                    rtl
-                  }
-                }
-              }
-
-              document {
-                id
-                path
               }
             }
           }

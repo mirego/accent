@@ -42,6 +42,9 @@ export default class IndexRoute extends Route {
     }: {query: any; page: number; document: any; version: any},
     transition: Transition
   ) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       translationsQuery,

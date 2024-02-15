@@ -95,9 +95,11 @@
       <textarea
         {{autoresize @value}}
         {{on-key 'Escape' (fn this.cancel)}}
-        {{on-key 'cmd+Enter' @onSubmit}}
+        {{on-key 'cmd+Enter' (fn this.handleSubmit)}}
         {{on 'input' (fn this.changeText)}}
-        local-class='inputText'
+        {{on 'focus' (fn this.handleFocus)}}
+        {{on 'blur' (fn this.handleBlur)}}
+        local-class='inputText {{if @borderless "inputText--borderless"}}'
         disabled={{@inputDisabled}}
         value={{@value}}
         dir={{if @rtl 'rtl'}}

@@ -34,6 +34,7 @@ module.exports = {
     'no-shadowed-elements': true,
     'no-trailing-spaces': true,
     'no-triple-curlies': false,
+    'no-inline-styles': false,
     'no-unused-block-params': true,
     quotes: false,
     'require-valid-alt-text': false,
@@ -41,7 +42,7 @@ module.exports = {
     'require-button-type': false,
     'self-closing-void-elements': false,
     'simple-unless': false,
-    'style-concatenation': true,
+    'style-concatenation': false,
     'table-groups': true,
     'template-length': [true, {min: 1, max: 200}],
   }

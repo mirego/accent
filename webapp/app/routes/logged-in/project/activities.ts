@@ -53,6 +53,9 @@ export default class ActivitiesRoute extends Route {
     },
     transition: Transition
   ) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       projectActivitiesQuery,

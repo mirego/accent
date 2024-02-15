@@ -1,11 +1,11 @@
 .wrapper {
   display: flex;
+  flex-direction: column;
   margin-top: 25px;
 }
 
 .content {
-  flex: 1 1 auto;
-  padding-right: 30px;
+  margin-top: 20px;
 }
 
 .list {
@@ -13,10 +13,10 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+  max-width: 450px;
 }
 
 .config {
-  flex: 0 1 auto;
   max-width: 450px;
   width: 100%;
 }
@@ -30,5 +30,5 @@
 .text {
   display: block;
   font-size: 13px;
-  padding-bottom: 22px;
+  margin-bottom: 12px;
 }

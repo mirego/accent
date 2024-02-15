@@ -25,6 +25,9 @@ export default class VersionsRoute extends Route {
   subscription: Subscription;
 
   model({page}: {page: string}, transition: Transition) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     const pageNumber = page ? parseInt(page, 10) : null;
 
     this.subscription = this.apolloSubscription.graphql(

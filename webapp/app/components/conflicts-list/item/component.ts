@@ -2,15 +2,15 @@ import {action} from '@ember/object';
 import {empty} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
-import {dropTask} from 'ember-concurrency';
 import {tracked} from '@glimmer/tracking';
 import {MutationResponse} from 'accent-webapp/services/apollo-mutate';
 
-interface Conflict {
+interface Translation {
   id: string;
   key: string;
   conflictedText: string;
   correctedText: string;
+  isConflicted: boolean;
   revision: {
     name: string | null;
     slug: string | null;
@@ -22,13 +22,6 @@ interface Conflict {
       rtl: boolean;
     };
   };
-  relatedTranslations: Array<{
-    id: string;
-    correctedText: string;
-    revision: {
-      isMaster: boolean;
-    };
-  }>;
 }
 
 interface Args {
@@ -36,79 +29,53 @@ interface Args {
   index: number;
   project: any;
   prompts: any[];
-  conflict: Conflict;
-  onCorrect: (conflict: any, textInput: string) => Promise<MutationResponse>;
-  onCopyTranslation: (
-    text: string,
-    sourceLanguageSlug: string | null,
-    targetLanguageSlug: string
-  ) => Promise<{text: string | null}>;
+  translation: Translation;
+  onFocus: () => void;
+  onBlur: () => void;
+  onCorrect: (translation: any, textInput: string) => Promise<MutationResponse>;
+  onUpdate: (translation: any, textInput: string) => Promise<MutationResponse>;
+  onUncorrect: (
+    translation: any,
+    textInput: string
+  ) => Promise<MutationResponse>;
 }
 
-export default class ConflictItem extends Component<Args> {
-  @empty('args.conflict.conflictedText')
+export default class ConflictsListItem extends Component<Args> {
+  @empty('args.translation.conflictedText')
   emptyPreviousText: boolean;
 
   @tracked
-  textInput = this.args.conflict.correctedText;
+  textInput = this.args.translation.correctedText;
 
   @tracked
-  loading = false;
+  conflictResolved = false;
+
+  @tracked
+  isCorrectLoading = false;
+
+  @tracked
+  isUncorrectLoading = false;
+
+  @tracked
+  isUpdateLoading = false;
 
   @tracked
   error = false;
 
   @tracked
-  resolved = false;
-
-  @tracked
   inputDisabled = false;
 
-  conflictKey = parsedKeyProperty(this.args.conflict.key);
-  textOriginal = this.args.conflict.correctedText;
-
-  get relatedTranslations() {
-    const masterConflict = this.args.conflict.relatedTranslations.find(
-      (translation) => translation.revision.isMaster
-    );
-    if (!masterConflict) return [];
-
-    return this.args.conflict.relatedTranslations.filter((translation) => {
-      return (
-        translation.id === masterConflict.id ||
-        translation.correctedText !== masterConflict.correctedText
-      );
-    });
-  }
-
-  get showTextDiff() {
-    if (!this.args.conflict.conflictedText) return false;
-
-    return this.textInput !== this.args.conflict.conflictedText;
-  }
+  translationKey = parsedKeyProperty(this.args.translation.key);
+  textOriginal = this.args.translation.correctedText;
 
   get showOriginalButton() {
     return this.textInput !== this.textOriginal;
   }
 
-  get revisionName() {
-    return (
-      this.args.conflict.revision.name ||
-      this.args.conflict.revision.language.name
-    );
-  }
-
-  get revisionSlug() {
-    return (
-      this.args.conflict.revision.slug ||
-      this.args.conflict.revision.language.slug
-    );
-  }
-
   get revisionTextDirRtl() {
-    return this.args.conflict.revision.rtl !== null
-      ? this.args.conflict.revision.rtl
-      : this.args.conflict.revision.language.rtl;
+    return this.args.translation.revision.rtl !== null
+      ? this.args.translation.revision.rtl
+      : this.args.translation.revision.language.rtl;
   }
 
   @action
@@ -132,30 +99,12 @@ export default class ConflictItem extends Component<Args> {
     this.inputDisabled = false;
   }
 
-  copyTranslationTask = dropTask(
-    async (text: string, sourceLanguageSlug: string) => {
-      this.inputDisabled = true;
-
-      const copyTranslation = await this.args.onCopyTranslation(
-        text,
-        sourceLanguageSlug,
-        this.revisionSlug
-      );
-
-      this.inputDisabled = false;
-
-      if (copyTranslation.text) {
-        this.textInput = copyTranslation.text;
-      }
-    }
-  );
-
   @action
-  async correct() {
-    this.onLoading();
+  async correctConflict() {
+    this.onCorrectLoading();
 
     const response = await this.args.onCorrect(
-      this.args.conflict,
+      this.args.translation,
       this.textInput
     );
 
@@ -166,18 +115,71 @@ export default class ConflictItem extends Component<Args> {
     }
   }
 
-  private onLoading() {
+  @action
+  async uncorrectConflict() {
+    this.onUncorrectLoading();
+
+    const response = await this.args.onUncorrect(
+      this.args.translation,
+      this.textInput
+    );
+
+    if (response.errors) {
+      this.onError();
+    } else {
+      this.onUncorrectSuccess();
+    }
+  }
+
+  @action
+  async updateConflict() {
+    this.onUpdateLoading();
+
+    const response = await this.args.onUpdate(
+      this.args.translation,
+      this.textInput
+    );
+
+    if (response.errors) {
+      this.onError();
+    } else {
+      this.onUpdateSuccess();
+    }
+  }
+
+  private onCorrectLoading() {
     this.error = false;
-    this.loading = true;
+    this.isCorrectLoading = true;
+  }
+
+  private onUncorrectLoading() {
+    this.error = false;
+    this.isUncorrectLoading = true;
+  }
+
+  private onUpdateLoading() {
+    this.error = false;
+    this.isUpdateLoading = true;
   }
 
   private onError() {
     this.error = true;
-    this.loading = false;
+    this.isUpdateLoading = false;
+    this.isCorrectLoading = false;
+    this.isUncorrectLoading = false;
   }
 
   private onCorrectSuccess() {
-    this.resolved = true;
-    this.loading = false;
+    this.conflictResolved = true;
+    this.isCorrectLoading = false;
+  }
+
+  private onUncorrectSuccess() {
+    this.conflictResolved = false;
+    this.isCorrectLoading = false;
+  }
+
+  private onUpdateSuccess() {
+    this.isUpdateLoading = false;
   }
 }

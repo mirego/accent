@@ -4,11 +4,6 @@
   align-items: flex-start;
 }
 
-.filters-content {
-  flex-grow: 1;
-  margin-right: 15px;
-}
-
 .queryForm {
   position: relative;
 }
@@ -43,6 +38,7 @@
 button.advancedFilters {
   position: relative;
   box-shadow: none;
+  flex-shrink: 0;
   &:focus,
   &:hover {
     transform: translate3d(0, 0, 0);
@@ -58,13 +54,6 @@ button.advancedFilters {
   padding: 0 4px 1px;
   color: #fff;
   font-size: 10px;
-}
-
-.totalEntries {
-  flex-shrink: 0;
-  margin-top: 10px;
-  color: var(--color-grey);
-  font-size: 12px;
 }
 
 @media (max-width: 440px) {

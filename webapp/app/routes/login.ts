@@ -21,6 +21,9 @@ export default class LoginRoute extends Route {
   subscription: Subscription;
 
   model() {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       authenticationProvidersQuery,

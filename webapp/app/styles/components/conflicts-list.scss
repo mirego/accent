@@ -1,9 +1,17 @@
-.conflicts-items {
-  position: relative;
-  margin-top: 20px;
+.conflicts-header {
+  position: sticky;
+  padding: 14px 0 0 15px;
+  top: 0;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(var(--group-columns-count, 1), 1fr);
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 10px -14px;
+  background: var(--content-background);
 }
 
-.conflicts-items-version {
+.conflicts-list-version {
   margin: 0 0 15px;
   padding: 15px;
   border-radius: var(--border-radius);
@@ -16,7 +24,7 @@
   color: var(--color-blue);
 }
 
-.conflicts-items-version-tag {
+.conflicts-list-version-tag {
   display: inline-flex;
   align-items: center;
   margin-left: 2px;
@@ -24,6 +32,17 @@
   font-family: var(--font-monospace);
   font-weight: 600;
   text-transform: none;
+}
+
+.conflicts-header-item {
+  padding-bottom: 10px;
+}
+
+.conflicts-header-item-slug {
+  font-weight: normal;
+  opacity: 0.6;
+  margin-left: 2px;
+  font-size: 12px;
 }
 
 .all-reviewed {
@@ -42,8 +61,4 @@
 .all-reviewed-subtitle {
   font-size: 12px;
   color: var(--color-grey);
-}
-
-.empty-content {
-  margin-top: 40px;
 }

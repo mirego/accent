@@ -1,5 +1,4 @@
 .form {
-  margin-top: 25px;
   padding: 16px;
   border-radius: var(--border-radius);
   background: var(--background-light);
@@ -31,7 +30,6 @@
 }
 
 .select select {
-  background: transparent;
   border: 1px solid var(--background-light-highlight);
   padding: 7px 10px;
   font-weight: bold;
@@ -71,5 +69,5 @@
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 6px;
 }

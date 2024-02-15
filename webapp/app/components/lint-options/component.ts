@@ -1,6 +1,5 @@
 import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
-import {gt} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import IntlService from 'ember-intl/services/intl';
 import GlobalState from 'accent-webapp/services/global-state';
@@ -28,11 +27,17 @@ export default class RevisionExportOptions extends Component<Args> {
   @service('global-state')
   globalState: GlobalState;
 
-  @gt('mappedDocuments.length', 1)
-  showDocuments: boolean;
+  get showDocuments() {
+    return this.mappedDocuments.length > 1;
+  }
 
-  @gt('mappedVersions.length', 1)
-  showVersions: boolean;
+  get showVersions() {
+    return this.mappedVersions.length > 1;
+  }
+
+  get showSomeFilters() {
+    return this.showDocuments || this.showVersions;
+  }
 
   @tracked
   debouncedQuery = this.args.query;
