@@ -62,11 +62,13 @@ jobs:
 
       - name: Install NodeJS Dependencies
         run: |
-          npm config set spin false
-          npm ci --no-audit --no-color
-          npm ci --prefix webapp --no-audit --no-color
-          npm ci --prefix cli --no-audit --no-color
-          npm ci --prefix jipt --no-audit --no-color
+          npm set fund false
+          npm set audit false
+          npm set color false
+          npm ci
+          npm ci --prefix webapp
+          npm ci --prefix cli
+          npm ci --prefix jipt
 
       - name: Build webapp production
         run: npm run build-production-inline --prefix webapp
