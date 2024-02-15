@@ -65,6 +65,22 @@
   font-size: 12px;
 }
 
+.options {
+  margin: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.option-checkbox {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 .actions {
   display: flex;
   justify-content: flex-end;

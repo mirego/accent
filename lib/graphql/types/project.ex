@@ -29,6 +29,8 @@ defmodule Accent.GraphQL.Types.Project do
 
   object :prompt_config do
     field(:provider, non_null(:string))
+    field(:use_platform, non_null(:boolean))
+    field(:use_config_key, non_null(:boolean))
   end
 
   object :project do
@@ -50,7 +52,7 @@ defmodule Accent.GraphQL.Types.Project do
            %{
              provider: project.machine_translations_config["provider"],
              enabled_actions: project.machine_translations_config["enabled_actions"] || [],
-             use_platform: project.machine_translations_config["use_platform"],
+             use_platform: project.machine_translations_config["use_platform"] || false,
              use_config_key: not is_nil(project.machine_translations_config["config"]["key"])
            }}
         else
@@ -64,7 +66,9 @@ defmodule Accent.GraphQL.Types.Project do
         if project.prompt_config do
           {:ok,
            %{
-             provider: project.prompt_config["provider"]
+             provider: project.prompt_config["provider"],
+             use_platform: project.prompt_config["use_platform"] || false,
+             use_config_key: not is_nil(project.prompt_config["config"]["key"])
            }}
         else
           {:ok, nil}

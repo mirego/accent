@@ -31,6 +31,8 @@ export default gql`
 
         promptConfig {
           provider
+          usePlatform
+          useConfigKey
         }
       }
     }

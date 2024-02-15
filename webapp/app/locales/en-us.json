@@ -414,6 +414,7 @@
         "title": "AI Assistant",
         "help": "Instructions will be available on all string inputs to help you improve your content. The clearer the instructions you give to the assistant, to better the output will be.",
         "new_button": "Add a new instruction",
+        "use_platform_label": "Use the platform config if available",
         "config_key_help_present": "Config key has been set, but the value will never be exposed via the API.",
         "config_key_help_not_present": "Once saved, the config key will never be shown.",
         "delete_confirm": "Are you sure you want to delete this instruction?"

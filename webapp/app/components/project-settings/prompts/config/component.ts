@@ -13,9 +13,11 @@ interface Args {
   onSave: ({
     provider,
     configKey,
+    usePlatform
   }: {
     provider: string;
     configKey: string | null;
+      usePlatform: boolean;
   }) => Promise<any>;
 }
 
@@ -26,7 +28,7 @@ const LOGOS = {
   openai: 'assets/prompts_providers/openai.svg',
 };
 
-export default class ProjectSettingsMachineTranslations extends Component<Args> {
+export default class ProjectSettingsPromptsConfig extends Component<Args> {
   @service('global-state')
   globalState: GlobalState;
 
@@ -37,10 +39,10 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
   intl: IntlService;
 
   @tracked
-  provider = this.args.project.promptsConfig?.provider || 'openai';
+  provider = this.args.project.promptConfig?.provider || 'openai';
 
   @tracked
-  usePlatform = this.args.project.promptsConfig?.usePlatform || false;
+  usePlatform = this.args.project.promptConfig?.usePlatform || false;
 
   @tracked
   configKey: any;
@@ -86,10 +88,19 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
     this.configKey = (event.target as HTMLInputElement).value;
   }
 
+  @action
+  onUsePlatformChange(event: InputEvent) {
+    const checked = (event.target as HTMLInputElement).checked;
+
+    if (checked) this.configKey = null;
+    this.usePlatform = checked;
+  }
+
   submit = dropTask(async () => {
     await this.args.onSave({
       provider: this.provider,
       configKey: this.configKey,
+      usePlatform: this.usePlatform
     });
   });
 

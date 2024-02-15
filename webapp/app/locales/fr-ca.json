@@ -403,6 +403,7 @@
       "prompts": {
         "title": "Assistant IA",
         "help": "Des instructions seront disponibles sur chaque entrée de chaîne pour vous aider à améliorer votre contenu. Plus les instructions que vous donnez à l’assistant sont claires, meilleur sera le résultat.",
+        "use_platform_label": "Utilisez la configuration de la plate-forme si disponible",
         "new_button": "Ajouter une nouvelle instruction",
         "config_key_help_present": "La clé de configuration a été définie, mais la valeur ne sera jamais exposée via l’API.",
         "config_key_help_not_present": "Une fois enregistrée, la clé de configuration ne sera jamais affichée.",

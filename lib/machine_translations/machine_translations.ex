@@ -87,15 +87,15 @@ defmodule Accent.MachineTranslations do
 
   defp provider_from_config(nil), do: %Provider.NotImplemented{}
 
-  defp provider_from_config(machine_translations_config) do
+  defp provider_from_config(config) do
     struct_module =
-      case machine_translations_config["provider"] do
+      case config["provider"] do
         "google_translate" -> Provider.GoogleTranslate
         "deepl" -> Provider.Deepl
         _ -> Provider.NotImplemented
       end
 
-    struct!(struct_module, config: fetch_config(machine_translations_config))
+    struct!(struct_module, config: fetch_config(config))
   end
 
   defp fetch_config(%{"provider" => provider, "use_platform" => true}) do

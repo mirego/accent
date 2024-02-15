@@ -12,6 +12,10 @@
 }
 
 .revert-button {
+  position: absolute;
+  right: 8px;
+  top: -30px;
+
   :global(.label) {
     padding-left: 3px;
     padding-right: 3px;
@@ -27,6 +31,11 @@
   flex-direction: column;
 
   &[data-dir='rtl'] {
+    .revert-button {
+      right: auto;
+      left: 8px;
+    }
+
     .item-details__column {
       align-items: flex-end;
     }

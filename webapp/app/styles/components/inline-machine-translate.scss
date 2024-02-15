@@ -24,13 +24,12 @@
     }
 
     .prompt-button-quick-access[data-rtl] {
-      left: 36px;
-      right: auto;
+      transform: translateX(36px);
     }
 
     .prompt-button-quick-access {
       opacity: 1;
-      right: 36px;
+      transform: translateX(-36px);
       padding: 0 10px;
       pointer-events: all;
     }

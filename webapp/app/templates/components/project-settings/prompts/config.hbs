@@ -15,15 +15,28 @@
     {{/if}}
   </div>
 
-  <p local-class='config-key-help'>
-    {{#if @project.promptConfig}}
-      {{t 'components.project_settings.prompts.config_key_help_present'}}
+  <div local-class='options'>
+    <label local-class='option-checkbox'>
+      <input value={{this.usePlatform}} type='checkbox' checked={{this.usePlatform}} {{on 'change' (fn this.onUsePlatformChange)}} />
+      {{t 'components.project_settings.prompts.use_platform_label'}}
+    </label>
+  </div>
+
+    {{#unless this.usePlatform}}
+        <p local-class='config-key-help'>
+      {{#if @project.promptConfig.useConfigKey}}
+          {{t 'components.project_settings.prompts.config_key_help_present'}}
     {{else}}
       {{t 'components.project_settings.prompts.config_key_help_not_present'}}
     {{/if}}
-  </p>
+        </p>
 
-  <textarea placeholder={{this.configKeyPlaceholder}} local-class='textInput' rows='1' {{on 'change' (fn this.onConfigKeyChange)}}>{{this.configKey}}</textarea>
+      <textarea
+        placeholder={{this.configKeyPlaceholder}}
+        local-class='textInput'
+        {{on 'change' (fn this.onConfigKeyChange)}}
+      >{{this.configKey}}</textarea>
+    {{/unless}}
 
   <div local-class='actions'>
     {{#if @project.promptConfig}}

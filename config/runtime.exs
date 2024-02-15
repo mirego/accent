@@ -49,6 +49,11 @@ config :accent, Accent.MachineTranslations,
     "deepl" => %{"key" => get_env("DEEPL_TRANSLATIONS_KEY")}
   }
 
+config :accent, Accent.Prompts,
+  default_providers_config: %{
+    "openai" => %{"key" => get_env("OPENAI_API_KEY")}
+  }
+
 config :accent, LanguageTool, languages: get_env("LANGUAGE_TOOL_LANGUAGES", :comma_separated_list)
 
 providers = []
