@@ -22,21 +22,17 @@
     </label>
   </div>
 
-    {{#unless this.usePlatform}}
-        <p local-class='config-key-help'>
+  {{#unless this.usePlatform}}
+    <p local-class='config-key-help'>
       {{#if @project.promptConfig.useConfigKey}}
-          {{t 'components.project_settings.prompts.config_key_help_present'}}
-    {{else}}
-      {{t 'components.project_settings.prompts.config_key_help_not_present'}}
-    {{/if}}
-        </p>
+        {{t 'components.project_settings.prompts.config_key_help_present'}}
+      {{else}}
+        {{t 'components.project_settings.prompts.config_key_help_not_present'}}
+      {{/if}}
+    </p>
 
-      <textarea
-        placeholder={{this.configKeyPlaceholder}}
-        local-class='textInput'
-        {{on 'change' (fn this.onConfigKeyChange)}}
-      >{{this.configKey}}</textarea>
-    {{/unless}}
+    <textarea placeholder={{this.configKeyPlaceholder}} local-class='textInput' {{on 'change' (fn this.onConfigKeyChange)}}>{{this.configKey}}</textarea>
+  {{/unless}}
 
   <div local-class='actions'>
     {{#if @project.promptConfig}}

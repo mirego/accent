@@ -13,11 +13,11 @@ interface Args {
   onSave: ({
     provider,
     configKey,
-    usePlatform
+    usePlatform,
   }: {
     provider: string;
     configKey: string | null;
-      usePlatform: boolean;
+    usePlatform: boolean;
   }) => Promise<any>;
 }
 
@@ -100,7 +100,7 @@ export default class ProjectSettingsPromptsConfig extends Component<Args> {
     await this.args.onSave({
       provider: this.provider,
       configKey: this.configKey,
-      usePlatform: this.usePlatform
+      usePlatform: this.usePlatform,
     });
   });
 
