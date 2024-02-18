@@ -103,13 +103,14 @@ The Makefile should be the main entry for common tasks such as tests, linting, D
 
 For the production setup, we use Docker to build an OTP release of the app. With docker-compose, you can run the image locally. Here are the steps to have a working app running locally with Docker:
 
-_When running the production env, you need to provide a valid GOOGLE_API_CLIENT_ID in the `docker-compose.yml` file._
+_When running the production env, you need to provide a valid authentication setup in the `environment` section in `docker-compose.yml` file._
+See the following sections to see available variables to enable third-party logins or dummy login (email only, no password).
 
 1. Run `make build` to build the OTP release with Docker
 2. Run `make dev-start-postgresql` to start an instance of Postgresql. The instance will run on port 5432 with the `postgres` user. You can change those values in the `docker-compose.yml` file.
 3. Run `make dev-start-application` to start the app! The release hook of the release will execute migrations and seeds before starting the webserver on port 4000 (again you can change the settings in `docker-compose.yml`)
 
-_That’s it! You now have a working Accent instance without installing Elixir or Node!_
+_That’s it! You now have a working Accent instance without installing Elixir or NodeJS!_
 
 ## 🌳 Environment variables
 
