@@ -11,10 +11,16 @@ defmodule Accent do
       {Oban, oban_config()},
       Accent.Vault,
       {Cachex, name: :language_tool_cache, limit: 10_000},
+
       {LanguageTool.Server, language_tool_config()},
       {TelemetryUI, Accent.TelemetryUI.config()},
-      {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}
+      {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]},
     ]
+
+    children =
+      if Application.get_env("OIDC_CLIENT_ID"),
+        do: [{OpenIDConnect.Worker, Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)} | children],
+        else: children
 
     if Application.get_env(:sentry, :dsn) do
       {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)

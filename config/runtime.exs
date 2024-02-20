@@ -137,8 +137,8 @@ config :ueberauth, Ueberauth.Strategy.OIDC,
   default_oidc: [
     fetch_userinfo: true,
     #userinfo_uid_field: "upn", # only include if getting the user_id from userinfo
-    uid_field: get_env("OIDC_UID_FIELD") || "sub" # only include if getting the user_id from the claims
-    discovery_document_uri: get_env("OIDC_DISCOVERY_URL"),
+    uid_field: get_env("OIDC_UID_FIELD") || "sub", # only include if getting the user_id from the claims
+    discovery_document_uri: get_env("OIDC_DISCOVERY_URI"),
     client_id: get_env("OIDC_CLIENT_ID"),
     client_secret: get_env("OIDC_CLIENT_SECRET"),
     redirect_uri: "#{static_uri}/auth/oidc/callback",
