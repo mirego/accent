@@ -91,6 +91,7 @@ defmodule Accent.Mixfile do
       {:ueberauth_github, "~> 0.7"},
       {:ueberauth_discord, "~> 0.5"},
       {:ueberauth_auth0, "~> 2.0"},
+      {:ueberauth_oidc, "~> 1.0"}
 
       # Errors
       {:sentry, "~> 7.0"},
