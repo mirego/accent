@@ -21,6 +21,7 @@ export default class LoginForms extends Component<Args> {
   discordUrl = `${config.API.AUTHENTICATION_PATH}/discord`;
   microsoftUrl = `${config.API.AUTHENTICATION_PATH}/microsoft`;
   auth0Url = `${config.API.AUTHENTICATION_PATH}/auth0`;
+  oidcUrl = `${config.API.AUTHENTICATION_PATH}/oidc`;
 
   get version() {
     return config.version === '__VERSION__' ? 'dev' : config.version;
@@ -60,6 +61,10 @@ export default class LoginForms extends Component<Args> {
 
   get microsoftLoginEnabled() {
     return this.providerIds.includes('microsoft');
+  }
+
+  get oidcLoginEnabled() {
+    return this.providerIds.includes('oidc');
   }
 
   get dummyUrl() {

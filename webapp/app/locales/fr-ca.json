@@ -78,6 +78,7 @@
       "slack": "Se connecter avec Slack →",
       "discord": "Se connecter avec Discord →",
       "microsoft": "Se connecter avec Microsoft →",
+      "oidc": "Se connecter avec OpenID Connect →",
       "dummy": "Entrez un courriel et connectez-vous →"
     },
     "dummy_login_form": {

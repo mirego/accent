@@ -218,6 +218,13 @@ a.loginButton {
     color: #03a5f0;
     background: lighten(#03a5f0, 48%);
   }
+
+  &.loginButton--oidc {
+    border-color: #f7931e;
+    text-shadow: none;
+    color: #f7931e;
+    background: lighten(#f7931e, 48%);
+  }
 }
 
 .loginButton-logo {

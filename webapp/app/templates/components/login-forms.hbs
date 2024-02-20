@@ -92,6 +92,13 @@
             {{t 'components.login_forms.auth0'}}
           </a>
         {{/if}}
+
+        {{#if this.oidcLoginEnabled}}
+          <a href={{this.oidcUrl}} class='button button--filled' local-class='loginButton loginButton--oidc'>
+            <img src='assets/auth_providers/microsoft.svg' local-class='loginButton-logo' />
+            {{t 'components.login_forms.oidc'}}
+          </a>
+        {{/if}}
       {{/if}}
     </div>
   </div>
