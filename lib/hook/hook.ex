@@ -1,19 +1,17 @@
 defmodule Accent.Hook do
   @moduledoc false
-  def outbound(context), do: run(outbounds_modules(), context)
+  @outbounds_modules Application.compile_env!(:accent, __MODULE__)[:outbounds]
 
-  defp run(modules, context) do
+  def outbound(context) do
     jobs =
-      Enum.reduce(modules, [], fn {module, opts}, acc ->
-        if context.event in Keyword.fetch!(opts, :events),
-          do: [module.new(context) | acc],
-          else: acc
+      Enum.flat_map(@outbounds_modules, fn module ->
+        events = module.registered_events()
+
+        if events === :all or context.event in events,
+          do: [module.new(context)],
+          else: []
       end)
 
     Oban.insert_all(jobs)
-  end
-
-  defp outbounds_modules do
-    Application.get_env(:accent, __MODULE__)[:outbounds]
   end
 end

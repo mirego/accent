@@ -3,9 +3,9 @@ defmodule Accent.SyncController do
 
   import Canary.Plugs
 
-  alias Accent.Hook.Context, as: HookContext
   alias Accent.Project
   alias Movement.Builders.ProjectSync, as: SyncBuilder
+  alias Movement.Context
   alias Movement.Persisters.ProjectSync, as: SyncPersister
 
   plug(Plug.Assign, canary_action: :sync)
@@ -41,25 +41,12 @@ defmodule Accent.SyncController do
   """
   def create(conn, _) do
     conn.assigns[:movement_context]
-    |> Movement.Context.assign(:project, conn.assigns[:project])
-    |> Movement.Context.assign(:user_id, conn.assigns[:current_user].id)
+    |> Context.assign(:project, conn.assigns[:project])
+    |> Context.assign(:user_id, conn.assigns[:current_user].id)
     |> SyncBuilder.build()
     |> SyncPersister.persist()
     |> case do
-      {:ok, {_context, []}} ->
-        send_resp(conn, :ok, "")
-
-      {:ok, {context, _operations}} ->
-        Accent.Hook.outbound(%HookContext{
-          event: "sync",
-          project_id: conn.assigns[:project].id,
-          user_id: conn.assigns[:current_user].id,
-          payload: %{
-            batch_operation_stats: context.assigns[:batch_operation].stats,
-            document_path: context.assigns[:document].path
-          }
-        })
-
+      {:ok, {_context, _}} ->
         send_resp(conn, :ok, "")
 
       {:error, _reason} ->
@@ -69,7 +56,7 @@ defmodule Accent.SyncController do
 
   defp assign_comparer(conn, _) do
     comparer = Movement.Comparer.comparer(:sync, conn.params["sync_type"])
-    context = Movement.Context.assign(conn.assigns[:movement_context], :comparer, comparer)
+    context = Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)
   end

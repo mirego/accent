@@ -66,15 +66,7 @@ defmodule AccentTest.MergeController do
 
     assert response.status == 200
 
-    assert_enqueued(
-      worker: Accent.Hook.Outbounds.Mock,
-      args: %{
-        "event" => "add_translations",
-        "payload" => %{"language_name" => "french", "merge_type" => nil},
-        "project_id" => project.id,
-        "user_id" => user.id
-      }
-    )
+    assert_enqueued(worker: Movement.Persisters.ProjectHookWorker)
 
     merge_on_proposed_operation = Repo.one(from(o in Operation, where: [action: ^"merge_on_proposed"]))
     merge_operation = Repo.one(from(o in Operation, where: [action: ^"merge"]))
@@ -160,15 +152,7 @@ defmodule AccentTest.MergeController do
 
     assert response.status == 200
 
-    assert_enqueued(
-      worker: Accent.Hook.Outbounds.Mock,
-      args: %{
-        "event" => "add_translations",
-        "payload" => %{"language_name" => "french", "merge_type" => nil},
-        "project_id" => project.id,
-        "user_id" => user.id
-      }
-    )
+    assert_enqueued(worker: Movement.Persisters.ProjectHookWorker)
 
     merge_on_corrected_force_operation = Repo.one(from(o in Operation, where: [action: ^"merge_on_corrected_force"]))
     merge_operation = Repo.one(from(o in Operation, where: [action: ^"merge"]))
@@ -213,15 +197,7 @@ defmodule AccentTest.MergeController do
 
     assert response.status == 200
 
-    assert_enqueued(
-      worker: Accent.Hook.Outbounds.Mock,
-      args: %{
-        "event" => "add_translations",
-        "payload" => %{"language_name" => "french", "merge_type" => nil},
-        "project_id" => project.id,
-        "user_id" => user.id
-      }
-    )
+    assert_enqueued(worker: Movement.Persisters.ProjectHookWorker)
 
     merge_on_proposed_operation = Repo.one(from(o in Operation, where: [action: ^"merge_on_proposed"]))
     merge_operation = Repo.one(from(o in Operation, where: [action: ^"merge"]))

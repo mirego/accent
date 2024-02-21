@@ -23,7 +23,7 @@ defmodule Accent.IntegrationManager do
 
   @spec execute(Integration.t(), User.t(), map()) :: {:ok, Integration.t()}
   def execute(integration, user, params) do
-    case execute_integration(integration, params) do
+    case execute_integration(integration, user, params) do
       :ok ->
         integration
         |> change(%{last_executed_at: DateTime.utc_now(), last_executed_by_user_id: user.id})
@@ -51,16 +51,17 @@ defmodule Accent.IntegrationManager do
     |> validate_required([:service, :data])
   end
 
-  defp execute_integration(%{service: "azure_storage_container"} = integration, params) do
+  defp execute_integration(%{service: "azure_storage_container"} = integration, user, params) do
     Accent.IntegrationManager.Execute.AzureStorageContainer.upload_translations(
       integration,
+      user,
       params[:azure_storage_container]
     )
 
     :ok
   end
 
-  defp execute_integration(_integration, _params) do
+  defp execute_integration(_integration, _user, _params) do
     :noop
   end
 

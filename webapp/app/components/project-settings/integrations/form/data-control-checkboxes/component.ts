@@ -29,6 +29,11 @@ export default class DataControlCheckboxes extends Component<Args> {
       label:
         'components.project_settings.integrations.events.options.complete_review',
     },
+    {
+      value: 'INTEGRATION_EXECUTE_AZURE_STORAGE_CONTAINER',
+      label:
+        'components.project_settings.integrations.events.options.integration_execute_azure_storage_container',
+    },
   ];
 
   @tracked

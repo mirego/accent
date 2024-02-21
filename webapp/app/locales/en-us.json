@@ -532,7 +532,8 @@
           "options": {
             "sync": "Sync with any changes",
             "new_conflicts": "New strings to review",
-            "complete_review": "Project is 100% reviewed"
+            "complete_review": "Project is 100% reviewed",
+            "integration_execute_azure_storage_container": "Files uploaded to Azure Storage Container"
           }
         },
         "execute": {

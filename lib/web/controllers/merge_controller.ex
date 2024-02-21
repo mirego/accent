@@ -3,9 +3,9 @@ defmodule Accent.MergeController do
 
   import Canary.Plugs
 
-  alias Accent.Hook.Context, as: HookContext
   alias Accent.Project
   alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
+  alias Movement.Context
   alias Movement.Persisters.RevisionMerge, as: RevisionMergePersister
 
   plug(Plug.Assign, canary_action: :merge)
@@ -44,27 +44,14 @@ defmodule Accent.MergeController do
   """
   def create(conn, _params) do
     conn.assigns[:movement_context]
-    |> Movement.Context.assign(:revision, conn.assigns[:revision])
-    |> Movement.Context.assign(:merge_type, conn.assigns[:merge_type])
-    |> Movement.Context.assign(:options, conn.assigns[:merge_options])
-    |> Movement.Context.assign(:user_id, conn.assigns[:current_user].id)
+    |> Context.assign(:revision, conn.assigns[:revision])
+    |> Context.assign(:merge_type, conn.assigns[:merge_type])
+    |> Context.assign(:options, conn.assigns[:merge_options])
+    |> Context.assign(:user_id, conn.assigns[:current_user].id)
     |> RevisionMergeBuilder.build()
     |> RevisionMergePersister.persist()
     |> case do
-      {:ok, {_context, []}} ->
-        send_resp(conn, :ok, "")
-
-      {:ok, _} ->
-        Accent.Hook.outbound(%HookContext{
-          event: "add_translations",
-          project_id: conn.assigns[:project].id,
-          user_id: conn.assigns[:current_user].id,
-          payload: %{
-            merge_type: conn.assigns[:merge_type],
-            language_name: conn.assigns[:revision].language.name
-          }
-        })
-
+      {:ok, {_context, _}} ->
         send_resp(conn, :ok, "")
 
       {:error, _reason} ->
@@ -74,7 +61,7 @@ defmodule Accent.MergeController do
 
   defp assign_comparer(conn, _) do
     comparer = Movement.Comparer.comparer(:merge, conn.params["merge_type"])
-    context = Movement.Context.assign(conn.assigns[:movement_context], :comparer, comparer)
+    context = Context.assign(conn.assigns[:movement_context], :comparer, comparer)
 
     assign(conn, :movement_context, context)
   end

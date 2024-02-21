@@ -1,4 +1,4 @@
-defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
+defmodule Movement.Persisters.ProjectHookWorkerTest do
   use Accent.RepoCase, async: true
 
   alias Accent.Document
@@ -7,7 +7,7 @@ defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
   alias Accent.Repo
   alias Accent.Translation
   alias Accent.User
-  alias Movement.Persisters.ProjectStateChangeWorker, as: Worker
+  alias Movement.Persisters.ProjectHookWorker, as: Worker
 
   setup do
     user = Repo.insert!(%User{email: "test@test.com"})
@@ -26,11 +26,9 @@ defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
     args = %{
       "project_id" => project.id,
       "previous_project_state" => %{
-        "project" => %{
-          "translations_count" => 0,
-          "reviewed_count" => 0,
-          "conflicts_count" => 0
-        }
+        "translations_count" => 0,
+        "reviewed_count" => 0,
+        "conflicts_count" => 0
       }
     }
 
@@ -53,11 +51,9 @@ defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
       "project_id" => project.id,
       "user_id" => user.id,
       "previous_project_state" => %{
-        "project" => %{
-          "translations_count" => 0,
-          "reviewed_count" => 0,
-          "conflicts_count" => 0
-        }
+        "translations_count" => 0,
+        "reviewed_count" => 0,
+        "conflicts_count" => 0
       }
     }
 
@@ -92,11 +88,9 @@ defmodule Movement.Persisters.ProjectStateChangeWorkerTest do
       "project_id" => project.id,
       "user_id" => user.id,
       "previous_project_state" => %{
-        "project" => %{
-          "translations_count" => 1,
-          "reviewed_count" => 0,
-          "conflicts_count" => 1
-        }
+        "translations_count" => 1,
+        "reviewed_count" => 0,
+        "conflicts_count" => 1
       }
     }
 

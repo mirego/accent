@@ -51,10 +51,6 @@ export default class ConflictsList extends Component<Args> {
     );
   }
 
-  get showRevisionsHeader() {
-    return this.revisions.length > 1;
-  }
-
   @action
   handleFocus(id: string) {
     this.selectedTranslationId = id;

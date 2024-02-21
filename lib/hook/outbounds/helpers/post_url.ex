@@ -1,4 +1,4 @@
-defmodule Accent.Hook.Outbounds.PostURL do
+defmodule Accent.Hook.Outbounds.Helpers.PostURL do
   @moduledoc false
   import Ecto.Query, only: [where: 2]
 
@@ -58,27 +58,35 @@ defmodule Accent.Hook.Outbounds.PostURL do
   defp formatted_diff(diff) when diff > 1000, do: [diff |> div(1000) |> Integer.to_string(), "ms"]
   defp formatted_diff(diff), do: [Integer.to_string(diff), "µs"]
 
-  defp build_content(templates, %{event: "sync", user: user, payload: payload}) do
+  defp build_content(templates, %{event: "sync"} = context) do
     templates.sync(%{
-      user: User.name_with_fallback(user),
-      document_path: payload["document_path"],
-      stats: payload["batch_operation_stats"]
+      user: User.name_with_fallback(context.user),
+      document_path: context.payload["document_path"],
+      stats: context.payload["batch_operation_stats"]
     })
   end
 
-  defp build_content(templates, %{event: "new_conflicts", user: user, payload: payload}) do
+  defp build_content(templates, %{event: "new_conflicts"} = context) do
     templates.new_conflicts(%{
-      user: User.name_with_fallback(user),
-      reviewed_count: payload["reviewed_count"],
-      new_conflicts_count: payload["new_conflicts_count"],
-      translations_count: payload["translations_count"]
+      user: User.name_with_fallback(context.user),
+      reviewed_count: context.payload["reviewed_count"],
+      new_conflicts_count: context.payload["new_conflicts_count"],
+      translations_count: context.payload["translations_count"]
     })
   end
 
-  defp build_content(templates, %{event: "complete_review", user: user, payload: payload}) do
+  defp build_content(templates, %{event: "complete_review"} = context) do
     templates.complete_review(%{
-      user: User.name_with_fallback(user),
-      translations_count: payload["translations_count"]
+      user: User.name_with_fallback(context.user),
+      translations_count: context.payload["translations_count"]
+    })
+  end
+
+  defp build_content(templates, %{event: "integration_execute_azure_storage_container"} = context) do
+    templates.integration_execute_azure_storage_container(%{
+      user: User.name_with_fallback(context.user),
+      version_tag: context.payload["version_tag"],
+      document_urls: context.payload["document_urls"]
     })
   end
 end

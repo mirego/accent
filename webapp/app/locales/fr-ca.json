@@ -549,7 +549,8 @@
           "options": {
             "sync": "Synchroniser avec n’importe quelles modifications",
             "new_conflicts": "Nouvelles chaîne à réviser",
-            "complete_review": "Le projet est revu à 100%"
+            "complete_review": "Le projet est revu à 100%",
+            "integration_execute_azure_storage_container": "Fichiers téléversés sur Azure Storage Container"
           }
         },
         "execute": {

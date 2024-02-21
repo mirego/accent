@@ -15,6 +15,7 @@ defmodule Accent.GraphQL.Types.Integration do
     value(:complete_review, as: "complete_review")
     value(:create_collaborator, as: "create_collaborator")
     value(:create_comment, as: "create_comment")
+    value(:integration_execute_azure_storage_container, as: "integration_execute_azure_storage_container")
   end
 
   interface :project_integration do

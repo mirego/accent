@@ -52,18 +52,7 @@ defmodule AccentTest.SyncController do
 
     assert response.status == 200
 
-    assert_enqueued(
-      worker: Accent.Hook.Outbounds.Mock,
-      args: %{
-        "event" => "sync",
-        "payload" => %{
-          "batch_operation_stats" => [%{"action" => "new", "count" => 3}],
-          "document_path" => "simple"
-        },
-        "project_id" => project.id,
-        "user_id" => user.id
-      }
-    )
+    assert_enqueued(worker: Movement.Persisters.ProjectHookWorker)
 
     assert Enum.map(Repo.all(Document), &Map.get(&1, :path)) == ["simple"]
 

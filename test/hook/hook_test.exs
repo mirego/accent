@@ -31,13 +31,4 @@ defmodule AccentTest.Hook do
       args: %{worker_args | "event" => "sync"}
     )
   end
-
-  test "unsupported event", %{context: context, worker_args: worker_args} do
-    Hook.outbound(%{context | event: "foobar"})
-
-    refute_enqueued(
-      worker: Hook.Outbounds.Mock,
-      args: %{worker_args | "event" => "foobar"}
-    )
-  end
 end

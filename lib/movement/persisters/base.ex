@@ -4,7 +4,7 @@ defmodule Movement.Persisters.Base do
   alias Accent.Repo
   alias Movement.Mappers.OperationsStats, as: StatMapper
   alias Movement.Migrator
-  alias Movement.Persisters.ProjectStateChangeWorker
+  alias Movement.Persisters.ProjectHookWorker
 
   require Ecto.Query
 
@@ -39,7 +39,9 @@ defmodule Movement.Persisters.Base do
   end
 
   def execute(context) do
-    project_state_change_context = %{
+    project_context = %{
+      batch_action: context.assigns[:batch_action],
+      operations_count: Enum.count(context.operations),
       project_id: context.assigns[:project] && context.assigns.project.id,
       document_id: context.assigns[:document] && context.assigns.document.id,
       master_revision_id: context.assigns[:master_revision] && context.assigns.master_revision.id,
@@ -47,15 +49,14 @@ defmodule Movement.Persisters.Base do
       version_id: context.assigns[:version] && context.assigns.version.id,
       batch_operation_id: context.assigns[:batch_operation] && context.assigns.batch_operation.id,
       user_id: context.assigns[:user_id],
-      previous_project_state: ProjectStateChangeWorker.get_project_state(context.assigns[:project])
+      previous_project_state: ProjectHookWorker.get_project_state(context.assigns[:project])
     }
 
     context
     |> persist_operations()
     |> migrate_up_operations()
     |> tap(fn _ ->
-      project_state_change_context.previous_project_state &&
-        Oban.insert(ProjectStateChangeWorker.new(project_state_change_context))
+      context.assigns[:project] && Oban.insert(ProjectHookWorker.new(project_context))
     end)
   end
 

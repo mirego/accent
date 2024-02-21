@@ -6,18 +6,16 @@
   </div>
 {{/if}}
 
-{{#if this.showRevisionsHeader}}
-  <ul local-class='conflicts-header' style='--group-columns-count: {{this.revisions.length}};'>
-    {{#each this.mappedRevisions as |revision|}}
-      <li local-class='conflicts-header-item'>
-        {{revision.name}}
-        <span local-class='conflicts-header-item-slug'>
-          {{revision.slug}}
-        </span>
-      </li>
-    {{/each}}
-  </ul>
-{{/if}}
+<ul local-class='conflicts-header' style='--group-columns-count: {{this.revisions.length}};'>
+  {{#each this.mappedRevisions as |revision|}}
+    <li local-class='conflicts-header-item'>
+      {{revision.name}}
+      <span local-class='conflicts-header-item-slug'>
+        {{revision.slug}}
+      </span>
+    </li>
+  {{/each}}
+</ul>
 
 <ul local-class='conflicts-items' style='--group-columns-count: {{this.revisions.length}};'>
   {{#each @groupedTranslations key='id' as |groupedTranslation index|}}

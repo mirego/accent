@@ -13,17 +13,14 @@ if config_env() == :dev do
 end
 
 if config_env() == :test do
-  events = ~w(sync add_translations create_collaborator create_comment complete_review new_conflicts)
-
-  config :accent, Accent.Hook, outbounds: [{Accent.Hook.Outbounds.Mock, events: events}]
+  config :accent, Accent.Hook, outbounds: [Accent.Hook.Outbounds.Mock]
 else
   config :accent, Accent.Hook,
     outbounds: [
-      {Accent.Hook.Outbounds.Discord, events: ~w(sync complete_review new_conflicts)},
-      {Accent.Hook.Outbounds.Email, events: ~w(create_collaborator create_comment)},
-      {Accent.Hook.Outbounds.Slack, events: ~w(sync complete_review new_conflicts)},
-      {Accent.Hook.Outbounds.Websocket,
-       events: ~w(sync create_collaborator create_comment complete_review new_conflicts)}
+      Accent.Hook.Outbounds.Discord,
+      Accent.Hook.Outbounds.Email,
+      Accent.Hook.Outbounds.Slack,
+      Accent.Hook.Outbounds.Websocket
     ]
 end
 
