@@ -10,7 +10,7 @@ defmodule Accent.Hook.Outbounds.Slack do
 
     deftemplate(:new_conflicts, """
     *<%= @user %>* just added _<%= @new_conflicts_count %> strings_ to review.
-    The project is currently *<%= Float.round(@reviewed_count / @translations_count * 100, 2) %>* reviewed (<%= @reviewed_count %>/<%= @translations_count %>)
+    The project is currently *<%= Float.round(@reviewed_count / @translations_count * 100, 2) %>%* reviewed (<%= @reviewed_count %>/<%= @translations_count %>)
     """)
 
     deftemplate(:sync, """

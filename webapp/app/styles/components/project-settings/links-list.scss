@@ -34,9 +34,10 @@
   p {
     display: block;
     width: 100%;
-    padding: 10px 20px;
+    padding: 10px 20px 10px 19px;
     margin-top: 10px;
     font-size: 11px;
+    font-weight: 400;
     border-top: 1px solid var(--content-background-border);
     color: var(--color-grey);
     background: var(--background-light);
@@ -61,6 +62,10 @@
   height: 14px;
 }
 
+.link-check-text {
+  font-size: 11px;
+}
+
 .link-check {
   position: absolute;
   top: 7px;
@@ -76,12 +81,12 @@
 }
 
 .link-icon {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   margin: 20px 20px 0;
   transition: 0.2s ease-in-out;
   transition-property: stroke;
-  opacity: 0.6;
+  opacity: 0.8;
   stroke: var(--color-black);
   transition: 0.2s ease-in-out;
   transition-property: stroke;

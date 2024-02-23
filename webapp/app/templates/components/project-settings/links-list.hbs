@@ -11,6 +11,12 @@
         {{inline-svg 'assets/share.svg' local-class='link-icon link-icon--integrations'}}
         <strong>{{t 'components.project_settings.links_list.service_integrations'}}</strong>
         <p>{{t 'components.project_settings.links_list.service_integrations_text'}}</p>
+
+        {{#if @project.integrations.length}}
+          <span local-class='link-check'>
+            <span local-class='link-check-text'>{{@project.integrations.length}}</span>
+          </span>
+        {{/if}}
       </LinkTo>
     {{/if}}
 

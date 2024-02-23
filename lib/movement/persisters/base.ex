@@ -17,7 +17,8 @@ defmodule Movement.Persisters.Base do
   @spec execute(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}
   def execute(%Movement.Context{operations: []} = context), do: {context, []}
 
-  def execute(%Movement.Context{assigns: %{batch_action: action} = assigns} = context) when is_binary(action) do
+  def execute(%Movement.Context{assigns: %{batch_action: action, batch_operation: nil} = assigns} = context)
+      when is_binary(action) do
     stats = StatMapper.map(context.operations)
 
     batch_operation =
@@ -34,7 +35,6 @@ defmodule Movement.Persisters.Base do
 
     context
     |> Movement.Context.assign(:batch_operation, batch_operation)
-    |> Movement.Context.assign(:batch_action, nil)
     |> execute()
   end
 

@@ -72,6 +72,7 @@ defmodule Movement.Persisters.ProjectHookWorker do
       revision: get_record(Accent.Revision, args["revision_id"]),
       version: get_record(Accent.Version, args["version_id"]),
       batch_operation: get_record(Accent.Operation, args["batch_operation_id"]),
+      operations_count: args["operations_count"],
       batch_action: args["batch_action"],
       user: get_record(Accent.User, args["user_id"])
     }

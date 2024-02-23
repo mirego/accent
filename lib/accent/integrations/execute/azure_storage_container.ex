@@ -62,14 +62,14 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
 
         path =
           Path.join([
-            uri.path,
+            uri.path || "/",
             version_tag,
             upload.language.slug,
             document_name
           ])
 
         url = URI.to_string(%{uri | path: path})
-        # HTTPoison.put(url, {:file, file}, [{"x-ms-blob-type", "BlockBlob"}])
+        HTTPoison.put(url, {:file, file}, [{"x-ms-blob-type", "BlockBlob"}])
 
         %{name: document_name, url: url}
       end

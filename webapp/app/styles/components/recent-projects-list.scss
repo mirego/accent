@@ -23,12 +23,11 @@
 
 .item-link {
   display: block;
-  padding: 4px 10px 5px;
-  background: var(--background-light);
+  padding: 3px 8px 4px;
+  border: 1px solid var(--background-light-highlight);
   border-radius: var(--border-radius);
   text-decoration: none;
   font-weight: 600;
-  box-shadow: 0 1px 2px var(--shadow-color);
   transition: 0.2s ease-in-out;
   transition-property: background, box-shadow;
 

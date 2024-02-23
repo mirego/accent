@@ -6,7 +6,6 @@
   @extend %textInput;
   max-width: 350px;
   width: 100%;
-  margin-right: 5px;
   flex-grow: 0;
   flex-shrink: 1;
   padding: 10px;
@@ -16,15 +15,15 @@
 
 .colorInput {
   @extend %textInput;
-  margin-right: 5px;
   width: 48px;
   height: 40px;
-  padding: 10px 14px;
+  padding: 5px 11px;
 }
 
 .field {
   display: flex;
   margin-bottom: 15px;
+  gap: 8px;
 }
 
 .lock {

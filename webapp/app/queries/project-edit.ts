@@ -9,6 +9,9 @@ export default gql`
         mainColor
         logo
         isFileOperationsLocked
+        integrations {
+          id
+        }
       }
     }
   }
