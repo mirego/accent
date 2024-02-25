@@ -136,14 +136,12 @@ config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
 config :ueberauth, Ueberauth.Strategy.OIDC,
   default_oidc: [
     fetch_userinfo: true,
-    #userinfo_uid_field: "upn", # only include if getting the user_id from userinfo
-    uid_field: get_env("OIDC_UID_FIELD") || "sub", # only include if getting the user_id from the claims
-    discovery_document_uri: get_env("OIDC_DISCOVERY_URI"), # check if exists??
+    uid_field: get_env("OIDC_UID_FIELD") || "sub",
     client_id: get_env("OIDC_CLIENT_ID"),
     client_secret: get_env("OIDC_CLIENT_SECRET"),
+    discovery_document_uri: get_env("OIDC_DISCOVERY_URI"),
     redirect_uri: "#{static_uri}/auth/oidc/callback",
-    # redirect_uri: get_env("OIDC_REDIRECT_URI"),
-    response_type: "code", # Code is the only supported type
+    response_type: "code",
     scope: get_env("OIDC_SCOPE") || "openid profile email"
   ]
 
