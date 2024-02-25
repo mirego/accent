@@ -16,10 +16,16 @@ defmodule Accent do
       {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
-    children =
-      if System.get_env("OIDC_CLIENT_ID"),
-        do: [{OpenIDConnect.Worker, Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)} | children],
-        else: children
+    try do
+      children =
+        if Application.get_env(:accent, :is_valid_oidc),
+          do: [{OpenIDConnect.Worker, Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)} | children],
+          else: children      
+    catch
+      e -> Logger.error(Exception.format(:error, e, __STACKTRACE__) + "\n (Is your OIDC_DISCOVERY_URI valid?)")
+    end
+
+
 
     if Application.get_env(:sentry, :dsn) do
       {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)

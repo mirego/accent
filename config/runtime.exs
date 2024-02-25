@@ -88,9 +88,15 @@ providers =
 
 providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Auth0, []}} | providers], else: providers
 
-providers = if get_env("OIDC_CLIENT_ID"),
+providers = if get_env("OIDC_DISCOVERY_URI"),
   do: [{:oidc, {Ueberauth.Strategy.OIDC, [default: [provider: :default_oidc, uid_field: :sub]]}} | providers],
   else: providers
+
+if get_env("OIDC_DISCOVERY_URI"), do
+  Application.put_env(:accent, :is_valid_oidc, True)
+else
+  Application.put_env(:accent, :is_valid_oidc, False)
+end
 
 providers =
   if get_env("DUMMY_LOGIN_ENABLED"),
@@ -143,7 +149,7 @@ config :ueberauth, Ueberauth.Strategy.OIDC,
     client_secret: get_env("OIDC_CLIENT_SECRET"),
     redirect_uri: "#{static_uri}/auth/oidc/callback",
     # redirect_uri: get_env("OIDC_REDIRECT_URI"),
-    response_type: get_env("OIDC_RESPONSE_TYPE") || "code",
+    response_type: "code", # Code is the only supported type
     scope: get_env("OIDC_SCOPE") || "openid profile email"
   ]
 
