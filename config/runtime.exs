@@ -88,15 +88,9 @@ providers =
 
 providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Auth0, []}} | providers], else: providers
 
-providers = if get_env("OIDC_DISCOVERY_URI"),
+providers = if get_env("OIDC_CLIENT_ID"),
   do: [{:oidc, {Ueberauth.Strategy.OIDC, [default: [provider: :default_oidc, uid_field: :sub]]}} | providers],
   else: providers
-
-if get_env("OIDC_DISCOVERY_URI"), do
-  Application.put_env(:accent, :is_valid_oidc, True)
-else
-  Application.put_env(:accent, :is_valid_oidc, False)
-end
 
 providers =
   if get_env("DUMMY_LOGIN_ENABLED"),
