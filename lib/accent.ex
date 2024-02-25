@@ -15,7 +15,7 @@ defmodule Accent do
       {TelemetryUI, Accent.TelemetryUI.config()},
       {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
-    
+
     children =
       if Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)[:default_oidc][:client_id],
         do: [{OpenIDConnect.Worker, Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)} | children],
