@@ -157,6 +157,11 @@ Various login providers are included in Accent using Ueberauth to abstract servi
 | `MICROSOFT_CLIENT_ID`      | _none_               |                                                                                         |
 | `MICROSOFT_CLIENT_SECRET`  | _none_               |                                                                                         |
 | `MICROSOFT_TENANT_ID`      | _none_               |                                                                                         |
+| `OIDC_CLIENT_ID`      | _none_               |                                                                                         |
+| `OIDC_CLIENT_SECRET`      | _none_               |                                                                                         |
+| `OIDC_DISCOVERY_URI`  | _none_               |                                                                |
+| `OIDC_UID_FIELD`      | `sub`               |                                                                                         |
+| `OIDC_SCOPE`  | `openid profile email`               |                                                                                         |
 
 ### Email setup
 
