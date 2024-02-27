@@ -108,16 +108,16 @@ export default Service.extend({
         if (typeOf(reason) === 'error') {
           this.captureException(reason, {
             extra: {
-              context: label || this.unhandledPromiseErrorMessage,
-            },
+              context: label || this.unhandledPromiseErrorMessage
+            }
           });
           this.didCaptureException(reason);
         } else {
           this.captureMessage(this._extractMessage(reason), {
             extra: {
               reason,
-              context: label,
-            },
+              context: label
+            }
           });
         }
       });
@@ -199,5 +199,5 @@ export default Service.extend({
         return false;
       }
     }
-  },
+  }
 });

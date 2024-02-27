@@ -7,7 +7,7 @@ interface Args {
   project: any;
   onPush: ({
     targetVersion,
-    specificVersion,
+    specificVersion
   }: {
     targetVersion: string;
     specificVersion: string | null;
@@ -19,18 +19,18 @@ export default class AzurePushForm extends Component<Args> {
     {
       value: 'LATEST',
       label:
-        'components.project_settings.integrations.target_version.options.latest',
+        'components.project_settings.integrations.target_version.options.latest'
     },
     {
       value: 'SPECIFIC',
       label:
-        'components.project_settings.integrations.target_version.options.specific',
+        'components.project_settings.integrations.target_version.options.specific'
     },
     {
       value: 'ALL',
       label:
-        'components.project_settings.integrations.target_version.options.all',
-    },
+        'components.project_settings.integrations.target_version.options.all'
+    }
   ];
 
   @tracked
@@ -48,7 +48,7 @@ export default class AzurePushForm extends Component<Args> {
 
     await this.args.onPush({
       targetVersion: this.targetVersion,
-      specificVersion: this.specificVersion,
+      specificVersion: this.specificVersion
     });
 
     this.isSubmitting = false;

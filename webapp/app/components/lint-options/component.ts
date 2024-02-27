@@ -64,7 +64,7 @@ export default class RevisionExportOptions extends Component<Args> {
     return this.args.documents.map(
       ({id, path}: {id: string; path: string}) => ({
         label: path,
-        value: id,
+        value: id
       })
     );
   }
@@ -83,16 +83,16 @@ export default class RevisionExportOptions extends Component<Args> {
         memo.concat([
           {
             label: tag,
-            value: tag,
-          },
+            value: tag
+          }
         ]),
       [
         {
           label: this.intl.t(
             'components.revision_export_options.default_version'
           ),
-          value: '',
-        },
+          value: ''
+        }
       ]
     );
   }

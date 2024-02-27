@@ -62,8 +62,8 @@ export default class IndexController extends Controller {
       mutation: translationCorrectQuery,
       variables: {
         translationId: conflict.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {
@@ -81,14 +81,15 @@ export default class IndexController extends Controller {
   }
 
   @action
-  async uncorrectConflict() {
+  async uncorrectConflict(text: string) {
     const conflict = this.model.translation;
 
     const response = await this.apolloMutate.mutate({
       mutation: translationUncorrectQuery,
       variables: {
         translationId: conflict.id,
-      },
+        text
+      }
     });
 
     if (response.errors) {
@@ -113,8 +114,8 @@ export default class IndexController extends Controller {
       mutation: translationUpdateQuery,
       variables: {
         translationId: translation.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {

@@ -17,23 +17,23 @@ export default class DataControlCheckboxes extends Component<Args> {
   allEvents = [
     {
       value: 'SYNC',
-      label: 'components.project_settings.integrations.events.options.sync',
+      label: 'components.project_settings.integrations.events.options.sync'
     },
     {
       value: 'NEW_CONFLICTS',
       label:
-        'components.project_settings.integrations.events.options.new_conflicts',
+        'components.project_settings.integrations.events.options.new_conflicts'
     },
     {
       value: 'COMPLETE_REVIEW',
       label:
-        'components.project_settings.integrations.events.options.complete_review',
+        'components.project_settings.integrations.events.options.complete_review'
     },
     {
       value: 'INTEGRATION_EXECUTE_AZURE_STORAGE_CONTAINER',
       label:
-        'components.project_settings.integrations.events.options.integration_execute_azure_storage_container',
-    },
+        'components.project_settings.integrations.events.options.integration_execute_azure_storage_container'
+    }
   ];
 
   @tracked

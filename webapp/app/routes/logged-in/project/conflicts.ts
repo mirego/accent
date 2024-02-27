@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 
 import translationsQuery from 'accent-webapp/queries/conflicts';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/transition';
@@ -23,38 +23,38 @@ export default class ConflictsRoute extends Route {
 
   queryParams = {
     query: {
-      refreshModel: true,
+      refreshModel: true
     },
     page: {
-      refreshModel: true,
+      refreshModel: true
     },
     document: {
-      refreshModel: true,
+      refreshModel: true
     },
     version: {
-      refreshModel: true,
+      refreshModel: true
     },
     relatedRevisions: {
-      refreshModel: true,
+      refreshModel: true
     },
     isTextEmpty: {
-      refreshModel: true,
+      refreshModel: true
     },
     isTextNotEmpty: {
-      refreshModel: true,
+      refreshModel: true
     },
     isAddedLastSync: {
-      refreshModel: true,
+      refreshModel: true
     },
     isCommentedOn: {
-      refreshModel: true,
+      refreshModel: true
     },
     isConflicted: {
-      refreshModel: true,
+      refreshModel: true
     },
     isTranslated: {
-      refreshModel: true,
-    },
+      refreshModel: true
+    }
   };
 
   subscription: Subscription;
@@ -78,16 +78,16 @@ export default class ConflictsRoute extends Route {
           revisions: data.viewer.project.revisions,
           relatedRevisions: data.viewer.project.groupedTranslations.revisions,
           project: data.viewer.project,
-          groupedTranslations: data.viewer.project.groupedTranslations,
+          groupedTranslations: data.viewer.project.groupedTranslations
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId,
-            ...params,
-          },
-        },
+            ...params
+          }
+        }
       }
     );
 

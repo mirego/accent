@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 
 import translationActivitiesQuery from 'accent-webapp/queries/translation-activities';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/transition';
@@ -19,8 +19,8 @@ export default class ActivitiesRoute extends Route {
 
   queryParams = {
     page: {
-      refreshModel: true,
-    },
+      refreshModel: true
+    }
   };
 
   subscription: Subscription;
@@ -35,7 +35,7 @@ export default class ActivitiesRoute extends Route {
       {
         props: (data) => ({
           project: data.viewer.project,
-          activities: data.viewer.project.translation.activities,
+          activities: data.viewer.project.translation.activities
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -46,9 +46,9 @@ export default class ActivitiesRoute extends Route {
               transition,
               'logged-in.project.translation'
             ).translationId,
-            page,
-          },
-        },
+            page
+          }
+        }
       }
     );
 

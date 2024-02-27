@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 
 import translationQuery from 'accent-webapp/queries/translation';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/transition';
@@ -31,16 +31,16 @@ export default class TranslationsRoute extends Route {
           translation: data.viewer.project.translation,
           prompts: data.viewer.project.prompts,
           relatedTranslations:
-            data.viewer.project.translation.relatedTranslations,
+            data.viewer.project.translation.relatedTranslations
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId,
-            translationId,
-          },
-        },
+            translationId
+          }
+        }
       }
     );
 

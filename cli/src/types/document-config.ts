@@ -4,14 +4,14 @@ export enum Hooks {
   beforeExport = 'beforeExport',
   afterExport = 'afterExport',
   beforeSync = 'beforeSync',
-  afterSync = 'afterSync',
+  afterSync = 'afterSync'
 }
 
 export enum NamePattern {
   file = 'file',
   fileWithSlugSuffix = 'fileWithSlugSuffix',
   parentDirectory = 'parentDirectory',
-  fileWithParentDirectory = 'fileWithParentDirectory',
+  fileWithParentDirectory = 'fileWithParentDirectory'
 }
 
 export interface HookConfig {

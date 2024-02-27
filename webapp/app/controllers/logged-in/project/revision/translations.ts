@@ -37,7 +37,7 @@ export default class TranslationsController extends Controller {
     'isAddedLastSync',
     'isCommentedOn',
     'isConflictedFilter',
-    'isTranslatedFilter',
+    'isTranslatedFilter'
   ];
 
   @tracked
@@ -95,7 +95,7 @@ export default class TranslationsController extends Controller {
       this.isAddedLastSync,
       this.isCommentedOn,
       this.isConflicted,
-      this.isTranslated,
+      this.isTranslated
     ].filter((filter) => filter === 'true').length;
   }
 
@@ -144,8 +144,8 @@ export default class TranslationsController extends Controller {
       mutation: translationUpdateQuery,
       variables: {
         translationId: translation.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {

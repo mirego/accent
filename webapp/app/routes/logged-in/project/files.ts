@@ -5,7 +5,7 @@ import Route from '@ember/routing/route';
 import projectDocumentsQuery from 'accent-webapp/queries/project-documents';
 import RouteParams from 'accent-webapp/services/route-params';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/transition';
 
@@ -18,11 +18,11 @@ export default class FilesRoute extends Route {
 
   queryParams = {
     page: {
-      refreshModel: true,
+      refreshModel: true
     },
     excludeEmptyTranslations: {
-      refreshModel: true,
-    },
+      refreshModel: true
+    }
   };
 
   subscription: Subscription;
@@ -30,7 +30,7 @@ export default class FilesRoute extends Route {
   model(
     {
       page,
-      excludeEmptyTranslations,
+      excludeEmptyTranslations
     }: {page: string; excludeEmptyTranslations: boolean},
     transition: Transition
   ) {
@@ -46,7 +46,7 @@ export default class FilesRoute extends Route {
         props: (data) => ({
           project: data.viewer.project,
           documents: data.viewer.project.documents,
-          versions: data.viewer.project.versions,
+          versions: data.viewer.project.versions
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -54,9 +54,9 @@ export default class FilesRoute extends Route {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId,
             excludeEmptyTranslations,
-            page: pageNumber,
-          },
-        },
+            page: pageNumber
+          }
+        }
       }
     );
 

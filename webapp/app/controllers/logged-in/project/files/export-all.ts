@@ -31,7 +31,7 @@ export default class ExportAllController extends Controller {
     'versionFilter',
     'isTextEmpty',
     'isAddedLastSync',
-    'isConflictedFilter',
+    'isConflictedFilter'
   ];
 
   @tracked
@@ -135,7 +135,7 @@ export default class ExportAllController extends Controller {
   @action
   exportFile() {
     const blob = new Blob([this.fileRender], {
-      type: 'charset=utf-8',
+      type: 'charset=utf-8'
     });
 
     const filename = `${this.document.path}.${this.fileExtension}`;

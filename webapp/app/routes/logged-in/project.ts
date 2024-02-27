@@ -6,11 +6,11 @@ import projectQuery, {
   ProjectQueryResponse,
   ProjectQueryResponseProject,
   ProjectQueryResponseRole,
-  ProjectQueryResponseDocumentFormat,
+  ProjectQueryResponseDocumentFormat
 } from 'accent-webapp/queries/project';
 import GlobalState from 'accent-webapp/services/global-state';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 
 interface Model {
@@ -39,9 +39,9 @@ export default class ProjectRoute extends Route {
         props,
         options: {
           variables: {
-            projectId: params.projectId,
-          },
-        },
+            projectId: params.projectId
+          }
+        }
       }
     );
 
@@ -84,7 +84,7 @@ export default class ProjectRoute extends Route {
       project: data.viewer.project,
       permissions,
       roles: data.roles,
-      documentFormats: data.documentFormats,
+      documentFormats: data.documentFormats
     };
   }
 }

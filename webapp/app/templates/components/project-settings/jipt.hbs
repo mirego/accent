@@ -3,12 +3,18 @@
 
   <p local-class='text'>
     {{t 'components.project_settings.jipt.integration_help'}}
-    <br />
-    <a local-class='link' href='https://www.accent.reviews/guides/live-editing.html'>
-      {{t 'components.project_settings.jipt.integration_link'}}
-    </a>
-
   </p>
 
   <textarea readonly='' onClick='this.select();' local-class='code'>{{this.scriptContent}}</textarea>
+
+  <hr />
+
+  <p local-class='text'>
+    {{t 'components.project_settings.jipt.demo_help'}}
+  </p>
+
+  <a href='/app/projects/{{@project.id}}/jipt-example' class='button button--filled'>
+
+    {{t 'components.project_settings.jipt.demo_link'}}
+  </a>
 </div>

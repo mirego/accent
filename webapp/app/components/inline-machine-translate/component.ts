@@ -26,12 +26,12 @@ export default class ImprovePrompt extends Component<Args> {
     const variables = {
       projectId: this.args.project.id,
       text: this.args.text,
-      targetLanguageSlug,
+      targetLanguageSlug
     };
 
     const {data} = await this.apollo.client.query({
       query: projectTranslateTextQuery,
-      variables,
+      variables
     });
 
     if (data.viewer.project.translatedText?.text) {

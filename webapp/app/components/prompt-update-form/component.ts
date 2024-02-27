@@ -9,7 +9,7 @@ interface Args {
   onUpdate: ({
     content,
     name,
-    quickAccess,
+    quickAccess
   }: {
     content: string;
     name: string;

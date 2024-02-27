@@ -71,7 +71,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
 
     return this.globalState.documentFormats.map(({slug, name}) => ({
       value: slug,
-      label: name,
+      label: name
     }));
   }
 
@@ -160,7 +160,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
     if (!this.file || !this.args.translatedFileContent) return;
 
     const blob = new Blob([this.args.translatedFileContent as BlobPart], {
-      type: 'charset=utf-8',
+      type: 'charset=utf-8'
     });
 
     this.fileSaver.saveAs(blob, this.file.name);

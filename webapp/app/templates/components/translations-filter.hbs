@@ -1,5 +1,5 @@
 <div local-class='translations-filter'>
-  <div class='filters'>
+  <div class='filters {{if @jipt "filters--jipt"}}'>
     <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
       <div class='filters-content' local-class='filters-content'>
         <div class='queryForm' local-class='queryForm'>

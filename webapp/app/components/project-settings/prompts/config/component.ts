@@ -13,7 +13,7 @@ interface Args {
   onSave: ({
     provider,
     configKey,
-    usePlatform,
+    usePlatform
   }: {
     provider: string;
     configKey: string | null;
@@ -25,7 +25,7 @@ const PROVIDERS = ['openai'];
 
 /* eslint-disable camelcase */
 const LOGOS = {
-  openai: 'assets/prompts_providers/openai.svg',
+  openai: 'assets/prompts_providers/openai.svg'
 };
 
 export default class ProjectSettingsPromptsConfig extends Component<Args> {
@@ -63,7 +63,7 @@ export default class ProjectSettingsPromptsConfig extends Component<Args> {
     return PROVIDERS.map((value) => {
       return {
         label: this.intl.t(`general.prompts_providers.${value}`),
-        value,
+        value
       };
     });
   }
@@ -100,7 +100,7 @@ export default class ProjectSettingsPromptsConfig extends Component<Args> {
     await this.args.onSave({
       provider: this.provider,
       configKey: this.configKey,
-      usePlatform: this.usePlatform,
+      usePlatform: this.usePlatform
     });
   });
 

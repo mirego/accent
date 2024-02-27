@@ -1,10 +1,13 @@
 .filters {
   padding: 15px;
-  border-radius: 0 0 3px 3px;
   background: var(--background-light);
   border-radius: var(--border-radius);
   border: 1px solid var(--background-light-highlight);
   margin-top: -2px;
+
+  &.filters--jipt {
+    border-radius: 0;
+  }
 
   &.filters--transparent {
     background: none;

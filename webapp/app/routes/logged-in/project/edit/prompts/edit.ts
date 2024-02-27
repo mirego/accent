@@ -5,7 +5,7 @@ export default class PromptEditRoute extends Route {
     return {
       projectModel: this.modelFor('logged-in.project'),
       promptsModel: this.modelFor('logged-in.project.edit.prompts'),
-      promptId,
+      promptId
     };
   }
 }

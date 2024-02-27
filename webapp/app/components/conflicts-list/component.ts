@@ -45,7 +45,7 @@ export default class ConflictsList extends Component<Args> {
       ({revision}: any) => {
         return {
           name: revision.name || revision.language.name,
-          slug: revision.slug || revision.language.slug,
+          slug: revision.slug || revision.language.slug
         };
       }
     );

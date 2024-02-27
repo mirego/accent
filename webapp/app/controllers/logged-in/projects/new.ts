@@ -5,7 +5,7 @@ import RouterService from '@ember/routing/router-service';
 
 import projectCreateQuery, {
   CreateProjectVariables,
-  CreateProjectResponse,
+  CreateProjectResponse
 } from 'accent-webapp/queries/create-project';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 import Session from 'accent-webapp/services/session';
@@ -40,8 +40,8 @@ export default class ProjectsNewController extends Controller {
         mutation: projectCreateQuery,
         variables: {
           ...projectAttributes,
-          name,
-        },
+          name
+        }
       });
 
     if (response.errors) {

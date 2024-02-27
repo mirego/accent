@@ -5,12 +5,12 @@ import {frCA, enUS} from 'date-fns/locale';
 
 const LOCALES = {
   'fr-ca': frCA,
-  'en-us': enUS,
+  'en-us': enUS
 } as any;
 
 const OPTIONS = {
   addSuffix: true,
-  includeSeconds: false,
+  includeSeconds: false
 };
 
 const timeAgoInWords = ([date]: [string]) => {
@@ -19,7 +19,7 @@ const timeAgoInWords = ([date]: [string]) => {
 
   const options = {
     locale,
-    ...OPTIONS,
+    ...OPTIONS
   };
 
   return formatDistanceToNow(new Date(date), options);

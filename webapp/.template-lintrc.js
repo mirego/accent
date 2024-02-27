@@ -3,6 +3,9 @@
 module.exports = {
   plugins: ["ember-template-lint-plugin-prettier"],
   extends: ["recommended", "ember-template-lint-plugin-prettier:recommended"],
+  ignore: [
+    'webapp/app/templates/components/jipt-example'
+  ],
   rules: {
     'attribute-indentation': {'open-invocation-max-len': 120},
     'block-indentation': 2,
@@ -13,6 +16,7 @@ module.exports = {
     'link-rel-noopener': true,
     'no-abstract-roles': true,
     'no-bare-strings': true,
+    'block-indentation': false,
     'no-potential-path-strings': false,
     'no-yield-only': false,
     'no-autofocus-attribute': false,

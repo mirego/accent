@@ -28,7 +28,7 @@ const ACTIONS_ICON_PATHS = {
   remove: 'assets/x.svg',
   new_comment: 'assets/bubble.svg',
   new_slave: 'assets/language.svg',
-  document_delete: 'assets/file.svg',
+  document_delete: 'assets/file.svg'
 };
 
 const MAXIMUM_COMPACT_BATCH_OPERATION_DOCUMENT_PATHS = 6;
@@ -171,7 +171,7 @@ export default class ActivityItem extends Component<Args> {
       'correct_all',
       'batch_correct_conflict',
       'batch_update',
-      'conflict_on_slave',
+      'conflict_on_slave'
     ];
 
     return (

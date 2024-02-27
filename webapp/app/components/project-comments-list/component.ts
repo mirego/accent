@@ -34,7 +34,7 @@ export default class ProjectCommentsList extends Component<Args> {
     return Object.keys(this.commentsByTranslationId).map((translationId) => {
       return {
         items: this.commentsByTranslationId[translationId],
-        value: this.translationsById[translationId],
+        value: this.translationsById[translationId]
       };
     });
   }

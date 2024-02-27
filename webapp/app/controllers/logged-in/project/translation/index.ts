@@ -53,8 +53,8 @@ export default class IndexController extends Controller {
       mutation: translationCorrectQuery,
       variables: {
         translationId: conflict.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {
@@ -72,8 +72,8 @@ export default class IndexController extends Controller {
       mutation: translationUncorrectQuery,
       variables: {
         translationId: conflict.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {
@@ -91,8 +91,8 @@ export default class IndexController extends Controller {
       mutation: translationUpdateQuery,
       variables: {
         translationId: translation.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {
@@ -108,8 +108,8 @@ export default class IndexController extends Controller {
       mutation: translationUpdateQuery,
       variables: {
         translationId: translation.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {

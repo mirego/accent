@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 import projectApiTokenQuery from 'accent-webapp/queries/project-api-token';
 import RouteParams from 'accent-webapp/services/route-params';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/transition';
 
@@ -28,15 +28,15 @@ export default class APITokenRoute extends Route {
         props: (data) => ({
           project: data.viewer.project,
           accessToken: data.viewer.accessToken,
-          apiToken: data.viewer.project.apiTokens,
+          apiToken: data.viewer.project.apiTokens
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
-              .projectId,
-          },
-        },
+              .projectId
+          }
+        }
       }
     );
 

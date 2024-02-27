@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 import projectCommentsQuery from 'accent-webapp/queries/project-comments';
 import RouteParams from 'accent-webapp/services/route-params';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/transition';
 import CommentsController from 'accent-webapp/controllers/logged-in/project/comments';
@@ -18,8 +18,8 @@ export default class CommentsRoute extends Route {
 
   queryParams = {
     page: {
-      refreshModel: true,
-    },
+      refreshModel: true
+    }
   };
 
   subscription: Subscription;
@@ -36,16 +36,16 @@ export default class CommentsRoute extends Route {
       {
         props: (data) => ({
           comments: data.viewer.project.comments,
-          project: data.viewer.project,
+          project: data.viewer.project
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId,
-            page: pageNumber,
-          },
-        },
+            page: pageNumber
+          }
+        }
       }
     );
 

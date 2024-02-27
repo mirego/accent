@@ -72,8 +72,8 @@ export default class EditController extends Controller {
       variables: {
         id,
         name,
-        tag,
-      },
+        tag
+      }
     });
 
     if (response.errors) {

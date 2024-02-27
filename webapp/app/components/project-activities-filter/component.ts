@@ -37,7 +37,7 @@ export default class ProjectActivitiesFilter extends Component<Args> {
     'conflict_on_proposed',
     'conflict_on_corrected',
     'conflict_on_slave',
-    'document_delete',
+    'document_delete'
   ];
 
   get mappedActions() {
@@ -45,7 +45,7 @@ export default class ProjectActivitiesFilter extends Component<Args> {
       (key) => {
         return {
           value: key,
-          label: this.intl.t(`${ACTIONS_PREFIX}${key}`),
+          label: this.intl.t(`${ACTIONS_PREFIX}${key}`)
         };
       }
     );
@@ -54,7 +54,7 @@ export default class ProjectActivitiesFilter extends Component<Args> {
       label: this.intl.t(
         'components.project_activities_filter.actions_default_option_text'
       ),
-      value: '',
+      value: ''
     });
 
     return actions;
@@ -67,14 +67,14 @@ export default class ProjectActivitiesFilter extends Component<Args> {
       .filter((collaborator: any) => !collaborator.isPending)
       .map(({user: {fullname, id}}: {user: any}) => ({
         label: fullname,
-        value: id,
+        value: id
       }));
 
     users.unshift({
       label: this.intl.t(
         'components.project_activities_filter.collaborators_default_option_text'
       ),
-      value: '',
+      value: ''
     });
 
     return users;
@@ -86,7 +86,7 @@ export default class ProjectActivitiesFilter extends Component<Args> {
     const versions = this.args.versions.map(
       ({tag, id}: {tag: string; id: string}) => ({
         label: tag,
-        value: id,
+        value: id
       })
     );
 
@@ -94,7 +94,7 @@ export default class ProjectActivitiesFilter extends Component<Args> {
       label: this.intl.t(
         'components.project_activities_filter.versions_default_option_text'
       ),
-      value: '',
+      value: ''
     });
 
     return versions;

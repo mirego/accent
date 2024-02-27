@@ -16,20 +16,20 @@
       @project={{@project}}
       @onUpdateText={{@onUpdateText}}
     />
-  {{else if @query}}
-    <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_query' query=@query}} />
-  {{else if @withAdvancedFilters}}
-    <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_filters'}} />
-  {{else}}
-    <EmptyContent local-class='empty-content' @center={{true}}>
-      {{inline-svg 'assets/empty.svg' local-class='icon'}}
-      {{t 'components.translations_list.no_translations'}}
-      <div>
-        {{t 'components.translations_list.maybe_sync_before'}}
-        <LinkTo @route='logged-in.project.files' class='link'>
-          {{t 'components.translations_list.maybe_sync_link'}}
-        </LinkTo>
-      </div>
-    </EmptyContent>
-  {{/each}}
+  {{else}}{{#if @query}}
+      <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_query' query=@query}} />
+    {{else if @withAdvancedFilters}}
+      <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_filters'}} />
+    {{else}}
+      <EmptyContent local-class='empty-content' @center={{true}}>
+        {{inline-svg 'assets/empty.svg' local-class='icon'}}
+        {{t 'components.translations_list.no_translations'}}
+        <div>
+          {{t 'components.translations_list.maybe_sync_before'}}
+          <LinkTo @route='logged-in.project.files' class='link'>
+            {{t 'components.translations_list.maybe_sync_link'}}
+          </LinkTo>
+        </div>
+      </EmptyContent>
+    {{/if}}{{/each}}
 </ul>

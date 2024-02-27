@@ -7,7 +7,9 @@
   padding: 30px 30px 20px 30px;
   border-radius: 6px;
   background: var(--content-background);
-  box-shadow: 0 1px 4px var(--shadow-color), 0 7px 12px var(--shadow-color);
+  box-shadow:
+    0 1px 4px var(--shadow-color),
+    0 7px 12px var(--shadow-color);
 
   .text {
     max-width: 300px;

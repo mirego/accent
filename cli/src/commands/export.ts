@@ -19,7 +19,7 @@ export default class Export extends Command {
 
   static examples = [
     `$ accent export`,
-    `$ accent export --order-by=key --version=build.myapp.com:0.12.345`,
+    `$ accent export --order-by=key --version=build.myapp.com:0.12.345`
   ];
 
   static args = [];
@@ -27,13 +27,13 @@ export default class Export extends Command {
     'order-by': flags.string({
       default: 'index',
       description: 'Order of the keys',
-      options: ['index', 'key'],
+      options: ['index', 'key']
     }),
     version: flags.string({
       default: '',
-      description: 'Fetch a specific version',
+      description: 'Fetch a specific version'
     }),
-    config: configFlag,
+    config: configFlag
   };
 
   async run() {

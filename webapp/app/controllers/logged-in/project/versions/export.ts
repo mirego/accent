@@ -24,7 +24,7 @@ export default class ExportController extends Controller {
     'revisionFilter',
     'documentFilter',
     'documentFormatFilter',
-    'orderByFilter',
+    'orderByFilter'
   ];
 
   @tracked
@@ -118,7 +118,7 @@ export default class ExportController extends Controller {
 
   exportFile() {
     const blob = new Blob([this.fileRender], {
-      type: 'charset=utf-8',
+      type: 'charset=utf-8'
     });
 
     const filename = `${this.document.path}.${this.fileExtension}`;

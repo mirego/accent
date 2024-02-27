@@ -53,15 +53,15 @@ export default class IndexController extends Controller {
   }
 
   @action
-  changeVersion(versionId: string) {
+  changeVersion(element: HTMLSelectElement) {
     this.page = 1;
-    this.version = versionId;
+    this.version = element.value;
   }
 
   @action
-  changeDocument(documentId: string) {
+  changeDocument(element: HTMLSelectElement) {
     this.page = 1;
-    this.document = documentId;
+    this.document = element.value;
   }
 
   @action

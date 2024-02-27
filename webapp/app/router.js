@@ -11,6 +11,8 @@ export default Router.map(function () {
   this.route('login', {path: ''});
 
   this.route('logged-in', {path: 'app'}, function () {
+    this.route('jipt-example', {path: 'projects/:projectId/jipt-example'});
+
     this.route('jipt', {path: 'projects/:projectId/jipt'}, function () {
       this.route(
         'translation',
@@ -54,7 +56,7 @@ export default Router.map(function () {
         this.route('export', {path: ':fileId/export'});
         this.route('jipt', {path: ':fileId/jipt'});
         this.route('machine-translations', {
-          path: ':fileId/machine-translations',
+          path: ':fileId/machine-translations'
         });
       });
       this.route('versions', function () {

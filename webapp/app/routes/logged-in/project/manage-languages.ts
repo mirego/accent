@@ -5,7 +5,7 @@ import Route from '@ember/routing/route';
 import projectNewLanguageQuery from 'accent-webapp/queries/project-new-language';
 import RouteParams from 'accent-webapp/services/route-params';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/transition';
 import ManageLanguagesController from 'accent-webapp/controllers/logged-in/project/manage-languages';
@@ -29,15 +29,15 @@ export default class ManageLanguagesRoute extends Route {
       {
         props: (data) => ({
           project: data.viewer.project,
-          languages: data.languages.entries,
+          languages: data.languages.entries
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
-              .projectId,
-          },
-        },
+              .projectId
+          }
+        }
       }
     );
 

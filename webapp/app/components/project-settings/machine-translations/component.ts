@@ -14,7 +14,7 @@ interface Args {
     provider,
     enabledActions,
     usePlatform,
-    configKey,
+    configKey
   }: {
     provider: string;
     enabledActions: string[];
@@ -28,8 +28,7 @@ const PROVIDERS = ['google_translate', 'deepl'];
 /* eslint-disable camelcase */
 const LOGOS = {
   deepl: 'assets/machine_translations_providers/deepl.svg',
-  google_translate:
-    'assets/machine_translations_providers/google_translate.svg',
+  google_translate: 'assets/machine_translations_providers/google_translate.svg'
 };
 
 export default class ProjectSettingsMachineTranslations extends Component<Args> {
@@ -77,7 +76,7 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
     return PROVIDERS.map((value) => {
       return {
         label: this.intl.t(`general.machine_translations_providers.${value}`),
-        value,
+        value
       };
     });
   }
@@ -132,7 +131,7 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
       provider: this.provider,
       enabledActions: this.enabledActions,
       usePlatform: this.usePlatform,
-      configKey: this.configKey,
+      configKey: this.configKey
     });
   });
 

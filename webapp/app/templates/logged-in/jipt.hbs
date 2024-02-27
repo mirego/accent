@@ -1,13 +1,13 @@
 <style>
   body {
   {{{this.colors}}}
-  }
+  --body-background: #fff; }
 </style>
 
 <div>
   <JiptHeader @project={{this.model.project}} />
 
-  <RevisionSelector @revisions={{this.revisions}} @revision={{this.revision.id}} @withRevisionsCount={{false}} @onSelect={{fn this.selectRevision}} />
+  <RevisionSelector @jipt={{true}} @revisions={{this.revisions}} @revision={{this.revision.id}} @withRevisionsCount={{false}} @onSelect={{fn this.selectRevision}} />
 
   {{outlet}}
 </div>

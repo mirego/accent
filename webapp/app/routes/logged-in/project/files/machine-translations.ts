@@ -6,7 +6,7 @@ export default class MachineTranslationsRoute extends Route {
     return {
       projectModel: this.modelFor('logged-in.project'),
       fileModel: this.modelFor('logged-in.project.files'),
-      fileId,
+      fileId
     };
   }
 

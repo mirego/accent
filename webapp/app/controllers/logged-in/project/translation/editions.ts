@@ -50,8 +50,8 @@ export default class TranslationEditionsController extends Controller {
       mutation: translationUpdateQuery,
       variables: {
         translationId: translation.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {

@@ -43,8 +43,8 @@ export default class FileExport extends Component<Args> {
       filters: {
         isTextEmptyFilter: this.args.isTextEmptyFilter,
         isAddedLastSyncFilter: this.args.isAddedLastSyncFilter,
-        isConflictedFilter: this.args.isConflictedFilter,
-      },
+        isConflictedFilter: this.args.isConflictedFilter
+      }
     });
 
     this.content = data;

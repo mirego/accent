@@ -6,7 +6,7 @@ const LOGOS = {
   AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
-  SLACK: 'assets/services/slack.svg',
+  SLACK: 'assets/services/slack.svg'
 };
 
 const EXECUTABLE_SERVICES = ['AZURE_STORAGE_CONTAINER'];

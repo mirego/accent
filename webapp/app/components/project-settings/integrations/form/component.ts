@@ -9,7 +9,7 @@ const LOGOS = {
   AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
-  SLACK: 'assets/services/slack.svg',
+  SLACK: 'assets/services/slack.svg'
 };
 
 interface Args {
@@ -19,7 +19,7 @@ interface Args {
     service,
     events,
     integration,
-    data: {url, azureStorageContainerSas},
+    data: {url, azureStorageContainerSas}
   }: {
     service: any;
     events: any;
@@ -81,7 +81,7 @@ export default class IntegrationsForm extends Component<Args> {
     return this.services.map((value) => {
       return {
         label: this.intl.t(`general.integration_services.${value}`),
-        value,
+        value
       };
     });
   }
@@ -100,8 +100,8 @@ export default class IntegrationsForm extends Component<Args> {
         service: this.args.selectedServiceValue || this.services[0],
         events: [],
         data: {
-          url: this.url,
-        },
+          url: this.url
+        }
       };
     }
 
@@ -146,8 +146,8 @@ export default class IntegrationsForm extends Component<Args> {
       integration: this.integration.newRecord ? null : this.integration,
       data: {
         url: this.url,
-        azureStorageContainerSas: this.azureStorageContainerSas,
-      },
+        azureStorageContainerSas: this.azureStorageContainerSas
+      }
     });
 
     this.isSubmiting = false;

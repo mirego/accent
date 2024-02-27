@@ -68,14 +68,14 @@ export default class ImprovePrompt extends Component<Args> {
     const {data} = await this.apollo.client.query({
       query: projectPrompts,
       fetchPolicy: 'network-only',
-      variables,
+      variables
     });
 
     if (!data.viewer.project.prompts) return;
 
     this.promptOptions = data.viewer.project.prompts.map((prompt: Prompt) => ({
       label: prompt.name,
-      value: prompt.id,
+      value: prompt.id
     }));
     this.promptOptionValue = this.promptOptions[0];
   });
@@ -99,11 +99,11 @@ export default class ImprovePrompt extends Component<Args> {
 
     const variables = {
       text: this.args.text,
-      promptId: promptId || this.promptOptionValue?.value,
+      promptId: promptId || this.promptOptionValue?.value
     };
     const {data} = await this.apollo.client.mutate({
       mutation: improveTextPromptMutation,
-      variables,
+      variables
     });
 
     if (data.improveTextWithPrompt?.text) {

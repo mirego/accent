@@ -3,7 +3,7 @@ import {action} from '@ember/object';
 import hljs from 'highlight.js';
 
 hljs.configure({
-  languages: ['javascript', 'json', 'php', 'xml', 'yaml', 'properties'],
+  languages: ['javascript', 'json', 'php', 'xml', 'yaml', 'properties']
 });
 
 interface Args {

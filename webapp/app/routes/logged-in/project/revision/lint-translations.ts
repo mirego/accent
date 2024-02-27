@@ -5,7 +5,7 @@ import GlobalState from 'accent-webapp/services/global-state';
 
 import lintQuery from 'accent-webapp/queries/lint-translations';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import RouteParams from 'accent-webapp/services/route-params';
 import Transition from '@ember/routing/transition';
@@ -29,17 +29,17 @@ export default class LintRoute extends Route {
 
   queryParams = {
     documentFilter: {
-      refreshModel: true,
+      refreshModel: true
     },
     versionFilter: {
-      refreshModel: true,
+      refreshModel: true
     },
     ruleFilter: {
-      refreshModel: true,
+      refreshModel: true
     },
     query: {
-      refreshModel: true,
-    },
+      refreshModel: true
+    }
   };
 
   model(params: any, transition: Transition) {
@@ -54,7 +54,7 @@ export default class LintRoute extends Route {
           project: data.viewer.project,
           documents: data.viewer.project.documents,
           versions: data.viewer.project.versions,
-          lintTranslations: data.viewer.project.lintTranslations,
+          lintTranslations: data.viewer.project.lintTranslations
         }),
         options: {
           fetchPolicy: 'cache-and-network',
@@ -68,9 +68,9 @@ export default class LintRoute extends Route {
             ruleIds: params.ruleFilter,
             query: params.query,
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
-              .projectId,
-          },
-        },
+              .projectId
+          }
+        }
       }
     );
 
@@ -90,7 +90,7 @@ export default class LintRoute extends Route {
       {
         queryParams: this.fetchQueryParams(
           this.controller as LintTranslationsController
-        ),
+        )
       }
     );
   }
@@ -99,7 +99,7 @@ export default class LintRoute extends Route {
     const query = controller.query;
 
     return {
-      query,
+      query
     };
   }
 }

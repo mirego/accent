@@ -131,7 +131,9 @@
   font-size: 12px;
   color: var(--text-color-normal);
   opacity: 0.8;
-  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transition:
+    color 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
 
   &.placeholders-item--warning {
     opacity: 1;

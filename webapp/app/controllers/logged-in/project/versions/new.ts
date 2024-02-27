@@ -58,8 +58,8 @@ export default class NewController extends Controller {
       variables: {
         projectId,
         name,
-        tag,
-      },
+        tag
+      }
     });
 
     if (response.errors) {

@@ -14,7 +14,7 @@ export default class RevisionOperations extends Component<Args> {
     return this.args.revisionOperations.map((revisionOperation: any) => {
       return {
         label: revisionOperation.language.name,
-        value: revisionOperation.language.id,
+        value: revisionOperation.language.id
       };
     });
   }

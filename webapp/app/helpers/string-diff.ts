@@ -42,7 +42,7 @@ const escape = {
   '"': '&quot;',
   "'": '&#x27;',
   '`': '&#x60;',
-  '=': '&#x3D;',
+  '=': '&#x3D;'
 };
 
 const escapeChar = (chr: keyof typeof escape) => {

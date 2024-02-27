@@ -64,7 +64,7 @@ export default class ConflictsFilters extends Component<Args> {
     const documents = this.args.documents.map(
       ({id, path}: {id: string; path: string}) => ({
         label: path,
-        value: id,
+        value: id
       })
     );
 
@@ -72,7 +72,7 @@ export default class ConflictsFilters extends Component<Args> {
       label: this.intl.t(
         'components.conflicts_filters.document_default_option_text'
       ),
-      value: '',
+      value: ''
     });
 
     return documents;
@@ -111,7 +111,7 @@ export default class ConflictsFilters extends Component<Args> {
     const versions = this.args.versions.map(
       ({id, tag}: {id: string; tag: string}) => ({
         label: tag,
-        value: id,
+        value: id
       })
     );
 
@@ -119,7 +119,7 @@ export default class ConflictsFilters extends Component<Args> {
       label: this.intl.t(
         'components.conflicts_filters.version_default_option_text'
       ),
-      value: '',
+      value: ''
     });
 
     return versions;
@@ -134,7 +134,7 @@ export default class ConflictsFilters extends Component<Args> {
         language: {slug: string; name: string};
       }) => ({
         label: revision.name || revision.language.name,
-        value: revision.id,
+        value: revision.id
       })
     );
   }

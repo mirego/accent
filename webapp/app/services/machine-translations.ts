@@ -28,7 +28,7 @@ export default class MachineTranslations extends Service {
     documentId,
     toLanguage,
     fromLanguage,
-    documentFormat,
+    documentFormat
   }: TranslateDocumentOptions) {
     const url = fmt(
       config.API.MACHINE_TRANSLATIONS_TRANSLATE_DOCUMENT_PROJECT_PATH,
@@ -47,7 +47,7 @@ export default class MachineTranslations extends Service {
     file,
     toLanguage,
     fromLanguage,
-    documentFormat,
+    documentFormat
   }: TranslateFileOptions) {
     const url = fmt(
       config.API.MACHINE_TRANSLATIONS_TRANSLATE_FILE_PROJECT_PATH,
@@ -58,7 +58,7 @@ export default class MachineTranslations extends Service {
     );
 
     return this.authenticatedRequest.machineTranslationsTranslateFile(url, {
-      file,
+      file
     });
   }
 }

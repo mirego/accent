@@ -52,7 +52,7 @@ export default class NewMachineTranslationsController extends Controller {
         file,
         fromLanguage,
         toLanguage,
-        documentFormat,
+        documentFormat
       });
       this.translatedFileContent = content;
     } catch (error) {

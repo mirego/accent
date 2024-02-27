@@ -97,7 +97,7 @@ lint-eslint:
 
 .PHONY: lint-prettier
 lint-prettier:
-	npx prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
+	npx prettier --trailing-comma none --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
 
 .PHONY: lint-template-hbs
 lint-template-hbs:
@@ -129,7 +129,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	npx prettier --write --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
+	npx prettier --write --single-quote --trailing-comma none --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
 
 # Development targets
 # -------------------

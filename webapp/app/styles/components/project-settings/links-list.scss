@@ -19,7 +19,9 @@
   background: var(--content-background);
   border-radius: var(--border-radius);
   color: var(--color-black);
-  box-shadow: 0 1px 4px var(--shadow-color), 0 9px 19px var(--shadow-color);
+  box-shadow:
+    0 1px 4px var(--shadow-color),
+    0 9px 19px var(--shadow-color);
   text-decoration: none;
   font-weight: 600;
   font-size: 13px;
@@ -48,7 +50,9 @@
   &:focus,
   &:hover {
     color: var(--color-primary);
-    box-shadow: 0 3px 8px var(--shadow-color), 0 9px 12px var(--shadow-color);
+    box-shadow:
+      0 3px 8px var(--shadow-color),
+      0 9px 12px var(--shadow-color);
     transform: scale(1.02);
 
     .link-check {

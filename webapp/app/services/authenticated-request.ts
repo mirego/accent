@@ -38,7 +38,7 @@ export default class AuthenticatedRequest extends Service {
 
     fetchOptions.method = 'POST';
     fetchOptions.headers = {
-      Authorization: `Bearer ${this.session.credentials.token}`,
+      Authorization: `Bearer ${this.session.credentials.token}`
     };
 
     const response = await fetch(url, fetchOptions);
@@ -70,7 +70,7 @@ export default class AuthenticatedRequest extends Service {
     const options: RequestInit = {};
 
     options.headers = {
-      Authorization: `Bearer ${this.session.credentials.token}`,
+      Authorization: `Bearer ${this.session.credentials.token}`
     };
 
     const response = await fetch(url, options);
@@ -89,7 +89,7 @@ export default class AuthenticatedRequest extends Service {
 
     fetchOptions.method = 'POST';
     fetchOptions.headers = {
-      Authorization: `Bearer ${this.session.credentials.token}`,
+      Authorization: `Bearer ${this.session.credentials.token}`
     };
 
     fetchOptions.body = this.setupFormFile(options);

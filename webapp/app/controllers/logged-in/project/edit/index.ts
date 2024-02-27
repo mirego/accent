@@ -52,8 +52,8 @@ export default class ProjectEditIndexController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation: projectDeleteQuery,
       variables: {
-        projectId: project.id,
-      },
+        projectId: project.id
+      }
     });
 
     if (response.errors) {
@@ -79,8 +79,8 @@ export default class ProjectEditIndexController extends Controller {
       errorMessage: FLASH_MESSAGE_PROJECT_ERROR,
       variables: {
         projectId: project.id,
-        ...projectAttributes,
-      },
+        ...projectAttributes
+      }
     });
   }
 
@@ -88,7 +88,7 @@ export default class ProjectEditIndexController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage,
+    errorMessage
   }: {
     mutation: any;
     variables: any;
@@ -98,7 +98,7 @@ export default class ProjectEditIndexController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation,
       variables,
-      refetchQueries: ['ProjectEdit'],
+      refetchQueries: ['ProjectEdit']
     });
 
     if (response.errors) {

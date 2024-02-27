@@ -11,15 +11,15 @@
     "@babel/eslint-parser": "7.17.0",
     "@typescript-eslint/eslint-plugin": "5.12.1",
     "@typescript-eslint/parser": "5.12.1",
-    "ember-template-lint": "5.2.0",
-    "ember-template-lint-plugin-prettier": "4.1.0",
+    "ember-template-lint": "5.13.0",
+    "ember-template-lint-plugin-prettier": "5.0.0",
     "eslint": "8.10.0",
     "eslint-config-prettier": "8.4.0",
     "eslint-plugin-ember": "10.5.9",
     "eslint-plugin-mirego": "^1.0.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-sonarjs": "0.12.0",
-    "prettier": "2.5.1",
+    "prettier": "3.2.5",
     "typescript": "4.7.4"
   }
 }

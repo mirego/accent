@@ -54,7 +54,7 @@ export default class ConflictsController extends Controller {
     'isTextNotEmpty',
     'isAddedLastSync',
     'isCommentedOn',
-    'isTranslatedFilter',
+    'isTranslatedFilter'
   ];
 
   @tracked
@@ -105,7 +105,7 @@ export default class ConflictsController extends Controller {
       this.isTextNotEmpty,
       this.isAddedLastSync,
       this.isCommentedOn,
-      this.isTranslated,
+      this.isTranslated
     ].filter((filter) => filter === 'true').length;
   }
 
@@ -128,8 +128,8 @@ export default class ConflictsController extends Controller {
       mutation: translationCorrectQuery,
       variables: {
         translationId: conflict.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {
@@ -147,8 +147,8 @@ export default class ConflictsController extends Controller {
       mutation: translationUncorrectQuery,
       variables: {
         translationId: conflict.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {
@@ -166,8 +166,8 @@ export default class ConflictsController extends Controller {
       mutation: translationUpdateQuery,
       variables: {
         translationId: conflict.id,
-        text,
-      },
+        text
+      }
     });
 
     if (response.errors) {

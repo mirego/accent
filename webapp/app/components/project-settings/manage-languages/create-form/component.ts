@@ -63,7 +63,7 @@ export default class CreateForm extends Component<Args> {
 
     await this.args.onCreate(this.language, {
       machineTranslationsEnabled: this.machineTranslationsEnabled,
-      defaultNull: this.defaultNull,
+      defaultNull: this.defaultNull
     });
 
     this.isLoading = false;

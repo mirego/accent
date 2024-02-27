@@ -65,7 +65,7 @@ export default class Document {
     const response = await fetch(url, {
       body: formData,
       headers: this.authorizationHeader(),
-      method: 'POST',
+      method: 'POST'
     });
 
     await throwOnServerError(response);
@@ -87,7 +87,7 @@ export default class Document {
     const response = await fetch(url, {
       body: formData,
       headers: this.authorizationHeader(),
-      method: 'POST',
+      method: 'POST'
     });
 
     await throwOnServerError(response);
@@ -114,7 +114,7 @@ export default class Document {
     const response = await fetch(url, {
       body: formData,
       headers: this.authorizationHeader(),
-      method: 'POST',
+      method: 'POST'
     });
 
     await throwOnServerError(response);
@@ -146,7 +146,7 @@ export default class Document {
     const response = await fetch(url, {
       body: formData,
       headers: this.authorizationHeader(),
-      method: 'POST',
+      method: 'POST'
     });
 
     await throwOnServerError(response);
@@ -174,7 +174,7 @@ export default class Document {
       ['document_path', documentPath],
       ['document_format', this.config.format],
       ['order_by', options['order-by']],
-      ['language', language],
+      ['language', language]
     ];
 
     if (options.version) query.push(['version', options.version]);
@@ -182,7 +182,7 @@ export default class Document {
 
     const url = `${this.apiUrl}/export?${this.encodeQuery(query)}`;
     const response = await fetch(url, {
-      headers: this.authorizationHeader(),
+      headers: this.authorizationHeader()
     });
     await throwOnServerError(response);
 
@@ -192,7 +192,7 @@ export default class Document {
   async exportJipt(file: string, documentPath: string) {
     const query = [
       ['document_path', documentPath],
-      ['document_format', this.config.format],
+      ['document_format', this.config.format]
     ];
 
     if (this.projectId) query.push(['project_id', this.projectId]);
@@ -200,7 +200,7 @@ export default class Document {
     const url = `${this.apiUrl}/jipt-export?${this.encodeQuery(query)}`;
 
     const response = await fetch(url, {
-      headers: this.authorizationHeader(),
+      headers: this.authorizationHeader()
     });
     await throwOnServerError(response);
 

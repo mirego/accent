@@ -14,7 +14,7 @@ import {htmlSafe} from '@ember/template';
 const markdown = MarkdownIt({
   html: false,
   linkify: true,
-  typographer: true,
+  typographer: true
 });
 
 const DEBOUNCE_LINT_MESSAGES = 800;
@@ -50,7 +50,7 @@ export default class TranslationEditForm extends Component<Args> {
   @tracked
   lintTranslation = {
     translation: {id: this.args.translationId, text: this.args.value},
-    messages: this.args.lintMessages,
+    messages: this.args.lintMessages
   };
 
   @tracked
@@ -147,12 +147,12 @@ export default class TranslationEditForm extends Component<Args> {
       variables: {
         text: value,
         projectId: this.args.projectId,
-        translationId: this.args.translationId,
-      },
+        translationId: this.args.translationId
+      }
     });
 
     this.lintTranslation = Object.assign(this.lintTranslation, {
-      messages: data.viewer.project.translation.lintMessages,
+      messages: data.viewer.project.translation.lintMessages
     });
   });
 

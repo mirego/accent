@@ -52,8 +52,8 @@ export default class FilesController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation: documentDeleteQuery,
       variables: {
-        documentId: documentEntity.id,
-      },
+        documentId: documentEntity.id
+      }
     });
 
     if (response.errors) {
@@ -70,8 +70,8 @@ export default class FilesController extends Controller {
       mutation: documentUpdateQuery,
       variables: {
         documentId: documentEntity.id,
-        path,
-      },
+        path
+      }
     });
 
     if (response.errors) {

@@ -52,8 +52,8 @@ export default class ManageLanguagesEditController extends Controller {
       mutation: revisionUpdateQuery,
       variables: {
         revisionId: this.revision.id,
-        ...revisionAttributes,
-      },
+        ...revisionAttributes
+      }
     });
 
     if (response.errors) {

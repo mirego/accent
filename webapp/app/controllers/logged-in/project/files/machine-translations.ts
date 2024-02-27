@@ -69,7 +69,7 @@ export default class MachineTranslationsController extends Controller {
         documentId: this.model.fileId,
         fromLanguage,
         toLanguage,
-        documentFormat,
+        documentFormat
       });
       this.translatedFileContent = content;
     } catch (error) {

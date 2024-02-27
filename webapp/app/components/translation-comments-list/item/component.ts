@@ -11,7 +11,7 @@ import {tracked} from '@glimmer/tracking';
 const markdown = MarkdownIt({
   html: false,
   linkify: true,
-  typographer: true,
+  typographer: true
 });
 
 interface Args {

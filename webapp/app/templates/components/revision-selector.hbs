@@ -1,5 +1,5 @@
 {{#if this.hasManyRevisions}}
-  <div local-class='revision-selector'>
+  <div local-class='revision-selector {{if @jipt "revision-selector--jipt"}}'>
     {{#if @revisions.length}}
       <div local-class='select'>
         <div local-class='overlay'>

@@ -110,7 +110,9 @@
   max-width: 340px;
   padding: 15px;
   background: var(--content-background);
-  box-shadow: 0 1px 4px var(--shadow-color), 0 7px 12px var(--shadow-color);
+  box-shadow:
+    0 1px 4px var(--shadow-color),
+    0 7px 12px var(--shadow-color);
   border-radius: var(--border-radius);
   color: var(--color-primary);
   text-decoration: none;

@@ -40,13 +40,13 @@ export default class IntegrationExecuteAzureStorageContainer extends Component<A
     {
       value: 'LATEST',
       label:
-        'components.project_settings.integrations.execute.azure_storage_container.target_version.options.latest',
+        'components.project_settings.integrations.execute.azure_storage_container.target_version.options.latest'
     },
     {
       value: 'SPECIFIC',
       label:
-        'components.project_settings.integrations.execute.azure_storage_container.target_version.options.specific',
-    },
+        'components.project_settings.integrations.execute.azure_storage_container.target_version.options.specific'
+    }
   ];
 
   @tracked
@@ -88,9 +88,9 @@ export default class IntegrationExecuteAzureStorageContainer extends Component<A
         integrationId: this.args.integration.id,
         azureStorageContainer: {
           tag: this.tag,
-          targetVersion: this.targetVersion,
-        },
-      },
+          targetVersion: this.targetVersion
+        }
+      }
     });
 
     if (response.errors) {

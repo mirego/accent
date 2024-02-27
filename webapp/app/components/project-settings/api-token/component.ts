@@ -55,7 +55,7 @@ export default class APIToken extends Component<Args> {
     const response: CreateApiTokenResponse = await this.args.onCreate({
       name: this.apiTokenName,
       pictureUrl: this.apiTokenPictureUrl,
-      permissions: this.apiTokenPermissions,
+      permissions: this.apiTokenPermissions
     });
 
     if (response.apiToken) {

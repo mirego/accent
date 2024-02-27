@@ -88,7 +88,7 @@ export default class SyncController extends Controller {
     documentFormat,
     revision,
     version,
-    syncType,
+    syncType
   }: {
     fileSource: any;
     documentFormat: any;
@@ -108,7 +108,7 @@ export default class SyncController extends Controller {
       file,
       documentPath,
       documentFormat,
-      syncType,
+      syncType
     });
 
     this.revisionOperations = revisionOperations;
@@ -120,7 +120,7 @@ export default class SyncController extends Controller {
     documentFormat,
     revision,
     version,
-    syncType,
+    syncType
   }: {
     fileSource: any;
     documentFormat: any;
@@ -140,7 +140,7 @@ export default class SyncController extends Controller {
         file,
         documentPath,
         documentFormat,
-        syncType,
+        syncType
       });
 
       this.flashMessages.success(this.intl.t(FLASH_MESSAGE_CREATE_SUCCESS));

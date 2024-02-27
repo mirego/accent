@@ -4,7 +4,7 @@ import Route from '@ember/routing/route';
 import projectPromptConfigQuery from 'accent-webapp/queries/project-prompt-config';
 import RouteParams from 'accent-webapp/services/route-params';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/transition';
 
@@ -27,15 +27,15 @@ export default class PomptsRoute extends Route {
       {
         props: (data) => ({
           project: data.viewer.project,
-          prompts: data.viewer.project.prompts,
+          prompts: data.viewer.project.prompts
         }),
         options: {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
-              .projectId,
-          },
-        },
+              .projectId
+          }
+        }
       }
     );
 

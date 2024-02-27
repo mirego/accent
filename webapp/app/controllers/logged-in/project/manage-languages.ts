@@ -72,8 +72,8 @@ export default class ManageLanguagesController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation: revisionDeleteQuery,
       variables: {
-        revisionId: revision.id,
-      },
+        revisionId: revision.id
+      }
     });
 
     if (response.errors) {
@@ -94,8 +94,8 @@ export default class ManageLanguagesController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation: revisionMasterPromoteQuery,
       variables: {
-        revisionId: revision.id,
-      },
+        revisionId: revision.id
+      }
     });
 
     if (response.errors) {
@@ -126,8 +126,8 @@ export default class ManageLanguagesController extends Controller {
         projectId: project.id,
         languageId,
         defaultNull: options.defaultNull,
-        machineTranslationsEnabled: options.machineTranslationsEnabled,
-      },
+        machineTranslationsEnabled: options.machineTranslationsEnabled
+      }
     });
 
     if (response.errors) {

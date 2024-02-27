@@ -10,7 +10,7 @@ import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 import RouterService from '@ember/routing/router-service';
 
 import promptCreateQuery, {
-  CreatePromptResponse,
+  CreatePromptResponse
 } from 'accent-webapp/queries/create-project-prompt';
 import projectPromptConfigQuery from 'accent-webapp/queries/project-prompt-config';
 import {InMemoryCache} from '@apollo/client/cache';
@@ -48,7 +48,7 @@ export default class PromptsNewController extends Controller {
   async create({
     content,
     name,
-    quickAccess,
+    quickAccess
   }: {
     name: string | null;
     content: string;
@@ -58,7 +58,7 @@ export default class PromptsNewController extends Controller {
       mutation: promptCreateQuery,
       successMessage: FLASH_MESSAGE_PROMPT_CREATE_SUCCESS,
       errorMessage: FLASH_MESSAGE_PROMPT_CREATE_ERROR,
-      variables: {id: this.project.id, content, name, quickAccess},
+      variables: {id: this.project.id, content, name, quickAccess}
     });
   }
 
@@ -66,7 +66,7 @@ export default class PromptsNewController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage,
+    errorMessage
   }: {
     mutation: any;
     variables: any;
@@ -82,13 +82,13 @@ export default class PromptsNewController extends Controller {
       update: (
         cache: InMemoryCache,
         {
-          data: {createProjectPrompt},
+          data: {createProjectPrompt}
         }: {data: {createProjectPrompt: CreatePromptResponse}}
       ) => {
         cache.updateQuery(
           {
             query: projectPromptConfigQuery,
-            variables: {projectId: this.project.id},
+            variables: {projectId: this.project.id}
           },
           (data) => {
             return {
@@ -97,14 +97,14 @@ export default class PromptsNewController extends Controller {
                 project: {
                   ...data.viewer.project,
                   prompts: data.viewer.project.prompts.concat([
-                    createProjectPrompt.prompt,
-                  ]),
-                },
-              },
+                    createProjectPrompt.prompt
+                  ])
+                }
+              }
             };
           }
         );
-      },
+      }
     });
 
     if (response.errors) {

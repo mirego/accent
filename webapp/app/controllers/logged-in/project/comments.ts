@@ -49,8 +49,8 @@ export default class CommentsController extends Controller {
       refetchQueries: ['ProjectComments'],
       variables: {
         commentId: comment.id,
-        text: comment.text,
-      },
+        text: comment.text
+      }
     });
   }
 
@@ -60,8 +60,8 @@ export default class CommentsController extends Controller {
       mutation: commentDeleteQuery,
       refetchQueries: ['ProjectComments'],
       variables: {
-        commentId: comment.id,
-      },
+        commentId: comment.id
+      }
     });
 
     if (response.errors) {

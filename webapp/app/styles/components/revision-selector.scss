@@ -2,6 +2,14 @@
   position: relative;
   margin-bottom: 15px;
 
+  &.revision-selector--jipt {
+    margin-bottom: 0;
+
+    .overlay {
+      border-radius: 0;
+    }
+  }
+
   select {
     padding: 10px 10px 10px 7px;
     padding-bottom: 25px;

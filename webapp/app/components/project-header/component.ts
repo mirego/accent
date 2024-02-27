@@ -54,7 +54,7 @@ export default class ProjectsHeader extends Component<Args> {
       this.args.project.id,
       this.selectedRevision,
       {
-        queryParams: {query},
+        queryParams: {query}
       }
     );
   });

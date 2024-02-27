@@ -39,7 +39,7 @@ export default class CreateForm extends Component<Args> {
   get mappedPossibleRoles() {
     return this.possibleRoles.map((value) => ({
       label: this.intl.t(`general.roles.${value}`),
-      value,
+      value
     }));
   }
 

@@ -6,10 +6,14 @@ import {readOnly} from '@ember/object/computed';
 import Color from 'color';
 import RouterService from '@ember/routing/router-service';
 import {tracked} from '@glimmer/tracking';
+import GlobalState from 'accent-webapp/services/global-state';
 
 export default class JIPTController extends Controller {
   @service('router')
   router: RouterService;
+
+  @service('global-state')
+  globalState: GlobalState;
 
   queryParams = ['revisionId'];
 
@@ -28,7 +32,7 @@ export default class JIPTController extends Controller {
   @readOnly('model.project.revisions')
   revisions: any;
 
-  constructor(...args: any) {
+  constructor(...args: any[]) {
     super(...args);
 
     window.addEventListener(
@@ -42,7 +46,7 @@ export default class JIPTController extends Controller {
         }
         if (payload.data.jipt && payload.data.selectIds) {
           this.router.transitionTo('logged-in.jipt.index', {
-            queryParams: {translationIds: payload.data.selectIds},
+            queryParams: {translationIds: payload.data.selectIds}
           });
         }
       },

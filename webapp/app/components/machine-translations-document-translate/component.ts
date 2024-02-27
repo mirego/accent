@@ -96,7 +96,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
 
     return this.globalState.documentFormats.map(({slug, name}) => ({
       value: slug,
-      label: name,
+      label: name
     }));
   }
 
@@ -132,7 +132,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
         id: language.id,
         name: language.name,
         slug: language.slug,
-        language,
+        language
       };
     } else {
       revision = this.args.revisions.find(
@@ -171,7 +171,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
       revision: this.revision,
       project: this.args.project,
       document: this.args.document,
-      documentFormat: this.documentFormat.value,
+      documentFormat: this.documentFormat.value
     });
 
     this.fileContent = data;
@@ -190,7 +190,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
     if (!this.args.translatedFileContent) return;
 
     const blob = new Blob([this.args.translatedFileContent as BlobPart], {
-      type: 'charset=utf-8',
+      type: 'charset=utf-8'
     });
 
     if (this.documentFormatItem?.extension) {
@@ -213,7 +213,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
 
     return {
       label,
-      value: revision.language.id,
+      value: revision.language.id
     };
   }
 
@@ -224,7 +224,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
   private mapLanguage({
     id,
     name,
-    slug,
+    slug
   }: {
     id: string;
     name: string;

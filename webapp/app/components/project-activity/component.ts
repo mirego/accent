@@ -23,7 +23,7 @@ const ROLLBACKABLE_ACTIONS = [
   'conflict_on_corrected',
   'conflict_on_proposed',
   'merge_on_proposed',
-  'merge_on_corrected',
+  'merge_on_corrected'
 ];
 
 interface Args {
@@ -169,12 +169,12 @@ export default class ProjectActivity extends Component<Args> {
     const variables = {
       projectId: this.args.project.id,
       activityId: this.args.activity.id,
-      page,
+      page
     };
 
     const {data} = await this.apollo.client.query({
       query: activityActivitiesQuery,
-      variables,
+      variables
     });
 
     const operations = data.viewer.project.activity.operations;

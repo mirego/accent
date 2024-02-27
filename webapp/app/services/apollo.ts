@@ -30,8 +30,8 @@ const authLink = (getSession: any) => {
       operation.setContext(({headers = {}}: any) => ({
         headers: {
           ...headers,
-          authorization: `Bearer ${token}`,
-        },
+          authorization: `Bearer ${token}`
+        }
       }));
     }
 
@@ -50,9 +50,9 @@ export default class Apollo extends Service {
     link: ApolloLink.from([
       authLink(() => this.session),
       absintheBatchLink,
-      link,
+      link
     ]),
-    cache,
+    cache
   });
 }
 

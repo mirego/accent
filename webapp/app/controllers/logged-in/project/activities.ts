@@ -26,7 +26,7 @@ export default class ActivitiesController extends Controller {
     'actionFilter',
     'userFilter',
     'page',
-    'versionFilter',
+    'versionFilter'
   ];
 
   @tracked

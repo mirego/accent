@@ -19,7 +19,7 @@ const DEFAULT_PROPERTIES = {
   file: null,
   fileSource: null,
   documentPath: null,
-  documentFormat: 'json',
+  documentFormat: 'json'
 };
 
 interface Args {
@@ -140,7 +140,7 @@ export default class CommitFile extends Component<Args> {
     return this.args.revisions.map(
       ({id, language}: {id: string; language: {name: string}}) => ({
         label: language.name,
-        value: id,
+        value: id
       })
     );
   }
@@ -152,14 +152,14 @@ export default class CommitFile extends Component<Args> {
   get mappedMergeTypes() {
     return this.mergeTypes.map((name) => ({
       label: name,
-      value: name,
+      value: name
     }));
   }
 
   get mappedSyncTypes() {
     return this.syncTypes.map((name) => ({
       label: name,
-      value: name,
+      value: name
     }));
   }
 
@@ -167,12 +167,12 @@ export default class CommitFile extends Component<Args> {
     return [
       {
         label: this.intl.t('components.commit_file.no_version_label'),
-        value: null,
+        value: null
       },
       ...this.args.versions.map(({id, tag}: {id: string; tag: string}) => ({
         label: tag,
-        value: id,
-      })),
+        value: id
+      }))
     ];
   }
 
@@ -187,7 +187,7 @@ export default class CommitFile extends Component<Args> {
 
     return this.globalState.documentFormats.map(({slug, name}) => ({
       value: slug,
-      label: name,
+      label: name
     }));
   }
 
@@ -251,7 +251,7 @@ export default class CommitFile extends Component<Args> {
         revision: this.revision,
         mergeType: this.mergeType.value,
         syncType: this.syncType.value,
-        mergeOptions: this.correctOnMerge ? ['correct'] : [],
+        mergeOptions: this.correctOnMerge ? ['correct'] : []
       });
 
       this.onCommitingDone();
@@ -273,7 +273,7 @@ export default class CommitFile extends Component<Args> {
         version: this.version && this.version.tag,
         mergeType: this.mergeType.value,
         syncType: this.syncType.value,
-        mergeOptions: this.correctOnMerge ? ['correct'] : [],
+        mergeOptions: this.correctOnMerge ? ['correct'] : []
       });
 
       this.onPeekingDone();

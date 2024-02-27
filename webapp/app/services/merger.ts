@@ -24,7 +24,7 @@ export default class Merger extends Service {
     documentPath,
     documentFormat,
     mergeType,
-    mergeOptions,
+    mergeOptions
   }: MergeOptions) {
     const language = revision.language;
     const url = fmt(
@@ -40,7 +40,7 @@ export default class Merger extends Service {
     return this.authenticatedRequest.commit(url, {
       file,
       documentPath,
-      documentFormat,
+      documentFormat
     });
   }
 }

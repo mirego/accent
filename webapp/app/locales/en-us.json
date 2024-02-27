@@ -440,6 +440,8 @@
         "title": "Just In Place Translations",
         "integration_help": "This steps will walk you throught the setup you need to have in your project to translate your strings in your browser, inside your project.",
         "integration_link": "See official guides on how to integrate live editing in your website ->",
+        "demo_help": "See a static HTML page that renders the first string of your project in different context. The Accent live integration can be seen at the bottom of the page. Note that the live example use your real project’s data.",
+        "demo_link": "Open example →",
         "add_language_title": "Add the pseudo language to your project",
         "add_language_image_1": "Here is a language like you already have in your project:",
         "add_language_image_2": "Here is the pseudo language named \"accent\" that act as a normal translation in your project:",

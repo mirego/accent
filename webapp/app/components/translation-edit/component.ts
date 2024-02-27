@@ -78,9 +78,10 @@ export default class TranslationEdit extends Component<Args> {
   }
 
   @action
-  onUpdateText(value: string) {
-    this.text = value;
+  onUpdateText(text: string) {
+    this.text = text;
     this.inputDisabled = false;
+    this.args.onChangeText?.(text);
   }
 
   @action

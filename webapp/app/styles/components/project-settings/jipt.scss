@@ -1,5 +1,12 @@
 .project-settings-jipt {
   margin-top: 30px;
+
+  hr {
+    margin: 20px 0;
+    border: 0;
+    height: 1px;
+    background: var(--background-light-highlight);
+  }
 }
 
 .text {

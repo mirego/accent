@@ -23,6 +23,7 @@ interface Args {
   isCommentedOnFilter: boolean;
   isConflictedFilter: boolean;
   isTranslatedFilter: boolean;
+  jipt?: boolean;
   onChangeQuery: (query: string) => void;
   onChangeDocument: () => void;
   onChangeVersion: () => void;
@@ -51,7 +52,7 @@ export default class TranslationsFilter extends Component<Args> {
     const documents = this.args.documents.map(
       ({id, path}: {id: string; path: string}) => ({
         label: path,
-        value: id,
+        value: id
       })
     );
 
@@ -59,7 +60,7 @@ export default class TranslationsFilter extends Component<Args> {
       label: this.intl.t(
         'components.translations_filter.document_default_option_text'
       ),
-      value: '',
+      value: ''
     });
 
     return documents;
@@ -75,7 +76,7 @@ export default class TranslationsFilter extends Component<Args> {
     const versions = this.args.versions.map(
       ({id, tag}: {id: string; tag: string}) => ({
         label: tag,
-        value: id,
+        value: id
       })
     );
 
@@ -83,7 +84,7 @@ export default class TranslationsFilter extends Component<Args> {
       label: this.intl.t(
         'components.translations_filter.version_default_option_text'
       ),
-      value: '',
+      value: ''
     });
 
     return versions;

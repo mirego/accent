@@ -34,7 +34,7 @@ export default class LintTranslationsPage extends Component<Args> {
 
     return Object.entries(stats).map(([title, count]) => ({
       title,
-      count,
+      count
     })) as Stat[];
   }
 }

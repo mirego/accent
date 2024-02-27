@@ -45,7 +45,7 @@ export default class Phoenix extends Service {
 
   socket({token}: {token: string}) {
     const socket = new Socket('/socket', {
-      params: {token},
+      params: {token}
     });
 
     socket.connect();
@@ -81,7 +81,7 @@ export default class Phoenix extends Service {
     const events = {
       sync: this.handleSync,
       create_collaborator: this.handleCreateCollaborator,
-      create_comment: this.handleCreateComment,
+      create_comment: this.handleCreateComment
     };
     /* eslint-enable camelcase */
 
@@ -100,7 +100,7 @@ export default class Phoenix extends Service {
     /* eslint camelcase:0 */
     this.showFlashMessage('sync', {
       user: user.name,
-      documentPath: payload.document_path,
+      documentPath: payload.document_path
     });
     /* eslint camelcase:1 */
   }
@@ -108,7 +108,7 @@ export default class Phoenix extends Service {
   private handleCreateCollaborator({payload, user}: WebsocketMessage) {
     this.showFlashMessage('create_collaborator', {
       user: user.name,
-      collaboratorEmail: payload?.collaborator?.email,
+      collaboratorEmail: payload?.collaborator?.email
     });
   }
 
@@ -116,7 +116,7 @@ export default class Phoenix extends Service {
     this.showFlashMessage('create_comment', {
       user: user.name,
       commentText: payload.text,
-      translationKey: payload?.translation?.key,
+      translationKey: payload?.translation?.key
     });
   }
 

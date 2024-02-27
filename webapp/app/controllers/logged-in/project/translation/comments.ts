@@ -58,8 +58,8 @@ export default class CommentsController extends Controller {
       refetchQueries: ['TranslationComments'],
       variables: {
         translationId: translation.id,
-        text,
-      },
+        text
+      }
     });
   }
 
@@ -70,8 +70,8 @@ export default class CommentsController extends Controller {
       refetchQueries: ['TranslationComments'],
       variables: {
         commentId: comment.id,
-        text: comment.text,
-      },
+        text: comment.text
+      }
     });
   }
 
@@ -81,8 +81,8 @@ export default class CommentsController extends Controller {
       mutation: commentDeleteQuery,
       refetchQueries: ['TranslationComments'],
       variables: {
-        commentId: comment.id,
-      },
+        commentId: comment.id
+      }
     });
 
     if (response.errors) {
@@ -103,8 +103,8 @@ export default class CommentsController extends Controller {
       refetchQueries: ['TranslationComments'],
       variables: {
         translationId: translation.id,
-        userId: user.id,
-      },
+        userId: user.id
+      }
     });
   }
 
@@ -114,8 +114,8 @@ export default class CommentsController extends Controller {
       mutation: translationCommentsSubscriptionDeleteQuery,
       refetchQueries: ['TranslationComments'],
       variables: {
-        translationCommentsSubscripitionId: subscription.id,
-      },
+        translationCommentsSubscripitionId: subscription.id
+      }
     });
   }
 

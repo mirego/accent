@@ -8,7 +8,7 @@ interface Args {
   onCreate: ({
     content,
     name,
-    quickAccess,
+    quickAccess
   }: {
     content: string;
     name: string;

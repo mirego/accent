@@ -50,7 +50,7 @@ export default class PromptsEditController extends Controller {
   async update({
     content,
     name,
-    quickAccess,
+    quickAccess
   }: {
     name: string | null;
     content: string;
@@ -60,7 +60,7 @@ export default class PromptsEditController extends Controller {
       mutation: promptUpdateQuery,
       successMessage: FLASH_MESSAGE_PROMPT_UPDATE_SUCCESS,
       errorMessage: FLASH_MESSAGE_PROMPT_UPDATE_ERROR,
-      variables: {id: this.prompt.id, content, name, quickAccess},
+      variables: {id: this.prompt.id, content, name, quickAccess}
     });
   }
 
@@ -68,7 +68,7 @@ export default class PromptsEditController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage,
+    errorMessage
   }: {
     mutation: any;
     variables: any;
@@ -79,7 +79,7 @@ export default class PromptsEditController extends Controller {
 
     const response = await this.apolloMutate.mutate({
       mutation,
-      variables,
+      variables
     });
 
     if (response.errors) {

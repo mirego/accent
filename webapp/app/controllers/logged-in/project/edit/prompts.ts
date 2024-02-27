@@ -8,7 +8,7 @@ import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 
 import promptConfigSaveQuery, {
-  SaveProjectPromptConfigVariables,
+  SaveProjectPromptConfigVariables
 } from 'accent-webapp/queries/save-project-prompt-config';
 import promptConfigDeleteQuery from 'accent-webapp/queries/delete-project-prompt-config';
 import promptDeleteQuery from 'accent-webapp/queries/delete-project-prompt';
@@ -57,7 +57,7 @@ export default class PromptsController extends Controller {
       mutation: promptConfigSaveQuery,
       successMessage: FLASH_MESSAGE_CONFIG_SUCCESS,
       errorMessage: FLASH_MESSAGE_CONFIG_ERROR,
-      variables: {...config, projectId: this.project.id},
+      variables: {...config, projectId: this.project.id}
     });
   }
 
@@ -67,7 +67,7 @@ export default class PromptsController extends Controller {
       mutation: promptConfigDeleteQuery,
       successMessage: FLASH_MESSAGE_CONFIG_REMOVE_SUCCESS,
       errorMessage: FLASH_MESSAGE_CONFIG_REMOVE_ERROR,
-      variables: {projectId: this.project.id},
+      variables: {projectId: this.project.id}
     });
   }
 
@@ -77,7 +77,7 @@ export default class PromptsController extends Controller {
       mutation: promptDeleteQuery,
       successMessage: FLASH_MESSAGE_PROMPT_REMOVE_SUCCESS,
       errorMessage: FLASH_MESSAGE_PROMPT_REMOVE_ERROR,
-      variables: {promptId},
+      variables: {promptId}
     });
   }
 
@@ -85,7 +85,7 @@ export default class PromptsController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage,
+    errorMessage
   }: {
     mutation: any;
     variables: any;
@@ -95,7 +95,7 @@ export default class PromptsController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation,
       variables,
-      refetchQueries: ['Project', 'ProjectPromptConfig'],
+      refetchQueries: ['Project', 'ProjectPromptConfig']
     });
 
     if (response.errors) {
@@ -111,7 +111,7 @@ export default class PromptsController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage,
+    errorMessage
   }: {
     mutation: any;
     variables: any;
@@ -126,7 +126,7 @@ export default class PromptsController extends Controller {
         cache.updateQuery(
           {
             query: projectPromptConfigQuery,
-            variables: {projectId: this.project.id},
+            variables: {projectId: this.project.id}
           },
           (data) => {
             return {
@@ -136,13 +136,13 @@ export default class PromptsController extends Controller {
                   ...data.viewer.project,
                   prompts: data.viewer.project.prompts.filter(
                     (prompt: any) => prompt.id !== variables.promptId
-                  ),
-                },
-              },
+                  )
+                }
+              }
             };
           }
         );
-      },
+      }
     });
 
     if (response.errors) {

@@ -51,7 +51,7 @@ export default class APITokenController extends Controller {
   async createApiToken({
     name,
     pictureUrl,
-    permissions,
+    permissions
   }: {
     name: string;
     pictureUrl: string | null;
@@ -67,8 +67,8 @@ export default class APITokenController extends Controller {
         projectId: project.id,
         pictureUrl,
         name,
-        permissions,
-      },
+        permissions
+      }
     });
   }
 
@@ -79,8 +79,8 @@ export default class APITokenController extends Controller {
       successMessage: FLASH_MESSAGE_API_TOKEN_REVOKE_SUCCESS,
       errorMessage: FLASH_MESSAGE_API_TOKEN_REVOKE_ERROR,
       variables: {
-        id: apiToken.id,
-      },
+        id: apiToken.id
+      }
     });
   }
 
@@ -88,7 +88,7 @@ export default class APITokenController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage,
+    errorMessage
   }: {
     mutation: any;
     variables: any;
@@ -98,7 +98,7 @@ export default class APITokenController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation,
       variables,
-      refetchQueries: ['ProjectApiToken'],
+      refetchQueries: ['ProjectApiToken']
     });
 
     if (response.errors) {

@@ -52,12 +52,12 @@ export default class HTMLTextarea extends Component<Args> {
         {
           icon: '✗',
           title: 'Clear',
-          result: clear(pell),
-        },
+          result: clear(pell)
+        }
       ],
       onChange: (text) => {
         this.debounceChangeTask.perform(text);
-      },
+      }
     });
 
     this.content = pellInstance.querySelector('.pell-content');

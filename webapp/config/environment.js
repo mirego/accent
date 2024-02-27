@@ -14,22 +14,22 @@ module.exports = function (environment) {
     modulePrefix: 'accent-webapp',
     environment,
     rootURL: '/',
-    locationType: 'history',
+    locationType: 'history'
   };
 
   ENV.SENTRY = {
-    DSN: sentryDsn,
+    DSN: sentryDsn
   };
 
   ENV.EmberENV = {
     EXTEND_PROTOTYPES: false,
-    LOG_VERSION: false,
+    LOG_VERSION: false
   };
 
   ENV.APP = {
     LOCAL_STORAGE: {
-      SESSION_NAMESPACE: 'accent-session',
-    },
+      SESSION_NAMESPACE: 'accent-session'
+    }
   };
 
   ENV.API = {
@@ -55,7 +55,7 @@ module.exports = function (environment) {
     REVIEWED_BADGE_SVG_PROJECT_PATH: '/{0}/reviewed_badge.svg',
     TRANSLATIONS_BADGE_SVG_PROJECT_PATH: '/{0}/translations_badge.svg',
     CONFLICTS_BADGE_SVG_PROJECT_PATH: '/{0}/conflicts_badge.svg',
-    JIPT_SCRIPT_PATH: '/static/jipt/index.js',
+    JIPT_SCRIPT_PATH: '/static/jipt/index.js'
   };
 
   ENV.flashMessageDefaults = {
@@ -69,7 +69,7 @@ module.exports = function (environment) {
     // service defaults
     type: 'info',
     types: ['info', 'success', 'error', 'socket'],
-    injectionFactories: [],
+    injectionFactories: []
   };
 
   return ENV;

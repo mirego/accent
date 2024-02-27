@@ -10,33 +10,33 @@ export default class ExportRoute extends Route {
 
   queryParams = {
     revisionFilter: {
-      refreshModel: true,
+      refreshModel: true
     },
     documentFormatFilter: {
-      refreshModel: true,
+      refreshModel: true
     },
     versionFilter: {
-      refreshModel: true,
+      refreshModel: true
     },
     orderByFilter: {
-      refreshModel: true,
+      refreshModel: true
     },
     isTextEmpty: {
-      refreshModel: true,
+      refreshModel: true
     },
     isAddedLastSync: {
-      refreshModel: true,
+      refreshModel: true
     },
     isConflicted: {
-      refreshModel: true,
-    },
+      refreshModel: true
+    }
   };
 
   model(_params: unknown, transition: Transition) {
     return {
       from: transition.from,
       projectModel: this.modelFor('logged-in.project'),
-      fileModel: this.modelFor('logged-in.project.files'),
+      fileModel: this.modelFor('logged-in.project.files')
     };
   }
 

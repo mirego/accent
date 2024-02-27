@@ -52,14 +52,12 @@ export default class RevisionExportOptions extends Component<Args> {
     return [
       {
         value: '',
-        label: this.intl.t(
-          'components.revision_export_options.orders.original'
-        ),
+        label: this.intl.t('components.revision_export_options.orders.original')
       },
       {
         value: 'key',
-        label: this.intl.t('components.revision_export_options.orders.az'),
-      },
+        label: this.intl.t('components.revision_export_options.orders.az')
+      }
     ];
   }
 
@@ -74,7 +72,7 @@ export default class RevisionExportOptions extends Component<Args> {
 
     return this.globalState.documentFormats.map(({slug, name}) => ({
       value: slug,
-      label: name,
+      label: name
     }));
   }
 
@@ -82,9 +80,9 @@ export default class RevisionExportOptions extends Component<Args> {
     return [
       {
         value: '',
-        label: this.intl.t('components.revision_export_options.default_format'),
+        label: this.intl.t('components.revision_export_options.default_format')
       },
-      ...this.formattedDocumentFormats,
+      ...this.formattedDocumentFormats
     ];
   }
 
@@ -103,14 +101,14 @@ export default class RevisionExportOptions extends Component<Args> {
       ({
         id,
         name,
-        language,
+        language
       }: {
         id: string;
         name: string | null;
         language: any;
       }) => ({
         label: name || language.name,
-        value: id,
+        value: id
       })
     );
   }
@@ -129,7 +127,7 @@ export default class RevisionExportOptions extends Component<Args> {
     return this.args.documents.map(
       ({id, path}: {id: string; path: string}) => ({
         label: path,
-        value: id,
+        value: id
       })
     );
   }
@@ -148,16 +146,16 @@ export default class RevisionExportOptions extends Component<Args> {
         memo.concat([
           {
             label: tag,
-            value: tag,
-          },
+            value: tag
+          }
         ]),
       [
         {
           label: this.intl.t(
             'components.revision_export_options.default_version'
           ),
-          value: '',
-        },
+          value: ''
+        }
       ]
     );
   }

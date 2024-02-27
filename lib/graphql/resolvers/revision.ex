@@ -113,7 +113,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   end
 
   @spec show_project(Project.t(), %{id: String.t()}, GraphQLContext.t()) :: {:ok, Revision.t() | nil}
-  def show_project(project, %{id: id} = args, _) do
+  def show_project(project, %{id: id} = args, _) when not is_nil(id) do
     Revision
     |> RevisionScope.from_project(project.id)
     |> RevisionScope.with_stats(version_id: args[:version_id])

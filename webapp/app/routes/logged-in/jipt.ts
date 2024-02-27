@@ -3,7 +3,7 @@ import {inject as service} from '@ember/service';
 
 import projectQuery from 'accent-webapp/queries/jipt-project';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import JIPT from 'accent-webapp/services/jipt';
 import GlobalState from 'accent-webapp/services/global-state';
@@ -20,8 +20,8 @@ export default class JIPTRoute extends Route {
 
   queryParams = {
     revisionId: {
-      refreshModel: true,
-    },
+      refreshModel: true
+    }
   };
 
   subscription: Subscription;
@@ -35,9 +35,9 @@ export default class JIPTRoute extends Route {
         options: {
           variables: {
             projectId: params.projectId,
-            revisionId: params.revisionId,
-          },
-        },
+            revisionId: params.revisionId
+          }
+        }
       }
     );
 
@@ -50,6 +50,7 @@ export default class JIPTRoute extends Route {
 
   private props(data: any) {
     if (!data.viewer || !data.viewer.project) return {permissions: []};
+    this.globalState.mainColor = data.viewer.project.mainColor;
 
     this.jipt.listTranslations(
       data.viewer.project.revision.translations.entries,
@@ -65,7 +66,6 @@ export default class JIPTRoute extends Route {
     );
 
     this.globalState.permissions = permissions;
-    this.globalState.mainColor = data.viewer.project.mainColor;
 
     return {project: data.viewer.project, permissions, roles: data.roles};
   }

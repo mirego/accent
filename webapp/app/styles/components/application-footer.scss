@@ -73,7 +73,9 @@
   background: none;
   opacity: 0.2;
   color: var(--text-color-normal);
-  transition: color 0.2s ease-in-out, opacity 0.2s ease-in-out,
+  transition:
+    color 0.2s ease-in-out,
+    opacity 0.2s ease-in-out,
     transform 0.2s ease-in;
 
   &:focus,
