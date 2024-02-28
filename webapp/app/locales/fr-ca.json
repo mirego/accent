@@ -690,6 +690,8 @@
       "title": "Nouvelle version",
       "text": "La création d’une version crée un instantané de toutes les chaînes actives (révisées ou non) pour être visible avec la certitude qu’il restera intact. Cela peut être utile lors de la maintenance de plusieurs versions de la même application.",
       "error": "Version invalide",
+      "copy_on_update_translation_help": "Chaque fois qu'une traduction dans cette version est mise à jour, le même texte sera appliqué à la traduction source (dernière version). Cela garantira qu'un correctif dans la version sera également présent dans la dernière version sans aucune action requise de la part du développeur ou le traducteur.",
+      "copy_on_update_translation_label": "Copie sur mise à jour de la traduction",
       "cancel_button": "Annuler",
       "name_label": "Nom:",
       "tag_label": "Étiquette:",
@@ -698,6 +700,8 @@
     "version_update_form": {
       "title": "Version de mise à jour",
       "error": "Version invalide",
+      "copy_on_update_translation_help": "Chaque fois qu'une traduction dans cette version est mise à jour, le même texte sera appliqué à la traduction source (dernière version). Cela garantira qu'un correctif dans la version sera également présent dans la dernière version sans aucune action requise de la part du développeur ou le traducteur.",
+      "copy_on_update_translation_label": "Copie sur mise à jour de la traduction",
       "cancel_button": "Annuler",
       "name_label": "Nom:",
       "tag_label": "Étiquette:",

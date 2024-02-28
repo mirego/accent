@@ -6,7 +6,11 @@ interface Args {
   version: any;
   error: boolean;
   project: any;
-  onUpdate: ({tag, name}: {tag: string; name: string}) => Promise<void>;
+  onUpdate: (args: {
+    tag: string;
+    name: string;
+    copyOnUpdateTranslation: boolean;
+  }) => Promise<void>;
 }
 
 export default class VersionUpdateForm extends Component<Args> {
@@ -17,18 +21,28 @@ export default class VersionUpdateForm extends Component<Args> {
   tag = this.args.version.tag;
 
   @tracked
+  copyOnUpdateTranslation = this.args.version.copyOnUpdateTranslation;
+
+  @tracked
   isSubmitting = false;
 
   @action
   async submit() {
     this.isSubmitting = true;
 
-    const tag = this.tag;
-    const name = this.name;
-
-    await this.args.onUpdate({tag, name});
+    await this.args.onUpdate({
+      tag: this.tag,
+      name: this.name,
+      copyOnUpdateTranslation: this.copyOnUpdateTranslation
+    });
 
     if (!this.isDestroyed) this.isSubmitting = false;
+  }
+
+  @action
+  setCopyOnUpdateTranslation(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.copyOnUpdateTranslation = target.checked;
   }
 
   @action

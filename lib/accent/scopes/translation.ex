@@ -421,23 +421,4 @@ defmodule Accent.Scopes.Translation do
       _ -> query
     end
   end
-
-  @doc """
-  ## Examples
-
-    iex> Accent.Scopes.Translation.select_key_text(Accent.Translation)
-    #Ecto.Query<from t0 in Accent.Translation, select: %{id: t0.id, key: t0.key, updated_at: t0.updated_at, corrected_text: t0.corrected_text}>
-  """
-  @spec select_key_text(Queryable.t()) :: Queryable.t()
-  def select_key_text(query) do
-    from(
-      translation in query,
-      select: %{
-        id: translation.id,
-        key: translation.key,
-        updated_at: translation.updated_at,
-        corrected_text: translation.corrected_text
-      }
-    )
-  end
 end

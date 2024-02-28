@@ -6,6 +6,7 @@ defmodule Accent.Version do
     field(:name, :string)
     field(:tag, :string)
     field(:parsed_tag, :any, virtual: true)
+    field(:copy_on_update_translation, :boolean)
 
     belongs_to(:user, Accent.User)
     belongs_to(:project, Accent.Project)
@@ -17,10 +18,11 @@ defmodule Accent.Version do
   end
 
   @required_fields ~w(project_id user_id name tag)a
+  @optional_fields ~w(copy_on_update_translation)a
 
   def changeset(model, params) do
     model
-    |> cast(params, @required_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:tag, name: :versions_tag_project_id_index)
   end

@@ -675,6 +675,8 @@
       "error": "Invalid version",
       "cancel_button": "Cancel",
       "name_label": "Name:",
+      "copy_on_update_translation_help": "Everytime a translation in this version is updated, the same text will be applied to the latest translation. This will make sure that a fix in frozen version will also be present in the latest version without any required actions by the developer or the reviewer.",
+      "copy_on_update_translation_label": "Copy on update translation",
       "tag_label": "Tag:",
       "save_button": "Create"
     },
@@ -682,6 +684,8 @@
       "title": "Update version",
       "error": "Invalid version",
       "cancel_button": "Cancel",
+      "copy_on_update_translation_help": "Everytime a translation in this version is updated, the same text will be applied to the latest translation. This will make sure that a fix in frozen version will also be present in the latest version without any required actions by the developer or the reviewer.",
+      "copy_on_update_translation_label": "Copy on update translation",
       "name_label": "Name:",
       "tag_label": "Tag:",
       "save_button": "Update"

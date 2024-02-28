@@ -60,11 +60,16 @@ export default class EditController extends Controller {
   }
 
   @action
-  async update({name, tag}: {name: string; tag: string}) {
+  async update(args: {
+    name: string;
+    tag: string;
+    copyOnUpdateTranslation: boolean;
+  }) {
     this.error = false;
 
-    name = name || '';
-    tag = tag || '';
+    const name = args.name || '';
+    const tag = args.tag || '';
+    const copyOnUpdateTranslation = args.copyOnUpdateTranslation || false;
 
     const id = this.version.id;
     const response = await this.apolloMutate.mutate({
@@ -72,7 +77,8 @@ export default class EditController extends Controller {
       variables: {
         id,
         name,
-        tag
+        tag,
+        copyOnUpdateTranslation
       }
     });
 

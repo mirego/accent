@@ -5,7 +5,7 @@ import {tracked} from '@glimmer/tracking';
 interface Args {
   error: boolean;
   project: any;
-  onCreate: ({name, tag}: {name: string; tag: string}) => Promise<void>;
+  onCreate: (args: object) => Promise<void>;
 }
 
 export default class VersionCreateForm extends Component<Args> {
@@ -14,6 +14,9 @@ export default class VersionCreateForm extends Component<Args> {
 
   @tracked
   tag = '';
+
+  @tracked
+  copyOnUpdateTranslation = true;
 
   @tracked
   isCreating = false;
@@ -33,13 +36,20 @@ export default class VersionCreateForm extends Component<Args> {
   }
 
   @action
+  setCopyOnUpdateTranslation(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.copyOnUpdateTranslation = target.checked;
+  }
+
+  @action
   async submit() {
     this.isCreating = true;
 
-    const tag = this.tag;
-    const name = this.name;
-
-    await this.args.onCreate({tag, name});
+    await this.args.onCreate({
+      tag: this.tag,
+      name: this.name,
+      copyOnUpdateTranslation: this.copyOnUpdateTranslation
+    });
 
     this.isCreating = false;
   }

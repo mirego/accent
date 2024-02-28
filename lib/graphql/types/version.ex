@@ -10,6 +10,7 @@ defmodule Accent.GraphQL.Types.Version do
     field(:tag, non_null(:string))
     field(:project, :project, resolve: dataloader(Accent.Project))
     field(:user, :user, resolve: dataloader(Accent.User))
+    field(:copy_on_update_translation, non_null(:boolean))
     field(:inserted_at, non_null(:datetime))
   end
 

@@ -13,12 +13,17 @@ defmodule Accent.GraphQL.Resolvers.Version do
 
   @typep version_operation :: {:ok, %{version: Version.t() | nil, errors: [String.t()] | nil}}
 
-  @spec create(Project.t(), %{name: String.t(), tag: String.t()}, GraphQLContext.t()) :: version_operation
-  def create(project, %{name: name, tag: tag}, info) do
+  @spec create(
+          Project.t(),
+          %{name: String.t(), tag: String.t(), copy_on_update_translation: boolean()},
+          GraphQLContext.t()
+        ) :: version_operation
+  def create(project, args, info) do
     %Context{}
     |> Context.assign(:project, project)
-    |> Context.assign(:name, name)
-    |> Context.assign(:tag, tag)
+    |> Context.assign(:name, args[:name])
+    |> Context.assign(:tag, args[:tag])
+    |> Context.assign(:copy_on_update_translation, args[:copy_on_update_translation])
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> NewVersionBuilder.build()
     |> NewVersionPersister.persist()
@@ -31,10 +36,18 @@ defmodule Accent.GraphQL.Resolvers.Version do
     end
   end
 
-  @spec update(Version.t(), %{name: String.t(), tag: String.t()}, GraphQLContext.t()) :: version_operation
+  @spec update(
+          Version.t(),
+          %{name: String.t(), tag: String.t(), copy_on_update_translation: boolean()},
+          GraphQLContext.t()
+        ) :: version_operation
   def update(version, args, _info) do
     version
-    |> Version.changeset(%{name: args[:name], tag: args[:tag]})
+    |> Version.changeset(%{
+      name: args[:name],
+      tag: args[:tag],
+      copy_on_update_translation: args[:copy_on_update_translation]
+    })
     |> Repo.update()
     |> case do
       {:ok, version} ->

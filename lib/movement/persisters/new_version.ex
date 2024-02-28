@@ -23,7 +23,8 @@ defmodule Movement.Persisters.NewVersion do
       "project_id" => assigns[:project].id,
       "user_id" => assigns[:user_id],
       "name" => assigns[:name],
-      "tag" => assigns[:tag]
+      "tag" => assigns[:tag],
+      "copy_on_update_translation" => assigns[:copy_on_update_translation]
     })
     |> Repo.insert()
     |> case do

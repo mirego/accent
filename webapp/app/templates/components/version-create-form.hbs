@@ -29,6 +29,16 @@
     <input value={{this.tag}} {{on 'keyup' (fn this.setTag)}} local-class='textInput' />
   </div>
 
+  <div local-class='formItem'>
+    <label local-class='formItem-label formItem-checkbox'>
+      <input type='checkbox' checked={{this.copyOnUpdateTranslation}} {{on 'change' (fn this.setCopyOnUpdateTranslation)}} />
+      {{t 'components.version_create_form.copy_on_update_translation_label'}}
+    </label>
+    <p local-class='formItem-help'>
+      {{t 'components.version_create_form.copy_on_update_translation_help'}}
+    </p>
+  </div>
+
   <div local-class='formActions'>
     <LinkTo @route='logged-in.project.versions' @model={{@project.id}} class='button button--filled button--white'>
       {{t 'components.version_create_form.cancel_button'}}

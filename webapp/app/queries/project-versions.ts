@@ -28,6 +28,7 @@ export default gql`
             name
             tag
             insertedAt
+            copyOnUpdateTranslation
 
             user {
               id

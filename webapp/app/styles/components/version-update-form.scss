@@ -51,6 +51,18 @@
   font-size: 13px;
 }
 
+.formItem-checkbox {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.formItem-help {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
 .formActions {
   padding-top: 10px;
 }
