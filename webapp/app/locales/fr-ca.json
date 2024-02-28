@@ -456,7 +456,6 @@
       "jipt": {
         "title": "Traductions JIPT",
         "integration_help": "Cette étape vous guidera à travers la configuration dont vous avez besoin dans votre projet pour traduire vos chaînes dans votre navigateur, à l’intérieur de votre projet.",
-        "integration_link": "Voir les guides officiels sur la façon d’intégrer l’édition en direct dans votre site Web ->",
         "demo_help": "Voir une page HTML statique qui montre la première chaîne de votre projet dans un contexte différent. L’intégration d’Accent est visible en bas de la page. Notez que l’exemple utilise les vraies données de votre projet.",
         "demo_link": "Ouvrir l’exemple →",
         "add_language_title": "Ajoutez le pseudo langage à votre projet",
