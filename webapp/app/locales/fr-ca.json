@@ -233,7 +233,9 @@
         "rtl_badge": "RTL",
         "rtl": "Texte de droite à gauche",
         "correct_all_button": "Marquer toutes les chaînes comme vérifiées",
-        "uncorrect_all_button": "Remettre toutes les chaînes à réviser"
+        "uncorrect_all_button": "Remettre toutes les chaînes à réviser",
+        "stats_translated": "traduits",
+        "stats_to_review": "à réviser"
       }
     },
     "date_tag": {

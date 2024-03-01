@@ -9,37 +9,33 @@
       {{inline-svg 'assets/gear.svg' local-class='actionsButton-icon'}}
     </span>
     <span local-class='language'>
-      {{#if (get @permissions 'index_translations')}}
-        <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @revision.id}} local-class='language-name'>
-          {{this.languageName}}
-          {{#if this.rtl}}
-            <AccBadge class='tooltip tooltip--top' title={{t 'components.dashboard_revisions.item.rtl'}}>
-              {{t 'components.dashboard_revisions.item.rtl_badge'}}
-            </AccBadge>
-          {{/if}}
-          <span local-class='language-reviewedPercentage'>
-            {{this.correctedKeysPercentage}}
-            %
-          </span>
-        </LinkTo>
-      {{else}}
-        <span local-class='language-name'>
-          {{this.languageName}}
-          <span local-class='language-reviewedPercentage'>
-            {{this.correctedKeysPercentage}}
-            %
-          </span>
-        </span>
-      {{/if}}
+      <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @revision.id}} local-class='language-name'>
+        {{this.languageName}}
+        {{#if this.rtl}}
+          <AccBadge class='tooltip tooltip--top' title={{t 'components.dashboard_revisions.item.rtl'}}>
+            {{t 'components.dashboard_revisions.item.rtl_badge'}}
+          </AccBadge>
+        {{/if}}
+      </LinkTo>
 
       <span local-class='reviewedStats'>
-        <span local-class='reviewedStats-reviewedCount'>
-          {{this.reviewsCount}}
+        <span local-class='language-reviewedPercentage'>
+          {{this.correctedKeysPercentage}}<span local-class='language-reviewedPercentage-symbol'>%</span>
         </span>
-        /
-        <span local-class='reviewedStats-translationsCount'>
-          {{@revision.translationsCount}}
-        </span>
+
+        <div>
+          <LinkTo @route='logged-in.project.conflicts' @model={{@project.id}} local-class='reviewedStats-reviewedCount'>
+            {{this.toReviewCount}}
+            {{t 'components.dashboard_revisions.item.stats_to_review'}}
+          </LinkTo>
+
+          {{#unless @revision.isMaster}}
+            <span local-class='reviewedStats-translatedCount'>
+              {{@revision.translatedCount}}
+              {{t 'components.dashboard_revisions.item.stats_translated'}}
+            </span>
+          {{/unless}}
+        </div>
       </span>
     </span>
 

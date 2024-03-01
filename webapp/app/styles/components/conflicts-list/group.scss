@@ -74,6 +74,7 @@
   color: #959595;
   gap: 6px;
   font-weight: 300;
+  flex-shrink: 0;
 
   &::before {
     content: '/';
@@ -84,7 +85,7 @@
   position: sticky;
   top: 46px;
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 5px;
   background: var(--content-background);
   padding: 2px 6px;

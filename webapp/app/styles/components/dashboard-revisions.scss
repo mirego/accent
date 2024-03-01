@@ -37,7 +37,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: 20px auto 10px;
+  margin: 0 auto 10px;
 }
 
 .numberStat-reviewPercentage {
@@ -100,8 +100,7 @@
 
 .slaves {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  flex-direction: column;
 }
 
 .empty-slaves-button {
@@ -147,7 +146,7 @@
 }
 
 .master {
-  margin: 25px 0 5px;
+  margin: 25px 0 0;
 }
 
 .stats-title-links {

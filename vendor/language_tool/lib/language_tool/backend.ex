@@ -26,6 +26,7 @@ defmodule LanguageTool.Backend do
       backend
     else
       Logger.warning("LanguageTool could not be started. Install JRE and build the jar in #{jar_file()} to enable it")
+      nil
     end
   end
 

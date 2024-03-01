@@ -58,10 +58,10 @@ export default class DashboardRevisionsItem extends Component<Args> {
     );
   }
 
-  get reviewsCount() {
-    const {conflictsCount, translationsCount} = this.args.revision;
+  get toReviewCount() {
+    const {reviewedCount, translationsCount} = this.args.revision;
 
-    return translationsCount - conflictsCount;
+    return translationsCount - reviewedCount;
   }
 
   get languageName() {

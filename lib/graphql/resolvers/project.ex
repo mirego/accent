@@ -115,8 +115,8 @@ defmodule Accent.GraphQL.Resolvers.Project do
   @spec last_activity(Project.t(), any(), GraphQLContext.t()) :: {:ok, Operation.t() | nil}
   def last_activity(project, args, _) do
     Operation
-    |> OperationScope.filter_from_project(project.id)
     |> OperationScope.filter_from_action(args[:action])
+    |> OperationScope.filter_from_project(project.id, args[:action])
     |> OperationScope.order_last_to_first()
     |> Query.limit(1)
     |> Repo.one()
