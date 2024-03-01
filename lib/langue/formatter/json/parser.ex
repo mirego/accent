@@ -19,5 +19,6 @@ defmodule Langue.Formatter.Json.Parser do
     |> :jsone.decode(object_format: :tuple)
     |> elem(0)
     |> NestedParserHelper.parse()
+    |> Enum.uniq_by(& &1.key)
   end
 end

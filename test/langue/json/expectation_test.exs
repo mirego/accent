@@ -126,6 +126,27 @@ defmodule LangueTest.Formatter.Json.Expectation do
     end
   end
 
+  defmodule DuplicateKey do
+    @moduledoc false
+    use Langue.Expectation.Case
+
+    def render do
+      """
+      {
+        "test": "foo",
+        "test": "bar",
+        "test": "baz"
+      }
+      """
+    end
+
+    def entries do
+      [
+        %Entry{index: 1, key: "test", value: "foo", value_type: "string"}
+      ]
+    end
+  end
+
   defmodule InvalidFloatValue do
     @moduledoc false
     use Langue.Expectation.Case
