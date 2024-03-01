@@ -1,11 +1,11 @@
 // Vendor
-import { execSync } from 'child_process';
+import {execSync} from 'child_process';
 
 // Formatters
 import Formatter from './formatters/hook-runner';
 
 // Types
-import { HookConfig, Hooks } from '../types/document-config';
+import {HookConfig, Hooks} from '../types/document-config';
 import Document from './document';
 
 export default class HookRunner {
@@ -23,13 +23,13 @@ export default class HookRunner {
     const hooks = this.hooks[name];
 
     if (hooks) {
-      const formatter = new Formatter()
+      const formatter = new Formatter();
       formatter.log(name, hooks);
 
       hooks.forEach((hook) => {
         try {
-          const output: string = execSync(hook, { stdio: 'pipe' }).toString();
-          formatter.log(hook, [output])
+          const output: string = execSync(hook, {stdio: 'pipe'}).toString();
+          formatter.log(hook, [output]);
         } catch (error: any) {
           formatter.error(hook, [error.stderr.toString()]);
           process.exit(error.status);
