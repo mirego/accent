@@ -1,11 +1,11 @@
 // Vendor
-import {execSync} from 'child_process';
+import { execSync } from 'child_process';
 
 // Formatters
 import Formatter from './formatters/hook-runner';
 
 // Types
-import {HookConfig, Hooks} from '../types/document-config';
+import { HookConfig, Hooks } from '../types/document-config';
 import Document from './document';
 
 export default class HookRunner {
@@ -32,7 +32,7 @@ export default class HookRunner {
           formatter.log(hook, [output])
         } catch (error: any) {
           formatter.error(hook, [error.stderr.toString()]);
-          throw new Error(`Hook execution failed for '${hook}': ${error.stderr.toString()}`);
+          process.exit(error.status);
         }
       });
     }
