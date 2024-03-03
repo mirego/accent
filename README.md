@@ -139,24 +139,29 @@ Accent provides a default value for every required environment variable. This me
 
 Various login providers are included in Accent using Ueberauth to abstract services.
 
-| Variable                   | Default              | Description                                                                             |
-| -------------------------- | -------------------- | --------------------------------------------------------------------------------------- |
-| `DUMMY_LOGIN_ENABLED`      | _none_               | If specified, the password-less authentication (with only the email) will be available. |
-| `GITHUB_CLIENT_ID`         | _none_               |                                                                                         |
-| `GITHUB_CLIENT_SECRET`     | _none_               |                                                                                         |
-| `GITLAB_CLIENT_ID`         | _none_               |                                                                                         |
-| `GITLAB_CLIENT_SECRET`     | _none_               |                                                                                         |
-| `GITLAB_SITE_URL`          | `https://gitlab.com` |                                                                                         |
-| `GOOGLE_API_CLIENT_ID`     | _none_               |                                                                                         |
-| `GOOGLE_API_CLIENT_SECRET` | _none_               |                                                                                         |
-| `SLACK_CLIENT_ID`          | _none_               |                                                                                         |
-| `SLACK_CLIENT_SECRET`      | _none_               |                                                                                         |
-| `SLACK_TEAM_ID`            | _none_               |                                                                                         |
-| `DISCORD_CLIENT_ID`        | _none_               |                                                                                         |
-| `DISCORD_CLIENT_SECRET`    | _none_               |                                                                                         |
-| `MICROSOFT_CLIENT_ID`      | _none_               |                                                                                         |
-| `MICROSOFT_CLIENT_SECRET`  | _none_               |                                                                                         |
-| `MICROSOFT_TENANT_ID`      | _none_               |                                                                                         |
+| Variable                   | Default                | Description                                                                             |
+| -------------------------- | ---------------------- | --------------------------------------------------------------------------------------- |
+| `DUMMY_LOGIN_ENABLED`      | _none_                 | If specified, the password-less authentication (with only the email) will be available. |
+| `GITHUB_CLIENT_ID`         | _none_                 |                                                                                         |
+| `GITHUB_CLIENT_SECRET`     | _none_                 |                                                                                         |
+| `GITLAB_CLIENT_ID`         | _none_                 |                                                                                         |
+| `GITLAB_CLIENT_SECRET`     | _none_                 |                                                                                         |
+| `GITLAB_SITE_URL`          | `https://gitlab.com`   |                                                                                         |
+| `GOOGLE_API_CLIENT_ID`     | _none_                 |                                                                                         |
+| `GOOGLE_API_CLIENT_SECRET` | _none_                 |                                                                                         |
+| `SLACK_CLIENT_ID`          | _none_                 |                                                                                         |
+| `SLACK_CLIENT_SECRET`      | _none_                 |                                                                                         |
+| `SLACK_TEAM_ID`            | _none_                 |                                                                                         |
+| `DISCORD_CLIENT_ID`        | _none_                 |                                                                                         |
+| `DISCORD_CLIENT_SECRET`    | _none_                 |                                                                                         |
+| `MICROSOFT_CLIENT_ID`      | _none_                 |                                                                                         |
+| `MICROSOFT_CLIENT_SECRET`  | _none_                 |                                                                                         |
+| `MICROSOFT_TENANT_ID`      | _none_                 |                                                                                         |
+| `OIDC_CLIENT_ID`           | _none_                 |                                                                                         |
+| `OIDC_CLIENT_SECRET`       | _none_                 |                                                                                         |
+| `OIDC_DISCOVERY_URI`       | _none_                 |                                                                                         |
+| `OIDC_UID_FIELD`           | `sub`                  |                                                                                         |
+| `OIDC_SCOPE`               | `openid profile email` |                                                                                         |
 
 ### Email setup
 

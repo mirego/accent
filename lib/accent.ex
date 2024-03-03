@@ -16,6 +16,11 @@ defmodule Accent do
       {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
+    children =
+      if Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)[:default_oidc][:client_id],
+        do: [{OpenIDConnect.Worker, Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)} | children],
+        else: children
+
     if Application.get_env(:sentry, :dsn) do
       {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
     end

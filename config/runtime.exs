@@ -89,6 +89,11 @@ providers =
 providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Auth0, []}} | providers], else: providers
 
 providers =
+  if get_env("OIDC_CLIENT_ID"),
+    do: [{:oidc, {Ueberauth.Strategy.OIDC, [default: [provider: :default_oidc, uid_field: :sub]]}} | providers],
+    else: providers
+
+providers =
   if get_env("DUMMY_LOGIN_ENABLED"),
     do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers],
     else: providers
@@ -128,6 +133,18 @@ config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
   client_id: get_env("MICROSOFT_CLIENT_ID"),
   client_secret: get_env("MICROSOFT_CLIENT_SECRET"),
   tenant_id: get_env("MICROSOFT_TENANT_ID")
+
+config :ueberauth, Ueberauth.Strategy.OIDC,
+  default_oidc: [
+    fetch_userinfo: true,
+    uid_field: get_env("OIDC_UID_FIELD") || "sub",
+    client_id: get_env("OIDC_CLIENT_ID"),
+    client_secret: get_env("OIDC_CLIENT_SECRET"),
+    discovery_document_uri: get_env("OIDC_DISCOVERY_URI"),
+    redirect_uri: "#{static_uri}/auth/oidc/callback",
+    response_type: "code",
+    scope: get_env("OIDC_SCOPE") || "openid profile email"
+  ]
 
 config :accent, Accent.WebappView,
   path: "priv/static/webapp/index.html",
