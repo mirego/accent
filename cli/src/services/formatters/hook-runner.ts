@@ -14,4 +14,16 @@ export default class HookRunnerFomatter {
     });
     console.log('');
   }
+  error(command: string, errors: string[]) {
+    console.log(chalk.red('⚠ '), chalk.bold(chalk.red(`${command}:`)));
+    errors.forEach((error) => {
+      console.log('  ', chalk.red(error));
+    });
+    console.log('');
+  }
+  success(command: string, message: string) {
+    console.log(chalk.green('✓ '), chalk.bold(chalk.green(`${command}:`)));
+    console.log('  ', chalk.green(message));
+    console.log('');
+}
 }

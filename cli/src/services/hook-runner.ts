@@ -23,9 +23,18 @@ export default class HookRunner {
     const hooks = this.hooks[name];
 
     if (hooks) {
-      new Formatter().log(name, hooks);
+      const formatter = new Formatter();
+      formatter.log(name, hooks);
 
-      hooks.forEach(execSync);
+      hooks.forEach((hook) => {
+        try {
+          const output: string = execSync(hook, {stdio: 'pipe'}).toString();
+          formatter.success(hook, output);
+        } catch (error: any) {
+          formatter.error(hook, [error.stderr.toString()]);
+          process.exit(error.status);
+        }
+      });
     }
 
     return this.document.refreshPaths();
