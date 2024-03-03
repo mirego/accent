@@ -28,10 +28,17 @@ export default class HookRunner {
 
       hooks.forEach((hook) => {
         try {
-          const output: string = execSync(hook, {stdio: 'pipe'}).toString();
-          formatter.success(hook, output);
+          const output = execSync(hook, {stdio: 'pipe'}).toString();
+          if (output.length > 0) formatter.success(hook, output);
         } catch (error: any) {
-          formatter.error(hook, [error.stderr.toString()]);
+          const output = error.stderr.toString();
+
+          if (output.length > 0) {
+            formatter.error(hook, output);
+          } else {
+            formatter.error(hook, [`Exit status: ${error.status}`]);
+          }
+
           process.exit(error.status);
         }
       });
