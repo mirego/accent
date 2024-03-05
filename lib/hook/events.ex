@@ -8,7 +8,7 @@ defmodule Accent.Hook.Events do
 
   event_modules =
     for name <- paths do
-      Module.safe_concat(__MODULE__, Phoenix.Naming.camelize(Path.basename(name, ".ex")))
+      Module.concat(__MODULE__, Phoenix.Naming.camelize(Path.basename(name, ".ex")))
     end
 
   @event_modules event_modules
