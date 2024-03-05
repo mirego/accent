@@ -34,7 +34,7 @@ export default class HookRunner {
           const output = error.stderr.toString();
 
           if (output.length > 0) {
-            formatter.error(hook, output);
+            formatter.error(hook, [output]);
           } else {
             formatter.error(hook, [`Exit status: ${error.status}`]);
           }
