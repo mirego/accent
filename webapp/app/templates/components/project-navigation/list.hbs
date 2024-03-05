@@ -33,6 +33,15 @@
           </span>
         </LinkTo>
       </li>
+    {{else if (get @permissions 'update_translation')}}
+      <li local-class='list-item'>
+        <LinkTo @route='logged-in.project.conflicts' @model={{@project.id}} local-class='list-item-link'>
+          {{inline-svg '/assets/pencil.svg' local-class='list-item-link-icon'}}
+          <span local-class='list-item-link-text'>
+            {{t 'components.project_navigation.translate_link_title'}}
+          </span>
+        </LinkTo>
+      </li>
     {{/if}}
 
     {{#if (get @permissions 'lint')}}

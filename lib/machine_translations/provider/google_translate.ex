@@ -137,7 +137,7 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
              ),
            params = %{
              contents: contents_with_no_translate,
-             mimeType: "text/html",
+             mimeType: "text/plain",
              sourceLanguageCode: source,
              targetLanguageCode: target
            },

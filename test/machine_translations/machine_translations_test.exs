@@ -12,7 +12,7 @@ defmodule AccentTest.MachineTranslations do
         %{body: body, url: "https://translation.googleapis.com/v3/projects/1234/:translateText"} ->
           assert Jason.decode!(body) === %{
                    "contents" => ["Test"],
-                   "mimeType" => "text/html",
+                   "mimeType" => "text/plain",
                    "sourceLanguageCode" => "fr",
                    "targetLanguageCode" => "en"
                  }
@@ -35,7 +35,7 @@ defmodule AccentTest.MachineTranslations do
         %{body: body, url: "https://translation.googleapis.com/v3/projects/1234/:translateText"} ->
           assert Jason.decode!(body) === %{
                    "contents" => [~s(Test <span translate="no">%{placeholder}</span> bla)],
-                   "mimeType" => "text/html",
+                   "mimeType" => "text/plain",
                    "sourceLanguageCode" => "fr",
                    "targetLanguageCode" => "en"
                  }

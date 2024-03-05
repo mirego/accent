@@ -154,6 +154,7 @@
         "not_empty": "Text is not empty",
         "added_last_sync": "Strings added last sync",
         "commented_on": "Strings with comments",
+        "conflicted": "To review",
         "translated": "To translate"
       }
     },
@@ -740,6 +741,7 @@
       "translations_link_title": "All strings",
       "lint_link_title": "Checks",
       "conflicts_link_title": "Review",
+      "translate_link_title": "Translate",
       "dashboard_link_title": "Dashboard",
       "settings_link_title": "Settings",
       "sync_link_title": "Files",

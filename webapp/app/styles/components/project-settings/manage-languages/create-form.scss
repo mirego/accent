@@ -34,7 +34,11 @@
 }
 
 .optionLabel-icon {
-  width: 15px;
+  width: 22px;
   margin-left: 3px;
   transform: rotate(45deg);
+  background: var(--color-primary-opacity-25);
+  border-radius: 50%;
+  padding: 3px;
+  color: var(--color-primary);
 }
