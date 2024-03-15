@@ -40,16 +40,16 @@
 }
 
 .project {
-  padding: 20px 0 20px 16px;
+  padding: 20px 10px 20px 16px;
   margin-left: 0;
   position: relative;
   display: flex;
-  align-items: flex-start;
-  font-size: 18px;
+  align-items: center;
+  font-size: 15px;
   font-weight: 700;
   color: var(--color-black);
   text-decoration: none;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 .project-logo {
@@ -59,13 +59,11 @@
   top: 2px;
   font-size: 22px;
   margin-right: 10px;
-  line-height: 1.1;
+  line-height: 1.2;
 
   svg {
-    position: relative;
-    top: -2px;
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
 
     circle {
       fill: var(--logo-background);

@@ -82,6 +82,7 @@ defmodule Accent.Mixfile do
       {:jason, "~> 1.2", override: true},
       {:erlsom, "~> 1.5"},
       {:xml_builder, "~> 2.0"},
+      {:aws_signature, "~> 0.3"},
 
       # Auth
       {:ueberauth, "~> 0.10"},

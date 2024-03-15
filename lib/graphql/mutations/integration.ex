@@ -12,8 +12,18 @@ defmodule Accent.GraphQL.Mutations.Integration do
     value(:latest)
   end
 
+  enum :project_integration_execute_aws_s3_target_version do
+    value(:specific)
+    value(:latest)
+  end
+
   input_object :project_integration_execute_azure_storage_container_input do
     field(:target_version, :project_integration_execute_azure_storage_container_target_version)
+    field(:tag, :string)
+  end
+
+  input_object :project_integration_execute_aws_s3_input do
+    field(:target_version, :project_integration_execute_aws_s3_target_version)
     field(:tag, :string)
   end
 
@@ -21,6 +31,11 @@ defmodule Accent.GraphQL.Mutations.Integration do
     field(:id, :id)
     field(:url, :string)
     field(:azure_storage_container_sas, :string)
+    field(:aws_s3_region, :string)
+    field(:aws_s3_bucket, :string)
+    field(:aws_s3_path_prefix, :string)
+    field(:aws_s3_access_key_id, :string)
+    field(:aws_s3_secret_access_key, :string)
   end
 
   payload_object(:project_integration_payload, :project_integration)
@@ -39,6 +54,7 @@ defmodule Accent.GraphQL.Mutations.Integration do
     field :execute_project_integration, :project_integration_payload do
       arg(:id, non_null(:id))
       arg(:azure_storage_container, :project_integration_execute_azure_storage_container_input)
+      arg(:aws_s3, :project_integration_execute_aws_s3_input)
 
       resolve(integration_authorize(:execute_project_integration, &IntegrationResolver.execute/3))
       middleware(&build_payload/2)

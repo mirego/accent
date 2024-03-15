@@ -10,6 +10,11 @@ defmodule Accent.Integration do
     embeds_one(:data, IntegrationData, on_replace: :update) do
       field(:url)
       field(:azure_storage_container_sas)
+      field(:aws_s3_bucket)
+      field(:aws_s3_path_prefix)
+      field(:aws_s3_region)
+      field(:aws_s3_access_key_id)
+      field(:aws_s3_secret_access_key)
     end
 
     belongs_to(:project, Accent.Project)

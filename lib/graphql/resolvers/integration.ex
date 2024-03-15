@@ -6,6 +6,10 @@ defmodule Accent.GraphQL.Resolvers.Integration do
   alias Accent.IntegrationManager
   alias Accent.Plugs.GraphQLContext
   alias Accent.Project
+  alias Accent.Repo
+  alias Accent.Scopes.Integration, as: IntegrationScope
+
+  require Ecto.Query
 
   @typep integration_operation :: Accent.GraphQL.Response.t()
 
@@ -37,5 +41,14 @@ defmodule Accent.GraphQL.Resolvers.Integration do
     integration
     |> IntegrationManager.delete()
     |> build()
+  end
+
+  @spec list_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, [Integration.t()]}
+  def list_project(project, _args, _) do
+    Integration
+    |> IntegrationScope.from_project(project.id)
+    |> Ecto.Query.order_by(desc: :inserted_at)
+    |> Repo.all()
+    |> then(&{:ok, &1})
   end
 end

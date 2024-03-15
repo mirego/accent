@@ -18,6 +18,9 @@
         <span local-class='details-preview'>
           {{@integration.data.url}}
           {{@integration.data.sasBaseUrl}}
+          {{@integration.data.accessKeyId}}
+          {{@integration.data.bucket}}
+          {{@integration.data.pathPrefix}}
 
           {{#if @integration.lastExecutedAt}}
             <span local-class='details-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}} {{time-ago-in-words @integration.lastExecutedAt}}</span>

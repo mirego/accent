@@ -24,13 +24,13 @@
     }
 
     .prompt-button-quick-access[data-rtl] {
-      transform: translateX(36px);
+      transform: translateX(40px);
     }
 
     .prompt-button-quick-access {
       opacity: 1;
-      transform: translateX(-36px);
-      padding: 0 10px;
+      transform: translateX(-40px);
+      padding: 0 5px;
       pointer-events: all;
     }
   }
@@ -46,6 +46,7 @@
   background: var(--input-background);
   opacity: 0;
   pointer-events: none;
+  border-radius: var(--border-radius);
   right: 0;
   display: flex;
   gap: 0;

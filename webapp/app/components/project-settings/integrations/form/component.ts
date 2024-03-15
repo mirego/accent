@@ -7,6 +7,7 @@ import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
   AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
+  AWS_S3: 'assets/services/aws-s3.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
   SLACK: 'assets/services/slack.svg'
@@ -27,6 +28,11 @@ interface Args {
     data: {
       url: string;
       azureStorageContainerSas: string;
+      awsS3Bucket: string;
+      awsS3PathPrefix: string;
+      awsS3Region: string;
+      awsS3AccessKeyId: string;
+      awsS3SecretAccessKey: string;
     };
   }) => Promise<{errors: any}>;
   onCancel: () => void;
@@ -62,7 +68,22 @@ export default class IntegrationsForm extends Component<Args> {
   @tracked
   azureStorageContainerSasBaseUrl: string;
 
-  services = ['AZURE_STORAGE_CONTAINER', 'SLACK', 'DISCORD'];
+  @tracked
+  awsS3Bucket: string;
+
+  @tracked
+  awsS3PathPrefix: string;
+
+  @tracked
+  awsS3Region: string;
+
+  @tracked
+  awsS3AccessKeyId: string;
+
+  @tracked
+  awsS3SecretAccessKey: string;
+
+  services = ['AWS_S3', 'AZURE_STORAGE_CONTAINER', 'SLACK', 'DISCORD'];
 
   @not('url')
   emptyUrl: boolean;
@@ -109,6 +130,10 @@ export default class IntegrationsForm extends Component<Args> {
     this.url = this.integration.data.url;
     this.events = this.integration.events;
     this.azureStorageContainerSasBaseUrl = this.integration.data.sasBaseUrl;
+    this.awsS3Bucket = this.integration.data.bucket;
+    this.awsS3PathPrefix = this.integration.data.pathPrefix;
+    this.awsS3Region = this.integration.data.region;
+    this.awsS3AccessKeyId = this.integration.data.accessKeyId;
   }
 
   @action
@@ -132,8 +157,33 @@ export default class IntegrationsForm extends Component<Args> {
   }
 
   @action
-  setAzureStorageContainerSas(sas: string) {
-    this.azureStorageContainerSas = sas;
+  setAzureStorageContainerSas(value: string) {
+    this.azureStorageContainerSas = value;
+  }
+
+  @action
+  setAwsS3Bucket(value: string) {
+    this.awsS3Bucket = value;
+  }
+
+  @action
+  setAwsS3PathPrefix(value: string) {
+    this.awsS3PathPrefix = value;
+  }
+
+  @action
+  setAwsS3Region(value: string) {
+    this.awsS3Region = value;
+  }
+
+  @action
+  setAwsS3AccessKeyId(value: string) {
+    this.awsS3AccessKeyId = value;
+  }
+
+  @action
+  setAwsS3SecretAccessKey(value: string) {
+    this.awsS3SecretAccessKey = value;
   }
 
   @action
@@ -146,7 +196,12 @@ export default class IntegrationsForm extends Component<Args> {
       integration: this.integration.newRecord ? null : this.integration,
       data: {
         url: this.url,
-        azureStorageContainerSas: this.azureStorageContainerSas
+        azureStorageContainerSas: this.azureStorageContainerSas,
+        awsS3Bucket: this.awsS3Bucket,
+        awsS3PathPrefix: this.awsS3PathPrefix,
+        awsS3Region: this.awsS3Region,
+        awsS3AccessKeyId: this.awsS3AccessKeyId,
+        awsS3SecretAccessKey: this.awsS3SecretAccessKey
       }
     });
 

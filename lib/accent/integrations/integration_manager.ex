@@ -45,7 +45,7 @@ defmodule Accent.IntegrationManager do
   defp changeset(model, params) do
     model
     |> cast(params, [:project_id, :user_id, :service, :events])
-    |> validate_inclusion(:service, ~w(slack github discord azure_storage_container))
+    |> validate_inclusion(:service, ~w(slack github discord azure_storage_container aws_s3))
     |> cast_embed(:data, with: changeset_data(params[:service] || model.service))
     |> foreign_key_constraint(:project_id)
     |> validate_required([:service, :data])
@@ -56,6 +56,16 @@ defmodule Accent.IntegrationManager do
       integration,
       user,
       params[:azure_storage_container]
+    )
+
+    :ok
+  end
+
+  defp execute_integration(%{service: "aws_s3"} = integration, user, params) do
+    Accent.IntegrationManager.Execute.AWSS3.upload_translations(
+      integration,
+      user,
+      params[:aws_s3]
     )
 
     :ok
@@ -86,6 +96,26 @@ defmodule Accent.IntegrationManager do
       model
       |> cast(params, [:azure_storage_container_sas])
       |> validate_required([:azure_storage_container_sas])
+    end
+  end
+
+  defp changeset_data("aws_s3") do
+    fn model, params ->
+      model
+      |> cast(params, [
+        :aws_s3_bucket,
+        :aws_s3_path_prefix,
+        :aws_s3_region,
+        :aws_s3_access_key_id,
+        :aws_s3_secret_access_key
+      ])
+      |> validate_required([
+        :aws_s3_bucket,
+        :aws_s3_path_prefix,
+        :aws_s3_region,
+        :aws_s3_access_key_id,
+        :aws_s3_secret_access_key
+      ])
     end
   end
 

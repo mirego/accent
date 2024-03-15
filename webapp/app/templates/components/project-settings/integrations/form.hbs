@@ -24,10 +24,19 @@
         this.dataFormComponent
         errors=this.errors
         url=this.url
+        bucket=this.awsS3Bucket
+        pathPrefix=this.awsS3PathPrefix
+        region=this.awsS3Region
+        accessKeyId=this.awsS3AccessKeyId
         project=@project
         events=this.events
         onChangeUrl=(fn this.setUrl)
         onChangeSas=(fn this.setAzureStorageContainerSas)
+        onChangeBucket=(fn this.setAwsS3Bucket)
+        onChangePathPrefix=(fn this.setAwsS3PathPrefix)
+        onChangeRegion=(fn this.setAwsS3Region)
+        onChangeAccessKeyId=(fn this.setAwsS3AccessKeyId)
+        onChangeSecretAccessKey=(fn this.setAwsS3SecretAccessKey)
         onChangeEventsChecked=(fn this.setEventsChecked)
       }}
     </div>

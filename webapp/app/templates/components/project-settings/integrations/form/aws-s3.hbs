@@ -1,0 +1,49 @@
+<div local-class='container'>
+  <div local-class='form'>
+
+    <ProjectSettings::Integrations::Form::DataControlText
+      @error={{field-error @errors 'data.awsS3Bucket'}}
+      @label={{t 'components.project_settings.integrations.data.aws_s3_bucket'}}
+      @value={{@bucket}}
+      @onChange={{this.changeBucket}}
+    />
+
+    <ProjectSettings::Integrations::Form::DataControlText
+      @error={{field-error @errors 'data.awsS3PathPrefix'}}
+      @label={{t 'components.project_settings.integrations.data.aws_s3_path_prefix'}}
+      @value={{@pathPrefix}}
+      @placeholder='/'
+      @onChange={{this.changePathPrefix}}
+    />
+
+    <ProjectSettings::Integrations::Form::DataControlText
+      @error={{field-error @errors 'data.awsS3Region'}}
+      @label={{t 'components.project_settings.integrations.data.aws_s3_region'}}
+      @value={{@region}}
+      @placeholder='us-east-1'
+      @onChange={{this.changeRegion}}
+    />
+
+    <ProjectSettings::Integrations::Form::DataControlText
+      @error={{field-error @errors 'data.awsS3AccessKeyId'}}
+      @label={{t 'components.project_settings.integrations.data.aws_s3_access_key_id'}}
+      @value={{@accessKeyId}}
+      @onChange={{this.changeAccessKeyId}}
+    />
+
+    <ProjectSettings::Integrations::Form::DataControlText
+      @error={{field-error @errors 'data.awsS3SecretAccessKey'}}
+      @label={{t 'components.project_settings.integrations.data.aws_s3_secret_access_key'}}
+      @onChange={{this.changeSecretAccessKey}}
+    />
+  </div>
+  <div local-class='policy'>
+    <label local-class='policy-title'>
+      Minimum policy
+    </label>
+
+    <div local-class='policy-render'>
+      <HighlightRender @content={{this.policyContent}} />
+    </div>
+  </div>
+</div>

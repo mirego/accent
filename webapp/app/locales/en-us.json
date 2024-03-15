@@ -487,6 +487,7 @@
         "developer_text": "Can make file operations: Sync, add translations and preview those operations in the UI.",
         "owner_text": "With the same roles as the admin, the owners are people who the project belongs to.",
         "reviewer_text": "Can do every tasks except those listed in the above roles. Review, update strings, comments, etc.",
+        "translator_text": "Translate strings and make updates on documents. The translator is not included in the review process.",
         "title": "Collaborators"
       },
       "collaborators_item": {
@@ -509,9 +510,18 @@
         "last_executed_at": "Last executed at:",
         "data": {
           "azure_storage_container_sas": "SAS URL",
+          "aws_s3_bucket": "Bucket name",
+          "aws_s3_path_prefix": "Path prefix",
+          "aws_s3_region": "Region",
+          "aws_s3_access_key_id": "Access Key ID",
+          "aws_s3_secret_access_key": "Secret Access Key",
           "url": "URL"
         },
         "empty_description": {
+          "aws_s3": {
+            "title": "AWS S3",
+            "text": "Upload your files in Amazon Web Services S3 to serve them directly in your application"
+          },
           "azure_storage_container": {
             "title": "Azure Storage Container",
             "text": "Upload your files in Azure Storage Container to serve them directly in your application"
@@ -525,11 +535,6 @@
             "text": "Post your project’s notifications in Slack"
           }
         },
-        "token_how": "How?",
-        "github_webhook_url_how": "How?",
-        "github_webhook_accent_cli_1": "You need to have a valid <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> setup for the hook to work.",
-        "github_webhook_accent_cli_2": "The <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json\">accent.json</a> file at the root of your project will be used.",
-        "github_webhook_url": "Make sure to add the webhook in your project’s settings",
         "webhook_url_how": "How to obtain a webhook URL?",
         "events": {
           "title": "Which events would you like to trigger this webhook?",
@@ -541,6 +546,22 @@
           }
         },
         "execute": {
+          "aws_s3": {
+            "title": "Upload files to AWS S3",
+            "cancel_button": "Cancel",
+            "error": "Error while pushing to your bucket. Check your credentials and try again.",
+            "push_button": "Upload",
+            "bucket": "Bucket",
+            "path_prefix": "Path prefix",
+            "submit_confirm": "Uploading files to AWS S3 can override existing files if you upload for the latest or an already uploaded version tag.",
+            "target_version": {
+              "label": "Target Version",
+              "options": {
+                "latest": "Latest Version",
+                "specific": "Specific Version"
+              }
+            }
+          },
           "azure_storage_container": {
             "title": "Upload files to Azure Storage Container",
             "cancel_button": "Cancel",
@@ -1020,7 +1041,8 @@
     "integration_services": {
       "DISCORD": "Discord",
       "SLACK": "Slack",
-      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container",
+      "AWS_S3": "AWS S3"
     },
     "search_input_placeholder_text": "Search for a string…"
   },

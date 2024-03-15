@@ -503,6 +503,7 @@
         "developer_text": "Peut effectuer des opérations sur les fichiers : synchroniser, ajouter des traductions et prévisualiser ces opérations dans l’interface utilisateur.",
         "owner_text": "Avec les mêmes rôles que l’administrateur, les propriétaires sont les personnes à qui appartient le projet.",
         "reviewer_text": "Peut effectuer toutes les tâches sauf celles énumérées dans les rôles ci-dessus. Réviser, mettre à jour les chaînes, les commentaires, etc.",
+        "translator_text": "Traduire des chaînes et effectuez des mises à jour sur les fichiers. Le traducteur n’est pas inclus dans le processus de révision.",
         "title": "Collaborateurs"
       },
       "collaborators_item": {
@@ -525,9 +526,18 @@
         "delete": "Supprimer",
         "data": {
           "azure_storage_container_sas": "SAS URL",
+          "aws_s3_bucket": "Nom du bucket",
+          "aws_s3_path_prefix": "Préfix",
+          "aws_s3_region": "Région",
+          "aws_s3_access_key_id": "Access Key ID",
+          "aws_s3_secret_access_key": "Secret Access Key",
           "url": "URL"
         },
         "empty_description": {
+          "aws_s3": {
+            "title": "AWS S3",
+            "text": "Téléchargez vos fichiers dans Amazon Web Service S3 pour les servir directement dans votre application"
+          },
           "azure_storage_container": {
             "title": "Azure Storage Container",
             "text": "Téléchargez vos fichiers dans Azure Storage Container pour les servir directement dans votre application"
@@ -541,11 +551,6 @@
             "text": "Publiez les notifications de votre projet dans Slack"
           }
         },
-        "token_how": "Comment?",
-        "github_webhook_url_how": "Comment?",
-        "github_webhook_accent_cli_1": "Vous devez avoir une configuration <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> valide pour le crochet au travail.",
-        "github_webhook_accent_cli_2": "Le <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json\">accent.json</a > fichier à la racine de votre projet sera utilisé.",
-        "github_webhook_url": "Assurez-vous d’ajouter le webhook dans les paramètres de votre projet",
         "webhook_url_how": "Comment obtenir une URL de webhook ?",
         "events": {
           "title": "Quels événements souhaitez-vous déclencher ce webhook ?",
@@ -557,6 +562,22 @@
           }
         },
         "execute": {
+          "aws_s3": {
+            "title": "Publier sur AWS S3",
+            "cancel_button": "Annuler",
+            "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
+            "push_button": "Publier",
+            "bucket": "Nom du bucket",
+            "path_prefix": "Préfix",
+            "submit_confirm": "La publication de fichiers vers AWS S3 peut remplacer les fichiers existants si vous publiez la dernière version ou une version déjà publiée.",
+            "target_version": {
+              "label": "Version Cible",
+              "options": {
+                "latest": "Dernière version",
+                "specific": "Version spécifique"
+              }
+            }
+          },
           "azure_storage_container": {
             "title": "Publier sur Azure Storage Container",
             "cancel_button": "Annuler",
@@ -1020,7 +1041,8 @@
     "integration_services": {
       "DISCORD": "Discord",
       "SLACK": "Slack",
-      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container",
+      "AWS_S3": "AWS S3"
     },
     "search_input_placeholder_text": "Rechercher une chaîne…"
   },

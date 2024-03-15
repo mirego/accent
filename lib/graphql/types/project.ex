@@ -125,7 +125,10 @@ defmodule Accent.GraphQL.Types.Project do
     end
 
     field(:language, :language, resolve: dataloader(Accent.Language))
-    field(:integrations, list_of(:project_integration), resolve: dataloader(Accent.Integration))
+
+    field :integrations, list_of(non_null(:project_integration)) do
+      resolve(project_authorize(:index_project_integrations, &Accent.GraphQL.Resolvers.Integration.list_project/3))
+    end
 
     field :document, :document do
       arg(:id, non_null(:id))

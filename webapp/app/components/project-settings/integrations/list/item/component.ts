@@ -4,12 +4,13 @@ import {tracked} from '@glimmer/tracking';
 
 const LOGOS = {
   AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
+  AWS_S3: 'assets/services/aws-s3.svg',
   DISCORD: 'assets/services/discord.svg',
   GITHUB: 'assets/services/github.svg',
   SLACK: 'assets/services/slack.svg'
 };
 
-const EXECUTABLE_SERVICES = ['AZURE_STORAGE_CONTAINER'];
+const EXECUTABLE_SERVICES = ['AZURE_STORAGE_CONTAINER', 'AWS_S3'];
 
 interface Args {
   project: any;

@@ -38,6 +38,12 @@
         <p>{{t 'components.project_settings.integrations.empty_description.azure_storage_container.text'}}</p>
       </button>
 
+      <button local-class='empty-description-item' {{on 'click' (fn this.toggleCreateForm 'AWS_S3')}}>
+        {{inline-svg 'assets/services/aws-s3.svg' local-class='empty-description-icon'}}
+        <strong>{{t 'components.project_settings.integrations.empty_description.aws_s3.title'}}</strong>
+        <p>{{t 'components.project_settings.integrations.empty_description.aws_s3.text'}}</p>
+      </button>
+
       <button local-class='empty-description-item' {{on 'click' (fn this.toggleCreateForm 'SLACK')}}>
         {{inline-svg 'assets/services/slack.svg' local-class='empty-description-icon'}}
         <strong>{{t 'components.project_settings.integrations.empty_description.slack.title'}}</strong>

@@ -77,7 +77,8 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
 
     assert integration.errors == [
              service:
-               {"is invalid", [validation: :inclusion, enum: ["slack", "github", "discord", "azure_storage_container"]]}
+               {"is invalid",
+                [validation: :inclusion, enum: ["slack", "github", "discord", "azure_storage_container", "aws_s3"]]}
            ]
 
     assert Repo.all(Integration) == []

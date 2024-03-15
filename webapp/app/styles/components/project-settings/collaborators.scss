@@ -28,8 +28,15 @@
   border-left: 1px solid var(--background-light-highlight);
 }
 
+.rolesList-icon {
+  width: 13px;
+  height: 13px;
+}
+
 .rolesList-title {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   padding-bottom: 5px;
   margin: 15px 0 0;
   color: var(--color-primary);

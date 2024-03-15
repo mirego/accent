@@ -17,6 +17,7 @@
 
     <div local-class='columns-item rolesList'>
       <span local-class='rolesList-title'>
+        {{inline-svg 'assets/tool.svg' local-class='rolesList-icon'}}
         {{t 'general.roles.OWNER'}}
       </span>
       <p local-class='rolesList-text'>
@@ -24,6 +25,7 @@
       </p>
 
       <span local-class='rolesList-title'>
+        {{inline-svg 'assets/users.svg' local-class='rolesList-icon'}}
         {{t 'general.roles.ADMIN'}}
       </span>
       <p local-class='rolesList-text'>
@@ -31,6 +33,7 @@
       </p>
 
       <span local-class='rolesList-title'>
+        {{inline-svg 'assets/code.svg' local-class='rolesList-icon'}}
         {{t 'general.roles.DEVELOPER'}}
       </span>
       <p local-class='rolesList-text'>
@@ -38,10 +41,19 @@
       </p>
 
       <span local-class='rolesList-title'>
+        {{inline-svg 'assets/check.svg' local-class='rolesList-icon'}}
         {{t 'general.roles.REVIEWER'}}
       </span>
       <p local-class='rolesList-text'>
         {{t 'components.project_settings.collaborators.reviewer_text'}}
+      </p>
+
+      <span local-class='rolesList-title'>
+        {{inline-svg 'assets/machine-translations.svg' local-class='rolesList-icon'}}
+        {{t 'general.roles.TRANSLATOR'}}
+      </span>
+      <p local-class='rolesList-text'>
+        {{t 'components.project_settings.collaborators.translator_text'}}
       </p>
     </div>
   </div>

@@ -27,6 +27,17 @@ export default gql`
             }
           }
 
+          ... on ProjectIntegrationAwsS3 {
+            lastExecutedAt
+            data {
+              id
+              bucket
+              pathPrefix
+              region
+              accessKeyId
+            }
+          }
+
           ... on ProjectIntegrationAzureStorageContainer {
             lastExecutedAt
             data {
