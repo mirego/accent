@@ -4,6 +4,7 @@ defmodule AccentTest.ExportJIPTController do
   alias Accent.Document
   alias Accent.Language
   alias Accent.Project
+  alias Accent.Repo
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
