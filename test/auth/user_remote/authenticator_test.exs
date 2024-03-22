@@ -30,12 +30,12 @@ defmodule AccentTest.UserRemote.Authenticator do
     project = Factory.insert(Project, language_id: language.id)
 
     collaborator =
-      Repo.insert!(%Collaborator{
+      Factory.insert(Collaborator,
         project_id: project.id,
         role: "admin",
         assigner_id: assigner.id,
         email: "test@example.com"
-      })
+      )
 
     {:ok, _token} = Authenticator.authenticate(%{provider: :dummy, info: %{email: "test@example.com"}})
     user = Repo.get_by(User, email: "test@example.com")
@@ -50,12 +50,12 @@ defmodule AccentTest.UserRemote.Authenticator do
     project = Factory.insert(Project, language_id: language.id)
 
     collaborator =
-      Repo.insert!(%Collaborator{
+      Factory.insert(Collaborator,
         project_id: project.id,
         role: "admin",
         assigner_id: assigner.id,
         email: "test@example.com"
-      })
+      )
 
     {:ok, _token} = Authenticator.authenticate(%{provider: :dummy, info: %{email: "TeSt@eXamPle.com"}})
     user = Repo.get_by(User, email: "test@example.com")

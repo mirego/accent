@@ -7,7 +7,7 @@ defmodule AccentTest.Hook do
   alias Accent.User
 
   setup do
-    project = Factory.insert(Project, main_color: "#f00", name: "Test")
+    project = Factory.insert(Project)
     user = Factory.insert(User, fullname: "Test", email: "foo@test.com")
     payload = %{test: "hook"}
     context = %Hook.Context{project_id: project.id, user_id: user.id, event: "event", payload: payload}

@@ -5,7 +5,6 @@ defmodule AccentTest.GraphQL.Requests.Projects do
   alias Accent.Collaborator
   alias Accent.Language
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
@@ -13,13 +12,7 @@ defmodule AccentTest.GraphQL.Requests.Projects do
   setup do
     user = Factory.insert(User)
     french_language = Factory.insert(Language)
-
-    project =
-      Repo.insert!(%Project{
-        main_color: "#f00",
-        name: "My project",
-        last_synced_at: DateTime.from_naive!(~N[2017-01-01T00:00:00], "Etc/UTC")
-      })
+    project = Factory.insert(Project, last_synced_at: DateTime.from_naive!(~N[2017-01-01T00:00:00], "Etc/UTC"))
 
     Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "admin")
     revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)

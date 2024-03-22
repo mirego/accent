@@ -5,7 +5,6 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
   alias Accent.GraphQL.Resolvers.Revision, as: Resolver
   alias Accent.Language
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
@@ -24,12 +23,12 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
     master_revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     slave_revision =
-      Repo.insert!(%Revision{
+      Factory.insert(Revision,
         language_id: english_language.id,
         project_id: project.id,
         master: false,
         master_revision_id: master_revision.id
-      })
+      )
 
     {:ok, [user: user, project: project, master_revision: master_revision, slave_revision: slave_revision]}
   end

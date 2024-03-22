@@ -4,25 +4,17 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
 
   @queries [
     bloat: EctoPSQLExtras.Bloat,
-    blocking: EctoPSQLExtras.Blocking,
     cache_hit: EctoPSQLExtras.CacheHit,
+    connections: EctoPSQLExtras.Connections,
     table_cache_hit: EctoPSQLExtras.TableCacheHit,
     index_cache_hit: EctoPSQLExtras.IndexCacheHit,
     index_size: EctoPSQLExtras.IndexSize,
     index_usage: EctoPSQLExtras.IndexUsage,
-    locks: EctoPSQLExtras.Locks,
-    all_locks: EctoPSQLExtras.AllLocks,
-    long_running_queries: EctoPSQLExtras.LongRunningQueries,
     records_rank: EctoPSQLExtras.RecordsRank,
-    seq_scans: EctoPSQLExtras.SeqScans,
-    table_indexes_size: EctoPSQLExtras.TableIndexesSize,
     table_size: EctoPSQLExtras.TableSize,
-    total_index_size: EctoPSQLExtras.TotalIndexSize,
+    table_indexes_size: EctoPSQLExtras.TableIndexesSize,
     total_table_size: EctoPSQLExtras.TotalTableSize,
-    unused_indexes: EctoPSQLExtras.UnusedIndexes,
-    duplicate_indexes: EctoPSQLExtras.DuplicateIndexes,
-    null_indexes: EctoPSQLExtras.NullIndexes,
-    vacuum_stats: EctoPSQLExtras.VacuumStats
+    unused_indexes: EctoPSQLExtras.UnusedIndexes
   ]
 
   def all(repo), do: Enum.map(Keyword.keys(@queries), &new(repo, &1))
@@ -51,7 +43,7 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
         Enum.map(result.rows, &parse_row(&1, types))
       end
 
-    TableRex.quick_render!(rows, names)
+    {rows, names}
   end
 
   defp parse_row(list, types) do
@@ -102,13 +94,39 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
     end
 
     def to_html(metric, _assigns) do
+      {rows, names} = metric.data
+
+      names =
+        Enum.map_join(names, "", fn name ->
+          "<td style='font-weight: bold; padding: 6px 14px; background-color: color-mix(in srgb, currentColor 20%, transparent);'>" <>
+            to_string(name) <> "</td>"
+        end)
+
+      rows =
+        for cells <- rows do
+          "<tr style='border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);'>" <>
+            Enum.map_join(cells, "", fn cell ->
+              "<td style='padding: 6px 14px; border-right: 1px solid color-mix(in srgb, currentColor 10%, transparent); '>" <>
+                cell <> "</td>"
+            end) <> "</tr>"
+        end
+
       {:safe,
        """
        <details class="relative flex flex-col bg-white dark:bg-black/40 text-slate dark:text-white p-3 pt-2 shadow">
          <summary class="flex items-baseline gap-2 text-base opacity-80 cursor-pointer">
-            <h2 class="">#{metric.title}</h2>
+            <h2>#{metric.title}</h2>
          </summary>
-         <pre class="p-3 font-mono" style="font-size: 11px; overflow-x: scroll;">#{metric.data}</pre>
+
+         <table class="mt-2" style='font-size: 11px; overflow-x: scroll; width: 100%; border: 1px solid color-mix(in srgb, currentColor 10%, transparent); border-bottom: 0;'>
+           <thead style='border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);'>
+             #{names}
+           </thead>
+
+           <tbody class="font-mono">
+             #{rows}
+           </tbody>
+         </table>
        </details>
        """}
     end

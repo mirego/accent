@@ -10,14 +10,7 @@ defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
 
   setup do
     user = Factory.insert(User)
-
-    project =
-      Repo.insert!(%Project{
-        main_color: "#f00",
-        name: "My project",
-        last_synced_at: DateTime.from_naive!(~N[2017-01-01T00:00:00], "Etc/UTC")
-      })
-
+    project = Factory.insert(Project, last_synced_at: DateTime.from_naive!(~N[2017-01-01T00:00:00], "Etc/UTC"))
     user = %{user | permissions: %{project.id => "admin"}}
 
     Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "admin")

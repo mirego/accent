@@ -86,13 +86,13 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     integration =
-      Repo.insert!(%Integration{
+      Factory.insert(Integration,
         project_id: project.id,
         user_id: user.id,
         service: "slack",
         events: ["sync"],
-        data: %{url: "http://google.ca"}
-      })
+        data: %{id: Ecto.UUID.generate(), url: "http://google.ca"}
+      )
 
     {:ok, updated_integration} = Resolver.update(integration, %{data: %{url: "http://example.com/update"}}, context)
 
@@ -103,13 +103,13 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     integration =
-      Repo.insert!(%Integration{
+      Factory.insert(Integration,
         project_id: project.id,
         user_id: user.id,
         service: "slack",
         events: ["sync"],
-        data: %{url: "http://google.ca"}
-      })
+        data: %{id: Ecto.UUID.generate(), url: "http://google.ca"}
+      )
 
     {:ok, deleted_integration} = Resolver.delete(integration, %{}, context)
 

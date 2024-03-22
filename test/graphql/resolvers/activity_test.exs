@@ -6,7 +6,6 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   alias Accent.Language
   alias Accent.Operation
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
@@ -34,7 +33,7 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   test "list activities", %{user: user, project: project, translation: translation, revision: revision} do
     operation = Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
 
-    Repo.insert!(%Operation{
+    Factory.insert(Operation,
       user_id: user.id,
       translation_id: translation.id,
       revision_id: revision.id,
@@ -42,7 +41,7 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
       text: "foo",
       action: "update",
       batch_operation_id: operation.id
-    })
+    )
 
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_operations(operation, %{}, %{})
 
@@ -55,14 +54,14 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   end
 
   test "list project", %{user: user, project: project, translation: translation, revision: revision} do
-    Repo.insert!(%Operation{
+    Factory.insert(Operation,
       user_id: user.id,
       translation_id: translation.id,
       revision_id: revision.id,
       key: translation.key,
       text: "foo",
       action: "update"
-    })
+    )
 
     Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_project(project, %{}, %{})
@@ -76,9 +75,7 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   end
 
   test "list project paginated", %{user: user, project: project} do
-    for _index <- 1..100 do
-      Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
-    end
+    Factory.seed(Operation, 100, user_id: user.id, project_id: project.id, action: "sync")
 
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_project(project, %{page: 3}, %{})
 
@@ -116,14 +113,14 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   end
 
   test "list translation", %{user: user, project: project, translation: translation, revision: revision} do
-    Repo.insert!(%Operation{
+    Factory.insert(Operation,
       user_id: user.id,
       translation_id: translation.id,
       revision_id: revision.id,
       key: translation.key,
       text: "foo",
       action: "update"
-    })
+    )
 
     Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_translation(translation, %{}, %{})

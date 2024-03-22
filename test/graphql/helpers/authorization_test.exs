@@ -29,12 +29,12 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
     collaborator = Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "owner")
 
     integration =
-      Repo.insert!(%Integration{
+      Factory.insert(Integration,
         project_id: project.id,
         user_id: user.id,
         service: "slack",
         data: %{url: "http://example.com"}
-      })
+      )
 
     translation_comments_subscription =
       Factory.insert(TranslationCommentsSubscription, translation_id: translation.id, user_id: user.id)

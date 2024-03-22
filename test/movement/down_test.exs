@@ -35,11 +35,11 @@ defmodule AccentTest.Migrator.Down do
       )
 
     Migrator.down(
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "conflict_on_corrected",
         translation: translation,
         previous_translation: PreviousTranslation.from_translation(previous_translation)
-      })
+      )
     )
 
     new_translation = Repo.get!(Translation, translation.id)
@@ -72,11 +72,11 @@ defmodule AccentTest.Migrator.Down do
       )
 
     Migrator.down(
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "conflict_on_proposed",
         translation: translation,
         previous_translation: PreviousTranslation.from_translation(previous_translation)
-      })
+      )
     )
 
     new_translation = Repo.get!(Translation, translation.id)

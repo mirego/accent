@@ -14,20 +14,19 @@ defmodule AccentTest.Hook.Outbounds.Slack do
   alias Accent.Hook.Outbounds.Slack
   alias Accent.Integration
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.User
 
   setup do
-    project = Factory.insert(Project, main_color: "#f00", name: "Test")
+    project = Factory.insert(Project)
     user = Factory.insert(User, fullname: "Test", email: "foo@test.com")
 
-    Repo.insert!(%Integration{
-      project: project,
-      user: user,
+    Factory.insert(Integration,
+      project_id: project.id,
+      user_id: user.id,
       service: "slack",
       events: ["sync"],
       data: %{url: "http://example.com"}
-    })
+    )
 
     [project: project, user: user]
   end

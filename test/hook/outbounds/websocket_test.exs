@@ -16,7 +16,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
 
   setup do
     language = Factory.insert(Language, name: "Test")
-    project = Factory.insert(Project, main_color: "#f00", name: "Test")
+    project = Factory.insert(Project)
     user = Factory.insert(User, fullname: "Test", email: "foo@test.com", permissions: %{project.id => "admin"})
     revision = Factory.insert(Revision, project_id: project.id, language_id: language.id, master: true)
 

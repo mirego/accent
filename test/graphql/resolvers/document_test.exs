@@ -24,12 +24,12 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
     revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     document =
-      Repo.insert!(%Document{
+      Factory.insert(Document,
         project_id: project.id,
         path: "test",
         format: "json",
         updated_at: DateTime.from_unix!(1_432_560_368_868_569, :microsecond)
-      })
+      )
 
     {:ok, [user: user, project: project, document: document, revision: revision]}
   end
@@ -69,12 +69,12 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
 
   test "update with existing path", %{document: document, project: project, user: user} do
     other_document =
-      Repo.insert!(%Document{
+      Factory.insert(Document,
         project_id: project.id,
         path: "test2",
         format: "json",
         updated_at: DateTime.add(document.updated_at, 3600, :second)
-      })
+      )
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
     {:ok, result} = Resolver.update(document, %{path: other_document.path}, context)
@@ -104,12 +104,12 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
 
   test "list project", %{document: document, project: project, revision: revision} do
     other_document =
-      Repo.insert!(%Document{
+      Factory.insert(Document,
         project_id: project.id,
         path: "test2",
         format: "json",
         updated_at: DateTime.add(document.updated_at, 3600, :second)
-      })
+      )
 
     _empty_document = Factory.insert(Document, project_id: project.id, path: "test3", format: "json")
 

@@ -15,7 +15,7 @@ defmodule AccentTest.Movement.Migrator.Up do
   end
 
   test ":correct" do
-    user = Repo.insert!(%User{})
+    user = Factory.insert(User)
     revision = Factory.insert(Revision)
 
     translation =
@@ -51,7 +51,7 @@ defmodule AccentTest.Movement.Migrator.Up do
   end
 
   test ":merge_on_proposed_force" do
-    user = Repo.insert!(%User{})
+    user = Factory.insert(User)
     revision = Factory.insert(Revision)
 
     translation =
@@ -86,7 +86,7 @@ defmodule AccentTest.Movement.Migrator.Up do
   end
 
   test ":merge_on_corrected" do
-    user = Repo.insert!(%User{})
+    user = Factory.insert(User)
     revision = Factory.insert(Revision)
 
     translation =
@@ -262,7 +262,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Factory.insert(Translation,
         key: "to_be_renewed",
-        revision: Factory.insert(Revision),
+        revision_id: Factory.insert(Revision).id,
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
@@ -270,12 +270,13 @@ defmodule AccentTest.Movement.Migrator.Up do
       )
 
     operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "renew",
-        translation: translation,
+        translation_id: translation.id,
         previous_translation: PreviousTranslation.from_translation(translation)
-      })
+      )
 
+    operation = Repo.preload(operation, [:translation])
     Migrator.up(operation)
 
     updated_translation = Repo.get(Translation, translation.id)
@@ -287,7 +288,7 @@ defmodule AccentTest.Movement.Migrator.Up do
     translation =
       Factory.insert(Translation,
         key: "to_be_rollbacked",
-        revision: Factory.insert(Revision),
+        revision_id: Factory.insert(Revision).id,
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
@@ -295,11 +296,13 @@ defmodule AccentTest.Movement.Migrator.Up do
       )
 
     operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "rollback",
-        translation: translation,
+        translation_id: translation.id,
         previous_translation: PreviousTranslation.from_translation(%{translation | corrected_text: "previous"})
-      })
+      )
+
+    operation = Repo.preload(operation, [:translation])
 
     Migrator.up(operation)
 

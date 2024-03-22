@@ -35,7 +35,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer", %{user: user, project: project} do
-    Factory.insert(Project, main_color: "#f00", name: "Other project")
+    Factory.insert(Project)
 
     {:ok, result} = Resolver.list_viewer(user, %{}, %{})
 
@@ -48,7 +48,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer search", %{user: user, language: language} do
-    Factory.insert(Project, main_color: "#f00", name: "Other project")
+    Factory.insert(Project)
 
     {:ok, project_two} =
       ProjectCreator.create(
@@ -111,7 +111,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer ordering", %{user: user, language: language, project: project_one} do
-    Factory.insert(Project, main_color: "#f00", name: "Other project")
+    Factory.insert(Project)
 
     {:ok, project_two} =
       ProjectCreator.create(

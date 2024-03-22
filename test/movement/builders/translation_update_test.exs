@@ -45,13 +45,13 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
     revision = Repo.one!(Ecto.assoc(project, :revisions))
 
     version =
-      Repo.insert!(%Version{
+      Factory.insert(Version,
         name: "1",
         tag: "v1",
         project_id: project.id,
         user_id: user.id,
         copy_on_update_translation: true
-      })
+      )
 
     source_translation =
       Factory.insert(Translation,
