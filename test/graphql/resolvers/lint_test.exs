@@ -7,7 +7,6 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
   alias Accent.Lint.Message
   alias Accent.Lint.Replacement
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
@@ -17,15 +16,13 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    french_language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    french_language = Factory.insert(Language)
+    project = Factory.insert(Project)
 
     revision =
-      Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true, slug: "fr"})
+      Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true, slug: "fr")
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
@@ -34,23 +31,23 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
 
   test "lint", %{revision: revision, context: context} do
     master_translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         revision: revision,
         conflicted: false,
         key: "ok2",
         corrected_text: "bar foo",
         proposed_text: "bar"
-      })
+      )
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         revision: revision,
         master_translation: master_translation,
         conflicted: false,
         key: "ok",
         corrected_text: " bar foo",
         proposed_text: "bar"
-      })
+      )
 
     {:ok, result} = Resolver.lint_batched_translation(translation, %{}, context)
 

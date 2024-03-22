@@ -30,16 +30,15 @@ defmodule AccentTest.Plugs.MovementContextParser do
     %Plug.Upload{content_type: "text/plain", filename: "unicode.strings", path: "test/support/invalid_unicode.strings"}
   end
 
-  @user %User{email: "test@test.com"}
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [project: project, document: document, revision: revision, language: language, user: user]}
   end

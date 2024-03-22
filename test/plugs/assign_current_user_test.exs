@@ -5,11 +5,7 @@ defmodule AccentTest.Plugs.AssignCurrentUser do
 
   alias Accent.AccessToken
   alias Accent.Plugs.AssignCurrentUser
-  alias Accent.Repo
   alias Accent.User
-
-  @user %User{email: "test@test.com"}
-  @token %AccessToken{revoked_at: nil, token: "1234"}
 
   defp call_plug(token) do
     :get
@@ -20,11 +16,11 @@ defmodule AccentTest.Plugs.AssignCurrentUser do
 
   test "assign current_user" do
     user =
-      @user
-      |> Repo.insert!()
+      User
+      |> Factory.insert()
       |> Map.put(:permissions, %{})
 
-    token = Repo.insert!(Map.put(@token, :user_id, user.id))
+    token = Factory.insert(AccessToken, user_id: user.id)
 
     assigned_user =
       token.token

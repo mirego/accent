@@ -16,8 +16,6 @@ defmodule Accent.ConnCase do
   use ExUnit.CaseTemplate
 
   alias Accent.Endpoint
-  alias Accent.Repo
-  alias Ecto.Adapters.SQL.Sandbox
   alias Phoenix.ConnTest
 
   using do
@@ -29,18 +27,21 @@ defmodule Accent.ConnCase do
       import Phoenix.ConnTest
       import Plug.Conn
 
+      alias Accent.Factory
+
       # The default endpoint for testing
       @endpoint Endpoint
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(Repo)
-
-    unless tags[:async] do
-      Sandbox.mode(Repo, {:shared, self()})
-    end
+    setup_sandbox(tags)
 
     {:ok, conn: ConnTest.build_conn()}
+  end
+
+  def setup_sandbox(tags) do
+    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Accent.Repo, shared: not tags[:async])
+    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
   end
 end

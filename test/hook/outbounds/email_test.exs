@@ -17,20 +17,20 @@ defmodule AccentTest.Hook.Outbounds.Email do
   alias Accent.User
 
   setup do
-    language = Repo.insert!(%Language{name: "Test"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "Test"})
-    user = Repo.insert!(%User{fullname: "Test", email: "foo@test.com"})
-    revision = Repo.insert!(%Revision{project_id: project.id, language_id: language.id, master: true})
+    language = Factory.insert(Language, name: "Test")
+    project = Factory.insert(Project, main_color: "#f00", name: "Test")
+    user = Factory.insert(User, fullname: "Test", email: "foo@test.com")
+    revision = Factory.insert(Revision, project_id: project.id, language_id: language.id, master: true)
 
     translation =
-      Repo.insert!(%Translation{key: "foo", corrected_text: "bar", proposed_text: "bar", revision_id: revision.id})
+      Factory.insert(Translation, key: "foo", corrected_text: "bar", proposed_text: "bar", revision_id: revision.id)
 
     [project: project, translation: translation, user: user]
   end
 
   test "commenter subscribed", %{project: project, translation: translation, user: user} do
-    Repo.insert!(%TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id})
-    comment = Repo.insert!(%Comment{translation_id: translation.id, user_id: user.id, text: "This is a comment"})
+    Factory.insert(TranslationCommentsSubscription, translation_id: translation.id, user_id: user.id)
+    comment = Factory.insert(Comment, translation_id: translation.id, user_id: user.id, text: "This is a comment")
     comment = Repo.preload(comment, [:user, translation: [revision: :project]])
 
     payload = %{
@@ -52,9 +52,9 @@ defmodule AccentTest.Hook.Outbounds.Email do
   end
 
   test "comment", %{project: project, translation: translation, user: user} do
-    Repo.insert!(%TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id})
-    commenter = Repo.insert!(%User{fullname: "Commenter", email: "comment@test.com"})
-    comment = Repo.insert!(%Comment{translation_id: translation.id, user_id: commenter.id, text: "This is a comment"})
+    Factory.insert(TranslationCommentsSubscription, translation_id: translation.id, user_id: user.id)
+    commenter = Factory.insert(User, fullname: "Commenter", email: "comment@test.com")
+    comment = Factory.insert(Comment, translation_id: translation.id, user_id: commenter.id, text: "This is a comment")
 
     payload = %{
       "text" => comment.text,
@@ -75,7 +75,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
   end
 
   test "collaborator", %{project: project, user: user} do
-    collaborator = Repo.insert!(%Collaborator{email: "collab@test.com", project_id: project.id})
+    collaborator = Factory.insert(Collaborator, email: "collab@test.com", project_id: project.id)
 
     payload = %{
       "collaborator" => %{

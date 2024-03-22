@@ -14,24 +14,22 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
   alias Movement.Context
   alias Movement.Persisters.ProjectSync, as: ProjectSyncPersister
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [project: project, document: document, revision: revision, user: user]}
   end
 
   test "persist operations", %{project: project, revision: revision, document: document, user: user} do
     translation =
-      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
+      Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
 
     operations = [
       %Movement.Operation{

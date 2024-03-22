@@ -116,6 +116,7 @@ defmodule Accent.Mixfile do
       # Mock testing
       {:mox, "~> 1.0", only: :test},
       {:mock, "~> 0.3.0", only: :test},
+      {:factori, path: "../mirego/factori", only: :test},
 
       # Google API authentication
       {:goth, "~> 1.4"},

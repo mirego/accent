@@ -7,15 +7,14 @@ defmodule AccentTest.UserRemote.TokenGiver do
   alias Accent.User
   alias Accent.UserRemote.TokenGiver
 
-  @user %User{email: "test@test.com"}
   @token %AccessToken{revoked_at: nil, token: "1234"}
 
   test "revoke existing token" do
-    user = Repo.insert!(@user)
+    user = Factory.insert(User)
     token = Repo.insert!(Map.put(@token, :user_id, user.id))
 
     existing_revoked_token =
-      Repo.insert!(%AccessToken{token: "revoked", revoked_at: NaiveDateTime.utc_now(:second), user_id: user.id})
+      Factory.insert(AccessToken, token: "revoked", revoked_at: NaiveDateTime.utc_now(:second), user_id: user.id)
 
     TokenGiver.grant_token(user)
 
@@ -27,7 +26,7 @@ defmodule AccentTest.UserRemote.TokenGiver do
   end
 
   test "create token" do
-    user = Repo.insert!(@user)
+    user = Factory.insert(User)
 
     TokenGiver.grant_token(user)
 

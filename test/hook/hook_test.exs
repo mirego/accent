@@ -4,12 +4,11 @@ defmodule AccentTest.Hook do
 
   alias Accent.Hook
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.User
 
   setup do
-    project = Repo.insert!(%Project{main_color: "#f00", name: "Test"})
-    user = Repo.insert!(%User{fullname: "Test", email: "foo@test.com"})
+    project = Factory.insert(Project, main_color: "#f00", name: "Test")
+    user = Factory.insert(User, fullname: "Test", email: "foo@test.com")
     payload = %{test: "hook"}
     context = %Hook.Context{project_id: project.id, user_id: user.id, event: "event", payload: payload}
 

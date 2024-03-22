@@ -15,20 +15,18 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   alias Accent.User
   alias Accent.Version
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
-    version = Repo.insert!(%Version{project_id: project.id, name: "test", tag: "v1.0", user_id: user.id})
-    translation = Repo.insert!(%Translation{revision_id: revision.id, key: "test", corrected_text: "bar"})
-    collaborator = Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "owner"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
+    version = Factory.insert(Version, project_id: project.id, name: "test", tag: "v1.0", user_id: user.id)
+    translation = Factory.insert(Translation, revision_id: revision.id, key: "test", corrected_text: "bar")
+    collaborator = Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "owner")
 
     integration =
       Repo.insert!(%Integration{
@@ -39,7 +37,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
       })
 
     translation_comments_subscription =
-      Repo.insert!(%TranslationCommentsSubscription{translation_id: translation.id, user_id: user.id})
+      Factory.insert(TranslationCommentsSubscription, translation_id: translation.id, user_id: user.id)
 
     {:ok,
      [
@@ -127,7 +125,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized project root", %{project: project} do
-    user = Repo.insert!(%User{email: "test+2@test.com"})
+    user = Factory.insert(User, email: "test+2@test.com")
     user = Map.put(user, :permissions, %{})
     root = project
     args = %{}
@@ -178,7 +176,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized revision root", %{revision: revision} do
-    user = Repo.insert!(%User{email: "test+2@test.com"})
+    user = Factory.insert(User, email: "test+2@test.com")
     user = Map.put(user, :permissions, %{})
     root = revision
     args = %{}
@@ -229,7 +227,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized version root", %{version: version} do
-    user = Repo.insert!(%User{email: "test+2@test.com"})
+    user = Factory.insert(User, email: "test+2@test.com")
     user = Map.put(user, :permissions, %{})
     root = version
     args = %{}
@@ -298,7 +296,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized translation root", %{translation: translation} do
-    user = Repo.insert!(%User{email: "test+2@test.com"})
+    user = Factory.insert(User, email: "test+2@test.com")
     user = Map.put(user, :permissions, %{})
     root = translation
     args = %{}
@@ -387,7 +385,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "authorized operation revision args", %{user: user, revision: revision, project: project} do
-    operation = Repo.insert!(%Operation{revision_id: revision.id, user_id: user.id, key: "test", text: "bar"})
+    operation = Factory.insert(Operation, revision_id: revision.id, user_id: user.id, key: "test", text: "bar")
 
     user = Map.put(user, :permissions, %{project.id => "owner"})
     root = nil
@@ -401,7 +399,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "authorized operation translation args", %{user: user, translation: translation, project: project} do
-    operation = Repo.insert!(%Operation{translation_id: translation.id, user_id: user.id, key: "test", text: "bar"})
+    operation = Factory.insert(Operation, translation_id: translation.id, user_id: user.id, key: "test", text: "bar")
 
     user = Map.put(user, :permissions, %{project.id => "owner"})
     root = nil
@@ -415,7 +413,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "authorized operation project args", %{user: user, project: project} do
-    operation = Repo.insert!(%Operation{project_id: project.id, user_id: user.id, key: "test", text: "bar"})
+    operation = Factory.insert(Operation, project_id: project.id, user_id: user.id, key: "test", text: "bar")
 
     user = Map.put(user, :permissions, %{project.id => "owner"})
     root = nil
@@ -429,7 +427,7 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
   end
 
   test "unauthorized operation role", %{user: user, revision: revision, project: project} do
-    operation = Repo.insert!(%Operation{revision_id: revision.id, user_id: user.id, key: "test", text: "bar"})
+    operation = Factory.insert(Operation, revision_id: revision.id, user_id: user.id, key: "test", text: "bar")
 
     user = Map.put(user, :permissions, %{project.id => "reviewer"})
     root = nil

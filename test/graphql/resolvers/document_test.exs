@@ -16,14 +16,12 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    french_language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    french_language = Factory.insert(Language)
+    project = Factory.insert(Project)
 
-    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     document =
       Repo.insert!(%Document{
@@ -37,13 +35,13 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   end
 
   test "delete", %{document: document, revision: revision, user: user} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       document_id: document.id,
       key: "ok",
       corrected_text: "bar",
       proposed_text: "bar"
-    })
+    )
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
     {:ok, result} = Resolver.delete(document, %{}, context)
@@ -87,14 +85,14 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   end
 
   test "show project", %{document: document, project: project, revision: revision} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       document_id: document.id,
       key: "ok",
       corrected_text: "bar",
       proposed_text: "bar",
       conflicted: false
-    })
+    )
 
     {:ok, result} = Resolver.show_project(project, %{id: document.id}, %{})
 
@@ -113,25 +111,25 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
         updated_at: DateTime.add(document.updated_at, 3600, :second)
       })
 
-    _empty_document = Repo.insert!(%Document{project_id: project.id, path: "test3", format: "json"})
+    _empty_document = Factory.insert(Document, project_id: project.id, path: "test3", format: "json")
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       document_id: document.id,
       key: "ok",
       corrected_text: "bar",
       proposed_text: "bar",
       conflicted: false
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       document_id: other_document.id,
       key: "ok",
       corrected_text: "bar",
       proposed_text: "bar",
       conflicted: true
-    })
+    )
 
     {:ok, result} = Resolver.list_project(project, %{exclude_empty_translations: true}, %{})
 
@@ -142,17 +140,17 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
   end
 
   test "list project with many deleted documents", %{document: document, project: project, revision: revision} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       document_id: document.id,
       key: "ok",
       corrected_text: "bar",
       proposed_text: "bar",
       conflicted: false
-    })
+    )
 
     for i <- 1..80 do
-      Repo.insert!(%Document{project_id: project.id, path: "doc-#{i}", format: "json"})
+      Factory.insert(Document, project_id: project.id, path: "doc-#{i}", format: "json")
     end
 
     {:ok, result} = Resolver.list_project(project, %{exclude_empty_translations: true}, %{})

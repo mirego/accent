@@ -18,8 +18,8 @@ defmodule AccentTest.UserRemote.Persister do
   end
 
   test "persist with existing user existing provider" do
-    existing_user = Repo.insert!(%User{email: @user.email})
-    Repo.insert!(%AuthProvider{name: @user.provider, uid: @user.uid})
+    existing_user = Factory.insert(User, email: @user.email)
+    Factory.insert(AuthProvider, name: @user.provider, uid: @user.uid)
 
     user = Persister.persist(@user)
 
@@ -28,8 +28,8 @@ defmodule AccentTest.UserRemote.Persister do
   end
 
   test "persist with existing user new provider" do
-    existing_user = Repo.insert!(%User{email: @user.email})
-    Repo.insert!(%AuthProvider{name: "dummy", uid: @user.email})
+    existing_user = Factory.insert(User, email: @user.email)
+    Factory.insert(AuthProvider, name: "dummy", uid: @user.email)
 
     user = Persister.persist(@user)
 

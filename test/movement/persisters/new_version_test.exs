@@ -15,11 +15,9 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
   alias Movement.Context
   alias Movement.Persisters.NewVersion, as: NewVersionPersister
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(
@@ -28,7 +26,7 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
       )
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [revision: revision, document: document, project: project, user: user]}
   end
@@ -40,7 +38,7 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
     document: document
   } do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -51,7 +49,7 @@ defmodule AccentTest.Movement.Persisters.NewVersion do
         conflicted: true,
         revision_id: revision.id,
         document_id: document.id
-      })
+      )
 
     operations = [
       %Movement.Operation{

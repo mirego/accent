@@ -31,17 +31,23 @@ else
     debug_errors: get_env("DEBUG_ERRORS", :boolean)
 end
 
-ecto_ipv6? = get_env("ECTO_IPV6", :boolean)
+if config_env() === :test do
+  config :accent, Accent.Repo,
+    pool_size: System.schedulers_online() * 2,
+    url: get_env("DATABASE_URL")
+else
+  ecto_ipv6? = get_env("ECTO_IPV6", :boolean)
 
-config :accent, Accent.Repo,
-  timeout: get_env("DATABASE_TIMEOUT", :integer) || 29_000,
-  queue_target: get_env("DATABASE_QUEUE_TARGET", :integer) || 500,
-  queue_interval: get_env("DATABASE_QUEUE_INTERVAL", :integer) || 2000,
-  pool_size: get_env("DATABASE_POOL_SIZE", :integer),
-  ssl: get_env("DATABASE_SSL", :boolean),
-  ssl_opts: [verify: :verify_none],
-  url: get_env("DATABASE_URL") || "postgres://localhost/accent_development",
-  socket_options: if(ecto_ipv6?, do: [:inet6], else: [])
+  config :accent, Accent.Repo,
+    timeout: get_env("DATABASE_TIMEOUT", :integer) || 29_000,
+    queue_target: get_env("DATABASE_QUEUE_TARGET", :integer) || 500,
+    queue_interval: get_env("DATABASE_QUEUE_INTERVAL", :integer) || 2000,
+    pool_size: get_env("DATABASE_POOL_SIZE", :integer),
+    ssl: get_env("DATABASE_SSL", :boolean),
+    ssl_opts: [verify: :verify_none],
+    url: get_env("DATABASE_URL") || "postgres://localhost/accent_development",
+    socket_options: if(ecto_ipv6?, do: [:inet6], else: [])
+end
 
 config :accent, Accent.MachineTranslations,
   default_providers_config: %{

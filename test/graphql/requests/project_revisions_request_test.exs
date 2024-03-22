@@ -9,11 +9,9 @@ defmodule AccentTest.GraphQL.Requests.ProjectRevisions do
   alias Accent.Revision
   alias Accent.User
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    french_language = Repo.insert!(%Language{name: "french", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    french_language = Factory.insert(Language)
 
     project =
       Repo.insert!(%Project{
@@ -24,7 +22,7 @@ defmodule AccentTest.GraphQL.Requests.ProjectRevisions do
 
     user = %{user | permissions: %{project.id => "admin"}}
 
-    Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "admin"})
+    Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "admin")
 
     revision =
       Repo.insert!(%Revision{

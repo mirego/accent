@@ -46,7 +46,7 @@ defmodule Accent.GraphQL.Resolvers.Version do
     |> Version.changeset(%{
       name: args[:name],
       tag: args[:tag],
-      copy_on_update_translation: args[:copy_on_update_translation]
+      copy_on_update_translation: args[:copy_on_update_translation] || false
     })
     |> Repo.update()
     |> case do

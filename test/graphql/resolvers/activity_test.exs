@@ -18,23 +18,21 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
+    project = Factory.insert(Project)
 
-    revision = Repo.insert!(%Revision{language_id: language.id, project_id: project.id, master: true})
+    revision = Factory.insert(Revision, language_id: language.id, project_id: project.id, master: true)
 
     translation =
-      Repo.insert!(%Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar"})
+      Factory.insert(Translation, revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar")
 
     {:ok, [user: user, project: project, revision: revision, translation: translation]}
   end
 
   test "list activities", %{user: user, project: project, translation: translation, revision: revision} do
-    operation = Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+    operation = Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
 
     Repo.insert!(%Operation{
       user_id: user.id,
@@ -66,7 +64,7 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
       action: "update"
     })
 
-    Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+    Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_project(project, %{}, %{})
 
     assert Enum.count(entries) == 2
@@ -79,7 +77,7 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
 
   test "list project paginated", %{user: user, project: project} do
     for _index <- 1..100 do
-      Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+      Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
     end
 
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_project(project, %{page: 3}, %{})
@@ -93,25 +91,25 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   end
 
   test "list project from user", %{user: user, project: project} do
-    other_user = Repo.insert!(%User{email: "foo@bar.com"})
-    Repo.insert!(%Operation{user_id: other_user.id, project_id: project.id, action: "sync"})
-    Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+    other_user = Factory.insert(User, email: "foo@bar.com")
+    Factory.insert(Operation, user_id: other_user.id, project_id: project.id, action: "sync")
+    Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
     {:ok, %{entries: entries}} = Resolver.list_project(project, %{user_id: other_user.id}, %{})
 
     assert Enum.count(entries) == 1
   end
 
   test "list project from batch", %{user: user, project: project} do
-    Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync", batch: true})
-    Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+    Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync", batch: true)
+    Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
     {:ok, %{entries: entries}} = Resolver.list_project(project, %{is_batch: true}, %{})
 
     assert Enum.count(entries) == 1
   end
 
   test "list project from action", %{user: user, project: project} do
-    Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "delete_document"})
-    Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+    Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "delete_document")
+    Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
     {:ok, %{entries: entries}} = Resolver.list_project(project, %{action: "sync"}, %{})
 
     assert Enum.count(entries) == 1
@@ -127,7 +125,7 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
       action: "update"
     })
 
-    Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+    Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
     {:ok, %{entries: entries, meta: meta}} = Resolver.list_translation(translation, %{}, %{})
 
     assert Enum.count(entries) == 1
@@ -139,32 +137,32 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   end
 
   test "list translation from user", %{user: user, translation: translation} do
-    other_user = Repo.insert!(%User{email: "foo@bar.com"})
-    Repo.insert!(%Operation{user_id: other_user.id, translation_id: translation.id, action: "update"})
-    Repo.insert!(%Operation{user_id: user.id, translation_id: translation.id, action: "update"})
+    other_user = Factory.insert(User, email: "foo@bar.com")
+    Factory.insert(Operation, user_id: other_user.id, translation_id: translation.id, action: "update")
+    Factory.insert(Operation, user_id: user.id, translation_id: translation.id, action: "update")
     {:ok, %{entries: entries}} = Resolver.list_translation(translation, %{user_id: other_user.id}, %{})
 
     assert Enum.count(entries) == 1
   end
 
   test "list translation from batch", %{user: user, translation: translation} do
-    Repo.insert!(%Operation{user_id: user.id, translation_id: translation.id, action: "sync", batch: true})
-    Repo.insert!(%Operation{user_id: user.id, translation_id: translation.id, action: "update"})
+    Factory.insert(Operation, user_id: user.id, translation_id: translation.id, action: "sync", batch: true)
+    Factory.insert(Operation, user_id: user.id, translation_id: translation.id, action: "update")
     {:ok, %{entries: entries}} = Resolver.list_translation(translation, %{is_batch: true}, %{})
 
     assert Enum.count(entries) == 1
   end
 
   test "list translation from action", %{user: user, translation: translation} do
-    Repo.insert!(%Operation{user_id: user.id, translation_id: translation.id, action: "delete_document"})
-    Repo.insert!(%Operation{user_id: user.id, translation_id: translation.id, action: "update"})
+    Factory.insert(Operation, user_id: user.id, translation_id: translation.id, action: "delete_document")
+    Factory.insert(Operation, user_id: user.id, translation_id: translation.id, action: "update")
     {:ok, %{entries: entries}} = Resolver.list_translation(translation, %{action: "update"}, %{})
 
     assert Enum.count(entries) == 1
   end
 
   test "show project", %{user: user, project: project} do
-    operation = Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+    operation = Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
 
     {:ok, %{id: id}} = Resolver.show_project(project, %{id: operation.id}, %{})
 

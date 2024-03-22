@@ -10,8 +10,8 @@ defmodule AccentTest.ProjectCreator do
   require Ecto.Query
 
   test "create with language and user" do
-    language = Repo.insert!(%Language{name: "french"})
-    user = Repo.insert!(%User{email: "lol@test.com"})
+    language = Factory.insert(Language)
+    user = Factory.insert(User)
     params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
@@ -23,8 +23,8 @@ defmodule AccentTest.ProjectCreator do
   end
 
   test "create owner collaborator" do
-    language = Repo.insert!(%Language{name: "french"})
-    user = Repo.insert!(%User{email: "lol@test.com"})
+    language = Factory.insert(Language)
+    user = Factory.insert(User)
     params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)
@@ -34,8 +34,8 @@ defmodule AccentTest.ProjectCreator do
   end
 
   test "create bot collaborator" do
-    language = Repo.insert!(%Language{name: "french"})
-    user = Repo.insert!(%User{email: "lol@test.com"})
+    language = Factory.insert(Language)
+    user = Factory.insert(User)
     params = %{"main_color" => "#f00", "name" => "OK", "language_id" => language.id}
 
     {:ok, project} = ProjectCreator.create(params: params, user: user)

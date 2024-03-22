@@ -12,24 +12,22 @@ defmodule AccentTest.Movement.Builders.NewSlave do
   alias Movement.Builders.NewSlave, as: NewSlaveBuilder
   alias Movement.Context
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [revision: revision, document: document, project: project]}
   end
 
   test "builder fetch translations and process operations", %{revision: revision, project: project, document: document} do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -37,7 +35,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
         file_comment: "comment",
         revision_id: revision.id,
         document_id: document.id
-      })
+      )
 
     context =
       %Context{}
@@ -70,7 +68,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
     document: document
   } do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -78,7 +76,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
         file_comment: "comment",
         revision_id: revision.id,
         document_id: document.id
-      })
+      )
 
     context =
       %Context{}
@@ -95,7 +93,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
 
   test "with removed translation", %{revision: revision, project: project, document: document} do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
@@ -103,8 +101,12 @@ defmodule AccentTest.Movement.Builders.NewSlave do
         file_comment: "comment",
         revision_id: revision.id,
         document_id: document.id,
+        conflicted: false,
+        conflicted_text: "",
+        value_type: "string",
+        translated: true,
         removed: true
-      })
+      )
 
     context =
       %Context{}
@@ -133,6 +135,7 @@ defmodule AccentTest.Movement.Builders.NewSlave do
                previous_translation: %PreviousTranslation{
                  value_type: "string",
                  removed: true,
+                 translated: true,
                  conflicted: false,
                  conflicted_text: "",
                  corrected_text: "A",

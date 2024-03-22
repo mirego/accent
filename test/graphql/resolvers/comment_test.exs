@@ -16,17 +16,15 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    french_language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    french_language = Factory.insert(Language)
+    project = Factory.insert(Project)
 
-    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     translation =
-      Repo.insert!(%Translation{revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar"})
+      Factory.insert(Translation, revision_id: revision.id, key: "ok", corrected_text: "bar", proposed_text: "bar")
 
     {:ok, [user: user, project: project, translation: translation]}
   end
@@ -55,7 +53,7 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
   end
 
   test "delete", %{translation: translation, user: user} do
-    comment = Repo.insert!(%Comment{translation_id: translation.id, text: "test", user: user})
+    comment = Factory.insert(Comment, translation_id: translation.id, text: "test", user: user)
 
     assert get_in(Repo.all(Comment), [Access.all(), Access.key(:id)]) == [comment.id]
 
@@ -66,7 +64,7 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
   end
 
   test "update", %{translation: translation, user: user} do
-    comment = Repo.insert!(%Comment{translation_id: translation.id, text: "test", user: user})
+    comment = Factory.insert(Comment, translation_id: translation.id, text: "test", user: user)
 
     assert get_in(Repo.all(Comment), [Access.all(), Access.key(:id)]) == [comment.id]
 
@@ -77,7 +75,7 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
   end
 
   test "list project", %{project: project, translation: translation, user: user} do
-    comment = Repo.insert!(%Comment{translation_id: translation.id, text: "test", user: user})
+    comment = Factory.insert(Comment, translation_id: translation.id, text: "test", user: user)
 
     {:ok, result} = Resolver.list_project(project, %{}, %{})
 
@@ -85,7 +83,7 @@ defmodule AccentTest.GraphQL.Resolvers.Comment do
   end
 
   test "list translation", %{translation: translation, user: user} do
-    comment = Repo.insert!(%Comment{translation_id: translation.id, text: "test", user: user})
+    comment = Factory.insert(Comment, translation_id: translation.id, text: "test", user: user)
 
     {:ok, result} = Resolver.list_translation(translation, %{}, %{})
 

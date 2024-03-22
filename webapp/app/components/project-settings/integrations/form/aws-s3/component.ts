@@ -4,6 +4,8 @@ import {action} from '@ember/object';
 interface Args {
   errors: any;
   project: any;
+  bucket: string | null;
+  pathPrefix: string | null;
   onChangeBucket: (value: string) => void;
   onChangePathPrefix: (value: string) => void;
   onChangeRegion: (value: string) => void;

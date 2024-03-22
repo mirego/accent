@@ -25,14 +25,14 @@ defmodule AccentTest.Migrator.Down do
     }
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_in_conflict",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: nil,
         proposed_text: "new proposed text",
         conflicted_text: "corrected_text",
         conflicted: true
-      })
+      )
 
     Migrator.down(
       Repo.insert!(%Operation{
@@ -62,14 +62,14 @@ defmodule AccentTest.Migrator.Down do
     }
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_in_proposed",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: nil,
         proposed_text: "new proposed text",
         conflicted_text: "proposed_text",
         conflicted: true
-      })
+      )
 
     Migrator.down(
       Repo.insert!(%Operation{
@@ -89,16 +89,16 @@ defmodule AccentTest.Migrator.Down do
 
   test ":new" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_added_down",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: nil,
         proposed_text: "new text",
         conflicted_text: nil,
         conflicted: true
-      })
+      )
 
-    Migrator.down(Repo.insert!(%Operation{action: "new", translation: translation}))
+    Migrator.down(Factory.insert(Operation, action: "new", translation: translation))
 
     new_translation = Repo.get!(Translation, translation.id)
 
@@ -107,16 +107,16 @@ defmodule AccentTest.Migrator.Down do
 
   test ":renew" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_added_down",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: nil,
         proposed_text: "new text",
         conflicted_text: nil,
         conflicted: true
-      })
+      )
 
-    Migrator.down(Repo.insert!(%Operation{action: "renew", translation: translation}))
+    Migrator.down(Factory.insert(Operation, action: "renew", translation: translation))
 
     new_translation = Repo.get!(Translation, translation.id)
 
@@ -125,18 +125,18 @@ defmodule AccentTest.Migrator.Down do
 
   test ":remove" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         value_type: "",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         key: "to_be_added_down",
         corrected_text: nil,
         proposed_text: "new text",
         conflicted_text: nil,
         conflicted: true,
         placeholders: []
-      })
+      )
 
-    Migrator.down(Repo.insert!(%Operation{action: "remove", translation: translation}))
+    Migrator.down(Factory.insert(Operation, action: "remove", translation: translation))
 
     new_translation = Repo.get!(Translation, translation.id)
 

@@ -15,15 +15,13 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    french_language = Repo.insert!(%Language{name: "french"})
-    english_language = Repo.insert!(%Language{name: "english"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    french_language = Factory.insert(Language)
+    english_language = Factory.insert(Language, name: "english")
+    project = Factory.insert(Project)
 
-    master_revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    master_revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     slave_revision =
       Repo.insert!(%Revision{
@@ -50,7 +48,7 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
 
   test "create", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    language = Repo.insert!(%Language{name: "spanish"})
+    language = Factory.insert(Language, name: "spanish")
 
     {:ok, result} = Resolver.create(project, %{language_id: language.id}, context)
 
@@ -75,13 +73,13 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
   test "correct all", %{master_revision: revision, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "ok",
       corrected_text: "bar",
       proposed_text: "bar",
       conflicted: true
-    })
+    )
 
     {:ok, result} = Resolver.correct_all(revision, %{}, context)
 
@@ -93,13 +91,13 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
   test "uncorrect all", %{master_revision: revision, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "ok",
       corrected_text: "bar",
       proposed_text: "bar",
       conflicted: false
-    })
+    )
 
     {:ok, result} = Resolver.uncorrect_all(revision, %{}, context)
 

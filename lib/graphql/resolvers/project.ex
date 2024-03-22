@@ -62,7 +62,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
       "name" => args.name,
       "main_color" => args.main_color,
       "logo" => args.logo,
-      "locked_file_operations" => args.is_file_operations_locked
+      "locked_file_operations" => args.is_file_operations_locked || false
     }
 
     case ProjectUpdater.update(

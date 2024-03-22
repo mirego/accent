@@ -25,9 +25,9 @@ defmodule AccentTest.UserRemote.Authenticator do
   end
 
   test "normalize collaborators with email" do
-    assigner = Repo.insert!(%User{email: "foo@example.com"})
-    language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project", language_id: language.id})
+    assigner = Factory.insert(User, email: "foo@example.com")
+    language = Factory.insert(Language)
+    project = Factory.insert(Project, language_id: language.id)
 
     collaborator =
       Repo.insert!(%Collaborator{
@@ -45,9 +45,9 @@ defmodule AccentTest.UserRemote.Authenticator do
   end
 
   test "normalize collaborators with uppercased email" do
-    assigner = Repo.insert!(%User{email: "foo@example.com"})
-    language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project", language_id: language.id})
+    assigner = Factory.insert(User, email: "foo@example.com")
+    language = Factory.insert(Language)
+    project = Factory.insert(Project, language_id: language.id)
 
     collaborator =
       Repo.insert!(%Collaborator{

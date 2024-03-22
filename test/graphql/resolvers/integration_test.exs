@@ -13,11 +13,9 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    project = Factory.insert(Project)
 
     {:ok, [user: user, project: project]}
   end

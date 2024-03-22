@@ -4,7 +4,6 @@ defmodule AccentTest.GraphQL.Resolvers.Version do
 
   alias Accent.GraphQL.Resolvers.Version, as: Resolver
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.User
   alias Accent.Version
 
@@ -13,13 +12,11 @@ defmodule AccentTest.GraphQL.Resolvers.Version do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    project = Factory.insert(Project)
 
-    version = Repo.insert!(%Version{name: "version1", tag: "v1", project_id: project.id, user_id: user.id})
+    version = Factory.insert(Version, name: "version1", tag: "v1", project_id: project.id, user_id: user.id)
 
     {:ok, [user: user, project: project, version: version]}
   end

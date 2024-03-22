@@ -36,8 +36,8 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
   end
 
   test "builder copy on latest version" do
-    user = Repo.insert!(%User{email: "test@test.com"})
-    language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User, email: "test@test.com")
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
@@ -54,23 +54,23 @@ defmodule AccentTest.Movement.Builders.TranslationUpdate do
       })
 
     source_translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
         revision_id: revision.id,
         version_id: nil
-      })
+      )
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
         version_id: version.id,
         revision_id: revision.id,
         source_translation_id: source_translation.id
-      })
+      )
 
     context =
       %Context{}

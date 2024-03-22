@@ -5,17 +5,14 @@ defmodule AccentTest.FormatController do
   alias Accent.Document
   alias Accent.Language
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    access_token = Repo.insert!(%AccessToken{user_id: user.id, token: "test-token"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    access_token = Factory.insert(AccessToken, user_id: user.id)
+    project = Factory.insert(Project)
 
     {:ok, [user: user, project: project, access_token: access_token]}
   end
@@ -74,8 +71,8 @@ defmodule AccentTest.FormatController do
   end
 
   test "format order_by same as export", %{conn: conn, project: project, access_token: access_token} do
-    french_language = Repo.insert!(%Language{name: "french", slug: Ecto.UUID.generate()})
-    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    french_language = Factory.insert(Language)
+    revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     file = %Plug.Upload{
       content_type: "application/json",
@@ -97,7 +94,7 @@ defmodule AccentTest.FormatController do
       |> put_req_header("authorization", "Bearer #{access_token.token}")
       |> post(format_path(conn, :format), body)
 
-    document = Repo.insert!(%Document{project_id: project.id, path: "ordering", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "ordering", format: "json")
 
     params = %{
       order_by: "key",
@@ -110,13 +107,13 @@ defmodule AccentTest.FormatController do
     content = Jason.decode!(File.read!(file.path))
 
     for {key, value} <- content do
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         revision_id: revision.id,
         key: key,
         corrected_text: value,
         proposed_text: value,
         document_id: document.id
-      })
+      )
     end
 
     export_response =

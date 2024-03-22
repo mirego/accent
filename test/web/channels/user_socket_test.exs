@@ -2,12 +2,11 @@ defmodule AccentTest.UserSocket do
   use Accent.ChannelCase, async: true
 
   alias Accent.AccessToken
-  alias Accent.Repo
   alias Accent.User
   alias Accent.UserSocket
 
   setup do
-    user = Repo.insert!(%User{email: "test@test.com"})
+    user = Factory.insert(User, email: "test@test.com")
 
     {:ok, user: user}
   end
@@ -20,7 +19,7 @@ defmodule AccentTest.UserSocket do
   end
 
   test "connect with valid token", %{user: user} do
-    access_token = Repo.insert!(%AccessToken{user_id: user.id, token: "test-token"})
+    access_token = Factory.insert(AccessToken, user_id: user.id, token: "test-token")
 
     socket = socket(UserSocket, "nonautenticated-user", %{})
     {:ok, socket} = UserSocket.connect(%{"token" => "Bearer #{access_token.token}"}, socket)

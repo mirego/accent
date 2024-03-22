@@ -8,10 +8,8 @@ defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
   alias Accent.Repo
   alias Accent.User
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
+    user = Factory.insert(User)
 
     project =
       Repo.insert!(%Project{
@@ -22,7 +20,7 @@ defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
 
     user = %{user | permissions: %{project.id => "admin"}}
 
-    Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "admin"})
+    Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "admin")
 
     create_mutation = """
       mutation IntegrationCreate(

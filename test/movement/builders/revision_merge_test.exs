@@ -11,20 +11,18 @@ defmodule AccentTest.Movement.Builders.RevisionMerge do
   alias Movement.Builders.RevisionMerge, as: RevisionMergeBuilder
   alias Movement.Context
 
-  @user %User{email: "test@test.com"}
-
   test "builder fetch translations and use comparer" do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(revisions: [:language]) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     translation =
-      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
+      Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
 
     entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 

@@ -16,12 +16,12 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":correct" do
     user = Repo.insert!(%User{})
-    revision = Repo.insert!(%Revision{})
+    revision = Factory.insert(Revision)
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_corrected",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         file_comment: "",
         corrected_text: nil,
         proposed_text: "proposed_text",
@@ -29,7 +29,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         conflicted: true,
         value_type: "string",
         removed: false
-      })
+      )
 
     Migrator.up(%Operation{
       id: Ecto.UUID.generate(),
@@ -52,12 +52,12 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":merge_on_proposed_force" do
     user = Repo.insert!(%User{})
-    revision = Repo.insert!(%Revision{})
+    revision = Factory.insert(Revision)
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_merged",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         file_comment: "",
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
@@ -65,7 +65,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         conflicted_text: nil,
         conflicted: true,
         removed: false
-      })
+      )
 
     Migrator.up(%Operation{
       id: Ecto.UUID.generate(),
@@ -87,18 +87,18 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":merge_on_corrected" do
     user = Repo.insert!(%User{})
-    revision = Repo.insert!(%Revision{})
+    revision = Factory.insert(Revision)
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_merged",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted_text: nil,
         value_type: "string",
         conflicted: true
-      })
+      )
 
     Migrator.up(%Operation{
       action: "merge_on_corrected",
@@ -118,9 +118,9 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":uncorrect" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_uncorrected",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         file_comment: "",
         file_index: 1,
         corrected_text: "new proposed text",
@@ -129,7 +129,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         conflicted: false,
         removed: false,
         value_type: "string"
-      })
+      )
 
     Migrator.up(%Operation{
       action: "uncorrect_conflict",
@@ -149,9 +149,9 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":uncorrect with same corrected and proposed" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_uncorrected",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         file_comment: "",
         file_index: 1,
         corrected_text: "proposed_text",
@@ -161,7 +161,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         conflicted: false,
         translated: true,
         removed: false
-      })
+      )
 
     Migrator.up(%Operation{
       action: "uncorrect_conflict",
@@ -181,16 +181,16 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":conflict_on_corrected" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_in_conflict",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         file_comment: "",
         file_index: 1,
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
         removed: false
-      })
+      )
 
     Migrator.up(%Operation{
       action: "conflict_on_corrected",
@@ -210,16 +210,16 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":conflict_on_slave" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_in_conflict",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         file_comment: "",
         file_index: 1,
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
         removed: false
-      })
+      )
 
     Migrator.up(%Operation{
       action: "conflict_on_slave",
@@ -238,14 +238,14 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":remove" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_removed",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
         removed: false
-      })
+      )
 
     Migrator.up(%Operation{
       action: "remove",
@@ -260,14 +260,14 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":renew" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_renewed",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
         removed: true
-      })
+      )
 
     operation =
       Repo.insert!(%Operation{
@@ -285,14 +285,14 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":rollback" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "to_be_rollbacked",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted: false,
         removed: true
-      })
+      )
 
     operation =
       Repo.insert!(%Operation{
@@ -310,10 +310,10 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":conflict_on_proposed" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         value_type: "",
         key: "to_be_conflict_on_proposed",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         file_comment: "",
         file_index: 1,
         corrected_text: "corrected_text",
@@ -321,7 +321,7 @@ defmodule AccentTest.Movement.Migrator.Up do
         conflicted: true,
         removed: false,
         placeholders: []
-      })
+      )
 
     Migrator.up(%Operation{
       value_type: "",
@@ -345,15 +345,15 @@ defmodule AccentTest.Movement.Migrator.Up do
 
   test ":updated_proposed" do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "updated_proposed",
-        revision: Repo.insert!(%Revision{}),
+        revision: Factory.insert(Revision),
         corrected_text: "corrected_text",
         proposed_text: "proposed_text",
         conflicted_text: "conflict",
         conflicted: true,
         removed: false
-      })
+      )
 
     Migrator.up(%Operation{
       action: "update_proposed",

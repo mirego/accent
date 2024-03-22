@@ -17,11 +17,9 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
@@ -37,7 +35,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer", %{user: user, project: project} do
-    Repo.insert!(%Project{main_color: "#f00", name: "Other project"})
+    Factory.insert(Project, main_color: "#f00", name: "Other project")
 
     {:ok, result} = Resolver.list_viewer(user, %{}, %{})
 
@@ -50,7 +48,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer search", %{user: user, language: language} do
-    Repo.insert!(%Project{main_color: "#f00", name: "Other project"})
+    Factory.insert(Project, main_color: "#f00", name: "Other project")
 
     {:ok, project_two} =
       ProjectCreator.create(
@@ -113,7 +111,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   end
 
   test "list viewer ordering", %{user: user, language: language, project: project_one} do
-    Repo.insert!(%Project{main_color: "#f00", name: "Other project"})
+    Factory.insert(Project, main_color: "#f00", name: "Other project")
 
     {:ok, project_two} =
       ProjectCreator.create(
@@ -203,7 +201,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "get latest activity", %{user: user, project: project} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    operation = Repo.insert!(%Operation{user_id: user.id, project_id: project.id, action: "sync"})
+    operation = Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
 
     {:ok, latest_activity} = Resolver.last_activity(project, %{}, context)
 
@@ -212,7 +210,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "lint_translations", %{user: user, project: project} do
     [revision] = project.revisions
-    Repo.insert!(%Translation{revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A"})
+    Factory.insert(Translation, revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A")
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
@@ -229,16 +227,16 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
   test "lint_translations on current version only", %{user: user, project: project} do
     [revision] = project.revisions
-    version = Repo.insert!(%Version{project_id: project.id, name: "foo", tag: "bar", user_id: user.id})
-    Repo.insert!(%Translation{revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A"})
+    version = Factory.insert(Version, project_id: project.id, name: "foo", tag: "bar", user_id: user.id)
+    Factory.insert(Translation, revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A")
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       version_id: version.id,
       revision_id: revision.id,
       key: "b",
       proposed_text: " B",
       corrected_text: " B"
-    })
+    )
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 

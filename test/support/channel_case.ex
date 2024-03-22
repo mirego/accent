@@ -12,6 +12,8 @@ defmodule Accent.ChannelCase do
       # Import conveniences for testing with connections
       import Phoenix.ChannelTest
 
+      alias Accent.Factory
+
       # The default endpoint for testing
       @endpoint Endpoint
 

@@ -1,6 +1,6 @@
 defmodule AccentTest.IntegrationManager do
   @moduledoc false
-  use Accent.RepoCase, async: true
+  use Accent.RepoCase, async: false
 
   import Mock
 
@@ -17,11 +17,19 @@ defmodule AccentTest.IntegrationManager do
 
   describe "execute" do
     setup do
-      project = Repo.insert!(%Project{main_color: "red", name: "com"})
-      user = Repo.insert!(%User{email: "test@test.com"})
-      language = Repo.insert!(%Language{slug: "fr-custom", name: "Fr"})
-      revision = Repo.insert!(%Revision{project: project, language: language})
-      document = Repo.insert!(%Document{project: project, path: "foo", format: "gettext"})
+      project = Factory.insert(Project)
+      user = Factory.insert(User)
+      language = Factory.insert(Language, slug: "fr-custom")
+
+      revision =
+        Factory.insert(Revision,
+          master: true,
+          master_revision_id: nil,
+          project_id: project.id,
+          language_id: language.id
+        )
+
+      document = Factory.insert(Document, project_id: project.id, path: "foo", format: "gettext")
 
       {:ok, [project: project, user: user, language: language, revision: revision, document: document]}
     end
@@ -32,30 +40,30 @@ defmodule AccentTest.IntegrationManager do
       document: document,
       project: project
     } do
-      version = Repo.insert!(%Version{project: project, tag: "1.2.45", name: "vNext", user: user})
+      version = Factory.insert(Version, project_id: project.id, tag: "1.2.45", name: "vNext", user_id: user.id)
 
-      Repo.insert!(%Translation{
-        revision: revision,
-        document: document,
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        document_id: document.id,
         key: "key",
         corrected_text: "value latest"
-      })
+      )
 
-      Repo.insert!(%Translation{
-        revision: revision,
-        version: version,
-        document: document,
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        version_id: version.id,
+        document_id: document.id,
         key: "key",
         corrected_text: "value v1.2.45"
-      })
+      )
 
       integration =
-        Repo.insert!(%Integration{
-          project: project,
-          user: user,
+        Factory.insert(Integration,
+          project_id: project.id,
+          user_id: user.id,
           service: "azure_storage_container",
           data: %{azure_storage_container_sas: "http://azure.blob.test/container?sas=1234"}
-        })
+        )
 
       with_mock HTTPoison,
         put: fn url, {:file, file}, headers ->
@@ -87,15 +95,20 @@ defmodule AccentTest.IntegrationManager do
       document: document,
       project: project
     } do
-      Repo.insert!(%Translation{revision: revision, document: document, key: "key", corrected_text: "value"})
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        document_id: document.id,
+        key: "key",
+        corrected_text: "value"
+      )
 
       integration =
-        Repo.insert!(%Integration{
-          project: project,
-          user: user,
+        Factory.insert(Integration,
+          project_id: project.id,
+          user_id: user.id,
           service: "azure_storage_container",
           data: %{azure_storage_container_sas: "http://azure.blob.test/container?sas=1234"}
-        })
+        )
 
       with_mock HTTPoison,
         put: fn url, body, headers ->

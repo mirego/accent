@@ -10,11 +10,9 @@ defmodule AccentTest.GraphQL.Requests.Projects do
   alias Accent.Translation
   alias Accent.User
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    french_language = Repo.insert!(%Language{name: "french", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    french_language = Factory.insert(Language)
 
     project =
       Repo.insert!(%Project{
@@ -23,16 +21,16 @@ defmodule AccentTest.GraphQL.Requests.Projects do
         last_synced_at: DateTime.from_naive!(~N[2017-01-01T00:00:00], "Etc/UTC")
       })
 
-    Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "admin"})
-    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "admin")
+    revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     {:ok, [user: user, project: project, language: french_language, revision: revision]}
   end
 
   test "list projects", %{user: user, project: project, revision: revision} do
-    Repo.insert!(%Translation{revision_id: revision.id, key: "A", conflicted: true})
-    Repo.insert!(%Translation{revision_id: revision.id, key: "B", conflicted: true})
-    Repo.insert!(%Translation{revision_id: revision.id, key: "C", conflicted: false})
+    Factory.insert(Translation, revision_id: revision.id, key: "A", conflicted: true)
+    Factory.insert(Translation, revision_id: revision.id, key: "B", conflicted: true)
+    Factory.insert(Translation, revision_id: revision.id, key: "C", conflicted: false)
 
     {:ok, data} =
       Absinthe.run(
