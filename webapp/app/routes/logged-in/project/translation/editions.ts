@@ -31,7 +31,7 @@ export default class TranslationEditionsRoute extends Route {
       translationEditionsQuery,
       {
         props: (data) => ({
-          revisionModel: this.modelFor('logged-in.project.revision'),
+          translationModel: this.modelFor('logged-in.project.translation'),
           project: data.viewer.project,
           prompts: data.viewer.project.prompts,
           translations: data.viewer.project.translation.editions

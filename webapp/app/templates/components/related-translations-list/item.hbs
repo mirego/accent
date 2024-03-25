@@ -66,10 +66,10 @@
               @onUpdateText={{fn this.onUpdateText}}
             />
           </div>
+          <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} class='button button--filled button--iconOnly'>
+            {{t 'components.related_translations_list.save_button'}}
+          </AsyncButton>
         {{/unless}}
-        <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} @disabled={{@translation.isRemoved}} class='button button--filled button--iconOnly'>
-          {{t 'components.related_translations_list.save_button'}}
-        </AsyncButton>
       </div>
     {{/component}}
   </TranslationEdit::Form>

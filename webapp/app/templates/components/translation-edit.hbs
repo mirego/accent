@@ -17,18 +17,20 @@
         lang={{this.revisionSlug}}
       />
 
-      <div local-class='form-improve' data-rtl={{this.revisionTextDirRtl}}>
-        <TranslationEdit::Helpers
-          @permissions={{@permissions}}
-          @project={{@project}}
-          @revisions={{@revisions}}
-          @prompts={{@prompts}}
-          @rtl={{this.revisionTextDirRtl}}
-          @text={{this.text}}
-          @onUpdatingText={{fn this.onUpdatingText}}
-          @onUpdateText={{fn this.onUpdateText}}
-        />
-      </div>
+      {{#unless @translation.isRemoved}}
+        <div local-class='form-improve' data-rtl={{this.revisionTextDirRtl}}>
+          <TranslationEdit::Helpers
+            @permissions={{@permissions}}
+            @project={{@project}}
+            @revisions={{@revisions}}
+            @prompts={{@prompts}}
+            @rtl={{this.revisionTextDirRtl}}
+            @text={{this.text}}
+            @onUpdatingText={{fn this.onUpdatingText}}
+            @onUpdateText={{fn this.onUpdateText}}
+          />
+        </div>
+      {{/unless}}
     </div>
   {{/if}}
 

@@ -29,7 +29,7 @@ export default class TranslationEditionsController extends Controller {
   @readOnly('globalState.permissions')
   permissions: any;
 
-  @readOnly('model.revisionModel.project.revisions')
+  @readOnly('model.translationModel.revisions')
   revisions: any;
 
   @equal('model.translations', undefined)
