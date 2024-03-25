@@ -1134,7 +1134,9 @@
             "unsupported_source_and_target": "The string could not be translated: Unsupported source {source} and target {target}"
           },
           "correct_error": "The string could not be marked as reviewed",
-          "correct_success": "The string as been marked as reviewed with success"
+          "correct_success": "The string as been marked as reviewed with success",
+          "update_error": "The string could not be updated",
+          "update_success": "The string has been updated with success"
         }
       },
       "edit": {

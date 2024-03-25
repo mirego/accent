@@ -1129,6 +1129,8 @@
           "revision_correct_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
           "correct_error": "Impossible de marquer la chaîne comme vérifiée",
           "correct_success": "La chaîne a été marquée comme révisée avec succès",
+          "update_error": "La chaîne n’a pas pu être mise à jour",
+          "update_success": "La chaîne a été mise à jour avec succès",
           "translate_provider_error": "La chaîne n’a pas pu être traduite : {provider}",
           "translate_error": {
             "unsupported_target": "La chaîne n’a pas pu être traduite : Langue non prise en charge {target}",
