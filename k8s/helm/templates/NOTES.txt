@@ -1,0 +1,52 @@
+{{- $isIngressEnabled := .Values.ingress.enabled -}}
+{{- $fullname := include "accent.fullname" . -}}
+{{- $serviceType := .Values.service.type -}}
+{{- $ingressHost := (index .Values.ingress.hosts 0).host -}}
+
+Thank you for installing {{ $fullname }}!
+
+Your release is named '{{ .Release.Name }}' and installed in the '{{ .Release.Namespace }}' namespace.
+
+{{- if eq $serviceType "ClusterIP" }}
+
+1. To connect to your {{ $fullname }} application within your cluster:
+
+   Service name: {{ $fullname }}
+   Service port: {{ .Values.service.port }}
+
+   Use the following command to find out the IP address of your Kubernetes cluster:
+   kubectl cluster-info
+
+   Then, connect to the application using the internal IP and the service port.
+
+{{- else if eq $serviceType "NodePort" }}
+
+2. To connect to your {{ $fullname }} application from outside the cluster:
+
+   First, find the NodePort assigned to your service:
+   kubectl get svc --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "accent.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
+
+   Then, connect using your node's IP address and the above NodePort.
+
+{{- else if eq $serviceType "LoadBalancer" }}
+
+3. To connect to your {{ $fullname }} application via LoadBalancer:
+
+   NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+   You can watch the status by running:
+   kubectl get svc --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "accent.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
+
+   Once the LoadBalancer IP is assigned, connect using the IP and the service port.
+
+{{- end }}
+
+{{- if $isIngressEnabled }}
+
+4. Access your application through Ingress at:
+   http://{{ $ingressHost }}
+
+{{- end }}
+
+For more information on running {{ $fullname }}, you can follow the documentation available at [your documentation URL here].
+
+Feel free to customize your deployment by modifying the `values.yaml` file and upgrading the Helm release.
