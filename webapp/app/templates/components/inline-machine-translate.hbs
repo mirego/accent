@@ -4,7 +4,7 @@
       {{#each @languages as |language|}}
         <AsyncButton
           title={{language.name}}
-          @onClick={{(perform this.submitTask language.slug)}}
+          @onClick={{(perform this.submitTask language.slug @translation.revision.language.slug)}}
           class='tooltip tooltip--top button button--iconOnly button--borderless button--white'
         >
           {{language.slug}}

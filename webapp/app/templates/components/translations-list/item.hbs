@@ -101,6 +101,7 @@
             {{#unless @translation.isRemoved}}
               <div local-class='form-helpers'>
                 <TranslationEdit::Helpers
+                  @translation={{@translation}}
                   @permissions={{@permissions}}
                   @project={{@project}}
                   @revisions={{@revisions}}

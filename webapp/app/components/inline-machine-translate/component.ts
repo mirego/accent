@@ -20,12 +20,13 @@ export default class ImprovePrompt extends Component<Args> {
     return this.submitTask.isRunning;
   }
 
-  submitTask = dropTask(async (targetLanguageSlug: string) => {
+  submitTask = dropTask(async (sourceLanguageSlug: string, targetLanguageSlug: string) => {
     this.args.onUpdatingText();
 
     const variables = {
       projectId: this.args.project.id,
       text: this.args.text,
+      sourceLanguageSlug,
       targetLanguageSlug
     };
 
