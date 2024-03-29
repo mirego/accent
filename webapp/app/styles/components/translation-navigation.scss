@@ -1,19 +1,15 @@
 .navigation--alt {
-  border-bottom: 1px solid var(--input-border-color);
-
   .navigation-list-item {
     margin-right: 6px;
   }
 
   .navigation-list-item-link {
-    position: relative;
-    top: 1px;
-    padding: 10px 15px 8px 10px;
-    border-bottom: 2px solid transparent;
+    padding: 2px 11px 2px 10px;
+    border-radius: var(--border-radius);
 
     &:global(.active) {
-      border-bottom-color: var(--color-primary);
-      color: var(--color-primary);
+      background: var(--background-light-highlight);
+      opacity: 0.7;
     }
   }
 }
@@ -21,7 +17,6 @@
 .navigation-list {
   display: flex;
   align-items: stretch;
-  min-height: 40px;
   position: relative;
   left: -6px;
   z-index: 10;
@@ -45,21 +40,19 @@
   position: relative;
   padding: 5px 5px 6px 3px;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-black);
 
   &:focus,
   &:hover,
   :global(&.active) {
-    color: var(--color-primary);
-
     .navigation-list-item-link-text {
       opacity: 1;
     }
 
     .navigation-list-item-link-icon {
-      stroke: var(--color-primary);
+      stroke: currentColor;
     }
   }
 }
@@ -73,9 +66,9 @@
 .navigation-list-item-link-icon {
   transition: 0.2s ease-in-out;
   transition-property: stroke;
-  width: 16px;
-  height: 16px;
-  margin-right: 7px;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
   opacity: 0.6;
   stroke: var(--color-black);
 }

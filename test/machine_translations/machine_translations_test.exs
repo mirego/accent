@@ -73,5 +73,52 @@ defmodule AccentTest.MachineTranslations do
       {:error, error} = MachineTranslations.translate(entries, source_language, target_language, config)
       assert error === "Something"
     end
+
+    test "deepl" do
+      mock_global(fn
+        %{body: body, url: "https://api-free.deepl.com/v2/translate"} ->
+          assert Jason.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
+
+          %Tesla.Env{status: 200, body: %{"translations" => [%{"text" => "Translated"}]}}
+      end)
+
+      entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
+      source_language = "fr"
+      target_language = "en"
+      provider_config = %{"key" => "test"}
+      config = %{"provider" => "deepl", "config" => provider_config}
+
+      [entry] = MachineTranslations.translate(entries, source_language, target_language, config)
+      assert entry.value === "Translated"
+    end
+
+    test "deepl error" do
+      mock_global(fn %{url: "https://api-free.deepl.com/v2/translate"} ->
+        %Tesla.Env{status: 400, body: "Something"}
+      end)
+
+      entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
+      source_language = "fr"
+      target_language = "en"
+      provider_config = %{"key" => "test"}
+      config = %{"provider" => "deepl", "config" => provider_config}
+
+      {:error, error} = MachineTranslations.translate(entries, source_language, target_language, config)
+      assert error === "Something"
+    end
+
+    test "deepl detect source" do
+      mock_global(fn %{url: "https://api-free.deepl.com/v2/translate"} ->
+        %Tesla.Env{status: 400, body: "Something"}
+      end)
+
+      entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
+      target_language = "en"
+      provider_config = %{"key" => "test"}
+      config = %{"provider" => "deepl", "config" => provider_config}
+
+      {:error, error} = MachineTranslations.translate(entries, nil, target_language, config)
+      assert error === "Something"
+    end
   end
 end
