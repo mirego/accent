@@ -13,9 +13,24 @@
   flex-direction: column;
 }
 
+.messages-item {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
 .description {
   color: var(--color-error);
   font-size: 12px;
+}
+
+.button-fix {
+  width: max-content;
+
+  &:focus,
+  &:hover {
+    --button-text-hover-color: var(--color-green);
+  }
 }
 
 .item-language {
@@ -91,6 +106,15 @@
   &:hover,
   &:focus {
     opacity: 1;
+  }
+}
+
+.item-diff-text {
+  font-size: 13px;
+  color: var(--text-color-normal);
+
+  > div {
+    display: inline;
   }
 }
 

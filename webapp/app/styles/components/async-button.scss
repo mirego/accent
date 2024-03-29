@@ -26,6 +26,13 @@
     }
   }
 
+  &:global(.button--iconOnly) {
+    .label {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+
   &:global(.button--small) {
     &.button--loading {
       .loading {

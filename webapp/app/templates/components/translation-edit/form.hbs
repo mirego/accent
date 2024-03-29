@@ -115,5 +115,7 @@
     </div>
   {{/if}}
 
-  <LintTranslationsPage::Item @lintTranslation={{this.lintTranslation}} />
+  <div local-class='lint-messages {{if this.fetchLintMessagesTask.isRunning "lint-messages--loading"}}'>
+    <LintTranslationsPage::Item @lintTranslation={{this.lintTranslation}} @changeText={{fn @onKeyUp}} />
+  </div>
 </div>

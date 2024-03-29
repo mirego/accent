@@ -76,6 +76,18 @@
   }
 }
 
+.button--blue {
+  --button-text-color: var(--color-blue);
+}
+
+.button--green {
+  --button-text-color: var(--color-green);
+}
+
+.button--grey {
+  --button-text-color: var(--color-grey);
+}
+
 .button--grey,
 .button--success,
 .button--black,

@@ -23,6 +23,12 @@
 
 .item {
   margin-bottom: 20px;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
+}
+
+.item--fixing {
+  opacity: 0.5;
 }
 
 .icon-warning {
@@ -46,10 +52,9 @@
 .stats-item {
   display: inline-flex;
   gap: 4px;
-  padding: 2px 12px;
+  padding: 4px 12px;
   border-radius: 30px;
-  border: 1px solid var(--background-light-highlight);
-  background: var(--background-light);
+  background: var(--background-light-highlight);
   color: var(--text-color-normal);
   font-size: 12px;
   cursor: default;

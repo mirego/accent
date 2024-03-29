@@ -4,6 +4,7 @@ import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 interface Args {
   lintTranslation: any;
   project: any;
+  fix?: (lintTranslation: any, message: any) => void;
 }
 
 const escape = document.createElement('textarea');
@@ -14,6 +15,14 @@ const escapeHTML = (html: string): string => {
 
 export default class LintTranslationsPageItem extends Component<Args> {
   translationKey = parsedKeyProperty(this.args.lintTranslation.translation.key);
+
+  get allReplacable() {
+    return this.args.lintTranslation.messages.every(
+      (message: {replacement: object | null}) => {
+        return Boolean(message.replacement);
+      }
+    );
+  }
 
   get messages() {
     const mapSet = new Set();

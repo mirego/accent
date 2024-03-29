@@ -187,3 +187,12 @@
   margin-right: 6px;
   stroke: var(--color-black);
 }
+
+.lint-messages {
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
+}
+
+.lint-messages--loading {
+  opacity: 0.5;
+}
