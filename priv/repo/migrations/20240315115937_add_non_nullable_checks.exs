@@ -77,7 +77,7 @@ defmodule Accent.Repo.Migrations.AddNonNullableChecks do
     end
 
     alter table(:translations) do
-      modify(:key, :string, null: false)
+      modify(:key, :text, null: false)
       modify(:removed, :boolean, null: false, default: false)
       modify(:conflicted, :boolean, null: false, default: false)
       modify(:comments_count, :integer, null: false, default: 0)
