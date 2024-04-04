@@ -2,6 +2,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   @moduledoc false
   use Accent.RepoCase, async: true
 
+  alias Accent.Collaborator
   alias Accent.GraphQL.Resolvers.Project, as: Resolver
   alias Accent.Language
   alias Accent.Operation
@@ -22,7 +23,10 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     language = Factory.insert(Language)
 
     {:ok, project} =
-      ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
+      ProjectCreator.create(
+        params: %{main_color: "#f00", name: "My project", language_id: language.id},
+        user: user
+      )
 
     user = %{user | permissions: %{project.id => "owner"}}
 
@@ -110,26 +114,19 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     assert meta.previous_page == 1
   end
 
-  test "list viewer ordering", %{user: user, language: language, project: project_one} do
+  test "list viewer ordering", %{user: user, project: project_one} do
     Factory.insert(Project)
 
-    {:ok, project_two} =
-      ProjectCreator.create(
-        params: %{main_color: "#f00", name: "X - My second project", language_id: language.id},
-        user: user
-      )
-
-    {:ok, project_three} =
-      ProjectCreator.create(
-        params: %{main_color: "#f00", name: "A - My third project", language_id: language.id},
-        user: user
-      )
+    project_two = Factory.insert(Project, last_synced_at: ~U[2020-01-01T00:00:00Z])
+    project_three = Factory.insert(Project, last_synced_at: ~U[2022-02-02T00:00:00Z])
+    Factory.insert(Collaborator, project_id: project_two.id, user_id: user.id, role: "admin")
+    Factory.insert(Collaborator, project_id: project_three.id, user_id: user.id, role: "admin")
 
     {:ok, result} = Resolver.list_viewer(user, %{}, %{})
 
     assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [
-             project_three.id,
              project_one.id,
+             project_three.id,
              project_two.id
            ]
   end
