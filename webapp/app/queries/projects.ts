@@ -35,8 +35,6 @@ export default gql`
           lastSyncedAt
           mainColor
           logo
-          translationsCount
-          conflictsCount
         }
       }
     }

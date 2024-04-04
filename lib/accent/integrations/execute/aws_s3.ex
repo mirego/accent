@@ -5,7 +5,14 @@ defmodule Accent.IntegrationManager.Execute.AWSS3 do
 
   def upload_translations(integration, user, params) do
     {uploads, version_tag} = Accent.IntegrationManager.Execute.UploadDocuments.all(integration, params)
-    base_url = "https://s3-#{integration.data.aws_s3_region}.amazonaws.com/#{integration.data.aws_s3_bucket}"
+
+    # To support bucket with '.' in the name, we need to use the region subdomain.
+    # The us-east-1 subdomain is not s3-us-east-1. It’s s3 only.
+    base_url =
+      case integration.data.aws_s3_region do
+        "us-east-1" -> "https://s3.amazonaws.com/#{integration.data.aws_s3_bucket}"
+        region -> "https://s3-#{region}.amazonaws.com/#{integration.data.aws_s3_bucket}"
+      end
 
     url =
       Path.join([

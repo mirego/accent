@@ -1,4 +1,4 @@
-<div local-class='projects-list-item {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}'>
+<div local-class='projects-list-item' style='{{this.colorPrimary}}'>
   <div local-class='projectHeader' class='projectId-{{@project.id}}'>
     {{#if @project.logo}}
       <span local-class='projectLogo'>
@@ -9,9 +9,6 @@
     <span local-class='projectName' data-test-project-name>
       {{@project.name}}
     </span>
-    <style>
-      {{{this.colors}}}
-    </style>
   </div>
 
   <div local-class='numberStat'>
@@ -27,14 +24,5 @@
         {{t 'components.projects_list.never_synced'}}
       {{/if}}
     </span>
-
-    <span local-class='numberStat-totals'>
-      {{this.totalStrings}}
-      {{t 'components.dashboard_revisions.strings'}}
-    </span>
-  </div>
-
-  <div local-class='progress'>
-    <ReviewProgressBar @correctedKeysPercentage={{this.correctedKeysPercentage}} />
   </div>
 </div>

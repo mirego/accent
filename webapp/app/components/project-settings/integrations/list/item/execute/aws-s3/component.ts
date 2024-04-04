@@ -9,9 +9,9 @@ import ApolloMutate from 'accent-webapp/services/apollo-mutate';
 import executeIntegration from 'accent-webapp/queries/execute-integration';
 
 const FLASH_MESSAGE_CREATE_SUCCESS =
-  'pods.versions.new.flash_messages.create_success';
+  'pods.project.edit.flash_messages.integration_execute_success';
 const FLASH_MESSAGE_CREATE_ERROR =
-  'pods.versions.new.flash_messages.create_error';
+  'pods.project.edit.flash_messages.integration_execute_error';
 
 interface Args {
   close: () => void;

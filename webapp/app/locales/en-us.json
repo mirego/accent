@@ -1151,6 +1151,8 @@
           "collaborator_update_success": "The collaborator has been updated with success",
           "integration_add_error": "The integration could not be added",
           "integration_add_success": "The integration has been added with success",
+          "integration_execute_error": "The integration could not be executed",
+          "integration_execute_success": "The integration has been executed with success",
           "integration_update_error": "The integration could not be updated",
           "integration_update_success": "The integration has been updated with success",
           "integration_remove_error": "The integration could not be removed",

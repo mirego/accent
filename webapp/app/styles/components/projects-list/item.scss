@@ -1,37 +1,7 @@
-.projects-list-item.low-percentage {
-  .language-reviewedPercentage {
-    color: var(--color-error);
-  }
-
-  .progress {
-    color: var(--color-error);
-  }
-}
-
-.projects-list-item.medium-percentage {
-  .language-reviewedPercentage {
-    color: var(--color-warning);
-  }
-
-  .progress {
-    color: var(--color-warning);
-  }
-}
-
-.projects-list-item.high-percentage {
-  .language-reviewedPercentage {
-    color: var(--color-success);
-  }
-
-  .progress {
-    color: var(--color-success);
-  }
-}
-
 .projects-list-item {
   padding: 12px 15px;
   transition: 0.2s ease-in-out;
-  transition-property: box-shadow;
+  transition-property: box-shadow, border-color;
   border-radius: var(--border-radius);
   border: 1px solid var(--content-background-border);
   background: var(--content-background);
@@ -39,6 +9,14 @@
 
   &:focus,
   &:hover {
+    box-shadow: 0 4px 15px var(--shadow-color);
+    border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+    border-bottom-color: color-mix(
+      in srgb,
+      var(--color-primary) 25%,
+      transparent
+    );
+
     .projectName {
       color: var(--color-primary);
     }
@@ -87,12 +65,4 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
-}
-
-.numberStat-totals {
-  padding: 2px 0 1px 7px;
-  color: var(--color-black);
-  font-size: 12px;
-  font-family: var(--font-monospace);
 }
