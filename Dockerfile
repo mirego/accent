@@ -47,10 +47,11 @@ COPY config config
 RUN mix deps.get --only prod
 RUN mix deps.compile --only prod
 
-COPY vendor vendor
+COPY vendor/language_tool/priv/ vendor/language_tool/priv/
 RUN cd ./vendor/language_tool/priv/native/languagetool && ./gradlew shadowJar
 RUN cp ./vendor/language_tool/priv/native/languagetool/app/build/libs/language-tool.jar priv/native/language-tool.jar
 
+COPY vendor vendor
 COPY lib lib
 
 RUN mix compile --only prod
