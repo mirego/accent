@@ -85,9 +85,8 @@ defmodule Accent.GraphQL.Resolvers.Project do
       Project
       |> Query.join(:inner, [p], c in assoc(p, :collaborators))
       |> Query.where([_, c], c.user_id == ^viewer.id)
-      |> Query.order_by([p, _], asc: p.name)
+      |> Query.order_by([p, _], desc_nulls_first: p.last_synced_at)
       |> ProjectScope.from_search(args[:query])
-      |> ProjectScope.with_stats()
       |> Paginated.paginate(args)
       |> Paginated.format()
 
@@ -96,7 +95,6 @@ defmodule Accent.GraphQL.Resolvers.Project do
       |> Query.join(:inner, [p], c in assoc(p, :collaborators))
       |> Query.where([_, c], c.user_id == ^viewer.id)
       |> ProjectScope.from_ids(args[:node_ids])
-      |> ProjectScope.with_stats()
       |> Repo.all()
 
     projects = Map.put(paginated_projects, :nodes, nodes_projects)

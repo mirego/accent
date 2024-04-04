@@ -35,9 +35,6 @@ defmodule AccentTest.GraphQL.Requests.Projects do
                 id
                 name
                 lastSyncedAt
-                translationsCount
-                conflictsCount
-                reviewedCount
               }
             }
           }
@@ -52,9 +49,5 @@ defmodule AccentTest.GraphQL.Requests.Projects do
 
     assert get_in(data, [:data, "viewer", "projects", "entries", Access.at(0), "lastSyncedAt"]) ===
              "2017-01-01T00:00:00Z"
-
-    assert get_in(data, [:data, "viewer", "projects", "entries", Access.at(0), "translationsCount"]) === 3
-    assert get_in(data, [:data, "viewer", "projects", "entries", Access.at(0), "reviewedCount"]) === 1
-    assert get_in(data, [:data, "viewer", "projects", "entries", Access.at(0), "conflictsCount"]) === 2
   end
 end
