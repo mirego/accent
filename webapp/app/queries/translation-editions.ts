@@ -41,18 +41,6 @@ export default gql`
               tag
             }
 
-            revision {
-              id
-              slug
-              rtl
-
-              language {
-                id
-                slug
-                rtl
-              }
-            }
-
             document {
               id
               path

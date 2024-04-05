@@ -94,6 +94,7 @@ export default gql`
                   rtl
                 }
               }
+
               document {
                 id
                 path

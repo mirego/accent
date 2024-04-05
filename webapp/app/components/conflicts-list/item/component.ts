@@ -78,6 +78,13 @@ export default class ConflictsListItem extends Component<Args> {
       : this.args.translation.revision.language.rtl;
   }
 
+  get revisionSlug() {
+    return (
+      this.args.translation.revision.slug ||
+      this.args.translation.revision.language.slug
+    );
+  }
+
   @action
   changeTranslationText(text: string) {
     this.textInput = text;

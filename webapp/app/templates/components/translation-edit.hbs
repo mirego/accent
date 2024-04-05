@@ -21,8 +21,8 @@
         <div local-class='form-improve' data-rtl={{this.revisionTextDirRtl}}>
           <TranslationEdit::Helpers
             @permissions={{@permissions}}
+            @languageSlug={{this.revisionSlug}}
             @project={{@project}}
-            @revisions={{@revisions}}
             @prompts={{@prompts}}
             @rtl={{this.revisionTextDirRtl}}
             @text={{this.text}}

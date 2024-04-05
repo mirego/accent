@@ -61,9 +61,9 @@
           {{#unless @translation.isRemoved}}
             <div local-class='form-helpers'>
               <TranslationEdit::Helpers
+                @languageSlug={{this.revisionSlug}}
                 @permissions={{@permissions}}
                 @project={{@project}}
-                @revisions={{@revisions}}
                 @prompts={{@prompts}}
                 @rtl={{this.revisionTextDirRtl}}
                 @text={{this.editText}}
