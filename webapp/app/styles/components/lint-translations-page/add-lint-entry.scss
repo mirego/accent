@@ -1,0 +1,100 @@
+.toggle {
+  position: relative;
+  top: -1px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.wrapper {
+  padding: 20px;
+  position: relative;
+
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0;
+    background: transparent;
+
+    &:focus,
+    &:hover {
+      .closeButton-icon {
+        opacity: 1;
+      }
+    }
+  }
+
+  .closeButton-content {
+    display: flex;
+  }
+
+  .closeButton-icon {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-grey);
+    opacity: 0.6;
+    transition: 0.2s ease-in-out;
+    transition-property: opacity;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.title-icon {
+  width: 13px;
+  height: 13px;
+  opacity: 0.6;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.actions button {
+  gap: 5px;
+}
+
+.code {
+  font-family: var(--font-monospace);
+  color: var(--color-primary);
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+.menu-button {
+  background: transparent;
+  width: 100%;
+  padding: 4px 5px;
+  border-radius: var(--border-radius);
+  font-size: 12px;
+  transition: 0.2s ease-in-out;
+  transition-property: background;
+  text-align: left;
+
+  span {
+    display: inline-block;
+    background: var(--background-light);
+    border: 1px solid var(--background-light-highlight);
+    border-radius: 50px;
+    padding: 2px 5px;
+    font-size: 11px;
+  }
+
+  &:focus,
+  &:hover {
+    background: var(--background-light);
+  }
+}

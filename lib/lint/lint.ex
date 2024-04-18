@@ -1,9 +1,11 @@
 defmodule Accent.Lint do
   @moduledoc false
+  alias Accent.ProjectLintEntry
+  alias Accent.Repo
 
   defmodule Config do
     @moduledoc false
-    defstruct enabled_rule_ids: []
+    defstruct enabled_check_ids: [], lint_entries: []
 
     @type t :: %__MODULE__{}
   end
@@ -11,7 +13,7 @@ defmodule Accent.Lint do
   defmodule Message do
     @moduledoc false
     @enforce_keys ~w(check text)a
-    defstruct check: nil, text: nil, replacement: nil, message: nil, offset: nil, length: nil
+    defstruct check: nil, details: %{}, text: nil, replacement: nil, message: nil, offset: nil, length: nil
 
     @type t :: %__MODULE__{}
   end
@@ -31,7 +33,7 @@ defmodule Accent.Lint do
               "leading_spaces" => Accent.Lint.Checks.LeadingSpaces,
               "placeholder_count" => Accent.Lint.Checks.PlaceholderCount,
               "three_dots_ellipsis" => Accent.Lint.Checks.ThreeDotsEllipsis,
-              "trailing_spaces" => Accent.Lint.Checks.TrailingSpaces,
+              "trailing_space" => Accent.Lint.Checks.TrailingSpaces,
               "apostrophe_as_single_quote" => Accent.Lint.Checks.ApostropheAsSingleQuote,
               "double_space" => Accent.Lint.Checks.DoubleSpace,
               "spelling" => Accent.Lint.Checks.Spelling,
@@ -45,19 +47,41 @@ defmodule Accent.Lint do
     Enum.map(entries, &entry_to_messages(&1, config))
   end
 
+  def create_lint_entry(args) do
+    Repo.insert(%ProjectLintEntry{
+      project_id: args.project_id,
+      check_ids: args.check_ids,
+      type: args.type,
+      value: args.value
+    })
+  end
+
   defp entry_to_messages(entry, config) do
     checks =
-      if Enum.any?(config.enabled_rule_ids) do
-        Map.filter(@checks, fn {rule_id, _check_module} -> rule_id in config.enabled_rule_ids end)
+      if Enum.any?(config.enabled_check_ids) do
+        Map.filter(@checks, fn {check_id, _check_module} -> check_id in config.enabled_check_ids end)
       else
         @checks
       end
 
-    check_modules = Map.values(checks)
+    checks =
+      Map.reject(checks, fn {check, _} ->
+        Enum.any?(config.lint_entries, fn lint_entry ->
+          check in lint_entry.check_ids and
+            (lint_entry.type === :all or
+               (lint_entry.type === :key and entry.key === lint_entry.value))
+        end)
+      end)
 
-    {entry,
-     Enum.flat_map(check_modules, fn check ->
-       if check.applicable(entry), do: List.wrap(check.check(entry)), else: []
-     end)}
+    messages =
+      Enum.flat_map(checks, fn {_check, check_module} ->
+        if check_module.applicable(entry, config) do
+          List.wrap(check_module.check(entry, config))
+        else
+          []
+        end
+      end)
+
+    {entry, messages}
   end
 end

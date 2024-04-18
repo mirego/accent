@@ -1,13 +1,15 @@
 <div>
-  <ProjectHeader @session={{this.session}} @project={{this.project}} />
+  {{#unless this.showError}}
+    <ProjectHeader @session={{this.session}} @project={{this.project}} />
 
-  <style>
-    html body {
-    {{{this.colors}}}
-    } html[data-theme='dark'] body {
-    {{{this.darkColors}}}
-    }
-  </style>
+    <style>
+      html body {
+      {{{this.colors}}}
+      } html[data-theme='dark'] body {
+      {{{this.darkColors}}}
+      }
+    </style>
+  {{/unless}}
 
   <AccWrapper>
     {{#unless this.showError}}
@@ -23,19 +25,19 @@
     {{/unless}}
 
     <AccWrapper::Content>
-      {{#unless this.model.loading}}
-        <PhoenixChannelListener @project={{this.project}} />
-        <RecentProjectCache @project={{this.project}} />
-      {{/unless}}
-
       {{#if this.showError}}
         <ErrorSection
           @status={{t 'pods.error.unauthorized.status'}}
           @title={{t 'pods.error.unauthorized.title'}}
           @text={{t 'pods.error.unauthorized.text'}}
-          @isAuthenticated={{false}}
+          @isAuthenticated={{this.session.isAuthenticated}}
         />
       {{else}}
+        {{#unless this.model.loading}}
+          <PhoenixChannelListener @project={{this.project}} />
+          <RecentProjectCache @project={{this.project}} />
+        {{/unless}}
+
         {{outlet}}
       {{/if}}
     </AccWrapper::Content>

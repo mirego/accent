@@ -3,12 +3,19 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   import Absinthe.Resolution.Helpers, only: [batch: 3]
 
   alias Accent.Plugs.GraphQLContext
+  alias Accent.Project
   alias Accent.Repo
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.Translation
 
   require Ecto.Query
+
+  @spec create_project_lint_entry(Project.t(), map(), GraphQLContext.t()) ::
+          {:middleware, Absinthe.Middleware.Batch, any()}
+  def create_project_lint_entry(_project, args, _resolution) do
+    Accent.Lint.create_lint_entry(args)
+  end
 
   @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) :: {:middleware, Absinthe.Middleware.Batch, any()}
   def lint_translation(translation, args, resolution) do
@@ -21,6 +28,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   def lint_batched_translation(translation, args, _) do
     translation = overwrite_text_args(translation, args)
     language_slug = translation.revision.slug || translation.revision.language.slug
+    lint_entries = Repo.all(Ecto.assoc(translation, [:project, :lint_entries]))
 
     entry =
       Translation.to_langue_entry(
@@ -30,7 +38,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
         language_slug
       )
 
-    [{_, messages}] = Accent.Lint.lint([entry])
+    [{_, messages}] = Accent.Lint.lint([entry], %Accent.Lint.Config{lint_entries: lint_entries})
 
     {:ok, messages}
   end

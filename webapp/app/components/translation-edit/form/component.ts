@@ -5,6 +5,7 @@ import {action} from '@ember/object';
 import Component from '@glimmer/component';
 
 import translationLintQuery from 'accent-webapp/queries/lint-translation';
+import projectLintEntryCreateQuery from 'accent-webapp/queries/create-project-lint-entry';
 import Apollo from 'accent-webapp/services/apollo';
 import {tracked} from '@glimmer/tracking';
 import {timeout, restartableTask} from 'ember-concurrency';
@@ -21,6 +22,7 @@ const DEBOUNCE_LINT_MESSAGES = 800;
 
 interface Args {
   projectId: string;
+  translationKey: string;
   translationId: string;
   lintMessages?: any[];
   inputDisabled: boolean;
@@ -49,7 +51,11 @@ export default class TranslationEditForm extends Component<Args> {
 
   @tracked
   lintTranslation = {
-    translation: {id: this.args.translationId, text: this.args.value},
+    translation: {
+      id: this.args.translationId,
+      key: this.args.translationKey,
+      text: this.args.value
+    },
     messages: this.args.lintMessages
   };
 
@@ -134,6 +140,8 @@ export default class TranslationEditForm extends Component<Args> {
 
   onUpdateValue = restartableTask(
     async (_element: HTMLElement, [value]: string[]) => {
+      if (value === this.args.value) return;
+
       await timeout(DEBOUNCE_LINT_MESSAGES);
 
       await this.fetchLintMessagesTask.perform(value);
@@ -153,6 +161,19 @@ export default class TranslationEditForm extends Component<Args> {
 
     this.lintTranslation = Object.assign(this.lintTranslation, {
       messages: data.viewer.project.translation.lintMessages
+    });
+  });
+
+  createLintEntryTask = restartableTask(async (lintEntry: any) => {
+    await this.apollo.client.mutate({
+      mutation: projectLintEntryCreateQuery,
+      refetchQueries: ['Translation'],
+      variables: {
+        projectId: this.args.projectId,
+        checkIds: lintEntry.checkIds,
+        type: lintEntry.type,
+        value: lintEntry.value
+      }
     });
   });
 

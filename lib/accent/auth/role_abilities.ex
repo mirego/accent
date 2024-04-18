@@ -40,6 +40,8 @@ defmodule Accent.RoleAbilities do
     delete_comment
     update_comment
     update_translation
+    create_project_lint_entry
+    delete_project_lint_entry
     create_translation_comments_subscription
     delete_translation_comments_subscription
   )a
@@ -51,7 +53,13 @@ defmodule Accent.RoleAbilities do
     peek_merge
     merge
     sync
-    hook_update
+  )a ++ @read_actions
+
+  @bot_actions ~w(
+    peek_sync
+    peek_merge
+    merge
+    sync
   )a ++ @read_actions
 
   @reviewer_actions ~w(

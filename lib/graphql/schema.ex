@@ -80,6 +80,7 @@ defmodule Accent.GraphQL.Schema do
     import_types(Accent.GraphQL.Mutations.Revision)
     import_types(Accent.GraphQL.Mutations.Project)
     import_types(Accent.GraphQL.Mutations.Prompt)
+    import_types(Accent.GraphQL.Mutations.Lint)
     import_types(Accent.GraphQL.Mutations.Integration)
     import_types(Accent.GraphQL.Mutations.Operation)
     import_types(Accent.GraphQL.Mutations.Version)
@@ -94,6 +95,7 @@ defmodule Accent.GraphQL.Schema do
     import_fields(:revision_mutations)
     import_fields(:project_mutations)
     import_fields(:integration_mutations)
+    import_fields(:lint_mutations)
     import_fields(:operation_mutations)
     import_fields(:version_mutations)
   end

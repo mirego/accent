@@ -6,6 +6,8 @@ defmodule LanguageTool.AnnotatedText do
     matches = matches ++ scan_html(input)
     # Ignore % and $ often used as placeholders
     matches = matches ++ scan_placeholders(input)
+    # Somehow, empty strings in values with delimiter are makred as errors
+    matches = matches ++ scan_empty_strings_with_delimiter(input)
 
     matches = Enum.sort_by(matches, fn {match_index, _, _} -> match_index end)
 
@@ -13,12 +15,20 @@ defmodule LanguageTool.AnnotatedText do
   end
 
   defp scan_entry_regex(_input, nil), do: []
+  defp scan_entry_regex(_input, :not_supported), do: []
 
   defp scan_entry_regex(input, regex) do
     regex
     |> Regex.scan(input, return: :index)
     |> List.flatten()
     |> Enum.map(fn {index, length} -> {index, length, "x"} end)
+  end
+
+  defp scan_empty_strings_with_delimiter(input) do
+    ~r/\(""/
+    |> Regex.scan(input, return: :index)
+    |> List.flatten()
+    |> Enum.map(fn {index, length} -> {index, length, "(x"} end)
   end
 
   defp scan_html(input) do

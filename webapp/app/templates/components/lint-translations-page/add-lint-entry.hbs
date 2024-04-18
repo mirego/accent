@@ -1,0 +1,52 @@
+<button local-class='toggle' class='button button--iconOnly button--red button--borderless' {{on 'click' this.toggleMenu}}>
+  {{inline-svg '/assets/x.svg' class='button-icon'}}
+</button>
+
+{{#if this.displayMenu}}
+  <AccModal @onClose={{fn this.toggleMenu}} @small={{true}}>
+    <div local-class='wrapper'>
+      <button local-class='closeButton' {{on 'click' (fn this.toggleMenu)}}>
+        <div local-class='closeButton-content'>
+          {{inline-svg '/assets/x.svg' local-class='closeButton-icon'}}
+        </div>
+      </button>
+
+      {{#if this.isSpelling}}
+        <strong local-class='title'>
+          {{inline-svg '/assets/warning.svg' local-class='title-icon'}}
+          {{@message.details.spellingRuleDescription}}
+        </strong>
+      {{else}}
+        <strong local-class='title'>
+          {{inline-svg '/assets/warning.svg' local-class='title-icon'}}
+          {{t (concat 'components.translation_edit.lint_message.title_checks.' @message.check)}}
+        </strong>
+      {{/if}}
+
+      <div local-class='actions'>
+        {{#if @message.details.spellingRuleId}}
+          <button class='button button--white button--filled' {{on 'click' (fn this.create 'LANGUAGE_TOOL_ID' @message.details.spellingRuleId)}}>
+            {{t 'components.lint_translations_page.add_lint_entry.ignore_spellcheck_rule'}}
+            <span local-class='code'>{{@message.details.spellingRuleId}}</span>
+          </button>
+        {{/if}}
+
+        <button class='button button--white button--filled' {{on 'click' (fn this.create 'KEY' @translation.key)}}>
+          {{t 'components.lint_translations_page.add_lint_entry.ignore_checks_for_key'}}
+          <span local-class='code'>{{@translation.key}}</span>
+        </button>
+
+        {{#if this.spellingTermValue}}
+          <button class='button button--white button--filled' {{on 'click' (fn this.create 'TERM' this.spellingTermValue)}}>
+            {{t 'components.lint_translations_page.add_lint_entry.ignore_checks_for_term'}}
+            <span local-class='code'>{{this.spellingTermValue}}</span>
+          </button>
+        {{/if}}
+
+        <button class='button button--white button--filled' {{on 'click' (fn this.create 'ALL' null)}}>
+          {{t 'components.lint_translations_page.add_lint_entry.ignore_check_for_project'}}
+        </button>
+      </div>
+    </div>
+  </AccModal>
+{{/if}}

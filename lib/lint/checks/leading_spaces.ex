@@ -9,10 +9,10 @@ defmodule Accent.Lint.Checks.LeadingSpaces do
   def enabled?, do: true
 
   @impl true
-  def applicable(entry), do: entry.value not in [nil, "", " "]
+  def applicable(entry, _), do: entry.value not in [nil, "", " "]
 
   @impl true
-  def check(entry) do
+  def check(entry, _) do
     fixed_text = String.trim_leading(entry.value)
 
     if fixed_text !== entry.value do

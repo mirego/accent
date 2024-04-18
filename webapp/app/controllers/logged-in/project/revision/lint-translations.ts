@@ -30,7 +30,7 @@ export default class LintController extends Controller {
   @tracked
   query = '';
 
-  queryParams = ['documentFilter', 'versionFilter', 'ruleFilter', 'query'];
+  queryParams = ['documentFilter', 'versionFilter', 'checkFilter', 'query'];
 
   @action
   changeQuery(query: string) {

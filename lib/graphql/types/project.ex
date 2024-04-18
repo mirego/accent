@@ -99,7 +99,7 @@ defmodule Accent.GraphQL.Types.Project do
     field :lint_translations, list_of(non_null(:lint_translation)) do
       arg(:query, :string)
       arg(:revision_id, :id, default_value: nil)
-      arg(:rule_ids, list_of(non_null(:id)), default_value: [])
+      arg(:check_ids, list_of(non_null(:id)), default_value: [])
       resolve(project_authorize(:lint, &Accent.GraphQL.Resolvers.Project.lint_translations/3))
     end
 

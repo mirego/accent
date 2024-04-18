@@ -15,17 +15,21 @@
     {{@text}}
   </p>
 
-  {{#if @isAuthenticated}}
-    <button class='button button--red button--borderless' {{on 'click' @onLogout}}>
-      {{t 'components.error_section.logout'}}
-    </button>
-
-    <span local-class='or'>
-      {{t 'components.error_section.or'}}
-    </span>
-  {{/if}}
-
   <LinkTo @route='login' local-class='link'>
     {{t 'components.error_section.return'}}
   </LinkTo>
+
+  {{#if @isAuthenticated}}
+    <span local-class='or'>
+      {{t 'components.error_section.or'}}
+    </span>
+
+    <button class='button button--red button--borderless' {{on 'click' @onLogout}}>
+      {{t 'components.error_section.logout'}}
+    </button>
+  {{/if}}
+
+  <div local-class='footer'>
+    <ApplicationFooter />
+  </div>
 </div>

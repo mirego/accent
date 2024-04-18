@@ -3,7 +3,6 @@ import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 
 interface Args {
   lintTranslation: any;
-  project: any;
   fix?: (lintTranslation: any, message: any) => void;
 }
 

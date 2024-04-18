@@ -10,10 +10,10 @@ defmodule Accent.Lint.Checks.PlaceholderCount do
   def enabled?, do: true
 
   @impl true
-  def applicable(entry), do: is_binary(entry.value) and not entry.is_master and is_binary(entry.master_value)
+  def applicable(entry, _), do: is_binary(entry.value) and not entry.is_master and is_binary(entry.master_value)
 
   @impl true
-  def check(entry) do
+  def check(entry, _) do
     master_matches = master_placeholders(entry.master_value)
 
     if match_placeholders(master_matches, entry.value) do

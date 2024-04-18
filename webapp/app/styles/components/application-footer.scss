@@ -37,9 +37,9 @@
     appearance: none;
     border: 1px solid var(--background-light-highlight);
     background: var(--background-light);
-    color: var(--text-color-normal);
+    color: color-mix(in srgb, var(--text-color-normal) 70%, transparent);
     border-radius: var(--border-radius);
-    padding: 2px 15px 2px 4px;
+    padding: 4px 19px 4px 7px;
   }
 }
 

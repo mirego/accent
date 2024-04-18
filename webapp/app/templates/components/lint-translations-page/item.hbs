@@ -1,18 +1,42 @@
 {{#if @lintTranslation.messages}}
-  <div local-class='wrapper' class='lint-translations-item'>
-    <ul local-class='messages'>
-      {{#each this.messages as |message|}}
-        <li local-class='messages-item'>
-          <span local-class='description'>
-            {{#if message.message}}
-              {{message.message}}
-            {{else}}
-              {{t (concat 'components.translation_edit.lint_message.checks.' message.check)}}
-            {{/if}}
-          </span>
-        </li>
-      {{/each}}
-    </ul>
+  <div local-class='wrapper {{if @project "wrapper--project"}}' class='lint-translations-item'>
+    <div>
+      <ul local-class='messages'>
+        {{#each this.messages as |message|}}
+          <li local-class='messages-item'>
+            <span local-class='description'>
+              {{#if message.message}}
+                {{message.message}}
+              {{else}}
+                {{t (concat 'components.translation_edit.lint_message.checks.' message.check)}}
+              {{/if}}
+            </span>
+
+            <div local-class='messages-item-actions'>
+              {{#if (get @permissions 'update_translation')}}
+                {{#if message.replacement}}
+                  {{#if @fixText}}
+                    <button
+                      {{on 'click' (fn @fixText @lintTranslation.translation message)}}
+                      class='button--iconOnly button button--borderless button--sm button--green'
+                      local-class='button-fix'
+                    >
+                      {{inline-svg '/assets/check.svg' class='button-icon'}}
+                    </button>
+                  {{/if}}
+                {{/if}}
+              {{/if}}
+
+              {{#if (get @permissions 'create_project_lint_entry')}}
+                {{#if @createLintEntry}}
+                  <LintTranslationsPage::AddLintEntry @create={{@createLintEntry}} @message={{message}} @translation={{@lintTranslation.translation}} />
+                {{/if}}
+              {{/if}}
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
 
     {{#if @project}}
       <div local-class='details'>
@@ -41,14 +65,8 @@
               </div>
 
               {{#if @changeText}}
-                <button {{on 'click' (fn @changeText message.replacement.value)}} class='button button--iconOnly button--borderless button--grey' local-class='button-fix'>
-                  {{inline-svg '/assets/arrow-right.svg' class='button-icon'}}
-                </button>
-              {{/if}}
-
-              {{#if @fixText}}
-                <button {{on 'click' (fn @fixText @lintTranslation.translation message)}} class='button button--iconOnly button--borderless button--green' local-class='button-fix'>
-                  {{inline-svg '/assets/check.svg' class='button-icon'}}
+                <button {{on 'click' (fn @changeText message.replacement.value)}} class='button button--iconOnly button--borderless button--grey'>
+                  {{inline-svg '/assets/redo.svg' class='button-icon'}}
                 </button>
               {{/if}}
             </li>

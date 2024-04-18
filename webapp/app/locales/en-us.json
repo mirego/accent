@@ -260,7 +260,7 @@
     "error_section": {
       "logout": "Logout",
       "or": "or",
-      "return": "return to home"
+      "return": "Return to home"
     },
     "operations_peek": {
       "item": {
@@ -486,7 +486,7 @@
         "admin_text": "Can add languages, update the project and add/remove collaborators.",
         "developer_text": "Can make file operations: Sync, add translations and preview those operations in the UI.",
         "owner_text": "With the same roles as the admin, the owners are people who the project belongs to.",
-        "reviewer_text": "Can do every tasks except those listed in the above roles. Review, update strings, comments, etc.",
+        "reviewer_text": "Can perform all tasks except those listed in the above roles. Review, update strings, comments, etc.",
         "translator_text": "Translate strings and make updates on documents. The translator is not included in the review process.",
         "title": "Collaborators"
       },
@@ -770,7 +770,13 @@
       "versions_link_title": "Versions"
     },
     "lint_translations_page": {
-      "empty_text": "No checks warnings or errors. You’re all good!"
+      "empty_text": "No checks warnings or errors. You’re all good!",
+      "add_lint_entry": {
+        "ignore_checks_for_term": "Ignore all checks for term",
+        "ignore_spellcheck_rule": "Ignore spellcheck rule",
+        "ignore_checks_for_key": "Ignore all checks for key",
+        "ignore_check_for_project": "Ignore check for project"
+      }
     },
     "project_manage_languages": {
       "create_error": "Language can not be added right now. Try again later.",

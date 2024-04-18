@@ -9,7 +9,7 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
   def enabled?, do: true
 
   @impl true
-  def applicable(entry) do
+  def applicable(entry, _) do
     letter = entry_first_letter(entry.value)
     capitalized_letter = String.capitalize(letter)
     downcased_letter = String.downcase(letter)
@@ -18,7 +18,7 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
   end
 
   @impl true
-  def check(entry) do
+  def check(entry, _) do
     master_has_first_letter = starts_with_letter?(entry.master_value)
     value_has_first_letter = starts_with_letter?(entry.value)
     master_capitalized = starts_with_capitalized_letter?(entry.master_value)

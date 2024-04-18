@@ -44,8 +44,10 @@
 
   <div local-class='item-textEdit'>
     <TranslationEdit::Form
+      @permissions={{@permissions}}
       @projectId={{@project.id}}
       @translationId={{@translation.id}}
+      @translationKey={{@translation.key}}
       @lintMessages={{@translation.lintMessages}}
       @inputDisabled={{this.inputDisabled}}
       @valueType={{@translation.valueType}}

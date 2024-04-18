@@ -275,8 +275,8 @@
     },
     "error_section": {
       "logout": "Se déconnecter",
-      "or": "ou alors",
-      "return": "retourner à la maison"
+      "or": "ou",
+      "return": "Retourner à l’accueil"
     },
     "operations_peek": {
       "item": {
@@ -770,7 +770,13 @@
       "versions_link_title": "Versions"
     },
     "lint_translations_page": {
-      "empty_text": "Aucune vérification des avertissements ou des erreurs. Vous êtes tous bons !"
+      "empty_text": "Aucune avertissement ou erreur. Tout est bon!",
+      "add_lint_entry": {
+        "ignore_checks_for_term": "Ignorer toutes les vérifications pour les mots",
+        "ignore_spellcheck_rule": "Ignorer la règle de vérification orthographique",
+        "ignore_checks_for_key": "Ignorer toutes les vérifications pour la clé",
+        "ignore_check_for_project": "Ignorer la vérification pour le projet"
+      }
     },
     "project_manage_languages": {
       "create_error": "La langue ne peut pas être ajoutée pour le moment. Réessayez plus tard.",
