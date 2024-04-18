@@ -34,7 +34,7 @@ export default class LintRoute extends Route {
     versionFilter: {
       refreshModel: true
     },
-    ruleFilter: {
+    checkFilter: {
       refreshModel: true
     },
     query: {
@@ -65,7 +65,7 @@ export default class LintRoute extends Route {
             ).revisionId,
             documentId: params.documentFilter,
             versionId: params.versionFilter,
-            ruleIds: params.ruleFilter,
+            checkIds: params.checkFilter,
             query: params.query,
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId

@@ -9,62 +9,80 @@ defmodule Accent.Lint.Checks.Spelling do
   def enabled?, do: LanguageTool.available?()
 
   @impl true
-  def applicable(entry) do
+  def applicable(entry, _) do
     LanguageTool.ready?() and
       is_binary(entry.value) and
-      not String.match?(entry.value, ~r/MMM|YYY|HH|AA/i) and
+      not String.match?(entry.value, ~r/MMMM?|YYYY?|HH|AA/i) and
       ((!entry.is_master and entry.value !== entry.master_value) or entry.is_master) and
       String.length(entry.value) < 100 and String.length(entry.value) > 3
   end
 
   @impl true
-  def check(entry) do
+  def check(entry, config) do
     matches =
       case LanguageTool.check(entry.language_slug, entry.value, placeholder_regex: entry.placeholder_regex) do
         %{"matches" => matches} -> matches
         _ -> []
       end
 
-    matches =
-      case matches do
-        [%{"offset" => 0} | rest] ->
-          if String.starts_with?(entry.value, "{") do
-            rest
-          else
-            matches
-          end
-
-        matches ->
-          matches
-      end
-
-    for match <- matches do
-      offset = match["offset"]
-
-      replacement =
-        case match["replacements"] do
-          [%{"value" => fixed_value} | _] ->
-            value =
-              String.replace(
-                entry.value,
-                String.slice(entry.value, offset, match["length"]),
-                fixed_value
-              )
-
-            %Replacement{value: value, label: fixed_value}
-
-          _ ->
-            nil
-        end
+    matches
+    |> Enum.reject(&reject_match?(&1, entry, config))
+    |> Enum.map(fn match ->
+      replacement = find_replacement(match, entry)
 
       %Message{
         check: :spelling,
         text: entry.value,
-        offset: offset,
+        offset: match["offset"],
         length: match["length"],
         message: match["message"],
+        details: %{
+          spelling_rule_id: match["rule"]["id"],
+          spelling_rule_description: match["rule"]["description"]
+        },
         replacement: replacement
       }
+    end)
+  end
+
+  # credo:disable-for-next-line
+  defp reject_match?(match, entry, config) do
+    error_term = String.slice(entry.value, match["offset"], match["length"])
+
+    Enum.any?(config.lint_entries, fn lint_entry ->
+      cond do
+        "spelling" in lint_entry.check_ids and lint_entry.ignore and lint_entry.type === :term and
+            String.downcase(error_term) === String.downcase(lint_entry.value) ->
+          true
+
+        "spelling" in lint_entry.check_ids and lint_entry.ignore and
+          lint_entry.type === :language_tool_rule_id and
+            match["rule"]["id"] === lint_entry.value ->
+          true
+
+        true ->
+          false
+      end
+    end) or String.match?(error_term, ~r/^,/) or
+      (match["offset"] === 0 and String.starts_with?(entry.value, "{"))
+  end
+
+  defp find_replacement(match, entry) do
+    case match["replacements"] do
+      [%{"value" => fixed_value} | _] ->
+        error_term = String.slice(entry.value, match["offset"], match["length"])
+
+        value =
+          String.replace(
+            entry.value,
+            error_term,
+            fixed_value
+          )
+
+        %Replacement{value: value, label: fixed_value}
+
+      _ ->
+        nil
     end
   end
 end

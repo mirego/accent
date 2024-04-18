@@ -4,7 +4,7 @@ export default gql`
   query Lint(
     $projectId: ID!
     $revisionId: ID
-    $ruleIds: [ID!]
+    $checkIds: [ID!]
     $query: String
   ) {
     viewer {
@@ -28,7 +28,7 @@ export default gql`
 
         lintTranslations(
           revisionId: $revisionId
-          ruleIds: $ruleIds
+          checkIds: $checkIds
           query: $query
         ) {
           translation {
@@ -60,6 +60,10 @@ export default gql`
             message
             offset
             length
+            details {
+              spellingRuleId
+              spellingRuleDescription
+            }
             replacement {
               value
               label

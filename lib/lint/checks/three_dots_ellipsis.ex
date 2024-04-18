@@ -9,10 +9,10 @@ defmodule Accent.Lint.Checks.ThreeDotsEllipsis do
   def enabled?, do: true
 
   @impl true
-  def applicable(entry), do: is_binary(entry.value)
+  def applicable(entry, _), do: is_binary(entry.value)
 
   @impl true
-  def check(entry) do
+  def check(entry, _) do
     fixed_text = String.replace(entry.value, "...", "…")
 
     if fixed_text !== entry.value do

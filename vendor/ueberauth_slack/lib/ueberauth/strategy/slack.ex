@@ -42,7 +42,7 @@ defmodule Ueberauth.Strategy.Slack do
 
     callback_url =
       if String.ends_with?(callback_url, "?"),
-        do: String.slice(callback_url, 0..-2),
+        do: String.slice(callback_url, 0..-2//-1),
         else: callback_url
 
     opts = Keyword.put(opts, :redirect_uri, callback_url)

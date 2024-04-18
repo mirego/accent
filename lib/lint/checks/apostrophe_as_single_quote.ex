@@ -11,10 +11,10 @@ defmodule Accent.Lint.Checks.ApostropheAsSingleQuote do
   def enabled?, do: true
 
   @impl true
-  def applicable(%{language_slug: slug}), do: slug in @applicable_languages
+  def applicable(%{language_slug: slug}, _), do: slug in @applicable_languages
 
   @impl true
-  def check(entry) do
+  def check(entry, _) do
     fixed_text = Regex.replace(~r/(\w)(')/, entry.value, "\\1’")
 
     if fixed_text !== entry.value do

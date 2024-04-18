@@ -2,8 +2,10 @@
   {{#if @translation.id}}
     <div local-class='form' {{did-insert this.focusTextarea}}>
       <TranslationEdit::Form
+        @permissions={{@permissions}}
         @projectId={{@project.id}}
         @translationId={{@translation.id}}
+        @translationKey={{@translation.key}}
         @fileComment={{@translation.fileComment}}
         @lintMessages={{@translation.lintMessages}}
         @placeholders={{@translation.masterTranslation.placeholders}}

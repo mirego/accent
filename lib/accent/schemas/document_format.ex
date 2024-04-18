@@ -1,6 +1,6 @@
 defmodule Accent.DocumentFormat do
   @moduledoc false
-  defmacro ids, do: Enum.map(Langue.modules(), & &1.id)
+  defmacro ids, do: Enum.map(Langue.modules(), & &1.id())
 
   def all do
     Enum.map(Langue.modules(), fn module ->

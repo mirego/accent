@@ -16,7 +16,13 @@
 
     {{#each @lintTranslations key='id' as |lintTranslation|}}
       <div local-class='item {{if (eq this.fixLintMessageRunningTranslationId lintTranslation.translation.id) "item--fixing"}}'>
-        <LintTranslationsPage::Item @project={{@project}} @lintTranslation={{lintTranslation}} @fixText={{perform this.fixLintMessageTask}} />
+        <LintTranslationsPage::Item
+          @permissions={{@permissions}}
+          @project={{@project}}
+          @lintTranslation={{lintTranslation}}
+          @createLintEntry={{perform this.createLintEntryTask}}
+          @fixText={{perform this.fixLintMessageTask}}
+        />
       </div>
     {{/each}}
   </div>

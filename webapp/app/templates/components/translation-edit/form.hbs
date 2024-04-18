@@ -116,6 +116,11 @@
   {{/if}}
 
   <div local-class='lint-messages {{if this.fetchLintMessagesTask.isRunning "lint-messages--loading"}}'>
-    <LintTranslationsPage::Item @lintTranslation={{this.lintTranslation}} @changeText={{fn @onKeyUp}} />
+    <LintTranslationsPage::Item
+      @permissions={{@permissions}}
+      @lintTranslation={{this.lintTranslation}}
+      @changeText={{fn @onKeyUp}}
+      @createLintEntry={{unless this.fetchLintMessagesTask.isRunning (perform this.createLintEntryTask)}}
+    />
   </div>
 </div>

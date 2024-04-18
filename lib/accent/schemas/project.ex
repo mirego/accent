@@ -30,6 +30,7 @@ defmodule Accent.Project do
     has_many(:versions, Accent.Version)
     has_many(:operations, Accent.Operation)
     has_many(:prompts, Accent.Prompt)
+    has_many(:lint_entries, Accent.ProjectLintEntry)
 
     has_many(:collaborators, Accent.Collaborator,
       where: [role: {:in, ["reviewer", "admin", "developer", "owner", "translator"]}]

@@ -211,7 +211,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, [lint]} = Resolver.lint_translations(project, %{revision_id: nil, rule_ids: [], query: nil}, context)
+    {:ok, [lint]} = Resolver.lint_translations(project, %{revision_id: nil, check_ids: [], query: nil}, context)
 
     assert lint.messages === [
              %Accent.Lint.Message{
@@ -237,7 +237,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
-    {:ok, result} = Resolver.lint_translations(project, %{revision_id: nil, rule_ids: [], query: nil}, context)
+    {:ok, result} = Resolver.lint_translations(project, %{revision_id: nil, check_ids: [], query: nil}, context)
 
     assert Enum.count(result) === 1
   end

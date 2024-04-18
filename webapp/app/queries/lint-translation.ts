@@ -16,6 +16,10 @@ export default gql`
             check
             offset
             length
+            details {
+              spellingRuleId
+              spellingRuleDescription
+            }
             replacement {
               value
               label

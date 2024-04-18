@@ -40,8 +40,10 @@
 
   <TranslationEdit::Form
     @projectId={{@project.id}}
+    @permissions={{@permissions}}
     @lintMessages={{@translation.lintMessages}}
     @translationId={{@translation.id}}
+    @translationKey={{@translation.key}}
     @inputDisabled={{this.inputDisabled}}
     @valueType={{@translation.valueType}}
     @value={{this.editText}}

@@ -132,6 +132,6 @@ defmodule ExBraceExpansion.BalancedMatch do
 
   defp len(str), do: String.length(str)
   defp slice(str, start, len), do: String.slice(str, start, len)
-  defp slice(str, start..finish), do: String.slice(str, start..(finish-1))
+  defp slice(str, start..finish//_), do: String.slice(str, start..(finish-1))
 
 end

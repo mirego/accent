@@ -42,7 +42,7 @@ interface Args {
   ) => Promise<void>;
 }
 
-export default class MachineTranslationsTranslateUploadForm extends Component<Args> {
+export default class MachineTranslationsDocumentTranslate extends Component<Args> {
   @service('global-state')
   globalState: GlobalState;
 
@@ -82,6 +82,7 @@ export default class MachineTranslationsTranslateUploadForm extends Component<Ar
   }
 
   get mappedRevisions() {
+    if (!this.args.revisions) return [];
     return this.mapRevisions(this.args.revisions);
   }
 

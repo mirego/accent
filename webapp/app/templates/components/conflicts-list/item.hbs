@@ -10,9 +10,11 @@
     <div local-class='item-details__column'>
       <div local-class='textInput'>
         <TranslationEdit::Form
+          @permissions={{@permissions}}
           @borderless={{true}}
           @projectId={{@project.id}}
           @translationId={{@translation.id}}
+          @translationKey={{@translation.key}}
           @lintMessages={{@translation.lintMessages}}
           @valueType={{@translation.valueType}}
           @value={{this.textInput}}

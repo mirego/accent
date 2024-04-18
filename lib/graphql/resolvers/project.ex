@@ -153,6 +153,8 @@ defmodule Accent.GraphQL.Resolvers.Project do
       |> Repo.all()
       |> Map.new(&{{&1.key, &1.document_id}, &1})
 
+    lint_entries = Repo.all(Ecto.assoc(project, :lint_entries))
+
     entries =
       Enum.map(translations, fn translation ->
         master_translation =
@@ -170,7 +172,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
     translations =
       entries
-      |> Accent.Lint.lint(%Accent.Lint.Config{enabled_rule_ids: args.rule_ids})
+      |> Accent.Lint.lint(%Accent.Lint.Config{enabled_check_ids: args.check_ids, lint_entries: lint_entries})
       |> Enum.filter(&Enum.any?(elem(&1, 1)))
       |> Enum.map(fn {entry, messages} ->
         %Accent.TranslationLint{id: entry.id, translation_id: entry.id, messages: messages}

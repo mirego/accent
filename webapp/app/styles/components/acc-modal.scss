@@ -19,12 +19,12 @@
   bottom: 0;
   right: 0;
   min-height: calc(100vh - 130px);
-  background-color: #000;
-  opacity: 0.6;
+  background-color: var(--content-background);
+  opacity: 0.8;
 
   animation-name: animate-overlay;
-  animation-timing-function: ease-in-out;
-  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+  animation-duration: 0.15s;
   animation-delay: 0;
   animation-fill-mode: forwards;
 }
@@ -41,7 +41,7 @@
   background: var(--content-background);
 
   animation-name: animate-content;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: ease-out;
   animation-duration: 0.3s;
   animation-delay: 0;
   animation-fill-mode: forwards;
@@ -64,11 +64,15 @@
 @keyframes animate-content {
   0% {
     opacity: 0;
-    transform: translateY(10px);
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
   }
 }
 
@@ -77,6 +81,6 @@
     opacity: 0;
   }
   100% {
-    opacity: 0.6;
+    opacity: 0.8;
   }
 }

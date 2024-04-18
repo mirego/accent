@@ -9,6 +9,7 @@
 
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   transition: 0.2s ease-in-out;
   transition-property: all;
   appearance: none;
@@ -121,6 +122,10 @@
     0 2px 6px var(--shadow-color);
   text-shadow: 0 1px 1px var(--shadow-color);
   color: var(--button-text-color);
+
+  &.button--iconOnly {
+    padding: 2px 4px;
+  }
 
   &.button--red {
     --button-text-hover-color: #fff;

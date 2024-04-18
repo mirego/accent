@@ -19,18 +19,15 @@
   align-items: center;
 }
 
+.messages-item-actions {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
 .description {
   color: var(--color-error);
   font-size: 12px;
-}
-
-.button-fix {
-  width: max-content;
-
-  &:focus,
-  &:hover {
-    --button-text-hover-color: var(--color-green);
-  }
 }
 
 .item-language {

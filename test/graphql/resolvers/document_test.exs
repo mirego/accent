@@ -133,10 +133,10 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
 
     {:ok, result} = Resolver.list_project(project, %{exclude_empty_translations: true}, %{})
 
-    assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [other_document.id, document.id]
+    assert get_in(result, [:entries, Access.all(), Access.key(:id)]) == [document.id, other_document.id]
     assert get_in(result, [:entries, Access.all(), Access.key(:translations_count)]) == [1, 1]
-    assert get_in(result, [:entries, Access.all(), Access.key(:conflicts_count)]) == [1, 0]
-    assert get_in(result, [:entries, Access.all(), Access.key(:reviewed_count)]) == [0, 1]
+    assert get_in(result, [:entries, Access.all(), Access.key(:conflicts_count)]) == [0, 1]
+    assert get_in(result, [:entries, Access.all(), Access.key(:reviewed_count)]) == [1, 0]
   end
 
   test "list project with many deleted documents", %{document: document, project: project, revision: revision} do

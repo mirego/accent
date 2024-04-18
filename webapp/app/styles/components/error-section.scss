@@ -2,9 +2,10 @@
   max-width: 400px;
   width: 100%;
   margin: 100px auto 30px;
-  padding: 20px 20px 40px;
+  padding: 20px 20px 10px;
   box-shadow: 0 3px 21px var(--shadow-color);
   border: 1px solid var(--background-light-highlight);
+  border-radius: var(--border-radius);
   background: var(--background-light);
   text-align: center;
 }
@@ -15,6 +16,10 @@
   height: 30px;
   margin: 0 auto 20px;
   fill: var(--background-light-highlight);
+}
+
+.footer {
+  margin-top: 50px;
 }
 
 .header {
@@ -62,7 +67,7 @@
 }
 
 .or {
-  margin: 0 5px 0 2px;
+  margin: 0 2px 0 5px;
   font-size: 12px;
   color: #bbb;
 }

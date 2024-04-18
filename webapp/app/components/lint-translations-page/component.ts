@@ -3,6 +3,7 @@ import {tracked} from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import {restartableTask} from 'ember-concurrency';
 import translationUpdateQuery from 'accent-webapp/queries/update-translation';
+import projectLintEntryCreateQuery from 'accent-webapp/queries/create-project-lint-entry';
 import Apollo from 'accent-webapp/services/apollo';
 
 interface Args {
@@ -65,4 +66,17 @@ export default class LintTranslationsPage extends Component<Args> {
       this.fixLintMessageRunningTranslationId = null;
     }
   );
+
+  createLintEntryTask = restartableTask(async (lintEntry: any) => {
+    await this.apollo.client.mutate({
+      mutation: projectLintEntryCreateQuery,
+      refetchQueries: ['Lint'],
+      variables: {
+        projectId: this.args.project.id,
+        checkIds: lintEntry.checkIds,
+        type: lintEntry.type,
+        value: lintEntry.value
+      }
+    });
+  });
 }
