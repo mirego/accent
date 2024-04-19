@@ -33,6 +33,7 @@ export default class Document {
   paths: string[];
   readonly apiKey: string;
   readonly apiUrl: string;
+  readonly extraHeaders: Record<string, string>;
   readonly projectId: string | null | undefined;
   readonly config: DocumentConfig;
   readonly target: string;
@@ -41,6 +42,7 @@ export default class Document {
     this.config = this.resolveNamePattern(documentConfig);
     this.apiKey = config.apiKey;
     this.apiUrl = config.apiUrl;
+    this.extraHeaders = config.extraHeaders || {};
     this.projectId = config.project;
     this.target = this.config.target;
     this.paths = new Tree(this.config).list();
@@ -246,7 +248,7 @@ export default class Document {
   }
 
   private authorizationHeader() {
-    return {authorization: `Bearer ${this.apiKey}`};
+    return {authorization: `Bearer ${this.apiKey}`, ...this.extraHeaders};
   }
 
   private resolveNamePattern(config: DocumentConfig) {
