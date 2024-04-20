@@ -40,7 +40,7 @@
       "link": "创建新版本"
     },
     "revision_selector": {
-      "languages_count": "{count, plural, =1 {1 其他语言} other {# 其他语言}}",
+      "languages_count": "{count, plural, =1 {1 个其他语言} other {# 个其他语言}}",
       "master": "主要"
     },
     "translation_comments_subscriptions": {
@@ -211,12 +211,12 @@
       "slaves": "翻译",
       "sync": "同步",
       "strings": "字符串",
-      "all_reviewed": "全部已审核！",
+      "all_reviewed": "全部审核完毕！",
       "reviewed": "已审核",
       "activities_title": "最新活动",
       "item": {
         "rtl_badge": "RTL",
-        "rtl": "从右到左的文本",
+        "rtl": "从右往左的文本",
         "correct_all_button": "将所有字符串标记为已审核",
         "uncorrect_all_button": "将所有字符串重新标记为待审核",
         "stats_translated": "已翻译",
@@ -255,7 +255,7 @@
         "removed_label": "已移除",
         "deleting_label": "正在删除 {path}.{extension}…",
         "path_label": "路径",
-        "path_help": "用于限定您的字符串范围。该路径将用于导出所有语言 (en/<em>path</em>.format，fr/<em>path</em>.format)"
+        "path_help": "用于限定您的字符串范围。该路径将用于导出所有语言 (en/<em>path</em>.format, zh/<em>path</em>.format)"
       }
     },
     "error_section": {
@@ -508,7 +508,7 @@
         "cancel": "取消",
         "edit": "编辑",
         "delete": "删除",
-        "last_executed_at": "上次执行时间：",
+        "last_executed_at": "上次执行时间:",
         "data": {
           "azure_storage_container_sas": "SAS URL",
           "aws_s3_bucket": "存储桶名称",
@@ -968,7 +968,7 @@
       "documents_label": "从文档筛选:",
       "document_default_option_text": "所有文档",
       "version_default_option_text": "最新版本",
-      "total_entries_count": "{count, plural, =0 {未找到字符串} =1 {找到1个字符串} other {找到#个字符串}}",
+      "total_entries_count": "{count, plural, =0 {未找到字符串} =1 {找到 1 个字符串} other {找到 # 个字符串}}",
       "advanced_filters_title": "高级过滤",
       "advanced_filters": {
         "empty": "文本为空（\"\" 或 null 值）",
@@ -1196,7 +1196,7 @@
           "loading_content": "正在获取项目的机器翻译设置…"
         },
         "prompts": {
-          "loading_content": "正在获取项目的AI助手设置…"
+          "loading_content": "正在获取项目的 AI 助手设置…"
         },
         "service_integrations": {
           "loading_content": "正在获取项目的服务与集成…"
