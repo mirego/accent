@@ -406,7 +406,7 @@
       },
       "machine_translations": {
         "title": "Machine translations",
-        "text": "Add a valid configuration to enable translating directly in the Review page. You can also translate your project’s file as well as arbirtary files that you upload on Accent.",
+        "text": "Add a valid configuration to enable translating directly in the Review page. You can also translate your project’s file as well as arbitrary files that you upload on Accent.",
         "enabled_actions_sync": "Automatically run on project sync",
         "use_platform_label": "Use the platform config if available",
         "config_key_help_present": "Config key has been set, but the value will never be exposed via the API.",
