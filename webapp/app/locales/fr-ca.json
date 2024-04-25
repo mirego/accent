@@ -1168,6 +1168,8 @@
           "integration_update_success": "L’intégration a été mise à jour avec succès",
           "integration_remove_error": "L’intégration n’a pas pu être supprimée",
           "integration_remove_success": "L’intégration a été supprimée avec succès",
+          "integration_execute_error": "L’intégration n’a pas pu être exécutée",
+          "integration_execute_success": "L’intégration a été exécutée avec succès",
           "machine_translations_config_error": "La configuration n’a pas pu être mise à jour",
           "machine_translations_config_success": "La configuration a été mise à jour avec succès",
           "update_error": "Le projet n’a pas pu être mis à jour",

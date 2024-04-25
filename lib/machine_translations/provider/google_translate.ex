@@ -166,7 +166,7 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     end
 
     defp unmark_no_translate(value) do
-      String.replace(value, ~r/<span translate="no">([^<]+)<\/span>/, "\\1")
+      String.replace(value, ~r/<span translate="no">([^<]+)<\/span>/i, "\\1")
     end
 
     defmodule Auth do

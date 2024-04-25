@@ -1,5 +1,6 @@
 .item-text {
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-overflow: ellipsis;
   overflow-x: hidden;
   color: var(--text-color-normal);
@@ -8,5 +9,11 @@
   &.item-text--empty {
     color: var(--color-grey);
     font-style: italic;
+  }
+
+  .item-key {
+    opacity: 0.5;
+    font-size: 11px;
+    font-family: var(--font-monospace);
   }
 }

@@ -1,5 +1,8 @@
 {{#if this.isTextEmpty}}
   <span local-class='item-text item-text--empty'>{{t 'components.translations_list.empty_text'}}</span>
 {{else}}
-  <span local-class='item-text'>{{@translation.correctedText}}</span>
+  <span local-class='item-text'>
+    {{@translation.correctedText}}
+    <span local-class='item-key'>{{@translation.key}}</span>
+  </span>
 {{/if}}

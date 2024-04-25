@@ -35,7 +35,12 @@ defmodule Accent.IntegrationManager.Execute.AWSS3 do
             :calendar.universal_time(),
             "put",
             url,
-            [{"host", uri.authority}],
+            [
+              {"host", uri.authority},
+              {"x-amz-acl", "public-read"},
+              {"x-amz-tagging",
+               "ACCENT_VERSION=#{Application.get_env(:accent, :version)}&USER_ID=#{user.id}&PROJECT_ID=#{integration.project_id}"}
+            ],
             upload.render,
             uri_encode_path: false
           )
