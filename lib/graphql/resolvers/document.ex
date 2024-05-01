@@ -63,7 +63,7 @@ defmodule Accent.GraphQL.Resolvers.Document do
     Document
     |> DocumentScope.from_project(project.id)
     |> DocumentScope.with_stats(exclude_empty_translations: args.exclude_empty_translations)
-    |> Ecto.Query.order_by(desc: :updated_at)
+    |> Ecto.Query.order_by(asc: :path)
     |> Paginated.paginate(args)
     |> Paginated.format()
     |> then(&{:ok, &1})
