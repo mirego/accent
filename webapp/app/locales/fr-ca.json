@@ -896,7 +896,7 @@
       "source_translation": "Voir la dernière version de la chaîne",
       "correct_button": "Mettre à jour et marquer comme révisé",
       "previous_text": "Texte précédent :",
-      "uncorrect_button": "Remettre à révisée",
+      "uncorrect_button": "Remettre à réviser",
       "uneditable": "Le texte n’est pas modifiable, car il a été marqué comme révisé",
       "update_text": "Mettre à jour le texte",
       "form": {
