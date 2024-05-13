@@ -1,0 +1,68 @@
+postgresql:
+  enabled: true
+  replicas: 1
+  image:
+    repository: postgres
+    tag: 13
+    pullPolicy: IfNotPresent
+  nameOverride: ""
+  fullnameOverride: ""
+  resources:
+    limits:
+      cpu: "1000m"
+      memory: "1024Mi"
+    requests:
+      cpu: "1000m"
+      memory: "1024Mi"
+  persistence:
+    enabled: true
+    size: 10Gi
+  username: "accentuser"
+  password: "accentpass"
+  database: "accentdb"
+  service:
+    name: "postgres-service"
+    type: ClusterIP
+    port: 5432
+
+accent:
+  replicas: 1
+  image:
+    repository: mirego/accent
+    tag: latest
+    pullPolicy: Always
+  nameOverride: ""
+  fullnameOverride: ""
+  podSecurityContext: {}
+  securityContext: {}
+  service:
+    name: "accent-service"
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: false
+    className: nginx
+    pathType: ImplementationSpecific
+    annotations: {}
+    hosts:
+      - host: chart-example.local
+        paths: /
+    tls: []
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  configMap:
+    # DATABASE_URL: postgres://localhost/accent_development
+    PORT: 4000
+    CANONICAL_URL: ''
+    DUMMY_LOGIN_ENABLED: 'false'
+  hpa:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
