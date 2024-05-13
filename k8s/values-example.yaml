@@ -1,18 +1,19 @@
-postgresql:
+postgres:
   enabled: true
+  nameOverride: ""
+  fullnameOverride: ""
+  namespace: "acc"
   replicas: 1
   image:
     repository: postgres
     tag: 13
     pullPolicy: IfNotPresent
-  nameOverride: ""
-  fullnameOverride: ""
   resources:
     limits:
-      cpu: "1000m"
+      cpu: "250m"
       memory: "1024Mi"
     requests:
-      cpu: "1000m"
+      cpu: "250m"
       memory: "1024Mi"
   persistence:
     enabled: true
@@ -27,18 +28,18 @@ postgresql:
 
 accent:
   replicas: 1
+  nameOverride: ""
+  fullnameOverride: ""
   image:
     repository: mirego/accent
     tag: latest
     pullPolicy: Always
-  nameOverride: ""
-  fullnameOverride: ""
   podSecurityContext: {}
   securityContext: {}
   service:
     name: "accent-service"
     type: ClusterIP
-    port: 80
+    port: 4000
   ingress:
     enabled: false
     className: nginx

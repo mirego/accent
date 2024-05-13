@@ -5,6 +5,9 @@ metadata:
   labels:
     {{- include "accent.labels" . | nindent 4 }}
 data:
-  {{- range $key, $value := .Values.configMap }}
+  {{- range $key, $value := .Values.accent.configMap }}
   {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  {{- if .Values.postgres.enabled }}
+  DATABASE_URL: "postgres://{{ .Values.postgres.username }}:{{ .Values.postgres.password }}@{{ .Values.postgres.service.name }}.{{ .Values.postgres.namespace}}.svc.cluster.local:{{ .Values.postgres.service.port }}/{{ .Values.postgres.database }}"
   {{- end }}

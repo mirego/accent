@@ -1,15 +1,32 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "accent.fullname" . }}
+  name: {{ .Values.accent.service.name }}
   labels:
     {{- include "accent.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.accent.service.type }}
   ports:
     - name: http
       protocol: TCP
-      port: {{ .Values.service.port }}
+      port: {{ .Values.accent.service.port }}
       targetPort: http
   selector:
     {{- include "accent.selectorLabels" . | nindent 4 }}
+---
+{{- if .Values.postgres.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.postgres.service.name }}
+  labels:
+    {{- include "postgres.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.postgres.service.type }}
+  ports:
+    - port: {{ .Values.postgres.service.port }}
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    {{- include "postgres.selectorLabels" . | nindent 4 }}
+{{- end }}

@@ -1,49 +1,54 @@
-{{- $isIngressEnabled := .Values.ingress.enabled -}}
 {{- $fullname := include "accent.fullname" . -}}
-{{- $serviceType := .Values.service.type -}}
-{{- $ingressHost := (index .Values.ingress.hosts 0).host -}}
+{{- $serviceType := .Values.accent.service.type -}}
+{{- $servicePort := .Values.accent.service.port -}}
+{{- $isIngressEnabled := .Values.accent.ingress.enabled -}}
+{{- $ingressHost := (index .Values.accent.ingress.hosts 0).host -}}
+{{- $postgresEnabled := .Values.postgresql.enabled -}}
+{{- $postgresServiceName := printf "%s-postgres" $fullname -}}
+{{- $postgresPort := .Values.postgresql.service.port -}}
 
 Thank you for installing {{ $fullname }}!
 
-Your release is named '{{ .Release.Name }}' and installed in the '{{ .Release.Namespace }}' namespace.
+Your release is named '{{ .Release.Name }}' and is installed in the '{{ .Release.Namespace }}' namespace.
 
 {{- if eq $serviceType "ClusterIP" }}
 
-1. To connect to your {{ $fullname }} application within your cluster:
+To connect to your {{ $fullname }} application within your cluster:
+- Service name: {{ $fullname }}
+- Service port: {{ $servicePort }}
 
-   Service name: {{ $fullname }}
-   Service port: {{ .Values.service.port }}
-
-   Use the following command to find out the IP address of your Kubernetes cluster:
-   kubectl cluster-info
-
-   Then, connect to the application using the internal IP and the service port.
+Use the following command to find the IP address of your Kubernetes cluster:
+kubectl cluster-info
+Then, connect to the application using the internal IP and the service port.
 
 {{- else if eq $serviceType "NodePort" }}
 
-2. To connect to your {{ $fullname }} application from outside the cluster:
-
-   First, find the NodePort assigned to your service:
-   kubectl get svc --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "accent.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
-
-   Then, connect using your node's IP address and the above NodePort.
+To connect to your {{ $fullname }} application from outside the cluster:
+- First, find the NodePort assigned to your service:
+kubectl get svc --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "accent.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
+- Then, connect using your node's IP address and the above NodePort.
 
 {{- else if eq $serviceType "LoadBalancer" }}
-
-3. To connect to your {{ $fullname }} application via LoadBalancer:
-
-   NOTE: It may take a few minutes for the LoadBalancer IP to be available.
-   You can watch the status by running:
-   kubectl get svc --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "accent.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
-
-   Once the LoadBalancer IP is assigned, connect using the IP and the service port.
+To connect to your {{ $fullname }} application via LoadBalancer:
+NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+You can watch the status by running:
+kubectl get svc --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "accent.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
+Once the LoadBalancer IP is assigned, connect using the IP and the service port.
 
 {{- end }}
 
 {{- if $isIngressEnabled }}
+Access your application through Ingress at:
+http://{{ $ingressHost }}
 
-4. Access your application through Ingress at:
-   http://{{ $ingressHost }}
+{{- end }}
+
+{{- if $postgresEnabled }}
+PostgreSQL is enabled for this deployment:
+- PostgreSQL Service Name: {{ $postgresServiceName }}
+- PostgreSQL Service Port: {{ $postgresPort }}
+To connect to your PostgreSQL database within your cluster, use the following command:
+kubectl run -it --rm --image=postgres:{{ .Values.postgresql.image.tag }} --restart=Never pg-client -- psql -h {{ $postgresServiceName }} -U {{ .Values.postgresql.username }} -d {{ .Values.postgresql.database }}
 
 {{- end }}
 
