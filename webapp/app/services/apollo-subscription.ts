@@ -34,7 +34,7 @@ export class Subscription {
 
   currentResult() {
     const queryObservable = this.queryObservable;
-    const result = queryObservable.currentResult();
+    const result = queryObservable.getCurrentResult();
     const mappedResult = this.mapResult(result, this.props);
 
     return mappedResult;
@@ -51,7 +51,7 @@ export class Subscription {
 
     return this.apollo.client.watchQuery({
       query,
-      ...options,
+      ...options
     });
   }
 
@@ -79,7 +79,7 @@ export class Subscription {
         refetch: this.queryObservable.refetch,
         fetchMore: this.queryObservable.fetchMore,
         startPolling: this.queryObservable.startPolling,
-        stopPolling: this.queryObservable.stopPolling,
+        stopPolling: this.queryObservable.stopPolling
       };
     } else {
       return result;

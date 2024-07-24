@@ -6,6 +6,8 @@ defmodule Accent.GraphQL.Types.Project do
   import Accent.GraphQL.Helpers.Authorization
   import Accent.GraphQL.Helpers.Fields
 
+  alias Accent.GraphQL.Resolvers.Translation, as: TranslationResolver
+
   object :projects do
     field(:meta, non_null(:pagination_meta))
     field(:entries, list_of(:project))
@@ -27,6 +29,8 @@ defmodule Accent.GraphQL.Types.Project do
 
   object :prompt_config do
     field(:provider, non_null(:string))
+    field(:use_platform, non_null(:boolean))
+    field(:use_config_key, non_null(:boolean))
   end
 
   object :project do
@@ -48,7 +52,7 @@ defmodule Accent.GraphQL.Types.Project do
            %{
              provider: project.machine_translations_config["provider"],
              enabled_actions: project.machine_translations_config["enabled_actions"] || [],
-             use_platform: project.machine_translations_config["use_platform"],
+             use_platform: project.machine_translations_config["use_platform"] || false,
              use_config_key: not is_nil(project.machine_translations_config["config"]["key"])
            }}
         else
@@ -62,7 +66,9 @@ defmodule Accent.GraphQL.Types.Project do
         if project.prompt_config do
           {:ok,
            %{
-             provider: project.prompt_config["provider"]
+             provider: project.prompt_config["provider"],
+             use_platform: project.prompt_config["use_platform"] || false,
+             use_config_key: not is_nil(project.prompt_config["config"]["key"])
            }}
         else
           {:ok, nil}
@@ -119,7 +125,10 @@ defmodule Accent.GraphQL.Types.Project do
     end
 
     field(:language, :language, resolve: dataloader(Accent.Language))
-    field(:integrations, list_of(:project_integration), resolve: dataloader(Accent.Integration))
+
+    field :integrations, list_of(non_null(:project_integration)) do
+      resolve(project_authorize(:index_project_integrations, &Accent.GraphQL.Resolvers.Integration.list_project/3))
+    end
 
     field :document, :document do
       arg(:id, non_null(:id))
@@ -135,13 +144,14 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(project_authorize(:index_documents, &Accent.GraphQL.Resolvers.Document.list_project/3))
     end
 
-    field :translations, :translations do
+    field :grouped_translations, :grouped_translations do
       arg(:page, :integer)
       arg(:page_size, :integer)
-      arg(:order, :string)
       arg(:document, :id)
       arg(:version, :id)
+      arg(:related_revisions, list_of(non_null(:id)))
       arg(:query, :string)
+      arg(:is_translated, :boolean)
       arg(:is_conflicted, :boolean)
       arg(:is_text_empty, :boolean)
       arg(:is_text_not_empty, :boolean)
@@ -151,9 +161,26 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(
         project_authorize(
           :index_translations,
-          &Accent.GraphQL.Resolvers.Translation.list_project/3
+          &TranslationResolver.list_grouped_project/3
         )
       )
+    end
+
+    field :translations, :translations do
+      arg(:page, :integer)
+      arg(:page_size, :integer)
+      arg(:order, :string)
+      arg(:document, :id)
+      arg(:version, :id)
+      arg(:query, :string)
+      arg(:is_translated, :boolean)
+      arg(:is_conflicted, :boolean)
+      arg(:is_text_empty, :boolean)
+      arg(:is_text_not_empty, :boolean)
+      arg(:is_added_last_sync, :boolean)
+      arg(:is_commented_on, :boolean)
+
+      resolve(project_authorize(:index_translations, &TranslationResolver.list_project/3))
     end
 
     field :activities, :activities do
@@ -182,7 +209,7 @@ defmodule Accent.GraphQL.Types.Project do
     field :translation, :translation do
       arg(:id, non_null(:id))
 
-      resolve(project_authorize(:show_translation, &Accent.GraphQL.Resolvers.Translation.show_project/3))
+      resolve(project_authorize(:show_translation, &TranslationResolver.show_project/3))
     end
 
     field :activity, :activity do
@@ -200,6 +227,7 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :revisions, list_of(:revision) do
       arg(:version_id, :id)
+
       resolve(project_authorize(:index_revisions, &Accent.GraphQL.Resolvers.Revision.list_project/3))
     end
 

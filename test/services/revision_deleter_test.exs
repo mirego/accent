@@ -11,19 +11,19 @@ defmodule AccentTest.RevisionDeleter do
   alias Accent.Translation
 
   setup do
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
-    french_language = Repo.insert!(%Language{name: "french"})
-    english_language = Repo.insert!(%Language{name: "english"})
+    project = Factory.insert(Project)
+    french_language = Factory.insert(Language)
+    english_language = Factory.insert(Language)
 
-    master_revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    master_revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     slave_revision =
-      Repo.insert!(%Revision{
+      Factory.insert(Revision,
         language_id: english_language.id,
         project_id: project.id,
         master: false,
         master_revision_id: master_revision.id
-      })
+      )
 
     {:ok, [master_revision: master_revision, slave_revision: slave_revision]}
   end
@@ -41,7 +41,7 @@ defmodule AccentTest.RevisionDeleter do
   end
 
   test "delete operations", %{slave_revision: revision} do
-    operation = Repo.insert!(%Operation{action: "new", key: "a", revision_id: revision.id})
+    operation = Factory.insert(Operation, action: "new", key: "a", revision_id: revision.id)
 
     Accent.Revisions.DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
 
@@ -49,7 +49,7 @@ defmodule AccentTest.RevisionDeleter do
   end
 
   test "delete translations", %{slave_revision: revision} do
-    translation = Repo.insert!(%Translation{key: "a", revision_id: revision.id})
+    translation = Factory.insert(Translation, key: "a", revision_id: revision.id)
 
     Accent.Revisions.DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
 

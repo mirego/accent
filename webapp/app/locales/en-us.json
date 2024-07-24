@@ -62,6 +62,7 @@
       "slack": "Login with Slack →",
       "discord": "Login with Discord →",
       "microsoft": "Login with Microsoft →",
+      "oidc": "Login with OpenID Connect →",
       "dummy": "Enter an email and login →"
     },
     "dummy_login_form": {
@@ -141,16 +142,26 @@
       "reload_button": "Reload"
     },
     "conflicts_filters": {
+      "advanced_filters_button": "Advanced filters",
       "total_entries_count": "{count, plural, =0 {No strings to review} =1 {1 string to review} other {# strings to review}}",
       "reference_default_option_text": "No reference language",
       "version_default_option_text": "Latest version",
       "document_default_option_text": "All documents",
-      "input_placeholder_text": "Search for a string"
+      "input_placeholder_text": "Search for a string",
+      "advanced_filters_title": "Advanced filters",
+      "advanced_filters": {
+        "empty": "Text is empty (\"\" or null value)",
+        "not_empty": "Text is not empty",
+        "added_last_sync": "Strings added last sync",
+        "commented_on": "Strings with comments",
+        "conflicted": "To review",
+        "translated": "To translate"
+      }
     },
-    "conflicts_items": {
-      "translations_version_notice": "You are viewing strings to review for the version",
+    "conflicts_list": {
+      "translations_version_notice": "You are viewing the strings to be reviewed in the version",
       "correct_all_button": "Mark all strings as reviewed for this language",
-      "no_translations": "No strings to review for: {query}",
+      "no_translations": "No strings found for: {query}",
       "all_reviewed_title": "All reviewed",
       "all_reviewed_subtitle": "All strings have been marked as reviewed"
     },
@@ -206,7 +217,9 @@
         "rtl_badge": "RTL",
         "rtl": "Right to left text",
         "correct_all_button": "Mark all strings as reviewed",
-        "uncorrect_all_button": "Put all strings back in review"
+        "uncorrect_all_button": "Put all strings back in review",
+        "stats_translated": "translated",
+        "stats_to_review": "to review"
       }
     },
     "date_tag": {
@@ -404,6 +417,7 @@
         "title": "AI Assistant",
         "help": "Instructions will be available on all string inputs to help you improve your content. The clearer the instructions you give to the assistant, to better the output will be.",
         "new_button": "Add a new instruction",
+        "use_platform_label": "Use the platform config if available",
         "config_key_help_present": "Config key has been set, but the value will never be exposed via the API.",
         "config_key_help_not_present": "Once saved, the config key will never be shown.",
         "delete_confirm": "Are you sure you want to delete this instruction?"
@@ -428,7 +442,8 @@
       "jipt": {
         "title": "Just In Place Translations",
         "integration_help": "This steps will walk you throught the setup you need to have in your project to translate your strings in your browser, inside your project.",
-        "integration_link": "See official guides on how to integrate live editing in your website ->",
+        "demo_help": "See a static HTML page that renders the first string of your project in different context. The Accent live integration can be seen at the bottom of the page. Note that the live example use your real project’s data.",
+        "demo_link": "Open example →",
         "add_language_title": "Add the pseudo language to your project",
         "add_language_image_1": "Here is a language like you already have in your project:",
         "add_language_image_2": "Here is the pseudo language named \"accent\" that act as a normal translation in your project:",
@@ -472,6 +487,7 @@
         "developer_text": "Can make file operations: Sync, add translations and preview those operations in the UI.",
         "owner_text": "With the same roles as the admin, the owners are people who the project belongs to.",
         "reviewer_text": "Can do every tasks except those listed in the above roles. Review, update strings, comments, etc.",
+        "translator_text": "Translate strings and make updates on documents. The translator is not included in the review process.",
         "title": "Collaborators"
       },
       "collaborators_item": {
@@ -494,9 +510,19 @@
         "last_executed_at": "Last executed at:",
         "data": {
           "azure_storage_container_sas": "SAS URL",
+          "aws_s3_bucket": "Bucket name",
+          "aws_s3_path_prefix": "Path prefix",
+          "aws_s3_region": "Region",
+          "aws_s3_access_key_id": "Access Key ID",
+          "aws_s3_secret_access_key": "Secret Access Key",
+          "aws_s3_minimum_policy": "Minimum policy",
           "url": "URL"
         },
         "empty_description": {
+          "aws_s3": {
+            "title": "AWS S3",
+            "text": "Upload your files in Amazon Web Services S3 to serve them directly in your application"
+          },
           "azure_storage_container": {
             "title": "Azure Storage Container",
             "text": "Upload your files in Azure Storage Container to serve them directly in your application"
@@ -510,21 +536,33 @@
             "text": "Post your project’s notifications in Slack"
           }
         },
-        "token_how": "How?",
-        "github_webhook_url_how": "How?",
-        "github_webhook_accent_cli_1": "You need to have a valid <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> setup for the hook to work.",
-        "github_webhook_accent_cli_2": "The <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json\">accent.json</a> file at the root of your project will be used.",
-        "github_webhook_url": "Make sure to add the webhook in your project’s settings",
         "webhook_url_how": "How to obtain a webhook URL?",
         "events": {
           "title": "Which events would you like to trigger this webhook?",
           "options": {
             "sync": "Sync with any changes",
             "new_conflicts": "New strings to review",
-            "complete_review": "Project is 100% reviewed"
+            "complete_review": "Project is 100% reviewed",
+            "integration_execute_azure_storage_container": "Files uploaded to Azure Storage Container"
           }
         },
         "execute": {
+          "aws_s3": {
+            "title": "Upload files to AWS S3",
+            "cancel_button": "Cancel",
+            "error": "Error while pushing to your bucket. Check your credentials and try again.",
+            "push_button": "Upload",
+            "bucket": "Bucket",
+            "path_prefix": "Path prefix",
+            "submit_confirm": "Uploading files to AWS S3 can override existing files if you upload for the latest or an already uploaded version tag.",
+            "target_version": {
+              "label": "Target Version",
+              "options": {
+                "latest": "Latest Version",
+                "specific": "Specific Version"
+              }
+            }
+          },
           "azure_storage_container": {
             "title": "Upload files to Azure Storage Container",
             "cancel_button": "Cancel",
@@ -661,6 +699,8 @@
       "error": "Invalid version",
       "cancel_button": "Cancel",
       "name_label": "Name:",
+      "copy_on_update_translation_help": "Everytime a translation in this version is updated, the same text will be applied to the latest translation. This will make sure that a fix in frozen version will also be present in the latest version without any required actions by the developer or the reviewer.",
+      "copy_on_update_translation_label": "Copy on update translation",
       "tag_label": "Tag:",
       "save_button": "Create"
     },
@@ -668,6 +708,8 @@
       "title": "Update version",
       "error": "Invalid version",
       "cancel_button": "Cancel",
+      "copy_on_update_translation_help": "Everytime a translation in this version is updated, the same text will be applied to the latest translation. This will make sure that a fix in frozen version will also be present in the latest version without any required actions by the developer or the reviewer.",
+      "copy_on_update_translation_label": "Copy on update translation",
       "name_label": "Name:",
       "tag_label": "Tag:",
       "save_button": "Update"
@@ -721,6 +763,7 @@
       "translations_link_title": "All strings",
       "lint_link_title": "Checks",
       "conflicts_link_title": "Review",
+      "translate_link_title": "Translate",
       "dashboard_link_title": "Dashboard",
       "settings_link_title": "Settings",
       "sync_link_title": "Files",
@@ -999,7 +1042,8 @@
     "integration_services": {
       "DISCORD": "Discord",
       "SLACK": "Slack",
-      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container",
+      "AWS_S3": "AWS S3"
     },
     "search_input_placeholder_text": "Search for a string…"
   },
@@ -1090,7 +1134,9 @@
             "unsupported_source_and_target": "The string could not be translated: Unsupported source {source} and target {target}"
           },
           "correct_error": "The string could not be marked as reviewed",
-          "correct_success": "The string as been marked as reviewed with success"
+          "correct_success": "The string as been marked as reviewed with success",
+          "update_error": "The string could not be updated",
+          "update_success": "The string has been updated with success"
         }
       },
       "edit": {
@@ -1105,6 +1151,8 @@
           "collaborator_update_success": "The collaborator has been updated with success",
           "integration_add_error": "The integration could not be added",
           "integration_add_success": "The integration has been added with success",
+          "integration_execute_error": "The integration could not be executed",
+          "integration_execute_success": "The integration has been executed with success",
           "integration_update_error": "The integration could not be updated",
           "integration_update_success": "The integration has been updated with success",
           "integration_remove_error": "The integration could not be removed",

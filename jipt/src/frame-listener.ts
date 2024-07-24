@@ -10,7 +10,7 @@ const enum ACTIONS {
   redirectIfEmbedded = 'redirectIfEmbedded',
   login = 'login',
   loggedIn = 'loggedIn',
-  changeText = 'changeText',
+  changeText = 'changeText'
 }
 
 interface Props {
@@ -47,9 +47,9 @@ export default class FrameListener {
     );
   }
 
-  private handleAccentMessage({data}) {
-    if (!data.jipt) return;
-    const action = data.action;
+  private handleAccentMessage(event: MessageEvent) {
+    if (!event.data.jipt) return;
+    const action = event.data.action;
 
     if (action === ACTIONS.listTranslations) {
       return this.handleListTranslations(event);
@@ -76,7 +76,7 @@ export default class FrameListener {
     }
   }
 
-  private handleListTranslations(event) {
+  private handleListTranslations(event: MessageEvent) {
     const currentRevision = this.state.getCurrentRevision();
     const newRevision = event.data.payload.revisionId;
     this.state.projectTranslations = event.data.payload.translations;
@@ -102,7 +102,7 @@ export default class FrameListener {
     this.ui.collapse();
   }
 
-  private handleChangeText(event) {
+  private handleChangeText(event: MessageEvent) {
     const ref = this.state.refs.get(event.data.payload.translationId);
     if (!ref) return;
 
@@ -113,11 +113,11 @@ export default class FrameListener {
     });
   }
 
-  private handleUpdateTranslation(event) {
+  private handleUpdateTranslation(event: MessageEvent) {
     const ref = this.state.refs.get(event.data.payload.translationId);
     if (!ref) return;
 
-    ref.elements.forEach((meta, node: HTMLElement) => {
+    ref.elements.forEach((_meta, node: HTMLElement) => {
       if (!this.liveNode.isLive(node)) return;
 
       Mutation.nodeStyleRefresh(node, event.data.payload);

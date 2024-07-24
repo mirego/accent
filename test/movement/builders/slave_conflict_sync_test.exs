@@ -12,19 +12,17 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
   alias Movement.Builders.SlaveConflictSync, as: SlaveConflictSyncBuilder
   alias Movement.Context
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    other_language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
+    other_language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    other_revision = Repo.insert!(%Revision{project_id: project.id, language_id: other_language.id})
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    other_revision = Factory.insert(Revision, project_id: project.id, language_id: other_language.id)
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [project: project, revision: revision, document: document, other_revision: other_revision]}
   end
@@ -35,10 +33,15 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
     other_revision: other_revision
   } do
     translation =
-      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
+      Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
 
     other_translation =
-      Repo.insert!(%Translation{key: "a", proposed_text: "C", revision_id: other_revision.id, document_id: document.id})
+      Factory.insert(Translation,
+        key: "a",
+        proposed_text: "C",
+        revision_id: other_revision.id,
+        document_id: document.id
+      )
 
     context =
       %Context{operations: [%{key: "a", action: "conflict_on_proposed"}]}
@@ -60,18 +63,18 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
     document: document,
     other_revision: other_revision
   } do
-    other_document = Repo.insert!(%Document{project_id: project.id, path: "other", format: "json"})
+    other_document = Factory.insert(Document, project_id: project.id, path: "other", format: "json")
 
     translation =
-      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
+      Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
 
     other_translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "C",
         revision_id: other_revision.id,
         document_id: other_document.id
-      })
+      )
 
     context =
       %Context{operations: [%{key: "a", action: "conflict_on_proposed"}]}

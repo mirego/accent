@@ -9,19 +9,19 @@ defmodule AccentTest.RevisionMasterPromoter do
   alias Accent.RevisionManager
 
   setup do
-    french_language = Repo.insert!(%Language{name: "french"})
-    english_language = Repo.insert!(%Language{name: "english"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    french_language = Factory.insert(Language)
+    english_language = Factory.insert(Language)
+    project = Factory.insert(Project)
 
-    master_revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    master_revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     slave_revision =
-      Repo.insert!(%Revision{
+      Factory.insert(Revision,
         language_id: english_language.id,
         project_id: project.id,
         master: false,
         master_revision_id: master_revision.id
-      })
+      )
 
     {:ok, [master_revision: master_revision, slave_revision: slave_revision]}
   end

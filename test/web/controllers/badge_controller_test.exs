@@ -4,7 +4,6 @@ defmodule AccentTest.BadgeController do
   import Mock
 
   alias Accent.Project
-  alias Accent.Repo
 
   defp behave_like_valid_response(response) do
     assert response.status == 200
@@ -14,7 +13,7 @@ defmodule AccentTest.BadgeController do
 
   setup do
     id = Ecto.UUID.generate()
-    project = Repo.insert!(%Project{id: id, name: "project", main_color: "#f00"})
+    project = Factory.insert(Project, id: id, name: "project", main_color: "#f00")
     badge_generate_mock = [generate: fn _, _ -> {:ok, "<svg></svg>"} end]
 
     {:ok, %{project: project, badge_generate_mock: badge_generate_mock}}

@@ -12,23 +12,21 @@ defmodule AccentTest.Movement.Builders.Rollback do
   alias Accent.User
   alias Movement.Builders.Rollback, as: RollbackBuilder
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [revision: revision, document: document, project: project]}
   end
 
   test "builder process operations for batch", %{project: project} do
-    operation = Repo.insert!(%Operation{project_id: project.id, batch: true, action: "sync"})
+    operation = Factory.insert(Operation, project_id: project.id, batch: true, action: "sync")
 
     context =
       %Movement.Context{}
@@ -43,16 +41,17 @@ defmodule AccentTest.Movement.Builders.Rollback do
 
   test "builder process operations for translation", %{project: project, revision: revision, document: document} do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "A",
         proposed_text: "TEXT",
         conflicted_text: "Ex-TEXT",
         corrected_text: "LOL",
+        translated: true,
         removed: false,
         revision_id: revision.id,
         value_type: "string",
         placeholders: []
-      })
+      )
 
     operation =
       %Operation{
@@ -88,6 +87,7 @@ defmodule AccentTest.Movement.Builders.Rollback do
              conflicted_text: translation.conflicted_text,
              conflicted: translation.conflicted,
              removed: translation.removed,
+             translated: translation.translated,
              placeholders: translation.placeholders
            }
   end

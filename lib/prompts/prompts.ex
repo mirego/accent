@@ -17,6 +17,8 @@ defmodule Accent.Prompts do
     Provider.enabled?(provider)
   end
 
+  defp provider_from_config(nil), do: %Provider.NotImplemented{}
+
   defp provider_from_config(config) do
     struct_module =
       case config["provider"] do
@@ -24,6 +26,12 @@ defmodule Accent.Prompts do
         _ -> Provider.NotImplemented
       end
 
-    struct!(struct_module, config: config)
+    struct!(struct_module, config: fetch_config(config))
   end
+
+  defp fetch_config(%{"provider" => provider, "use_platform" => true}) do
+    Map.get(Application.get_env(:accent, __MODULE__)[:default_providers_config], provider)
+  end
+
+  defp fetch_config(%{"config" => config}), do: config
 end

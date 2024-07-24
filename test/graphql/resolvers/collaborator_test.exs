@@ -13,11 +13,9 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    project = Factory.insert(Project)
 
     {:ok, [user: user, project: project]}
   end
@@ -44,7 +42,7 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
 
   test "update", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    collaborator = Repo.insert!(%Collaborator{email: "test@example.com", role: "reviewer", project_id: project.id})
+    collaborator = Factory.insert(Collaborator, email: "test@example.com", role: "reviewer", project_id: project.id)
 
     {:ok, result} = Resolver.update(collaborator, %{role: "owner"}, context)
 
@@ -54,7 +52,7 @@ defmodule AccentTest.GraphQL.Resolvers.Collaborator do
 
   test "delete", %{project: project, user: user} do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
-    collaborator = Repo.insert!(%Collaborator{email: "test@example.com", role: "reviewer", project_id: project.id})
+    collaborator = Factory.insert(Collaborator, email: "test@example.com", role: "reviewer", project_id: project.id)
 
     {:ok, result} = Resolver.delete(collaborator, %{}, context)
 

@@ -1,0 +1,42 @@
+<div local-class='conflicts-list-advanced-filters'>
+  <span local-class='title'>
+    {{t 'components.conflicts_filters.advanced_filters_title'}}
+  </span>
+
+  <div local-class='labels'>
+    <label local-class='label'>
+      <input type='checkbox' checked={{@isTextEmptyFilter}} {{on 'change' (fn @onChangeAdvancedFilterBoolean 'isTextEmpty')}} />
+      <span class='label-text'>
+        {{t 'components.conflicts_filters.advanced_filters.empty'}}
+      </span>
+    </label>
+
+    <label local-class='label'>
+      <input type='checkbox' checked={{@isTextNotEmptyFilter}} {{on 'change' (fn @onChangeAdvancedFilterBoolean 'isTextNotEmpty')}} />
+      <span>
+        {{t 'components.conflicts_filters.advanced_filters.not_empty'}}
+      </span>
+    </label>
+
+    <label local-class='label'>
+      <input type='checkbox' checked={{@isAddedLastSyncFilter}} {{on 'change' (fn @onChangeAdvancedFilterBoolean 'isAddedLastSync')}} />
+      <span>
+        {{t 'components.conflicts_filters.advanced_filters.added_last_sync'}}
+      </span>
+    </label>
+
+    <label local-class='label'>
+      <input type='checkbox' checked={{@isCommentedOnFilter}} {{on 'change' (fn @onChangeAdvancedFilterBoolean 'isCommentedOn')}} />
+      <span>
+        {{t 'components.conflicts_filters.advanced_filters.commented_on'}}
+      </span>
+    </label>
+
+    <label local-class='label'>
+      <input type='checkbox' checked={{@isTranslatedFilter}} {{on 'change' (fn @onChangeAdvancedFilterBoolean 'isTranslated')}} />
+      <span>
+        {{t 'components.conflicts_filters.advanced_filters.translated'}}
+      </span>
+    </label>
+  </div>
+</div>

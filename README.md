@@ -28,8 +28,8 @@ Accent provides a powerful abstraction around the process maintaining translatio
 | --------------------------------------------------- | -------------------------------------------------------------------- |
 | [🚀 Getting started](#-getting-started)             | Quickly setup a working app                                          |
 | [🚧 Requirements](#-requirements)                   | Dependencies required to run Accent’ stack                           |
-| [🎛 Mix commands](#-executing-mix-commands)          | How to execute mix task with the Twelve-Factor pattern               |
-| [🏎 Quickstart](#-quickstart)                        | Steps to run the project, from API to webapp, with or without Docker |
+| [🎛 Mix commands](#-executing-mix-commands)         | How to execute mix task with the Twelve-Factor pattern               |
+| [🏎 Quickstart](#-quickstart)                       | Steps to run the project, from API to webapp, with or without Docker |
 | [🌳 Environment variables](#-environment-variables) | Required and optional env var used                                   |
 | [✅ Tests](#-tests)                                 | How to run the extensive tests suite                                 |
 | [🚀 Heroku](#-deploy-on-heroku)                     | Easy deployment setup with Heroku                                    |
@@ -103,13 +103,14 @@ The Makefile should be the main entry for common tasks such as tests, linting, D
 
 For the production setup, we use Docker to build an OTP release of the app. With docker-compose, you can run the image locally. Here are the steps to have a working app running locally with Docker:
 
-_When running the production env, you need to provide a valid GOOGLE_API_CLIENT_ID in the `docker-compose.yml` file._
+_When running the production env, you need to provide a valid authentication setup in the `environment` section in `docker-compose.yml` file._
+See the following sections to see available variables to enable third-party logins or dummy login (email only, no password).
 
 1. Run `make build` to build the OTP release with Docker
 2. Run `make dev-start-postgresql` to start an instance of Postgresql. The instance will run on port 5432 with the `postgres` user. You can change those values in the `docker-compose.yml` file.
 3. Run `make dev-start-application` to start the app! The release hook of the release will execute migrations and seeds before starting the webserver on port 4000 (again you can change the settings in `docker-compose.yml`)
 
-_That’s it! You now have a working Accent instance without installing Elixir or Node!_
+_That’s it! You now have a working Accent instance without installing Elixir or NodeJS!_
 
 ## 🌳 Environment variables
 
@@ -139,24 +140,29 @@ Accent provides a default value for every required environment variable. This me
 
 Various login providers are included in Accent using Ueberauth to abstract services.
 
-| Variable                   | Default              | Description                                                                             |
-| -------------------------- | -------------------- | --------------------------------------------------------------------------------------- |
-| `DUMMY_LOGIN_ENABLED`      | _none_               | If specified, the password-less authentication (with only the email) will be available. |
-| `GITHUB_CLIENT_ID`         | _none_               |                                                                                         |
-| `GITHUB_CLIENT_SECRET`     | _none_               |                                                                                         |
-| `GITLAB_CLIENT_ID`         | _none_               |                                                                                         |
-| `GITLAB_CLIENT_SECRET`     | _none_               |                                                                                         |
-| `GITLAB_SITE_URL`          | `https://gitlab.com` |                                                                                         |
-| `GOOGLE_API_CLIENT_ID`     | _none_               |                                                                                         |
-| `GOOGLE_API_CLIENT_SECRET` | _none_               |                                                                                         |
-| `SLACK_CLIENT_ID`          | _none_               |                                                                                         |
-| `SLACK_CLIENT_SECRET`      | _none_               |                                                                                         |
-| `SLACK_TEAM_ID`            | _none_               |                                                                                         |
-| `DISCORD_CLIENT_ID`        | _none_               |                                                                                         |
-| `DISCORD_CLIENT_SECRET`    | _none_               |                                                                                         |
-| `MICROSOFT_CLIENT_ID`      | _none_               |                                                                                         |
-| `MICROSOFT_CLIENT_SECRET`  | _none_               |                                                                                         |
-| `MICROSOFT_TENANT_ID`      | _none_               |                                                                                         |
+| Variable                   | Default                | Description                                                                             |
+| -------------------------- | ---------------------- | --------------------------------------------------------------------------------------- |
+| `DUMMY_LOGIN_ENABLED`      | _none_                 | If specified, the password-less authentication (with only the email) will be available. |
+| `GITHUB_CLIENT_ID`         | _none_                 |                                                                                         |
+| `GITHUB_CLIENT_SECRET`     | _none_                 |                                                                                         |
+| `GITLAB_CLIENT_ID`         | _none_                 |                                                                                         |
+| `GITLAB_CLIENT_SECRET`     | _none_                 |                                                                                         |
+| `GITLAB_SITE_URL`          | `https://gitlab.com`   |                                                                                         |
+| `GOOGLE_API_CLIENT_ID`     | _none_                 |                                                                                         |
+| `GOOGLE_API_CLIENT_SECRET` | _none_                 |                                                                                         |
+| `SLACK_CLIENT_ID`          | _none_                 |                                                                                         |
+| `SLACK_CLIENT_SECRET`      | _none_                 |                                                                                         |
+| `SLACK_TEAM_ID`            | _none_                 |                                                                                         |
+| `DISCORD_CLIENT_ID`        | _none_                 |                                                                                         |
+| `DISCORD_CLIENT_SECRET`    | _none_                 |                                                                                         |
+| `MICROSOFT_CLIENT_ID`      | _none_                 |                                                                                         |
+| `MICROSOFT_CLIENT_SECRET`  | _none_                 |                                                                                         |
+| `MICROSOFT_TENANT_ID`      | _none_                 |                                                                                         |
+| `OIDC_CLIENT_ID`           | _none_                 |                                                                                         |
+| `OIDC_CLIENT_SECRET`       | _none_                 |                                                                                         |
+| `OIDC_DISCOVERY_URI`       | _none_                 |                                                                                         |
+| `OIDC_UID_FIELD`           | `sub`                  |                                                                                         |
+| `OIDC_SCOPE`               | `openid profile email` |                                                                                         |
 
 ### Email setup
 

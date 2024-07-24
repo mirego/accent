@@ -70,6 +70,65 @@
   }
 }
 
+.ember-power-select-multiple-options
+  .ember-power-select-multiple-option:first-of-type {
+  span[role='button'] {
+    display: none;
+  }
+}
+
+.ember-power-select-multiple-options {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  list-style: none;
+
+  & li.ember-power-select-trigger-multiple-input-container {
+    flex-grow: 1;
+    display: flex;
+
+    & input {
+      flex-grow: 1;
+    }
+  }
+}
+
+.ember-power-select-trigger-multiple-input {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  line-height: inherit;
+  -webkit-appearance: none;
+  outline: none;
+  padding: 0;
+  background-color: transparent;
+  text-indent: 2px;
+}
+
+html[data-theme='dark'] .ember-power-select-multiple-option {
+  color: var(--color-primary);
+}
+
+.ember-power-select-multiple-option {
+  display: inline-block;
+  background: var(--color-primary-opacity-25);
+  color: var(--color-primary-darken-50);
+  border-radius: var(--border-radius);
+
+  padding: 3px 9px;
+  font-size: 14px;
+}
+
+.ember-power-select-multiple-remove-btn {
+  cursor: pointer;
+  &:not(:hover) {
+    opacity: 0.5;
+  }
+}
+
 .ember-power-select-status-icon {
   position: absolute;
   right: 0;

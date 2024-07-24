@@ -1,8 +1,8 @@
 version: '3.7'
 services:
   application:
-    image: mirego/accent
     container_name: accent
+    network_mode: "host"
     build: .
     ports:
       - 4000:4000
@@ -10,9 +10,9 @@ services:
       - postgresql
     environment:
       - PORT=4000
-      - DATABASE_URL=postgres://postgres@postgresql:5432/accent_development
+      - DATABASE_URL=postgres://postgres@localhost:5432/accent_development
   postgresql:
-    image: postgres:10.3
+    image: postgres:15.6
     container_name: accent-postgres
     environment:
       - POSTGRES_DB=accent_development

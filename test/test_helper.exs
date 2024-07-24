@@ -1,3 +1,5 @@
+alias Ecto.Adapters.SQL.Sandbox
+
 defmodule Accent.FormatterTestHelper do
   @moduledoc false
   def test_parse(variant, parser) do
@@ -50,4 +52,9 @@ defmodule Langue.Expectation.Case do
 end
 
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Accent.Repo, :manual)
+
+Sandbox.checkout(Accent.Repo)
+Accent.Factory.bootstrap()
+Sandbox.checkin(Accent.Repo)
+
+Sandbox.mode(Accent.Repo, :manual)

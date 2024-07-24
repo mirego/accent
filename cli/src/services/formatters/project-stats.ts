@@ -8,13 +8,13 @@ import {
   Document,
   Project,
   Revision,
-  Version,
+  Version
 } from '../../types/project';
 
 // Services
 import {
   fetchFromRevision,
-  fetchNameFromRevision,
+  fetchNameFromRevision
 } from '../revision-slug-fetcher';
 import Base from './base';
 

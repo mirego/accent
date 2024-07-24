@@ -57,7 +57,7 @@ export default class Exporter extends Service {
         document_format: (documentFormat || document.format).toLowerCase(),
         'filters[is_text_empty]': options.filters?.isTextEmptyFilter,
         'filters[is_added_last_sync]': options.filters?.isAddedLastSyncFilter,
-        'filters[is_conflicted]': options.filters?.isConflictedFilter,
+        'filters[is_conflicted]': options.filters?.isConflictedFilter
       })}`
     );
     /* eslint-enable camelcase */
@@ -79,7 +79,7 @@ export default class Exporter extends Service {
         document_format: documentFormat.toLowerCase(),
         'filters[is_text_empty]': options.filters?.isTextEmptyFilter,
         'filters[is_added_last_sync]': options.filters?.isAddedLastSyncFilter,
-        'filters[is_conflicted]': options.filters?.isConflictedFilter,
+        'filters[is_conflicted]': options.filters?.isConflictedFilter
       })}`
     );
     /* eslint-enable camelcase */
@@ -96,7 +96,7 @@ export default class Exporter extends Service {
         project_id: project.id,
         version,
         document_path: document.path,
-        document_format: documentFormat,
+        document_format: documentFormat
       })}`
     );
     /* eslint-enable camelcase */

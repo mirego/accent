@@ -1,7 +1,7 @@
 defmodule Accent.Mixfile do
   use Mix.Project
 
-  @version "1.19.12"
+  @version "1.21.4"
 
   def project do
     [
@@ -82,6 +82,7 @@ defmodule Accent.Mixfile do
       {:jason, "~> 1.2", override: true},
       {:erlsom, "~> 1.5"},
       {:xml_builder, "~> 2.0"},
+      {:aws_signature, "~> 0.3"},
 
       # Auth
       {:ueberauth, "~> 0.10"},
@@ -91,6 +92,7 @@ defmodule Accent.Mixfile do
       {:ueberauth_github, "~> 0.7"},
       {:ueberauth_discord, "~> 0.5"},
       {:ueberauth_auth0, "~> 2.0"},
+      {:ueberauth_oidc, "~> 0.1.7"},
 
       # Errors
       {:sentry, "~> 7.0"},
@@ -114,6 +116,7 @@ defmodule Accent.Mixfile do
       # Mock testing
       {:mox, "~> 1.0", only: :test},
       {:mock, "~> 0.3.0", only: :test},
+      {:factori, "~> 0.13", only: :test},
 
       # Google API authentication
       {:goth, "~> 1.4"},

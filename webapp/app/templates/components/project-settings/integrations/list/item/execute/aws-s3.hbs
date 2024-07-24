@@ -1,0 +1,50 @@
+<div local-class='aws-push-form'>
+  <h1 local-class='title'>
+    {{t 'components.project_settings.integrations.execute.aws_s3.title'}}
+  </h1>
+
+  <div local-class='info'>
+    <div>
+      <strong>{{t 'components.project_settings.integrations.execute.aws_s3.bucket'}}</strong>
+      <span>{{@integration.data.bucket}}</span>
+    </div>
+    <div>
+      <strong>{{t 'components.project_settings.integrations.execute.aws_s3.path_prefix'}}</strong>
+      <span>{{@integration.data.pathPrefix}}</span>
+    </div>
+  </div>
+
+  {{#if this.error}}
+    <div local-class='errors'>
+      <div local-class='error'>
+        {{t 'components.project_settings.integrations.execute.aws_s3.error'}}
+      </div>
+    </div>
+  {{/if}}
+
+  <div local-class='formItem'>
+    <div local-class='data-control'>
+      <h3 local-class='data-title'>
+        {{t 'components.project_settings.integrations.execute.aws_s3.target_version.label'}}
+      </h3>
+
+      {{#each this.allTargetVersions as |target|}}
+        <label local-class='radio'>
+          <input type='radio' checked={{eq this.targetVersion target.value}} name='target_version' {{on 'change' (fn this.setTargetVersion target.value)}} required />
+          {{t target.label}}
+        </label>
+      {{/each}}
+
+      {{#if (eq this.targetVersion 'SPECIFIC')}}
+        <ProjectSettings::Integrations::Form::DataControlText @placeholder='1.0.0' @value={{this.tag}} @onChange={{this.setTag}} />
+      {{/if}}
+    </div>
+  </div>
+
+  <div local-class='formActions'>
+    <AsyncButton {{did-insert (fn this.autofocus)}} class='button button--filled' @loading={{this.isSubmitting}} @onClick={{this.submit}}>
+      {{inline-svg '/assets/arrow-up-right.svg' class='button-icon'}}
+      {{t 'components.project_settings.integrations.execute.aws_s3.push_button'}}
+    </AsyncButton>
+  </div>
+</div>

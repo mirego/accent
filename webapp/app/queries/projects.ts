@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export default gql`
   query Projects($query: String, $page: Int, $nodeIds: [ID!]) {
@@ -35,8 +35,6 @@ export default gql`
           lastSyncedAt
           mainColor
           logo
-          translationsCount
-          conflictsCount
         }
       }
     }

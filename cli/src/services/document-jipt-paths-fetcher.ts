@@ -20,7 +20,7 @@ export default class DocumentJiptPathsFetcher {
         return {
           documentPath: path,
           language: pseudoLanguageName,
-          path: parsedTarget,
+          path: parsedTarget
         };
       });
   }

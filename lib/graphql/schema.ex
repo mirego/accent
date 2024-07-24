@@ -30,10 +30,12 @@ defmodule Accent.GraphQL.Schema do
   import_types(Accent.GraphQL.Types.MutationResult)
   import_types(Accent.GraphQL.Types.Lint)
 
+  @version Application.compile_env!(:accent, :version)
+
   object :application do
     field(:version, :string,
       resolve: fn _, _ ->
-        {:ok, "1.2.3"}
+        {:ok, @version}
       end
     )
   end

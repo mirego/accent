@@ -1,0 +1,143 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.details {
+  padding-right: 25px;
+}
+
+.messages {
+  margin-top: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-item {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.description {
+  color: var(--color-error);
+  font-size: 12px;
+}
+
+.button-fix {
+  width: max-content;
+
+  &:focus,
+  &:hover {
+    --button-text-hover-color: var(--color-green);
+  }
+}
+
+.item-language {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--color-black);
+  opacity: 0.6;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
+
+  &:focus,
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.item-link {
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    .item-key {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.item-key-prefix {
+  display: block;
+  color: #959595;
+  font-weight: 300;
+  flex-shrink: 0;
+
+  &::before {
+    content: '/';
+    margin-right: -5px;
+  }
+}
+
+.item-key {
+  display: flex;
+  gap: 5px;
+  transition: 0.2s ease-in-out;
+  transition-property: color;
+  margin-right: 15px;
+  color: var(--text-color-normal);
+  line-height: 1.5;
+  word-break: break-all;
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.item-text {
+  display: block;
+  width: 100%;
+  font-size: 13px;
+  color: var(--text-color-normal);
+  padding: 0;
+  cursor: text;
+  white-space: pre-wrap;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
+  opacity: 0.8;
+
+  &.item-text--empty {
+    font-style: italic;
+    font-size: 11px;
+    color: #ddd;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+.item-diff-text {
+  font-size: 13px;
+  color: var(--text-color-normal);
+
+  > div {
+    display: inline;
+  }
+}
+
+.item-text {
+  strong {
+    color: var(--color-green);
+    margin-left: 3px;
+    font-weight: bold;
+  }
+
+  span[data-underline] {
+    position: relative;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--color-error);
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 1px;
+  }
+
+  span[data-rect] {
+    position: relative;
+    background-color: var(--color-error);
+    padding: 0 2px;
+    opacity: 0.4;
+  }
+}

@@ -21,9 +21,9 @@ export default class Format extends Command {
     'order-by': flags.string({
       default: 'index',
       description: 'Order of the keys',
-      options: ['index', 'key', '-index', '-key'],
+      options: ['index', 'key', '-index', '-key']
     }),
-    config: configFlag,
+    config: configFlag
   };
 
   async run() {

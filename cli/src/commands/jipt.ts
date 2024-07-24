@@ -22,8 +22,8 @@ export default class Jipt extends Command {
     {
       description: 'The pseudo language for in-place-translation-editing',
       name: 'pseudoLanguageName',
-      required: true,
-    },
+      required: true
+    }
   ];
 
   static flags = {config: configFlag};

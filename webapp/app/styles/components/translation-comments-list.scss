@@ -1,0 +1,46 @@
+.translation-comments-list {
+  position: relative;
+  box-shadow:
+    0 1px 4px var(--shadow-color),
+    0 9px 19px var(--shadow-color);
+  background: var(--background-light);
+  border-radius: var(--border-radius);
+}
+
+.translation-comments-list.translationRemoved {
+  opacity: 0.5;
+
+  .itemComment {
+    padding: 4px 8px 8px;
+  }
+}
+
+.translation-comments-list.at-translation {
+  margin-top: 20px;
+
+  &:before,
+  &:after {
+    display: none;
+  }
+}
+
+.itemComment {
+  padding: 8px 10px 10px;
+  border-bottom: 1px solid var(--background-light-highlight);
+
+  &:focus,
+  &:hover {
+    background: var(--background-light);
+  }
+
+  &:last-of-type {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 1300px) {
+  .translation-comments-list {
+    border-color: transparent;
+    box-shadow: none;
+  }
+}

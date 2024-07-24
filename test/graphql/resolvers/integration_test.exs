@@ -13,11 +13,9 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    project = Factory.insert(Project)
 
     {:ok, [user: user, project: project]}
   end
@@ -77,7 +75,8 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
 
     assert integration.errors == [
              service:
-               {"is invalid", [validation: :inclusion, enum: ["slack", "github", "discord", "azure_storage_container"]]}
+               {"is invalid",
+                [validation: :inclusion, enum: ["slack", "github", "discord", "azure_storage_container", "aws_s3"]]}
            ]
 
     assert Repo.all(Integration) == []
@@ -87,13 +86,13 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     integration =
-      Repo.insert!(%Integration{
+      Factory.insert(Integration,
         project_id: project.id,
         user_id: user.id,
         service: "slack",
         events: ["sync"],
-        data: %{url: "http://google.ca"}
-      })
+        data: %{id: Ecto.UUID.generate(), url: "http://google.ca"}
+      )
 
     {:ok, updated_integration} = Resolver.update(integration, %{data: %{url: "http://example.com/update"}}, context)
 
@@ -104,13 +103,13 @@ defmodule AccentTest.GraphQL.Resolvers.Integration do
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
 
     integration =
-      Repo.insert!(%Integration{
+      Factory.insert(Integration,
         project_id: project.id,
         user_id: user.id,
         service: "slack",
         events: ["sync"],
-        data: %{url: "http://google.ca"}
-      })
+        data: %{id: Ecto.UUID.generate(), url: "http://google.ca"}
+      )
 
     {:ok, deleted_integration} = Resolver.delete(integration, %{}, context)
 

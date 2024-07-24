@@ -5,7 +5,6 @@
 @import 'highlight-theme';
 
 @import 'html-components/button';
-@import 'html-components/emoji-picker';
 @import 'html-components/filters';
 @import 'html-components/power-select';
 @import 'html-components/pell';
@@ -14,7 +13,8 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 100;
-  src: url('fonts/Inter-Thin.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-Thin.woff2') format('woff2'),
     url('fonts/Inter-Thin.woff') format('woff');
 }
 
@@ -22,7 +22,8 @@
   font-family: 'Inter';
   font-style: italic;
   font-weight: 100;
-  src: url('fonts/Inter-ThinItalic.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-ThinItalic.woff2') format('woff2'),
     url('fonts/Inter-ThinItalic.woff') format('woff');
 }
 
@@ -30,7 +31,8 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 200;
-  src: url('fonts/Inter-ExtraLight.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-ExtraLight.woff2') format('woff2'),
     url('fonts/Inter-ExtraLight.woff') format('woff');
 }
 
@@ -38,7 +40,8 @@
   font-family: 'Inter';
   font-style: italic;
   font-weight: 200;
-  src: url('fonts/Inter-ExtraLightItalic.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-ExtraLightItalic.woff2') format('woff2'),
     url('fonts/Inter-ExtraLightItalic.woff') format('woff');
 }
 
@@ -46,7 +49,8 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 300;
-  src: url('fonts/Inter-Light.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-Light.woff2') format('woff2'),
     url('fonts/Inter-Light.woff') format('woff');
 }
 
@@ -54,7 +58,8 @@
   font-family: 'Inter';
   font-style: italic;
   font-weight: 300;
-  src: url('fonts/Inter-LightItalic.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-LightItalic.woff2') format('woff2'),
     url('fonts/Inter-LightItalic.woff') format('woff');
 }
 
@@ -62,7 +67,8 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  src: url('fonts/Inter-Regular.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-Regular.woff2') format('woff2'),
     url('fonts/Inter-Regular.woff') format('woff');
 }
 
@@ -70,7 +76,8 @@
   font-family: 'Inter';
   font-style: italic;
   font-weight: 400;
-  src: url('fonts/Inter-Italic.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-Italic.woff2') format('woff2'),
     url('fonts/Inter-Italic.woff') format('woff');
 }
 
@@ -78,7 +85,8 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  src: url('fonts/Inter-Medium.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-Medium.woff2') format('woff2'),
     url('fonts/Inter-Medium.woff') format('woff');
 }
 
@@ -86,7 +94,8 @@
   font-family: 'Inter';
   font-style: italic;
   font-weight: 500;
-  src: url('fonts/Inter-MediumItalic.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-MediumItalic.woff2') format('woff2'),
     url('fonts/Inter-MediumItalic.woff') format('woff');
 }
 
@@ -94,14 +103,16 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  src: url('fonts/Inter-SemiBold.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-SemiBold.woff2') format('woff2'),
     url('fonts/Inter-SemiBold.woff') format('woff');
 }
 @font-face {
   font-family: 'Inter';
   font-style: italic;
   font-weight: 600;
-  src: url('fonts/Inter-SemiBoldItalic.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-SemiBoldItalic.woff2') format('woff2'),
     url('fonts/Inter-SemiBoldItalic.woff') format('woff');
 }
 
@@ -109,7 +120,8 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  src: url('fonts/Inter-Bold.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-Bold.woff2') format('woff2'),
     url('fonts/Inter-Bold.woff') format('woff');
 }
 
@@ -117,7 +129,8 @@
   font-family: 'Inter';
   font-style: italic;
   font-weight: 700;
-  src: url('fonts/Inter-BoldItalic.woff2') format('woff2'),
+  src:
+    url('fonts/Inter-BoldItalic.woff2') format('woff2'),
     url('fonts/Inter-BoldItalic.woff') format('woff');
 }
 
@@ -125,7 +138,8 @@
   font-family: 'Fira Code';
   font-weight: 300;
   font-style: normal;
-  src: url('fonts/FiraCode-Light.woff2') format('woff2'),
+  src:
+    url('fonts/FiraCode-Light.woff2') format('woff2'),
     url('fonts/FiraCode-Light.woff') format('woff');
 }
 
@@ -133,7 +147,8 @@
   font-family: 'Fira Code';
   font-weight: 400;
   font-style: normal;
-  src: url('fonts/FiraCode-Regular.woff2') format('woff2'),
+  src:
+    url('fonts/FiraCode-Regular.woff2') format('woff2'),
     url('fonts/FiraCode-Regular.woff') format('woff');
 }
 
@@ -141,7 +156,8 @@
   font-family: 'Fira Code';
   font-weight: 500;
   font-style: normal;
-  src: url('fonts/FiraCode-Medium.woff2') format('woff2'),
+  src:
+    url('fonts/FiraCode-Medium.woff2') format('woff2'),
     url('fonts/FiraCode-Medium.woff') format('woff');
 }
 
@@ -149,7 +165,8 @@
   font-family: 'Fira Code';
   font-weight: 700;
   font-style: normal;
-  src: url('fonts/FiraCode-Bold.woff2') format('woff2'),
+  src:
+    url('fonts/FiraCode-Bold.woff2') format('woff2'),
     url('fonts/FiraCode-Bold.woff') format('woff');
 }
 
@@ -343,6 +360,21 @@ input[type='checkbox'] {
 
 input[type='radio'] {
   border-radius: 18px;
+}
+
+emoji-picker {
+  --num-columns: 9;
+  --emoji-size: 1.3rem;
+  --background: var(--background-light);
+  --border-color: var(--background-light-highlight);
+  --input-border-color: transparent;
+  --input-padding: 4px 0;
+  --outline-size: 0;
+  --input-font-color: var(--text-color-normal);
+  --input-placeholder-color: var(--color-grey);
+  --indicator-color: hsl(var(--accent-hue), 55%, 55%);
+  --button-hover-background: var(--background-light-highlight);
+  --button-active-background: var(--background-light-highlight);
 }
 
 :global(.app) {

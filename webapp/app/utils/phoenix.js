@@ -197,25 +197,25 @@ const CHANNEL_STATES = {
   errored: 'errored',
   joined: 'joined',
   joining: 'joining',
-  leaving: 'leaving',
+  leaving: 'leaving'
 };
 const CHANNEL_EVENTS = {
   close: 'phx_close',
   error: 'phx_error',
   join: 'phx_join',
   reply: 'phx_reply',
-  leave: 'phx_leave',
+  leave: 'phx_leave'
 };
 const CHANNEL_LIFECYCLE_EVENTS = [
   CHANNEL_EVENTS.close,
   CHANNEL_EVENTS.error,
   CHANNEL_EVENTS.join,
   CHANNEL_EVENTS.reply,
-  CHANNEL_EVENTS.leave,
+  CHANNEL_EVENTS.leave
 ];
 const TRANSPORTS = {
   longpoll: 'longpoll',
-  websocket: 'websocket',
+  websocket: 'websocket'
 };
 
 // wraps value in closure or returns closure
@@ -277,7 +277,7 @@ class Push {
       event: this.event,
       payload: this.payload(),
       ref: this.ref,
-      join_ref: this.channel.joinRef(),
+      join_ref: this.channel.joinRef()
     });
   }
 
@@ -662,7 +662,7 @@ export class Channel {
           topic,
           event,
           payload,
-          joinRef,
+          joinRef
         });
       return false;
     } else {
@@ -768,7 +768,7 @@ export let Serializer = {
     let [join_ref, ref, topic, event, payload] = JSON.parse(rawPayload);
 
     return callback({join_ref, ref, topic, event, payload});
-  },
+  }
 };
 
 /** Initializes the Socket
@@ -1222,7 +1222,7 @@ export class Socket {
       topic: 'phoenix',
       event: 'heartbeat',
       payload: {},
-      ref: this.pendingHeartbeatRef,
+      ref: this.pendingHeartbeatRef
     });
   }
 
@@ -1522,7 +1522,7 @@ export class Presence {
   constructor(channel, opts = {}) {
     let events = opts.events || {
       state: 'presence_state',
-      diff: 'presence_diff',
+      diff: 'presence_diff'
     };
     this.state = {};
     this.pendingDiffs = [];
@@ -1531,7 +1531,7 @@ export class Presence {
     this.caller = {
       onJoin: function () {},
       onLeave: function () {},
-      onSync: function () {},
+      onSync: function () {}
     };
 
     this.channel.on(events.state, (newState) => {
@@ -1744,9 +1744,12 @@ class Timer {
   scheduleTimeout() {
     clearTimeout(this.timer);
 
-    this.timer = setTimeout(() => {
-      this.tries = this.tries + 1;
-      this.callback();
-    }, this.timerCalc(this.tries + 1));
+    this.timer = setTimeout(
+      () => {
+        this.tries = this.tries + 1;
+        this.callback();
+      },
+      this.timerCalc(this.tries + 1)
+    );
   }
 }

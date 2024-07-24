@@ -12,44 +12,43 @@ defmodule AccentTest.OperationBatcher do
   alias Accent.User
 
   setup do
-    user = Repo.insert!(%User{})
-    revision = Repo.insert!(%Revision{})
-
-    translation_one =
-      Repo.insert!(%Translation{key: "a", conflicted: true, revision_id: revision.id, revision: revision})
-
-    translation_two =
-      Repo.insert!(%Translation{key: "b", conflicted: true, revision_id: revision.id, revision: revision})
+    user = Factory.insert(User)
+    revision = Factory.insert(Revision)
+    translation_one = Factory.insert(Translation, key: "a", conflicted: true, revision_id: revision.id)
+    translation_two = Factory.insert(Translation, key: "b", conflicted: true, revision_id: revision.id)
 
     [user: user, revision: revision, translations: [translation_one, translation_two]]
   end
 
   test "create batch with close operations", %{user: user, revision: revision, translations: [translation_one, _]} do
     operations =
-      [
-        %Operation{
-          action: "correct_conflict",
-          key: "a",
-          text: "B",
-          translation_id: translation_one.id,
-          user_id: user.id,
-          revision_id: revision.id,
-          inserted_at: DateTime.utc_now()
-        }
-      ]
-      |> Enum.map(&Repo.insert!/1)
-      |> Enum.map(&Map.get(&1, :id))
+      Enum.map(
+        [
+          Factory.insert(Operation,
+            action: "correct_conflict",
+            key: "a",
+            text: "B",
+            translation_id: translation_one.id,
+            user_id: user.id,
+            revision_id: revision.id,
+            project_id: revision.project_id,
+            inserted_at: DateTime.utc_now()
+          )
+        ],
+        &Map.get(&1, :id)
+      )
 
     operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "correct_conflict",
         key: "a",
-        text: "B",
+        text: "C",
         translation_id: translation_one.id,
         user_id: user.id,
         revision_id: revision.id,
+        project_id: revision.project_id,
         inserted_at: DateTime.utc_now()
-      })
+      )
 
     batch_responses = OperationBatcher.batch(operation)
 
@@ -74,58 +73,63 @@ defmodule AccentTest.OperationBatcher do
     translations: [translation_one, translation_two]
   } do
     batch_operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "batch_correct_conflict",
         user_id: user.id,
         revision_id: revision.id,
+        project_id: revision.project_id,
         stats: [%{"count" => 2, "action" => "correct_conflict"}],
         inserted_at:
           DateTime.utc_now()
           |> DateTime.to_naive()
           |> NaiveDateTime.add(-960, :second)
           |> DateTime.from_naive!("Etc/UTC")
-      })
+      )
 
     operations =
-      [
-        %Operation{
-          action: "correct_conflict",
-          key: "a",
-          text: "B",
-          translation_id: translation_one.id,
-          user_id: user.id,
-          revision_id: revision.id,
-          batch_operation_id: batch_operation.id,
-          inserted_at:
-            DateTime.utc_now()
-            |> DateTime.to_naive()
-            |> NaiveDateTime.add(-960, :second)
-            |> DateTime.from_naive!("Etc/UTC")
-        },
-        %Operation{
-          action: "correct_conflict",
-          key: "b",
-          text: "C",
-          translation_id: translation_two.id,
-          user_id: user.id,
-          revision_id: revision.id,
-          batch_operation_id: batch_operation.id,
-          inserted_at: DateTime.utc_now()
-        }
-      ]
-      |> Enum.map(&Repo.insert!/1)
-      |> Enum.map(&Map.get(&1, :id))
+      Enum.map(
+        [
+          Factory.insert(Operation,
+            action: "correct_conflict",
+            key: "a",
+            text: "B",
+            translation_id: translation_one.id,
+            user_id: user.id,
+            revision_id: revision.id,
+            project_id: revision.project_id,
+            batch_operation_id: batch_operation.id,
+            inserted_at:
+              DateTime.utc_now()
+              |> DateTime.to_naive()
+              |> NaiveDateTime.add(-960, :second)
+              |> DateTime.from_naive!("Etc/UTC")
+          ),
+          Factory.insert(Operation,
+            action: "correct_conflict",
+            key: "b",
+            text: "C",
+            translation_id: translation_two.id,
+            user_id: user.id,
+            revision_id: revision.id,
+            project_id: revision.project_id,
+            batch_operation_id: batch_operation.id,
+            inserted_at: DateTime.utc_now()
+          )
+        ],
+        &Map.get(&1, :id)
+      )
 
     operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "correct_conflict",
         key: "a",
         text: "B",
         translation_id: translation_one.id,
         user_id: user.id,
         revision_id: revision.id,
+        project_id: revision.project_id,
         inserted_at: DateTime.utc_now()
-      })
+      )
 
     batch_responses = Accent.OperationBatcher.batch(operation)
 
@@ -158,6 +162,7 @@ defmodule AccentTest.OperationBatcher do
           translation_id: translation_one.id,
           user_id: user.id,
           revision_id: revision.id,
+          project_id: revision.project_id,
           inserted_at:
             DateTime.utc_now()
             |> DateTime.to_naive()
@@ -171,6 +176,7 @@ defmodule AccentTest.OperationBatcher do
           translation_id: translation_two.id,
           user_id: user.id,
           revision_id: revision.id,
+          project_id: revision.project_id,
           inserted_at:
             DateTime.utc_now()
             |> DateTime.to_naive()
@@ -182,15 +188,16 @@ defmodule AccentTest.OperationBatcher do
       |> Enum.map(&Map.get(&1, :id))
 
     operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "correct_conflict",
         key: "a",
         text: "B",
         translation_id: translation_one.id,
         user_id: user.id,
         revision_id: revision.id,
+        project_id: revision.project_id,
         inserted_at: DateTime.utc_now()
-      })
+      )
 
     batch_responses = Accent.OperationBatcher.batch(operation)
 

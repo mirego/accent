@@ -9,7 +9,7 @@ defmodule Accent.Prompts.Provider.OpenAI do
     def enabled?(_), do: true
 
     def completions(provider, prompt, user_input) do
-      config = provider.config["config"]
+      config = provider.config
 
       params = %{
         messages: [

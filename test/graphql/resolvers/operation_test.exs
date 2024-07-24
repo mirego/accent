@@ -12,14 +12,12 @@ defmodule AccentTest.GraphQL.Resolvers.Operation do
   alias Accent.Translation
   alias Accent.User
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    french_language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    french_language = Factory.insert(Language)
+    project = Factory.insert(Project)
 
-    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
     context = %{context: %{conn: %Plug.Conn{assigns: %{current_user: user}}}}
 
     {:ok, [user: user, project: project, revision: revision, context: context]}
@@ -27,13 +25,13 @@ defmodule AccentTest.GraphQL.Resolvers.Operation do
 
   test "rollback", %{revision: revision, context: context} do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         revision_id: revision.id,
         conflicted: true,
         key: "ok",
         corrected_text: "baz",
         proposed_text: "bar"
-      })
+      )
 
     previous_translation = %PreviousTranslation{
       conflicted: false,

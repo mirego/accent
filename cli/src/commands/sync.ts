@@ -29,7 +29,7 @@ export default class Sync extends Command {
   static examples = [
     `$ accent sync`,
     `$ accent sync --dry-run --sync-type=force`,
-    `$ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23`,
+    `$ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23`
   ];
 
   static args = [];
@@ -37,36 +37,40 @@ export default class Sync extends Command {
   static flags = {
     'add-translations': flags.boolean({
       description:
-        'Add translations in Accent to help translators if you already have translated strings locally',
+        'Add translations in Accent to help translators if you already have translated strings locally'
+    }),
+    'no-local-write': flags.boolean({
+      default: false,
+      description:
+        'Do not write to the local files _after_ the sync. Warning: This option could lead to a mismatch between the source of truth (your code repository) and Accent'
     }),
     'dry-run': flags.boolean({
       default: false,
-      description:
-        'Do not write the file from the export _after_ the operation',
+      description: 'Do not commit the changes in Accent'
     }),
     'merge-type': flags.string({
       default: 'passive',
       description:
         'Algorithm to use on existing strings when adding translation',
-      options: ['smart', 'passive', 'force'],
+      options: ['smart', 'passive', 'force']
     }),
     'order-by': flags.string({
       default: 'index',
       description: 'Will be used in the export call as the order of the keys',
-      options: ['index', 'key'],
+      options: ['index', 'key']
     }),
     'sync-type': flags.string({
       default: 'smart',
       description:
         'Algorithm to use on existing strings when syncing the main language',
-      options: ['smart', 'passive'],
+      options: ['smart', 'passive']
     }),
     version: flags.string({
       default: '',
       description:
-        'Sync a specific version, the tag needs to exists in Accent first',
+        'Sync a specific version, the tag needs to exists in Accent first'
     }),
-    config: configFlag,
+    config: configFlag
   };
 
   async run() {
@@ -109,6 +113,8 @@ export default class Sync extends Command {
       syncFormatter.footerDryRun(t1 - t0);
       return;
     }
+
+    if (flags['no-local-write']) return;
 
     const formatter = new DocumentExportFormatter();
 

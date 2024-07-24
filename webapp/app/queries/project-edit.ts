@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export default gql`
   query ProjectEdit($projectId: ID!) {
@@ -9,6 +9,9 @@ export default gql`
         mainColor
         logo
         isFileOperationsLocked
+        integrations {
+          id
+        }
       }
     }
   }

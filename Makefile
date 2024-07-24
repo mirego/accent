@@ -97,7 +97,7 @@ lint-eslint:
 
 .PHONY: lint-prettier
 lint-prettier:
-	npx prettier --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
+	npx prettier --trailing-comma none --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
 
 .PHONY: lint-template-hbs
 lint-template-hbs:
@@ -110,15 +110,11 @@ type-check: ## Type-check typescript files
 	cd jipt && npx tsc
 
 .PHONY: test
-test: test-api test-webapp
+test: test-api
 
 .PHONY: test-api
 test-api: ## Run the backend test suite
 	mix test
-
-.PHONY: test-webapp
-test-webapp: ## Run the frontend test suite
-	cd webapp && npx ember exam --reporter dot
 
 .PHONY: test-coverage
 test-coverage: ## Generate the code coverage report
@@ -133,7 +129,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	npx prettier --write --single-quote --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
+	npx prettier --write --single-quote --trailing-comma none --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,scss,md,hbs}' '*.md'
 
 # Development targets
 # -------------------

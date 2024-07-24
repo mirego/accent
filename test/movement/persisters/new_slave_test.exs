@@ -8,11 +8,9 @@ defmodule AccentTest.Movement.Persisters.NewSlave do
   alias Accent.User
   alias Movement.Persisters.NewSlave, as: NewSlavePersister
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
@@ -23,7 +21,7 @@ defmodule AccentTest.Movement.Persisters.NewSlave do
   end
 
   test "create revision success", %{project: project, revision: master_revision} do
-    new_language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
+    new_language = Factory.insert(Language)
 
     {:ok, {context, _}} =
       NewSlavePersister.persist(%Movement.Context{

@@ -3,13 +3,21 @@ defmodule AccentTest.ProjectDeleter do
   use Accent.RepoCase, async: true
 
   alias Accent.Collaborator
+  alias Accent.Language
+  alias Accent.Operation
   alias Accent.Project
   alias Accent.ProjectDeleter
   alias Accent.Repo
+  alias Accent.Revision
 
-  test "create with language and user" do
-    project = Repo.insert!(%Project{main_color: "#f00", name: "french"})
-    collaborator = Repo.insert!(%Collaborator{project_id: project.id, role: "reviewer"})
+  test "delete collaborators and operations" do
+    project = Factory.insert(Project)
+    language = Factory.insert(Language)
+    revision = Factory.insert(Revision, language_id: language.id, project_id: project.id)
+    collaborator = Factory.insert(Collaborator, project_id: project.id, role: "reviewer")
+
+    Factory.insert(Operation, project_id: project.id, action: "sync")
+    Factory.insert(Operation, project_id: project.id, revision_id: revision.id, action: "merge")
 
     assert project
            |> Ecto.assoc(:all_collaborators)
@@ -18,6 +26,8 @@ defmodule AccentTest.ProjectDeleter do
 
     {:ok, project} = ProjectDeleter.delete(project: project)
 
-    assert Repo.all(Ecto.assoc(project, :all_collaborators)) === []
+    assert Repo.aggregate(Ecto.assoc(project, :all_collaborators), :count) === 0
+    assert Repo.aggregate(Ecto.assoc(project, :operations), :count) === 0
+    assert Repo.aggregate(Ecto.assoc(revision, :operations), :count) === 0
   end
 end

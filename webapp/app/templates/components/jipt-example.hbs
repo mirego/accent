@@ -1,0 +1,60 @@
+<div local-class='wrapper'>
+  <div local-class='browser-mockup'>
+    <a href='/app/projects/{{@project.id}}/edit/jipt' local-class='browser-back-link'>
+      ← Back to project
+    </a>
+
+    <div local-class='browser-content'>
+      {{#unless @loading}}
+        <div local-class='tag-inner-wrapper'>
+          <span local-class='tag'>&lt;head&gt;</span>
+        </div>
+
+        <script>
+          window.accent=window.accent||function(){(accent.q=accent.q||[]).push(arguments);}; accent('init',window.accentJiptInit);
+        </script>
+        <script async src='{{this.scriptSrc}}'></script>
+
+        <pre>&lt;script&gt;
+          {{{this.scriptContent}}}
+          &lt;/script&gt; &lt;script async src=&quot;{{this.scriptSrc}}&quot;&gt;&lt;/script&gt;
+        </pre>
+
+        <div local-class='tag-inner-wrapper'>
+          <span local-class='tag'>&lt;body&gt;</span>
+        </div>
+
+        <h1>{{@project.name}}’s Just-in-place translations</h1>
+
+        <h2>Node inner HTML</h2>
+
+        <div local-class='tag-attributes-wrapper'>
+          <span local-class='tag'>&lt;p&gt;{^key@document_path}&lt;/p&gt;</span>
+          <span>{{this.translationKey}}</span>
+        </div>
+
+        <div local-class='tag-attributes-wrapper'>
+          <span local-class='tag'>&lt;strong&gt;{^key@document_path}&lt;/strong&gt;</span>
+          <strong>{{this.translationKey}}</strong>
+        </div>
+
+        <h2>Node attributes</h2>
+
+        <div local-class='tag-attributes-wrapper'>
+          <span local-class='tag'>&lt;input type="text" placeholder="{^key@document_path}" /&gt;</span>
+          <input type='text' placeholder='{{this.translationKey}}' />
+        </div>
+
+        <div local-class='tag-attributes-wrapper'>
+          <span local-class='tag'>&lt;input type="submit" value="{^key@document_path}" /&gt;</span>
+          <input type='submit' value='{{this.translationKey}}' />
+        </div>
+
+        <div local-class='tag-attributes-wrapper'>
+          <span local-class='tag'>&lt;img title="{^key@document_path}" src="…"/&gt;</span>
+          <img title='{{this.translationKey}}' src='{{this.imageSrc}}' />
+        </div>
+      {{/unless}}
+    </div>
+  </div>
+</div>

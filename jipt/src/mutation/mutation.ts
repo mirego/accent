@@ -75,7 +75,7 @@ export default class Mutation {
       characterData: true,
       characterDataOldValue: true,
       childList: true,
-      subtree: true,
+      subtree: true
     });
   }
 

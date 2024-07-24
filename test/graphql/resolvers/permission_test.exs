@@ -4,7 +4,6 @@ defmodule AccentTest.GraphQL.Resolvers.Permission do
 
   alias Accent.GraphQL.Resolvers.Permission, as: Resolver
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.User
 
   defmodule PlugConn do
@@ -12,11 +11,9 @@ defmodule AccentTest.GraphQL.Resolvers.Permission do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    project = Factory.insert(Project)
 
     {:ok, [user: user, project: project]}
   end

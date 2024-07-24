@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export interface ProjectDashboardQueryVariables {
   projectId: string;
@@ -21,6 +21,7 @@ export interface ProjectDashboardQueryResponse {
         id: string;
         conflictsCount: number;
         reviewedCount: number;
+        translatedCount: number;
         translationsCount: number;
         isMaster: boolean;
         name: string;
@@ -131,6 +132,7 @@ export default gql`
           id
           conflictsCount
           reviewedCount
+          translatedCount
           translationsCount
           isMaster
           name

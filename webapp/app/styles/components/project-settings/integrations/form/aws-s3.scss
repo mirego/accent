@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.policy {
+  width: 100%;
+}
+
+.policy-title {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.policy-render {
+  background: var(--content-background);
+  border: 1px solid var(--background-light-highlight);
+  border-radius: var(--border-radius);
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-wrap: wrap;
+  }
+}

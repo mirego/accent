@@ -1,6 +1,13 @@
 defmodule Accent.Hook.Outbounds.Websocket do
   @moduledoc false
+  @behaviour Accent.Hook.Events
+
   use Oban.Worker, queue: :hook
+
+  @impl Accent.Hook.Events
+  def registered_events do
+    ~w(sync create_collaborator create_comment complete_review new_conflicts)
+  end
 
   @impl Oban.Worker
   def perform(%Oban.Job{args: args}) do

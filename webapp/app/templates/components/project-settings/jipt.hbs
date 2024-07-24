@@ -1,0 +1,20 @@
+<div local-class='project-settings-jipt'>
+  <ProjectSettings::Title @title={{t 'components.project_settings.jipt.title'}} />
+
+  <p local-class='text'>
+    {{t 'components.project_settings.jipt.integration_help'}}
+  </p>
+
+  <textarea readonly='' onClick='this.select();' local-class='code'>{{this.scriptContent}}</textarea>
+
+  <hr />
+
+  <p local-class='text'>
+    {{t 'components.project_settings.jipt.demo_help'}}
+  </p>
+
+  <a href='/app/projects/{{@project.id}}/jipt-example' class='button button--filled'>
+
+    {{t 'components.project_settings.jipt.demo_link'}}
+  </a>
+</div>

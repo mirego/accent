@@ -12,25 +12,24 @@ module.exports = function (environment) {
   const ENV = {
     version: '__VERSION__',
     modulePrefix: 'accent-webapp',
-    podModulePrefix: 'accent-webapp/pods',
     environment,
     rootURL: '/',
-    locationType: 'auto',
+    locationType: 'history'
   };
 
   ENV.SENTRY = {
-    DSN: sentryDsn,
+    DSN: sentryDsn
   };
 
   ENV.EmberENV = {
     EXTEND_PROTOTYPES: false,
-    LOG_VERSION: false,
+    LOG_VERSION: false
   };
 
   ENV.APP = {
     LOCAL_STORAGE: {
-      SESSION_NAMESPACE: 'accent-session',
-    },
+      SESSION_NAMESPACE: 'accent-session'
+    }
   };
 
   ENV.API = {
@@ -56,7 +55,7 @@ module.exports = function (environment) {
     REVIEWED_BADGE_SVG_PROJECT_PATH: '/{0}/reviewed_badge.svg',
     TRANSLATIONS_BADGE_SVG_PROJECT_PATH: '/{0}/translations_badge.svg',
     CONFLICTS_BADGE_SVG_PROJECT_PATH: '/{0}/conflicts_badge.svg',
-    JIPT_SCRIPT_PATH: '/static/jipt/index.js',
+    JIPT_SCRIPT_PATH: '/static/jipt/index.js'
   };
 
   ENV.flashMessageDefaults = {
@@ -70,22 +69,8 @@ module.exports = function (environment) {
     // service defaults
     type: 'info',
     types: ['info', 'success', 'error', 'socket'],
-    injectionFactories: [],
+    injectionFactories: []
   };
-
-  if (environment === 'test') {
-    ENV.locationType = 'none';
-
-    ENV.APP.LOG_ACTIVE_GENERATION = false;
-    ENV.APP.LOG_VIEW_LOOKUPS = false;
-
-    ENV.APP.rootElement = '#ember-testing';
-    ENV.APP.autoboot = false;
-
-    ENV.API.WS_ENABLED = false;
-
-    ENV.APP.LOCAL_STORAGE.SESSION_NAMESPACE = 'accent-session-test';
-  }
 
   return ENV;
 };

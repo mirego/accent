@@ -1,0 +1,43 @@
+<TranslationsFilter
+  @query={{this.query}}
+  @document={{this.document}}
+  @documents={{this.model.documents}}
+  @version={{this.version}}
+  @versions={{this.model.project.versions.entries}}
+  @revisions={{this.revisions}}
+  @withAdvancedFilters={{this.withAdvancedFilters}}
+  @isTextEmptyFilter={{this.isTextEmpty}}
+  @isTextNotEmptyFilter={{this.isTextNotEmpty}}
+  @isAddedLastSyncFilter={{this.isAddedLastSync}}
+  @isCommentedOnFilter={{this.isCommentedOn}}
+  @isConflictedFilter={{this.isConflicted}}
+  @isTranslatedFilter={{this.isTranslated}}
+  @onChangeQuery={{fn this.changeQuery}}
+  @onChangeAdvancedFilterBoolean={{fn this.changeAdvancedFilterBoolean}}
+  @onChangeDocument={{fn this.changeDocument}}
+  @onChangeVersion={{fn this.changeVersion}}
+  @meta={{this.model.translations.meta}}
+/>
+
+{{#if this.model.loading}}
+  <SkeletonUi::ProgressLine />
+{{/if}}
+
+{{#if this.showSkeleton}}
+  <SkeletonUi::TranslationsList />
+{{else if this.showLoading}}
+  <LoadingContent @label={{t 'pods.project.translations.loading_content'}} />
+{{else}}
+  <TranslationsList
+    @version={{this.version}}
+    @versions={{this.model.project.versions.entries}}
+    @project={{this.model.project}}
+    @prompts={{this.model.prompts}}
+    @permissions={{this.permissions}}
+    @translations={{this.model.translations.entries}}
+    @withAdvancedFilters={{this.withAdvancedFilters}}
+    @query={{this.query}}
+    @onUpdateText={{fn this.updateText}}
+  />
+  <ResourcePagination @meta={{this.model.translations.meta}} @onSelectPage={{fn this.selectPage}} />
+{{/if}}

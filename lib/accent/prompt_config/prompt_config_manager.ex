@@ -11,7 +11,8 @@ defmodule Accent.PromptConfigManager do
         "config" => %{
           "key" => params[:config_key]
         },
-        "provider" => params[:provider]
+        "provider" => params[:provider],
+        "use_platform" => params[:use_platform]
       }
     }
 

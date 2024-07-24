@@ -9,11 +9,9 @@ defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
   alias Accent.User
   alias Movement.Builders.RevisionCorrectAll, as: RevisionCorrectAllBuilder
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
@@ -24,7 +22,7 @@ defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
   end
 
   test "builder fetch translations and correct conflict", %{revision: revision} do
-    translation = Repo.insert!(%Translation{key: "a", proposed_text: "A", conflicted: true, revision_id: revision.id})
+    translation = Factory.insert(Translation, key: "a", proposed_text: "A", conflicted: true, revision_id: revision.id)
 
     context =
       %Movement.Context{}
@@ -39,7 +37,7 @@ defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
   end
 
   test "builder fetch translations and ignore corrected translation", %{revision: revision} do
-    Repo.insert!(%Translation{key: "a", proposed_text: "A", conflicted: false, revision_id: revision.id})
+    Factory.insert(Translation, key: "a", proposed_text: "A", conflicted: false, revision_id: revision.id)
 
     context =
       %Movement.Context{}

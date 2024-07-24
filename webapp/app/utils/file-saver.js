@@ -57,7 +57,7 @@ export const fileSaver = (view) => {
       )
     ) {
       return new Blob([String.fromCharCode(bomCharCode), blob], {
-        type: blob.type,
+        type: blob.type
       });
     }
     return blob;

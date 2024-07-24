@@ -1,11 +1,18 @@
 defmodule Accent.Hook.Outbounds.Email do
   @moduledoc false
+  @behaviour Accent.Hook.Events
+
   use Oban.Worker, queue: :hook
 
   alias Accent.CreateCommentEmail
   alias Accent.ProjectInviteEmail
   alias Accent.Repo
   alias Accent.Translation
+
+  @impl Accent.Hook.Events
+  def registered_events do
+    ~w(create_collaborator create_comment)
+  end
 
   @impl Oban.Worker
   def perform(%Oban.Job{args: args}) do

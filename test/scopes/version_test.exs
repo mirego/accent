@@ -16,12 +16,12 @@ defmodule AccentTest.Scopes.Version do
   end
 
   defp insert_version(tag, project, user) do
-    Repo.insert!(%Version{name: "foo", tag: tag, project_id: project.id, user_id: user.id})
+    Factory.insert(Version, name: "foo", tag: tag, project_id: project.id, user_id: user.id)
   end
 
   setup do
-    user = Repo.insert!(%User{email: "test@test.com"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User, email: "test@test.com")
+    project = Factory.insert(Project)
 
     {:ok, [user: user, project: project]}
   end

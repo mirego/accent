@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export default gql`
   query ProjectServiceIntegrations($projectId: ID!) {
@@ -24,6 +24,17 @@ export default gql`
             data {
               id
               url
+            }
+          }
+
+          ... on ProjectIntegrationAwsS3 {
+            lastExecutedAt
+            data {
+              id
+              bucket
+              pathPrefix
+              region
+              accessKeyId
             }
           }
 

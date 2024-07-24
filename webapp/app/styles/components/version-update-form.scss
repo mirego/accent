@@ -1,0 +1,68 @@
+.version-update-form {
+  padding: 20px;
+  background: var(--content-background);
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 27px;
+  font-weight: 300;
+  color: var(--color-primary);
+}
+
+.text {
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.textInput {
+  @extend %textInput;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 10px;
+  margin-right: 25px;
+  min-width: 250px;
+  width: 100%;
+  font-size: 12px;
+  font-family: var(--font-primary);
+}
+
+.errors {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+.error {
+  margin-bottom: 5px;
+  color: var(--color-error);
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.formItem {
+  margin-bottom: 20px;
+}
+
+.formItem-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.formItem-checkbox {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.formItem-help {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.formActions {
+  padding-top: 10px;
+}

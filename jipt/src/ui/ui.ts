@@ -126,7 +126,7 @@ export default class UI {
     return element;
   }
 
-  private buildFrame(config) {
+  private buildFrame(config: Config) {
     const element = document.createElement('iframe');
     const query = this.state.getCurrentRevision()
       ? `?revisionId=${this.state.getCurrentRevision()}`

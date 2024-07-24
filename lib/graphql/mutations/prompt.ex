@@ -42,6 +42,7 @@ defmodule Accent.GraphQL.Mutations.Prompt do
       arg(:project_id, non_null(:id))
       arg(:provider, non_null(:string))
       arg(:config_key, :string)
+      arg(:use_platform, non_null(:boolean))
 
       resolve(project_authorize(:save_project_prompt_config, &Resolver.save_config/3, :project_id))
     end

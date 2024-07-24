@@ -9,15 +9,32 @@ defmodule AccentTest.CollaboratorNormalizer do
   alias Accent.Repo
   alias Accent.User
   alias Accent.UserRemote.CollaboratorNormalizer
+  alias Faker.Internet
 
   test "create with many collaborations" do
-    project = Repo.insert!(%Project{main_color: "#f00", name: "Ha"})
-    project2 = Repo.insert!(%Project{main_color: "#f00", name: "Oh"})
-    assigner = Repo.insert!(%User{email: "assigner@test.com"})
+    project = Factory.insert(Project)
+    project2 = Factory.insert(Project)
+    assigner = Factory.insert(User)
 
     collaborators = [
-      %Collaborator{role: "admin", project_id: project.id, assigner_id: assigner.id},
-      %Collaborator{role: "developer", project_id: project2.id, assigner_id: assigner.id}
+      struct!(
+        Collaborator,
+        Factory.build(Collaborator,
+          email: Internet.email(),
+          role: "admin",
+          project_id: project.id,
+          assigner_id: assigner.id
+        )
+      ),
+      struct!(
+        Collaborator,
+        Factory.build(Collaborator,
+          email: Internet.email(),
+          role: "developer",
+          project_id: project2.id,
+          assigner_id: assigner.id
+        )
+      )
     ]
 
     collaborator_ids =
@@ -26,7 +43,7 @@ defmodule AccentTest.CollaboratorNormalizer do
       |> Enum.map(&Repo.insert!/1)
       |> Enum.map(&Map.get(&1, :id))
 
-    new_user = Repo.insert!(%User{email: "test@test.com"})
+    new_user = Factory.insert(User, email: "test@test.com")
 
     %User{} = CollaboratorNormalizer.normalize(new_user)
 
@@ -36,13 +53,29 @@ defmodule AccentTest.CollaboratorNormalizer do
   end
 
   test "create with case insensitive email" do
-    project = Repo.insert!(%Project{main_color: "#f00", name: "Ha"})
-    project2 = Repo.insert!(%Project{main_color: "#f00", name: "Oh"})
-    assigner = Repo.insert!(%User{email: "assigner@test.com"})
+    project = Factory.insert(Project)
+    project2 = Factory.insert(Project)
+    assigner = Factory.insert(User)
 
     collaborators = [
-      %Collaborator{role: "admin", project_id: project.id, assigner_id: assigner.id},
-      %Collaborator{role: "developer", project_id: project2.id, assigner_id: assigner.id}
+      struct!(
+        Collaborator,
+        Factory.build(Collaborator,
+          email: Internet.email(),
+          role: "admin",
+          project_id: project.id,
+          assigner_id: assigner.id
+        )
+      ),
+      struct!(
+        Collaborator,
+        Factory.build(Collaborator,
+          email: Internet.email(),
+          role: "developer",
+          project_id: project2.id,
+          assigner_id: assigner.id
+        )
+      )
     ]
 
     collaborator_ids =
@@ -51,7 +84,7 @@ defmodule AccentTest.CollaboratorNormalizer do
       |> Enum.map(&Repo.insert!/1)
       |> Enum.map(&Map.get(&1, :id))
 
-    new_user = Repo.insert!(%User{email: "Test@test.com"})
+    new_user = Factory.insert(User, email: "Test@test.com")
 
     %User{} = CollaboratorNormalizer.normalize(new_user)
 
@@ -61,7 +94,7 @@ defmodule AccentTest.CollaboratorNormalizer do
   end
 
   test "create without collaborations" do
-    new_user = Repo.insert!(%User{email: "Test@test.com"})
+    new_user = Factory.insert(User, email: "Test@test.com")
 
     %User{} = CollaboratorNormalizer.normalize(new_user)
 

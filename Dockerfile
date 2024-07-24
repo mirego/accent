@@ -1,7 +1,7 @@
 #
 # Build webapp and jipt deps
 #
-FROM node:16.19-bullseye-slim AS webapp-builder
+FROM node:21.6.1-bullseye-slim AS webapp-builder
 RUN apt-get update -y && \
     apt-get install -y build-essential git python3 python3-pip && \
     apt-get clean && \
@@ -11,7 +11,7 @@ COPY webapp .
 RUN npm ci --no-audit --no-color && \
     npm run build-production
 
-FROM node:16.19-bullseye-slim AS jipt-builder
+FROM node:21.6.1-bullseye-slim AS jipt-builder
 RUN apt-get update -y && \
     apt-get install -y build-essential git python3 python3-pip && \
     apt-get clean && \
@@ -47,10 +47,11 @@ COPY config config
 RUN mix deps.get --only prod
 RUN mix deps.compile --only prod
 
-COPY vendor vendor
+COPY vendor/language_tool/priv/ vendor/language_tool/priv/
 RUN cd ./vendor/language_tool/priv/native/languagetool && ./gradlew shadowJar
 RUN cp ./vendor/language_tool/priv/native/languagetool/app/build/libs/language-tool.jar priv/native/language-tool.jar
 
+COPY vendor vendor
 COPY lib lib
 
 RUN mix compile --only prod

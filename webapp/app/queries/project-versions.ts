@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export default gql`
   query ProjectVersions($projectId: ID!, $page: Int) {
@@ -28,6 +28,7 @@ export default gql`
             name
             tag
             insertedAt
+            copyOnUpdateTranslation
 
             user {
               id

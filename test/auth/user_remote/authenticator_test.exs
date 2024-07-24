@@ -25,17 +25,17 @@ defmodule AccentTest.UserRemote.Authenticator do
   end
 
   test "normalize collaborators with email" do
-    assigner = Repo.insert!(%User{email: "foo@example.com"})
-    language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project", language_id: language.id})
+    assigner = Factory.insert(User, email: "foo@example.com")
+    language = Factory.insert(Language)
+    project = Factory.insert(Project, language_id: language.id)
 
     collaborator =
-      Repo.insert!(%Collaborator{
+      Factory.insert(Collaborator,
         project_id: project.id,
         role: "admin",
         assigner_id: assigner.id,
         email: "test@example.com"
-      })
+      )
 
     {:ok, _token} = Authenticator.authenticate(%{provider: :dummy, info: %{email: "test@example.com"}})
     user = Repo.get_by(User, email: "test@example.com")
@@ -45,17 +45,17 @@ defmodule AccentTest.UserRemote.Authenticator do
   end
 
   test "normalize collaborators with uppercased email" do
-    assigner = Repo.insert!(%User{email: "foo@example.com"})
-    language = Repo.insert!(%Language{name: "french"})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project", language_id: language.id})
+    assigner = Factory.insert(User, email: "foo@example.com")
+    language = Factory.insert(Language)
+    project = Factory.insert(Project, language_id: language.id)
 
     collaborator =
-      Repo.insert!(%Collaborator{
+      Factory.insert(Collaborator,
         project_id: project.id,
         role: "admin",
         assigner_id: assigner.id,
         email: "test@example.com"
-      })
+      )
 
     {:ok, _token} = Authenticator.authenticate(%{provider: :dummy, info: %{email: "TeSt@eXamPle.com"}})
     user = Repo.get_by(User, email: "test@example.com")

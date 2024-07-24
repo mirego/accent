@@ -1,0 +1,62 @@
+.project-settings-jipt {
+  margin-top: 30px;
+
+  hr {
+    margin: 20px 0;
+    border: 0;
+    height: 1px;
+    background: var(--background-light-highlight);
+  }
+}
+
+.text {
+  max-width: 490px;
+  margin: 10px 0;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.title {
+  margin-top: 20px;
+  border-bottom: 1px solid var(--background-light-highlight);
+  padding-bottom: 10px;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--text-color-normal);
+}
+
+.link {
+  font-size: 12px;
+}
+
+.code {
+  display: inline-block;
+  width: 100%;
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  height: 120px;
+  word-break: keep-all;
+  background: var(--background-light);
+  font-family: var(--font-monospace);
+  font-size: 15px;
+  border: 2px solid var(--background-light-highlight);
+  border-radius: var(--border-radius);
+  color: var(--text-color-normal);
+  transition-property: border-color, box-shadow;
+  transition: 0.3s ease-in-out;
+  resize: none;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-opacity-70);
+    box-shadow: 0 0 3px 2px var(--color-primary-opacity-10);
+
+    &::-moz-selection {
+      background: var(--color-primary-opacity-10);
+    }
+
+    &::selection {
+      background: var(--color-primary-opacity-10);
+    }
+  }
+}

@@ -1,0 +1,123 @@
+.browser-mockup {
+  position: relative;
+  border-top: 2em solid rgba(230, 230, 230, 0.5);
+  box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  border-radius: 8px;
+  margin: 70px auto;
+  flex: 1;
+  max-width: 800px;
+}
+
+.browser-back-link {
+  position: absolute;
+  top: -24px;
+  right: 10px;
+  font-size: 11px;
+  color: #2a2d87;
+  text-shadow: 0 1px 1px rgba(#fff, 0.2);
+  opacity: 0.6;
+  text-decoration: none;
+}
+
+.browser-mockup:before {
+  display: block;
+  position: absolute;
+  content: '';
+  top: -1.25em;
+  left: 1em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background-color: #f44;
+  box-shadow:
+    0 0 0 2px #f44,
+    1.5em 0 0 2px #9b3,
+    3em 0 0 2px #fb5;
+}
+
+.browser-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 0 0 8px 8px;
+}
+
+.browser-content h1 {
+  font-weight: bold;
+  font-size: 25px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
+
+.browser-content h2 {
+  font-weight: bold;
+  font-size: 20px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.tag-inner-wrapper {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.tag-attributes-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  margin-bottom: 25px;
+}
+
+.tag {
+  display: inline-flex;
+  color: #888;
+  font-size: 11px;
+  font-family: var(--font-monospace);
+}
+
+.browser-content pre {
+  background: #eee;
+  padding: 10px 14px;
+  opacity: 0.7;
+  border-radius: 4px;
+  font-size: 11px;
+  margin-bottom: 15px;
+  white-space: pre-line;
+}
+
+.browser-content img {
+  width: 100%;
+  max-width: 200px;
+  display: block;
+  border-radius: 4px;
+}
+
+.browser-content input[type='submit'] {
+  border-radius: 50px;
+  padding: 3px 10px;
+  border: 2px solid #555;
+  background: linear-gradient(to bottom, #e2e2e2, #bcbcbc);
+  box-shadow: inset 0 1px 0 rgba(#fff, 0.5);
+}
+
+.browser-content input[type='text'] {
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: 2px solid #555;
+  background: #fff;
+  max-width: 300px;
+  width: 100%;
+  box-shadow: inset 0 1px 1px rgba(#000, 0.1);
+}
+
+.wrapper {
+  background: linear-gradient(to right, #4453ad, #2a2d87);
+  display: flex;
+  height: 100dvh;
+  align-items: flex-start;
+}

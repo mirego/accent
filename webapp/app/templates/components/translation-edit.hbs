@@ -1,0 +1,82 @@
+<div local-class='translation-edit' {{did-update this.didUpdateCorrectedText @translation.correctedText}}>
+  {{#if @translation.id}}
+    <div local-class='form' {{did-insert this.focusTextarea}}>
+      <TranslationEdit::Form
+        @projectId={{@project.id}}
+        @translationId={{@translation.id}}
+        @fileComment={{@translation.fileComment}}
+        @lintMessages={{@translation.lintMessages}}
+        @placeholders={{@translation.masterTranslation.placeholders}}
+        @inputDisabled={{this.inputDisabled}}
+        @valueType={{@translation.valueType}}
+        @value={{this.text}}
+        @onKeyUp={{fn this.changeText}}
+        @onSubmit={{fn this.updateText}}
+        @rtl={{this.revisionTextDirRtl}}
+        local-class='jipt'
+        lang={{this.revisionSlug}}
+      />
+
+      {{#unless @translation.isRemoved}}
+        <div local-class='form-improve' data-rtl={{this.revisionTextDirRtl}}>
+          <TranslationEdit::Helpers
+            @permissions={{@permissions}}
+            @languageSlug={{this.revisionSlug}}
+            @project={{@project}}
+            @prompts={{@prompts}}
+            @rtl={{this.revisionTextDirRtl}}
+            @text={{this.text}}
+            @onUpdatingText={{fn this.onUpdatingText}}
+            @onUpdateText={{fn this.onUpdateText}}
+          />
+        </div>
+      {{/unless}}
+    </div>
+  {{/if}}
+
+  {{#if @translation}}
+    {{#unless @translation.isRemoved}}
+      <div local-class='actions'>
+        <div local-class='actions-links'>
+          {{#if @translation.sourceTranslation}}
+            {{#if @translation.version}}
+              <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.sourceTranslation.id}} local-class='actions-link'>
+                {{t 'components.translation_edit.source_translation'}}
+              </LinkTo>
+            {{/if}}
+          {{/if}}
+        </div>
+
+        <div local-class='actions-buttons'>
+          {{#unless this.hasTextNotChanged}}
+            <AsyncButton @onClick={{fn this.setOriginalText}} local-class='actions-button-revert' class='button button--iconOnly button--white'>
+              {{inline-svg '/assets/revert.svg' class='button-icon'}}
+            </AsyncButton>
+          {{/unless}}
+
+          {{#if (get @permissions 'update_translation')}}
+            <AsyncButton @loading={{this.isUpdatingText}} class='button button--filled button--white' @onClick={{fn this.updateText}}>
+              {{t 'components.translation_edit.update_text'}}
+            </AsyncButton>
+          {{/if}}
+          {{#if @translation.isConflicted}}
+            {{#if (get @permissions 'correct_translation')}}
+              <AsyncButton @loading={{this.isCorrectingConflict}} class='button button--filled' @onClick={{fn this.correctConflict}}>
+                {{inline-svg '/assets/check.svg' class='button-icon'}}
+                {{t 'components.translation_edit.correct_button'}}
+              </AsyncButton>
+            {{/if}}
+          {{else}}
+
+            {{#if (get @permissions 'uncorrect_translation')}}
+              <AsyncButton @loading={{this.isUncorrectingConflict}} class='button button--filled button--red' @onClick={{fn this.uncorrectConflict}}>
+                {{inline-svg '/assets/revert.svg' class='button-icon'}}
+                {{t 'components.translation_edit.uncorrect_button'}}
+              </AsyncButton>
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    {{/unless}}
+  {{/if}}
+</div>

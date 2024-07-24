@@ -15,5 +15,5 @@ export const initialize = (application) => {
 
 export default {
   name: 'raven-setup',
-  initialize,
+  initialize
 };

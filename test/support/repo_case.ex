@@ -6,6 +6,8 @@ defmodule Accent.RepoCase do
     quote do
       use Oban.Testing, repo: Accent.Repo
 
+      alias Accent.Factory
+
       def to_worker_args(struct) do
         struct
         |> Jason.encode!()
@@ -15,12 +17,13 @@ defmodule Accent.RepoCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Accent.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Accent.Repo, {:shared, self()})
-    end
+    setup_sandbox(tags)
 
     :ok
+  end
+
+  def setup_sandbox(tags) do
+    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Accent.Repo, shared: not tags[:async])
+    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
   end
 end

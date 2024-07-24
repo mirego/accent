@@ -7,6 +7,7 @@
     "build": "parcel index.html",
     "build-production": "parcel build index.ts --out-dir=jipt-dist --target browser --experimental-scope-hoisting",
     "build-production-inline": "parcel build index.ts --out-dir=../priv/static/jipt --target browser --experimental-scope-hoisting",
+    "watch-production-inline": "parcel watch index.ts --out-dir=../priv/static/jipt --target browser",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

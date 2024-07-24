@@ -1,0 +1,48 @@
+<ConflictsFilters
+  @meta={{this.model.groupedTranslations.meta}}
+  @conflicts={{this.model.groupedTranslations.entries}}
+  @document={{this.document}}
+  @documents={{this.model.documents}}
+  @version={{this.version}}
+  @versions={{this.model.versions}}
+  @relatedRevisions={{this.relatedRevisions}}
+  @defaultRelatedRevisions={{this.model.relatedRevisions}}
+  @revisions={{this.model.revisions}}
+  @withAdvancedFilters={{this.withAdvancedFilters}}
+  @isTextEmptyFilter={{this.isTextEmpty}}
+  @isTextNotEmptyFilter={{this.isTextNotEmpty}}
+  @isAddedLastSyncFilter={{this.isAddedLastSync}}
+  @isCommentedOnFilter={{this.isCommentedOn}}
+  @isConflictedFilter={{this.isConflicted}}
+  @isTranslatedFilter={{this.isTranslated}}
+  @query={{this.query}}
+  @onChangeDocument={{this.changeDocument}}
+  @onChangeQuery={{this.changeQuery}}
+  @onChangeVersion={{this.changeVersion}}
+  @onChangeRevisions={{this.changeRelatedRevisions}}
+  @onChangeAdvancedFilterBoolean={{fn this.changeAdvancedFilterBoolean}}
+/>
+
+{{#if this.model.loading}}
+  <SkeletonUi::ProgressLine />
+{{/if}}
+
+{{#if this.showSkeleton}}
+  <SkeletonUi::TranslationsList />
+{{else if this.showLoading}}
+  <LoadingContent @label={{t 'pods.project.translations.loading_content'}} />
+{{else}}
+  <ConflictsList
+    @permissions={{this.permissions}}
+    @version={{this.version}}
+    @versions={{this.model.versions}}
+    @project={{this.model.project}}
+    @revisions={{this.revisions}}
+    @prompts={{this.model.prompts}}
+    @groupedTranslations={{this.model.groupedTranslations.entries}}
+    @onCorrect={{this.correctConflict}}
+    @onUncorrect={{this.uncorrectConflict}}
+    @onUpdate={{this.updateConflict}}
+  />
+  <ResourcePagination @meta={{this.model.groupedTranslations.meta}} @onSelectPage={{fn this.selectPage}} />
+{{/if}}

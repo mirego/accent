@@ -78,6 +78,7 @@
       "slack": "Se connecter avec Slack →",
       "discord": "Se connecter avec Discord →",
       "microsoft": "Se connecter avec Microsoft →",
+      "oidc": "Connectez-vous avec OIDC →",
       "dummy": "Entrez un courriel et connectez-vous →"
     },
     "dummy_login_form": {
@@ -157,13 +158,23 @@
       "reload_button": "Recharger"
     },
     "conflicts_filters": {
+      "advanced_filters_button": "Filtres avancés",
       "total_entries_count": "{count, plural, =0 {Aucune chaîne à vérifier} =1 {1 chaîne à vérifier} other {# chaînes à vérifier}}",
       "reference_default_option_text": "Pas de langue de référence",
       "version_default_option_text": "Dernière version",
       "document_default_option_text": "Tous les documents",
-      "input_placeholder_text": "Rechercher une chaîne"
+      "input_placeholder_text": "Rechercher une chaîne",
+      "advanced_filters_title": "Filtres avancés",
+      "advanced_filters": {
+        "empty": "Le texte est vide (\"\" ou valeur nulle)",
+        "not_empty": "Le texte n’est pas vide",
+        "added_last_sync": "Ajoutées à la dernière synchronisation",
+        "commented_on": "Chaînes avec commentaires",
+        "conflicted": "À réviser",
+        "translated": "À traduire"
+      }
     },
-    "conflicts_items": {
+    "conflicts_list": {
       "translations_version_notice": "Vous consultez les textes à réviser de la version",
       "correct_all_button": "Marquer toutes les chaînes comme révisées pour cette langue",
       "no_translations": "Aucune chaîne à examiner pour : {query}",
@@ -222,7 +233,9 @@
         "rtl_badge": "RTL",
         "rtl": "Texte de droite à gauche",
         "correct_all_button": "Marquer toutes les chaînes comme vérifiées",
-        "uncorrect_all_button": "Remettre toutes les chaînes à réviser"
+        "uncorrect_all_button": "Remettre toutes les chaînes à réviser",
+        "stats_translated": "traduits",
+        "stats_to_review": "à réviser"
       }
     },
     "date_tag": {
@@ -392,6 +405,7 @@
       "prompts": {
         "title": "Assistant IA",
         "help": "Des instructions seront disponibles sur chaque entrée de chaîne pour vous aider à améliorer votre contenu. Plus les instructions que vous donnez à l’assistant sont claires, meilleur sera le résultat.",
+        "use_platform_label": "Utilisez la configuration de la plate-forme si disponible",
         "new_button": "Ajouter une nouvelle instruction",
         "config_key_help_present": "La clé de configuration a été définie, mais la valeur ne sera jamais exposée via l’API.",
         "config_key_help_not_present": "Une fois enregistrée, la clé de configuration ne sera jamais affichée.",
@@ -444,7 +458,8 @@
       "jipt": {
         "title": "Traductions JIPT",
         "integration_help": "Cette étape vous guidera à travers la configuration dont vous avez besoin dans votre projet pour traduire vos chaînes dans votre navigateur, à l’intérieur de votre projet.",
-        "integration_link": "Voir les guides officiels sur la façon d’intégrer l’édition en direct dans votre site Web ->",
+        "demo_help": "Voir une page HTML statique qui montre la première chaîne de votre projet dans un contexte différent. L’intégration d’Accent est visible en bas de la page. Notez que l’exemple utilise les vraies données de votre projet.",
+        "demo_link": "Ouvrir l’exemple →",
         "add_language_title": "Ajoutez le pseudo langage à votre projet",
         "add_language_image_1": "Voici un langage comme vous en avez déjà dans votre projet :",
         "add_language_image_2": "Voici le pseudo langage nommé \"accent\" qui agit comme une traduction normale dans votre projet :",
@@ -488,6 +503,7 @@
         "developer_text": "Peut effectuer des opérations sur les fichiers : synchroniser, ajouter des traductions et prévisualiser ces opérations dans l’interface utilisateur.",
         "owner_text": "Avec les mêmes rôles que l’administrateur, les propriétaires sont les personnes à qui appartient le projet.",
         "reviewer_text": "Peut effectuer toutes les tâches sauf celles énumérées dans les rôles ci-dessus. Réviser, mettre à jour les chaînes, les commentaires, etc.",
+        "translator_text": "Traduire des chaînes et effectuez des mises à jour sur les fichiers. Le traducteur n’est pas inclus dans le processus de révision.",
         "title": "Collaborateurs"
       },
       "collaborators_item": {
@@ -510,9 +526,19 @@
         "delete": "Supprimer",
         "data": {
           "azure_storage_container_sas": "SAS URL",
+          "aws_s3_bucket": "Nom du bucket",
+          "aws_s3_path_prefix": "Préfix",
+          "aws_s3_region": "Région",
+          "aws_s3_access_key_id": "Access Key ID",
+          "aws_s3_secret_access_key": "Secret Access Key",
+          "aws_s3_minimum_policy": "Permissions minimums",
           "url": "URL"
         },
         "empty_description": {
+          "aws_s3": {
+            "title": "AWS S3",
+            "text": "Téléchargez vos fichiers dans Amazon Web Service S3 pour les servir directement dans votre application"
+          },
           "azure_storage_container": {
             "title": "Azure Storage Container",
             "text": "Téléchargez vos fichiers dans Azure Storage Container pour les servir directement dans votre application"
@@ -526,21 +552,33 @@
             "text": "Publiez les notifications de votre projet dans Slack"
           }
         },
-        "token_how": "Comment?",
-        "github_webhook_url_how": "Comment?",
-        "github_webhook_accent_cli_1": "Vous devez avoir une configuration <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/tree/master/cli\">accent-cli</a> valide pour le crochet au travail.",
-        "github_webhook_accent_cli_2": "Le <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/mirego/accent/blob/master/cli/examples/react/accent.json\">accent.json</a > fichier à la racine de votre projet sera utilisé.",
-        "github_webhook_url": "Assurez-vous d’ajouter le webhook dans les paramètres de votre projet",
         "webhook_url_how": "Comment obtenir une URL de webhook ?",
         "events": {
           "title": "Quels événements souhaitez-vous déclencher ce webhook ?",
           "options": {
             "sync": "Synchroniser avec n’importe quelles modifications",
             "new_conflicts": "Nouvelles chaîne à réviser",
-            "complete_review": "Le projet est revu à 100%"
+            "complete_review": "Le projet est revu à 100%",
+            "integration_execute_azure_storage_container": "Fichiers téléversés sur Azure Storage Container"
           }
         },
         "execute": {
+          "aws_s3": {
+            "title": "Publier sur AWS S3",
+            "cancel_button": "Annuler",
+            "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
+            "push_button": "Publier",
+            "bucket": "Nom du bucket",
+            "path_prefix": "Préfix",
+            "submit_confirm": "La publication de fichiers vers AWS S3 peut remplacer les fichiers existants si vous publiez la dernière version ou une version déjà publiée.",
+            "target_version": {
+              "label": "Version Cible",
+              "options": {
+                "latest": "Dernière version",
+                "specific": "Version spécifique"
+              }
+            }
+          },
           "azure_storage_container": {
             "title": "Publier sur Azure Storage Container",
             "cancel_button": "Annuler",
@@ -675,6 +713,8 @@
       "title": "Nouvelle version",
       "text": "La création d’une version crée un instantané de toutes les chaînes actives (révisées ou non) pour être visible avec la certitude qu’il restera intact. Cela peut être utile lors de la maintenance de plusieurs versions de la même application.",
       "error": "Version invalide",
+      "copy_on_update_translation_help": "Chaque fois qu'une traduction dans cette version est mise à jour, le même texte sera appliqué à la traduction source (dernière version). Cela garantira qu'un correctif dans la version sera également présent dans la dernière version sans aucune action requise de la part du développeur ou le traducteur.",
+      "copy_on_update_translation_label": "Copie sur mise à jour de la traduction",
       "cancel_button": "Annuler",
       "name_label": "Nom:",
       "tag_label": "Étiquette:",
@@ -683,6 +723,8 @@
     "version_update_form": {
       "title": "Version de mise à jour",
       "error": "Version invalide",
+      "copy_on_update_translation_help": "Chaque fois qu'une traduction dans cette version est mise à jour, le même texte sera appliqué à la traduction source (dernière version). Cela garantira qu'un correctif dans la version sera également présent dans la dernière version sans aucune action requise de la part du développeur ou le traducteur.",
+      "copy_on_update_translation_label": "Copie sur mise à jour de la traduction",
       "cancel_button": "Annuler",
       "name_label": "Nom:",
       "tag_label": "Étiquette:",
@@ -720,6 +762,7 @@
       "manage_languages_link_title": "Langues",
       "translations_link_title": "Chaînes",
       "lint_link_title": "Vérifier",
+      "translate_link_title": "Traduire",
       "conflicts_link_title": "Réviser",
       "dashboard_link_title": "Tableau de bord",
       "settings_link_title": "Paramètres",
@@ -853,7 +896,7 @@
       "source_translation": "Voir la dernière version de la chaîne",
       "correct_button": "Mettre à jour et marquer comme révisé",
       "previous_text": "Texte précédent :",
-      "uncorrect_button": "Remettre à révisée",
+      "uncorrect_button": "Remettre à réviser",
       "uneditable": "Le texte n’est pas modifiable, car il a été marqué comme révisé",
       "update_text": "Mettre à jour le texte",
       "form": {
@@ -999,7 +1042,8 @@
     "integration_services": {
       "DISCORD": "Discord",
       "SLACK": "Slack",
-      "AZURE_STORAGE_CONTAINER": "Azure Storage Container"
+      "AZURE_STORAGE_CONTAINER": "Azure Storage Container",
+      "AWS_S3": "AWS S3"
     },
     "search_input_placeholder_text": "Rechercher une chaîne…"
   },
@@ -1085,6 +1129,8 @@
           "revision_correct_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
           "correct_error": "Impossible de marquer la chaîne comme vérifiée",
           "correct_success": "La chaîne a été marquée comme révisée avec succès",
+          "update_error": "La chaîne n’a pas pu être mise à jour",
+          "update_success": "La chaîne a été mise à jour avec succès",
           "translate_provider_error": "La chaîne n’a pas pu être traduite : {provider}",
           "translate_error": {
             "unsupported_target": "La chaîne n’a pas pu être traduite : Langue non prise en charge {target}",
@@ -1121,6 +1167,8 @@
           "integration_update_success": "L’intégration a été mise à jour avec succès",
           "integration_remove_error": "L’intégration n’a pas pu être supprimée",
           "integration_remove_success": "L’intégration a été supprimée avec succès",
+          "integration_execute_error": "L’intégration n’a pas pu être exécutée",
+          "integration_execute_success": "L’intégration a été exécutée avec succès",
           "machine_translations_config_error": "La configuration n’a pas pu être mise à jour",
           "machine_translations_config_success": "La configuration a été mise à jour avec succès",
           "update_error": "Le projet n’a pas pu être mis à jour",

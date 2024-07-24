@@ -5,7 +5,6 @@ defmodule AccentTest.GraphQL.Resolvers.Viewer do
   alias Accent.GraphQL.Resolvers.Viewer, as: Resolver
   alias Accent.Language
   alias Accent.ProjectCreator
-  alias Accent.Repo
   alias Accent.User
 
   defmodule PlugConn do
@@ -13,11 +12,9 @@ defmodule AccentTest.GraphQL.Resolvers.Viewer do
     defstruct [:assigns]
   end
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)

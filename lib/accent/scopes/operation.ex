@@ -39,11 +39,19 @@ defmodule Accent.Scopes.Operation do
     Accent.Operation
     iex> Accent.Scopes.Operation.filter_from_project(Accent.Operation, "test")
     #Ecto.Query<from o0 in Accent.Operation, left_join: r1 in assoc(o0, :revision), where: r1.project_id == ^"test" or o0.project_id == ^"test">
+    iex> Accent.Scopes.Operation.filter_from_project(Accent.Operation, "test", "sync")
+    #Ecto.Query<from o0 in Accent.Operation, where: o0.project_id == ^"test">
   """
-  @spec filter_from_project(Ecto.Queryable.t(), String.t() | nil) :: Ecto.Queryable.t()
-  def filter_from_project(query, nil), do: query
+  @spec filter_from_project(Ecto.Queryable.t(), String.t() | nil, String.t() | nil) :: Ecto.Queryable.t()
+  def filter_from_project(query, project_id, action \\ nil)
+  def filter_from_project(query, nil, _), do: query
 
-  def filter_from_project(query, project_id) do
+  def filter_from_project(query, project_id, action)
+      when action in ~w(sync batch_sync batch_merge create_version document_delete merge new_slave version_new) do
+    from(query, where: [project_id: ^project_id])
+  end
+
+  def filter_from_project(query, project_id, _) do
     from(o in query,
       left_join: r in assoc(o, :revision),
       where: r.project_id == ^project_id or o.project_id == ^project_id

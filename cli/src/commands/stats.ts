@@ -19,15 +19,15 @@ export default class Stats extends Command {
   static flags = {
     version: flags.string({
       default: undefined,
-      description: 'View stats for a specific version',
+      description: 'View stats for a specific version'
     }),
     'check-reviewed': flags.boolean({
-      description: 'Exit 1 when reviewed percentage is not 100%',
+      description: 'Exit 1 when reviewed percentage is not 100%'
     }),
     'check-translated': flags.boolean({
-      description: 'Exit 1 when translated percentage is not 100%',
+      description: 'Exit 1 when translated percentage is not 100%'
     }),
-    config: configFlag,
+    config: configFlag
   };
 
   async run() {

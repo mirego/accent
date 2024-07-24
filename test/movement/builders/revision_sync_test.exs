@@ -11,24 +11,22 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
   alias Movement.Builders.RevisionSync, as: RevisionSyncBuilder
   alias Movement.Context
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [revision: revision, document: document]}
   end
 
   test "builder fetch translations and use comparer", %{revision: revision, document: document} do
     translation =
-      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
+      Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
 
     entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 
@@ -48,7 +46,7 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
 
   test "builder fetch translations and process to remove with empty entries", %{revision: revision, document: document} do
     translation =
-      Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
+      Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
 
     context =
       %Context{entries: []}
@@ -66,13 +64,13 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
 
   test "builder fetch translations and process to renew with entries", %{revision: revision, document: document} do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         revision_id: revision.id,
         document_id: document.id,
         removed: true
-      })
+      )
 
     entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 

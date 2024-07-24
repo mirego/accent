@@ -6,30 +6,27 @@ defmodule AccentTest.LintController do
   alias Accent.Document
   alias Accent.Language
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.Revision
   alias Accent.User
-
-  @user %User{email: "test@test.com"}
 
   def file(filename \\ "simple.json") do
     %Plug.Upload{content_type: "application/json", filename: filename, path: "test/support/formatter/json/lint.json"}
   end
 
   setup do
-    user = Repo.insert!(@user)
-    access_token = Repo.insert!(%AccessToken{user_id: user.id, token: "test-token"})
-    french_language = Repo.insert!(%Language{name: "french", slug: Ecto.UUID.generate()})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project"})
+    user = Factory.insert(User)
+    access_token = Factory.insert(AccessToken, user_id: user.id, token: "test-token")
+    french_language = Factory.insert(Language)
+    project = Factory.insert(Project)
 
-    Repo.insert!(%Collaborator{project_id: project.id, user_id: user.id, role: "admin"})
-    revision = Repo.insert!(%Revision{language_id: french_language.id, project_id: project.id, master: true})
+    Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "admin")
+    revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
     {:ok, [access_token: access_token, user: user, project: project, revision: revision, language: french_language]}
   end
 
   test "lint document", %{access_token: access_token, conn: conn, project: project, language: language} do
-    document = Repo.insert!(%Document{project_id: project.id, path: "test2", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
     body = %{
       file: file(),

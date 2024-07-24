@@ -1,26 +1,25 @@
 defmodule AccentTest.Hook.Outbounds.Discord do
   @moduledoc false
-  use Accent.RepoCase, async: true
+  use Accent.RepoCase, async: false
 
   import Mock
 
   alias Accent.Hook.Outbounds.Discord
   alias Accent.Integration
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.User
 
   setup do
-    project = Repo.insert!(%Project{main_color: "#f00", name: "Test"})
-    user = Repo.insert!(%User{fullname: "Test", email: "foo@test.com"})
+    project = Factory.insert(Project)
+    user = Factory.insert(User, fullname: "Test", email: "foo@test.com")
 
-    Repo.insert!(%Integration{
-      project: project,
-      user: user,
+    Factory.insert(Integration,
+      project_id: project.id,
+      user_id: user.id,
       service: "discord",
       events: ["sync"],
       data: %{url: "http://example.com"}
-    })
+    )
 
     [project: project, user: user]
   end

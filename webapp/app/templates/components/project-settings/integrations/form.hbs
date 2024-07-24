@@ -1,0 +1,56 @@
+<div
+  {{did-insert (fn this.didUpdateIntegration)}}
+  {{did-update (fn this.didUpdateIntegration) @integration}}
+  {{did-insert (fn this.didUpdateErrors)}}
+  {{did-update (fn this.didUpdateErrors) @errors}}
+  local-class='project-settings-integrations-form'
+>
+  {{#if this.integration}}
+    {{#if this.integration.id}}
+      <div local-class='form readonly-service'>
+        {{inline-svg this.logoService local-class='logo'}}
+        <span local-class='logo-label'>{{this.serviceValue.label}}</span>
+      </div>
+    {{else}}
+      <div local-class='form'>
+        {{inline-svg this.logoService local-class='logo'}}
+
+        <AccSelect @searchEnabled={{false}} @selected={{this.serviceValue}} @renderInPlace={{true}} @options={{this.mappedServices}} @onchange={{fn this.setService}} />
+      </div>
+    {{/if}}
+
+    <div local-class='data'>
+      {{component
+        this.dataFormComponent
+        errors=this.errors
+        url=this.url
+        bucket=this.awsS3Bucket
+        pathPrefix=this.awsS3PathPrefix
+        region=this.awsS3Region
+        accessKeyId=this.awsS3AccessKeyId
+        project=@project
+        events=this.events
+        onChangeUrl=(fn this.setUrl)
+        onChangeSas=(fn this.setAzureStorageContainerSas)
+        onChangeBucket=(fn this.setAwsS3Bucket)
+        onChangePathPrefix=(fn this.setAwsS3PathPrefix)
+        onChangeRegion=(fn this.setAwsS3Region)
+        onChangeAccessKeyId=(fn this.setAwsS3AccessKeyId)
+        onChangeSecretAccessKey=(fn this.setAwsS3SecretAccessKey)
+        onChangeEventsChecked=(fn this.setEventsChecked)
+      }}
+    </div>
+
+    <div local-class='actions'>
+      <AsyncButton @onClick={{fn this.submit}} @loading={{this.isCreating}} class='button button--filled'>
+        {{t 'components.project_settings.integrations.save'}}
+      </AsyncButton>
+
+      {{#if @onCancel}}
+        <button local-class='button' class='button button--filled button--white' {{on 'click' (fn @onCancel)}}>
+          {{t 'components.project_settings.integrations.cancel'}}
+        </button>
+      {{/if}}
+    </div>
+  {{/if}}
+</div>

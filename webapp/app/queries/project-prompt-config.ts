@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export interface ProjectPromptConfigResponse {
   viewer: {
@@ -31,6 +31,8 @@ export default gql`
 
         promptConfig {
           provider
+          usePlatform
+          useConfigKey
         }
       }
     }

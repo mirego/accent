@@ -1,0 +1,34 @@
+{{#if @searchEnabled}}
+  <PowerSelect
+    @options={{@options}}
+    @matchTriggerWidth={{@matchTriggerWidth}}
+    @searchEnabled={{@searchEnabled}}
+    @selected={{@selected}}
+    @search={{@search}}
+    @placeholder={{@placeholder}}
+    @searchPlaceholder={{@searchPlaceholder}}
+    @renderInPlace={{@renderInPlace}}
+    @onChange={{@onchange}}
+    as |option|
+  >
+    {{option.label}}
+  </PowerSelect>
+{{else if @customSelect}}
+  <PowerSelect @options={{@options}} @selected={{@selected}} @placeholder={{@placeholder}} @renderInPlace={{@renderInPlace}} @onChange={{@onchange}} as |option|>
+    {{option.label}}
+  </PowerSelect>
+{{else if @multi}}
+  <PowerSelectMultiple @options={{@options}} @selected={{@selected}} @placeholder={{@placeholder}} @renderInPlace={{@renderInPlace}} @onChange={{@onchange}} as |option|>
+    {{option.label}}
+  </PowerSelectMultiple>
+{{else}}
+  <div local-class='root' ...attributes>
+    <select {{on 'change' this.selectChange}}>
+      {{#each @options key='value' as |selectOption|}}
+        <option value={{selectOption.value}} selected='{{if (eq @selected.value selectOption.value) "selected"}}'>
+          {{selectOption.label}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+{{/if}}

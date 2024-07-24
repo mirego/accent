@@ -17,7 +17,7 @@ const sleep = async (ms: number) =>
 
 export const configFlag = flags.string({
   default: 'accent.json',
-  description: 'Path to the config file',
+  description: 'Path to the config file'
 });
 
 const parseConfigFlag = (argv: string[]) => {

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export default gql`
   query Translations($projectId: ID!, $translationId: ID!) {
@@ -39,18 +39,6 @@ export default gql`
             version {
               id
               tag
-            }
-
-            revision {
-              id
-              slug
-              rtl
-
-              language {
-                id
-                slug
-                rtl
-              }
             }
 
             document {

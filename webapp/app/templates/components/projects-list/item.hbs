@@ -1,0 +1,28 @@
+<div local-class='projects-list-item' style='{{this.colorPrimary}}'>
+  <div local-class='projectHeader' class='projectId-{{@project.id}}'>
+    {{#if @project.logo}}
+      <span local-class='projectLogo'>
+        <ProjectLogo @logo={{@project.logo}} />
+      </span>
+    {{/if}}
+
+    <span local-class='projectName' data-test-project-name>
+      {{@project.name}}
+    </span>
+  </div>
+
+  <div local-class='numberStat'>
+    <span local-class='projectUpdates'>
+      {{#if @project.lastSyncedAt}}
+        <span local-class='projectUpdate'>
+          {{t 'components.projects_list.last_synced_at_label'}}
+          <span local-class='lastSyncedAt-date'>
+            <TimeAgoInWordsTag @date={{@project.lastSyncedAt}} />
+          </span>
+        </span>
+      {{else}}
+        {{t 'components.projects_list.never_synced'}}
+      {{/if}}
+    </span>
+  </div>
+</div>

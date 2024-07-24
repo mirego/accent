@@ -10,11 +10,9 @@ defmodule AccentTest.TranslationsRenderer do
   alias Accent.TranslationsRenderer
   alias Accent.User
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
@@ -30,16 +28,16 @@ defmodule AccentTest.TranslationsRenderer do
   end
 
   test "render json with filename", %{project: project, revision: revision} do
-    document = Repo.insert!(%Document{project_id: project.id, path: "my-test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "my-test", format: "json")
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "B",
         corrected_text: "A",
         revision_id: revision.id,
         document_id: document.id
-      })
+      )
 
     %{render: render} =
       TranslationsRenderer.render_translations(%{
@@ -60,28 +58,25 @@ defmodule AccentTest.TranslationsRenderer do
   end
 
   test "render json with runtime error", %{project: project, revision: revision} do
-    document = Repo.insert!(%Document{project_id: project.id, path: "my-test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "my-test", format: "json")
 
     translations =
-      Enum.map(
-        [
-          %Translation{
-            key: "a.nested.foo",
-            proposed_text: "B",
-            corrected_text: "A",
-            revision_id: revision.id,
-            document_id: document.id
-          },
-          %Translation{
-            key: "a.nested",
-            proposed_text: "C",
-            corrected_text: "D",
-            revision_id: revision.id,
-            document_id: document.id
-          }
-        ],
-        &Repo.insert!/1
-      )
+      [
+        Factory.insert(Translation,
+          key: "a.nested.foo",
+          proposed_text: "B",
+          corrected_text: "A",
+          revision_id: revision.id,
+          document_id: document.id
+        ),
+        Factory.insert(Translation,
+          key: "a.nested",
+          proposed_text: "C",
+          corrected_text: "D",
+          revision_id: revision.id,
+          document_id: document.id
+        )
+      ]
 
     %{render: render} =
       TranslationsRenderer.render_translations(%{
@@ -97,16 +92,16 @@ defmodule AccentTest.TranslationsRenderer do
 
   if Langue.Formatter.Rails.enabled?() do
     test "render rails with locale", %{project: project, revision: revision} do
-      document = Repo.insert!(%Document{project_id: project.id, path: "my-test", format: "rails_yml"})
+      document = Factory.insert(Document, project_id: project.id, path: "my-test", format: "rails_yml")
 
       translation =
-        Repo.insert!(%Translation{
+        Factory.insert(Translation,
           key: "a",
           proposed_text: "A",
           corrected_text: "A",
           revision_id: revision.id,
           document_id: document.id
-        })
+        )
 
       %{render: render} =
         TranslationsRenderer.render_translations(%{
@@ -128,16 +123,16 @@ defmodule AccentTest.TranslationsRenderer do
 
   test "render xliff and revision overrides on source revision", %{project: project, revision: revision} do
     revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
-    document = Repo.insert!(%Document{project_id: project.id, path: "my-test", format: "xliff_1_2"})
+    document = Factory.insert(Document, project_id: project.id, path: "my-test", format: "xliff_1_2")
 
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         corrected_text: "A",
         revision_id: revision.id,
         document_id: document.id
-      })
+      )
 
     %{render: render} =
       TranslationsRenderer.render_translations(%{

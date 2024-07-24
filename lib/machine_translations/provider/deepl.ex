@@ -46,7 +46,7 @@ defmodule Accent.MachineTranslations.Provider.Deepl do
     def translate(provider, contents, source, target) do
       with {:ok, {source, target}} <-
              Accent.MachineTranslations.map_source_and_target(source, target, @supported_languages),
-           params = %{text: contents, source_lang: String.upcase(source), target_lang: String.upcase(target)},
+           params = %{text: contents, source_lang: source && String.upcase(source), target_lang: String.upcase(target)},
            {:ok, %{body: %{"translations" => translations}}} <-
              Tesla.post(client(provider.config["key"]), "translate", params) do
         {:ok, Enum.map(translations, &%TranslatedText{text: &1["text"]})}

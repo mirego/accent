@@ -34,7 +34,7 @@ export default class LiveNode {
       attribute.value = newAttribute;
 
       this.state.addReference(node, translation, {
-        attributeName: attribute.name,
+        attributeName: attribute.name
       });
     });
   }

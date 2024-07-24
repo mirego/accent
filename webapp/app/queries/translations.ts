@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export default gql`
   query Translations(
@@ -44,6 +44,7 @@ export default gql`
           id
           translations(
             query: $query
+            pageSize: 20
             page: $page
             document: $document
             version: $version
@@ -93,6 +94,7 @@ export default gql`
                   rtl
                 }
               }
+
               document {
                 id
                 path

@@ -1,0 +1,142 @@
+.project-settings-form {
+  margin-top: 25px;
+}
+
+.textInput {
+  @extend %textInput;
+  max-width: 350px;
+  width: 100%;
+  flex-grow: 0;
+  flex-shrink: 1;
+  padding: 10px;
+  font-family: var(--font-primary);
+  font-size: 12px;
+}
+
+.colorInput {
+  @extend %textInput;
+  width: 48px;
+  height: 40px;
+  padding: 5px 11px;
+}
+
+.field {
+  display: flex;
+  margin-bottom: 15px;
+  gap: 8px;
+}
+
+.lock {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  padding: 10px;
+  background: var(--background-light);
+}
+
+.lock-text-helper {
+  font-size: 11px;
+  font-style: italic;
+  color: #555;
+}
+
+div.lock-text {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 3px 5px;
+
+  &.lock-text--inactive {
+    color: var(--color-gray);
+
+    &:hover {
+      color: var(--color-green);
+      border-color: var(--color-green);
+
+      .lock-icon {
+        stroke: var(--color-green);
+      }
+    }
+
+    .lock-icon {
+      stroke: #aaa;
+    }
+  }
+
+  &.lock-text--active {
+    color: var(--color-error);
+    border-color: var(--color-error);
+
+    .lock-icon {
+      stroke: var(--color-error);
+    }
+  }
+}
+
+.lock-icon {
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+}
+
+.logo {
+  display: flex;
+  width: 25px;
+  height: 22px;
+  padding: 0;
+  font-size: 25px;
+  line-height: 1;
+  background: transparent;
+  cursor: pointer;
+
+  svg {
+    width: 25px;
+    height: 21px;
+
+    circle {
+      fill: var(--logo-background);
+    }
+
+    path {
+      fill: var(--logo-foreground);
+    }
+  }
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.logo-field {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  height: 40px;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--input-border-color);
+  background: var(--input-background);
+}
+
+.logoReset {
+  position: absolute;
+  top: -3px;
+  right: -14px;
+  padding: 0;
+  background: none;
+  color: #999;
+
+  svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  &:focus,
+  &:hover {
+    opacity: 0.6;
+  }
+}

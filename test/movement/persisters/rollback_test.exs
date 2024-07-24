@@ -15,34 +15,32 @@ defmodule AccentTest.Movement.Persisters.Rollback do
   alias Movement.Context
   alias Movement.Persisters.Rollback, as: RollbackPersister
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [project: project, document: document, revision: revision, user: user]}
   end
 
   test "persist operations", %{project: project, revision: revision, document: document, user: user} do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         proposed_text: "A",
         conflicted: false,
         corrected_text: "Test",
         revision_id: revision.id,
         document_id: document.id
-      })
+      )
 
     operation =
-      Repo.insert!(%Accent.Operation{
+      Factory.insert(Operation,
         text: "B",
         inserted_at: DateTime.utc_now(),
         updated_at: DateTime.utc_now(),
@@ -52,7 +50,7 @@ defmodule AccentTest.Movement.Persisters.Rollback do
         translation_id: translation.id,
         revision_id: translation.revision_id,
         project_id: project.id
-      })
+      )
 
     operations = [
       %Movement.Operation{
@@ -97,26 +95,26 @@ defmodule AccentTest.Movement.Persisters.Rollback do
 
   test "rollback batch", %{revision: revision} do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         corrected_text: "B",
         conflicted: true,
         revision_id: revision.id,
         revision: revision
-      })
+      )
 
-    Repo.insert!(%Operation{
+    Factory.insert(Operation,
       action: "new",
       key: "a",
       text: "B",
       translation_id: translation.id,
       revision_id: revision.id
-    })
+    )
 
-    batch_operation = Repo.insert!(%Operation{action: "sync", batch: true, revision_id: revision.id})
+    batch_operation = Factory.insert(Operation, action: "sync", batch: true, revision_id: revision.id)
 
     operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "update",
         key: "a",
         text: "UPDATED",
@@ -124,7 +122,7 @@ defmodule AccentTest.Movement.Persisters.Rollback do
         translation_id: translation.id,
         revision_id: revision.id,
         batch_operation_id: batch_operation.id
-      })
+      )
 
     rollback_operation = %Movement.Operation{
       action: "rollback",
@@ -147,24 +145,24 @@ defmodule AccentTest.Movement.Persisters.Rollback do
 
   test "rollback rollback does nothing", %{revision: revision} do
     translation =
-      Repo.insert!(%Translation{
+      Factory.insert(Translation,
         key: "a",
         corrected_text: "B",
         conflicted: true,
         revision_id: revision.id,
         revision: revision
-      })
+      )
 
-    Repo.insert!(%Operation{
+    Factory.insert(Operation,
       action: "new",
       key: "a",
       text: "B",
       translation_id: translation.id,
       revision_id: revision.id
-    })
+    )
 
     operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "update",
         key: "a",
         text: "UPDATED",
@@ -172,17 +170,17 @@ defmodule AccentTest.Movement.Persisters.Rollback do
         translation_id: translation.id,
         revision_id: revision.id,
         rollbacked: true
-      })
+      )
 
     rollback_operation =
-      Repo.insert!(%Operation{
+      Factory.insert(Operation,
         action: "rollback",
         key: "a",
         previous_translation: PreviousTranslation.from_translation(translation),
         translation_id: translation.id,
         revision_id: revision.id,
         rollbacked_operation_id: operation.id
-      })
+      )
 
     rollback_rollback_operation = %Movement.Operation{
       action: "rollback",

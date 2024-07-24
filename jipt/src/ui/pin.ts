@@ -78,7 +78,7 @@ export default class Pin {
     );
   }
 
-  private pinContent(id) {
+  private pinContent(id: string) {
     return `
        <div ${id} style="${styles.pinIcon}">
          <svg ${id} width="20px" height="20px" viewBox="0 0 36 36">

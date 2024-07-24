@@ -13,41 +13,41 @@ defmodule AccentTest.BadgeGenerator do
   alias Accent.Translation
 
   setup do
-    french_language = Repo.insert!(%Language{name: "french", slug: Ecto.UUID.generate()})
-    project = Repo.insert!(%Project{main_color: "#f00", name: "My project", language_id: french_language.id})
-    revision = Repo.insert!(%Revision{language_id: french_language.id, master: true, project_id: project.id})
-    document = Repo.insert!(%Document{project_id: project.id, path: "test2", format: "json"})
+    french_language = Factory.insert(Language)
+    project = Factory.insert(Project, language_id: french_language.id)
+    revision = Factory.insert(Revision, language_id: french_language.id, master: true, project_id: project.id)
+    document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
     {:ok, [project: Repo.preload(project, :revisions), revision: revision, document: document]}
   end
 
   test "percentage_reviewed error", %{project: project, revision: revision, document: document} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "a",
       conflicted: true,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "b",
       conflicted: true,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "c",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
     response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
 
@@ -59,41 +59,41 @@ defmodule AccentTest.BadgeGenerator do
   end
 
   test "percentage_reviewed warning", %{project: project, revision: revision, document: document} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "a",
       conflicted: true,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "b",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "c",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "d",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
     response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
 
@@ -105,41 +105,41 @@ defmodule AccentTest.BadgeGenerator do
   end
 
   test "percentage_reviewed success", %{project: project, revision: revision, document: document} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "a",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "b",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "c",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "d",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
     response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
 
@@ -151,41 +151,41 @@ defmodule AccentTest.BadgeGenerator do
   end
 
   test "translations_count", %{project: project, revision: revision, document: document} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "a",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "b",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "c",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "d",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
     response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
 
@@ -199,23 +199,23 @@ defmodule AccentTest.BadgeGenerator do
   end
 
   test "conflicts_count", %{project: project, revision: revision, document: document} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "c",
       conflicted: true,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "d",
       conflicted: true,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
     response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
 
@@ -229,23 +229,23 @@ defmodule AccentTest.BadgeGenerator do
   end
 
   test "reviewed_count", %{project: project, revision: revision, document: document} do
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "c",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
-    Repo.insert!(%Translation{
+    Factory.insert(Translation,
       revision_id: revision.id,
       key: "d",
       conflicted: false,
       corrected_text: "initial",
       proposed_text: "initial",
       document_id: document.id
-    })
+    )
 
     response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
 

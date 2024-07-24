@@ -10,6 +10,6 @@ module.exports = function () {
     errorOnNamedArgumentMismatch: false,
     errorOnMissingTranslations: false,
     stripEmptyTranslations: false,
-    requiresTranslation: () => true,
+    requiresTranslation: () => true
   };
 };

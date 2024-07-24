@@ -26,6 +26,7 @@ defmodule LanguageTool.Backend do
       backend
     else
       Logger.warning("LanguageTool could not be started. Install JRE and build the jar in #{jar_file()} to enable it")
+      nil
     end
   end
 
@@ -81,15 +82,27 @@ defmodule LanguageTool.Backend do
   end
 
   defp process_check(process, lang, text) do
-    lang = sanitize_lang(lang)
-    Exile.Process.write(process, IO.iodata_to_binary([String.pad_trailing(lang, 7), text, "\n"]))
+    write_process(process, lang, text)
 
-    with {:ok, data} <- Exile.Process.read(process),
+    with {:ok, data} <- read_process_until_result(process),
          {:ok, data} <- Jason.decode(data) do
       data
     else
-      _ -> nil
+      _ ->
+        nil
     end
+  end
+
+  defp read_process_until_result(process) do
+    case Exile.Process.read(process) do
+      {:ok, "\n"} -> read_process_until_result(process)
+      result -> result
+    end
+  end
+
+  defp write_process(process, lang, text) do
+    lang = sanitize_lang(lang)
+    Exile.Process.write(process, IO.iodata_to_binary([String.pad_trailing(lang, 7), text, "\n"]))
   end
 
   defp sanitize_lang(lang) do

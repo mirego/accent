@@ -4,12 +4,11 @@ defmodule AccentTest.Hook do
 
   alias Accent.Hook
   alias Accent.Project
-  alias Accent.Repo
   alias Accent.User
 
   setup do
-    project = Repo.insert!(%Project{main_color: "#f00", name: "Test"})
-    user = Repo.insert!(%User{fullname: "Test", email: "foo@test.com"})
+    project = Factory.insert(Project)
+    user = Factory.insert(User, fullname: "Test", email: "foo@test.com")
     payload = %{test: "hook"}
     context = %Hook.Context{project_id: project.id, user_id: user.id, event: "event", payload: payload}
 
@@ -29,15 +28,6 @@ defmodule AccentTest.Hook do
     assert_enqueued(
       worker: Hook.Outbounds.Mock,
       args: %{worker_args | "event" => "sync"}
-    )
-  end
-
-  test "unsupported event", %{context: context, worker_args: worker_args} do
-    Hook.outbound(%{context | event: "foobar"})
-
-    refute_enqueued(
-      worker: Hook.Outbounds.Mock,
-      args: %{worker_args | "event" => "foobar"}
     )
   end
 end

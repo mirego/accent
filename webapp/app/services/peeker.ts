@@ -46,7 +46,7 @@ export default class Peeker extends Service {
     file,
     documentPath,
     documentFormat,
-    syncType,
+    syncType
   }: SyncOptions) {
     const url = fmt(
       config.API.SYNC_PEEK_PROJECT_PATH,
@@ -58,12 +58,12 @@ export default class Peeker extends Service {
     documentFormat = documentFormat.toLowerCase();
 
     const {
-      data: {operations, stats},
+      data: {operations, stats}
     } = await this.authenticatedRequest.peek(url, {
       file,
       documentPath,
       version,
-      documentFormat,
+      documentFormat
     });
 
     return revisions.map((revision) =>
@@ -79,7 +79,7 @@ export default class Peeker extends Service {
     mergeType,
     documentPath,
     documentFormat,
-    mergeOptions,
+    mergeOptions
   }: MergeOptions) {
     const url = fmt(
       config.API.MERGE_PEEK_PROJECT_PATH,
@@ -92,12 +92,12 @@ export default class Peeker extends Service {
     documentFormat = documentFormat.toLowerCase();
 
     const {
-      data: {operations, stats},
+      data: {operations, stats}
     } = await this.authenticatedRequest.peek(url, {
       file,
       version,
       documentPath,
-      documentFormat,
+      documentFormat
     });
 
     return [this.mapOperations(revision, operations, stats)];
@@ -111,7 +111,7 @@ export default class Peeker extends Service {
     return {
       language: revision.language,
       stats: this.mapOperationStats(stats[revision.id]),
-      operations: this.mapOperationItems(operations[revision.id]),
+      operations: this.mapOperationItems(operations[revision.id])
     };
   }
 
@@ -133,7 +133,7 @@ export default class Peeker extends Service {
         action: operation.action,
         key: operation.key,
         text: operation.text,
-        previousText: operation['previous-text'],
+        previousText: operation['previous-text']
       };
     });
   }

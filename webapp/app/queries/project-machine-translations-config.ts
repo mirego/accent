@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import {gql} from '@apollo/client/core';
 
 export default gql`
   query ProjectMachineTranslationsConfig($projectId: ID!) {
@@ -7,8 +7,8 @@ export default gql`
         id
         machineTranslationsConfig {
           provider
-          usePlatform
           enabledActions
+          usePlatform
           useConfigKey
         }
       }

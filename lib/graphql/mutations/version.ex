@@ -9,6 +9,7 @@ defmodule Accent.GraphQL.Mutations.Version do
       arg(:project_id, non_null(:id))
       arg(:name, non_null(:string))
       arg(:tag, non_null(:string))
+      arg(:copy_on_update_translation, non_null(:boolean))
 
       resolve(project_authorize(:create_version, &Accent.GraphQL.Resolvers.Version.create/3, :project_id))
     end
@@ -17,6 +18,7 @@ defmodule Accent.GraphQL.Mutations.Version do
       arg(:id, non_null(:id))
       arg(:name, non_null(:string))
       arg(:tag, non_null(:string))
+      arg(:copy_on_update_translation, non_null(:boolean))
 
       resolve(version_authorize(:update_version, &Accent.GraphQL.Resolvers.Version.update/3))
     end

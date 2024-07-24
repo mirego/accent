@@ -31,13 +31,13 @@ export default class Lint extends Command {
         const {path, language} = target;
         if (fs.existsSync(path)) {
           const {
-            data: {lint_translations: lintTranslations},
+            data: {lint_translations: lintTranslations}
           } = (await document.lint(path, language)) as {data: any};
 
           const lintTranslationsWithLocalPath = lintTranslations.map(
             (lintTranslation: LintTranslation) => ({
               ...lintTranslation,
-              path,
+              path
             })
           );
 

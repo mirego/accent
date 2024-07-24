@@ -15,9 +15,7 @@ export default class ApolloMutate extends Service {
       const operationName = Object.keys(data)[0];
 
       if (!data[operationName]?.errors?.length) {
-        data[operationName].errors = null;
-
-        return data[operationName];
+        return {...data[operationName], errors: null};
       }
 
       return data[operationName];

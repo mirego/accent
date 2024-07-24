@@ -12,19 +12,17 @@ defmodule AccentTest.Movement.Builders.ProjectSync do
   alias Movement.Builders.ProjectSync, as: ProjectSyncBuilder
   alias Movement.Context
 
-  @user %User{email: "test@test.com"}
-
   setup do
-    user = Repo.insert!(@user)
-    language = Repo.insert!(%Language{name: "English", slug: Ecto.UUID.generate()})
-    other_language = Repo.insert!(%Language{name: "French", slug: Ecto.UUID.generate()})
+    user = Factory.insert(User)
+    language = Factory.insert(Language)
+    other_language = Factory.insert(Language)
 
     {:ok, project} =
       ProjectCreator.create(params: %{main_color: "#f00", name: "My project", language_id: language.id}, user: user)
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
-    other_revision = Repo.insert!(%Revision{master: false, project_id: project.id, language_id: other_language.id})
-    document = Repo.insert!(%Document{project_id: project.id, path: "test", format: "json"})
+    other_revision = Factory.insert(Revision, master: false, project_id: project.id, language_id: other_language.id)
+    document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
     {:ok, [revision: revision, document: document, project: project, other_revision: other_revision]}
   end
@@ -35,9 +33,9 @@ defmodule AccentTest.Movement.Builders.ProjectSync do
     project: project,
     other_revision: other_revision
   } do
-    Repo.insert!(%Translation{key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id})
-    Repo.insert!(%Translation{key: "b", proposed_text: "B", revision_id: revision.id, document_id: document.id})
-    Repo.insert!(%Translation{key: "a", proposed_text: "C", revision_id: other_revision.id, document_id: document.id})
+    Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
+    Factory.insert(Translation, key: "b", proposed_text: "B", revision_id: revision.id, document_id: document.id)
+    Factory.insert(Translation, key: "a", proposed_text: "C", revision_id: other_revision.id, document_id: document.id)
     entries = [%Langue.Entry{key: "a", value: "B", value_type: "string"}]
 
     context =

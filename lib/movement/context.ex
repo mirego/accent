@@ -1,6 +1,6 @@
 defmodule Movement.Context do
   @moduledoc false
-  defstruct entries: [], operations: [], assigns: %{options: []}, render: ""
+  defstruct entries: [], operations: [], assigns: %{batch_operation: nil, options: []}, render: ""
 
   @type t :: %__MODULE__{}
 
