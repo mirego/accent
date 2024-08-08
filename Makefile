@@ -104,10 +104,20 @@ lint-template-hbs:
 	npx ember-template-lint 'webapp/app/**/*.hbs' --config-path './webapp/.template-lintrc'
 
 .PHONY: type-check
-type-check: ## Type-check typescript files
+type-check: typescript-check dialyzer-check ## Run type-checking tools on the code
 	cd webapp && npx tsc
 	cd cli && npx tsc
 	cd jipt && npx tsc
+
+.PHONY: typescript-check
+typescript-check: ## Type-check TypeScript files
+	cd webapp && npx tsc
+	cd cli && npx tsc
+	cd jipt && npx tsc
+
+.PHONY: dialyzer-check
+dialyzer-check: ## Type-check Elixir files
+	mix dialyzer
 
 .PHONY: test
 test: test-api

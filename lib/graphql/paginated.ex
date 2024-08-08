@@ -10,10 +10,10 @@ defmodule Accent.GraphQL.Paginated do
     defstruct current_page: 0, total_entries: 0, total_pages: 0, next_page: nil, previous_page: nil
   end
 
-  @type t(list_of_type) :: %__MODULE__{entries: [list_of_type], meta: Meta.t()}
+  @type t(list_of_type) :: %__MODULE__{entries: [list_of_type], meta: Meta.t(), nodes: list() | nil}
 
   @enforce_keys [:entries, :meta]
-  defstruct entries: [], meta: %{}
+  defstruct entries: [], meta: %{}, nodes: nil
 
   def paginate(query, args, options \\ []) do
     Accent.Repo.paginate(query, page: args[:page], page_size: args[:page_size], options: options)

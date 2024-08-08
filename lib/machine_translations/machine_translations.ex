@@ -54,7 +54,7 @@ defmodule Accent.MachineTranslations do
   end
 
   @spec map_source_and_target(String.t() | nil, String.t(), list(String.t())) ::
-          {:ok, {String.t(), String.t()}} | {:error, atom()}
+          {:ok, {String.t() | nil, String.t()}} | {:error, atom()}
   def map_source_and_target(source, target, supported_languages) do
     source = source && String.downcase(source)
     target = String.downcase(target)

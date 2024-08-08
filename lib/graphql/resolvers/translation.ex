@@ -185,7 +185,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     {:ok, Paginated.format(translations)}
   end
 
-  @spec list_grouped_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Translation.t())}
+  @spec list_grouped_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, struct()}
   def list_grouped_project(project, args, _) do
     total_entries =
       Translation

@@ -16,6 +16,9 @@ defmodule Accent.Mixfile do
       xref: [exclude: IEx],
       deps: deps(),
       releases: releases(),
+      dialyzer: [
+        list_unused_filters: true
+      ],
       test_coverage: [tool: ExCoveralls]
     ]
   end
