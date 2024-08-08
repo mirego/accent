@@ -57,6 +57,7 @@ defmodule Accent do
     ]
   end
 
+  @dialyzer {:no_unknown, oban_config: 0}
   defp oban_config do
     opts = Application.get_env(:accent, Oban)
 

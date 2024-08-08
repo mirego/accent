@@ -10,16 +10,11 @@ defmodule Langue.Formatter.Resx20.Parser do
         {:ok, {~c"root", [], nodes}, _} ->
           Enum.filter(nodes, &match?({~c"data", _, _}, &1))
       end
-      |> Enum.reduce([], fn {_, attributes, body}, acc ->
+      |> Enum.flat_map(fn {_, attributes, body} ->
         key = List.keyfind(attributes, ~c"name", 0)
         value = List.keyfind(body, ~c"value", 0)
-
-        case to_entry(key, value) do
-          nil -> acc
-          entry -> [entry | acc]
-        end
+        List.wrap(to_entry(key, value))
       end)
-      |> Enum.reverse()
       |> Enum.with_index(1)
       |> Enum.map(fn {entry, index} -> %{entry | index: index} end)
 

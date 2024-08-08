@@ -3,6 +3,6 @@ defmodule Accent.GraphQL.Resolvers.DocumentFormat do
   alias Accent.DocumentFormat
   alias Accent.Plugs.GraphQLContext
 
-  @spec list(any(), map(), GraphQLContext.t()) :: {:ok, list(DocumentFormat.t())}
+  @spec list(any(), map(), GraphQLContext.t()) :: {:ok, list(DocumentFormat.Entry.t())}
   def list(_, _, _), do: {:ok, DocumentFormat.all()}
 end

@@ -8,8 +8,8 @@ defmodule Langue.Formatter do
   @callback display_name() :: String.t()
   @callback extension() :: String.t()
   @callback placeholder_regex() :: Regex.t() | :not_supported
-  @callback parse(SerializerResult.t()) :: Langue.Formatter.Parser.result()
-  @callback serialize(ParserResult.t()) :: Langue.Formatter.Serializer.result()
+  @callback parse(SerializerResult.t()) :: ParserResult.t()
+  @callback serialize(ParserResult.t()) :: SerializerResult.t()
 
   defmodule Unreachable do
     @moduledoc false

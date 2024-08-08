@@ -3,7 +3,6 @@ defmodule Accent.GraphQL.Resolvers.Activity do
   alias Accent.GraphQL.Paginated
   alias Accent.Operation
   alias Accent.Plugs.GraphQLContext
-  alias Accent.PreviousTranslation
   alias Accent.Project
   alias Accent.Repo
   alias Accent.Scopes.Operation, as: OperationScope
@@ -72,7 +71,11 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     iex> previous_translation_text(%{corrected_text: nil, proposed_text: nil}, %{}, %{})
     {:ok, nil}
   """
-  @spec previous_translation_text(PreviousTranslation.t(), map(), GraphQLContext.t()) ::
+  @spec previous_translation_text(
+          %{corrected_text: String.t() | nil, proposed_text: String.t() | nil},
+          map(),
+          GraphQLContext.t()
+        ) ::
           {:ok, String.t() | nil}
   def previous_translation_text(translation, _, _) do
     {:ok, translation.corrected_text || translation.proposed_text}

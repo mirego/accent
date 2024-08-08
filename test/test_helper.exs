@@ -5,32 +5,32 @@ defmodule Accent.FormatterTestHelper do
   def test_parse(variant, parser) do
     context =
       parser.parse(%Langue.Formatter.SerializerResult{
-        render: variant.render,
+        render: variant.render(),
         document: %Langue.Document{
           path: "project-a",
           master_language: "en",
-          top_of_the_file_comment: variant.top_of_the_file_comment,
-          header: variant.header
+          top_of_the_file_comment: variant.top_of_the_file_comment(),
+          header: variant.header()
         }
       })
 
-    {variant.entries, context.entries}
+    {variant.entries(), context.entries}
   end
 
   def test_serialize(variant, serializer, language \\ %Langue.Language{slug: "fr"}) do
     context =
       serializer.serialize(%Langue.Formatter.ParserResult{
-        entries: variant.entries,
+        entries: variant.entries(),
         language: language,
         document: %Langue.Document{
           path: "project-a",
           master_language: "en",
-          top_of_the_file_comment: variant.top_of_the_file_comment,
-          header: variant.header
+          top_of_the_file_comment: variant.top_of_the_file_comment(),
+          header: variant.header()
         }
       })
 
-    {variant.render, context.render}
+    {variant.render(), context.render}
   end
 end
 

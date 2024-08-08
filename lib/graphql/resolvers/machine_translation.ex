@@ -2,6 +2,7 @@ defmodule Accent.GraphQL.Resolvers.MachineTranslation do
   @moduledoc false
   alias Accent.Language
   alias Accent.MachineTranslations
+  alias Accent.Plugs.GraphQLContext
   alias Accent.Project
   alias Accent.Repo
   alias Accent.Revision
