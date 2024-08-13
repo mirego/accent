@@ -1,7 +1,7 @@
 defmodule Accent.Mixfile do
   use Mix.Project
 
-  @version "1.23.0"
+  @version "1.23.1"
 
   def project do
     [
