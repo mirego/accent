@@ -44,13 +44,16 @@
 
 .title {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  line-height: 1.2;
   gap: 10px;
   font-size: 20px;
   margin-bottom: 14px;
 }
 
 .title-icon {
+  position: relative;
+  top: 5px;
   width: 13px;
   height: 13px;
   opacity: 0.6;
@@ -72,6 +75,14 @@
   color: var(--color-primary);
   opacity: 0.8;
   font-weight: normal;
+
+  &::before {
+    content: '”';
+  }
+
+  &::after {
+    content: '“';
+  }
 }
 
 .menu-button {

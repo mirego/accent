@@ -43,6 +43,7 @@ defmodule Langue do
   def placeholder_regex do
     @format_modules
     |> Enum.map(& &1.placeholder_regex())
+    |> Enum.uniq()
     |> Enum.reject(&(&1 === :not_supported))
   end
 end

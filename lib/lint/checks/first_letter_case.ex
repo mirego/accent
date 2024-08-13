@@ -54,7 +54,7 @@ defmodule Accent.Lint.Checks.FirstLetterCase do
   end
 
   defp starts_with_letter?(text) do
-    Regex.match?(~r/^[\w]/i, text)
+    Regex.match?(~r/^\w/iu, text)
   end
 
   defp starts_with_capitalized_letter?(""), do: false

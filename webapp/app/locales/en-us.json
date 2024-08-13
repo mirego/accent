@@ -772,7 +772,7 @@
     "lint_translations_page": {
       "empty_text": "No checks warnings or errors. You’re all good!",
       "add_lint_entry": {
-        "ignore_checks_for_term": "Ignore all checks for term",
+        "ignore_checks_for_term": "Accept the term in this project",
         "ignore_spellcheck_rule": "Ignore spellcheck rule",
         "ignore_checks_for_key": "Ignore all checks for key",
         "ignore_check_for_project": "Ignore check for project"

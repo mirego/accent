@@ -31,11 +31,6 @@
           </button>
         {{/if}}
 
-        <button class='button button--white button--filled' {{on 'click' (fn this.create 'KEY' @translation.key)}}>
-          {{t 'components.lint_translations_page.add_lint_entry.ignore_checks_for_key'}}
-          <span local-class='code'>{{@translation.key}}</span>
-        </button>
-
         {{#if this.spellingTermValue}}
           <button class='button button--white button--filled' {{on 'click' (fn this.create 'TERM' this.spellingTermValue)}}>
             {{t 'components.lint_translations_page.add_lint_entry.ignore_checks_for_term'}}
@@ -45,6 +40,11 @@
 
         <button class='button button--white button--filled' {{on 'click' (fn this.create 'ALL' null)}}>
           {{t 'components.lint_translations_page.add_lint_entry.ignore_check_for_project'}}
+          <span local-class='code'>{{@message.check}}</span>
+        </button>
+
+        <button class='button button--white button--filled' {{on 'click' (fn this.create 'KEY' @translation.key)}}>
+          {{t 'components.lint_translations_page.add_lint_entry.ignore_checks_for_key'}}
         </button>
       </div>
     </div>

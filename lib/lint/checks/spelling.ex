@@ -49,22 +49,37 @@ defmodule Accent.Lint.Checks.Spelling do
   defp reject_match?(match, entry, config) do
     error_term = String.slice(entry.value, match["offset"], match["length"])
 
-    Enum.any?(config.lint_entries, fn lint_entry ->
-      cond do
-        "spelling" in lint_entry.check_ids and lint_entry.ignore and lint_entry.type === :term and
-            String.downcase(error_term) === String.downcase(lint_entry.value) ->
-          true
+    match_project_lint_entries = fn ->
+      Enum.any?(config.lint_entries, fn lint_entry ->
+        cond do
+          "spelling" in lint_entry.check_ids and lint_entry.ignore and lint_entry.type === :term and
+              String.downcase(error_term) === String.downcase(lint_entry.value) ->
+            true
 
-        "spelling" in lint_entry.check_ids and lint_entry.ignore and
-          lint_entry.type === :language_tool_rule_id and
-            match["rule"]["id"] === lint_entry.value ->
-          true
+          "spelling" in lint_entry.check_ids and lint_entry.ignore and
+            lint_entry.type === :language_tool_rule_id and
+              match["rule"]["id"] === lint_entry.value ->
+            true
 
-        true ->
-          false
-      end
-    end) or String.match?(error_term, ~r/^,/) or
-      (match["offset"] === 0 and String.starts_with?(entry.value, "{"))
+          true ->
+            false
+        end
+      end)
+    end
+
+    error_term_starts_with_comma = fn -> String.match?(error_term, ~r/^,/) end
+    match_starts_with_brace = fn -> match["offset"] === 0 and String.starts_with?(entry.value, "{") end
+    error_term_is_icu_match = fn -> error_term === "other" and String.at(entry.value, match["offset"] - 2) === "}" end
+
+    Enum.any?(
+      [
+        match_project_lint_entries,
+        error_term_starts_with_comma,
+        match_starts_with_brace,
+        error_term_is_icu_match
+      ],
+      & &1.()
+    )
   end
 
   defp find_replacement(match, entry) do

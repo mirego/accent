@@ -57,7 +57,7 @@
     },
     "revision_selector": {
       "languages_count": "{count, plural, =1 {1 autre langue} other {# autres langues}}",
-      "master": "Principale"
+      "master": "principale"
     },
     "translation_comments_subscriptions": {
       "title": "Notifier les nouveaux messages"
@@ -178,7 +178,7 @@
       "translations_version_notice": "Vous consultez les textes à réviser de la version",
       "correct_all_button": "Marquer toutes les chaînes comme révisées pour cette langue",
       "no_translations": "Aucune chaîne à examiner pour : {query}",
-      "all_reviewed_title": "Tous revus",
+      "all_reviewed_title": "Tous révisés",
       "all_reviewed_subtitle": "Toutes les chaînes ont été marquées comme révisées"
     },
     "dashboard_master_revision": {
@@ -208,7 +208,7 @@
       "last_synced_at_label": "Dernière synchronisation :",
       "master_language_label": "La langue principale est :",
       "never_synced": "Synchroniser le projet pour la première fois",
-      "reviewed": "revu"
+      "reviewed": "révisé"
     },
     "dashboard_navigation": {
       "collaborators_link_title": "Collaborateurs",
@@ -226,8 +226,8 @@
       "slaves": "Traductions",
       "sync": "Synchroniser",
       "strings": "chaînes",
-      "all_reviewed": "Tous revus !",
-      "reviewed": "revu",
+      "all_reviewed": "Tous révisés!",
+      "reviewed": "révisé",
       "activities_title": "Dernières activités",
       "item": {
         "rtl_badge": "RTL",
@@ -243,7 +243,7 @@
       "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
     },
     "versions_list": {
-      "empty_text": "Le versionning vous permet de réviser/exporter/synchroniser les traductions indépendamment de votre projet principal. Cela signifie que la prise en charge des versions précédentes de votre application sera aussi simple que l’ajout de nouvelles fonctionnalités !",
+      "empty_text": "Le versionning vous permet de réviser/exporter/synchroniser les traductions indépendamment de votre projet principal. Cela signifie que la prise en charge des versions précédentes de votre application sera aussi simple que l’ajout de nouvelles fonctionnalités!",
       "export": "Exportation",
       "update": "Éditer"
     },
@@ -292,7 +292,7 @@
     "project_activity": {
       "stats_label": "Activités réalisées :",
       "overview_label": "Aperçu:",
-      "review_label": "A été revu ?",
+      "review_label": "A été révisé?",
       "reviewed_yes": "Oui",
       "reviewed_no": "Non",
       "last_synced_text_label": "Dernier texte synchronisé :",
@@ -420,7 +420,7 @@
         "badges_text": "Aperçu rapide des statistiques du projet, intégrées dans les images",
         "api_token": "Jetons d’API",
         "api_token_text": "Intégrez le flux de travail Accent avec les requêtes CLI ou API simples",
-        "service_integrations": "Service & intégrations",
+        "service_integrations": "Service et intégrations",
         "service_integrations_text": "Notifier et interagir avec des systèmes externes en fonction des événements Accent",
         "manage_languages": "Gérer les langues",
         "manage_languages_text": "Ajouter/supprimer des langues traduites dans le projet",
@@ -443,7 +443,7 @@
         "delete_project_title": "Supprimer ce projet",
         "delete_project_text": "Une fois que vous avez supprimé un projet, il n’y a plus de retour en arrière.",
         "delete_project_button": "Supprimer ce projet",
-        "delete_project_confirm": "Voulez-vous vraiment supprimer ce projet ? Cette action ne peut pas être annulée."
+        "delete_project_confirm": "Voulez-vous vraiment supprimer ce projet? Cette action ne peut pas être annulée."
       },
       "form": {
         "update_button": "Projet de mise à jour",
@@ -471,7 +471,7 @@
         "title": "Jetons d’API",
         "text_1": "Avec ce jeton, vous pouvez effectuer des appels authentifiés à l’API d’Accent. Tous les tokens ont les permissions ’bot’ : synchroniser et ajouter des traductions. Vous pouvez spécifier des autorisations personnalisées pour avoir des jetons plus précis dans votre projet. Définissez le jeton sur <code>ACCENT_API_KEY</code> dans vos workflows d’actions GitHub à authentifier à l’aide d’accent-cli.",
         "revoke_button": "Révoquer",
-        "revoke_confirm": "Voulez-vous vraiment révoquer le jeton ? Cette opération ne peut pas être annulée.",
+        "revoke_confirm": "Voulez-vous vraiment révoquer le jeton? Cette opération ne peut pas être annulée.",
         "inserted_at": "Créé:",
         "create_title": "Ajouter un nouveau jeton d’API",
         "create_button": "Créer",
@@ -517,7 +517,7 @@
         "uninvite_button": "Supprimer l’invitation"
       },
       "integrations": {
-        "title": "Service & intégrations",
+        "title": "Service et intégrations",
         "help": "Les services sont des intégrations prédéfinies qui effectuent certaines actions lorsque des événements se produisent sur Accent. <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.accent.reviews/guides/service-integrations.html\">Plus d’infos -></a>",
         "save": "Sauver",
         "cancel": "Annuler",
@@ -527,7 +527,7 @@
         "data": {
           "azure_storage_container_sas": "SAS URL",
           "aws_s3_bucket": "Nom du bucket",
-          "aws_s3_path_prefix": "Préfix",
+          "aws_s3_path_prefix": "Préfixe",
           "aws_s3_region": "Région",
           "aws_s3_access_key_id": "Access Key ID",
           "aws_s3_secret_access_key": "Secret Access Key",
@@ -552,13 +552,13 @@
             "text": "Publiez les notifications de votre projet dans Slack"
           }
         },
-        "webhook_url_how": "Comment obtenir une URL de webhook ?",
+        "webhook_url_how": "Comment obtenir une URL de webhook?",
         "events": {
-          "title": "Quels événements souhaitez-vous déclencher ce webhook ?",
+          "title": "Quels événements souhaitez-vous déclencher ce webhook?",
           "options": {
             "sync": "Synchroniser avec n’importe quelles modifications",
             "new_conflicts": "Nouvelles chaîne à réviser",
-            "complete_review": "Le projet est revu à 100%",
+            "complete_review": "Le projet est révisé à 100%",
             "integration_execute_azure_storage_container": "Fichiers téléversés sur Azure Storage Container"
           }
         },
@@ -569,7 +569,7 @@
             "error": "Une erreur s’est produite lors de la publication sur Azure. Veuillez vérifier vos informations d’identification et réessayer.",
             "push_button": "Publier",
             "bucket": "Nom du bucket",
-            "path_prefix": "Préfix",
+            "path_prefix": "Préfixe",
             "submit_confirm": "La publication de fichiers vers AWS S3 peut remplacer les fichiers existants si vous publiez la dernière version ou une version déjà publiée.",
             "target_version": {
               "label": "Version Cible",
@@ -713,7 +713,7 @@
       "title": "Nouvelle version",
       "text": "La création d’une version crée un instantané de toutes les chaînes actives (révisées ou non) pour être visible avec la certitude qu’il restera intact. Cela peut être utile lors de la maintenance de plusieurs versions de la même application.",
       "error": "Version invalide",
-      "copy_on_update_translation_help": "Chaque fois qu'une traduction dans cette version est mise à jour, le même texte sera appliqué à la traduction source (dernière version). Cela garantira qu'un correctif dans la version sera également présent dans la dernière version sans aucune action requise de la part du développeur ou le traducteur.",
+      "copy_on_update_translation_help": "Chaque fois qu’une traduction dans cette version est mise à jour, le même texte sera appliqué à la traduction source (dernière version). Cela garantira qu’un correctif dans la version sera également présent dans la dernière version sans aucune action requise de la part du développeur ou le traducteur.",
       "copy_on_update_translation_label": "Copie sur mise à jour de la traduction",
       "cancel_button": "Annuler",
       "name_label": "Nom:",
@@ -723,7 +723,7 @@
     "version_update_form": {
       "title": "Version de mise à jour",
       "error": "Version invalide",
-      "copy_on_update_translation_help": "Chaque fois qu'une traduction dans cette version est mise à jour, le même texte sera appliqué à la traduction source (dernière version). Cela garantira qu'un correctif dans la version sera également présent dans la dernière version sans aucune action requise de la part du développeur ou le traducteur.",
+      "copy_on_update_translation_help": "Chaque fois qu’une traduction dans cette version est mise à jour, le même texte sera appliqué à la traduction source (dernière version). Cela garantira qu’un correctif dans la version sera également présent dans la dernière version sans aucune action requise de la part du développeur ou le traducteur.",
       "copy_on_update_translation_label": "Copie sur mise à jour de la traduction",
       "cancel_button": "Annuler",
       "name_label": "Nom:",
@@ -770,9 +770,9 @@
       "versions_link_title": "Versions"
     },
     "lint_translations_page": {
-      "empty_text": "Aucune avertissement ou erreur. Tout est bon!",
+      "empty_text": "Aucun avertissement ou erreur. Tout est bon!",
       "add_lint_entry": {
-        "ignore_checks_for_term": "Ignorer toutes les vérifications pour les mots",
+        "ignore_checks_for_term": "Accepter les mots dans ce projet",
         "ignore_spellcheck_rule": "Ignorer la règle de vérification orthographique",
         "ignore_checks_for_key": "Ignorer toutes les vérifications pour la clé",
         "ignore_check_for_project": "Ignorer la vérification pour le projet"
@@ -828,9 +828,9 @@
       "revision_inserted_at_label": "Créé",
       "revision_deleted_label": "La langue est en cours de suppression de votre projet. Elle disparaîtra automatiquement une fois toutes les opérations propagées dans le système.",
       "master_badge": "principale",
-      "delete_revision_confirm": "Voulez-vous vraiment supprimer cette langue de votre projet ? Cette action ne peut pas être annulée.",
+      "delete_revision_confirm": "Voulez-vous vraiment supprimer cette langue de votre projet? Cette action ne peut pas être annulée.",
       "delete_revision_button": "Supprimer cette langue",
-      "promote_revision_master_confirm": "Voulez-vous vraiment utiliser cette langue comme langue principale de votre projet ?",
+      "promote_revision_master_confirm": "Voulez-vous vraiment utiliser cette langue comme langue principale de votre projet?",
       "promote_revision_master_button": "Utiliser comme principale"
     },
     "revision_export_options": {
@@ -944,9 +944,9 @@
           "LEADING_SPACES": "La chaîne contient des espaces de début",
           "DOUBLE_SPACES": "La chaîne contient des espaces doubles",
           "APOSTROPHE_AS_SINGLE_QUOTE": "Un guillemet simple a été utilisé à la place d’une apostrophe",
-          "FIRST_LETTER_CASE": "La première lettre de traduction ne correspond pas à la casse de la langue principal",
+          "FIRST_LETTER_CASE": "La première lettre de traduction ne correspond pas à la casse de la langue principale",
           "THREE_DOTS_ELLIPSIS": "La chaîne contient trois points au lieu de points de suspension",
-          "SAME_TRAILING_CHARACTER": "La chaîne ne correspond pas au caractère de fin de la langue principal",
+          "SAME_TRAILING_CHARACTER": "La chaîne ne correspond pas au caractère de fin de la langue principale",
           "SPELLING": "La chaîne contient une faute d’orthographe",
           "URL_COUNT": "Le nombre d’URL ne correspond pas à la chaîne principale"
         }
@@ -1141,7 +1141,7 @@
           "translate_error": {
             "unsupported_target": "La chaîne n’a pas pu être traduite : Langue non prise en charge {target}",
             "unsupported_source": "La chaîne n’a pas pu être traduite : Langue non prise en charge {source}",
-            "unsupported_source_and_target": "La chaîne n’a pas pu être traduite : Langues non prise en charge {source} et {target}"
+            "unsupported_source_and_target": "La chaîne n’a pas pu être traduite : Langues non prises en charge {source} et {target}"
           }
         }
       },

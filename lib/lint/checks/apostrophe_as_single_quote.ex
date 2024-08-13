@@ -11,7 +11,9 @@ defmodule Accent.Lint.Checks.ApostropheAsSingleQuote do
   def enabled?, do: true
 
   @impl true
-  def applicable(%{language_slug: slug}, _), do: slug in @applicable_languages
+  def applicable(entry, _) do
+    entry.language_slug in @applicable_languages and not String.match?(entry.value, ~r/MMMM?|YYYY?|HH|AA/i)
+  end
 
   @impl true
   def check(entry, _) do

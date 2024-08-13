@@ -15,14 +15,27 @@
 
 .messages-item {
   display: flex;
-  gap: 4px;
+  gap: 3px;
   align-items: center;
+
+  &:hover,
+  &:focus {
+    .messages-item-actions button {
+      opacity: 1;
+    }
+  }
 }
 
 .messages-item-actions {
   display: flex;
-  gap: 0;
+  gap: 2px;
   align-items: center;
+}
+
+.messages-item-actions button {
+  padding-left: 2px;
+  padding-right: 2px;
+  opacity: 0.6;
 }
 
 .description {

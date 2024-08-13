@@ -22,7 +22,8 @@ export default class LintTranslationsPageAddLintEntry extends Component<Args> {
   }
 
   get spellingTermValue() {
-    if (!this.args.message.offset || !this.args.message.length) return;
+    if (this.args.message.offset == null || this.args.message.length == null)
+      return;
 
     return this.args.message.text.substring(
       this.args.message.offset,
