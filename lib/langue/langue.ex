@@ -11,6 +11,7 @@ defmodule Langue do
                       Langue.Formatter.Json,
                       Langue.Formatter.Rails,
                       Langue.Formatter.SimpleJson,
+                      Langue.Formatter.SimplePhp,
                       Langue.Formatter.Strings,
                       Langue.Formatter.LaravelPhp,
                       Langue.Formatter.GoI18nJson,

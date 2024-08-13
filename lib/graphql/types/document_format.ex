@@ -14,6 +14,7 @@ defmodule Accent.GraphQL.Types.DocumentFormat do
     value(:java_properties_xml, as: "java_properties_xml")
     value(:csv, as: "csv")
     value(:laravel_php, as: "laravel_php")
+    value(:simple_php, as: "simple_php")
     value(:go_i18n_json, as: "go_i18n_json")
     value(:xliff_1_2, as: "xliff_1_2")
     value(:resx_2_0, as: "resx_2_0")

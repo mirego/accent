@@ -1,16 +1,18 @@
-defmodule Langue.Formatter.LaravelPhp.Serializer do
+defmodule Langue.Formatter.SimplePhp.Serializer do
   @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
   alias Langue.Utils.NestedSerializerHelper
 
-  def serialize(%{entries: entries, language: language}) do
+  def serialize(%{entries: entries}) do
     render =
-      %{language.slug => entries}
-      |> Enum.with_index(-1)
-      |> Enum.map(&NestedSerializerHelper.map_value(elem(&1, 0), elem(&1, 1)))
-      |> hd()
-      |> elem(1)
+      entries
+      |> Enum.map(fn entry ->
+        {
+          entry.key,
+          NestedSerializerHelper.entry_value_to_string(entry.value, entry.value_type)
+        }
+      end)
       |> PhpAssocMap.from_tuple({:spaces, 2})
 
     render =
