@@ -10,7 +10,7 @@ defmodule Accent.Repo.Migrations.AlterOperationsTranslationIdConstraint do
 
     execute("""
     ALTER TABLE operations
-    ADD CONSTRAINT "operations_translation_id_fkey" FOREIGN KEY ("translation_id") REFERENCES "public"."translations"("id") DEFERRABLE INITIALLY DEFERRED
+    ADD CONSTRAINT "operations_translation_id_fkey" FOREIGN KEY ("translation_id") REFERENCES "translations"("id") DEFERRABLE INITIALLY DEFERRED
     """)
   end
 
@@ -22,7 +22,7 @@ defmodule Accent.Repo.Migrations.AlterOperationsTranslationIdConstraint do
 
     execute("""
     ALTER TABLE operations
-    ADD CONSTRAINT "operations_translation_id_fkey" FOREIGN KEY ("translation_id") REFERENCES "public"."translations"("id")
+    ADD CONSTRAINT "operations_translation_id_fkey" FOREIGN KEY ("translation_id") REFERENCES "translations"("id")
     """)
   end
 end
