@@ -38,7 +38,7 @@ jobs:
             priv/plts
           key: ${{ runner.os }}-mix-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-${{ hashFiles(format('{0}/mix.lock', github.workspace)) }}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: .tool-versions
           cache: npm
