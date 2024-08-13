@@ -16,6 +16,7 @@ defmodule Langue.Formatter.LaravelPhp.Serializer do
     render =
       """
       <?php
+
       return #{render};
       """
 

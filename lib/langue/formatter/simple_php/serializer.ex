@@ -18,6 +18,7 @@ defmodule Langue.Formatter.SimplePhp.Serializer do
     render =
       """
       <?php
+
       return #{render};
       """
 

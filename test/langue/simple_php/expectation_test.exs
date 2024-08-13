@@ -9,6 +9,7 @@ defmodule LangueTest.Formatter.SimplePhp.Expectation do
     def render do
       """
       <?php
+
       return [
         'a'=>'Test',
         'b.c'=>'Not nested'
