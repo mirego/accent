@@ -77,7 +77,7 @@ defmodule Accent.Mixfile do
 
       # Utils
       {:jsone, "~> 1.4"},
-      {:mochiweb, "~> 2.18"},
+      {:mochiweb, "~> 3.0"},
       {:httpoison, "~> 1.1"},
       {:gettext, "~> 0.20.0"},
       {:csv, "~> 2.0"},
