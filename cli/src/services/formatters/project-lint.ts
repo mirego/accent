@@ -4,7 +4,7 @@ import {LintTranslation} from '../../types/lint-translation';
 import Base from './base';
 
 // Constants
-const MAX_TEXT_SIZE = 30;
+const MAX_TEXT_SIZE = 100;
 
 // Types
 interface Stats {
@@ -39,7 +39,6 @@ export default class ProjectLintFormatter extends Base {
 
       this.lintTranslations.forEach((lintTranslation: LintTranslation) => {
         console.log(
-          '  ',
           chalk.white.bold(lintTranslation.key),
           chalk.gray.dim.underline(`${lintTranslation.path}`)
         );
@@ -49,17 +48,13 @@ export default class ProjectLintFormatter extends Base {
         if (message.text.length > MAX_TEXT_SIZE)
           displayMessage = `${displayMessage}…`;
 
-        console.log('  ', chalk.white.italic(displayMessage));
+                lintTranslation.messages.forEach((message: any) => {
+                  const formattedMessage = this.formatMessageCheck(message.check);
+                  console.log(chalk.red(formattedMessage));
+                });
 
-        const messagesLength = lintTranslation.messages.map((message: any) => {
-          const formattedMessage = this.formatMessageCheck(message.check);
-          console.log('   ', chalk.red('•'), formattedMessage);
-          return formattedMessage.length;
-        });
+        console.log(chalk.white.italic(displayMessage));
 
-        const maxMessageLength = Math.max(...messagesLength);
-
-        console.log('  ', chalk.gray.dim('⎯'.repeat(maxMessageLength + 2)));
         console.log('');
       });
 
