@@ -40,7 +40,7 @@ accent-cli reads from a `accent.json` file. The file should contain valid JSON r
   "apiKey": "2nziVSaa8yUJxLkwoZA",
   "version": {
     "branchVersionPrefix": "release/"
-  }
+  },
   "files": [
     {
       "format": "json",
