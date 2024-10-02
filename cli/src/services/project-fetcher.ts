@@ -115,7 +115,8 @@ export default class ProjectFetcher {
       body: JSON.stringify({query, variables}),
       headers: {
         'Content-Type': 'application/json',
-        authorization: `Bearer ${config.apiKey}`
+        authorization: `Bearer ${config.apiKey}`,
+        ...(config.extraHeaders ? config.extraHeaders : {})
       },
       method: 'POST'
     });
