@@ -48,10 +48,10 @@ export default class ProjectLintFormatter extends Base {
         if (message.text.length > MAX_TEXT_SIZE)
           displayMessage = `${displayMessage}…`;
 
-                lintTranslation.messages.forEach((message: any) => {
-                  const formattedMessage = this.formatMessageCheck(message.check);
-                  console.log(chalk.red(formattedMessage));
-                });
+        lintTranslation.messages.forEach((message: any) => {
+          const formattedMessage = this.formatMessageCheck(message.check);
+          console.log(chalk.red(formattedMessage));
+        });
 
         console.log(chalk.white.italic(displayMessage));
 
