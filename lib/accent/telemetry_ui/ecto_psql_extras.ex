@@ -113,9 +113,9 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
 
       {:safe,
        """
-       <details class="relative flex flex-col bg-white dark:bg-black/40 text-slate dark:text-white p-3 pt-2 shadow">
-         <summary class="flex items-baseline gap-2 text-base opacity-80 cursor-pointer">
-            <h2>#{metric.title}</h2>
+       <details class="relative flex flex-col bg-white dark:bg-black/40 text-slate dark:text-white p-2 border">
+         <summary class="text-base opacity-80 cursor-pointer">
+            <h2 class="inline">#{metric.title}</h2>
          </summary>
 
          <table class="mt-2" style='font-size: 11px; overflow-x: scroll; width: 100%; border: 1px solid color-mix(in srgb, currentColor 10%, transparent); border-bottom: 0;'>
