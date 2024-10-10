@@ -1,3 +1,8 @@
+.conflicts-wrapper {
+  overflow-x: auto;
+  --group-columns-width: 260px;
+}
+
 .conflicts-header {
   position: sticky;
   padding: 14px 0 0 15px;
@@ -36,6 +41,7 @@
 
 .conflicts-header-item {
   padding-bottom: 10px;
+  min-width: var(--group-columns-width);
 }
 
 .conflicts-header-item-slug {

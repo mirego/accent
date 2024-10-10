@@ -49,7 +49,7 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
         proposed_text: "bar"
       )
 
-    {:ok, result} = Resolver.lint_batched_translation(translation, %{}, context)
+    {:ok, result} = Resolver.lint_batched_translation(translation, %{}, [])
 
     assert result === [
              %Message{

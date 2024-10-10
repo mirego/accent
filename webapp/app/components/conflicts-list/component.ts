@@ -6,6 +6,7 @@ interface Args {
   permissions: Record<string, true>;
   project: any;
   groupedTranslations: any;
+  groupedRevisions: any;
   version: any;
   versions: any[];
   query: any;
@@ -30,25 +31,13 @@ export default class ConflictsList extends Component<Args> {
     );
   }
 
-  get revisions() {
-    if (this.args.groupedTranslations.length === 0) return [];
-
-    return this.args.groupedTranslations[0].translations.map(
-      ({revision}: any) => revision
-    );
-  }
-
   get mappedRevisions() {
-    if (this.args.groupedTranslations.length === 0) return [];
-
-    return this.args.groupedTranslations[0].translations.map(
-      ({revision}: any) => {
-        return {
-          name: revision.name || revision.language.name,
-          slug: revision.slug || revision.language.slug
-        };
-      }
-    );
+    return this.args.groupedRevisions.map((revision: any) => {
+      return {
+        name: revision.name || revision.language.name,
+        slug: revision.slug || revision.language.slug
+      };
+    });
   }
 
   @action

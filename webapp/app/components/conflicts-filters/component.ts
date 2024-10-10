@@ -88,9 +88,13 @@ export default class ConflictsFilters extends Component<Args> {
       );
     }
 
-    return this.mappedRevisions.filter(({value}: {value: string}) =>
-      this.args.relatedRevisions?.includes(value)
-    );
+    return this.args.relatedRevisions
+      ?.map((relatedValue: string) => {
+        return this.mappedRevisions.find(
+          ({value}: {value: string}) => value === relatedValue
+        );
+      })
+      .filter(Boolean);
   }
 
   get mappedRevisionsOptions() {

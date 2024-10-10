@@ -38,6 +38,7 @@
 
 .item-grid-item {
   --border-color: var(--background-light-highlight);
+  min-width: var(--group-columns-width);
   position: relative;
   padding: 0;
   border-left: 2px solid var(--border-color);
@@ -84,6 +85,7 @@
 .item-key {
   position: sticky;
   top: 46px;
+  left: 0;
   display: inline-flex;
   align-items: flex-start;
   gap: 5px;

@@ -19,7 +19,7 @@ defmodule Accent.GraphQL.Types.Translation do
   end
 
   object :grouped_translation do
-    field(:key, non_null(:string))
+    field(:key, non_null(:string), resolve: &Accent.GraphQL.Resolvers.Translation.key/3)
     field(:document, non_null(:document), resolve: &Accent.GraphQL.Resolvers.Translation.batch_document/3)
 
     field(:translations, non_null(list_of(non_null(:translation))),
@@ -130,8 +130,8 @@ defmodule Accent.GraphQL.Types.Translation do
   end
 
   object :grouped_translations do
-    field(:meta, :pagination_meta)
-    field(:entries, list_of(:grouped_translation))
+    field(:meta, non_null(:pagination_meta))
+    field(:entries, non_null(list_of(non_null(:grouped_translation))))
     field(:revisions, non_null(list_of(non_null(:revision))))
   end
 end

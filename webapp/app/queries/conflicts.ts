@@ -76,6 +76,15 @@ export default gql`
 
           revisions {
             id
+            isMaster
+            slug
+            name
+
+            language {
+              id
+              slug
+              name
+            }
           }
 
           entries {

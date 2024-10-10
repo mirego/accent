@@ -32,6 +32,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
 
   def batch_translation_ids(grouped_translation, _args, _resolution) do
     ids = Enum.reject(grouped_translation.translation_ids, &is_nil/1)
+    index_map = grouped_translation.revision_ids |> Enum.with_index() |> Map.new()
 
     batch(
       {__MODULE__, :from_translation_ids},
@@ -41,12 +42,8 @@ defmodule Accent.GraphQL.Resolvers.Translation do
           Map.get(batch_results, {grouped_translation.key, grouped_translation.document_id}, [])
 
         translations =
-          Enum.sort(translations, fn a, b ->
-            cond do
-              a.revision.master == true -> true
-              DateTime.compare(a.revision.inserted_at, b.revision.inserted_at) === :lt -> true
-              true -> false
-            end
+          Enum.sort_by(translations, fn translation ->
+            Map.get(index_map, translation.revision_id)
           end)
 
         {:ok, translations}
@@ -193,12 +190,13 @@ defmodule Accent.GraphQL.Resolvers.Translation do
       |> Repo.all()
       |> Enum.count()
 
-    translations =
-      Translation
-      |> list_grouped(args, project.id)
-      |> Paginated.paginate(args, total_entries: total_entries)
+    {translations_query, revision_ids} =
+      list_grouped(Translation, args, project.id)
 
+    translations = Paginated.paginate(translations_query, args, total_entries: total_entries)
+    translations = %{translations | entries: put_in(translations.entries, [Access.all(), :revision_ids], revision_ids)}
     revisions = grouped_related_revisions(Map.put(args, :project_id, project.id))
+    revisions = Enum.map(revision_ids, fn revision_id -> Enum.find(revisions, &(&1.id === revision_id)) end)
 
     {:ok, Map.put(Paginated.format(translations), :revisions, revisions)}
   end
@@ -258,15 +256,14 @@ defmodule Accent.GraphQL.Resolvers.Translation do
         Query.from(
           revisions in Revision,
           where: revisions.project_id == ^args[:project_id],
-          order_by: [asc: :inserted_at],
+          order_by: [desc: :master, asc: :inserted_at],
           limit: 2
         )
       else
         Query.from(
           revisions in Revision,
           where: revisions.id in ^args[:related_revisions],
-          order_by: [asc: :inserted_at],
-          limit: 2
+          order_by: [asc: :inserted_at]
         )
       end
 
@@ -341,13 +338,16 @@ defmodule Accent.GraphQL.Resolvers.Translation do
         group_by: [translations.key, translations.document_id]
       )
 
-    if args[:is_conflicted] do
-      Query.from([related_translations: related_translations] in query,
-        having: fragment("array_agg(distinct(?))", related_translations.conflicted) != [false]
-      )
-    else
-      query
-    end
+    query =
+      if args[:is_conflicted] do
+        Query.from([related_translations: related_translations] in query,
+          having: fragment("array_agg(distinct(?))", related_translations.conflicted) != [false]
+        )
+      else
+        query
+      end
+
+    {query, revision_ids}
   end
 
   defp list(schema, args, project_id) do

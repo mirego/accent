@@ -18,17 +18,16 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   end
 
   @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) :: {:middleware, Absinthe.Middleware.Batch, any()}
-  def lint_translation(translation, args, resolution) do
-    batch({__MODULE__, :preload_translations}, translation, fn batch_results ->
+  def lint_translation(translation, args, _resolution) do
+    batch({__MODULE__, :preload_translations}, translation, fn {batch_results, lint_entries} ->
       translation = Map.get(batch_results, translation.id)
-      lint_batched_translation(translation, args, resolution)
+      lint_batched_translation(translation, args, lint_entries)
     end)
   end
 
-  def lint_batched_translation(translation, args, _) do
+  def lint_batched_translation(translation, args, lint_entries) do
     translation = overwrite_text_args(translation, args)
     language_slug = translation.revision.slug || translation.revision.language.slug
-    lint_entries = Repo.all(Ecto.assoc(translation, [:project, :lint_entries]))
 
     entry =
       Translation.to_langue_entry(
@@ -66,12 +65,17 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       |> Repo.all()
       |> Map.new(&{{&1.key, &1.document_id}, &1})
 
-    Enum.reduce(translations, %{}, fn translation, acc ->
-      master_translation =
-        Map.get(master_translations, {translation.key, translation.document_id})
+    translations =
+      Enum.reduce(translations, %{}, fn translation, acc ->
+        master_translation =
+          Map.get(master_translations, {translation.key, translation.document_id})
 
-      Map.put(acc, translation.id, %{translation | master_translation: master_translation})
-    end)
+        Map.put(acc, translation.id, %{translation | master_translation: master_translation})
+      end)
+
+    lint_entries = Repo.all(Ecto.assoc(project, [:lint_entries]))
+
+    {translations, lint_entries}
   end
 
   defp overwrite_text_args(translation, %{text: text}) when is_binary(text) do

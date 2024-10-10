@@ -6,42 +6,46 @@
   </div>
 {{/if}}
 
-<ul local-class='conflicts-header' style='--group-columns-count: {{this.revisions.length}};'>
-  {{#each this.mappedRevisions as |revision|}}
-    <li local-class='conflicts-header-item'>
-      {{revision.name}}
-      <span local-class='conflicts-header-item-slug'>
-        {{revision.slug}}
-      </span>
-    </li>
-  {{/each}}
-</ul>
+<div local-class='conflicts-wrapper' style='--group-columns-count: {{@groupedRevisions.length}};'>
+  {{#if @groupedTranslations}}
+    <ul local-class='conflicts-header'>
+      {{#each this.mappedRevisions as |revision|}}
+        <li local-class='conflicts-header-item'>
+          {{revision.name}}
+          <span local-class='conflicts-header-item-slug'>
+            {{revision.slug}}
+          </span>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
 
-<ul local-class='conflicts-items' style='--group-columns-count: {{this.revisions.length}};'>
-  {{#each @groupedTranslations key='id' as |groupedTranslation index|}}
-    <ConflictsList::Group
-      @index={{index}}
-      @permissions={{@permissions}}
-      @project={{@project}}
-      @prompts={{@prompts}}
-      @groupedTranslation={{groupedTranslation}}
-      @onCorrect={{@onCorrect}}
-      @onUncorrect={{@onUncorrect}}
-      @onUpdate={{@onUpdate}}
-      @selectedTranslationId={{this.selectedTranslationId}}
-      @onFocus={{this.handleFocus}}
-    />
-  {{else}}
-    <div local-class='all-reviewed'>
-      <img local-class='all-reviewed-image' src='/assets/all-reviewed-splash.svg' />
+  <ul local-class='conflicts-items'>
+    {{#each @groupedTranslations key='id' as |groupedTranslation index|}}
+      <ConflictsList::Group
+        @index={{index}}
+        @permissions={{@permissions}}
+        @project={{@project}}
+        @prompts={{@prompts}}
+        @groupedTranslation={{groupedTranslation}}
+        @onCorrect={{@onCorrect}}
+        @onUncorrect={{@onUncorrect}}
+        @onUpdate={{@onUpdate}}
+        @selectedTranslationId={{this.selectedTranslationId}}
+        @onFocus={{this.handleFocus}}
+      />
+    {{else}}
+      <div local-class='all-reviewed'>
+        <img local-class='all-reviewed-image' src='/assets/all-reviewed-splash.svg' />
 
-      <div local-class='all-reviewed-title'>
-        {{t 'components.conflicts_list.all_reviewed_title'}}
+        <div local-class='all-reviewed-title'>
+          {{t 'components.conflicts_list.all_reviewed_title'}}
+        </div>
+
+        <div local-class='all-reviewed-subtitle'>
+          {{t 'components.conflicts_list.all_reviewed_subtitle'}}
+        </div>
       </div>
-
-      <div local-class='all-reviewed-subtitle'>
-        {{t 'components.conflicts_list.all_reviewed_subtitle'}}
-      </div>
-    </div>
-  {{/each}}
-</ul>
+    {{/each}}
+  </ul>
+</div>
