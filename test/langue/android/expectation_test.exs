@@ -1,10 +1,11 @@
 defmodule LangueTest.Formatter.Android.Expectation do
   @moduledoc false
   alias Langue.Entry
+  alias Langue.Expectation.Case
 
   defmodule Simple do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -26,7 +27,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule Plural do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -71,7 +72,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule EmptyValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -91,7 +92,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule UnsupportedTag do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -109,7 +110,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule RuntimeError do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -125,7 +126,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule Commented do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -154,7 +155,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule Array do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -183,7 +184,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule StringsFormatEscape do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -211,7 +212,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule ValueEscaping do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -231,7 +232,7 @@ defmodule LangueTest.Formatter.Android.Expectation do
 
   defmodule PlaceholderValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """

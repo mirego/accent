@@ -1,10 +1,11 @@
 defmodule LangueTest.Formatter.Gettext.Expectation do
   @moduledoc false
   alias Langue.Entry
+  alias Langue.Expectation.Case
 
   defmodule Simple do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -67,7 +68,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule Pluralization do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -114,7 +115,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule DotKeys do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -136,7 +137,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule LanguageHeader do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -164,7 +165,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule PluralFormsHeader do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -192,7 +193,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule NewLines do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -212,7 +213,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule EmptyComment do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -230,7 +231,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule PlaceholderValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -278,7 +279,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule HeaderLineBreak do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -324,7 +325,7 @@ defmodule LangueTest.Formatter.Gettext.Expectation do
 
   defmodule ContextValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """

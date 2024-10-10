@@ -2,15 +2,16 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
   @moduledoc false
 
   alias Accent.Hook
+  alias Accent.IntegrationManager.Execute.UploadDocuments
 
   def upload_translations(integration, user, params) do
-    {uploads, version_tag} = Accent.IntegrationManager.Execute.UploadDocuments.all(integration, params)
+    {uploads, version_tag} = UploadDocuments.all(integration, params)
 
     uri = URI.parse(integration.data.azure_storage_container_sas)
 
     document_urls =
       for upload <- uploads do
-        {url, document_name} = Accent.IntegrationManager.Execute.UploadDocuments.url(upload, uri, version_tag)
+        {url, document_name} = UploadDocuments.url(upload, uri, version_tag)
         HTTPoison.put(url, {:file, upload.file}, [{"x-ms-blob-type", "BlockBlob"}])
 
         %{name: document_name, url: url}

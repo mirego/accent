@@ -2,11 +2,11 @@ import Config
 
 version = Mix.Project.config()[:version]
 
+config :accent, Accent.Repo, start_apps_before_migration: [:ssl], stacktrace: true
+
 config :accent,
   ecto_repos: [Accent.Repo],
   version: version
-
-config :accent, Accent.Repo, start_apps_before_migration: [:ssl], stacktrace: true
 
 if config_env() == :dev do
   config :accent, Accent.Repo, log: false
@@ -24,6 +24,8 @@ else
     ]
 end
 
+config :absinthe, :schema, Accent.GraphQL.Schema
+
 config :accent, Accent.Endpoint,
   render_errors: [accepts: ~w(json)],
   pubsub_server: Accent.PubSub
@@ -33,8 +35,6 @@ config :accent, Oban,
   queues: [hook: 10, operations: 10],
   repo: Accent.Repo
 
-config :absinthe, :schema, Accent.GraphQL.Schema
-
 config :canary,
   repo: Accent.Repo,
   unauthorized_handler: {Accent.ErrorController, :handle_unauthorized},
@@ -42,13 +42,13 @@ config :canary,
 
 config :phoenix, :json_library, Jason
 
-config :tesla,
-  auth_enabled: true,
-  adapter: Tesla.Adapter.Hackney
-
 config :sentry,
   before_send_event: {Accent.Sentry, :before_send},
   release: version
+
+config :tesla,
+  auth_enabled: true,
+  adapter: Tesla.Adapter.Hackney
 
 config :ueberauth, Ueberauth, providers: []
 

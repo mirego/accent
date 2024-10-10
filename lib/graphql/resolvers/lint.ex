@@ -2,6 +2,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   @moduledoc false
   import Absinthe.Resolution.Helpers, only: [batch: 3]
 
+  alias Absinthe.Middleware.Batch
   alias Accent.Plugs.GraphQLContext
   alias Accent.Project
   alias Accent.Repo
@@ -12,12 +13,12 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   require Ecto.Query
 
   @spec create_project_lint_entry(Project.t(), map(), GraphQLContext.t()) ::
-          {:middleware, Absinthe.Middleware.Batch, any()}
+          {:middleware, Batch, any()}
   def create_project_lint_entry(_project, args, _resolution) do
     Accent.Lint.create_lint_entry(args)
   end
 
-  @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) :: {:middleware, Absinthe.Middleware.Batch, any()}
+  @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) :: {:middleware, Batch, any()}
   def lint_translation(translation, args, _resolution) do
     batch({__MODULE__, :preload_translations}, translation, fn {batch_results, lint_entries} ->
       translation = Map.get(batch_results, translation.id)

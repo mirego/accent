@@ -1,10 +1,11 @@
 defmodule LangueTest.Formatter.Rails.Expectation do
   @moduledoc false
   alias Langue.Entry
+  alias Langue.Expectation.Case
 
   defmodule NestedValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -34,7 +35,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
   defmodule UnicodeValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -54,7 +55,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
   defmodule EmptyValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -72,7 +73,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
   defmodule IntegerValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -90,7 +91,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
   defmodule PluralValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -120,7 +121,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
   defmodule ArrayValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -158,7 +159,7 @@ defmodule LangueTest.Formatter.Rails.Expectation do
 
   defmodule PlaceholderValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """

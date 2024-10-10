@@ -29,7 +29,7 @@ defmodule AccentTest.GraphQL.Resolvers.Lint do
     {:ok, [user: user, project: project, revision: revision, context: context]}
   end
 
-  test "lint", %{revision: revision, context: context} do
+  test "lint", %{revision: revision} do
     master_translation =
       Factory.insert(Translation,
         revision: revision,

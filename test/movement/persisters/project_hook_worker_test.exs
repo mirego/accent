@@ -2,6 +2,7 @@ defmodule Movement.Persisters.ProjectHookWorkerTest do
   use Accent.RepoCase, async: true
 
   alias Accent.Document
+  alias Accent.Hook.Outbounds.Mock
   alias Accent.Language
   alias Accent.ProjectCreator
   alias Accent.Repo
@@ -34,7 +35,7 @@ defmodule Movement.Persisters.ProjectHookWorkerTest do
 
     Worker.perform(%Oban.Job{args: args})
 
-    refute_enqueued(worker: Accent.Hook.Outbounds.Mock)
+    refute_enqueued(worker: Mock)
   end
 
   test "new_conflicts", %{user: user, project: project, revision: revision, document: document} do
@@ -60,7 +61,7 @@ defmodule Movement.Persisters.ProjectHookWorkerTest do
     Worker.perform(%Oban.Job{args: args})
 
     assert_enqueued(
-      worker: Accent.Hook.Outbounds.Mock,
+      worker: Mock,
       args: %{
         "event" => "new_conflicts",
         "payload" => %{
@@ -97,7 +98,7 @@ defmodule Movement.Persisters.ProjectHookWorkerTest do
     Worker.perform(%Oban.Job{args: args})
 
     assert_enqueued(
-      worker: Accent.Hook.Outbounds.Mock,
+      worker: Mock,
       args: %{
         "event" => "complete_review",
         "payload" => %{

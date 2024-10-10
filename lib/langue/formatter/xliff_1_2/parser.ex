@@ -3,6 +3,7 @@ defmodule Langue.Formatter.XLIFF12.Parser do
   @behaviour Langue.Formatter.Parser
 
   alias Langue.Entry
+  alias Langue.Formatter.ParserResult
   alias Langue.Utils.Placeholders
 
   def parse(%{render: render}) do
@@ -17,10 +18,10 @@ defmodule Langue.Formatter.XLIFF12.Parser do
           |> Enum.reject(&is_nil/1)
           |> Placeholders.parse(Langue.Formatter.XLIFF12.placeholder_regex())
 
-        %Langue.Formatter.ParserResult{entries: entries}
+        %ParserResult{entries: entries}
 
       _ ->
-        Langue.Formatter.ParserResult.empty()
+        ParserResult.empty()
     end
   end
 

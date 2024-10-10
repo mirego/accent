@@ -8,6 +8,7 @@ defmodule AccentTest.RevisionDeleter do
   alias Accent.Repo
   alias Accent.Revision
   alias Accent.RevisionManager
+  alias Accent.Revisions.DeleteWorker
   alias Accent.Translation
 
   setup do
@@ -43,7 +44,7 @@ defmodule AccentTest.RevisionDeleter do
   test "delete operations", %{slave_revision: revision} do
     operation = Factory.insert(Operation, action: "new", key: "a", revision_id: revision.id)
 
-    Accent.Revisions.DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
+    DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
 
     assert Repo.get(Operation, operation.id) == nil
   end
@@ -51,7 +52,7 @@ defmodule AccentTest.RevisionDeleter do
   test "delete translations", %{slave_revision: revision} do
     translation = Factory.insert(Translation, key: "a", revision_id: revision.id)
 
-    Accent.Revisions.DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
+    DeleteWorker.perform(%Oban.Job{args: %{"revision_id" => revision.id}})
 
     assert Repo.get(Translation, translation.id) == nil
   end

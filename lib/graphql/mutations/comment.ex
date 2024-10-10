@@ -5,6 +5,7 @@ defmodule Accent.GraphQL.Mutations.Comment do
   import Accent.GraphQL.Helpers.Authorization
 
   alias Accent.GraphQL.Resolvers.Comment, as: CommentResolver
+  alias Accent.GraphQL.Resolvers.TranslationCommentSubscription
 
   object :comment_mutations do
     field :create_comment, :mutated_comment do
@@ -34,7 +35,7 @@ defmodule Accent.GraphQL.Mutations.Comment do
       resolve(
         translation_authorize(
           :create_translation_comments_subscription,
-          &Accent.GraphQL.Resolvers.TranslationCommentSubscription.create/3
+          &TranslationCommentSubscription.create/3
         )
       )
     end
@@ -45,7 +46,7 @@ defmodule Accent.GraphQL.Mutations.Comment do
       resolve(
         translation_comment_subscription_authorize(
           :delete_translation_comments_subscription,
-          &Accent.GraphQL.Resolvers.TranslationCommentSubscription.delete/3
+          &TranslationCommentSubscription.delete/3
         )
       )
     end

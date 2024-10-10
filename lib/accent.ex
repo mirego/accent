@@ -2,6 +2,8 @@ defmodule Accent do
   @moduledoc false
   use Application
 
+  alias Ueberauth.Strategy.OIDC
+
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
@@ -17,8 +19,8 @@ defmodule Accent do
     ]
 
     children =
-      if Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)[:default_oidc][:client_id],
-        do: [{OpenIDConnect.Worker, Application.get_env(:ueberauth, Ueberauth.Strategy.OIDC)} | children],
+      if Application.get_env(:ueberauth, OIDC)[:default_oidc][:client_id],
+        do: [{OpenIDConnect.Worker, Application.get_env(:ueberauth, OIDC)} | children],
         else: children
 
     if Application.get_env(:sentry, :dsn) do

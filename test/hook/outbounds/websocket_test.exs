@@ -4,6 +4,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
 
   alias Accent.Collaborator
   alias Accent.Comment
+  alias Accent.Hook.Context
   alias Accent.Hook.Outbounds.Websocket
   alias Accent.Language
   alias Accent.Project
@@ -43,7 +44,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
     }
 
     context =
-      to_worker_args(%Accent.Hook.Context{
+      to_worker_args(%Context{
         project_id: project.id,
         user_id: user.id,
         event: "create_comment",
@@ -73,7 +74,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
     }
 
     context =
-      to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "sync", payload: payload})
+      to_worker_args(%Context{project_id: project.id, user_id: user.id, event: "sync", payload: payload})
 
     _ = Websocket.perform(%Oban.Job{args: context})
 
@@ -100,7 +101,7 @@ defmodule AccentTest.Hook.Outbounds.Websocket do
     }
 
     context =
-      to_worker_args(%Accent.Hook.Context{
+      to_worker_args(%Context{
         project_id: project.id,
         user_id: user.id,
         event: "create_collaborator",

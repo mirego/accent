@@ -43,16 +43,20 @@
       {{#unless this.isDeleted}}
         <div local-class='list-item-actions'>
           {{#if (get @permissions 'promote_slave')}}
-            <AsyncButton @loading={{this.isPromoting}} local-class='promoteSlaveButton' class='button--grey button--small' @onClick={{fn this.promoteRevision}}>
+            <AsyncButton
+              @loading={{this.isPromoting}}
+              local-class='promoteSlaveButton'
+              class='button--white button--filled button--small button--borderless'
+              @onClick={{fn this.promoteRevision}}
+            >
               {{inline-svg '/assets/chevron-top.svg' class='button-icon'}}
               {{t 'components.project_manage_languages_overview.promote_revision_master_button'}}
             </AsyncButton>
           {{/if}}
 
           {{#if (get @permissions 'delete_slave')}}
-            <AsyncButton @loading={{this.isDeleting}} class='button--red button--filled button--small' local-class='deleteSlaveButton' @onClick={{fn this.deleteRevision}}>
+            <AsyncButton @loading={{this.isDeleting}} class='button--red button--filled button--iconOnly button--small' @onClick={{fn this.deleteRevision}}>
               {{inline-svg '/assets/x.svg' class='button-icon'}}
-              {{t 'components.project_manage_languages_overview.delete_revision_button'}}
             </AsyncButton>
           {{/if}}
         </div>

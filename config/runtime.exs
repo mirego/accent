@@ -1,6 +1,8 @@
 import Accent.Config
 import Config
 
+alias Ueberauth.Strategy.OIDC
+
 port = get_env("PORT", :integer) || 4000
 canonical_uri = get_env("CANONICAL_URL", :uri) || parse_env("http://localhost:#{port}", :uri)
 static_uri = get_env("STATIC_URL", :uri) || canonical_uri
@@ -18,17 +20,17 @@ if config_env() === :test do
     force_ssl: false,
     restricted_domain: nil
 else
-  config :accent,
-    canonical_host: get_uri_part(canonical_uri, :host),
-    force_ssl: get_uri_part(canonical_uri, :scheme) === "https",
-    restricted_domain: get_env("RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN") || get_env("RESTRICTED_DOMAIN")
-
   config :accent, Accent.Endpoint,
     adapter: Bandit.PhoenixAdapter,
     http: [port: port],
     url: get_endpoint_url_config(canonical_uri),
     static_url: get_endpoint_url_config(static_uri),
     debug_errors: get_env("DEBUG_ERRORS", :boolean)
+
+  config :accent,
+    canonical_host: get_uri_part(canonical_uri, :host),
+    force_ssl: get_uri_part(canonical_uri, :scheme) === "https",
+    restricted_domain: get_env("RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN") || get_env("RESTRICTED_DOMAIN")
 end
 
 if config_env() === :test do
@@ -48,19 +50,6 @@ else
     url: get_env("DATABASE_URL") || "postgres://localhost/accent_development",
     socket_options: if(ecto_ipv6?, do: [:inet6], else: [])
 end
-
-config :accent, Accent.MachineTranslations,
-  default_providers_config: %{
-    "google_translate" => %{"key" => get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")},
-    "deepl" => %{"key" => get_env("DEEPL_TRANSLATIONS_KEY")}
-  }
-
-config :accent, Accent.Prompts,
-  default_providers_config: %{
-    "openai" => %{"key" => get_env("OPENAI_API_KEY")}
-  }
-
-config :accent, LanguageTool, languages: get_env("LANGUAGE_TOOL_LANGUAGES", :comma_separated_list)
 
 providers = []
 
@@ -101,7 +90,7 @@ providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Aut
 
 providers =
   if get_env("OIDC_CLIENT_ID"),
-    do: [{:oidc, {Ueberauth.Strategy.OIDC, [default: [provider: :default_oidc, uid_field: :sub]]}} | providers],
+    do: [{:oidc, {OIDC, [default: [provider: :default_oidc, uid_field: :sub]]}} | providers],
     else: providers
 
 providers =
@@ -109,43 +98,31 @@ providers =
     do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers],
     else: providers
 
-config :ueberauth, Ueberauth, providers: providers
+config :accent, Accent.MachineTranslations,
+  default_providers_config: %{
+    "google_translate" => %{"key" => get_env("GOOGLE_TRANSLATIONS_SERVICE_ACCOUNT_KEY")},
+    "deepl" => %{"key" => get_env("DEEPL_TRANSLATIONS_KEY")}
+  }
 
-config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-  client_id: get_env("GOOGLE_API_CLIENT_ID"),
-  client_secret: get_env("GOOGLE_API_CLIENT_SECRET")
+config :accent, Accent.Prompts,
+  default_providers_config: %{
+    "openai" => %{"key" => get_env("OPENAI_API_KEY")}
+  }
 
-config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  client_id: get_env("GITHUB_CLIENT_ID"),
-  client_secret: get_env("GITHUB_CLIENT_SECRET")
+config :accent, Accent.WebappView,
+  path: "priv/static/webapp/index.html",
+  sentry_dsn: get_env("WEBAPP_SENTRY_DSN") || "",
+  skip_subresource_integrity: get_env("WEBAPP_SKIP_SUBRESOURCE_INTEGRITY", :boolean)
 
-config :ueberauth, Ueberauth.Strategy.Auth0.OAuth,
-  domain: System.get_env("AUTH0_DOMAIN"),
-  client_id: System.get_env("AUTH0_CLIENT_ID"),
-  client_secret: System.get_env("AUTH0_CLIENT_SECRET")
+config :accent, LanguageTool, languages: get_env("LANGUAGE_TOOL_LANGUAGES", :comma_separated_list)
 
-config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
-  client_id: get_env("GITLAB_CLIENT_ID"),
-  client_secret: get_env("GITLAB_CLIENT_SECRET"),
-  redirect_uri: "#{static_uri}/auth/gitlab/callback",
-  site: get_env("GITLAB_SITE_URL") || "https://gitlab.com",
-  authorize_url: "#{get_env("GITLAB_SITE_URL") || "https://gitlab.com"}/oauth/authorize",
-  token_url: "#{get_env("GITLAB_SITE_URL") || "https://gitlab.com"}/oauth/token"
+config :new_relic_agent,
+  app_name: get_env("NEW_RELIC_APP_NAME"),
+  license_key: get_env("NEW_RELIC_LICENSE_KEY")
 
-config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
-  client_id: get_env("SLACK_CLIENT_ID"),
-  client_secret: get_env("SLACK_CLIENT_SECRET")
+config :tesla, logger_enabled: true
 
-config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
-  client_id: get_env("DISCORD_CLIENT_ID"),
-  client_secret: get_env("DISCORD_CLIENT_SECRET")
-
-config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
-  client_id: get_env("MICROSOFT_CLIENT_ID"),
-  client_secret: get_env("MICROSOFT_CLIENT_SECRET"),
-  tenant_id: get_env("MICROSOFT_TENANT_ID")
-
-config :ueberauth, Ueberauth.Strategy.OIDC,
+config :ueberauth, OIDC,
   default_oidc: [
     fetch_userinfo: true,
     uid_field: get_env("OIDC_UID_FIELD") || "sub",
@@ -157,16 +134,41 @@ config :ueberauth, Ueberauth.Strategy.OIDC,
     scope: get_env("OIDC_SCOPE") || "openid profile email"
   ]
 
-config :accent, Accent.WebappView,
-  path: "priv/static/webapp/index.html",
-  sentry_dsn: get_env("WEBAPP_SENTRY_DSN") || "",
-  skip_subresource_integrity: get_env("WEBAPP_SKIP_SUBRESOURCE_INTEGRITY", :boolean)
+config :ueberauth, Ueberauth, providers: providers
 
-config :tesla, logger_enabled: true
+config :ueberauth, Ueberauth.Strategy.Auth0.OAuth,
+  domain: System.get_env("AUTH0_DOMAIN"),
+  client_id: System.get_env("AUTH0_CLIENT_ID"),
+  client_secret: System.get_env("AUTH0_CLIENT_SECRET")
 
-config :new_relic_agent,
-  app_name: get_env("NEW_RELIC_APP_NAME"),
-  license_key: get_env("NEW_RELIC_LICENSE_KEY")
+config :ueberauth, Ueberauth.Strategy.Discord.OAuth,
+  client_id: get_env("DISCORD_CLIENT_ID"),
+  client_secret: get_env("DISCORD_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: get_env("GITHUB_CLIENT_ID"),
+  client_secret: get_env("GITHUB_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Gitlab.OAuth,
+  client_id: get_env("GITLAB_CLIENT_ID"),
+  client_secret: get_env("GITLAB_CLIENT_SECRET"),
+  redirect_uri: "#{static_uri}/auth/gitlab/callback",
+  site: get_env("GITLAB_SITE_URL") || "https://gitlab.com",
+  authorize_url: "#{get_env("GITLAB_SITE_URL") || "https://gitlab.com"}/oauth/authorize",
+  token_url: "#{get_env("GITLAB_SITE_URL") || "https://gitlab.com"}/oauth/token"
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: get_env("GOOGLE_API_CLIENT_ID"),
+  client_secret: get_env("GOOGLE_API_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.Microsoft.OAuth,
+  client_id: get_env("MICROSOFT_CLIENT_ID"),
+  client_secret: get_env("MICROSOFT_CLIENT_SECRET"),
+  tenant_id: get_env("MICROSOFT_TENANT_ID")
+
+config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
+  client_id: get_env("SLACK_CLIENT_ID"),
+  client_secret: get_env("SLACK_CLIENT_SECRET")
 
 if get_env("SENTRY_DSN") do
   config :sentry,

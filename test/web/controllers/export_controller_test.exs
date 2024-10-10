@@ -307,9 +307,9 @@ defmodule AccentTest.ExportController do
   end
 
   if Langue.Formatter.Rails.enabled?() do
-    alias Accent.Repo
-
     test "export with language overrides", %{conn: conn, project: project, revision: revision} do
+      alias Accent.Repo
+
       revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
       document = Factory.insert(Document, project_id: project.id, path: "test2", format: "rails_yml")
 

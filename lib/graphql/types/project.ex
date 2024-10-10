@@ -6,6 +6,10 @@ defmodule Accent.GraphQL.Types.Project do
   import Accent.GraphQL.Helpers.Authorization
   import Accent.GraphQL.Helpers.Fields
 
+  alias Accent.GraphQL.Resolvers.Activity
+  alias Accent.GraphQL.Resolvers.Document
+  alias Accent.GraphQL.Resolvers.Project
+  alias Accent.GraphQL.Resolvers.Revision
   alias Accent.GraphQL.Resolvers.Translation, as: TranslationResolver
 
   object :projects do
@@ -78,7 +82,7 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :last_activity, :activity do
       arg(:action, :string)
-      resolve(&Accent.GraphQL.Resolvers.Project.last_activity/3)
+      resolve(&Project.last_activity/3)
     end
 
     field(:is_file_operations_locked, non_null(:boolean), resolve: field_alias(:locked_file_operations))
@@ -100,7 +104,7 @@ defmodule Accent.GraphQL.Types.Project do
       arg(:query, :string)
       arg(:revision_id, :id, default_value: nil)
       arg(:check_ids, list_of(non_null(:id)), default_value: [])
-      resolve(project_authorize(:lint, &Accent.GraphQL.Resolvers.Project.lint_translations/3))
+      resolve(project_authorize(:lint, &Project.lint_translations/3))
     end
 
     field :api_tokens, list_of(non_null(:api_token)) do
@@ -133,7 +137,7 @@ defmodule Accent.GraphQL.Types.Project do
     field :document, :document do
       arg(:id, non_null(:id))
 
-      resolve(project_authorize(:show_document, &Accent.GraphQL.Resolvers.Document.show_project/3))
+      resolve(project_authorize(:show_document, &Document.show_project/3))
     end
 
     field :documents, :documents do
@@ -141,7 +145,7 @@ defmodule Accent.GraphQL.Types.Project do
       arg(:page_size, :integer)
       arg(:exclude_empty_translations, :boolean, default_value: true)
 
-      resolve(project_authorize(:index_documents, &Accent.GraphQL.Resolvers.Document.list_project/3))
+      resolve(project_authorize(:index_documents, &Document.list_project/3))
     end
 
     field :grouped_translations, :grouped_translations do
@@ -194,7 +198,7 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(
         project_authorize(
           :index_project_activities,
-          &Accent.GraphQL.Resolvers.Activity.list_project/3
+          &Activity.list_project/3
         )
       )
     end
@@ -215,20 +219,20 @@ defmodule Accent.GraphQL.Types.Project do
     field :activity, :activity do
       arg(:id, non_null(:id))
 
-      resolve(project_authorize(:show_activity, &Accent.GraphQL.Resolvers.Activity.show_project/3))
+      resolve(project_authorize(:show_activity, &Activity.show_project/3))
     end
 
     field :revision, :revision do
       arg(:id, :id)
       arg(:version_id, :id)
 
-      resolve(project_authorize(:show_revision, &Accent.GraphQL.Resolvers.Revision.show_project/3))
+      resolve(project_authorize(:show_revision, &Revision.show_project/3))
     end
 
     field :revisions, list_of(:revision) do
       arg(:version_id, :id)
 
-      resolve(project_authorize(:index_revisions, &Accent.GraphQL.Resolvers.Revision.list_project/3))
+      resolve(project_authorize(:index_revisions, &Revision.list_project/3))
     end
 
     field :versions, :versions do

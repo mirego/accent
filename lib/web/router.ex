@@ -2,10 +2,15 @@ defmodule Accent.Router do
   use Phoenix.Router
   use Sentry.Phoenix.Endpoint
 
+  alias Accent.GraphQL.Schema
+  alias Accent.Plugs.AssignCurrentUser
+  alias Accent.Plugs.BotParamsInjector
+  alias Accent.Plugs.SentryUserContext
+
   pipeline :graphql do
-    plug(Accent.Plugs.AssignCurrentUser)
-    plug(Accent.Plugs.SentryUserContext)
-    plug(Accent.Plugs.BotParamsInjector)
+    plug(AssignCurrentUser)
+    plug(SentryUserContext)
+    plug(BotParamsInjector)
     plug(Accent.Plugs.GraphQLContext)
     plug(Accent.Plugs.GraphQLOperationNameLogger)
   end
@@ -13,19 +18,19 @@ defmodule Accent.Router do
   scope "/graphiql" do
     pipe_through(:graphql)
 
-    forward("/", Absinthe.Plug.GraphiQL, schema: Accent.GraphQL.Schema)
+    forward("/", Absinthe.Plug.GraphiQL, schema: Schema)
   end
 
   scope "/graphql" do
     pipe_through(:graphql)
 
-    forward("/", Absinthe.Plug, schema: Accent.GraphQL.Schema, pipeline: {Accent.GraphQL.Schema, :absinthe_pipeline})
+    forward("/", Absinthe.Plug, schema: Schema, pipeline: {Schema, :absinthe_pipeline})
   end
 
   pipeline :authenticate do
-    plug(Accent.Plugs.AssignCurrentUser)
-    plug(Accent.Plugs.SentryUserContext)
-    plug(Accent.Plugs.BotParamsInjector)
+    plug(AssignCurrentUser)
+    plug(SentryUserContext)
+    plug(BotParamsInjector)
   end
 
   pipeline :browser do

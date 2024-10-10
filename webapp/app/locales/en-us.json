@@ -829,7 +829,6 @@
       "revision_deleted_label": "The language is currently being removed from your project. It will automatically disappear once all operations are propagated in the system.",
       "master_badge": "main",
       "delete_revision_confirm": "Are you sure you want to remove this language from your project? This action cannot be rollbacked.",
-      "delete_revision_button": "Remove this language",
       "promote_revision_master_confirm": "Are you sure you want to use this language as the main language from your project?",
       "promote_revision_master_button": "Use as main"
     },

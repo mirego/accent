@@ -28,7 +28,7 @@ defmodule Accent.ChannelCase do
   setup tags do
     :ok = Sandbox.checkout(Repo)
 
-    unless tags[:async] do
+    if !tags[:async] do
       Sandbox.mode(Repo, {:shared, self()})
     end
 

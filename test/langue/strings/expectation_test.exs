@@ -1,10 +1,11 @@
 defmodule LangueTest.Formatter.Strings.Expectation do
   @moduledoc false
   alias Langue.Entry
+  alias Langue.Expectation.Case
 
   defmodule Simple do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -23,7 +24,7 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
   defmodule EmptyValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -42,7 +43,7 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
   defmodule Commented do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -84,7 +85,7 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
   defmodule Multiline do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -115,7 +116,7 @@ defmodule LangueTest.Formatter.Strings.Expectation do
 
   defmodule PlaceholderValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """

@@ -13,6 +13,7 @@ defmodule AccentTest.MergeController do
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
+  alias Movement.Persisters.ProjectHookWorker
 
   def file(filename \\ "simple.json") do
     %Plug.Upload{content_type: "application/json", filename: filename, path: "test/support/formatter/json/simple.json"}
@@ -64,7 +65,7 @@ defmodule AccentTest.MergeController do
 
     assert response.status == 200
 
-    assert_enqueued(worker: Movement.Persisters.ProjectHookWorker)
+    assert_enqueued(worker: ProjectHookWorker)
 
     merge_on_proposed_operation = Repo.one(from(o in Operation, where: [action: ^"merge_on_proposed"]))
     merge_operation = Repo.one(from(o in Operation, where: [action: ^"merge"]))
@@ -150,7 +151,7 @@ defmodule AccentTest.MergeController do
 
     assert response.status == 200
 
-    assert_enqueued(worker: Movement.Persisters.ProjectHookWorker)
+    assert_enqueued(worker: ProjectHookWorker)
 
     merge_on_corrected_force_operation = Repo.one(from(o in Operation, where: [action: ^"merge_on_corrected_force"]))
     merge_operation = Repo.one(from(o in Operation, where: [action: ^"merge"]))
@@ -195,7 +196,7 @@ defmodule AccentTest.MergeController do
 
     assert response.status == 200
 
-    assert_enqueued(worker: Movement.Persisters.ProjectHookWorker)
+    assert_enqueued(worker: ProjectHookWorker)
 
     merge_on_proposed_operation = Repo.one(from(o in Operation, where: [action: ^"merge_on_proposed"]))
     merge_operation = Repo.one(from(o in Operation, where: [action: ^"merge"]))

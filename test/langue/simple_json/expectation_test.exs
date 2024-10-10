@@ -1,10 +1,11 @@
 defmodule LangueTest.Formatter.SimpleJson.Expectation do
   @moduledoc false
   alias Langue.Entry
+  alias Langue.Expectation.Case
 
   defmodule Empty do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render, do: "{}\n"
     def entries, do: []
@@ -12,7 +13,7 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
   defmodule SimpleParse do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -39,7 +40,7 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
   defmodule SimpleSerialize do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -64,7 +65,7 @@ defmodule LangueTest.Formatter.SimpleJson.Expectation do
 
   defmodule PlaceholderValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """

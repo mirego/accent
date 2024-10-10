@@ -6,6 +6,8 @@ defmodule Accent.GraphQL.Types.Translation do
   import Accent.GraphQL.Helpers.Authorization
   import Accent.GraphQL.Helpers.Fields
 
+  alias Accent.GraphQL.Resolvers.Translation
+
   enum :translation_value_type do
     value(:string, as: "string")
     value(:html, as: "html")
@@ -19,17 +21,15 @@ defmodule Accent.GraphQL.Types.Translation do
   end
 
   object :grouped_translation do
-    field(:key, non_null(:string), resolve: &Accent.GraphQL.Resolvers.Translation.key/3)
-    field(:document, non_null(:document), resolve: &Accent.GraphQL.Resolvers.Translation.batch_document/3)
+    field(:key, non_null(:string), resolve: &Translation.key/3)
+    field(:document, non_null(:document), resolve: &Translation.batch_document/3)
 
-    field(:translations, non_null(list_of(non_null(:translation))),
-      resolve: &Accent.GraphQL.Resolvers.Translation.batch_translation_ids/3
-    )
+    field(:translations, non_null(list_of(non_null(:translation))), resolve: &Translation.batch_translation_ids/3)
   end
 
   object :translation do
     field(:id, non_null(:id))
-    field(:key, non_null(:string), resolve: &Accent.GraphQL.Resolvers.Translation.key/3)
+    field(:key, non_null(:string), resolve: &Translation.key/3)
     field(:value_type, non_null(:translation_value_type))
     field(:plural, non_null(:boolean))
 
@@ -65,7 +65,7 @@ defmodule Accent.GraphQL.Types.Translation do
     end
 
     field(:master_translation, :translation) do
-      resolve(&Accent.GraphQL.Resolvers.Translation.master_translation/3)
+      resolve(&Translation.master_translation/3)
     end
 
     field :comments_subscriptions, list_of(:translation_comments_subscription) do
@@ -109,7 +109,7 @@ defmodule Accent.GraphQL.Types.Translation do
       resolve(
         translation_authorize(
           :index_translation_editions,
-          &Accent.GraphQL.Resolvers.Translation.editions/3
+          &Translation.editions/3
         )
       )
     end
@@ -118,7 +118,7 @@ defmodule Accent.GraphQL.Types.Translation do
       resolve(
         translation_authorize(
           :index_translation_related,
-          &Accent.GraphQL.Resolvers.Translation.related_translations/3
+          &Translation.related_translations/3
         )
       )
     end

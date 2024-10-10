@@ -829,7 +829,6 @@
       "revision_deleted_label": "La langue est en cours de suppression de votre projet. Elle disparaîtra automatiquement une fois toutes les opérations propagées dans le système.",
       "master_badge": "principale",
       "delete_revision_confirm": "Voulez-vous vraiment supprimer cette langue de votre projet? Cette action ne peut pas être annulée.",
-      "delete_revision_button": "Supprimer cette langue",
       "promote_revision_master_confirm": "Voulez-vous vraiment utiliser cette langue comme langue principale de votre projet?",
       "promote_revision_master_button": "Utiliser comme principale"
     },

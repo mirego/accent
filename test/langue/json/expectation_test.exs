@@ -1,10 +1,11 @@
 defmodule LangueTest.Formatter.Json.Expectation do
   @moduledoc false
   alias Langue.Entry
+  alias Langue.Expectation.Case
 
   defmodule Empty do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render, do: "{}\n"
     def entries, do: []
@@ -12,7 +13,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule NilValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -31,7 +32,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule EmptyValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -50,7 +51,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule BooleanValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -71,7 +72,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule FloatValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -90,7 +91,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule IntegerValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -109,7 +110,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule InvalidIntegerValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -128,7 +129,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule DuplicateKey do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -149,7 +150,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule InvalidFloatValue do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -168,7 +169,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule Array do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -199,7 +200,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule Simple do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -222,7 +223,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule Nested do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -251,7 +252,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule Complexe do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """
@@ -360,7 +361,7 @@ defmodule LangueTest.Formatter.Json.Expectation do
 
   defmodule PlaceholderValues do
     @moduledoc false
-    use Langue.Expectation.Case
+    use Case
 
     def render do
       """

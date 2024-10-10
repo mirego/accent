@@ -4,6 +4,7 @@ defmodule Movement.Builders.TranslationUpdate do
 
   alias Accent.Version
   alias Movement.Mappers.Operation, as: OperationMapper
+  alias Movement.Mappers.ValueType
 
   @action "update"
 
@@ -15,7 +16,7 @@ defmodule Movement.Builders.TranslationUpdate do
       do: context
 
   def build(%Movement.Context{assigns: %{translation: translation, text: text}, operations: operations} = context) do
-    value_type = Movement.Mappers.ValueType.from_translation_new_value(translation, text)
+    value_type = ValueType.from_translation_new_value(translation, text)
     operation = OperationMapper.map(@action, translation, %{text: text, value_type: value_type})
 
     copy_version_operation =
@@ -28,7 +29,7 @@ defmodule Movement.Builders.TranslationUpdate do
 
   defp copy_translation_update_to_latest_version(translation, text) do
     source_translation = Accent.Repo.one!(Ecto.assoc(translation, :source_translation))
-    value_type = Movement.Mappers.ValueType.from_translation_new_value(source_translation, text)
+    value_type = ValueType.from_translation_new_value(source_translation, text)
     OperationMapper.map(@action, source_translation, %{text: text, value_type: value_type})
   end
 

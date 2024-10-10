@@ -6,6 +6,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
   alias Accent.Collaborator
   alias Accent.Comment
   alias Accent.CreateCommentEmail
+  alias Accent.Hook.Context
   alias Accent.Hook.Outbounds.Email
   alias Accent.Language
   alias Accent.Project
@@ -39,7 +40,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
     }
 
     context =
-      to_worker_args(%Accent.Hook.Context{
+      to_worker_args(%Context{
         project_id: project.id,
         user_id: user.id,
         event: "create_comment",
@@ -62,7 +63,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
     }
 
     context =
-      to_worker_args(%Accent.Hook.Context{
+      to_worker_args(%Context{
         project_id: project.id,
         user_id: commenter.id,
         event: "create_comment",
@@ -84,7 +85,7 @@ defmodule AccentTest.Hook.Outbounds.Email do
     }
 
     context =
-      to_worker_args(%Accent.Hook.Context{
+      to_worker_args(%Context{
         project_id: project.id,
         user_id: user.id,
         event: "create_collaborator",

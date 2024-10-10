@@ -4,6 +4,8 @@ defmodule Accent.GraphQL.Types.Viewer do
 
   import Accent.GraphQL.Helpers.Authorization
 
+  alias Accent.GraphQL.Resolvers.Project
+
   object :viewer do
     field(:user, :user, resolve: fn user, _, _ -> {:ok, user} end)
 
@@ -21,13 +23,13 @@ defmodule Accent.GraphQL.Types.Viewer do
       arg(:query, :string)
       arg(:node_ids, list_of(non_null(:id)))
 
-      resolve(viewer_authorize(:index_projects, &Accent.GraphQL.Resolvers.Project.list_viewer/3))
+      resolve(viewer_authorize(:index_projects, &Project.list_viewer/3))
     end
 
     field :project, :project do
       arg(:id, :id, default_value: nil)
 
-      resolve(project_authorize(:show_project, &Accent.GraphQL.Resolvers.Project.show_viewer/3))
+      resolve(project_authorize(:show_project, &Project.show_viewer/3))
     end
   end
 end

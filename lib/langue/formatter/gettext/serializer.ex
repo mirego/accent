@@ -2,6 +2,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
   @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
+  alias Gettext.PO.Translation
   alias Langue.Utils.NestedParserHelper
 
   def serialize(%{entries: entries, document: document, language: language}) do
@@ -48,7 +49,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
   defp do_parse_entries({_key, [entry]}) do
     case Regex.named_captures(~r/(?<id>.*)\.__CONTEXT__(?<context>.*)/, entry.key) do
       %{"id" => id, "context" => context} ->
-        %Gettext.PO.Translation{
+        %Translation{
           comments: split_string(entry.comment, []),
           msgid: split_string(id),
           msgstr: split_string(entry.value),
@@ -56,7 +57,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
         }
 
       _ ->
-        %Gettext.PO.Translation{
+        %Translation{
           comments: split_string(entry.comment, []),
           msgid: split_string(entry.key),
           msgstr: split_string(entry.value)

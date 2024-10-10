@@ -3,6 +3,7 @@ defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
   use Accent.RepoCase, async: true
 
   alias Accent.Collaborator
+  alias Accent.GraphQL.Schema
   alias Accent.Integration
   alias Accent.Project
   alias Accent.Repo
@@ -56,7 +57,7 @@ defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
     {:ok, data} =
       Absinthe.run(
         mutation,
-        Accent.GraphQL.Schema,
+        Schema,
         variables: variables,
         context: %{conn: %Plug.Conn{assigns: %{current_user: user}}}
       )
@@ -78,7 +79,7 @@ defmodule AccentTest.GraphQL.Requests.ProjectIntegrations do
     {:ok, data} =
       Absinthe.run(
         mutation,
-        Accent.GraphQL.Schema,
+        Schema,
         variables: variables,
         context: %{conn: %Plug.Conn{assigns: %{current_user: user}}}
       )
