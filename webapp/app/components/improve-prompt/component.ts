@@ -51,7 +51,7 @@ export default class ImprovePrompt extends Component<Args> {
   promptResult: string | null;
 
   @tracked
-  promptResultUnchanged: boolean = true;
+  promptResultUnchanged = true;
 
   @tracked
   promptOpened = false;

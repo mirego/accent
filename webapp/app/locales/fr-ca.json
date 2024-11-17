@@ -13,6 +13,7 @@
       "title": "Améliorer le texte",
       "run": "Instructions d’exécution",
       "accept": "Accepter et fermer",
+      "no_changes": "Aucun changement",
       "flash_messages": {
         "improve_error": "L’instruction n’a pas pu être complété avec le fournisseur externes"
       }

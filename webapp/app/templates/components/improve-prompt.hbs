@@ -35,7 +35,7 @@
 
       {{#if this.promptResult}}
         {{#if this.promptResultUnchanged}}
-          <div local-class='result-text result-text--unchanged'>No changes</div>
+          <div local-class='result-text result-text--unchanged'>{{t 'components.improve_prompt.no_changes'}}</div>
         {{else}}
           <div local-class='result-text'>{{this.promptResult}}</div>
         {{/if}}

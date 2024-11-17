@@ -13,6 +13,7 @@
       "title": "Improve text",
       "run": "Run instruction",
       "accept": "Accept & close",
+      "no_changes": "No changes",
       "flash_messages": {
         "improve_error": "The prompt could not be resolved with the external provider."
       }
