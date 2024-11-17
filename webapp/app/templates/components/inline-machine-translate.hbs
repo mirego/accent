@@ -3,7 +3,8 @@
   title={{@languageSlug}}
   @onClick={{(perform this.submitTask @languageSlug)}}
   @loading={{this.isSubmitting}}
-  class='button button--iconOnly button--borderless button--filled button--white'
+  local-class='button'
+  class='button button--iconOnly button--link button--filled button--white'
 >
   {{inline-svg '/assets/language.svg' class='button-icon'}}
 </AsyncButton>

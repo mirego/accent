@@ -7,7 +7,7 @@
   </strong>
 
   <div local-class='actions'>
-    <LinkTo @route='logged-in.project.edit.prompts.edit' @models={{array @project.id @prompt.id}} class='button button--iconOnly button--filled button--white button--borderless'>
+    <LinkTo @route='logged-in.project.edit.prompts.edit' @models={{array @project.id @prompt.id}} class='button button--iconOnly button--filled button--white button--link'>
       {{inline-svg 'assets/pencil.svg' class='button-icon'}}
     </LinkTo>
     <AsyncButton @onClick={{perform this.deletePrompt}} @loading={{this.deletePrompt.isPending}} class='button button--iconOnly button--borderless button--red button--small'>

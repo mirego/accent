@@ -9,8 +9,9 @@ defmodule Accent.GraphQL.Types.Project do
   alias Accent.GraphQL.Resolvers.Activity
   alias Accent.GraphQL.Resolvers.Document
   alias Accent.GraphQL.Resolvers.Project
+  alias Accent.GraphQL.Resolvers.Prompt
   alias Accent.GraphQL.Resolvers.Revision
-  alias Accent.GraphQL.Resolvers.Translation, as: TranslationResolver
+  alias Accent.GraphQL.Resolvers.Translation
 
   object :projects do
     field(:meta, non_null(:pagination_meta))
@@ -65,20 +66,7 @@ defmodule Accent.GraphQL.Types.Project do
       end
     )
 
-    field(:prompt_config, :prompt_config,
-      resolve: fn project, _, _ ->
-        if project.prompt_config do
-          {:ok,
-           %{
-             provider: project.prompt_config["provider"],
-             use_platform: project.prompt_config["use_platform"] || false,
-             use_config_key: not is_nil(project.prompt_config["config"]["key"])
-           }}
-        else
-          {:ok, nil}
-        end
-      end
-    )
+    field(:prompt_config, :prompt_config, resolve: &Prompt.project_config/3)
 
     field :last_activity, :activity do
       arg(:action, :string)
@@ -165,7 +153,7 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(
         project_authorize(
           :index_translations,
-          &TranslationResolver.list_grouped_project/3
+          &Translation.list_grouped_project/3
         )
       )
     end
@@ -184,7 +172,7 @@ defmodule Accent.GraphQL.Types.Project do
       arg(:is_added_last_sync, :boolean)
       arg(:is_commented_on, :boolean)
 
-      resolve(project_authorize(:index_translations, &TranslationResolver.list_project/3))
+      resolve(project_authorize(:index_translations, &Translation.list_project/3))
     end
 
     field :activities, :activities do
@@ -213,7 +201,7 @@ defmodule Accent.GraphQL.Types.Project do
     field :translation, :translation do
       arg(:id, non_null(:id))
 
-      resolve(project_authorize(:show_translation, &TranslationResolver.show_project/3))
+      resolve(project_authorize(:show_translation, &Translation.show_project/3))
     end
 
     field :activity, :activity do

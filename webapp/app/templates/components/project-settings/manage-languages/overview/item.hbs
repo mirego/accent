@@ -5,12 +5,6 @@
   }}'
 >
   <div local-class='list-item-header'>
-    {{#unless this.isDeleted}}
-      <LinkTo @route='logged-in.project.manage-languages.edit' @models={{array @project.id @revision.id}} local-class='list-item-header-edit'>
-        {{inline-svg 'assets/pencil.svg' local-class='item-edit-icon'}}
-      </LinkTo>
-    {{/unless}}
-
     {{#if this.isDeleted}}
       <span local-class='list-link'>{{this.name}}</span>
     {{else}}
@@ -46,7 +40,7 @@
             <AsyncButton
               @loading={{this.isPromoting}}
               local-class='promoteSlaveButton'
-              class='button--white button--filled button--small button--borderless'
+              class='button--white button--filled button--small button--link'
               @onClick={{fn this.promoteRevision}}
             >
               {{inline-svg '/assets/chevron-top.svg' class='button-icon'}}
@@ -54,8 +48,18 @@
             </AsyncButton>
           {{/if}}
 
+          {{#unless this.isDeleted}}
+            <LinkTo
+              @route='logged-in.project.manage-languages.edit'
+              @models={{array @project.id @revision.id}}
+              class='button button--filled button--white button--link button--iconOnly button--small'
+            >
+              {{inline-svg '/assets/pencil.svg' class='button-icon'}}
+            </LinkTo>
+          {{/unless}}
+
           {{#if (get @permissions 'delete_slave')}}
-            <AsyncButton @loading={{this.isDeleting}} class='button--red button--filled button--iconOnly button--small' @onClick={{fn this.deleteRevision}}>
+            <AsyncButton @loading={{this.isDeleting}} class='button--red button--borderless button--iconOnly button--small' @onClick={{fn this.deleteRevision}}>
               {{inline-svg '/assets/x.svg' class='button-icon'}}
             </AsyncButton>
           {{/if}}

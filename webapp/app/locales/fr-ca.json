@@ -12,7 +12,10 @@
     "improve_prompt": {
       "title": "Améliorer le texte",
       "run": "Instructions d’exécution",
-      "accept": "Accepter et fermer"
+      "accept": "Accepter et fermer",
+      "flash_messages": {
+        "improve_error": "L’instruction n’a pas pu être complété avec le fournisseur externes"
+      }
     },
     "prompt_create_form": {
       "title": "Créer une instruction",
@@ -1134,6 +1137,8 @@
           "revision_correct_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
           "correct_error": "Impossible de marquer la chaîne comme vérifiée",
           "correct_success": "La chaîne a été marquée comme révisée avec succès",
+          "uncorrect_error": "Impossible de marquer la chaîne comme à vérifiée",
+          "uncorrect_success": "La chaîne a été marquée comme à révisée avec succès",
           "update_error": "La chaîne n’a pas pu être mise à jour",
           "update_success": "La chaîne a été mise à jour avec succès",
           "translate_provider_error": "La chaîne n’a pas pu être traduite : {provider}",

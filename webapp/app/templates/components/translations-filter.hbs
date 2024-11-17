@@ -8,6 +8,7 @@
           <input
             local-class='input'
             type='text'
+            {{did-insert (fn this.autofocus)}}
             placeholder={{t 'components.translations_filter.input_placeholder_text'}}
             value={{this.debouncedQuery}}
             {{on-key 'Enter' (fn this.submitForm)}}

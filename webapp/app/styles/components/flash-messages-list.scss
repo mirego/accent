@@ -1,10 +1,10 @@
 .flash-messages-list {
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  right: 20px;
   width: 100%;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: center;
   flex-direction: column;
   z-index: 5001;

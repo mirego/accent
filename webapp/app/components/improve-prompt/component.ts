@@ -7,6 +7,11 @@ import Apollo from 'accent-webapp/services/apollo';
 
 import improveTextPromptMutation from 'accent-webapp/queries/improve-text-prompt';
 import projectPrompts from 'accent-webapp/queries/project-prompts';
+import {IntlService} from 'ember-intl';
+import FlashMessages from 'ember-cli-flash/services/flash-messages';
+
+const FLASH_MESSAGE_PREFIX = 'components.improve_prompt.flash_messages.';
+const FLASH_MESSAGE_PROMPT_IMPROVE_ERROR = `${FLASH_MESSAGE_PREFIX}improve_error`;
 
 interface Args {
   text: string;
@@ -30,6 +35,12 @@ export default class ImprovePrompt extends Component<Args> {
   @service('apollo')
   apollo: Apollo;
 
+  @service('intl')
+  intl: IntlService;
+
+  @service('flash-messages')
+  flashMessages: FlashMessages;
+
   @tracked
   promptOptions: PromptOption[] = [];
 
@@ -38,6 +49,9 @@ export default class ImprovePrompt extends Component<Args> {
 
   @tracked
   promptResult: string | null;
+
+  @tracked
+  promptResultUnchanged: boolean = true;
 
   @tracked
   promptOpened = false;
@@ -96,6 +110,7 @@ export default class ImprovePrompt extends Component<Args> {
     if (!this.promptOpened) this.args.onUpdatingText();
 
     this.promptResult = null;
+    this.promptResultUnchanged = true;
 
     const variables = {
       text: this.args.text,
@@ -109,9 +124,13 @@ export default class ImprovePrompt extends Component<Args> {
     if (data.improveTextWithPrompt?.text) {
       if (this.promptOpened) {
         this.promptResult = data.improveTextWithPrompt.text;
+        this.promptResultUnchanged = this.promptResult === this.args.text;
       } else {
         this.args.onUpdateText(data.improveTextWithPrompt.text);
       }
+    } else if (data.improveTextWithPrompt?.errors) {
+      this.args.onUpdateText(this.args.text);
+      this.flashMessages.error(this.intl.t(FLASH_MESSAGE_PROMPT_IMPROVE_ERROR));
     }
   });
 }

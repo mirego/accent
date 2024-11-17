@@ -13,7 +13,7 @@
 }
 
 .footer {
-  margin: 0px 10px 0 15px;
+  margin: 0px 10px;
 }
 
 .back-to-projects {
@@ -40,7 +40,7 @@
 }
 
 .project {
-  padding: 20px 10px 20px 16px;
+  padding: 13px 10px 12px 14px;
   margin-left: 0;
   position: relative;
   display: flex;
@@ -79,9 +79,71 @@
   margin-top: 5px;
 }
 
+.search {
+  margin: 10px 0 12px 8px;
+  width: calc(100% - 15px);
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 15px;
+  height: 15px;
+  stroke: var(--input-border-color);
+}
+
+.search-input {
+  width: 100%;
+  padding: 6px 5px 6px 26px;
+  transition: 0.2s ease-in-out;
+  transition-property: padding, background, border, border-radius, box-shadow;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--input-border-color);
+  background: var(--input-background);
+  color: var(--text-color-normal);
+  font-size: 12px;
+
+  &::placeholder {
+    color: #aaa;
+  }
+
+  &:focus {
+    outline: none;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 9px var(--shadow-color);
+  }
+}
+
+.session {
+  display: flex;
+  gap: 4px;
+  margin: 0 0 5px;
+}
+
+.session-picture {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--border-radius);
+}
+
+.session-username {
+  opacity: 0.5;
+  margin-right: 15px;
+  font-size: 11px;
+}
+
 @media (max-width: 800px) {
   .project-navigation {
     height: auto;
+  }
+
+  .search {
+    display: none;
+  }
+  .session {
+    display: none;
   }
 
   .back-to-projects-text {

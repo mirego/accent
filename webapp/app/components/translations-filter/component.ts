@@ -122,4 +122,9 @@ export default class TranslationsFilter extends Component<Args> {
   toggleAdvancedFilters() {
     this.displayAdvancedFilters = !this.displayAdvancedFilters;
   }
+
+  @action
+  autofocus(input: HTMLInputElement) {
+    input.focus();
+  }
 }

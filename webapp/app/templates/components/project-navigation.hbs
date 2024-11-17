@@ -9,6 +9,10 @@
         {{@project.name}}
       </span>
     </LinkTo>
+    <div local-class='search'>
+      {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+      <input {{on 'keyup' this.setDebouncedQuery}} local-class='search-input' type='text' placeholder={{t 'general.search_input_placeholder_text'}} value={{this.debouncedQuery}} />
+    </div>
     <ProjectNavigation::List @selectedRevision={{this.selectedRevision}} @permissions={{@permissions}} @project={{@project}} />
   </div>
 
@@ -18,6 +22,16 @@
       {{inline-svg '/assets/chevron-left.svg' local-class='back-to-projects-icon'}}
       <span local-class='back-to-projects-text'>{{t 'components.project_navigation.back_to_projects'}}</span>
     </LinkTo>
+
+    {{#if this.session.credentials.user}}
+      <div local-class='session'>
+        <AccAvatarImg local-class='session-picture' @showFallback={{not this.session.credentials.user.pictureUrl}} src={{this.session.credentials.user.pictureUrl}} />
+
+        <span local-class='session-username'>
+          {{this.session.credentials.user.fullname}}
+        </span>
+      </div>
+    {{/if}}
 
     <ApplicationFooter />
   </div>

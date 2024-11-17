@@ -1,7 +1,14 @@
+import {action} from '@ember/object';
 import {inject as service} from '@ember/service';
 import {readOnly} from '@ember/object/computed';
+import {tracked} from '@glimmer/tracking';
 import Component from '@glimmer/component';
 import GlobalState from 'accent-webapp/services/global-state';
+import RouterService from '@ember/routing/router-service';
+import {timeout, restartableTask} from 'ember-concurrency';
+import Session from 'accent-webapp/services/session';
+
+const DEBOUNCE_OFFSET = 500; // ms
 
 interface Args {
   project: any;
@@ -10,11 +17,20 @@ interface Args {
 }
 
 export default class ProjectNavigation extends Component<Args> {
+  @service('session')
+  session: Session;
+
   @service('global-state')
   globalState: GlobalState;
 
+  @service('router')
+  router: RouterService;
+
   @readOnly('globalState.isProjectNavigationListShowing')
   isListShowing: boolean;
+
+  @tracked
+  debouncedQuery = '';
 
   get selectedRevision() {
     const selected = this.globalState.revision;
@@ -29,5 +45,30 @@ export default class ProjectNavigation extends Component<Args> {
     if (!this.args.revisions) return;
 
     return this.args.revisions[0].id;
+  }
+
+  debounceQuery = restartableTask(async (query: string) => {
+    this.debouncedQuery = query;
+    if (!this.debouncedQuery) return;
+
+    await timeout(DEBOUNCE_OFFSET);
+
+    this.router.transitionTo(
+      'logged-in.project.revision.translations',
+      this.args.project.id,
+      this.selectedRevision,
+      {
+        queryParams: {query}
+      }
+    );
+
+    this.debouncedQuery = '';
+  });
+
+  @action
+  setDebouncedQuery(event: Event) {
+    const target = event.target as HTMLInputElement;
+
+    this.debounceQuery.perform(target.value);
   }
 }

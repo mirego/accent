@@ -28,21 +28,31 @@ button.button {
 }
 
 .current-text {
-  font-size: 15px;
-  opacity: 0.9;
+  white-space: pre-line;
+  font-size: 13px;
+  opacity: 0.5;
   padding: 5px 0;
-  margin-bottom: 12px;
-  border-radius: var(--border-radius);
+  margin-bottom: 6px;
+}
+
+.result-error {
+  white-space: pre-line;
+  font-size: 11px;
+  color: var(--color-error);
+  padding: 7px 0;
+  margin-top: 5px;
 }
 
 .result-text {
   white-space: pre-line;
   font-size: 13px;
-  color: var(--color-primary);
-  background: var(--color-primary-opacity-10);
-  padding: 7px 10px;
-  margin-top: 12px;
-  border-radius: var(--border-radius);
+  margin-top: 10px;
+}
+
+.result-text--unchanged {
+  font-style: italic;
+  font-size: 11px;
+  opacity: 0.5;
 }
 
 .prompt-button {
@@ -70,7 +80,7 @@ button.button {
 
     .prompt-button-quick-access {
       opacity: 1;
-      transform: translateX(-36px);
+      transform: translateX(-20px);
       padding: 0 7px;
       top: -1px;
       pointer-events: all;
@@ -81,6 +91,14 @@ button.button {
 .prompt-button-quick-access[data-rtl] {
   left: 0;
   right: auto;
+}
+
+.prompt-button-quick-access-icon {
+  box-shadow: none;
+}
+
+.prompt-button-quick-access-icon :global(.label) {
+  padding: 3px !important;
 }
 
 .prompt-button-quick-access {

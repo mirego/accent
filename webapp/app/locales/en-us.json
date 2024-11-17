@@ -12,7 +12,10 @@
     "improve_prompt": {
       "title": "Improve text",
       "run": "Run instruction",
-      "accept": "Accept & close"
+      "accept": "Accept & close",
+      "flash_messages": {
+        "improve_error": "The prompt could not be resolved with the external provider."
+      }
     },
     "jipt": {
       "back_to_translations": {
@@ -1140,6 +1143,8 @@
           },
           "correct_error": "The string could not be marked as reviewed",
           "correct_success": "The string as been marked as reviewed with success",
+          "uncorrect_error": "The string could not be marked as to be reviewed",
+          "uncorrect_success": "The string as been marked as to be reviewed with success",
           "update_error": "The string could not be updated",
           "update_success": "The string has been updated with success"
         }

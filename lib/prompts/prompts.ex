@@ -2,6 +2,16 @@ defmodule Accent.Prompts do
   @moduledoc false
   alias Accent.Prompts.Provider
 
+  def config_or_default(config) do
+    default_provider = Application.get_env(:accent, __MODULE__)[:use_provider_by_default]
+
+    if is_nil(config) and is_binary(default_provider) do
+      %{"provider" => default_provider, "use_platform" => true}
+    else
+      config
+    end
+  end
+
   def id_from_config(config) do
     provider = provider_from_config(config)
     Provider.id(provider)

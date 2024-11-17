@@ -167,4 +167,9 @@ export default class ConflictsFilters extends Component<Args> {
 
     this.args.onChangeQuery(this.debouncedQuery);
   }
+
+  @action
+  autofocus(input: HTMLInputElement) {
+    input.focus();
+  }
 }

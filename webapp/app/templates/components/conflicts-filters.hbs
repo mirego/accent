@@ -21,6 +21,7 @@
             local-class='input'
             type='text'
             placeholder={{t 'components.conflicts_filters.input_placeholder_text'}}
+            {{did-insert (fn this.autofocus)}}
             value={{this.debouncedQuery}}
             {{on-key 'Enter' (fn this.submitForm)}}
             {{on 'keyup' this.setDebouncedQuery}}

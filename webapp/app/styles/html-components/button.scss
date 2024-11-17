@@ -75,6 +75,13 @@
       margin: 0;
     }
   }
+
+  &.button--link,
+  &.button--link:hover {
+    --shadow-color: none;
+    --button-border-color: transparent;
+    border: 0;
+  }
 }
 
 .button--blue {

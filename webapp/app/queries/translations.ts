@@ -25,7 +25,7 @@ export default gql`
           name
         }
 
-        documents {
+        documents(pageSize: 1000) {
           entries {
             id
             path

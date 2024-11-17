@@ -10,17 +10,18 @@ defmodule Accent.GraphQL.Resolvers.Prompt do
   @spec improve_text(Accent.Prompt.t(), any(), GraphQLContext.t()) ::
           {:ok, %{provider: atom(), text: String.t(), error: String.t() | nil}}
   def improve_text(prompt, args, _info) do
+    config = Prompts.config_or_default(prompt.project.prompt_config)
+
     result = %{
       text: nil,
-      error: nil,
-      provider: Prompts.id_from_config(prompt.project.prompt_config)
+      errors: nil,
+      provider: Prompts.id_from_config(config)
     }
 
     result =
-      case Prompts.completions(prompt, args.text, prompt.project.prompt_config) do
+      case Prompts.completions(prompt, args.text, config) do
         [%{text: text} | _] -> %{result | text: text}
-        {:error, error} when is_atom(error) -> %{result | error: to_string(error)}
-        _ -> result
+        _ -> %{result | text: "", errors: ["internal_server_error"]}
       end
 
     {:ok, result}
@@ -82,6 +83,23 @@ defmodule Accent.GraphQL.Resolvers.Prompt do
 
       {:error, _reason, _, _} ->
         {:ok, %{prompt: nil, errors: ["unprocessable_entity"]}}
+    end
+  end
+
+  @spec project_config(Project.t(), any(), GraphQLContext.t()) ::
+          {:ok, %{provider: String.t(), use_platform: boolean(), use_config_key: boolean()} | nil}
+  def project_config(project, _, _) do
+    config = Prompts.config_or_default(project.prompt_config)
+
+    if is_nil(config) do
+      {:ok, nil}
+    else
+      {:ok,
+       %{
+         provider: config["provider"],
+         use_platform: config["use_platform"] || false,
+         use_config_key: not is_nil(config["config"]["key"])
+       }}
     end
   end
 end

@@ -105,8 +105,13 @@ config :accent, Accent.MachineTranslations,
   }
 
 config :accent, Accent.Prompts,
+  use_provider_by_default: get_env("AI_ASSISTANT_USE_DEFAULT_PROVIDER", :string),
   default_providers_config: %{
-    "openai" => %{"key" => get_env("OPENAI_API_KEY")}
+    "openai" => %{
+      "key" => get_env("OPENAI_API_KEY"),
+      "model" => get_env("OPENAI_API_MODEL") || "gpt-4o",
+      "base_url" => get_env("OPENAI_API_BASE_URL") || "https://api.openai.com/v1/"
+    }
   }
 
 config :accent, Accent.WebappView,

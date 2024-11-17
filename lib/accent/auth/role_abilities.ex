@@ -135,7 +135,8 @@ defmodule Accent.RoleAbilities do
   end
 
   def can?(_role, :use_prompt_improve_text, project) do
-    Accent.Prompts.enabled?(project.prompt_config)
+    config = Accent.Prompts.config_or_default(project.prompt_config)
+    Accent.Prompts.enabled?(config)
   end
 
   # Define abilities function at compile time to remove list lookup at runtime

@@ -1,0 +1,10 @@
+button.button {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: var(--border-radius);
+
+  &:focus,
+  &:hover {
+    transform: translate3d(0, 0, 0);
+  }
+}

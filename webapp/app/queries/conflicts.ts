@@ -18,7 +18,7 @@ export default gql`
       project(id: $projectId) {
         id
 
-        documents {
+        documents(pageSize: 1000) {
           entries {
             id
             path
