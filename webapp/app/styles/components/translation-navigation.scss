@@ -6,10 +6,11 @@
   .navigation-list-item-link {
     padding: 2px 11px 2px 10px;
     border-radius: var(--border-radius);
+    opacity: 0.9;
 
     &:global(.active) {
-      background: var(--background-light-highlight);
-      opacity: 0.7;
+      background: var(--body-background);
+      opacity: 1;
     }
   }
 }

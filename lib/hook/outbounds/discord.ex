@@ -31,11 +31,18 @@ defmodule Accent.Hook.Outbounds.Discord do
     [<%= document_name %>](<%= url %>)
     <% end %>
     """)
+
+    deftemplate(:integration_execute_aws_s3, """
+    **<%= @user %>** just uploaded all *<%= @version_tag %>* files to AWS S3.
+    <%= for %{"name" => document_name, "url" => url} <- @document_urls do %>
+    [<%= document_name %>](<%= url %>)
+    <% end %>
+    """)
   end
 
   @impl Accent.Hook.Events
   def registered_events do
-    ~w(sync complete_review new_conflicts integration_execute_azure_storage_container)
+    ~w(sync complete_review new_conflicts integration_execute_azure_storage_container integration_execute_aws_s3)
   end
 
   @impl Oban.Worker

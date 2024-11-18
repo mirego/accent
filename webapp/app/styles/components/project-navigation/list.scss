@@ -40,13 +40,10 @@
 .list-item-link {
   display: flex;
   align-items: center;
-  position: relative;
   gap: 10px;
-  left: 1px;
   padding: 7px 12px 6px;
   text-decoration: none;
   font-size: 13px;
-  border-radius: var(--border-radius);
   color: var(--text-color-normal);
 
   &:hover,

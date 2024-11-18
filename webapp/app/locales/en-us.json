@@ -547,7 +547,8 @@
             "sync": "Sync with any changes",
             "new_conflicts": "New strings to review",
             "complete_review": "Project is 100% reviewed",
-            "integration_execute_azure_storage_container": "Files uploaded to Azure Storage Container"
+            "integration_execute_azure_storage_container": "Files uploaded to Azure Storage Container",
+            "integration_execute_aws_s3": "Files uploaded to AWS S3"
           }
         },
         "execute": {

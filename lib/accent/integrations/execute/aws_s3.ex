@@ -52,7 +52,7 @@ defmodule Accent.IntegrationManager.Execute.AWSS3 do
       end
 
     Hook.outbound(%Hook.Context{
-      event: "integration_execute_azure_storage_container",
+      event: "integration_execute_aws_s3",
       project_id: integration.project_id,
       user_id: user.id,
       payload: %{

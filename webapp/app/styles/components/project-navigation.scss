@@ -112,7 +112,9 @@
   &:focus {
     outline: none;
     border-radius: var(--border-radius);
-    box-shadow: 0 2px 9px var(--shadow-color);
+    box-shadow:
+      0 1px 2px var(--shadow-color),
+      0 2px 8px var(--shadow-color);
   }
 }
 

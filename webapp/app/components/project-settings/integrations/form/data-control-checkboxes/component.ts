@@ -33,6 +33,11 @@ export default class DataControlCheckboxes extends Component<Args> {
       value: 'INTEGRATION_EXECUTE_AZURE_STORAGE_CONTAINER',
       label:
         'components.project_settings.integrations.events.options.integration_execute_azure_storage_container'
+    },
+    {
+      value: 'INTEGRATION_EXECUTE_AWS_S3',
+      label:
+        'components.project_settings.integrations.events.options.integration_execute_aws_s3'
     }
   ];
 

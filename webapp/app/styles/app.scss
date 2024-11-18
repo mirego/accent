@@ -182,7 +182,8 @@ html {
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
-  --font-monospace: 'Fira Code', 'Monaco', Courrier, monospace;
+  --font-monospace: 'Fira Code', 'SF Mono', SFMono-Regular, ui-monospace,
+    'DejaVu Sans Mono', Menlo, Consolas, monospace;
 
   --screen-lg: 100%;
   --screen-md: 640px;

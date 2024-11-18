@@ -89,4 +89,12 @@ defmodule Accent.Hook.Outbounds.Helpers.PostURL do
       document_urls: context.payload["document_urls"]
     })
   end
+
+  defp build_content(templates, %{event: "integration_execute_aws_s3"} = context) do
+    templates.integration_execute_aws_s3(%{
+      user: User.name_with_fallback(context.user),
+      version_tag: context.payload["version_tag"],
+      document_urls: context.payload["document_urls"]
+    })
+  end
 end

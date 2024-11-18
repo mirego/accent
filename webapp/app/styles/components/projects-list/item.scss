@@ -9,7 +9,9 @@
 
   &:focus,
   &:hover {
-    box-shadow: 0 4px 15px var(--shadow-color);
+    box-shadow:
+      0 1px 4px var(--shadow-color),
+      0 3px 14px var(--shadow-color);
     border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
     border-bottom-color: color-mix(
       in srgb,
