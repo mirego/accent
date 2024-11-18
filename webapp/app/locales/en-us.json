@@ -86,7 +86,8 @@
       "text": "Made with computers by",
       "language_select": {
         "english": "En",
-        "french": "Fr"
+        "french": "Fr",
+        "chinese": "Zh"
       }
     },
     "collaborator_create_form": {
