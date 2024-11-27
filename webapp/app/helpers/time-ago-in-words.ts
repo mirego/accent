@@ -5,7 +5,8 @@ import {frCA, enUS} from 'date-fns/locale';
 
 const LOCALES = {
   'fr-ca': frCA,
-  'en-us': enUS
+  'en-us': enUS,
+  'zh-cn': zhCN
 } as any;
 
 const OPTIONS = {
