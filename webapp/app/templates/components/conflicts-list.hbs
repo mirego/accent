@@ -21,7 +21,7 @@
   {{/if}}
 
   <ul local-class='conflicts-items'>
-    {{#each @groupedTranslations key='id' as |groupedTranslation index|}}
+    {{#each @groupedTranslations key='key' as |groupedTranslation index|}}
       <ConflictsList::Group
         @index={{index}}
         @permissions={{@permissions}}

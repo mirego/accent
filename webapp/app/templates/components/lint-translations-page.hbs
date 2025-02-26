@@ -14,7 +14,7 @@
       {{/each}}
     </div>
 
-    {{#each @lintTranslations key='id' as |lintTranslation|}}
+    {{#each @lintTranslations key='translation.id' as |lintTranslation|}}
       <div local-class='item {{if (eq this.fixLintMessageRunningTranslationId lintTranslation.translation.id) "item--fixing"}}'>
         <LintTranslationsPage::Item
           @permissions={{@permissions}}
