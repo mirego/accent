@@ -2,12 +2,20 @@
   padding: 15px 16px 16px;
   width: 100%;
   max-width: 520px;
-  color: hsl(var(--color-primary-hue), var(--color-primary-saturation), 50%);
   font-size: 13px;
   font-weight: 300;
-  background-color: var(--color-primary-opacity-10);
   border-radius: var(--border-radius);
   line-height: 1.5;
+  color: var(--color-grey);
+
+  &.empty-content--primary {
+    color: hsl(var(--color-primary-hue), var(--color-primary-saturation), 50%);
+    background-color: var(--color-primary-opacity-10);
+
+    svg {
+      color: var(--color-primary);
+    }
+  }
 
   &.empty-content--center {
     display: flex;
@@ -22,7 +30,8 @@
   }
 
   svg {
-    color: var(--color-primary-opacity-50);
+    color: currentColor;
+    opacity: 0.5;
   }
 
   :global(.link) {

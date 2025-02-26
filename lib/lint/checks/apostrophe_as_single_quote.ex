@@ -12,7 +12,8 @@ defmodule Accent.Lint.Checks.ApostropheAsSingleQuote do
 
   @impl true
   def applicable(entry, _) do
-    entry.language_slug in @applicable_languages and not String.match?(entry.value, ~r/MMMM?|YYYY?|HH|AA/i)
+    is_binary(entry.value) and entry.language_slug in @applicable_languages and
+      not String.match?(entry.value, ~r/MMMM?|YYYY?|HH|AA/i)
   end
 
   @impl true

@@ -43,7 +43,7 @@
         <SkeletonUi::ProgressLine />
       {{/if}}
     {{else}}
-      <EmptyContent @text={{t 'pods.project.versions.export.empty_documents'}} @iconPath='assets/empty.svg' @center={{true}} />
+      <EmptyContent @text={{t 'pods.project.versions.export.empty_documents'}} @iconPath='assets/empty.svg' @center={{true}} @background={{'transparent'}} />
     {{/if}}
 
     <FileExport

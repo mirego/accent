@@ -72,11 +72,12 @@ defmodule Accent.MachineTranslations.Provider.Deepl do
     end
 
     defp client(key) do
-      base_url = if String.ends_with?(key, ":fx") do
-        "https://api-free.deepl.com/v2/"
-      else
-        "https://api.deepl.com/v2/"
-      end
+      base_url =
+        if String.ends_with?(key, ":fx") do
+          "https://api-free.deepl.com/v2/"
+        else
+          "https://api.deepl.com/v2/"
+        end
 
       middlewares =
         List.flatten([
