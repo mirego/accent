@@ -89,7 +89,7 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
   defp memory_unit(:KB), do: 1024
 
   defimpl TelemetryUI.Web.Component do
-    def to_image(_metric, _, _assigns) do
+    def to_image(_metric, _assigns) do
       raise("not implemented")
     end
 

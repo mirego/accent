@@ -85,7 +85,25 @@ defmodule AccentTest.MachineTranslations do
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
       source_language = "fr"
       target_language = "en"
-      provider_config = %{"key" => "test"}
+      provider_config = %{"key" => "test:fx"}
+      config = %{"provider" => "deepl", "config" => provider_config}
+
+      [entry] = MachineTranslations.translate(entries, source_language, target_language, config)
+      assert entry.value === "Translated"
+    end
+
+    test "deepl pro" do
+      mock_global(fn
+        %{body: body, url: "https://api.deepl.com/v2/translate"} ->
+          assert Jason.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
+
+          %Tesla.Env{status: 200, body: %{"translations" => [%{"text" => "Translated"}]}}
+      end)
+
+      entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
+      source_language = "fr"
+      target_language = "en"
+      provider_config = %{"key" => "test-pro"}
       config = %{"provider" => "deepl", "config" => provider_config}
 
       [entry] = MachineTranslations.translate(entries, source_language, target_language, config)
@@ -100,7 +118,7 @@ defmodule AccentTest.MachineTranslations do
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
       source_language = "fr"
       target_language = "en"
-      provider_config = %{"key" => "test"}
+      provider_config = %{"key" => "test:fx"}
       config = %{"provider" => "deepl", "config" => provider_config}
 
       {:error, error} = MachineTranslations.translate(entries, source_language, target_language, config)
@@ -114,7 +132,7 @@ defmodule AccentTest.MachineTranslations do
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
       target_language = "en"
-      provider_config = %{"key" => "test"}
+      provider_config = %{"key" => "test:fx"}
       config = %{"provider" => "deepl", "config" => provider_config}
 
       {:error, error} = MachineTranslations.translate(entries, nil, target_language, config)
