@@ -23,7 +23,7 @@ defmodule Accent.GraphQL.Resolvers.APIToken do
     {:ok, access_token}
   end
 
-  @spec list_project(Project.t(), any(), GraphQLContext.t()) :: {:ok, AccessToken.t() | nil}
+  @spec list_project(Project.t(), any(), GraphQLContext.t()) :: {:ok, [AccessToken.t()]}
   def list_project(project, _, info) do
     {:ok, APITokenManager.list(project, info.context[:conn].assigns[:current_user])}
   end

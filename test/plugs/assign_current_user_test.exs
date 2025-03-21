@@ -10,7 +10,7 @@ defmodule AccentTest.Plugs.AssignCurrentUser do
   defp call_plug(token) do
     :get
     |> conn("/foo")
-    |> Plug.Test.init_test_session([])
+    |> Plug.Test.init_test_session(%{})
     |> put_req_header("authorization", "Bearer #{token}")
     |> AssignCurrentUser.call(AssignCurrentUser.init([]))
   end
