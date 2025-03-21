@@ -83,6 +83,10 @@ export default class APIToken extends Component<Args> {
     Array.from(document.querySelectorAll('input[name="permiss"]')).forEach(
       (input: HTMLInputElement) => (input.checked = true)
     );
+
+    this.apiTokenPermissions = Array.from(
+      document.querySelectorAll('input[name="permiss"]:checked')
+    ).map((input: HTMLInputElement) => input.value);
   }
 
   @action
@@ -90,6 +94,7 @@ export default class APIToken extends Component<Args> {
     Array.from(document.querySelectorAll('input[name="permiss"]')).forEach(
       (input: HTMLInputElement) => (input.checked = false)
     );
+    this.apiTokenPermissions = [];
   }
 
   @action

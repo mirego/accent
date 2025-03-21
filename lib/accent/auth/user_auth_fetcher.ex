@@ -16,6 +16,16 @@ defmodule Accent.UserAuthFetcher do
     |> map_permissions()
   end
 
+  @doc """
+  fetch the associated user by id. It also fetches the permissions
+  """
+  @spec fetch_by_id(String.t() | nil) :: User.t() | nil
+  def fetch_by_id(id) do
+    id
+    |> fetch_user_by_id()
+    |> map_permissions()
+  end
+
   defp fetch_user("Bearer " <> token) when is_binary(token) do
     Repo.one(
       from(user in User,
@@ -29,6 +39,12 @@ defmodule Accent.UserAuthFetcher do
   end
 
   defp fetch_user(_any), do: nil
+
+  defp fetch_user_by_id(id) when is_binary(id) do
+    Repo.one(from(user in User, where: user.id == ^id, select: {user, [], nil}))
+  end
+
+  defp fetch_user_by_id(_any), do: nil
 
   defp map_permissions({user, [_ | _] = permissions, %{project_id: id}}) do
     %{user | permissions: %{id => {:custom, permissions}}}

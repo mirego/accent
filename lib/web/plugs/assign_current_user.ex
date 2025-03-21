@@ -17,6 +17,7 @@ defmodule Accent.Plugs.AssignCurrentUser do
     |> List.first()
     |> fallback_query_param_token(conn)
     |> UserAuthFetcher.fetch()
+    |> fallback_session_user(conn)
     |> case do
       nil ->
         assign(conn, :current_user, nil)
@@ -36,5 +37,16 @@ defmodule Accent.Plugs.AssignCurrentUser do
 
   defp fallback_query_param_token(_, _) do
     nil
+  end
+
+  defp fallback_session_user(nil, conn) do
+    case get_session(conn, :user_id) do
+      user_id when is_binary(user_id) -> UserAuthFetcher.fetch_by_id(user_id)
+      _ -> nil
+    end
+  end
+
+  defp fallback_session_user(user, _) do
+    user
   end
 end

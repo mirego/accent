@@ -26,16 +26,14 @@ export default class ApplicationRoute extends Route {
   }
 
   private async tryLoginAfterRedirect() {
-    const match = window.location.search
+    const authMatch = window.location.search
       .substring(window.location.search.indexOf('?') + 1)
       .split('&')
-      .find((segment) => segment.split('=')[0] === 'token');
+      .find((segment) => segment.split('=')[0] === 'auth');
 
-    const token = match && match.split('=')[1];
+    if (!authMatch) return;
 
-    if (!token) return;
-
-    const data = await this.session.login({token});
+    const data = await this.session.login();
 
     if (data && data.user) {
       this.router.transitionTo('logged-in.projects');

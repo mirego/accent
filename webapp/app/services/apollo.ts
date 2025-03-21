@@ -29,8 +29,7 @@ const authLink = (getSession: any) => {
     if (token) {
       operation.setContext(({headers = {}}: any) => ({
         headers: {
-          ...headers,
-          authorization: `Bearer ${token}`
+          ...headers
         }
       }));
     }

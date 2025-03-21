@@ -2,12 +2,11 @@ import Service from '@ember/service';
 import fetch from 'fetch';
 
 export default class SessionCreator extends Service {
-  async createSession({token}: {token: string}) {
+  async createSession() {
     const options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         query: `

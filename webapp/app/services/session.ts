@@ -6,10 +6,6 @@ import SessionCreator from 'accent-webapp/services/session/creator';
 import SessionDestroyer from 'accent-webapp/services/session/destroyer';
 import JIPT from 'accent-webapp/services/jipt';
 
-interface LoginOptions {
-  token: string;
-}
-
 export default class Session extends Service {
   @service('session/fetcher')
   sessionFetcher: SessionFetcher;
@@ -35,12 +31,12 @@ export default class Session extends Service {
     return this.sessionFetcher.fetch();
   }
 
-  async login({token}: LoginOptions) {
-    const credentials = await this.sessionCreator.createSession({token});
+  async login() {
+    const credentials = await this.sessionCreator.createSession();
 
     if (!credentials || !credentials.viewer) return;
 
-    this.sessionPersister.persist({token, ...credentials.viewer});
+    this.sessionPersister.persist(credentials.viewer);
 
     this.jipt.loggedIn();
 

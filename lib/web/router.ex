@@ -8,6 +8,7 @@ defmodule Accent.Router do
   alias Accent.Plugs.SentryUserContext
 
   pipeline :graphql do
+    plug(:fetch_session)
     plug(AssignCurrentUser)
     plug(SentryUserContext)
     plug(BotParamsInjector)

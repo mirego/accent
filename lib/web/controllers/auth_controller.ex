@@ -13,7 +13,9 @@ defmodule Accent.AuthController do
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _) do
     case Authenticator.authenticate(auth) do
       {:ok, token} ->
-        redirect(conn, to: "/?token=" <> token.token)
+        conn
+        |> put_session(:user_id, token.user_id)
+        |> redirect(to: "/?auth=" <> token.user_id)
 
       _ ->
         redirect(conn, to: "/")

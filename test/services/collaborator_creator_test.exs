@@ -99,6 +99,29 @@ defmodule AccentTest.CollaboratorCreator do
     assert collaborator.email === @email
   end
 
+  test "create with rate limit" do
+    project = Factory.insert(Project)
+    assigner = Factory.insert(User)
+    role = "admin"
+    Factory.insert(Collaborator, assigner_id: assigner.id, inserted_at: DateTime.utc_now())
+    Factory.insert(Collaborator, assigner_id: assigner.id, inserted_at: DateTime.utc_now())
+    Factory.insert(Collaborator, assigner_id: assigner.id, inserted_at: DateTime.utc_now())
+    Factory.insert(Collaborator, assigner_id: assigner.id, inserted_at: DateTime.utc_now())
+    Factory.insert(Collaborator, assigner_id: assigner.id, inserted_at: DateTime.utc_now())
+
+    {:error, changeset} =
+      CollaboratorCreator.create(%{
+        "email" => Faker.Internet.email(),
+        "assigner_id" => assigner.id,
+        "role" => role,
+        "project_id" => project.id
+      })
+
+    assert changeset.errors === [
+             assigner_id: {"Rate limit exceeded: cannot add more than 5 collaborators per minute", []}
+           ]
+  end
+
   test "cannot create with already used email for project" do
     project = Factory.insert(Project)
     assigner = Factory.insert(User)

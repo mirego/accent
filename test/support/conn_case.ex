@@ -38,7 +38,7 @@ defmodule Accent.ConnCase do
   setup tags do
     setup_sandbox(tags)
 
-    {:ok, conn: ConnTest.build_conn()}
+    {:ok, conn: Plug.Test.init_test_session(ConnTest.build_conn(), [])}
   end
 
   def setup_sandbox(tags) do

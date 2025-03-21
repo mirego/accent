@@ -24,6 +24,7 @@ else
     adapter: Bandit.PhoenixAdapter,
     http: [port: port],
     url: get_endpoint_url_config(canonical_uri),
+    secret_key_base: get_env("SECRET_KEY_BASE"),
     static_url: get_endpoint_url_config(static_uri),
     debug_errors: get_env("DEBUG_ERRORS", :boolean)
 
