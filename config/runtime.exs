@@ -216,6 +216,9 @@ cond do
       username: get_env("SMTP_USERNAME"),
       password: get_env("SMTP_PASSWORD")
 
+  get_env("TZDATA_AUTOUPDATE_DISABLED") ->
+    config :tzdata, :autoupdate, :disabled
+
   config_env() == :test ->
     config :accent, Accent.Mailer,
       mailer_from: "accent-test@example.com",
