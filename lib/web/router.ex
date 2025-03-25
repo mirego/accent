@@ -28,7 +28,8 @@ defmodule Accent.Router do
     forward("/", Absinthe.Plug, schema: Schema, pipeline: {Schema, :absinthe_pipeline})
   end
 
-  pipeline :authenticate do
+  pipeline :api_authenticate do
+    plug(:fetch_session)
     plug(AssignCurrentUser)
     plug(SentryUserContext)
     plug(BotParamsInjector)
@@ -66,7 +67,7 @@ defmodule Accent.Router do
   end
 
   scope "/", Accent do
-    pipe_through(:authenticate)
+    pipe_through(:api_authenticate)
 
     post("/format", FormatController, :format, as: :format)
     post("/lint", LintController, :lint, as: :lint)
