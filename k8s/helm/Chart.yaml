@@ -1,0 +1,10 @@
+apiVersion: v1
+name: accent
+description: Accent helm chart
+type: application
+version: 1.0.0
+appVersion: latest
+home: https://github.com/Braineanear
+maintainers:
+  - email: mle.mahmoud.yasser@gmail.com
+    name: Mahmoud Yasser
