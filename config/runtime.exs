@@ -186,6 +186,10 @@ else
   config :sentry, included_environments: []
 end
 
+if get_env("TZDATA_AUTOUPDATE_DISABLED") do
+  config :tzdata, :autoupdate, :disabled
+end
+
 config :accent, Accent.Mailer,
   mailer_from: get_env("MAILER_FROM"),
   x_smtpapi_header: get_env("SMTP_API_HEADER")
