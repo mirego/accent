@@ -135,6 +135,7 @@ Accent provides a default value for every required environment variable. This me
 | `DATABASE_SSL`                            | _false_                    | If SSL should be used to connect to the database                                                                           |
 | `DATABASE_POOL_SIZE`                      | _10_                       | The size of the pool used by the database connection module                                                                |
 | `MACHINE_TRANSLATIONS_VAULT_KEY`          | _DEFAULT_UNSAFE_VAULT_KEY_ | The secret key that is used to encrypt machine translations services config key                                            |
+| `SECRET_KEY_BASE`                         | _DEFAULT_UNSAFE_KEY_       | The secret key that is used to encrypt session (cookie)                                                                    |
 
 ### Authentication setup
 

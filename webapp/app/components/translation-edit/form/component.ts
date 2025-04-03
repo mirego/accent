@@ -18,7 +18,7 @@ const markdown = MarkdownIt({
   typographer: true
 });
 
-const DEBOUNCE_LINT_MESSAGES = 800;
+const DEBOUNCE_LINT_MESSAGES = 300;
 
 interface Args {
   projectId: string;
@@ -140,8 +140,6 @@ export default class TranslationEditForm extends Component<Args> {
 
   onUpdateValue = restartableTask(
     async (_element: HTMLElement, [value]: string[]) => {
-      if (value === this.args.value) return;
-
       await timeout(DEBOUNCE_LINT_MESSAGES);
 
       await this.fetchLintMessagesTask.perform(value);
