@@ -27,20 +27,17 @@ defmodule Accent.Lint do
   @type message :: Message.t()
   @type entry :: Langue.Entry.t()
 
-  @checks Map.filter(
-            %{
-              "first_letter_case" => Accent.Lint.Checks.FirstLetterCase,
-              "leading_spaces" => Accent.Lint.Checks.LeadingSpaces,
-              "placeholder_count" => Accent.Lint.Checks.PlaceholderCount,
-              "three_dots_ellipsis" => Accent.Lint.Checks.ThreeDotsEllipsis,
-              "trailing_space" => Accent.Lint.Checks.TrailingSpaces,
-              "apostrophe_as_single_quote" => Accent.Lint.Checks.ApostropheAsSingleQuote,
-              "double_space" => Accent.Lint.Checks.DoubleSpace,
-              "spelling" => Accent.Lint.Checks.Spelling,
-              "url_count" => Accent.Lint.Checks.URLCount
-            },
-            fn {_, check} -> check.enabled?() end
-          )
+  @checks [
+    {"first_letter_case", Accent.Lint.Checks.FirstLetterCase},
+    {"leading_spaces", Accent.Lint.Checks.LeadingSpaces},
+    {"placeholder_count", Accent.Lint.Checks.PlaceholderCount},
+    {"three_dots_ellipsis", Accent.Lint.Checks.ThreeDotsEllipsis},
+    {"trailing_space", Accent.Lint.Checks.TrailingSpaces},
+    {"apostrophe_as_single_quote", Accent.Lint.Checks.ApostropheAsSingleQuote},
+    {"double_space", Accent.Lint.Checks.DoubleSpace},
+    {"spelling", Accent.Lint.Checks.Spelling},
+    {"url_count", Accent.Lint.Checks.URLCount}
+  ]
 
   @spec lint(list(entry), Config.t()) :: list({entry, list(map())})
   def lint(entries, config \\ %Config{}) do
@@ -57,15 +54,17 @@ defmodule Accent.Lint do
   end
 
   defp entry_to_messages(entry, config) do
+    checks = get_cached_checks()
+
     checks =
       if Enum.any?(config.enabled_check_ids) do
-        Map.filter(@checks, fn {check_id, _check_module} -> check_id in config.enabled_check_ids end)
+        Enum.filter(checks, fn {check_id, _check_module} -> check_id in config.enabled_check_ids end)
       else
-        @checks
+        checks
       end
 
     checks =
-      Map.reject(checks, fn {check, _} ->
+      Enum.reject(checks, fn {check, _} ->
         Enum.any?(config.lint_entries, fn lint_entry ->
           check in lint_entry.check_ids and
             (lint_entry.type === :all or
@@ -83,5 +82,17 @@ defmodule Accent.Lint do
       end)
 
     {entry, messages}
+  end
+
+  defp get_cached_checks do
+    case :persistent_term.get({__MODULE__, :lint_checks}, :not_found) do
+      :not_found ->
+        checks = Enum.filter(@checks, fn {_, check} -> check.enabled?() end)
+        :persistent_term.put({__MODULE__, :lint_checks}, checks)
+        checks
+
+      cached_checks ->
+        cached_checks
+    end
   end
 end
