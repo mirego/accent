@@ -33,7 +33,7 @@ export default class Document {
   paths: string[];
   readonly apiKey: string;
   readonly apiUrl: string;
-  readonly extraHeaders: Record<string, string>;
+  readonly extraHeaders: Record<string, string> | undefined;
   readonly projectId: string | null | undefined;
   readonly config: DocumentConfig;
   readonly target: string;
@@ -46,6 +46,7 @@ export default class Document {
     this.projectId = config.project;
     this.target = this.config.target;
     this.paths = new Tree(this.config).list();
+    this.extraHeaders = config.extraHeaders;
   }
 
   refreshPaths() {
