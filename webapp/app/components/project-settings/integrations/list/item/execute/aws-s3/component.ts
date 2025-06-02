@@ -91,7 +91,7 @@ export default class IntegrationExecuteAwsS3 extends Component<Args> {
       refetchQueries: ['ProjectServiceIntegrations'],
       variables: {
         integrationId: this.args.integration.id,
-        azureStorageContainer: {
+        awsS3: {
           tag: this.tag,
           targetVersion: this.targetVersion
         }

@@ -1,7 +1,8 @@
 defmodule AccentTest.Plugs.GraphQLContext do
   @moduledoc false
   use ExUnit.Case
-  use Plug.Test
+
+  import Plug.Test
 
   alias Accent.Plugs.GraphQLContext
 

@@ -1,7 +1,8 @@
 defmodule AccentTest.Plugs.AssignCurrentUser do
   @moduledoc false
   use Accent.RepoCase, async: true
-  use Plug.Test
+  import Plug.Test
+  import Plug.Conn
 
   alias Accent.AccessToken
   alias Accent.Plugs.AssignCurrentUser

@@ -1,7 +1,8 @@
 defmodule AccentTest.Plugs.EnsureUnlockedFileOperations do
   @moduledoc false
   use ExUnit.Case
-  use Plug.Test
+  import Plug.Test
+  import Plug.Conn
 
   alias Accent.Plugs.EnsureUnlockedFileOperations
   alias Accent.Project
