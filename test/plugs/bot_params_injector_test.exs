@@ -1,8 +1,9 @@
 defmodule AccentTest.Plugs.BotParamsInjector do
   @moduledoc false
   use ExUnit.Case, async: true
-  import Plug.Test
+
   import Plug.Conn
+  import Plug.Test
 
   alias Accent.Plugs.BotParamsInjector
   alias Accent.User

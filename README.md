@@ -119,11 +119,11 @@ _That’s it! You now have a working Accent instance without installing Elixir o
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup, you can just run `mix phx.server`.
 
-| Variable         | Default                                   | Description                                    |
-| ---------------- | ----------------------------------------- | ---------------------------------------------- |
-| `DATABASE_URL`   | `postgres://localhost/accent_development` | A valid database URL                           |
-| `PORT`           | `4000`                                    | A port to run the app on                       |
-| `SECRET_KEY_BASE`| _DEFAULT_UNSAFE_KEY_                      | The secret key that is used to encrypt session (cookie)|
+| Variable          | Default                                   | Description                                             |
+| ----------------- | ----------------------------------------- | ------------------------------------------------------- |
+| `DATABASE_URL`    | `postgres://localhost/accent_development` | A valid database URL                                    |
+| `PORT`            | `4000`                                    | A port to run the app on                                |
+| `SECRET_KEY_BASE` | _DEFAULT_UNSAFE_KEY_                      | The secret key that is used to encrypt session (cookie) |
 
 ### Production setup
 

@@ -1,8 +1,9 @@
 defmodule AccentTest.Plugs.MovementContextParser do
   @moduledoc false
   use Accent.RepoCase, async: true
-  import Plug.Test
+
   import Plug.Conn
+  import Plug.Test
 
   alias Accent.Document
   alias Accent.Language
