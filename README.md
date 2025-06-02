@@ -45,6 +45,9 @@ Easiest way to run an instance of Accent is by using the offical docker image: h
 ```
 DATABASE_URL=postgresql://postgres@docker.for.mac.host.internal/accent_development
 DUMMY_LOGIN_ENABLED=1
+# Required for session management. Must be a 64-byte string.
+# Generate one using: openssl rand -base64 64
+SECRET_KEY_BASE=KEY
 ```
 
 3. Run the image
@@ -116,10 +119,11 @@ _That’s it! You now have a working Accent instance without installing Elixir o
 
 Accent provides a default value for every required environment variable. This means that with the right PostgreSQL setup, you can just run `mix phx.server`.
 
-| Variable       | Default                                   | Description              |
-| -------------- | ----------------------------------------- | ------------------------ |
-| `DATABASE_URL` | `postgres://localhost/accent_development` | A valid database URL     |
-| `PORT`         | `4000`                                    | A port to run the app on |
+| Variable         | Default                                   | Description                                    |
+| ---------------- | ----------------------------------------- | ---------------------------------------------- |
+| `DATABASE_URL`   | `postgres://localhost/accent_development` | A valid database URL                           |
+| `PORT`           | `4000`                                    | A port to run the app on                       |
+| `SECRET_KEY_BASE`| _DEFAULT_UNSAFE_KEY_                      | The secret key that is used to encrypt session (cookie)|
 
 ### Production setup
 
