@@ -1,0 +1,1281 @@
+{
+  "addon": {
+    "channel": {
+      "handle_in": {
+        "create_collaborator": "{user} 邀请 {collaboratorEmail} 加入了项目",
+        "create_comment": "{user} 在 {translationKey} 上发表了评论: {commentText}",
+        "sync": "{user} 同步了文件: {documentPath}"
+      }
+    }
+  },
+  "components": {
+    "improve_prompt": {
+      "title": "改进文本",
+      "run": "运行指令",
+      "accept": "接受并关闭"
+    },
+    "jipt": {
+      "back_to_translations": {
+        "back": "返回"
+      },
+      "translations_filtered_title": {
+        "title_count": "{count, plural, =1 {该元素包含 1 个字符串} other {该元素包含 # 个字符串}}"
+      }
+    },
+    "machine_translations_translate_upload_form": {
+      "select_target": "选择不同的目标语言以翻译文件",
+      "translate": "翻译",
+      "new_file": "新文件",
+      "step_1": "在此处选择或拖放文件以进行翻译。",
+      "step_1_text": "然后您可以导出文件，以添加您选择语言的翻译",
+      "step_2": "选择正确的格式并提交，以将 <code>{name}</code> 翻译成选择的目标语言"
+    },
+    "documents_add_button": {
+      "link": "同步一个新文件"
+    },
+    "documents_machine_translations_button": {
+      "link": "使用机器翻译"
+    },
+    "versions_add_button": {
+      "link": "创建新版本"
+    },
+    "revision_selector": {
+      "languages_count": "{count, plural, =1 {1 个其他语言} other {# 个其他语言}}",
+      "master": "主要"
+    },
+    "translation_comments_subscriptions": {
+      "title": "新消息通知"
+    },
+    "login_header": {
+      "text": "登录",
+      "subtext": "您的 Accent 档案仅会使用您的电子邮件地址、全名和个人资料图片。",
+      "subtitle": "您可靠、<em>简单</em>、面向开发者的翻译工具",
+      "footer_open_source_link": "100% 开源",
+      "footer_mirego_link": "Mirego",
+      "footer": ", made with ♥ by"
+    },
+    "login_forms": {
+      "auth0": "使用 Auth0 登录 →",
+      "github": "使用 Github 登录 →",
+      "gitlab": "使用 GitLab 登录 →",
+      "google": "使用 Google 登录 →",
+      "slack": "使用 Slack 登录 →",
+      "discord": "使用 Discord 登录 →",
+      "microsoft": "使用 Microsoft 登录 →",
+      "oidc": "使用 OpenID Connect 登录 →",
+      "dummy": "使用电子邮箱登录 →"
+    },
+    "dummy_login_form": {
+      "title": "虚假身份验证",
+      "warning": "看起来您没有有效的 Google API 设置 :(",
+      "subtitle": "您可以使用任何电子邮件地址自动登录到平台。请确保您连接的 API 处于开发模式，并且不用于生产环境。<strong>假登录设置在生产环境中禁用。</strong>",
+      "login_button": "使用任何电子邮箱登录"
+    },
+    "activity_item": {
+      "batch_operations_hidden_count": "还有 {count} 个",
+      "rollbacked": "已回滚",
+      "details": "详情",
+      "empty_text": "空文本"
+    },
+    "application_footer": {
+      "accent_bot": "Accent CLI",
+      "text": "由计算机制作",
+      "language_select": {
+        "english": "英",
+        "french": "法",
+        "chinese": "中"
+      }
+    },
+    "collaborator_create_form": {
+      "create_button": "添加协作者",
+      "cancel_button": "取消",
+      "email_placeholder": "通过电子邮件添加协作者…"
+    },
+    "commit_file": {
+      "cancel_button": "取消",
+      "file_input_button": "选择文件",
+      "commit_error": "在上传文件时发生了错误",
+      "document_format": "文件格式",
+      "document_path": "文件名",
+      "version_tag": "版本",
+      "no_version_label": "没有版本",
+      "language": "语言",
+      "commit_type": "模式",
+      "file_source": "文档路径",
+      "merge_button": "添加翻译",
+      "pattern_help": "您需要指定要导入的 zip 文件中包含的文件模式，“例如”: **/*.strings",
+      "new_document_warning": "这些更改将创建一个新文件。",
+      "existing_document_warning": "更改将应用于已经存在的文件。",
+      "peek_button": "预览同步",
+      "peek_error": "在预览文件时发生错误",
+      "peek_help": "此操作不会对您的项目产生任何影响。",
+      "sync_button": "同步",
+      "upload_help": "选择文件后，您将能够预览项目上的更改",
+      "upload_title": "选择文件",
+      "merge_options": "选项",
+      "correct_on_merge": "标记字符串为已审核",
+      "instructions": {
+        "sync": {
+          "title": "同步",
+          "text": "更新 Accent 中的字符串列表，删除文件中缺失的字符串并添加新的字符串。<em>同步始终在主要语言中进行。</em>新添加的字符串和已移除的字符串更改将在所有翻译的语言中反映出来。"
+        },
+        "merge": {
+          "title": "添加翻译",
+          "text": "将上传的文件中的翻译与 Accent 中已存在的字符串合并。添加翻译通常是在您的项目中直接翻译字符串以节省审阅时间时完成的。"
+        },
+        "mistakes": {
+          "title": "常见错误",
+          "item_1": "在同步之前本地导出 Accent 文件。这将强制您在本地解决冲突，并有可能覆盖已审核的文本或添加已移除的字符串。",
+          "item_2": "同步一个翻译语言（而不是您的主要语言）。这将有效地为所有键生成冲突，将主要语言的文本更改为您翻译的语言。",
+          "item_3": "每种语言同步一个文件。在 Accent 中，“文件”的目的是在 X 种语言中进行翻译。同步您的主要语言，让翻译后的语言在用户界面中进行翻译。"
+        }
+      }
+    },
+    "conflict_item": {
+      "correct_error_text": "无法解决冲突，稍后重试。",
+      "conflicted_label": "审核中",
+      "in_review_tooltip": "查看审核",
+      "translate_tooltip": "从此文本翻译",
+      "translation_tooltip": "查看字符串详情",
+      "uncorrect_error_text": "无法纠正冲突，稍后再试。"
+    },
+    "conflicts_actions": {
+      "reload_button": "重新加载"
+    },
+    "conflicts_filters": {
+      "advanced_filters_button": "高级过滤器",
+      "total_entries_count": "{count, plural, =0 {没有要审核的字符串} =1 {1 个字符串待审核} other {# 个字符串待审核}}",
+      "reference_default_option_text": "没有参考语言",
+      "version_default_option_text": "最新版本",
+      "document_default_option_text": "所有文件",
+      "input_placeholder_text": "搜索字符串",
+      "advanced_filters_title": "高级过滤器",
+      "advanced_filters": {
+        "empty": "文本为空 (\" \" 或 null 值)",
+        "not_empty": "文本不为空",
+        "added_last_sync": "上次同步添加的字符串",
+        "commented_on": "带有评论的字符串",
+        "conflicted": "待审核",
+        "translated": "需要翻译"
+      }
+    },
+    "conflicts_list": {
+      "translations_version_notice": "您正在查看要在该版本中审核的字符串",
+      "correct_all_button": "将该语言的所有字符串标记为已审核",
+      "no_translations": "未找到字符串：{query}",
+      "all_reviewed_title": "全部已审核",
+      "all_reviewed_subtitle": "所有字符串已标记为已审核"
+    },
+    "dashboard_master_revision": {
+      "features": {
+        "documents": {
+          "text": "管理您的文件，预览导出内容，并最终将文件保存到您的计算机上。",
+          "title": "文件"
+        },
+        "export": {
+          "text": "将所有字符串保存到一个文件中，以便将其包含在您的项目中。",
+          "title": "导出"
+        },
+        "review": {
+          "text": "在查看先前内容的文本差异时，将字符串标记为已审核并进行更正。您甚至可以查看匹配字符串的另一种语言的文本。",
+          "title": "审核"
+        },
+        "sync": {
+          "text": "上传您的本地化文件以添加、删除和更新字符串。",
+          "title": "同步"
+        },
+        "translations": {
+          "text": "搜索和过滤您的字符串，以便快速导航到您的项目中，并查看哪些字符串正在审核中，被评论或最近更新。",
+          "title": "所有字符串"
+        }
+      },
+      "keys": "字符串",
+      "last_synced_at_label": "上次同步:",
+      "master_language_label": "主要语言:",
+      "never_synced": "首次同步项目",
+      "reviewed": "已审核"
+    },
+    "dashboard_navigation": {
+      "collaborators_link_title": "协作者",
+      "edit_link_title": "编辑",
+      "overview_link_title": "概览"
+    },
+    "dashboard_revisions": {
+      "last_synced_at_label": "上次同步:",
+      "manage_languages_link_title": "管理语言",
+      "new_language_link_title": "新语言",
+      "new_language_link_text": "使用另一种语言，您可以根据主要语言跟踪翻译。",
+      "view_more_activities": "查看更多活动 →",
+      "title": "仪表板",
+      "master": "主要语言",
+      "slaves": "翻译",
+      "sync": "同步",
+      "strings": "字符串",
+      "all_reviewed": "全部审核完毕！",
+      "reviewed": "已审核",
+      "activities_title": "最新活动",
+      "item": {
+        "rtl_badge": "RTL",
+        "rtl": "从右往左的文本",
+        "correct_all_button": "将所有字符串标记为已审核",
+        "uncorrect_all_button": "将所有字符串重新标记为待审核",
+        "stats_translated": "已翻译",
+        "stats_to_review": "待审核"
+      }
+    },
+    "date_tag": {
+      "formatted_date_time_format": "yyyy-MM-dd'T'HH:mm:ss",
+      "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
+    },
+    "versions_list": {
+      "empty_text": "版本控制使您可以独立于主项目审查/导出/同步翻译。这意味着支持您应用的旧版本将像添加新功能一样容易！",
+      "export": "导出",
+      "update": "编辑"
+    },
+    "documents_list": {
+      "empty_text": "文件是您项目的主要语言文件的实际清单。在这里或通过命令行添加它们，并将它们与您的项目保持同步。",
+      "export_all": "全部导出",
+      "show_deleted": "显示已删除",
+      "hide_deleted": "隐藏已删除",
+      "format": "格式",
+      "review": "审核中",
+      "total": "总数",
+      "sync": "同步",
+      "merge": "添加翻译",
+      "machine_translations": "翻译",
+      "export": "导出",
+      "export_jipt": "就地翻译",
+      "no_strings": "无字符串",
+      "total_strings_count": "{count, plural, =0 {没有字符串} =1 {1 个字符串} other {# 个字符串}}",
+      "language_strings_count": "{count, plural, =0 {每种语言 0 个字符串} =1 {每种语言 1 个字符串} other {每种语言 # 个字符串}}",
+      "delete_document": "删除此文件",
+      "save_button": "保存",
+      "cancel_button": "取消",
+      "item": {
+        "removed_label": "已移除",
+        "deleting_label": "正在删除 {path}.{extension}…",
+        "path_label": "路径",
+        "path_help": "用于限定您的字符串范围。该路径将用于导出所有语言 (en/<em>path</em>.format, zh/<em>path</em>.format)"
+      }
+    },
+    "error_section": {
+      "logout": "登出",
+      "or": "或",
+      "return": "返回主页"
+    },
+    "operations_peek": {
+      "item": {
+        "overview": "概览",
+        "details": "详细信息",
+        "hide": "隐藏",
+        "empty_changes": "此语言无更改",
+        "empty_results": "此搜索无结果",
+        "text_label": "文本:",
+        "previous_label": "同步前:"
+      }
+    },
+    "project_activity": {
+      "stats_label": "执行的活动:",
+      "overview_label": "概览:",
+      "review_label": "已审核？",
+      "reviewed_yes": "是",
+      "reviewed_no": "否",
+      "last_synced_text_label": "上次同步的文本：",
+      "text_before_action_label": "活动之前的文本:",
+      "new_text_label": "新文本:",
+      "empty_value": "空文本",
+      "text_differences_label": "差异:",
+      "rollback_operation_label": "通过这个活动回滚",
+      "rollbacked_operation_label": "已回滚此活动:",
+      "batch_operation_label": "由此活动生成:",
+      "operations_label": "生成了以下活动:",
+      "rollbacked_label": "已回滚",
+      "file_label": "文件:",
+      "key_label": "键:",
+      "details_label": "详情:",
+      "explanation_label": "为什么会发生这种情况？",
+      "rollback_confirm": "您确定要回滚此活动吗？您无法撤销回滚。",
+      "rollback": "回滚",
+      "stats_label_text": "执行的活动:",
+      "stats_text": {
+        "merge_on_corrected": "已翻译的字符串",
+        "add_to_version": "版本化的字符串",
+        "version_new": "版本化的字符串",
+        "merge_on_proposed": "已翻译的字符串",
+        "merge_on_proposed_force": "已(强制)翻译的字符串",
+        "merge_on_corrected_force": "已(强制)翻译的字符串",
+        "conflict_on_proposed": "新冲突",
+        "conflict_on_corrected": "新冲突",
+        "conflict_on_slave": "新的冲突反映在另一种语言中",
+        "correct_conflict": "字符串标记为已审核",
+        "uncorrect_conflict": "未审核的字符串",
+        "update": "更新字符串",
+        "new": "新增字符串",
+        "renew": "更新字符串",
+        "remove": "删除字符串",
+        "merge": "向文件添加翻译",
+        "sync": "同步文件",
+        "update_proposed": "更新同步的文本参考"
+      },
+      "action_explanation": {
+        "add_to_version": "当用户创建一个版本时，字符串会被复制为一个版本化的字符串。该字符串将不受 “main” 版本的影响。",
+        "version_new": "当用户创建版本时，该字符串会被复制为一个版本化的字符串。该字符串将保持不受 “main” 版本的影响。",
+        "create_version": "当用户冻结所有字符串的状态以将其与一个版本进行标记时。用于在并行中维护同一应用的多个版本。",
+        "conflict_on_corrected": "当上传的文本与上次同步的文本不同，并且上次同步的文本与当前文本不同时。这种情况发生在文本已被 Accent 用户修改过的情况下。这有助于识别由同步中的差异和 Accent 中修改的版本引起的冲突。",
+        "conflict_on_proposed": "当上传的文本与上次上传的文本不同，并且上次同步的文本与当前文本相同时。这种情况发生在文本未被 Accent 用户修改过的情况下。这有助于识别仅由同步而不是人为干预引起的冲突。",
+        "conflict_on_slave": "当字符串发生 “建议冲突” 或 “已更正冲突” 活动时，其他语言中的匹配键会应用此活动。该活动的目标是标记主语言中含义的变化，以及其翻译中的变化。字符串将被标记为“审核中”。",
+        "correct_all": "当所有字符串都手动标记为已审核时。",
+        "correct_conflict": "当一个字符串被手动标记为已审核时。",
+        "batch_correct_conflict": "当在短时间内标记了多个字符串为已审核时。",
+        "document_delete": "当文件已被删除时。",
+        "batch_merge": "当字符串通过文件上传更新了新的翻译时。这适用于与同步活动相同的逻辑，但不会移除字符串。",
+        "merge": "当字符串通过文件上传更新了新的翻译时。这适用于与同步活动相同的逻辑，但不会移除字符串。",
+        "merge_on_corrected": "当上传的文本与上次同步的文本不同，并且上次同步的文本与当前文本不同时。这种情况发生在文本已被 Accent 用户修改过的情况下。这有助于识别由同步上传的差异和在 Accent 中修改的版本引起的冲突。",
+        "merge_on_proposed": "当上传的文本与上次同步的文本不同，并且上次同步的文本与当前文本相同时。这种情况发生在文本未被 Accent 用户修改过的情况下。这有助于识别仅由同步上传而不是人为干预引起的冲突。",
+        "merge_on_corrected_force": "当上传的文本与上次同步的文本不同，并且上次同步的文本与当前文本不同时。这种情况发生在文本已被 Accent 用户修改过的情况下。这有助于识别由同步上传的差异和在 Accent 中修改的版本引起的冲突。",
+        "merge_on_proposed_force": "当上传的文本与上次同步的文本不同，并且上次同步的文本与当前文本相同时。这种情况发生在文本未被 Accent 用户修改过的情况下。这有助于识别仅由同步上传而不是人为干预引起的冲突。",
+        "remove": "当同步的文件不包含该键时。",
+        "new": "当同步的文件包含文件中不存在的键时。",
+        "renew": "当同步的文件包含先前删除的键时。",
+        "new_slave": "当向项目中添加新语言时。",
+        "rollback": "当用户手动回滚一个活动时。",
+        "sync": "当文档与文件同步时。",
+        "batch_sync": "当文档与文件同步时。",
+        "uncorrect_all": "当所有字符串都手动放回审核时。",
+        "uncorrect_conflict": "当字符串被手动放回审核时。",
+        "batch_update": "当有人手动更新了多个字符串时。",
+        "update": "当某人手动更新了字符串时。",
+        "update_proposed": "当同步的文本与当前文本相同但与上次同步的文本不同时。这个活动的唯一作用是确保上次同步文本的引用更新。这不会影响字符串的文本。"
+      },
+      "action_text": {
+        "add_to_version": "在一个版本中冻结了字符串",
+        "version_new": "将字符串添加到一个版本",
+        "create_version": "创建了一个新版本",
+        "conflict_on_corrected": "的同步活动引起了冲突",
+        "conflict_on_proposed": "的同步活动引起了冲突",
+        "conflict_on_slave": "的同步活动在另一种语言中引起了冲突",
+        "correct_conflict": "将字符串标记为已审核",
+        "batch_correct_conflict": "将多个字符串标记为已审核",
+        "merge_on_corrected": "翻译添加修改了字符串",
+        "merge_on_proposed": "翻译添加修改了字符串",
+        "merge_on_corrected_force": "翻译添加(强制)修改了字符串:",
+        "merge_on_proposed_force": "翻译添加(强制)修改了字符串:",
+        "new": "添加了一个字符串",
+        "renew": "重新添加了一个字符串",
+        "remove": "删除一个字符串",
+        "rollback": "回滚了一个操作",
+        "uncorrect_conflict": "将一个字符串重新标记为待审核",
+        "update": "更新了一个字符串",
+        "batch_update": "更新了多个字符串",
+        "update_proposed": "更新了一个上传的文本参考",
+        "sync": "同步了一个文件: {document}",
+        "batch_sync": "同步文件",
+        "new_slave": "添加了一个新语言",
+        "uncorrect_all": "将所有字符串重新标记为待审核",
+        "correct_all": "将所有字符串标记为已审核",
+        "document_delete": "删除了一个文件",
+        "batch_merge": "为文件添加了翻译:",
+        "merge": "为一个文件添加了翻译:"
+      },
+      "label_text": {
+        "conflict_on_corrected": "文本已移至审核，现在是:",
+        "conflict_on_proposed": "文本仍在审核中，现在是:",
+        "conflict_on_slave": "文本已移至审核，现在为:"
+      }
+    },
+    "project_settings": {
+      "back_link": {
+        "title": "← 返回到设置"
+      },
+      "links_list": {
+        "collaborators": "协作者",
+        "collaborators_text": "管理谁可以访问此项目的哪些功能",
+        "badges": "徽章",
+        "badges_text": "项目统计的快速预览，以图像嵌入",
+        "api_token": "API 令牌",
+        "api_token_text": "使用 CLI 或纯 API 请求集成 Accent 工作流",
+        "service_integrations": "服务与集成",
+        "service_integrations_text": "根据 Accent 事件通知和与外部系统交互",
+        "manage_languages": "管理语言",
+        "manage_languages_text": "添加/移除项目中已翻译的语言",
+        "jipt": "即时翻译",
+        "jipt_text": "使用内置的 JavaScript 库，在任何应用程序上进行实时翻译",
+        "machine_translations": "机器翻译",
+        "machine_translations_text": "配置外部服务自动翻译语言",
+        "prompts": "AI 助手",
+        "prompts_text": "配置您的助手以帮助编写、改进或纠正您的字符串"
+      },
+      "machine_translations": {
+        "title": "机器翻译",
+        "text": "添加有效的配置以在审核页面直接进行翻译。您也可以翻译您项目的文件以及您在 Accent 上上传的任意文件。",
+        "enabled_actions_sync": "在项目同步时自动运行",
+        "use_platform_label": "如果可用，使用平台配置",
+        "config_key_help_present": "配置密钥已设置，但该值永远不会通过 API 暴露。",
+        "config_key_help_not_present": "保存后，配置密钥将不会再显示。",
+        "config_key_placeholder": "抱歉，我不能处理或接受敏感信息，包括配置密钥。"
+      },
+      "prompts": {
+        "title": "AI助手",
+        "help": "指示将在所有字符串输入上可用，以帮助您改进内容。您给助手的指示越清晰，输出就会越好。",
+        "new_button": "添加一个新指示",
+        "use_platform_label": "如果可用，使用平台配置",
+        "config_key_help_present": "配置密钥已设置，但其值永远不会通过 API 显示。",
+        "config_key_help_not_present": "保存后，配置密钥将不再显示。",
+        "delete_confirm": "您确定要删除这条指示吗？"
+      },
+      "delete_form": {
+        "title": "危险区",
+        "delete_project_title": "删除此项目",
+        "delete_project_text": "一旦您删除了项目，就无法恢复。",
+        "delete_project_button": "删除此项目",
+        "delete_project_confirm": "您确定要删除此项目吗？此操作无法撤销。"
+      },
+      "form": {
+        "update_button": "更新项目",
+        "unsupported_logo_type": "仅支持 SVG 文件作为项目标志。",
+        "reset_logo_button": "重置标志",
+        "lock_file_operations": {
+          "text_1": "当文件操作被锁定时，同步和添加翻译功能将被禁用。",
+          "remove_lock_button": "解锁文件操作",
+          "add_lock_button": "锁定文件操作"
+        }
+      },
+      "jipt": {
+        "title": "即时翻译",
+        "integration_help": "这些步骤将引导您完成在项目中设置的步骤，以在浏览器内将您的字符串翻译成所需语言。",
+        "demo_help": "在一个静态的 HTML 页面中查看，以不同的上下文呈现您项目的第一个字符串。在页面底部可以看到 Accent 实时集成。请注意，实时示例使用您真实项目的数据。",
+        "demo_link": "打开示例 →",
+        "add_language_title": "将伪语言添加到您的项目",
+        "add_language_image_1": "这是您项目中已有的语言：",
+        "add_language_image_2": "这是名为“accent”的伪语言，在您的项目中充当正常翻译：",
+        "use_language_title": "使用伪语言",
+        "pseudo_language_text": "Accent 脚本解析 DOM，查找与即时翻译导出匹配的字符串。在 “文件” 部分导出文件，或使用 CLI 将伪语言添加到您的项目中。",
+        "use_language_text": "通过使用您喜爱的框架 i18n 工具切换到 Accent 语言，页面将显示伪语言文件中的字符串，Accent 脚本将把它们替换为 Accent 中的字符串。它还会绑定点击事件在元素上，这样您就可以直接在您的应用程序中选择字符串，并通过 Accent 进行编辑。"
+      },
+      "api_token": {
+        "title": "API 令牌",
+        "text_1": "使用此令牌，您可以对 Accent 的 API 进行身份验证调用。所有令牌都具有 'bot' 权限：同步和添加翻译。您可以指定自定义权限，以在项目中获得更精细的令牌。在您的 GitHub 操作工作流程中将令牌设置为 <code>ACCENT_API_KEY</code>，以使用 accent-cli 进行身份验证。",
+        "revoke_button": "撤销",
+        "revoke_confirm": "您确定要撤销该令牌吗？此操作无法撤消。",
+        "inserted_at": "已创建:",
+        "create_title": "添加一个新的 API 令牌",
+        "create_button": "创建",
+        "create_name_placeholder": "显示名称",
+        "create_picture_url_placeholder": "头像网址（可选）",
+        "permissions": {
+          "select_all": "选择全部",
+          "unselect_all": "取消全选",
+          "custom_permissions": "自定义权限",
+          "custom_permissions_arrow": "↓",
+          "use_custom_permissions": "使用自定义权限"
+        }
+      },
+      "user_token": {
+        "title": "您的个人令牌",
+        "text_1": "您也可以使用个人令牌以您自己的身份进行 API 调用。请注意，此令牌适用于您的所有项目。",
+        "text_shell": "您可以在您的 shell（bash、zsh、fish 等）上设置一个名为 <code>ACCENT_API_KEY</code> 的全局环境变量，这样当您使用 accent-cli 时就会被认证。"
+      },
+      "badges": {
+        "title": "徽章",
+        "text": "可以嵌入到 markdown 文件中或显示在网页上，以显示给定项目的公共统计信息。",
+        "percentage_reviewed": "已审核百分比",
+        "conflicts": "冲突",
+        "translations": "翻译",
+        "reviewed": "已审核"
+      },
+      "collaborators": {
+        "admin_text": "可以添加语言，更新项目并添加/移除协作者。",
+        "developer_text": "可以进行文件操作：同步、添加翻译，并在用户界面中预览这些操作。",
+        "owner_text": "与管理员具有相同角色的所有者是项目所属的人。",
+        "reviewer_text": "除了上述角色中列出的任务外，可以执行所有任务。审核、更新字符串、评论等。",
+        "translator_text": "翻译字符串并更新文档。翻译人员不参与审核过程。",
+        "title": "协作者"
+      },
+      "collaborators_item": {
+        "by": "来自",
+        "cancel_save_role": "取消",
+        "delete_button": "移除协作者",
+        "edit_role": "编辑角色",
+        "joined": "加入项目",
+        "invited": "已邀请",
+        "save_role": "保存角色",
+        "uninvite_button": "移除邀请"
+      },
+      "integrations": {
+        "title": "服务与集成",
+        "help": "服务是预先构建的集成，当在 Accent 上发生事件时执行某些操作。<a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.accent.reviews/guides/service-integrations.html\">更多信息 -></a>",
+        "save": "保存",
+        "cancel": "取消",
+        "edit": "编辑",
+        "delete": "删除",
+        "last_executed_at": "上次执行时间:",
+        "data": {
+          "azure_storage_container_sas": "SAS URL",
+          "aws_s3_bucket": "存储桶名称",
+          "aws_s3_path_prefix": "路径前缀",
+          "aws_s3_region": "区域",
+          "aws_s3_access_key_id": "访问密钥 ID",
+          "aws_s3_secret_access_key": "秘密访问密钥",
+          "aws_s3_minimum_policy": "最低策略",
+          "url": "URL"
+        },
+        "empty_description": {
+          "aws_s3": {
+            "title": "AWS S3",
+            "text": "将您的文件上传到亚马逊 Web 服务 S3 中，以便直接在您的应用程序中提供它们。"
+          },
+          "azure_storage_container": {
+            "title": "Azure 存储容器",
+            "text": "将您的文件上传到 Azure 存储容器中，以便直接在您的应用程序中提供它们。"
+          },
+          "discord": {
+            "title": "Discord",
+            "text": "将您项目的通知发布到 Discord"
+          },
+          "slack": {
+            "title": "Slack",
+            "text": "将您项目的通知发布到 Slack"
+          }
+        },
+        "webhook_url_how": "如何获取 webhook URL？",
+        "events": {
+          "title": "您想触发此 Webhook 的事件有哪些？",
+          "options": {
+            "sync": "同步所有更改",
+            "new_conflicts": "新的字符串待审核",
+            "complete_review": "项目已经全部审核完成",
+            "integration_execute_azure_storage_container": "文件已上传到 Azure 存储容器"
+          }
+        },
+        "execute": {
+          "aws_s3": {
+            "title": "上传文件到 AWS S3",
+            "cancel_button": "取消",
+            "error": "在将内容推送到您的存储桶时发生错误。请检查您的凭据并重试。",
+            "push_button": "上传",
+            "bucket": "桶",
+            "path_prefix": "路径前缀",
+            "submit_confirm": "将文件上传到 AWS S3 可以覆盖现有文件，如果您上传到最新版本或已经上传的版本标签。",
+            "target_version": {
+              "label": "目标版本",
+              "options": {
+                "latest": "最新版本",
+                "specific": "特定版本"
+              }
+            }
+          },
+          "azure_storage_container": {
+            "title": "上传文件到 Azure 存储容器",
+            "cancel_button": "取消",
+            "error": "在推送到 Azure 时发生错误。请检查您的凭据并重试。",
+            "push_button": "上传",
+            "sas_base_url": "基本上传 URL",
+            "submit_confirm": "如果您上传到最新版本或已经上传的版本标签，上传文件到 Azure 存储容器可能会覆盖现有文件。",
+            "target_version": {
+              "label": "目前版本",
+              "options": {
+                "latest": "最新版本",
+                "specific": "特定版本"
+              }
+            }
+          }
+        }
+      }
+    },
+    "project_activities_filter": {
+      "actions": {
+        "conflict_on_corrected": "已纠正的冲突",
+        "conflict_on_proposed": "建议冲突",
+        "conflict_on_slave": "翻译冲突",
+        "correct_all": "全部纠正",
+        "correct_conflict": "纠正冲突",
+        "batch_correct_conflict": "解决冲突",
+        "document_delete": "删除文件",
+        "new": "新建",
+        "renew": "更新",
+        "new_comment": "新评论",
+        "remove": "移除",
+        "rollback": "回滚",
+        "batch_merge": "将翻译添加到文件",
+        "merge": "将翻译添加到文件",
+        "sync": "同步文件",
+        "batch_sync": "同步文件",
+        "uncorrect_all": "全部取消纠正",
+        "uncorrect_conflict": "取消冲突纠正",
+        "update": "更新字符串",
+        "batch_update": "更新字符串"
+      },
+      "actions_default_option_text": "所有活动",
+      "collaborators_default_option_text": "所有协作者",
+      "versions_default_option_text": "所有版本",
+      "only_important_activities_text": "仅重要活动"
+    },
+    "project_activities_list": {
+      "title": "活动",
+      "empty_activities_text": "未找到任何活动"
+    },
+    "project_activities_list_item": {
+      "stats_label_text": "执行的活动:",
+      "stats_text": {
+        "add_to_version": "版本化的字符串",
+        "version_new": "版本化的字符串",
+        "merge_on_corrected": "已翻译字符串",
+        "merge_on_proposed": "已翻译字符串",
+        "merge_on_proposed_force": "已(强制)翻译字符串",
+        "merge_on_corrected_force": "已(强制)翻译字符串",
+        "conflict_on_proposed": "新冲突",
+        "conflict_on_corrected": "新冲突",
+        "conflict_on_slave": "在另一种语言中反映的新冲突",
+        "correct_conflict": "字符串标记为已审核",
+        "uncorrect_conflict": "字符串标记为未审核",
+        "update": "更新字符串",
+        "new": "新字符串",
+        "renew": "更新字符串",
+        "remove": "删除字符串",
+        "merge": "添加翻译到文件",
+        "sync": "同步文件",
+        "update_proposed": "更新上传文本的参考"
+      },
+      "action_text": {
+        "add_to_version": "在一个版本中冻结了这个字符串:",
+        "version_new": "将字符串添加到版本:",
+        "create_version": "创建了一个新版本:",
+        "remove": "移除了字符串:",
+        "renew": "添加了之前移除的字符串:",
+        "new": "添加了字符串:",
+        "conflict_on_corrected": "上次同步活动引起了一个冲突:",
+        "conflict_on_proposed": "上次同步活动引起了一个冲突:",
+        "conflict_on_slave": "上次同步活动在另一种语言中引起了一个冲突:",
+        "correct_all": "将所有字符串标记为已审核",
+        "correct_conflict": "将一个字符串标记为已审核:",
+        "batch_correct_conflict": "标记多个字符串为已审核:",
+        "document_delete": "删除了一个文件:",
+        "batch_merge": "为文件添加了翻译:",
+        "merge": "为一个文件添加了翻译:",
+        "merge_on_corrected": "最近的翻译添加修改了一个字符串:",
+        "merge_on_proposed": "最近的翻译添加修改了一个字符串:",
+        "merge_on_corrected_force": "最近的翻译添加(强制)修改了一个字符串:",
+        "merge_on_proposed_force": "最近的翻译添加(强制)修改了一个字符串:",
+        "new_comment": "添加了一个新评论:",
+        "new_slave": "添加了一个新语言",
+        "rollback": "回滚了一个操作:",
+        "sync": "同步了一个文件:",
+        "batch_sync": "同步了文件:",
+        "uncorrect_all": "将所有字符串重新标记为待审核",
+        "uncorrect_conflict": "将一个字符串重新标记为待审核:",
+        "update": "更新了字符串:",
+        "batch_update": "更新了多个字符串:",
+        "update_proposed": "更新了上传文本的参考:"
+      },
+      "label_text": {
+        "conflict_on_corrected": "该文本已移至审核，现在是:",
+        "conflict_on_proposed": "文本仍在审核中，现在是:",
+        "conflict_on_slave": "该文本已移至审核，现在是:"
+      }
+    },
+    "project_comments_list": {
+      "no_comments": "尚未对任何字符串进行评论。您可以对任何字符串进行评论，以提供翻译人员的上下文或讨论字符串的内容。",
+      "title": "对话"
+    },
+    "project_create_form": {
+      "title": "新建项目",
+      "error": "无效项目",
+      "cancel_button": "取消",
+      "language_label": "主语言:",
+      "language_search_placeholder": "搜索…",
+      "name_label": "名称:",
+      "save_button": "创建"
+    },
+    "revision_update_form": {
+      "title": "编辑语言",
+      "error": "无效的语言",
+      "cancel_button": "取消",
+      "name_label": "名称:",
+      "slug_label": "Slug:",
+      "save_button": "更新"
+    },
+    "version_create_form": {
+      "title": "新建版本",
+      "text": "创建版本会对所有活动字符串（已审核或未审核）进行快照，确保其可以被查看且不会被修改。当维护同一应用的多个版本时，这非常有用。",
+      "error": "无效版本",
+      "cancel_button": "取消",
+      "name_label": "名称:",
+      "copy_on_update_translation_help": "每当此版本中的翻译被更新时，相同的文本将被应用到最新的翻译中。这将确保冻结版本中的修复也会在最新版本中出现，而无需开发人员或审核人员采取任何行动。",
+      "copy_on_update_translation_label": "更新时复制翻译",
+      "tag_label": "标签:",
+      "save_button": "创建"
+    },
+    "version_update_form": {
+      "title": "更新版本",
+      "error": "无效版本",
+      "cancel_button": "取消",
+      "copy_on_update_translation_help": "每次更新此版本中的翻译时，相同的文本将应用于最新的翻译。这将确保在冻结版本中的修复也会出现在最新版本中，而无需开发人员或审阅者执行任何操作。",
+      "copy_on_update_translation_label": "更新时复制翻译",
+      "name_label": "名称:",
+      "tag_label": "标签:",
+      "save_button": "更新"
+    },
+    "prompt_update_form": {
+      "title": "更新指令",
+      "error": "无效的指令",
+      "cancel_button": "取消",
+      "name_label": "名称:",
+      "content_label": "内容:",
+      "save_button": "更新"
+    },
+    "prompt_create_form": {
+      "title": "创建指令",
+      "error": "无效的指示",
+      "cancel_button": "取消",
+      "name_label": "名称:",
+      "content_label": "内容:",
+      "save_button": "创建"
+    },
+    "page_title": {
+      "versions": "版本",
+      "comments": "对话",
+      "collaborators": "协作者",
+      "manage_languages": "语言",
+      "files": "文件",
+      "project_edit": "设置",
+      "activities": "活动",
+      "lint_translations": "检查"
+    },
+    "project_file_operations": {
+      "sync": "同步",
+      "merge": "添加翻译",
+      "export": "导出",
+      "export_all": "全部导出",
+      "translate": "翻译",
+      "document_format": "格式",
+      "preview_title": "预览",
+      "preview_text": "您必须选择一个文件，然后点击预览按钮。",
+      "export_jipt": "即时翻译"
+    },
+    "project_navigation": {
+      "back_to_projects": "返回到项目",
+      "engage": "参与",
+      "revise": "审查",
+      "manage": "管理",
+      "activities_link_title": "活动",
+      "conversation_link_title": "对话",
+      "collaborators_link_title": "协作者",
+      "manage_languages_link_title": "语言",
+      "translations_link_title": "所有字符串",
+      "lint_link_title": "检查",
+      "conflicts_link_title": "审核",
+      "translate_link_title": "翻译",
+      "dashboard_link_title": "仪表板",
+      "settings_link_title": "设置",
+      "sync_link_title": "文件",
+      "versions_link_title": "版本"
+    },
+    "lint_translations_page": {
+      "empty_text": "没有检查到警告或错误，一切都很好！"
+    },
+    "project_manage_languages": {
+      "create_error": "当前无法添加语言，稍后再试。",
+      "conflicts_explain_title": "关于冲突",
+      "conflicts_explain_text": "所有字符串的添加或删除将反映在语言中。当主要版本中的文本发生更改时，语言中的字符串将被标记为审核中。",
+      "sync_explain_title": "在同步时",
+      "sync_explain_text": "主要语言将在同步文件时作为默认源。其他语言从不“同步”，它们只是遵循主要语言。",
+      "add_translations_explain_title": "关于添加翻译",
+      "add_translations_explain_text": "所有语言都可以通过添加翻译来 “merged” 字符串。冲突解决方法将保持相同，但永远不会添加或移除字符串。",
+      "main_text": "您可以添加一个新语言，它将遵循主要语言。",
+      "title": "管理语言"
+    },
+    "projects_filters": {
+      "searching_for": "搜索中：",
+      "input_placeholder_text": "搜索项目",
+      "new_project": "新建项目"
+    },
+    "recent_projects_list": {
+      "title": "最近的项目:"
+    },
+    "projects_list": {
+      "last_synced_at_label": "上次同步：",
+      "last_activity_at_label": "最近活动：",
+      "never_synced": "项目从未同步",
+      "no_projects": "您还没有任何项目",
+      "no_projects_query": "未找到项目：{query}",
+      "maybe_create_one": "在这里创建您的第一个项目 →"
+    },
+    "related_translations_list": {
+      "comments_label": "{count, plural, =0 {没有评论} =1 {1 条评论} other {# 条评论}}",
+      "conflicted_label": "审核中",
+      "master_label": "主要",
+      "save_button": "保存",
+      "last_updated_label": "上次更新:",
+      "new_language_link": "新语言",
+      "no_related_translations": "还没有翻译。您需要向您的项目添加另一种语言。"
+    },
+    "removed_translation_edit": {
+      "cant_edit": "此字符串无法编辑，因为它已被移除。"
+    },
+    "project_manage_languages_create_form": {
+      "default_null": "使用空字符串初始化语言",
+      "machine_translations_enabled": "使用机器翻译初始化语言",
+      "language_search_placeholder": "搜索…",
+      "save_button": "添加语言"
+    },
+    "project_manage_languages_overview": {
+      "list_languages": "语言:",
+      "revision_inserted_at_label": "已创建",
+      "revision_deleted_label": "该语言当前正在从您的项目中移除。一旦所有操作在系统中传播完成，它将自动消失。",
+      "master_badge": "主要",
+      "delete_revision_confirm": "您确定要从项目中移除此语言吗？此操作无法撤消。",
+      "delete_revision_button": "移除此语言",
+      "promote_revision_master_confirm": "您确定要将此语言用作项目的主要语言吗？",
+      "promote_revision_master_button": "设为主要"
+    },
+    "revision_export_options": {
+      "default_format": "默认格式",
+      "default_version": "最新版本",
+      "orders": {
+        "az": "按字母顺序",
+        "original": "原始顺序"
+      },
+      "advanced_filters_title": "翻译过滤器",
+      "advanced_filters": {
+        "empty": "文本为空（\"\" 或 null 值）",
+        "added_last_sync": "上次同步添加的字符串",
+        "conflicted": "审核中"
+      },
+      "save_button": "导出"
+    },
+    "revision_navigation": {
+      "documents_link_title": "文件",
+      "merge_link_title": "添加翻译",
+      "review_link_title": "审核",
+      "translations_link_title": "所有字符串"
+    },
+    "time_ago_in_words_tag": {
+      "formatted_date_time_format": "yyyy-MM-dd'T'HH:mm:ss",
+      "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
+    },
+    "translation_activities_list_item": {
+      "action_text": {
+        "add_to_version": "冻结了一个版本中的字符串:",
+        "version_new": "将该字符串添加到版本中:",
+        "create_version": "创建一个新版本",
+        "conflict_on_corrected": "上次同步活动引起了一个冲突",
+        "conflict_on_proposed": "上次同步活动引起了一个冲突",
+        "conflict_on_slave": "上次同步活动在另一种语言中引起了一个冲突",
+        "correct_conflict": "将字符串标记为已审核",
+        "merge_on_corrected": "最近的翻译添加修改了字符串",
+        "merge_on_proposed": "最近的翻译添加修改了字符串",
+        "merge_on_corrected_force": "最近的翻译添加(强制)修改了字符串:",
+        "merge_on_proposed_force": "最近的翻译添加(强制)修改了字符串:",
+        "new": "已添加该字符串",
+        "renew": "重新添加了该字符串",
+        "new_comment": "添加了一个新评论:",
+        "remove": "移除了该字符串",
+        "rollback": "回滚了一个操作",
+        "uncorrect_conflict": "将该字符串重新放回审核状态",
+        "update": "更新了文本",
+        "update_proposed": "更新了上传文本的参考"
+      },
+      "label_text": {
+        "conflict_on_corrected": "该文本已移至审核，并且现在为:",
+        "conflict_on_proposed": "该文本仍在审核中，并且现在为:",
+        "conflict_on_slave": "该文本已移至审核，并且现在为:"
+      }
+    },
+    "translation_comment_delete": {
+      "delete": "删除",
+      "delete_comment_confirm": "您确定要删除此评论吗？此操作无法撤销。"
+    },
+    "translation_comment_form": {
+      "comment_button": "评论",
+      "comment_placeholder": "留下评论…",
+      "submit_error": "您的评论提交未成功，请稍后重试。"
+    },
+    "translation_comments_list": {
+      "no_comments": "无评论"
+    },
+    "translation_edit": {
+      "source_translation": "查看字符串的最新版本",
+      "correct_button": "更新并标记为已审核",
+      "previous_text": "上个文本:",
+      "uncorrect_button": "重新标记为待审核",
+      "uneditable": "该文本不可编辑，因为已被标记为已审核",
+      "update_text": "更新文本",
+      "form": {
+        "true_option": true,
+        "false_option": false,
+        "boolean_type_notice": "文本应为 true 或 false",
+        "integer_type_notice": "文本已设置为整数值。",
+        "float_type_notice": "文本已设置为浮点值。",
+        "empty_type_notice": "文本已设置为空字符串",
+        "empty_type_placeholder": "空文本",
+        "null_type_notice": "文本已设置为空值",
+        "file_comment": {
+          "title": "文件评论"
+        },
+        "placeholders": {
+          "title": "占位符",
+          "text": "这些自定义表达式标记了将被动态值替换的特殊字符串。您无需审核或翻译它们。"
+        }
+      },
+      "lint_message": {
+        "arrow": "→",
+        "replace": "替换",
+        "title_checks": {
+          "all": "全部",
+          "PLACEHOLDER_COUNT": "占位符数量",
+          "TRAILING_SPACE": "尾部空格",
+          "LEADING_SPACES": "开头空格",
+          "DOUBLE_SPACES": "双空格",
+          "APOSTROPHE_AS_SINGLE_QUOTE": "单引号转为撇号",
+          "FIRST_LETTER_CASE": "首字母不匹配",
+          "THREE_DOTS_ELLIPSIS": "三个点转为省略号",
+          "SAME_TRAILING_CHARACTER": "尾部字符不匹配",
+          "SPELLING": "拼写错误",
+          "URL_COUNT": "URL 数量"
+        },
+        "checks": {
+          "PLACEHOLDER_COUNT": "占位符的数量与主字符串不匹配",
+          "TRAILING_SPACE": "字符串尾部包含空格",
+          "LEADING_SPACES": "字符串开头包含空格",
+          "DOUBLE_SPACES": "字符串包含双空格",
+          "APOSTROPHE_AS_SINGLE_QUOTE": "一个单引号被用作撇号",
+          "SPELLING": "字符串中包含拼写错误",
+          "FIRST_LETTER_CASE": "翻译的首字母与主要内容的大小写不匹配",
+          "THREE_DOTS_ELLIPSIS": "字符串中包含三个点而不是省略号",
+          "SAME_TRAILING_CHARACTER": "字符串与主字符串的尾部字符不匹配",
+          "URL_COUNT": "URL 的数量与主字符串不匹配"
+        }
+      }
+    },
+    "translation_navigation": {
+      "editions_link_title": "版本",
+      "activities_link_title": "活动",
+      "comments_link_title": "{count, plural, =0 {对话} other {对话 (#)}}",
+      "edit_link_title": "编辑",
+      "merge_link_title": "添加翻译",
+      "related_translations_link_title": "翻译"
+    },
+    "translation_splash_title": {
+      "plural_label": "复数形式",
+      "conflicted_label": "审核中",
+      "master_label": "主要",
+      "last_updated_label": "最后更新:",
+      "removed_label": "此字符串已于 {removedAt} 移除"
+    },
+    "translations_filter": {
+      "advanced_filters_button": "高级过滤",
+      "input_placeholder_text": "搜索字符串",
+      "documents_label": "从文档筛选:",
+      "document_default_option_text": "所有文档",
+      "version_default_option_text": "最新版本",
+      "total_entries_count": "{count, plural, =0 {未找到字符串} =1 {找到 1 个字符串} other {找到 # 个字符串}}",
+      "advanced_filters_title": "高级过滤",
+      "advanced_filters": {
+        "empty": "文本为空（\"\" 或 null 值）",
+        "not_empty": "文本不为空",
+        "added_last_sync": "上次同步添加的字符串",
+        "commented_on": "带有注释的字符串",
+        "conflicted": "审核中",
+        "translated": "待翻译"
+      }
+    },
+    "translation_editions_list": {
+      "no_translations": "看起来您的项目没有添加版本化的字符串。",
+      "no_versions": "尝试",
+      "no_versions_link": "创建一个新版本 →"
+    },
+    "translations_list": {
+      "latest_version_label": "最新",
+      "translations_version_notice": "您正在查看此版本的字符串",
+      "comments_count": "{count, plural, =0 {无评论} =1 {1 条评论} other {# 条评论}}",
+      "save": "保存",
+      "empty_text": "空文本",
+      "null_text": "空文本",
+      "in_review_label": "审核中",
+      "to_translate_label": "待翻译",
+      "in_review_tooltip": "在审核中查看",
+      "to_translate_tooltip": "翻译从未被修改",
+      "lint_messages_label": "{count, plural, =0 {没有代码检查警告} =1 {1 条代码检查警告} other {# 条代码检查警告}}",
+      "last_updated_label": "上次更新时间:",
+      "maybe_sync_before": "也许试试",
+      "maybe_sync_link": "同步一些文件 →",
+      "no_translations": "看起来您的项目没有添加任何字符串。",
+      "no_translations_query": "未找到字符串：{query}",
+      "no_translations_filters": "没有找到符合给定过滤条件的字符串"
+    },
+    "welcome_project": {
+      "welcome": "欢迎！",
+      "welcome_translations": "Bienvenue Bienvenido 환영 欢迎 тавтай морилно уу Welkom Tervetuloa",
+      "first_step": "第一步",
+      "after_steps": "此后，您将能够",
+      "sync_file": "同步一个新文件",
+      "sync_file_text": "从多种文件格式中添加字符串以审核它们",
+      "manage_languages": "添加语言",
+      "manage_languages_text": "目标语言遵循您的主语言字符串和冲突。",
+      "add_collaborator": "添加协作者",
+      "add_collaborator_text": "翻译员，开发者等",
+      "api_token": "获取 API 令牌",
+      "api_token_text": "从您的项目与 API 进行交互",
+      "start_review": "开始审核和翻译",
+      "export": "导出已更正的文件",
+      "help": "需要帮助吗？"
+    }
+  },
+  "general": {
+    "application_name": "Accent",
+    "company_name": "Mirego",
+    "logout_button": "注销",
+    "roles": {
+      "ADMIN": "管理员",
+      "DEVELOPER": "开发者",
+      "OWNER": "所有者",
+      "BOT": "API 令牌",
+      "REVIEWER": "审阅者",
+      "TRANSLATOR": "翻译者"
+    },
+    "machine_translations_providers": {
+      "google_translate": "Google 翻译",
+      "deepl": "DeepL"
+    },
+    "prompts_providers": {
+      "openai": "OpenAI"
+    },
+    "integration_services": {
+      "DISCORD": "Discord",
+      "SLACK": "Slack",
+      "AZURE_STORAGE_CONTAINER": "Azure 存储容器",
+      "AWS_S3": "AWS S3"
+    },
+    "search_input_placeholder_text": "搜索字符串…"
+  },
+  "pods": {
+    "login": {
+      "title": "登录或注册"
+    },
+    "error": {
+      "not_found": {
+        "status": "404",
+        "title": "未找到",
+        "text": "此页面不存在。"
+      },
+      "unauthorized": {
+        "status": "401",
+        "title": "未经授权",
+        "text": "您无权查看此资源。"
+      },
+      "internal_error": {
+        "status": "500",
+        "title": "内部服务器错误",
+        "text": "发生了一些问题，已通知相关人员。"
+      }
+    },
+    "document": {
+      "sync": {
+        "flash_messages": {
+          "create_error": "无法使用上传的文件同步文档",
+          "create_success": "文档已成功同步"
+        }
+      },
+      "machine_translations": {
+        "flash_messages": {
+          "translate_error": "无法使用上传的文件翻译文档。请确保格式和目标语言有效。"
+        }
+      },
+      "merge": {
+        "flash_messages": {
+          "create_error": "无法使用上传的文件上传文档",
+          "create_success": "文档已成功上传"
+        }
+      },
+      "index": {
+        "flash_messages": {
+          "update_error": "无法更新文档",
+          "update_success": "文档已成功更新",
+          "delete_error": "无法从项目中删除文档",
+          "delete_success": "文档已成功从项目中移除"
+        }
+      }
+    },
+    "new_project": {
+      "title": "创建一个新项目"
+    },
+    "project": {
+      "loading_content": "正在加载您的项目…",
+      "index": {
+        "loading_content": "正在获取仪表板…",
+        "flash_messages": {
+          "revision_correct_success": "该语言中的所有字符串都已标记为已审核",
+          "revision_correct_error": "在标记该语言中的所有字符串为已审核时发生错误",
+          "revision_uncorrect_success": "该语言中的所有字符串都已标记为待审核",
+          "revision_uncorrect_error": "在标记该语言中的所有字符串为待审核时发生错误"
+        }
+      },
+      "activities": {
+        "show": {
+          "loading_activities": "正在获取活动…",
+          "loading_content": "正在获取活动的详情…"
+        },
+        "flash_messages": {
+          "rollback_success": "活动已成功回滚",
+          "rollback_error": "无法回滚此活动"
+        }
+      },
+      "translations": {
+        "loading_content": "正在搜索字符串…"
+      },
+      "conflicts": {
+        "loading_content": "正在搜索审核中的字符串…",
+        "flash_messages": {
+          "revision_correct_success": "该语言中的所有字符串都已标记为已审核",
+          "revision_correct_error": "标记所有该语言中的字符串为已审核时发生错误",
+          "translate_provider_error": "该字符串无法被 {provider} 翻译",
+          "translate_error": {
+            "unsupported_target": "该字符串无法被翻译：不支持的目标 {target}",
+            "unsupported_source": "该字符串无法被翻译：不支持的来源 {source}",
+            "unsupported_source_and_target": "该字符串无法被翻译：不支持的来源 {source} 和目标 {target}"
+          },
+          "correct_error": "无法将字符串标记为已审核",
+          "correct_success": "字符串已成功标记为已审核",
+          "update_error": "无法更新该字符串",
+          "update_success": "字符串已成功更新"
+        }
+      },
+      "edit": {
+        "title": "设置",
+        "loading_content": "正在获取项目的设置…",
+        "flash_messages": {
+          "collaborator_add_error": "无法添加协作者",
+          "collaborator_add_success": "协作者已成功添加",
+          "collaborator_remove_error": "无法移除协作者",
+          "collaborator_remove_success": "协作者已成功移除",
+          "collaborator_update_error": "无法更新协作者",
+          "collaborator_update_success": "协作者已成功更新",
+          "integration_add_error": "无法添加集成",
+          "integration_add_success": "集成已成功添加",
+          "integration_execute_error": "无法执行集成",
+          "integration_execute_success": "集成已成功执行",
+          "integration_update_error": "无法更新集成",
+          "integration_update_success": "集成已成功更新",
+          "integration_remove_error": "无法移除集成",
+          "integration_remove_success": "集成已成功移除",
+          "machine_translations_config_error": "无法保存机器翻译配置",
+          "machine_translations_config_success": "机器翻译配置已成功保存",
+          "machine_translations_config_remove_error": "无法移除机器翻译配置",
+          "machine_translations_config_remove_success": "机器翻译配置已成功移除",
+          "prompts_update_success": "指令已成功更新",
+          "prompts_update_error": "无法更新指令",
+          "prompts_create_success": "指令已成功创建",
+          "prompts_create_error": "无法创建指令",
+          "prompts_remove_success": "指令已成功删除",
+          "prompts_remove_error": "无法删除指令",
+          "prompts_config_error": "无法保存 AI 助手配置",
+          "prompts_config_success": "AI 助手配置已成功保存",
+          "prompts_config_remove_error": "无法移除 AI 助手配置",
+          "prompts_config_remove_success": "AI 助手配置已成功移除",
+          "update_error": "无法更新项目",
+          "update_success": "项目已成功更新",
+          "delete_error": "无法删除项目",
+          "delete_success": "项目已成功删除"
+        },
+        "badges": {
+          "loading_content": "正在获取项目的徽章…"
+        },
+        "api_token": {
+          "loading_content": "正在获取项目的 API 设置…",
+          "flash_messages": {
+            "api_token_add_success": "API 令牌已成功创建",
+            "api_token_add_error": "无法创建 API 令牌",
+            "api_token_revoke_success": "API 令牌已成功撤销",
+            "api_token_revoke_error": "无法撤销 API 令牌"
+          }
+        },
+        "jipt": {
+          "loading_content": "正在获取项目的即时翻译设置…"
+        },
+        "machine_translations": {
+          "loading_content": "正在获取项目的机器翻译设置…"
+        },
+        "prompts": {
+          "loading_content": "正在获取项目的 AI 助手设置…"
+        },
+        "service_integrations": {
+          "loading_content": "正在获取项目的服务与集成…"
+        }
+      },
+      "collaborators": {
+        "loading_content": "正在获取项目的协作者…"
+      },
+      "export": {
+        "loading_content": "渲染语言导出"
+      },
+      "files": {
+        "loading_content": "正在获取文件…",
+        "title": "文件"
+      },
+      "versions": {
+        "loading_content": "正在获取版本…",
+        "title": "版本",
+        "export": {
+          "empty_documents": "未找到此版本的文档"
+        }
+      },
+      "manage_languages": {
+        "loading_content": "正在获取语言…",
+        "flash_messages": {
+          "add_revision_failure": "无法创建新语言",
+          "add_revision_success": "新语言已成功创建",
+          "delete_revision_failure": "无法删除语言",
+          "delete_revision_success": "语言已成功删除",
+          "promote_master_revision_failure": "无法将语言提升为主语言",
+          "promote_master_revision_success": "语言已成功提升为主语言"
+        }
+      },
+      "comments": {
+        "flash_messages": {
+          "delete_error": "无法删除评论",
+          "delete_success": "评论已成功删除"
+        }
+      },
+      "lint_translations": {
+        "loading_content": "正在检查翻译…",
+        "header_link": "查看所有语言规则 →"
+      }
+    },
+    "projects": {
+      "loading_content": "正在获取您的项目…"
+    },
+    "versions": {
+      "new": {
+        "flash_messages": {
+          "create_error": "无法创建版本",
+          "create_success": "版本已成功创建"
+        }
+      },
+      "edit": {
+        "flash_messages": {
+          "update_error": "无法更新版本",
+          "update_success": "版本已成功更新"
+        }
+      }
+    },
+    "translation": {
+      "edit": {
+        "flash_messages": {
+          "correct_error": "无法将字符串标记为已审核",
+          "correct_success": "字符串已成功标记为已审核",
+          "uncorrect_error": "无法将字符串重新放回审核状态",
+          "uncorrect_success": "字符串已成功放回审核状态",
+          "update_error": "无法更新字符串",
+          "update_success": "字符串已成功更新"
+        }
+      },
+      "comments": {
+        "loading_content": "正在获取评论…",
+        "flash_messages": {
+          "delete_error": "无法删除评论",
+          "delete_success": "评论已成功删除"
+        }
+      }
+    }
+  }
+}
