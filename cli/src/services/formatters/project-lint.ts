@@ -93,11 +93,11 @@ export default class ProjectLintFormatter extends Base {
       case 'double_spaces':
         return 'String contains double spaces';
       case 'apostrophe_as_single_quote':
-        return 'A single quote as been used instead of an apostrophe';
+        return "A single quote (') as been used instead of an apostrophe (’)";
       case 'first_letter_case':
         return 'First letter of translation does not match case of the master’s';
       case 'three_dots_ellipsis':
-        return 'String contains three dots instead of ellipsis';
+        return 'String contains three dots (...) instead of ellipsis (…)';
       case 'same_trailing_character':
         return 'String does not match the trailing character of master';
       case 'url_count':
