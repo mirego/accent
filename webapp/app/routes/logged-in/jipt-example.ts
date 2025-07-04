@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 
 import jiptExampleQuery from 'accent-webapp/queries/jipt-example';
 import ApolloSubscription, {
@@ -8,7 +8,7 @@ import ApolloSubscription, {
 
 export default class JIPTExampleRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   subscription: Subscription;
 

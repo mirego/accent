@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 
 import projectCommentsQuery from 'accent-webapp/queries/project-comments';
@@ -11,10 +11,10 @@ import CommentsController from 'accent-webapp/controllers/logged-in/project/comm
 
 export default class CommentsRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('route-params')
-  routeParams: RouteParams;
+  declare routeParams: RouteParams;
 
   queryParams = {
     page: {

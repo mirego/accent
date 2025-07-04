@@ -1,9 +1,9 @@
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import RouterService from '@ember/routing/router-service';
 
 export default class JIPT extends Service {
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   listTranslations(translationsEntries: any, revision: any) {
     const translations = translationsEntries.reduce(

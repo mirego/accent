@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {readOnly, equal, and} from '@ember/object/computed';
 import {action} from '@ember/object';
 import Controller from '@ember/controller';
@@ -24,16 +24,16 @@ export default class ProjectIndexController extends Controller {
   model: any;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @readOnly('globalState.permissions')
   permissions: any;

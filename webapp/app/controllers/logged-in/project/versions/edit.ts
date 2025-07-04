@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {readOnly} from '@ember/object/computed';
 import Controller from '@ember/controller';
 
@@ -20,16 +20,16 @@ export default class EditController extends Controller {
   model: any;
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @readOnly('model.projectModel.project')
   project: any;

@@ -4,10 +4,10 @@ module.exports = {
   plugins: ["ember-template-lint-plugin-prettier"],
   extends: ["recommended", "ember-template-lint-plugin-prettier:recommended"],
   ignore: [
-    'webapp/app/templates/components/jipt-example'
+    'webapp/app/components/jipt-example/index'
   ],
   rules: {
-    'attribute-indentation': {'open-invocation-max-len': 120},
+    'attribute-indentation': { 'open-invocation-max-len': 120 },
     'block-indentation': 2,
     'eol-last': false,
     'prettier': false,
@@ -48,6 +48,6 @@ module.exports = {
     'simple-unless': false,
     'style-concatenation': false,
     'table-groups': true,
-    'template-length': [true, {min: 1, max: 200}],
+    'template-length': [true, { min: 1, max: 200 }],
   }
 };

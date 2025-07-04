@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 import raven from 'raven-js';
 import config from 'accent-webapp/config/environment';
@@ -8,13 +8,13 @@ import RouterService from '@ember/routing/router-service';
 
 export default class ApplicationRoute extends Route {
   @service('session')
-  session: Session;
+  declare session: Session;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   async beforeModel() {
     const locale = localStorage.getItem('locale') || 'en-us';

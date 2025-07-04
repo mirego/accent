@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 
 import translationQuery from 'accent-webapp/queries/translation';
@@ -10,10 +10,10 @@ import Transition from '@ember/routing/transition';
 
 export default class TranslationRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('route-params')
-  routeParams: RouteParams;
+  declare routeParams: RouteParams;
 
   subscription: Subscription;
 

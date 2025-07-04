@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {readOnly, not, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
 import Color from 'color';
@@ -9,10 +9,10 @@ import {tracked} from '@glimmer/tracking';
 
 export default class ProjectController extends Controller {
   @service('session')
-  session: Session;
+  declare session: Session;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @tracked
   defaultColor = '#25ba7c';

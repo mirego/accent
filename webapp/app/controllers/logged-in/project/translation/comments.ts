@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {readOnly, equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -23,16 +23,16 @@ export default class CommentsController extends Controller {
   model: any;
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   queryParams = ['page'];
 

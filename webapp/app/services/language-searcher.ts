@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import searchLanguagesQuery from 'accent-webapp/queries/languages-search';
 import Apollo from 'accent-webapp/services/apollo';
 
@@ -6,7 +6,7 @@ const MINIMUM_TERM_LENGTH = 2;
 
 export default class LanguageSearcher extends Service {
   @service('apollo')
-  apollo: Apollo;
+  declare apollo: Apollo;
 
   async search({term}: {term: string}) {
     const searchQuery = {

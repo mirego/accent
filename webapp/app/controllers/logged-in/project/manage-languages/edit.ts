@@ -1,6 +1,6 @@
 import {action} from '@ember/object';
 import {readOnly} from '@ember/object/computed';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Controller from '@ember/controller';
 
 import revisionUpdateQuery from 'accent-webapp/queries/update-revision';
@@ -14,13 +14,13 @@ export default class ManageLanguagesEditController extends Controller {
   model: any;
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('session')
-  session: Session;
+  declare session: Session;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @tracked
   error = false;

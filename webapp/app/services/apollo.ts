@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import RouterService from '@ember/routing/router-service';
 
 import {InMemoryCache} from '@apollo/client/cache';
@@ -40,10 +40,10 @@ const authLink = (getSession: any) => {
 
 export default class Apollo extends Service {
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @service('session')
-  session: Session;
+  declare session: Session;
 
   client = new ApolloClient({
     link: ApolloLink.from([

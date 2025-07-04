@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import Apollo from 'accent-webapp/services/apollo';
 import {tracked} from '@glimmer/tracking';
 import {setProperties} from '@ember/object';
@@ -89,7 +89,7 @@ export class Subscription {
 
 export default class ApolloSubscription extends Service {
   @service('apollo')
-  apollo: Apollo;
+  declare apollo: Apollo;
 
   graphql(model: any, query: any, {options, props}: GraphQLOptions) {
     props = props || ((data: any) => data);

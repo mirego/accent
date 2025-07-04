@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {readOnly} from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -6,7 +6,7 @@ import GlobalState from 'accent-webapp/services/global-state';
 
 export default class RevisionController extends Controller {
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @readOnly('model.project.revisions')
   revisions: any;

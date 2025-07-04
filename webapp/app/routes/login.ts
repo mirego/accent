@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 
 import authenticationProvidersQuery from 'accent-webapp/queries/authentication-providers';
@@ -10,13 +10,13 @@ import RouterService from '@ember/routing/router-service';
 
 export default class LoginRoute extends Route {
   @service('session')
-  session: Session;
+  declare session: Session;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   subscription: Subscription;
 

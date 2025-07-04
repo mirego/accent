@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {readOnly, equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -19,19 +19,19 @@ const FLASH_MESSAGE_DELETE_PROJECT_ERROR = `${FLASH_MESSAGE_PREFIX}delete_error`
 
 export default class ProjectEditIndexController extends Controller {
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @readOnly('model.project')
   project: any;

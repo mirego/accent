@@ -1,0 +1,70 @@
+.filters:global(.filters) {
+  margin: 20px auto 0;
+  padding: 0 20px !important;
+  max-width: var(--screen-lg);
+}
+
+.filters-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.queryFilter {
+  flex: 1;
+}
+
+.totalEntries {
+  margin-left: 20px;
+  color: var(--color-grey);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  left: 7px;
+  width: 20px;
+  height: 20px;
+  stroke: var(--input-border-color);
+}
+
+.createProjectButton {
+  margin-left: 15px !important;
+}
+
+.input {
+  @extend %textInput;
+  width: 100%;
+  padding: 7px 7px 7px 30px;
+  font-size: 14px;
+  font-family: var(--font-primary);
+  color: var(--color-black);
+
+  &::placeholder {
+    color: var(--color-grey);
+  }
+
+  &:focus {
+    border-color: var(--color-green);
+  }
+}
+
+.filters-meta {
+  margin-top: 7px;
+  font-size: 14px;
+  color: var(--color-grey);
+}
+
+.filters-meta-keyword {
+  font-style: italic;
+  color: var(--color-green);
+}
+
+@media (max-width: 640px) {
+  div.filters {
+    padding: 0 10px;
+  }
+}

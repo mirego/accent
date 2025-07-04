@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Controller from '@ember/controller';
 import IntlService from 'ember-intl/services/intl';
 import Session from 'accent-webapp/services/session';
@@ -13,10 +13,10 @@ export default class ErrorController extends Controller {
   model: any;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('session')
-  session: Session;
+  declare session: Session;
 
   title = this.translationAttribute('title');
   status = this.translationAttribute('status');

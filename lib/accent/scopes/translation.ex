@@ -139,6 +139,7 @@ defmodule Accent.Scopes.Translation do
   """
   @spec parse_empty(Queryable.t(), nil | boolean()) :: Queryable.t()
   def parse_empty(query, nil), do: query
+  def parse_empty(query, false), do: query
 
   def parse_empty(query, true),
     do:
@@ -156,6 +157,7 @@ defmodule Accent.Scopes.Translation do
   """
   @spec parse_not_empty(Queryable.t(), nil | boolean()) :: Queryable.t()
   def parse_not_empty(query, nil), do: query
+  def parse_not_empty(query, false), do: query
 
   def parse_not_empty(query, true), do: from(translations in query, where: translations.corrected_text != "")
 
@@ -203,6 +205,7 @@ defmodule Accent.Scopes.Translation do
   """
   @spec parse_commented_on(Queryable.t(), nil | boolean()) :: Queryable.t()
   def parse_commented_on(query, nil), do: query
+  def parse_commented_on(query, false), do: query
 
   def parse_commented_on(query, true) do
     from(

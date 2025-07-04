@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -18,13 +18,13 @@ export default class CommentsController extends Controller {
   queryParams = ['page'];
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @tracked
   page: number | null = 1;

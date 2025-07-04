@@ -1,11 +1,11 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 import Exporter from 'accent-webapp/services/exporter';
 import JIPTController from 'accent-webapp/controllers/logged-in/project/files/jipt';
 
 export default class JIPTRoute extends Route {
   @service('exporter')
-  exporter: Exporter;
+  declare exporter: Exporter;
 
   queryParams = {
     documentFormatFilter: {

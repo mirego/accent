@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import Controller from '@ember/controller';
 import RouterService from '@ember/routing/router-service';
@@ -15,16 +15,16 @@ export default class NewMachineTranslationsController extends Controller {
   model: any;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @service('machine-translations')
-  machineTranslations: MachineTranslations;
+  declare machineTranslations: MachineTranslations;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @tracked
   translatedFileContent = '';

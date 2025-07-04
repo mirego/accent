@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {equal, and, readOnly} from '@ember/object/computed';
 import Controller from '@ember/controller';
 import translationUpdateQuery from 'accent-webapp/queries/update-translation';
@@ -16,16 +16,16 @@ const FLASH_MESSAGE_UPDATE_ERROR =
 
 export default class TranslationsController extends Controller {
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   queryParams = [
     'query',

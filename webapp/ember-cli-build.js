@@ -5,9 +5,10 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const sass = require('sass');
 
-module.exports = function (defaults) {
+module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
     hinting: false,
+    componentStructure: 'nested',
 
     vendorFiles: {
       'jquery.js': null,

@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 
 import projectsQuery from 'accent-webapp/queries/projects';
 import Session from 'accent-webapp/services/session';
@@ -37,16 +37,16 @@ const transformData = (data: any, recentProjectIds: string[]) => {
 
 export default class ProjectsRoute extends Route {
   @service('session')
-  session: Session;
+  declare session: Session;
 
   @service('recent-projects')
-  recentProjects: RecentProjects;
+  declare recentProjects: RecentProjects;
 
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   queryParams = {
     query: {

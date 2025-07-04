@@ -105,9 +105,6 @@ lint-template-hbs:
 
 .PHONY: type-check
 type-check: typescript-check dialyzer-check ## Run type-checking tools on the code
-	cd webapp && npx tsc
-	cd cli && npx tsc
-	cd jipt && npx tsc
 
 .PHONY: typescript-check
 typescript-check: ## Type-check TypeScript files

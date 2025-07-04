@@ -1,10 +1,10 @@
 import Service from '@ember/service';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import RouterService from '@ember/routing/router-service';
 
 export default class FromRoute extends Service {
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   transitionTo(from: any | null, current: string, ...fallback: any[]) {
     if (from && from.name && !from.name.startsWith(current)) {

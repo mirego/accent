@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 
 import projectActivitiesQuery from 'accent-webapp/queries/project-activities';
@@ -12,10 +12,10 @@ import ActivitiesController from 'accent-webapp/controllers/logged-in/project/ac
 
 export default class ActivitiesRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('route-params')
-  routeParams: RouteParams;
+  declare routeParams: RouteParams;
 
   queryParams = {
     batchFilter: {

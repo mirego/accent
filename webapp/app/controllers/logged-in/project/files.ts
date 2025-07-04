@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {equal, readOnly, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -21,16 +21,16 @@ const FLASH_MESSAGE_UPDATE_ERROR =
 
 export default class FilesController extends Controller {
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @tracked
   page = 1;

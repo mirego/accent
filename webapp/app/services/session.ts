@@ -1,5 +1,5 @@
 import {readOnly} from '@ember/object/computed';
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import SessionFetcher from 'accent-webapp/services/session/fetcher';
 import SessionPersister from 'accent-webapp/services/session/persister';
 import SessionCreator from 'accent-webapp/services/session/creator';
@@ -8,19 +8,19 @@ import JIPT from 'accent-webapp/services/jipt';
 
 export default class Session extends Service {
   @service('session/fetcher')
-  sessionFetcher: SessionFetcher;
+  declare sessionFetcher: SessionFetcher;
 
   @service('session/persister')
-  sessionPersister: SessionPersister;
+  declare sessionPersister: SessionPersister;
 
   @service('session/creator')
-  sessionCreator: SessionCreator;
+  declare sessionCreator: SessionCreator;
 
   @service('session/destroyer')
-  sessionDestroyer: SessionDestroyer;
+  declare sessionDestroyer: SessionDestroyer;
 
   @service('jipt')
-  jipt: JIPT;
+  declare jipt: JIPT;
 
   googleAuth = null;
 

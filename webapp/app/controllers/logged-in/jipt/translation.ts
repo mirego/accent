@@ -1,11 +1,11 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {readOnly, equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
 import GlobalState from 'accent-webapp/services/global-state';
 
 export default class TranslationController extends Controller {
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @readOnly('globalState.permissions')
   permissions: any;

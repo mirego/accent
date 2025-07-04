@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {readOnly, equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -7,7 +7,7 @@ import {tracked} from '@glimmer/tracking';
 
 export default class ActivitiesController extends Controller {
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   queryParams = ['page'];
 

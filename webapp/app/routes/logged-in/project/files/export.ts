@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 import Exporter from 'accent-webapp/services/exporter';
 import ExportController from 'accent-webapp/controllers/logged-in/project/files/export';
@@ -6,7 +6,7 @@ import Transition from '@ember/routing/transition';
 
 export default class ExportRoute extends Route {
   @service('exporter')
-  exporter: Exporter;
+  declare exporter: Exporter;
 
   queryParams = {
     revisionFilter: {

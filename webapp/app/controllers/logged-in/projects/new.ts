@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import Controller from '@ember/controller';
 import RouterService from '@ember/routing/router-service';
@@ -13,13 +13,13 @@ import {tracked} from '@glimmer/tracking';
 
 export default class ProjectsNewController extends Controller {
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('session')
-  session: Session;
+  declare session: Session;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @tracked
   error = false;

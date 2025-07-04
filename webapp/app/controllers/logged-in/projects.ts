@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {equal, and, readOnly} from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -9,13 +9,13 @@ import {tracked} from '@glimmer/tracking';
 
 export default class ProjectsController extends Controller {
   @service('jipt')
-  jipt: JIPT;
+  declare jipt: JIPT;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @service('session')
-  session: Session;
+  declare session: Session;
 
   queryParams = ['query', 'page'];
 

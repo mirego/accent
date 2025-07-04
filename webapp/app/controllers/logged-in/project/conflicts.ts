@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {readOnly, equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
 import translationCorrectQuery from 'accent-webapp/queries/correct-translation';
@@ -30,19 +30,19 @@ export default class ConflictsController extends Controller {
   model: any;
 
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @service('apollo')
-  apollo: Apollo;
+  declare apollo: Apollo;
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   queryParams = [
     'page',

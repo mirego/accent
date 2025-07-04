@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import config from 'accent-webapp/config/environment';
 import AuthenticatedRequest from 'accent-webapp/services/authenticated-request';
 
@@ -38,7 +38,7 @@ interface JIPTOptions {
 
 export default class Exporter extends Service {
   @service('authenticated-request')
-  authenticatedRequest: AuthenticatedRequest;
+  declare authenticatedRequest: AuthenticatedRequest;
 
   async export(options: ExportOptions) {
     const {project, document, revision, version, documentFormat} = options;

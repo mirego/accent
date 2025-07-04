@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import Route from '@ember/routing/route';
 import GlobalState from 'accent-webapp/services/global-state';
@@ -14,16 +14,16 @@ import RouterService from '@ember/routing/router-service';
 
 export default class LintRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('route-params')
-  routeParams: RouteParams;
+  declare routeParams: RouteParams;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   subscription: Subscription;
 

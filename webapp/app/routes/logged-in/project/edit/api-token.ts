@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 
 import projectApiTokenQuery from 'accent-webapp/queries/project-api-token';
@@ -10,10 +10,10 @@ import Transition from '@ember/routing/transition';
 
 export default class APITokenRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('route-params')
-  routeParams: RouteParams;
+  declare routeParams: RouteParams;
 
   subscription: Subscription;
 

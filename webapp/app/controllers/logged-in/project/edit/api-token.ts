@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {readOnly, equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
@@ -18,16 +18,16 @@ const FLASH_MESSAGE_API_TOKEN_REVOKE_ERROR = `${FLASH_MESSAGE_PREFIX}api_token_r
 
 export default class APITokenController extends Controller {
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @service('apollo-mutate')
-  apolloMutate: ApolloMutate;
+  declare apolloMutate: ApolloMutate;
 
   @readOnly('globalState.permissions')
   permissions: any;

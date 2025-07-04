@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import {readOnly, and, equal} from '@ember/object/computed';
 import {tracked} from '@glimmer/tracking';
@@ -7,7 +7,7 @@ import GlobalState from 'accent-webapp/services/global-state';
 
 export default class LintController extends Controller {
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @readOnly('globalState.permissions')
   permissions: any;

@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 
 import translationsQuery from 'accent-webapp/queries/conflicts';
@@ -13,13 +13,13 @@ import RouterService from '@ember/routing/router-service';
 
 export default class ConflictsRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('route-params')
-  routeParams: RouteParams;
+  declare routeParams: RouteParams;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   queryParams = {
     query: {

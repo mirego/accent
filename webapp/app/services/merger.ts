@@ -1,5 +1,5 @@
 import fmt from 'simple-fmt';
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import config from 'accent-webapp/config/environment';
 import AuthenticatedRequest from 'accent-webapp/services/authenticated-request';
 
@@ -15,7 +15,7 @@ interface MergeOptions {
 
 export default class Merger extends Service {
   @service('authenticated-request')
-  authenticatedRequest: AuthenticatedRequest;
+  declare authenticatedRequest: AuthenticatedRequest;
 
   async merge({
     project,

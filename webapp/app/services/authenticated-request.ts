@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import fetch from 'fetch';
 import Session from 'accent-webapp/services/session';
 
@@ -27,7 +27,7 @@ interface MachineTranslationsTranslateFileOptions {
 
 export default class AuthenticatedRequest extends Service {
   @service('session')
-  session: Session;
+  declare session: Session;
 
   async commit(url: string, options: CommitOptions) {
     return this.postFile(url, options);

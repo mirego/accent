@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {action} from '@ember/object';
 import Controller from '@ember/controller';
 import {readOnly} from '@ember/object/computed';
@@ -10,10 +10,10 @@ import GlobalState from 'accent-webapp/services/global-state';
 
 export default class JIPTController extends Controller {
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   queryParams = ['revisionId'];
 

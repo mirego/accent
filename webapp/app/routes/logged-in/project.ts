@@ -1,4 +1,4 @@
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import Route from '@ember/routing/route';
 import {action} from '@ember/object';
 
@@ -22,10 +22,10 @@ interface Model {
 
 export default class ProjectRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   subscription: Subscription;
 

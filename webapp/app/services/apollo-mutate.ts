@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import Apollo from 'accent-webapp/services/apollo';
 
 export interface MutationResponse {
@@ -7,7 +7,7 @@ export interface MutationResponse {
 
 export default class ApolloMutate extends Service {
   @service('apollo')
-  apollo: Apollo;
+  declare apollo: Apollo;
 
   async mutate(args: any) {
     try {

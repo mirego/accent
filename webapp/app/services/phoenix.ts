@@ -1,4 +1,4 @@
-import Service, {inject as service} from '@ember/service';
+import Service, {service} from '@ember/service';
 import {Socket, Channel} from 'accent-webapp/utils/phoenix';
 import IntlService from 'ember-intl/services/intl';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
@@ -38,10 +38,10 @@ interface WebsocketMessage {
 
 export default class Phoenix extends Service {
   @service('intl')
-  intl: IntlService;
+  declare intl: IntlService;
 
   @service('flash-messages')
-  flashMessages: FlashMessages;
+  declare flashMessages: FlashMessages;
 
   socket({token}: {token: string}) {
     const socket = new Socket('/socket', {

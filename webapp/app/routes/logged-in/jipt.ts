@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 
 import projectQuery from 'accent-webapp/queries/jipt-project';
 import ApolloSubscription, {
@@ -10,13 +10,13 @@ import GlobalState from 'accent-webapp/services/global-state';
 
 export default class JIPTRoute extends Route {
   @service('apollo-subscription')
-  apolloSubscription: ApolloSubscription;
+  declare apolloSubscription: ApolloSubscription;
 
   @service('jipt')
-  jipt: JIPT;
+  declare jipt: JIPT;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   queryParams = {
     revisionId: {

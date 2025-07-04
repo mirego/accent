@@ -1,5 +1,5 @@
 import {action} from '@ember/object';
-import {inject as service} from '@ember/service';
+import {service} from '@ember/service';
 import {readOnly, empty} from '@ember/object/computed';
 import Controller from '@ember/controller';
 import FileSaver from 'accent-webapp/services/file-saver';
@@ -12,13 +12,13 @@ export default class JIPTController extends Controller {
   model: any;
 
   @service('file-saver')
-  fileSaver: FileSaver;
+  declare fileSaver: FileSaver;
 
   @service('global-state')
-  globalState: GlobalState;
+  declare globalState: GlobalState;
 
   @service('router')
-  router: RouterService;
+  declare router: RouterService;
 
   queryParams = ['documentFormatFilter'];
 
