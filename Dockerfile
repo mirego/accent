@@ -130,6 +130,11 @@ RUN mix release && \
 ################################################################################
 FROM debian:bullseye-slim
 
+# GitHub Container Registry labels
+LABEL org.opencontainers.image.source=https://github.com/mirego/accent
+LABEL org.opencontainers.image.description="Accent is a developer-oriented tool for translation management"
+LABEL org.opencontainers.image.licenses=BSD-3-Clause
+
 # Install only runtime dependencies
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
