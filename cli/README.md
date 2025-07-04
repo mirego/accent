@@ -20,7 +20,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (-v|--version|version)
-accent-cli/0.16.2 darwin-arm64 node-v21.6.1
+accent-cli/0.17.0 darwin-arm64 node-v21.6.1
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -207,7 +207,7 @@ EXAMPLES
   $ accent export --order-by=key --version=build.myapp.com:0.12.345
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.16.2/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.17.0/src/commands/export.ts)_
 
 ## `accent format`
 
@@ -225,7 +225,7 @@ EXAMPLE
   $ accent format
 ```
 
-_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.16.2/src/commands/format.ts)_
+_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.17.0/src/commands/format.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -262,7 +262,7 @@ EXAMPLE
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.16.2/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.17.0/src/commands/jipt.ts)_
 
 ## `accent lint`
 
@@ -279,7 +279,7 @@ EXAMPLE
   $ accent lint
 ```
 
-_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.16.2/src/commands/lint.ts)_
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.17.0/src/commands/lint.ts)_
 
 ## `accent stats`
 
@@ -299,7 +299,7 @@ EXAMPLE
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.16.2/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.17.0/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -315,9 +315,12 @@ OPTIONS
 
   --config=config                   [default: accent.json] Path to the config file
 
-  --dry-run                         Do not write the file from the export _after_ the operation
+  --dry-run                         Do not commit the changes in Accent
 
   --merge-type=smart|passive|force  [default: passive] Algorithm to use on existing strings when adding translation
+
+  --no-local-write                  Do not write to the local files _after_ the sync. Warning: This option could lead to
+                                    a mismatch between the source of truth (your code repository) and Accent
 
   --order-by=index|key              [default: index] Will be used in the export call as the order of the keys
 
@@ -331,7 +334,7 @@ EXAMPLES
   $ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.16.2/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.17.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 # GitHub Actions
