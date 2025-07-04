@@ -82,8 +82,12 @@ defmodule Accent.Endpoint do
   defp canonical_host(%{request_path: "/health"} = conn, _opts), do: conn
 
   defp canonical_host(conn, _opts) do
-    opts = PlugCanonicalHost.init(canonical_host: Application.get_env(:accent, :canonical_host))
+    if Application.get_env(:accent, :disable_canonical_host) do
+      conn
+    else
+      opts = PlugCanonicalHost.init(canonical_host: Application.get_env(:accent, :canonical_host))
 
-    PlugCanonicalHost.call(conn, opts)
+      PlugCanonicalHost.call(conn, opts)
+    end
   end
 end

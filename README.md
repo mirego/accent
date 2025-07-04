@@ -46,7 +46,7 @@ Easiest way to run an instance of Accent is by using the offical docker image: h
 DATABASE_URL=postgresql://postgres@docker.for.mac.host.internal/accent_development
 DUMMY_LOGIN_ENABLED=1
 # Required for session management. Must be a 64-byte string.
-# Generate one using: openssl rand -base64 64
+# Generate one using: openssl rand -hex 64
 SECRET_KEY_BASE=KEY
 ```
 
@@ -134,6 +134,7 @@ Accent provides a default value for every required environment variable. This me
 | `SENTRY_DSN`                              | _none_                     | The _secret_ Sentry DSN used to collect API runtime errors                                                                 |
 | `WEBAPP_SENTRY_DSN`                       | _none_                     | The _public_ Sentry DSN used to collect Webapp runtime errors                                                              |
 | `CANONICAL_URL`                           | _none_                     | The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.      |
+| `DISABLE_CANONICAL_HOST_REDIRECT`         | _none_                     | Remove the redirect to the canonical host URL. Use with caution.                                                           |
 | `STATIC_URL`                              | _none_                     | The URL of the app. Default to the CANONICAL_URL value.                                                                    |
 | `WEBAPP_SKIP_SUBRESOURCE_INTEGRITY`       | _none_                     | Remove integrity attributes on link and script tag. Useful when using a proxy that compress resources before serving them. |
 | `DATABASE_SSL`                            | _false_                    | If SSL should be used to connect to the database                                                                           |

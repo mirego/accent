@@ -30,6 +30,7 @@ else
 
   config :accent,
     canonical_host: get_uri_part(canonical_uri, :host),
+    disable_canonical_host: get_env("DISABLE_CANONICAL_HOST_REDIRECT", :boolean),
     force_ssl: get_uri_part(canonical_uri, :scheme) === "https",
     restricted_domain: get_env("RESTRICTED_PROJECT_CREATOR_EMAIL_DOMAIN") || get_env("RESTRICTED_DOMAIN")
 end
