@@ -12,9 +12,28 @@ Accent CLI
 * [License](#license)
 * [About Mirego](#about-mirego)
 <!-- tocstop -->
+* [Usage](#usage)
+* [Configuration](#configuration)
+* [Commands](#commands)
+* [GitHub Actions](#github-actions)
+* [License](#license)
+* [About Mirego](#about-mirego)
+<!-- tocstop -->
 
 # Usage
 <!-- usage -->
+```sh-session
+$ npm install -g accent-cli
+$ accent COMMAND
+running command...
+$ accent (--version)
+accent-cli/1.0.0 win32-x64 node-v22.18.0
+$ accent --help [COMMAND]
+USAGE
+  $ accent COMMAND
+...
+```
+<!-- usagestop -->
 ```sh-session
 $ npm install -g accent-cli
 $ accent COMMAND
@@ -181,6 +200,204 @@ Naming a branch `release/v1.0.0` will cause the `sync` and `stats` CLI commands 
 
 # Commands
 <!-- commands -->
+* [`accent export`](#accent-export)
+* [`accent format`](#accent-format)
+* [`accent help [COMMAND]`](#accent-help-command)
+* [`accent jipt PSEUDOLANGUAGENAME`](#accent-jipt-pseudolanguagename)
+* [`accent lint`](#accent-lint)
+* [`accent stats`](#accent-stats)
+* [`accent sync`](#accent-sync)
+* [`accent version`](#accent-version)
+
+## `accent export`
+
+Export files from Accent and write them to your local filesystem
+
+```
+USAGE
+  $ accent export [-c <value>] [--order-by index|key] [--version <value>]
+
+FLAGS
+  -c, --config=<value>     [default: accent.json] Path to the config file
+      --order-by=<option>  [default: index] Order of the keys
+                           <options: index|key>
+      --version=<value>    Fetch a specific version
+
+DESCRIPTION
+  Export files from Accent and write them to your local filesystem
+
+EXAMPLES
+  $ accent export
+
+  $ accent export --order-by=key --version=build.myapp.com:0.12.345
+```
+
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v1.0.0/src/commands/export.ts)_
+
+## `accent format`
+
+Format local files from server. Exit code is 1 if there are errors.
+
+```
+USAGE
+  $ accent format [--order-by index|key|-index|-key] [-c <value>]
+
+FLAGS
+  -c, --config=<value>     [default: accent.json] Path to the config file
+      --order-by=<option>  [default: index] Order of the keys
+                           <options: index|key|-index|-key>
+
+DESCRIPTION
+  Format local files from server. Exit code is 1 if there are errors.
+
+EXAMPLES
+  $ accent format
+```
+
+_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v1.0.0/src/commands/format.ts)_
+
+## `accent help [COMMAND]`
+
+Display help for accent.
+
+```
+USAGE
+  $ accent help [COMMAND...] [-n]
+
+ARGUMENTS
+  COMMAND...  Command to show help for.
+
+FLAGS
+  -n, --nested-commands  Include all nested commands in the output.
+
+DESCRIPTION
+  Display help for accent.
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.32/src/commands/help.ts)_
+
+## `accent jipt PSEUDOLANGUAGENAME`
+
+Export jipt files from Accent and write them to your local filesystem
+
+```
+USAGE
+  $ accent jipt PSEUDOLANGUAGENAME [-c <value>]
+
+ARGUMENTS
+  PSEUDOLANGUAGENAME  The pseudo language for in-place-translation-editing
+
+FLAGS
+  -c, --config=<value>  [default: accent.json] Path to the config file
+
+DESCRIPTION
+  Export jipt files from Accent and write them to your local filesystem
+
+EXAMPLES
+  $ accent jipt
+```
+
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v1.0.0/src/commands/jipt.ts)_
+
+## `accent lint`
+
+Lint local files and display errors if any. Exit code is 1 if there are errors.
+
+```
+USAGE
+  $ accent lint [-c <value>]
+
+FLAGS
+  -c, --config=<value>  [default: accent.json] Path to the config file
+
+DESCRIPTION
+  Lint local files and display errors if any. Exit code is 1 if there are errors.
+
+EXAMPLES
+  $ accent lint
+```
+
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v1.0.0/src/commands/lint.ts)_
+
+## `accent stats`
+
+Fetch stats from the API and display them beautifully
+
+```
+USAGE
+  $ accent stats [--version <value>] [--check-reviewed] [--check-translated] [-c <value>]
+
+FLAGS
+  -c, --config=<value>    [default: accent.json] Path to the config file
+      --check-reviewed    Exit 1 when reviewed percentage is not 100%
+      --check-translated  Exit 1 when translated percentage is not 100%
+      --version=<value>   View stats for a specific version
+
+DESCRIPTION
+  Fetch stats from the API and display them beautifully
+
+EXAMPLES
+  $ accent stats
+```
+
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v1.0.0/src/commands/stats.ts)_
+
+## `accent sync`
+
+Sync files in Accent and write them to your local filesystem
+
+```
+USAGE
+  $ accent sync [--add-translations] [--no-local-write] [--dry-run] [--merge-type smart|passive|force]
+    [--order-by index|key] [--sync-type smart|passive] [--version <value>] [-c <value>]
+
+FLAGS
+  -c, --config=<value>       [default: accent.json] Path to the config file
+      --add-translations     Add translations in Accent to help translators if you already have translated strings locally
+      --dry-run              Do not commit the changes in Accent
+      --merge-type=<option>  [default: passive] Algorithm to use on existing strings when adding translation
+                             <options: smart|passive|force>
+      --no-local-write       Do not write to the local files _after_ the sync. Warning: This option could lead to a mismatch
+                             between the source of truth (your code repository) and Accent
+      --order-by=<option>    [default: index] Will be used in the export call as the order of the keys
+                             <options: index|key>
+      --sync-type=<option>   [default: smart] Algorithm to use on existing strings when syncing the main language
+                             <options: smart|passive>
+      --version=<value>      Sync a specific version, the tag needs to exists in Accent first
+
+DESCRIPTION
+  Sync files in Accent and write them to your local filesystem
+
+EXAMPLES
+  $ accent sync
+
+  $ accent sync --dry-run --sync-type=force
+
+  $ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23
+```
+
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v1.0.0/src/commands/sync.ts)_
+
+## `accent version`
+
+```
+USAGE
+  $ accent version [--json] [--verbose]
+
+FLAGS
+  --verbose  Show additional information about the CLI.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+FLAG DESCRIPTIONS
+  --verbose  Show additional information about the CLI.
+
+    Additionally shows the architecture, node version, operating system, and versions of plugins that the CLI is using.
+```
+
+_See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/blob/v2.2.32/src/commands/version.ts)_
+<!-- commandsstop -->
 * [`accent export`](#accent-export)
 * [`accent format`](#accent-format)
 * [`accent help [COMMAND]`](#accent-help-command)

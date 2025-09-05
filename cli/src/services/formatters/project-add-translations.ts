@@ -1,11 +1,6 @@
-// Vendor
 import * as chalk from 'chalk';
-
-// Types
-import {Project} from '../../types/project';
-
-// Services
-import {fetchFromRevision} from '../revision-slug-fetcher';
+import { Project } from '../../types/project';
+import { fetchFromRevision } from '../revision-slug-fetcher';
 
 export default class ProjectAddTranslationsFormatter {
   log(project: Project) {

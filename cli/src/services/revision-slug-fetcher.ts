@@ -1,5 +1,4 @@
-// Types
-import {Project, Revision} from '../types/project';
+import { Project, Revision } from '../types/project';
 
 export const fetchNameFromRevision = (revision: Revision): string => {
   return revision.name || revision.language.name;
@@ -14,7 +13,7 @@ export const fetchFromRevisions = (revisions: Revision[]): string[] => {
 };
 
 export const fetchMasterFromProject = (project: Project): string => {
-  const masterRevision = project.revisions.find(({isMaster}) => isMaster);
+  const masterRevision = project.revisions.find(({ isMaster }) => isMaster);
 
   return fetchFromRevision(masterRevision!);
 };

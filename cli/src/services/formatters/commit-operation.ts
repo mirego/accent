@@ -1,10 +1,6 @@
-// Vendor
 import * as chalk from 'chalk';
+import { PeekOperation } from '../../types/operation';
 
-// Types
-import {PeekOperation} from '../../types/operation';
-
-// Constants
 const MASTER_ONLY_ACTIONS = ['new', 'renew', 'remove'];
 
 export default class CommitOperationFormatter {

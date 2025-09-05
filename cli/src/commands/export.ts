@@ -1,19 +1,13 @@
 // Command
-import {flags} from '@oclif/command';
-import Command, {configFlag} from '../base';
-
-// Formatters
-import ExportFormatter from '../services/formatters/project-export';
-
-// Services
+import { Flags } from '@oclif/core';
+import BaseCommand, { configFlag } from '../base';
 import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import DocumentExportFormatter from '../services/formatters/document-export';
+import ExportFormatter from '../services/formatters/project-export';
 import HookRunner from '../services/hook-runner';
+import { Hooks } from '../types/document-config';
 
-// Types
-import {Hooks} from '../types/document-config';
-
-export default class Export extends Command {
+export default class Export extends BaseCommand {
   static description =
     'Export files from Accent and write them to your local filesystem';
 
@@ -22,22 +16,23 @@ export default class Export extends Command {
     `$ accent export --order-by=key --version=build.myapp.com:0.12.345`
   ];
 
-  static args = [];
+  static args = {} as const;
+
   static flags = {
-    'order-by': flags.string({
+    ...{ config: configFlag },
+    'order-by': Flags.string({
       default: 'index',
       description: 'Order of the keys',
       options: ['index', 'key']
     }),
-    version: flags.string({
+    version: Flags.string({
       default: '',
       description: 'Fetch a specific version'
     }),
-    config: configFlag
-  };
+  } as const;
 
   async run() {
-    const {flags} = this.parse(Export);
+    const { flags } = await this.parse(Export);
     const t0 = process.hrtime.bigint();
     const documents = this.projectConfig.files();
     const formatter = new DocumentExportFormatter();
@@ -51,7 +46,7 @@ export default class Export extends Command {
       const targets = new DocumentPathsFetcher().fetch(this.project!, document);
 
       for (const target of targets) {
-        const {path, language, documentPath} = target;
+        const { path, language, documentPath } = target;
         const localFile = document.fetchLocalFile(documentPath, path);
         formatter.log(localFile, documentPath, language);
 

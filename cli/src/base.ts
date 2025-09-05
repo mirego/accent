@@ -1,46 +1,54 @@
-// Vendor
-import Command from '@oclif/command';
-import {error} from '@oclif/errors';
+import { Command, Flags, ux } from '@oclif/core';
 import * as chalk from 'chalk';
-import cli from 'cli-ux';
-import {flags} from '@oclif/command';
-
-// Services
 import ConfigFetcher from './services/config';
 import ProjectFetcher from './services/project-fetcher';
+import { Project, ProjectViewer } from './types/project';
 
-// Types
-import {Project, ProjectViewer} from './types/project';
+const MISSING_PATH = '__MISSING__';
 
 const sleep = async (ms: number) =>
   new Promise((resolve: (value: unknown) => void) => setTimeout(resolve, ms));
 
-export const configFlag = flags.string({
+export const configFlag = Flags.string({
+  char: 'c',
   default: 'accent.json',
   description: 'Path to the config file'
 });
 
-const parseConfigFlag = (argv: string[]) => {
-  const configFlag = argv.findIndex((arg) => arg.match('--config'));
-  if (configFlag >= 0 && !argv[configFlag + 1])
-    error('Flag --config expects a value');
 
-  return (configFlag >= 0 ? argv[configFlag + 1] : null) || 'accent.json';
-};
+function preParseConfigArg(argv: string[]): string {
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i]
+    if (a === '--config' || a === '-c') {
+      const next = argv[i + 1]
+      if (!next || next.startsWith('-')) {
+        return MISSING_PATH
+      }
+      return next
+    } else if (a.startsWith('--config=')) {
+      return a.split('=')[1] ?? 'accent.json'
+    }
+  }
+  return 'accent.json'
+}
 
-export default abstract class extends Command {
+export default abstract class BaseCommand extends Command {
   projectConfig!: ConfigFetcher;
   project?: Project;
   viewer?: ProjectViewer;
 
-  async init() {
-    const configFlag = parseConfigFlag(this.argv);
-    this.projectConfig = new ConfigFetcher(configFlag);
+  async init(): Promise<void> {
+    await super.init();
 
+    const configPath = preParseConfigArg(this.argv);
+    if (configPath === MISSING_PATH) {
+      this.error('Flag --config expects a value (e.g., --config path/to/accent.json)')
+    }
+    this.projectConfig = new ConfigFetcher(configPath);
     const config = this.projectConfig.config;
 
     // Fetch project from the GraphQL API.
-    cli.action.start(chalk.white(`Fetch config in ${configFlag}`));
+    ux.action.start(chalk.white(`Fetch config in ${configPath}`));
     await sleep(1000);
 
     const fetcher = new ProjectFetcher();
@@ -48,9 +56,9 @@ export default abstract class extends Command {
     this.project = response.project;
     this.viewer = response;
 
-    if (!this.project) error('Unable to fetch project');
+    if (!this.project) this.error('Unable to fetch project');
 
-    cli.action.stop(chalk.green(`${this.viewer.user.fullname} ✓`));
+    ux.action.stop(chalk.green(`${this.viewer.user.fullname} ✓`));
 
     if (this.projectConfig.warnings.length) {
       console.log('');

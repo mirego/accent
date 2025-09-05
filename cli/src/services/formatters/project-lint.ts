@@ -1,12 +1,8 @@
-// Vendor
 import * as chalk from 'chalk';
-import {LintTranslation} from '../../types/lint-translation';
+import { LintTranslation } from '../../types/lint-translation';
 import Base from './base';
-
-// Constants
 const MAX_TEXT_SIZE = 100;
 
-// Types
 interface Stats {
   time: bigint;
 }
@@ -22,7 +18,7 @@ export default class ProjectLintFormatter extends Base {
   }
 
   log() {
-    const errorsCount = this.lintTranslations.reduce((memo, {messages}) => {
+    const errorsCount = this.lintTranslations.reduce((memo, { messages }) => {
       return memo + messages.length;
     }, 0);
 
