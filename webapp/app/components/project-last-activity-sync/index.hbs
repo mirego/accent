@@ -1,0 +1,6 @@
+{{#if this.lastActivitySync.insertedAt}}
+  <LinkTo @route='logged-in.project.activity' @models={{array @projectId this.lastActivitySync.id}} local-class='activities-last-sync'>
+    {{t 'components.dashboard_revisions.last_synced_at_label'}}
+    <TimeAgoInWordsTag @date={{this.lastActivitySync.insertedAt}} />
+  </LinkTo>
+{{/if}}

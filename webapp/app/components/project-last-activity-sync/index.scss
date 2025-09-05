@@ -1,0 +1,14 @@
+.loading {
+  color: #999;
+  font-style: italic;
+}
+
+.activities-last-sync {
+  text-decoration: none;
+  color: var(--color-primary);
+  font-size: 10px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

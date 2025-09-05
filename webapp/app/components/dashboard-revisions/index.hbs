@@ -100,12 +100,7 @@
           {{t 'components.dashboard_revisions.activities_title'}}
         </span>
 
-        {{#if @project.lastActivitySync.insertedAt}}
-          <LinkTo @route='logged-in.project.activity' @models={{array @project.id @project.lastActivitySync.id}} local-class='activities-last-sync'>
-            {{t 'components.dashboard_revisions.last_synced_at_label'}}
-            <TimeAgoInWordsTag @date={{@project.lastActivitySync.insertedAt}} />
-          </LinkTo>
-        {{/if}}
+        <ProjectLastActivitySync @projectId={{@project.id}} />
       </h2>
       <ProjectActivitiesList @permissions={{@permissions}} @activities={{@activities}} @project={{@project}} @compact={{true}} />
       <LinkTo @route='logged-in.project.activities' @model={{@project.id}} class='button button--filled button--white button--borderLess' local-class='activities-viewMoreButton'>

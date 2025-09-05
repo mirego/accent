@@ -116,12 +116,6 @@ export default gql`
         name
         lastSyncedAt
 
-        lastActivitySync: lastActivity(action: "sync") {
-          id
-          action
-          insertedAt
-        }
-
         documents {
           entries {
             id
