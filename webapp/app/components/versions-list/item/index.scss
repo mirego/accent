@@ -6,7 +6,7 @@
   &:focus,
   &:hover {
     .deleteButton {
-      display: inline-block;
+      opacity: 1;
     }
   }
 }
@@ -25,6 +25,12 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.deleteButton {
+  margin-left: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .item-tag {

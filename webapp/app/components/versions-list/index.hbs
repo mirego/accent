@@ -1,7 +1,7 @@
 {{#if @versions}}
   <ul local-class='versions-list'>
     {{#each @versions key='id' as |version|}}
-      <VersionsList::Item @permissions={{@permissions}} @version={{version}} @project={{@project}} />
+      <VersionsList::Item @permissions={{@permissions}} @version={{version}} @project={{@project}} @onDelete={{@onDelete}} />
     {{/each}}
   </ul>
 {{else}}

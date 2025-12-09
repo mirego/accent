@@ -95,6 +95,7 @@ defmodule Accent.RoleAbilities do
     rollback
     lock_project_file_operations
     delete_project
+    delete_version
   )a
 
   # Combined permission sets per role

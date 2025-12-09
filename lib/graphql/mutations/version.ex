@@ -22,5 +22,11 @@ defmodule Accent.GraphQL.Mutations.Version do
 
       resolve(version_authorize(:update_version, &Accent.GraphQL.Resolvers.Version.update/3))
     end
+
+    field :delete_version, :mutated_version do
+      arg(:id, non_null(:id))
+
+      resolve(version_authorize(:delete_version, &Accent.GraphQL.Resolvers.Version.delete/3))
+    end
   end
 end

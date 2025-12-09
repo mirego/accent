@@ -1,15 +1,17 @@
 defmodule Accent.GraphQL.Resolvers.Version do
   @moduledoc false
+  import Ecto.Query
+
   alias Accent.GraphQL.Paginated
+  alias Accent.Operation
   alias Accent.Plugs.GraphQLContext
   alias Accent.Project
   alias Accent.Repo
+  alias Accent.Translation
   alias Accent.Version
   alias Movement.Builders.NewVersion, as: NewVersionBuilder
   alias Movement.Context
   alias Movement.Persisters.NewVersion, as: NewVersionPersister
-
-  require Ecto.Query
 
   @typep version_operation :: {:ok, %{version: Version.t() | nil, errors: [String.t()] | nil}}
 
@@ -52,6 +54,26 @@ defmodule Accent.GraphQL.Resolvers.Version do
     |> case do
       {:ok, version} ->
         {:ok, %{version: version, errors: nil}}
+
+      {:error, _reason} ->
+        {:ok, %{version: nil, errors: ["unprocessable_entity"]}}
+    end
+  end
+
+  @spec delete(Version.t(), any(), GraphQLContext.t()) :: version_operation
+  def delete(version, _, _info) do
+    fn ->
+      Repo.delete_all(from(Operation, where: [version_id: ^version.id]))
+      Repo.delete_all(from(Translation, where: [version_id: ^version.id]))
+      Repo.delete(version)
+    end
+    |> Repo.transaction()
+    |> case do
+      {:ok, {:ok, version}} ->
+        {:ok, %{version: version, errors: nil}}
+
+      {:ok, {:error, _changeset}} ->
+        {:ok, %{version: nil, errors: ["unprocessable_entity"]}}
 
       {:error, _reason} ->
         {:ok, %{version: nil, errors: ["unprocessable_entity"]}}

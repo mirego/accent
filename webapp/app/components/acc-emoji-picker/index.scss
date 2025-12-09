@@ -9,7 +9,7 @@
   right: 0;
   top: 0;
   overflow-y: scroll;
-  padding: 130px 30px 100px;
+  padding: 100px 30px;
 }
 
 .overlay {
@@ -23,8 +23,8 @@
   opacity: 0.6;
 
   animation-name: animate-overlay;
-  animation-timing-function: ease-in-out;
-  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+  animation-duration: 0.15s;
   animation-delay: 0;
   animation-fill-mode: forwards;
 }

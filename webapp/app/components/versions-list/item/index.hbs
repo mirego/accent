@@ -35,5 +35,17 @@
         {{t 'components.versions_list.export'}}
       </LinkTo>
     {{/if}}
+
+    {{#if (get @permissions 'delete_version')}}
+      <AsyncButton
+        @onClick={{fn this.deleteVersion @version}}
+        @loading={{this.isDeleting}}
+        local-class='deleteButton'
+        class='button button--outline button--borderless button--red'
+      >
+        {{inline-svg '/assets/x.svg' class='button-icon'}}
+        {{t 'components.versions_list.delete'}}
+      </AsyncButton>
+    {{/if}}
   </div>
 </li>

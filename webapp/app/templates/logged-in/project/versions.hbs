@@ -10,7 +10,7 @@
 {{#if this.showSkeleton}}
   <SkeletonUi::VersionsList />
 {{else}}
-  <VersionsList @permissions={{this.permissions}} @versions={{this.model.versions.entries}} @project={{this.model.project}} />
+  <VersionsList @permissions={{this.permissions}} @versions={{this.model.versions.entries}} @project={{this.model.project}} @onDelete={{fn this.deleteVersion}} />
 
   {{#if (get this.permissions 'create_version')}}
     <VersionsAddButton @project={{this.model.project}} />
