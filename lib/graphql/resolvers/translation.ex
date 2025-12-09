@@ -17,7 +17,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
   alias Movement.Context
   alias Movement.Persisters.Base, as: BasePersister
 
-  require Ecto.Query
+  require Query
 
   @internal_nested_separator ~r/__KEY__(\d+)/
   @typep translation_operation :: {:ok, %{translation: Translation.t() | nil, errors: [String.t()] | nil}}

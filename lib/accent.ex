@@ -12,6 +12,7 @@ defmodule Accent do
       Accent.Repo,
       {Oban, oban_config()},
       Accent.Vault,
+      Accent.AccessTokenUsageWriter,
       {Cachex, name: :language_tool_cache, limit: 10_000},
       {LanguageTool.Server, language_tool_config()},
       {TelemetryUI, Accent.TelemetryUI.config()},

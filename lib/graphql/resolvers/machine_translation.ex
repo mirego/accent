@@ -9,7 +9,7 @@ defmodule Accent.GraphQL.Resolvers.MachineTranslation do
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Ecto.Query
 
-  require Ecto.Query
+  require Query
 
   @spec translate_text(
           Project.t(),

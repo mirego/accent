@@ -44,6 +44,6 @@ defmodule AccentTest.GraphQL.Resolvers.Permission do
 
     {:ok, permissions} = Resolver.list_project(project, %{}, context)
 
-    assert :create_slave not in permissions
+    refute :create_slave in permissions
   end
 end

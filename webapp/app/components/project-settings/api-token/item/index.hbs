@@ -14,6 +14,14 @@
         {{t 'components.project_settings.api_token.inserted_at'}}
         <TimeAgoInWordsTag @date={{@token.insertedAt}} />
       </span>
+      <span local-class='api-token-last-used'>
+        {{#if @token.lastUsedAt}}
+          {{t 'components.project_settings.api_token.last_used_at'}}
+          <TimeAgoInWordsTag @date={{@token.lastUsedAt}} />
+        {{else}}
+          {{t 'components.project_settings.api_token.never_used'}}
+        {{/if}}
+      </span>
     </div>
 
     <div>

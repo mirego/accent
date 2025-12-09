@@ -10,7 +10,7 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
   alias Accent.Translation
   alias Accent.User
 
-  doctest Accent.GraphQL.Resolvers.Activity, import: true
+  doctest Resolver, import: true
 
   defmodule PlugConn do
     @moduledoc false

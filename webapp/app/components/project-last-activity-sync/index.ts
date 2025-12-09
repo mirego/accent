@@ -68,8 +68,7 @@ export default class ProjectLastActivitySyncComponent extends Component<Args> {
         });
 
       this.lastActivitySync = result.data.viewer.project.lastActivitySync;
-    } catch (error) {
-      console.error('Error fetching project lastActivitySync:', error);
+    } catch (_error) {
       this.lastActivitySync = null;
     } finally {
       this.loading = false;

@@ -59,7 +59,7 @@ defmodule Accent.IntegrationManager.Execute.UploadDocuments do
                 file: file,
                 render: render,
                 document: document,
-                language: Accent.Revision.language(revision)
+                language: Revision.language(revision)
               }
             ]
           else

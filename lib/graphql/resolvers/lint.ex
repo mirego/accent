@@ -58,7 +58,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
       |> Repo.one()
 
     master_translations =
-      Accent.Translation
+      Translation
       |> TranslationScope.from_project(project.id)
       |> TranslationScope.from_revision(master_revision.id)
       |> TranslationScope.from_version(translation.version_id)

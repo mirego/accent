@@ -13,6 +13,7 @@ export default gql`
           id
           token
           insertedAt
+          lastUsedAt
           customPermissions
           user {
             id

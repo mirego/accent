@@ -27,15 +27,25 @@ defmodule Accent.UserAuthFetcher do
   end
 
   defp fetch_user("Bearer " <> token) when is_binary(token) do
-    Repo.one(
-      from(user in User,
-        inner_join: access_token in assoc(user, :access_tokens),
-        left_join: collaboration in assoc(user, :bot_collaborations),
-        where: access_token.token == ^token,
-        where: is_nil(access_token.revoked_at),
-        select: {user, access_token.custom_permissions, collaboration}
+    result =
+      Repo.one(
+        from(user in User,
+          inner_join: access_token in assoc(user, :access_tokens),
+          left_join: collaboration in assoc(user, :bot_collaborations),
+          where: access_token.token == ^token,
+          where: is_nil(access_token.revoked_at),
+          select: {user, access_token.id, access_token.custom_permissions, collaboration}
+        )
       )
-    )
+
+    case result do
+      {user, access_token_id, custom_permissions, collaboration} ->
+        Accent.AccessTokenUsageWriter.track_usage(access_token_id)
+        {user, custom_permissions, collaboration}
+
+      nil ->
+        nil
+    end
   end
 
   defp fetch_user(_any), do: nil

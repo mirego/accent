@@ -88,9 +88,9 @@ defmodule Accent.Prompts.Provider.OpenAI do
 
     defmodule Auth do
       @moduledoc false
-      @behaviour Tesla.Middleware
+      @behaviour Middleware
 
-      @impl Tesla.Middleware
+      @impl Middleware
       def call(env, next, opts) do
         env
         |> Tesla.put_header("authorization", "Bearer #{opts[:key]}")

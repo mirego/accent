@@ -16,7 +16,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
   alias Accent.User
   alias Ecto.Query
 
-  require Ecto.Query
+  require Query
 
   @typep project_operation :: {:ok, %{project: Project.t() | nil, errors: [String.t()] | nil}}
 

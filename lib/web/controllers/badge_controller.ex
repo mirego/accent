@@ -1,5 +1,5 @@
 defmodule Accent.BadgeController do
-  use Phoenix.Controller
+  use Phoenix.Controller, formats: [html: "View"]
 
   import Canary.Plugs
 

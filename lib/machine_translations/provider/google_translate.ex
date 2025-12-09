@@ -171,9 +171,9 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
 
     defmodule Auth do
       @moduledoc false
-      @behaviour Tesla.Middleware
+      @behaviour Middleware
 
-      @impl Tesla.Middleware
+      @impl Middleware
       def call(env, next, opts) do
         case auth_enabled?() && Goth.Token.fetch(%{source: opts}) do
           {:ok, %{token: token, type: type}} ->
@@ -209,19 +209,17 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     end
 
     defp parse_auth_config(config) do
-      case Jason.decode!(Map.fetch!(config, "key")) do
-        %{"project_id" => project_id, "type" => "service_account"} = credentials ->
-          {
-            "https://translation.googleapis.com/v3/projects/#{project_id}",
-            {:service_account, credentials,
-             [
-               scopes: [
-                 "https://www.googleapis.com/auth/cloud-translation",
-                 "https://www.googleapis.com/auth/cloud-platform"
-               ]
-             ]}
-          }
-      end
+      (%{"project_id" => project_id, "type" => "service_account"} = credentials) =
+        Jason.decode!(Map.fetch!(config, "key"))
+
+      {"https://translation.googleapis.com/v3/projects/#{project_id}",
+       {:service_account, credentials,
+        [
+          scopes: [
+            "https://www.googleapis.com/auth/cloud-translation",
+            "https://www.googleapis.com/auth/cloud-platform"
+          ]
+        ]}}
     end
   end
 end

@@ -19,7 +19,7 @@ defmodule AccentTest.Lint do
       entry = %Entry{key: "a", value: "Nothing", is_master: false, master_value: "Test {{bar}}", value_type: "string"}
       [{_, messages}] = Lint.lint([entry])
 
-      assert messages === [%Accent.Lint.Message{check: :placeholder_count, replacement: nil, text: "Nothing"}]
+      assert messages === [%Message{check: :placeholder_count, replacement: nil, text: "Nothing"}]
     end
 
     @tag :skip

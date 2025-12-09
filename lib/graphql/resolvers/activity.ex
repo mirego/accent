@@ -9,7 +9,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
   alias Accent.Translation
   alias Ecto.Query
 
-  require Ecto.Query
+  require Query
 
   @spec list_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Operation.t())}
   def list_project(project, args, _) do

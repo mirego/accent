@@ -19,7 +19,7 @@ defmodule Accent.CollaboratorCreator do
 
   defp assign_user(collaborator) do
     case fetch_user(collaborator.changes[:email]) do
-      %User{id: id} -> Ecto.Changeset.put_change(collaborator, :user_id, id)
+      %User{id: id} -> Changeset.put_change(collaborator, :user_id, id)
       nil -> collaborator
     end
   end

@@ -183,7 +183,7 @@ defmodule Accent.ExportController do
          } = conn,
          _
        ) do
-    document = document || %Accent.Document{format: conn.params["document_format"]}
+    document = document || %Document{format: conn.params["document_format"]}
 
     %{render: render} =
       Accent.TranslationsRenderer.render_translations(%{

@@ -43,8 +43,8 @@ defmodule AccentTest.ProjectCreator do
     bot_user = Repo.preload(bot_collaborator, :user).user
     bot_access = hd(Repo.preload(bot_collaborator, user: :access_tokens).user.access_tokens)
 
-    refute is_nil(bot_collaborator.user_id)
-    refute is_nil(bot_access.token)
+    assert bot_collaborator.user_id
+    assert bot_access.token
     assert bot_user.bot === true
   end
 end

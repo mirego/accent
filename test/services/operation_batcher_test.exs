@@ -131,7 +131,7 @@ defmodule AccentTest.OperationBatcher do
         inserted_at: DateTime.utc_now()
       )
 
-    batch_responses = Accent.OperationBatcher.batch(operation)
+    batch_responses = OperationBatcher.batch(operation)
 
     updated_operations =
       Operation
@@ -199,7 +199,7 @@ defmodule AccentTest.OperationBatcher do
         inserted_at: DateTime.utc_now()
       )
 
-    batch_responses = Accent.OperationBatcher.batch(operation)
+    batch_responses = OperationBatcher.batch(operation)
 
     updated_operations =
       Operation

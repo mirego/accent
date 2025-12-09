@@ -1,5 +1,5 @@
 defmodule Accent.LintController do
-  use Phoenix.Controller
+  use Phoenix.Controller, formats: [json: "View"]
 
   import Canary.Plugs
 

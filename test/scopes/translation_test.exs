@@ -8,7 +8,7 @@ defmodule AccentTest.Scopes.Translation do
   alias Accent.Scopes.Translation, as: Scope
   alias Accent.Translation
 
-  doctest Accent.Scopes.Translation
+  doctest Scope
 
   setup do
     project = Factory.insert(Project)

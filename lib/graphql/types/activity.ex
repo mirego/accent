@@ -38,7 +38,7 @@ defmodule Accent.GraphQL.Types.Activity do
       arg(:page, :integer)
       arg(:page_size, :integer)
 
-      resolve(&Accent.GraphQL.Resolvers.Activity.list_operations/3)
+      resolve(&Resolver.list_operations/3)
     end
 
     field(:batched_operations, non_null(list_of(non_null(:activity))),

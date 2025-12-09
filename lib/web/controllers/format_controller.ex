@@ -1,5 +1,5 @@
 defmodule Accent.FormatController do
-  use Phoenix.Controller
+  use Phoenix.Controller, formats: [json: "View"]
 
   import Canary.Plugs
 

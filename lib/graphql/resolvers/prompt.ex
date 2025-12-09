@@ -7,7 +7,7 @@ defmodule Accent.GraphQL.Resolvers.Prompt do
   alias Accent.PromptManager
   alias Accent.Prompts
 
-  @spec improve_text(Accent.Prompt.t(), any(), GraphQLContext.t()) ::
+  @spec improve_text(Prompt.t(), any(), GraphQLContext.t()) ::
           {:ok, %{provider: atom(), text: String.t(), errors: [String.t()] | nil}}
   def improve_text(prompt, args, _info) do
     config = Prompts.config_or_default(prompt.project.prompt_config)

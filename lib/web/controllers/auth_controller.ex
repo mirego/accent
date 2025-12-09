@@ -1,5 +1,5 @@
 defmodule Accent.AuthController do
-  use Phoenix.Controller
+  use Phoenix.Controller, formats: []
 
   alias Accent.UserRemote.Authenticator
   alias Ueberauth.Strategy.Helpers

@@ -8,7 +8,7 @@ defmodule AccentTest.Scopes.Version do
   alias Accent.User
   alias Accent.Version
 
-  doctest Accent.Scopes.Version
+  doctest VersionScope
 
   defp assert_match_version(versions, version) do
     assert length(versions) === 1

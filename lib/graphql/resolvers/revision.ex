@@ -16,7 +16,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   alias Movement.Persisters.RevisionCorrectAll, as: RevisionCorrectAllPersister
   alias Movement.Persisters.RevisionUncorrectAll, as: RevisionUncorrectAllPersister
 
-  require Ecto.Query
+  require Query
 
   @typep revision_operation :: {:ok, %{revision: Revision.t() | nil, errors: [String.t()] | nil}}
 

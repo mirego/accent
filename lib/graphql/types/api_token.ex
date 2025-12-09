@@ -10,5 +10,6 @@ defmodule Accent.GraphQL.Types.APIToken do
     field(:custom_permissions, list_of(non_null(:string)))
     field(:user, non_null(:user), resolve: dataloader(Accent.User))
     field(:inserted_at, non_null(:datetime))
+    field(:last_used_at, :datetime)
   end
 end

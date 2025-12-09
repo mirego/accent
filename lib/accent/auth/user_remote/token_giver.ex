@@ -14,7 +14,7 @@ defmodule Accent.UserRemote.TokenGiver do
     Repo.insert!(%Accent.AccessToken{
       user_id: user.id,
       global: true,
-      token: Accent.Utils.SecureRandom.urlsafe_base64(70)
+      token: SecureRandom.urlsafe_base64(70)
     })
   end
 

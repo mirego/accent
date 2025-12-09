@@ -52,8 +52,8 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
 
     translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
 
-    assert Enum.member?(translation_ids, translation.id)
-    assert Enum.member?(translation_ids, other_translation.id)
+    assert translation.id in translation_ids
+    assert other_translation.id in translation_ids
     assert operations === ["conflict_on_proposed", "conflict_on_slave", "conflict_on_slave"]
   end
 
@@ -86,8 +86,8 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
 
     translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
 
-    assert Enum.member?(translation_ids, translation.id)
-    refute Enum.member?(translation_ids, other_translation.id)
+    assert translation.id in translation_ids
+    refute other_translation.id in translation_ids
     assert operations === ["conflict_on_proposed", "conflict_on_slave"]
   end
 end
