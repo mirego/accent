@@ -1,6 +1,5 @@
-// Types
-import {DocumentPath} from '../types/document-path';
-import {Project} from '../types/project';
+import { DocumentPath } from '../types/document-path';
+import { Project } from '../types/project';
 import Document from './document';
 
 export default class DocumentJiptPathsFetcher {
@@ -10,7 +9,7 @@ export default class DocumentJiptPathsFetcher {
     pseudoLanguageName: string
   ): DocumentPath[] {
     return project.documents.entries
-      .map(({path}) => path)
+      .map(({ path }) => path)
       .map((path) => {
         const parsedTarget = document.target
           .replace('%slug%', pseudoLanguageName)

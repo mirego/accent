@@ -1,6 +1,5 @@
-// Types
-import {DocumentConfig} from './document-config';
-import {VersionConfig} from './version-config';
+import { DocumentConfig } from './document-config';
+import { VersionConfig } from './version-config';
 
 export interface Config {
   apiUrl: string;

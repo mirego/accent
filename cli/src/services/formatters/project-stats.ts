@@ -1,8 +1,5 @@
-// Vendor
 import * as chalk from 'chalk';
-import {Config} from '../../types/config';
-
-// Types
+import { Config } from '../../types/config';
 import {
   Collaborator,
   Document,
@@ -10,8 +7,6 @@ import {
   Revision,
   Version
 } from '../../types/project';
-
-// Services
 import {
   fetchFromRevision,
   fetchNameFromRevision
@@ -217,7 +212,7 @@ export default class ProjectStatsFormatter extends Base {
     console.log('');
 
     const owners = this.project.collaborators.filter(
-      ({role}) => role === 'OWNER'
+      ({ role }) => role === 'OWNER'
     );
 
     if (owners.length !== 0) {

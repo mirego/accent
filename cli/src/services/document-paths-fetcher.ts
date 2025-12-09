@@ -1,8 +1,7 @@
-// Types
-import {DocumentPath} from '../types/document-path';
-import {Project} from '../types/project';
+import { DocumentPath } from '../types/document-path';
+import { Project } from '../types/project';
 import Document from './document';
-import {fetchFromRevisions} from './revision-slug-fetcher';
+import { fetchFromRevisions } from './revision-slug-fetcher';
 
 export default class DocumentPathsFetcher {
   fetch(project: Project, document: Document): DocumentPath[] {
@@ -21,8 +20,8 @@ export default class DocumentPathsFetcher {
           .replace('%original_file_name%', path)
           .replace('%document_path%', path);
 
-        if (!memo.find(({path}) => path === parsedTarget)) {
-          memo.push({documentPath: path, path: parsedTarget, language: slug});
+        if (!memo.find(({ path }) => path === parsedTarget)) {
+          memo.push({ documentPath: path, path: parsedTarget, language: slug });
         }
       });
 

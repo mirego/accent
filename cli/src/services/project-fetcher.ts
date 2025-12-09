@@ -1,32 +1,28 @@
-// Vendor
-import {CLIError} from '@oclif/errors';
+import { Errors } from '@oclif/core';
 import * as chalk from 'chalk';
-import fetch from 'node-fetch';
-
-// Types
-import {Config} from '../types/config';
-import {ProjectViewer} from '../types/project';
+import { Config } from '../types/config';
+import { ProjectViewer } from '../types/project';
 
 export default class ProjectFetcher {
   async fetch(config: Config, params?: object): Promise<ProjectViewer> {
     const response = await this.graphql(config, params || {});
     try {
-      const data = (await response.json()) as {data: any};
+      const data = (await response.json()) as { data: any };
 
       if (!data.data) {
-        throw new CLIError(
+        throw new Errors.CLIError(
           chalk.red(`Can’t find the project for the key: ${config.apiKey}`),
-          {exit: 1}
+          { exit: 1 }
         );
       }
 
       return data.data && data.data.viewer;
     } catch (_) {
-      throw new CLIError(
+      throw new Errors.CLIError(
         chalk.red(
           `Can’t fetch the project on ${config.apiUrl} with key ${config.apiKey}`
         ),
-        {exit: 1}
+        { exit: 1 }
       );
     }
   }
@@ -108,11 +104,11 @@ export default class ProjectFetcher {
     }`;
 
     // eslint-disable-next-line camelcase
-    const configParams = config.project ? {project_id: config.project} : {};
-    const variables = {...configParams, ...params};
+    const configParams = config.project ? { project_id: config.project } : {};
+    const variables = { ...configParams, ...params };
 
     return await fetch(`${config.apiUrl}/graphql`, {
-      body: JSON.stringify({query, variables}),
+      body: JSON.stringify({ query, variables }),
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${config.apiKey}`,
