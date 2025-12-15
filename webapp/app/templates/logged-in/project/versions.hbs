@@ -1,6 +1,14 @@
 <PageTitle>
   {{inline-svg '/assets/tag.svg'}}
   <h1>{{t 'components.page_title.versions'}}</h1>
+  <PageTitle::End>
+    {{#if this.model.versions.entries.length}}
+      {{#if (get this.permissions 'create_version')}}
+        <VersionsAddButton @project={{this.model.project}} />
+      {{/if}}
+    {{/if}}
+
+  </PageTitle::End>
 </PageTitle>
 
 {{#if this.model.loading}}

@@ -24,7 +24,8 @@
       </div>
     {{else if (get @permissions 'rollback')}}
       {{#if this.isRollbackable}}
-        <AsyncButton @onClick={{fn this.rollback}} @loading={{this.isRollbacking}} class='button button--red' local-class='rollbackButton'>
+        <AsyncButton @onClick={{fn this.rollback}} @loading={{this.isRollbacking}} class='button button--red button--borderless' local-class='rollbackButton'>
+          {{inline-svg '/assets/revert.svg' class='button-icon'}}
           {{t 'components.project_activity.rollback'}}
         </AsyncButton>
       {{/if}}

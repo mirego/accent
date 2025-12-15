@@ -1,5 +1,5 @@
 <li local-class='item'>
-  <div>
+  <div local-class='item-info'>
     <h2 local-class='item-title'>
       {{#if (get @permissions 'update_version')}}
         <LinkTo @route='logged-in.project.versions.edit' @models={{array @project.id @version.id}} local-class='item-title-link'>
@@ -9,9 +9,11 @@
         {{@version.name}}
       {{/if}}
 
-      <span local-class='item-tag'>
-        {{@version.tag}}
-      </span>
+      {{#unless (eq @version.name @version.tag)}}
+        <span local-class='item-tag'>
+          {{@version.tag}}
+        </span>
+      {{/unless}}
     </h2>
     <div local-class='item-meta'>
       {{@version.user.fullname}}
@@ -37,12 +39,7 @@
     {{/if}}
 
     {{#if (get @permissions 'delete_version')}}
-      <AsyncButton
-        @onClick={{fn this.deleteVersion @version}}
-        @loading={{this.isDeleting}}
-        local-class='deleteButton'
-        class='button button--outline button--borderless button--red'
-      >
+      <AsyncButton @onClick={{fn this.deleteVersion @version}} @loading={{this.isDeleting}} class='button button--outline button--borderless button--red'>
         {{inline-svg '/assets/x.svg' class='button-icon'}}
         {{t 'components.versions_list.delete'}}
       </AsyncButton>

@@ -1,20 +1,32 @@
 .item {
   position: relative;
-  padding: 10px 0;
-  width: 100%;
+  display: flex;
+  margin-left: -10px;
+  padding: 8px 12px;
+  width: calc(100% + 10px);
+  border-radius: var(--border-radius);
+  transition: background 0.3s ease-in-out;
 
   &:focus,
   &:hover {
+    background: var(--body-background);
+    .links {
+      opacity: 1;
+    }
     .deleteButton {
       opacity: 1;
     }
   }
 }
 
+.item-info {
+  width: 100%;
+}
+
 .item-title {
   display: flex;
   align-items: center;
-  font-size: 23px;
+  font-size: 18px;
   color: var(--color-primary);
 }
 
@@ -34,33 +46,42 @@
 }
 
 .item-tag {
-  position: relative;
-  top: 2px;
   display: inline-flex;
   align-items: center;
   margin-left: 10px;
-  font-size: 12px;
+  font-size: 11px;
   font-family: var(--font-monospace);
   color: var(--text-color-normal);
   text-decoration: none;
   background: var(--background-tooltip);
-  padding: 1px 3px;
+  padding: 1px 5px;
   border-radius: var(--border-radius);
 }
 
 .item-meta {
-  margin-bottom: 10px;
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
   color: var(--color-grey);
 }
 
 .item-meta-date {
-  opacity: 0.7;
   color: var(--color-grey);
+
+  &::before {
+    content: '– ';
+    opacity: 0.5;
+  }
 }
 
 .links {
-  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0;
+  gap: 10px;
+  transition: opacity 0.2s ease-in-out;
 
   .button {
     margin-right: 6px;
@@ -68,5 +89,18 @@
     &.button--borderLess:first-of-type:last-of-type {
       margin-left: -14px;
     }
+  }
+}
+
+@media (max-width: 800px) {
+  .item {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .links {
+    opacity: 1;
+  }
+  .deleteButton {
+    opacity: 1;
   }
 }
