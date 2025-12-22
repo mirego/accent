@@ -5,24 +5,24 @@ module.exports = {
       files: ['webapp/app/**/*', 'webapp/tests/**/*', 'webapp/types/**/*'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: './webapp/tsconfig.json'
+        project: './webapp/tsconfig.json',
       },
       plugins: ['@typescript-eslint', 'ember', 'mirego'],
       extends: [
         'eslint:recommended',
         'plugin:mirego/recommended',
         'plugin:@typescript-eslint/recommended',
-        'prettier'
+        'prettier',
       ],
       env: {
         es6: true,
-        browser: true
+        browser: true,
       },
       globals: {
-        JsDiff: true
+        JsDiff: true,
       },
       rules: {
-        'complexity': 0,
+        complexity: 0,
         'no-irregular-whitespace': 0,
         'ember/closure-actions': 2,
         'ember/named-functions-in-promises': 0,
@@ -42,7 +42,7 @@ module.exports = {
         '@typescript-eslint/await-thenable': 2,
         '@typescript-eslint/consistent-type-assertions': [
           2,
-          {assertionStyle: 'as'}
+          {assertionStyle: 'as'},
         ],
         '@typescript-eslint/consistent-type-definitions': [2, 'interface'],
         '@typescript-eslint/member-delimiter-style': [
@@ -50,13 +50,13 @@ module.exports = {
           {
             multiline: {
               delimiter: 'semi',
-              requireLast: true
+              requireLast: true,
             },
             singleline: {
               delimiter: 'semi',
-              requireLast: false
-            }
-          }
+              requireLast: false,
+            },
+          },
         ],
         '@typescript-eslint/member-ordering': 0,
         '@typescript-eslint/no-empty-interface': 2,
@@ -65,7 +65,7 @@ module.exports = {
         '@typescript-eslint/no-misused-new': 2,
         '@typescript-eslint/no-misused-promises': 2,
         '@typescript-eslint/no-non-null-assertion': 2,
-        '@typescript-eslint/no-parameter-properties': 2,
+        '@typescript-eslint/parameter-properties': 2,
         '@typescript-eslint/no-require-imports': 2,
         '@typescript-eslint/no-unnecessary-type-assertion': 2,
         '@typescript-eslint/no-unused-vars': 2,
@@ -75,7 +75,7 @@ module.exports = {
         '@typescript-eslint/unified-signatures': 2,
         'no-unused-vars': 0,
         'no-invalid-this': 0,
-      }
+      },
     },
     {
       files: [
@@ -87,15 +87,15 @@ module.exports = {
         'webapp/config/**/*.js',
         'webapp/lib/*/index.js',
         'webapp/scripts/**/*.js',
-        'webapp/node-server/**/*.js'
+        'webapp/node-server/**/*.js',
       ],
       parserOptions: {
         sourceType: 'script',
-        ecmaVersion: 2015
+        ecmaVersion: 2015,
       },
       env: {
         browser: false,
-        node: true
+        node: true,
       },
       plugins: ['node'],
       rules: {
@@ -103,21 +103,21 @@ module.exports = {
 
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
-        'node/no-unpublished-require': 'off'
+        'node/no-unpublished-require': 'off',
       },
-      extends: ['plugin:node/recommended']
+      extends: ['plugin:node/recommended'],
     },
     {
       files: ['cli/**/*'],
       env: {
-        es6: true
+        es6: true,
       },
       globals: {
-        process: true
+        process: true,
       },
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: './cli/tsconfig.json'
+        project: './cli/tsconfig.json',
       },
       plugins: ['@typescript-eslint', 'mirego'],
       extends: [
@@ -127,7 +127,7 @@ module.exports = {
         'prettier',
       ],
       rules: {
-        'complexity': 0,
+        complexity: 0,
         'no-irregular-whitespace': 0,
         'no-unused-vars': 0,
         'no-console': 0,
@@ -137,7 +137,7 @@ module.exports = {
         '@typescript-eslint/await-thenable': 2,
         '@typescript-eslint/consistent-type-assertions': [
           2,
-          {assertionStyle: 'as'}
+          {assertionStyle: 'as'},
         ],
         '@typescript-eslint/consistent-type-definitions': [2, 'interface'],
         '@typescript-eslint/member-delimiter-style': [
@@ -145,13 +145,13 @@ module.exports = {
           {
             multiline: {
               delimiter: 'semi',
-              requireLast: true
+              requireLast: true,
             },
             singleline: {
               delimiter: 'semi',
-              requireLast: false
-            }
-          }
+              requireLast: false,
+            },
+          },
         ],
         '@typescript-eslint/member-ordering': 2,
         '@typescript-eslint/no-empty-interface': 2,
@@ -160,7 +160,7 @@ module.exports = {
         '@typescript-eslint/no-misused-new': 2,
         '@typescript-eslint/no-misused-promises': 2,
         '@typescript-eslint/no-non-null-assertion': 0,
-        '@typescript-eslint/no-parameter-properties': 2,
+        '@typescript-eslint/parameter-properties': 2,
         '@typescript-eslint/no-require-imports': 2,
         '@typescript-eslint/no-unnecessary-type-assertion': 2,
         '@typescript-eslint/no-unused-vars': 2,
@@ -168,16 +168,16 @@ module.exports = {
         '@typescript-eslint/require-await': 2,
         '@typescript-eslint/type-annotation-spacing': 2,
         '@typescript-eslint/unified-signatures': 2,
-      }
+      },
     },
     {
       files: ['jipt/**/*'],
       env: {
-        es6: true
+        es6: true,
       },
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: './jipt/tsconfig.json'
+        project: './jipt/tsconfig.json',
       },
       plugins: ['@typescript-eslint', 'mirego'],
       extends: [
@@ -187,7 +187,7 @@ module.exports = {
         'prettier',
       ],
       rules: {
-        'complexity': 0,
+        complexity: 0,
         'no-irregular-whitespace': 0,
         'no-unused-vars': 0,
         '@typescript-eslint/adjacent-overload-signatures': 2,
@@ -195,7 +195,7 @@ module.exports = {
         '@typescript-eslint/await-thenable': 2,
         '@typescript-eslint/consistent-type-assertions': [
           2,
-          {assertionStyle: 'as'}
+          {assertionStyle: 'as'},
         ],
         '@typescript-eslint/consistent-type-definitions': [2, 'interface'],
         '@typescript-eslint/member-delimiter-style': [
@@ -203,13 +203,13 @@ module.exports = {
           {
             multiline: {
               delimiter: 'semi',
-              requireLast: true
+              requireLast: true,
             },
             singleline: {
               delimiter: 'semi',
-              requireLast: false
-            }
-          }
+              requireLast: false,
+            },
+          },
         ],
         '@typescript-eslint/member-ordering': 2,
         '@typescript-eslint/no-empty-interface': 2,
@@ -218,15 +218,15 @@ module.exports = {
         '@typescript-eslint/no-misused-new': 2,
         '@typescript-eslint/no-misused-promises': 2,
         '@typescript-eslint/no-non-null-assertion': 2,
-        '@typescript-eslint/no-parameter-properties': 2,
+        '@typescript-eslint/parameter-properties': 2,
         '@typescript-eslint/no-require-imports': 2,
         '@typescript-eslint/no-unnecessary-type-assertion': 2,
         '@typescript-eslint/promise-function-async': 2,
         '@typescript-eslint/require-await': 2,
         '@typescript-eslint/type-annotation-spacing': 2,
         '@typescript-eslint/unified-signatures': 2,
-        '@typescript-eslint/no-unused-vars': 2
-      }
-    }
-  ]
+        '@typescript-eslint/no-unused-vars': 2,
+      },
+    },
+  ],
 };

@@ -1,46 +1,45 @@
-// Vendor
 import * as chalk from 'chalk';
-
-// Command
-import {flags} from '@oclif/command';
-import Command, {configFlag} from '../base';
-import {CLIError} from '@oclif/errors';
-
-// Services
+import {configFlag} from '../base';
+import {Errors, Flags} from '@oclif/core';
+import BaseCommand from '../base';
+import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import Formatter from '../services/formatters/project-stats';
 import ProjectFetcher from '../services/project-fetcher';
 import {Revision} from '../types/project';
-import DocumentPathsFetcher from '../services/document-paths-fetcher';
 
-export default class Stats extends Command {
+export default class Stats extends BaseCommand {
   static description = 'Fetch stats from the API and display them beautifully';
 
   static examples = [`$ accent stats`];
+
+  static args = {} as const;
+
   static flags = {
-    version: flags.string({
+    version: Flags.string({
       default: undefined,
       description: 'View stats for a specific version'
     }),
-    'check-reviewed': flags.boolean({
+    'check-reviewed': Flags.boolean({
       description: 'Exit 1 when reviewed percentage is not 100%'
     }),
-    'check-translated': flags.boolean({
+    'check-translated': Flags.boolean({
       description: 'Exit 1 when translated percentage is not 100%'
     }),
     config: configFlag
-  };
+  } as const;
 
   async run() {
-    const {flags} = this.parse(Stats);
+    const {flags} = await this.parse(Stats);
+    let version = flags.version;
 
-    if (this.projectConfig.config.version?.tag && !flags.version) {
-      flags.version = this.projectConfig.config.version.tag;
+    if (this.projectConfig.config.version?.tag && !version) {
+      version = this.projectConfig.config.version.tag;
     }
 
-    if (flags.version) {
+    if (version) {
       const config = this.projectConfig.config;
       const fetcher = new ProjectFetcher();
-      const response = await fetcher.fetch(config, {versionId: flags.version});
+      const response = await fetcher.fetch(config, {versionId: version});
 
       this.project = response.project;
     }
@@ -54,7 +53,7 @@ export default class Stats extends Command {
       this.project!,
       this.projectConfig.config,
       targets,
-      flags.version
+      version
     );
 
     formatter.log();
@@ -66,8 +65,8 @@ export default class Stats extends Command {
       );
 
       if (conflictsCount !== 0) {
-        const versionFormat = flags.version ? ` ${flags.version}` : '';
-        throw new CLIError(
+        const versionFormat = version ? ` ${version}` : '';
+        throw new Errors.CLIError(
           chalk.red(
             `Project${versionFormat} has ${conflictsCount} strings to be reviewed`
           ),
@@ -87,8 +86,8 @@ export default class Stats extends Command {
       );
 
       if (translationsCount - translatedCount !== 0) {
-        const versionFormat = flags.version ? ` ${flags.version}` : '';
-        throw new CLIError(
+        const versionFormat = version ? ` ${version}` : '';
+        throw new Errors.CLIError(
           chalk.red(
             `Project${versionFormat} has ${translatedCount} strings to be translated`
           ),

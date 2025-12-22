@@ -1,12 +1,8 @@
-// Vendor
 import * as chalk from 'chalk';
 import {LintTranslation} from '../../types/lint-translation';
 import Base from './base';
-
-// Constants
 const MAX_TEXT_SIZE = 100;
 
-// Types
 interface Stats {
   time: bigint;
 }

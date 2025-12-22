@@ -1,6 +1,4 @@
-// Vendor
 import * as chalk from 'chalk';
-
 import Base from './base';
 
 export default class DocumentExportFormatter extends Base {

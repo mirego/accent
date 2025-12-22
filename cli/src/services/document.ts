@@ -1,27 +1,19 @@
-// Vendor
-import * as FormData from 'form-data';
-import {CLIError} from '@oclif/errors';
-import * as fs from 'fs-extra';
-import * as mkdirp from 'mkdirp';
+import {Errors} from '@oclif/core';
 import * as chalk from 'chalk';
+import * as fs from 'fs-extra';
 import * as path from 'path';
-import fetch, {Response} from 'node-fetch';
-
-// Services
-import {fetchFromRevision} from './revision-slug-fetcher';
-import Tree from './tree';
-
-// Types
 import {Config} from '../types/config';
 import {DocumentConfig, NamePattern} from '../types/document-config';
 import {OperationResponse} from '../types/operation-response';
 import {Project} from '../types/project';
+import {fetchFromRevision} from './revision-slug-fetcher';
+import Tree from './tree';
 
 const SERVER_INTERNAL_ERROR_THRESHOLD_STATUS_CODE = 400;
 
 const throwOnServerError = async (response: Response) => {
   if (response.status >= SERVER_INTERNAL_ERROR_THRESHOLD_STATUS_CODE) {
-    throw new CLIError(chalk.red(`${await response.text()}`), {exit: 1});
+    throw new Errors.CLIError(chalk.red(`${await response.text()}`), {exit: 1});
   }
 };
 
@@ -55,7 +47,7 @@ export default class Document {
   async format(file: string, language: string, options: FormatOptions) {
     const formData = new FormData();
 
-    formData.append('file', fs.createReadStream(file));
+    formData.append('file', await this.createFileFromStream(file));
     formData.append('document_path', this.parseDocumentName(file, this.config));
     formData.append('document_format', this.config.format);
     formData.append('language', language);
@@ -78,7 +70,7 @@ export default class Document {
   async lint(file: string, language: string) {
     const formData = new FormData();
 
-    formData.append('file', fs.createReadStream(file));
+    formData.append('file', await this.createFileFromStream(file));
     formData.append('document_path', this.parseDocumentName(file, this.config));
     formData.append('document_format', this.config.format);
     formData.append('language', language);
@@ -100,7 +92,7 @@ export default class Document {
   async sync(project: Project, file: string, options: any) {
     const masterLanguage = fetchFromRevision(project.masterRevision);
     const formData = new FormData();
-    formData.append('file', fs.createReadStream(file));
+    formData.append('file', await this.createFileFromStream(file));
     formData.append('document_path', this.parseDocumentName(file, this.config));
     formData.append('document_format', this.config.format);
     formData.append('language', masterLanguage);
@@ -132,7 +124,7 @@ export default class Document {
   ) {
     const formData = new FormData();
 
-    formData.append('file', fs.createReadStream(file));
+    formData.append('file', await this.createFileFromStream(file));
     formData.append('document_path', documentPath);
     formData.append('document_format', this.config.format);
     formData.append('language', language);
@@ -241,6 +233,13 @@ export default class Document {
     return basename;
   }
 
+  private async createFileFromStream(filePath: string): Promise<File> {
+    const bytes = await fs.readFile(filePath);
+    return new File([bytes], path.basename(filePath), {
+      type: 'application/octet-stream'
+    });
+  }
+
   private encodeQuery(params: string[][]) {
     return params
       .map(([name, value]) => `${name}=${encodeURIComponent(value)}`)
@@ -269,14 +268,11 @@ export default class Document {
   }
 
   private async writeResponseToFile(response: Response, file: string) {
-    return new Promise((resolve, reject) => {
-      mkdirp.sync(path.dirname(file));
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-      const fileStream = fs.createWriteStream(file, {autoClose: true});
-      response.body?.pipe(fileStream);
-      response.body?.on('error', reject);
-      fileStream.on('finish', resolve);
-    });
+    await fs.mkdir(path.dirname(file), {recursive: true});
+    const ab = await response.arrayBuffer();
+    await fs.writeFile(file, Buffer.from(ab));
   }
 
   private async handleResponse(

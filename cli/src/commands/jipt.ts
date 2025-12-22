@@ -1,35 +1,29 @@
-// Command
-import Command, {configFlag} from '../base';
-
-// Formatters
+import {configFlag} from '../base';
 import ExportFormatter from '../services/formatters/project-export';
-
-// Services
 import DocumentJiptPathsFetcher from '../services/document-jipt-paths-fetcher';
 import DocumentExportFormatter from '../services/formatters/document-export';
 import HookRunner from '../services/hook-runner';
-
-// Types
+import {Args} from '@oclif/core';
+import BaseCommand from '../base';
 import {Hooks} from '../types/document-config';
 
-export default class Jipt extends Command {
+export default class Jipt extends BaseCommand {
   static description =
     'Export jipt files from Accent and write them to your local filesystem';
 
   static examples = [`$ accent jipt`];
 
-  static args = [
-    {
-      description: 'The pseudo language for in-place-translation-editing',
-      name: 'pseudoLanguageName',
-      required: true
-    }
-  ];
+  static args = {
+    pseudoLanguageName: Args.string({
+      required: true,
+      description: 'The pseudo language for in-place-translation-editing'
+    })
+  } as const;
 
-  static flags = {config: configFlag};
+  static flags = {config: configFlag} as const;
 
   async run() {
-    const {args} = this.parse(Jipt);
+    const {args} = await this.parse(Jipt);
     const t0 = process.hrtime.bigint();
     const documents = this.projectConfig.files();
     const formatter = new DocumentExportFormatter();

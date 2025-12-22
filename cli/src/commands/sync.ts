@@ -1,28 +1,19 @@
-// Vendor
-import {flags} from '@oclif/command';
 import {existsSync} from 'fs';
-
-// Command
-import Command, {configFlag} from '../base';
-
-// Formatters
+import {configFlag} from '../base';
 import AddTranslationsFormatter from '../services/formatters/project-add-translations';
 import ExportFormatter from '../services/formatters/project-export';
 import SyncFormatter from '../services/formatters/project-sync';
-
-// Services
 import Document from '../services/document';
 import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import CommitOperationFormatter from '../services/formatters/commit-operation';
 import DocumentExportFormatter from '../services/formatters/document-export';
 import HookRunner from '../services/hook-runner';
-
 import {fetchFromRevision} from '../services/revision-slug-fetcher';
-
-// Types
+import {Flags, Interfaces} from '@oclif/core';
+import BaseCommand from '../base';
 import {Hooks} from '../types/document-config';
 
-export default class Sync extends Command {
+export default class Sync extends BaseCommand {
   static description =
     'Sync files in Accent and write them to your local filesystem';
 
@@ -32,40 +23,40 @@ export default class Sync extends Command {
     `$ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23`
   ];
 
-  static args = [];
+  static args = {} as const;
 
   static flags = {
-    'add-translations': flags.boolean({
+    'add-translations': Flags.boolean({
       description:
         'Add translations in Accent to help translators if you already have translated strings locally'
     }),
-    'no-local-write': flags.boolean({
+    'no-local-write': Flags.boolean({
       default: false,
       description:
         'Do not write to the local files _after_ the sync. Warning: This option could lead to a mismatch between the source of truth (your code repository) and Accent'
     }),
-    'dry-run': flags.boolean({
+    'dry-run': Flags.boolean({
       default: false,
       description: 'Do not commit the changes in Accent'
     }),
-    'merge-type': flags.string({
+    'merge-type': Flags.string({
       default: 'passive',
       description:
         'Algorithm to use on existing strings when adding translation',
       options: ['smart', 'passive', 'force']
     }),
-    'order-by': flags.string({
+    'order-by': Flags.string({
       default: 'index',
       description: 'Will be used in the export call as the order of the keys',
       options: ['index', 'key']
     }),
-    'sync-type': flags.string({
+    'sync-type': Flags.string({
       default: 'smart',
       description:
         'Algorithm to use on existing strings when syncing the main language',
       options: ['smart', 'passive']
     }),
-    version: flags.string({
+    version: Flags.string({
       default: '',
       description:
         'Sync a specific version, the tag needs to exists in Accent first'
@@ -73,14 +64,20 @@ export default class Sync extends Command {
     config: configFlag
   };
 
+  private parsedFlags!: Interfaces.InferredFlags<typeof Sync.flags>;
+
   async run() {
-    const {flags} = this.parse(Sync);
+    const {flags} = await this.parse(Sync);
     const t0 = process.hrtime.bigint();
     const documents = this.projectConfig.files();
 
+    // Apply version fallback from project config if not specified via CLI
     if (this.projectConfig.config.version?.tag && !flags.version) {
-      flags.version = this.config.version;
+      flags.version = this.projectConfig.config.version.tag;
     }
+
+    // Store flags for use in helper methods (avoids re-parsing and ensures version fallback is applied)
+    this.parsedFlags = flags;
 
     // From all the documentConfigs, do the sync or peek operations and log the results.
     const syncFormatter = new SyncFormatter();
@@ -142,11 +139,14 @@ export default class Sync extends Command {
   }
 
   private async syncDocumentConfig(document: Document) {
-    const {flags} = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
 
     for (const path of document.paths) {
-      const operations = await document.sync(this.project!, path, flags);
+      const operations = await document.sync(
+        this.project!,
+        path,
+        this.parsedFlags
+      );
       const documentPath = document.parseDocumentName(path, document.config);
 
       if (operations.peek) {
@@ -159,7 +159,6 @@ export default class Sync extends Command {
   }
 
   private async addTranslationsDocumentConfig(document: Document) {
-    const {flags} = this.parse(Sync);
     const formatter = new CommitOperationFormatter();
     const masterLanguage = fetchFromRevision(this.project!.masterRevision);
 
@@ -183,7 +182,7 @@ export default class Sync extends Command {
         path,
         language,
         documentPath,
-        flags
+        this.parsedFlags
       );
 
       if (!operation.peek) {

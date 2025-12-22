@@ -1,14 +1,10 @@
-// Vendor
-import {error} from '@oclif/errors';
+import {Errors} from '@oclif/core';
+import * as chalk from 'chalk';
 import {execSync} from 'child_process';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import * as chalk from 'chalk';
-// Services
-import Document from './document';
-
-// Types
 import {Config} from '../types/config';
+import Document from './document';
 
 export default class ConfigFetcher {
   readonly config: Config;
@@ -23,19 +19,19 @@ export default class ConfigFetcher {
     this.warnings = [];
 
     if (!this.config.apiKey) {
-      error(
+      Errors.error(
         'You must have an apiKey key in the config or the ACCENT_API_KEY environment variable'
       );
     }
 
     if (!this.config.apiUrl) {
-      error(
+      Errors.error(
         'You must have an apiUrl key in the config or the ACCENT_API_URL environment variable'
       );
     }
 
     if (!this.config.files) {
-      error('You must have at least 1 document set in your config');
+      Errors.error('You must have at least 1 document set in your config');
     }
 
     if (
