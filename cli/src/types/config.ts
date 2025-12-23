@@ -1,4 +1,3 @@
-// Types
 import {DocumentConfig} from './document-config';
 import {VersionConfig} from './version-config';
 

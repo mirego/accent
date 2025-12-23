@@ -1,10 +1,6 @@
-// Vendor
 import * as chalk from 'chalk';
-
-// Types
 import {PeekOperation} from '../../types/operation';
 
-// Constants
 const MASTER_ONLY_ACTIONS = ['new', 'renew', 'remove'];
 
 export default class CommitOperationFormatter {
@@ -62,8 +58,6 @@ export default class CommitOperationFormatter {
         );
       });
     });
-
-    console.log('');
   }
 
   private formatAction(action: string) {

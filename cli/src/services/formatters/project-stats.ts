@@ -1,8 +1,5 @@
-// Vendor
 import * as chalk from 'chalk';
 import {Config} from '../../types/config';
-
-// Types
 import {
   Collaborator,
   Document,
@@ -10,8 +7,6 @@ import {
   Revision,
   Version
 } from '../../types/project';
-
-// Services
 import {
   fetchFromRevision,
   fetchNameFromRevision

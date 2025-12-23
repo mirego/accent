@@ -1,10 +1,5 @@
-// Vendor
 import * as chalk from 'chalk';
-
-// Types
 import {Project} from '../../types/project';
-
-// Services
 import {fetchFromRevision} from '../revision-slug-fetcher';
 import Base from './base';
 

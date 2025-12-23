@@ -1,4 +1,3 @@
-// Types
 import {DocumentPath} from '../types/document-path';
 import {Project} from '../types/project';
 import Document from './document';

@@ -1,12 +1,7 @@
-// Vendor
 import {execSync} from 'child_process';
-
-// Formatters
-import Formatter from './formatters/hook-runner';
-
-// Types
 import {HookConfig, Hooks} from '../types/document-config';
 import Document from './document';
+import Formatter from './formatters/hook-runner';
 
 export default class HookRunner {
   readonly hooks?: HookConfig;

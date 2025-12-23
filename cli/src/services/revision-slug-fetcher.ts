@@ -1,4 +1,3 @@
-// Types
 import {Project, Revision} from '../types/project';
 
 export const fetchNameFromRevision = (revision: Revision): string => {

@@ -1,9 +1,7 @@
-// Vendor
 import * as chalk from 'chalk';
 import {FormattedFile} from '../../commands/format';
 import Base from './base';
 
-// Types
 interface Stats {
   time: bigint;
 }
