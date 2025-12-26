@@ -54,13 +54,14 @@
 
 .queryForm-filters {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 6px;
   align-items: center;
 }
 
 .queryForm-filters-column {
   display: flex;
-  flex-grow: 1;
+  flex-grow: 0;
   gap: 6px;
 }
 

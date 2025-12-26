@@ -1,7 +1,7 @@
 ################################################################################
 # Stage 1: Build webapp assets
 ################################################################################
-FROM node:21.6.1-bullseye-slim AS webapp-builder
+FROM node:22.21.1-bullseye-slim AS webapp-builder
 
 WORKDIR /opt/build
 
