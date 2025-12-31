@@ -9,11 +9,6 @@ watchers =
         "run",
         "build-dev",
         cd: Path.expand("../webapp", __DIR__)
-      ],
-      npm: [
-        "run",
-        "watch-production-inline",
-        cd: Path.expand("../jipt", __DIR__)
       ]
     ]
   end
