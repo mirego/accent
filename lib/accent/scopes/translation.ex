@@ -60,7 +60,7 @@ defmodule Accent.Scopes.Translation do
         ]
       )
 
-    if translation.version_id do
+    if translation.version_id && translation.source_translation_id do
       from(translations in query,
         where:
           (translations.source_translation_id == ^translation.source_translation_id or

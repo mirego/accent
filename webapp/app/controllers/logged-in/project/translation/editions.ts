@@ -48,6 +48,7 @@ export default class TranslationEditionsController extends Controller {
   async updateText(translation: any, text: string) {
     const response = await this.apolloMutate.mutate({
       mutation: translationUpdateQuery,
+      refetchQueries: ['Translation', 'Translations'],
       variables: {
         translationId: translation.id,
         text

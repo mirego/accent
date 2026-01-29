@@ -51,6 +51,7 @@ export default class IndexController extends Controller {
 
     const response = await this.apolloMutate.mutate({
       mutation: translationCorrectQuery,
+      refetchQueries: ['Translation', 'Translations'],
       variables: {
         translationId: conflict.id,
         text
@@ -70,6 +71,7 @@ export default class IndexController extends Controller {
 
     const response = await this.apolloMutate.mutate({
       mutation: translationUncorrectQuery,
+      refetchQueries: ['Translation', 'Translations'],
       variables: {
         translationId: conflict.id,
         text
@@ -89,6 +91,7 @@ export default class IndexController extends Controller {
 
     const response = await this.apolloMutate.mutate({
       mutation: translationUpdateQuery,
+      refetchQueries: ['Translation', 'Translations'],
       variables: {
         translationId: translation.id,
         text
@@ -106,6 +109,7 @@ export default class IndexController extends Controller {
   async updateTranslation(translation: any, text: string) {
     const response = await this.apolloMutate.mutate({
       mutation: translationUpdateQuery,
+      refetchQueries: ['Translation', 'Translations'],
       variables: {
         translationId: translation.id,
         text

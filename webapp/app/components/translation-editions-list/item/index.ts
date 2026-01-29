@@ -53,4 +53,9 @@ export default class TranslationEditionsListItem extends Component<Args> {
   onUpdatingText() {
     this.inputDisabled = true;
   }
+
+  @action
+  syncEditText() {
+    this.editText = this.args.translation.correctedText;
+  }
 }

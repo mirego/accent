@@ -116,6 +116,7 @@ export default class ExportController extends Controller {
     this.exportLoading = false;
   }
 
+  @action
   exportFile() {
     const blob = new Blob([this.fileRender], {
       type: 'charset=utf-8'

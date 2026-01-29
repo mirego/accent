@@ -2,7 +2,7 @@ defmodule Movement.Builders.TranslationUpdate do
   @moduledoc false
   @behaviour Movement.Builder
 
-  alias Accent.Version
+  alias Movement.Builders.VersionCopyOnUpdate
   alias Movement.Mappers.Operation, as: OperationMapper
   alias Movement.Mappers.ValueType
 
@@ -19,25 +19,8 @@ defmodule Movement.Builders.TranslationUpdate do
     value_type = ValueType.from_translation_new_value(translation, text)
     operation = OperationMapper.map(@action, translation, %{text: text, value_type: value_type})
 
-    copy_version_operation =
-      if copy_translation_update_to_latest_version?(translation) do
-        copy_translation_update_to_latest_version(translation, text)
-      end
+    copy_version_operation = VersionCopyOnUpdate.maybe_copy_to_latest_version(translation, text, @action)
 
     %{context | operations: Enum.concat(operations, [operation] ++ List.wrap(copy_version_operation))}
-  end
-
-  defp copy_translation_update_to_latest_version(translation, text) do
-    source_translation = Accent.Repo.one!(Ecto.assoc(translation, :source_translation))
-    value_type = ValueType.from_translation_new_value(source_translation, text)
-    OperationMapper.map(@action, source_translation, %{text: text, value_type: value_type})
-  end
-
-  defp copy_translation_update_to_latest_version?(translation) do
-    if translation.version_id do
-      version = Accent.Repo.get(Version, translation.version_id)
-
-      version.copy_on_update_translation
-    end
   end
 end
