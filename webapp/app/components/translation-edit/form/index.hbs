@@ -88,7 +88,7 @@
     <div local-class='input-wrapper'>
       <HtmlTextarea @value={{@value}} @onChange={{fn this.changeHTML}} @wysiwygOptions={{this.wysiwygOptions}} />
 
-      {{yield (hash submit=(component 'translation-edit/form/submit'))}}
+      {{yield (hash submit=(component 'translation-edit/form/submit') isTextUnchanged=this.isTextUnchanged)}}
     </div>
   {{else}}
     <div local-class='input-wrapper' data-dir={{if @rtl 'rtl'}}>
@@ -105,7 +105,7 @@
         dir={{if @rtl 'rtl'}}
         ...attributes
       ></textarea>
-      {{yield (hash dir=(if @rtl 'rtl') submit=(component 'translation-edit/form/submit'))}}
+      {{yield (hash dir=(if @rtl 'rtl') submit=(component 'translation-edit/form/submit') isTextUnchanged=this.isTextUnchanged)}}
 
       {{#if this.fetchLintMessagesTask.isRunning}}
         <div local-class='lint-loading'>

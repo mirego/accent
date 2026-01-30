@@ -23,7 +23,8 @@ defmodule Movement.Operation do
             placeholders: [],
             options: [],
             machine_translated: false,
-            machine_translations_enabled: false
+            machine_translations_enabled: false,
+            versioned_translation_ids: []
 
   @type t :: %__MODULE__{}
 end

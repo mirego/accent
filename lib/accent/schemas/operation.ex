@@ -21,6 +21,8 @@ defmodule Accent.Operation do
     field(:options, {:array, :string}, default: [])
     field(:machine_translated, :boolean, default: false)
 
+    field(:versioned_translation_ids, {:array, :string}, virtual: true, default: [])
+
     embeds_one(:previous_translation, Accent.PreviousTranslation)
 
     belongs_to(:document, Accent.Document)

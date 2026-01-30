@@ -64,6 +64,7 @@ defmodule Movement.Migrator do
     results = results ++ migrate_insert_all_operations(Map.get(actions, :insert_all, []))
     results = results ++ migrate_update_all_operations(Map.get(actions, :update_all, []))
     results = results ++ migrate_update_all_dynamic_operations(Map.get(actions, :update_all_dynamic, []))
+    results = results ++ migrate_update_all_by_field_operations(Map.get(actions, :update_all_by_field, []))
     results = results ++ migrate_insert_operations(Map.get(actions, :insert, []))
     results = results ++ migrate_update_operations(Map.get(actions, :update, []))
 
@@ -117,6 +118,13 @@ defmodule Movement.Migrator do
       |> Enum.map(fn records ->
         Movement.Persisters.OperationsUpdateAllDynamic.update({{schema, types, fields}, records})
       end)
+    end)
+  end
+
+  defp migrate_update_all_by_field_operations(operations) do
+    Enum.map(operations, fn {schema, field, value, params} ->
+      query = Ecto.Query.from(entries in schema, where: field(entries, ^field) == ^value)
+      Repo.update_all(query, set: Map.to_list(params))
     end)
   end
 end

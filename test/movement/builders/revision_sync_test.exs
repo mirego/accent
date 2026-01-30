@@ -21,10 +21,10 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
     document = Factory.insert(Document, project_id: project.id, path: "test", format: "json")
 
-    {:ok, [revision: revision, document: document]}
+    {:ok, [project: project, revision: revision, document: document]}
   end
 
-  test "builder fetch translations and use comparer", %{revision: revision, document: document} do
+  test "builder fetch translations and use comparer", %{project: project, revision: revision, document: document} do
     translation =
       Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
 
@@ -33,6 +33,7 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
     context =
       %Context{entries: entries}
       |> Context.assign(:comparer, fn x, _y -> %Movement.Operation{action: "conflict_on_proposed", key: x.key} end)
+      |> Context.assign(:project, project)
       |> Context.assign(:document, document)
       |> Context.assign(:revision, revision)
       |> RevisionSyncBuilder.build()
@@ -44,13 +45,18 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
     assert operations === ["conflict_on_proposed"]
   end
 
-  test "builder fetch translations and process to remove with empty entries", %{revision: revision, document: document} do
+  test "builder fetch translations and process to remove with empty entries", %{
+    project: project,
+    revision: revision,
+    document: document
+  } do
     translation =
       Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
 
     context =
       %Context{entries: []}
       |> Context.assign(:comparer, fn x, _y -> %Movement.Operation{action: "remove", key: x.key} end)
+      |> Context.assign(:project, project)
       |> Context.assign(:document, document)
       |> Context.assign(:revision, revision)
       |> RevisionSyncBuilder.build()
@@ -62,7 +68,11 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
     assert operations === ["remove"]
   end
 
-  test "builder fetch translations and process to renew with entries", %{revision: revision, document: document} do
+  test "builder fetch translations and process to renew with entries", %{
+    project: project,
+    revision: revision,
+    document: document
+  } do
     translation =
       Factory.insert(Translation,
         key: "a",
@@ -77,6 +87,7 @@ defmodule AccentTest.Movement.Builders.RevisionSync do
     context =
       %Context{entries: entries}
       |> Context.assign(:comparer, fn x, _y -> %Movement.Operation{action: "renew", key: x.key} end)
+      |> Context.assign(:project, project)
       |> Context.assign(:document, document)
       |> Context.assign(:revision, revision)
       |> RevisionSyncBuilder.build()

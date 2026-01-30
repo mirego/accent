@@ -67,10 +67,13 @@ defmodule Movement.Migration.Translation do
       updated_at: {:placeholder, :now}
     }
 
+    versioned_translation_link_operations =
+      link_versioned_translations(operation.versioned_translation_ids, id)
+
     [
       insert_all(Translation, translation),
       update_all_dynamic(operation, [:uuid], [:translation_id], [UUID.dump!(id)])
-    ]
+    ] ++ versioned_translation_link_operations
   end
 
   def call(:version_new, operation) do
@@ -135,5 +138,17 @@ defmodule Movement.Migration.Translation do
       update_all(operation, %{rollbacked: false}),
       update(operation.translation, Map.from_struct(operation.previous_translation))
     ]
+  end
+
+  defp link_versioned_translations(nil, _source_id), do: []
+  defp link_versioned_translations([], _source_id), do: []
+
+  defp link_versioned_translations(versioned_translation_ids, source_id) do
+    dumped_source_id = UUID.dump!(source_id)
+
+    Enum.map(versioned_translation_ids, fn versioned_translation_id ->
+      {:update_all_dynamic,
+       {Translation, versioned_translation_id, [:uuid], [:source_translation_id], [dumped_source_id]}}
+    end)
   end
 end

@@ -8,4 +8,6 @@ defmodule Movement.EctoMigrationHelper do
     do: {:update_all_dynamic, {struct.__struct__, struct.id, types, fields, values}}
 
   def update_all(struct, params), do: {:update_all, {struct.__struct__, struct.id, params}}
+
+  def update_all_by_field(schema, field, value, params), do: {:update_all_by_field, {schema, field, value, params}}
 end

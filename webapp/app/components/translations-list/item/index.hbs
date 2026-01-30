@@ -91,6 +91,7 @@
         @inputDisabled={{this.inputDisabled}}
         @valueType={{@translation.valueType}}
         @value={{this.editText}}
+        @originalValue={{@translation.correctedText}}
         @onKeyUp={{fn this.changeTranslationText}}
         @onEscape={{fn this.toggleEdit}}
         @onSubmit={{fn this.save}}
@@ -115,7 +116,7 @@
               </div>
             {{/unless}}
 
-            <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} class='button button--filled button--iconOnly' local-class='item-textEdit-button'>
+            <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} class='button button--filled button--iconOnly {{if form.isTextUnchanged "button--unchanged"}}' local-class='item-textEdit-button'>
               {{t 'components.translations_list.save'}}
             </AsyncButton>
           </div>

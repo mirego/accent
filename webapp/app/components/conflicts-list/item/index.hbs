@@ -18,6 +18,7 @@
           @lintMessages={{@translation.lintMessages}}
           @valueType={{@translation.valueType}}
           @value={{this.textInput}}
+          @originalValue={{this.textOriginal}}
           @inputDisabled={{this.inputDisabled}}
           @showTypeHints={{false}}
           @onKeyUp={{fn this.changeTranslationText}}
@@ -51,21 +52,21 @@
 
               {{#if @translation.isConflicted}}
                 {{#if (get @permissions 'correct_translation')}}
-                  <AsyncButton @loading={{this.isCorrectLoading}} class='button button--iconOnly button--borderLess button--green' @onClick={{fn this.correctConflict}}>
+                  <AsyncButton @loading={{this.isCorrectLoading}} class='button button--iconOnly button--borderLess button--green {{if form.isTextUnchanged "button--unchanged"}}' @onClick={{fn this.correctConflict}}>
                     {{inline-svg '/assets/check.svg' class='button-icon'}}
                   </AsyncButton>
                 {{else if (get @permissions 'update_translation')}}
-                  <AsyncButton @loading={{this.isUpdateLoading}} tabindex='-1' class='button button--borderLess button--iconOnly button--grey' @onClick={{fn this.updateConflict}}>
+                  <AsyncButton @loading={{this.isUpdateLoading}} tabindex='-1' class='button button--borderLess button--iconOnly button--grey {{if form.isTextUnchanged "button--unchanged"}}' @onClick={{fn this.updateConflict}}>
                     {{inline-svg '/assets/pencil.svg' class='button-icon'}}
                   </AsyncButton>
                 {{/if}}
               {{else}}
                 {{#if (get @permissions 'uncorrect_translation')}}
-                  <AsyncButton @loading={{this.isUncorrectLoading}} class='button button--borderLess button--iconOnly button--red' @onClick={{fn this.uncorrectConflict}}>
+                  <AsyncButton @loading={{this.isUncorrectLoading}} class='button button--borderLess button--iconOnly button--red {{if form.isTextUnchanged "button--unchanged"}}' @onClick={{fn this.uncorrectConflict}}>
                     {{inline-svg '/assets/revert.svg' class='button-icon'}}
                   </AsyncButton>
                 {{else if (get @permissions 'update_translation')}}
-                  <AsyncButton @loading={{this.isUpdateLoading}} tabindex='-1' class='button button--borderLess button--iconOnly button--grey' @onClick={{fn this.updateConflict}}>
+                  <AsyncButton @loading={{this.isUpdateLoading}} tabindex='-1' class='button button--borderLess button--iconOnly button--grey {{if form.isTextUnchanged "button--unchanged"}}' @onClick={{fn this.updateConflict}}>
                     {{inline-svg '/assets/pencil.svg' class='button-icon'}}
                   </AsyncButton>
                 {{/if}}

@@ -15,7 +15,7 @@ import {htmlSafe} from '@ember/template';
 const markdown = MarkdownIt({
   html: false,
   linkify: true,
-  typographer: true
+  typographer: true,
 });
 
 const DEBOUNCE_LINT_MESSAGES = 300;
@@ -35,6 +35,7 @@ interface Args {
     | 'EMPTY'
     | 'NULL';
   value: string;
+  originalValue?: string;
   onSubmit: () => void;
   showTypeHints?: boolean;
   placeholders?: any;
@@ -54,9 +55,9 @@ export default class TranslationEditForm extends Component<Args> {
     translation: {
       id: this.args.translationId,
       key: this.args.translationKey,
-      text: this.args.value
+      text: this.args.value,
     },
-    messages: this.args.lintMessages
+    messages: this.args.lintMessages,
   };
 
   @tracked
@@ -91,6 +92,11 @@ export default class TranslationEditForm extends Component<Args> {
 
   wysiwygOptions = {};
 
+  get isTextUnchanged() {
+    if (this.args.originalValue === undefined) return false;
+    return this.args.value === this.args.originalValue;
+  }
+
   get fileComment() {
     if (!this.args.fileComment) return;
 
@@ -103,7 +109,7 @@ export default class TranslationEditForm extends Component<Args> {
         if (!this.args.value.includes(placeholder)) memo[placeholder] = true;
         return memo;
       },
-      {}
+      {},
     );
   }
 
@@ -143,7 +149,7 @@ export default class TranslationEditForm extends Component<Args> {
       await timeout(DEBOUNCE_LINT_MESSAGES);
 
       await this.fetchLintMessagesTask.perform(value);
-    }
+    },
   );
 
   fetchLintMessagesTask = restartableTask(async (value: string) => {
@@ -153,12 +159,12 @@ export default class TranslationEditForm extends Component<Args> {
       variables: {
         text: value,
         projectId: this.args.projectId,
-        translationId: this.args.translationId
-      }
+        translationId: this.args.translationId,
+      },
     });
 
     this.lintTranslation = Object.assign(this.lintTranslation, {
-      messages: data.viewer.project.translation.lintMessages
+      messages: data.viewer.project.translation.lintMessages,
     });
   });
 
@@ -170,8 +176,8 @@ export default class TranslationEditForm extends Component<Args> {
         projectId: this.args.projectId,
         checkIds: lintEntry.checkIds,
         type: lintEntry.type,
-        value: lintEntry.value
-      }
+        value: lintEntry.value,
+      },
     });
   });
 

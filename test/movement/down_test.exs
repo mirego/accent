@@ -105,6 +105,36 @@ defmodule AccentTest.Migrator.Down do
     assert new_translation.removed == true
   end
 
+  test ":new clears source_translation_id on versioned translations" do
+    revision = Factory.insert(Revision)
+
+    source_translation =
+      Factory.insert(Translation,
+        key: "hello",
+        revision: revision,
+        corrected_text: "Hello",
+        proposed_text: "Hello",
+        version_id: nil
+      )
+
+    versioned_translation =
+      Factory.insert(Translation,
+        key: "hello",
+        revision: revision,
+        corrected_text: "Hello",
+        proposed_text: "Hello",
+        source_translation_id: source_translation.id
+      )
+
+    Migrator.down(Factory.insert(Operation, action: "new", translation: source_translation))
+
+    updated_source = Repo.get!(Translation, source_translation.id)
+    updated_versioned = Repo.get!(Translation, versioned_translation.id)
+
+    assert updated_source.removed == true
+    assert updated_versioned.source_translation_id == nil
+  end
+
   test ":renew" do
     translation =
       Factory.insert(Translation,

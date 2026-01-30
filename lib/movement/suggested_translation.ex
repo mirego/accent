@@ -1,5 +1,18 @@
 defmodule Movement.SuggestedTranslation do
   @moduledoc false
   @enforce_keys ~w(text)a
-  defstruct ~w(text key file_comment file_index value_type revision_id translation_id version_id plural locked placeholders machine_translations_enabled)a
+
+  defstruct text: nil,
+            key: nil,
+            file_comment: nil,
+            file_index: nil,
+            value_type: nil,
+            revision_id: nil,
+            translation_id: nil,
+            version_id: nil,
+            plural: nil,
+            locked: nil,
+            placeholders: nil,
+            machine_translations_enabled: nil,
+            versioned_translation_ids: []
 end

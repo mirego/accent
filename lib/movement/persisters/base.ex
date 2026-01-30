@@ -73,42 +73,13 @@ defmodule Movement.Persisters.Base do
   end
 
   defp persist_operations(%Movement.Context{assigns: assigns} = context) do
-    placeholders =
-      %{
-        now: DateTime.utc_now(),
-        user_id: assigns[:user_id]
-      }
-      |> assign_project(assigns[:project])
-      |> assign_batch_operation(assigns[:batch_operation])
-      |> assign_document(assigns[:document])
-      |> assign_revision(assigns[:revision])
-      |> assign_version(assigns[:version])
-
-    placeholder_values =
-      Map.new(
-        Enum.map(placeholders, fn {key, _value} ->
-          {key, {:placeholder, key}}
-        end)
-      )
+    placeholders = build_placeholders(assigns)
+    placeholder_values = build_placeholder_values(placeholders)
+    versioned_translation_ids_by_key = extract_versioned_translation_ids(context.operations)
 
     operations =
       context.operations
-      |> Stream.map(fn operation ->
-        operation =
-          Map.from_struct(%{
-            operation
-            | inserted_at: {:placeholder, :now},
-              updated_at: {:placeholder, :now},
-              user_id: placeholder_values[:user_id] || operation.user_id,
-              document_id: placeholder_values[:document_id] || operation.document_id,
-              project_id: placeholder_values[:project_id] || operation.project_id,
-              batch_operation_id: placeholder_values[:batch_operation_id] || operation.batch_operation_id,
-              version_id: operation.version_id || placeholder_values[:version_id],
-              revision_id: operation.revision_id || placeholder_values[:revision_id]
-          })
-
-        Map.delete(operation, :machine_translations_enabled)
-      end)
+      |> Stream.map(&prepare_operation_for_insert(&1, placeholder_values))
       |> Stream.chunk_every(@operations_inserts_chunk)
       |> Stream.flat_map(fn operations ->
         Operation
@@ -117,8 +88,52 @@ defmodule Movement.Persisters.Base do
         |> Repo.preload(:translation)
       end)
       |> Enum.to_list()
+      |> reinject_versioned_translation_ids(versioned_translation_ids_by_key)
 
     %{context | operations: operations}
+  end
+
+  defp build_placeholders(assigns) do
+    %{now: DateTime.utc_now(), user_id: assigns[:user_id]}
+    |> assign_project(assigns[:project])
+    |> assign_batch_operation(assigns[:batch_operation])
+    |> assign_document(assigns[:document])
+    |> assign_revision(assigns[:revision])
+    |> assign_version(assigns[:version])
+  end
+
+  defp build_placeholder_values(placeholders) do
+    Map.new(placeholders, fn {key, _value} -> {key, {:placeholder, key}} end)
+  end
+
+  defp extract_versioned_translation_ids(operations) do
+    operations
+    |> Enum.filter(&(&1.action == "new" && Map.get(&1, :versioned_translation_ids, []) != []))
+    |> Map.new(&{&1.key, &1.versioned_translation_ids})
+  end
+
+  defp prepare_operation_for_insert(operation, placeholder_values) do
+    operation
+    |> Map.from_struct()
+    |> Map.merge(%{
+      inserted_at: {:placeholder, :now},
+      updated_at: {:placeholder, :now},
+      user_id: placeholder_values[:user_id] || operation.user_id,
+      document_id: placeholder_values[:document_id] || operation.document_id,
+      project_id: placeholder_values[:project_id] || operation.project_id,
+      batch_operation_id: placeholder_values[:batch_operation_id] || operation.batch_operation_id,
+      version_id: operation.version_id || placeholder_values[:version_id],
+      revision_id: operation.revision_id || placeholder_values[:revision_id]
+    })
+    |> Map.delete(:machine_translations_enabled)
+    |> Map.delete(:versioned_translation_ids)
+  end
+
+  defp reinject_versioned_translation_ids(operations, versioned_translation_ids_by_key) do
+    Enum.map(operations, fn operation ->
+      versioned_ids = Map.get(versioned_translation_ids_by_key, operation.key, [])
+      Map.put(operation, :versioned_translation_ids, versioned_ids)
+    end)
   end
 
   defp migrate_up_operations(%Movement.Context{operations: operations} = context) do
