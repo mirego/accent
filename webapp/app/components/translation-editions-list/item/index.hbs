@@ -76,7 +76,12 @@
             </div>
           {{/unless}}
 
-          <AsyncButton @onClick={{fn this.save}} @loading={{this.isSaving}} class='button button--filled button--iconOnly {{if form.isTextUnchanged "button--unchanged"}}' local-class='item-textEdit-button'>
+          <AsyncButton
+            @onClick={{fn this.save}}
+            @loading={{this.isSaving}}
+            class='button button--filled button--iconOnly {{if form.isTextUnchanged "button--unchanged"}}'
+            local-class='item-textEdit-button'
+          >
             {{t 'components.translations_list.save'}}
           </AsyncButton>
         </div>

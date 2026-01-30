@@ -135,7 +135,8 @@ defmodule Accent.Mixfile do
       {:credo_envvar, "~> 0.1.0", only: ~w(dev test)a, runtime: false},
       {:styler, "~> 1.0", only: ~w(dev test)a, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
-      {:phoenix_live_reload, "~> 1.0", only: :dev}
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:tidewave, "~> 0.5", only: :dev}
     ] ++
       system_specific_deps()
   end
