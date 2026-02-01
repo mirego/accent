@@ -48,6 +48,28 @@
           </div>
         </h2>
 
+        {{#if this.showFilters}}
+          <div local-class='filters'>
+            <div class='queryForm-filters'>
+              {{#if @showDocumentsSelect}}
+                <div class='queryForm-filter'>
+                  <div class='queryForm-filter-select'>
+                    <AccSelect @searchEnabled={{false}} @selected={{this.mappedDocumentValue}} @options={{this.mappedDocuments}} @onchange={{@onChangeDocument}} />
+                  </div>
+                </div>
+              {{/if}}
+
+              {{#if @showVersionsSelect}}
+                <div class='queryForm-filter'>
+                  <div class='queryForm-filter-select'>
+                    <AccSelect @searchEnabled={{false}} @selected={{this.mappedVersionValue}} @options={{this.mappedVersions}} @onchange={{@onChangeVersion}} />
+                  </div>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        {{/if}}
+
         <div local-class='master'>
           <DashboardRevisions::Item
             @project={{@project}}
@@ -92,7 +114,7 @@
     {{/if}}
   </div>
 
-  {{#if @activities}}
+  {{#if @project.lastSyncedAt}}
     <div local-class='activities'>
       <h2 local-class='activities-title'>
         <span local-class='activities-title-text'>
@@ -102,7 +124,7 @@
 
         <ProjectLastActivitySync @projectId={{@project.id}} />
       </h2>
-      <ProjectActivitiesList @permissions={{@permissions}} @activities={{@activities}} @project={{@project}} @compact={{true}} />
+      <ProjectDashboardActivities @projectId={{@project.id}} @permissions={{@permissions}} @project={{@project}} />
       <LinkTo @route='logged-in.project.activities' @model={{@project.id}} class='button button--filled button--white button--borderLess' local-class='activities-viewMoreButton'>
         {{t 'components.dashboard_revisions.view_more_activities'}}
       </LinkTo>

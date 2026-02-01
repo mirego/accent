@@ -86,12 +86,17 @@ defmodule Movement.Migrator do
   defp migrate_insert_all_operations(operations) do
     operations
     |> Enum.group_by(fn {schema, _payload} -> schema end, &elem(&1, 1))
+    |> Enum.sort_by(fn {schema, _records} -> schema_insert_priority(schema) end)
     |> Enum.map(fn {schema, records} ->
       records
       |> Enum.chunk_every(@operations_chunk)
       |> Enum.map(&Repo.insert_all(schema, &1, placeholders: %{now: DateTime.utc_now()}))
     end)
   end
+
+  defp schema_insert_priority(Accent.Translation), do: 0
+  defp schema_insert_priority(Accent.Operation), do: 1
+  defp schema_insert_priority(_), do: 2
 
   defp migrate_update_all_operations(operations) do
     operations

@@ -219,6 +219,7 @@ defmodule Accent.GraphQL.Types.Project do
 
     field :revisions, list_of(:revision) do
       arg(:version_id, :id)
+      arg(:document_id, :id)
 
       resolve(project_authorize(:index_revisions, &Revision.list_project/3))
     end

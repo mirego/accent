@@ -6,11 +6,18 @@
   <LoadingContent @label={{t 'pods.project.index.loading_content'}} />
 {{else}}
   <DashboardRevisions
-    @document={{this.document}}
+    @document={{this.selectedDocument}}
     @project={{this.project}}
-    @activities={{this.project.activities.entries}}
     @revisions={{this.revisions}}
     @permissions={{this.permissions}}
+    @documents={{this.documents}}
+    @versions={{this.versions}}
+    @selectedDocument={{this.document}}
+    @selectedVersion={{this.version}}
+    @showDocumentsSelect={{this.showDocumentsSelect}}
+    @showVersionsSelect={{this.showVersionsSelect}}
+    @onChangeDocument={{fn this.changeDocument}}
+    @onChangeVersion={{fn this.changeVersion}}
     @onCorrectAllConflicts={{fn this.correctAllConflicts}}
     @onUncorrectAllConflicts={{fn this.uncorrectAllConflicts}}
   />

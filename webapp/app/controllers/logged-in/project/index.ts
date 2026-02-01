@@ -20,8 +20,16 @@ const FLASH_MESSAGE_REVISION_UNCORRECT_ERROR =
   'pods.project.index.flash_messages.revision_uncorrect_error';
 
 export default class ProjectIndexController extends Controller {
+  queryParams = ['document', 'version'];
+
   @tracked
   model: any;
+
+  @tracked
+  document: string | null = null;
+
+  @tracked
+  version: string | null = null;
 
   @service('global-state')
   declare globalState: GlobalState;
@@ -50,15 +58,46 @@ export default class ProjectIndexController extends Controller {
   @and('emptyProject', 'model.loading')
   showLoading: boolean;
 
-  get document() {
-    return this.project.documents.entries[0];
+  get documents() {
+    return this.project?.documents?.entries || [];
+  }
+
+  get versions() {
+    return this.project?.versions?.entries || [];
+  }
+
+  get selectedDocument() {
+    if (!this.document) return this.documents[0];
+    return this.documents.find((doc: {id: string}) => doc.id === this.document);
+  }
+
+  get showDocumentsSelect() {
+    return this.documents.length > 1;
+  }
+
+  get showVersionsSelect() {
+    return this.versions.length > 0;
+  }
+
+  @action
+  changeDocument(select: HTMLSelectElement) {
+    this.document = select.value || null;
+  }
+
+  @action
+  changeVersion(select: HTMLSelectElement) {
+    this.version = select.value || null;
   }
 
   @action
   async correctAllConflicts(revision: any) {
     const response = await this.apolloMutate.mutate({
       mutation: correctAllRevisionQuery,
-      variables: {revisionId: revision.id},
+      variables: {
+        revisionId: revision.id,
+        documentId: this.document || null,
+        versionId: this.version || null
+      },
       refetchQueries: ['Dashboard']
     });
 
@@ -77,7 +116,11 @@ export default class ProjectIndexController extends Controller {
   async uncorrectAllConflicts(revision: any) {
     const response = await this.apolloMutate.mutate({
       mutation: uncorrectAllRevisionQuery,
-      variables: {revisionId: revision.id},
+      variables: {
+        revisionId: revision.id,
+        documentId: this.document || null,
+        versionId: this.version || null
+      },
       refetchQueries: ['Dashboard']
     });
 

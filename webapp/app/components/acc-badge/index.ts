@@ -3,6 +3,7 @@ import Component from '@glimmer/component';
 interface Args {
   link?: boolean;
   primary?: boolean;
+  version?: boolean;
   danger?: boolean;
 }
 

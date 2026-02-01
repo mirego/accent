@@ -9,6 +9,10 @@
     }
   },
   "components": {
+    "dashboard_filters": {
+      "all_documents": "All documents",
+      "no_version": "Latest version"
+    },
     "improve_prompt": {
       "title": "Improve text",
       "run": "Run instruction",

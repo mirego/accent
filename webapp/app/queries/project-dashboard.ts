@@ -2,6 +2,8 @@ import {gql} from '@apollo/client/core';
 
 export interface ProjectDashboardQueryVariables {
   projectId: string;
+  documentId?: string | null;
+  versionId?: string | null;
 }
 
 export interface ProjectDashboardQueryResponse {
@@ -14,6 +16,14 @@ export interface ProjectDashboardQueryResponse {
       documents: {
         entries: Array<{
           id: string;
+          path: string;
+        }>;
+      };
+
+      versions: {
+        entries: Array<{
+          id: string;
+          tag: string;
         }>;
       };
 
@@ -30,86 +40,12 @@ export interface ProjectDashboardQueryResponse {
           name: string;
         };
       }>;
-
-      activities: {
-        entries: Array<{
-          id: string;
-          action: string;
-          insertedAt: string;
-          updatedAt: string;
-          isBatch: boolean;
-          isRollbacked: boolean;
-          activityType: string;
-          text: string;
-
-          stats: {
-            action: string;
-            count: number;
-          };
-
-          user: {
-            id: string;
-            pictureUrl: string;
-            fullname: string;
-            isBot: boolean;
-          };
-
-          document: {
-            id: string;
-            path: string;
-          };
-
-          translation: {
-            id: string;
-            key: string;
-            correctedText: string;
-            isRemoved: boolean;
-          };
-
-          revision: {
-            id: string;
-            name: string;
-
-            language: {
-              id: string;
-              name: string;
-            };
-          };
-
-          version: {
-            id: string;
-            tag: string;
-          };
-
-          rollbackedOperation: {
-            id: string;
-            action: string;
-            text: string;
-
-            user: {
-              id: string;
-              fullname: string;
-              isBot: boolean;
-            };
-
-            translation: {
-              id: string;
-              key: string;
-            };
-
-            document: {
-              id: string;
-              path: string;
-            };
-          };
-        }>;
-      };
     };
   };
 }
 
 export default gql`
-  query Dashboard($projectId: ID!) {
+  query Dashboard($projectId: ID!, $documentId: ID, $versionId: ID) {
     viewer {
       project(id: $projectId) {
         id
@@ -119,10 +55,18 @@ export default gql`
         documents {
           entries {
             id
+            path
           }
         }
 
-        revisions {
+        versions {
+          entries {
+            id
+            tag
+          }
+        }
+
+        revisions(documentId: $documentId, versionId: $versionId) {
           id
           conflictsCount
           reviewedCount
@@ -135,88 +79,6 @@ export default gql`
             id
             name
             rtl
-          }
-        }
-
-        activities(pageSize: 7) {
-          entries {
-            id
-            action
-            insertedAt
-            updatedAt
-            isBatch
-            isRollbacked
-            activityType
-            text
-
-            stats {
-              action
-              count
-            }
-
-            user {
-              id
-              pictureUrl
-              fullname
-              isBot
-            }
-
-            document {
-              id
-              path
-            }
-
-            translation {
-              id
-              key
-              correctedText
-              isRemoved
-            }
-
-            revision {
-              id
-              name
-              language {
-                id
-                name
-              }
-            }
-
-            version {
-              id
-              tag
-            }
-
-            batchedOperations {
-              id
-
-              document {
-                id
-                path
-              }
-            }
-
-            rollbackedOperation {
-              id
-              action
-              text
-
-              user {
-                id
-                fullname
-                isBot
-              }
-
-              translation {
-                id
-                key
-              }
-
-              document {
-                id
-                path
-              }
-            }
           }
         }
       }

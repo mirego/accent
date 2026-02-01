@@ -5,10 +5,6 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 10px;
-  border-radius: var(--border-radius);
-  box-shadow:
-    0 6px 25px var(--shadow-color),
-    0 2px 7px var(--shadow-color);
 }
 
 .dashboard-revisions-item.low-percentage {
@@ -45,14 +41,22 @@
   flex: 1 1 auto;
   max-width: none;
   margin-right: 0;
+  border-radius: var(--border-radius);
+  box-shadow:
+    0 6px 25px var(--shadow-color),
+    0 2px 7px var(--shadow-color);
 
   .language-name {
     font-size: 14px;
   }
+
+  .item {
+    padding: 8px 10px;
+  }
 }
 
 .item {
-  padding: 8px 10px;
+  padding: 8px 2px;
 }
 
 .language {

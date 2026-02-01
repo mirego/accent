@@ -45,7 +45,7 @@
           {{/if}}
 
           {{#if this.showVersionInfo}}
-            <AccBadge @link={{true}} @primary={{true}} local-class='item-version-tag'>
+            <AccBadge @link={{true}} @version={{true}} local-class='item-version-tag'>
               <LinkTo @route='logged-in.project.versions.export' @models={{array @project.id @activity.version.id}}>
                 {{@activity.version.tag}}
               </LinkTo>

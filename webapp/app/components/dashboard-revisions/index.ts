@@ -1,5 +1,7 @@
+import {service} from '@ember/service';
 import Component from '@glimmer/component';
 import percentage from 'accent-webapp/component-helpers/percentage';
+import IntlService from 'ember-intl/services/intl';
 
 const LOW_PERCENTAGE = 50;
 const HIGH_PERCENTAGE = 90;
@@ -11,12 +13,29 @@ interface Revision {
   conflictsCount: number;
 }
 
+interface Document {
+  id: string;
+  path: string;
+}
+
+interface Version {
+  id: string;
+  tag: string;
+}
+
 interface Args {
   document: any;
   project: any;
-  activities: any;
   revisions: Revision[];
   permissions: Record<string, true>;
+  documents: Document[];
+  versions: Version[];
+  selectedDocument: string | null;
+  selectedVersion: string | null;
+  showDocumentsSelect: boolean;
+  showVersionsSelect: boolean;
+  onChangeDocument: (select: HTMLSelectElement) => void;
+  onChangeVersion: (select: HTMLSelectElement) => void;
   onCorrectAllConflicts: () => Promise<void>;
   onUncorrectAllConflicts: () => Promise<void>;
 }
@@ -31,6 +50,9 @@ const calculateTotalRevisions = (
 };
 
 export default class DashboardRevisions extends Component<Args> {
+  @service('intl')
+  declare intl: IntlService;
+
   get reviewCompleted() {
     return this.reviewedPercentage >= 100;
   }
@@ -90,6 +112,50 @@ export default class DashboardRevisions extends Component<Args> {
     return percentage(
       this.totalStrings - this.totalReviewed,
       this.totalStrings
+    );
+  }
+
+  get showFilters() {
+    return this.args.showDocumentsSelect || this.args.showVersionsSelect;
+  }
+
+  get mappedDocuments() {
+    const documents = (this.args.documents || []).map(({id, path}) => ({
+      label: path,
+      value: id
+    }));
+
+    documents.unshift({
+      label: this.intl.t('components.dashboard_filters.all_documents'),
+      value: ''
+    });
+
+    return documents;
+  }
+
+  get mappedDocumentValue() {
+    return this.mappedDocuments.find(
+      ({value}) => value === (this.args.selectedDocument || '')
+    );
+  }
+
+  get mappedVersions() {
+    const versions = (this.args.versions || []).map(({id, tag}) => ({
+      label: tag,
+      value: id
+    }));
+
+    versions.unshift({
+      label: this.intl.t('components.dashboard_filters.no_version'),
+      value: ''
+    });
+
+    return versions;
+  }
+
+  get mappedVersionValue() {
+    return this.mappedVersions.find(
+      ({value}) => value === (this.args.selectedVersion || '')
     );
   }
 }

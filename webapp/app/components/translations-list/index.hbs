@@ -1,9 +1,10 @@
 <ul local-class='translations-list'>
   {{#if this.currentVersion}}
     <div local-class='translations-list-version'>
-
       {{t 'components.translations_list.translations_version_notice'}}
-      <span local-class='translations-list-version-tag'>{{this.currentVersion.tag}}</span>
+      <AccBadge @version={{true}}>
+        <span local-class='translations-list-version-tag'>{{this.currentVersion.tag}}</span>
+      </AccBadge>
     </div>
   {{/if}}
 

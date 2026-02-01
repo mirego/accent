@@ -1,0 +1,5 @@
+{{#if this.loading}}
+  <SkeletonUi::ActivitiesList />
+{{else}}
+  <ProjectActivitiesList @permissions={{@permissions}} @activities={{this.activities}} @project={{@project}} @compact={{true}} />
+{{/if}}

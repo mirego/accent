@@ -5,6 +5,7 @@ defmodule Accent.Scopes.TranslationsCount do
   def with_stats(query, column, options \\ []) do
     exclude_empty_translations = Keyword.get(options, :exclude_empty_translations, false)
     version_id = Keyword.get(options, :version_id, nil)
+    document_id = Keyword.get(options, :document_id, nil)
 
     translations =
       from(
@@ -18,10 +19,17 @@ defmodule Accent.Scopes.TranslationsCount do
       if version_id do
         from(t in translations,
           inner_join: versions in assoc(t, :version),
-          where: versions.tag == ^version_id
+          where: versions.tag == ^version_id or versions.id == ^version_id
         )
       else
         from(t in translations, where: is_nil(t.version_id))
+      end
+
+    translations =
+      if document_id do
+        from(t in translations, where: t.document_id == ^document_id)
+      else
+        translations
       end
 
     query =

@@ -81,15 +81,17 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   end
 
   @spec correct_all(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
-  def correct_all(revision, _, info) do
+  def correct_all(revision, args, info) do
     %Context{}
     |> Context.assign(:revision, revision)
+    |> Context.assign(:document_id, args[:document_id])
+    |> Context.assign(:version_id, args[:version_id])
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> RevisionCorrectAllBuilder.build()
     |> RevisionCorrectAllPersister.persist()
     |> case do
       {:ok, _} ->
-        {:ok, %{revision: refresh_stats(revision), errors: nil}}
+        {:ok, %{revision: refresh_stats(revision, args), errors: nil}}
 
       {:error, _reason} ->
         {:ok, %{revision: nil, errors: ["unprocessable_entity"]}}
@@ -97,15 +99,17 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   end
 
   @spec uncorrect_all(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
-  def uncorrect_all(revision, _, info) do
+  def uncorrect_all(revision, args, info) do
     %Context{}
     |> Context.assign(:revision, revision)
+    |> Context.assign(:document_id, args[:document_id])
+    |> Context.assign(:version_id, args[:version_id])
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> RevisionUncorrectAllBuilder.build()
     |> RevisionUncorrectAllPersister.persist()
     |> case do
       {:ok, _} ->
-        {:ok, %{revision: refresh_stats(revision), errors: nil}}
+        {:ok, %{revision: refresh_stats(revision, args), errors: nil}}
 
       {:error, _reason} ->
         {:ok, %{revision: nil, errors: ["unprocessable_entity"]}}
@@ -137,14 +141,14 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> Ecto.assoc(:revisions)
     |> Query.join(:inner, [revisions], languages in assoc(revisions, :language), as: :languages)
     |> Query.order_by([revisions, languages: languages], desc: :master, asc: revisions.name, asc: languages.name)
-    |> RevisionScope.with_stats(version_id: args[:version_id])
+    |> RevisionScope.with_stats(version_id: args[:version_id], document_id: args[:document_id])
     |> Repo.all()
     |> then(&{:ok, &1})
   end
 
-  defp refresh_stats(revision) do
+  defp refresh_stats(revision, args) do
     Revision
-    |> RevisionScope.with_stats()
+    |> RevisionScope.with_stats(version_id: args[:version_id], document_id: args[:document_id])
     |> Query.where(id: ^revision.id)
     |> Repo.one()
   end

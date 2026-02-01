@@ -1,6 +1,6 @@
 .navigation--alt {
   .navigation-list-item {
-    margin-right: 6px;
+    margin-right: 3px;
   }
 
   .navigation-list-item-link {
@@ -9,7 +9,7 @@
     opacity: 0.9;
 
     &:global(.active) {
-      background: var(--body-background);
+      color: var(--color-primary);
       opacity: 1;
     }
   }
@@ -18,13 +18,14 @@
 .navigation-list {
   display: flex;
   align-items: stretch;
-  position: relative;
-  left: -6px;
+  gap: 10px;
   z-index: 10;
+  padding: 4px;
+  border-radius: var(--border-radius);
+  background: var(--body-background);
 }
 
 .navigation-list-item {
-  padding: 0 5px 0;
   margin-right: 16px;
 
   &:last-of-type {
@@ -39,9 +40,9 @@
   align-items: center;
   height: 100%;
   position: relative;
-  padding: 5px 5px 6px 3px;
+  padding: 7px 5px 6px 5px;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--color-black);
 
@@ -49,7 +50,7 @@
   &:hover,
   :global(&.active) {
     .navigation-list-item-link-text {
-      opacity: 1;
+      opacity: 0.9;
     }
 
     .navigation-list-item-link-icon {
@@ -67,10 +68,10 @@
 .navigation-list-item-link-icon {
   transition: 0.2s ease-in-out;
   transition-property: stroke;
-  width: 12px;
-  height: 12px;
-  margin-right: 5px;
-  opacity: 0.6;
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+  opacity: 0.8;
   stroke: var(--color-black);
 }
 

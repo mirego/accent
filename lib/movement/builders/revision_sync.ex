@@ -47,7 +47,7 @@ defmodule Movement.Builders.RevisionSync do
       |> Repo.one()
 
     versioned_translations_by_key =
-      if latest_version do
+      if latest_version && document_id do
         Translation
         |> where(version_id: ^latest_version.id)
         |> where(document_id: ^document_id)

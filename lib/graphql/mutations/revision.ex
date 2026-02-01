@@ -38,12 +38,16 @@ defmodule Accent.GraphQL.Mutations.Revision do
 
     field :correct_all_revision, :mutated_revision do
       arg(:id, non_null(:id))
+      arg(:document_id, :id)
+      arg(:version_id, :id)
 
       resolve(revision_authorize(:correct_all_revision, &RevisionResolver.correct_all/3))
     end
 
     field :uncorrect_all_revision, :mutated_revision do
       arg(:id, non_null(:id))
+      arg(:document_id, :id)
+      arg(:version_id, :id)
 
       resolve(revision_authorize(:uncorrect_all_revision, &RevisionResolver.uncorrect_all/3))
     end

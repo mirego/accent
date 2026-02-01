@@ -8,6 +8,11 @@ import ApolloSubscription, {
 } from 'accent-webapp/services/apollo-subscription';
 import Transition from '@ember/routing/transition';
 
+interface QueryParams extends Record<string, unknown> {
+  document?: string | null;
+  version?: string | null;
+}
+
 export default class ProjectIndexRoute extends Route {
   @service('apollo-subscription')
   declare apolloSubscription: ApolloSubscription;
@@ -15,9 +20,14 @@ export default class ProjectIndexRoute extends Route {
   @service('route-params')
   declare routeParams: RouteParams;
 
+  queryParams = {
+    document: {refreshModel: true},
+    version: {refreshModel: true}
+  };
+
   subscription: Subscription;
 
-  model(_params: object, transition: Transition) {
+  model(params: QueryParams, transition: Transition) {
     if (this.subscription)
       this.apolloSubscription.clearSubscription(this.subscription);
 
@@ -32,7 +42,9 @@ export default class ProjectIndexRoute extends Route {
           fetchPolicy: 'cache-and-network',
           variables: {
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
-              .projectId
+              .projectId,
+            documentId: params.document || null,
+            versionId: params.version || null
           }
         }
       }

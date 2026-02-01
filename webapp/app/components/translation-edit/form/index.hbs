@@ -105,6 +105,7 @@
         dir={{if @rtl 'rtl'}}
         ...attributes
       ></textarea>
+      {{! template-lint-disable "attribute-indentation" }}
       {{yield (hash dir=(if @rtl 'rtl') submit=(component 'translation-edit/form/submit') isTextUnchanged=this.isTextUnchanged)}}
 
       {{#if this.fetchLintMessagesTask.isRunning}}

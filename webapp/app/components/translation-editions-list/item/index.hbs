@@ -1,7 +1,7 @@
 <li local-class='translations-list-item item--editMode' {{did-update this.syncEditText @translation.correctedText}} data-dir={{if this.revisionTextDirRtl 'rtl'}}>
   <span local-class='item-header' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
     <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} local-class='item-link'>
-      <AccBadge @primary={{true}}>
+      <AccBadge @version={{true}}>
         <span local-class='item-key'>
           {{#if @translation.version}}
             {{@translation.version.tag}}
