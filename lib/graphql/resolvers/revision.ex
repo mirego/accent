@@ -1,5 +1,7 @@
 defmodule Accent.GraphQL.Resolvers.Revision do
   @moduledoc false
+  import Accent.GraphQL.Helpers.FieldProjection, only: [skip_stats?: 1]
+
   alias Accent.Language
   alias Accent.Plugs.GraphQLContext
   alias Accent.Project
@@ -116,32 +118,36 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     end
   end
 
-  @spec show_project(Project.t(), %{id: String.t()}, GraphQLContext.t()) :: {:ok, Revision.t() | nil}
-  def show_project(project, %{id: id} = args, _) when not is_nil(id) do
+  @spec show_project(Project.t(), %{id: String.t()}, Absinthe.Resolution.t()) :: {:ok, Revision.t() | nil}
+  def show_project(project, %{id: id} = args, info) when not is_nil(id) do
     Revision
     |> RevisionScope.from_project(project.id)
-    |> RevisionScope.with_stats(version_id: args[:version_id])
+    |> RevisionScope.with_stats(version_id: args[:version_id], skip_stats: skip_stats?(info))
     |> Query.where(id: ^id)
     |> Repo.one()
     |> then(&{:ok, &1})
   end
 
-  def show_project(project, args, _) do
+  def show_project(project, args, info) do
     Revision
     |> RevisionScope.from_project(project.id)
-    |> RevisionScope.with_stats(version_id: args[:version_id])
+    |> RevisionScope.with_stats(version_id: args[:version_id], skip_stats: skip_stats?(info))
     |> RevisionScope.master()
     |> Repo.one()
     |> then(&{:ok, &1})
   end
 
-  @spec list_project(Project.t(), any(), GraphQLContext.t()) :: {:ok, [Revision.t()]}
-  def list_project(project, args, _) do
+  @spec list_project(Project.t(), any(), Absinthe.Resolution.t()) :: {:ok, [Revision.t()]}
+  def list_project(project, args, info) do
     project
     |> Ecto.assoc(:revisions)
     |> Query.join(:inner, [revisions], languages in assoc(revisions, :language), as: :languages)
     |> Query.order_by([revisions, languages: languages], desc: :master, asc: revisions.name, asc: languages.name)
-    |> RevisionScope.with_stats(version_id: args[:version_id], document_id: args[:document_id])
+    |> RevisionScope.with_stats(
+      version_id: args[:version_id],
+      document_id: args[:document_id],
+      skip_stats: skip_stats?(info)
+    )
     |> Repo.all()
     |> then(&{:ok, &1})
   end

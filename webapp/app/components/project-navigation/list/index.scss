@@ -44,11 +44,16 @@
   padding: 7px 12px 6px;
   text-decoration: none;
   font-size: 14px;
+  margin: 0 7px 0 5px;
+  border-radius: var(--border-radius);
   color: var(--text-color-normal);
 
   &:hover,
   &:focus {
     opacity: 1;
+    background: var(--color-primary-opacity-10);
+    transition: all 0.2s ease-in-out;
+    color: var(--color-black);
 
     .list-item-link-icon {
       transform: scale(1);

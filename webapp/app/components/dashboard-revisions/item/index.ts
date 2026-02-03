@@ -11,6 +11,8 @@ interface Args {
   project: any;
   revision: any;
   permissions: Record<string, true>;
+  selectedDocument: string | null;
+  selectedVersion: string | null;
   onCorrectAllConflicts: (revision: any) => Promise<void>;
   onUncorrectAllConflicts: (revision: any) => Promise<void>;
 }

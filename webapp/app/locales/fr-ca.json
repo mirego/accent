@@ -173,9 +173,15 @@
       "document_default_option_text": "Tous les documents",
       "input_placeholder_text": "Rechercher une chaîne",
       "advanced_filters_title": "Filtres avancés",
+      "legend_tooltip": "Légende des couleurs de bordure",
+      "legend": {
+        "to_translate": "À traduire",
+        "to_review": "À réviser",
+        "reviewed": "Révisé"
+      },
       "advanced_filters": {
         "empty": "Le texte est vide (\"\" ou valeur nulle)",
-        "not_empty": "Le texte n’est pas vide",
+        "not_empty": "Le texte n'est pas vide",
         "added_last_sync": "Ajoutées à la dernière synchronisation",
         "commented_on": "Chaînes avec commentaires",
         "conflicted": "À réviser",

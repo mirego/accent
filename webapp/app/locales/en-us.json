@@ -157,6 +157,12 @@
       "document_default_option_text": "All documents",
       "input_placeholder_text": "Search for a string",
       "advanced_filters_title": "Advanced filters",
+      "legend_tooltip": "Border color legend",
+      "legend": {
+        "to_translate": "To translate",
+        "to_review": "To review",
+        "reviewed": "Reviewed"
+      },
       "advanced_filters": {
         "empty": "Text is empty (\"\" or null value)",
         "not_empty": "Text is not empty",

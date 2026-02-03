@@ -1,5 +1,24 @@
 <div local-class='conflicts-filters'>
   <div class='filters'>
+    <div local-class='legend-container'>
+      <span local-class='legend-icon'>
+        ?
+      </span>
+      <div local-class='legend-popup'>
+        <div local-class='legend-item'>
+          <span local-class='legend-color legend-color--gray'></span>
+          <span>{{t 'components.conflicts_filters.legend.to_translate'}}</span>
+        </div>
+        <div local-class='legend-item'>
+          <span local-class='legend-color legend-color--yellow'></span>
+          <span>{{t 'components.conflicts_filters.legend.to_review'}}</span>
+        </div>
+        <div local-class='legend-item'>
+          <span local-class='legend-color legend-color--green'></span>
+          <span>{{t 'components.conflicts_filters.legend.reviewed'}}</span>
+        </div>
+      </div>
+    </div>
     <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
       <div class='filters-content' local-class='filters-content'>
 

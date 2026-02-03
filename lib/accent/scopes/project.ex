@@ -39,8 +39,23 @@ defmodule Accent.Scopes.Project do
   @doc """
   Fill `translations_count`, `conflicts_count`, `translated_count` and `reviewed_count` for projects.
   """
-  @spec with_stats(Ecto.Queryable.t()) :: Ecto.Queryable.t()
-  def with_stats(query) do
+  @spec with_stats(Ecto.Queryable.t(), Keyword.t()) :: Ecto.Queryable.t()
+  def with_stats(query, options \\ []) do
+    if Keyword.get(options, :skip_stats, false) do
+      from(q in query,
+        select_merge: %{
+          translations_count: 0,
+          translated_count: 0,
+          reviewed_count: 0,
+          conflicts_count: 0
+        }
+      )
+    else
+      do_with_stats(query)
+    end
+  end
+
+  defp do_with_stats(query) do
     translations =
       from(
         t in Accent.Translation,

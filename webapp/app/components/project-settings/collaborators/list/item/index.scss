@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  padding: 10px 15px 10px 10px;
+  padding: 14px 15px 10px 10px;
   border-bottom: 1px solid var(--background-light-highlight);
   overflow-x: hidden;
 
@@ -18,7 +18,8 @@
 
   &.withPicture {
     .invite {
-      margin-left: 21px;
+      position: relative;
+      left: 46px;
     }
   }
 
@@ -62,15 +63,18 @@
 
 .role {
   display: block;
-  margin-bottom: 4px;
-  color: var(--color-green);
   color: var(--color-primary);
   font-size: 12px;
+  font-family: var(--font-monospace);
+}
+
+.role-edit {
+  margin-bottom: 5px;
 }
 
 .user {
   display: flex;
-  color: var(--color-black);
+  color: var(--text-color-normal);
   font-size: 15px;
 }
 
@@ -80,17 +84,23 @@
 }
 
 .user-picture {
-  width: 17px;
-  height: 17px;
-  margin-right: 6px;
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
   margin-top: 3px;
   border-radius: var(--border-radius);
 }
 
+.fullname {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
 .invite {
-  opacity: 0.4;
-  color: var(--color-black);
-  font-size: 13px;
+  opacity: 0.6;
+  color: var(--text-color-normal);
+  font-size: 12px;
   font-style: italic;
 }
 

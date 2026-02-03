@@ -3,80 +3,80 @@ defmodule Accent.Scopes.TranslationsCount do
   import Ecto.Query
 
   def with_stats(query, column, options \\ []) do
+    if Keyword.get(options, :skip_stats, false) do
+      from(q in query,
+        select_merge: %{
+          translations_count: 0,
+          translated_count: 0,
+          reviewed_count: 0,
+          conflicts_count: 0
+        }
+      )
+    else
+      do_with_stats(query, column, options)
+    end
+  end
+
+  defp do_with_stats(query, column, options) do
     exclude_empty_translations = Keyword.get(options, :exclude_empty_translations, false)
     version_id = Keyword.get(options, :version_id, nil)
     document_id = Keyword.get(options, :document_id, nil)
 
-    translations =
-      from(
-        t in Accent.Translation,
-        select: %{field_id: field(t, ^column), count: count(t)},
+    # Single subquery with conditional aggregates - scans table once instead of three times
+    stats_subquery =
+      from(t in Accent.Translation,
+        select: %{
+          field_id: field(t, ^column),
+          total_count: count(t),
+          reviewed_count: filter(count(t), not t.conflicted),
+          translated_count: filter(count(t), t.translated)
+        },
         where: [removed: false, locked: false],
         group_by: field(t, ^column)
       )
 
-    translations =
+    stats_subquery =
       if version_id do
-        from(t in translations,
+        from(t in stats_subquery,
           inner_join: versions in assoc(t, :version),
           where: versions.tag == ^version_id or versions.id == ^version_id
         )
       else
-        from(t in translations, where: is_nil(t.version_id))
+        from(t in stats_subquery, where: is_nil(t.version_id))
       end
 
-    translations =
+    stats_subquery =
       if document_id do
-        from(t in translations, where: t.document_id == ^document_id)
+        from(t in stats_subquery, where: t.document_id == ^document_id)
       else
-        translations
+        stats_subquery
       end
 
-    query =
-      query
-      |> count_translations(translations, exclude_empty_translations)
-      |> count_reviewed(translations)
-      |> count_translated(translations)
+    query = join_stats(query, stats_subquery, exclude_empty_translations)
 
-    from(
-      [translations: t, reviewed: r, translated: td] in query,
+    from([stats: s] in query,
       select_merge: %{
-        translations_count: coalesce(t.count, 0),
-        translated_count: coalesce(td.count, 0),
-        reviewed_count: coalesce(r.count, 0),
-        conflicts_count: coalesce(t.count, 0) - coalesce(r.count, 0)
+        translations_count: coalesce(s.total_count, 0),
+        translated_count: coalesce(s.translated_count, 0),
+        reviewed_count: coalesce(s.reviewed_count, 0),
+        conflicts_count: coalesce(s.total_count, 0) - coalesce(s.reviewed_count, 0)
       }
     )
   end
 
-  defp count_translations(query, translations, true = _exclude_empty_translations) do
+  defp join_stats(query, stats_subquery, true = _exclude_empty_translations) do
     from(q in query,
-      inner_join: translations in subquery(translations),
-      as: :translations,
-      on: translations.field_id == q.id
+      inner_join: stats in subquery(stats_subquery),
+      as: :stats,
+      on: stats.field_id == q.id
     )
   end
 
-  defp count_translations(query, translations, false = _exclude_empty_translations) do
+  defp join_stats(query, stats_subquery, false = _exclude_empty_translations) do
     from(q in query,
-      left_join: translations in subquery(translations),
-      as: :translations,
-      on: translations.field_id == q.id
-    )
-  end
-
-  defp count_reviewed(query, translations) do
-    reviewed = from(translations, where: [conflicted: false])
-    from(q in query, left_join: translations in subquery(reviewed), as: :reviewed, on: translations.field_id == q.id)
-  end
-
-  defp count_translated(query, translations) do
-    translated = from(translations, where: [translated: true])
-
-    from(q in query,
-      left_join: translations in subquery(translated),
-      as: :translated,
-      on: translations.field_id == q.id
+      left_join: stats in subquery(stats_subquery),
+      as: :stats,
+      on: stats.field_id == q.id
     )
   end
 end

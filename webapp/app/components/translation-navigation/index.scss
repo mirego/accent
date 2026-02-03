@@ -4,7 +4,7 @@
   }
 
   .navigation-list-item-link {
-    padding: 2px 11px 2px 10px;
+    padding: 4px 11px 4px 10px;
     border-radius: var(--border-radius);
     opacity: 0.9;
 
@@ -21,8 +21,8 @@
   gap: 10px;
   z-index: 10;
   padding: 4px;
-  border-radius: var(--border-radius);
-  background: var(--body-background);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--content-background-border);
 }
 
 .navigation-list-item {
@@ -38,12 +38,12 @@
   transition-property: color, border-color, background;
   display: flex;
   align-items: center;
+  gap: 7px;
   height: 100%;
   position: relative;
-  padding: 7px 5px 6px 5px;
   text-decoration: none;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-black);
 
   &:focus,
@@ -70,7 +70,6 @@
   transition-property: stroke;
   width: 14px;
   height: 14px;
-  margin-right: 4px;
   opacity: 0.8;
   stroke: var(--color-black);
 }

@@ -1,5 +1,7 @@
 defmodule Accent.GraphQL.Resolvers.Project do
   @moduledoc false
+  import Accent.GraphQL.Helpers.FieldProjection, only: [skip_stats?: 1]
+
   alias Accent.GraphQL.Paginated
   alias Accent.Operation
   alias Accent.Plugs.GraphQLContext
@@ -102,10 +104,10 @@ defmodule Accent.GraphQL.Resolvers.Project do
     {:ok, projects}
   end
 
-  @spec show_viewer(any(), %{id: String.t()}, GraphQLContext.t()) :: {:ok, Project.t() | nil}
-  def show_viewer(_, %{id: id}, _) do
+  @spec show_viewer(any(), %{id: String.t()}, Absinthe.Resolution.t()) :: {:ok, Project.t() | nil}
+  def show_viewer(_, %{id: id}, info) do
     Project
-    |> ProjectScope.with_stats()
+    |> ProjectScope.with_stats(skip_stats: skip_stats?(info))
     |> Repo.get(id)
     |> then(&{:ok, &1})
   end

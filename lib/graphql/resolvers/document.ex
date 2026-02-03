@@ -1,5 +1,7 @@
 defmodule Accent.GraphQL.Resolvers.Document do
   @moduledoc false
+  import Accent.GraphQL.Helpers.FieldProjection, only: [skip_stats?: 1]
+
   alias Accent.Document
   alias Accent.DocumentManager
   alias Accent.GraphQL.Paginated
@@ -42,12 +44,12 @@ defmodule Accent.GraphQL.Resolvers.Document do
     end
   end
 
-  @spec show_project(Project.t(), %{id: String.t()}, GraphQLContext.t()) ::
+  @spec show_project(Project.t(), %{id: String.t()}, Absinthe.Resolution.t()) ::
           {:ok, Document.t() | nil}
-  def show_project(project, %{id: id}, _) do
+  def show_project(project, %{id: id}, info) do
     Document
     |> DocumentScope.from_project(project.id)
-    |> DocumentScope.with_stats(exclude_empty_translations: true)
+    |> DocumentScope.with_stats(exclude_empty_translations: true, skip_stats: skip_stats?(info))
     |> Ecto.Query.where(id: ^id)
     |> Repo.one()
     |> then(&{:ok, &1})
@@ -56,13 +58,16 @@ defmodule Accent.GraphQL.Resolvers.Document do
   @spec list_project(
           Project.t(),
           %{page: number(), exclude_empty_translations: boolean()},
-          GraphQLContext.t()
+          Absinthe.Resolution.t()
         ) ::
           {:ok, Paginated.t(Document.t())}
-  def list_project(project, args, _) do
+  def list_project(project, args, info) do
     Document
     |> DocumentScope.from_project(project.id)
-    |> DocumentScope.with_stats(exclude_empty_translations: args.exclude_empty_translations)
+    |> DocumentScope.with_stats(
+      exclude_empty_translations: args.exclude_empty_translations,
+      skip_stats: skip_stats?(info)
+    )
     |> Ecto.Query.order_by(asc: :path)
     |> Paginated.paginate(args)
     |> Paginated.format()

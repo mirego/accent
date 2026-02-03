@@ -6,13 +6,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  color: var(--color-black);
+  color: var(--text-color-normal);
   font-size: 13px;
-  gap: 13px;
+  gap: 8px;
 
   h1 {
-    font-size: 35px;
-    font-weight: 900;
+    font-size: 25px;
+    font-weight: 400;
     letter-spacing: -0.4px;
   }
 

@@ -24,8 +24,6 @@ export interface ProjectQueryResponseProject {
     id: string;
     name: string;
     isMaster: boolean;
-    translationsCount: number;
-    conflictsCount: number;
 
     language: {
       id: string;
@@ -94,8 +92,6 @@ export default gql`
           name
           slug
           isMaster
-          translationsCount
-          conflictsCount
 
           language {
             id

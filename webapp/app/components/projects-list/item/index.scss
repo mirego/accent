@@ -5,7 +5,7 @@
   border-radius: var(--border-radius);
   border: 1px solid var(--content-background-border);
   background: var(--content-background);
-  color: var(--color-black);
+  color: var(--text-color-normal);
 
   &:focus,
   &:hover {
@@ -34,8 +34,11 @@
 .projectName {
   transition: 0.2s ease-in-out;
   transition-property: color;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .projectLogo {

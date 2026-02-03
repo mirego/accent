@@ -9,7 +9,12 @@
       {{inline-svg 'assets/gear.svg' local-class='actionsButton-icon'}}
     </span>
     <span local-class='language'>
-      <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @revision.id}} local-class='language-name'>
+      <LinkTo
+        @route='logged-in.project.revision.translations'
+        @models={{array @project.id @revision.id}}
+        @query={{hash document=@selectedDocument version=@selectedVersion}}
+        local-class='language-name'
+      >
         {{this.languageName}}
         {{#if this.rtl}}
           <AccBadge class='tooltip tooltip--top' title={{t 'components.dashboard_revisions.item.rtl'}}>

@@ -2,11 +2,9 @@
   <div local-class='item-content'>
     <div>
       {{#if this.isEditing}}
-        <AccSelect @searchEnabled={{false}} @selected={{this.roleValue}} @options={{this.mappedPossibleRoles}} @onchange={{fn this.setRole}} />
-      {{else}}
-        <span local-class='role'>
-          {{this.role}}
-        </span>
+        <div local-class='role-edit'>
+          <AccSelect @searchEnabled={{false}} @selected={{this.roleValue}} @options={{this.mappedPossibleRoles}} @onchange={{fn this.setRole}} />
+        </div>
       {{/if}}
 
       <span local-class='user'>
@@ -17,21 +15,36 @@
         <span local-class='user-name'>
           {{#if this.hasJoined}}
             {{#if @collaborator.user.fullname}}
-              <span data-test-collaborator-fullname>
+              <span data-test-collaborator-fullname local-class='fullname'>
                 {{@collaborator.user.fullname}}
+                {{#unless this.isEditing}}
+                  <span local-class='role'>
+                    {{this.role}}
+                  </span>
+                {{/unless}}
               </span>
 
               <small local-class='user-email' data-test-collaborator-email>
                 {{@collaborator.email}}
               </small>
             {{else}}
-              <span data-test-collaborator-email>
+              <span data-test-collaborator-email local-class='fullname'>
                 {{@collaborator.email}}
+                {{#unless this.isEditing}}
+                  <span local-class='role'>
+                    {{this.role}}
+                  </span>
+                {{/unless}}
               </span>
             {{/if}}
           {{else}}
-            <span data-test-collaborator-email>
+            <span data-test-collaborator-email local-class='fullname'>
               {{@collaborator.email}}
+              {{#unless this.isEditing}}
+                <span local-class='role'>
+                  {{this.role}}
+                </span>
+              {{/unless}}
             </span>
           {{/if}}
         </span>
