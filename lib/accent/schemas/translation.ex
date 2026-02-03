@@ -83,12 +83,16 @@ defmodule Accent.Translation do
   end
 
   def maybe_natural_order_by(translations, "key") do
-    Enum.sort_by(translations, & &1.key)
+    Enum.sort_by(translations, &sort_key/1)
   end
 
   def maybe_natural_order_by(translations, "-key") do
-    Enum.sort_by(translations, & &1.key, &>=/2)
+    Enum.sort_by(translations, &sort_key/1, &>=/2)
   end
 
   def maybe_natural_order_by(translations, _), do: translations
+
+  # Replace '.' with a high Unicode char so nested keys sort after flat keys
+  # e.g., "a.foobar" sorts after "a-foobar"
+  defp sort_key(%{key: key}), do: String.replace(key, ".", "\uFFFF")
 end
