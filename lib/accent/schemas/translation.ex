@@ -92,7 +92,5 @@ defmodule Accent.Translation do
 
   def maybe_natural_order_by(translations, _), do: translations
 
-  # Replace '.' with a high Unicode char so nested keys sort after flat keys
-  # e.g., "a.foobar" sorts after "a-foobar"
-  defp sort_key(%{key: key}), do: String.replace(key, ".", "\uFFFF")
+  defp sort_key(%{key: key}), do: String.replace(key, ".", "\u0001")
 end

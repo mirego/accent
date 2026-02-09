@@ -5,7 +5,7 @@ defmodule AccentTest.Translation do
   alias Accent.Translation
 
   describe "maybe_natural_order_by/2" do
-    test "sorts by key ascending with '.' after other characters" do
+    test "sorts by key ascending with '.' before other characters" do
       translations = [
         %Translation{key: "a.foobar"},
         %Translation{key: "a-foobar"},
@@ -17,11 +17,10 @@ defmodule AccentTest.Translation do
       result = Translation.maybe_natural_order_by(translations, "key")
       keys = Enum.map(result, & &1.key)
 
-      # '.' represents nesting so should sort after other chars at same level
-      assert keys == ["a-foobar", "a_foobar", "aa", "ab", "a.foobar"]
+      assert keys == ["a.foobar", "a-foobar", "a_foobar", "aa", "ab"]
     end
 
-    test "sorts by key descending with '.' after other characters" do
+    test "sorts by key descending with '.' before other characters" do
       translations = [
         %Translation{key: "a.foobar"},
         %Translation{key: "a-foobar"},
@@ -33,10 +32,10 @@ defmodule AccentTest.Translation do
       result = Translation.maybe_natural_order_by(translations, "-key")
       keys = Enum.map(result, & &1.key)
 
-      assert keys == ["a.foobar", "ab", "aa", "a_foobar", "a-foobar"]
+      assert keys == ["ab", "aa", "a_foobar", "a-foobar", "a.foobar"]
     end
 
-    test "nested keys sort after their parent siblings" do
+    test "nested keys sort before their parent siblings" do
       translations = [
         %Translation{key: "menu.file.open"},
         %Translation{key: "menu.file"},
@@ -48,8 +47,7 @@ defmodule AccentTest.Translation do
       result = Translation.maybe_natural_order_by(translations, "key")
       keys = Enum.map(result, & &1.key)
 
-      # menu-item should come before any menu.* nested keys
-      assert keys == ["menu", "menu-item", "menu.edit", "menu.file", "menu.file.open"]
+      assert keys == ["menu", "menu.edit", "menu.file", "menu.file.open", "menu-item"]
     end
 
     test "returns translations unchanged for non-key ordering" do
