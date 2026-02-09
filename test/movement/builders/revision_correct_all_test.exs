@@ -9,6 +9,7 @@ defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
   alias Accent.User
   alias Accent.Version
   alias Movement.Builders.RevisionCorrectAll, as: RevisionCorrectAllBuilder
+  alias Movement.Context
 
   setup do
     user = Factory.insert(User)
