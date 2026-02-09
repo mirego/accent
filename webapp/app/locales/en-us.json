@@ -231,6 +231,7 @@
         "rtl_badge": "RTL",
         "rtl": "Right to left text",
         "correct_all_button": "Mark all strings as reviewed",
+        "correct_all_from_version_button": "Mark as reviewed in main",
         "uncorrect_all_button": "Put all strings back in review",
         "stats_translated": "translated",
         "stats_to_review": "to review"
@@ -1128,6 +1129,8 @@
         "flash_messages": {
           "revision_correct_success": "All strings in the language have been marked as reviewed",
           "revision_correct_error": "An error has occurred when marking all the strings in that language as reviewed",
+          "revision_correct_from_version_success": "Strings marked as reviewed in main version",
+          "revision_correct_from_version_error": "An error has occurred when marking strings as reviewed in main version",
           "revision_uncorrect_success": "All strings in the language have been marked to be reviewed",
           "revision_uncorrect_error": "An error has occurred when marking all the strings in that language to be reviewed"
         }

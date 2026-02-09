@@ -29,7 +29,6 @@ env $(cat .env.test.local | xargs) mix test test/path/to/test.exs:42
 ## Test Conventions
 
 ```elixir
-# Use RepoCase for database tests
 defmodule AccentTest.Movement.Builders.MyBuilder do
   use Accent.RepoCase, async: true
 
@@ -37,12 +36,10 @@ defmodule AccentTest.Movement.Builders.MyBuilder do
   alias Movement.Context
 
   test "my test" do
-    # Use Factory to create test data
     user = Factory.insert(User, email: "test@test.com")
     language = Factory.insert(Language)
     translation = Factory.insert(Translation, key: "hello", revision_id: revision.id)
 
-    # Test your code
     assert result == expected
   end
 end
@@ -106,6 +103,12 @@ mix dialyzer
 make lint          # All linters
 make type-check    # Dialyzer + TypeScript
 ```
+
+## Code Style
+
+- **NO explanatory comments in code** - Code should be self-documenting. Do not add comments like `# Main version translation (should be included)` or `# This does X`. Variable/function names should convey intent.
+- **NO inline comments in tests** - Test names describe behavior. Factory inserts and assertions are self-explanatory.
+- Only add comments for truly non-obvious workarounds or external references (e.g., linking to a bug ticket).
 
 ## Common Patterns
 

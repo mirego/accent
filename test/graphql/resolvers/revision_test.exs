@@ -8,6 +8,7 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
+  alias Accent.Version
 
   defmodule PlugConn do
     @moduledoc false
@@ -84,6 +85,49 @@ defmodule AccentTest.GraphQL.Resolvers.Revision do
 
     assert get_in(result, [:revision, Access.key(:translations_count)]) == 1
     assert get_in(result, [:revision, Access.key(:conflicts_count)]) == 0
+    assert get_in(result, [:revision, Access.key(:reviewed_count)]) == 1
+  end
+
+  test "correct all with from_version_id", %{master_revision: revision, user: user, project: project} do
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+    version = Factory.insert(Version, project_id: project.id, tag: "v1.0")
+
+    # Main version translation (will be corrected)
+    main_translation =
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        key: "ok",
+        corrected_text: "bar",
+        proposed_text: "bar",
+        conflicted: true,
+        version_id: nil
+      )
+
+    # Version translation pointing to main translation
+    Factory.insert(Translation,
+      revision_id: revision.id,
+      key: "ok",
+      corrected_text: "bar version",
+      proposed_text: "bar version",
+      conflicted: false,
+      version_id: version.id,
+      source_translation_id: main_translation.id
+    )
+
+    # Main version translation NOT in version (should NOT be corrected)
+    Factory.insert(Translation,
+      revision_id: revision.id,
+      key: "not_in_version",
+      corrected_text: "baz",
+      proposed_text: "baz",
+      conflicted: true,
+      version_id: nil
+    )
+
+    {:ok, result} = Resolver.correct_all(revision, %{from_version_id: version.id}, context)
+
+    assert get_in(result, [:revision, Access.key(:translations_count)]) == 2
+    assert get_in(result, [:revision, Access.key(:conflicts_count)]) == 1
     assert get_in(result, [:revision, Access.key(:reviewed_count)]) == 1
   end
 

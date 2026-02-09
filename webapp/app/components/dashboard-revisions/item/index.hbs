@@ -63,6 +63,19 @@
               {{t 'components.dashboard_revisions.item.correct_all_button'}}
             </AsyncButton>
           {{/if}}
+          {{#if this.showCorrectAllFromVersionAction}}
+            <AsyncButton
+              @onClick={{fn this.correctAllConflictsFromVersion}}
+              @loading={{this.isCorrectAllFromVersionLoading}}
+              @disabled={{this.isAnyActionsLoading}}
+              class='button button--blue button--highlight button--borderless'
+              local-class='actionItem-button'
+            >
+              {{inline-svg '/assets/tag.svg' class='button-icon'}}
+              {{t 'components.dashboard_revisions.item.correct_all_from_version_button'}}
+              <span local-class='actionItem-percentage'>{{this.mainRevisionReviewedPercentage}}%</span>
+            </AsyncButton>
+          {{/if}}
         {{/if}}
         {{#if (get @permissions 'uncorrect_all_revision')}}
           {{#if this.showUncorrectAllAction}}

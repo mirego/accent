@@ -33,6 +33,7 @@ defmodule Accent.GraphQL.Types.Activity do
     field(:text, :string)
     field(:stats, list_of(:activity_stat))
     field(:value_type, :translation_value_type)
+    field(:options, list_of(non_null(:string)))
 
     field :operations, :activities do
       arg(:page, :integer)

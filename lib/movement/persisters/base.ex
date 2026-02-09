@@ -12,7 +12,7 @@ defmodule Movement.Persisters.Base do
   # overflow in database adapter
   @operations_inserts_chunk 500
 
-  @options_keys ~w(new_slave_options merge_options sync_options)a
+  @options_keys ~w(new_slave_options merge_options sync_options correct_all_options)a
 
   @spec execute(Movement.Context.t()) :: {Movement.Context.t(), [Operation.t()]}
   def execute(%Movement.Context{operations: []} = context), do: {context, []}

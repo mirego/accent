@@ -2,6 +2,7 @@ defmodule Movement.Builders.RevisionCorrectAll do
   @moduledoc false
   @behaviour Movement.Builder
 
+  import Ecto.Query
   import Movement.Context, only: [assign: 3]
 
   alias Accent.Repo
@@ -35,6 +36,7 @@ defmodule Movement.Builders.RevisionCorrectAll do
       |> TranslationScope.from_revision(assigns[:revision].id)
       |> filter_by_version(assigns[:version_id])
       |> filter_by_document(assigns[:document_id])
+      |> filter_by_from_version(assigns[:from_version_id], assigns[:revision].id)
       |> Repo.all()
 
     assign(context, :translations, translations)
@@ -45,4 +47,17 @@ defmodule Movement.Builders.RevisionCorrectAll do
 
   defp filter_by_document(query, nil), do: query
   defp filter_by_document(query, document_id), do: TranslationScope.from_document(query, document_id)
+
+  defp filter_by_from_version(query, nil, _revision_id), do: query
+
+  defp filter_by_from_version(query, from_version_id, revision_id) do
+    source_ids =
+      Translation
+      |> TranslationScope.from_version(from_version_id)
+      |> TranslationScope.from_revision(revision_id)
+      |> TranslationScope.active()
+      |> select([t], t.source_translation_id)
+
+    from(t in query, where: t.id in subquery(source_ids))
+  end
 end

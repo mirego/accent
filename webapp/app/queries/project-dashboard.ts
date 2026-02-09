@@ -40,6 +40,12 @@ export interface ProjectDashboardQueryResponse {
           name: string;
         };
       }>;
+
+      mainRevisions: Array<{
+        id: string;
+        reviewedCount: number;
+        translationsCount: number;
+      }>;
     };
   };
 }
@@ -80,6 +86,12 @@ export default gql`
             name
             rtl
           }
+        }
+
+        mainRevisions: revisions(documentId: $documentId) {
+          id
+          reviewedCount
+          translationsCount
         }
       }
     }

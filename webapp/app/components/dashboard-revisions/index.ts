@@ -23,10 +23,17 @@ interface Version {
   tag: string;
 }
 
+interface MainRevision {
+  id: string;
+  reviewedCount: number;
+  translationsCount: number;
+}
+
 interface Args {
   document: any;
   project: any;
   revisions: Revision[];
+  mainRevisions: MainRevision[];
   permissions: Record<string, true>;
   documents: Document[];
   versions: Version[];
@@ -38,6 +45,7 @@ interface Args {
   onChangeVersion: (select: HTMLSelectElement) => void;
   onCorrectAllConflicts: () => Promise<void>;
   onUncorrectAllConflicts: () => Promise<void>;
+  onCorrectAllConflictsFromVersion: () => Promise<void>;
 }
 
 const calculateTotalRevisions = (

@@ -7,6 +7,7 @@ defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
   alias Accent.Repo
   alias Accent.Translation
   alias Accent.User
+  alias Accent.Version
   alias Movement.Builders.RevisionCorrectAll, as: RevisionCorrectAllBuilder
 
   setup do
@@ -18,15 +19,15 @@ defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
 
     revision = project |> Repo.preload(:revisions) |> Map.get(:revisions) |> hd()
 
-    {:ok, [revision: revision]}
+    {:ok, [revision: revision, project: project]}
   end
 
   test "builder fetch translations and correct conflict", %{revision: revision} do
     translation = Factory.insert(Translation, key: "a", proposed_text: "A", conflicted: true, revision_id: revision.id)
 
     context =
-      %Movement.Context{}
-      |> Movement.Context.assign(:revision, revision)
+      %Context{}
+      |> Context.assign(:revision, revision)
       |> RevisionCorrectAllBuilder.build()
 
     translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
@@ -40,13 +41,55 @@ defmodule AccentTest.Movement.Builders.RevisionCorrectAll do
     Factory.insert(Translation, key: "a", proposed_text: "A", conflicted: false, revision_id: revision.id)
 
     context =
-      %Movement.Context{}
-      |> Movement.Context.assign(:revision, revision)
+      %Context{}
+      |> Context.assign(:revision, revision)
       |> RevisionCorrectAllBuilder.build()
 
     translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
 
     assert translation_ids === []
     assert context.operations === []
+  end
+
+  test "builder filters by from_version_id", %{revision: revision, project: project} do
+    version = Factory.insert(Version, project_id: project.id, tag: "v1.0")
+
+    main_translation =
+      Factory.insert(Translation,
+        key: "a",
+        proposed_text: "A",
+        conflicted: true,
+        revision_id: revision.id,
+        version_id: nil
+      )
+
+    Factory.insert(Translation,
+      key: "a",
+      proposed_text: "A version",
+      conflicted: false,
+      revision_id: revision.id,
+      version_id: version.id,
+      source_translation_id: main_translation.id
+    )
+
+    Factory.insert(Translation,
+      key: "b",
+      proposed_text: "B",
+      conflicted: true,
+      revision_id: revision.id,
+      version_id: nil
+    )
+
+    context =
+      %Context{}
+      |> Context.assign(:revision, revision)
+      |> Context.assign(:version_id, nil)
+      |> Context.assign(:from_version_id, version.id)
+      |> RevisionCorrectAllBuilder.build()
+
+    translation_ids = Enum.map(context.assigns[:translations], &Map.get(&1, :id))
+
+    assert translation_ids === [main_translation.id]
+    assert length(context.operations) === 1
   end
 end

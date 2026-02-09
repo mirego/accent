@@ -84,10 +84,14 @@ defmodule Accent.GraphQL.Resolvers.Revision do
 
   @spec correct_all(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
   def correct_all(revision, args, info) do
+    correct_all_options = build_correct_all_options(args)
+
     %Context{}
     |> Context.assign(:revision, revision)
     |> Context.assign(:document_id, args[:document_id])
     |> Context.assign(:version_id, args[:version_id])
+    |> Context.assign(:from_version_id, args[:from_version_id])
+    |> Context.assign(:correct_all_options, correct_all_options)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> RevisionCorrectAllBuilder.build()
     |> RevisionCorrectAllPersister.persist()
@@ -165,5 +169,12 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     options = if args[:machine_translations_enabled], do: ["machine_translations_enabled" | options], else: options
 
     options
+  end
+
+  defp build_correct_all_options(args) do
+    case args[:from_version_id] do
+      nil -> []
+      from_version_id -> ["from_version_id:#{from_version_id}"]
+    end
   end
 end

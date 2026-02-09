@@ -14,6 +14,10 @@ const FLASH_MESSAGE_REVISION_CORRECT_SUCCESS =
   'pods.project.index.flash_messages.revision_correct_success';
 const FLASH_MESSAGE_REVISION_CORRECT_ERROR =
   'pods.project.index.flash_messages.revision_correct_error';
+const FLASH_MESSAGE_REVISION_CORRECT_FROM_VERSION_SUCCESS =
+  'pods.project.index.flash_messages.revision_correct_from_version_success';
+const FLASH_MESSAGE_REVISION_CORRECT_FROM_VERSION_ERROR =
+  'pods.project.index.flash_messages.revision_correct_from_version_error';
 const FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS =
   'pods.project.index.flash_messages.revision_uncorrect_success';
 const FLASH_MESSAGE_REVISION_UNCORRECT_ERROR =
@@ -51,6 +55,9 @@ export default class ProjectIndexController extends Controller {
 
   @readOnly('project.revisions')
   revisions: any;
+
+  @readOnly('project.mainRevisions')
+  mainRevisions: any;
 
   @equal('model.project', undefined)
   emptyProject: boolean;
@@ -131,6 +138,30 @@ export default class ProjectIndexController extends Controller {
     } else {
       this.flashMessages.success(
         this.intl.t(FLASH_MESSAGE_REVISION_UNCORRECT_SUCCESS)
+      );
+    }
+  }
+
+  @action
+  async correctAllConflictsFromVersion(revision: any) {
+    const response = await this.apolloMutate.mutate({
+      mutation: correctAllRevisionQuery,
+      variables: {
+        revisionId: revision.id,
+        documentId: this.document || null,
+        versionId: null,
+        fromVersionId: this.version
+      },
+      refetchQueries: ['Dashboard']
+    });
+
+    if (response.errors) {
+      this.flashMessages.error(
+        this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_FROM_VERSION_ERROR)
+      );
+    } else {
+      this.flashMessages.success(
+        this.intl.t(FLASH_MESSAGE_REVISION_CORRECT_FROM_VERSION_SUCCESS)
       );
     }
   }

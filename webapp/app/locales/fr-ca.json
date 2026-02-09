@@ -247,6 +247,7 @@
         "rtl_badge": "RTL",
         "rtl": "Texte de droite à gauche",
         "correct_all_button": "Marquer toutes les chaînes comme vérifiées",
+        "correct_all_from_version_button": "Marquer comme vérifiées dans la version principale",
         "uncorrect_all_button": "Remettre toutes les chaînes à réviser",
         "stats_translated": "traduits",
         "stats_to_review": "à réviser"
@@ -1127,9 +1128,11 @@
         "loading_content": "Récupération du tableau de bord…",
         "flash_messages": {
           "revision_correct_success": "Toutes les chaînes de la langue ont été marquées comme révisées",
-          "revision_correct_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
+          "revision_correct_error": "Une erreur s'est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
+          "revision_correct_from_version_success": "Chaînes marquées comme révisées dans la version principale",
+          "revision_correct_from_version_error": "Une erreur s'est produite lors du marquage des chaînes dans la version principale",
           "revision_uncorrect_success": "Toutes les chaînes de la langue ont été marquées pour être révisées",
-          "revision_uncorrect_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue à examiner"
+          "revision_uncorrect_error": "Une erreur s'est produite lors du marquage de toutes les chaînes dans cette langue à examiner"
         }
       },
       "activities": {

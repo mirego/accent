@@ -7,21 +7,33 @@ import {tracked} from '@glimmer/tracking';
 const LOW_PERCENTAGE = 50;
 const HIGH_PERCENTAGE = 90;
 
+interface MainRevision {
+  id: string;
+  reviewedCount: number;
+  translationsCount: number;
+}
+
 interface Args {
   project: any;
   revision: any;
+  mainRevisions: MainRevision[];
   permissions: Record<string, true>;
   selectedDocument: string | null;
   selectedVersion: string | null;
   onCorrectAllConflicts: (revision: any) => Promise<void>;
   onUncorrectAllConflicts: (revision: any) => Promise<void>;
+  onCorrectAllConflictsFromVersion: (revision: any) => Promise<void>;
 }
 
 export default class DashboardRevisionsItem extends Component<Args> {
   @readOnly('args.revision.isMaster')
   master: boolean;
 
-  @or('isCorrectAllConflictLoading', 'isUncorrectAllConflictLoading')
+  @or(
+    'isCorrectAllConflictLoading',
+    'isUncorrectAllConflictLoading',
+    'isCorrectAllFromVersionLoading'
+  )
   isAnyActionsLoading: boolean;
 
   @tracked
@@ -33,12 +45,41 @@ export default class DashboardRevisionsItem extends Component<Args> {
   @tracked
   isUncorrectAllConflictLoading = false;
 
+  @tracked
+  isCorrectAllFromVersionLoading = false;
+
   get showCorrectAllAction() {
     return this.correctedKeysPercentage < 100;
   }
 
   get showUncorrectAllAction() {
     return this.correctedKeysPercentage > 0;
+  }
+
+  get mainRevision() {
+    return this.args.mainRevisions?.find(
+      (r: MainRevision) => r.id === this.args.revision.id
+    );
+  }
+
+  get mainRevisionHasStringsToReview() {
+    if (!this.mainRevision) return false;
+    return (
+      this.mainRevision.reviewedCount < this.mainRevision.translationsCount
+    );
+  }
+
+  get mainRevisionReviewedPercentage() {
+    if (!this.mainRevision || this.mainRevision.translationsCount === 0)
+      return 100;
+    return percentage(
+      this.mainRevision.reviewedCount,
+      this.mainRevision.translationsCount
+    );
+  }
+
+  get showCorrectAllFromVersionAction() {
+    return this.args.selectedVersion && this.mainRevisionHasStringsToReview;
   }
 
   get lowPercentage() {
@@ -97,11 +138,24 @@ export default class DashboardRevisionsItem extends Component<Args> {
     this.onUncorrectAllConflictsDone();
   }
 
+  @action
+  async correctAllConflictsFromVersion() {
+    this.isCorrectAllFromVersionLoading = true;
+
+    await this.args.onCorrectAllConflictsFromVersion(this.args.revision);
+
+    this.onCorrectAllFromVersionDone();
+  }
+
   private onCorrectAllConflictsDone() {
     this.isCorrectAllConflictLoading = false;
   }
 
   private onUncorrectAllConflictsDone() {
     this.isUncorrectAllConflictLoading = false;
+  }
+
+  private onCorrectAllFromVersionDone() {
+    this.isCorrectAllFromVersionLoading = false;
   }
 }

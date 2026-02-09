@@ -9,6 +9,7 @@
     @document={{this.selectedDocument}}
     @project={{this.project}}
     @revisions={{this.revisions}}
+    @mainRevisions={{this.mainRevisions}}
     @permissions={{this.permissions}}
     @documents={{this.documents}}
     @versions={{this.versions}}
@@ -20,5 +21,6 @@
     @onChangeVersion={{fn this.changeVersion}}
     @onCorrectAllConflicts={{fn this.correctAllConflicts}}
     @onUncorrectAllConflicts={{fn this.uncorrectAllConflicts}}
+    @onCorrectAllConflictsFromVersion={{fn this.correctAllConflictsFromVersion}}
   />
 {{/if}}
