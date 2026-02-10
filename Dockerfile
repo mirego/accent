@@ -1,7 +1,7 @@
 ################################################################################
 # Stage 1: Build webapp assets
 ################################################################################
-FROM node:22.21.1-bullseye-slim AS webapp-builder
+FROM node:22.22.0-trixie-slim AS webapp-builder
 
 WORKDIR /opt/build
 
@@ -28,7 +28,7 @@ RUN npm run build-production
 ################################################################################
 # Stage 2: Build jipt assets in parallel
 ################################################################################
-FROM node:21.6.1-bullseye-slim AS jipt-builder
+FROM node:22.22.0-trixie-slim AS jipt-builder
 
 WORKDIR /opt/build
 
@@ -55,7 +55,7 @@ RUN npm run build-production
 ################################################################################
 # Stage 3: Build language tool jar in parallel
 ################################################################################
-FROM debian:bullseye-slim AS languagetool-builder
+FROM debian:trixie-slim AS languagetool-builder
 
 WORKDIR /build
 
@@ -78,7 +78,7 @@ RUN mkdir -p /build/priv/native/ && \
 ################################################################################
 # Stage 4: Build the OTP binary (Elixir app)
 ################################################################################
-FROM hexpm/elixir:1.18.3-erlang-27.3.1-debian-bullseye-20250317-slim AS builder
+FROM hexpm/elixir:1.18.4-erlang-27.3.4-debian-trixie-20260202-slim AS builder
 
 ENV MIX_ENV=prod
 WORKDIR /build
@@ -128,7 +128,7 @@ RUN mix release && \
 ################################################################################
 # Final Stage: Create lean runtime container
 ################################################################################
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
 
 # GitHub Container Registry labels
 LABEL org.opencontainers.image.source=https://github.com/mirego/accent
@@ -142,7 +142,7 @@ RUN apt-get update -y && \
         libyaml-0-2 \
         openssl \
         ca-certificates \
-        libncurses5 \
+        libncurses6 \
         locales \
         fontconfig \
         hunspell \
