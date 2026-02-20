@@ -8,44 +8,64 @@ defmodule Langue.Formatter.XLIFF12.Parser do
 
   def parse(%{render: render}) do
     render
-    |> :erlsom.simple_form()
+    |> :erlsom.simple_form([{:nameFun, fn name, _namespace, _prefix -> name end}])
     |> case do
-      {:ok, {~c"file", _attributes, [{~c"body", _, body}]}, _} ->
-        entries =
-          body
-          |> Enum.with_index(1)
-          |> Enum.map(&parse_line/1)
-          |> Enum.reject(&is_nil/1)
-          |> Placeholders.parse(Langue.Formatter.XLIFF12.placeholder_regex())
+      {:ok, root, _} ->
+        case extract_body(root) do
+          nil ->
+            ParserResult.empty()
 
-        %ParserResult{entries: entries}
+          body ->
+            entries =
+              body
+              |> Enum.with_index(1)
+              |> Enum.map(&parse_line/1)
+              |> Enum.reject(&is_nil/1)
+              |> Placeholders.parse(Langue.Formatter.XLIFF12.placeholder_regex())
 
-      _ ->
-        ParserResult.empty()
+            %ParserResult{entries: entries}
+        end
     end
   end
 
-  defp parse_line({{~c"trans-unit", [{~c"id", key}], [{~c"source", _, source}, {~c"target", _, value}]}, index}) do
-    value =
-      case value do
-        [value] -> IO.chardata_to_string(value)
-        _ -> ""
-      end
+  defp extract_body({~c"xliff", _, children}) do
+    case Enum.find(children, &match?({~c"file", _, _}, &1)) do
+      {~c"file", _, file_children} -> find_body(file_children)
+      _ -> nil
+    end
+  end
 
-    source =
-      case source do
-        [source] -> IO.chardata_to_string(source)
-        _ -> ""
-      end
+  defp extract_body({~c"file", _, children}), do: find_body(children)
+  defp extract_body(_), do: nil
 
-    %Entry{
-      value: value,
-      master_value: source,
-      value_type: Langue.ValueType.parse(value),
-      key: IO.chardata_to_string(key),
-      index: index
-    }
+  defp find_body(children) do
+    case Enum.find(children, &match?({~c"body", _, _}, &1)) do
+      {~c"body", _, body} -> body
+      _ -> nil
+    end
+  end
+
+  defp parse_line({{~c"trans-unit", attributes, children}, index}) do
+    with {~c"id", key} <- List.keyfind(attributes, ~c"id", 0),
+         {~c"source", _, source} <- Enum.find(children, &match?({~c"source", _, _}, &1)),
+         {~c"target", _, value} <- Enum.find(children, &match?({~c"target", _, _}, &1)) do
+      value = extract_text(value)
+      source = extract_text(source)
+
+      %Entry{
+        value: value,
+        master_value: source,
+        value_type: Langue.ValueType.parse(value),
+        key: IO.chardata_to_string(key),
+        index: index
+      }
+    else
+      _ -> nil
+    end
   end
 
   defp parse_line(_), do: nil
+
+  defp extract_text([value]), do: IO.chardata_to_string(value)
+  defp extract_text(_), do: ""
 end
