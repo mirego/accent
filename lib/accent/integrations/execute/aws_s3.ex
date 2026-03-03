@@ -5,10 +5,10 @@ defmodule Accent.IntegrationManager.Execute.AWSS3 do
   alias Accent.IntegrationManager.Execute.UploadDocuments
 
   def upload_translations(integration, user, params) do
-    {uploads, version_tag} = UploadDocuments.all(integration, params)
+    {uploads, version_tag, version} = UploadDocuments.all(integration, params)
 
     # To support bucket with '.' in the name, we need to use the region subdomain.
-    # The us-east-1 subdomain is not s3-us-east-1. It’s s3 only.
+    # The us-east-1 subdomain is not s3-us-east-1. It's s3 only.
     base_url =
       case integration.data.aws_s3_region do
         "us-east-1" -> "https://s3.amazonaws.com/#{integration.data.aws_s3_bucket}"
@@ -23,7 +23,7 @@ defmodule Accent.IntegrationManager.Execute.AWSS3 do
 
     uri = URI.parse(url)
 
-    document_urls =
+    upload_results =
       for upload <- uploads do
         {url, document_name} = UploadDocuments.url(upload, uri, version_tag)
 
@@ -46,10 +46,12 @@ defmodule Accent.IntegrationManager.Execute.AWSS3 do
             uri_encode_path: false
           )
 
-        {:ok, %{status_code: 200}} = HTTPoison.put(url, {:file, upload.file}, headers)
+        response = HTTPoison.put(url, {:file, upload.file}, headers)
 
-        %{name: document_name, url: url}
+        %{name: document_name, url: url, response: serialize_response(response)}
       end
+
+    document_urls = Enum.map(upload_results, &Map.take(&1, [:name, :url]))
 
     Hook.outbound(%Hook.Context{
       event: "integration_execute_aws_s3",
@@ -61,6 +63,16 @@ defmodule Accent.IntegrationManager.Execute.AWSS3 do
       }
     })
 
-    :ok
+    {:ok,
+     %{
+       version_id: version && version.id,
+       document_urls: document_urls,
+       uploads: upload_results,
+       version_tag: version_tag
+     }}
   end
+
+  defp serialize_response({:ok, %{status_code: status_code, body: body}}), do: %{status_code: status_code, body: body}
+  defp serialize_response({:error, %{reason: reason}}), do: %{error: inspect(reason)}
+  defp serialize_response(_), do: nil
 end

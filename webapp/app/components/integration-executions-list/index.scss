@@ -1,32 +1,33 @@
-.project-settings-integrations-list-item {
-  margin-bottom: 10px;
-}
-
-.details {
+.header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 15px;
-  gap: 10px;
+  margin-top: 35px;
   border: 1px solid var(--background-light-highlight);
   border-radius: var(--border-radius);
 }
 
-.details-info {
+.header-info {
   display: flex;
   align-items: center;
   overflow-x: hidden;
   flex: 1 1 auto;
 }
 
-.details-service {
+.header-logo {
+  flex: 0 0 20px;
+  margin-right: 8px;
+  width: 20px;
+}
+
+.header-service {
   font-size: 13px;
   font-weight: bold;
   color: var(--color-black);
 }
 
-.details-preview {
+.header-preview {
   padding-right: 15px;
   text-overflow: ellipsis;
   overflow-x: hidden;
@@ -35,20 +36,18 @@
   color: var(--color-black);
 }
 
-.details-last-executed-at {
+.header-last-executed-at {
   margin-left: 5px;
   font-size: 11px;
   opacity: 0.4;
 }
 
-.details-logo {
-  flex: 0 0 20px;
-  margin-right: 8px;
-  width: 20px;
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0;
 }
 
-.details-actions {
-  display: flex;
-  gap: 10px;
-  flex: 0 0 auto;
+.empty {
+  margin: 15px 0 0;
 }

@@ -5,14 +5,6 @@ import Component from '@glimmer/component';
 import IntlService from 'ember-intl/services/intl';
 import {tracked} from '@glimmer/tracking';
 
-const LOGOS = {
-  AZURE_STORAGE_CONTAINER: 'assets/services/azure.svg',
-  AWS_S3: 'assets/services/aws-s3.svg',
-  DISCORD: 'assets/services/discord.svg',
-  GITHUB: 'assets/services/github.svg',
-  SLACK: 'assets/services/slack.svg'
-};
-
 interface Args {
   selectedServiceValue: string;
   project: any;
@@ -90,12 +82,6 @@ export default class IntegrationsForm extends Component<Args> {
 
   get serviceValue() {
     return this.mappedServices.find(({value}) => value === this.service);
-  }
-
-  get logoService() {
-    const service: keyof typeof LOGOS = this.service;
-
-    return LOGOS[service];
   }
 
   get mappedServices() {

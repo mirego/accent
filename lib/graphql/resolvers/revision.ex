@@ -84,10 +84,12 @@ defmodule Accent.GraphQL.Resolvers.Revision do
 
   @spec correct_all(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
   def correct_all(revision, args, info) do
+    project = Repo.get(Project, revision.project_id)
     correct_all_options = build_correct_all_options(args)
 
     %Context{}
     |> Context.assign(:revision, revision)
+    |> Context.assign(:project, project)
     |> Context.assign(:document_id, args[:document_id])
     |> Context.assign(:version_id, args[:version_id])
     |> Context.assign(:from_version_id, args[:from_version_id])
@@ -106,8 +108,11 @@ defmodule Accent.GraphQL.Resolvers.Revision do
 
   @spec uncorrect_all(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
   def uncorrect_all(revision, args, info) do
+    project = Repo.get(Project, revision.project_id)
+
     %Context{}
     |> Context.assign(:revision, revision)
+    |> Context.assign(:project, project)
     |> Context.assign(:document_id, args[:document_id])
     |> Context.assign(:version_id, args[:version_id])
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)

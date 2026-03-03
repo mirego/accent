@@ -1,0 +1,14 @@
+<LinkTo @route='logged-in.project.service-integrations' class='button button--borderless button--primary'>
+  {{t 'components.integration_executions.back_link'}}
+</LinkTo>
+
+{{#if this.model.loading}}
+  <SkeletonUi::ProgressLine />
+{{/if}}
+
+{{#if this.showSkeleton}}
+  <LoadingContent @label={{t 'components.integration_executions.loading_content'}} />
+{{else}}
+  <IntegrationExecutionsList @integration={{this.model.integration}} @executions={{this.model.executions.entries}} />
+  <ResourcePagination @meta={{this.model.executions.meta}} @onSelectPage={{fn this.selectPage}} />
+{{/if}}

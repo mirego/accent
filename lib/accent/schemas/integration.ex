@@ -17,6 +17,8 @@ defmodule Accent.Integration do
       field(:aws_s3_secret_access_key)
     end
 
+    has_many(:integration_executions, Accent.IntegrationExecution)
+
     belongs_to(:project, Accent.Project)
     belongs_to(:user, Accent.User)
     belongs_to(:last_executed_by_user, Accent.User)

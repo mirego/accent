@@ -82,8 +82,11 @@ defmodule Accent.GraphQL.Resolvers.Translation do
 
   @spec correct(Translation.t(), %{text: String.t()}, GraphQLContext.t()) :: translation_operation
   def correct(translation, %{text: text}, info) do
+    translation = Repo.preload(translation, :project)
+
     %Context{}
     |> Context.assign(:translation, translation)
+    |> Context.assign(:project, translation.revision.project)
     |> Context.assign(:text, text)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> TranslationCorrectConflictBuilder.build()
@@ -106,8 +109,11 @@ defmodule Accent.GraphQL.Resolvers.Translation do
 
   @spec uncorrect(Translation.t(), map(), GraphQLContext.t()) :: translation_operation
   def uncorrect(translation, %{text: text}, info) do
+    translation = Repo.preload(translation, :project)
+
     %Context{}
     |> Context.assign(:translation, translation)
+    |> Context.assign(:project, translation.revision.project)
     |> Context.assign(:text, text)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> TranslationUncorrectConflictBuilder.build()

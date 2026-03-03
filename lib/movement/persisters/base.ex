@@ -56,7 +56,9 @@ defmodule Movement.Persisters.Base do
     |> persist_operations()
     |> migrate_up_operations()
     |> tap(fn _ ->
-      context.assigns[:project] && Oban.insert(ProjectHookWorker.new(project_context))
+      if context.assigns[:project] do
+        Oban.insert(ProjectHookWorker.new(project_context))
+      end
     end)
   end
 

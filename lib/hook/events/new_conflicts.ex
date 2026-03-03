@@ -14,6 +14,8 @@ defmodule Accent.Hook.Events.NewConflicts do
     args.previous_project_state.conflicts_count < project_state.conflicts_count
   end
 
+  def triggered?(_args, _project_state), do: false
+
   @impl true
   def payload(%ProjectHookWorker.Args{} = args, %ProjectHookWorker.ProjectState{} = project_state) do
     %{

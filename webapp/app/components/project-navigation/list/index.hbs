@@ -134,6 +134,17 @@
       </li>
     {{/if}}
 
+    {{#if (get @permissions 'index_project_integrations')}}
+      <li local-class='list-item'>
+        <LinkTo @route='logged-in.project.service-integrations' @model={{@project.id}} local-class='list-item-link'>
+          {{inline-svg '/assets/share.svg' local-class='list-item-link-icon'}}
+          <span local-class='list-item-link-text'>
+            {{t 'components.project_navigation.service_integrations_link_title'}}
+          </span>
+        </LinkTo>
+      </li>
+    {{/if}}
+
     <li local-class='list-item'>
       <LinkTo @route='logged-in.project.edit' @model={{@project.id}} local-class='list-item-link'>
         {{inline-svg '/assets/gear.svg' local-class='list-item-link-icon'}}

@@ -1,0 +1,34 @@
+{{#if @integration}}
+  <div local-class='header'>
+    <div local-class='header-info'>
+      {{inline-svg (integration-logo @integration.service) local-class='header-logo'}}
+      <span local-class='header-service'>
+        {{t this.mappedServiceTranslationKey}}
+      </span>
+
+      <span local-class='header-preview'>
+        {{@integration.data.url}}
+        {{@integration.data.sasBaseUrl}}
+        {{@integration.data.accessKeyId}}
+        {{@integration.data.bucket}}
+        {{@integration.data.pathPrefix}}
+
+        {{#if @integration.lastExecutedAt}}
+          <span local-class='header-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}} {{time-ago-in-words @integration.lastExecutedAt}}</span>
+        {{/if}}
+      </span>
+    </div>
+  </div>
+{{/if}}
+
+{{#if @executions}}
+  <ul local-class='list'>
+    {{#each @executions key='id' as |execution|}}
+      <IntegrationExecutionsList::Item @execution={{execution}} />
+    {{/each}}
+  </ul>
+{{else}}
+  <div local-class='empty'>
+    <EmptyContent @center={{true}} @iconPath='assets/activity.svg' @text={{t 'components.integration_executions.empty'}} />
+  </div>
+{{/if}}

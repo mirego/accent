@@ -524,8 +524,11 @@
         "save": "Save",
         "cancel": "Cancel",
         "edit": "Edit",
+        "history": "History",
+        "play": "Execute",
         "delete": "Delete",
         "last_executed_at": "Last executed at:",
+        "executions_button": "History",
         "data": {
           "azure_storage_container_sas": "SAS URL",
           "aws_s3_bucket": "Bucket name",
@@ -691,6 +694,14 @@
         "conflict_on_slave": "The text has been moved to review and is now:"
       }
     },
+    "integration_executions": {
+      "back_link": "← Back to integrations",
+      "title": "Execution history",
+      "loading_content": "Fetching execution history…",
+      "empty": "No executions yet",
+      "data_label": "Data",
+      "results_label": "Results"
+    },
     "project_comments_list": {
       "no_comments": "No comments on any strings yet. You can comment on any string to provide context for a translator or to discuss on the content of the string.",
       "title": "Conversation"
@@ -757,7 +768,8 @@
       "files": "Files",
       "project_edit": "Settings",
       "activities": "Activities",
-      "lint_translations": "Checks"
+      "lint_translations": "Checks",
+      "service_integrations": "Integrations"
     },
     "project_file_operations": {
       "sync": "Sync",
@@ -786,7 +798,8 @@
       "dashboard_link_title": "Dashboard",
       "settings_link_title": "Settings",
       "sync_link_title": "Files",
-      "versions_link_title": "Versions"
+      "versions_link_title": "Versions",
+      "service_integrations_link_title": "Integrations"
     },
     "lint_translations_page": {
       "empty_text": "No checks warnings or errors. You’re all good!",
@@ -1020,6 +1033,7 @@
       "to_translate_tooltip": "Translation was never touched",
       "lint_messages_label": "{count, plural, =0 {No linting warnings} =1 {1 linting warning} other {# linting warnings}}",
       "last_updated_label": "Last updated:",
+      "last_execution_label": "Last execution:",
       "maybe_sync_before": "Maybe try to",
       "maybe_sync_link": "sync some files →",
       "no_translations": "Looks like no strings were added for your project.",

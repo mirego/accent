@@ -12,6 +12,10 @@ defmodule Accent.GraphQL.Types.Version do
     field(:user, :user, resolve: dataloader(Accent.User))
     field(:copy_on_update_translation, non_null(:boolean))
     field(:inserted_at, non_null(:datetime))
+
+    field(:last_integration_executions, non_null(list_of(non_null(:integration_execution))),
+      resolve: &Accent.GraphQL.Resolvers.IntegrationExecution.last_by_version/3
+    )
   end
 
   object :versions do

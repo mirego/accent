@@ -125,6 +125,25 @@
   transition-property: opacity, transform;
 }
 
+.item-lastExecution {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 5px;
+  color: var(--color-grey);
+  font-size: 11px;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-black);
+  }
+}
+
+.item-lastExecution-logo {
+  width: 14px;
+  height: 14px;
+}
+
 .item-textEdit {
   margin-top: 10px;
   position: relative;

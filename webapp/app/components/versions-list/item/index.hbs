@@ -20,6 +20,14 @@
       <span local-class='item-meta-date'>
         <TimeAgoInWordsTag @date={{@version.insertedAt}} />
       </span>
+
+      {{#each @version.lastIntegrationExecutions as |execution|}}
+        <LinkTo @route='logged-in.project.integration-executions' @models={{array @project.id execution.integration.id}} local-class='item-lastExecution'>
+          {{inline-svg (integration-logo execution.integration.service) local-class='item-lastExecution-logo'}}
+          {{t 'components.translations_list.last_execution_label'}}
+          <TimeAgoInWordsTag @date={{execution.insertedAt}} />
+        </LinkTo>
+      {{/each}}
     </div>
   </div>
 

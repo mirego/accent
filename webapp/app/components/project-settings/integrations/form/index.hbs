@@ -8,12 +8,12 @@
   {{#if this.integration}}
     {{#if this.integration.id}}
       <div local-class='form readonly-service'>
-        {{inline-svg this.logoService local-class='logo'}}
+        {{inline-svg (integration-logo this.service) local-class='logo'}}
         <span local-class='logo-label'>{{this.serviceValue.label}}</span>
       </div>
     {{else}}
       <div local-class='form'>
-        {{inline-svg this.logoService local-class='logo'}}
+        {{inline-svg (integration-logo this.service) local-class='logo'}}
 
         <AccSelect @searchEnabled={{false}} @selected={{this.serviceValue}} @renderInPlace={{true}} @options={{this.mappedServices}} @onchange={{fn this.setService}} />
       </div>

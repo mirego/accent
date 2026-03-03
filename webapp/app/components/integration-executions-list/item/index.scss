@@ -1,0 +1,73 @@
+.item {
+  padding: 15px;
+  border: 1px solid var(--background-light-highlight);
+  border-radius: var(--border-radius);
+  margin-bottom: 10px;
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.state {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--border-radius);
+  background: var(--background-light-highlight);
+  color: var(--color-black);
+}
+
+.state--success {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.state--error {
+  background: var(--color-error);
+  color: #fff;
+}
+
+.date {
+  font-size: 13px;
+  color: var(--color-black);
+  opacity: 0.6;
+}
+
+.user {
+  font-size: 13px;
+  color: var(--color-black);
+}
+
+.version {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: var(--border-radius);
+  background: var(--background-light-highlight);
+  color: var(--color-black);
+}
+
+.json-block {
+  margin-top: 8px;
+}
+
+.json-label {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--color-black);
+  opacity: 0.5;
+  margin-bottom: 4px;
+}
+
+.json-content {
+  --highlight-render-height: auto;
+  font-family: monospace;
+  font-size: 12px;
+  border-radius: var(--border-radius);
+  background: var(--background-light);
+}

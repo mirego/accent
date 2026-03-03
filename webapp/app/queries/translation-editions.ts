@@ -39,6 +39,15 @@ export default gql`
             version {
               id
               tag
+              lastIntegrationExecutions {
+                id
+                state
+                insertedAt
+                integration {
+                  id
+                  service
+                }
+              }
             }
 
             document {

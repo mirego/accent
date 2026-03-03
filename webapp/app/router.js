@@ -31,13 +31,17 @@ export default Router.map(function () {
       this.route('edit', function () {
         this.route('badges');
         this.route('api-token');
-        this.route('service-integrations');
         this.route('jipt');
         this.route('machine-translations');
         this.route('prompts', function () {
           this.route('new');
           this.route('edit', {path: '/:promptId'});
         });
+      });
+
+      this.route('service-integrations');
+      this.route('integration-executions', {
+        path: 'service-integrations/executions/:integrationId'
       });
 
       this.route('collaborators');

@@ -1,5 +1,5 @@
 .render {
-  height: calc(100dvh - 300px);
+  height: var(--highlight-render-height, calc(100dvh - 300px));
   overflow: auto;
   overscroll-behavior: contain;
 }

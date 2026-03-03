@@ -15,6 +15,8 @@ defmodule Accent.Hook.Events.CompleteReview do
       project_state.reviewed_count === project_state.translations_count
   end
 
+  def triggered?(_args, _project_state), do: false
+
   @impl true
   def payload(_args, %ProjectHookWorker.ProjectState{} = project_state) do
     %{

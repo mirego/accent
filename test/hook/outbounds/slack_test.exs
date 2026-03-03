@@ -1,10 +1,3 @@
-defmodule MockHttpClient do
-  @moduledoc false
-  def post(url, body, header) do
-    send(self(), {:post, %{url: url, body: body, header: header}})
-  end
-end
-
 defmodule AccentTest.Hook.Outbounds.Slack do
   @moduledoc false
   use Accent.RepoCase, async: false
@@ -13,25 +6,28 @@ defmodule AccentTest.Hook.Outbounds.Slack do
 
   alias Accent.Hook.Outbounds.Slack
   alias Accent.Integration
+  alias Accent.IntegrationExecution
   alias Accent.Project
+  alias Accent.Repo
   alias Accent.User
 
   setup do
     project = Factory.insert(Project)
     user = Factory.insert(User, fullname: "Test", email: "foo@test.com")
 
-    Factory.insert(Integration,
-      project_id: project.id,
-      user_id: user.id,
-      service: "slack",
-      events: ["sync"],
-      data: %{url: "http://example.com"}
-    )
+    integration =
+      Factory.insert(Integration,
+        project_id: project.id,
+        user_id: user.id,
+        service: "slack",
+        events: ["sync"],
+        data: %{url: "http://example.com"}
+      )
 
-    [project: project, user: user]
+    [project: project, user: user, integration: integration]
   end
 
-  test "single event with single integration", %{project: project, user: user} do
+  test "single event with single integration", %{project: project, user: user, integration: integration} do
     payload = %{
       document_path: "foo.json",
       batch_operation_stats: [%{action: "new", count: 4}, %{action: "conflict_on_proposed", count: 10}]
@@ -55,8 +51,23 @@ defmodule AccentTest.Hook.Outbounds.Slack do
           """)
       })
 
-    with_mock(HTTPoison, [post: fn ^received_url, ^received_body, ^received_headers -> {:ok, "done"} end],
-      do: Slack.perform(%Oban.Job{args: context})
-    )
+    with_mock(HTTPoison,
+      post: fn ^received_url, ^received_body, ^received_headers ->
+        {:ok, %HTTPoison.Response{status_code: 200, body: ""}}
+      end
+    ) do
+      Slack.perform(%Oban.Job{args: context})
+    end
+
+    [execution] = Repo.all(IntegrationExecution)
+    assert execution.integration_id === integration.id
+    assert execution.user_id === user.id
+    assert execution.state === :success
+    assert execution.data === %{"event" => "sync", "service" => "slack"}
+    assert execution.results["status"] === 200
+
+    updated_integration = Repo.get!(Integration, integration.id)
+    assert updated_integration.last_executed_at
+    assert updated_integration.last_executed_by_user_id === user.id
   end
 end

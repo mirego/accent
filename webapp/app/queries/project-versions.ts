@@ -34,6 +34,17 @@ export default gql`
               id
               fullname
             }
+
+            lastIntegrationExecutions {
+              id
+              state
+              insertedAt
+
+              integration {
+                id
+                service
+              }
+            }
           }
         }
       }

@@ -70,9 +70,28 @@
   color: var(--color-grey);
 
   &::before {
-    content: '– ';
+    content: '– ';
     opacity: 0.5;
   }
+}
+
+.item-lastExecution {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 5px;
+  color: var(--color-grey);
+  font-size: 12px;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-black);
+  }
+}
+
+.item-lastExecution-logo {
+  width: 14px;
+  height: 14px;
 }
 
 .links {

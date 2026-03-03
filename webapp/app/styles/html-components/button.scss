@@ -136,7 +136,7 @@
   color: var(--button-text-color);
 
   &.button--iconOnly {
-    padding: 2px 4px;
+    padding: 5px 7px;
   }
 
   &.button--red {
@@ -289,6 +289,11 @@
     var(--color-highlight-lighteness)
   );
   --button-loading-color: var(--color-green);
+  --button-background-color: hsl(
+    var(--color-green-hue),
+    var(--color-green-saturation),
+    89%
+  );
 }
 
 .button--white {

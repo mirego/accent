@@ -68,7 +68,7 @@ defmodule Accent.IntegrationManager.Execute.UploadDocuments do
         end)
       end)
 
-    {uploads, version_tag}
+    {uploads, version_tag, version}
   end
 
   defp fetch_version(project, %{target_version: :specific, tag: tag}) do

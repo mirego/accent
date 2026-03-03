@@ -12,6 +12,7 @@ export default gql`
           service
 
           ... on ProjectIntegrationSlack {
+            lastExecutedAt
             events
             data {
               id
@@ -20,6 +21,7 @@ export default gql`
           }
 
           ... on ProjectIntegrationDiscord {
+            lastExecutedAt
             events
             data {
               id

@@ -3,6 +3,7 @@ defmodule Accent.IntegrationManager do
   import Ecto.Changeset
 
   alias Accent.Integration
+  alias Accent.IntegrationExecution
   alias Accent.Repo
   alias Accent.User
 
@@ -23,16 +24,32 @@ defmodule Accent.IntegrationManager do
 
   @spec execute(Integration.t(), User.t(), map()) :: {:ok, Integration.t()}
   def execute(integration, user, params) do
-    case execute_integration(integration, user, params) do
-      :ok ->
-        integration
-        |> change(%{last_executed_at: DateTime.utc_now(), last_executed_by_user_id: user.id})
-        |> force_change(:updated_at, integration.updated_at)
-        |> Repo.update!()
+    {state, execution_results, version_id} =
+      case execute_integration(integration, user, params) do
+        {:ok, %{version_id: version_id, uploads: uploads} = results} ->
+          if all_uploads_successful?(uploads),
+            do: {:success, results, version_id},
+            else: {:error, results, version_id}
 
-      _ ->
-        :ok
-    end
+        {:ok, %{version_id: version_id} = results} ->
+          {:success, results, version_id}
+
+        _ ->
+          {:error, %{}, nil}
+      end
+
+    integration
+    |> change(%{last_executed_at: DateTime.utc_now(), last_executed_by_user_id: user.id})
+    |> Repo.update!()
+
+    Repo.insert!(%IntegrationExecution{
+      integration_id: integration.id,
+      version_id: version_id,
+      user_id: user.id,
+      state: state,
+      data: sanitize_params(integration, params),
+      results: execution_results
+    })
 
     {:ok, integration}
   end
@@ -57,8 +74,6 @@ defmodule Accent.IntegrationManager do
       user,
       params[:azure_storage_container]
     )
-
-    :ok
   end
 
   defp execute_integration(%{service: "aws_s3"} = integration, user, params) do
@@ -67,8 +82,6 @@ defmodule Accent.IntegrationManager do
       user,
       params[:aws_s3]
     )
-
-    :ok
   end
 
   defp execute_integration(_integration, _user, _params) do
@@ -121,5 +134,30 @@ defmodule Accent.IntegrationManager do
 
   defp changeset_data(_) do
     fn model, params -> cast(model, params, []) end
+  end
+
+  defp all_uploads_successful?(uploads) do
+    Enum.all?(uploads, fn
+      %{response: %{status_code: status_code}} when status_code in 200..299 -> true
+      _ -> false
+    end)
+  end
+
+  defp sanitize_params(%{service: "azure_storage_container"}, params) do
+    stringify_params(params[:azure_storage_container])
+  end
+
+  defp sanitize_params(%{service: "aws_s3"}, params) do
+    stringify_params(params[:aws_s3])
+  end
+
+  defp sanitize_params(_, _), do: %{}
+
+  defp stringify_params(nil), do: %{}
+
+  defp stringify_params(params) do
+    params
+    |> Map.take([:target_version, :tag])
+    |> Map.new(fn {k, v} -> {to_string(k), to_string(v)} end)
   end
 end

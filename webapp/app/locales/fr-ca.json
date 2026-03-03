@@ -540,7 +540,10 @@
         "save": "Sauver",
         "cancel": "Annuler",
         "edit": "Éditer",
+        "history": "Historique",
+        "play": "Executer",
         "last_executed_at": "Dernière exécution:",
+        "executions_button": "Historique",
         "delete": "Supprimer",
         "data": {
           "azure_storage_container_sas": "SAS URL",
@@ -707,8 +710,16 @@
         "conflict_on_slave": "Le texte a été déplacé en révision et est maintenant :"
       }
     },
+    "integration_executions": {
+      "back_link": "← Retour aux intégrations",
+      "title": "Historique d'exécution",
+      "loading_content": "Chargement de l'historique d'exécution…",
+      "empty": "Aucune exécution pour le moment",
+      "data_label": "Données",
+      "results_label": "Résultats"
+    },
     "project_comments_list": {
-      "no_comments": "Aucun commentaire sur les chaînes pour le moment. Vous pouvez commenter n’importe quelle chaîne pour fournir un contexte à un traducteur ou pour discuter du contenu de la chaîne.",
+      "no_comments": "Aucun commentaire sur les chaînes pour le moment. Vous pouvez commenter n'importe quelle chaîne pour fournir un contexte à un traducteur ou pour discuter du contenu de la chaîne.",
       "title": "Conversation"
     },
     "project_create_form": {
@@ -757,7 +768,8 @@
       "files": "Fichiers",
       "project_edit": "Paramètres",
       "activities": "Activités",
-      "lint_translations": "Vérifications"
+      "lint_translations": "Vérifications",
+      "service_integrations": "Intégrations"
     },
     "project_file_operations": {
       "sync": "Synchroniser",
@@ -786,7 +798,8 @@
       "dashboard_link_title": "Tableau de bord",
       "settings_link_title": "Paramètres",
       "sync_link_title": "Fichiers",
-      "versions_link_title": "Versions"
+      "versions_link_title": "Versions",
+      "service_integrations_link_title": "Intégrations"
     },
     "lint_translations_page": {
       "empty_text": "Aucun avertissement ou erreur. Tout est bon!",

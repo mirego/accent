@@ -6,6 +6,7 @@ defmodule AccentTest.IntegrationManager do
 
   alias Accent.Document
   alias Accent.Integration
+  alias Accent.IntegrationExecution
   alias Accent.IntegrationManager
   alias Accent.Language
   alias Accent.Project
@@ -76,7 +77,7 @@ defmodule AccentTest.IntegrationManager do
 
           assert String.ends_with?(url, "1.2.45/fr-custom/foo.po?sas=1234")
           assert headers === [{"x-ms-blob-type", "BlockBlob"}]
-          {:ok, nil}
+          {:ok, %HTTPoison.Response{status_code: 201, body: ""}}
         end do
         IntegrationManager.execute(integration, user, %{
           azure_storage_container: %{target_version: :specific, tag: "1.2.45"}
@@ -87,6 +88,13 @@ defmodule AccentTest.IntegrationManager do
 
       assert updated_integration.last_executed_at
       assert updated_integration.last_executed_by_user_id === user.id
+
+      [execution] = Repo.all(IntegrationExecution)
+      assert execution.integration_id === integration.id
+      assert execution.user_id === user.id
+      assert execution.version_id === version.id
+      assert execution.state === :success
+      assert execution.data === %{"target_version" => "specific", "tag" => "1.2.45"}
     end
 
     test "azure storage container latest version", %{
@@ -115,7 +123,7 @@ defmodule AccentTest.IntegrationManager do
           assert match?({:file, _}, body)
           assert String.ends_with?(url, "latest/fr-custom/foo.po?sas=1234")
           assert headers === [{"x-ms-blob-type", "BlockBlob"}]
-          {:ok, nil}
+          {:ok, %HTTPoison.Response{status_code: 201, body: ""}}
         end do
         IntegrationManager.execute(integration, user, %{azure_storage_container: %{target_version: :latest}})
       end
@@ -124,6 +132,13 @@ defmodule AccentTest.IntegrationManager do
 
       assert updated_integration.last_executed_at
       assert updated_integration.last_executed_by_user_id === user.id
+
+      [execution] = Repo.all(IntegrationExecution)
+      assert execution.integration_id === integration.id
+      assert execution.user_id === user.id
+      assert execution.version_id === nil
+      assert execution.state === :success
+      assert execution.data === %{"target_version" => "latest"}
     end
   end
 end

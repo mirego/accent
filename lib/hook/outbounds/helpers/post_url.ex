@@ -1,38 +1,40 @@
 defmodule Accent.Hook.Outbounds.Helpers.PostURL do
   @moduledoc false
+  import Ecto.Changeset, only: [change: 2]
   import Ecto.Query, only: [where: 2]
 
+  alias Accent.IntegrationExecution
   alias Accent.Repo
   alias Accent.User
 
   require Logger
 
   def perform(service, context, options) do
-    urls = fetch_service_integration_urls(context.project, context.event, service)
+    integrations = fetch_service_integrations(context.project, context.event, service)
 
-    if Enum.any?(urls) do
+    if Enum.any?(integrations) do
       templates = options[:templates]
       http_body = options[:http_body]
       content = build_content(templates, context)
       body = http_body.(content)
 
-      post_urls(urls, body, service)
+      post_integrations(integrations, body, service, context)
     else
       :ok
     end
   end
 
-  defp fetch_service_integration_urls(project, event, service) do
+  defp fetch_service_integrations(project, event, service) do
     project
     |> Ecto.assoc(:integrations)
     |> where(service: ^service)
     |> Repo.all()
     |> Enum.filter(&(event in &1.events))
-    |> Enum.map(& &1.data.url)
   end
 
-  defp post_urls(urls, body, service) do
-    for url <- urls do
+  defp post_integrations(integrations, body, service, context) do
+    for integration <- integrations do
+      url = integration.data.url
       Logger.metadata(hook_service: service, hook_url: url)
       start = System.monotonic_time()
 
@@ -40,20 +42,43 @@ defmodule Accent.Hook.Outbounds.Helpers.PostURL do
       stop = System.monotonic_time()
       diff = System.convert_time_unit(stop - start, :native, :microsecond)
 
-      case result do
-        {:ok, %{status_code: status}} ->
-          Logger.info(["Responded ", to_string(status), " in ", formatted_diff(diff)])
+      {state, results} = execution_from_result(result, diff)
 
-        {:error, %{reason: reason}} ->
-          Logger.info(["Responded ", inspect(reason), " in ", formatted_diff(diff)])
+      Logger.info(["Responded ", results_log(result), " in ", formatted_diff(diff)])
 
-        _ ->
-          Logger.info(["Unkown response in ", formatted_diff(diff)])
-      end
+      integration
+      |> change(%{last_executed_at: DateTime.utc_now(), last_executed_by_user_id: context.user_id})
+      |> Repo.update!()
+
+      Repo.insert!(%IntegrationExecution{
+        integration_id: integration.id,
+        user_id: context.user_id,
+        state: state,
+        data: %{"event" => context.event, "service" => service},
+        results: results
+      })
     end
 
     :ok
   end
+
+  defp execution_from_result({:ok, %{status_code: status, body: response_body}}, diff) do
+    state = if status in 200..299, do: :success, else: :error
+
+    {state, %{"status" => status, "body" => String.slice(to_string(response_body), 0, 1000), "duration_µs" => diff}}
+  end
+
+  defp execution_from_result({:error, %{reason: reason}}, diff) do
+    {:error, %{"error" => to_string(reason), "duration_µs" => diff}}
+  end
+
+  defp execution_from_result(_, diff) do
+    {:error, %{"error" => "unknown_response", "duration_µs" => diff}}
+  end
+
+  defp results_log({:ok, %{status_code: status}}), do: to_string(status)
+  defp results_log({:error, %{reason: reason}}), do: inspect(reason)
+  defp results_log(_), do: "unknown"
 
   defp formatted_diff(diff) when diff > 1000, do: [diff |> div(1000) |> Integer.to_string(), "ms"]
   defp formatted_diff(diff), do: [Integer.to_string(diff), "µs"]

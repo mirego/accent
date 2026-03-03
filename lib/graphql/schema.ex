@@ -6,6 +6,7 @@ defmodule Accent.GraphQL.Schema do
 
   # Scalars
   import_types(Accent.GraphQL.DatetimeScalar)
+  import_types(Accent.GraphQL.JsonScalar)
 
   # Types
   import_types(AbsintheErrorPayload.ValidationMessageTypes)
@@ -19,6 +20,7 @@ defmodule Accent.GraphQL.Schema do
   import_types(Accent.GraphQL.Types.Translation)
   import_types(Accent.GraphQL.Types.Revision)
   import_types(Accent.GraphQL.Types.Integration)
+  import_types(Accent.GraphQL.Types.IntegrationExecution)
   import_types(Accent.GraphQL.Types.Project)
   import_types(Accent.GraphQL.Types.Prompt)
   import_types(Accent.GraphQL.Types.Activity)
@@ -112,6 +114,7 @@ defmodule Accent.GraphQL.Schema do
           Accent.Comment,
           Accent.Document,
           Accent.Integration,
+          Accent.IntegrationExecution,
           Accent.Language,
           Accent.Operation,
           Accent.Project,

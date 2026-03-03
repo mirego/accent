@@ -2,10 +2,11 @@ defmodule Accent.GraphQL.Types.Integration do
   @moduledoc false
   use Absinthe.Schema.Notation
 
+  alias Accent.GraphQL.Resolvers.IntegrationExecution
+
   enum :project_integration_service do
     value(:slack, as: "slack")
     value(:discord, as: "discord")
-    value(:github, as: "github")
     value(:azure_storage_container, as: "azure_storage_container")
     value(:aws_s3, as: "aws_s3")
   end
@@ -27,7 +28,6 @@ defmodule Accent.GraphQL.Types.Integration do
     resolve_type(fn
       %{service: "discord"}, _ -> :project_integration_discord
       %{service: "slack"}, _ -> :project_integration_slack
-      %{service: "github"}, _ -> :project_integration_github
       %{service: "azure_storage_container"}, _ -> :project_integration_azure_storage_container
       %{service: "aws_s3"}, _ -> :project_integration_aws_s3
     end)
@@ -38,6 +38,12 @@ defmodule Accent.GraphQL.Types.Integration do
     field(:service, non_null(:project_integration_service))
     field(:events, non_null(list_of(non_null(:project_integration_event))))
     field(:data, non_null(:project_integration_slack_data))
+    field(:last_executed_at, :datetime)
+
+    field :integration_executions, non_null(:integration_executions) do
+      arg(:page, :integer)
+      resolve(&IntegrationExecution.list_integration/3)
+    end
 
     interfaces([:project_integration])
   end
@@ -47,15 +53,12 @@ defmodule Accent.GraphQL.Types.Integration do
     field(:service, non_null(:project_integration_service))
     field(:events, non_null(list_of(non_null(:project_integration_event))))
     field(:data, non_null(:project_integration_slack_data))
+    field(:last_executed_at, :datetime)
 
-    interfaces([:project_integration])
-  end
-
-  object :project_integration_github do
-    field(:id, non_null(:id))
-    field(:service, non_null(:project_integration_service))
-    field(:events, non_null(list_of(non_null(:project_integration_event))))
-    field(:data, non_null(:project_integration_github_data))
+    field :integration_executions, non_null(:integration_executions) do
+      arg(:page, :integer)
+      resolve(&IntegrationExecution.list_integration/3)
+    end
 
     interfaces([:project_integration])
   end
@@ -66,6 +69,11 @@ defmodule Accent.GraphQL.Types.Integration do
     field(:last_executed_at, :datetime)
     field(:data, non_null(:project_integration_azure_storage_container_data))
 
+    field :integration_executions, non_null(:integration_executions) do
+      arg(:page, :integer)
+      resolve(&IntegrationExecution.list_integration/3)
+    end
+
     interfaces([:project_integration])
   end
 
@@ -75,16 +83,17 @@ defmodule Accent.GraphQL.Types.Integration do
     field(:last_executed_at, :datetime)
     field(:data, non_null(:project_integration_aws_s3_data))
 
+    field :integration_executions, non_null(:integration_executions) do
+      arg(:page, :integer)
+      resolve(&IntegrationExecution.list_integration/3)
+    end
+
     interfaces([:project_integration])
   end
 
   object :project_integration_slack_data do
     field(:id, non_null(:id))
     field(:url, non_null(:string))
-  end
-
-  object :project_integration_github_data do
-    field(:id, non_null(:id))
   end
 
   object :project_integration_azure_storage_container_data do
