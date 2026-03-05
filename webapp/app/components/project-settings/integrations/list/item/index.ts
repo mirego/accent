@@ -67,7 +67,7 @@ export default class IntegrationsListItem extends Component<Args> {
   @action
   async delete() {
     const message = this.intl.t(
-      'components.project_settings.integrations.delete_confirm',
+      'components.project_settings.integrations.delete_confirm'
     );
 
     // eslint-disable-next-line no-alert

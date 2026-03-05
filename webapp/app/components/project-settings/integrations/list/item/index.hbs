@@ -23,7 +23,8 @@
           {{@integration.data.pathPrefix}}
 
           {{#if @integration.lastIntegrationExecution}}
-            <span local-class='details-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}} {{time-ago-in-words @integration.lastIntegrationExecution.insertedAt}}</span>
+            <span local-class='details-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}}
+              {{time-ago-in-words @integration.lastIntegrationExecution.insertedAt}}</span>
           {{/if}}
         </span>
       </div>
