@@ -50,9 +50,9 @@
 
   &:focus,
   &:hover {
-    transform: translate3d(0, -2px, 0);
     background: var(--button-background-hover-color);
     color: var(--button-text-hover-color);
+    border-color: var(--button-border-hover-color, var(--button-border-color));
   }
 
   &.button--small {
@@ -96,7 +96,7 @@
   --button-background-hover-color: hsl(
     var(--color-blue-hue),
     var(--color-blue-saturation),
-    var(--color-highlight-lighteness)
+    var(--color-highlight-hover-lighteness)
   );
   --button-loading-color: var(--color-blue);
 }
@@ -119,11 +119,12 @@
   );
   --button-border-color: var(--color-primary-darken-10);
   --button-text-hover-color: #fff;
+  --button-border-hover-color: transparent;
   --button-text-color: #fff;
   --button-shadow-focus-color: hsl(
     var(--color-primary-hue),
     var(--color-primary-saturation),
-    70%
+    50%
   );
 
   padding: 5px 12px;
@@ -260,6 +261,16 @@
     }
   }
 
+  &.button--hoverRed {
+    --button-text-hover-color: var(--color-error);
+    --button-background-hover-color: hsl(
+      var(--color-error-hue),
+      var(--color-error-saturation),
+      var(--color-highlight-hover-lighteness)
+    );
+    --button-border-hover-color: transparent;
+  }
+
   &.button--borderLess {
     border-color: transparent;
     box-shadow: none;
@@ -286,13 +297,13 @@
   --button-background-hover-color: hsl(
     var(--color-green-hue),
     var(--color-green-saturation),
-    var(--color-highlight-lighteness)
+    var(--color-highlight-hover-lighteness)
   );
   --button-loading-color: var(--color-green);
   --button-background-color: hsl(
     var(--color-green-hue),
     var(--color-green-saturation),
-    89%
+    var(--color-highlight-lighteness)
   );
 }
 
@@ -312,7 +323,7 @@
   --button-background-hover-color: hsl(
     var(--color-error-hue),
     var(--color-error-saturation),
-    var(--color-highlight-lighteness)
+    var(--color-highlight-hover-lighteness)
   );
   --button-loading-color: var(--color-error);
 }
@@ -328,7 +339,7 @@
   --button-background-hover-color: hsl(
     var(--color-primary-hue),
     var(--color-primary-saturation),
-    var(--color-highlight-lighteness)
+    var(--color-highlight-hover-lighteness)
   );
   --button-loading-color: var(--color-primary);
 }

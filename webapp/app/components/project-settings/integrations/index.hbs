@@ -1,23 +1,5 @@
 <div local-class='project-settings-integrations'>
-  {{#if (get @permissions 'create_project_integration')}}
-    <button
-      local-class='toggleCreateFormButton'
-      class='button button--iconOnly {{if this.showCreateForm "button--filled button--white" "button--filled"}}'
-      {{on 'click' (fn this.toggleCreateForm)}}
-    >
-      {{#if this.showCreateForm}}
-        {{inline-svg '/assets/x.svg' class='button-icon'}}
-      {{else}}
-        {{inline-svg '/assets/add.svg' class='button-icon'}}
-      {{/if}}
-    </button>
-  {{/if}}
-
-  <p local-class='help'>
-    {{{t 'components.project_settings.integrations.help'}}}
-  </p>
-
-  {{#if this.showCreateForm}}
+  {{#if @showCreateForm}}
     <div local-class='createForm'>
       <ProjectSettings::Integrations::Form
         @project={{@project}}

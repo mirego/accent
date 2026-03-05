@@ -31,25 +31,23 @@ defmodule Accent.IntegrationManager do
             do: {:success, results, version_id},
             else: {:error, results, version_id}
 
-        {:ok, %{version_id: version_id} = results} ->
-          {:success, results, version_id}
-
         _ ->
           {:error, %{}, nil}
       end
 
-    integration
-    |> change(%{last_executed_at: DateTime.utc_now(), last_executed_by_user_id: user.id})
-    |> Repo.update!()
+    execution =
+      Repo.insert!(%IntegrationExecution{
+        integration_id: integration.id,
+        version_id: version_id,
+        user_id: user.id,
+        state: state,
+        data: sanitize_params(integration, params),
+        results: execution_results
+      })
 
-    Repo.insert!(%IntegrationExecution{
-      integration_id: integration.id,
-      version_id: version_id,
-      user_id: user.id,
-      state: state,
-      data: sanitize_params(integration, params),
-      results: execution_results
-    })
+    integration
+    |> change(%{last_integration_execution_id: execution.id})
+    |> Repo.update!()
 
     {:ok, integration}
   end

@@ -2,6 +2,8 @@ defmodule Accent.GraphQL.Types.Integration do
   @moduledoc false
   use Absinthe.Schema.Notation
 
+  import Absinthe.Resolution.Helpers, only: [dataloader: 1]
+
   alias Accent.GraphQL.Resolvers.IntegrationExecution
 
   enum :project_integration_service do
@@ -38,7 +40,8 @@ defmodule Accent.GraphQL.Types.Integration do
     field(:service, non_null(:project_integration_service))
     field(:events, non_null(list_of(non_null(:project_integration_event))))
     field(:data, non_null(:project_integration_slack_data))
-    field(:last_executed_at, :datetime)
+
+    field(:last_integration_execution, :integration_execution, resolve: dataloader(Accent.IntegrationExecution))
 
     field :integration_executions, non_null(:integration_executions) do
       arg(:page, :integer)
@@ -53,7 +56,8 @@ defmodule Accent.GraphQL.Types.Integration do
     field(:service, non_null(:project_integration_service))
     field(:events, non_null(list_of(non_null(:project_integration_event))))
     field(:data, non_null(:project_integration_slack_data))
-    field(:last_executed_at, :datetime)
+
+    field(:last_integration_execution, :integration_execution, resolve: dataloader(Accent.IntegrationExecution))
 
     field :integration_executions, non_null(:integration_executions) do
       arg(:page, :integer)
@@ -66,8 +70,9 @@ defmodule Accent.GraphQL.Types.Integration do
   object :project_integration_azure_storage_container do
     field(:id, non_null(:id))
     field(:service, non_null(:project_integration_service))
-    field(:last_executed_at, :datetime)
     field(:data, non_null(:project_integration_azure_storage_container_data))
+
+    field(:last_integration_execution, :integration_execution, resolve: dataloader(Accent.IntegrationExecution))
 
     field :integration_executions, non_null(:integration_executions) do
       arg(:page, :integer)
@@ -80,8 +85,9 @@ defmodule Accent.GraphQL.Types.Integration do
   object :project_integration_aws_s3 do
     field(:id, non_null(:id))
     field(:service, non_null(:project_integration_service))
-    field(:last_executed_at, :datetime)
     field(:data, non_null(:project_integration_aws_s3_data))
+
+    field(:last_integration_execution, :integration_execution, resolve: dataloader(Accent.IntegrationExecution))
 
     field :integration_executions, non_null(:integration_executions) do
       arg(:page, :integer)

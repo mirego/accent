@@ -1,6 +1,8 @@
 import {action} from '@ember/object';
+import {service} from '@ember/service';
 import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
+import IntlService from 'ember-intl/services/intl';
 
 const EXECUTABLE_SERVICES = ['AZURE_STORAGE_CONTAINER', 'AWS_S3'];
 
@@ -13,6 +15,9 @@ interface Args {
 }
 
 export default class IntegrationsListItem extends Component<Args> {
+  @service('intl')
+  declare intl: IntlService;
+
   @tracked
   errors = [];
 
@@ -61,6 +66,13 @@ export default class IntegrationsListItem extends Component<Args> {
 
   @action
   async delete() {
+    const message = this.intl.t(
+      'components.project_settings.integrations.delete_confirm',
+    );
+
+    // eslint-disable-next-line no-alert
+    if (!window.confirm(message)) return;
+
     this.isDeleting = true;
 
     const response = await this.args.onDelete({id: this.args.integration.id});

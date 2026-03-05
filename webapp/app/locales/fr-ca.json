@@ -63,6 +63,9 @@
     "versions_add_button": {
       "link": "Créer une nouvelle version"
     },
+    "integrations_add_button": {
+      "link": "Ajouter une intégration"
+    },
     "revision_selector": {
       "languages_count": "{count, plural, =1 {1 autre langue} other {# autres langues}}",
       "master": "principale"
@@ -545,6 +548,7 @@
         "last_executed_at": "Dernière exécution:",
         "executions_button": "Historique",
         "delete": "Supprimer",
+        "delete_confirm": "Voulez-vous vraiment supprimer cette intégration ?",
         "data": {
           "azure_storage_container_sas": "SAS URL",
           "aws_s3_bucket": "Nom du bucket",

@@ -1,6 +1,13 @@
 <PageTitle>
   {{inline-svg '/assets/share.svg'}}
   <h1>{{t 'components.page_title.service_integrations'}}</h1>
+  <PageTitle::End>
+    {{#if (get this.permissions 'create_project_integration')}}
+      {{#unless this.showCreateForm}}
+        <IntegrationsAddButton @onClick={{fn this.toggleCreateForm}} />
+      {{/unless}}
+    {{/if}}
+  </PageTitle::End>
 </PageTitle>
 
 {{#if this.showLoading}}
@@ -9,6 +16,8 @@
   <ProjectSettings::Integrations
     @project={{this.project}}
     @permissions={{this.permissions}}
+    @showCreateForm={{this.showCreateForm}}
+    @onToggleCreateForm={{fn this.toggleCreateForm}}
     @onCreateIntegration={{fn this.createIntegration}}
     @onUpdateIntegration={{fn this.updateIntegration}}
     @onDeleteIntegration={{fn this.deleteIntegration}}

@@ -85,11 +85,9 @@ defmodule AccentTest.IntegrationManager do
       end
 
       updated_integration = Repo.reload!(integration)
-
-      assert updated_integration.last_executed_at
-      assert updated_integration.last_executed_by_user_id === user.id
-
       [execution] = Repo.all(IntegrationExecution)
+
+      assert updated_integration.last_integration_execution_id === execution.id
       assert execution.integration_id === integration.id
       assert execution.user_id === user.id
       assert execution.version_id === version.id
@@ -129,11 +127,9 @@ defmodule AccentTest.IntegrationManager do
       end
 
       updated_integration = Repo.reload!(integration)
-
-      assert updated_integration.last_executed_at
-      assert updated_integration.last_executed_by_user_id === user.id
-
       [execution] = Repo.all(IntegrationExecution)
+
+      assert updated_integration.last_integration_execution_id === execution.id
       assert execution.integration_id === integration.id
       assert execution.user_id === user.id
       assert execution.version_id === nil

@@ -67,7 +67,6 @@ defmodule AccentTest.Hook.Outbounds.Slack do
     assert execution.results["status"] === 200
 
     updated_integration = Repo.get!(Integration, integration.id)
-    assert updated_integration.last_executed_at
-    assert updated_integration.last_executed_by_user_id === user.id
+    assert updated_integration.last_integration_execution_id === execution.id
   end
 end

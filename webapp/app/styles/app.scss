@@ -226,6 +226,7 @@ html {
   --color-primary-opacity-70: rgba(40, 203, 135, 0.7);
 
   --color-highlight-lighteness: 95%;
+  --color-highlight-hover-lighteness: 90%;
 
   --color-grey: #adadad;
   --color-black: #484848;
@@ -284,6 +285,7 @@ html[data-theme='dark'] {
   --shadow-color: rgba(0, 0, 0, 0.14);
 
   --color-highlight-lighteness: 12%;
+  --color-highlight-hover-lighteness: 20%;
   --color-black: #adadad;
   --color-grey: #616161;
 

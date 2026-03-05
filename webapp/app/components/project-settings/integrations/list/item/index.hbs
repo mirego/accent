@@ -22,8 +22,8 @@
           {{@integration.data.bucket}}
           {{@integration.data.pathPrefix}}
 
-          {{#if @integration.lastExecutedAt}}
-            <span local-class='details-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}} {{time-ago-in-words @integration.lastExecutedAt}}</span>
+          {{#if @integration.lastIntegrationExecution}}
+            <span local-class='details-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}} {{time-ago-in-words @integration.lastIntegrationExecution.insertedAt}}</span>
           {{/if}}
         </span>
       </div>
@@ -42,8 +42,8 @@
           class='button button--filled button--white'
           title={{t 'components.project_settings.integrations.executions_button'}}
         >
-            {{inline-svg '/assets/history.svg' class='button-icon'}}
-            {{t 'components.project_settings.integrations.history'}}
+          {{inline-svg '/assets/history.svg' class='button-icon'}}
+          {{t 'components.project_settings.integrations.history'}}
         </LinkTo>
 
         {{#if (get @permissions 'update_project_integration')}}
@@ -54,9 +54,8 @@
         {{/if}}
 
         {{#if (get @permissions 'delete_project_integration')}}
-          <AsyncButton @onClick={{fn this.delete}} @loading={{this.isDeleting}} class='button button--filled button--red'>
+          <AsyncButton @onClick={{fn this.delete}} @loading={{this.isDeleting}} class='button button--filled button--white button--hoverRed button--withIcon'>
             {{inline-svg '/assets/x.svg' class='button-icon'}}
-            {{t 'components.project_settings.integrations.delete'}}
           </AsyncButton>
         {{/if}}
       </div>

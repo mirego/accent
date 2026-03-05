@@ -5,15 +5,14 @@ import {action} from '@ember/object';
 interface Args {
   project: any;
   permissions: Record<string, true>;
+  showCreateForm: boolean;
+  onToggleCreateForm: () => void;
   onCreateIntegration: (args: any) => Promise<{errors: any}>;
   onUpdateIntegration: () => void;
   onDeleteIntegration: () => void;
 }
 
 export default class Integrations extends Component<Args> {
-  @tracked
-  showCreateForm = false;
-
   @tracked
   selectedServiceValue: string | null;
 
@@ -25,15 +24,17 @@ export default class Integrations extends Component<Args> {
     this.selectedServiceValue =
       typeof serviceValue == 'string' ? serviceValue : null;
     this.showEmptyDescription =
-      this.showCreateForm && this.args.project.integrations.length === 0;
-    this.showCreateForm = !this.showCreateForm;
+      this.args.showCreateForm && this.args.project.integrations.length === 0;
+    this.args.onToggleCreateForm();
   }
 
   @action
   async create(args: any) {
     const response = await this.args.onCreateIntegration(args);
 
-    this.showCreateForm = response.errors?.length > 0;
+    if (!response.errors?.length) {
+      this.args.onToggleCreateForm();
+    }
 
     return response;
   }

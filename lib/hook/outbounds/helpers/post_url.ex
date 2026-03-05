@@ -46,17 +46,18 @@ defmodule Accent.Hook.Outbounds.Helpers.PostURL do
 
       Logger.info(["Responded ", results_log(result), " in ", formatted_diff(diff)])
 
-      integration
-      |> change(%{last_executed_at: DateTime.utc_now(), last_executed_by_user_id: context.user_id})
-      |> Repo.update!()
+      execution =
+        Repo.insert!(%IntegrationExecution{
+          integration_id: integration.id,
+          user_id: context.user_id,
+          state: state,
+          data: %{"event" => context.event, "service" => service},
+          results: results
+        })
 
-      Repo.insert!(%IntegrationExecution{
-        integration_id: integration.id,
-        user_id: context.user_id,
-        state: state,
-        data: %{"event" => context.event, "service" => service},
-        results: results
-      })
+      integration
+      |> change(%{last_integration_execution_id: execution.id})
+      |> Repo.update!()
     end
 
     :ok

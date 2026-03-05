@@ -12,7 +12,11 @@ export default gql`
           service
 
           ... on ProjectIntegrationSlack {
-            lastExecutedAt
+            lastIntegrationExecution {
+              id
+              state
+              insertedAt
+            }
             events
             data {
               id
@@ -21,7 +25,11 @@ export default gql`
           }
 
           ... on ProjectIntegrationDiscord {
-            lastExecutedAt
+            lastIntegrationExecution {
+              id
+              state
+              insertedAt
+            }
             events
             data {
               id
@@ -30,7 +38,11 @@ export default gql`
           }
 
           ... on ProjectIntegrationAwsS3 {
-            lastExecutedAt
+            lastIntegrationExecution {
+              id
+              state
+              insertedAt
+            }
             data {
               id
               bucket
@@ -41,7 +53,11 @@ export default gql`
           }
 
           ... on ProjectIntegrationAzureStorageContainer {
-            lastExecutedAt
+            lastIntegrationExecution {
+              id
+              state
+              insertedAt
+            }
             data {
               id
               sasBaseUrl

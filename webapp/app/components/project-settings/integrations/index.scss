@@ -15,12 +15,6 @@
   font-size: 17px;
 }
 
-.toggleCreateFormButton {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 .empty-description {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -64,13 +58,6 @@
   width: 50px;
   height: 50px;
   margin: 10px;
-}
-
-.help {
-  margin: 10px 0;
-  font-size: 13px;
-  font-style: italic;
-  color: var(--color-black);
 }
 
 @media (max-width: 1140px) {

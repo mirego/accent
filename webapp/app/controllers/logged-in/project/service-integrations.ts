@@ -1,5 +1,6 @@
 import {service} from '@ember/service';
 import {action} from '@ember/object';
+import {tracked} from '@glimmer/tracking';
 import {readOnly, equal, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
 
@@ -44,11 +45,19 @@ export default class ServiceIntegrationsController extends Controller {
   @and('emptyData', 'model.loading')
   showLoading: boolean;
 
+  @tracked
+  showCreateForm = false;
+
+  @action
+  toggleCreateForm() {
+    this.showCreateForm = !this.showCreateForm;
+  }
+
   @action
   async createIntegration({
     data,
     events,
-    service
+    service,
   }: {
     data: any;
     events: any;
@@ -64,8 +73,8 @@ export default class ServiceIntegrationsController extends Controller {
         projectId: project.id,
         data,
         events,
-        service
-      }
+        service,
+      },
     });
   }
 
@@ -74,7 +83,7 @@ export default class ServiceIntegrationsController extends Controller {
     integration,
     data,
     events,
-    service
+    service,
   }: {
     integration: any;
     data: any;
@@ -89,8 +98,8 @@ export default class ServiceIntegrationsController extends Controller {
         integrationId: integration.id,
         data,
         events,
-        service
-      }
+        service,
+      },
     });
   }
 
@@ -101,8 +110,8 @@ export default class ServiceIntegrationsController extends Controller {
       successMessage: FLASH_MESSAGE_INTEGRATION_REMOVE_SUCCESS,
       errorMessage: FLASH_MESSAGE_INTEGRATION_REMOVE_ERROR,
       variables: {
-        integrationId: integration.id
-      }
+        integrationId: integration.id,
+      },
     });
   }
 
@@ -110,7 +119,7 @@ export default class ServiceIntegrationsController extends Controller {
     mutation,
     variables,
     successMessage,
-    errorMessage
+    errorMessage,
   }: {
     mutation: any;
     variables: any;
@@ -120,7 +129,7 @@ export default class ServiceIntegrationsController extends Controller {
     const response = await this.apolloMutate.mutate({
       mutation,
       variables,
-      refetchQueries: ['ProjectServiceIntegrations']
+      refetchQueries: ['ProjectServiceIntegrations'],
     });
 
     if (response.errors) {

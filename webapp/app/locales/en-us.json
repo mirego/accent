@@ -47,6 +47,9 @@
     "versions_add_button": {
       "link": "Create new version"
     },
+    "integrations_add_button": {
+      "link": "Add integration"
+    },
     "revision_selector": {
       "languages_count": "{count, plural, =1 {1 other language} other {# other languages}}",
       "master": "main"
@@ -527,6 +530,7 @@
         "history": "History",
         "play": "Execute",
         "delete": "Delete",
+        "delete_confirm": "Are you sure you want to delete this integration?",
         "last_executed_at": "Last executed at:",
         "executions_button": "History",
         "data": {
