@@ -45,6 +45,8 @@ defmodule Accent.Hook.Outbounds.Discord do
     ~w(sync complete_review new_conflicts integration_execute_azure_storage_container integration_execute_aws_s3)
   end
 
+  def service, do: "discord"
+
   @impl Oban.Worker
   def perform(%Oban.Job{args: args}) do
     context = Accent.Hook.Context.from_worker(args)

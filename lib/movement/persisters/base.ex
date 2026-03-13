@@ -43,12 +43,9 @@ defmodule Movement.Persisters.Base do
       batch_action: context.assigns[:batch_action],
       operations_count: length(context.operations),
       project_id: context.assigns[:project] && context.assigns.project.id,
-      document_id: context.assigns[:document] && context.assigns.document.id,
-      master_revision_id: context.assigns[:master_revision] && context.assigns.master_revision.id,
-      revision_id: context.assigns[:revision] && context.assigns.revision.id,
-      version_id: context.assigns[:version] && context.assigns.version.id,
-      batch_operation_id: context.assigns[:batch_operation] && context.assigns.batch_operation.id,
       user_id: context.assigns[:user_id],
+      batch_operation_stats: context.assigns[:batch_operation] && context.assigns.batch_operation.stats,
+      document_path: context.assigns[:document] && context.assigns.document.path,
       previous_project_state: ProjectHookWorker.get_project_state(context.assigns[:project])
     }
 

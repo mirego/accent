@@ -17,8 +17,8 @@ defmodule Accent.Hook.Events.Sync do
   @impl true
   def payload(%ProjectHookWorker.Args{} = args, _new_state) do
     %{
-      batch_operation_stats: args.batch_operation.stats,
-      document_path: args.document.path
+      batch_operation_stats: args.batch_operation_stats,
+      document_path: args.document_path
     }
   end
 end
