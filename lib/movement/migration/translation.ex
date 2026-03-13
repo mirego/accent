@@ -61,7 +61,7 @@ defmodule Movement.Migration.Translation do
       revision_id: operation.revision_id,
       document_id: operation.document_id,
       version_id: operation.version_id,
-      source_translation_id: operation.translation_id,
+      source_translation_id: operation.source_translation_id || operation.translation_id,
       placeholders: operation.placeholders,
       inserted_at: {:placeholder, :now},
       updated_at: {:placeholder, :now}

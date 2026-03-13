@@ -36,7 +36,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
       document: document,
       user: user
     } do
-      # Create a version first (before the null-version translation exists)
       version =
         Factory.insert(Version,
           project_id: project.id,
@@ -45,8 +44,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           tag: "v1.0"
         )
 
-      # Create a versioned translation WITHOUT a source_translation_id
-      # (simulating the bug scenario where version was created before null-version translation)
       versioned_translation =
         Factory.insert(Translation,
           key: "hello",
@@ -58,7 +55,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           source_translation_id: nil
         )
 
-      # Sync a null-version translation with the same key
       entries = [%Langue.Entry{key: "hello", value: "Hello World", value_type: "string"}]
 
       context =
@@ -70,10 +66,8 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
         |> Context.assign(:version, nil)
         |> RevisionSyncBuilder.build()
 
-      # Execute the operations
       BasePersister.execute(context)
 
-      # Verify the new null-version translation was created
       new_translation =
         Translation
         |> where(key: "hello", revision_id: ^revision.id)
@@ -95,7 +89,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
       document: document,
       user: user
     } do
-      # Create a version
       version =
         Factory.insert(Version,
           project_id: project.id,
@@ -104,7 +97,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           tag: "v1.0"
         )
 
-      # Create null-version translation first
       existing_translation =
         Factory.insert(Translation,
           key: "hello",
@@ -127,7 +119,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           source_translation_id: existing_translation.id
         )
 
-      # Sync the same key (should update existing, not create new)
       entries = [%Langue.Entry{key: "hello", value: "Hello Updated", value_type: "string"}]
 
       context =
@@ -141,7 +132,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
 
       BasePersister.execute(context)
 
-      # Versioned translation should still point to original source
       updated_versioned_translation = Repo.reload!(versioned_translation)
       assert updated_versioned_translation.source_translation_id == existing_translation.id
     end
@@ -152,7 +142,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
       document: document,
       user: user
     } do
-      # Create an older version
       old_version =
         Factory.insert(Version,
           project_id: project.id,
@@ -162,7 +151,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           inserted_at: ~U[2024-01-01 00:00:00Z]
         )
 
-      # Create a newer version
       new_version =
         Factory.insert(Version,
           project_id: project.id,
@@ -172,7 +160,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           inserted_at: ~U[2025-01-01 00:00:00Z]
         )
 
-      # Create orphaned versioned translation in OLD version
       old_versioned_translation =
         Factory.insert(Translation,
           key: "hello",
@@ -184,7 +171,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           source_translation_id: nil
         )
 
-      # Create orphaned versioned translation in NEW version
       new_versioned_translation =
         Factory.insert(Translation,
           key: "hello",
@@ -196,7 +182,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           source_translation_id: nil
         )
 
-      # Sync null-version translation
       entries = [%Langue.Entry{key: "hello", value: "Hello World", value_type: "string"}]
 
       context =
@@ -210,7 +195,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
 
       BasePersister.execute(context)
 
-      # Only the latest version's translation should be linked
       updated_new_versioned = Repo.reload!(new_versioned_translation)
       updated_old_versioned = Repo.reload!(old_versioned_translation)
 
@@ -230,7 +214,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
       document: document,
       user: user
     } do
-      # Create a version
       version =
         Factory.insert(Version,
           project_id: project.id,
@@ -239,7 +222,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           tag: "v1.0"
         )
 
-      # Create orphaned versioned translation
       versioned_translation =
         Factory.insert(Translation,
           key: "hello",
@@ -251,7 +233,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
           source_translation_id: nil
         )
 
-      # Sync WITH a version context (not null-version sync)
       entries = [%Langue.Entry{key: "hello", value: "Hello Updated", value_type: "string"}]
 
       context =
@@ -265,7 +246,6 @@ defmodule AccentTest.Movement.Builders.RevisionSyncSourceTranslationLink do
 
       BasePersister.execute(context)
 
-      # Should not affect source_translation_id since we're syncing with a version
       updated_versioned_translation = Repo.reload!(versioned_translation)
       assert updated_versioned_translation.source_translation_id == nil
     end

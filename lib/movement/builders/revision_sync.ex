@@ -15,6 +15,7 @@ defmodule Movement.Builders.RevisionSync do
     context
     |> assign_translations()
     |> assign_versioned_translations()
+    |> assign_source_translations()
     |> EntriesCommitProcessor.process()
     |> EntriesCommitProcessor.process_for_remove()
   end
@@ -60,5 +61,29 @@ defmodule Movement.Builders.RevisionSync do
       end
 
     assign(context, :versioned_translations_by_key, versioned_translations_by_key)
+  end
+
+  defp assign_source_translations(%{assigns: %{version: version}} = context) when is_nil(version) do
+    assign(context, :source_translations_by_key, %{})
+  end
+
+  defp assign_source_translations(context) do
+    document_id = context.assigns[:document].id
+    revision_id = context.assigns[:revision].id
+
+    source_translations_by_key =
+      if document_id do
+        Translation
+        |> where(document_id: ^document_id)
+        |> where(revision_id: ^revision_id)
+        |> where([t], is_nil(t.version_id))
+        |> where([t], t.removed == false)
+        |> Repo.all()
+        |> Map.new(&{&1.key, &1})
+      else
+        %{}
+      end
+
+    assign(context, :source_translations_by_key, source_translations_by_key)
   end
 end

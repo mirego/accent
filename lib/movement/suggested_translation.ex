@@ -14,5 +14,6 @@ defmodule Movement.SuggestedTranslation do
             locked: nil,
             placeholders: nil,
             machine_translations_enabled: nil,
-            versioned_translation_ids: []
+            versioned_translation_ids: [],
+            source_translation_id: nil
 end

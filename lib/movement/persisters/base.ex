@@ -78,6 +78,7 @@ defmodule Movement.Persisters.Base do
     placeholders = build_placeholders(assigns)
     placeholder_values = build_placeholder_values(placeholders)
     versioned_translation_ids_by_key = extract_versioned_translation_ids(context.operations)
+    source_translation_ids_by_key = extract_source_translation_ids(context.operations)
 
     operations =
       context.operations
@@ -91,6 +92,7 @@ defmodule Movement.Persisters.Base do
       end)
       |> Enum.to_list()
       |> reinject_versioned_translation_ids(versioned_translation_ids_by_key)
+      |> reinject_source_translation_ids(source_translation_ids_by_key)
 
     %{context | operations: operations}
   end
@@ -129,12 +131,26 @@ defmodule Movement.Persisters.Base do
     })
     |> Map.delete(:machine_translations_enabled)
     |> Map.delete(:versioned_translation_ids)
+    |> Map.delete(:source_translation_id)
   end
 
   defp reinject_versioned_translation_ids(operations, versioned_translation_ids_by_key) do
     Enum.map(operations, fn operation ->
       versioned_ids = Map.get(versioned_translation_ids_by_key, operation.key, [])
       Map.put(operation, :versioned_translation_ids, versioned_ids)
+    end)
+  end
+
+  defp extract_source_translation_ids(operations) do
+    operations
+    |> Enum.filter(&(&1.action == "new" && Map.get(&1, :source_translation_id) != nil))
+    |> Map.new(&{&1.key, &1.source_translation_id})
+  end
+
+  defp reinject_source_translation_ids(operations, source_translation_ids_by_key) do
+    Enum.map(operations, fn operation ->
+      source_id = Map.get(source_translation_ids_by_key, operation.key)
+      Map.put(operation, :source_translation_id, source_id)
     end)
   end
 

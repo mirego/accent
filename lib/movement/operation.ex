@@ -24,7 +24,8 @@ defmodule Movement.Operation do
             options: [],
             machine_translated: false,
             machine_translations_enabled: false,
-            versioned_translation_ids: []
+            versioned_translation_ids: [],
+            source_translation_id: nil
 
   @type t :: %__MODULE__{}
 end

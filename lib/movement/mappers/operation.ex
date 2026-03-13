@@ -20,7 +20,8 @@ defmodule Movement.Mappers.Operation do
       previous_translation: PreviousTranslation.from_translation(current_translation),
       machine_translations_enabled: suggested_translation.machine_translations_enabled,
       placeholders: suggested_translation.placeholders,
-      versioned_translation_ids: Map.get(suggested_translation, :versioned_translation_ids, [])
+      versioned_translation_ids: Map.get(suggested_translation, :versioned_translation_ids, []),
+      source_translation_id: Map.get(suggested_translation, :source_translation_id)
     }
   end
 

@@ -16,6 +16,7 @@ defmodule Movement.EntriesCommitProcessor do
   def process(%Movement.Context{entries: entries, assigns: assigns, operations: operations} = context) do
     grouped_translations = group_by_key(assigns[:translations])
     versioned_translations_by_key = assigns[:versioned_translations_by_key] || %{}
+    source_translations_by_key = assigns[:source_translations_by_key] || %{}
 
     new_operations =
       entries
@@ -24,6 +25,9 @@ defmodule Movement.EntriesCommitProcessor do
 
         versioned_translation_ids =
           fetch_versioned_translation_ids(versioned_translations_by_key, entry.key, current_translation)
+
+        source_translation_id =
+          fetch_source_translation_id(source_translations_by_key, entry.key, current_translation)
 
         suggested_translation = %Movement.SuggestedTranslation{
           text: entry.value,
@@ -37,7 +41,8 @@ defmodule Movement.EntriesCommitProcessor do
           revision_id: Map.get(assigns[:revision], :id),
           version_id: assigns[:version] && Map.get(assigns[:version], :id),
           placeholders: entry.placeholders,
-          versioned_translation_ids: versioned_translation_ids
+          versioned_translation_ids: versioned_translation_ids,
+          source_translation_id: source_translation_id
         }
 
         operation = assigns[:comparer].(current_translation, suggested_translation)
@@ -103,6 +108,17 @@ defmodule Movement.EntriesCommitProcessor do
     versioned_translations_by_key
     |> Map.get(key, [])
     |> Enum.map(& &1.id)
+  end
+
+  defp fetch_source_translation_id(_source_translations_by_key, _key, current_translation)
+       when not is_nil(current_translation),
+       do: nil
+
+  defp fetch_source_translation_id(source_translations_by_key, key, _current_translation) do
+    case Map.get(source_translations_by_key, key) do
+      %{id: id} -> id
+      _ -> nil
+    end
   end
 
   defp filter_for_revision(operations, %{master: true}) do
