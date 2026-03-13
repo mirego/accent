@@ -23,7 +23,7 @@ defmodule Movement.Builders.RevisionUncorrectAll do
         OperationMapper.map(@action, translation, %{text: translation.corrected_text})
       end)
 
-    %{context | operations: Enum.concat(operations, new_operations)}
+    %{context | operations: new_operations ++ operations}
   end
 
   defp assign_translations(%Movement.Context{assigns: assigns} = context) do

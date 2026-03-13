@@ -41,6 +41,6 @@ defmodule Movement.Builders.DocumentDelete do
         OperationMapper.map(@action, translation, %{translation | marked_as_removed: true})
       end)
 
-    %{context | operations: Enum.concat(operations, new_operations)}
+    %{context | operations: new_operations ++ operations}
   end
 end

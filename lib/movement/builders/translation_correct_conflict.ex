@@ -13,6 +13,6 @@ defmodule Movement.Builders.TranslationCorrectConflict do
 
     copy_version_operation = VersionCopyOnUpdate.maybe_copy_to_latest_version(translation, text, @action)
 
-    %{context | operations: Enum.concat(operations, [operation] ++ List.wrap(copy_version_operation))}
+    %{context | operations: [operation | List.wrap(copy_version_operation)] ++ operations}
   end
 end

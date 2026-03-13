@@ -31,7 +31,7 @@ defmodule Movement.Builders.SlaveConflictSync do
         })
       end)
 
-    %{context | operations: Enum.concat(context.operations, new_operations)}
+    %{context | operations: new_operations ++ context.operations}
   end
 
   defp assign_translations(%Movement.Context{assigns: %{translation_keys: []}} = context) do

@@ -20,7 +20,7 @@ defmodule Movement.Builders.Rollback do
       rollbacked_operation_id: operation.id
     }
 
-    %{context | operations: Enum.concat(operations, [new_operation])}
+    %{context | operations: [new_operation | operations]}
   end
 
   # Translation operation
@@ -36,6 +36,6 @@ defmodule Movement.Builders.Rollback do
       rollbacked_operation_id: operation.id
     }
 
-    %{context | operations: Enum.concat(operations, [new_operation])}
+    %{context | operations: [new_operation | operations]}
   end
 end

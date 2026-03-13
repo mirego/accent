@@ -65,7 +65,7 @@ defmodule Movement.EntriesCommitProcessor do
       |> filter_for_revision(assigns[:revision])
       |> MachineTranslations.translate(assigns[:project], assigns[:master_revision], assigns[:revision])
 
-    %{context | operations: Enum.concat(operations, new_operations)}
+    %{context | operations: new_operations ++ operations}
   end
 
   @doc """
@@ -75,18 +75,17 @@ defmodule Movement.EntriesCommitProcessor do
   @spec process_for_remove(Movement.Context.t()) :: Movement.Context.t()
   def process_for_remove(%Movement.Context{entries: entries, assigns: assigns, operations: operations} = context) do
     grouped_entries = group_by_key(entries)
-    grouped_entries_keys = Map.keys(grouped_entries)
 
     new_operations =
       assigns[:translations]
-      |> Enum.filter(&(!&1.removed && &1.key not in grouped_entries_keys))
+      |> Enum.filter(&(!&1.removed && not Map.has_key?(grouped_entries, &1.key)))
       |> Enum.map(fn current_translation ->
         suggested_translation = %{current_translation | marked_as_removed: true}
 
         assigns[:comparer].(suggested_translation, suggested_translation)
       end)
 
-    %{context | operations: Enum.concat(operations, new_operations)}
+    %{context | operations: new_operations ++ operations}
   end
 
   defp group_by_key(list), do: Enum.group_by(list, & &1.key)

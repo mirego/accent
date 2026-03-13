@@ -54,6 +54,6 @@ defmodule AccentTest.Movement.Builders.ProjectSync do
 
     operations = Enum.map(context.operations, &Map.get(&1, :action))
 
-    assert operations === ["conflict_on_proposed", "remove", "conflict_on_slave"]
+    assert operations === ["conflict_on_slave", "remove", "conflict_on_proposed"]
   end
 end

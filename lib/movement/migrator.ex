@@ -60,15 +60,14 @@ defmodule Movement.Migrator do
     operations = List.flatten(operations)
     actions = Enum.group_by(operations, fn {action, _payload} -> action end, &elem(&1, 1))
 
-    results = []
-    results = results ++ migrate_insert_all_operations(Map.get(actions, :insert_all, []))
-    results = results ++ migrate_update_all_operations(Map.get(actions, :update_all, []))
-    results = results ++ migrate_update_all_dynamic_operations(Map.get(actions, :update_all_dynamic, []))
-    results = results ++ migrate_update_all_by_field_operations(Map.get(actions, :update_all_by_field, []))
-    results = results ++ migrate_insert_operations(Map.get(actions, :insert, []))
-    results = results ++ migrate_update_operations(Map.get(actions, :update, []))
-
-    results
+    List.flatten([
+      migrate_insert_all_operations(Map.get(actions, :insert_all, [])),
+      migrate_update_all_operations(Map.get(actions, :update_all, [])),
+      migrate_update_all_dynamic_operations(Map.get(actions, :update_all_dynamic, [])),
+      migrate_update_all_by_field_operations(Map.get(actions, :update_all_by_field, [])),
+      migrate_insert_operations(Map.get(actions, :insert, [])),
+      migrate_update_operations(Map.get(actions, :update, []))
+    ])
   end
 
   defp migrate_insert_operations(operations) do

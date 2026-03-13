@@ -41,7 +41,7 @@ defmodule Movement.Persisters.Base do
   def execute(context) do
     project_context = %{
       batch_action: context.assigns[:batch_action],
-      operations_count: Enum.count(context.operations),
+      operations_count: length(context.operations),
       project_id: context.assigns[:project] && context.assigns.project.id,
       document_id: context.assigns[:document] && context.assigns.document.id,
       master_revision_id: context.assigns[:master_revision] && context.assigns.master_revision.id,
@@ -77,11 +77,11 @@ defmodule Movement.Persisters.Base do
   defp persist_operations(%Movement.Context{assigns: assigns} = context) do
     placeholders = build_placeholders(assigns)
     placeholder_values = build_placeholder_values(placeholders)
-    versioned_translation_ids_by_key = extract_versioned_translation_ids(context.operations)
-    source_translation_ids_by_key = extract_source_translation_ids(context.operations)
+    operations = Enum.reverse(context.operations)
+    {versioned_ids_by_key, source_ids_by_key} = extract_operation_metadata(operations)
 
     operations =
-      context.operations
+      operations
       |> Stream.map(&prepare_operation_for_insert(&1, placeholder_values))
       |> Stream.chunk_every(@operations_inserts_chunk)
       |> Stream.flat_map(fn operations ->
@@ -90,9 +90,11 @@ defmodule Movement.Persisters.Base do
         |> elem(1)
         |> Repo.preload(:translation)
       end)
-      |> Enum.to_list()
-      |> reinject_versioned_translation_ids(versioned_translation_ids_by_key)
-      |> reinject_source_translation_ids(source_translation_ids_by_key)
+      |> Enum.map(fn operation ->
+        operation
+        |> Map.put(:versioned_translation_ids, Map.get(versioned_ids_by_key, operation.key, []))
+        |> Map.put(:source_translation_id, Map.get(source_ids_by_key, operation.key))
+      end)
 
     %{context | operations: operations}
   end
@@ -110,10 +112,20 @@ defmodule Movement.Persisters.Base do
     Map.new(placeholders, fn {key, _value} -> {key, {:placeholder, key}} end)
   end
 
-  defp extract_versioned_translation_ids(operations) do
-    operations
-    |> Enum.filter(&(&1.action == "new" && Map.get(&1, :versioned_translation_ids, []) != []))
-    |> Map.new(&{&1.key, &1.versioned_translation_ids})
+  defp extract_operation_metadata(operations) do
+    Enum.reduce(operations, {%{}, %{}}, fn operation, {versioned_acc, source_acc} ->
+      versioned_acc =
+        if operation.action == "new" && Map.get(operation, :versioned_translation_ids, []) != [],
+          do: Map.put(versioned_acc, operation.key, operation.versioned_translation_ids),
+          else: versioned_acc
+
+      source_acc =
+        if operation.action == "new" && Map.get(operation, :source_translation_id) != nil,
+          do: Map.put(source_acc, operation.key, operation.source_translation_id),
+          else: source_acc
+
+      {versioned_acc, source_acc}
+    end)
   end
 
   defp prepare_operation_for_insert(operation, placeholder_values) do
@@ -132,26 +144,6 @@ defmodule Movement.Persisters.Base do
     |> Map.delete(:machine_translations_enabled)
     |> Map.delete(:versioned_translation_ids)
     |> Map.delete(:source_translation_id)
-  end
-
-  defp reinject_versioned_translation_ids(operations, versioned_translation_ids_by_key) do
-    Enum.map(operations, fn operation ->
-      versioned_ids = Map.get(versioned_translation_ids_by_key, operation.key, [])
-      Map.put(operation, :versioned_translation_ids, versioned_ids)
-    end)
-  end
-
-  defp extract_source_translation_ids(operations) do
-    operations
-    |> Enum.filter(&(&1.action == "new" && Map.get(&1, :source_translation_id) != nil))
-    |> Map.new(&{&1.key, &1.source_translation_id})
-  end
-
-  defp reinject_source_translation_ids(operations, source_translation_ids_by_key) do
-    Enum.map(operations, fn operation ->
-      source_id = Map.get(source_translation_ids_by_key, operation.key)
-      Map.put(operation, :source_translation_id, source_id)
-    end)
   end
 
   defp migrate_up_operations(%Movement.Context{operations: operations} = context) do

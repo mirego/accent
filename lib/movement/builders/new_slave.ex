@@ -55,7 +55,7 @@ defmodule Movement.Builders.NewSlave do
         new_operations
       end
 
-    %{context | operations: Enum.concat(operations, new_operations)}
+    %{context | operations: new_operations ++ operations}
   end
 
   defp assign_translations(%Movement.Context{assigns: assigns} = context) do

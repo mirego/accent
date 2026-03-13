@@ -54,7 +54,7 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
 
     assert translation.id in translation_ids
     assert other_translation.id in translation_ids
-    assert operations === ["conflict_on_proposed", "conflict_on_slave", "conflict_on_slave"]
+    assert operations === ["conflict_on_slave", "conflict_on_slave", "conflict_on_proposed"]
   end
 
   test "builder fetch translations multi documents and use process operations", %{
@@ -88,6 +88,6 @@ defmodule AccentTest.Movement.Builders.SlaveConflictSync do
 
     assert translation.id in translation_ids
     refute other_translation.id in translation_ids
-    assert operations === ["conflict_on_proposed", "conflict_on_slave"]
+    assert operations === ["conflict_on_slave", "conflict_on_proposed"]
   end
 end
