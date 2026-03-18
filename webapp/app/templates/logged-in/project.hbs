@@ -32,7 +32,6 @@
         />
       {{else}}
         {{#unless this.model.loading}}
-          <PhoenixChannelListener @project={{this.project}} />
           <RecentProjectCache @project={{this.project}} />
         {{/unless}}
 

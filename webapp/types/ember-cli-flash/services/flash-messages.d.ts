@@ -11,7 +11,6 @@ declare module 'ember-cli-flash/services/flash-messages' {
 
   export default class FlashMessages {
     success(message: string, options?: FlashOptions): void;
-    socket(message: string, options?: FlashOptions): void;
     info(message: string, options?: FlashOptions): void;
     error(message: string, options?: FlashOptions): void;
   }
