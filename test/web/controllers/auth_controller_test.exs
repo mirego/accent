@@ -23,7 +23,7 @@ defmodule AccentTest.AuthenticationController do
 
     assert global_token
     assert Repo.get_by(AccessToken, user_id: user.id, global: false)
-    assert redirected_to(conn, 302) =~ "/?auth=#{user.id}"
+    assert redirected_to(conn, 302) == "/app/projects"
   end
 
   test "create responds with valid google params", %{conn: conn} do
@@ -35,6 +35,15 @@ defmodule AccentTest.AuthenticationController do
     user = Repo.get_by(User, email: "dummy@test.com")
     assert Repo.get_by(AccessToken, user_id: user.id, global: false)
     assert user.fullname === "Dummy"
-    assert redirected_to(conn, 302) =~ "/?auth=#{user.id}"
+    assert redirected_to(conn, 302) == "/app/projects"
+  end
+
+  test "logout clears session and redirects to root", %{conn: conn} do
+    conn =
+      conn
+      |> init_test_session(%{user_id: "some-user-id"})
+      |> AuthController.logout(nil)
+
+    assert redirected_to(conn, 302) == "/"
   end
 end

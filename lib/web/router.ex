@@ -98,6 +98,7 @@ defmodule Accent.Router do
   scope "/auth", Accent do
     pipe_through [:browser]
 
+    get "/logout", AuthController, :logout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end
