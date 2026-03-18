@@ -1,6 +1,5 @@
-import Service, {service} from '@ember/service';
+import Service from '@ember/service';
 import fetch from 'fetch';
-import Session from 'accent-webapp/services/session';
 
 const HTTP_ERROR_STATUS = 400;
 
@@ -26,22 +25,12 @@ interface MachineTranslationsTranslateFileOptions {
 }
 
 export default class AuthenticatedRequest extends Service {
-  @service('session')
-  declare session: Session;
-
   async commit(url: string, options: CommitOptions) {
     return this.postFile(url, options);
   }
 
   async post(url: string) {
-    const fetchOptions: RequestInit = {};
-
-    fetchOptions.method = 'POST';
-    fetchOptions.headers = {
-      Authorization: `Bearer ${this.session.credentials.token}`
-    };
-
-    const response = await fetch(url, fetchOptions);
+    const response = await fetch(url, {method: 'POST'});
 
     if (response.status >= HTTP_ERROR_STATUS) {
       const error = await response.text();
@@ -67,13 +56,7 @@ export default class AuthenticatedRequest extends Service {
   }
 
   async export(url: string) {
-    const options: RequestInit = {};
-
-    options.headers = {
-      Authorization: `Bearer ${this.session.credentials.token}`
-    };
-
-    const response = await fetch(url, options);
+    const response = await fetch(url);
 
     return response.text();
   }
@@ -88,10 +71,6 @@ export default class AuthenticatedRequest extends Service {
     const fetchOptions: RequestInit = {};
 
     fetchOptions.method = 'POST';
-    fetchOptions.headers = {
-      Authorization: `Bearer ${this.session.credentials.token}`
-    };
-
     fetchOptions.body = this.setupFormFile(options);
 
     const response = await fetch(url, fetchOptions);

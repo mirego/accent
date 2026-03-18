@@ -22,21 +22,6 @@ export default class ApplicationRoute extends Route {
 
     raven.config(config.SENTRY.DSN).install();
 
-    await this.tryLoginAfterRedirect();
-  }
-
-  private async tryLoginAfterRedirect() {
-    const authMatch = window.location.search
-      .substring(window.location.search.indexOf('?') + 1)
-      .split('&')
-      .find((segment) => segment.split('=')[0] === 'auth');
-
-    if (!authMatch) return;
-
-    const data = await this.session.login();
-
-    if (data && data.user) {
-      this.router.transitionTo('logged-in.projects');
-    }
+    await this.session.login();
   }
 }

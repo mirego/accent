@@ -6,8 +6,6 @@ import {ApolloClient} from '@apollo/client/core';
 import {ApolloLink} from '@apollo/client/link/core';
 import {BatchHttpLink} from '@apollo/client/link/batch-http';
 
-import Session from 'accent-webapp/services/session';
-
 const dataIdFromObject = (result: {id?: string; __typename: string}) => {
   if (result.id && result.__typename) return `${result.__typename}${result.id}`;
 
@@ -22,35 +20,12 @@ const absintheBatchLink = new ApolloLink((operation, forward) => {
   return forward(operation).map((response: any) => response.payload);
 });
 
-const authLink = (getSession: any) => {
-  return new ApolloLink((operation, forward) => {
-    const token = getSession().credentials.token;
-
-    if (token) {
-      operation.setContext(({headers = {}}: any) => ({
-        headers: {
-          ...headers
-        }
-      }));
-    }
-
-    return forward(operation);
-  });
-};
-
 export default class Apollo extends Service {
   @service('router')
   declare router: RouterService;
 
-  @service('session')
-  declare session: Session;
-
   client = new ApolloClient({
-    link: ApolloLink.from([
-      authLink(() => this.session),
-      absintheBatchLink,
-      link
-    ]),
+    link: ApolloLink.from([absintheBatchLink, link]),
     cache
   });
 }

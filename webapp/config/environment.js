@@ -26,14 +26,9 @@ module.exports = function (environment) {
     LOG_VERSION: false
   };
 
-  ENV.APP = {
-    LOCAL_STORAGE: {
-      SESSION_NAMESPACE: 'accent-session'
-    }
-  };
+  ENV.APP = {};
 
   ENV.API = {
-    WS_ENABLED: true,
     AUTHENTICATION_PATH: '/auth',
     HOOKS_PATH: '/hooks/{0}?project_id={1}&authorization={2}',
     PROJECT_PATH: '/projects/{0}',
@@ -68,7 +63,7 @@ module.exports = function (environment) {
 
     // service defaults
     type: 'info',
-    types: ['info', 'success', 'error', 'socket'],
+    types: ['info', 'success', 'error'],
     injectionFactories: []
   };
 

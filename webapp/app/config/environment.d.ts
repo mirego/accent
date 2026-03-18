@@ -17,15 +17,9 @@ declare const config: {
     LOG_VERSION: boolean;
   };
 
-  APP: {
-    LOCAL_STORAGE: {
-      SESSION_NAMESPACE: string;
-    };
-  };
+  APP: {};
 
   API: {
-    WS_HOST: string;
-    WS_ENABLED: boolean;
     HOST: string;
     AUTHENTICATION_PATH: string;
     HOOKS_PATH: string;

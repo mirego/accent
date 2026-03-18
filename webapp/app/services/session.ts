@@ -1,34 +1,31 @@
-import {readOnly} from '@ember/object/computed';
+import {tracked} from '@glimmer/tracking';
 import Service, {service} from '@ember/service';
-import SessionFetcher from 'accent-webapp/services/session/fetcher';
-import SessionPersister from 'accent-webapp/services/session/persister';
 import SessionCreator from 'accent-webapp/services/session/creator';
-import SessionDestroyer from 'accent-webapp/services/session/destroyer';
 import JIPT from 'accent-webapp/services/jipt';
 
+interface User {
+  id: string;
+  email: string;
+  pictureUrl: string;
+  fullname: string;
+}
+
+interface Credentials {
+  user?: User;
+}
+
 export default class Session extends Service {
-  @service('session/fetcher')
-  declare sessionFetcher: SessionFetcher;
-
-  @service('session/persister')
-  declare sessionPersister: SessionPersister;
-
   @service('session/creator')
   declare sessionCreator: SessionCreator;
-
-  @service('session/destroyer')
-  declare sessionDestroyer: SessionDestroyer;
 
   @service('jipt')
   declare jipt: JIPT;
 
-  googleAuth = null;
+  @tracked
+  credentials: Credentials = {};
 
-  @readOnly('credentials.user')
-  isAuthenticated: boolean;
-
-  get credentials() {
-    return this.sessionFetcher.fetch();
+  get isAuthenticated(): boolean {
+    return Boolean(this.credentials.user);
   }
 
   async login() {
@@ -36,7 +33,7 @@ export default class Session extends Service {
 
     if (!credentials || !credentials.viewer) return;
 
-    this.sessionPersister.persist(credentials.viewer);
+    this.credentials = credentials.viewer;
 
     this.jipt.loggedIn();
 
@@ -44,7 +41,7 @@ export default class Session extends Service {
   }
 
   logout() {
-    this.sessionDestroyer.destroySession();
+    window.location.href = '/auth/logout';
   }
 }
 
