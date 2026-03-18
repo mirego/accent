@@ -100,10 +100,12 @@
               {{t 'components.documents_list.machine_translations'}}
             </LinkTo>
           {{/if}}
-          <LinkTo @route='logged-in.project.files.export' @models={{array @project.id @document.id}} class='button button--filled button--white'>
-            {{inline-svg '/assets/export.svg' class='button-icon'}}
-            {{t 'components.documents_list.export'}}
-          </LinkTo>
+          {{#if (get @permissions 'export_revision')}}
+            <LinkTo @route='logged-in.project.files.export' @models={{array @project.id @document.id}} class='button button--filled button--white'>
+              {{inline-svg '/assets/export.svg' class='button-icon'}}
+              {{t 'components.documents_list.export'}}
+            </LinkTo>
+          {{/if}}
         </div>
 
         <div local-class='deleteDocumentButton-container'>

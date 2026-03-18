@@ -37,8 +37,6 @@ export default class ErrorController extends Controller {
   @action
   logout() {
     this.session.logout();
-
-    window.location.href = '/';
   }
 
   private translationAttribute(attribute: string) {

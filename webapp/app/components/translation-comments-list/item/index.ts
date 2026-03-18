@@ -1,5 +1,4 @@
 import {service} from '@ember/service';
-import {readOnly} from '@ember/object/computed';
 import {action} from '@ember/object';
 import Component from '@glimmer/component';
 import MarkdownIt from 'markdown-it';
@@ -33,14 +32,15 @@ export default class TranslationsCommentsListItem extends Component<Args> {
   @service('session')
   declare session: Session;
 
-  @readOnly('session.credentials.user')
-  currentUser: any;
+  get currentUser() {
+    return this.session.credentials.user;
+  }
 
   @tracked
   editComment = false;
 
   get isAuthor() {
-    return this.currentUser.id === this.args.comment.user.id;
+    return this.currentUser?.id === this.args.comment.user.id;
   }
 
   get text() {

@@ -54,8 +54,8 @@ export default class ProjectsHeader extends Component<Args> {
       this.args.project.id,
       this.selectedRevision,
       {
-        queryParams: {query}
-      }
+        queryParams: {query},
+      },
     );
   });
 
@@ -69,7 +69,5 @@ export default class ProjectsHeader extends Component<Args> {
   @action
   logout() {
     this.session.logout();
-
-    window.location.href = '/';
   }
 }

@@ -22,7 +22,7 @@
           @inputDisabled={{this.inputDisabled}}
           @showTypeHints={{false}}
           @onKeyUp={{fn this.changeTranslationText}}
-          @onSubmit={{fn this.correctConflict}}
+          @onSubmit={{this.onSubmitAction}}
           @onFocus={{@onFocus}}
           @onBlur={{@onBlur}}
           @rtl={{this.revisionTextDirRtl}}

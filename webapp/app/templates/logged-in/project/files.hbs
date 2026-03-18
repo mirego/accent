@@ -3,10 +3,12 @@
   <h1>{{t 'components.page_title.files'}}</h1>
 
   <PageTitle::End>
-    <LinkTo @route='logged-in.project.files.export-all' @model={{this.model.project.id}} class='button button--white button--filled'>
-      {{inline-svg '/assets/export.svg' class='button-icon'}}
-      {{t 'components.documents_list.export_all'}}
-    </LinkTo>
+    {{#if (get this.permissions 'export_revision')}}
+      <LinkTo @route='logged-in.project.files.export-all' @model={{this.model.project.id}} class='button button--white button--filled'>
+        {{inline-svg '/assets/export.svg' class='button-icon'}}
+        {{t 'components.documents_list.export_all'}}
+      </LinkTo>
+    {{/if}}
 
     <button class='button {{if this.excludeEmptyTranslations "button--grey" "button--white"}} button--filled' {{on 'click' this.toggleExcludeEmptyTranslations}}>
       {{#if this.excludeEmptyTranslations}}

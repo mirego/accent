@@ -1,6 +1,5 @@
 import {action} from '@ember/object';
 import {service} from '@ember/service';
-import {readOnly, bool} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import Session from 'accent-webapp/services/session';
 
@@ -15,14 +14,16 @@ export default class TranslationCommentsSubscriptionsItem extends Component<Args
   @service('session')
   declare session: Session;
 
-  @readOnly('session.credentials.user')
-  currentUser: any;
+  get currentUser() {
+    return this.session.credentials.user;
+  }
 
-  @bool('subscription')
-  isSubscribed: boolean;
+  get isSubscribed() {
+    return Boolean(this.subscription);
+  }
 
   get isCurrentUser() {
-    return this.currentUser.id === this.args.collaborator.user.id;
+    return this.currentUser?.id === this.args.collaborator.user.id;
   }
 
   get subscription() {

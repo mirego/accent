@@ -72,6 +72,18 @@ export default class ConflictsListItem extends Component<Args> {
     return this.textInput !== this.textOriginal;
   }
 
+  get onSubmitAction() {
+    const {isConflicted} = this.args.translation;
+    const {correct_translation, uncorrect_translation} = this.args.permissions;
+
+    const action =
+      (isConflicted && correct_translation && this.correctConflict) ||
+      (!isConflicted && uncorrect_translation && this.uncorrectConflict) ||
+      this.updateConflict;
+
+    return action;
+  }
+
   get revisionTextDirRtl() {
     return this.args.translation.revision.rtl !== null
       ? this.args.translation.revision.rtl
@@ -179,11 +191,13 @@ export default class ConflictsListItem extends Component<Args> {
   private onCorrectSuccess() {
     this.conflictResolved = true;
     this.isCorrectLoading = false;
+    this.isUncorrectLoading = false;
   }
 
   private onUncorrectSuccess() {
     this.conflictResolved = false;
     this.isCorrectLoading = false;
+    this.isUncorrectLoading = false;
   }
 
   private onUpdateSuccess() {

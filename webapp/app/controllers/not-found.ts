@@ -10,7 +10,5 @@ export default class NotFoundController extends Controller {
   @action
   logout() {
     this.session.logout();
-
-    window.location.href = '/';
   }
 }
