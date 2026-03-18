@@ -14,7 +14,7 @@ defmodule Accent.ExportController do
   alias Accent.Version
 
   plug(Plug.Assign, %{canary_action: :export_revision})
-  plug(:load_resource, model: Project, id_name: "project_id")
+  plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
   plug(Accent.Plugs.AssignRevisionLanguage)
 
   plug(:fetch_order)

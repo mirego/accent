@@ -87,6 +87,75 @@ defmodule AccentTest.GraphQL.Helpers.Authorization do
     refute_receive :ok
   end
 
+  test "authorized viewer to list languages", %{user: user} do
+    root = %{user: user}
+    args = %{}
+    context = %{context: %{conn: %{assigns: %{current_user: user}}}}
+    resolver = fn _, _, _ -> send(self(), :ok) end
+
+    Authorization.viewer_authorize(:list_languages, resolver).(root, args, context)
+
+    assert_receive :ok
+  end
+
+  test "unauthorized viewer to list languages" do
+    root = %{user: nil}
+    args = %{}
+    context = %{conn: %{}}
+    resolver = fn _, _, _ -> send(self(), :ok) end
+
+    result = Authorization.viewer_authorize(:list_languages, resolver).(root, args, context)
+
+    assert result == {:ok, nil}
+    refute_receive :ok
+  end
+
+  test "authorized viewer to list roles", %{user: user} do
+    root = %{user: user}
+    args = %{}
+    context = %{context: %{conn: %{assigns: %{current_user: user}}}}
+    resolver = fn _, _, _ -> send(self(), :ok) end
+
+    Authorization.viewer_authorize(:list_roles, resolver).(root, args, context)
+
+    assert_receive :ok
+  end
+
+  test "unauthorized viewer to list roles" do
+    root = %{user: nil}
+    args = %{}
+    context = %{conn: %{}}
+    resolver = fn _, _, _ -> send(self(), :ok) end
+
+    result = Authorization.viewer_authorize(:list_roles, resolver).(root, args, context)
+
+    assert result == {:ok, nil}
+    refute_receive :ok
+  end
+
+  test "authorized viewer to list document formats", %{user: user} do
+    root = %{user: user}
+    args = %{}
+    context = %{context: %{conn: %{assigns: %{current_user: user}}}}
+    resolver = fn _, _, _ -> send(self(), :ok) end
+
+    Authorization.viewer_authorize(:list_document_formats, resolver).(root, args, context)
+
+    assert_receive :ok
+  end
+
+  test "unauthorized viewer to list document formats" do
+    root = %{user: nil}
+    args = %{}
+    context = %{conn: %{}}
+    resolver = fn _, _, _ -> send(self(), :ok) end
+
+    result = Authorization.viewer_authorize(:list_document_formats, resolver).(root, args, context)
+
+    assert result == {:ok, nil}
+    refute_receive :ok
+  end
+
   test "authorized project root", %{user: user, project: project} do
     user = Map.put(user, :permissions, %{project.id => "owner"})
     root = project

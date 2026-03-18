@@ -2,6 +2,8 @@ defmodule Accent.GraphQL.Schema do
   @moduledoc false
   use Absinthe.Schema
 
+  import Accent.GraphQL.Helpers.Authorization
+
   alias Accent.Repo
 
   # Scalars
@@ -51,23 +53,23 @@ defmodule Accent.GraphQL.Schema do
       resolve(&Accent.GraphQL.Resolvers.Viewer.show/3)
     end
 
-    field :languages, non_null(:languages) do
-      arg(:query, :string)
-      arg(:page_size, :integer, default_value: 30)
-
-      resolve(&Accent.GraphQL.Resolvers.Language.list/3)
-    end
-
     field :authentication_providers, non_null(list_of(non_null(:authentication_provider))) do
       resolve(&Accent.GraphQL.Resolvers.AuthenticationProvider.list/3)
     end
 
+    field :languages, non_null(:languages) do
+      arg(:query, :string)
+      arg(:page_size, :integer, default_value: 30)
+
+      resolve(viewer_authorize(:list_languages, &Accent.GraphQL.Resolvers.Language.list/3))
+    end
+
     field :roles, non_null(list_of(non_null(:role_item))) do
-      resolve(&Accent.GraphQL.Resolvers.Role.list/3)
+      resolve(viewer_authorize(:list_roles, &Accent.GraphQL.Resolvers.Role.list/3))
     end
 
     field :document_formats, non_null(list_of(non_null(:document_format_item))) do
-      resolve(&Accent.GraphQL.Resolvers.DocumentFormat.list/3)
+      resolve(viewer_authorize(:list_document_formats, &Accent.GraphQL.Resolvers.DocumentFormat.list/3))
     end
   end
 

@@ -15,6 +15,10 @@ defimpl Canada.Can, for: Accent.User do
     user_id == comment_user_id
   end
 
+  def can?(%User{}, action, nil) when action in [:list_languages, :list_roles, :list_document_formats] do
+    true
+  end
+
   def can?(%User{email: email}, action, _) do
     Accent.EmailAbilities.can?(email, action)
   end

@@ -1,6 +1,8 @@
 defmodule AccentTest.ExportController do
   use Accent.ConnCase
 
+  alias Accent.AccessToken
+  alias Accent.Collaborator
   alias Accent.Document
   alias Accent.Language
   alias Accent.Project
@@ -11,15 +13,43 @@ defmodule AccentTest.ExportController do
 
   setup do
     user = Factory.insert(User)
+    access_token = Factory.insert(AccessToken, user_id: user.id, token: "test-token")
     french_language = Factory.insert(Language)
     project = Factory.insert(Project)
 
+    Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "admin")
     revision = Factory.insert(Revision, language_id: french_language.id, project_id: project.id, master: true)
 
-    {:ok, [user: user, project: project, revision: revision, language: french_language]}
+    {:ok, [access_token: access_token, user: user, project: project, revision: revision, language: french_language]}
   end
 
-  test "export inline", %{conn: conn, project: project, revision: revision, language: language} do
+  test "export unauthorized", %{conn: conn, project: project, language: language} do
+    unauthorized_user = Factory.insert(User)
+    unauthorized_access_token = Factory.insert(AccessToken, user_id: unauthorized_user.id, token: "unauthorized-token")
+    document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
+
+    params = %{
+      project_id: project.id,
+      language: language.slug,
+      document_format: document.format,
+      document_path: document.path
+    }
+
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{unauthorized_access_token.token}")
+      |> get(export_path(conn, [], params))
+
+    assert response.status == 401
+  end
+
+  test "export inline", %{
+    access_token: access_token,
+    conn: conn,
+    project: project,
+    revision: revision,
+    language: language
+  } do
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
     Factory.insert(Translation,
@@ -38,7 +68,10 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert get_resp_header(response, "content-type") == ["text/plain"]
 
@@ -49,7 +82,13 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  test "export basic", %{conn: conn, project: project, revision: revision, language: language} do
+  test "export basic", %{
+    access_token: access_token,
+    conn: conn,
+    project: project,
+    revision: revision,
+    language: language
+  } do
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
     Factory.insert(Translation,
@@ -67,7 +106,10 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert get_resp_header(response, "content-disposition") == ["inline; filename=\"#{document.path}\""]
 
@@ -78,7 +120,7 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  test "export unknown language for the project", %{conn: conn, project: project} do
+  test "export unknown language for the project", %{access_token: access_token, conn: conn, project: project} do
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
     language = Factory.insert(Language)
 
@@ -89,12 +131,21 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert response.status == 404
   end
 
-  test "export document", %{conn: conn, project: project, revision: revision, language: language} do
+  test "export document", %{
+    access_token: access_token,
+    conn: conn,
+    project: project,
+    revision: revision,
+    language: language
+  } do
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
     other_document = Factory.insert(Document, project_id: project.id, path: "test3", format: "json")
 
@@ -121,7 +172,10 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert get_resp_header(response, "content-disposition") == ["inline; filename=\"#{document.path}\""]
 
@@ -132,14 +186,25 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  test "export unknown document", %{conn: conn, project: project, language: language} do
+  test "export unknown document", %{access_token: access_token, conn: conn, project: project, language: language} do
     params = %{project_id: project.id, language: language.slug, document_format: "json", document_path: "foo"}
-    response = get(conn, export_path(conn, [], params))
+
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert response.status == 404
   end
 
-  test "export version", %{conn: conn, user: user, project: project, revision: revision, language: language} do
+  test "export version", %{
+    access_token: access_token,
+    conn: conn,
+    user: user,
+    project: project,
+    revision: revision,
+    language: language
+  } do
     version = Factory.insert(Version, project_id: project.id, user_id: user.id, name: "Current", tag: "master")
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
@@ -168,7 +233,10 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert response.resp_body == """
            {
@@ -177,7 +245,14 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  test "export without version", %{conn: conn, user: user, project: project, revision: revision, language: language} do
+  test "export without version", %{
+    access_token: access_token,
+    conn: conn,
+    user: user,
+    project: project,
+    revision: revision,
+    language: language
+  } do
     version = Factory.insert(Version, project_id: project.id, user_id: user.id, name: "Current", tag: "master")
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
@@ -205,7 +280,10 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert response.resp_body == """
            {
@@ -214,7 +292,7 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  test "export with unknown version", %{conn: conn, project: project, language: language} do
+  test "export with unknown version", %{access_token: access_token, conn: conn, project: project, language: language} do
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
     params = %{
@@ -225,12 +303,21 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert response.status == 404
   end
 
-  test "export with order", %{conn: conn, project: project, revision: revision, language: language} do
+  test "export with order", %{
+    access_token: access_token,
+    conn: conn,
+    project: project,
+    revision: revision,
+    language: language
+  } do
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
     Factory.insert(Translation,
@@ -257,7 +344,10 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert response.resp_body == """
            {
@@ -267,7 +357,13 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  test "export with default order", %{conn: conn, project: project, revision: revision, language: language} do
+  test "export with default order", %{
+    access_token: access_token,
+    conn: conn,
+    project: project,
+    revision: revision,
+    language: language
+  } do
     document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
 
     Factory.insert(Translation,
@@ -296,7 +392,10 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert response.resp_body == """
            {
@@ -307,7 +406,12 @@ defmodule AccentTest.ExportController do
   end
 
   if Langue.Formatter.Rails.enabled?() do
-    test "export with language overrides", %{conn: conn, project: project, revision: revision} do
+    test "export with language overrides", %{
+      access_token: access_token,
+      conn: conn,
+      project: project,
+      revision: revision
+    } do
       alias Accent.Repo
 
       revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
@@ -339,7 +443,10 @@ defmodule AccentTest.ExportController do
         document_path: document.path
       }
 
-      response = get(conn, export_path(conn, [], params))
+      response =
+        conn
+        |> put_req_header("authorization", "Bearer #{access_token.token}")
+        |> get(export_path(conn, [], params))
 
       assert response.resp_body == """
              "testtest":
@@ -350,6 +457,7 @@ defmodule AccentTest.ExportController do
   end
 
   test "export with plurals and android formatter", %{
+    access_token: access_token,
     conn: conn,
     project: project,
     revision: revision,
@@ -385,7 +493,10 @@ defmodule AccentTest.ExportController do
       document_path: document.path
     }
 
-    response = get(conn, export_path(conn, [], params))
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> get(export_path(conn, [], params))
 
     assert response.resp_body == """
            <?xml version="1.0" encoding="utf-8"?>

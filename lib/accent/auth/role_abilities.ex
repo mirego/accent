@@ -15,6 +15,7 @@ defmodule Accent.RoleAbilities do
     index_permissions
     index_versions
     export_version
+    export_revision
     index_translations
     index_comments
     show_comment
