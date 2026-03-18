@@ -19,7 +19,7 @@
       </label>
     </div>
 
-    {{#if (get @permissions 'machine_translations_translate')}}
+    {{#if (get @permissions 'machineTranslationsTranslate')}}
       <div local-class='option'>
         <label local-class='optionLabel'>
           <input type='checkbox' checked={{this.machineTranslationsEnabled}} {{on 'change' (fn this.onChangeMachineTranslationsEnabled)}} />

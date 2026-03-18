@@ -47,14 +47,14 @@
           {{t 'components.project_settings.integrations.history'}}
         </LinkTo>
 
-        {{#if (get @permissions 'update_project_integration')}}
+        {{#if (get @permissions 'updateProjectIntegration')}}
           <button class='button button--filled button--white' {{on 'click' (fn this.toggleEdit)}}>
             {{inline-svg '/assets/pencil.svg' class='button-icon'}}
             {{t 'components.project_settings.integrations.edit'}}
           </button>
         {{/if}}
 
-        {{#if (get @permissions 'delete_project_integration')}}
+        {{#if (get @permissions 'deleteProjectIntegration')}}
           <AsyncButton @onClick={{fn this.delete}} @loading={{this.isDeleting}} class='button button--filled button--white button--hoverRed button--withIcon'>
             {{inline-svg '/assets/x.svg' class='button-icon'}}
           </AsyncButton>

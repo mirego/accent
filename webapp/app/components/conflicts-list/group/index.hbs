@@ -12,7 +12,7 @@
   </LinkTo>
 
   <ul local-class='item-grid'>
-    {{#each @groupedTranslation.translations key="id" as |translation|}}
+    {{#each @groupedTranslation.translations key='id' as |translation|}}
       <li
         local-class='item-grid-item {{if translation.isTranslated "item-grid-item--translated"}} {{if
           translation.isConflicted

@@ -53,7 +53,7 @@ export default class CollaboratorsListItem extends Component<Args> {
   get canDeleteCollaborator() {
     return (
       this.args.permissions &&
-      this.args.permissions.create_collaborator &&
+      this.args.permissions.createCollaborator &&
       (!this.args.collaborator.user ||
         (this.args.collaborator.user &&
           this.session.credentials.user?.id !== this.args.collaborator.user.id))
@@ -63,7 +63,7 @@ export default class CollaboratorsListItem extends Component<Args> {
   get canUpdateCollaborator() {
     return (
       this.args.permissions &&
-      this.args.permissions.update_collaborator &&
+      this.args.permissions.updateCollaborator &&
       this.args.collaborator.user &&
       this.session.credentials.user?.id !== this.args.collaborator.user.id
     );

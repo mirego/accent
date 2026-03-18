@@ -1,5 +1,5 @@
 <div local-class='project-settings-form'>
-  {{#if (get @permissions 'update_project')}}
+  {{#if (get @permissions 'updateProject')}}
     <div local-class='field'>
       <input {{on-key 'cmd+Enter' (fn this.updateProject)}} {{on 'input' (fn this.setName)}} local-class='textInput' value={{this.name}} />
 
@@ -23,7 +23,7 @@
     </AsyncButton>
   {{/if}}
 
-  {{#if (get @permissions 'lock_project_file_operations')}}
+  {{#if (get @permissions 'lockProjectFileOperations')}}
     <div local-class='lock'>
       {{#if this.isFileOperationsLocked}}
         <div role='button' class='button' local-class='lock-text lock-text--active' {{on 'click' (fn this.setLockedFileOperations)}}>

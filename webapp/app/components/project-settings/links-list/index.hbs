@@ -18,13 +18,13 @@
       <p>{{t 'components.project_settings.links_list.jipt_text'}}</p>
     </LinkTo>
 
-    {{#if (get @permissions 'save_project_machine_translations_config')}}
+    {{#if (get @permissions 'saveProjectMachineTranslationsConfig')}}
       <LinkTo @route='logged-in.project.edit.machine-translations' local-class='link'>
         {{inline-svg 'assets/rocket.svg' local-class='link-icon link-icon--machine-translations'}}
         <strong>{{t 'components.project_settings.links_list.machine_translations'}}</strong>
         <p>{{t 'components.project_settings.links_list.machine_translations_text'}}</p>
 
-        {{#if (get @permissions 'machine_translations_translate')}}
+        {{#if (get @permissions 'machineTranslationsTranslate')}}
           <span local-class='link-check'>
             {{inline-svg 'assets/check.svg' local-class='link-check-icon'}}
           </span>
@@ -32,13 +32,13 @@
       </LinkTo>
     {{/if}}
 
-    {{#if (get @permissions 'save_project_prompt_config')}}
+    {{#if (get @permissions 'saveProjectPromptConfig')}}
       <LinkTo @route='logged-in.project.edit.prompts' local-class='link'>
         {{inline-svg 'assets/sparkle.svg' local-class='link-icon link-icon--prompts'}}
         <strong>{{t 'components.project_settings.links_list.prompts'}}</strong>
         <p>{{t 'components.project_settings.links_list.prompts_text'}}</p>
 
-        {{#if (get @permissions 'use_prompt_improve_text')}}
+        {{#if (get @permissions 'usePromptImproveText')}}
           <span local-class='link-check'>
             {{inline-svg 'assets/check.svg' local-class='link-check-icon'}}
           </span>

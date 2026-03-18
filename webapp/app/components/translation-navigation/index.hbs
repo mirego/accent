@@ -1,6 +1,6 @@
 <div local-class='navigation navigation--alt'>
   <ul local-class='navigation-list'>
-    {{#if (get @permissions 'show_project')}}
+    {{#if (get @permissions 'showProject')}}
       <li local-class='navigation-list-item'>
         <LinkTo @route='logged-in.project.translation.index' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
           {{inline-svg 'assets/pencil.svg' local-class='navigation-list-item-link-icon'}}
@@ -11,7 +11,7 @@
       </li>
     {{/if}}
 
-    {{#if (get @permissions 'index_comments')}}
+    {{#if (get @permissions 'indexComments')}}
       <li local-class='navigation-list-item'>
         <LinkTo @route='logged-in.project.translation.comments' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
           {{inline-svg 'assets/bubble.svg' local-class='navigation-list-item-link-icon'}}
@@ -26,7 +26,7 @@
       </li>
     {{/if}}
 
-    {{#if (get @permissions 'index_translation_activities')}}
+    {{#if (get @permissions 'indexTranslationActivities')}}
       <li local-class='navigation-list-item'>
         <LinkTo @route='logged-in.project.translation.activities' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
           {{inline-svg 'assets/activity.svg' local-class='navigation-list-item-link-icon'}}
@@ -37,7 +37,7 @@
       </li>
     {{/if}}
 
-    {{#if (get @permissions 'index_translation_editions')}}
+    {{#if (get @permissions 'indexTranslationEditions')}}
       <li local-class='navigation-list-item'>
         <LinkTo @route='logged-in.project.translation.editions' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
           {{inline-svg 'assets/tag.svg' local-class='navigation-list-item-link-icon'}}

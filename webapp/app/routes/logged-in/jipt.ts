@@ -57,9 +57,12 @@ export default class JIPTRoute extends Route {
       data.viewer.project.revision
     );
 
+    const snakeToCamel = (str: string) =>
+      str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+
     const permissions = data.viewer.project.viewerPermissions.reduce(
       (memo: Record<string, true>, permission: string) => {
-        memo[permission] = true;
+        memo[snakeToCamel(permission)] = true;
         return memo;
       },
       {}

@@ -25,7 +25,7 @@
     </div>
 
     <div>
-      {{#if (get @permissions 'revoke_project_api_token')}}
+      {{#if (get @permissions 'revokeProjectApiToken')}}
         <AsyncButton
           @onClick={{perform this.revokeTask}}
           @loading={{this.isRevoking}}

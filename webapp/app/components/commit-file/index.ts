@@ -29,7 +29,7 @@ interface Args {
   documents: any;
   canCommit: boolean;
   commitAction: 'merge' | 'sync';
-  peekAction: 'peek_merge' | 'peek_sync';
+  peekAction: 'peekMerge' | 'peekSync';
   commitButtonText: string;
   onFileCancel: () => void;
   onPeek: (options: {

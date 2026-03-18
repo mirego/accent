@@ -13,7 +13,7 @@
             </span>
 
             <div local-class='messages-item-actions'>
-              {{#if (get @permissions 'update_translation')}}
+              {{#if (get @permissions 'updateTranslation')}}
                 {{#if message.replacement}}
                   {{#if @fixText}}
                     <button
@@ -27,7 +27,7 @@
                 {{/if}}
               {{/if}}
 
-              {{#if (get @permissions 'create_project_lint_entry')}}
+              {{#if (get @permissions 'createProjectLintEntry')}}
                 {{#if @createLintEntry}}
                   <LintTranslationsPage::AddLintEntry @create={{@createLintEntry}} @message={{message}} @translation={{@lintTranslation.translation}} />
                 {{/if}}

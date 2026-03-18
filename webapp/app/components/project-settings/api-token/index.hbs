@@ -1,5 +1,5 @@
 <div local-class='project-settings-api-token'>
-  {{#if (get @permissions 'list_project_api_tokens')}}
+  {{#if (get this.snakeCasePermissions 'list_project_api_tokens')}}
     <div local-class='tokens'>
       <ProjectSettings::Title @icon='/assets/code.svg' @title={{t 'components.project_settings.api_token.title'}} />
 
@@ -13,7 +13,7 @@
         {{/each}}
       </div>
 
-      {{#if (get @permissions 'create_project_api_token')}}
+      {{#if (get @permissions 'createProjectApiToken')}}
         <div local-class='form'>
           <ProjectSettings::Title @title={{t 'components.project_settings.api_token.create_title'}} />
 
@@ -57,7 +57,7 @@
 
           {{#if this.showPermissionsInput}}
             <ul local-class='permissions-inputs'>
-              {{#each-in @permissions as |permission|}}
+              {{#each-in this.snakeCasePermissions as |permission|}}
                 <li local-class='permissions-input'>
                   <label for={{concat 'permission-' permission}}>
                     <input name='permiss' value={{permission}} type='checkbox' id={{concat 'permission-' permission}} {{on 'input' (fn this.changePermission)}} />

@@ -36,7 +36,7 @@
 
       {{#unless this.isDeleted}}
         <div local-class='list-item-actions'>
-          {{#if (get @permissions 'promote_slave')}}
+          {{#if (get @permissions 'promoteSlave')}}
             <AsyncButton
               @loading={{this.isPromoting}}
               local-class='promoteSlaveButton'
@@ -58,7 +58,7 @@
             </LinkTo>
           {{/unless}}
 
-          {{#if (get @permissions 'delete_slave')}}
+          {{#if (get @permissions 'deleteSlave')}}
             <AsyncButton @loading={{this.isDeleting}} class='button--red button--borderless button--iconOnly button--small' @onClick={{fn this.deleteRevision}}>
               {{inline-svg '/assets/x.svg' class='button-icon'}}
             </AsyncButton>

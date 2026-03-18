@@ -1,7 +1,7 @@
 <li local-class='item'>
   <div local-class='item-info'>
     <h2 local-class='item-title'>
-      {{#if (get @permissions 'update_version')}}
+      {{#if (get @permissions 'updateVersion')}}
         <LinkTo @route='logged-in.project.versions.edit' @models={{array @project.id @version.id}} local-class='item-title-link'>
           {{@version.name}}
         </LinkTo>
@@ -32,21 +32,21 @@
   </div>
 
   <div local-class='links'>
-    {{#if (get @permissions 'update_version')}}
+    {{#if (get @permissions 'updateVersion')}}
       <LinkTo @route='logged-in.project.versions.edit' @models={{array @project.id @version.id}} class='button button--filled button--white'>
         {{inline-svg '/assets/pencil.svg' class='button-icon'}}
         {{t 'components.versions_list.update'}}
       </LinkTo>
     {{/if}}
 
-    {{#if (get @permissions 'export_version')}}
+    {{#if (get @permissions 'exportVersion')}}
       <LinkTo @route='logged-in.project.versions.export' @models={{array @project.id @version.id}} class='button button--filled button--white'>
         {{inline-svg '/assets/export.svg' class='button-icon'}}
         {{t 'components.versions_list.export'}}
       </LinkTo>
     {{/if}}
 
-    {{#if (get @permissions 'delete_version')}}
+    {{#if (get @permissions 'deleteVersion')}}
       <AsyncButton @onClick={{fn this.deleteVersion @version}} @loading={{this.isDeleting}} class='button button--outline button--borderless button--red'>
         {{inline-svg '/assets/x.svg' class='button-icon'}}
         {{t 'components.versions_list.delete'}}

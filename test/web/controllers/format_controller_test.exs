@@ -2,6 +2,7 @@ defmodule AccentTest.FormatController do
   use Accent.ConnCase
 
   alias Accent.AccessToken
+  alias Accent.Collaborator
   alias Accent.Document
   alias Accent.Language
   alias Accent.Project
@@ -13,6 +14,7 @@ defmodule AccentTest.FormatController do
     user = Factory.insert(User)
     access_token = Factory.insert(AccessToken, user_id: user.id)
     project = Factory.insert(Project)
+    Factory.insert(Collaborator, project_id: project.id, user_id: user.id, role: "admin")
 
     {:ok, [user: user, project: project, access_token: access_token]}
   end

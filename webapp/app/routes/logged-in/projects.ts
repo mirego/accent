@@ -4,24 +4,27 @@ import {service} from '@ember/service';
 import projectsQuery from 'accent-webapp/queries/projects';
 import Session from 'accent-webapp/services/session';
 import ApolloSubscription, {
-  Subscription,
+  Subscription
 } from 'accent-webapp/services/apollo-subscription';
 import ProjectsController from 'accent-webapp/controllers/logged-in/projects';
 import RecentProjects from 'accent-webapp/services/recent-projects';
 import RouterService from '@ember/routing/router-service';
 
+const snakeToCamel = (str: string): string =>
+  str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+
 const transformData = (data: any, recentProjectIds: string[]) => {
   const permissions = data.viewer.permissions.reduce(
     (memo: any, permission: any) => {
-      memo[permission] = true;
+      memo[snakeToCamel(permission)] = true;
       return memo;
     },
-    {},
+    {}
   );
 
   const orderedProjects = (recentProjectId: string) => {
     return data.viewer.projects.nodes.find(
-      ({id}: {id: string}) => recentProjectId === id,
+      ({id}: {id: string}) => recentProjectId === id
     );
   };
 
@@ -31,7 +34,7 @@ const transformData = (data: any, recentProjectIds: string[]) => {
     projects: data.viewer.projects,
     languages: data.languages.entries,
     recentProjects,
-    permissions,
+    permissions
   };
 };
 
@@ -50,11 +53,11 @@ export default class ProjectsRoute extends Route {
 
   queryParams = {
     query: {
-      refreshModel: true,
+      refreshModel: true
     },
     page: {
-      refreshModel: true,
-    },
+      refreshModel: true
+    }
   };
 
   subscription: Subscription;
@@ -81,10 +84,10 @@ export default class ProjectsRoute extends Route {
           variables: {
             page,
             query,
-            nodeIds: recentProjectIds,
-          },
-        },
-      },
+            nodeIds: recentProjectIds
+          }
+        }
+      }
     );
 
     return this.subscription.currentResult();

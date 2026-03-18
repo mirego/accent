@@ -1,6 +1,6 @@
 <div local-class='translation-conversation'>
   <div local-class='comments'>
-    {{#if (get @permissions 'create_comment')}}
+    {{#if (get @permissions 'createComment')}}
       {{#unless @translation.isRemoved}}
         <div local-class='comment-form' {{did-insert this.focusTextarea}}>
           <TranslationCommentForm @onSubmit={{@onSubmit}} />

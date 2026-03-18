@@ -6,9 +6,11 @@ defmodule Accent.GraphQL.Resolvers.Language do
   alias Accent.Scopes.Language, as: LanguageScope
 
   @spec list(any(), %{page: number(), query: String.t()}, GraphQLContext.t()) :: {:ok, Paginated.t(Language.t())}
-  def list(_, args, _) do
+  def list(_, args, info) do
+    current_user = info.context[:conn].assigns[:current_user]
+
     Language
-    |> LanguageScope.from_search(args[:query])
+    |> LanguageScope.from_search(current_user, args[:query])
     |> Paginated.paginate(args)
     |> Paginated.format()
     |> then(&{:ok, &1})

@@ -8,7 +8,7 @@
       @onDelete={{@onDelete}}
     />
 
-    {{#if (get @permissions 'create_slave')}}
+    {{#if (get @permissions 'createSlave')}}
       <div local-class='createSlaveForm'>
         {{#if @errors}}
           <ul local-class='error'>

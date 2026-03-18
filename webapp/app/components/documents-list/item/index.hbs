@@ -94,13 +94,13 @@
               </LinkTo>
             {{/if}}
           {{/if}}
-          {{#if (get @permissions 'machine_translations_translate')}}
+          {{#if (get @permissions 'machineTranslationsTranslate')}}
             <LinkTo @route='logged-in.project.files.machine-translations' @models={{array @project.id @document.id}} class='button button--filled button--white'>
               {{inline-svg '/assets/language.svg' class='button-icon'}}
               {{t 'components.documents_list.machine_translations'}}
             </LinkTo>
           {{/if}}
-          {{#if (get @permissions 'export_revision')}}
+          {{#if (get @permissions 'exportRevision')}}
             <LinkTo @route='logged-in.project.files.export' @models={{array @project.id @document.id}} class='button button--filled button--white'>
               {{inline-svg '/assets/export.svg' class='button-icon'}}
               {{t 'components.documents_list.export'}}
@@ -109,7 +109,7 @@
         </div>
 
         <div local-class='deleteDocumentButton-container'>
-          {{#if (get @permissions 'delete_document')}}
+          {{#if (get @permissions 'deleteDocument')}}
             {{#if this.canDeleteFile}}
               <AsyncButton
                 @onClick={{fn this.deleteFile @document}}

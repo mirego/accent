@@ -1,5 +1,5 @@
 <div local-class='root'>
-  {{#if (get @permissions 'machine_translations_translate')}}
+  {{#if (get @permissions 'machineTranslationsTranslate')}}
     <InlineMachineTranslate
       @rtl={{@rtl}}
       @project={{@project}}
@@ -10,7 +10,7 @@
     />
   {{/if}}
 
-  {{#if (get @permissions 'use_prompt_improve_text')}}
+  {{#if (get @permissions 'usePromptImproveText')}}
     <ImprovePrompt @rtl={{@rtl}} @project={{@project}} @prompts={{@prompts}} @text={{@text}} @onUpdatingText={{@onUpdatingText}} @onUpdateText={{@onUpdateText}} />
   {{/if}}
 </div>

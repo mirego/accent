@@ -2,18 +2,20 @@ defmodule Accent.Scopes.Language do
   @moduledoc false
   import Ecto.Query, only: [from: 2]
 
+  alias Accent.Collaborator
   alias Accent.Revision
 
   require Accent.Scopes.PopularLanguagesFragment
 
   @doc """
   Either search by a query or fallback to all languages with the most used at the top.
+  When a user is provided, the ordering is computed only from projects that user collaborates on.
   """
-  @spec from_search(Ecto.Queryable.t(), any()) :: Ecto.Queryable.t()
-  def from_search(query, nil), do: default_order_by(query)
-  def from_search(query, ""), do: default_order_by(query)
+  @spec from_search(Ecto.Queryable.t(), Accent.User.t() | nil, any()) :: Ecto.Queryable.t()
+  def from_search(query, user, nil), do: default_order_by(query, user)
+  def from_search(query, user, ""), do: default_order_by(query, user)
 
-  def from_search(query, term) do
+  def from_search(query, _user, term) do
     search = Accent.Scopes.Search.from_search(query, term, [:name, :slug])
 
     from(
@@ -26,10 +28,34 @@ defmodule Accent.Scopes.Language do
     )
   end
 
-  defp default_order_by(query) do
+  defp default_order_by(query, nil) do
     priorities_query =
       from(revisions in Revision,
         join: languages in assoc(revisions, :language),
+        group_by: languages.slug,
+        select: %{
+          slug: languages.slug,
+          index: over(row_number(), order_by: [desc: count()])
+        },
+        limit: 5
+      )
+
+    from(languages in query,
+      left_join: priorities in subquery(priorities_query),
+      on: priorities.slug == languages.slug,
+      order_by: [
+        asc: fragment("CASE WHEN ? IS NULL THEN 999 ELSE ? END", priorities.index, priorities.index),
+        asc: languages.name
+      ]
+    )
+  end
+
+  defp default_order_by(query, user) do
+    priorities_query =
+      from(revisions in Revision,
+        join: languages in assoc(revisions, :language),
+        join: collaborators in Collaborator,
+        on: collaborators.project_id == revisions.project_id and collaborators.user_id == ^user.id,
         group_by: languages.slug,
         select: %{
           slug: languages.slug,

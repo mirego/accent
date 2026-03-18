@@ -7,6 +7,7 @@ import IntlService from 'ember-intl/services/intl';
 
 interface Args {
   token: any;
+  permissions: Record<string, true>;
   onRevoke: (args: {id: string}) => Promise<void>;
 }
 

@@ -12,7 +12,7 @@
     </div>
 
     {{#unless this.debouncedQuery}}
-      {{#if (get @permissions 'create_project')}}
+      {{#if (get @permissions 'createProject')}}
         <LinkTo @route='logged-in.projects.new' class='button button--filled button--green' local-class='createProjectButton'>
           {{inline-svg '/assets/add.svg' class='button-icon'}}
           {{t 'components.projects_filters.new_project'}}

@@ -102,7 +102,7 @@
           </div>
         {{else}}
           <div local-class='empty-slaves'>
-            {{#if (get @permissions 'create_slave')}}
+            {{#if (get @permissions 'createSlave')}}
               <LinkTo @route='logged-in.project.manage-languages' @model={{@project.id}} local-class='empty-slaves-button'>
                 <span local-class='empty-slaves-button-action'>
                   {{inline-svg 'assets/add.svg' local-class='empty-slaves-button-icon'}}

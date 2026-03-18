@@ -62,12 +62,16 @@ export default class ProjectRoute extends Route {
     this.apolloSubscription.clearSubscription(this.subscription);
   }
 
+  private snakeToCamel(str: string): string {
+    return str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+  }
+
   private transformData(data: ProjectQueryResponse): Model {
     if (!data.viewer || !data.viewer.project) return {permissions: {}};
 
     const permissions = data.viewer.project.viewerPermissions.reduce(
       (memo: Record<string, boolean>, permission: string) => {
-        memo[permission] = true;
+        memo[this.snakeToCamel(permission)] = true;
         return memo;
       },
       {}

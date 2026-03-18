@@ -74,11 +74,11 @@ export default class ConflictsListItem extends Component<Args> {
 
   get onSubmitAction() {
     const {isConflicted} = this.args.translation;
-    const {correct_translation, uncorrect_translation} = this.args.permissions;
+    const {correctTranslation, uncorrectTranslation} = this.args.permissions;
 
     const action =
-      (isConflicted && correct_translation && this.correctConflict) ||
-      (!isConflicted && uncorrect_translation && this.uncorrectConflict) ||
+      (isConflicted && correctTranslation && this.correctConflict) ||
+      (!isConflicted && uncorrectTranslation && this.uncorrectConflict) ||
       this.updateConflict;
 
     return action;

@@ -56,13 +56,13 @@
             </AsyncButton>
           {{/unless}}
 
-          {{#if (get @permissions 'update_translation')}}
+          {{#if (get @permissions 'updateTranslation')}}
             <AsyncButton @loading={{this.isUpdatingText}} class='button button--filled button--white' @onClick={{fn this.updateText}}>
               {{t 'components.translation_edit.update_text'}}
             </AsyncButton>
           {{/if}}
           {{#if @translation.isConflicted}}
-            {{#if (get @permissions 'correct_translation')}}
+            {{#if (get @permissions 'correctTranslation')}}
               <AsyncButton @loading={{this.isCorrectingConflict}} class='button button--filled' @onClick={{fn this.correctConflict}}>
                 {{inline-svg '/assets/check.svg' class='button-icon'}}
                 {{t 'components.translation_edit.correct_button'}}
@@ -70,7 +70,7 @@
             {{/if}}
           {{else}}
 
-            {{#if (get @permissions 'uncorrect_translation')}}
+            {{#if (get @permissions 'uncorrectTranslation')}}
               <AsyncButton @loading={{this.isUncorrectingConflict}} class='button button--filled button--red' @onClick={{fn this.uncorrectConflict}}>
                 {{inline-svg '/assets/revert.svg' class='button-icon'}}
                 {{t 'components.translation_edit.uncorrect_button'}}

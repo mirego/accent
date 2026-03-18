@@ -7,6 +7,7 @@ import IntlService from 'ember-intl/services/intl';
 import {CreateApiTokenResponse} from 'accent-webapp/queries/create-api-token';
 
 interface Args {
+  permissions: Record<string, true>;
   projectToken: string;
   userToken: string;
   onCreate: (args: {
@@ -17,12 +18,24 @@ interface Args {
   onRevoke: (args: {id: string}) => void;
 }
 
+const camelToSnake = (str: string): string =>
+  str.replace(/([A-Z])/g, (letter) => `_${letter.toLowerCase()}`);
+
 export default class APIToken extends Component<Args> {
   @service('intl')
   declare intl: IntlService;
 
   @tracked
   isEdit = false;
+
+  get snakeCasePermissions(): Record<string, true> {
+    return Object.fromEntries(
+      Object.keys(this.args.permissions).map((key) => [
+        camelToSnake(key),
+        true as const
+      ])
+    );
+  }
 
   @tracked
   showPermissionsInput = false;

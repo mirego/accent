@@ -17,8 +17,6 @@ declare const config: {
     LOG_VERSION: boolean;
   };
 
-  APP: {};
-
   API: {
     HOST: string;
     AUTHENTICATION_PATH: string;
