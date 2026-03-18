@@ -19,8 +19,7 @@ else
     outbounds: [
       Accent.Hook.Outbounds.Discord,
       Accent.Hook.Outbounds.Email,
-      Accent.Hook.Outbounds.Slack,
-      Accent.Hook.Outbounds.Websocket
+      Accent.Hook.Outbounds.Slack
     ]
 end
 

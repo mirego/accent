@@ -1,8 +1,6 @@
 defmodule Accent.Endpoint do
   use Phoenix.Endpoint, otp_app: :accent
 
-  socket("/socket", Accent.UserSocket, websocket: true, timeout: 45_000)
-
   plug(:ping)
   plug(:canonical_host)
   plug(:force_ssl)
