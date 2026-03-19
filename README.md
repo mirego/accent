@@ -24,14 +24,14 @@ Accent provides a powerful abstraction around the process maintaining translatio
 
 ## Contents
 
-| Section                                             | Description                                                          |
-| --------------------------------------------------- | -------------------------------------------------------------------- |
+| Section                                              | Description                                                          |
+| ---------------------------------------------------- | -------------------------------------------------------------------- |
 | [🚀 Getting started](#-getting-started)             | Quickly setup a working app                                          |
 | [🚧 Requirements](#-requirements)                   | Dependencies required to run Accent’ stack                           |
 | [🎛 Mix commands](#-executing-mix-commands)         | How to execute mix task with the Twelve-Factor pattern               |
 | [🏎 Quickstart](#-quickstart)                       | Steps to run the project, from API to webapp, with or without Docker |
 | [🌳 Environment variables](#-environment-variables) | Required and optional env var used                                   |
-| [✅ Tests](#-tests)                                 | How to run the extensive tests suite                                 |
+| [✅ Tests](#-tests)                                  | How to run the extensive tests suite                                 |
 | [🚀 Heroku](#-deploy-on-heroku)                     | Easy deployment setup with Heroku                                    |
 | [🌎 Contribute](#-contribute)                       | How to contribute to this repo                                       |
 
@@ -148,29 +148,30 @@ Accent provides a default value for every required environment variable. This me
 
 Various login providers are included in Accent using Ueberauth to abstract services.
 
-| Variable                   | Default                | Description                                                                             |
-| -------------------------- | ---------------------- | --------------------------------------------------------------------------------------- |
-| `DUMMY_LOGIN_ENABLED`      | _none_                 | If specified, the password-less authentication (with only the email) will be available. |
-| `GITHUB_CLIENT_ID`         | _none_                 |                                                                                         |
-| `GITHUB_CLIENT_SECRET`     | _none_                 |                                                                                         |
-| `GITLAB_CLIENT_ID`         | _none_                 |                                                                                         |
-| `GITLAB_CLIENT_SECRET`     | _none_                 |                                                                                         |
-| `GITLAB_SITE_URL`          | `https://gitlab.com`   |                                                                                         |
-| `GOOGLE_API_CLIENT_ID`     | _none_                 |                                                                                         |
-| `GOOGLE_API_CLIENT_SECRET` | _none_                 |                                                                                         |
-| `SLACK_CLIENT_ID`          | _none_                 |                                                                                         |
-| `SLACK_CLIENT_SECRET`      | _none_                 |                                                                                         |
-| `SLACK_TEAM_ID`            | _none_                 |                                                                                         |
-| `DISCORD_CLIENT_ID`        | _none_                 |                                                                                         |
-| `DISCORD_CLIENT_SECRET`    | _none_                 |                                                                                         |
-| `MICROSOFT_CLIENT_ID`      | _none_                 |                                                                                         |
-| `MICROSOFT_CLIENT_SECRET`  | _none_                 |                                                                                         |
-| `MICROSOFT_TENANT_ID`      | _none_                 |                                                                                         |
-| `OIDC_CLIENT_ID`           | _none_                 |                                                                                         |
-| `OIDC_CLIENT_SECRET`       | _none_                 |                                                                                         |
-| `OIDC_DISCOVERY_URI`       | _none_                 |                                                                                         |
-| `OIDC_UID_FIELD`           | `sub`                  |                                                                                         |
-| `OIDC_SCOPE`               | `openid profile email` |                                                                                         |
+| Variable                   | Default                | Description                                                                                  |
+| -------------------------- | ---------------------- | -------------------------------------------------------------------------------------------- |
+| `DUMMY_LOGIN_ENABLED`      | _none_                 | If specified, the password-less authentication (with only the email) will be available.      |
+| `GITHUB_CLIENT_ID`         | _none_                 |                                                                                              |
+| `GITHUB_CLIENT_SECRET`     | _none_                 |                                                                                              |
+| `GITLAB_CLIENT_ID`         | _none_                 |                                                                                              |
+| `GITLAB_CLIENT_SECRET`     | _none_                 |                                                                                              |
+| `GITLAB_SITE_URL`          | `https://gitlab.com`   |                                                                                              |
+| `GOOGLE_API_CLIENT_ID`     | _none_                 |                                                                                              |
+| `GOOGLE_API_CLIENT_SECRET` | _none_                 |                                                                                              |
+| `SLACK_CLIENT_ID`          | _none_                 |                                                                                              |
+| `SLACK_CLIENT_SECRET`      | _none_                 |                                                                                              |
+| `SLACK_TEAM_ID`            | _none_                 |                                                                                              |
+| `DISCORD_CLIENT_ID`        | _none_                 |                                                                                              |
+| `DISCORD_CLIENT_SECRET`    | _none_                 |                                                                                              |
+| `MICROSOFT_CLIENT_ID`      | _none_                 |                                                                                              |
+| `MICROSOFT_CLIENT_SECRET`  | _none_                 |                                                                                              |
+| `MICROSOFT_TENANT_ID`      | _none_                 |                                                                                              |
+| `OIDC_CLIENT_ID`           | _none_                 |                                                                                              |
+| `OIDC_CLIENT_SECRET`       | _none_                 |                                                                                              |
+| `OIDC_DISCOVERY_URI`       | _none_                 | URL to openid-configuration. Deprecated, use `OIDC_ISSUER`                                   |
+| `OIDC_ISSUER`              | _none_                 | Issuer URL (e.g. `https://idp-website.example`, or `https://idp-website.example/realms/XXX`) |
+| `OIDC_UID_FIELD`           | `sub`                  |                                                                                              |
+| `OIDC_SCOPE`               | `openid profile email` |                                                                                              |
 
 ### Email setup
 
