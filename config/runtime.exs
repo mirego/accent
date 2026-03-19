@@ -95,7 +95,7 @@ providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Aut
 config :ueberauth_oidcc, :issuers, [
   %{
     name: :oidcc_issuer,
-    issuer: get_env("OIDC_ISSUER") || get_env("OIDC_DISCOVERY_URI") |> String.trim_trailing("/.well-known/openid-configuration")
+    issuer: get_env("OIDC_ISSUER") || String.trim_trailing(get_env("OIDC_DISCOVERY_URI"), "/.well-known/openid-configuration")
    }
 ]
 
