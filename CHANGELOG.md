@@ -1,5 +1,53 @@
 # Changelog
 
+## v1.28.0
+
+- Server-side session management replacing localStorage-based authentication
+- Authorization enforcement on export endpoint and GraphQL viewer-level queries
+- Integration execution tracking and history UI
+- "Correct all from version" feature for marking main version strings as reviewed
+- Language ordering scoped to projects the current user collaborates on
+
+## v1.27.0
+
+- Version deletion capability
+- Document and version filtering on project dashboard
+- Versioned translations linked to source on sync
+- CLI upgrade to newest oclif version
+
+## v1.26.0
+
+- Ember.js 6 and latest JavaScript dependencies upgrade
+
+## v1.24.0
+
+- DeepL Pro support
+- Alternate OpenAI provider support
+- Popular languages prioritized in default language ordering
+
+## v1.22.0
+
+- Lint ignore rules per project (ignore checks by term, key, or spelling rule)
+- Deterministic documents ordering on project
+
+## v1.21.0
+
+- AWS S3 integration to push strings
+- CLI `--no-local-write` option to skip writing to local files after sync
+- Translation key display in JIPT list items
+
+## v1.20.0
+
+- Side-by-side conflicts page to view all languages
+- Copy on update option in version to mirror updates to latest version
+- JIPT in-context translation page on project scope
+- Versions listing for single string
+- Azure Storage Container integration
+- Translator role with "translated" state on translations
+- Version filter on project revisions with CLI `--check-reviewed` flag
+- Placeholder handling in Google Translate
+- Translated advanced filter
+
 ## v1.19.0
 
 Added: Spellchecker with https://languagetool.org/
