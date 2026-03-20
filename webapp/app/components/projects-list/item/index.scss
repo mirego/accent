@@ -10,11 +10,11 @@
   &:focus,
   &:hover {
     border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--color-primary) 4%, transparent) 0%,
-    transparent 65%
-  );
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-primary) 4%, transparent) 0%,
+      transparent 65%
+    );
 
     .projectName {
       color: color-mix(in srgb, var(--color-primary) 94%, #fff);

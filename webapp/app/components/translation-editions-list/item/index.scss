@@ -58,31 +58,6 @@
   gap: 5px;
 }
 
-.item-edit {
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  padding: 2px 8px;
-  transform: translateX(-20px);
-  transition: 0.2s ease-in-out;
-  transition-property: opacity, transform;
-}
-
-.item-edit-icon {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  stroke: var(--color-grey);
-  transition: 0.2s ease-in-out;
-  transition-property: stroke;
-
-  &:focus,
-  &:hover {
-    stroke: var(--color-green);
-    stroke: var(--color-primary);
-  }
-}
-
 .item-key {
   font-family: var(--font-monospace);
   text-transform: none;

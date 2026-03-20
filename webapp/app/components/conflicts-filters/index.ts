@@ -31,6 +31,9 @@ export default class ConflictsFilters extends Component<Args> {
   @service('intl')
   declare intl: IntlService;
 
+  @gt('args.conflicts.length', 0)
+  showLegendPopup: boolean;
+
   @gt('args.documents.length', 1)
   showDocumentsSelect: boolean;
 

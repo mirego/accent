@@ -106,7 +106,8 @@
 .item-edit {
   position: absolute;
   opacity: 0;
-  top: 0;
+  top: -3px;
+  left: 7px;
   padding: 2px 8px;
   transform: translateX(-20px);
   transition: 0.2s ease-in-out;

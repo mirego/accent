@@ -39,16 +39,16 @@ export default class JIPTController extends Controller {
         if (payload.data.jipt && payload.data.selectId) {
           this.router.transitionTo(
             'logged-in.jipt.translation',
-            payload.data.selectId,
+            payload.data.selectId
           );
         }
         if (payload.data.jipt && payload.data.selectIds) {
           this.router.transitionTo('logged-in.jipt.index', {
-            queryParams: {translationIds: payload.data.selectIds},
+            queryParams: {translationIds: payload.data.selectIds}
           });
         }
       },
-      false,
+      false
     );
   }
 
