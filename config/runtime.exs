@@ -12,6 +12,7 @@ if config_env() === :test do
     adapter: Bandit.PhoenixAdapter,
     http: [port: 4001],
     server: false,
+    signing_salt: "accent-test-signing-salt",
     url: [port: 80, scheme: "http", host: "example.com"],
     static_url: [port: 80, scheme: "http", host: "example.com"]
 
@@ -25,6 +26,7 @@ else
     http: [port: port],
     url: get_endpoint_url_config(canonical_uri),
     secret_key_base: get_env("SECRET_KEY_BASE") || "UNSAFE_pJhJ9q2qmMXYUCR0HyfufqtHQ+W1rqsr9M5q2aYo6Lo=",
+    signing_salt: get_env("SIGNING_SALT") || "accent-signing-salt-used-for-callback-auth",
     static_url: get_endpoint_url_config(static_uri),
     debug_errors: get_env("DEBUG_ERRORS", :boolean)
 
