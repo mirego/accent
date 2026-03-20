@@ -1,5 +1,5 @@
 <div local-class='project-settings-api-token'>
-  {{#if (get this.snakeCasePermissions 'list_project_api_tokens')}}
+  {{#if (get @permissions 'listProjectApiTokens')}}
     <div local-class='tokens'>
       <ProjectSettings::Title @icon='/assets/code.svg' @title={{t 'components.project_settings.api_token.title'}} />
 

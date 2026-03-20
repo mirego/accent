@@ -19,7 +19,7 @@
 
   &:focus,
   &:hover {
-    color: var(--color-primary-darken-10);
+    color: color-mix(in srgb, var(--color-primary) 90%, black);
   }
 }
 

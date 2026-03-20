@@ -8,8 +8,14 @@
   margin-top: -64px;
   top: 0;
   height: 100vh;
+  padding: 0 7px;
   overflow-y: auto;
   justify-content: space-between;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-primary) 10%, transparent) 0%,
+    transparent 45%
+  );
 }
 
 .footer {
@@ -66,11 +72,12 @@
     height: 22px;
 
     circle {
-      fill: var(--logo-background);
+      fill: color-mix(in srgb, var(--color-primary) 25%, transparent);
     }
 
     path {
-      fill: var(--logo-foreground);
+      fill: var(--text-color-normal);
+      opacity: 0.8;
     }
   }
 }
@@ -100,21 +107,23 @@
   transition: 0.2s ease-in-out;
   transition-property: padding, background, border, border-radius, box-shadow;
   border-radius: var(--border-radius);
-  border: 1px solid var(--input-border-color);
-  background: var(--input-background);
+  border: 1px solid
+    color-mix(in srgb, var(--text-color-normal), transparent 90%);
+  background: color-mix(in srgb, var(--input-background), transparent 50%);
   color: var(--text-color-normal);
   font-size: 12px;
 
   &::placeholder {
-    color: #aaa;
+    color: color-mix(in hsl, var(--text-color-normal), 50%);
   }
 
   &:focus {
     outline: none;
     border-radius: var(--border-radius);
+    background: color-mix(in srgb, var(--input-background), transparent 8%);
     box-shadow:
-      0 1px 2px var(--shadow-color),
-      0 2px 8px var(--shadow-color);
+      0 1px 3px var(--shadow-color),
+      0 2px 12px color-mix(in srgb, var(--shadow-color), transparent 50%);
   }
 }
 

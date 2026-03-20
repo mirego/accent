@@ -45,10 +45,10 @@
   transform: translateX(-1px);
   padding: 6px 10px 5px;
   border-color: transparent;
-  border-left: 1px solid var(--color-primary-darken-10);
+  border-left: 1px solid color-mix(in srgb, var(--color-primary) 90%, black);
 
   &.compact {
-    border-left: 1px solid var(--color-primary-darken-10);
+    border-left: 1px solid color-mix(in srgb, var(--color-primary) 90%, black);
   }
 
   &:before {
@@ -91,7 +91,7 @@
 
   .item-content {
     background: var(--color-primary-lighten-95);
-    color: var(--color-primary-darken-50);
+    color: color-mix(in srgb, var(--color-primary) 50%, black);
   }
 
   .item-documentPath {
@@ -567,7 +567,7 @@ a.item-documentPath {
 
   &:hover,
   &:focus {
-    color: var(--color-primary-darken-10);
+    color: color-mix(in srgb, var(--color-primary) 90%, black);
   }
 
   &.item-translationLink--removed {

@@ -62,7 +62,7 @@
 
   &:focus,
   &:hover {
-    background: var(--color-primary-opacity-10);
+    background: color-mix(in srgb, var(--color-primary) 10%, transparent);
     box-shadow:
       0 1px 6px var(--shadow-color),
       0 5px 18px var(--shadow-color);

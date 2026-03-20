@@ -12,11 +12,11 @@
   max-height: 200px;
 
   &::-moz-selection {
-    background: var(--color-primary-opacity-70);
+    background: color-mix(in srgb, var(--color-primary) 70%, transparent);
   }
 
   &::selection {
-    background: var(--color-primary-opacity-70);
+    background: color-mix(in srgb, var(--color-primary) 70%, transparent);
   }
 
   &:focus {

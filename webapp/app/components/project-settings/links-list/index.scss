@@ -81,7 +81,7 @@
   justify-content: center;
   border-radius: 50px;
   color: var(--color-primary);
-  background: var(--color-primary-opacity-10);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
 }
 
 .link-icon {

@@ -1,7 +1,7 @@
 .projects-list-item {
-  padding: 12px 15px;
+  padding: 10px 15px 12px;
   transition: 0.2s ease-in-out;
-  transition-property: box-shadow, border-color;
+  transition-property: box-shadow, border-color, background;
   border-radius: var(--border-radius);
   border: 1px solid var(--content-background-border);
   background: var(--content-background);
@@ -9,18 +9,15 @@
 
   &:focus,
   &:hover {
-    box-shadow:
-      0 1px 4px var(--shadow-color),
-      0 3px 14px var(--shadow-color);
-    border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
-    border-bottom-color: color-mix(
-      in srgb,
-      var(--color-primary) 25%,
-      transparent
-    );
+    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-primary) 4%, transparent) 0%,
+    transparent 65%
+  );
 
     .projectName {
-      color: var(--color-primary);
+      color: color-mix(in srgb, var(--color-primary) 94%, #fff);
     }
   }
 }

@@ -114,8 +114,8 @@ html[data-theme='dark'] .ember-power-select-multiple-option {
 
 .ember-power-select-multiple-option {
   display: inline-block;
-  background: var(--color-primary-opacity-25);
-  color: var(--color-primary-darken-50);
+  background: color-mix(in srgb, var(--color-primary) 25%, transparent);
+  color: color-mix(in srgb, var(--color-primary) 50%, black);
   border-radius: var(--border-radius);
 
   padding: 3px 9px;

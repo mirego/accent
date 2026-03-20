@@ -10,8 +10,8 @@
   background-color: var(--body-background);
 
   &.empty-content--primary {
-    color: hsl(var(--color-primary-hue), var(--color-primary-saturation), 50%);
-    background-color: var(--color-primary-opacity-50);
+    color: hsl(from var(--color-primary) h s 50%);
+    background-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
 
     svg {
       color: var(--color-primary);

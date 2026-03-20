@@ -5,23 +5,23 @@
   border: 1px solid var(--background-light-highlight);
 
   &.form--configured {
-    background: var(--color-primary-opacity-10);
-    border-color: var(--color-primary-opacity-50);
+    background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
 
     .config-key-help {
-      color: var(--color-primary-darken-10);
+      color: color-mix(in srgb, var(--color-primary) 90%, black);
       opacity: 1;
     }
     .select select {
-      border-color: var(--color-primary-opacity-50);
-      background: var(--color-primary-opacity-10);
+      border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+      background: color-mix(in srgb, var(--color-primary) 10%, transparent);
     }
   }
 }
 
 .check {
   width: 18px;
-  stroke: var(--color-primary-darken-10);
+  stroke: color-mix(in srgb, var(--color-primary) 90%, black);
 }
 
 .select {

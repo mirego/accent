@@ -19,7 +19,7 @@
   bottom: 0;
   right: 0;
   min-height: calc(100vh - 130px);
-  background-color: var(--content-background);
+  background-color: var(--modal-overlay-background);
   opacity: 0.8;
 
   animation-name: animate-overlay;

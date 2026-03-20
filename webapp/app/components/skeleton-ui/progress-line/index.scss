@@ -15,7 +15,7 @@
 }
 
 .progress-line:before {
-  background-color: var(--color-primary-opacity-70);
+  background-color: color-mix(in srgb, var(--color-primary) 70%, transparent);
   content: '';
   animation: progress-line-running-progress 1.8s cubic-bezier(0.5, 0, 0.1, 1)
     infinite;

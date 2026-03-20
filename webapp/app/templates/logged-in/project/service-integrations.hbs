@@ -2,7 +2,7 @@
   {{inline-svg '/assets/share.svg'}}
   <h1>{{t 'components.page_title.service_integrations'}}</h1>
   <PageTitle::End>
-    {{#if (get this.permissions 'create_project_integration')}}
+    {{#if (get this.permissions 'createProjectIntegration')}}
       {{#unless this.showCreateForm}}
         <IntegrationsAddButton @onClick={{fn this.toggleCreateForm}} />
       {{/unless}}

@@ -1,10 +1,10 @@
 div.skeleton {
-  padding: 0 10px;
-  margin-left: 18px;
-  background: var(--body-background);
+  padding: 25px 10px 0;
+  min-height: 100dvh;
+  background: var(--content-background);
 
   &:after {
-    background: var(--body-background);
+    background: var(--content-background);
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0,

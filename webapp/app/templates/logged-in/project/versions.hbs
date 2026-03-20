@@ -3,7 +3,7 @@
   <h1>{{t 'components.page_title.versions'}}</h1>
   <PageTitle::End>
     {{#if this.model.versions.entries.length}}
-      {{#if (get this.permissions 'create_version')}}
+      {{#if (get this.permissions 'createVersion')}}
         <VersionsAddButton @project={{this.model.project}} />
       {{/if}}
     {{/if}}
@@ -20,7 +20,7 @@
 {{else}}
   <VersionsList @permissions={{this.permissions}} @versions={{this.model.versions.entries}} @project={{this.model.project}} @onDelete={{fn this.deleteVersion}} />
 
-  {{#if (get this.permissions 'create_version')}}
+  {{#if (get this.permissions 'createVersion')}}
     <VersionsAddButton @project={{this.model.project}} />
   {{/if}}
 

@@ -37,7 +37,7 @@
   width: 22px;
   margin-left: 3px;
   transform: rotate(45deg);
-  background: var(--color-primary-opacity-25);
+  background: color-mix(in srgb, var(--color-primary) 25%, transparent);
   border-radius: 50%;
   padding: 3px;
   color: var(--color-primary);

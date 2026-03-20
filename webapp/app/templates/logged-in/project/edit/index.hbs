@@ -5,7 +5,7 @@
 
   <ProjectSettings::LinksList @project={{this.project}} @permissions={{this.permissions}} />
 
-  {{#if (get this.permissions 'delete_project')}}
+  {{#if (get this.permissions 'deleteProject')}}
     <ProjectSettings::DeleteForm @project={{this.project}} @onSubmit={{fn this.deleteProject}} />
   {{/if}}
 {{/if}}

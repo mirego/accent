@@ -57,7 +57,7 @@
 
   &:focus,
   &:hover {
-    background: hsl(var(--accent-hue), 55%, 40%);
+    background: hsl(from var(--color-primary) h 55% 40%);
   }
 }
 

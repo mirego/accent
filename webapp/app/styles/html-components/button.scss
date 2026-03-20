@@ -112,20 +112,12 @@
 
 .button--filled {
   --button-background-color: var(--color-primary);
-  --button-background-hover-color: hsl(
-    var(--color-primary-hue),
-    var(--color-primary-saturation),
-    42%
-  );
-  --button-border-color: var(--color-primary-darken-10);
+  --button-background-hover-color: hsl(from var(--color-primary) h s 42%);
+  --button-border-color: color-mix(in srgb, var(--color-primary) 90%, black);
   --button-text-hover-color: #fff;
   --button-border-hover-color: transparent;
   --button-text-color: #fff;
-  --button-shadow-focus-color: hsl(
-    var(--color-primary-hue),
-    var(--color-primary-saturation),
-    50%
-  );
+  --button-shadow-focus-color: hsl(from var(--color-primary) h s 50%);
 
   padding: 5px 12px;
   background: var(--button-background-color);
@@ -246,7 +238,11 @@
     --button-text-hover-color: var(--color-black);
     --button-text-color: var(--color-black);
     --button-background-color: var(--content-background);
-    --button-background-hover-color: var(--color-primary-opacity-10);
+    --button-background-hover-color: color-mix(
+      in srgb,
+      var(--color-primary) 10%,
+      transparent
+    );
     --button-border-color: var(--content-background-border);
     --button-shadow-focus-color: var(--shadow-color);
     --button-loading-color: var(--color-black);
@@ -332,14 +328,10 @@
   --button-text-color: var(--color-primary);
   --button-text-hover-color: var(--color-primary);
   --button-border-color: hsl(
-    var(--color-primary-hue),
-    var(--color-primary-saturation),
-    var(--color-highlight-lighteness)
+    from var(--color-primary) h s var(--color-highlight-lighteness)
   );
   --button-background-hover-color: hsl(
-    var(--color-primary-hue),
-    var(--color-primary-saturation),
-    var(--color-highlight-hover-lighteness)
+    from var(--color-primary) h s var(--color-highlight-hover-lighteness)
   );
   --button-loading-color: var(--color-primary);
 }

@@ -171,11 +171,11 @@
 }
 
 ::-moz-selection {
-  background: var(--color-primary-opacity-10);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
 }
 
 ::selection {
-  background: var(--color-primary-opacity-10);
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
 }
 
 html {
@@ -191,11 +191,7 @@ html {
 
   --border-radius: 6px;
 
-  --accent-hue: 155;
-  --accent-saturation: 67%;
-  --accent-light: 48%;
-
-  --text-color-normal: hsl(var(--accent-hue), 30%, 5%);
+  --text-color-normal: hsl(from var(--color-primary) h 30% 5%);
 
   --content-background: #fff;
   --content-background-border: #eaeaea;
@@ -216,20 +212,12 @@ html {
   --background-light-highlight: #eaeaea;
 
   --color-primary: #28cb87;
-  --color-primary-hue: 155;
-  --color-primary-saturation: 67%;
-  --color-primary-darken-10: #1c9060;
-  --color-primary-opacity-10: rgba(40, 203, 135, 0.1);
-  --color-primary-opacity-20: rgba(40, 203, 135, 0.2);
-  --color-primary-opacity-25: rgba(40, 203, 135, 0.25);
-  --color-primary-opacity-50: rgba(40, 203, 135, 0.5);
-  --color-primary-opacity-70: rgba(40, 203, 135, 0.7);
 
   --color-highlight-lighteness: 95%;
   --color-highlight-hover-lighteness: 90%;
 
   --color-grey: #adadad;
-  --color-black: #484848;
+  --color-black: hsl(from var(--color-primary) h calc(s * 0.7) calc(l * 0.3));
   --background-tooltip: #eee;
   --text-color-tooltip: #333;
 
@@ -257,21 +245,22 @@ html {
   --color-error-saturation: 65%;
 
   --shadow-color: rgba(0, 0, 0, 0.07);
+  --modal-overlay-background: #333;
 
   background: #eee;
 }
 
 html[data-theme='dark'] {
-  --content-background: #191919;
-  --content-background-border: #232323;
+  --content-background: #161616;
+  --content-background-border: #272727;
 
   --html-background: #191919;
-  --body-background: #161616;
+  --body-background: #111;
 
   --logo-background: #333;
   --logo-foreground: #777;
 
-  --text-color-normal: hsl(var(--accent-hue), 3%, 80%);
+  --text-color-normal: hsl(from var(--color-primary) h 3% 80%);
 
   --gradient-header-color: #171717;
 
@@ -279,20 +268,21 @@ html[data-theme='dark'] {
   --input-background: #111;
   --input-color: #fafafa;
 
-  --background-light: #1f1f1f;
+  --background-light: #212121;
   --background-light-highlight: #3c3c3c;
 
   --shadow-color: rgba(0, 0, 0, 0.14);
 
   --color-highlight-lighteness: 12%;
   --color-highlight-hover-lighteness: 20%;
-  --color-black: #adadad;
+  --color-black: hsl(from var(--color-primary) h calc(s * 0.1) calc(l * 1.6));
   --color-grey: #616161;
 
   --background-tooltip: #111;
   --text-color-tooltip: #fff;
+  --modal-overlay-background: #000;
 
-  background: #191919;
+  background: var(--content-background);
 }
 
 body {
@@ -375,7 +365,7 @@ emoji-picker {
   --outline-size: 0;
   --input-font-color: var(--text-color-normal);
   --input-placeholder-color: var(--color-grey);
-  --indicator-color: hsl(var(--accent-hue), 55%, 55%);
+  --indicator-color: hsl(from var(--color-primary) h 55% 55%);
   --button-hover-background: var(--background-light-highlight);
   --button-active-background: var(--background-light-highlight);
 }

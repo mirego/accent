@@ -3,7 +3,7 @@
   <h1>{{t 'components.page_title.files'}}</h1>
 
   <PageTitle::End>
-    {{#if (get this.permissions 'export_revision')}}
+    {{#if (get this.permissions 'exportRevision')}}
       <LinkTo @route='logged-in.project.files.export-all' @model={{this.model.project.id}} class='button button--white button--filled'>
         {{inline-svg '/assets/export.svg' class='button-icon'}}
         {{t 'components.documents_list.export_all'}}
@@ -41,7 +41,7 @@
     <DocumentsAddButton @project={{this.model.project}} />
   {{/if}}
 
-  {{#if (get this.permissions 'machine_translations_translate')}}
+  {{#if (get this.permissions 'machineTranslationsTranslate')}}
     <DocumentsMachineTranslationsButton @project={{this.model.project}} />
   {{/if}}
 

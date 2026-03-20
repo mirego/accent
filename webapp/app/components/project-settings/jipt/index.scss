@@ -48,15 +48,16 @@
 
   &:focus {
     outline: none;
-    border-color: var(--color-primary-opacity-70);
-    box-shadow: 0 0 3px 2px var(--color-primary-opacity-10);
+    border-color: color-mix(in srgb, var(--color-primary) 70%, transparent);
+    box-shadow: 0 0 3px 2px
+      color-mix(in srgb, var(--color-primary) 10%, transparent);
 
     &::-moz-selection {
-      background: var(--color-primary-opacity-10);
+      background: color-mix(in srgb, var(--color-primary) 10%, transparent);
     }
 
     &::selection {
-      background: var(--color-primary-opacity-10);
+      background: color-mix(in srgb, var(--color-primary) 10%, transparent);
     }
   }
 }

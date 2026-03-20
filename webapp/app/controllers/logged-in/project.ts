@@ -1,8 +1,6 @@
-/* eslint-disable no-magic-numbers */
 import {service} from '@ember/service';
 import {readOnly, not, and} from '@ember/object/computed';
 import Controller from '@ember/controller';
-import Color from 'color';
 import Session from 'accent-webapp/services/session';
 import GlobalState from 'accent-webapp/services/global-state';
 import {tracked} from '@glimmer/tracking';
@@ -39,30 +37,12 @@ export default class ProjectController extends Controller {
   showError: boolean;
 
   get colors() {
-    const color = Color(this.mainColor || this.defaultColor);
-
     return `
-    --accent-hue: ${color.hue()};
-
-    --color-primary: ${color.string()};
-    --color-primary-hue: ${color.hue()};
-    --color-primary-saturation: ${color.saturationv()}%;
-    --color-primary-darken-10: ${color.darken(0.1).string()};
-    --color-primary-darken-50: ${color.darken(0.5).string()};
-    --color-primary-opacity-10: ${color.fade(0.9).string()};
-    --color-primary-opacity-20: ${color.fade(0.8).string()};
-    --color-primary-opacity-25: ${color.fade(0.75).string()};
-    --color-primary-opacity-50: ${color.fade(0.5).string()};
-    --color-primary-opacity-70: ${color.fade(0.3).string()};
-    --color-black: ${color.darken(0.7).desaturate(0.3).string()};
+    --color-primary: ${this.mainColor || this.defaultColor};
     `;
   }
 
   get darkColors() {
-    const color = Color(this.mainColor || this.defaultColor);
-
-    return `
-    --color-black: ${color.desaturate(0.9).lighten(0.6).string()};
-    `;
+    return '';
   }
 }
