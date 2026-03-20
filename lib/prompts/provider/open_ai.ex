@@ -77,7 +77,7 @@ defmodule Accent.Prompts.Provider.OpenAI do
         data
         |> String.split("data: ")
         |> Enum.flat_map(fn item ->
-          case Jason.decode(item) do
+          case JSON.decode(item) do
             {:ok, %{"choices" => [%{"delta" => %{"content" => content}}]}} when is_binary(content) -> [content]
             _ -> []
           end

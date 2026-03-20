@@ -51,7 +51,7 @@ defmodule Langue.Expectation.Case do
   end
 end
 
-ExUnit.start(exclude: [:skip])
+ExUnit.start(exclude: [:skip, :languagetool])
 
 Sandbox.checkout(Accent.Repo)
 Accent.Factory.bootstrap()

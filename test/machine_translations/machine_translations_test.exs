@@ -10,7 +10,7 @@ defmodule AccentTest.MachineTranslations do
     test "google_translate" do
       mock_global(fn
         %{body: body, url: "https://translation.googleapis.com/v3/projects/1234/:translateText"} ->
-          assert Jason.decode!(body) === %{
+          assert JSON.decode!(body) === %{
                    "contents" => ["Test"],
                    "mimeType" => "text/plain",
                    "sourceLanguageCode" => "fr",
@@ -23,7 +23,7 @@ defmodule AccentTest.MachineTranslations do
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
       source_language = "fr"
       target_language = "en"
-      provider_config = %{"key" => Jason.encode!(%{"project_id" => "1234", "type" => "service_account"})}
+      provider_config = %{"key" => JSON.encode!(%{"project_id" => "1234", "type" => "service_account"})}
       config = %{"provider" => "google_translate", "config" => provider_config}
 
       [entry] = MachineTranslations.translate(entries, source_language, target_language, config)
@@ -33,7 +33,7 @@ defmodule AccentTest.MachineTranslations do
     test "google_translate no translate span" do
       mock_global(fn
         %{body: body, url: "https://translation.googleapis.com/v3/projects/1234/:translateText"} ->
-          assert Jason.decode!(body) === %{
+          assert JSON.decode!(body) === %{
                    "contents" => [~s(Test <span translate="no">%{placeholder}</span> bla)],
                    "mimeType" => "text/plain",
                    "sourceLanguageCode" => "fr",
@@ -51,7 +51,7 @@ defmodule AccentTest.MachineTranslations do
       entries = [%Langue.Entry{value: "Test %{placeholder} bla", value_type: "string", key: "."}]
       source_language = "fr"
       target_language = "en"
-      provider_config = %{"key" => Jason.encode!(%{"project_id" => "1234", "type" => "service_account"})}
+      provider_config = %{"key" => JSON.encode!(%{"project_id" => "1234", "type" => "service_account"})}
       config = %{"provider" => "google_translate", "config" => provider_config}
 
       [entry] = MachineTranslations.translate(entries, source_language, target_language, config)
@@ -67,7 +67,7 @@ defmodule AccentTest.MachineTranslations do
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
       source_language = "fr"
       target_language = "en"
-      provider_config = %{"key" => Jason.encode!(%{"project_id" => "1234", "type" => "service_account"})}
+      provider_config = %{"key" => JSON.encode!(%{"project_id" => "1234", "type" => "service_account"})}
       config = %{"provider" => "google_translate", "config" => provider_config}
 
       {:error, error} = MachineTranslations.translate(entries, source_language, target_language, config)
@@ -77,7 +77,7 @@ defmodule AccentTest.MachineTranslations do
     test "deepl" do
       mock_global(fn
         %{body: body, url: "https://api-free.deepl.com/v2/translate"} ->
-          assert Jason.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
+          assert JSON.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
 
           %Tesla.Env{status: 200, body: %{"translations" => [%{"text" => "Translated"}]}}
       end)
@@ -95,7 +95,7 @@ defmodule AccentTest.MachineTranslations do
     test "deepl pro" do
       mock_global(fn
         %{body: body, url: "https://api.deepl.com/v2/translate"} ->
-          assert Jason.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
+          assert JSON.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
 
           %Tesla.Env{status: 200, body: %{"translations" => [%{"text" => "Translated"}]}}
       end)

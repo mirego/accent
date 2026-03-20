@@ -106,7 +106,7 @@ defmodule AccentTest.FormatController do
       document_path: "ordering"
     }
 
-    content = Jason.decode!(File.read!(file.path))
+    content = JSON.decode!(File.read!(file.path))
 
     for {key, value} <- content do
       Factory.insert(Translation,

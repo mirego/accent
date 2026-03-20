@@ -1,13 +1,18 @@
 defmodule LanguageTool.AnnotatedText do
   @moduledoc false
+
+  @html_regex ~r/<[^>]*>/
+  @placeholder_regex ~r/[%$][a-zA-Z0-9]+/
+  @empty_string_delimiter_regex ~r/\(""/
+
   def build(input, regex) do
-    matches = scan_entry_regex(input, regex)
-    # Ignore HTML
-    matches = matches ++ scan_html(input)
-    # Ignore % and $ often used as placeholders
-    matches = matches ++ scan_placeholders(input)
-    # Somehow, empty strings in values with delimiter are makred as errors
-    matches = matches ++ scan_empty_strings_with_delimiter(input)
+    matches =
+      Enum.concat([
+        scan_entry_regex(input, regex),
+        scan_html(input),
+        scan_placeholders(input),
+        scan_empty_strings_with_delimiter(input)
+      ])
 
     matches = Enum.sort_by(matches, fn {match_index, _, _} -> match_index end)
 
@@ -25,48 +30,45 @@ defmodule LanguageTool.AnnotatedText do
   end
 
   defp scan_empty_strings_with_delimiter(input) do
-    ~r/\(""/
+    @empty_string_delimiter_regex
     |> Regex.scan(input, return: :index)
     |> List.flatten()
     |> Enum.map(fn {index, length} -> {index, length, "(x"} end)
   end
 
   defp scan_html(input) do
-    ~r/<[^>]*>/
+    @html_regex
     |> Regex.scan(input, return: :index)
     |> List.flatten()
     |> Enum.map(fn {index, length} -> {index, length, ""} end)
   end
 
   defp scan_placeholders(input) do
-    ~r/[%$][a-zA-Z0-9]+/
+    @placeholder_regex
     |> Regex.scan(input, return: :index)
     |> List.flatten()
     |> Enum.map(fn {index, length} -> {index, length, "x"} end)
   end
 
   defp split_tokens(input, [], position, acc) do
-    to_add =
-      case binary_slice(input, position..byte_size(input)) do
-        text_after when byte_size(text_after) > 1 ->
-          [%{text: text_after}]
+    case binary_slice(input, position..byte_size(input)) do
+      text_after when byte_size(text_after) > 1 ->
+        Enum.reverse(acc, [%{text: text_after}])
 
-        _ ->
-          []
-      end
-
-    acc ++ to_add
+      _ ->
+        Enum.reverse(acc)
+    end
   end
 
   defp split_tokens(input, [{start_index, match_length, markup_as} | matches], position, acc) do
-    text_before =
+    acc =
       if position !== start_index and position < start_index do
         case binary_slice(input, position..(start_index - 1)) do
-          "" -> []
-          text_before -> [%{text: text_before}]
+          "" -> acc
+          text_before -> [%{text: text_before} | acc]
         end
       else
-        []
+        acc
       end
 
     markup = binary_slice(input, start_index, match_length)
@@ -75,7 +77,7 @@ defmodule LanguageTool.AnnotatedText do
       input,
       matches,
       start_index + match_length,
-      acc ++ text_before ++ [%{markup: markup, markupAs: markup_as}]
+      [%{markup: markup, markupAs: markup_as} | acc]
     )
   end
 end

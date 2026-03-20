@@ -1037,6 +1037,7 @@
       "to_translate_tooltip": "Traduction jamais mise à jour",
       "lint_messages_label": "{count, plural, =0 {Aucun avertissement de vérification} =1 {1 avertissement de vérification} other {# avertissement de vérification}}",
       "last_updated_label": "Dernière mise à jour:",
+      "last_execution_label": "Dernière exécution:",
       "maybe_sync_before": "Essayez peut-être de",
       "maybe_sync_link": "synchroniser certains fichiers →",
       "no_translations": "Il semble qu’aucune chaîne n’ait été ajoutée pour votre projet.",

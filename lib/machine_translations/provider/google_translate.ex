@@ -121,7 +121,7 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     def id(_), do: :google_translate
 
     def enabled?(%{config: %{"key" => key}}) do
-      not is_nil(key) and match?({:ok, %{"project_id" => _}}, Jason.decode(key))
+      not is_nil(key) and match?({:ok, %{"project_id" => _}}, JSON.decode(key))
     end
 
     def enabled?(_), do: false
@@ -210,7 +210,7 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
 
     defp parse_auth_config(config) do
       (%{"project_id" => project_id, "type" => "service_account"} = credentials) =
-        Jason.decode!(Map.fetch!(config, "key"))
+        JSON.decode!(Map.fetch!(config, "key"))
 
       {"https://translation.googleapis.com/v3/projects/#{project_id}",
        {:service_account, credentials,

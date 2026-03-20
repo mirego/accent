@@ -8,7 +8,7 @@ defmodule Accent.GraphQL.JsonScalar do
   end
 
   defp decode_json(%Absinthe.Blueprint.Input.String{value: value}) do
-    case Jason.decode(value) do
+    case JSON.decode(value) do
       {:ok, result} -> {:ok, result}
       _ -> :error
     end

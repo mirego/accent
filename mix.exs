@@ -61,9 +61,6 @@ defmodule Accent.Mixfile do
       {:postgrex, "~> 0.14"},
       {:cloak_ecto, "~> 1.2"},
 
-      # Spelling interop with Java runtime
-      {:exile, "~> 0.7"},
-
       # Cache
       {:cachex, "~> 3.6"},
 

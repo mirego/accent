@@ -77,6 +77,7 @@ fun main(args: Array<String>) {
     var input: String?
 
     println(">")
+    System.out.flush()
 
     while (true) {
         input = reader.readLine()
@@ -133,6 +134,7 @@ fun main(args: Array<String>) {
         responseObject.put("matches", matchesList)
 
         println(responseObject.toString())
+        System.out.flush()
     }
 }
 
@@ -145,6 +147,7 @@ private fun printError(error: String, text: String, languageShortCode: String) {
     errorObject.put("markups", JSONArray())
     errorObject.put("language", languageShortCode)
     println(errorObject.toString())
+    System.out.flush()
 }
 
 @Throws(IOException::class)
