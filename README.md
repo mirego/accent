@@ -124,6 +124,7 @@ Accent provides a default value for every required environment variable. This me
 | `DATABASE_URL`    | `postgres://localhost/accent_development` | A valid database URL                                    |
 | `PORT`            | `4000`                                    | A port to run the app on                                |
 | `SECRET_KEY_BASE` | _DEFAULT_UNSAFE_KEY_                      | The secret key that is used to encrypt session (cookie) |
+| `SIGNING_SALT`    | _DEFAULT_UNSAFE_SALT_                     | The salt used to sign session cookies                   |
 
 ### Production setup
 
@@ -198,11 +199,42 @@ If you want to track performance of Accent, you can configure NewRelic with the 
 | `NEW_RELIC_APP_NAME`    | _none_  | Service APM name |
 | `NEW_RELIC_LICENSE_KEY` | _none_  | License key      |
 
-Or use the built-in metrics UI from [TelemetryUI](https://hexdocs.pm/telemetry_ui):
+### OpenTelemetry
 
-| Variable             | Default | Description                                                                |
-| -------------------- | ------- | -------------------------------------------------------------------------- |
-| `METRICS_BASIC_AUTH` | _none_  | username:password to HTTP basic auth login on the pre-configured dashboard |
+Accent ships with OpenTelemetry instrumentation for Phoenix, Absinthe, Ecto, Oban, Dataloader, Bandit, and Tesla. Traces are exported via OTLP when the endpoint is configured.
+
+| Variable                      | Default         | Description                                                                                          |
+| ----------------------------- | --------------- | ---------------------------------------------------------------------------------------------------- |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | _none_          | OTLP collector endpoint (e.g. `http://localhost:4318`). No traces are exported when this is not set. |
+| `OTEL_EXPORTER_OTLP_PROTOCOL` | `http_protobuf` | Transport protocol: `http_protobuf` or `grpc`.                                                       |
+| `OTEL_EXPORTER_OTLP_HEADERS`  | _none_          | Comma-separated `key=value` headers added to export requests.                                        |
+| `OTEL_RESOURCE_ATTRIBUTES`    | _none_          | Comma-separated `key=value` resource attributes (e.g. `service.name=accent`).                        |
+
+#### Google Cloud Platform (Cloud Trace)
+
+To send traces directly to [GCP Cloud Trace](https://cloud.google.com/trace) via the Telemetry OTLP API:
+
+1. **Enable the Telemetry API** in your GCP project:
+
+   ```
+   gcloud services enable telemetry.googleapis.com
+   ```
+
+2. **Grant IAM roles** to the service account running Accent:
+
+   - `roles/telemetry.tracesWriter`
+
+3. **Set environment variables:**
+
+   ```
+   OTEL_EXPORTER_OTLP_ENDPOINT=https://telemetry.googleapis.com
+   OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+   OTEL_RESOURCE_ATTRIBUTES=gcp.project_id=YOUR_PROJECT_ID
+   ```
+
+   On GCP-managed runtimes (Cloud Run, GKE, GCE), authentication is handled automatically via the attached service account and Application Default Credentials (ADC).
+
+4. **View traces** in the [Cloud Trace console](https://console.cloud.google.com/traces).
 
 ### Kubernetes helm chart setup
 
