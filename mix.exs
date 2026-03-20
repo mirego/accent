@@ -115,8 +115,19 @@ defmodule Accent.Mixfile do
       {:new_relic_agent, "~> 1.27"},
       {:new_relic_absinthe, "~> 0.0"},
       {:telemetry, "~> 1.0", override: true},
-      {:telemetry_ui, "~> 5.0"},
-      {:ecto_psql_extras, "~> 0.7"},
+
+      # OpenTelemetry
+      {:opentelemetry_api, "~> 1.4"},
+      {:opentelemetry, "~> 1.5"},
+      {:opentelemetry_exporter, "~> 1.8"},
+      {:opentelemetry_phoenix, "~> 2.0"},
+      {:opentelemetry_bandit, "~> 0.2"},
+      {:opentelemetry_ecto, "~> 1.2"},
+      {:opentelemetry_oban, "~> 1.1"},
+      {:opentelemetry_tesla, "~> 2.4"},
+      {:opentelemetry_absinthe, "~> 2.4"},
+      {:opentelemetry_dataloader, "~> 0.1"},
+      {:opentelemetry_process_propagator, "~> 0.3"},
 
       # Mock testing
       {:mox, "~> 1.0", only: :test},
@@ -168,7 +179,7 @@ defmodule Accent.Mixfile do
     [
       accent: [
         version: @version,
-        applications: [accent: :permanent]
+        applications: [opentelemetry_exporter: :permanent, opentelemetry: :temporary, accent: :permanent]
       ]
     ]
   end

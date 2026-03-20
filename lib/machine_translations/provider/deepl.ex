@@ -87,7 +87,7 @@ defmodule Accent.MachineTranslations.Provider.Deepl do
           Middleware.DecodeJson,
           Middleware.EncodeJson,
           Middleware.Logger,
-          Middleware.Telemetry
+          Middleware.OpenTelemetry
         ])
 
       Tesla.client(middlewares)

@@ -32,4 +32,6 @@ config :logger, :console,
   format: "$metadata[$level] $message\n",
   metadata: ~w(current_user graphql_operation hook_service hook_url)a
 
+config :opentelemetry, traces_exporter: {:otel_exporter_stdout, []}
+
 config :phoenix, :stacktrace_depth, 20

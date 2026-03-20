@@ -6,10 +6,6 @@ defmodule Accent.Endpoint do
   plug(:force_ssl)
   plug(Corsica, origins: "*", allow_headers: ~w(Accept Content-Type Authorization origin))
 
-  # Serve at "/" the static files from "priv/static" directory.
-  #
-  # You should set gzip to true if you are running phoenix.digest
-  # when deploying your static files in production.
   plug(Plug.Static,
     at: "/static",
     from: {:accent, "priv/static"},
@@ -28,8 +24,6 @@ defmodule Accent.Endpoint do
     plug Tidewave
   end
 
-  # Code reloading can be explicitly enabled under the
-  # :code_reloader configuration of your endpoint.
   if code_reloading? do
     socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket, websocket: true)
     plug(Phoenix.LiveReloader)
@@ -43,7 +37,7 @@ defmodule Accent.Endpoint do
   )
 
   plug(Plug.RequestId)
-  plug(Plug.Logger)
+  plug(Plug.Telemetry, event_prefix: [:phoenix, :endpoint])
 
   plug(
     Plug.Parsers,

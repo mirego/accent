@@ -202,7 +202,7 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
           Middleware.DecodeJson,
           Middleware.EncodeJson,
           Middleware.Logger,
-          Middleware.Telemetry
+          Middleware.OpenTelemetry
         ])
 
       Tesla.client(middlewares)

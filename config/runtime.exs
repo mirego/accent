@@ -127,6 +127,15 @@ config :new_relic_agent,
   app_name: get_env("NEW_RELIC_APP_NAME"),
   license_key: get_env("NEW_RELIC_LICENSE_KEY")
 
+if otel_endpoint = get_env("OTEL_EXPORTER_OTLP_ENDPOINT") do
+  config :opentelemetry,
+    span_processor: :batch,
+    traces_exporter: {:opentelemetry_exporter, %{}}
+
+  config :opentelemetry_exporter,
+    otlp_endpoint: otel_endpoint
+end
+
 config :tesla, logger_enabled: true
 
 config :ueberauth, OIDC,

@@ -107,7 +107,7 @@ defmodule Accent.Prompts.Provider.OpenAI do
           Middleware.DecodeJson,
           Middleware.EncodeJson,
           Middleware.Logger,
-          Middleware.Telemetry
+          Middleware.OpenTelemetry
         ])
 
       Tesla.client(middlewares)

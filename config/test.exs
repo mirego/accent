@@ -10,7 +10,7 @@ config :goth, disabled: true
 
 config :logger, level: :warning
 
-config :telemetry_ui, disabled: true
+config :opentelemetry, traces_exporter: :none
 
 config :tesla, logger_enabled: false, adapter: Tesla.Mock
 
