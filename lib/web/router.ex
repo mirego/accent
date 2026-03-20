@@ -19,7 +19,7 @@ defmodule Accent.Router do
   scope "/graphiql" do
     pipe_through(:graphql)
 
-    forward("/", Absinthe.Plug.GraphiQL, schema: Schema)
+    get("/", Accent.GraphiQLController, :index)
   end
 
   scope "/graphql" do
