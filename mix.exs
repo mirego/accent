@@ -44,6 +44,7 @@ defmodule Accent.Mixfile do
       {:phoenix, "~> 1.4"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_view, "~> 2.0"},
+      {:phoenix_live_view, "~> 1.0"},
 
       # Plugs
       {:plug_assign, "~> 2.0"},
