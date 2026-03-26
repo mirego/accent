@@ -112,8 +112,8 @@ defmodule Accent.Mixfile do
       # Metrics and monitoring
       {:new_relic_agent, "~> 1.27"},
       {:new_relic_absinthe, "~> 0.0"},
-      {:telemetry, "~> 1.0", override: true},
-      {:telemetry_ui, path: "../../mirego/telemetry_ui"},
+      {:telemetry, "~> 1.0"},
+      {:telemetry_ui, "~> 5.4"},
       {:ecto_psql_extras, "~> 0.7"},
 
       # OpenTelemetry
