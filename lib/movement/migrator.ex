@@ -28,33 +28,50 @@ defmodule Movement.Migrator do
   @operations_chunk 500
 
   def down(operations), do: persist(Enum.map(List.wrap(operations), &do_down/1))
+
   def up(operations), do: persist(Enum.map(List.wrap(operations), &do_up/1))
 
-  defp do_up(%{action: "noop"}), do: []
-  defp do_up(%{action: "autocorrect"}), do: []
-  defp do_up(%{action: "correct_conflict"} = operation), do: Conflict.call(:correct, operation)
-  defp do_up(%{action: "uncorrect_conflict"} = operation), do: Conflict.call(:uncorrect, operation)
-  defp do_up(%{action: "conflict_on_proposed"} = operation), do: Conflict.call(:on_proposed, operation)
-  defp do_up(%{action: "merge_on_proposed"} = operation), do: Conflict.call(:on_proposed, operation)
-  defp do_up(%{action: "merge_on_proposed_force"} = operation), do: Conflict.call(:on_proposed, operation)
-  defp do_up(%{action: "merge_on_corrected_force"} = operation), do: Conflict.call(:on_proposed, operation)
-  defp do_up(%{action: "conflict_on_slave"} = operation), do: Conflict.call(:on_slave, operation)
-  defp do_up(%{action: "conflict_on_corrected"} = operation), do: Conflict.call(:on_corrected, operation)
-  defp do_up(%{action: "merge_on_corrected"} = operation), do: Conflict.call(:on_corrected, operation)
-  defp do_up(%{action: "remove"} = operation), do: Translation.call(:remove, operation)
-  defp do_up(%{action: "update"} = operation), do: Translation.call(:update, operation)
-  defp do_up(%{action: "update_proposed"} = operation), do: Translation.call(:update_proposed, operation)
-  defp do_up(%{action: "version_new"} = operation), do: Translation.call(:version_new, operation)
-  defp do_up(%{action: "new"} = operation), do: Translation.call(:new, operation)
-  defp do_up(%{action: "renew"} = operation), do: Translation.call(:renew, operation)
-  defp do_up(%{action: "rollback"} = operation), do: Translation.call(:restore, operation)
+  defp do_up(%{action: action} = operation) do
+    metadata = %{action: action, direction: "up"}
 
-  defp do_down(%{action: "noop"}), do: []
-  defp do_down(%{action: "autocorrect"}), do: []
-  defp do_down(%{action: "new"} = operation), do: Rollback.call(:new, operation)
-  defp do_down(%{action: "renew"} = operation), do: Rollback.call(:new, operation)
-  defp do_down(%{action: "remove"} = operation), do: Rollback.call(:remove, operation)
-  defp do_down(%{action: _} = operation), do: Rollback.call(:restore, operation)
+    :telemetry.span([:accent, :movement, :migrate], metadata, fn ->
+      {do_migrate_up(operation), metadata}
+    end)
+  end
+
+  defp do_migrate_up(%{action: "noop"}), do: []
+  defp do_migrate_up(%{action: "autocorrect"}), do: []
+  defp do_migrate_up(%{action: "correct_conflict"} = operation), do: Conflict.call(:correct, operation)
+  defp do_migrate_up(%{action: "uncorrect_conflict"} = operation), do: Conflict.call(:uncorrect, operation)
+  defp do_migrate_up(%{action: "conflict_on_proposed"} = operation), do: Conflict.call(:on_proposed, operation)
+  defp do_migrate_up(%{action: "merge_on_proposed"} = operation), do: Conflict.call(:on_proposed, operation)
+  defp do_migrate_up(%{action: "merge_on_proposed_force"} = operation), do: Conflict.call(:on_proposed, operation)
+  defp do_migrate_up(%{action: "merge_on_corrected_force"} = operation), do: Conflict.call(:on_proposed, operation)
+  defp do_migrate_up(%{action: "conflict_on_slave"} = operation), do: Conflict.call(:on_slave, operation)
+  defp do_migrate_up(%{action: "conflict_on_corrected"} = operation), do: Conflict.call(:on_corrected, operation)
+  defp do_migrate_up(%{action: "merge_on_corrected"} = operation), do: Conflict.call(:on_corrected, operation)
+  defp do_migrate_up(%{action: "remove"} = operation), do: Translation.call(:remove, operation)
+  defp do_migrate_up(%{action: "update"} = operation), do: Translation.call(:update, operation)
+  defp do_migrate_up(%{action: "update_proposed"} = operation), do: Translation.call(:update_proposed, operation)
+  defp do_migrate_up(%{action: "version_new"} = operation), do: Translation.call(:version_new, operation)
+  defp do_migrate_up(%{action: "new"} = operation), do: Translation.call(:new, operation)
+  defp do_migrate_up(%{action: "renew"} = operation), do: Translation.call(:renew, operation)
+  defp do_migrate_up(%{action: "rollback"} = operation), do: Translation.call(:restore, operation)
+
+  defp do_down(%{action: action} = operation) do
+    metadata = %{action: action, direction: "down"}
+
+    :telemetry.span([:accent, :movement, :migrate], metadata, fn ->
+      {do_migrate_down(operation), metadata}
+    end)
+  end
+
+  defp do_migrate_down(%{action: "noop"}), do: []
+  defp do_migrate_down(%{action: "autocorrect"}), do: []
+  defp do_migrate_down(%{action: "new"} = operation), do: Rollback.call(:new, operation)
+  defp do_migrate_down(%{action: "renew"} = operation), do: Rollback.call(:new, operation)
+  defp do_migrate_down(%{action: "remove"} = operation), do: Rollback.call(:remove, operation)
+  defp do_migrate_down(%{action: _} = operation), do: Rollback.call(:restore, operation)
 
   defp persist(operations) do
     operations = List.flatten(operations)

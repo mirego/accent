@@ -50,6 +50,7 @@ defmodule Accent.PeekController do
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
 
+    :telemetry.execute([:accent, :peek], %{count: 1}, %{operation: :sync})
     render(conn, "index.json", operations: operations)
   end
 
@@ -89,6 +90,7 @@ defmodule Accent.PeekController do
       |> Map.get(:operations)
       |> Enum.group_by(&Map.get(&1, :revision_id))
 
+    :telemetry.execute([:accent, :peek], %{count: 1}, %{operation: :merge})
     render(conn, "index.json", operations: operations)
   end
 

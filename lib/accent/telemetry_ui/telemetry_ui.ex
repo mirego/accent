@@ -13,11 +13,8 @@ defmodule Accent.TelemetryUI do
         {"Oban", oban_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"Ecto", ecto_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"PSQL Extras", EctoPSQLExtras.all(Accent.Repo)},
-        {"Movement Pipeline", movement_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
-        {"Machine Translations", machine_translations_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
-        {"File Operations", file_operations_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
+        {"Accent", accent_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"Lint", lint_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
-        {"AI Prompts", prompts_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"Language Tool", language_tool_metrics(), ui_options: [metrics_class: "grid-cols-8 gap-4"]},
         {"System", system_metrics()}
       ],
@@ -391,139 +388,6 @@ defmodule Accent.TelemetryUI do
     ]
   end
 
-  defp movement_metrics do
-    [
-      counter("accent.movement.persist.stop.duration",
-        description: "Persist operations executed",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-3", unit: " persists"]
-      ),
-      count_over_time("accent.movement.persist.stop.duration",
-        description: "Persist operations over time",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-5", unit: " persists"]
-      ),
-      average("accent.movement.persist.stop.duration",
-        description: "Persist duration",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-3", unit: " ms", compare_value_scale: {"red", "green"}]
-      ),
-      average_over_time("accent.movement.persist.stop.duration",
-        description: "Persist duration over time",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-5", unit: " ms", compare_value_scale: {"red", "green"}]
-      ),
-      count_over_time("accent.movement.persist.stop.duration",
-        description: "Persists per batch action over time",
-        tags: [:batch_action],
-        unit: {:native, :millisecond},
-        ui_options: [unit: " persists"]
-      ),
-      count_list("accent.movement.persist.stop.duration",
-        description: "Count persists by batch action",
-        tags: [:batch_action],
-        unit: {:native, :millisecond},
-        ui_options: [unit: " persists"]
-      ),
-      average_over_time("accent.movement.persist.stop.duration",
-        description: "Persist duration per batch action",
-        tags: [:batch_action],
-        unit: {:native, :millisecond}
-      ),
-      distribution("accent.movement.persist.stop.duration",
-        description: "Persist duration distribution",
-        unit: {:native, :millisecond},
-        reporter_options: [buckets: [0, 100, 500, 2000, 10_000]]
-      )
-    ]
-  end
-
-  defp machine_translations_metrics do
-    [
-      counter("accent.machine_translations.translate.stop.duration",
-        description: "MT invocations",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-3", unit: " calls"]
-      ),
-      count_over_time("accent.machine_translations.translate.stop.duration",
-        description: "MT invocations over time",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-5", unit: " calls"]
-      ),
-      average("accent.machine_translations.translate.stop.duration",
-        description: "MT duration",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-3", unit: " ms", compare_value_scale: {"red", "green"}]
-      ),
-      average_over_time("accent.machine_translations.translate.stop.duration",
-        description: "MT duration over time",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-5", unit: " ms", compare_value_scale: {"red", "green"}]
-      ),
-      count_over_time("accent.machine_translations.translate.stop.duration",
-        description: "MT calls per provider over time",
-        tags: [:provider],
-        unit: {:native, :millisecond},
-        ui_options: [unit: " calls"]
-      ),
-      count_list("accent.machine_translations.translate.stop.duration",
-        description: "Count MT calls by provider",
-        tags: [:provider],
-        unit: {:native, :millisecond},
-        ui_options: [unit: " calls"]
-      ),
-      average_over_time("accent.machine_translations.translate.stop.duration",
-        description: "MT duration per provider",
-        tags: [:provider],
-        unit: {:native, :millisecond}
-      )
-    ]
-  end
-
-  defp file_operations_metrics do
-    [
-      counter("accent.sync.count",
-        description: "Syncs executed",
-        ui_options: [class: "col-span-2", unit: " syncs"]
-      ),
-      counter("accent.merge.count",
-        description: "Merges executed",
-        ui_options: [class: "col-span-2", unit: " merges"]
-      ),
-      counter("accent.export.count",
-        description: "Exports executed",
-        ui_options: [class: "col-span-2", unit: " exports"]
-      ),
-      count_over_time("accent.sync.count",
-        description: "Syncs over time",
-        ui_options: [class: "col-span-4", unit: " syncs"]
-      ),
-      count_over_time("accent.merge.count",
-        description: "Merges over time",
-        ui_options: [class: "col-span-4", unit: " merges"]
-      ),
-      count_over_time("accent.export.count",
-        description: "Exports over time",
-        ui_options: [class: "col-span-4", unit: " exports"]
-      ),
-      count_list("accent.sync.count",
-        description: "Syncs by format",
-        tags: [:format],
-        ui_options: [unit: " syncs"]
-      ),
-      count_list("accent.merge.count",
-        description: "Merges by format",
-        tags: [:format],
-        ui_options: [unit: " merges"]
-      ),
-      count_list("accent.export.count",
-        description: "Exports by format",
-        tags: [:format],
-        ui_options: [unit: " exports"]
-      )
-    ]
-  end
-
   defp lint_metrics do
     [
       counter("accent.lint.stop.duration",
@@ -549,33 +413,123 @@ defmodule Accent.TelemetryUI do
     ]
   end
 
-  defp prompts_metrics do
+  defp accent_metrics do
     [
-      counter("accent.prompts.completions.stop.duration",
-        description: "Prompt completions",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-3", unit: " completions"]
+      counter_value("accent.sync.count",
+        description: "Syncs executed",
+        ui_options: [class: "col-span-3", unit: ""]
       ),
-      count_over_time("accent.prompts.completions.stop.duration",
-        description: "Prompt completions over time",
-        unit: {:native, :millisecond},
-        ui_options: [class: "col-span-5", unit: " completions"]
+      counter_value("accent.merge.count",
+        description: "Merges executed",
+        ui_options: [class: "col-span-3", unit: ""]
       ),
-      average("accent.prompts.completions.stop.duration",
-        description: "Prompt completion duration",
+      counter_value("accent.export.count",
+        description: "Exports executed",
+        ui_options: [class: "col-span-2", unit: ""]
+      ),
+      count_over_time("accent.sync.count",
+        description: "Syncs over time",
+        ui_options: [class: "col-span-3", unit: ""]
+      ),
+      count_over_time("accent.merge.count",
+        description: "Merges over time",
+        ui_options: [class: "col-span-3", unit: ""]
+      ),
+      count_over_time("accent.export.count",
+        description: "Exports over time",
+        ui_options: [class: "col-span-2", unit: ""]
+      ),
+      counter("accent.movement.persist.stop.duration",
+        description: "Operations executed",
+        unit: {:native, :millisecond},
+        ui_options: [class: "col-span-3", unit: " operations"]
+      ),
+      count_over_time("accent.movement.persist.stop.duration",
+        description: "Operations over time",
+        unit: {:native, :millisecond},
+        ui_options: [class: "col-span-5", unit: " operations"]
+      ),
+      average("accent.movement.persist.stop.duration",
+        description: "Operations duration",
         unit: {:native, :millisecond},
         ui_options: [class: "col-span-3", unit: " ms", compare_value_scale: {"red", "green"}]
       ),
-      average_over_time("accent.prompts.completions.stop.duration",
-        description: "Prompt completion duration over time",
+      average_over_time("accent.movement.persist.stop.duration",
+        description: "Operations duration over time",
         unit: {:native, :millisecond},
         ui_options: [class: "col-span-5", unit: " ms", compare_value_scale: {"red", "green"}]
       ),
-      count_list("accent.prompts.completions.stop.duration",
-        description: "Completions by provider",
-        tags: [:provider],
+      count_over_time("accent.movement.persist.stop.duration",
+        description: "Batch action over time",
+        tags: [:batch_action],
         unit: {:native, :millisecond},
-        ui_options: [unit: " completions"]
+        ui_options: [unit: " operations"]
+      ),
+      count_list("accent.movement.persist.stop.duration",
+        description: "Count operations by batch action",
+        tags: [:batch_action],
+        unit: {:native, :millisecond},
+        ui_options: [unit: " operations"]
+      ),
+      average_over_time("accent.movement.persist.stop.duration",
+        description: "Operations duration per batch action",
+        tags: [:batch_action],
+        unit: {:native, :millisecond}
+      ),
+      distribution("accent.movement.persist.stop.duration",
+        description: "Operations duration distribution",
+        unit: {:native, :millisecond},
+        reporter_options: [buckets: [0, 100, 500, 2000, 10_000]]
+      ),
+      counter("accent.movement.migrate.stop.duration",
+        description: "Operations executed",
+        unit: {:native, :millisecond},
+        keep: &(&1[:direction] == "up"),
+        ui_options: [class: "col-span-3", unit: " ops"]
+      ),
+      count_over_time("accent.movement.migrate.stop.duration",
+        description: "Operations over time",
+        unit: {:native, :millisecond},
+        keep: &(&1[:direction] == "up"),
+        ui_options: [class: "col-span-5", unit: " ops"]
+      ),
+      average("accent.movement.migrate.stop.duration",
+        description: "Operations duration",
+        unit: {:native, :millisecond},
+        keep: &(&1[:direction] == "up"),
+        ui_options: [class: "col-span-3", unit: " ms", compare_value_scale: {"red", "green"}]
+      ),
+      average_over_time("accent.movement.migrate.stop.duration",
+        description: "Operations duration over time",
+        unit: {:native, :millisecond},
+        keep: &(&1[:direction] == "up"),
+        ui_options: [class: "col-span-5", unit: " ms", compare_value_scale: {"red", "green"}]
+      ),
+      count_over_time("accent.movement.migrate.stop.duration",
+        description: "Operations per action over time",
+        tags: [:action],
+        keep: &(&1[:direction] == "up"),
+        unit: {:native, :millisecond},
+        ui_options: [unit: " ops"]
+      ),
+      count_list("accent.movement.migrate.stop.duration",
+        description: "Count operations by action",
+        tags: [:action],
+        keep: &(&1[:direction] == "up"),
+        unit: {:native, :millisecond},
+        ui_options: [unit: " ops"]
+      ),
+      count_over_time("accent.movement.migrate.stop.duration",
+        description: "Operations apply vs rollback over time",
+        tags: [:direction],
+        unit: {:native, :millisecond},
+        ui_options: [unit: " ops"]
+      ),
+      count_list("accent.movement.migrate.stop.duration",
+        description: "Count operations by direction",
+        tags: [:direction],
+        unit: {:native, :millisecond},
+        ui_options: [unit: " ops"]
       )
     ]
   end

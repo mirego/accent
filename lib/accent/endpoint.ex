@@ -28,6 +28,7 @@ defmodule Accent.Endpoint do
     socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket, websocket: true)
     plug(Phoenix.LiveReloader)
     plug(Phoenix.CodeReloader)
+    plug(TelemetryUI.Reloader, config: {Accent.TelemetryUI, :config})
   end
 
   plug(Accent.Plugs.Session)
