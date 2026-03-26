@@ -19,7 +19,12 @@ defmodule Accent.Prompts do
 
   def completions(prompt, user_input, config) do
     provider = provider_from_config(config)
-    Provider.completions(provider, prompt, user_input)
+    telemetry_metadata = %{provider: Provider.id(provider)}
+
+    :telemetry.span([:accent, :prompts, :completions], telemetry_metadata, fn ->
+      result = Provider.completions(provider, prompt, user_input)
+      {result, telemetry_metadata}
+    end)
   end
 
   def enabled?(config) do

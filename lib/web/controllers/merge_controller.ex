@@ -52,6 +52,7 @@ defmodule Accent.MergeController do
     |> RevisionMergePersister.persist()
     |> case do
       {:ok, {_context, _}} ->
+        :telemetry.execute([:accent, :merge], %{count: 1}, %{format: conn.assigns[:document_format]})
         send_resp(conn, :ok, "")
 
       {:error, _reason} ->

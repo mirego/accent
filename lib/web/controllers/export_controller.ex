@@ -55,12 +55,20 @@ defmodule Accent.ExportController do
     - `404` Unknown revision id.
   """
   def index(%{query_params: %{"inline_render" => "true"}} = conn, _) do
+    :telemetry.execute([:accent, :export], %{count: 1}, %{
+      format: conn.assigns[:document] && conn.assigns[:document].format
+    })
+
     conn
     |> put_resp_header("content-type", "text/plain")
     |> send_resp(:ok, conn.assigns[:document].render)
   end
 
   def index(conn, _) do
+    :telemetry.execute([:accent, :export], %{count: 1}, %{
+      format: conn.assigns[:document] && conn.assigns[:document].format
+    })
+
     file = Path.join([System.tmp_dir(), Accent.Utils.SecureRandom.urlsafe_base64(16)])
 
     :ok = File.write(file, conn.assigns[:document].render)

@@ -22,6 +22,7 @@ defmodule Accent do
       Accent.AccessTokenUsageWriter,
       {Cachex, name: :language_tool_cache, limit: 10_000},
       {LanguageTool.Server, language_tool_config()},
+      {TelemetryUI, Accent.TelemetryUI.config()},
       {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}
     ]
 
@@ -38,7 +39,11 @@ defmodule Accent do
       add_tls_options_to_mailer_smtp_adapter()
     end
 
-    Ecto.DevLogger.install(Accent.Repo)
+    Ecto.DevLogger.install(Accent.Repo,
+      ignore_event: fn metadata ->
+        not is_nil(metadata[:options][:telemetry_ui_conf])
+      end
+    )
 
     opts = [strategy: :one_for_one, name: Accent.Supervisor]
     Supervisor.start_link(children, opts)

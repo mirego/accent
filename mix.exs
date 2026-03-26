@@ -113,6 +113,8 @@ defmodule Accent.Mixfile do
       {:new_relic_agent, "~> 1.27"},
       {:new_relic_absinthe, "~> 0.0"},
       {:telemetry, "~> 1.0", override: true},
+      {:telemetry_ui, path: "../../mirego/telemetry_ui"},
+      {:ecto_psql_extras, "~> 0.7"},
 
       # OpenTelemetry
       {:opentelemetry_api, "~> 1.4"},

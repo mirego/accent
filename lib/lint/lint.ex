@@ -41,7 +41,14 @@ defmodule Accent.Lint do
 
   @spec lint(list(entry), Config.t()) :: list({entry, list(map())})
   def lint(entries, config \\ %Config{}) do
-    Enum.map(entries, &entry_to_messages(&1, config))
+    telemetry_metadata = %{entries_count: length(entries)}
+
+    :telemetry.span([:accent, :lint], telemetry_metadata, fn ->
+      results = Enum.map(entries, &entry_to_messages(&1, config))
+      issues_count = results |> Enum.flat_map(&elem(&1, 1)) |> length()
+
+      {results, Map.put(telemetry_metadata, :issues_count, issues_count)}
+    end)
   end
 
   def create_lint_entry(args) do

@@ -47,6 +47,7 @@ defmodule Accent.SyncController do
     |> SyncPersister.persist()
     |> case do
       {:ok, {_context, _}} ->
+        :telemetry.execute([:accent, :sync], %{count: 1}, %{format: conn.assigns[:document_format]})
         send_resp(conn, :ok, "")
 
       {:error, _reason} ->

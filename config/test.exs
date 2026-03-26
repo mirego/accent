@@ -12,6 +12,8 @@ config :logger, level: :warning
 
 config :opentelemetry, traces_exporter: :none
 
+config :telemetry_ui, disabled: true
+
 config :tesla, logger_enabled: false, adapter: Tesla.Mock
 
 config :ueberauth, Ueberauth, providers: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}}]

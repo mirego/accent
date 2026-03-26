@@ -136,6 +136,8 @@ if otel_endpoint = get_env("OTEL_EXPORTER_OTLP_ENDPOINT") do
 
   config :opentelemetry_exporter,
     otlp_endpoint: otel_endpoint
+else
+  config :opentelemetry, traces_exporter: :none
 end
 
 config :tesla, logger_enabled: true

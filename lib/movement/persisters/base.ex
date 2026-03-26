@@ -39,23 +39,33 @@ defmodule Movement.Persisters.Base do
   end
 
   def execute(context) do
-    project_context = %{
+    telemetry_metadata = %{
       batch_action: context.assigns[:batch_action],
-      operations_count: length(context.operations),
-      project_id: context.assigns[:project] && context.assigns.project.id,
-      user_id: context.assigns[:user_id],
-      batch_operation_stats: context.assigns[:batch_operation] && context.assigns.batch_operation.stats,
-      document_path: context.assigns[:document] && context.assigns.document.path,
-      previous_project_state: ProjectHookWorker.get_project_state(context.assigns[:project])
+      operations_count: length(context.operations)
     }
 
-    context
-    |> persist_operations()
-    |> migrate_up_operations()
-    |> tap(fn _ ->
-      if context.assigns[:project] do
-        Oban.insert(ProjectHookWorker.new(project_context))
-      end
+    :telemetry.span([:accent, :movement, :persist], telemetry_metadata, fn ->
+      project_context = %{
+        batch_action: context.assigns[:batch_action],
+        operations_count: length(context.operations),
+        project_id: context.assigns[:project] && context.assigns.project.id,
+        user_id: context.assigns[:user_id],
+        batch_operation_stats: context.assigns[:batch_operation] && context.assigns.batch_operation.stats,
+        document_path: context.assigns[:document] && context.assigns.document.path,
+        previous_project_state: ProjectHookWorker.get_project_state(context.assigns[:project])
+      }
+
+      result =
+        context
+        |> persist_operations()
+        |> migrate_up_operations()
+        |> tap(fn _ ->
+          if context.assigns[:project] do
+            Oban.insert(ProjectHookWorker.new(project_context))
+          end
+        end)
+
+      {result, telemetry_metadata}
     end)
   end
 

@@ -26,6 +26,20 @@ defmodule Accent.MachineTranslations do
   def translate(entries, source_language_slug, target_language_slug, config) do
     provider = provider_from_config(config)
 
+    telemetry_metadata = %{
+      provider: Provider.id(provider),
+      entries_count: length(entries),
+      source_language: source_language_slug,
+      target_language: target_language_slug
+    }
+
+    :telemetry.span([:accent, :machine_translations, :translate], telemetry_metadata, fn ->
+      result = do_translate(entries, provider, source_language_slug, target_language_slug)
+      {result, telemetry_metadata}
+    end)
+  end
+
+  defp do_translate(entries, provider, source_language_slug, target_language_slug) do
     entries
     |> Enum.map(&filter_long_value/1)
     |> Enum.chunk_every(@translation_chunk_size)
