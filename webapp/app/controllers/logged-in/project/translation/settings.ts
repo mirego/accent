@@ -50,8 +50,8 @@ export default class SettingsController extends Controller {
       refetchQueries: ['Translation'],
       variables: {
         translationId: translation.id,
-        ...settingsAttributes,
-      },
+        ...settingsAttributes
+      }
     });
 
     if (response.errors) {

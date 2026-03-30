@@ -19,7 +19,7 @@ export default Router.map(function () {
         {path: 'translations/:translationId'},
         function () {
           this.route('index');
-        },
+        }
       );
     });
 
@@ -41,7 +41,7 @@ export default Router.map(function () {
 
       this.route('service-integrations');
       this.route('integration-executions', {
-        path: 'service-integrations/executions/:integrationId',
+        path: 'service-integrations/executions/:integrationId'
       });
 
       this.route('collaborators');
@@ -60,7 +60,7 @@ export default Router.map(function () {
         this.route('export', {path: ':fileId/export'});
         this.route('jipt', {path: ':fileId/jipt'});
         this.route('machine-translations', {
-          path: ':fileId/machine-translations',
+          path: ':fileId/machine-translations'
         });
       });
       this.route('versions', function () {
@@ -86,7 +86,7 @@ export default Router.map(function () {
           this.route('editions');
           this.route('comments', {path: 'conversation'});
           this.route('settings');
-        },
+        }
       );
     });
   });

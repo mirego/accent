@@ -1,7 +1,3 @@
 {{#if this.model.translation}}
-  <TranslationSettingsForm
-    @translation={{this.model.translation}}
-    @permissions={{this.permissions}}
-    @onUpdateSettings={{fn this.updateSettings}}
-  />
+  <TranslationSettingsForm @translation={{this.model.translation}} @permissions={{this.permissions}} @onUpdateSettings={{fn this.updateSettings}} />
 {{/if}}

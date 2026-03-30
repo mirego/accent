@@ -25,7 +25,7 @@ const VALUE_TYPES = [
   'array',
   'empty',
   'integer',
-  'float',
+  'float'
 ];
 
 export default class TranslationSettingsForm extends Component<Args> {
@@ -115,7 +115,7 @@ export default class TranslationSettingsForm extends Component<Args> {
       placeholders,
       fileIndex: isNaN(fileIndex as number) ? null : fileIndex,
       fileComment: this.fileComment || null,
-      sourceTranslationId: this.sourceTranslationId || null,
+      sourceTranslationId: this.sourceTranslationId || null
     });
 
     if (!this.isDestroyed) this.isSubmitting = false;
