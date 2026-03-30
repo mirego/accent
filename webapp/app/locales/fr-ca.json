@@ -184,7 +184,7 @@
       },
       "advanced_filters": {
         "empty": "Le texte est vide (\"\" ou valeur nulle)",
-        "not_empty": "Le texte n'est pas vide",
+        "not_empty": "Le texte n’est pas vide",
         "added_last_sync": "Ajoutées à la dernière synchronisation",
         "commented_on": "Chaînes avec commentaires",
         "conflicted": "À réviser",
@@ -494,7 +494,7 @@
         "inserted_at": "Créé:",
         "last_used_at": "Dernière utilisation:",
         "never_used": "Jamais utilisé",
-        "create_title": "Ajouter un nouveau jeton d'API",
+        "create_title": "Ajouter un nouveau jeton d’API",
         "create_button": "Créer",
         "create_name_placeholder": "Afficher un nom",
         "create_picture_url_placeholder": "URL de l’avatar (facultatif)",
@@ -716,14 +716,14 @@
     },
     "integration_executions": {
       "back_link": "← Retour aux intégrations",
-      "title": "Historique d'exécution",
-      "loading_content": "Chargement de l'historique d'exécution…",
+      "title": "Historique d’exécution",
+      "loading_content": "Chargement de l’historique d’exécution…",
       "empty": "Aucune exécution pour le moment",
       "data_label": "Données",
       "results_label": "Résultats"
     },
     "project_comments_list": {
-      "no_comments": "Aucun commentaire sur les chaînes pour le moment. Vous pouvez commenter n'importe quelle chaîne pour fournir un contexte à un traducteur ou pour discuter du contenu de la chaîne.",
+      "no_comments": "Aucun commentaire sur les chaînes pour le moment. Vous pouvez commenter n’importe quelle chaîne pour fournir un contexte à un traducteur ou pour discuter du contenu de la chaîne.",
       "title": "Conversation"
     },
     "project_create_form": {
@@ -993,7 +993,22 @@
       "comments_link_title": "{count, plural, =0 {Conversation} other {Conversation (#)}}",
       "edit_link_title": "Éditer",
       "merge_link_title": "Ajouter des traductions",
-      "related_translations_link_title": "Traductions"
+      "related_translations_link_title": "Traductions",
+      "settings_link_title": "Paramètres"
+    },
+    "translation_settings_form": {
+      "plural_label": "Pluriel",
+      "locked_label": "Verrouillé",
+      "locked_help": "Les traductions verrouillées sont exclues de la synchronisation et des opérations en lot.",
+      "value_type_label": "Type de valeur",
+      "value_type_help": "ex. string, boolean, integer, float, empty, null",
+      "placeholders_label": "Espaces réservés",
+      "placeholders_help": "Liste de noms séparés par des virgules.",
+      "file_index_label": "Index du fichier",
+      "file_comment_label": "Commentaire du fichier",
+      "source_translation_id_label": "ID de la traduction source",
+      "source_translation_id_help": "UUID de la traduction source dont cette clé dérive.",
+      "save_button": "Enregistrer les paramètres"
     },
     "translation_splash_title": {
       "plural_label": "pluriel",
@@ -1146,11 +1161,11 @@
         "loading_content": "Récupération du tableau de bord…",
         "flash_messages": {
           "revision_correct_success": "Toutes les chaînes de la langue ont été marquées comme révisées",
-          "revision_correct_error": "Une erreur s'est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
+          "revision_correct_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue comme révisées",
           "revision_correct_from_version_success": "Chaînes marquées comme révisées dans la version principale",
-          "revision_correct_from_version_error": "Une erreur s'est produite lors du marquage des chaînes dans la version principale",
+          "revision_correct_from_version_error": "Une erreur s’est produite lors du marquage des chaînes dans la version principale",
           "revision_uncorrect_success": "Toutes les chaînes de la langue ont été marquées pour être révisées",
-          "revision_uncorrect_error": "Une erreur s'est produite lors du marquage de toutes les chaînes dans cette langue à examiner"
+          "revision_uncorrect_error": "Une erreur s’est produite lors du marquage de toutes les chaînes dans cette langue à examiner"
         }
       },
       "activities": {
@@ -1292,7 +1307,7 @@
     "versions": {
       "index": {
         "flash_messages": {
-          "delete_error": "La version n'a pas pu être supprimée",
+          "delete_error": "La version n’a pas pu être supprimée",
           "delete_success": "La version a été supprimée avec succès"
         }
       },
@@ -1318,6 +1333,12 @@
           "uncorrect_success": "La chaîne a été remise à réviser avec succès",
           "update_error": "La chaîne n’a pas pu être mise à jour",
           "update_success": "La chaîne a été mise à jour avec succès"
+        }
+      },
+      "settings": {
+        "flash_messages": {
+          "success": "Les paramètres de la traduction ont été mis à jour",
+          "error": "Les paramètres de la traduction n’ont pas pu être mis à jour"
         }
       },
       "comments": {

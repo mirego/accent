@@ -134,6 +134,20 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     end
   end
 
+  @spec update_settings(Translation.t(), map(), GraphQLContext.t()) :: translation_operation
+  def update_settings(translation, args, _info) do
+    translation
+    |> Translation.settings_changeset(args)
+    |> Repo.update()
+    |> case do
+      {:ok, translation} ->
+        {:ok, %{translation: Repo.preload(translation, :revision), errors: nil}}
+
+      {:error, _reason} ->
+        {:ok, %{translation: nil, errors: ["unprocessable_entity"]}}
+    end
+  end
+
   @spec update(Translation.t(), %{text: String.t()}, GraphQLContext.t()) :: translation_operation
   def update(translation, %{text: text}, info) do
     %Context{}

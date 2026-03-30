@@ -4,6 +4,54 @@ defmodule AccentTest.Translation do
 
   alias Accent.Translation
 
+  describe "settings_changeset/2" do
+    test "casts all settings fields" do
+      translation = %Translation{}
+
+      changeset =
+        Translation.settings_changeset(translation, %{
+          plural: true,
+          locked: true,
+          placeholders: ["count"],
+          file_index: 3,
+          file_comment: "a comment",
+          value_type: "boolean",
+          source_translation_id: Ecto.UUID.generate()
+        })
+
+      assert changeset.valid?
+      assert changeset.changes.plural == true
+      assert changeset.changes.locked == true
+      assert changeset.changes.placeholders == ["count"]
+      assert changeset.changes.file_index == 3
+      assert changeset.changes.file_comment == "a comment"
+      assert changeset.changes.value_type == "boolean"
+      assert changeset.changes.source_translation_id
+    end
+
+    test "ignores fields outside whitelist" do
+      translation = %Translation{}
+
+      changeset =
+        Translation.settings_changeset(translation, %{
+          corrected_text: "should be ignored",
+          conflicted: true,
+          locked: true
+        })
+
+      assert changeset.valid?
+      assert changeset.changes == %{locked: true}
+    end
+
+    test "valid with empty params" do
+      translation = %Translation{}
+      changeset = Translation.settings_changeset(translation, %{})
+
+      assert changeset.valid?
+      assert changeset.changes == %{}
+    end
+  end
+
   describe "maybe_natural_order_by/2" do
     test "sorts by key ascending with '.' before other characters" do
       translations = [

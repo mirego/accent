@@ -75,6 +75,131 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
     assert get_in(Repo.all(Translation), [Access.all(), Access.key(:conflicted)]) == [true]
   end
 
+  test "update settings", %{revision: revision, context: context} do
+    translation =
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        conflicted: true,
+        key: "ok",
+        corrected_text: "bar",
+        proposed_text: "bar",
+        value_type: "string",
+        plural: false,
+        locked: false,
+        placeholders: [],
+        file_index: 1,
+        file_comment: "old comment"
+      )
+
+    {:ok, result} =
+      Resolver.update_settings(
+        translation,
+        %{
+          plural: true,
+          locked: true,
+          value_type: "boolean",
+          placeholders: ["count"],
+          file_index: 5,
+          file_comment: "new comment"
+        },
+        context
+      )
+
+    assert get_in(result, [:errors]) == nil
+
+    updated = Repo.get!(Translation, translation.id)
+    assert updated.plural == true
+    assert updated.locked == true
+    assert updated.value_type == "boolean"
+    assert updated.placeholders == ["count"]
+    assert updated.file_index == 5
+    assert updated.file_comment == "new comment"
+  end
+
+  test "update settings with source_translation_id", %{revision: revision, context: context} do
+    source_translation =
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        key: "source",
+        corrected_text: "source text",
+        proposed_text: "source text"
+      )
+
+    translation =
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        key: "ok",
+        corrected_text: "bar",
+        proposed_text: "bar"
+      )
+
+    {:ok, result} = Resolver.update_settings(translation, %{source_translation_id: source_translation.id}, context)
+
+    assert get_in(result, [:errors]) == nil
+
+    updated = Repo.get!(Translation, translation.id)
+    assert updated.source_translation_id == source_translation.id
+  end
+
+  test "update settings with empty args", %{revision: revision, context: context} do
+    translation =
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        key: "ok",
+        corrected_text: "bar",
+        proposed_text: "bar",
+        value_type: "string",
+        plural: false,
+        locked: false
+      )
+
+    {:ok, result} = Resolver.update_settings(translation, %{}, context)
+
+    assert get_in(result, [:errors]) == nil
+
+    updated = Repo.get!(Translation, translation.id)
+    assert updated.plural == false
+    assert updated.locked == false
+    assert updated.value_type == "string"
+  end
+
+  test "update settings with invalid source_translation_id", %{revision: revision, context: context} do
+    translation =
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        key: "ok",
+        corrected_text: "bar",
+        proposed_text: "bar"
+      )
+
+    {:ok, result} = Resolver.update_settings(translation, %{source_translation_id: Ecto.UUID.generate()}, context)
+
+    assert get_in(result, [:errors]) == ["unprocessable_entity"]
+    assert get_in(result, [:translation]) == nil
+  end
+
+  test "update settings partial update", %{revision: revision, context: context} do
+    translation =
+      Factory.insert(Translation,
+        revision_id: revision.id,
+        key: "ok",
+        corrected_text: "bar",
+        proposed_text: "bar",
+        value_type: "string",
+        plural: false,
+        locked: false
+      )
+
+    {:ok, result} = Resolver.update_settings(translation, %{locked: true}, context)
+
+    assert get_in(result, [:errors]) == nil
+
+    updated = Repo.get!(Translation, translation.id)
+    assert updated.locked == true
+    assert updated.plural == false
+    assert updated.value_type == "string"
+  end
+
   test "update", %{revision: revision, context: context} do
     translation =
       Factory.insert(Translation,

@@ -1,0 +1,65 @@
+<div local-class='form'>
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.translation_settings_form.value_type_label'}}
+    </label>
+    <AccSelect @searchEnabled={{false}} @selected={{this.valueTypeValue}} @options={{this.mappedValueTypes}} @onchange={{fn this.setValueType}} />
+  </div>
+
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.translation_settings_form.placeholders_label'}}
+    </label>
+    <input value={{this.placeholders}} local-class='textInput' {{on 'input' (fn this.setPlaceholders)}} />
+    <p local-class='formItem-help'>
+      {{t 'components.translation_settings_form.placeholders_help'}}
+    </p>
+  </div>
+
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.translation_settings_form.file_index_label'}}
+    </label>
+    <input type='number' value={{this.fileIndex}} local-class='textInput' {{on 'input' (fn this.setFileIndex)}} />
+  </div>
+
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.translation_settings_form.file_comment_label'}}
+    </label>
+    <textarea local-class='textInput textInput--textarea' {{on 'input' (fn this.setFileComment)}}>{{this.fileComment}}</textarea>
+  </div>
+
+  <div local-class='formItem'>
+    <label local-class='formItem-label formItem-checkbox'>
+      <input type='checkbox' checked={{this.plural}} {{on 'change' (fn this.setPlural)}} />
+      {{t 'components.translation_settings_form.plural_label'}}
+    </label>
+  </div>
+
+  <div local-class='formItem'>
+    <label local-class='formItem-label formItem-checkbox'>
+      <input type='checkbox' checked={{this.locked}} {{on 'change' (fn this.setLocked)}} />
+      {{t 'components.translation_settings_form.locked_label'}}
+    </label>
+    <p local-class='formItem-help'>
+      {{t 'components.translation_settings_form.locked_help'}}
+    </p>
+  </div>
+
+  <div local-class='formItem'>
+    <label local-class='formItem-label'>
+      {{t 'components.translation_settings_form.source_translation_id_label'}}
+    </label>
+    <input value={{this.sourceTranslationId}} local-class='textInput' {{on 'input' (fn this.setSourceTranslationId)}} />
+    <p local-class='formItem-help'>
+      {{t 'components.translation_settings_form.source_translation_id_help'}}
+    </p>
+  </div>
+
+  <div local-class='formActions'>
+    <AsyncButton class='button button--filled' @loading={{this.isSubmitting}} @onClick={{fn this.submit}}>
+      {{t 'components.translation_settings_form.save_button'}}
+    </AsyncButton>
+  </div>
+</div>

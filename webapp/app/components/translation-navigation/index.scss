@@ -33,6 +33,10 @@
   }
 }
 
+.navigation-list-item--last {
+  margin-left: auto;
+}
+
 .navigation-list-item-link {
   transition: 0.2s ease-in-out;
   transition-property: color, border-color, background;

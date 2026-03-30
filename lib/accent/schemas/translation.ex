@@ -54,6 +54,13 @@ defmodule Accent.Translation do
     cast(struct, params, @optional_fields)
   end
 
+  @settings_fields ~w(plural locked placeholders file_index file_comment value_type source_translation_id)a
+  def settings_changeset(struct, params) do
+    struct
+    |> cast(params, @settings_fields)
+    |> foreign_key_constraint(:source_translation_id)
+  end
+
   @spec to_langue_entry(map(), map() | nil, boolean, String.t()) :: Langue.Entry.t()
   def to_langue_entry(translation, master_translation, is_master, language_slug) do
     %Langue.Entry{

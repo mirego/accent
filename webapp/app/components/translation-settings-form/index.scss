@@ -1,0 +1,45 @@
+.form {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textInput {
+  @extend %textInput;
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-family: var(--font-primary);
+}
+
+.textInput--textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.formItem {
+}
+
+.formItem-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 2px;
+  font-size: 13px;
+}
+
+.formItem-checkbox {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.formItem-help {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.formActions {
+  padding-top: 10px;
+}

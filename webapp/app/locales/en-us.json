@@ -993,7 +993,22 @@
       "comments_link_title": "{count, plural, =0 {Conversation} other {Conversation (#)}}",
       "edit_link_title": "Edit",
       "merge_link_title": "Add translations",
-      "related_translations_link_title": "Translations"
+      "related_translations_link_title": "Translations",
+      "settings_link_title": "Settings"
+    },
+    "translation_settings_form": {
+      "plural_label": "Plural",
+      "locked_label": "Locked",
+      "locked_help": "Locked translations are excluded from stats and listing.",
+      "value_type_label": "Value type",
+      "value_type_help": "e.g. string, boolean, integer, float, empty, null",
+      "placeholders_label": "Placeholders",
+      "placeholders_help": "Comma-separated list of placeholder names.",
+      "file_index_label": "File index",
+      "file_comment_label": "File comment",
+      "source_translation_id_label": "Source translation ID",
+      "source_translation_id_help": "UUID of the source translation this key derives from.",
+      "save_button": "Save settings"
     },
     "translation_splash_title": {
       "plural_label": "plural",
@@ -1318,6 +1333,12 @@
           "uncorrect_success": "The string was put back to review with success",
           "update_error": "The string could not be updated",
           "update_success": "The string has been updated with success"
+        }
+      },
+      "settings": {
+        "flash_messages": {
+          "success": "Translation settings have been updated",
+          "error": "Translation settings could not be updated"
         }
       },
       "comments": {

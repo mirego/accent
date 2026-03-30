@@ -27,5 +27,18 @@ defmodule Accent.GraphQL.Mutations.Translation do
 
       resolve(translation_authorize(:update_translation, &TranslationResolver.update/3))
     end
+
+    field :update_translation_settings, :mutated_translation do
+      arg(:id, non_null(:id))
+      arg(:plural, :boolean)
+      arg(:locked, :boolean)
+      arg(:placeholders, list_of(:string))
+      arg(:file_index, :integer)
+      arg(:file_comment, :string)
+      arg(:value_type, :translation_value_type)
+      arg(:source_translation_id, :id)
+
+      resolve(translation_authorize(:update_translation_settings, &TranslationResolver.update_settings/3))
+    end
   end
 end

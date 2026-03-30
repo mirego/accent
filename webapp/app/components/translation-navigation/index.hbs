@@ -47,5 +47,13 @@
         </LinkTo>
       </li>
     {{/if}}
+
+    {{#if (get @permissions 'updateTranslationSettings')}}
+      <li local-class='navigation-list-item navigation-list-item--last'>
+        <LinkTo @route='logged-in.project.translation.settings' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
+          {{inline-svg 'assets/gear.svg' local-class='navigation-list-item-link-icon'}}
+        </LinkTo>
+      </li>
+    {{/if}}
   </ul>
 </div>

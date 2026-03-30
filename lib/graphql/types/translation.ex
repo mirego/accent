@@ -41,6 +41,8 @@ defmodule Accent.GraphQL.Types.Translation do
     )
 
     field(:placeholders, non_null(list_of(non_null(:string))))
+    field(:locked, non_null(:boolean))
+    field(:file_index, :integer)
 
     field(:proposed_text, :string)
     field(:corrected_text, :string)

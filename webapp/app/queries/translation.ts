@@ -33,10 +33,13 @@ export default gql`
           isRemoved
           valueType
           plural
+          locked
           commentsCount
           correctedText
           updatedAt
           fileComment
+          fileIndex
+          placeholders
 
           lintMessages {
             text

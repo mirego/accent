@@ -66,6 +66,7 @@ defmodule Accent.RoleAbilities do
     peek_merge
     merge
     sync
+    update_translation_settings
     delete_document
     update_document
     list_project_api_tokens
