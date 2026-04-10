@@ -32,6 +32,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
   def list_operations(operation, args, _) do
     operation
     |> Ecto.assoc(:operations)
+    |> OperationScope.filter_from_actions(args[:actions])
     |> Paginated.paginate(args)
     |> Paginated.format()
     |> then(&{:ok, &1})
@@ -54,8 +55,9 @@ defmodule Accent.GraphQL.Resolvers.Activity do
 
   @spec show_project(Project.t(), %{id: String.t()}, GraphQLContext.t()) ::
           {:ok, Operation.t() | nil}
-  def show_project(_project, %{id: id}, _info) do
+  def show_project(project, %{id: id}, _info) do
     Operation
+    |> OperationScope.filter_from_project(project.id)
     |> Query.where(id: ^id)
     |> Repo.one()
     |> then(&{:ok, &1})

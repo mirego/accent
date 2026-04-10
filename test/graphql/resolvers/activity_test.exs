@@ -158,11 +158,101 @@ defmodule AccentTest.GraphQL.Resolvers.Activity do
     assert Enum.count(entries) == 1
   end
 
+  test "list activities with actions filter", %{
+    user: user,
+    project: project,
+    translation: translation,
+    revision: revision
+  } do
+    operation = Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
+
+    Factory.insert(Operation,
+      user_id: user.id,
+      translation_id: translation.id,
+      revision_id: revision.id,
+      key: translation.key,
+      text: "foo",
+      action: "update",
+      batch_operation_id: operation.id
+    )
+
+    Factory.insert(Operation,
+      user_id: user.id,
+      translation_id: translation.id,
+      revision_id: revision.id,
+      key: translation.key,
+      text: "bar",
+      action: "new",
+      batch_operation_id: operation.id
+    )
+
+    {:ok, %{entries: entries}} = Resolver.list_operations(operation, %{actions: ["update"]}, %{})
+    assert Enum.count(entries) == 1
+    assert hd(entries).action == "update"
+
+    {:ok, %{entries: entries}} = Resolver.list_operations(operation, %{actions: ["update", "new"]}, %{})
+    assert Enum.count(entries) == 2
+
+    {:ok, %{entries: entries}} = Resolver.list_operations(operation, %{actions: []}, %{})
+    assert Enum.count(entries) == 2
+
+    {:ok, %{entries: entries}} = Resolver.list_operations(operation, %{}, %{})
+    assert Enum.count(entries) == 2
+  end
+
   test "show project", %{user: user, project: project} do
     operation = Factory.insert(Operation, user_id: user.id, project_id: project.id, action: "sync")
 
     {:ok, %{id: id}} = Resolver.show_project(project, %{id: operation.id}, %{})
 
     assert id == operation.id
+  end
+
+  test "show project scopes to project", %{user: user, project: project, revision: revision, translation: translation} do
+    other_project = Factory.insert(Project)
+    other_language = Factory.insert(Language)
+
+    other_revision =
+      Factory.insert(Revision, language_id: other_language.id, project_id: other_project.id, master: true)
+
+    other_operation =
+      Factory.insert(Operation,
+        user_id: user.id,
+        project_id: other_project.id,
+        action: "sync"
+      )
+
+    revision_operation =
+      Factory.insert(Operation,
+        user_id: user.id,
+        translation_id: translation.id,
+        revision_id: revision.id,
+        key: translation.key,
+        text: "foo",
+        action: "update"
+      )
+
+    other_translation =
+      Factory.insert(Translation,
+        revision_id: other_revision.id,
+        key: "other",
+        corrected_text: "baz",
+        proposed_text: "baz"
+      )
+
+    other_revision_operation =
+      Factory.insert(Operation,
+        user_id: user.id,
+        translation_id: other_translation.id,
+        revision_id: other_revision.id,
+        key: other_translation.key,
+        text: "baz",
+        action: "update"
+      )
+
+    assert {:ok, nil} = Resolver.show_project(project, %{id: other_operation.id}, %{})
+    assert {:ok, nil} = Resolver.show_project(project, %{id: other_revision_operation.id}, %{})
+    assert {:ok, %{id: id}} = Resolver.show_project(project, %{id: revision_operation.id}, %{})
+    assert id == revision_operation.id
   end
 end

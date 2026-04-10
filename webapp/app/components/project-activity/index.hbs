@@ -43,13 +43,20 @@
 
         <div local-class='stats-items'>
           {{#each this.localizedStats as |stat|}}
-            <div local-class='stats-item'>
-              {{stat.text}}
-              :
-              <b>
-                {{stat.count}}
-              </b>
-            </div>
+            <button type='button' local-class='stats-item stats-item--clickable {{if (array-includes this.selectedActions stat.action) "stats-item--selected"}}' {{on 'click' (fn this.toggleAction stat.action)}}>
+              {{#if this.hasSelectedActions}}
+                <span local-class='stats-checkbox {{if (array-includes this.selectedActions stat.action) "stats-checkbox--checked"}}'>
+                  {{#if (array-includes this.selectedActions stat.action)}}
+                    {{inline-svg '/assets/check.svg' local-class='stats-checkbox-icon'}}
+                  {{/if}}
+                </span>
+              {{/if}}
+              <span>
+                {{stat.text}}
+                :
+                <b>{{stat.count}}</b>
+              </span>
+            </button>
           {{/each}}
         </div>
       </div>

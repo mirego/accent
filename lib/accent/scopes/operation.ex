@@ -73,6 +73,14 @@ defmodule Accent.Scopes.Operation do
     from(query, where: [action: ^action])
   end
 
+  @spec filter_from_actions(Ecto.Queryable.t(), list(String.t()) | nil) :: Ecto.Queryable.t()
+  def filter_from_actions(query, nil), do: query
+  def filter_from_actions(query, []), do: query
+
+  def filter_from_actions(query, actions) when is_list(actions) do
+    from(o in query, where: o.action in ^actions)
+  end
+
   @doc """
   ## Examples
 

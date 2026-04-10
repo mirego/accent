@@ -1,7 +1,12 @@
 import {gql} from '@apollo/client/core';
 
 export default gql`
-  query ActivityActivities($projectId: ID!, $activityId: ID!, $page: Int) {
+  query ActivityActivities(
+    $projectId: ID!
+    $activityId: ID!
+    $page: Int
+    $actions: [String]
+  ) {
     viewer {
       project(id: $projectId) {
         id
@@ -9,7 +14,7 @@ export default gql`
         activity(id: $activityId) {
           id
 
-          operations(page: $page) {
+          operations(page: $page, actions: $actions) {
             meta {
               totalEntries
               totalPages

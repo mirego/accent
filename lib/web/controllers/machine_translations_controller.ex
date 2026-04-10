@@ -7,6 +7,7 @@ defmodule Accent.MachineTranslationsController do
   alias Accent.Language
   alias Accent.Project
   alias Accent.Repo
+  alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.Translation
@@ -135,8 +136,13 @@ defmodule Accent.MachineTranslationsController do
     assign(conn, :document_format, conn.assigns[:document].format)
   end
 
-  defp fetch_document(conn, _) do
-    assign(conn, :document, Repo.get(Document, conn.params["document_id"]))
+  defp fetch_document(%{assigns: %{project: project}} = conn, _) do
+    document =
+      Document
+      |> DocumentScope.from_project(project.id)
+      |> Repo.get_by(id: conn.params["document_id"])
+
+    assign(conn, :document, document)
   end
 
   defp fetch_order(%{params: %{"order_by" => ""}} = conn, _), do: assign(conn, :order, "index")
