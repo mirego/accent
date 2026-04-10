@@ -23,7 +23,7 @@ const ROLLBACKABLE_ACTIONS = [
   'conflict_on_corrected',
   'conflict_on_proposed',
   'merge_on_proposed',
-  'merge_on_corrected',
+  'merge_on_corrected'
 ];
 
 interface Args {
@@ -78,7 +78,7 @@ export default class ProjectActivity extends Component<Args> {
   get localizedStats() {
     return this.args.activity.stats.map((stat: any) => {
       const text = this.intl.t(
-        `components.project_activity.stats_text.${underscore(stat.action)}`,
+        `components.project_activity.stats_text.${underscore(stat.action)}`
       );
       const count = stat.count;
 
@@ -94,7 +94,7 @@ export default class ProjectActivity extends Component<Args> {
     if (!this.args.activity.action) return;
 
     return this.intl.t(
-      `components.project_activity.action_explanation.${this.args.activity.action}`,
+      `components.project_activity.action_explanation.${this.args.activity.action}`
     );
   }
 
@@ -103,7 +103,7 @@ export default class ProjectActivity extends Component<Args> {
 
     return this.intl.t(
       `components.project_activity.action_text.${this.args.activity.action}`,
-      {document: this.args.activity.document?.path},
+      {document: this.args.activity.document?.path}
     );
   }
 
@@ -157,7 +157,7 @@ export default class ProjectActivity extends Component<Args> {
   async toggleAction(actionName: string) {
     if (this.selectedActions.includes(actionName)) {
       this.selectedActions = this.selectedActions.filter(
-        (a) => a !== actionName,
+        (a) => a !== actionName
       );
     } else {
       this.selectedActions = [...this.selectedActions, actionName];
@@ -169,7 +169,7 @@ export default class ProjectActivity extends Component<Args> {
   @action
   async rollback() {
     const confirmMessage = this.intl.t(
-      'components.project_activity.rollback_confirm',
+      'components.project_activity.rollback_confirm'
     );
     /* eslint-disable-next-line no-alert */
     if (!window.confirm(confirmMessage)) {
@@ -189,7 +189,7 @@ export default class ProjectActivity extends Component<Args> {
     const variables: Record<string, unknown> = {
       projectId: this.args.project.id,
       activityId: this.args.activity.id,
-      page,
+      page
     };
 
     if (this.selectedActions.length > 0) {
@@ -199,7 +199,7 @@ export default class ProjectActivity extends Component<Args> {
     const {data} = await this.apollo.client.query({
       query: activityActivitiesQuery,
       fetchPolicy: 'network-only',
-      variables,
+      variables
     });
 
     const operations = data.viewer.project.activity.operations;

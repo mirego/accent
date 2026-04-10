@@ -43,7 +43,11 @@
 
         <div local-class='stats-items'>
           {{#each this.localizedStats as |stat|}}
-            <button type='button' local-class='stats-item stats-item--clickable {{if (array-includes this.selectedActions stat.action) "stats-item--selected"}}' {{on 'click' (fn this.toggleAction stat.action)}}>
+            <button
+              type='button'
+              local-class='stats-item stats-item--clickable {{if (array-includes this.selectedActions stat.action) "stats-item--selected"}}'
+              {{on 'click' (fn this.toggleAction stat.action)}}
+            >
               {{#if this.hasSelectedActions}}
                 <span local-class='stats-checkbox {{if (array-includes this.selectedActions stat.action) "stats-checkbox--checked"}}'>
                   {{#if (array-includes this.selectedActions stat.action)}}
