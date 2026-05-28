@@ -11,6 +11,7 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
   alias Accent.Translation
   alias Accent.User
   alias Accent.Version
+  alias Ecto.UUID
 
   defmodule PlugConn do
     @moduledoc false
@@ -172,7 +173,7 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
         proposed_text: "bar"
       )
 
-    {:ok, result} = Resolver.update_settings(translation, %{source_translation_id: Ecto.UUID.generate()}, context)
+    {:ok, result} = Resolver.update_settings(translation, %{source_translation_id: UUID.generate()}, context)
 
     assert get_in(result, [:errors]) == ["unprocessable_entity"]
     assert get_in(result, [:translation]) == nil
@@ -234,7 +235,7 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
   end
 
   test "show project unknown id", %{project: project, context: context} do
-    {:ok, result} = Resolver.show_project(project, %{id: Ecto.UUID.generate()}, context)
+    {:ok, result} = Resolver.show_project(project, %{id: UUID.generate()}, context)
 
     assert is_nil(result)
   end
@@ -249,7 +250,7 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
         proposed_text: "bar"
       )
 
-    {:ok, result} = Resolver.show_project(%Project{id: Ecto.UUID.generate()}, %{id: translation.id}, context)
+    {:ok, result} = Resolver.show_project(%Project{id: UUID.generate()}, %{id: translation.id}, context)
 
     assert is_nil(result)
   end
