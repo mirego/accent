@@ -28,8 +28,7 @@ defmodule Movement.Persisters.ProjectSync do
   end
 
   defp persist_document(%Movement.Context{assigns: %{document_update: nil, document: %{id: id}}} = context)
-       when not is_nil(id),
-       do: context
+       when not is_nil(id), do: context
 
   defp persist_document(
          %Movement.Context{assigns: %{document_update: document_update, document: %{id: id} = document}} = context

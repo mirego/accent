@@ -92,8 +92,7 @@ defmodule Movement.TranslationComparer do
   def compare(%{corrected_text: corrected}, text) when corrected == text, do: {@update_proposed, text}
 
   def compare(%{proposed_text: proposed, corrected_text: corrected}, text)
-      when proposed != text and corrected == proposed,
-      do: {@conflict_on_proposed, text}
+      when proposed != text and corrected == proposed, do: {@conflict_on_proposed, text}
 
   def compare(%{proposed_text: proposed, corrected_text: corrected}, text) when proposed != text and corrected != text,
     do: {@conflict_on_corrected, text}

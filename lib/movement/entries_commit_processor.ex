@@ -100,8 +100,7 @@ defmodule Movement.EntriesCommitProcessor do
   end
 
   defp fetch_versioned_translation_ids(_versioned_translations_by_key, _key, current_translation)
-       when not is_nil(current_translation),
-       do: []
+       when not is_nil(current_translation), do: []
 
   defp fetch_versioned_translation_ids(versioned_translations_by_key, key, _current_translation) do
     versioned_translations_by_key
@@ -110,8 +109,7 @@ defmodule Movement.EntriesCommitProcessor do
   end
 
   defp fetch_source_translation_id(_source_translations_by_key, _key, current_translation)
-       when not is_nil(current_translation),
-       do: nil
+       when not is_nil(current_translation), do: nil
 
   defp fetch_source_translation_id(source_translations_by_key, key, _current_translation) do
     case Map.get(source_translations_by_key, key) do

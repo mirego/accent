@@ -8,7 +8,7 @@ jobs:
 
     services:
       db:
-        image: postgres:10
+        image: postgres:18
         env:
           POSTGRES_DB: accent_test
           POSTGRES_PASSWORD: password
