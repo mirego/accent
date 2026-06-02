@@ -46,7 +46,7 @@ defmodule Accent.MergeController do
     conn.assigns[:movement_context]
     |> Context.assign(:revision, conn.assigns[:revision])
     |> Context.assign(:merge_type, conn.assigns[:merge_type])
-    |> Context.assign(:options, conn.assigns[:merge_options])
+    |> Context.assign(:merge_options, conn.assigns[:merge_options])
     |> Context.assign(:user_id, conn.assigns[:current_user].id)
     |> RevisionMergeBuilder.build()
     |> RevisionMergePersister.persist()
@@ -68,13 +68,16 @@ defmodule Accent.MergeController do
   end
 
   defp assign_merge_options(conn, _) do
-    case conn.params["merge_options"] do
-      options when is_binary(options) ->
-        options = Enum.reject(String.split(options, ","), &(&1 in ["", nil]))
-        assign(conn, :merge_options, options)
+    options =
+      case conn.params["merge_options"] do
+        options when is_binary(options) -> Enum.reject(String.split(options, ","), &(&1 in ["", nil]))
+        _ -> []
+      end
 
-      _ ->
-        assign(conn, :merge_options, [])
-    end
+    assign(conn, :merge_options, options ++ git_branch_options(conn.params["git_branch"]))
   end
+
+  defp git_branch_options(git_branch) when is_binary(git_branch) and git_branch !== "", do: ["git_branch:#{git_branch}"]
+
+  defp git_branch_options(_), do: []
 end

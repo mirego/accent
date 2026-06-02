@@ -11,6 +11,7 @@ import {
   fetchFromRevision,
   fetchNameFromRevision
 } from '../revision-slug-fetcher';
+import {getCurrentBranchName} from '../git-branch-fetcher';
 import Base from './base';
 
 interface DocumentTarget {
@@ -107,7 +108,14 @@ export default class ProjectStatsFormatter extends Base {
 
     console.log('');
 
-    console.log(chalk.magenta('Master language'));
+    const gitBranch = getCurrentBranchName();
+    if (gitBranch) {
+      console.log(chalk.magenta('Git branch'));
+      console.log(chalk.white.bold(gitBranch));
+      console.log('');
+    }
+
+    console.log(chalk.magenta('Main language'));
     console.log(
       `${chalk.white.bold(
         fetchNameFromRevision(this.project.masterRevision)

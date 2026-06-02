@@ -325,6 +325,7 @@
       "operations_label": "Généré ces activités :",
       "rollbacked_label": "Annulé",
       "file_label": "Fichier:",
+      "git_branch_label": "Depuis la branche git locale:",
       "key_label": "Clé:",
       "details_label": "Détails:",
       "explanation_label": "Pourquoi est-ce arrivé?",

@@ -1,4 +1,4 @@
-import {configFlag} from '../base';
+import {configFlag, pathFlag} from '../base';
 import ExportFormatter from '../services/formatters/project-export';
 import DocumentJiptPathsFetcher from '../services/document-jipt-paths-fetcher';
 import DocumentExportFormatter from '../services/formatters/document-export';
@@ -20,7 +20,7 @@ export default class Jipt extends BaseCommand {
     })
   } as const;
 
-  static flags = {config: configFlag} as const;
+  static flags = {config: configFlag, path: pathFlag} as const;
 
   async run() {
     const {args} = await this.parse(Jipt);

@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import BaseCommand, {configFlag} from '../base';
+import BaseCommand, {configFlag, pathFlag} from '../base';
 import DocumentPathsFetcher from '../services/document-paths-fetcher';
 import Formatter from '../services/formatters/project-lint';
 import {LintTranslation} from '../types/lint-translation';
@@ -12,7 +12,7 @@ export default class Lint extends BaseCommand {
 
   static args = {} as const;
 
-  static flags = {config: configFlag} as const;
+  static flags = {config: configFlag, path: pathFlag} as const;
 
   async run() {
     const documents = this.projectConfig.files();

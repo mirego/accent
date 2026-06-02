@@ -309,6 +309,7 @@
       "operations_label": "Generated these activities:",
       "rollbacked_label": "Rollbacked",
       "file_label": "File:",
+      "git_branch_label": "From local git branch:",
       "key_label": "Key:",
       "details_label": "Details:",
       "explanation_label": "Why did this happen?",

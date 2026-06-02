@@ -13,6 +13,7 @@ defmodule Accent.SyncController do
   plug(Accent.Plugs.EnsureUnlockedFileOperations)
   plug(Accent.Plugs.MovementContextParser)
   plug(:assign_comparer)
+  plug(:assign_sync_options)
   plug(:create)
 
   @doc """
@@ -43,6 +44,7 @@ defmodule Accent.SyncController do
     conn.assigns[:movement_context]
     |> Context.assign(:project, conn.assigns[:project])
     |> Context.assign(:user_id, conn.assigns[:current_user].id)
+    |> Context.assign(:sync_options, conn.assigns[:sync_options])
     |> SyncBuilder.build()
     |> SyncPersister.persist()
     |> case do
@@ -61,4 +63,12 @@ defmodule Accent.SyncController do
 
     assign(conn, :movement_context, context)
   end
+
+  defp assign_sync_options(conn, _) do
+    assign(conn, :sync_options, git_branch_options(conn.params["git_branch"]))
+  end
+
+  defp git_branch_options(git_branch) when is_binary(git_branch) and git_branch !== "", do: ["git_branch:#{git_branch}"]
+
+  defp git_branch_options(_), do: []
 end

@@ -1,5 +1,6 @@
 import {Command, Flags, ux} from '@oclif/core';
 import * as chalk from 'chalk';
+import * as fs from 'fs-extra';
 import ConfigFetcher from './services/config';
 import ProjectFetcher from './services/project-fetcher';
 import {Project, ProjectViewer} from './types/project';
@@ -15,6 +16,12 @@ export const configFlag = Flags.string({
   description: 'Path to the config file'
 });
 
+export const pathFlag = Flags.string({
+  default: '.',
+  description:
+    'Directory to run the CLI from, like cd. Config and files resolve from here'
+});
+
 export default abstract class BaseCommand extends Command {
   projectConfig!: ConfigFetcher;
   project?: Project;
@@ -22,6 +29,20 @@ export default abstract class BaseCommand extends Command {
 
   async init(): Promise<void> {
     await super.init();
+
+    const workingPath = this.preParsePathArg(this.argv);
+    if (workingPath === MISSING_PATH) {
+      this.error('Flag --path expects a value (e.g., --path path/to/dir)');
+    }
+    if (
+      !fs.existsSync(workingPath) ||
+      !fs.statSync(workingPath).isDirectory()
+    ) {
+      this.error(
+        `Flag --path must point to an existing directory: ${workingPath}`
+      );
+    }
+    process.chdir(workingPath);
 
     const configPath = this.preParseConfigArg(this.argv);
     if (configPath === MISSING_PATH) {
@@ -79,5 +100,21 @@ export default abstract class BaseCommand extends Command {
       }
     }
     return 'accent.json';
+  }
+
+  private preParsePathArg(argv: string[]): string {
+    for (let i = 0; i < argv.length; i++) {
+      const a = argv[i];
+      if (a === '--path') {
+        const next = argv[i + 1];
+        if (!next || next.startsWith('-')) {
+          return MISSING_PATH;
+        }
+        return next;
+      } else if (a.startsWith('--path=')) {
+        return a.split('=')[1] ?? '.';
+      }
+    }
+    return '.';
   }
 }

@@ -1,5 +1,5 @@
 import {existsSync} from 'fs';
-import {configFlag} from '../base';
+import {configFlag, pathFlag} from '../base';
 import AddTranslationsFormatter from '../services/formatters/project-add-translations';
 import ExportFormatter from '../services/formatters/project-export';
 import SyncFormatter from '../services/formatters/project-sync';
@@ -61,7 +61,8 @@ export default class Sync extends BaseCommand {
       description:
         'Sync a specific version, the tag needs to exists in Accent first'
     }),
-    config: configFlag
+    config: configFlag,
+    path: pathFlag
   };
 
   private parsedFlags!: Interfaces.InferredFlags<typeof Sync.flags>;

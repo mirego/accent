@@ -1,10 +1,10 @@
 import {Errors} from '@oclif/core';
 import * as chalk from 'chalk';
-import {execSync} from 'child_process';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import {Config} from '../types/config';
 import Document from './document';
+import {getCurrentBranchName} from './git-branch-fetcher';
 
 export default class ConfigFetcher {
   readonly config: Config;
@@ -36,12 +36,12 @@ export default class ConfigFetcher {
 
     if (
       this.config.version?.branchVersionPrefix &&
-      this.getCurrentBranchName().startsWith(
+      getCurrentBranchName().startsWith(
         this.config.version?.branchVersionPrefix
       )
     ) {
       this.config.version.tag = this.extractVersionFromBranch(
-        this.getCurrentBranchName(),
+        getCurrentBranchName(),
         this.config.version?.branchVersionPrefix
       );
     }
@@ -79,16 +79,6 @@ Only your master language should be listed in your files config.`
 
   private sourceFolderPath(source: string) {
     return source.replace(path.basename(source), '');
-  }
-
-  private getCurrentBranchName() {
-    try {
-      return execSync('git rev-parse --abbrev-ref HEAD')
-        .toString('utf8')
-        .replace(/[\n\r\s]+$/, '');
-    } catch {
-      return '';
-    }
   }
 
   private extractVersionFromBranch(

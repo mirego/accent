@@ -42,6 +42,31 @@
   justify-content: space-between;
 }
 
+.activity-meta-info {
+  display: flex;
+  align-items: baseline;
+}
+
+.activity-git-branch {
+  display: inline-flex;
+  align-items: baseline;
+  margin-left: 10px;
+  font-size: 10px;
+}
+
+.activity-git-branch-label {
+  color: #aaa;
+}
+
+.activity-git-branch-value {
+  margin-left: 5px;
+  padding: 1px 5px;
+  font-family: monospace;
+  color: #555;
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+
 .rollbackButton {
   font-size: 13px !important;
   margin-left: 10px !important;

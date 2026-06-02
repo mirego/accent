@@ -7,6 +7,7 @@ import {DocumentConfig, NamePattern} from '../types/document-config';
 import {OperationResponse} from '../types/operation-response';
 import {Project} from '../types/project';
 import {fetchFromRevision} from './revision-slug-fetcher';
+import {getCurrentBranchName} from './git-branch-fetcher';
 import Tree from './tree';
 
 const SERVER_INTERNAL_ERROR_THRESHOLD_STATUS_CODE = 400;
@@ -105,6 +106,9 @@ export default class Document {
       formData.append('sync_type', options['sync-type']);
     }
 
+    const gitBranch = getCurrentBranchName();
+    if (gitBranch) formData.append('git_branch', gitBranch);
+
     const response = await fetch(url, {
       body: formData,
       headers: this.authorizationHeader(),
@@ -136,6 +140,9 @@ export default class Document {
     if (options['merge-type']) {
       formData.append('merge_type', options['merge-type']);
     }
+
+    const gitBranch = getCurrentBranchName();
+    if (gitBranch) formData.append('git_branch', gitBranch);
 
     const response = await fetch(url, {
       body: formData,

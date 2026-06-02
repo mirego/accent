@@ -12,6 +12,7 @@ export default gql`
           isBatch
           isRollbacked
           activityType
+          options
 
           document {
             id

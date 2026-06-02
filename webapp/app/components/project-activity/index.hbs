@@ -16,7 +16,16 @@
   </h1>
 
   <div local-class='activity-meta'>
-    <span local-class='activity-date'><TimeAgoInWordsTag @date={{@activity.insertedAt}} /></span>
+    <span local-class='activity-meta-info'>
+      <span local-class='activity-date'><TimeAgoInWordsTag @date={{@activity.insertedAt}} /></span>
+
+      {{#if this.gitBranch}}
+        <span local-class='activity-git-branch'>
+          <span local-class='activity-git-branch-label'>{{t 'components.project_activity.git_branch_label'}}</span>
+          <span local-class='activity-git-branch-value'>{{this.gitBranch}}</span>
+        </span>
+      {{/if}}
+    </span>
 
     {{#if this.isRollbacked}}
       <div local-class='rollbackedBadge'>

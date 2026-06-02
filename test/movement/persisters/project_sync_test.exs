@@ -86,6 +86,36 @@ defmodule AccentTest.Movement.Persisters.ProjectSync do
     assert updated_translation.proposed_text == "B"
   end
 
+  test "persist git_branch in options", %{project: project, revision: revision, document: document, user: user} do
+    Factory.insert(Translation, key: "a", proposed_text: "A", revision_id: revision.id, document_id: document.id)
+
+    operations = [
+      %Movement.Operation{
+        action: "new",
+        key: "b",
+        text: "B",
+        value_type: "string",
+        placeholders: []
+      }
+    ]
+
+    %Context{operations: operations}
+    |> Context.assign(:project, project)
+    |> Context.assign(:document, document)
+    |> Context.assign(:revision, revision)
+    |> Context.assign(:user_id, user.id)
+    |> Context.assign(:batch_action, "sync")
+    |> Context.assign(:sync_options, ["git_branch:feature/foo"])
+    |> ProjectSyncPersister.persist()
+
+    batch_operation =
+      Operation
+      |> where([o], o.batch == true)
+      |> Repo.one()
+
+    assert "git_branch:feature/foo" in batch_operation.options
+  end
+
   test "persist document", %{project: project, revision: revision, user: user} do
     operations = [
       %Movement.Operation{

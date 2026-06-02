@@ -75,6 +75,18 @@ export default class ProjectActivity extends Component<Args> {
     return this.selectedActions.length > 0;
   }
 
+  get gitBranch() {
+    const options = this.args.activity.options;
+    if (!options) return;
+
+    const option = options.find((value: string) =>
+      value.startsWith('git_branch:')
+    );
+    if (!option) return;
+
+    return option.slice('git_branch:'.length);
+  }
+
   get localizedStats() {
     return this.args.activity.stats.map((stat: any) => {
       const text = this.intl.t(

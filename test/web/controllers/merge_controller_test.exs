@@ -75,6 +75,45 @@ defmodule AccentTest.MergeController do
     assert merge_operation.revision_id == revision.id
   end
 
+  test "merge persists git_branch in options", %{
+    access_token: access_token,
+    conn: conn,
+    project: project,
+    revision: revision,
+    language: language
+  } do
+    document = Factory.insert(Document, project_id: project.id, path: "test2", format: "json")
+
+    Factory.insert(Translation,
+      revision_id: revision.id,
+      key: "test",
+      conflicted: true,
+      corrected_text: "initial",
+      proposed_text: "initial",
+      document_id: document.id
+    )
+
+    body = %{
+      file: file(),
+      project_id: project.id,
+      language: language.slug,
+      document_format: document.format,
+      document_path: document.path,
+      git_branch: "feature/foo"
+    }
+
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> post(merge_path(conn, []), body)
+
+    assert response.status == 200
+
+    merge_operation = Repo.one(from(o in Operation, where: [action: ^"merge"]))
+
+    assert "git_branch:feature/foo" in merge_operation.options
+  end
+
   test "merge passive", %{
     access_token: access_token,
     conn: conn,

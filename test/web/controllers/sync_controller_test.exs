@@ -68,4 +68,31 @@ defmodule AccentTest.SyncController do
 
     assert response.status == 200
   end
+
+  test "sync persists git_branch in options", %{
+    access_token: access_token,
+    conn: conn,
+    project: project,
+    language: language
+  } do
+    body = %{
+      file: file(),
+      project_id: project.id,
+      language: language.slug,
+      document_format: "json",
+      document_path: "simple",
+      git_branch: "feature/foo"
+    }
+
+    response =
+      conn
+      |> put_req_header("authorization", "Bearer #{access_token.token}")
+      |> post(sync_path(conn, []), body)
+
+    assert response.status == 200
+
+    sync_operation = Repo.one(from(o in Operation, where: [action: ^"sync"]))
+
+    assert "git_branch:feature/foo" in sync_operation.options
+  end
 end
