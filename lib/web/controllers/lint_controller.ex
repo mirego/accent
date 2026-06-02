@@ -41,10 +41,12 @@ defmodule Accent.LintController do
     `404` - Unknown project
   """
   def lint(conn, _) do
+    lint_entries = Repo.all(Ecto.assoc(conn.assigns[:project], :lint_entries))
+
     lint_translations =
       conn.assigns[:context].entries
       |> Enum.map(&map_entry(&1, conn))
-      |> Accent.Lint.lint()
+      |> Accent.Lint.lint(%Accent.Lint.Config{lint_entries: lint_entries})
       |> map_lint_translations()
 
     render(conn, "index.json", lint_translations: lint_translations)
