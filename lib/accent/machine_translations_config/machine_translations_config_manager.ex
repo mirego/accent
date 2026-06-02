@@ -5,6 +5,8 @@ defmodule Accent.MachineTranslationsConfigManager do
   alias Accent.Repo
   alias Ecto.Multi
 
+  @dialyzer {:no_opaque, save: 2, delete: 1}
+
   def save(project, params) do
     params = %{
       "machine_translations_config" => %{

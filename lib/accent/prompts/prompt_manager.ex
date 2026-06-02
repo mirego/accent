@@ -6,6 +6,8 @@ defmodule Accent.PromptManager do
   alias Accent.Repo
   alias Ecto.Multi
 
+  @dialyzer {:no_opaque, create: 3, update: 2, delete: 1}
+
   def create(project, params, user) do
     changeset =
       %Prompt{project_id: project.id, author_id: user.id}

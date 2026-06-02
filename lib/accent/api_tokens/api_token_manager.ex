@@ -9,6 +9,8 @@ defmodule Accent.APITokenManager do
   alias Accent.RoleAbilities
   alias Ecto.Multi
 
+  @dialyzer {:no_opaque, create: 3}
+
   def create(project, user, params) do
     params = %{
       "custom_permissions" => params[:permissions],
