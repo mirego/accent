@@ -1,7 +1,7 @@
 ################################################################################
 # Stage 1: Build webapp assets
 ################################################################################
-FROM node:22.21.1-bullseye-slim AS webapp-builder
+FROM node:22.21.1-trixie-slim AS webapp-builder
 
 WORKDIR /opt/build
 
@@ -55,7 +55,7 @@ RUN npm run build-production
 ################################################################################
 # Stage 3: Build language tool jar in parallel
 ################################################################################
-FROM debian:bullseye-slim AS languagetool-builder
+FROM debian:trixie-slim AS languagetool-builder
 
 WORKDIR /build
 
