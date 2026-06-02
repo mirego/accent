@@ -64,7 +64,6 @@ This will start the webserver on port 4000, migrate the database to have an up a
 - `elixir ~> 1.15`
 - `postgres >= 9.4`
 - `node.js >= 16.19`
-- `libyaml >= 0.1.7`
 
 ## 🎛 Executing mix commands
 
@@ -90,11 +89,10 @@ _This is the full development setup. To simply run the app, see the *Getting sta
 
 1. If you don’t already have it, install `nodejs` with `brew install nodejs`
 2. If you don’t already have it, install `elixir` with `brew install elixir`
-3. If you don’t already have it, install `libyaml` with `brew install libyaml`
-4. If you don’t already have it, install `postgres` with `brew install postgres` or the Docker setup as described below.
-5. Install dependencies with `make dependencies`
-6. Create and migrate your database with `mix ecto.setup`
-7. Start Phoenix endpoint with `mix phx.server`
+3. If you don’t already have it, install `postgres` with `brew install postgres` or the Docker setup as described below.
+4. Install dependencies with `make dependencies`
+5. Create and migrate your database with `mix ecto.setup`
+6. Start Phoenix endpoint with `mix phx.server`
 
 _That’s it!_ You should now be able to open the app at `http://localhost:4000`
 

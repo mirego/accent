@@ -87,8 +87,7 @@ WORKDIR /build
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
         build-essential \
-        git \
-        libyaml-dev && \
+        git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -139,7 +138,6 @@ LABEL org.opencontainers.image.licenses=BSD-3-Clause
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
         default-jre-headless \
-        libyaml-0-2 \
         openssl \
         ca-certificates \
         libncurses5 \

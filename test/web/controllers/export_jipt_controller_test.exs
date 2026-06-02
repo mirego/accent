@@ -122,47 +122,4 @@ defmodule AccentTest.ExportJIPTController do
 
     assert response.status == 404
   end
-
-  if Langue.Formatter.Rails.enabled?() do
-    test "export with language overrides", %{conn: conn, project: project, revision: revision, language: language} do
-      alias Accent.Repo
-
-      revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
-      document = Factory.insert(Document, project_id: project.id, path: "test2", format: "rails_yml")
-
-      Factory.insert(Translation,
-        revision_id: revision.id,
-        key: "ok",
-        corrected_text: "bar",
-        proposed_text: "bar",
-        document_id: document.id,
-        file_index: 2
-      )
-
-      Factory.insert(Translation,
-        revision_id: revision.id,
-        key: "test",
-        corrected_text: "foo",
-        proposed_text: "foo",
-        document_id: document.id,
-        file_index: 1
-      )
-
-      params = %{
-        order_by: "",
-        project_id: project.id,
-        language: language.slug,
-        document_format: document.format,
-        document_path: document.path
-      }
-
-      response = get(conn, export_jipt_path(conn, [], params))
-
-      assert response.resp_body == """
-             "testtest":
-               "ok": "{^ok@test2}"
-               "test": "{^test@test2}"
-             """
-    end
-  end
 end

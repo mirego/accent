@@ -405,57 +405,6 @@ defmodule AccentTest.ExportController do
            """
   end
 
-  if Langue.Formatter.Rails.enabled?() do
-    test "export with language overrides", %{
-      access_token: access_token,
-      conn: conn,
-      project: project,
-      revision: revision
-    } do
-      alias Accent.Repo
-
-      revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
-      document = Factory.insert(Document, project_id: project.id, path: "test2", format: "rails_yml")
-
-      Factory.insert(Translation,
-        revision_id: revision.id,
-        key: "ok",
-        corrected_text: "bar",
-        proposed_text: "bar",
-        document_id: document.id,
-        file_index: 2
-      )
-
-      Factory.insert(Translation,
-        revision_id: revision.id,
-        key: "test",
-        corrected_text: "foo",
-        proposed_text: "foo",
-        document_id: document.id,
-        file_index: 1
-      )
-
-      params = %{
-        order_by: "",
-        project_id: project.id,
-        language: revision.slug,
-        document_format: document.format,
-        document_path: document.path
-      }
-
-      response =
-        conn
-        |> put_req_header("authorization", "Bearer #{access_token.token}")
-        |> get(export_path(conn, [], params))
-
-      assert response.resp_body == """
-             "testtest":
-               "test": "foo"
-               "ok": "bar"
-             """
-    end
-  end
-
   test "export with plurals and android formatter", %{
     access_token: access_token,
     conn: conn,

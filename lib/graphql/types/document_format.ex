@@ -7,7 +7,6 @@ defmodule Accent.GraphQL.Types.DocumentFormat do
     value(:simple_json, as: "simple_json")
     value(:strings, as: "strings")
     value(:gettext, as: "gettext")
-    value(:rails_yml, as: "rails_yml")
     value(:es6_module, as: "es6_module")
     value(:android_xml, as: "android_xml")
     value(:java_properties, as: "java_properties")

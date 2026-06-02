@@ -90,37 +90,6 @@ defmodule AccentTest.TranslationsRenderer do
     assert render == ""
   end
 
-  if Langue.Formatter.Rails.enabled?() do
-    test "render rails with locale", %{project: project, revision: revision} do
-      document = Factory.insert(Document, project_id: project.id, path: "my-test", format: "rails_yml")
-
-      translation =
-        Factory.insert(Translation,
-          key: "a",
-          proposed_text: "A",
-          corrected_text: "A",
-          revision_id: revision.id,
-          document_id: document.id
-        )
-
-      %{render: render} =
-        TranslationsRenderer.render_translations(%{
-          master_translations: [],
-          master_language: revision.language,
-          translations: [translation],
-          document: document,
-          language: %Language{slug: "fr"}
-        })
-
-      expected_render = """
-      "fr":
-        "a": "A"
-      """
-
-      assert render == expected_render
-    end
-  end
-
   test "render xliff and revision overrides on source revision", %{project: project, revision: revision} do
     revision = Repo.update!(Ecto.Changeset.change(revision, %{slug: "testtest"}))
     document = Factory.insert(Document, project_id: project.id, path: "my-test", format: "xliff_1_2")
