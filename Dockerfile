@@ -78,7 +78,7 @@ RUN mkdir -p /build/priv/native/ && \
 ################################################################################
 # Stage 4: Build the OTP binary (Elixir app)
 ################################################################################
-FROM hexpm/elixir:1.18.3-erlang-27.3.1-debian-bullseye-20250317-slim AS builder
+FROM hexpm/elixir:1.19.5-erlang-28.5.0.1-debian-trixie-20260518-slim AS builder
 
 ENV MIX_ENV=prod
 WORKDIR /build
@@ -127,7 +127,7 @@ RUN mix release && \
 ################################################################################
 # Final Stage: Create lean runtime container
 ################################################################################
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
 
 # GitHub Container Registry labels
 LABEL org.opencontainers.image.source=https://github.com/mirego/accent
@@ -140,7 +140,7 @@ RUN apt-get update -y && \
         default-jre-headless \
         openssl \
         ca-certificates \
-        libncurses5 \
+        libncurses6 \
         locales \
         fontconfig \
         hunspell \

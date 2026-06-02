@@ -7,7 +7,7 @@ defmodule Accent.Mixfile do
     [
       app: :accent,
       version: @version,
-      elixir: "~> 1.18",
+      elixir: "~> 1.19",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       build_embedded: Mix.env() == :prod,
@@ -86,6 +86,7 @@ defmodule Accent.Mixfile do
       {:erlsom, "~> 1.5"},
       {:xml_builder, "~> 2.0"},
       {:aws_signature, "~> 0.3"},
+      {:gen_smtp, "~> 1.3", override: true},
 
       # Auth
       {:ueberauth, "~> 0.10"},
