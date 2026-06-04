@@ -25,7 +25,7 @@
 
       <div local-class='actions'>
         {{#if @message.details.spellingRuleId}}
-          <button class='button button--white button--filled' {{on 'click' (fn this.create 'LANGUAGE_TOOL_ID' @message.details.spellingRuleId)}}>
+          <button class='button button--white button--filled' {{on 'click' (fn this.create 'LANGUAGE_TOOL_RULE_ID' @message.details.spellingRuleId)}}>
             {{t 'components.lint_translations_page.add_lint_entry.ignore_spellcheck_rule'}}
             <span local-class='code'>{{@message.details.spellingRuleId}}</span>
           </button>

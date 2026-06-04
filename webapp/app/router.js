@@ -37,6 +37,7 @@ export default Router.map(function () {
           this.route('new');
           this.route('edit', {path: '/:promptId'});
         });
+        this.route('lint-entries');
       });
 
       this.route('service-integrations');

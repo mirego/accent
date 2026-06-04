@@ -431,9 +431,33 @@
         "config_key_help_not_present": "Une fois enregistrée, la clé de configuration ne sera jamais affichée.",
         "delete_confirm": "Voulez-vous vraiment supprimer cette instruction ?"
       },
+      "lint_entries": {
+        "title": "Règles de linting",
+        "help": "Règles de linting et entrées ignorées configurées pour ce projet.",
+        "empty": "Aucune règle de linting n’a encore été configurée pour ce projet.",
+        "add_button": "Ajouter une règle",
+        "new_title": "Nouvelle règle de linting",
+        "edit_title": "Modifier la règle de linting",
+        "type_label": "Type",
+        "checks_label": "Vérifications",
+        "value_label": "Valeur",
+        "value_label_term": "Terme",
+        "value_label_key": "Clé",
+        "value_label_language_tool_rule_id": "Nom de la règle",
+        "language_tool_rules_link": "Règles LanguageTool",
+        "save_button": "Enregistrer",
+        "delete_button": "Supprimer",
+        "delete_confirm": "Voulez-vous vraiment supprimer cette règle de linting ?",
+        "type_all": "Toutes",
+        "type_term": "Terme",
+        "type_key": "Clé",
+        "type_language_tool_rule_id": "Règle d’orthographe"
+      },
       "links_list": {
         "prompts": "Assistant IA",
         "prompts_text": "Configurez votre assistant pour vous aider à rédiger, améliorer, réviser votre texte",
+        "lint_entries": "Règles de linting",
+        "lint_entries_text": "Consultez les règles de linting et les entrées ignorées configurées pour ce projet",
         "collaborators": "Collaborateurs",
         "collaborators_text": "Gérer qui a accès à quelles fonctionnalités de ce projet",
         "badges": "Insignes",
@@ -807,6 +831,7 @@
       "service_integrations_link_title": "Intégrations"
     },
     "lint_translations_page": {
+      "empty_title": "Tout est bon!",
       "empty_text": "Aucun avertissement ou erreur. Tout est bon!",
       "add_lint_entry": {
         "ignore_checks_for_term": "Accepter les mots dans ce projet",
@@ -1240,6 +1265,17 @@
         },
         "prompts": {
           "loading_content": "Récupération des paramètres de l’assistant IA du projet…"
+        },
+        "lint_entries": {
+          "loading_content": "Récupération des règles de linting du projet…",
+          "flash_messages": {
+            "create_success": "La règle de linting a été créée avec succès",
+            "create_error": "La règle de linting n’a pas pu être créée",
+            "update_success": "La règle de linting a été mise à jour avec succès",
+            "update_error": "La règle de linting n’a pas pu être mise à jour",
+            "remove_success": "La règle de linting a été supprimée avec succès",
+            "remove_error": "La règle de linting n’a pas pu être supprimée"
+          }
         },
         "badges": {
           "loading_content": "Récupération des badges du projet…"

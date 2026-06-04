@@ -26,5 +26,22 @@ defmodule Accent.GraphQL.Mutations.Lint do
       resolve(project_authorize(:create_project_lint_entry, &LintResolver.create_project_lint_entry/3, :project_id))
       middleware(&build_payload/2)
     end
+
+    field :update_project_lint_entry, :lint_entry_payload do
+      arg(:id, non_null(:id))
+      arg(:check_ids, list_of(non_null(:id)))
+      arg(:type, :lint_entry_type)
+      arg(:value, :string)
+
+      resolve(project_lint_entry_authorize(:update_project_lint_entry, &LintResolver.update_project_lint_entry/3))
+      middleware(&build_payload/2)
+    end
+
+    field :delete_project_lint_entry, :lint_entry_payload do
+      arg(:id, non_null(:id))
+
+      resolve(project_lint_entry_authorize(:delete_project_lint_entry, &LintResolver.delete_project_lint_entry/3))
+      middleware(&build_payload/2)
+    end
   end
 end

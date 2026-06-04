@@ -36,17 +36,19 @@
         {{/if}}
 
         <div class='queryForm' local-class='queryForm'>
-          {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+          <div local-class='queryForm-search'>
+            {{inline-svg '/assets/search.svg' local-class='search-icon'}}
 
-          <input
-            local-class='input'
-            type='text'
-            placeholder={{t 'components.conflicts_filters.input_placeholder_text'}}
-            {{did-insert (fn this.autofocus)}}
-            value={{this.debouncedQuery}}
-            {{on-key 'Enter' (fn this.submitForm)}}
-            {{on 'keyup' this.setDebouncedQuery}}
-          />
+            <input
+              local-class='input'
+              type='text'
+              placeholder={{t 'components.conflicts_filters.input_placeholder_text'}}
+              {{did-insert (fn this.autofocus)}}
+              value={{this.debouncedQuery}}
+              {{on-key 'Enter' (fn this.submitForm)}}
+              {{on 'keyup' this.setDebouncedQuery}}
+            />
+          </div>
 
           {{#if @onChangeAdvancedFilterBoolean}}
             <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>

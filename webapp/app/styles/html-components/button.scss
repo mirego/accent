@@ -9,6 +9,7 @@
 
   display: inline-flex;
   align-items: center;
+  align-self: flex-start;
   flex-wrap: wrap;
   transition: 0.2s ease-in-out;
   transition-property: all;

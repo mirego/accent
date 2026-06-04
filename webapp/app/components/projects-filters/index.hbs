@@ -1,14 +1,17 @@
 <div local-class='filters' class='filters filters--transparent'>
   <form local-class='filters-wrapper' class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
     <div local-class='queryFilter'>
-      {{inline-svg '/assets/search.svg' local-class='search-icon'}}
-      <input
-        {{on 'keyup' this.setDebouncedQuery}}
-        local-class='input'
-        type='text'
-        placeholder={{t 'components.projects_filters.input_placeholder_text'}}
-        value={{this.debouncedQuery}}
-      />
+      <div local-class='queryForm-search'>
+
+        {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+        <input
+          {{on 'keyup' this.setDebouncedQuery}}
+          local-class='input'
+          type='text'
+          placeholder={{t 'components.projects_filters.input_placeholder_text'}}
+          value={{this.debouncedQuery}}
+        />
+      </div>
     </div>
 
     {{#unless this.debouncedQuery}}

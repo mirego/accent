@@ -11,6 +11,7 @@ defmodule Accent.RoleAbilities do
 
   @read_actions ~w(
     lint
+    index_lint_entries
     format
     index_permissions
     index_versions
@@ -42,6 +43,7 @@ defmodule Accent.RoleAbilities do
     update_comment
     update_translation
     create_project_lint_entry
+    update_project_lint_entry
     delete_project_lint_entry
     create_translation_comments_subscription
     delete_translation_comments_subscription

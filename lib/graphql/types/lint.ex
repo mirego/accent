@@ -45,6 +45,11 @@ defmodule Accent.GraphQL.Types.Lint do
     field(:value, :string)
   end
 
+  object :project_lint_entries do
+    field(:meta, :pagination_meta)
+    field(:entries, list_of(:project_lint_entry))
+  end
+
   object :lint_translation do
     field(:messages, list_of(non_null(:lint_translation_message)))
     field(:translation, non_null(:translation), resolve: dataloader(Accent.Translation))

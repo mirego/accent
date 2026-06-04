@@ -1,0 +1,21 @@
+<div local-class='wrapper'>
+  <strong local-class='type'>{{@lintEntry.type}}</strong>
+
+  {{#if @lintEntry.value}}
+    <span local-class='value'>{{@lintEntry.value}}</span>
+  {{/if}}
+
+  {{#if this.checkLabels.length}}
+    <ul local-class='checks'>
+      {{#each this.checkLabels key='@identity' as |checkLabel|}}
+        <li>
+          <AccBadge>{{checkLabel}}</AccBadge>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+
+  <button type='button' local-class='edit' class='button button--iconOnly button--filled button--white button--link' {{on 'click' (fn @onEdit @lintEntry)}}>
+    {{inline-svg 'assets/pencil.svg' class='button-icon'}}
+  </button>
+</div>

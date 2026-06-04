@@ -1,17 +1,17 @@
 import {gql} from '@apollo/client/core';
 
 export default gql`
-  mutation ProjectLintEntryCreate(
-    $projectId: ID!
-    $checkIds: [ID!]!
-    $type: LintEntryType!
+  mutation ProjectLintEntryUpdate(
+    $id: ID!
+    $checkIds: [ID!]
+    $type: LintEntryType
     $value: String
   ) {
-    createProjectLintEntry(
+    updateProjectLintEntry(
+      id: $id
       checkIds: $checkIds
       type: $type
       value: $value
-      projectId: $projectId
     ) {
       projectLintEntry: result {
         id

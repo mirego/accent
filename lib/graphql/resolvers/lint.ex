@@ -1,11 +1,16 @@
 defmodule Accent.GraphQL.Resolvers.Lint do
   @moduledoc false
   import Absinthe.Resolution.Helpers, only: [batch: 3]
+  import Accent.GraphQL.Response
 
   alias Absinthe.Middleware.Batch
+  alias Accent.GraphQL.Paginated
+  alias Accent.Lint, as: LintContext
   alias Accent.Plugs.GraphQLContext
   alias Accent.Project
+  alias Accent.ProjectLintEntry
   alias Accent.Repo
+  alias Accent.Scopes.ProjectLintEntry, as: ProjectLintEntryScope
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.Translation
@@ -15,7 +20,30 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   @spec create_project_lint_entry(Project.t(), map(), GraphQLContext.t()) ::
           {:middleware, Batch, any()}
   def create_project_lint_entry(_project, args, _resolution) do
-    Accent.Lint.create_lint_entry(args)
+    LintContext.create_lint_entry(args)
+  end
+
+  @spec update_project_lint_entry(ProjectLintEntry.t(), map(), GraphQLContext.t()) :: {:ok, any()}
+  def update_project_lint_entry(lint_entry, args, _resolution) do
+    lint_entry
+    |> LintContext.update_lint_entry(args)
+    |> build()
+  end
+
+  @spec delete_project_lint_entry(ProjectLintEntry.t(), map(), GraphQLContext.t()) :: {:ok, any()}
+  def delete_project_lint_entry(lint_entry, _args, _resolution) do
+    lint_entry
+    |> LintContext.delete_lint_entry()
+    |> build()
+  end
+
+  @spec list_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(ProjectLintEntry.t())}
+  def list_project(project, args, _resolution) do
+    ProjectLintEntry
+    |> ProjectLintEntryScope.from_project(project.id)
+    |> Paginated.paginate(args)
+    |> Paginated.format()
+    |> then(&{:ok, &1})
   end
 
   @spec lint_translation(Translation.t(), map(), GraphQLContext.t()) :: {:middleware, Batch, any()}
@@ -38,7 +66,7 @@ defmodule Accent.GraphQL.Resolvers.Lint do
         language_slug
       )
 
-    [{_, messages}] = Accent.Lint.lint([entry], %Accent.Lint.Config{lint_entries: lint_entries})
+    [{_, messages}] = LintContext.lint([entry], %LintContext.Config{lint_entries: lint_entries})
 
     {:ok, messages}
   end

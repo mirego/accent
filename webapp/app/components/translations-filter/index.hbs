@@ -3,17 +3,20 @@
     <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
       <div class='filters-content' local-class='filters-content'>
         <div class='queryForm' local-class='queryForm'>
-          {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+          <div local-class='queryForm-search'>
 
-          <input
-            local-class='input'
-            type='text'
-            {{did-insert (fn this.autofocus)}}
-            placeholder={{t 'components.translations_filter.input_placeholder_text'}}
-            value={{this.debouncedQuery}}
-            {{on-key 'Enter' (fn this.submitForm)}}
-            {{on 'keyup' (fn this.setDebouncedQuery)}}
-          />
+            {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+
+            <input
+              local-class='input'
+              type='text'
+              {{did-insert (fn this.autofocus)}}
+              placeholder={{t 'components.translations_filter.input_placeholder_text'}}
+              value={{this.debouncedQuery}}
+              {{on-key 'Enter' (fn this.submitForm)}}
+              {{on 'keyup' (fn this.setDebouncedQuery)}}
+            />
+          </div>
 
           {{#if @onChangeAdvancedFilterBoolean}}
             <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>

@@ -28,3 +28,9 @@
     background: var(--background-light);
   }
 }
+
+@media (hover: none) and (max-width: 640px) {
+  %textInput {
+    font-size: 16px !important;
+  }
+}

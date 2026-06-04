@@ -4,6 +4,13 @@ defmodule Accent.GraphQL.Schema do
 
   import Accent.GraphQL.Helpers.Authorization
 
+  alias Absinthe.Phase.Document.Complexity.Result, as: ComplexityResult
+  alias Absinthe.Phase.Document.Result
+  alias Absinthe.Pipeline
+  alias AbsintheSecurity.Phase.FieldSuggestionsCheck
+  alias AbsintheSecurity.Phase.MaxAliasesCheck
+  alias AbsintheSecurity.Phase.MaxDepthCheck
+  alias AbsintheSecurity.Phase.MaxDirectivesCheck
   alias Accent.Repo
 
   # Scalars
@@ -143,11 +150,29 @@ defmodule Accent.GraphQL.Schema do
   end
 
   def absinthe_pipeline(config, opts) do
+    options = Pipeline.options(opts)
+
     config
     |> Absinthe.Plug.default_pipeline(opts)
-    |> Absinthe.Pipeline.insert_after(
-      Absinthe.Phase.Document.Result,
+    |> Pipeline.insert_after(
+      Result,
       Accent.GraphQL.ErrorReporting
+    )
+    |> Pipeline.insert_after(
+      Result,
+      {FieldSuggestionsCheck, options}
+    )
+    |> Pipeline.insert_after(
+      ComplexityResult,
+      {MaxAliasesCheck, options}
+    )
+    |> Pipeline.insert_after(
+      ComplexityResult,
+      {MaxDepthCheck, options}
+    )
+    |> Pipeline.insert_after(
+      ComplexityResult,
+      {MaxDirectivesCheck, options}
     )
   end
 end

@@ -52,11 +52,11 @@ defmodule Accent.Lint.Checks.Spelling do
     match_project_lint_entries = fn ->
       Enum.any?(config.lint_entries, fn lint_entry ->
         cond do
-          "spelling" in lint_entry.check_ids and lint_entry.ignore and lint_entry.type === :term and
+          "spelling" in lint_entry.check_ids and lint_entry.type === :term and
               String.downcase(error_term) === String.downcase(lint_entry.value) ->
             true
 
-          "spelling" in lint_entry.check_ids and lint_entry.ignore and
+          "spelling" in lint_entry.check_ids and
             lint_entry.type === :language_tool_rule_id and
               match["rule"]["id"] === lint_entry.value ->
             true

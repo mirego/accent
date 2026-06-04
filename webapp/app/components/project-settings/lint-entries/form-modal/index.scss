@@ -1,0 +1,87 @@
+.wrapper {
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  :global(.ember-power-select-trigger) {
+    min-height: 35px;
+    border: 1px solid var(--background-light-highlight);
+    background: var(--background-light);
+    box-shadow: 0 1px 5px var(--shadow-color);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0;
+  background: transparent;
+
+  &:focus,
+  &:hover {
+    .closeButton-icon {
+      opacity: 1;
+    }
+  }
+}
+
+.closeButton-icon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-grey);
+  opacity: 0.6;
+  transition: 0.2s ease-in-out;
+  transition-property: opacity;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.label {
+  font-size: 13px;
+}
+
+.labelLink {
+  font-size: 12px;
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.textInput {
+  @extend %textInput;
+  width: 100%;
+  padding: 10px;
+  font-size: 12px;
+  font-family: var(--font-primary);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 6px;
+}

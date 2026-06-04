@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--content-background-border);
+  font-size: 14px;
+}
+
+.type {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.value {
+  font-family: var(--font-monospace);
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.edit {
+  margin-left: auto;
+  flex-shrink: 0;
+}

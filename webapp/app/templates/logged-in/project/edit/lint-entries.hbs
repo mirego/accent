@@ -1,0 +1,17 @@
+<ProjectSettings::BackLink @project={{this.project}} />
+
+{{#if this.showLoading}}
+  <LoadingContent @label={{t 'pods.project.edit.lint_entries.loading_content'}} />
+{{else}}
+  <ProjectSettings::LintEntries
+    @lintEntries={{this.lintEntries}}
+    @permissions={{this.permissions}}
+    @onCreate={{this.createLintEntry}}
+    @onUpdate={{this.updateLintEntry}}
+    @onDelete={{this.deleteLintEntry}}
+  />
+
+  <ResourcePagination @meta={{this.lintEntries.meta}} @onSelectPage={{fn this.selectPage}} />
+
+  {{outlet}}
+{{/if}}

@@ -74,6 +74,7 @@ defmodule Accent.Mixfile do
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
       {:absinthe_error_payload, "~> 1.0"},
+      {:absinthe_security, "~> 0.1"},
 
       # Utils
       {:jsone, "~> 1.4"},

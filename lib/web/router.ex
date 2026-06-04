@@ -25,7 +25,12 @@ defmodule Accent.Router do
   scope "/graphql" do
     pipe_through(:graphql)
 
-    forward("/", Absinthe.Plug, schema: Schema, pipeline: {Schema, :absinthe_pipeline})
+    forward("/", Absinthe.Plug,
+      schema: Schema,
+      pipeline: {Schema, :absinthe_pipeline},
+      analyze_complexity: true,
+      max_complexity: 150
+    )
   end
 
   pipeline :api_authenticate do

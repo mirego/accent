@@ -25,6 +25,11 @@ end
 
 config :absinthe, :schema, Accent.GraphQL.Schema
 
+config :absinthe_security, AbsintheSecurity.Phase.FieldSuggestionsCheck, enable_field_suggestions: false
+config :absinthe_security, AbsintheSecurity.Phase.MaxAliasesCheck, max_alias_count: 20
+config :absinthe_security, AbsintheSecurity.Phase.MaxDepthCheck, max_depth_count: 10
+config :absinthe_security, AbsintheSecurity.Phase.MaxDirectivesCheck, max_directive_count: 100
+
 config :accent, Accent.Endpoint,
   render_errors: [accepts: ~w(json)],
   pubsub_server: Accent.PubSub

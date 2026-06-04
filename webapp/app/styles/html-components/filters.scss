@@ -1,5 +1,5 @@
 .filters {
-  padding: 15px;
+  padding: 8px;
   background: var(--background-light);
   border-radius: var(--border-radius);
   border: 1px solid var(--background-light-highlight);
@@ -42,7 +42,7 @@
 .filters-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
   flex-grow: 1;
 }
 
@@ -84,4 +84,11 @@
 .queryForm-filter-select {
   font-size: 13px;
   min-width: 130px;
+}
+
+@media (max-width: 440px) {
+  .queryForm {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

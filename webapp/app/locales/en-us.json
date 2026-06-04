@@ -422,7 +422,9 @@
         "machine_translations": "Machine translations",
         "machine_translations_text": "Configure an external service to translate languages automatically",
         "prompts": "AI Assistant",
-        "prompts_text": "Configure your assistant to help write, improve or correct your strings"
+        "prompts_text": "Configure your assistant to help write, improve or correct your strings",
+        "lint_entries": "Lint rules",
+        "lint_entries_text": "Review the lint rules and ignored entries configured for this project"
       },
       "machine_translations": {
         "title": "Machine translations",
@@ -441,6 +443,28 @@
         "config_key_help_present": "Config key has been set, but the value will never be exposed via the API.",
         "config_key_help_not_present": "Once saved, the config key will never be shown.",
         "delete_confirm": "Are you sure you want to delete this instruction?"
+      },
+      "lint_entries": {
+        "title": "Lint rules",
+        "help": "Lint rules and ignored entries configured for this project.",
+        "empty": "No lint rules have been configured for this project yet.",
+        "add_button": "Add lint rule",
+        "new_title": "New lint rule",
+        "edit_title": "Edit lint rule",
+        "type_label": "Type",
+        "checks_label": "Checks",
+        "value_label": "Value",
+        "value_label_term": "Term",
+        "value_label_key": "Key",
+        "value_label_language_tool_rule_id": "Rule name",
+        "language_tool_rules_link": "Language tool rules",
+        "save_button": "Save",
+        "delete_button": "Delete",
+        "delete_confirm": "Are you sure you want to delete this lint rule?",
+        "type_all": "All",
+        "type_term": "Term",
+        "type_key": "Key",
+        "type_language_tool_rule_id": "Spellcheck rule"
       },
       "delete_form": {
         "title": "Danger zone",
@@ -807,6 +831,7 @@
       "service_integrations_link_title": "Integrations"
     },
     "lint_translations_page": {
+      "empty_title": "You’re all good!",
       "empty_text": "No checks warnings or errors. You’re all good!",
       "add_lint_entry": {
         "ignore_checks_for_term": "Accept the term in this project",
@@ -1258,6 +1283,17 @@
         },
         "prompts": {
           "loading_content": "Fetching project’s AI assistant settings…"
+        },
+        "lint_entries": {
+          "loading_content": "Fetching project’s lint rules…",
+          "flash_messages": {
+            "create_success": "The lint rule has been created with success",
+            "create_error": "The lint rule could not be created",
+            "update_success": "The lint rule has been updated with success",
+            "update_error": "The lint rule could not be updated",
+            "remove_success": "The lint rule has been removed with success",
+            "remove_error": "The lint rule could not be removed"
+          }
         },
         "service_integrations": {
           "loading_content": "Fetching project’s service & integrations…"

@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 17px;
+  padding-bottom: 4px;
+}
+
+.text {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  max-width: 600px;
+}
+
+.empty {
+  margin-bottom: 20px;
+}

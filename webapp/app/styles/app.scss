@@ -178,7 +178,7 @@
   background: color-mix(in srgb, var(--color-primary) 10%, transparent);
 }
 
-html {
+html body {
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
@@ -191,7 +191,7 @@ html {
 
   --border-radius: 6px;
 
-  --text-color-normal: hsl(from var(--color-primary) h 30% 5%);
+  --text-color-normal: color-mix(in oklab, var(--color-primary), black 60%);
 
   --content-background: #fff;
   --content-background-border: #eaeaea;
@@ -217,7 +217,7 @@ html {
   --color-highlight-hover-lighteness: 90%;
 
   --color-grey: #adadad;
-  --color-black: hsl(from var(--color-primary) h calc(s * 0.7) calc(l * 0.3));
+  --color-black: color-mix(in oklab, var(--color-primary), black 60%);
   --background-tooltip: #eee;
   --text-color-tooltip: #333;
 
@@ -250,7 +250,7 @@ html {
   background: #eee;
 }
 
-html[data-theme='dark'] {
+html[data-theme='dark'] body {
   --content-background: #161616;
   --content-background-border: #272727;
 
@@ -260,7 +260,7 @@ html[data-theme='dark'] {
   --logo-background: #333;
   --logo-foreground: #777;
 
-  --text-color-normal: hsl(from var(--color-primary) h 3% 80%);
+  --text-color-normal: color-mix(in oklab, var(--color-primary), white 80%);
 
   --gradient-header-color: #171717;
 
@@ -275,7 +275,7 @@ html[data-theme='dark'] {
 
   --color-highlight-lighteness: 12%;
   --color-highlight-hover-lighteness: 20%;
-  --color-black: hsl(from var(--color-primary) h calc(s * 0.1) calc(l * 1.6));
+  --color-black: color-mix(in oklab, var(--color-primary), white 80%);
   --color-grey: #616161;
 
   --background-tooltip: #111;

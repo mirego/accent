@@ -6,6 +6,7 @@
   border: 1px solid var(--content-background-border);
   background: var(--content-background);
   color: var(--text-color-normal);
+  --text-color-normal: color-mix(in oklab, var(--color-primary), black 60%);
 
   &:focus,
   &:hover {
@@ -54,7 +55,7 @@
 .projectUpdates {
   display: block;
   opacity: 0.6;
-  color: var(--color-black);
+  color: var(--text-color-normal);
   font-style: italic;
   font-size: 11px;
 }

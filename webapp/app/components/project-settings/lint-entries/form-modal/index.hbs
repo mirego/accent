@@ -1,0 +1,47 @@
+<AccModal @onClose={{@onClose}} @small={{true}}>
+  <div local-class='wrapper'>
+    <button local-class='closeButton' type='button' {{on 'click' @onClose}}>
+      {{inline-svg '/assets/x.svg' local-class='closeButton-icon'}}
+    </button>
+
+    <strong local-class='title'>{{this.title}}</strong>
+
+    <label local-class='field'>
+      <span local-class='label'>{{t 'components.project_settings.lint_entries.type_label'}}</span>
+      <AccSelect @customSelect={{true}} @options={{this.typeOptions}} @selected={{this.selectedType}} @onchange={{this.setType}} />
+    </label>
+
+    {{#unless this.isSpellcheckRule}}
+      <label local-class='field'>
+        <span local-class='label'>{{t 'components.project_settings.lint_entries.checks_label'}}</span>
+        <AccSelect @multi={{true}} @options={{this.checkOptions}} @selected={{this.selectedChecks}} @onchange={{this.setChecks}} />
+      </label>
+    {{/unless}}
+
+    {{#if this.showValueField}}
+      <div local-class='field'>
+        <span local-class='labelRow'>
+          <span local-class='label'>{{this.valueLabel}}</span>
+          {{#if this.isSpellcheckRule}}
+            <a local-class='labelLink' href='https://community.languagetool.org/rule/list' target='_blank' rel='noopener noreferrer'>
+              {{t 'components.project_settings.lint_entries.language_tool_rules_link'}}
+            </a>
+          {{/if}}
+        </span>
+        <input type='text' local-class='textInput' value={{this.value}} {{on 'input' this.setValue}} />
+      </div>
+    {{/if}}
+
+    <div local-class='actions'>
+      {{#if this.isEditMode}}
+        <AsyncButton @onClick={{perform this.delete}} @loading={{this.delete.isRunning}} class='button button--red button--filled'>
+          {{t 'components.project_settings.lint_entries.delete_button'}}
+        </AsyncButton>
+      {{/if}}
+
+      <AsyncButton @onClick={{perform this.save}} @loading={{this.save.isRunning}} class='button button--filled'>
+        {{t 'components.project_settings.lint_entries.save_button'}}
+      </AsyncButton>
+    </div>
+  </div>
+</AccModal>

@@ -95,6 +95,12 @@ defmodule Accent.GraphQL.Types.Project do
       resolve(project_authorize(:lint, &Project.lint_translations/3))
     end
 
+    field :lint_entries, :project_lint_entries do
+      arg(:page, :integer)
+      arg(:page_size, :integer)
+      resolve(project_authorize(:index_lint_entries, &Accent.GraphQL.Resolvers.Lint.list_project/3))
+    end
+
     field :api_tokens, list_of(non_null(:api_token)) do
       resolve(
         project_authorize(

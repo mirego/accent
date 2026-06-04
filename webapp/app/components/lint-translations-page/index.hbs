@@ -27,7 +27,15 @@
     {{/each}}
   </div>
 {{else}}
-  <div local-class='empty-content'>
-    <EmptyContent @text={{t 'components.lint_translations_page.empty_text'}} />
+  <div local-class='all-good'>
+    <img local-class='all-reviewed-image' src='/assets/all-reviewed-splash.svg' />
+
+    <div local-class='all-good-title'>
+      {{t 'components.lint_translations_page.empty_title'}}
+    </div>
+
+    <div local-class='all-good-subtitle'>
+      {{t 'components.lint_translations_page.empty_text'}}
+    </div>
   </div>
 {{/if}}

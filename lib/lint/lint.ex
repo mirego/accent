@@ -52,12 +52,19 @@ defmodule Accent.Lint do
   end
 
   def create_lint_entry(args) do
-    Repo.insert(%ProjectLintEntry{
-      project_id: args.project_id,
-      check_ids: args.check_ids,
-      type: args.type,
-      value: args.value
-    })
+    %ProjectLintEntry{}
+    |> ProjectLintEntry.create_changeset(args)
+    |> Repo.insert()
+  end
+
+  def update_lint_entry(lint_entry, args) do
+    lint_entry
+    |> ProjectLintEntry.update_changeset(args)
+    |> Repo.update()
+  end
+
+  def delete_lint_entry(lint_entry) do
+    Repo.delete(lint_entry)
   end
 
   defp entry_to_messages(entry, config) do

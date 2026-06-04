@@ -9,6 +9,7 @@ defmodule Accent.GraphQL.Helpers.Authorization do
   alias Accent.Integration
   alias Accent.Operation
   alias Accent.Project
+  alias Accent.ProjectLintEntry
   alias Accent.Prompt
   alias Accent.Repo
   alias Accent.Revision
@@ -169,6 +170,14 @@ defmodule Accent.GraphQL.Helpers.Authorization do
       integration = Repo.get(Integration, args.id)
 
       authorize(action, integration.project_id, info, do: func.(integration, args, info))
+    end
+  end
+
+  def project_lint_entry_authorize(action, func) do
+    fn _, args, info ->
+      lint_entry = Repo.get(ProjectLintEntry, args.id)
+
+      authorize(action, lint_entry.project_id, info, do: func.(lint_entry, args, info))
     end
   end
 

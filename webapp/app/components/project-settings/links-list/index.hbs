@@ -45,5 +45,13 @@
         {{/if}}
       </LinkTo>
     {{/if}}
+
+    {{#if (get @permissions 'indexLintEntries')}}
+      <LinkTo @route='logged-in.project.edit.lint-entries' local-class='link'>
+        {{inline-svg 'assets/warning.svg' local-class='link-icon link-icon--lint-entries'}}
+        <strong>{{t 'components.project_settings.links_list.lint_entries'}}</strong>
+        <p>{{t 'components.project_settings.links_list.lint_entries_text'}}</p>
+      </LinkTo>
+    {{/if}}
   </div>
 </div>
