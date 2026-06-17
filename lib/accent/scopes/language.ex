@@ -5,8 +5,6 @@ defmodule Accent.Scopes.Language do
   alias Accent.Collaborator
   alias Accent.Revision
 
-  require Accent.Scopes.PopularLanguagesFragment
-
   @doc """
   Either search by a query or fallback to all languages with the most used at the top.
   When a user is provided, the ordering is computed only from projects that user collaborates on.

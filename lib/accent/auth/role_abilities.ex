@@ -1,6 +1,5 @@
 defmodule Accent.RoleAbilities do
   @moduledoc false
-  require Logger
 
   @owner_role "owner"
   @admin_role "admin"

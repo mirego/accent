@@ -47,7 +47,6 @@ defmodule Accent.OperationBatcher do
     from(operations in query, where: field(operations, ^field_name) == ^value)
   end
 
-  defp maybe_batch(nil), do: nil
   defp maybe_batch(%{batch_operation_id: nil} = operation), do: create_batch_operation(operation)
   defp maybe_batch(%{batch_operation: batch_operation}), do: update_batch_operation(batch_operation)
 

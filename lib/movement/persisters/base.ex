@@ -6,8 +6,6 @@ defmodule Movement.Persisters.Base do
   alias Movement.Migrator
   alias Movement.Persisters.ProjectHookWorker
 
-  require Ecto.Query
-
   # Inserts operations by batch of 500 to prevent parameters
   # overflow in database adapter
   @operations_inserts_chunk 500

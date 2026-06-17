@@ -193,11 +193,8 @@ config :ueberauth, Ueberauth.Strategy.Slack.OAuth,
 if get_env("SENTRY_DSN") do
   config :sentry,
     dsn: get_env("SENTRY_DSN"),
-    environment_name: get_env("SENTRY_ENVIRONMENT_NAME"),
-    included_environments: ~w(dev prod production),
-    root_source_code_path: File.cwd!()
-else
-  config :sentry, included_environments: []
+    environment_name: get_env("SENTRY_ENVIRONMENT_NAME") || "production",
+    root_source_code_paths: [File.cwd!()]
 end
 
 if get_env("TZDATA_AUTOUPDATE_DISABLED") do

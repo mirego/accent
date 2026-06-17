@@ -23,8 +23,6 @@ defimpl Canada.Can, for: Accent.User do
     Accent.EmailAbilities.can?(email, action)
   end
 
-  def can?(_user, _action, nil), do: false
-
   def validate_role(nil, _action, _project_id), do: false
 
   def validate_role(permissions, action, %Project{} = project) do

@@ -1,6 +1,5 @@
 defmodule Accent.Router do
   use Phoenix.Router
-  use Sentry.Phoenix.Endpoint
 
   alias Accent.GraphQL.Schema
   alias Accent.Plugs.AssignCurrentUser
@@ -94,6 +93,7 @@ defmodule Accent.Router do
   end
 
   scope "/", Accent do
+    post("/v1/traces", BadgeController, :percentage_reviewed_count)
     get("/:id/percentage_reviewed_badge.svg", BadgeController, :percentage_reviewed_count)
     get("/:id/reviewed_badge.svg", BadgeController, :reviewed_count)
     get("/:id/conflicts_badge.svg", BadgeController, :conflicts_count)

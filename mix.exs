@@ -13,7 +13,7 @@ defmodule Accent.Mixfile do
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      xref: [exclude: IEx],
+      elixirc_options: [no_warn_undefined: [IEx]],
       deps: deps(),
       releases: releases(),
       listeners: [Phoenix.CodeReloader],
@@ -100,7 +100,7 @@ defmodule Accent.Mixfile do
       {:ueberauth_oidc, "~> 0.1.7"},
 
       # Errors
-      {:sentry, "~> 7.0"},
+      {:sentry, "~> 13.0"},
 
       # Mails
       {:bamboo, "~> 2.3", override: true},

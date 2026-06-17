@@ -47,7 +47,7 @@ config :canary,
 config :phoenix, :json_library, Jason
 
 config :sentry,
-  before_send_event: {Accent.Sentry, :before_send},
+  before_send: {Accent.Sentry, :before_send},
   release: version
 
 config :tesla,

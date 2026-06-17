@@ -15,8 +15,6 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.Translation
 
-  require Ecto.Query
-
   @spec create_project_lint_entry(Project.t(), map(), GraphQLContext.t()) ::
           {:middleware, Batch, any()}
   def create_project_lint_entry(_project, args, _resolution) do

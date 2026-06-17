@@ -40,8 +40,6 @@ defmodule BambooSMTPAdapterWithTlsOptions do
 
   @behaviour Bamboo.Adapter
 
-  require Logger
-
   @required_configuration [:server, :port]
   @default_configuration %{
     tls: :if_available,

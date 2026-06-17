@@ -1,5 +1,6 @@
 defmodule Accent.Endpoint do
   use Phoenix.Endpoint, otp_app: :accent
+  use Sentry.PlugCapture
 
   plug(:ping)
   plug(:canonical_host)
@@ -45,6 +46,8 @@ defmodule Accent.Endpoint do
 
   plug(Plug.MethodOverride)
   plug(Plug.Head)
+
+  plug(Sentry.PlugContext)
 
   plug(Accent.Router)
 

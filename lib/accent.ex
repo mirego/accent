@@ -32,7 +32,9 @@ defmodule Accent do
         else: children
 
     if Application.get_env(:sentry, :dsn) do
-      {:ok, _} = Logger.add_backend(Sentry.LoggerBackend)
+      :logger.add_handler(:sentry_handler, Sentry.LoggerHandler, %{
+        config: %{metadata: [:file, :line]}
+      })
     end
 
     if Application.get_env(:accent, Accent.Mailer)[:adapter] === BambooSMTPAdapterWithTlsOptions do
