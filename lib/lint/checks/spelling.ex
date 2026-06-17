@@ -11,6 +11,7 @@ defmodule Accent.Lint.Checks.Spelling do
   @impl true
   def applicable(entry, _) do
     LanguageTool.ready?() and
+      entry.value_type === "string" and
       is_binary(entry.value) and
       not String.match?(entry.value, ~r/MMMM?|YYYY?|HH|AA/i) and
       ((!entry.is_master and entry.value !== entry.master_value) or entry.is_master) and

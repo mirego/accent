@@ -14,7 +14,8 @@ defmodule Langue do
     Langue.Formatter.LaravelPhp,
     Langue.Formatter.GoI18nJson,
     Langue.Formatter.XLIFF12,
-    Langue.Formatter.Resx20
+    Langue.Formatter.Resx20,
+    Langue.Formatter.RailsYml
   ]
 
   def modules, do: @format_modules

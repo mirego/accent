@@ -28,7 +28,7 @@ defmodule Accent.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Accent, []}, extra_applications: [:logger, :canada]]
+    [mod: {Accent, []}, extra_applications: [:logger, :canada, :yamerl]]
   end
 
   # Specifies which paths to compile per environment.
@@ -86,6 +86,8 @@ defmodule Accent.Mixfile do
       {:jason, "~> 1.2", override: true},
       {:erlsom, "~> 1.5"},
       {:xml_builder, "~> 2.0"},
+      {:yamerl, "~> 0.10"},
+      {:ymlr, "~> 5.0"},
       {:aws_signature, "~> 0.3"},
       {:gen_smtp, "~> 1.3", override: true},
 
