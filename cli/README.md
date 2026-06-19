@@ -20,7 +20,7 @@ $ npm install -g accent-cli
 $ accent COMMAND
 running command...
 $ accent (--version|-v)
-accent-cli/0.18.0 darwin-arm64 node-v22.18.0
+accent-cli/0.19.0 darwin-arm64 node-v22.18.0
 $ accent --help [COMMAND]
 USAGE
   $ accent COMMAND
@@ -213,7 +213,7 @@ EXAMPLES
   $ accent export --order-by=key --version=build.myapp.com:0.12.345
 ```
 
-_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.18.0/src/commands/export.ts)_
+_See code: [src/commands/export.ts](https://github.com/mirego/accent/blob/v0.19.0/src/commands/export.ts)_
 
 ## `accent format`
 
@@ -235,7 +235,7 @@ EXAMPLES
   $ accent format
 ```
 
-_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.18.0/src/commands/format.ts)_
+_See code: [src/commands/format.ts](https://github.com/mirego/accent/blob/v0.19.0/src/commands/format.ts)_
 
 ## `accent help [COMMAND]`
 
@@ -279,7 +279,7 @@ EXAMPLES
   $ accent jipt
 ```
 
-_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.18.0/src/commands/jipt.ts)_
+_See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.19.0/src/commands/jipt.ts)_
 
 ## `accent lint`
 
@@ -300,7 +300,7 @@ EXAMPLES
   $ accent lint
 ```
 
-_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.18.0/src/commands/lint.ts)_
+_See code: [src/commands/lint.ts](https://github.com/mirego/accent/blob/v0.19.0/src/commands/lint.ts)_
 
 ## `accent stats`
 
@@ -323,7 +323,7 @@ EXAMPLES
   $ accent stats
 ```
 
-_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.18.0/src/commands/stats.ts)_
+_See code: [src/commands/stats.ts](https://github.com/mirego/accent/blob/v0.19.0/src/commands/stats.ts)_
 
 ## `accent sync`
 
@@ -361,7 +361,7 @@ EXAMPLES
   $ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.18.0/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.19.0/src/commands/sync.ts)_
 
 ## `accent version`
 
