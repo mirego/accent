@@ -1,41 +1,62 @@
-{{#if @lintTranslations}}
-  <div local-class='content'>
-    <div local-class='stats'>
-      <button local-class='stats-item'>
-        <span>{{t 'components.translation_edit.lint_message.title_checks.all'}}</span>
-        <strong>{{this.lintTranslationsStatsCount}}</strong>
-      </button>
-
-      {{#each this.lintTranslationsStats as |stat|}}
-        <button local-class='stats-item'>
-          <span>{{t (concat 'components.translation_edit.lint_message.title_checks.' stat.title)}}</span>
-          <strong>{{stat.count}}</strong>
+<div local-class='content'>
+  {{#if (or @lintTranslations @checkFilter)}}
+    <div local-class='stats-wrapper'>
+      <div local-class='stats'>
+        <button type='button' local-class='stats-item {{unless @checkFilter "stats-item--active"}}' {{on 'click' (fn @onChangeCheckFilter null)}}>
+          <span>{{t 'components.translation_edit.lint_message.title_checks.all'}}</span>
+          <strong>{{this.lintTranslationsStatsCount}}</strong>
         </button>
-      {{/each}}
-    </div>
 
-    {{#each @lintTranslations key='translation.id' as |lintTranslation|}}
-      <div local-class='item {{if (eq this.fixLintMessageRunningTranslationId lintTranslation.translation.id) "item--fixing"}}'>
-        <LintTranslationsPage::Item
-          @permissions={{@permissions}}
-          @project={{@project}}
-          @lintTranslation={{lintTranslation}}
-          @createLintEntry={{perform this.createLintEntryTask}}
-          @fixText={{perform this.fixLintMessageTask}}
-        />
+        {{#each this.lintTranslationsStats as |stat|}}
+          <button type='button' local-class='stats-item {{if (eq @checkFilter stat.title) "stats-item--active"}}' {{on 'click' (fn @onChangeCheckFilter stat.title)}}>
+            <span>{{t (concat 'components.translation_edit.lint_message.title_checks.' stat.title)}}</span>
+            <strong>{{stat.count}}</strong>
+          </button>
+        {{/each}}
       </div>
-    {{/each}}
-  </div>
-{{else}}
-  <div local-class='all-good'>
-    <img local-class='all-reviewed-image' src='/assets/all-reviewed-splash.svg' />
 
-    <div local-class='all-good-title'>
-      {{t 'components.lint_translations_page.empty_title'}}
+      {{#if (get @permissions 'updateTranslation')}}
+        <button type='button' class='button button--borderless button--green' local-class='fix-all' disabled={{this.fixingAll}} {{on 'click' (perform this.fixAllTask)}}>
+          {{inline-svg 'assets/check-circle.svg' class='button-icon'}}
+          {{#if this.fixingAll}}
+            {{t 'components.lint_translations_page.fixing_all'}}
+          {{else}}
+            {{t 'components.lint_translations_page.fix_all'}}
+          {{/if}}
+        </button>
+      {{/if}}
     </div>
+  {{/if}}
 
-    <div local-class='all-good-subtitle'>
-      {{t 'components.lint_translations_page.empty_text'}}
+  {{#if @lintTranslations}}
+    <div {{did-update this.resetVisibleCount @lintTranslations}}>
+      {{#each this.visibleLintTranslations key='translation.id' as |lintTranslation|}}
+        <div local-class='item {{if (eq this.fixLintMessageRunningTranslationId lintTranslation.translation.id) "item--fixing"}}'>
+          <LintTranslationsPage::Item
+            @permissions={{@permissions}}
+            @project={{@project}}
+            @lintTranslation={{lintTranslation}}
+            @createLintEntry={{perform this.createLintEntryTask}}
+            @fixText={{perform this.fixLintMessageTask}}
+          />
+        </div>
+      {{/each}}
+
+      {{#if this.hasMore}}
+        <div local-class='sentinel' {{did-insert this.observeSentinel}} {{will-destroy this.unobserveSentinel}}></div>
+      {{/if}}
     </div>
-  </div>
-{{/if}}
+  {{else}}
+    <div local-class='all-good'>
+      <img local-class='all-reviewed-image' src='/assets/all-reviewed-splash.svg' />
+
+      <div local-class='all-good-title'>
+        {{t 'components.lint_translations_page.empty_title'}}
+      </div>
+
+      <div local-class='all-good-subtitle'>
+        {{t 'components.lint_translations_page.empty_text'}}
+      </div>
+    </div>
+  {{/if}}
+</div>

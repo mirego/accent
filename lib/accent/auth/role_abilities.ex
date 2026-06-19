@@ -41,6 +41,7 @@ defmodule Accent.RoleAbilities do
     delete_comment
     update_comment
     update_translation
+    fix_lint_translations
     create_project_lint_entry
     update_project_lint_entry
     delete_project_lint_entry

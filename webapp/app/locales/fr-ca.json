@@ -334,6 +334,7 @@
       "stats_label_text": "Activités réalisées :",
       "stats_text": {
         "merge_on_corrected": "Chaîne traduite",
+        "fix_lint": "Correction de vérification",
         "add_to_version": "Chaînes versionnées",
         "version_new": "Chaînes versionnées",
         "merge_on_proposed": "Chaîne traduite",
@@ -354,6 +355,7 @@
       },
       "action_explanation": {
         "add_to_version": "Lorsqu’un utilisateur crée une version, la chaîne est copiée en tant que chaîne versionnée. La chaîne restera intacte par la version \"principale\"",
+        "fix_lint": "Lorsqu’un utilisateur corrige une vérification de texte",
         "version_new": "Lorsqu’un utilisateur crée une version, la chaîne est copiée en tant que chaîne versionnée. La chaîne restera intacte par la version \"principale\"",
         "create_version": "Lorsqu’un utilisateur fige l’état de toutes les chaînes pour le marquer avec une version. Utilisé pour gérer plusieurs versions de la même application en parallèle.",
         "conflict_on_corrected": "Lorsque le texte téléchargé est différent du dernier texte synchronisé et que le dernier texte synchronisé est différent du texte actuel. Cela se produit si le texte a été touché par un utilisateur dans Accent. Il est utile d’identifier un conflit causé par une différence entre une synchronisation et la version modifiée dans Accent.",
@@ -384,6 +386,7 @@
       },
       "action_text": {
         "add_to_version": "a gelé la chaîne dans une version",
+        "fix_lint": "a corrigé une vérification de texte",
         "version_new": "ajouté la chaîne à une version",
         "create_version": "créé une nouvelle version",
         "conflict_on_corrected": "L’activité de synchronisation de a créé un conflit",
@@ -684,6 +687,7 @@
       "stats_label_text": "Activités réalisées :",
       "stats_text": {
         "add_to_version": "Chaînes versionnées",
+        "fix_lint": "Correction de vérification",
         "version_new": "Chaînes versionnées",
         "merge_on_corrected": "Chaîne traduite",
         "merge_on_proposed": "Chaîne traduite",
@@ -704,6 +708,7 @@
       },
       "action_text": {
         "add_to_version": "a gelé la chaîne dans une version :",
+        "fix_lint": "a corrigé une vérification de texte",
         "version_new": "ajouté la chaîne à la version :",
         "create_version": "créé une nouvelle version :",
         "remove": "supprimé la chaîne :",
@@ -833,11 +838,17 @@
     "lint_translations_page": {
       "empty_title": "Tout est bon!",
       "empty_text": "Aucun avertissement ou erreur. Tout est bon!",
+      "fix_all": "Appliquer tous les correctifs",
+      "fixing_all": "Application des correctifs…",
       "add_lint_entry": {
         "ignore_checks_for_term": "Accepter les mots dans ce projet",
         "ignore_spellcheck_rule": "Ignorer la règle de vérification orthographique",
         "ignore_checks_for_key": "Ignorer toutes les vérifications pour la clé",
-        "ignore_check_for_project": "Ignorer la vérification pour le projet"
+        "ignore_check_for_project": "Ignorer la vérification pour le projet",
+        "flash_messages": {
+          "create_success": "L’entrée de vérification a été créée.",
+          "create_error": "L’entrée de vérification n’a pas pu être créée. Réessayez plus tard."
+        }
       }
     },
     "project_manage_languages": {
@@ -922,6 +933,7 @@
     "translation_activities_list_item": {
       "action_text": {
         "add_to_version": "a gelé la chaîne dans une version :",
+        "fix_lint": "a corrigé une vérification de texte",
         "version_new": "ajouté la chaîne à la version :",
         "create_version": "créé une nouvelle version",
         "conflict_on_corrected": "la dernière activité de synchronisation a créé un conflit",

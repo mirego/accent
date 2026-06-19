@@ -15,5 +15,14 @@
     <SkeletonUi::ProgressLine />
   {{/if}}
 
-  <LintTranslationsPage @project={{this.model.project}} @lintTranslations={{this.model.lintTranslations}} @permissions={{this.permissions}} />
+  <LintTranslationsPage
+    @project={{this.model.project}}
+    @lintTranslations={{this.model.lintTranslations}}
+    @lintChecks={{this.model.lintChecks}}
+    @permissions={{this.permissions}}
+    @checkFilter={{this.checkFilter}}
+    @revisionId={{this.revisionId}}
+    @query={{this.query}}
+    @onChangeCheckFilter={{this.changeCheckFilter}}
+  />
 {{/if}}

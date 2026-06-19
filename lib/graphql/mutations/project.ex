@@ -31,5 +31,15 @@ defmodule Accent.GraphQL.Mutations.Project do
 
       resolve(project_authorize(:delete_project, &ProjectResolver.delete/3))
     end
+
+    field :fix_lint_translations, :mutated_project do
+      arg(:id, non_null(:id))
+      arg(:revision_id, :id, default_value: nil)
+      arg(:query, :string)
+      arg(:check_ids, list_of(non_null(:id)), default_value: [])
+      arg(:check, :lint_check, default_value: nil)
+
+      resolve(project_authorize(:fix_lint_translations, &ProjectResolver.fix_lint_translations/3))
+    end
   end
 end

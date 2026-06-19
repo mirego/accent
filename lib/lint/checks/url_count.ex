@@ -24,6 +24,8 @@ defmodule Accent.Lint.Checks.URLCount do
   end
 
   defp urls_count(text) do
-    Regex.scan(~r/(https?|ftps?|mailto):\/\/[a-z0-9]+\./, text)
+    ~r/(?:https?|ftps?):\/\/[^\s]+|mailto:[^\s]+/
+    |> Regex.scan(text)
+    |> length()
   end
 end

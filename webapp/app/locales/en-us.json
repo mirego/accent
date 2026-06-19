@@ -318,6 +318,7 @@
       "stats_label_text": "Activities performed:",
       "stats_text": {
         "merge_on_corrected": "Translated string",
+        "fix_lint": "Fix check",
         "add_to_version": "Versioned strings",
         "version_new": "Versioned strings",
         "merge_on_proposed": "Translated string",
@@ -338,6 +339,7 @@
       },
       "action_explanation": {
         "add_to_version": "When a user creates a version, the string is copied as a versioned string. The string will remain untouched by the \"main\" version",
+        "fix_lint": "When a user fix a text check",
         "version_new": "When a user creates a version, the string is copied as a versioned string. The string will remain untouched by the \"main\" version",
         "create_version": "When a user freeze the state of all strings to tag it with a version. Used to maintain multiple versions of the same app in parallel.",
         "conflict_on_corrected": "When the uploaded text is different than the last synced text and the last synced text is different than the current text. This happens if the text has been touched by a user in Accent. It is uselful to identify a conflict that is caused by a difference in a sync and the modified version in Accent.",
@@ -368,6 +370,7 @@
       },
       "action_text": {
         "add_to_version": "froze the string in a version",
+        "fix_lint": "fixed text check",
         "version_new": "added the string to a version",
         "create_version": "created a new version",
         "conflict_on_corrected": "’s sync activity created a conflict",
@@ -668,6 +671,7 @@
       "stats_label_text": "Activities performed:",
       "stats_text": {
         "add_to_version": "Versioned strings",
+        "fix_lint": "Fixed check",
         "version_new": "Versioned strings",
         "merge_on_corrected": "Translated string",
         "merge_on_proposed": "Translated string",
@@ -688,6 +692,7 @@
       },
       "action_text": {
         "add_to_version": "froze the string in a version:",
+        "fix_lint": "fixed text check",
         "version_new": "added the string to the version:",
         "create_version": "created a new version:",
         "remove": "removed the string:",
@@ -833,11 +838,17 @@
     "lint_translations_page": {
       "empty_title": "You’re all good!",
       "empty_text": "No checks warnings or errors. You’re all good!",
+      "fix_all": "Apply all fixes",
+      "fixing_all": "Applying fixes…",
       "add_lint_entry": {
         "ignore_checks_for_term": "Accept the term in this project",
         "ignore_spellcheck_rule": "Ignore spellcheck rule",
         "ignore_checks_for_key": "Ignore all checks for key",
-        "ignore_check_for_project": "Ignore check for project"
+        "ignore_check_for_project": "Ignore check for project",
+        "flash_messages": {
+          "create_success": "The lint entry has been created.",
+          "create_error": "The lint entry could not be created. Try again later."
+        }
       }
     },
     "project_manage_languages": {
@@ -922,6 +933,7 @@
     "translation_activities_list_item": {
       "action_text": {
         "add_to_version": "froze the string in a version:",
+        "fix_lint": "fixed text check",
         "version_new": "added the string to the version:",
         "create_version": "created a new version",
         "conflict_on_corrected": "last sync activity created a conflict",

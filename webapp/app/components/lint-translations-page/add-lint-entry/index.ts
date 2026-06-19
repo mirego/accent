@@ -10,7 +10,7 @@ interface Args {
     length: number | null;
   };
   permissions: object;
-  create: (lintEntry: object) => void;
+  create: (lintEntry: object) => Promise<{errors: string[] | null}>;
 }
 
 export default class LintTranslationsPageAddLintEntry extends Component<Args> {
@@ -37,11 +37,13 @@ export default class LintTranslationsPageAddLintEntry extends Component<Args> {
   }
 
   @action
-  create(type: string, value: string | null) {
-    this.args.create({
+  async create(type: string, value: string | null) {
+    await this.args.create({
       checkIds: [this.args.message.check.toLowerCase()],
       type,
       value
     });
+
+    this.displayMenu = false;
   }
 }

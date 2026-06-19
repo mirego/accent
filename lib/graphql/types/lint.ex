@@ -54,4 +54,9 @@ defmodule Accent.GraphQL.Types.Lint do
     field(:messages, list_of(non_null(:lint_translation_message)))
     field(:translation, non_null(:translation), resolve: dataloader(Accent.Translation))
   end
+
+  object :lint_check_stat do
+    field(:check, non_null(:lint_check))
+    field(:count, non_null(:integer))
+  end
 end

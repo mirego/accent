@@ -92,7 +92,15 @@ defmodule Accent.GraphQL.Types.Project do
       arg(:query, :string)
       arg(:revision_id, :id, default_value: nil)
       arg(:check_ids, list_of(non_null(:id)), default_value: [])
+      arg(:check, :lint_check, default_value: nil)
       resolve(project_authorize(:lint, &Project.lint_translations/3))
+    end
+
+    field :lint_checks, list_of(non_null(:lint_check_stat)) do
+      arg(:query, :string)
+      arg(:revision_id, :id, default_value: nil)
+      arg(:check_ids, list_of(non_null(:id)), default_value: [])
+      resolve(project_authorize(:lint, &Project.lint_checks/3))
     end
 
     field :lint_entries, :project_lint_entries do

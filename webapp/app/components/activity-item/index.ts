@@ -9,6 +9,7 @@ import IntlService from 'ember-intl/services/intl';
 /* eslint camelcase:0 */
 const ACTIONS_ICON_PATHS = {
   version_new: 'assets/tag.svg',
+  fix_lint: 'assets/check-circle.svg',
   add_to_version: 'assets/tag.svg',
   create_version: 'assets/tag.svg',
   batch_sync: 'assets/sync.svg',

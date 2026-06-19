@@ -3,6 +3,7 @@ defmodule Accent.GraphQL.Resolvers.Project do
   import Accent.GraphQL.Helpers.FieldProjection, only: [skip_stats?: 1]
 
   alias Accent.GraphQL.Paginated
+  alias Accent.Lint
   alias Accent.Operation
   alias Accent.Plugs.GraphQLContext
   alias Accent.Project
@@ -17,6 +18,9 @@ defmodule Accent.GraphQL.Resolvers.Project do
   alias Accent.Translation
   alias Accent.User
   alias Ecto.Query
+  alias Movement.Builders.TranslationUpdate, as: TranslationUpdateBuilder
+  alias Movement.Context
+  alias Movement.Persisters.Base, as: BasePersister
 
   require Query
 
@@ -127,6 +131,67 @@ defmodule Accent.GraphQL.Resolvers.Project do
           {:ok, [Accent.TranslationLint.t()]}
   def lint_translations(project, args, _) do
     translations =
+      project
+      |> lint_results(args)
+      |> Enum.map(fn {entry, messages} ->
+        {entry, Lint.filter_messages_by_check(messages, Map.get(args, :check))}
+      end)
+      |> Enum.filter(&Enum.any?(elem(&1, 1)))
+      |> Enum.map(fn {entry, messages} ->
+        %Accent.TranslationLint{id: entry.id, translation_id: entry.id, messages: messages}
+      end)
+
+    {:ok, translations}
+  end
+
+  @spec lint_checks(Project.t(), any(), GraphQLContext.t()) :: {:ok, [map()]}
+  def lint_checks(project, args, _) do
+    stats =
+      project
+      |> lint_results(args)
+      |> Lint.check_stats()
+
+    {:ok, stats}
+  end
+
+  @spec fix_lint_translations(Project.t(), any(), GraphQLContext.t()) :: project_operation
+  def fix_lint_translations(project, args, info) do
+    {results, config, translations_by_id} = lint_results_with_translations(project, args)
+    check_filter = Map.get(args, :check)
+    user_id = info.context[:conn].assigns[:current_user].id
+
+    updates = Lint.fix_updates(results, translations_by_id, config, check_filter)
+
+    context =
+      %Context{}
+      |> Context.assign(:project, project)
+      |> Context.assign(:user_id, user_id)
+      |> Context.assign(:batch_action, "fix_lint")
+      |> Context.assign(:batch_operation, nil)
+
+    context =
+      Enum.reduce(updates, context, fn {translation, text}, ctx ->
+        ctx
+        |> Context.assign(:translation, translation)
+        |> Context.assign(:text, text)
+        |> TranslationUpdateBuilder.build()
+      end)
+
+    fn -> BasePersister.execute(context) end
+    |> Repo.transaction()
+    |> case do
+      {:ok, _} -> {:ok, %{project: project, errors: nil}}
+      {:error, _reason} -> {:ok, %{project: nil, errors: ["unprocessable_entity"]}}
+    end
+  end
+
+  defp lint_results(project, args) do
+    {results, _config, _translations_by_id} = lint_results_with_translations(project, args)
+    results
+  end
+
+  defp lint_results_with_translations(project, args) do
+    translations =
       Translation
       |> TranslationScope.from_project(project.id)
       |> TranslationScope.from_revision(args.revision_id || :all)
@@ -172,14 +237,9 @@ defmodule Accent.GraphQL.Resolvers.Project do
         )
       end)
 
-    translations =
-      entries
-      |> Accent.Lint.lint(%Accent.Lint.Config{enabled_check_ids: args.check_ids, lint_entries: lint_entries})
-      |> Enum.filter(&Enum.any?(elem(&1, 1)))
-      |> Enum.map(fn {entry, messages} ->
-        %Accent.TranslationLint{id: entry.id, translation_id: entry.id, messages: messages}
-      end)
+    config = %Lint.Config{enabled_check_ids: args.check_ids, lint_entries: lint_entries}
+    translations_by_id = Map.new(translations, &{&1.id, &1})
 
-    {:ok, translations}
+    {Lint.lint(entries, config), config, translations_by_id}
   end
 end

@@ -5,6 +5,7 @@ export default gql`
     $projectId: ID!
     $revisionId: ID
     $checkIds: [ID!]
+    $check: LintCheck
     $query: String
   ) {
     viewer {
@@ -26,9 +27,19 @@ export default gql`
           }
         }
 
+        lintChecks(
+          revisionId: $revisionId
+          checkIds: $checkIds
+          query: $query
+        ) {
+          check
+          count
+        }
+
         lintTranslations(
           revisionId: $revisionId
           checkIds: $checkIds
+          check: $check
           query: $query
         ) {
           translation {

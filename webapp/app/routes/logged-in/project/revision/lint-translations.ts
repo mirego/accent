@@ -54,6 +54,7 @@ export default class LintRoute extends Route {
           project: data.viewer.project,
           documents: data.viewer.project.documents,
           versions: data.viewer.project.versions,
+          lintChecks: data.viewer.project.lintChecks,
           lintTranslations: data.viewer.project.lintTranslations
         }),
         options: {
@@ -65,7 +66,7 @@ export default class LintRoute extends Route {
             ).revisionId,
             documentId: params.documentFilter,
             versionId: params.versionFilter,
-            checkIds: params.checkFilter,
+            check: params.checkFilter,
             query: params.query,
             projectId: this.routeParams.fetch(transition, 'logged-in.project')
               .projectId
@@ -97,9 +98,11 @@ export default class LintRoute extends Route {
 
   private fetchQueryParams(controller: LintTranslationsController) {
     const query = controller.query;
+    const checkFilter = controller.checkFilter;
 
     return {
-      query
+      query,
+      checkFilter
     };
   }
 }

@@ -5,6 +5,7 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
   alias Accent.Collaborator
   alias Accent.GraphQL.Resolvers.Project, as: Resolver
   alias Accent.Language
+  alias Accent.Lint.Message
   alias Accent.Operation
   alias Accent.Project
   alias Accent.ProjectCreator
@@ -214,11 +215,44 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     {:ok, [lint]} = Resolver.lint_translations(project, %{revision_id: nil, check_ids: [], query: nil}, context)
 
     assert lint.messages === [
-             %Accent.Lint.Message{
+             %Message{
                check: :leading_spaces,
                text: " A",
                replacement: %Accent.Lint.Replacement{value: "A", label: "A"}
              }
+           ]
+  end
+
+  test "lint_translations filtered by check", %{user: user, project: project} do
+    [revision] = project.revisions
+    Factory.insert(Translation, revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A")
+    Factory.insert(Translation, revision_id: revision.id, key: "b", proposed_text: "B ", corrected_text: "B ")
+
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    {:ok, leading} =
+      Resolver.lint_translations(
+        project,
+        %{revision_id: nil, check_ids: [], query: nil, check: :leading_spaces},
+        context
+      )
+
+    assert Enum.count(leading) === 1
+    assert [%Message{check: :leading_spaces}] = hd(leading).messages
+  end
+
+  test "lint_checks returns full stats regardless of filter", %{user: user, project: project} do
+    [revision] = project.revisions
+    Factory.insert(Translation, revision_id: revision.id, key: "a", proposed_text: " A", corrected_text: " A")
+    Factory.insert(Translation, revision_id: revision.id, key: "b", proposed_text: "B ", corrected_text: "B ")
+
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    {:ok, stats} = Resolver.lint_checks(project, %{revision_id: nil, check_ids: [], query: nil}, context)
+
+    assert Enum.sort_by(stats, & &1.check) === [
+             %{check: :leading_spaces, count: 1},
+             %{check: :trailing_space, count: 1}
            ]
   end
 
@@ -240,5 +274,55 @@ defmodule AccentTest.GraphQL.Resolvers.Project do
     {:ok, result} = Resolver.lint_translations(project, %{revision_id: nil, check_ids: [], query: nil}, context)
 
     assert Enum.count(result) === 1
+  end
+
+  test "fix_lint_translations applies every replacement", %{user: user, project: project} do
+    [revision] = project.revisions
+    translation = Factory.insert(Translation, revision_id: revision.id, key: "a", corrected_text: " A ")
+
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    {:ok, %{project: fixed_project, errors: nil}} =
+      Resolver.fix_lint_translations(project, %{revision_id: nil, check_ids: [], query: nil, check: nil}, context)
+
+    assert fixed_project.id === project.id
+    assert Repo.get(Translation, translation.id).corrected_text === "A"
+
+    {:ok, remaining} =
+      Resolver.lint_translations(project, %{revision_id: nil, check_ids: [], query: nil}, context)
+
+    assert remaining === []
+  end
+
+  test "fix_lint_translations respects the check filter", %{user: user, project: project} do
+    [revision] = project.revisions
+    translation = Factory.insert(Translation, revision_id: revision.id, key: "a", corrected_text: " A ")
+
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    {:ok, %{errors: nil}} =
+      Resolver.fix_lint_translations(
+        project,
+        %{revision_id: nil, check_ids: [], query: nil, check: :leading_spaces},
+        context
+      )
+
+    assert Repo.get(Translation, translation.id).corrected_text === "A "
+  end
+
+  test "fix_lint_translations is a no-op when nothing to fix", %{user: user, project: project} do
+    [revision] = project.revisions
+    translation = Factory.insert(Translation, revision_id: revision.id, key: "a", corrected_text: "A")
+
+    context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
+
+    operations_before = Repo.aggregate(Operation, :count, :id)
+
+    {:ok, %{project: fixed_project, errors: nil}} =
+      Resolver.fix_lint_translations(project, %{revision_id: nil, check_ids: [], query: nil, check: nil}, context)
+
+    assert fixed_project.id === project.id
+    assert Repo.get(Translation, translation.id).corrected_text === "A"
+    assert Repo.aggregate(Operation, :count, :id) === operations_before
   end
 end
