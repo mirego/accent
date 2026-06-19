@@ -80,6 +80,7 @@ RUN mkdir -p /build/priv/native/ && \
 ################################################################################
 FROM hexpm/elixir:1.19.5-erlang-28.5.0.1-debian-trixie-20260518-slim AS builder
 
+ENV ERL_AFLAGS="+JMsingle true"
 ENV MIX_ENV=prod
 WORKDIR /build
 
