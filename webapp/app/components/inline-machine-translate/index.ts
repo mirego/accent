@@ -20,18 +20,36 @@ export default class ImprovePrompt extends Component<Args> {
     return this.submitTask.isRunning;
   }
 
+  get isMainLanguage() {
+    // Split region as it's not important for translations
+    return (
+      this.args.languageSlug.split('-')[0] ===
+      this.args.project.revisions
+        .filter((r) => r.isMaster)[0]
+        .language.slug.split('-')[0]
+    );
+  }
+
   submitTask = dropTask(async (targetLanguageSlug: string) => {
     this.args.onUpdatingText();
+
+    const sourceLanguageSlug: string = this.args.project.revisions.filter(
+      (r) => r.isMaster,
+    )[0].language.slug;
 
     const variables = {
       projectId: this.args.project.id,
       text: this.args.text,
-      targetLanguageSlug
+      targetLanguageSlug,
+      sourceLanguageSlug:
+        sourceLanguageSlug === targetLanguageSlug
+          ? undefined
+          : sourceLanguageSlug,
     };
 
     const {data} = await this.apollo.client.query({
       query: projectTranslateTextQuery,
-      variables
+      variables,
     });
 
     if (data.viewer.project.translatedText?.text) {
