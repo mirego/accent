@@ -1,7 +1,7 @@
 import Accent.Config
 import Config
 
-alias Ueberauth.Strategy.OIDC
+alias Ueberauth.Strategy.Oidcc
 
 port = get_env("PORT", :integer) || 4000
 canonical_uri = get_env("CANONICAL_URL", :uri) || parse_env("http://localhost:#{port}", :uri)
@@ -92,9 +92,25 @@ providers =
 
 providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Auth0, []}} | providers], else: providers
 
+config :ueberauth_oidcc, :issuers, [
+  %{
+    name: :oidcc_issuer,
+    issuer: get_env("OIDC_ISSUER") || String.trim_trailing(get_env("OIDC_DISCOVERY_URI"), "/.well-known/openid-configuration")
+   }
+]
+
 providers =
   if get_env("OIDC_CLIENT_ID"),
-    do: [{:oidc, {OIDC, [default: [provider: :default_oidc, uid_field: :sub]]}} | providers],
+    do: [{:oidc, { Oidcc,
+      issuer: :oidcc_issuer,
+      client_id: get_env("OIDC_CLIENT_ID"),
+      client_secret: get_env("OIDC_CLIENT_SECRET"),
+      scopes: get_env("OIDC_SCOPE") || "openid profile email",
+      callback_path: "/auth/oidc/callback",
+      uid_field: get_env("OIDC_UID_FIELD") || "sub",
+      userinfo: true,
+      response_type: "code"
+    }} | providers],
     else: providers
 
 providers =
@@ -141,18 +157,6 @@ else
 end
 
 config :tesla, logger_enabled: true
-
-config :ueberauth, OIDC,
-  default_oidc: [
-    fetch_userinfo: true,
-    uid_field: get_env("OIDC_UID_FIELD") || "sub",
-    client_id: get_env("OIDC_CLIENT_ID"),
-    client_secret: get_env("OIDC_CLIENT_SECRET"),
-    discovery_document_uri: get_env("OIDC_DISCOVERY_URI"),
-    redirect_uri: "#{static_uri}/auth/oidc/callback",
-    response_type: "code",
-    scope: get_env("OIDC_SCOPE") || "openid profile email"
-  ]
 
 config :ueberauth, Ueberauth, providers: providers
 
