@@ -31,6 +31,21 @@ interface PromptOption {
   value: string;
 }
 
+interface ProjectPromptsData {
+  viewer: {
+    project: {
+      prompts: Prompt[];
+    };
+  };
+}
+
+interface ImproveTextPromptData {
+  improveTextWithPrompt?: {
+    text?: string;
+    errors?: string[];
+  };
+}
+
 export default class ImprovePrompt extends Component<Args> {
   @service('apollo')
   declare apollo: Apollo;
@@ -79,13 +94,13 @@ export default class ImprovePrompt extends Component<Args> {
 
   fetchPromptOptions = dropTask(async () => {
     const variables = {projectId: this.args.project.id};
-    const {data} = await this.apollo.client.query({
+    const {data} = await this.apollo.client.query<ProjectPromptsData>({
       query: projectPrompts,
       fetchPolicy: 'network-only',
       variables
     });
 
-    if (!data.viewer.project.prompts) return;
+    if (!data?.viewer.project.prompts) return;
 
     this.promptOptions = data.viewer.project.prompts.map((prompt: Prompt) => ({
       label: prompt.name,
@@ -116,19 +131,19 @@ export default class ImprovePrompt extends Component<Args> {
       text: this.args.text,
       promptId: promptId || this.promptOptionValue?.value
     };
-    const {data} = await this.apollo.client.mutate({
+    const {data} = await this.apollo.client.mutate<ImproveTextPromptData>({
       mutation: improveTextPromptMutation,
       variables
     });
 
-    if (data.improveTextWithPrompt?.text) {
+    if (data?.improveTextWithPrompt?.text) {
       if (this.promptOpened) {
         this.promptResult = data.improveTextWithPrompt.text;
         this.promptResultUnchanged = this.promptResult === this.args.text;
       } else {
         this.args.onUpdateText(data.improveTextWithPrompt.text);
       }
-    } else if (data.improveTextWithPrompt?.errors) {
+    } else if (data?.improveTextWithPrompt?.errors) {
       this.args.onUpdateText(this.args.text);
       this.flashMessages.error(this.intl.t(FLASH_MESSAGE_PROMPT_IMPROVE_ERROR));
     }

@@ -4,12 +4,7 @@
 
 module.exports = function () {
   return {
-    fallbackLocale: null,
     inputPath: 'app/locales',
-    publicOnly: false,
-    errorOnNamedArgumentMismatch: false,
-    errorOnMissingTranslations: false,
-    stripEmptyTranslations: false,
-    requiresTranslation: () => true
+    publicOnly: false
   };
 };

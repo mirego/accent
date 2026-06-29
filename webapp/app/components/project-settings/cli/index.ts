@@ -29,6 +29,8 @@ interface Args {
 
 type Workflow = 'sync' | 'export' | 'stats' | 'lint' | 'format' | 'jipt';
 
+const commandKeys = ['sync', 'export', 'stats', 'lint', 'format', 'jipt'];
+
 const workflowDescriptions: Record<Workflow, string> = {
   sync: 'components.project_settings.cli.workflow.sync',
   export: 'components.project_settings.cli.workflow.export',
@@ -37,6 +39,9 @@ const workflowDescriptions: Record<Workflow, string> = {
   format: 'components.project_settings.cli.workflow.format',
   jipt: 'components.project_settings.cli.workflow.jipt'
 };
+
+const copyLabel = 'components.project_settings.cli.copy';
+const copiedLabel = 'components.project_settings.cli.copied';
 
 export default class ProjectSettingsCli extends Component<Args> {
   @tracked
@@ -54,6 +59,13 @@ export default class ProjectSettingsCli extends Component<Args> {
       {value: 'format', label: 'Format'},
       {value: 'jipt', label: 'JIPT'}
     ];
+  }
+
+  get commands() {
+    return commandKeys.map((key) => ({
+      command: `accent ${key === 'jipt' ? 'jipt accent' : key}`,
+      descriptionKey: `components.project_settings.cli.commands.${key}`
+    }));
   }
 
   get host() {
@@ -137,6 +149,22 @@ export default class ProjectSettingsCli extends Component<Args> {
     }
   }
 
+  get commandPrompt() {
+    return '$';
+  }
+
+  get configCopyLabel() {
+    return this.copiedTarget === 'config' ? copiedLabel : copyLabel;
+  }
+
+  get commandCopyLabel() {
+    return this.copiedTarget === 'command' ? copiedLabel : copyLabel;
+  }
+
+  get ciCopyLabel() {
+    return this.copiedTarget === 'ci' ? copiedLabel : copyLabel;
+  }
+
   get playgroundDescriptionKey() {
     return workflowDescriptions[this.workflow];
   }
@@ -188,13 +216,17 @@ jobs:
 
   @action
   async copy(text: string, target: string) {
-    try {
-      if (navigator.clipboard) {
-        await navigator.clipboard.writeText(text);
+    if (navigator.clipboard) {
+      const copied = await navigator.clipboard.writeText(text).then(
+        () => true,
+        () => false
+      );
+
+      if (copied) {
         this.copiedTarget = target;
         return;
       }
-    } catch (_error) {}
+    }
 
     const textarea = document.createElement('textarea');
 

@@ -2,7 +2,7 @@ import RSVP from 'rsvp';
 import Service from '@ember/service';
 import {computed} from '@ember/object';
 import {typeOf} from '@ember/utils';
-import Ember from 'ember';
+import {getOnerror, setOnerror} from '@ember/-internals/error-handling';
 import Raven from 'raven-js';
 
 /**
@@ -86,9 +86,9 @@ export default Service.extend({
    */
   enableGlobalErrorCatching() {
     if (this.isRavenUsable && !this.globalErrorCatchingInitialized) {
-      const _oldOnError = Ember.onerror;
+      const _oldOnError = getOnerror();
 
-      Ember.onerror = (error) => {
+      setOnerror((error) => {
         if (this._ignoreError(error)) {
           return;
         }
@@ -96,9 +96,9 @@ export default Service.extend({
         this.captureException(error);
         this.didCaptureException(error);
         if (typeof _oldOnError === 'function') {
-          _oldOnError.call(Ember, error);
+          _oldOnError(error);
         }
-      };
+      });
 
       RSVP.on('error', (reason, label) => {
         if (this._ignoreError(reason)) {

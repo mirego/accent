@@ -11,7 +11,10 @@ export default class ApolloMutate extends Service {
 
   async mutate(args: any) {
     try {
-      const {data} = await this.apollo.client.mutate(args);
+      const {data} = await this.apollo.client.mutate<Record<string, any>>(args);
+
+      if (!data) throw new Error('Missing mutation response');
+
       const operationName = Object.keys(data)[0];
 
       if (!data[operationName]?.errors?.length) {

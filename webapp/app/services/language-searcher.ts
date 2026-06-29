@@ -4,6 +4,12 @@ import Apollo from 'accent-webapp/services/apollo';
 
 const MINIMUM_TERM_LENGTH = 2;
 
+interface LanguagesSearchData {
+  languages: {
+    entries: any[];
+  };
+}
+
 export default class LanguageSearcher extends Service {
   @service('apollo')
   declare apollo: Apollo;
@@ -16,13 +22,10 @@ export default class LanguageSearcher extends Service {
 
     if (term.length < MINIMUM_TERM_LENGTH) return [];
 
-    const {
-      data: {
-        languages: {entries}
-      }
-    } = await this.apollo.client.query(searchQuery);
+    const {data} =
+      await this.apollo.client.query<LanguagesSearchData>(searchQuery);
 
-    return entries;
+    return data?.languages.entries || [];
   }
 }
 

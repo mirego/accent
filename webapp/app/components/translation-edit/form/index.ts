@@ -153,7 +153,15 @@ export default class TranslationEditForm extends Component<Args> {
   );
 
   fetchLintMessagesTask = restartableTask(async (value: string) => {
-    const {data} = await this.apollo.client.query({
+    const {data} = await this.apollo.client.query<{
+      viewer: {
+        project: {
+          translation: {
+            lintMessages: any;
+          };
+        };
+      };
+    }>({
       fetchPolicy: 'network-only',
       query: translationLintQuery,
       variables: {
@@ -162,6 +170,8 @@ export default class TranslationEditForm extends Component<Args> {
         translationId: this.args.translationId
       }
     });
+
+    if (!data) return;
 
     this.lintTranslation = Object.assign(this.lintTranslation, {
       messages: data.viewer.project.translation.lintMessages

@@ -35,6 +35,16 @@ interface Args {
   onRollback: () => Promise<void>;
 }
 
+interface ActivityActivitiesData {
+  viewer: {
+    project: {
+      activity: {
+        operations: any;
+      };
+    };
+  };
+}
+
 export default class ProjectActivity extends Component<Args> {
   @service('intl')
   declare intl: IntlService;
@@ -208,13 +218,13 @@ export default class ProjectActivity extends Component<Args> {
       variables.actions = this.selectedActions;
     }
 
-    const {data} = await this.apollo.client.query({
+    const {data} = await this.apollo.client.query<ActivityActivitiesData>({
       query: activityActivitiesQuery,
       fetchPolicy: 'network-only',
       variables
     });
 
-    const operations = data.viewer.project.activity.operations;
+    const operations = data?.viewer.project.activity.operations || [];
 
     this.operationsLoading = false;
     this.operations = operations;

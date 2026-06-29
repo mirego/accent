@@ -82,8 +82,10 @@ export default class APIToken extends Component<Args> {
   @action
   changePermission() {
     this.apiTokenPermissions = Array.from(
-      document.querySelectorAll('input[name="permiss"]:checked')
-    ).map((input: HTMLInputElement) => input.value);
+      document.querySelectorAll<HTMLInputElement>(
+        'input[name="permiss"]:checked'
+      )
+    ).map((input) => input.value);
   }
 
   @action
@@ -93,20 +95,22 @@ export default class APIToken extends Component<Args> {
 
   @action
   selectAllPermissions() {
-    Array.from(document.querySelectorAll('input[name="permiss"]')).forEach(
-      (input: HTMLInputElement) => (input.checked = true)
-    );
+    Array.from(
+      document.querySelectorAll<HTMLInputElement>('input[name="permiss"]')
+    ).forEach((input) => (input.checked = true));
 
     this.apiTokenPermissions = Array.from(
-      document.querySelectorAll('input[name="permiss"]:checked')
-    ).map((input: HTMLInputElement) => input.value);
+      document.querySelectorAll<HTMLInputElement>(
+        'input[name="permiss"]:checked'
+      )
+    ).map((input) => input.value);
   }
 
   @action
   unselectAllPermissions() {
-    Array.from(document.querySelectorAll('input[name="permiss"]')).forEach(
-      (input: HTMLInputElement) => (input.checked = false)
-    );
+    Array.from(
+      document.querySelectorAll<HTMLInputElement>('input[name="permiss"]')
+    ).forEach((input) => (input.checked = false));
     this.apiTokenPermissions = [];
   }
 

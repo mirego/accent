@@ -5,6 +5,7 @@ import {action} from '@ember/object';
 import {gql} from '@apollo/client/core';
 import Apollo from 'accent-webapp/services/apollo';
 import {schedule} from '@ember/runloop';
+import Owner from '@ember/owner';
 
 const projectDashboardActivitiesQuery = gql`
   query ProjectDashboardActivities($projectId: ID!) {
@@ -193,7 +194,7 @@ export default class ProjectDashboardActivitiesComponent extends Component<Args>
   @tracked
   loading = true;
 
-  constructor(owner: unknown, args: Args) {
+  constructor(owner: Owner, args: Args) {
     super(owner, args);
     schedule('afterRender', this, this.fetchActivities);
   }
@@ -219,7 +220,7 @@ export default class ProjectDashboardActivitiesComponent extends Component<Args>
           fetchPolicy: 'network-only'
         });
 
-      this.activities = result.data.viewer.project.activities.entries;
+      this.activities = result.data?.viewer.project.activities.entries || [];
     } catch (_error) {
       if (this.loading) {
         this.activities = [];

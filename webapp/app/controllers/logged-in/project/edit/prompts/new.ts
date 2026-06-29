@@ -19,6 +19,14 @@ const FLASH_MESSAGE_PREFIX = 'pods.project.edit.flash_messages.';
 const FLASH_MESSAGE_PROMPT_CREATE_SUCCESS = `${FLASH_MESSAGE_PREFIX}prompts_create_success`;
 const FLASH_MESSAGE_PROMPT_CREATE_ERROR = `${FLASH_MESSAGE_PREFIX}prompts_create_error`;
 
+interface ProjectPromptConfigData {
+  viewer: {
+    project: {
+      prompts: any[];
+    };
+  };
+}
+
 export default class PromptsNewController extends Controller {
   @tracked
   model: any;
@@ -90,7 +98,9 @@ export default class PromptsNewController extends Controller {
             query: projectPromptConfigQuery,
             variables: {projectId: this.project.id}
           },
-          (data) => {
+          (data: ProjectPromptConfigData | null) => {
+            if (!data) return data;
+
             return {
               viewer: {
                 ...data.viewer,

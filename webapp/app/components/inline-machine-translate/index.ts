@@ -12,6 +12,16 @@ interface Args {
   onUpdateText: (value: string) => void;
 }
 
+interface ProjectTranslateTextData {
+  viewer: {
+    project: {
+      translatedText?: {
+        text?: string;
+      };
+    };
+  };
+}
+
 export default class ImprovePrompt extends Component<Args> {
   @service('apollo')
   declare apollo: Apollo;
@@ -29,12 +39,12 @@ export default class ImprovePrompt extends Component<Args> {
       targetLanguageSlug
     };
 
-    const {data} = await this.apollo.client.query({
+    const {data} = await this.apollo.client.query<ProjectTranslateTextData>({
       query: projectTranslateTextQuery,
       variables
     });
 
-    if (data.viewer.project.translatedText?.text) {
+    if (data?.viewer.project.translatedText?.text) {
       this.args.onUpdateText(data.viewer.project.translatedText?.text);
     }
   });

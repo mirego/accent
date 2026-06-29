@@ -38,7 +38,7 @@
     <div local-class='code-panel'>
       <textarea readonly='' local-class='code code--config' {{on 'click' this.selectText}}>{{this.accentJson}}</textarea>
       <button type='button' local-class='copy-button copy-button--floating' {{on 'click' (fn this.copy this.accentJson 'config')}}>
-        {{if (eq this.copiedTarget 'config') (t 'components.project_settings.cli.copied') (t 'components.project_settings.cli.copy')}}
+        {{t this.configCopyLabel}}
       </button>
     </div>
   </section>
@@ -62,10 +62,10 @@
       </div>
 
       <div local-class='command-card'>
-        <span local-class='prompt'>$</span>
+        <span local-class='prompt'>{{this.commandPrompt}}</span>
         <input readonly='' local-class='command' value={{this.playgroundCommand}} {{on 'click' this.selectText}} />
         <button type='button' local-class='copy-button' {{on 'click' (fn this.copy this.playgroundCommand 'command')}}>
-          {{if (eq this.copiedTarget 'command') (t 'components.project_settings.cli.copied') (t 'components.project_settings.cli.copy')}}
+          {{t this.commandCopyLabel}}
         </button>
       </div>
     </div>
@@ -78,12 +78,9 @@
     </div>
 
     <div local-class='commands-grid'>
-      <article><code>accent sync</code><span>{{t 'components.project_settings.cli.commands.sync'}}</span></article>
-      <article><code>accent export</code><span>{{t 'components.project_settings.cli.commands.export'}}</span></article>
-      <article><code>accent stats</code><span>{{t 'components.project_settings.cli.commands.stats'}}</span></article>
-      <article><code>accent lint</code><span>{{t 'components.project_settings.cli.commands.lint'}}</span></article>
-      <article><code>accent format</code><span>{{t 'components.project_settings.cli.commands.format'}}</span></article>
-      <article><code>accent jipt accent</code><span>{{t 'components.project_settings.cli.commands.jipt'}}</span></article>
+      {{#each this.commands as |command|}}
+        <article><code>{{command.command}}</code><span>{{t command.descriptionKey}}</span></article>
+      {{/each}}
     </div>
   </section>
 
@@ -96,7 +93,7 @@
     <div local-class='code-panel'>
       <textarea readonly='' local-class='code code--ci' {{on 'click' this.selectText}}>{{this.githubAction}}</textarea>
       <button type='button' local-class='copy-button copy-button--floating' {{on 'click' (fn this.copy this.githubAction 'ci')}}>
-        {{if (eq this.copiedTarget 'ci') (t 'components.project_settings.cli.copied') (t 'components.project_settings.cli.copy')}}
+        {{t this.ciCopyLabel}}
       </button>
     </div>
   </section>

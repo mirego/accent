@@ -5,6 +5,7 @@ import {action} from '@ember/object';
 import {gql} from '@apollo/client/core';
 import Apollo from 'accent-webapp/services/apollo';
 import {schedule} from '@ember/runloop';
+import Owner from '@ember/owner';
 
 const projectLastActivitySyncQuery = gql`
   query ProjectLastActivitySync($projectId: ID!) {
@@ -52,7 +53,7 @@ export default class ProjectLastActivitySyncComponent extends Component<Args> {
   @tracked
   loading = true;
 
-  constructor(owner: unknown, args: Args) {
+  constructor(owner: Owner, args: Args) {
     super(owner, args);
     schedule('afterRender', this, this.fetchLastActivitySync);
   }
@@ -67,7 +68,8 @@ export default class ProjectLastActivitySyncComponent extends Component<Args> {
           fetchPolicy: 'network-only'
         });
 
-      this.lastActivitySync = result.data.viewer.project.lastActivitySync;
+      this.lastActivitySync =
+        result.data?.viewer.project.lastActivitySync || null;
     } catch (_error) {
       this.lastActivitySync = null;
     } finally {

@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import {action} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
 import {Picker} from 'emoji-picker-element';
+import type {EmojiClickEvent} from 'emoji-picker-element/shared';
 
 interface Args {
   onPicked: (value: string) => void;
@@ -22,7 +23,9 @@ export default class EmojiPicker extends Component<Args> {
   }
 
   _bindClick(picker: Picker) {
-    picker.addEventListener('emoji-click', (event: CustomEvent) => {
+    picker.addEventListener('emoji-click', (event: EmojiClickEvent) => {
+      if (!event.detail.unicode) return;
+
       this.args.onPicked(event.detail.unicode);
       this.togglePicker();
     });

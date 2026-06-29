@@ -23,6 +23,14 @@ const FLASH_MESSAGE_CONFIG_REMOVE_ERROR = `${FLASH_MESSAGE_PREFIX}prompts_config
 const FLASH_MESSAGE_PROMPT_REMOVE_SUCCESS = `${FLASH_MESSAGE_PREFIX}prompts_remove_success`;
 const FLASH_MESSAGE_PROMPT_REMOVE_ERROR = `${FLASH_MESSAGE_PREFIX}prompts_remove_error`;
 
+interface ProjectPromptConfigData {
+  viewer: {
+    project: {
+      prompts: any[];
+    };
+  };
+}
+
 export default class PromptsController extends Controller {
   @service('intl')
   declare intl: IntlService;
@@ -128,7 +136,9 @@ export default class PromptsController extends Controller {
             query: projectPromptConfigQuery,
             variables: {projectId: this.project.id}
           },
-          (data) => {
+          (data: ProjectPromptConfigData | null) => {
+            if (!data) return data;
+
             return {
               viewer: {
                 ...data.viewer,
