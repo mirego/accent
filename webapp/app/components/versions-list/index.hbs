@@ -5,7 +5,48 @@
     {{/each}}
   </ul>
 {{else}}
-  <div local-class='empty-content'>
-    <EmptyContent @text={{t 'components.versions_list.empty_text'}} />
+  <div local-class='empty'>
+    <div local-class='empty-hero'>
+      {{inline-svg '/assets/tag.svg' local-class='empty-hero-icon'}}
+
+      <div>
+        <h3 local-class='empty-hero-title'>{{t 'components.versions_list.empty_title'}}</h3>
+        <p local-class='empty-hero-text'>{{t 'components.versions_list.empty_text'}}</p>
+      </div>
+    </div>
+
+    <ul local-class='empty-features'>
+      <li local-class='empty-feature'>
+        {{inline-svg '/assets/sync.svg' local-class='empty-feature-icon'}}
+        <div>
+          <strong>{{t 'components.versions_list.empty_feature_independent_title'}}</strong>
+          <span>{{t 'components.versions_list.empty_feature_independent_text'}}</span>
+        </div>
+      </li>
+
+      <li local-class='empty-feature'>
+        {{inline-svg '/assets/share.svg' local-class='empty-feature-icon'}}
+        <div>
+          <strong>{{t 'components.versions_list.empty_feature_integrations_title'}}</strong>
+          <span>{{t 'components.versions_list.empty_feature_integrations_text'}}</span>
+        </div>
+      </li>
+
+      <li local-class='empty-feature'>
+        {{inline-svg '/assets/terminal.svg' local-class='empty-feature-icon'}}
+        <div>
+          <strong>{{t 'components.versions_list.empty_feature_cli_title'}}</strong>
+          <span>{{t 'components.versions_list.empty_feature_cli_text'}}</span>
+        </div>
+      </li>
+
+      <li local-class='empty-feature'>
+        {{inline-svg '/assets/merge.svg' local-class='empty-feature-icon'}}
+        <div>
+          <strong>{{t 'components.versions_list.empty_feature_sync_back_title'}}</strong>
+          <span>{{t 'components.versions_list.empty_feature_sync_back_text'}}</span>
+        </div>
+      </li>
+    </ul>
   </div>
 {{/if}}

@@ -245,7 +245,16 @@
       "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
     },
     "versions_list": {
-      "empty_text": "Versionning enables you to review/export/sync translations independantly from your main project. This means that supporting previous versions of your app will be as easy as adding new features!",
+      "empty_text": "Versions act like branches for your translations. Freeze the state of your strings to tag a release, then review, export and sync each version independently from your main project.",
+      "empty_title": "No versions yet",
+      "empty_feature_independent_title": "Independent workflows",
+      "empty_feature_independent_text": "Review, export and sync each version on its own, without touching your main translations.",
+      "empty_feature_integrations_title": "Custom integrations",
+      "empty_feature_integrations_text": "Wire a version to S3, Azure or any storage integration to deliver its files automatically.",
+      "empty_feature_cli_title": "Fully CLI-driven",
+      "empty_feature_cli_text": "Sync and export any version straight from the Accent CLI, right inside your CI pipeline.",
+      "empty_feature_sync_back_title": "Sync back to main",
+      "empty_feature_sync_back_text": "When enabled, changes made on a version can flow back into your main project automatically.",
       "export": "Export",
       "update": "Edit",
       "delete": "Delete"
@@ -415,7 +424,9 @@
         "badges": "Badges",
         "badges_text": "Quick look on project stats, embedded in images",
         "api_token": "API Tokens",
-        "api_token_text": "Integrate Accent workflow with the CLI or plain API requests",
+        "api_token_text": "Manage project tokens for scripts, integrations and API requests",
+        "cli": "CLI",
+        "cli_text": "Install accent in your repository and automate translation files from the terminal",
         "service_integrations": "Service & integrations",
         "service_integrations_text": "Notify and interact with external systems based on Accent events",
         "manage_languages": "Manage languages",
@@ -451,6 +462,12 @@
         "title": "Lint rules",
         "help": "Lint rules and ignored entries configured for this project.",
         "empty": "No lint rules have been configured for this project yet.",
+        "empty_title": "No lint rules yet",
+        "empty_text": "Lint rules let you ignore false positives and fine-tune quality checks for specific terms, keys or languages. Add your first rule to tailor linting to your project.",
+        "empty_type_all": "Apply a rule to every translation in the project.",
+        "empty_type_term": "Target a specific word or phrase wherever it appears.",
+        "empty_type_key": "Scope a rule to a single translation key.",
+        "empty_type_language_tool_rule_id": "Ignore a specific spellcheck rule reported by LanguageTool.",
         "add_button": "Add lint rule",
         "new_title": "New lint rule",
         "edit_title": "Edit lint rule",
@@ -497,6 +514,47 @@
         "use_language_title": "Use the pseudo language",
         "pseudo_language_text": "The Accent script parses the DOM for strings that match the Just In Place Translations export. Go in the \"Files\" section to export the file or use the CLI to add the pseudo language to your project.",
         "use_language_text": "By switching to the Accent language using your favorite framework i18n tool, the page will display the strings in the pseudo language files and the Accent script will replace those by the strings in Accent. It will also bind click event on the elements so that you can select strings directly in your app and edit them via Accent."
+      },
+      "cli": {
+        "title": "Accent CLI",
+        "intro": "Use Accent inside {project}’s repository to keep translation files versioned with the rest of your code. Sync source strings when developers change copy, export reviewed translations before shipping, and let CI open a pull request instead of copying files by hand.",
+        "npm_link": "Open npm package →",
+        "token_link": "Create an API token →",
+        "copy": "Copy",
+        "copied": "Copied",
+        "why": {
+          "sync_title": "Source files stay in git",
+          "sync_text": "Developers edit the main language locally, run a dry-run, then sync the real changes to Accent.",
+          "export_title": "Translations come back clean",
+          "export_text": "Reviewed strings are written to the paths your framework already loads, ordered consistently.",
+          "ci_title": "Automation is boring on purpose",
+          "ci_text": "Run the same commands in GitHub Actions and review localization updates as normal pull requests."
+        },
+        "config_title": "Generated accent.json",
+        "config_text": "Start with this project-aware config, commit it in your repository, and keep the API token in ACCENT_API_KEY instead of the file.",
+        "playground_title": "Command playground",
+        "playground_text": "Pick a workflow to preview the command you would run locally. Nothing is executed on the server.",
+        "workflow_label": "Workflow",
+        "workflow": {
+          "sync": "Send your main-language files to Accent, then write exported translations back locally.",
+          "export": "Download reviewed translations from Accent into the files your app already reads.",
+          "stats": "Print review and translation progress, useful in CI gates.",
+          "lint": "Check local files against Accent lint rules before opening a pull request.",
+          "format": "Rewrite local files using Accent output and ordering rules.",
+          "jipt": "Export pseudo-language files for Just In Place Translation editing."
+        },
+        "commands_title": "What the CLI does",
+        "commands_text": "The in-app guide is a curated version of the CLI README, backed by the command source in this repo.",
+        "commands": {
+          "sync": "Uploads source strings, optionally adds existing translations, then exports files back locally.",
+          "export": "Writes all Accent documents to their configured local target paths.",
+          "stats": "Displays project progress and can fail CI when review or translation is incomplete.",
+          "lint": "Runs Accent lint rules against local files.",
+          "format": "Formats local files from the server output and exits with errors if formatting changed.",
+          "jipt": "Writes pseudo-language files used by Just In Place Translations."
+        },
+        "ci_title": "GitHub Actions starter",
+        "ci_text": "Store the token as a repository secret named ACCENT_API_KEY, then let the workflow run the same command as your machine."
       },
       "api_token": {
         "title": "API tokens",
@@ -738,7 +796,15 @@
     },
     "project_comments_list": {
       "no_comments": "No comments on any strings yet. You can comment on any string to provide context for a translator or to discuss on the content of the string.",
-      "title": "Conversation"
+      "title": "Conversation",
+      "empty_title": "No conversations yet",
+      "empty_text": "Comments from across the project show up here. Comment on any string to give context, ask questions or discuss the right wording with your team.",
+      "empty_feature_context_title": "Add context",
+      "empty_feature_context_text": "Explain intent, tone or constraints so translators get it right the first time.",
+      "empty_feature_collaborate_title": "Discuss as a team",
+      "empty_feature_collaborate_text": "Mentioned and subscribed collaborators are notified and can reply in thread.",
+      "empty_feature_history_title": "Keep a record",
+      "empty_feature_history_text": "Every conversation stays attached to its string for future reference."
     },
     "project_create_form": {
       "title": "New project",
@@ -1286,6 +1352,9 @@
             "api_token_revoke_success": "API token has been revoked with success",
             "api_token_revoke_error": "API token could not be revoked"
           }
+        },
+        "cli": {
+          "loading_content": "Fetching project’s CLI guide…"
         },
         "jipt": {
           "loading_content": "Fetching project’s Just In Place Translations settings…"

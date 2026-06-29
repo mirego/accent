@@ -1,0 +1,103 @@
+<div local-class='project-settings-cli'>
+  <section local-class='hero'>
+    <div>
+      <ProjectSettings::Title @icon='/assets/terminal.svg' @title={{t 'components.project_settings.cli.title'}} />
+
+      <p local-class='hero-text'>
+        {{t 'components.project_settings.cli.intro' project=@project.name}}
+      </p>
+
+      <div local-class='hero-actions'>
+        <a href='https://www.npmjs.com/package/accent-cli' target='_blank' rel='noopener noreferrer' class='button button--filled'>
+          {{t 'components.project_settings.cli.npm_link'}}
+        </a>
+
+        <LinkTo @route='logged-in.project.edit.api-token' local-class='token-link'>
+          {{t 'components.project_settings.cli.token_link'}}
+        </LinkTo>
+      </div>
+    </div>
+
+    <div local-class='terminal-card'>
+      <div local-class='terminal-header'>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <textarea readonly='' local-class='terminal' {{on 'click' this.selectText}}>{{this.setupCommand}}</textarea>
+    </div>
+  </section>
+
+  <section local-class='section'>
+    <div local-class='section-heading'>
+      <h2>{{t 'components.project_settings.cli.config_title'}}</h2>
+      <p>{{t 'components.project_settings.cli.config_text'}}</p>
+    </div>
+
+    <div local-class='code-panel'>
+      <textarea readonly='' local-class='code code--config' {{on 'click' this.selectText}}>{{this.accentJson}}</textarea>
+      <button type='button' local-class='copy-button copy-button--floating' {{on 'click' (fn this.copy this.accentJson 'config')}}>
+        {{if (eq this.copiedTarget 'config') (t 'components.project_settings.cli.copied') (t 'components.project_settings.cli.copy')}}
+      </button>
+    </div>
+  </section>
+
+  <section local-class='section playground'>
+    <div local-class='section-heading'>
+      <h2>{{t 'components.project_settings.cli.playground_title'}}</h2>
+      <p>{{t 'components.project_settings.cli.playground_text'}}</p>
+    </div>
+
+    <div local-class='playground-grid'>
+      <div local-class='control-card'>
+        <label local-class='label' for='accent-cli-workflow'>{{t 'components.project_settings.cli.workflow_label'}}</label>
+        <select id='accent-cli-workflow' local-class='select' {{on 'change' this.changeWorkflow}}>
+          {{#each this.workflows as |workflow|}}
+            <option value={{workflow.value}} selected={{eq workflow.value this.workflow}}>{{workflow.label}}</option>
+          {{/each}}
+        </select>
+
+        <p local-class='workflow-description'>{{t this.playgroundDescriptionKey}}</p>
+      </div>
+
+      <div local-class='command-card'>
+        <span local-class='prompt'>$</span>
+        <input readonly='' local-class='command' value={{this.playgroundCommand}} {{on 'click' this.selectText}} />
+        <button type='button' local-class='copy-button' {{on 'click' (fn this.copy this.playgroundCommand 'command')}}>
+          {{if (eq this.copiedTarget 'command') (t 'components.project_settings.cli.copied') (t 'components.project_settings.cli.copy')}}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section local-class='section'>
+    <div local-class='section-heading'>
+      <h2>{{t 'components.project_settings.cli.commands_title'}}</h2>
+      <p>{{t 'components.project_settings.cli.commands_text'}}</p>
+    </div>
+
+    <div local-class='commands-grid'>
+      <article><code>accent sync</code><span>{{t 'components.project_settings.cli.commands.sync'}}</span></article>
+      <article><code>accent export</code><span>{{t 'components.project_settings.cli.commands.export'}}</span></article>
+      <article><code>accent stats</code><span>{{t 'components.project_settings.cli.commands.stats'}}</span></article>
+      <article><code>accent lint</code><span>{{t 'components.project_settings.cli.commands.lint'}}</span></article>
+      <article><code>accent format</code><span>{{t 'components.project_settings.cli.commands.format'}}</span></article>
+      <article><code>accent jipt accent</code><span>{{t 'components.project_settings.cli.commands.jipt'}}</span></article>
+    </div>
+  </section>
+
+  <section local-class='section'>
+    <div local-class='section-heading'>
+      <h2>{{t 'components.project_settings.cli.ci_title'}}</h2>
+      <p>{{t 'components.project_settings.cli.ci_text'}}</p>
+    </div>
+
+    <div local-class='code-panel'>
+      <textarea readonly='' local-class='code code--ci' {{on 'click' this.selectText}}>{{this.githubAction}}</textarea>
+      <button type='button' local-class='copy-button copy-button--floating' {{on 'click' (fn this.copy this.githubAction 'ci')}}>
+        {{if (eq this.copiedTarget 'ci') (t 'components.project_settings.cli.copied') (t 'components.project_settings.cli.copy')}}
+      </button>
+    </div>
+  </section>
+</div>

@@ -37,14 +37,15 @@ accent-cli reads from a `accent.json` file. The file should contain valid JSON r
 ```
 {
   "apiUrl": "http://your.accent.instance",
-  "apiKey": "2nziVSaa8yUJxLkwoZA",
+  "apiKey": "your-api-key",
+  "project": "00000000-0000-0000-0000-000000000000",
   "version": {
     "branchVersionPrefix": "release/"
   },
   "files": [
     {
       "format": "json",
-      "source": "localization/fr/*.json",
+      "source": "localization/en/*.json",
       "target": "localization/%slug%/%document_path%.json",
       "hooks": {
         "afterSync": ["touch sync-done.txt", "echo 'Done!'"]
@@ -61,20 +62,21 @@ Format for the `accent.json` file.
 - `apiUrl`: The base URL of your Accent Instance
 - `apiKey`: Api Key to your Accent Instance
 - `project`: Your Project uuid
+- `extraHeaders`: Optional headers sent with every API request
+- `files`: The documents to sync/export. Only list files for your project’s main language.
 
 Available ENV variables. (Each variable will override `accent.json` variables if set)
 
-- `ACCENT_API_KEY`: The base URL of your Accent Instance
-- `ACCENT_API_URL`: Api Key to your Accent Instance
+- `ACCENT_API_URL`: The base URL of your Accent Instance
+- `ACCENT_API_KEY`: Api Key to your Accent Instance
 - `ACCENT_PROJECT`: Your Project uuid
 
 Version object configuration
 
 - `branchVersionPrefix`: The Git branch prefix use to extract the file version
 
-Each operation section `sync` and `addTranslations` can contain the following object:
+Each entry in `files` can contain the following object:
 
-- `language`: The identifier of the document’s language
 - `format`: The format of the document
 - `source`: The path of the document. This can contain glob pattern (See [the node glob library] used as a dependancy (https://github.com/isaacs/node-glob))
 - `target`: Path of the target languages
@@ -164,6 +166,8 @@ Here is a list of available hooks. Those are self-explanatory
 
 - `beforeSync`
 - `afterSync`
+- `beforeAddTranslations`
+- `afterAddTranslations`
 - `beforeExport`
 - `afterExport`
 
@@ -276,7 +280,7 @@ DESCRIPTION
   Export jipt files from Accent and write them to your local filesystem
 
 EXAMPLES
-  $ accent jipt
+  $ accent jipt accent
 ```
 
 _See code: [src/commands/jipt.ts](https://github.com/mirego/accent/blob/v0.19.0/src/commands/jipt.ts)_
@@ -356,9 +360,9 @@ DESCRIPTION
 EXAMPLES
   $ accent sync
 
-  $ accent sync --dry-run --sync-type=force
+  $ accent sync --dry-run --sync-type=passive
 
-  $ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23
+  $ accent sync --add-translations --merge-type=smart --order-by=key --version=v0.23
 ```
 
 _See code: [src/commands/sync.ts](https://github.com/mirego/accent/blob/v0.19.0/src/commands/sync.ts)_
@@ -404,9 +408,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 22
       - run: npm install -g accent-cli
       - run: accent sync --add-translations --merge-type=passive --order-by=key
+        env:
+          ACCENT_API_URL: https://your.accent.instance
+          ACCENT_API_KEY: ${{ secrets.ACCENT_API_KEY }}
+          ACCENT_PROJECT: 00000000-0000-0000-0000-000000000000
       - uses: mirego/create-pull-request@v5
         with:
           add-paths: "*.json"

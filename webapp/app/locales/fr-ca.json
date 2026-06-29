@@ -261,7 +261,16 @@
       "humanized_date_title_format": "EEEE, MMMM do yyyy, H:mm a"
     },
     "versions_list": {
-      "empty_text": "Le versionning vous permet de réviser/exporter/synchroniser les traductions indépendamment de votre projet principal. Cela signifie que la prise en charge des versions précédentes de votre application sera aussi simple que l’ajout de nouvelles fonctionnalités!",
+      "empty_text": "Les versions agissent comme des branches pour vos traductions. Figez l’état de vos chaînes pour marquer une version, puis révisez, exportez et synchronisez chaque version indépendamment de votre projet principal.",
+      "empty_title": "Aucune version",
+      "empty_feature_independent_title": "Flux indépendants",
+      "empty_feature_independent_text": "Révisez, exportez et synchronisez chaque version séparément, sans toucher à vos traductions principales.",
+      "empty_feature_integrations_title": "Intégrations personnalisées",
+      "empty_feature_integrations_text": "Reliez une version à S3, Azure ou toute intégration de stockage pour livrer ses fichiers automatiquement.",
+      "empty_feature_cli_title": "Pilotable depuis la CLI",
+      "empty_feature_cli_text": "Synchronisez et exportez n’importe quelle version directement depuis la CLI Accent, dans votre pipeline CI.",
+      "empty_feature_sync_back_title": "Synchronisation vers le principal",
+      "empty_feature_sync_back_text": "Lorsque l’option est activée, les changements faits sur une version peuvent revenir automatiquement vers votre projet principal.",
       "export": "Exportation",
       "update": "Éditer",
       "delete": "Supprimer"
@@ -438,6 +447,12 @@
         "title": "Règles de linting",
         "help": "Règles de linting et entrées ignorées configurées pour ce projet.",
         "empty": "Aucune règle de linting n’a encore été configurée pour ce projet.",
+        "empty_title": "Aucune règle de linting",
+        "empty_text": "Les règles de linting vous permettent d’ignorer les faux positifs et d’ajuster les vérifications de qualité pour des termes, clés ou langues spécifiques. Ajoutez votre première règle pour adapter le linting à votre projet.",
+        "empty_type_all": "Appliquer une règle à toutes les traductions du projet.",
+        "empty_type_term": "Cibler un mot ou une expression spécifique partout où il apparaît.",
+        "empty_type_key": "Restreindre une règle à une seule clé de traduction.",
+        "empty_type_language_tool_rule_id": "Ignorer une règle de correction spécifique signalée par LanguageTool.",
         "add_button": "Ajouter une règle",
         "new_title": "Nouvelle règle de linting",
         "edit_title": "Modifier la règle de linting",
@@ -466,7 +481,9 @@
         "badges": "Insignes",
         "badges_text": "Aperçu rapide des statistiques du projet, intégrées dans les images",
         "api_token": "Jetons d’API",
-        "api_token_text": "Intégrez le flux de travail Accent avec les requêtes CLI ou API simples",
+        "api_token_text": "Gérez les jetons du projet pour les scripts, intégrations et requêtes API",
+        "cli": "CLI",
+        "cli_text": "Installez accent dans votre dépôt et automatisez les fichiers de traduction depuis le terminal",
         "service_integrations": "Service et intégrations",
         "service_integrations_text": "Notifier et interagir avec des systèmes externes en fonction des événements Accent",
         "manage_languages": "Gérer les langues",
@@ -513,6 +530,47 @@
         "use_language_title": "Utiliser le pseudo langage",
         "pseudo_language_text": "Le script Accent analyse le DOM pour les chaînes qui correspondent à l’exportation Just In Place Translations. Allez dans la section \"Fichiers\" pour exporter le fichier ou utilisez la CLI pour ajouter le pseudo langage à votre projet.",
         "use_language_text": "En passant au langage Accent à l’aide de votre outil framework i18n préféré, la page affichera les chaînes dans les fichiers de pseudo langage et le script Accent remplacera ceux-ci par les chaînes dans Accent. Il liera également l’événement de clic sur les éléments afin que vous puissiez sélectionner des chaînes directement dans votre application et les modifier via Accent."
+      },
+      "cli": {
+        "title": "CLI Accent",
+        "intro": "Utilisez Accent dans le dépôt de {project} pour garder les fichiers de traduction versionnés avec le reste du code. Synchronisez les chaînes source quand les développeurs modifient le texte, exportez les traductions révisées avant une livraison et laissez la CI ouvrir une pull request au lieu de copier des fichiers à la main.",
+        "npm_link": "Ouvrir le paquet npm →",
+        "token_link": "Créer un jeton d’API →",
+        "copy": "Copier",
+        "copied": "Copié",
+        "why": {
+          "sync_title": "Les sources restent dans git",
+          "sync_text": "Les développeurs modifient la langue principale localement, lancent un dry-run, puis synchronisent les vrais changements dans Accent.",
+          "export_title": "Les traductions reviennent proprement",
+          "export_text": "Les chaînes révisées sont écrites aux chemins déjà lus par votre framework, avec un ordre constant.",
+          "ci_title": "L’automatisation doit être plate",
+          "ci_text": "Lancez les mêmes commandes dans GitHub Actions et révisez les mises à jour de traduction comme des pull requests normales."
+        },
+        "config_title": "accent.json généré",
+        "config_text": "Commencez avec cette configuration liée au projet, commitez-la dans votre dépôt et gardez le jeton dans ACCENT_API_KEY plutôt que dans le fichier.",
+        "playground_title": "Terrain de jeu des commandes",
+        "playground_text": "Choisissez un workflow pour prévisualiser la commande à lancer localement. Rien n’est exécuté sur le serveur.",
+        "workflow_label": "Workflow",
+        "workflow": {
+          "sync": "Envoie vos fichiers de langue principale vers Accent, puis réécrit les traductions exportées localement.",
+          "export": "Télécharge les traductions révisées d’Accent dans les fichiers déjà lus par votre app.",
+          "stats": "Affiche la progression de révision et traduction, pratique pour les validations CI.",
+          "lint": "Vérifie les fichiers locaux avec les règles de linting Accent avant d’ouvrir une pull request.",
+          "format": "Réécrit les fichiers locaux selon la sortie et l’ordre d’Accent.",
+          "jipt": "Exporte les fichiers de pseudo-langue pour Just In Place Translations."
+        },
+        "commands_title": "Ce que fait la CLI",
+        "commands_text": "Le guide intégré est une version ciblée du README de la CLI, appuyée par le code des commandes de ce dépôt.",
+        "commands": {
+          "sync": "Téléverse les chaînes source, peut ajouter les traductions existantes, puis exporte les fichiers localement.",
+          "export": "Écrit tous les documents Accent vers leurs chemins locaux configurés.",
+          "stats": "Affiche la progression du projet et peut faire échouer la CI si la révision ou traduction est incomplète.",
+          "lint": "Lance les règles de linting Accent sur les fichiers locaux.",
+          "format": "Formate les fichiers locaux depuis la sortie serveur et retourne une erreur si le formatage a changé.",
+          "jipt": "Écrit les fichiers de pseudo-langue utilisés par Just In Place Translations."
+        },
+        "ci_title": "Départ GitHub Actions",
+        "ci_text": "Enregistrez le jeton comme secret nommé ACCENT_API_KEY, puis laissez le workflow lancer la même commande que votre machine."
       },
       "api_token": {
         "title": "Jetons d’API",
@@ -754,7 +812,15 @@
     },
     "project_comments_list": {
       "no_comments": "Aucun commentaire sur les chaînes pour le moment. Vous pouvez commenter n’importe quelle chaîne pour fournir un contexte à un traducteur ou pour discuter du contenu de la chaîne.",
-      "title": "Conversation"
+      "title": "Conversation",
+      "empty_title": "Aucune conversation",
+      "empty_text": "Les commentaires de tout le projet apparaissent ici. Commentez n’importe quelle chaîne pour donner du contexte, poser des questions ou discuter de la formulation avec votre équipe.",
+      "empty_feature_context_title": "Ajoutez du contexte",
+      "empty_feature_context_text": "Expliquez l’intention, le ton ou les contraintes pour que les traducteurs visent juste du premier coup.",
+      "empty_feature_collaborate_title": "Discutez en équipe",
+      "empty_feature_collaborate_text": "Les collaborateurs mentionnés et abonnés sont notifiés et peuvent répondre dans le fil.",
+      "empty_feature_history_title": "Gardez une trace",
+      "empty_feature_history_text": "Chaque conversation reste rattachée à sa chaîne pour référence future."
     },
     "project_create_form": {
       "title": "Nouveau projet",
@@ -1300,6 +1366,9 @@
             "api_token_revoke_success": "Le jeton d’API a été révoqué avec succès",
             "api_token_revoke_error": "Le jeton d’API n’a pas pu être révoqué"
           }
+        },
+        "cli": {
+          "loading_content": "Récupération du guide CLI du projet…"
         },
         "jipt": {
           "loading_content": "Récupération des paramètres de traduction JIPT du projet…"

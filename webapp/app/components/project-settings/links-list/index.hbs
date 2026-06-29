@@ -6,6 +6,12 @@
       <p>{{t 'components.project_settings.links_list.api_token_text'}}</p>
     </LinkTo>
 
+    <LinkTo @route='logged-in.project.edit.cli' local-class='link'>
+      {{inline-svg 'assets/terminal.svg' local-class='link-icon link-icon--cli'}}
+      <strong>{{t 'components.project_settings.links_list.cli'}}</strong>
+      <p>{{t 'components.project_settings.links_list.cli_text'}}</p>
+    </LinkTo>
+
     <LinkTo @route='logged-in.project.edit.badges' local-class='link'>
       {{inline-svg 'assets/badge.svg' local-class='link-icon link-icon--badges'}}
       <strong>{{t 'components.project_settings.links_list.badges'}}</strong>

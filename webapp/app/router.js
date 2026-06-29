@@ -31,6 +31,7 @@ export default Router.map(function () {
       this.route('edit', function () {
         this.route('badges');
         this.route('api-token');
+        this.route('cli');
         this.route('jipt');
         this.route('machine-translations');
         this.route('prompts', function () {
