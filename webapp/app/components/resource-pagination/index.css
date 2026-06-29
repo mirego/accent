@@ -1,0 +1,16 @@
+.resource-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.local-label {
+  margin: 0 10px;
+  color: var(--color-grey);
+  font-size: 14px;
+}
+
+.label-number {
+  margin: 0 4px;
+}

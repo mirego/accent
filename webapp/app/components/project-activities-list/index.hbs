@@ -1,5 +1,5 @@
 {{#if @activities}}
-  <ul local-class='list'>
+  <ul class='list'>
     {{#each @activities key='id' as |activity|}}
       <ActivityItem
         @compact={{@compact}}
@@ -12,7 +12,7 @@
     {{/each}}
   </ul>
 {{else}}
-  <div local-class='empty-content'>
+  <div class='empty-content'>
     <EmptyContent @center={{true}} @iconPath='assets/empty.svg' @text={{t 'components.project_activities_list.empty_activities_text'}} />
   </div>
 {{/if}}

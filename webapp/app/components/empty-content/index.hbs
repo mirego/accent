@@ -1,9 +1,9 @@
-<div ...attributes local-class='empty-content {{if @center "empty-content--center"}} {{if this.isBackgroundPrimary "empty-content--primary"}}' data-test-empty-content>
+<div ...attributes data-test-empty-content class='empty-content {{if @center "empty-content--center"}} {{if this.isBackgroundPrimary "empty-content--primary"}}'>
   {{#if (has-block)}}
     {{yield}}
   {{else}}
     {{#if @iconPath}}
-      {{inline-svg @iconPath local-class='icon'}}
+      {{inline-svg @iconPath class=(scoped-class 'icon')}}
     {{/if}}
     {{@text}}
   {{/if}}

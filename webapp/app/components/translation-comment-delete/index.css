@@ -1,0 +1,4 @@
+:global(.button.button--small).button :global(.label) {
+  padding-left: 4px;
+  padding-right: 4px;
+}

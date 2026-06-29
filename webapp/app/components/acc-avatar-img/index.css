@@ -1,0 +1,7 @@
+.fallback path:first-of-type {
+  opacity: 0.3;
+}
+.fallback path {
+  fill: var(--text-color-normal);
+  opacity: 0.16;
+}

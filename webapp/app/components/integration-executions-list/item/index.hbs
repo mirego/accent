@@ -1,15 +1,15 @@
-<li local-class='item'>
-  <div local-class='item-header'>
-    <span local-class='state {{if this.isSuccess "state--success" "state--error"}}'>
+<li class='item'>
+  <div class='item-header'>
+    <span class='state {{if this.isSuccess "state--success" "state--error"}}'>
       {{@execution.state}}
     </span>
 
-    <span local-class='date'>
+    <span class='date'>
       <TimeAgoInWordsTag @date={{@execution.insertedAt}} />
     </span>
 
     {{#if @execution.user}}
-      <span local-class='user'>
+      <span class='user'>
         {{#if @execution.user.fullname}}
           {{@execution.user.fullname}}
         {{else}}
@@ -19,23 +19,23 @@
     {{/if}}
 
     {{#if @execution.version}}
-      <span local-class='version'>
+      <span class='version'>
         {{@execution.version.tag}}
       </span>
     {{/if}}
   </div>
 
   {{#if this.formattedData}}
-    <div local-class='json-block'>
-      <span local-class='json-label'>{{t 'components.integration_executions.data_label'}}</span>
-      <HighlightRender local-class='json-content' @content={{this.formattedData}} @language='json' />
+    <div class='json-block'>
+      <span class='json-label'>{{t 'components.integration_executions.data_label'}}</span>
+      <HighlightRender @content={{this.formattedData}} @language='json' class='json-content' />
     </div>
   {{/if}}
 
   {{#if this.formattedResults}}
-    <div local-class='json-block'>
-      <span local-class='json-label'>{{t 'components.integration_executions.results_label'}}</span>
-      <HighlightRender local-class='json-content' @content={{this.formattedResults}} @language='json' />
+    <div class='json-block'>
+      <span class='json-label'>{{t 'components.integration_executions.results_label'}}</span>
+      <HighlightRender @content={{this.formattedResults}} @language='json' class='json-content' />
     </div>
   {{/if}}
 </li>

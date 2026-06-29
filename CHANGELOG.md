@@ -213,4 +213,4 @@ Please replace "Released on" with the actual release date of each version. Addit
 - Add type-safe Gleam language to build linting rules
 - Replae homemade gen_stage async jobs processor with Oban
 - Upgrade to latest Elixir and latest EmberJS
-- Use animated svg for skeleton UI instead of plain CSS
+- Use animated :global(svg) for skeleton UI instead of plain CSS

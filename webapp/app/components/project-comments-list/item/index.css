@@ -1,0 +1,57 @@
+.project-comments-list-item {
+  margin-bottom: 45px;
+}
+
+.translationCommentsList {
+  border-radius: var(--border-radius);
+}
+
+.item-link {
+  transition: 0.2s ease-in-out;
+  transition-property: color;
+  display: inline-block;
+  color: var(--color-primary);
+  word-break: break-all;
+  font-family: var(--font-monospace);
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.item-link:focus,
+.item-link:hover {
+  color: color-mix(in srgb, var(--color-primary) 90%, black);
+}
+
+.item-header {
+  margin-bottom: 10px;
+}
+
+.item-key-prefix {
+  display: block;
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #959595;
+  font-weight: 300;
+}
+
+.item-language {
+  transition: 0.2s ease-in-out;
+  transition-property: color;
+  display: block;
+  font-size: 12px;
+  text-decoration: none;
+  color: var(--color-black);
+}
+
+.item-badge {
+  font-size: 12px;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.removedBadge {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--color-error);
+}

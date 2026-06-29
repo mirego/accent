@@ -1,20 +1,20 @@
-<div local-class='api-token'>
-  <div local-class='api-token-header'>
-    <div local-class='api-token-meta'>
-      <div local-class='api-token-user'>
+<div class='api-token'>
+  <div class='api-token-header'>
+    <div class='api-token-meta'>
+      <div class='api-token-user'>
         {{#if @token.user.pictureUrl}}
-          <AccAvatarImg local-class='picture' src={{@token.user.pictureUrl}} />
+          <AccAvatarImg src={{@token.user.pictureUrl}} class='picture' />
         {{else}}
-          <AccAvatarImg local-class='picture' src={{@token.user.pictureUrl}} @showFallback={{true}} />
+          <AccAvatarImg src={{@token.user.pictureUrl}} @showFallback={{true}} class='picture' />
         {{/if}}
 
-        <span local-class='api-token-name'>{{@token.user.fullname}}</span>
+        <span class='api-token-name'>{{@token.user.fullname}}</span>
       </div>
-      <span local-class='api-token-inserted'>
+      <span class='api-token-inserted'>
         {{t 'components.project_settings.api_token.inserted_at'}}
         <TimeAgoInWordsTag @date={{@token.insertedAt}} />
       </span>
-      <span local-class='api-token-last-used'>
+      <span class='api-token-last-used'>
         {{#if @token.lastUsedAt}}
           {{t 'components.project_settings.api_token.last_used_at'}}
           <TimeAgoInWordsTag @date={{@token.lastUsedAt}} />
@@ -30,8 +30,7 @@
           @onClick={{perform this.revokeTask}}
           @loading={{this.isRevoking}}
           @disabled={{this.isRevoking}}
-          local-class='revoke-button'
-          class='button button--small button--filled button--red'
+          class='button button--small button--filled button--red revoke-button'
         >
           {{inline-svg '/assets/x.svg' class='button-icon'}}
           {{t 'components.project_settings.api_token.revoke_button'}}
@@ -40,21 +39,21 @@
     </div>
   </div>
 
-  <div local-class='token-wrapper'>
-    {{inline-svg '/assets/key.svg' local-class='token-icon'}}
-    <input readonly='' onClick='this.select();' local-class='token' value={{@token.token}} />
+  <div class='token-wrapper'>
+    {{inline-svg '/assets/key.svg' class=(scoped-class 'token-icon')}}
+    <input readonly='' onClick='this.select();' value={{@token.token}} class='token' />
   </div>
 
   {{#if @token.customPermissions}}
-    <button {{on 'click' (fn this.togglePermissions)}} local-class='toggle-permissions {{if this.showPermissions "toggle-permissions--open"}}'>
+    <button class='toggle-permissions {{if this.showPermissions "toggle-permissions--open"}}' {{on 'click' (fn this.togglePermissions)}}>
       {{t 'components.project_settings.api_token.permissions.custom_permissions'}}
-      <span local-class='toggle-permissions-icon'>{{t 'components.project_settings.api_token.permissions.custom_permissions_arrow'}}</span>
+      <span class='toggle-permissions-icon'>{{t 'components.project_settings.api_token.permissions.custom_permissions_arrow'}}</span>
     </button>
 
     {{#if this.showPermissions}}
-      <ul local-class='api-token-permissions'>
+      <ul class='api-token-permissions'>
         {{#each @token.customPermissions as |permission|}}
-          <li local-class='api-token-permission'>{{permission}}</li>
+          <li class='api-token-permission'>{{permission}}</li>
         {{/each}}
       </ul>
     {{/if}}

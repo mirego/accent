@@ -1,17 +1,17 @@
-<li local-class='related-translations-list-item'>
-  <div local-class='header'>
+<li class='related-translations-list-item'>
+  <div class='header'>
     <div>
-      <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} local-class='revision' tabindex='-1'>
+      <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} tabindex='-1' class='revision'>
         {{this.revisionName}}
 
-        <span local-class='updatedAt'>
+        <span class='updatedAt'>
           {{t 'components.related_translations_list.last_updated_label'}}
           <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
         </span>
       </LinkTo>
     </div>
 
-    <div local-class='badges'>
+    <div class='badges'>
       {{#unless @translation.isRemoved}}
         {{#if @translation.commentsCount}}
           <AccBadge @link={{true}}>
@@ -55,9 +55,9 @@
     as |form|
   >
     {{#component form.submit}}
-      <div local-class='textEdit-actions' data-dir={{form.dir}}>
+      <div data-dir={{form.dir}} class='textEdit-actions'>
         {{#unless @translation.isRemoved}}
-          <div local-class='form-helpers'>
+          <div class='form-helpers'>
             <TranslationEdit::Helpers
               @permissions={{@permissions}}
               @project={{@project}}

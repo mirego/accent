@@ -1,4 +1,4 @@
-<li local-class='project-settings-integrations-list-item'>
+<li class='project-settings-integrations-list-item'>
   {{#if this.isEditing}}
     <ProjectSettings::Integrations::Form
       @integration={{@integration}}
@@ -8,14 +8,14 @@
       @onCancel={{fn this.toggleEdit}}
     />
   {{else}}
-    <div local-class='details'>
-      <div local-class='details-info'>
-        {{inline-svg (integration-logo @integration.service) local-class='details-logo'}}
-        <span local-class='details-service'>
+    <div class='details'>
+      <div class='details-info'>
+        {{inline-svg (integration-logo @integration.service) class=(scoped-class 'details-logo')}}
+        <span class='details-service'>
           {{t this.mappedServiceTranslationKey}}
         </span>
 
-        <span local-class='details-preview'>
+        <span class='details-preview'>
           {{@integration.data.url}}
           {{@integration.data.sasBaseUrl}}
           {{@integration.data.accessKeyId}}
@@ -23,13 +23,13 @@
           {{@integration.data.pathPrefix}}
 
           {{#if @integration.lastIntegrationExecution}}
-            <span local-class='details-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}}
+            <span class='details-last-executed-at'>{{t 'components.project_settings.integrations.last_executed_at'}}
               {{time-ago-in-words @integration.lastIntegrationExecution.insertedAt}}</span>
           {{/if}}
         </span>
       </div>
 
-      <div local-class='details-actions'>
+      <div class='details-actions'>
         {{#if this.serviceIsExecutable}}
           <button class='button button--filled' {{on 'click' (fn this.toggleExecuting)}}>
             {{inline-svg '/assets/play.svg' class='button-icon'}}

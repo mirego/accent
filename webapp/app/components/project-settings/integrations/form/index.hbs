@@ -1,25 +1,25 @@
 <div
+  class='project-settings-integrations-form'
   {{did-insert (fn this.didUpdateIntegration)}}
   {{did-update (fn this.didUpdateIntegration) @integration}}
   {{did-insert (fn this.didUpdateErrors)}}
   {{did-update (fn this.didUpdateErrors) @errors}}
-  local-class='project-settings-integrations-form'
 >
   {{#if this.integration}}
     {{#if this.integration.id}}
-      <div local-class='form readonly-service'>
-        {{inline-svg (integration-logo this.service) local-class='logo'}}
-        <span local-class='logo-label'>{{this.serviceValue.label}}</span>
+      <div class='form readonly-service'>
+        {{inline-svg (integration-logo this.service) class=(scoped-class 'logo')}}
+        <span class='logo-label'>{{this.serviceValue.label}}</span>
       </div>
     {{else}}
-      <div local-class='form'>
-        {{inline-svg (integration-logo this.service) local-class='logo'}}
+      <div class='form'>
+        {{inline-svg (integration-logo this.service) class=(scoped-class 'logo')}}
 
         <AccSelect @searchEnabled={{false}} @selected={{this.serviceValue}} @renderInPlace={{true}} @options={{this.mappedServices}} @onchange={{fn this.setService}} />
       </div>
     {{/if}}
 
-    <div local-class='data'>
+    <div class='data'>
       {{component
         this.dataFormComponent
         errors=this.errors
@@ -41,13 +41,13 @@
       }}
     </div>
 
-    <div local-class='actions'>
+    <div class='actions'>
       <AsyncButton @onClick={{fn this.submit}} @loading={{this.isCreating}} class='button button--filled'>
         {{t 'components.project_settings.integrations.save'}}
       </AsyncButton>
 
       {{#if @onCancel}}
-        <button local-class='button' class='button button--filled button--white' {{on 'click' (fn @onCancel)}}>
+        <button class='button button--filled button--white local-button' {{on 'click' (fn @onCancel)}}>
           {{t 'components.project_settings.integrations.cancel'}}
         </button>
       {{/if}}

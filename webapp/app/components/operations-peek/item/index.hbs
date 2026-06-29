@@ -1,18 +1,18 @@
-<div local-class='operations-peek-item'>
+<div class='operations-peek-item'>
   {{#if @shouldShowStats}}
-    <ul local-class='statsList'>
+    <ul class='statsList'>
       {{#each @revisionOperation.stats as |stat|}}
-        <li local-class='stat'>
-          <span local-class='stat-count'>
+        <li class='stat'>
+          <span class='stat-count'>
             {{stat.count}}
           </span>
 
-          <span local-class='stat-action'>
+          <span class='stat-action'>
             {{stat.action}}
           </span>
         </li>
       {{else}}
-        <li local-class='noChanges'>
+        <li class='noChanges'>
           {{t 'components.operations_peek.item.empty_changes'}}
         </li>
       {{/each}}
@@ -20,53 +20,53 @@
   {{/if}}
 
   {{#if @shouldShowOperations}}
-    <ul local-class='operationsList'>
-      <input local-class='input' type='text' placeholder={{t 'components.conflicts_filters.input_placeholder_text'}} {{on 'keyup' this.filterOperations}} />
+    <ul class='operationsList'>
+      <input type='text' placeholder={{t 'components.conflicts_filters.input_placeholder_text'}} class='input' {{on 'keyup' this.filterOperations}} />
 
       {{#each this.operations as |operation|}}
-        <li local-class='operation'>
-          <div local-class='operation-header'>
-            <span local-class='operation-key'>
+        <li class='operation'>
+          <div class='operation-header'>
+            <span class='operation-key'>
               {{operation.key}}
             </span>
-            <strong local-class='operation-action'>
+            <strong class='operation-action'>
               {{operation.action}}
             </strong>
           </div>
 
-          <div local-class='operation-content'>
+          <div class='operation-content'>
             {{#if operation.previousText}}
               {{#if operation.text}}
                 <div>
-                  <span local-class='operation-textLabel'>
+                  <span class='operation-textLabel'>
                     {{t 'components.operations_peek.item.previous_label'}}
                   </span>
 
-                  <div local-class='operation-text'>{{operation.previousText}}</div>
+                  <div class='operation-text'>{{operation.previousText}}</div>
                 </div>
 
                 <div>
-                  <span local-class='operation-textLabel'>
+                  <span class='operation-textLabel'>
                     {{t 'components.operations_peek.item.text_label'}}
                   </span>
 
-                  <div local-class='operation-text'>{{operation.text}}</div>
+                  <div class='operation-text'>{{operation.text}}</div>
                 </div>
               {{else}}
-                <div local-class='operation-text'>{{operation.previousText}}</div>
+                <div class='operation-text'>{{operation.previousText}}</div>
               {{/if}}
             {{else}}
-              <div local-class='operation-text'>{{operation.text}}</div>
+              <div class='operation-text'>{{operation.text}}</div>
             {{/if}}
           </div>
         </li>
       {{else}}
         {{#if this.searchQuery}}
-          <li local-class='noChanges'>
+          <li class='noChanges'>
             {{t 'components.operations_peek.item.empty_results'}}
           </li>
         {{else}}
-          <li local-class='noChanges'>
+          <li class='noChanges'>
             {{t 'components.operations_peek.item.empty_changes'}}
           </li>
         {{/if}}

@@ -1,47 +1,47 @@
-<li local-class='item {{if this.isEditing "editing"}} {{if this.hasJoined "joined" "invited"}} {{if @collaborator.user.pictureUrl "withPicture"}}' data-test-collaborator>
-  <div local-class='item-content'>
+<li data-test-collaborator class='item {{if this.isEditing "editing"}} {{if this.hasJoined "joined" "invited"}} {{if @collaborator.user.pictureUrl "withPicture"}}'>
+  <div class='item-content'>
     <div>
       {{#if this.isEditing}}
-        <div local-class='role-edit'>
+        <div class='role-edit'>
           <AccSelect @searchEnabled={{false}} @selected={{this.roleValue}} @options={{this.mappedPossibleRoles}} @onchange={{fn this.setRole}} />
         </div>
       {{/if}}
 
-      <span local-class='user'>
+      <span class='user'>
         {{#if @collaborator.user.pictureUrl}}
-          <AccAvatarImg local-class='user-picture' src={{@collaborator.user.pictureUrl}} />
+          <AccAvatarImg src={{@collaborator.user.pictureUrl}} class='user-picture' />
         {{/if}}
 
-        <span local-class='user-name'>
+        <span class='user-name'>
           {{#if this.hasJoined}}
             {{#if @collaborator.user.fullname}}
-              <span data-test-collaborator-fullname local-class='fullname'>
+              <span data-test-collaborator-fullname class='fullname'>
                 {{@collaborator.user.fullname}}
                 {{#unless this.isEditing}}
-                  <span local-class='role'>
+                  <span class='role'>
                     {{this.role}}
                   </span>
                 {{/unless}}
               </span>
 
-              <small local-class='user-email' data-test-collaborator-email>
+              <small data-test-collaborator-email class='user-email'>
                 {{@collaborator.email}}
               </small>
             {{else}}
-              <span data-test-collaborator-email local-class='fullname'>
+              <span data-test-collaborator-email class='fullname'>
                 {{@collaborator.email}}
                 {{#unless this.isEditing}}
-                  <span local-class='role'>
+                  <span class='role'>
                     {{this.role}}
                   </span>
                 {{/unless}}
               </span>
             {{/if}}
           {{else}}
-            <span data-test-collaborator-email local-class='fullname'>
+            <span data-test-collaborator-email class='fullname'>
               {{@collaborator.email}}
               {{#unless this.isEditing}}
-                <span local-class='role'>
+                <span class='role'>
                   {{this.role}}
                 </span>
               {{/unless}}
@@ -52,7 +52,7 @@
     </div>
 
     <div>
-      <span local-class='invite'>
+      <span class='invite'>
         {{#if this.hasJoined}}
           {{t 'components.project_settings.collaborators_item.joined'}}
           <TimeAgoInWordsTag @date={{@collaborator.insertedAt}} />
@@ -70,28 +70,28 @@
     </div>
   </div>
 
-  <div local-class='actions'>
+  <div class='actions'>
     {{#if this.isEditing}}
       {{#if this.canUpdateCollaborator}}
-        <button local-class='button' class='button button--filled button--white' {{on 'click' (fn this.toggleUpdateCollaborator)}}>
+        <button class='button button--filled button--white local-button' {{on 'click' (fn this.toggleUpdateCollaborator)}}>
           {{t 'components.project_settings.collaborators_item.cancel_save_role'}}
         </button>
 
-        <button local-class='button' class='button button--filled' {{on 'click' (fn this.updateCollaborator)}}>
+        <button class='button button--filled local-button' {{on 'click' (fn this.updateCollaborator)}}>
           {{inline-svg '/assets/check.svg' class='button-icon'}}
           {{t 'components.project_settings.collaborators_item.save_role'}}
         </button>
       {{/if}}
     {{else}}
       {{#if this.canUpdateCollaborator}}
-        <button local-class='button' class='button button--filled button--white' {{on 'click' (fn this.toggleUpdateCollaborator)}}>
+        <button class='button button--filled button--white local-button' {{on 'click' (fn this.toggleUpdateCollaborator)}}>
           {{inline-svg '/assets/pencil.svg' class='button-icon'}}
           {{t 'components.project_settings.collaborators_item.edit_role'}}
         </button>
       {{/if}}
 
       {{#if this.canDeleteCollaborator}}
-        <button local-class='button' class='button button--filled button--red' {{on 'click' (fn this.deleteCollaborator)}} data-test-collaborator-remove>
+        <button class='button button--filled button--red local-button' {{on 'click' (fn this.deleteCollaborator)}} data-test-collaborator-remove>
           {{inline-svg '/assets/x.svg' class='button-icon'}}
 
           {{#if this.hasJoined}}

@@ -1,7 +1,7 @@
 {{#if @comments}}
-  <ul local-class='translation-comments-list' ...attributes>
+  <ul ...attributes class='translation-comments-list'>
     {{#each @comments key='id' as |comment|}}
-      <li local-class='itemComment'>
+      <li class='itemComment'>
         <TranslationCommentsList::Item @comment={{comment}} @onDeleteComment={{@onDeleteComment}} @onUpdateComment={{@onUpdateComment}} />
       </li>
     {{/each}}

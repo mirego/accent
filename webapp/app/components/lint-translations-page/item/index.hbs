@@ -1,10 +1,10 @@
 {{#if @lintTranslation.messages}}
-  <div local-class='wrapper {{if @project "wrapper--project"}}' class='lint-translations-item'>
+  <div class='lint-translations-item wrapper {{if @project "wrapper--project"}}'>
     <div>
-      <ul local-class='messages'>
+      <ul class='messages'>
         {{#each this.messages as |message|}}
-          <li local-class='messages-item'>
-            <span local-class='description'>
+          <li class='messages-item'>
+            <span class='description'>
               {{#if message.message}}
                 {{message.message}}
               {{else}}
@@ -12,14 +12,13 @@
               {{/if}}
             </span>
 
-            <div local-class='messages-item-actions'>
+            <div class='messages-item-actions'>
               {{#if (get @permissions 'updateTranslation')}}
                 {{#if message.replacement}}
                   {{#if @fixText}}
                     <button
                       {{on 'click' (fn @fixText @lintTranslation.translation message)}}
-                      class='button--iconOnly button button--borderless button--sm button--green'
-                      local-class='button-fix'
+                      class='button--iconOnly button button--borderless button--sm button--green button-fix'
                     >
                       {{inline-svg '/assets/check.svg' class='button-icon'}}
                     </button>
@@ -39,11 +38,11 @@
     </div>
 
     {{#if @project}}
-      <div local-class='details'>
-        <LinkTo @route='logged-in.project.translation' @models={{array @project.id @lintTranslation.translation.id}} local-class='item-link'>
-          <strong local-class='item-key'>
+      <div class='details'>
+        <LinkTo @route='logged-in.project.translation' @models={{array @project.id @lintTranslation.translation.id}} class='item-link'>
+          <strong class='item-key'>
             {{this.translationKey.value}}
-            <small local-class='item-key-prefix'>
+            <small class='item-key-prefix'>
               {{#if this.translationKey.prefix}}
                 {{this.translationKey.prefix}}
               {{else}}
@@ -59,7 +58,7 @@
       <ul>
         {{#each this.messages as |message|}}
           {{#if message.replacement}}
-            <li local-class='item-diff-text'>
+            <li class='item-diff-text'>
               <div>
                 {{string-diff message.replacement.value message.text}}
               </div>
@@ -74,7 +73,7 @@
         {{/each}}
       </ul>
     {{else}}
-      <div local-class='item-text'>{{{this.annotatedText}}}</div>
+      <div class='item-text'>{{{this.annotatedText}}}</div>
     {{/if}}
   </div>
 {{/if}}

@@ -1,25 +1,25 @@
-<div local-class='revision-update-form'>
-  <h1 local-class='title'>
+<div class='revision-update-form'>
+  <h1 class='title'>
     {{t 'components.revision_update_form.title'}}
   </h1>
 
   <form {{on 'submit' (fn this.submit)}}>
-    <div local-class='formItem'>
-      <label local-class='formItem-label'>
+    <div class='formItem'>
+      <label class='formItem-label'>
         {{t 'components.revision_update_form.name_label'}}
       </label>
 
-      <input placeholder={{this.namePlaceholder}} value={{this.name}} local-class='textInput' {{on 'keyup' (fn this.setName)}} />
+      <input placeholder={{this.namePlaceholder}} value={{this.name}} class='textInput' {{on 'keyup' (fn this.setName)}} />
     </div>
 
-    <div local-class='formItem'>
-      <label local-class='formItem-label'>
+    <div class='formItem'>
+      <label class='formItem-label'>
         {{t 'components.revision_update_form.slug_label'}}
       </label>
-      <input placeholder={{this.slugPlaceholder}} value={{this.slug}} local-class='textInput' {{on 'keyup' (fn this.setSlug)}} />
+      <input placeholder={{this.slugPlaceholder}} value={{this.slug}} class='textInput' {{on 'keyup' (fn this.setSlug)}} />
     </div>
 
-    <div local-class='formActions'>
+    <div class='formActions'>
       <LinkTo @route='logged-in.project.manage-languages' @model={{@project.id}} class='button button--filled button--white'>
         {{t 'components.revision_update_form.cancel_button'}}
       </LinkTo>

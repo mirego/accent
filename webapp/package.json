@@ -48,11 +48,8 @@
     "ember-cli-flash": "7.0.0",
     "ember-cli-htmlbars": "7.0.1",
     "ember-cli-inject-live-reload": "2.1.0",
-    "ember-cli-sass": "11.0.1",
     "ember-concurrency": "5.2.0",
     "ember-content-loader": "3.0.0",
-    "ember-css-modules": "2.1.1",
-    "ember-css-modules-sass": "1.1.0",
     "ember-fetch": "8.1.2",
     "ember-inline-svg": "1.0.1",
     "ember-intl": "8.2.8",
@@ -61,6 +58,8 @@
     "ember-modifier": "4.3.0",
     "ember-power-select": "9.0.0",
     "ember-resolver": "13.2.0",
+    "ember-scoped-css": "^0.24.3",
+    "ember-scoped-css-compat": "^10.0.0",
     "ember-source": "6.12.0",
     "ember-wormhole": "0.6.1",
     "emoji-picker-element": "1.29.1",
@@ -72,7 +71,6 @@
     "pell": "1.0.6",
     "raven-js": "3.27.2",
     "rxjs": "7.8.2",
-    "sass": "1.101.0",
     "simple-fmt": "0.1.0"
   },
   "devDependencies": {

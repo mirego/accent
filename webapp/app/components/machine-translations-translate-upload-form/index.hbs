@@ -1,7 +1,7 @@
-<div local-class='content' {{did-insert (fn this.deactivateDocumentDrop)}} {{will-destroy (fn this.activateDocumentDrop)}} {{on 'drop' (fn this.dropFile)}}>
+<div class='content' {{did-insert (fn this.deactivateDocumentDrop)}} {{will-destroy (fn this.activateDocumentDrop)}} {{on 'drop' (fn this.dropFile)}}>
   {{#if this.file}}
-    <div local-class='filters'>
-      <div local-class='languages'>
+    <div class='filters'>
+      <div class='languages'>
         <AccSelect
           @searchEnabled={{true}}
           @search={{fn this.searchLanguages}}
@@ -10,7 +10,7 @@
           @onchange={{fn this.onSelectFromLanguage}}
         />
 
-        <button {{on 'click' (fn this.switchLanguages)}} local-class='button-switch' class='button button--iconOnly'>
+        <button {{on 'click' (fn this.switchLanguages)}} class='button button--iconOnly button-switch'>
           {{inline-svg '/assets/switch.svg' class='button-icon'}}
         </button>
 
@@ -23,57 +23,57 @@
         />
       </div>
 
-      <div local-class='translate-action'>
+      <div class='translate-action'>
         <AccSelect
           @searchEnabled={{false}}
           @selected={{this.documentFormat}}
           @options={{this.mappedDocumentFormats}}
           @onchange={{fn this.onSelectDocumentFormat}}
-          local-class='translate-action-select'
+          class='translate-action-select'
         />
 
-        <AsyncButton class='button button--filled' @loading={{this.isSubmitting}} @onClick={{perform this.submitTask}} local-class='translate-action-button'>
+        <AsyncButton class='button button--filled translate-action-button' @loading={{this.isSubmitting}} @onClick={{perform this.submitTask}}>
           {{inline-svg '/assets/language.svg' class='button-icon'}}
           {{t 'components.machine_translations_translate_upload_form.translate'}}
         </AsyncButton>
 
         <div>
-          <FileInput name='file-input' id='file-input' @onChange={{perform this.fileChange}} local-class='fileInput--hidden' />
-          <label for='file-input' class='button button--white button--filled' local-class='fileButton'>
-            {{inline-svg '/assets/import.svg' class='button-icon' local-class='button-icon'}}
+          <FileInput name='file-input' id='file-input' @onChange={{perform this.fileChange}} class='fileInput--hidden' />
+          <label for='file-input' class='button button--white button--filled fileButton'>
+            {{inline-svg '/assets/import.svg' class=(concat 'button-icon' ' ' (scoped-class 'button-icon'))}}
             {{t 'components.machine_translations_translate_upload_form.new_file'}}
           </label>
         </div>
       </div>
     </div>
   {{else}}
-    <div local-class='form'>
-      <FileInput name='file-input' id='file-input' @onChange={{perform this.fileChange}} local-class='fileInput' />
+    <div class='form'>
+      <FileInput name='file-input' id='file-input' @onChange={{perform this.fileChange}} class='fileInput' />
 
-      <div local-class='form-content'>
-        <div local-class='form-content-icons'>
-          {{inline-svg '/assets/import.svg' local-class='form-content-icon form-content-icon--highlight'}}
-          {{inline-svg '/assets/add.svg' local-class='form-content-icon form-content-icon--add'}}
-          {{inline-svg '/assets/language.svg' local-class='form-content-icon'}}
+      <div class='form-content'>
+        <div class='form-content-icons'>
+          {{inline-svg '/assets/import.svg' class=(concat (scoped-class 'form-content-icon') ' ' (scoped-class 'form-content-icon--highlight'))}}
+          {{inline-svg '/assets/add.svg' class=(concat (scoped-class 'form-content-icon') ' ' (scoped-class 'form-content-icon--add'))}}
+          {{inline-svg '/assets/language.svg' class=(scoped-class 'form-content-icon')}}
         </div>
         <strong>{{t 'components.machine_translations_translate_upload_form.step_1'}}</strong>
-        <p local-class='form-content-text'>
+        <p class='form-content-text'>
           {{t 'components.machine_translations_translate_upload_form.step_1_text'}}
         </p>
       </div>
     </div>
   {{/if}}
 
-  <div local-class='preview'>
-    <div local-class='preview-file-content'>
+  <div class='preview'>
+    <div class='preview-file-content'>
       {{#if this.fileContent}}
         <HighlightRender @content={{this.fileContent}} />
       {{/if}}
     </div>
 
-    <div local-class='preview-translated-content'>
+    <div class='preview-translated-content'>
       {{#if @translatedFileContent}}
-        <AsyncButton @onClick={{fn this.exportFile}} @disabled={{this.exportButtonDisabled}} class='button button--filled' local-class='button-export'>
+        <AsyncButton @onClick={{fn this.exportFile}} @disabled={{this.exportButtonDisabled}} class='button button--filled button-export'>
           {{inline-svg '/assets/export.svg' class='button-icon'}}
           {{t 'components.project_file_operations.export'}}
         </AsyncButton>

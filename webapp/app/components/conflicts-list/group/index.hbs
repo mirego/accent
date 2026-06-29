@@ -1,8 +1,8 @@
-<li local-class='item {{if this.isFocused "item--focus"}}'>
-  <LinkTo @route='logged-in.project.translation' @models={{array @project.id this.masterTranslation.id}} local-class='item-key' tabindex='-1'>
+<li class='item {{if this.isFocused "item--focus"}}'>
+  <LinkTo @route='logged-in.project.translation' @models={{array @project.id this.masterTranslation.id}} tabindex='-1' class='item-key'>
     {{this.translationKey.value}}
 
-    <small local-class='item-key-prefix'>
+    <small class='item-key-prefix'>
       {{#if this.translationKey.prefix}}
         {{this.translationKey.prefix}}
       {{else}}
@@ -11,14 +11,10 @@
     </small>
   </LinkTo>
 
-  <ul local-class='item-grid'>
+  <ul class='item-grid'>
     {{#each @groupedTranslation.translations key='id' as |translation|}}
       <li
-        local-class='item-grid-item {{if translation.isTranslated "item-grid-item--translated"}} {{if
-          translation.isConflicted
-          "item-grid-item--conflicted"
-          "item-grid-item--reviewed"
-        }}'
+        class='item-grid-item {{if translation.isTranslated "item-grid-item--translated"}} {{if translation.isConflicted "item-grid-item--conflicted" "item-grid-item--reviewed"}}'
       >
         <ConflictsList::Item
           @permissions={{@permissions}}

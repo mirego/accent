@@ -1,12 +1,12 @@
-<div local-class='wrapper'>
-  <strong local-class='name'>
+<div class='wrapper'>
+  <strong class='name'>
     {{#if @prompt.quickAccess}}
-      <span local-class='quick-access'>{{@prompt.quickAccess}}</span>
+      <span class='quick-access'>{{@prompt.quickAccess}}</span>
     {{/if}}
     {{@prompt.displayName}}
   </strong>
 
-  <div local-class='actions'>
+  <div class='actions'>
     <LinkTo @route='logged-in.project.edit.prompts.edit' @models={{array @project.id @prompt.id}} class='button button--iconOnly button--filled button--white button--link'>
       {{inline-svg 'assets/pencil.svg' class='button-icon'}}
     </LinkTo>

@@ -1,15 +1,15 @@
-<div local-class='lint-options'>
-  <div class='filters' local-class='filters'>
-    <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
-      <div class='filters-content' local-class='filters-content'>
-        <div class='queryForm' local-class='queryForm'>
-          {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+<div class='lint-options'>
+  <div class='filters filters'>
+    <form class='filters-wrapper local-filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
+      <div class='filters-content local-filters-content'>
+        <div class='queryForm local-queryForm'>
+          {{inline-svg '/assets/search.svg' class=(scoped-class 'search-icon')}}
 
           <input
-            local-class='input'
             type='text'
             placeholder={{t 'components.conflicts_filters.input_placeholder_text'}}
             value={{this.debouncedQuery}}
+            class='input'
             {{on-key 'Enter' (fn this.submitForm)}}
             {{on 'keyup' this.setDebouncedQuery}}
           />
@@ -19,7 +19,7 @@
           <div class='queryForm-filters'>
             {{#if this.showDocuments}}
               <div class='queryForm-filters-column'>
-                <div local-class='exportOptions-item'>
+                <div class='exportOptions-item'>
                   <AccSelect @searchEnabled={{false}} @selected={{this.documentValue}} @options={{this.mappedDocuments}} @onchange={{fn this.documentChanged}} />
                 </div>
               </div>
@@ -27,7 +27,7 @@
 
             {{#if this.showVersions}}
               <div class='queryForm-filters-column'>
-                <div local-class='exportOptions-item'>
+                <div class='exportOptions-item'>
                   <AccSelect @searchEnabled={{false}} @selected={{this.versionValue}} @options={{this.mappedVersions}} @onchange={{fn this.versionChanged}} />
                 </div>
               </div>

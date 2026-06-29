@@ -1,21 +1,21 @@
-<div local-class='translation-conversation'>
-  <div local-class='comments'>
+<div class='translation-conversation'>
+  <div class='comments'>
     {{#if (get @permissions 'createComment')}}
       {{#unless @translation.isRemoved}}
-        <div local-class='comment-form' {{did-insert this.focusTextarea}}>
+        <div class='comment-form' {{did-insert this.focusTextarea}}>
           <TranslationCommentForm @onSubmit={{@onSubmit}} />
         </div>
       {{/unless}}
     {{/if}}
 
-    <div local-class='list'>
-      <TranslationCommentsList @comments={{@comments.entries}} @onUpdateComment={{@onUpdateComment}} @onDeleteComment={{@onDeleteComment}} local-class='at-translation' />
+    <div class='list'>
+      <TranslationCommentsList @comments={{@comments.entries}} @onUpdateComment={{@onUpdateComment}} @onDeleteComment={{@onDeleteComment}} class='at-translation' />
 
       <ResourcePagination @meta={{@comments.meta}} @onSelectPage={{@onSelectPage}} />
     </div>
   </div>
 
-  <div local-class='subscriptions'>
+  <div class='subscriptions'>
     <TranslationCommentsSubscriptions
       @collaborators={{@collaborators}}
       @subscriptions={{@subscriptions}}

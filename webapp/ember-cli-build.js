@@ -3,7 +3,6 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const sass = require('sass');
 
 module.exports = function(defaults) {
   const app = new EmberApp(defaults, {
@@ -21,12 +20,12 @@ module.exports = function(defaults) {
 
     'ember-cli-babel': { enableTypeScriptTransform: true },
 
-    svg: {
+    :global(svg): {
       paths: ['public'],
     },
 
-    sassOptions: {
-      implementation: sass,
+    'ember-scoped-css': {
+      layerName: false,
     },
   });
 

@@ -1,33 +1,33 @@
-<div local-class='project-navigation'>
+<div class='project-navigation'>
   <div>
-    <LinkTo @route='logged-in.project.index' @model={{@project.id}} local-class='project'>
-      <span local-class='project-logo'>
+    <LinkTo @route='logged-in.project.index' @model={{@project.id}} class='project'>
+      <span class='project-logo'>
         <ProjectLogo @logo={{@project.logo}} />
       </span>
 
-      <span local-class='project-name'>
+      <span class='project-name'>
         {{@project.name}}
       </span>
     </LinkTo>
-    <div local-class='search'>
-      {{inline-svg '/assets/search.svg' local-class='search-icon'}}
-      <input {{on 'keyup' this.setDebouncedQuery}} local-class='search-input' type='text' placeholder={{t 'general.search_input_placeholder_text'}} value={{this.debouncedQuery}} />
+    <div class='search'>
+      {{inline-svg '/assets/search.svg' class=(scoped-class 'search-icon')}}
+      <input type='text' placeholder={{t 'general.search_input_placeholder_text'}} value={{this.debouncedQuery}} class='search-input' {{on 'keyup' this.setDebouncedQuery}} />
     </div>
     <ProjectNavigation::List @selectedRevision={{this.selectedRevision}} @permissions={{@permissions}} @project={{@project}} />
   </div>
 
-  <div local-class='footer'>
-    <LinkTo @route='logged-in.projects' local-class='back-to-projects'>
+  <div class='footer'>
+    <LinkTo @route='logged-in.projects' class='back-to-projects'>
 
-      {{inline-svg '/assets/chevron-left.svg' local-class='back-to-projects-icon'}}
-      <span local-class='back-to-projects-text'>{{t 'components.project_navigation.back_to_projects'}}</span>
+      {{inline-svg '/assets/chevron-left.svg' class=(scoped-class 'back-to-projects-icon')}}
+      <span class='back-to-projects-text'>{{t 'components.project_navigation.back_to_projects'}}</span>
     </LinkTo>
 
     {{#if this.session.credentials.user}}
-      <div local-class='session'>
-        <AccAvatarImg local-class='session-picture' @showFallback={{not this.session.credentials.user.pictureUrl}} src={{this.session.credentials.user.pictureUrl}} />
+      <div class='session'>
+        <AccAvatarImg @showFallback={{not this.session.credentials.user.pictureUrl}} src={{this.session.credentials.user.pictureUrl}} class='session-picture' />
 
-        <span local-class='session-username'>
+        <span class='session-username'>
           {{this.session.credentials.user.fullname}}
         </span>
       </div>

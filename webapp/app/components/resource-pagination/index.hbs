@@ -1,15 +1,15 @@
-<div local-class='resource-pagination'>
+<div class='resource-pagination'>
   {{#if this.showPagination}}
     <button disabled={{this.disabledPrevious}} class='button button--white button--filled button--iconOnly' {{on 'click' (fn this.goToPreviousPage)}}>
       {{inline-svg 'assets/chevron-left.svg' class='button-icon'}}
     </button>
 
-    <span local-class='label' class='label'>
-      <span local-class='label-number'>
+    <span class='label local-label'>
+      <span class='label-number'>
         {{@meta.currentPage}}
       </span>
       /
-      <span local-class='label-number'>
+      <span class='label-number'>
         {{@meta.totalPages}}
       </span>
     </span>

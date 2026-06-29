@@ -1,0 +1,9 @@
+button.local-button {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: var(--border-radius);
+}
+button.local-button:focus,
+button.local-button:hover {
+  transform: translate3d(0, 0, 0);
+}

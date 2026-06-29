@@ -38,8 +38,8 @@ export default class LintTranslationsPageItem extends Component<Args> {
   get annotatedText() {
     let offsetTotal = 0;
 
-    let text = this.args.lintTranslation.messages
-      .sort((a: any, b: any) => a.offset || 0 >= b.offset || 0)
+    let text = [...this.args.lintTranslation.messages]
+      .sort((a: any, b: any) => (a.offset || 0) - (b.offset || 0))
       .reduce((text: string, message: any) => {
         if (message.length) {
           const error = text.slice(

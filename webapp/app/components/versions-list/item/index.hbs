@@ -1,8 +1,8 @@
-<li local-class='item'>
-  <div local-class='item-info'>
-    <h2 local-class='item-title'>
+<li class='item'>
+  <div class='item-info'>
+    <h2 class='item-title'>
       {{#if (get @permissions 'updateVersion')}}
-        <LinkTo @route='logged-in.project.versions.edit' @models={{array @project.id @version.id}} local-class='item-title-link'>
+        <LinkTo @route='logged-in.project.versions.edit' @models={{array @project.id @version.id}} class='item-title-link'>
           {{@version.name}}
         </LinkTo>
       {{else}}
@@ -10,20 +10,20 @@
       {{/if}}
 
       {{#unless (eq @version.name @version.tag)}}
-        <span local-class='item-tag'>
+        <span class='item-tag'>
           {{@version.tag}}
         </span>
       {{/unless}}
     </h2>
-    <div local-class='item-meta'>
+    <div class='item-meta'>
       {{@version.user.fullname}}
-      <span local-class='item-meta-date'>
+      <span class='item-meta-date'>
         <TimeAgoInWordsTag @date={{@version.insertedAt}} />
       </span>
 
       {{#each @version.lastIntegrationExecutions as |execution|}}
-        <LinkTo @route='logged-in.project.integration-executions' @models={{array @project.id execution.integration.id}} local-class='item-lastExecution'>
-          {{inline-svg (integration-logo execution.integration.service) local-class='item-lastExecution-logo'}}
+        <LinkTo @route='logged-in.project.integration-executions' @models={{array @project.id execution.integration.id}} class='item-lastExecution'>
+          {{inline-svg (integration-logo execution.integration.service) class=(scoped-class 'item-lastExecution-logo')}}
           {{t 'components.translations_list.last_execution_label'}}
           <TimeAgoInWordsTag @date={{execution.insertedAt}} />
         </LinkTo>
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div local-class='links'>
+  <div class='links'>
     {{#if (get @permissions 'updateVersion')}}
       <LinkTo @route='logged-in.project.versions.edit' @models={{array @project.id @version.id}} class='button button--filled button--white'>
         {{inline-svg '/assets/pencil.svg' class='button-icon'}}

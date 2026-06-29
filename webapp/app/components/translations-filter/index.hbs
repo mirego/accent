@@ -1,30 +1,30 @@
-<div local-class='translations-filter'>
+<div class='translations-filter'>
   <div class='filters {{if @jipt "filters--jipt"}}'>
-    <form class='filters-wrapper' local-class='filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
-      <div class='filters-content' local-class='filters-content'>
-        <div class='queryForm' local-class='queryForm'>
-          <div local-class='queryForm-search'>
+    <form class='filters-wrapper local-filters-wrapper' {{on 'submit' (fn this.submitForm)}}>
+      <div class='filters-content local-filters-content'>
+        <div class='queryForm local-queryForm'>
+          <div class='queryForm-search'>
 
-            {{inline-svg '/assets/search.svg' local-class='search-icon'}}
+            {{inline-svg '/assets/search.svg' class=(scoped-class 'search-icon')}}
 
             <input
-              local-class='input'
               type='text'
-              {{did-insert (fn this.autofocus)}}
               placeholder={{t 'components.translations_filter.input_placeholder_text'}}
               value={{this.debouncedQuery}}
+              class='input'
+              {{did-insert (fn this.autofocus)}}
               {{on-key 'Enter' (fn this.submitForm)}}
               {{on 'keyup' (fn this.setDebouncedQuery)}}
             />
           </div>
 
           {{#if @onChangeAdvancedFilterBoolean}}
-            <button {{on 'click' (fn this.toggleAdvancedFilters)}} local-class='advancedFilters' class='button button--filled button--white'>
+            <button {{on 'click' (fn this.toggleAdvancedFilters)}} class='button button--filled button--white advancedFilters'>
               {{inline-svg 'assets/filter.svg' class='button-icon'}}
               {{t 'components.translations_filter.advanced_filters_button'}}
 
               {{#if @withAdvancedFilters}}
-                <span local-class='advancedFilters-badge'>
+                <span class='advancedFilters-badge'>
                   {{@withAdvancedFilters}}
                 </span>
               {{/if}}

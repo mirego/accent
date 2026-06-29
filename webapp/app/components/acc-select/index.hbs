@@ -18,11 +18,11 @@
     {{option.label}}
   </PowerSelect>
 {{else if @multi}}
-  <PowerSelectMultiple @options={{@options}} @selected={{@selected}} @placeholder={{@placeholder}} @renderInPlace={{@renderInPlace}} @onChange={{@onchange}} as |option|>
+  <PowerSelect @multiple={{true}} @options={{@options}} @selected={{@selected}} @placeholder={{@placeholder}} @renderInPlace={{@renderInPlace}} @onChange={{@onchange}} as |option|>
     {{option.label}}
-  </PowerSelectMultiple>
+  </PowerSelect>
 {{else}}
-  <div local-class='root' ...attributes>
+  <div ...attributes class='root'>
     <select {{on 'change' this.selectChange}}>
       {{#each @options key='value' as |selectOption|}}
         <option value={{selectOption.value}} selected='{{if (eq @selected.value selectOption.value) "selected"}}'>

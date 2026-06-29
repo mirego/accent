@@ -1,4 +1,4 @@
-<ul local-class='translations-list'>
+<ul class='translations-list'>
   {{#each @translations key='id' as |translation|}}
     <TranslationEditionsList::Item
       @translation={{translation}}
@@ -9,7 +9,7 @@
       @onUpdateText={{@onUpdateText}}
     />
   {{else}}
-    <EmptyContent local-class='empty-content'>
+    <EmptyContent class='empty-content'>
       {{t 'components.translation_editions_list.no_translations'}}
       <div>
         {{t 'components.translation_editions_list.no_versions'}}

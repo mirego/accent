@@ -1,6 +1,6 @@
-<div local-class='translation-edit' {{did-update this.didUpdateCorrectedText @translation.correctedText}}>
+<div class='translation-edit' {{did-update this.didUpdateCorrectedText @translation.correctedText}}>
   {{#if @translation.id}}
-    <div local-class='form' {{did-insert this.focusTextarea}}>
+    <div class='form' {{did-insert this.focusTextarea}}>
       <TranslationEdit::Form
         @permissions={{@permissions}}
         @projectId={{@project.id}}
@@ -15,12 +15,12 @@
         @onKeyUp={{fn this.changeText}}
         @onSubmit={{fn this.updateText}}
         @rtl={{this.revisionTextDirRtl}}
-        local-class='jipt'
         lang={{this.revisionSlug}}
+        class='jipt'
       />
 
       {{#unless @translation.isRemoved}}
-        <div local-class='form-improve' data-rtl={{this.revisionTextDirRtl}}>
+        <div data-rtl={{this.revisionTextDirRtl}} class='form-improve'>
           <TranslationEdit::Helpers
             @permissions={{@permissions}}
             @languageSlug={{this.revisionSlug}}
@@ -38,20 +38,20 @@
 
   {{#if @translation}}
     {{#unless @translation.isRemoved}}
-      <div local-class='actions'>
-        <div local-class='actions-links'>
+      <div class='actions'>
+        <div class='actions-links'>
           {{#if @translation.sourceTranslation}}
             {{#if @translation.version}}
-              <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.sourceTranslation.id}} local-class='actions-link'>
+              <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.sourceTranslation.id}} class='actions-link'>
                 {{t 'components.translation_edit.source_translation'}}
               </LinkTo>
             {{/if}}
           {{/if}}
         </div>
 
-        <div local-class='actions-buttons'>
+        <div class='actions-buttons'>
           {{#unless this.hasTextNotChanged}}
-            <AsyncButton @onClick={{fn this.setOriginalText}} local-class='actions-button-revert' class='button button--iconOnly button--white'>
+            <AsyncButton @onClick={{fn this.setOriginalText}} class='button button--iconOnly button--white actions-button-revert'>
               {{inline-svg '/assets/revert.svg' class='button-icon'}}
             </AsyncButton>
           {{/unless}}

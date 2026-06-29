@@ -1,31 +1,32 @@
 <div
-  local-class='list-item {{if @master "list-item--master"}} {{if this.isPromoting "list-item--promoting"}} {{if this.isDeleting "list-item--deleting"}} {{if
-    this.isDeleted
-    "list-item--deleted"
-  }}'
+  class='list-item
+    {{if @master "list-item--master"}}
+    {{if this.isPromoting "list-item--promoting"}}
+    {{if this.isDeleting "list-item--deleting"}}
+    {{if this.isDeleted "list-item--deleted"}}'
 >
-  <div local-class='list-item-header'>
+  <div class='list-item-header'>
     {{#if this.isDeleted}}
-      <span local-class='list-link'>{{this.name}}</span>
+      <span class='list-link'>{{this.name}}</span>
     {{else}}
-      <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @revision.id}} local-class='list-link'>
+      <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @revision.id}} class='list-link'>
         {{this.name}}
-        <small local-class='list-link-small'>
+        <small class='list-link-small'>
           {{this.slug}}
         </small>
       </LinkTo>
     {{/if}}
 
     {{#if @revision.isMaster}}
-      <AccBadge local-class='masterBadge'>
+      <AccBadge class='masterBadge'>
         {{t 'components.project_manage_languages_overview.master_badge'}}
       </AccBadge>
     {{/if}}
   </div>
 
-  <div local-class='list-item-infos'>
+  <div class='list-item-infos'>
     {{#unless @revision.isMaster}}
-      <div local-class='list-item-infos-date'>
+      <div class='list-item-infos-date'>
         {{#if this.isDeleted}}
           {{t 'components.project_manage_languages_overview.revision_deleted_label'}}
         {{else}}
@@ -35,14 +36,9 @@
       </div>
 
       {{#unless this.isDeleted}}
-        <div local-class='list-item-actions'>
+        <div class='list-item-actions'>
           {{#if (get @permissions 'promoteSlave')}}
-            <AsyncButton
-              @loading={{this.isPromoting}}
-              local-class='promoteSlaveButton'
-              class='button--white button--filled button--small button--link'
-              @onClick={{fn this.promoteRevision}}
-            >
+            <AsyncButton @loading={{this.isPromoting}} class='button--white button--filled button--small button--link promoteSlaveButton' @onClick={{fn this.promoteRevision}}>
               {{inline-svg '/assets/chevron-top.svg' class='button-icon'}}
               {{t 'components.project_manage_languages_overview.promote_revision_master_button'}}
             </AsyncButton>

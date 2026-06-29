@@ -1,10 +1,10 @@
-<li local-class='translation-comments-subscriptions-item {{if this.isCurrentUser "currentUser"}}'>
-  <input type='checkbox' local-class='checkbox' checked={{this.isSubscribed}} {{on 'change' (fn this.toggleSubscription)}} />
+<li class='translation-comments-subscriptions-item {{if this.isCurrentUser "currentUser"}}'>
+  <input type='checkbox' checked={{this.isSubscribed}} class='checkbox' {{on 'change' (fn this.toggleSubscription)}} />
 
-  <span local-class='user'>
+  <span class='user'>
     {{@collaborator.user.fullname}}
 
-    <span local-class='user-email'>
+    <span class='user-email'>
       {{@collaborator.email}}
     </span>
   </span>

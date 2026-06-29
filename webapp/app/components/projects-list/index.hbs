@@ -1,7 +1,7 @@
-<ul local-class='projects-list' data-test-projects-list>
+<ul data-test-projects-list class='projects-list'>
   {{#each @projects key='id' as |project index|}}
-    <li local-class='item' data-test-project={{index}}>
-      <LinkTo @route='logged-in.project' @model={{project.id}} local-class='item-link'>
+    <li data-test-project={{index}} class='item'>
+      <LinkTo @route='logged-in.project' @model={{project.id}} class='item-link'>
         <ProjectsList::Item @project={{project}} />
       </LinkTo>
     </li>
@@ -12,7 +12,7 @@
         {{inline-svg 'assets/empty.svg' class='icon'}}
         {{t 'components.projects_list.no_projects'}}
         {{#if (get @permissions 'createProject')}}
-          <div local-class='link-section'>
+          <div class='link-section'>
             <LinkTo @route='logged-in.projects.new' class='link'>
               {{t 'components.projects_list.maybe_create_one'}}
             </LinkTo>

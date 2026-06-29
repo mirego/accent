@@ -1,26 +1,26 @@
-<div local-class='error-section'>
-  {{inline-svg 'assets/logo-bw.svg' local-class='logo'}}
+<div class='error-section'>
+  {{inline-svg 'assets/logo-bw.svg' class=(scoped-class 'logo')}}
 
-  <div local-class='header'>
-    <h1 local-class='status'>
+  <div class='header'>
+    <h1 class='status'>
       {{@status}}
     </h1>
 
-    <h2 local-class='title'>
+    <h2 class='title'>
       {{@title}}
     </h2>
   </div>
 
-  <p local-class='text'>
+  <p class='text'>
     {{@text}}
   </p>
 
-  <LinkTo @route='login' local-class='link'>
+  <LinkTo @route='login' class='link'>
     {{t 'components.error_section.return'}}
   </LinkTo>
 
   {{#if @isAuthenticated}}
-    <span local-class='or'>
+    <span class='or'>
       {{t 'components.error_section.or'}}
     </span>
 
@@ -29,7 +29,7 @@
     </button>
   {{/if}}
 
-  <div local-class='footer'>
+  <div class='footer'>
     <ApplicationFooter />
   </div>
 </div>

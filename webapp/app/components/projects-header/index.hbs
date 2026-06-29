@@ -1,36 +1,30 @@
-<header local-class='projects-header {{if @project "withProject"}}'>
-  <div local-class='content'>
-    <div local-class='content-left'>
-      <div local-class='applicationLogo'>
-        {{inline-svg 'assets/logo.svg' local-class='applicationLogo-image'}}
-        <span local-class='applicationLogo-accent'>
+<header class='projects-header {{if @project "withProject"}}'>
+  <div class='content'>
+    <div class='content-left'>
+      <div class='applicationLogo'>
+        {{inline-svg 'assets/logo.svg' class=(scoped-class 'applicationLogo-image')}}
+        <span class='applicationLogo-accent'>
           {{t 'general.application_name'}}
         </span>
       </div>
     </div>
 
     {{#if @project}}
-      <div local-class='content-center'>
-        <div local-class='search'>
-          {{inline-svg '/assets/search.svg' local-class='search-icon'}}
-          <input
-            {{on 'keyup' this.setDebouncedQuery}}
-            local-class='search-input'
-            type='text'
-            placeholder={{t 'general.search_input_placeholder_text'}}
-            value={{this.debouncedQuery}}
-          />
+      <div class='content-center'>
+        <div class='search'>
+          {{inline-svg '/assets/search.svg' class=(scoped-class 'search-icon')}}
+          <input type='text' placeholder={{t 'general.search_input_placeholder_text'}} value={{this.debouncedQuery}} class='search-input' {{on 'keyup' this.setDebouncedQuery}} />
         </div>
       </div>
     {{/if}}
 
     {{#if @session.credentials.user}}
-      <div local-class='content-right'>
+      <div class='content-right'>
         {{#if @session.credentials.user.pictureUrl}}
-          <AccAvatarImg local-class='picture' src={{@session.credentials.user.pictureUrl}} />
+          <AccAvatarImg src={{@session.credentials.user.pictureUrl}} class='picture' />
         {{/if}}
 
-        <span local-class='username'>
+        <span class='username'>
           {{@session.credentials.user.fullname}}
         </span>
 

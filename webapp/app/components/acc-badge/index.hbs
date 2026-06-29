@@ -1,6 +1,3 @@
-<div
-  local-class='badge {{if @version "version"}} {{if @icon "icon"}} {{if @link "link"}} {{if @warning "warning"}} {{if @primary "primary"}} {{if @danger "danger"}}'
-  ...attributes
->
+<div ...attributes class='badge {{if @version "version"}} {{if @icon "icon"}} {{if @link "link"}} {{if @warning "warning"}} {{if @primary "primary"}} {{if @danger "danger"}}'>
   {{yield}}
 </div>

@@ -1,0 +1,70 @@
+.translation-splash-file {
+  margin-bottom: 20px;
+}
+
+.language {
+  display: inline-block;
+  margin-bottom: 4px;
+  color: var(--color-black);
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+  transition-property: color;
+}
+.language:focus,
+.language:hover {
+  opacity: 0.8;
+}
+.language:focus .back-icon,
+.language:hover .back-icon {
+  transform: translateX(-2px);
+}
+
+.updatedAt {
+  color: var(--color-grey);
+  font-size: 11px;
+  font-style: italic;
+}
+
+.back-icon {
+  width: 11px;
+  height: 11px;
+  stroke: var(--color-black);
+  transition: 0.2s ease-in-out;
+  transition-property: stroke transform;
+}
+
+.key {
+  margin-bottom: 3px;
+  font-family: var(--font-monospace);
+  font-weight: bold;
+  font-size: 22px;
+  color: var(--color-primary);
+  line-height: 1.3;
+}
+
+.key-prefix {
+  display: block;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--color-grey);
+}
+
+.removedBadge {
+  font-size: 12px;
+  color: var(--color-error);
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+}
+.badges > * {
+  margin-right: 6px;
+}
+
+@media (max-width: 640px) {
+  .language {
+    margin-top: 20px;
+  }
+}

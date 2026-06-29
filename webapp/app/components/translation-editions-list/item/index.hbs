@@ -1,8 +1,8 @@
-<li local-class='translations-list-item item--editMode' {{did-update this.syncEditText @translation.correctedText}} data-dir={{if this.revisionTextDirRtl 'rtl'}}>
-  <span local-class='item-header' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
-    <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} local-class='item-link'>
+<li data-dir={{if this.revisionTextDirRtl 'rtl'}} class='translations-list-item item--editMode' {{did-update this.syncEditText @translation.correctedText}}>
+  <span data-dir={{if this.revisionTextDirRtl 'rtl'}} class='item-header'>
+    <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} class='item-link'>
       <AccBadge @version={{true}}>
-        <span local-class='item-key'>
+        <span class='item-key'>
           {{#if @translation.version}}
             {{@translation.version.tag}}
           {{else}}
@@ -12,7 +12,7 @@
       </AccBadge>
     </LinkTo>
 
-    <span local-class='item-meta'>
+    <span class='item-meta'>
       {{#if @translation.isConflicted}}
         <AccBadge title={{t 'components.translations_list.in_review_tooltip'}} class='tooltip tooltip--top' @link={{true}}>
           <LinkTo @route='logged-in.project.conflicts' @model={{@project.id}} @query={{hash query=@translation.id}}>
@@ -35,14 +35,14 @@
         </AccBadge>
       {{/if}}
 
-      <span local-class='item-updatedAt'>
+      <span class='item-updatedAt'>
         {{t 'components.translations_list.last_updated_label'}}
         <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
       </span>
 
       {{#each @translation.version.lastIntegrationExecutions as |execution|}}
-        <LinkTo @route='logged-in.project.integration-executions' @models={{array @project.id execution.integration.id}} local-class='item-lastExecution'>
-          {{inline-svg (integration-logo execution.integration.service) local-class='item-lastExecution-logo'}}
+        <LinkTo @route='logged-in.project.integration-executions' @models={{array @project.id execution.integration.id}} class='item-lastExecution'>
+          {{inline-svg (integration-logo execution.integration.service) class=(scoped-class 'item-lastExecution-logo')}}
           {{t 'components.translations_list.last_execution_label'}}
           <TimeAgoInWordsTag @date={{execution.insertedAt}} />
         </LinkTo>
@@ -50,7 +50,7 @@
     </span>
   </span>
 
-  <div local-class='item-textEdit'>
+  <div class='item-textEdit'>
     <TranslationEdit::Form
       @permissions={{@permissions}}
       @projectId={{@project.id}}
@@ -68,9 +68,9 @@
       as |form|
     >
       {{#component form.submit}}
-        <div local-class='textEdit-actions' data-dir={{form.dir}}>
+        <div data-dir={{form.dir}} class='textEdit-actions'>
           {{#unless @translation.isRemoved}}
-            <div local-class='form-helpers'>
+            <div class='form-helpers'>
               <TranslationEdit::Helpers
                 @languageSlug={{this.revisionSlug}}
                 @permissions={{@permissions}}
@@ -87,8 +87,7 @@
           <AsyncButton
             @onClick={{fn this.save}}
             @loading={{this.isSaving}}
-            class='button button--filled button--iconOnly {{if form.isTextUnchanged "button--unchanged"}}'
-            local-class='item-textEdit-button'
+            class='button button--filled button--iconOnly {{if form.isTextUnchanged "button--unchanged"}} item-textEdit-button'
           >
             {{t 'components.translations_list.save'}}
           </AsyncButton>

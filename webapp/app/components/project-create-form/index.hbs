@@ -1,34 +1,34 @@
-<div local-class='project-create-form'>
-  <h1 local-class='title'>
+<div class='project-create-form'>
+  <h1 class='title'>
     {{t 'components.project_create_form.title'}}
   </h1>
 
   {{#if @error}}
-    <div local-class='errors'>
-      <div local-class='error'>
+    <div class='errors'>
+      <div class='error'>
         {{t 'components.project_create_form.error'}}
       </div>
     </div>
   {{/if}}
 
-  <div local-class='formItem'>
-    <label local-class='formItem-label'>
+  <div class='formItem'>
+    <label class='formItem-label'>
       {{t 'components.project_create_form.name_label'}}
     </label>
 
-    <div local-class='formItem-fields'>
-      <input {{did-insert (fn this.autofocus)}} value={{this.name}} autofocus local-class='textInput' {{on 'keyup' (fn this.setName)}} />
+    <div class='formItem-fields'>
+      <input value={{this.name}} autofocus class='textInput' {{did-insert (fn this.autofocus)}} {{on 'keyup' (fn this.setName)}} />
 
-      <input type='color' value={{this.mainColor}} local-class='colorInput' {{on 'change' (fn this.setMainColor)}} />
+      <input type='color' value={{this.mainColor}} class='colorInput' {{on 'change' (fn this.setMainColor)}} />
 
-      <AccEmojiPicker local-class='logoInput' @onPicked={{fn this.logoPicked}}>
+      <AccEmojiPicker @onPicked={{fn this.logoPicked}} class='logoInput'>
         <ProjectLogo @logo={{this.logo}} />
       </AccEmojiPicker>
     </div>
   </div>
 
-  <div local-class='formItem'>
-    <label local-class='formItem-label'>
+  <div class='formItem'>
+    <label class='formItem-label'>
       {{t 'components.project_create_form.language_label'}}
     </label>
 
@@ -42,12 +42,12 @@
         @onchange={{fn this.setLanguage}}
       />
     {{else}}
-      <LoadingContent local-class='formItem-loading' />
+      <LoadingContent class='formItem-loading' />
     {{/if}}
   </div>
 
-  <div local-class='formActions'>
-    <LinkTo @route='logged-in.projects' local-class='cancelButton' class='button button--filled button--white'>
+  <div class='formActions'>
+    <LinkTo @route='logged-in.projects' class='button button--filled button--white cancelButton'>
       {{t 'components.project_create_form.cancel_button'}}
     </LinkTo>
     <AsyncButton @disabled={{this.emptyLanguage}} @loading={{this.isCreating}} @onClick={{fn this.submit}} class='button button--filled button--green'>

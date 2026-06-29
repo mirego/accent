@@ -1,22 +1,22 @@
-<div local-class='languageHeader'>
+<div class='languageHeader'>
   <AccSelect
-    local-class='languageHeader-select'
     @searchEnabled={{false}}
     @selected={{this.mappedSelectedRevision}}
     @options={{this.mappedRevisions}}
     @onchange={{fn this.onSelectRevision}}
+    class='languageHeader-select'
   />
 
-  <div local-class='languageHeader-displayOptions'>
-    <button local-class='languageHeader-displayOptions-button' disabled={{this.shouldShowStats}} {{on 'click' (fn this.showStats)}}>
+  <div class='languageHeader-displayOptions'>
+    <button disabled={{this.shouldShowStats}} class='languageHeader-displayOptions-button' {{on 'click' (fn this.showStats)}}>
       {{t 'components.operations_peek.item.overview'}}
     </button>
 
-    <button local-class='languageHeader-displayOptions-button' disabled={{this.shouldShowOperations}} {{on 'click' (fn this.showOperations)}}>
+    <button disabled={{this.shouldShowOperations}} class='languageHeader-displayOptions-button' {{on 'click' (fn this.showOperations)}}>
       {{t 'components.operations_peek.item.details'}}
     </button>
 
-    <button local-class='languageHeader-displayOptions-button' disabled={{this.shouldHideDetails}} {{on 'click' (fn this.hideDetails)}}>
+    <button disabled={{this.shouldHideDetails}} class='languageHeader-displayOptions-button' {{on 'click' (fn this.hideDetails)}}>
       {{t 'components.operations_peek.item.hide'}}
     </button>
   </div>

@@ -1,8 +1,8 @@
-<div local-class='project-settings-collaborators'>
-  <div local-class='columns'>
-    <div local-class='columns-item'>
+<div class='project-settings-collaborators'>
+  <div class='columns'>
+    <div class='columns-item'>
       {{#if (get @permissions 'createCollaborator')}}
-        <div local-class='createForm'>
+        <div class='createForm'>
           <ProjectSettings::Collaborators::CreateForm @project={{@project}} @onCreate={{@onCreateCollaborator}} />
         </div>
       {{/if}}
@@ -15,44 +15,44 @@
       />
     </div>
 
-    <div local-class='columns-item rolesList'>
-      <span local-class='rolesList-title'>
-        {{inline-svg 'assets/tool.svg' local-class='rolesList-icon'}}
+    <div class='columns-item rolesList'>
+      <span class='rolesList-title'>
+        {{inline-svg 'assets/tool.svg' class=(scoped-class 'rolesList-icon')}}
         {{t 'general.roles.OWNER'}}
       </span>
-      <p local-class='rolesList-text'>
+      <p class='rolesList-text'>
         {{t 'components.project_settings.collaborators.owner_text'}}
       </p>
 
-      <span local-class='rolesList-title'>
-        {{inline-svg 'assets/users.svg' local-class='rolesList-icon'}}
+      <span class='rolesList-title'>
+        {{inline-svg 'assets/users.svg' class=(scoped-class 'rolesList-icon')}}
         {{t 'general.roles.ADMIN'}}
       </span>
-      <p local-class='rolesList-text'>
+      <p class='rolesList-text'>
         {{t 'components.project_settings.collaborators.admin_text'}}
       </p>
 
-      <span local-class='rolesList-title'>
-        {{inline-svg 'assets/code.svg' local-class='rolesList-icon'}}
+      <span class='rolesList-title'>
+        {{inline-svg 'assets/code.svg' class=(scoped-class 'rolesList-icon')}}
         {{t 'general.roles.DEVELOPER'}}
       </span>
-      <p local-class='rolesList-text'>
+      <p class='rolesList-text'>
         {{t 'components.project_settings.collaborators.developer_text'}}
       </p>
 
-      <span local-class='rolesList-title'>
-        {{inline-svg 'assets/check.svg' local-class='rolesList-icon'}}
+      <span class='rolesList-title'>
+        {{inline-svg 'assets/check.svg' class=(scoped-class 'rolesList-icon')}}
         {{t 'general.roles.REVIEWER'}}
       </span>
-      <p local-class='rolesList-text'>
+      <p class='rolesList-text'>
         {{t 'components.project_settings.collaborators.reviewer_text'}}
       </p>
 
-      <span local-class='rolesList-title'>
-        {{inline-svg 'assets/machine-translations.svg' local-class='rolesList-icon'}}
+      <span class='rolesList-title'>
+        {{inline-svg 'assets/machine-translations.svg' class=(scoped-class 'rolesList-icon')}}
         {{t 'general.roles.TRANSLATOR'}}
       </span>
-      <p local-class='rolesList-text'>
+      <p class='rolesList-text'>
         {{t 'components.project_settings.collaborators.translator_text'}}
       </p>
     </div>

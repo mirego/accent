@@ -41,6 +41,10 @@ declare const config: {
     DSN: string;
   };
 
+  APP: {
+    rootElement?: string;
+  };
+
   flashMessageDefaults: {
     timeout: number;
     destroyOnClick: boolean;

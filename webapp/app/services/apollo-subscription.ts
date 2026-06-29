@@ -69,9 +69,9 @@ export class Subscription {
     return this.queryObservable.subscribe({next});
   }
 
-  private mapResult(result: any, props: any) {
+  private mapResult(result: any, props: ((data: any) => any) | undefined) {
     if (result.data && Object.keys(result.data).length) {
-      const data = props(result.data);
+      const data = props ? props(result.data) : result.data;
 
       return {
         ...data,

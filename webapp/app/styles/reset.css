@@ -114,11 +114,11 @@ select {
   vertical-align: middle;
 }
 
-input[type="radio"] {
+input[type='radio'] {
   vertical-align: text-bottom;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   flex-shrink: 0;
   vertical-align: bottom;
 }
@@ -128,7 +128,7 @@ strong {
 }
 
 label,
-input[type="file"],
+input[type='file'],
 button {
   cursor: pointer;
 }

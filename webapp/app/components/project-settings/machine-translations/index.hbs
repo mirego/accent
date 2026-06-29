@@ -1,35 +1,35 @@
-<div local-class='project-settings-form'>
+<div class='project-settings-form'>
   <ProjectSettings::Title @title={{t 'components.project_settings.machine_translations.title'}} />
 
-  <p local-class='text'>
+  <p class='text'>
     {{t 'components.project_settings.machine_translations.text'}}
   </p>
 
-  <div local-class='form {{if @project.machineTranslationsConfig "form--configured"}}'>
-    <div local-class='provider'>
-      {{inline-svg this.logoProvider local-class='logo'}}
+  <div class='form {{if @project.machineTranslationsConfig "form--configured"}}'>
+    <div class='provider'>
+      {{inline-svg this.logoProvider class=(scoped-class 'logo')}}
 
       <AccSelect
-        local-class='select'
         @searchEnabled={{false}}
         @selected={{this.providerValue}}
         @renderInPlace={{true}}
         @options={{this.mappedProviders}}
         @onchange={{fn this.setProvider}}
+        class='select'
       />
 
       {{#if @project.machineTranslationsConfig}}
-        {{inline-svg 'assets/check.svg' local-class='check'}}
+        {{inline-svg 'assets/check.svg' class=(scoped-class 'check')}}
       {{/if}}
     </div>
 
-    <div local-class='options'>
-      <label local-class='option-checkbox'>
+    <div class='options'>
+      <label class='option-checkbox'>
         <input value={{this.usePlatform}} type='checkbox' checked={{this.usePlatform}} {{on 'change' (fn this.onUsePlatformChange)}} />
         {{t 'components.project_settings.machine_translations.use_platform_label'}}
       </label>
 
-      <label local-class='option-checkbox'>
+      <label class='option-checkbox'>
         <input value={{this.enabledActionsSync}} type='checkbox' checked={{this.enabledActionsSync}} {{on 'change' (fn this.onEnabledActionsChange 'sync')}} />
         {{t 'components.project_settings.machine_translations.enabled_actions_sync'}}
       </label>
@@ -37,25 +37,25 @@
 
     {{#unless this.usePlatform}}
       {{#if @project.machineTranslationsConfig.useConfigKey}}
-        <p local-class='config-key-help'>
+        <p class='config-key-help'>
           {{t 'components.project_settings.machine_translations.config_key_help_present'}}
         </p>
       {{else}}
-        <p local-class='config-key-help'>
+        <p class='config-key-help'>
           {{t 'components.project_settings.machine_translations.config_key_help_not_present'}}
         </p>
       {{/if}}
 
       <textarea
         placeholder={{this.configKeyPlaceholder}}
-        local-class='textInput'
         rows={{if @project.machineTranslationsConfig.useConfigKey 1 8}}
+        class='textInput'
         {{on 'change' (fn this.onConfigKeyChange)}}
       >{{this.configKey}}</textarea>
     {{/unless}}
   </div>
 
-  <div local-class='actions'>
+  <div class='actions'>
     {{#if @project.machineTranslationsConfig}}
       <AsyncButton @onClick={{perform this.remove}} @loading={{this.isRemoving}} class='button button--red button--borderless'>
         {{t 'components.project_settings.integrations.delete'}}

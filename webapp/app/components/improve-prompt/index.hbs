@@ -1,19 +1,18 @@
 {{#if @prompts}}
-  <div local-class='prompt-button' tabindex='0'>
-    <div local-class='prompt-button-quick-access' data-rtl={{@rtl}}>
+  <div tabindex='0' class='prompt-button'>
+    <div data-rtl={{@rtl}} class='prompt-button-quick-access'>
       {{#each this.quickAccessPrompts as |prompt|}}
         <AsyncButton
           title={{prompt.name}}
           @onClick={{perform this.submitTask prompt.id}}
-          local-class='prompt-button-quick-access-icon'
-          class='button button--iconOnly button--filled button--borderless button--white'
+          class='button button--iconOnly button--filled button--borderless button--white prompt-button-quick-access-icon'
         >
           {{prompt.quickAccess}}
         </AsyncButton>
       {{/each}}
     </div>
 
-    <button {{on 'click' (fn this.onPromptClick)}} local-class='button' class='button button--iconOnly button--link button--filled button--white'>
+    <button {{on 'click' (fn this.onPromptClick)}} class='button button--iconOnly button--link button--filled button--white local-button'>
       {{inline-svg '/assets/sparkle.svg' class='button-icon'}}
     </button>
   </div>
@@ -21,13 +20,13 @@
 
 {{#if this.promptOpened}}
   <AccModal @onClose={{fn this.onPromptClose}}>
-    <div local-class='content' {{did-insert (perform this.fetchPromptOptions)}}>
-      <div local-class='title'>
-        {{inline-svg 'assets/sparkle.svg' local-class='title-icon'}}
+    <div class='content' {{did-insert (perform this.fetchPromptOptions)}}>
+      <div class='title'>
+        {{inline-svg 'assets/sparkle.svg' class=(scoped-class 'title-icon')}}
         {{t 'components.improve_prompt.title'}}
       </div>
 
-      <div local-class='current-text'>{{@text}}</div>
+      <div class='current-text'>{{@text}}</div>
 
       {{#if this.promptOptions}}
         <AccSelect @selected={{this.promptOptionValue}} @options={{this.promptOptions}} @onchange={{fn this.onSelectPromptOption}} />
@@ -35,13 +34,13 @@
 
       {{#if this.promptResult}}
         {{#if this.promptResultUnchanged}}
-          <div local-class='result-text result-text--unchanged'>{{t 'components.improve_prompt.no_changes'}}</div>
+          <div class='result-text result-text--unchanged'>{{t 'components.improve_prompt.no_changes'}}</div>
         {{else}}
-          <div local-class='result-text'>{{this.promptResult}}</div>
+          <div class='result-text'>{{this.promptResult}}</div>
         {{/if}}
       {{/if}}
 
-      <div local-class='actions'>
+      <div class='actions'>
         <AsyncButton @onClick={{perform this.submitTask}} @loading={{this.isSubmitting}} class='button button--filled button--white'>
           {{t 'components.improve_prompt.run'}}
         </AsyncButton>

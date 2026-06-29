@@ -1,5 +1,5 @@
-<div local-class='container'>
-  <div local-class='form'>
+<div class='container'>
+  <div class='form'>
 
     <ProjectSettings::Integrations::Form::DataControlText
       @error={{field-error @errors 'data.awsS3Bucket'}}
@@ -37,12 +37,12 @@
       @onChange={{this.changeSecretAccessKey}}
     />
   </div>
-  <div local-class='policy'>
-    <label local-class='policy-title'>
+  <div class='policy'>
+    <label class='policy-title'>
       {{t 'components.project_settings.integrations.data.aws_s3_minimum_policy'}}
     </label>
 
-    <div local-class='policy-render'>
+    <div class='policy-render'>
       <HighlightRender @content={{this.policyContent}} />
     </div>
   </div>

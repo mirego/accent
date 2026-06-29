@@ -1,17 +1,17 @@
-<div {{did-insert this.focusTextarea}} local-class='azure-push-form'>
-  <h1 local-class='title'>
+<div class='azure-push-form' {{did-insert this.focusTextarea}}>
+  <h1 class='title'>
     {{t 'components.project_settings.integrations.execute.azure_storage_container.title'}}
   </h1>
 
   {{#if @error}}
-    <div local-class='errors'>
-      <div local-class='error'>
+    <div class='errors'>
+      <div class='error'>
         {{t 'components.project_settings.integrations.execute.azure_storage_container.error'}}
       </div>
     </div>
   {{/if}}
 
-  <div local-class='formItem'>
+  <div class='formItem'>
     <ProjectSettings::Integrations::Form::DataControlRadio
       @allTargetVersions={{this.allTargetVersions}}
       @targetVersion={{this.targetVersion}}
@@ -21,7 +21,7 @@
     />
   </div>
 
-  <div local-class='formActions'>
+  <div class='formActions'>
     <LinkTo @route='logged-in.project.service-integrations' @model={{@project.id}} class='button button--filled button--white'>
       {{t 'components.project_settings.integrations.execute.azure_storage_container.cancel_button'}}
     </LinkTo>

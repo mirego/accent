@@ -1,19 +1,19 @@
-<li local-class='translations-list-item {{if this.isInEditMode "item--editMode"}}' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
-  <span local-class='item-header' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
-    <span local-class='item-edit-wrapper'>
-      <span local-class='item-edit'>
+<li data-dir={{if this.revisionTextDirRtl 'rtl'}} class='translations-list-item {{if this.isInEditMode "item--editMode"}}'>
+  <span data-dir={{if this.revisionTextDirRtl 'rtl'}} class='item-header'>
+    <span class='item-edit-wrapper'>
+      <span class='item-edit'>
         <span role='button' {{on 'click' (fn this.toggleEdit)}}>
           {{#if this.isInEditMode}}
-            {{inline-svg 'assets/x.svg' local-class='item-edit-icon'}}
+            {{inline-svg 'assets/x.svg' class=(scoped-class 'item-edit-icon')}}
           {{else}}
-            {{inline-svg 'assets/pencil.svg' local-class='item-edit-icon'}}
+            {{inline-svg 'assets/pencil.svg' class=(scoped-class 'item-edit-icon')}}
           {{/if}}
         </span>
       </span>
-      <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} local-class='item-link'>
-        <strong local-class='item-key'>
+      <LinkTo @route='logged-in.project.translation' @models={{array @project.id @translation.id}} class='item-link'>
+        <strong class='item-key'>
           {{this.translationKey.value}}
-          <small local-class='item-key-prefix'>
+          <small class='item-key-prefix'>
             {{#if this.translationKey.prefix}}
               {{this.translationKey.prefix}}
             {{else}}
@@ -24,7 +24,7 @@
       </LinkTo>
     </span>
 
-    <span local-class='item-meta'>
+    <span class='item-meta'>
       {{#if @translation.lintMessages}}
         {{#if (gt @translation.lintMessages.length 1)}}
           <AccBadge
@@ -73,7 +73,7 @@
         </AccBadge>
       {{/if}}
 
-      <span local-class='item-updatedAt'>
+      <span class='item-updatedAt'>
         {{t 'components.translations_list.last_updated_label'}}
         <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
       </span>
@@ -81,7 +81,7 @@
   </span>
 
   {{#if this.isInEditMode}}
-    <div {{did-insert this.focusTextarea}} local-class='item-textEdit'>
+    <div class='item-textEdit' {{did-insert this.focusTextarea}}>
       <TranslationEdit::Form
         @permissions={{@permissions}}
         @projectId={{@project.id}}
@@ -100,9 +100,9 @@
         as |form|
       >
         {{#component form.submit}}
-          <div local-class='textEdit-actions' data-dir={{form.dir}}>
+          <div data-dir={{form.dir}} class='textEdit-actions'>
             {{#unless @translation.isRemoved}}
-              <div local-class='form-helpers'>
+              <div class='form-helpers'>
                 <TranslationEdit::Helpers
                   @permissions={{@permissions}}
                   @project={{@project}}
@@ -119,8 +119,7 @@
             <AsyncButton
               @onClick={{fn this.save}}
               @loading={{this.isSaving}}
-              class='button button--filled button--iconOnly {{if form.isTextUnchanged "button--unchanged"}}'
-              local-class='item-textEdit-button'
+              class='button button--filled button--iconOnly {{if form.isTextUnchanged "button--unchanged"}} item-textEdit-button'
             >
               {{t 'components.translations_list.save'}}
             </AsyncButton>
@@ -129,14 +128,14 @@
       </TranslationEdit::Form>
     </div>
   {{else if this.isTextEmpty}}
-    <span role='button' local-class='item-text item-text--empty' data-dir={{if this.revisionTextDirRtl 'rtl'}} {{on 'click' (fn this.toggleEdit)}}>
+    <span role='button' data-dir={{if this.revisionTextDirRtl 'rtl'}} class='item-text item-text--empty' {{on 'click' (fn this.toggleEdit)}}>
       {{t 'components.translations_list.empty_text'}}
     </span>
   {{else if this.isTextNull}}
-    <span role='button' local-class='item-text item-text--empty' data-dir={{if this.revisionTextDirRtl 'rtl'}} {{on 'click' (fn this.toggleEdit)}}>
+    <span role='button' data-dir={{if this.revisionTextDirRtl 'rtl'}} class='item-text item-text--empty' {{on 'click' (fn this.toggleEdit)}}>
       {{t 'components.translations_list.null_text'}}
     </span>
   {{else}}
-    <span role='button' local-class='item-text' data-dir={{if this.revisionTextDirRtl 'rtl'}} {{on 'click' (fn this.toggleEdit)}}>{{truncate @translation.correctedText 600}}</span>
+    <span role='button' data-dir={{if this.revisionTextDirRtl 'rtl'}} class='item-text' {{on 'click' (fn this.toggleEdit)}}>{{truncate @translation.correctedText 600}}</span>
   {{/if}}
 </li>

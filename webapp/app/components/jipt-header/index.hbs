@@ -1,9 +1,9 @@
-<div local-class='jipt-header'>
-  <div local-class='applicationLogo'>
-    {{inline-svg 'assets/logo.svg' local-class='applicationLogo-image applicationLogo-image--linked'}}
+<div class='jipt-header'>
+  <div class='applicationLogo'>
+    {{inline-svg 'assets/logo.svg' class=(concat (scoped-class 'applicationLogo-image') ' ' (scoped-class 'applicationLogo-image--linked'))}}
   </div>
 
-  <div local-class='project'>
+  <div class='project'>
     {{t 'general.application_name'}}
   </div>
 </div>

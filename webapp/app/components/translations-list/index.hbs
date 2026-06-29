@@ -1,9 +1,9 @@
-<ul local-class='translations-list'>
+<ul class='translations-list'>
   {{#if this.currentVersion}}
-    <div local-class='translations-list-version'>
+    <div class='translations-list-version'>
       {{t 'components.translations_list.translations_version_notice'}}
       <AccBadge @version={{true}}>
-        <span local-class='translations-list-version-tag'>{{this.currentVersion.tag}}</span>
+        <span class='translations-list-version-tag'>{{this.currentVersion.tag}}</span>
       </AccBadge>
     </div>
   {{/if}}
@@ -18,12 +18,12 @@
       @onUpdateText={{@onUpdateText}}
     />
   {{else}}{{#if @query}}
-      <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_query' query=@query}} />
+      <EmptyContent @center={{true}} @text={{t 'components.translations_list.no_translations_query' query=@query}} class='empty-content' />
     {{else if @withAdvancedFilters}}
-      <EmptyContent local-class='empty-content' @center={{true}} @text={{t 'components.translations_list.no_translations_filters'}} />
+      <EmptyContent @center={{true}} @text={{t 'components.translations_list.no_translations_filters'}} class='empty-content' />
     {{else}}
-      <EmptyContent local-class='empty-content' @center={{true}}>
-        {{inline-svg 'assets/empty.svg' local-class='icon'}}
+      <EmptyContent @center={{true}} class='empty-content'>
+        {{inline-svg 'assets/empty.svg' class=(scoped-class 'icon')}}
         {{t 'components.translations_list.no_translations'}}
         <div>
           {{t 'components.translations_list.maybe_sync_before'}}

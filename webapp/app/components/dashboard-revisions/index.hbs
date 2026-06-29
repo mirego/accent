@@ -1,34 +1,34 @@
-<div local-class='dashboard-revisions {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}'>
-  <div local-class='content'>
+<div class='dashboard-revisions {{if this.lowPercentage "low-percentage"}} {{if this.mediumPercentage "medium-percentage"}} {{if this.highPercentage "high-percentage"}}'>
+  <div class='content'>
     {{#if @project.lastSyncedAt}}
-      <div local-class='numberStat'>
+      <div class='numberStat'>
         {{#if this.reviewCompleted}}
-          <span local-class='numberStat-reviewCompleted'>
-            {{inline-svg '/assets/thumbs-up.svg' local-class='numberStat-reviewCompleted-successIcon'}}
+          <span class='numberStat-reviewCompleted'>
+            {{inline-svg '/assets/thumbs-up.svg' class=(scoped-class 'numberStat-reviewCompleted-successIcon')}}
             {{t 'components.dashboard_revisions.all_reviewed'}}
           </span>
         {{else}}
-          <span local-class='numberStat-reviewPercentage'>
+          <span class='numberStat-reviewPercentage'>
             {{this.reviewedPercentage}}
-            <span local-class='numberStat-reviewPercentage-unit'>
-              {{inline-svg '/assets/percent.svg' local-class='numberStat-reviewPercentage-icon'}}
+            <span class='numberStat-reviewPercentage-unit'>
+              {{inline-svg '/assets/percent.svg' class=(scoped-class 'numberStat-reviewPercentage-icon')}}
             </span>
           </span>
         {{/if}}
 
-        <small local-class='numberStat-totalKeys'>
+        <small class='numberStat-totalKeys'>
           {{this.totalReviewed}}
           /
           {{this.totalStrings}}
-          <span local-class='numberStat-totalKeys-label'>
+          <span class='numberStat-totalKeys-label'>
             {{t 'components.dashboard_revisions.strings'}}
           </span>
         </small>
       </div>
 
-      <div local-class='stats'>
-        <h2 local-class='stats-title'>
-          <div local-class='stats-title-links'>
+      <div class='stats'>
+        <h2 class='stats-title'>
+          <div class='stats-title-links'>
             {{#if (get @permissions 'sync')}}
               <LinkTo @route='logged-in.project.files.sync' @models={{array @project.id @document.id}} class='button button--filled button--white'>
                 {{inline-svg '/assets/sync.svg' class='button-icon'}}
@@ -49,7 +49,7 @@
         </h2>
 
         {{#if this.showFilters}}
-          <div local-class='filters'>
+          <div class='filters'>
             <div class='queryForm-filters'>
               {{#if @showDocumentsSelect}}
                 <div class='queryForm-filter'>
@@ -70,7 +70,7 @@
           </div>
         {{/if}}
 
-        <div local-class='master'>
+        <div class='master'>
           <DashboardRevisions::Item
             @project={{@project}}
             @revision={{this.masterRevision}}
@@ -85,7 +85,7 @@
         </div>
 
         {{#if this.slaveRevisions}}
-          <div local-class='slaves'>
+          <div class='slaves'>
             {{#each this.slaveRevisions key='id' as |revision|}}
               <DashboardRevisions::Item
                 @project={{@project}}
@@ -101,15 +101,15 @@
             {{/each}}
           </div>
         {{else}}
-          <div local-class='empty-slaves'>
+          <div class='empty-slaves'>
             {{#if (get @permissions 'createSlave')}}
-              <LinkTo @route='logged-in.project.manage-languages' @model={{@project.id}} local-class='empty-slaves-button'>
-                <span local-class='empty-slaves-button-action'>
-                  {{inline-svg 'assets/add.svg' local-class='empty-slaves-button-icon'}}
+              <LinkTo @route='logged-in.project.manage-languages' @model={{@project.id}} class='empty-slaves-button'>
+                <span class='empty-slaves-button-action'>
+                  {{inline-svg 'assets/add.svg' class=(scoped-class 'empty-slaves-button-icon')}}
                   {{t 'components.dashboard_revisions.new_language_link_title'}}
                 </span>
 
-                <span local-class='empty-slaves-button-text'>
+                <span class='empty-slaves-button-text'>
                   {{t 'components.dashboard_revisions.new_language_link_text'}}
                 </span>
               </LinkTo>
@@ -123,17 +123,17 @@
   </div>
 
   {{#if @project.lastSyncedAt}}
-    <div local-class='activities'>
-      <h2 local-class='activities-title'>
-        <span local-class='activities-title-text'>
-          {{inline-svg 'assets/activity.svg' local-class='activities-title-icon'}}
+    <div class='activities'>
+      <h2 class='activities-title'>
+        <span class='activities-title-text'>
+          {{inline-svg 'assets/activity.svg' class=(scoped-class 'activities-title-icon')}}
           {{t 'components.dashboard_revisions.activities_title'}}
         </span>
 
         <ProjectLastActivitySync @projectId={{@project.id}} />
       </h2>
       <ProjectDashboardActivities @projectId={{@project.id}} @permissions={{@permissions}} @project={{@project}} />
-      <LinkTo @route='logged-in.project.activities' @model={{@project.id}} class='button button--filled button--white button--borderLess' local-class='activities-viewMoreButton'>
+      <LinkTo @route='logged-in.project.activities' @model={{@project.id}} class='button button--filled button--white button--borderLess activities-viewMoreButton'>
         {{t 'components.dashboard_revisions.view_more_activities'}}
       </LinkTo>
     </div>

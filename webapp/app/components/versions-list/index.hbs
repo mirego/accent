@@ -1,47 +1,45 @@
 {{#if @versions}}
-  <ul local-class='versions-list'>
+  <ul class='versions-list'>
     {{#each @versions key='id' as |version|}}
       <VersionsList::Item @permissions={{@permissions}} @version={{version}} @project={{@project}} @onDelete={{@onDelete}} />
     {{/each}}
   </ul>
 {{else}}
-  <div local-class='empty'>
-    <div local-class='empty-hero'>
-      {{inline-svg '/assets/tag.svg' local-class='empty-hero-icon'}}
-
+  <div class='empty'>
+    <div class='empty-hero'>
       <div>
-        <h3 local-class='empty-hero-title'>{{t 'components.versions_list.empty_title'}}</h3>
-        <p local-class='empty-hero-text'>{{t 'components.versions_list.empty_text'}}</p>
+        <h3 class='empty-hero-title'>{{t 'components.versions_list.empty_title'}}</h3>
+        <p class='empty-hero-text'>{{t 'components.versions_list.empty_text'}}</p>
       </div>
     </div>
 
-    <ul local-class='empty-features'>
-      <li local-class='empty-feature'>
-        {{inline-svg '/assets/sync.svg' local-class='empty-feature-icon'}}
+    <ul class='empty-features'>
+      <li class='empty-feature'>
+        {{inline-svg '/assets/sync.svg' class=(scoped-class 'empty-feature-icon')}}
         <div>
           <strong>{{t 'components.versions_list.empty_feature_independent_title'}}</strong>
           <span>{{t 'components.versions_list.empty_feature_independent_text'}}</span>
         </div>
       </li>
 
-      <li local-class='empty-feature'>
-        {{inline-svg '/assets/share.svg' local-class='empty-feature-icon'}}
+      <li class='empty-feature'>
+        {{inline-svg '/assets/share.svg' class=(scoped-class 'empty-feature-icon')}}
         <div>
           <strong>{{t 'components.versions_list.empty_feature_integrations_title'}}</strong>
           <span>{{t 'components.versions_list.empty_feature_integrations_text'}}</span>
         </div>
       </li>
 
-      <li local-class='empty-feature'>
-        {{inline-svg '/assets/terminal.svg' local-class='empty-feature-icon'}}
+      <li class='empty-feature'>
+        {{inline-svg '/assets/terminal.svg' class=(scoped-class 'empty-feature-icon')}}
         <div>
           <strong>{{t 'components.versions_list.empty_feature_cli_title'}}</strong>
           <span>{{t 'components.versions_list.empty_feature_cli_text'}}</span>
         </div>
       </li>
 
-      <li local-class='empty-feature'>
-        {{inline-svg '/assets/merge.svg' local-class='empty-feature-icon'}}
+      <li class='empty-feature'>
+        {{inline-svg '/assets/merge.svg' class=(scoped-class 'empty-feature-icon')}}
         <div>
           <strong>{{t 'components.versions_list.empty_feature_sync_back_title'}}</strong>
           <span>{{t 'components.versions_list.empty_feature_sync_back_text'}}</span>

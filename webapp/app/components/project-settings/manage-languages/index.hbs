@@ -1,5 +1,5 @@
-<div local-class='project-settings-manage-languages'>
-  <div local-class='overview'>
+<div class='project-settings-manage-languages'>
+  <div class='overview'>
     <ProjectSettings::ManageLanguages::Overview
       @permissions={{@permissions}}
       @project={{@project}}
@@ -9,9 +9,9 @@
     />
 
     {{#if (get @permissions 'createSlave')}}
-      <div local-class='createSlaveForm'>
+      <div class='createSlaveForm'>
         {{#if @errors}}
-          <ul local-class='error'>
+          <ul class='error'>
             {{#each @errors as |error|}}
               <li>
                 {{error}}
@@ -24,31 +24,31 @@
     {{/if}}
   </div>
 
-  <div local-class='help'>
-    <h2 local-class='titleText'>
+  <div class='help'>
+    <h2 class='titleText'>
       {{inline-svg '/assets/sync.svg' class='button-icon'}}
       {{t 'components.project_manage_languages.sync_explain_title'}}
     </h2>
 
-    <p local-class='explainText'>
+    <p class='explainText'>
       {{t 'components.project_manage_languages.sync_explain_text'}}
     </p>
 
-    <h2 local-class='titleText'>
+    <h2 class='titleText'>
       {{inline-svg '/assets/merge.svg' class='button-icon'}}
       {{t 'components.project_manage_languages.add_translations_explain_title'}}
     </h2>
 
-    <p local-class='explainText'>
+    <p class='explainText'>
       {{t 'components.project_manage_languages.add_translations_explain_text'}}
     </p>
 
-    <h2 local-class='titleText'>
+    <h2 class='titleText'>
       {{inline-svg '/assets/check.svg' class='button-icon'}}
       {{t 'components.project_manage_languages.conflicts_explain_title'}}
     </h2>
 
-    <p local-class='explainText'>
+    <p class='explainText'>
       {{t 'components.project_manage_languages.conflicts_explain_text'}}
     </p>
   </div>

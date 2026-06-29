@@ -1,14 +1,14 @@
-<li local-class='translation-item {{if @isFocused "focused"}} {{if this.error "errored"}} {{if this.conflictResolved "resolved"}}'>
-  <div local-class='item-details' data-dir={{if this.revisionTextDirRtl 'rtl'}}>
-    <div local-class='item-details__column'>
+<li class='translation-item {{if @isFocused "focused"}} {{if this.error "errored"}} {{if this.conflictResolved "resolved"}}'>
+  <div data-dir={{if this.revisionTextDirRtl 'rtl'}} class='item-details'>
+    <div class='item-details__column'>
       {{#if this.error}}
-        <div local-class='error'>
+        <div class='error'>
           {{t 'components.translation_item.correct_error_text'}}
         </div>
       {{/if}}
     </div>
-    <div local-class='item-details__column'>
-      <div local-class='textInput'>
+    <div class='item-details__column'>
+      <div class='textInput'>
         <TranslationEdit::Form
           @permissions={{@permissions}}
           @borderless={{true}}
@@ -30,14 +30,14 @@
           as |form|
         >
           {{#component form.submit}}
-            <div local-class='button-submit' data-dir={{form.dir}}>
+            <div data-dir={{form.dir}} class='button-submit'>
               {{#if this.showOriginalButton}}
-                <AsyncButton @onClick={{fn this.setOriginalText}} local-class='revert-button' class='button button--iconOnly button--white'>
+                <AsyncButton @onClick={{fn this.setOriginalText}} class='button button--iconOnly button--white revert-button'>
                   {{inline-svg '/assets/revert.svg' class='button-icon'}}
                 </AsyncButton>
               {{/if}}
 
-              <div local-class='form-helpers'>
+              <div class='form-helpers'>
                 <TranslationEdit::Helpers
                   @permissions={{@permissions}}
                   @project={{@project}}

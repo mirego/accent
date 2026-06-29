@@ -1,10 +1,10 @@
-<div local-class='navigation navigation--alt'>
-  <ul local-class='navigation-list'>
+<div class='navigation navigation--alt'>
+  <ul class='navigation-list'>
     {{#if (get @permissions 'showProject')}}
-      <li local-class='navigation-list-item'>
-        <LinkTo @route='logged-in.project.translation.index' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
-          {{inline-svg 'assets/pencil.svg' local-class='navigation-list-item-link-icon'}}
-          <span local-class='navigation-list-item-link-text'>
+      <li class='navigation-list-item'>
+        <LinkTo @route='logged-in.project.translation.index' @models={{array @project.id @translation.id}} class='navigation-list-item-link'>
+          {{inline-svg 'assets/pencil.svg' class=(scoped-class 'navigation-list-item-link-icon')}}
+          <span class='navigation-list-item-link-text'>
             {{t 'components.translation_navigation.edit_link_title'}}
           </span>
         </LinkTo>
@@ -12,10 +12,10 @@
     {{/if}}
 
     {{#if (get @permissions 'indexComments')}}
-      <li local-class='navigation-list-item'>
-        <LinkTo @route='logged-in.project.translation.comments' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
-          {{inline-svg 'assets/bubble.svg' local-class='navigation-list-item-link-icon'}}
-          <span local-class='navigation-list-item-link-text'>
+      <li class='navigation-list-item'>
+        <LinkTo @route='logged-in.project.translation.comments' @models={{array @project.id @translation.id}} class='navigation-list-item-link'>
+          {{inline-svg 'assets/bubble.svg' class=(scoped-class 'navigation-list-item-link-icon')}}
+          <span class='navigation-list-item-link-text'>
             {{#if @translation.commentsCount}}
               {{t 'components.translation_navigation.comments_link_title' count=@translation.commentsCount}}
             {{else}}
@@ -27,10 +27,10 @@
     {{/if}}
 
     {{#if (get @permissions 'indexTranslationActivities')}}
-      <li local-class='navigation-list-item'>
-        <LinkTo @route='logged-in.project.translation.activities' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
-          {{inline-svg 'assets/activity.svg' local-class='navigation-list-item-link-icon'}}
-          <span local-class='navigation-list-item-link-text'>
+      <li class='navigation-list-item'>
+        <LinkTo @route='logged-in.project.translation.activities' @models={{array @project.id @translation.id}} class='navigation-list-item-link'>
+          {{inline-svg 'assets/activity.svg' class=(scoped-class 'navigation-list-item-link-icon')}}
+          <span class='navigation-list-item-link-text'>
             {{t 'components.translation_navigation.activities_link_title'}}
           </span>
         </LinkTo>
@@ -38,10 +38,10 @@
     {{/if}}
 
     {{#if (get @permissions 'indexTranslationEditions')}}
-      <li local-class='navigation-list-item'>
-        <LinkTo @route='logged-in.project.translation.editions' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
-          {{inline-svg 'assets/tag.svg' local-class='navigation-list-item-link-icon'}}
-          <span local-class='navigation-list-item-link-text'>
+      <li class='navigation-list-item'>
+        <LinkTo @route='logged-in.project.translation.editions' @models={{array @project.id @translation.id}} class='navigation-list-item-link'>
+          {{inline-svg 'assets/tag.svg' class=(scoped-class 'navigation-list-item-link-icon')}}
+          <span class='navigation-list-item-link-text'>
             {{t 'components.translation_navigation.editions_link_title'}}
           </span>
         </LinkTo>
@@ -49,9 +49,9 @@
     {{/if}}
 
     {{#if (get @permissions 'updateTranslationSettings')}}
-      <li local-class='navigation-list-item navigation-list-item--last'>
-        <LinkTo @route='logged-in.project.translation.settings' @models={{array @project.id @translation.id}} local-class='navigation-list-item-link'>
-          {{inline-svg 'assets/gear.svg' local-class='navigation-list-item-link-icon'}}
+      <li class='navigation-list-item navigation-list-item--last'>
+        <LinkTo @route='logged-in.project.translation.settings' @models={{array @project.id @translation.id}} class='navigation-list-item-link'>
+          {{inline-svg 'assets/gear.svg' class=(scoped-class 'navigation-list-item-link-icon')}}
         </LinkTo>
       </li>
     {{/if}}

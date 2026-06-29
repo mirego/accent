@@ -1,18 +1,18 @@
 {{#if this.currentVersion}}
-  <div local-class='conflicts-list-version'>
+  <div class='conflicts-list-version'>
 
     {{t 'components.conflicts_list.translations_version_notice'}}
-    <span local-class='conflicts-list-version-tag'>{{this.currentVersion.tag}}</span>
+    <span class='conflicts-list-version-tag'>{{this.currentVersion.tag}}</span>
   </div>
 {{/if}}
 
-<div local-class='conflicts-wrapper' style='--group-columns-count: {{@groupedRevisions.length}};'>
+<div style='--group-columns-count: {{@groupedRevisions.length}};' class='conflicts-wrapper'>
   {{#if @groupedTranslations}}
-    <ul local-class='conflicts-header'>
+    <ul class='conflicts-header'>
       {{#each this.mappedRevisions as |revision|}}
-        <li local-class='conflicts-header-item'>
+        <li class='conflicts-header-item'>
           {{revision.name}}
-          <span local-class='conflicts-header-item-slug'>
+          <span class='conflicts-header-item-slug'>
             {{revision.slug}}
           </span>
         </li>
@@ -20,7 +20,7 @@
     </ul>
   {{/if}}
 
-  <ul local-class='conflicts-items'>
+  <ul class='conflicts-items'>
     {{#each @groupedTranslations key='key' as |groupedTranslation index|}}
       <ConflictsList::Group
         @index={{index}}
@@ -35,14 +35,14 @@
         @onFocus={{this.handleFocus}}
       />
     {{else}}
-      <div local-class='all-reviewed'>
-        <img local-class='all-reviewed-image' src='/assets/all-reviewed-splash.svg' />
+      <div class='all-reviewed'>
+        <img src='/assets/all-reviewed-splash.svg' class='all-reviewed-image' />
 
-        <div local-class='all-reviewed-title'>
+        <div class='all-reviewed-title'>
           {{t 'components.conflicts_list.all_reviewed_title'}}
         </div>
 
-        <div local-class='all-reviewed-subtitle'>
+        <div class='all-reviewed-subtitle'>
           {{t 'components.conflicts_list.all_reviewed_subtitle'}}
         </div>
       </div>

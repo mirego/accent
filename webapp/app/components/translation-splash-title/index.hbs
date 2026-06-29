@@ -1,13 +1,13 @@
-<div local-class='translation-splash-file'>
+<div class='translation-splash-file'>
   {{#if this.withRevisionLink}}
-    <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @translation.revision.id}} local-class='language'>
-      {{inline-svg 'assets/chevron-left.svg' local-class='back-icon'}}
+    <LinkTo @route='logged-in.project.revision.translations' @models={{array @project.id @translation.revision.id}} class='language'>
+      {{inline-svg 'assets/chevron-left.svg' class=(scoped-class 'back-icon')}}
       {{this.revisionName}}
     </LinkTo>
   {{/if}}
 
-  <h1 local-class='key'>
-    <small local-class='key-prefix'>
+  <h1 class='key'>
+    <small class='key-prefix'>
       {{#if this.translationKey.prefix}}
         {{this.translationKey.prefix}}
       {{else}}
@@ -17,7 +17,7 @@
     {{this.translationKey.value}}
   </h1>
 
-  <div local-class='badges'>
+  <div class='badges'>
     {{#if @translation.version}}
       <AccBadge @version={{true}}>
         {{@translation.version.tag}}
@@ -33,7 +33,7 @@
     {{/if}}
 
     {{#if @translation.isRemoved}}
-      <div local-class='removedBadge'>
+      <div class='removedBadge'>
         {{t 'components.translation_splash_title.removed_label' removedAt=(time-ago-in-words @translation.updatedAt)}}
       </div>
     {{else if @translation.isConflicted}}
@@ -60,7 +60,7 @@
       </AccBadge>
     {{/if}}
 
-    <span local-class='updatedAt'>
+    <span class='updatedAt'>
       {{t 'components.translation_splash_title.last_updated_label'}}
       <TimeAgoInWordsTag @date={{@translation.updatedAt}} />
     </span>

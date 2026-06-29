@@ -1,14 +1,14 @@
-<div local-class='content'>
+<div class='content'>
   {{#if (or @lintTranslations @checkFilter)}}
-    <div local-class='stats-wrapper'>
-      <div local-class='stats'>
-        <button type='button' local-class='stats-item {{unless @checkFilter "stats-item--active"}}' {{on 'click' (fn @onChangeCheckFilter null)}}>
+    <div class='stats-wrapper'>
+      <div class='stats'>
+        <button type='button' class='stats-item {{unless @checkFilter "stats-item--active"}}' {{on 'click' (fn @onChangeCheckFilter null)}}>
           <span>{{t 'components.translation_edit.lint_message.title_checks.all'}}</span>
           <strong>{{this.lintTranslationsStatsCount}}</strong>
         </button>
 
         {{#each this.lintTranslationsStats as |stat|}}
-          <button type='button' local-class='stats-item {{if (eq @checkFilter stat.title) "stats-item--active"}}' {{on 'click' (fn @onChangeCheckFilter stat.title)}}>
+          <button type='button' class='stats-item {{if (eq @checkFilter stat.title) "stats-item--active"}}' {{on 'click' (fn @onChangeCheckFilter stat.title)}}>
             <span>{{t (concat 'components.translation_edit.lint_message.title_checks.' stat.title)}}</span>
             <strong>{{stat.count}}</strong>
           </button>
@@ -16,7 +16,7 @@
       </div>
 
       {{#if (get @permissions 'updateTranslation')}}
-        <button type='button' class='button button--borderless button--green' local-class='fix-all' disabled={{this.fixingAll}} {{on 'click' (perform this.fixAllTask)}}>
+        <button type='button' class='button button--borderless button--green fix-all' disabled={{this.fixingAll}} {{on 'click' (perform this.fixAllTask)}}>
           {{inline-svg 'assets/check-circle.svg' class='button-icon'}}
           {{#if this.fixingAll}}
             {{t 'components.lint_translations_page.fixing_all'}}
@@ -31,7 +31,7 @@
   {{#if @lintTranslations}}
     <div {{did-update this.resetVisibleCount @lintTranslations}}>
       {{#each this.visibleLintTranslations key='translation.id' as |lintTranslation|}}
-        <div local-class='item {{if (eq this.fixLintMessageRunningTranslationId lintTranslation.translation.id) "item--fixing"}}'>
+        <div class='item {{if (eq this.fixLintMessageRunningTranslationId lintTranslation.translation.id) "item--fixing"}}'>
           <LintTranslationsPage::Item
             @permissions={{@permissions}}
             @project={{@project}}
@@ -43,18 +43,18 @@
       {{/each}}
 
       {{#if this.hasMore}}
-        <div local-class='sentinel' {{did-insert this.observeSentinel}} {{will-destroy this.unobserveSentinel}}></div>
+        <div class='sentinel' {{did-insert this.observeSentinel}} {{will-destroy this.unobserveSentinel}}></div>
       {{/if}}
     </div>
   {{else}}
-    <div local-class='all-good'>
-      <img local-class='all-reviewed-image' src='/assets/all-reviewed-splash.svg' />
+    <div class='all-good'>
+      <img src='/assets/all-reviewed-splash.svg' class='all-reviewed-image' />
 
-      <div local-class='all-good-title'>
+      <div class='all-good-title'>
         {{t 'components.lint_translations_page.empty_title'}}
       </div>
 
-      <div local-class='all-good-subtitle'>
+      <div class='all-good-subtitle'>
         {{t 'components.lint_translations_page.empty_text'}}
       </div>
     </div>
