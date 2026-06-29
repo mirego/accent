@@ -93,8 +93,20 @@ export default class IntegrationsForm extends Component<Args> {
     });
   }
 
-  get dataFormComponent() {
-    return `project-settings/integrations/form/${this.service.toLowerCase()}`;
+  get isSlack() {
+    return this.service === 'SLACK';
+  }
+
+  get isDiscord() {
+    return this.service === 'DISCORD';
+  }
+
+  get isAzureStorageContainer() {
+    return this.service === 'AZURE_STORAGE_CONTAINER';
+  }
+
+  get isAwsS3() {
+    return this.service === 'AWS_S3';
   }
 
   @action

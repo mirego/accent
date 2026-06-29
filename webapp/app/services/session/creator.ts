@@ -1,5 +1,4 @@
 import Service from '@ember/service';
-import fetch from 'fetch';
 
 export default class SessionCreator extends Service {
   async createSession() {

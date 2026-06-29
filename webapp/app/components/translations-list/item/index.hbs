@@ -99,7 +99,7 @@
         lang={{this.revisionSlug}}
         as |form|
       >
-        {{#component form.submit}}
+        <form.submit>
           <div data-dir={{form.dir}} class='textEdit-actions'>
             {{#unless @translation.isRemoved}}
               <div class='form-helpers'>
@@ -124,7 +124,7 @@
               {{t 'components.translations_list.save'}}
             </AsyncButton>
           </div>
-        {{/component}}
+        </form.submit>
       </TranslationEdit::Form>
     </div>
   {{else if this.isTextEmpty}}

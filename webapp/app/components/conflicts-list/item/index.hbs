@@ -29,7 +29,7 @@
           lang={{this.revisionSlug}}
           as |form|
         >
-          {{#component form.submit}}
+          <form.submit>
             <div data-dir={{form.dir}} class='button-submit'>
               {{#if this.showOriginalButton}}
                 <AsyncButton @onClick={{fn this.setOriginalText}} class='button button--iconOnly button--white revert-button'>
@@ -77,7 +77,7 @@
                 {{/if}}
               {{/if}}
             </div>
-          {{/component}}
+          </form.submit>
         </TranslationEdit::Form>
       </div>
     </div>

@@ -66,6 +66,10 @@
 
 {{#if this.isExecuting}}
   <AccModal @small={{true}} @onClose={{fn this.toggleExecuting}}>
-    {{component this.dataExecuteComponent integration=@integration close=this.toggleExecuting}}
+    {{#if this.isAzureStorageContainer}}
+      <ProjectSettings::Integrations::List::Item::Execute::AzureStorageContainer @integration={{@integration}} @close={{this.toggleExecuting}} />
+    {{else if this.isAwsS3}}
+      <ProjectSettings::Integrations::List::Item::Execute::AwsS3 @integration={{@integration}} @close={{this.toggleExecuting}} />
+    {{/if}}
   </AccModal>
 {{/if}}

@@ -12,6 +12,10 @@ export default class EmojiPicker extends Component<Args> {
   @tracked
   picker?: Picker;
 
+  get destinationElement() {
+    return document.getElementById('modals');
+  }
+
   @action
   togglePicker() {
     if (this.picker) {

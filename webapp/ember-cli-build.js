@@ -3,8 +3,11 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const {compatBuild} = require('@embroider/compat');
 
-module.exports = function(defaults) {
+module.exports = async function(defaults) {
+  const {buildOnce} = await import('@embroider/vite');
+
   const app = new EmberApp(defaults, {
     hinting: false,
     componentStructure: 'nested',
@@ -13,14 +16,11 @@ module.exports = function(defaults) {
       'jquery.js': null,
     },
 
-    babel: {
-      plugins: [require('ember-auto-import/babel-plugin'), require.resolve("ember-concurrency/async-arrow-task-transform")],
-      sourceMaps: 'inline',
-    },
+    babel: {sourceMaps: 'inline'},
 
-    'ember-cli-babel': { enableTypeScriptTransform: true },
+    'ember-cli-babel': {enableTypeScriptTransform: true},
 
-    :global(svg): {
+    ':global(svg)': {
       paths: ['public'],
     },
 
@@ -29,7 +29,5 @@ module.exports = function(defaults) {
     },
   });
 
-  app.import('node_modules/diff/dist/diff.js');
-
-  return app.toTree();
+  return compatBuild(app, buildOnce);
 };

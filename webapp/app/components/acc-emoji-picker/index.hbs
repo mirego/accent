@@ -4,13 +4,15 @@
   </div>
 </button>
 
-{{#if this.picker}}
-  <EmberWormhole @to='modals' {{on-key 'Escape' this.togglePicker}}>
-    <div class='wrapper'>
-      <div role='button' class='overlay' {{on 'click' (fn this.togglePicker)}}></div>
-      <div role='dialog' class='container'>
-        {{this.picker}}
+{{#if this.destinationElement}}
+  {{#if this.picker}}
+    {{#in-element this.destinationElement}}
+      <div class='wrapper' {{on-key 'Escape' this.togglePicker}}>
+        <div role='button' class='overlay' {{on 'click' (fn this.togglePicker)}}></div>
+        <div role='dialog' class='container'>
+          {{this.picker}}
+        </div>
       </div>
-    </div>
-  </EmberWormhole>
+    {{/in-element}}
+  {{/if}}
 {{/if}}

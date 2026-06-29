@@ -6,6 +6,10 @@ interface Args {
 }
 
 export default class SkeletonUiContent extends Component<Args> {
+  get viewBox() {
+    return `0 0 ${this.args.width} ${this.args.height}`;
+  }
+
   get primaryColor() {
     return 'var(--content-background-border)';
   }

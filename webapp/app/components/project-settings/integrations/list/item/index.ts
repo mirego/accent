@@ -38,8 +38,12 @@ export default class IntegrationsListItem extends Component<Args> {
     return `general.integration_services.${this.args.integration.service}`;
   }
 
-  get dataExecuteComponent() {
-    return `project-settings/integrations/list/item/execute/${this.args.integration.service.toLowerCase()}`;
+  get isAzureStorageContainer() {
+    return this.args.integration.service === 'AZURE_STORAGE_CONTAINER';
+  }
+
+  get isAwsS3() {
+    return this.args.integration.service === 'AWS_S3';
   }
 
   @action

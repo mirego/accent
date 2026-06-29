@@ -6,4 +6,8 @@ interface Args {
   onClose: () => void;
 }
 
-export default class Modal extends Component<Args> {}
+export default class Modal extends Component<Args> {
+  get destinationElement() {
+    return document.getElementById('modals');
+  }
+}

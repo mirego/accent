@@ -23,6 +23,10 @@
     "inlineSources": true,
     "baseUrl": ".",
     "module": "es6",
+    "types": [
+      "@embroider/core/virtual",
+      "vite/client"
+    ],
     "lib": [
       "dom",
       "es2021",
@@ -34,9 +38,6 @@
       ],
       "accent-webapp/*": [
         "app/*"
-      ],
-      "fetch": [
-        "node_modules/ember-fetch"
       ],
       "*": [
         "types/*"

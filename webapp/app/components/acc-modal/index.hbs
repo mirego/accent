@@ -1,8 +1,10 @@
-<EmberWormhole @to='modals' {{on-key 'Escape' @onClose}}>
-  <div class='wrapper'>
-    <div role='button' class='overlay' {{on 'click' (fn @onClose)}}></div>
-    <div role='dialog' class='container {{if @small "container--small"}} {{if @large "container--large"}}'>
-      {{yield}}
+{{#if this.destinationElement}}
+  {{#in-element this.destinationElement}}
+    <div class='wrapper' {{on-key 'Escape' @onClose}}>
+      <div role='button' class='overlay' {{on 'click' (fn @onClose)}}></div>
+      <div role='dialog' class='container {{if @small "container--small"}} {{if @large "container--large"}}'>
+        {{yield}}
+      </div>
     </div>
-  </div>
-</EmberWormhole>
+  {{/in-element}}
+{{/if}}

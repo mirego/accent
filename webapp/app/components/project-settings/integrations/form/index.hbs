@@ -20,25 +20,49 @@
     {{/if}}
 
     <div class='data'>
-      {{component
-        this.dataFormComponent
-        errors=this.errors
-        url=this.url
-        bucket=this.awsS3Bucket
-        pathPrefix=this.awsS3PathPrefix
-        region=this.awsS3Region
-        accessKeyId=this.awsS3AccessKeyId
-        project=@project
-        events=this.events
-        onChangeUrl=(fn this.setUrl)
-        onChangeSas=(fn this.setAzureStorageContainerSas)
-        onChangeBucket=(fn this.setAwsS3Bucket)
-        onChangePathPrefix=(fn this.setAwsS3PathPrefix)
-        onChangeRegion=(fn this.setAwsS3Region)
-        onChangeAccessKeyId=(fn this.setAwsS3AccessKeyId)
-        onChangeSecretAccessKey=(fn this.setAwsS3SecretAccessKey)
-        onChangeEventsChecked=(fn this.setEventsChecked)
-      }}
+      {{#if this.isSlack}}
+        <ProjectSettings::Integrations::Form::Slack
+          @errors={{this.errors}}
+          @url={{this.url}}
+          @events={{this.events}}
+          @onChangeUrl={{fn this.setUrl}}
+          @onChangeEventsChecked={{fn this.setEventsChecked}}
+        />
+      {{else if this.isDiscord}}
+        <ProjectSettings::Integrations::Form::Discord
+          @errors={{this.errors}}
+          @url={{this.url}}
+          @events={{this.events}}
+          @onChangeUrl={{fn this.setUrl}}
+          @onChangeEventsChecked={{fn this.setEventsChecked}}
+        />
+      {{else if this.isAzureStorageContainer}}
+        <ProjectSettings::Integrations::Form::AzureStorageContainer
+          @errors={{this.errors}}
+          @url={{this.url}}
+          @project={{@project}}
+          @events={{this.events}}
+          @onChangeUrl={{fn this.setUrl}}
+          @onChangeSas={{fn this.setAzureStorageContainerSas}}
+          @onChangeEventsChecked={{fn this.setEventsChecked}}
+        />
+      {{else if this.isAwsS3}}
+        <ProjectSettings::Integrations::Form::AwsS3
+          @errors={{this.errors}}
+          @bucket={{this.awsS3Bucket}}
+          @pathPrefix={{this.awsS3PathPrefix}}
+          @region={{this.awsS3Region}}
+          @accessKeyId={{this.awsS3AccessKeyId}}
+          @project={{@project}}
+          @events={{this.events}}
+          @onChangeBucket={{fn this.setAwsS3Bucket}}
+          @onChangePathPrefix={{fn this.setAwsS3PathPrefix}}
+          @onChangeRegion={{fn this.setAwsS3Region}}
+          @onChangeAccessKeyId={{fn this.setAwsS3AccessKeyId}}
+          @onChangeSecretAccessKey={{fn this.setAwsS3SecretAccessKey}}
+          @onChangeEventsChecked={{fn this.setEventsChecked}}
+        />
+      {{/if}}
     </div>
 
     <div class='actions'>

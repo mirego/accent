@@ -1,5 +1,4 @@
 import Service from '@ember/service';
-import fetch from 'fetch';
 
 const HTTP_ERROR_STATUS = 400;
 

@@ -1,3 +1,13 @@
-<ContentLoader @height={{@height}} @width={{@width}} @primaryColor={{this.primaryColor}} @secondaryColor={{this.secondaryColor}} ...attributes>
-  {{yield}}
-</ContentLoader>
+<svg
+  role='img'
+  width={{@width}}
+  height={{@height}}
+  viewBox={{this.viewBox}}
+  preserveAspectRatio='none'
+  ...attributes
+>
+  <rect width={{@width}} height={{@height}} fill={{this.primaryColor}} />
+  <g fill={{this.secondaryColor}}>
+    {{yield}}
+  </g>
+</svg>
