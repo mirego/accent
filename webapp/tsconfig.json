@@ -35,9 +35,6 @@
       "accent-webapp/*": [
         "app/*"
       ],
-      "fetch": [
-        "node_modules/ember-fetch"
-      ],
       "*": [
         "types/*"
       ]
