@@ -1,0 +1,124 @@
+import Component from '@glimmer/component';
+import {action} from '@ember/object';
+import {tracked} from '@glimmer/tracking';
+import t from 'ember-intl/helpers/t';
+import {on} from '@ember/modifier';
+
+interface Args {
+  revisionOperation: any;
+  shouldShowStats: boolean;
+  shouldShowOperations: boolean;
+  shouldHideDetails: boolean;
+}
+
+export default class OperationsPeekItem extends Component<Args> {
+  <template>
+    <div class='operations-peek-item'>
+      {{#if @shouldShowStats}}
+        <ul class='statsList'>
+          {{#each @revisionOperation.stats as |stat|}}
+            <li class='stat'>
+              <span class='stat-count'>
+                {{stat.count}}
+              </span>
+
+              <span class='stat-action'>
+                {{stat.action}}
+              </span>
+            </li>
+          {{else}}
+            <li class='noChanges'>
+              {{t 'components.operations_peek.item.empty_changes'}}
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+
+      {{#if @shouldShowOperations}}
+        <ul class='operationsList'>
+          <input
+            type='text'
+            placeholder={{t
+              'components.conflicts_filters.input_placeholder_text'
+            }}
+            class='input'
+            {{on 'keyup' this.filterOperations}}
+          />
+
+          {{#each this.operations as |operation|}}
+            <li class='operation'>
+              <div class='operation-header'>
+                <span class='operation-key'>
+                  {{operation.key}}
+                </span>
+                <strong class='operation-action'>
+                  {{operation.action}}
+                </strong>
+              </div>
+
+              <div class='operation-content'>
+                {{#if operation.previousText}}
+                  {{#if operation.text}}
+                    <div>
+                      <span class='operation-textLabel'>
+                        {{t 'components.operations_peek.item.previous_label'}}
+                      </span>
+
+                      <div
+                        class='operation-text'
+                      >{{operation.previousText}}</div>
+                    </div>
+
+                    <div>
+                      <span class='operation-textLabel'>
+                        {{t 'components.operations_peek.item.text_label'}}
+                      </span>
+
+                      <div class='operation-text'>{{operation.text}}</div>
+                    </div>
+                  {{else}}
+                    <div class='operation-text'>{{operation.previousText}}</div>
+                  {{/if}}
+                {{else}}
+                  <div class='operation-text'>{{operation.text}}</div>
+                {{/if}}
+              </div>
+            </li>
+          {{else}}
+            {{#if this.searchQuery}}
+              <li class='noChanges'>
+                {{t 'components.operations_peek.item.empty_results'}}
+              </li>
+            {{else}}
+              <li class='noChanges'>
+                {{t 'components.operations_peek.item.empty_changes'}}
+              </li>
+            {{/if}}
+          {{/each}}
+        </ul>
+      {{/if}}
+    </div>
+  </template>
+  @tracked
+  searchQuery = '';
+
+  get operations() {
+    if (!this.searchQuery) return this.args.revisionOperation.operations;
+
+    const query = new RegExp(this.searchQuery, 'i');
+
+    return this.args.revisionOperation.operations.filter(
+      (operation: {key: string; previousText: string; text: string}) => {
+        return [operation.key, operation.previousText, operation.text].some(
+          (text) => text.match(query)
+        );
+      }
+    );
+  }
+
+  @action
+  filterOperations(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchQuery = target.value;
+  }
+}

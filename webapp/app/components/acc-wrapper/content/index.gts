@@ -1,0 +1,7 @@
+<template>
+  <div class='content'>
+    <div class='inner'>
+      {{yield}}
+    </div>
+  </div>
+</template>

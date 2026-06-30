@@ -77,7 +77,7 @@ build-language-tool:
 # ----------
 
 .PHONY: lint
-lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-template-hbs ## Run lint tools on the code
+lint: lint-compile lint-format lint-credo lint-eslint lint-prettier ## Run lint tools on the code
 
 .PHONY: lint-compile
 lint-compile:
@@ -97,11 +97,7 @@ lint-eslint:
 
 .PHONY: lint-prettier
 lint-prettier:
-	npx prettier --trailing-comma none --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,css,md,hbs}' '*.md'
-
-.PHONY: lint-template-hbs
-lint-template-hbs:
-	npx ember-template-lint 'webapp/app/**/*.hbs' --config-path './webapp/.template-lintrc'
+	npx prettier --trailing-comma none --check './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,css,md,hbs,gjs,gts}' '*.md'
 
 .PHONY: type-check
 type-check: typescript-check dialyzer-check ## Run type-checking tools on the code
@@ -136,7 +132,7 @@ format-elixir:
 
 .PHONY: format-prettier
 format-prettier:
-	npx prettier --write --single-quote --trailing-comma none --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,css,md,hbs}' '*.md'
+	npx prettier --write --single-quote --trailing-comma none --no-bracket-spacing './{webapp,jipt,cli}/!(node_modules)/**/*.{js,ts,json,svg,css,md,hbs,gjs,gts}' '*.md'
 
 # Development targets
 # -------------------

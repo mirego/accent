@@ -1,7 +1,0 @@
-<button class='button local-button {{if @loading "button--loading"}}' disabled={{this.disabled}} ...attributes {{on 'click' (fn this.onClick)}}>
-  <div class='content'>
-    <span class='label local-label'>{{yield}}</span>
-
-    {{inline-svg '/assets/loading.svg' class=(scoped-class 'loading')}}
-  </div>
-</button>

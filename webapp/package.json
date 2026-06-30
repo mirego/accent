@@ -91,9 +91,15 @@
     "ember-cli-sri": "2.1.1",
     "ember-cli-terser": "4.0.2",
     "ember-native-dom-helpers": "0.7.0",
+    "ember-route-template": "^1.0.3",
+    "ember-template-imports": "^4.4.0",
     "eslint-plugin-mirego": "^1.0.0",
     "pretender": "3.4.7",
     "typescript": "6.0.3",
     "webpack": "5.108.1"
+  },
+  "exports": {
+    "./tests/*": "./tests/*",
+    "./*": "./app/*"
   }
 }

@@ -1,0 +1,81 @@
+import Component from '@glimmer/component';
+import t from 'ember-intl/helpers/t';
+import AccBadge from 'accent-webapp/components/acc-badge/index';
+import Item from 'accent-webapp/components/translations-list/item/index';
+import EmptyContent from 'accent-webapp/components/empty-content/index';
+import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import {scopedClass} from 'ember-scoped-css';
+import {LinkTo} from '@ember/routing';
+
+interface Args {
+  project: any;
+  version: any;
+  versions: any[];
+  revisionId: string;
+  translations: any;
+  withAdvancedFilters: boolean;
+  query: string;
+  onUpdateText: (translation: any, editText: string) => Promise<void>;
+}
+
+export default class TranslationsList extends Component<Args> {
+  <template>
+    <ul class='translations-list'>
+      {{#if this.currentVersion}}
+        <div class='translations-list-version'>
+          {{t 'components.translations_list.translations_version_notice'}}
+          <AccBadge @version={{true}}>
+            <span
+              class='translations-list-version-tag'
+            >{{this.currentVersion.tag}}</span>
+          </AccBadge>
+        </div>
+      {{/if}}
+
+      {{#each @translations key='id' as |translation|}}
+        <Item
+          @translation={{translation}}
+          @revisions={{@revisions}}
+          @prompts={{@prompts}}
+          @permissions={{@permissions}}
+          @project={{@project}}
+          @onUpdateText={{@onUpdateText}}
+        />
+      {{else}}{{#if @query}}
+          <EmptyContent
+            @center={{true}}
+            @text={{t
+              'components.translations_list.no_translations_query'
+              query=@query
+            }}
+            class='empty-content'
+          />
+        {{else if @withAdvancedFilters}}
+          <EmptyContent
+            @center={{true}}
+            @text={{t 'components.translations_list.no_translations_filters'}}
+            class='empty-content'
+          />
+        {{else}}
+          <EmptyContent @center={{true}} class='empty-content'>
+            {{inlineSvg 'assets/empty.svg' class=(scopedClass 'icon')}}
+            {{t 'components.translations_list.no_translations'}}
+            <div>
+              {{t 'components.translations_list.maybe_sync_before'}}
+              <LinkTo @route='logged-in.project.files' class='link'>
+                {{t 'components.translations_list.maybe_sync_link'}}
+              </LinkTo>
+            </div>
+          </EmptyContent>
+        {{/if}}{{/each}}
+    </ul>
+  </template>
+  get currentVersion() {
+    if (!this.args.versions) return;
+    if (!this.args.version) return;
+
+    return this.args.versions.find(
+      (version) => version.id === this.args.version
+    );
+  }
+}

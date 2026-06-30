@@ -1,11 +1,12 @@
 {
   "singleQuote": true,
   "bracketSpacing": false,
+  "plugins": ["prettier-plugin-ember-template-tag"],
   "overrides": [
     {
-      "files": ["*.hbs"],
+      "files": "*.{js,ts,gjs,gts}",
       "options": {
-        "printWidth": 180
+        "singleQuote": true
       }
     },
     {
