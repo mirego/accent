@@ -12,7 +12,7 @@ import AsyncButton from 'accent-webapp/components/async-button/index';
 import perform from 'ember-concurrency/helpers/perform';
 import {on} from '@ember/modifier';
 import {fn} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import SparkleSvg from 'accent-webapp/svgs/assets/sparkle.svg';
 import AccModal from 'accent-webapp/components/acc-modal/index';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import {scopedClass} from 'ember-scoped-css';
@@ -75,7 +75,7 @@ export default class ImprovePrompt extends Component<Args> {
           {{on 'click' (fn this.onPromptClick)}}
           class='button button--iconOnly button--link button--filled button--white local-button'
         >
-          {{inlineSvg '/assets/sparkle.svg' class='button-icon'}}
+          <SparkleSvg class='button-icon' />
         </button>
       </div>
     {{/if}}
@@ -84,7 +84,7 @@ export default class ImprovePrompt extends Component<Args> {
       <AccModal @onClose={{fn this.onPromptClose}}>
         <div class='content' {{didInsert (perform this.fetchPromptOptions)}}>
           <div class='title'>
-            {{inlineSvg 'assets/sparkle.svg' class=(scopedClass 'title-icon')}}
+            <SparkleSvg class={{scopedClass 'title-icon'}} />
             {{t 'components.improve_prompt.title'}}
           </div>
 
@@ -131,6 +131,145 @@ export default class ImprovePrompt extends Component<Args> {
         </div>
       </AccModal>
     {{/if}}
+
+    <style scoped>
+      .content {
+        padding: 20px;
+      }
+      .content :global(.ember-power-select-trigger) {
+        min-height: 31px;
+        margin-bottom: 10px;
+        background: var(--content-background);
+        border: 1px solid var(--background-light-highlight);
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+        gap: 10px;
+      }
+
+      button.local-button {
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: var(--border-radius);
+      }
+      button.local-button:focus,
+      button.local-button:hover {
+        transform: translate3d(0, 0, 0);
+      }
+
+      .current-text {
+        white-space: pre-line;
+        font-size: 13px;
+        opacity: 0.5;
+        padding: 5px 0;
+        margin-bottom: 6px;
+      }
+
+      .result-error {
+        white-space: pre-line;
+        font-size: 11px;
+        color: var(--color-error);
+        padding: 7px 0;
+        margin-top: 5px;
+      }
+
+      .result-text {
+        white-space: pre-line;
+        font-size: 13px;
+        margin-top: 10px;
+      }
+
+      .result-text--unchanged {
+        font-style: italic;
+        font-size: 11px;
+        opacity: 0.5;
+      }
+
+      .prompt-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .prompt-button > .local-button {
+        transition: opacity 0.2s ease-in-out;
+        box-shadow: none;
+        opacity: 0.7;
+      }
+      .prompt-button:focus,
+      .prompt-button:hover {
+        outline: none;
+      }
+      .prompt-button:focus > .local-button,
+      .prompt-button:hover > .local-button {
+        opacity: 1;
+      }
+      .prompt-button:focus .prompt-button-quick-access[data-rtl],
+      .prompt-button:hover .prompt-button-quick-access[data-rtl] {
+        transform: translateX(36px);
+        right: auto;
+      }
+      .prompt-button:focus .prompt-button-quick-access,
+      .prompt-button:hover .prompt-button-quick-access {
+        opacity: 1;
+        transform: translateX(-20px);
+        padding: 0 7px;
+        top: -1px;
+        pointer-events: all;
+      }
+
+      .prompt-button-quick-access[data-rtl] {
+        left: 0;
+        right: auto;
+      }
+
+      .prompt-button-quick-access-icon {
+        box-shadow: none;
+      }
+
+      .prompt-button-quick-access-icon :global(.label) {
+        padding: 3px !important;
+      }
+
+      .prompt-button-quick-access {
+        background: var(--input-background);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(0);
+        right: 0;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        transition: all 0.2s ease-in-out;
+      }
+      .prompt-button-quick-access > button:focus,
+      .prompt-button-quick-access > button:hover {
+        transform: translate3d(0, 0, 0);
+      }
+      .prompt-button-quick-access > button :global(.label) {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      .title {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 17px;
+        color: var(--color-primary);
+      }
+
+      .title-icon {
+        width: 15px;
+        opacity: 0.8;
+      }
+    </style>
   </template>
   @service('apollo')
   declare apollo: Apollo;

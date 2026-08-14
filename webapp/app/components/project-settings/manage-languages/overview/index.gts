@@ -23,5 +23,16 @@ export default class Overview extends Component<Args> {
         />
       {{/each}}
     </ul>
+
+    <style scoped>
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+    </style>
   </template>
 }

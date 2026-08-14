@@ -9,7 +9,8 @@ import {timeout, restartableTask} from 'ember-concurrency';
 import Session from 'accent-webapp/services/session';
 import {LinkTo} from '@ember/routing';
 import ProjectLogo from 'accent-webapp/components/project-logo/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ChevronLeftSvg from 'accent-webapp/svgs/assets/chevron-left.svg';
+import SearchSvg from 'accent-webapp/svgs/assets/search.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import {on} from '@ember/modifier';
@@ -44,7 +45,7 @@ export default class ProjectNavigation extends Component<Args> {
           </span>
         </LinkTo>
         <div class='search'>
-          {{inlineSvg '/assets/search.svg' class=(scopedClass 'search-icon')}}
+          <SearchSvg class={{scopedClass 'search-icon'}} />
           <input
             type='text'
             placeholder={{t 'general.search_input_placeholder_text'}}
@@ -63,10 +64,7 @@ export default class ProjectNavigation extends Component<Args> {
       <div class='footer'>
         <LinkTo @route='logged-in.projects' class='back-to-projects'>
 
-          {{inlineSvg
-            '/assets/chevron-left.svg'
-            class=(scopedClass 'back-to-projects-icon')
-          }}
+          <ChevronLeftSvg class={{scopedClass 'back-to-projects-icon'}} />
           <span class='back-to-projects-text'>{{t
               'components.project_navigation.back_to_projects'
             }}</span>
@@ -89,6 +87,177 @@ export default class ProjectNavigation extends Component<Args> {
         <ApplicationFooter />
       </div>
     </div>
+
+    <style scoped>
+      .project-navigation {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: sticky;
+        position: -webkit-sticky;
+        margin-top: -64px;
+        top: 0;
+        height: 100vh;
+        padding: 0 7px;
+        overflow-y: auto;
+        justify-content: space-between;
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--color-primary) 10%, transparent) 0%,
+          transparent 45%
+        );
+      }
+
+      .footer {
+        margin: 0px 10px;
+      }
+
+      .back-to-projects {
+        display: flex;
+        gap: 4px;
+        opacity: 0.6;
+        align-items: center;
+        margin: 10px 0;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        padding: 5px 0;
+        font-size: 11px;
+        color: var(--text-color-normal);
+        transition: 0.2s ease-in-out;
+        transition-property: opacity;
+      }
+      .back-to-projects:focus,
+      .back-to-projects:hover {
+        opacity: 1;
+      }
+
+      .back-to-projects-icon {
+        width: 12px;
+      }
+
+      .project {
+        padding: 13px 10px 12px 14px;
+        margin-left: 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--color-black);
+        text-decoration: none;
+        line-height: 1.2;
+      }
+
+      .project-logo {
+        position: relative;
+        display: flex;
+        align-items: center;
+        top: 2px;
+        font-size: 22px;
+        margin-right: 10px;
+        line-height: 1.2;
+      }
+      .project-logo :global(svg) {
+        width: 22px;
+        height: 22px;
+      }
+      .project-logo :global(svg circle) {
+        fill: color-mix(in srgb, var(--color-primary) 25%, transparent);
+      }
+      .project-logo :global(svg path) {
+        fill: var(--text-color-normal);
+        opacity: 0.8;
+      }
+
+      .project-name {
+        margin-top: 5px;
+      }
+
+      .search {
+        margin: 7px 0 12px 8px;
+        width: calc(100% - 15px);
+        position: relative;
+      }
+
+      .search-icon {
+        position: absolute;
+        top: 7px;
+        left: 7px;
+        width: 15px;
+        height: 15px;
+        stroke: var(--input-border-color);
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 6px 5px 6px 26px;
+        transition: 0.2s ease-in-out;
+        transition-property:
+          padding, background, border, border-radius, box-shadow;
+        border-radius: var(--border-radius);
+        border: 1px solid
+          color-mix(in srgb, var(--text-color-normal), transparent 90%);
+        background: color-mix(
+          in srgb,
+          var(--input-background),
+          transparent 50%
+        );
+        color: var(--text-color-normal);
+        font-size: 12px;
+      }
+      .search-input::placeholder {
+        color: color-mix(in hsl, var(--text-color-normal), 50%);
+      }
+      .search-input:focus {
+        outline: none;
+        border-radius: var(--border-radius);
+        background: color-mix(in srgb, var(--input-background), transparent 8%);
+        box-shadow:
+          0 1px 3px var(--shadow-color),
+          0 2px 12px color-mix(in srgb, var(--shadow-color), transparent 50%);
+      }
+
+      .session {
+        display: flex;
+        gap: 4px;
+        margin: 0 0 5px;
+      }
+
+      .session-picture {
+        width: 18px;
+        height: 18px;
+        border-radius: var(--border-radius);
+      }
+
+      .session-username {
+        opacity: 0.5;
+        margin-right: 15px;
+        font-size: 11px;
+      }
+
+      @media (max-width: 800px) {
+        .project-navigation {
+          height: auto;
+          padding: 0;
+        }
+        .search {
+          display: none;
+        }
+        .session {
+          display: none;
+        }
+        .back-to-projects-text {
+          display: none;
+        }
+        .project {
+          padding: 15px 0 25px 14px;
+        }
+        .project-name {
+          display: none;
+        }
+      }
+    </style>
   </template>
   @service('session')
   declare session: Session;

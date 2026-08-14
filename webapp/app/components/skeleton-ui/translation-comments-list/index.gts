@@ -12,4 +12,10 @@ import Content from 'accent-webapp/components/skeleton-ui/content/index';
       </Content>
     {{/each}}
   </SkeletonUi>
+
+  <style scoped>
+    .skeleton {
+      margin-top: 30px;
+    }
+  </style>
 </template>

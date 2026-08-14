@@ -103,7 +103,6 @@ export default class ProjectFetcher {
       }
     }`;
 
-    // eslint-disable-next-line camelcase
     const configParams = config.project ? {project_id: config.project} : {};
     const variables = {...configParams, ...params};
 

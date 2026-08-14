@@ -1,7 +1,9 @@
 import RouteTemplate from 'ember-route-template';
 import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-signature';
 import PageTitle from 'accent-webapp/components/page-title/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ExportSvg from 'accent-webapp/svgs/assets/export.svg';
+import EyeSvg from 'accent-webapp/svgs/assets/eye.svg';
+import FileSvg from 'accent-webapp/svgs/assets/file.svg';
 import t from 'ember-intl/helpers/t';
 import End from 'accent-webapp/components/page-title/end/index';
 import {get, fn} from '@ember/helper';
@@ -16,7 +18,7 @@ import ResourcePagination from 'accent-webapp/components/resource-pagination/ind
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
     <PageTitle>
-      {{inlineSvg '/assets/file.svg'}}
+      <FileSvg />
       <h1>{{t 'components.page_title.files'}}</h1>
 
       <End>
@@ -26,7 +28,7 @@ export default RouteTemplate<RouteTemplateSignature>(
             @model={{@controller.model.project.id}}
             class='button button--white button--filled'
           >
-            {{inlineSvg '/assets/export.svg' class='button-icon'}}
+            <ExportSvg class='button-icon' />
             {{t 'components.documents_list.export_all'}}
           </LinkTo>
         {{/if}}
@@ -42,10 +44,10 @@ export default RouteTemplate<RouteTemplateSignature>(
           {{on 'click' @controller.toggleExcludeEmptyTranslations}}
         >
           {{#if @controller.excludeEmptyTranslations}}
-            {{inlineSvg '/assets/eye.svg' class='button-icon'}}
+            <EyeSvg class='button-icon' />
             {{t 'components.documents_list.show_deleted'}}
           {{else}}
-            {{inlineSvg '/assets/eye.svg' class='button-icon'}}
+            <EyeSvg class='button-icon' />
             {{t 'components.documents_list.hide_deleted'}}
           {{/if}}
         </button>
@@ -63,6 +65,7 @@ export default RouteTemplate<RouteTemplateSignature>(
         @permissions={{@controller.permissions}}
         @documents={{@controller.model.documents.entries}}
         @project={{@controller.model.project}}
+        @withFilters={{@controller.excludeEmptyTranslations}}
         @onDelete={{fn @controller.deleteDocument}}
         @onUpdate={{fn @controller.updateDocument}}
       />
@@ -84,5 +87,5 @@ export default RouteTemplate<RouteTemplateSignature>(
 
       {{outlet}}
     {{/if}}
-  </template>
+  </template>,
 );

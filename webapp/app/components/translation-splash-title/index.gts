@@ -2,7 +2,8 @@ import Component from '@glimmer/component';
 import parsedKeyProperty from 'accent-webapp/computed-macros/parsed-key';
 import {LinkTo} from '@ember/routing';
 import {array, hash} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ChevronLeftSvg from 'accent-webapp/svgs/assets/chevron-left.svg';
+import WarningSvg from 'accent-webapp/svgs/assets/warning.svg';
 import {scopedClass} from 'ember-scoped-css';
 import AccBadge from 'accent-webapp/components/acc-badge/index';
 import t from 'ember-intl/helpers/t';
@@ -24,10 +25,7 @@ export default class TranslationSplashTitle extends Component<Args> {
           @models={{array @project.id @translation.revision.id}}
           class='language'
         >
-          {{inlineSvg
-            'assets/chevron-left.svg'
-            class=(scopedClass 'back-icon')
-          }}
+          <ChevronLeftSvg class={{scopedClass 'back-icon'}} />
           {{this.revisionName}}
         </LinkTo>
       {{/if}}
@@ -100,7 +98,7 @@ export default class TranslationSplashTitle extends Component<Args> {
               count=@translation.lintMessages.length
             }}
           >
-            {{inlineSvg '/assets/warning.svg'}}
+            <WarningSvg />
           </AccBadge>
         {{/if}}
 
@@ -110,6 +108,79 @@ export default class TranslationSplashTitle extends Component<Args> {
         </span>
       </div>
     </div>
+
+    <style scoped>
+      .translation-splash-file {
+        margin-bottom: 20px;
+      }
+
+      .language {
+        display: inline-block;
+        margin-bottom: 4px;
+        color: var(--color-black);
+        font-size: 14px;
+        text-decoration: none;
+        transition: 0.2s ease-in-out;
+        transition-property: color;
+      }
+      .language:focus,
+      .language:hover {
+        opacity: 0.8;
+      }
+      .language:focus .back-icon,
+      .language:hover .back-icon {
+        transform: translateX(-2px);
+      }
+
+      .updatedAt {
+        color: var(--color-grey);
+        font-size: 11px;
+        font-style: italic;
+      }
+
+      .back-icon {
+        width: 11px;
+        height: 11px;
+        stroke: var(--color-black);
+        transition: 0.2s ease-in-out;
+        transition-property: stroke transform;
+      }
+
+      .key {
+        margin-bottom: 3px;
+        font-family: var(--font-monospace);
+        font-weight: bold;
+        font-size: 22px;
+        color: var(--color-primary);
+        line-height: 1.3;
+      }
+
+      .key-prefix {
+        display: block;
+        font-weight: 300;
+        font-size: 14px;
+        color: var(--color-grey);
+      }
+
+      .removedBadge {
+        font-size: 12px;
+        color: var(--color-error);
+      }
+
+      .badges {
+        display: flex;
+        align-items: center;
+      }
+      .badges > * {
+        margin-right: 6px;
+      }
+
+      @media (max-width: 640px) {
+        .language {
+          margin-top: 20px;
+        }
+      }
+    </style>
   </template>
   withRevisionLink = this.args.withRevisionLink ?? true;
 

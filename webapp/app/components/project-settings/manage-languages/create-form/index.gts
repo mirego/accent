@@ -9,7 +9,7 @@ import AccSelect from 'accent-webapp/components/acc-select/index';
 import {fn, get} from '@ember/helper';
 import t from 'ember-intl/helpers/t';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import RocketSvg from 'accent-webapp/svgs/assets/rocket.svg';
 import {scopedClass} from 'ember-scoped-css';
 import AsyncButton from 'accent-webapp/components/async-button/index';
 
@@ -67,10 +67,7 @@ export default class CreateForm extends Component<Args> {
                 }}
               </span>
 
-              {{inlineSvg
-                'assets/rocket.svg'
-                class=(scopedClass 'optionLabel-icon')
-              }}
+              <RocketSvg class={{scopedClass 'optionLabel-icon'}} />
             </label>
           </div>
         {{/if}}
@@ -85,6 +82,60 @@ export default class CreateForm extends Component<Args> {
         {{t 'components.project_manage_languages_create_form.save_button'}}
       </AsyncButton>
     </div>
+
+    <style scoped>
+      .form {
+        padding: 16px;
+        border-radius: var(--border-radius);
+        background: var(--content-background);
+        box-shadow:
+          0 6px 25px var(--shadow-color),
+          0 2px 7px var(--shadow-color);
+      }
+      .form :global(.ember-power-select-trigger) {
+        min-height: 34px;
+        max-width: 100%;
+        margin-bottom: 14px;
+        background: var(--content-background);
+        border: 1px solid var(--background-light-highlight);
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .option {
+        margin: 0;
+      }
+
+      .optionLabel {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .optionLabel input {
+        accent-color: var(--color-primary);
+      }
+
+      .optionLabelText {
+        margin: 0;
+      }
+
+      .optionLabel-icon {
+        width: 22px;
+        margin-left: 3px;
+        transform: rotate(45deg);
+        background: color-mix(in srgb, var(--color-primary) 25%, transparent);
+        border-radius: 50%;
+        padding: 3px;
+        color: var(--color-primary);
+      }
+    </style>
   </template>
   @service('language-searcher')
   declare languageSearcher: LanguageSearcher;

@@ -4,7 +4,8 @@ import AccModal from 'accent-webapp/components/acc-modal/index';
 import {fn} from '@ember/helper';
 import ProjectFileOperation from 'accent-webapp/components/project-file-operation/index';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import LanguageSvg from 'accent-webapp/svgs/assets/language.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import t from 'ember-intl/helpers/t';
 import MachineTranslationsDocumentTranslate from 'accent-webapp/components/machine-translations-document-translate/index';
 export default RouteTemplate<RouteTemplateSignature>(
@@ -13,13 +14,13 @@ export default RouteTemplate<RouteTemplateSignature>(
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>
           <div class='closeButton-content'>
-            {{inlineSvg '/assets/x.svg' class='closeButton-icon'}}
+            <XSvg class='closeButton-icon' />
           </div>
         </button>
 
         <div class='title'>
           <div class='sectionType'>
-            {{inlineSvg '/assets/language.svg' class='sectionType-icon'}}
+            <LanguageSvg class='sectionType-icon' />
             {{t 'components.project_file_operations.translate'}}
           </div>
 

@@ -9,7 +9,9 @@ import AccBadge from 'accent-webapp/components/acc-badge/index';
 import t from 'ember-intl/helpers/t';
 import TimeAgoInWordsTag from 'accent-webapp/components/time-ago-in-words-tag/index';
 import AsyncButton from 'accent-webapp/components/async-button/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ChevronTopSvg from 'accent-webapp/svgs/assets/chevron-top.svg';
+import PencilSvg from 'accent-webapp/svgs/assets/pencil.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 
 interface Args {
   master: any;
@@ -75,7 +77,7 @@ export default class OverviewItem extends Component<Args> {
                   class='button--white button--filled button--small button--link promoteSlaveButton'
                   @onClick={{fn this.promoteRevision}}
                 >
-                  {{inlineSvg '/assets/chevron-top.svg' class='button-icon'}}
+                  <ChevronTopSvg class='button-icon' />
                   {{t
                     'components.project_manage_languages_overview.promote_revision_master_button'
                   }}
@@ -88,7 +90,7 @@ export default class OverviewItem extends Component<Args> {
                   @models={{array @project.id @revision.id}}
                   class='button button--filled button--white button--link button--iconOnly button--small'
                 >
-                  {{inlineSvg '/assets/pencil.svg' class='button-icon'}}
+                  <PencilSvg class='button-icon' />
                 </LinkTo>
               {{/unless}}
 
@@ -98,7 +100,7 @@ export default class OverviewItem extends Component<Args> {
                   class='button--red button--borderless button--iconOnly button--small'
                   @onClick={{fn this.deleteRevision}}
                 >
-                  {{inlineSvg '/assets/x.svg' class='button-icon'}}
+                  <XSvg class='button-icon' />
                 </AsyncButton>
               {{/if}}
             </div>
@@ -106,6 +108,114 @@ export default class OverviewItem extends Component<Args> {
         {{/unless}}
       </div>
     </div>
+
+    <style scoped>
+      .list-item {
+        padding: 8px 10px;
+        border-radius: var(--border-radius);
+        font-size: 14px;
+        transition: 0.2s ease-in-out;
+        transition-property: background;
+      }
+      .list-item:focus,
+      .list-item:hover {
+        background: var(--background-light);
+      }
+      .list-item.list-item--deleted {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+      .list-item.list-item--deleted .list-item-infos-date {
+        font-size: 11px;
+      }
+      .list-item.list-item--deleting .list-item-actions {
+        pointer-events: all;
+        opacity: 1;
+      }
+      .list-item.list-item--master {
+        margin-bottom: 6px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .list-item:focus .list-item-actions,
+      .list-item:hover .list-item-actions {
+        pointer-events: all;
+        opacity: 1;
+      }
+      .list-item:focus .list-item-header-edit,
+      .list-item:hover .list-item-header-edit {
+        opacity: 1;
+        transform: translateX(-26px);
+      }
+
+      .list-item-header {
+        position: relative;
+      }
+
+      .list-item-header-edit {
+        position: absolute;
+        left: 0;
+        top: 3px;
+        padding-right: 12px;
+        color: var(--color-grey);
+        opacity: 0.8;
+        transform: translateX(-24px);
+        transition: 0.2s ease-in-out;
+        transition-property: opacity, transform, color;
+      }
+      .list-item-header-edit:focus,
+      .list-item-header-edit:hover {
+        color: var(--color-primary);
+      }
+      .list-item-header-edit :global(svg) {
+        width: 14px;
+      }
+
+      .list-item-infos {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .list-item-infos-date {
+        font-size: 12px;
+        color: var(--color-grey);
+      }
+
+      .list-link {
+        display: inline-flex;
+        align-items: baseline;
+        text-decoration: none;
+        color: var(--color-primary);
+      }
+      .list-link:focus,
+      .list-link:hover {
+        text-decoration: underline;
+      }
+
+      .list-link-small {
+        margin-left: 5px;
+        font-size: 11px;
+        opacity: 0.8;
+      }
+
+      .list-item-actions {
+        display: flex;
+        opacity: 0.8;
+        pointer-events: none;
+        transition: 0.2s ease-in-out;
+        transition-property: opacity;
+      }
+
+      .masterBadge {
+        margin-left: 10px;
+      }
+
+      .promoteSlaveButton {
+        padding: 2px 6px !important;
+        margin-right: 10px !important;
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

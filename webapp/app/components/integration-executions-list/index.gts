@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
-import integrationLogo from 'accent-webapp/helpers/integration-logo';
+import ActivitySvg from 'accent-webapp/svgs/assets/activity.svg';
+import IntegrationLogo from 'accent-webapp/components/integration-logo/index';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import timeAgoInWords from 'accent-webapp/helpers/time-ago-in-words';
@@ -17,10 +17,10 @@ export default class IntegrationExecutionsList extends Component<Args> {
     {{#if @integration}}
       <div class='header'>
         <div class='header-info'>
-          {{inlineSvg
-            (integrationLogo @integration.service)
-            class=(scopedClass 'header-logo')
-          }}
+          <IntegrationLogo
+            @service={{@integration.service}}
+            class={{scopedClass 'header-logo'}}
+          />
           <span class='header-service'>
             {{t this.mappedServiceTranslationKey}}
           </span>
@@ -55,11 +55,67 @@ export default class IntegrationExecutionsList extends Component<Args> {
       <div class='empty'>
         <EmptyContent
           @center={{true}}
-          @iconPath='assets/activity.svg'
+          @icon={{ActivitySvg}}
           @text={{t 'components.integration_executions.empty'}}
         />
       </div>
     {{/if}}
+
+    <style scoped>
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        margin-top: 35px;
+        border: 1px solid var(--background-light-highlight);
+        border-radius: var(--border-radius);
+      }
+
+      .header-info {
+        display: flex;
+        align-items: center;
+        overflow-x: hidden;
+        flex: 1 1 auto;
+      }
+
+      .header-logo {
+        flex: 0 0 20px;
+        margin-right: 8px;
+        width: 20px;
+      }
+
+      .header-service {
+        font-size: 13px;
+        font-weight: bold;
+        color: var(--color-black);
+      }
+
+      .header-preview {
+        padding-right: 15px;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        margin-left: 10px;
+        font-size: 13px;
+        color: var(--color-black);
+      }
+
+      .header-last-executed-at {
+        margin-left: 5px;
+        font-size: 11px;
+        opacity: 0.4;
+      }
+
+      .list {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0 0;
+      }
+
+      .empty {
+        margin: 15px 0 0;
+      }
+    </style>
   </template>
   get mappedServiceTranslationKey() {
     return `general.integration_services.${this.args.integration?.service}`;

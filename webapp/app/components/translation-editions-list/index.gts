@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import Item from 'accent-webapp/components/translation-editions-list/item/index';
-import EmptyContent from 'accent-webapp/components/empty-content/index';
+import EmptyState from 'accent-webapp/components/empty-state/index';
+import HistorySvg from 'accent-webapp/svgs/assets/history.svg';
 import t from 'ember-intl/helpers/t';
 import {LinkTo} from '@ember/routing';
 
@@ -24,16 +25,26 @@ export default class TranslationEditionsList extends Component<Args> {
           @onUpdateText={{@onUpdateText}}
         />
       {{else}}
-        <EmptyContent class='empty-content'>
-          {{t 'components.translation_editions_list.no_translations'}}
-          <div>
-            {{t 'components.translation_editions_list.no_versions'}}
-            <LinkTo @route='logged-in.project.versions' class='link'>
-              {{t 'components.translation_editions_list.no_versions_link'}}
-            </LinkTo>
-          </div>
-        </EmptyContent>
+        <EmptyState
+          @icon={{HistorySvg}}
+          @title={{t 'components.translation_editions_list.no_translations'}}
+          @text={{t 'components.translation_editions_list.no_versions'}}
+        >
+          <LinkTo @route='logged-in.project.versions' class='link'>
+            {{t 'components.translation_editions_list.no_versions_link'}}
+          </LinkTo>
+        </EmptyState>
       {{/each}}
     </ul>
+
+    <style scoped>
+      .translations-list {
+        margin-top: 20px;
+      }
+
+      .empty-content {
+        margin-top: 20px;
+      }
+    </style>
   </template>
 }

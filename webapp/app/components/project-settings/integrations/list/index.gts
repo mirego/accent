@@ -22,5 +22,11 @@ export default class IntegrationsList extends Component<Args> {
         />
       {{/each}}
     </ul>
+
+    <style scoped>
+      .project-settings-integrations-list {
+        margin-top: 10px;
+      }
+    </style>
   </template>
 }

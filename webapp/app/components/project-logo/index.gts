@@ -14,7 +14,12 @@ interface Args {
 }
 
 export default class ProjectLogo extends Component<Args> {
-  <template>{{this.safeLogo}}</template>
+  <template>
+  {{this.safeLogo}}
+  <style scoped>
+:global(svg) { fill: color-mix(in srgb, var(--color-primary) 25%, transparent);}
+  </style>
+  </template>
   get safeLogo() {
     const logo = this.args.logo || DEFAULT_PROJECT_LOGO;
 

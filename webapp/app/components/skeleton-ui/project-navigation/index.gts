@@ -23,4 +23,20 @@ import Content from 'accent-webapp/components/skeleton-ui/content/index';
       <rect x='13' y='3' rx='1' ry='1' width='41' height='2'></rect>
     </Content>
   </SkeletonUi>
+
+  <style scoped>
+    div.skeleton {
+      padding: 25px 10px 0;
+      min-height: 100dvh;
+      background: var(--content-background);
+    }
+    div.skeleton:after {
+      background: var(--content-background);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0,
+        var(--body-background) 90%
+      );
+    }
+  </style>
 </template>

@@ -27,5 +27,11 @@ export default class RelatedTranslationsList extends Component<Args> {
         </ul>
       </div>
     {{/if}}
+
+    <style scoped>
+      .list {
+        width: 100%;
+      }
+    </style>
   </template>
 }

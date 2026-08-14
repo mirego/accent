@@ -19,6 +19,13 @@ export default class TranslationCommentDelete extends Component<Args> {
     >
       {{yield}}
     </AsyncButton>
+
+    <style scoped>
+      :global(.button.button--small).button :global(.label) {
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

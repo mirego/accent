@@ -19,5 +19,24 @@ export default class JIPTTranslationsList extends Component<Args> {
         </LinkTo>
       {{/each}}
     </div>
+
+    <style scoped>
+      .item {
+        display: block;
+        border-bottom: 1px solid #eee;
+        padding: 7px 15px;
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: 0.2s ease-in-out;
+        transition-property: padding, background;
+      }
+      .item:focus,
+      .item:hover {
+        background: var(--background-light);
+        color: var(--color-black);
+      }
+    </style>
   </template>
 }

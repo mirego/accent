@@ -13,5 +13,15 @@ export default class TranslationsFilteredTitle extends Component<Args> {
         count=@count
       }}
     </div>
+
+    <style scoped>
+      .jipt-translations-filtered-title {
+        margin: 20px 0 0;
+        text-align: center;
+        font-style: italic;
+        font-size: 12px;
+        color: #aaa;
+      }
+    </style>
   </template>
 }

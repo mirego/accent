@@ -26,10 +26,10 @@ export default class SkeletonUiContent extends Component<Args> {
   }
 
   get primaryColor() {
-    return 'var(--content-background-border)';
+    return 'var(--content-background)';
   }
 
   get secondaryColor() {
-    return 'var(--content-background)';
+    return 'var(--content-background-border)';
   }
 }

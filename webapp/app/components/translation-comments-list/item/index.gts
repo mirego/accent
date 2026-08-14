@@ -9,7 +9,8 @@ import {tracked} from '@glimmer/tracking';
 import AccAvatarImg from 'accent-webapp/components/acc-avatar-img/index';
 import TimeAgoInWordsTag from 'accent-webapp/components/time-ago-in-words-tag/index';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import PencilSvg from 'accent-webapp/svgs/assets/pencil.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import TranslationCommentDelete from 'accent-webapp/components/translation-comment-delete/index';
 import perform from 'ember-concurrency/helpers/perform';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
@@ -63,9 +64,9 @@ export default class TranslationsCommentsListItem extends Component<Args> {
               class='button button--small button--borderless button-edit'
             >
               {{#if this.editComment}}
-                {{inlineSvg 'assets/x.svg' class='button-icon'}}
+                <XSvg class='button-icon' />
               {{else}}
-                {{inlineSvg 'assets/pencil.svg' class='button-icon'}}
+                <PencilSvg class='button-icon' />
               {{/if}}
             </button>
 
@@ -74,7 +75,7 @@ export default class TranslationsCommentsListItem extends Component<Args> {
                 class='button button--small button--red button--borderless button-delete'
                 @onSubmit={{perform this.deleteComment}}
               >
-                {{inlineSvg 'assets/x.svg' class='button-icon'}}
+                <XSvg class='button-icon' />
               </TranslationCommentDelete>
             {{/unless}}
           </div>
@@ -94,6 +95,74 @@ export default class TranslationsCommentsListItem extends Component<Args> {
         </div>
       {{/if}}
     </div>
+
+    <style scoped>
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .wrapper:focus .button-edit,
+      .wrapper:focus .button-delete,
+      .wrapper:hover .button-edit,
+      .wrapper:hover .button-delete {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+
+      :global(.button.button--small).button-edit {
+        padding: 0;
+        color: var(--color-grey);
+      }
+
+      :global(.button).button-edit,
+      :global(.button).button-delete {
+        opacity: 0;
+        transform: translate3d(10px, 0, 0);
+      }
+      :global(.button).button-edit:hover,
+      :global(.button).button-delete:hover {
+        background: transparent;
+      }
+
+      .comment-form {
+        margin-top: 10px;
+      }
+
+      .user {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 6px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .user-picture {
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+        border-radius: var(--border-radius);
+      }
+
+      .date {
+        color: var(--color-grey);
+        font-size: 11px;
+        margin-right: 6px;
+      }
+
+      .content {
+        font-size: 13px;
+      }
+      .content h1,
+      .content h2,
+      .content h3,
+      .content h4,
+      .content h5,
+      .content p {
+        margin-top: 5px;
+      }
+    </style>
   </template>
   @service('session')
   declare session: Session;

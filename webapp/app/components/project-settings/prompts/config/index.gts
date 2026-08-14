@@ -6,7 +6,8 @@ import GlobalState from 'accent-webapp/services/global-state';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import {dropTask} from 'ember-concurrency';
 import IntlService from 'ember-intl/services/intl';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import CheckSvg from 'accent-webapp/svgs/assets/check.svg';
+import OpenaiSvg from 'accent-webapp/svgs/assets/prompts_providers/openai.svg';
 import {scopedClass} from 'ember-scoped-css';
 import AccSelect from 'accent-webapp/components/acc-select/index';
 import {fn} from '@ember/helper';
@@ -31,16 +32,13 @@ interface Args {
 
 const PROVIDERS = ['openai'];
 
-/* eslint-disable camelcase */
-const LOGOS = {
-  openai: 'assets/prompts_providers/openai.svg'
-};
-
 export default class ProjectSettingsPromptsConfig extends Component<Args> {
   <template>
     <div class='form {{if @project.promptConfig "form--configured"}}'>
       <div class='provider'>
-        {{inlineSvg this.logoProvider class=(scopedClass 'logo')}}
+        {{#if this.isOpenai}}
+          <OpenaiSvg class={{scopedClass 'logo'}} />
+        {{/if}}
 
         <AccSelect
           @searchEnabled={{false}}
@@ -51,7 +49,7 @@ export default class ProjectSettingsPromptsConfig extends Component<Args> {
           class='select'
         />
         {{#if @project.promptConfig}}
-          {{inlineSvg 'assets/check.svg' class=(scopedClass 'check')}}
+          <CheckSvg class={{scopedClass 'check'}} />
         {{/if}}
       </div>
 
@@ -105,6 +103,127 @@ export default class ProjectSettingsPromptsConfig extends Component<Args> {
         </AsyncButton>
       </div>
     </div>
+
+    <style scoped>
+      .textInput {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .textInput::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .textInput:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .textInput {
+          font-size: 16px !important;
+        }
+      }
+      .form {
+        padding: 16px;
+        border-radius: var(--border-radius);
+        background: var(--background-light);
+        border: 1px solid var(--background-light-highlight);
+      }
+      .form.form--configured {
+        background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+        border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+      }
+      .form.form--configured .config-key-help {
+        color: color-mix(in srgb, var(--color-primary) 90%, black);
+        opacity: 1;
+      }
+      .form.form--configured .select select {
+        border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+        background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+      }
+
+      .check {
+        width: 18px;
+        stroke: color-mix(in srgb, var(--color-primary) 90%, black);
+      }
+
+      .select {
+        flex-grow: 1;
+        max-width: 200px;
+      }
+
+      .select select {
+        border: 1px solid var(--background-light-highlight);
+        padding: 7px 10px;
+        font-weight: bold;
+        font-size: 13px;
+      }
+
+      .logo {
+        width: 25px;
+      }
+
+      .config-key-help {
+        margin-top: 10px;
+        font-size: 11px;
+        padding: 6px 0;
+        font-weight: bold;
+        opacity: 0.4;
+      }
+
+      .provider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .textInput {
+        flex-grow: 1;
+        flex-shrink: 0;
+        padding: 8px 10px;
+        margin-right: 10px;
+        width: 100%;
+        font-family: var(--font-monospace);
+        font-size: 12px;
+      }
+
+      .options {
+        margin: 10px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .option-checkbox {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 6px;
+      }
+    </style>
   </template>
   @service('global-state')
   declare globalState: GlobalState;
@@ -149,10 +268,8 @@ export default class ProjectSettingsPromptsConfig extends Component<Args> {
     return '••••••••••••••';
   }
 
-  get logoProvider() {
-    const provider: keyof typeof LOGOS = this.provider;
-
-    return LOGOS[provider];
+  get isOpenai() {
+    return this.provider === 'openai';
   }
 
   @action

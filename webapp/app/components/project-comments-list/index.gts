@@ -1,8 +1,12 @@
 import Component from '@glimmer/component';
+import {service} from '@ember/service';
+import EmptyHero from 'accent-webapp/components/empty-hero/index';
 import Item from 'accent-webapp/components/project-comments-list/item/index';
 import t from 'ember-intl/helpers/t';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
-import {scopedClass} from 'ember-scoped-css';
+import IntlService from 'ember-intl/services/intl';
+import ActivitySvg from 'accent-webapp/svgs/assets/activity.svg';
+import EyeSvg from 'accent-webapp/svgs/assets/eye.svg';
+import UsersSvg from 'accent-webapp/svgs/assets/users.svg';
 
 interface Args {
   project: any;
@@ -25,67 +29,55 @@ export default class ProjectCommentsList extends Component<Args> {
         {{/each}}
       </ul>
     {{else}}
-      <div class='empty'>
-        <div class='empty-hero'>
-          <div>
-            <h3 class='empty-hero-title'>{{t
-                'components.project_comments_list.empty_title'
-              }}</h3>
-            <p class='empty-hero-text'>{{t
-                'components.project_comments_list.empty_text'
-              }}</p>
-          </div>
-        </div>
-
-        <ul class='empty-features'>
-          <li class='empty-feature'>
-            {{inlineSvg
-              '/assets/eye.svg'
-              class=(scopedClass 'empty-feature-icon')
-            }}
-            <div>
-              <strong>{{t
-                  'components.project_comments_list.empty_feature_context_title'
-                }}</strong>
-              <span>{{t
-                  'components.project_comments_list.empty_feature_context_text'
-                }}</span>
-            </div>
-          </li>
-
-          <li class='empty-feature'>
-            {{inlineSvg
-              '/assets/users.svg'
-              class=(scopedClass 'empty-feature-icon')
-            }}
-            <div>
-              <strong>{{t
-                  'components.project_comments_list.empty_feature_collaborate_title'
-                }}</strong>
-              <span>{{t
-                  'components.project_comments_list.empty_feature_collaborate_text'
-                }}</span>
-            </div>
-          </li>
-
-          <li class='empty-feature'>
-            {{inlineSvg
-              '/assets/activity.svg'
-              class=(scopedClass 'empty-feature-icon')
-            }}
-            <div>
-              <strong>{{t
-                  'components.project_comments_list.empty_feature_history_title'
-                }}</strong>
-              <span>{{t
-                  'components.project_comments_list.empty_feature_history_text'
-                }}</span>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <EmptyHero
+        @title={{t 'components.project_comments_list.empty_title'}}
+        @text={{t 'components.project_comments_list.empty_text'}}
+        @features={{this.features}}
+      />
     {{/if}}
+
+    <style scoped>
+      .project-comments-list {
+        display: block;
+        margin-top: 20px;
+      }
+    </style>
   </template>
+  @service('intl')
+  declare intl: IntlService;
+
+  get features() {
+    return [
+      {
+        icon: EyeSvg,
+        title: this.intl.t(
+          'components.project_comments_list.empty_feature_context_title'
+        ),
+        text: this.intl.t(
+          'components.project_comments_list.empty_feature_context_text'
+        )
+      },
+      {
+        icon: UsersSvg,
+        title: this.intl.t(
+          'components.project_comments_list.empty_feature_collaborate_title'
+        ),
+        text: this.intl.t(
+          'components.project_comments_list.empty_feature_collaborate_text'
+        )
+      },
+      {
+        icon: ActivitySvg,
+        title: this.intl.t(
+          'components.project_comments_list.empty_feature_history_title'
+        ),
+        text: this.intl.t(
+          'components.project_comments_list.empty_feature_history_text'
+        )
+      }
+    ];
+  }
+
   get translationsById() {
     return this.args.comments
       .map((comment: any) => comment.translation)

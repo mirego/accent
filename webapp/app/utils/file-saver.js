@@ -1,5 +1,5 @@
 // the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
-const arbitraryRevokeTimeout = 1000 * 40; // eslint-disable-line no-magic-numbers
+const arbitraryRevokeTimeout = 1000 * 40;
 const bomCharCode = 0xfeff;
 
 export const fileSaver = (view) => {
@@ -74,7 +74,6 @@ export const fileSaver = (view) => {
       dispatch(this, 'writestart progress write writeend'.split(' '));
 
     // on any filesys errors revert to saving with object URLs
-    /* eslint-disable complexity */
     const fsError = () => {
       if ((isChromeIos || (force && isSafari)) && view.FileReader) {
         // Safari doesn't allow downloading of blob urls
@@ -108,7 +107,6 @@ export const fileSaver = (view) => {
           view.location.href = objectURL;
         }
       }
-      /* eslint-enable complexity */
 
       this.readyState = this.DONE;
       dispatchAll();

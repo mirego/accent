@@ -26,6 +26,32 @@ export default class ReviewProgressBar extends Component<Args> {
     >
       <div style={{this.progressStyles}} class='progress'></div>
     </div>
+
+    <style scoped>
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: var(--background-light);
+        border-radius: 1px;
+      }
+
+      .progress {
+        height: 4px;
+        width: 0;
+        background: currentColor;
+        border-radius: 1px;
+        transition: width 500ms ease-in-out;
+      }
+      .progress:after {
+        width: 100%;
+        content: '';
+        height: 1px;
+        background: transparent;
+        box-shadow: 3px 2px 4px currentColor;
+        display: block;
+        opacity: 0.7;
+      }
+    </style>
   </template>
   @tracked
   percentage = 0;

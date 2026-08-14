@@ -1,10 +1,16 @@
 import Component from '@glimmer/component';
 import {tracked} from '@glimmer/tracking';
 import {action} from '@ember/object';
+import {service} from '@ember/service';
 import t from 'ember-intl/helpers/t';
+import IntlService from 'ember-intl/services/intl';
+import EmptyHero from 'accent-webapp/components/empty-hero/index';
 import Item from 'accent-webapp/components/project-settings/lint-entries/item/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
-import {scopedClass} from 'ember-scoped-css';
+import AddSvg from 'accent-webapp/svgs/assets/add.svg';
+import FilterSvg from 'accent-webapp/svgs/assets/filter.svg';
+import KeySvg from 'accent-webapp/svgs/assets/key.svg';
+import LanguageSvg from 'accent-webapp/svgs/assets/language.svg';
+import TagSvg from 'accent-webapp/svgs/assets/tag.svg';
 import {get} from '@ember/helper';
 import {on} from '@ember/modifier';
 import FormModal from 'accent-webapp/components/project-settings/lint-entries/form-modal/index';
@@ -43,80 +49,11 @@ export default class LintEntries extends Component<Args> {
           {{/each}}
         </ul>
       {{else}}
-        <div class='empty'>
-          <div class='empty-hero'>
-            <div>
-              <h3 class='empty-hero-title'>{{t
-                  'components.project_settings.lint_entries.empty_title'
-                }}</h3>
-              <p class='empty-hero-text'>{{t
-                  'components.project_settings.lint_entries.empty_text'
-                }}</p>
-            </div>
-          </div>
-
-          <ul class='empty-types'>
-            <li class='empty-type'>
-              {{inlineSvg
-                '/assets/filter.svg'
-                class=(scopedClass 'empty-type-icon')
-              }}
-              <div>
-                <strong>{{t
-                    'components.project_settings.lint_entries.type_all'
-                  }}</strong>
-                <span>{{t
-                    'components.project_settings.lint_entries.empty_type_all'
-                  }}</span>
-              </div>
-            </li>
-
-            <li class='empty-type'>
-              {{inlineSvg
-                '/assets/tag.svg'
-                class=(scopedClass 'empty-type-icon')
-              }}
-              <div>
-                <strong>{{t
-                    'components.project_settings.lint_entries.type_term'
-                  }}</strong>
-                <span>{{t
-                    'components.project_settings.lint_entries.empty_type_term'
-                  }}</span>
-              </div>
-            </li>
-
-            <li class='empty-type'>
-              {{inlineSvg
-                '/assets/key.svg'
-                class=(scopedClass 'empty-type-icon')
-              }}
-              <div>
-                <strong>{{t
-                    'components.project_settings.lint_entries.type_key'
-                  }}</strong>
-                <span>{{t
-                    'components.project_settings.lint_entries.empty_type_key'
-                  }}</span>
-              </div>
-            </li>
-
-            <li class='empty-type'>
-              {{inlineSvg
-                '/assets/language.svg'
-                class=(scopedClass 'empty-type-icon')
-              }}
-              <div>
-                <strong>{{t
-                    'components.project_settings.lint_entries.type_language_tool_rule_id'
-                  }}</strong>
-                <span>{{t
-                    'components.project_settings.lint_entries.empty_type_language_tool_rule_id'
-                  }}</span>
-              </div>
-            </li>
-          </ul>
-        </div>
+        <EmptyHero
+          @title={{t 'components.project_settings.lint_entries.empty_title'}}
+          @text={{t 'components.project_settings.lint_entries.empty_text'}}
+          @features={{this.features}}
+        />
       {{/if}}
 
       {{#if (get @permissions 'createProjectLintEntry')}}
@@ -125,7 +62,7 @@ export default class LintEntries extends Component<Args> {
           class='button button--xl button--primary button--highlight'
           {{on 'click' this.openNew}}
         >
-          {{inlineSvg '/assets/add.svg' class='button-icon'}}
+          <AddSvg class='button-icon' />
           {{t 'components.project_settings.lint_entries.add_button'}}
         </button>
       {{/if}}
@@ -140,12 +77,80 @@ export default class LintEntries extends Component<Args> {
         />
       {{/if}}
     </div>
+
+    <style scoped>
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-top: 25px;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 17px;
+        padding-bottom: 4px;
+      }
+
+      .text {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+        max-width: 600px;
+      }
+    </style>
   </template>
+  @service('intl')
+  declare intl: IntlService;
+
   @tracked
   editingEntry: LintEntry | null = null;
 
   @tracked
   creating = false;
+
+  get features() {
+    return [
+      {
+        icon: FilterSvg,
+        title: this.intl.t('components.project_settings.lint_entries.type_all'),
+        text: this.intl.t(
+          'components.project_settings.lint_entries.empty_type_all'
+        )
+      },
+      {
+        icon: TagSvg,
+        title: this.intl.t(
+          'components.project_settings.lint_entries.type_term'
+        ),
+        text: this.intl.t(
+          'components.project_settings.lint_entries.empty_type_term'
+        )
+      },
+      {
+        icon: KeySvg,
+        title: this.intl.t('components.project_settings.lint_entries.type_key'),
+        text: this.intl.t(
+          'components.project_settings.lint_entries.empty_type_key'
+        )
+      },
+      {
+        icon: LanguageSvg,
+        title: this.intl.t(
+          'components.project_settings.lint_entries.type_language_tool_rule_id'
+        ),
+        text: this.intl.t(
+          'components.project_settings.lint_entries.empty_type_language_tool_rule_id'
+        )
+      }
+    ];
+  }
 
   get showModal() {
     return this.creating || this.editingEntry !== null;

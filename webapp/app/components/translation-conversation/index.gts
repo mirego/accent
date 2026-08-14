@@ -56,6 +56,42 @@ export default class TranslationConversation extends Component<Args> {
         />
       </div>
     </div>
+
+    <style scoped>
+      .translation-conversation {
+        display: flex;
+        width: 100%;
+      }
+
+      .comments {
+        flex: 1 1 100%;
+      }
+
+      .comment-form {
+        margin: 0 0 32px 0;
+      }
+
+      .list {
+        margin-top: 30px;
+      }
+
+      .subscriptions {
+        flex: 1 1 100%;
+        max-width: 250px;
+        margin: 30px 0 0 25px;
+      }
+
+      @media (max-width: 640px) {
+        .translation-conversation {
+          flex-direction: column;
+        }
+        .subscriptions {
+          max-width: none;
+          margin-top: 10px;
+          margin-left: 0;
+        }
+      }
+    </style>
   </template>
   @action
   focusTextarea(element: HTMLElement) {

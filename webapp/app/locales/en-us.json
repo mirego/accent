@@ -111,6 +111,11 @@
       "no_version_label": "No version",
       "language": "Language",
       "commit_type": "Mode",
+      "commit_types": {
+        "smart": "Smart — updates from the file, keeps your recent Accent edits",
+        "passive": "Passive — never overwrites existing text",
+        "force": "Force — the file always wins, even over reviewed strings"
+      },
       "file_source": "Document path",
       "merge_button": "Add translations",
       "pattern_help": "You need to specify the pattern of the files included in the zip that will be imported, \"eg\": **/*.strings",
@@ -127,17 +132,52 @@
       "instructions": {
         "sync": {
           "title": "Sync",
-          "text": "Update the list of strings in Accent, removing ones missing in the file and adding new ones.<em>The sync is always done in the main language.</em>New strings and removed strings changes will be reflected in all translated languages."
+          "text": "Upload your file in the <em>main language</em>. Accent will add new keys, remove missing keys, and update existing text based on the selected mode. <em>Always sync the main language.</em>"
         },
         "merge": {
           "title": "Add translations",
-          "text": "Merge translations present in the uploaded file with strings existing in Accent. The add translations is usually done when you translate the string directly in your project to save some times for reviewers."
+          "text": "Fill translations for existing keys in <em>one selected language</em>. Accent will never add or remove keys — that's sync's job."
         },
         "mistakes": {
           "title": "Common mistakes",
           "item_1": "Export Accent files locally before a sync. This will force you to resolve conflicts locally and potentially override reviewed texts or adding removed strings.",
           "item_2": "Sync a translated language (not your main language). This will effectively generates conflicts for all your keys, changing the text of the main language for your translated language.",
           "item_3": "Sync one file per language. The purpose of the \"file\" in Accent is to be translated in X languages. Sync your main language and let the translated languages be translated in the UI."
+        },
+        "flow": {
+          "file": "Your file",
+          "scope_main": "Main language",
+          "scope_selected": "Selected language",
+          "sync_keys_added": "New keys added",
+          "sync_keys_removed": "Missing keys removed",
+          "text_by_mode": "Existing text by mode",
+          "merge_existing_only": "Existing keys only",
+          "merge_text_by_mode": "Text by mode",
+          "sync_target": "All languages",
+          "sync_target_note": "Keys added & removed everywhere · changed text puts every language back to review",
+          "merge_target": "Selected language only",
+          "merge_target_note": "Other languages untouched"
+        },
+        "modes": {
+          "title": "Modes",
+          "intro": "For each key, Accent compares the file text, the current text in Accent, and the text from the last upload.",
+          "col_situation": "Situation (existing key)",
+          "col_smart": "Smart (default)",
+          "col_passive": "Passive",
+          "col_force": "Force",
+          "row_same": "File text matches Accent text",
+          "row_edited": "File unchanged since last upload, edited in Accent",
+          "row_changed": "File changed, never edited in Accent",
+          "row_both": "File changed AND edited in Accent",
+          "cell_nothing": "Nothing",
+          "cell_kept": "Kept (your edits win)",
+          "cell_untouched": "Untouched",
+          "cell_overwritten_review": "Overwritten, back to review",
+          "cell_passive_sync": "Untouched",
+          "cell_passive_merge": "Filled only if still to review",
+          "note_force": "Force is only available for Add translations.",
+          "note_keys": "In every mode, Sync adds new keys and removes keys missing from the file — in all languages.",
+          "note_correct": "\"Mark strings as reviewed\" marks overwritten strings reviewed instead of to review."
         }
       }
     },
@@ -260,7 +300,10 @@
       "delete": "Delete"
     },
     "documents_list": {
-      "empty_text": "Files are the actual listing of your project’s main language files. Add them here or from the CLI and keep them in sync with your project.",
+      "empty_text": "Files are the actual listing of your project's main language files. Add them here or from the CLI and keep them in sync with your project.",
+      "empty_title": "No files",
+      "empty_filters_title": "No files with filters",
+      "empty_filters_text": "No files found for the given filters",
       "export_all": "Export all",
       "show_deleted": "Show deleted",
       "hide_deleted": "Hide deleted",
@@ -493,8 +536,11 @@
         "delete_project_button": "Delete this project",
         "delete_project_confirm": "Are you sure you want to delete this project? This action cannot be undone."
       },
-      "form": {
-        "update_button": "Update project",
+  "form": {
+    "update_button": "Update project",
+    "name_label": "Name",
+    "main_color_label": "Main color",
+    "logo_label": "Icon",
         "unsupported_logo_type": "Only SVG files are supported as project logo.",
         "reset_logo_button": "Reset logo",
         "lock_file_operations": {
@@ -568,6 +614,7 @@
         "create_button": "Create",
         "create_name_placeholder": "Display name",
         "create_picture_url_placeholder": "Avatar URL (optional)",
+        "empty": "No API tokens yet. Create one below to start making authenticated calls.",
         "permissions": {
           "select_all": "Select all",
           "unselect_all": "Unselect all",
@@ -595,6 +642,9 @@
         "owner_text": "With the same roles as the admin, the owners are people who the project belongs to.",
         "reviewer_text": "Can perform all tasks except those listed in the above roles. Review, update strings, comments, etc.",
         "translator_text": "Translate strings and make updates on documents. The translator is not included in the review process.",
+        "roles_title": "Roles & permissions",
+        "rank_full": "Full access",
+        "rank_limited": "Limited access",
         "title": "Collaborators"
       },
       "collaborators_item": {
@@ -723,7 +773,10 @@
     },
     "project_activities_list": {
       "title": "Activities",
-      "empty_activities_text": "No activities found"
+      "empty_title": "No activities",
+      "empty_filters_title": "No activities with filters",
+      "empty_filters_text": "No activities found for the given filters",
+      "empty_activities_text": "Every user or API write actions are listed here as activities."
     },
     "project_activities_list_item": {
       "stats_label_text": "Activities performed:",
@@ -1035,7 +1088,8 @@
       "submit_error": "Your comment submission was not successful, try again later."
     },
     "translation_comments_list": {
-      "no_comments": "No comments"
+      "no_comments": "No comments yet",
+      "no_comments_text": "Start the conversation by leaving the first comment on this string."
     },
     "translation_edit": {
       "source_translation": "See latest version of the string",
@@ -1139,9 +1193,9 @@
       }
     },
     "translation_editions_list": {
-      "no_translations": "Looks like no versions strings were added for your project.",
-      "no_versions": "Try to",
-      "no_versions_link": "create a new version →"
+      "no_translations": "No version history yet",
+      "no_versions": "This string has not been captured in any version of your project.",
+      "no_versions_link": "Create a new version →"
     },
     "translations_list": {
       "latest_version_label": "Latest",
@@ -1159,6 +1213,8 @@
       "last_execution_label": "Last execution:",
       "maybe_sync_before": "Maybe try to",
       "maybe_sync_link": "sync some files →",
+      "no_translations_title": "No strings",
+      "no_translations_filters_title": "No strings with filters",
       "no_translations": "Looks like no strings were added for your project.",
       "no_translations_query": "No strings found for: {query}",
       "no_translations_filters": "No strings found for the given filters"

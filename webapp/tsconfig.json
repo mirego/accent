@@ -38,7 +38,12 @@
       "*": [
         "types/*"
       ]
-    }
+    },
+    "types": [
+      "@embroider/core/virtual",
+      "@svg-jar/plugin/client/ember",
+      "@ember-intl/vite/virtual"
+    ]
   },
   "include": [
     "node_modules/ember-chai-dom-helpers",

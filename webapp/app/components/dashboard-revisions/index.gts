@@ -2,7 +2,13 @@ import {service} from '@ember/service';
 import Component from '@glimmer/component';
 import percentage from 'accent-webapp/component-helpers/percentage';
 import IntlService from 'ember-intl/services/intl';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ActivitySvg from 'accent-webapp/svgs/assets/activity.svg';
+import AddSvg from 'accent-webapp/svgs/assets/add.svg';
+import ExportSvg from 'accent-webapp/svgs/assets/export.svg';
+import MergeSvg from 'accent-webapp/svgs/assets/merge.svg';
+import PercentSvg from 'accent-webapp/svgs/assets/percent.svg';
+import SyncSvg from 'accent-webapp/svgs/assets/sync.svg';
+import ThumbsUpSvg from 'accent-webapp/svgs/assets/thumbs-up.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import {get, array} from '@ember/helper';
@@ -80,20 +86,18 @@ export default class DashboardRevisions extends Component<Args> {
           <div class='numberStat'>
             {{#if this.reviewCompleted}}
               <span class='numberStat-reviewCompleted'>
-                {{inlineSvg
-                  '/assets/thumbs-up.svg'
-                  class=(scopedClass 'numberStat-reviewCompleted-successIcon')
-                }}
+                <ThumbsUpSvg
+                  class={{scopedClass 'numberStat-reviewCompleted-successIcon'}}
+                />
                 {{t 'components.dashboard_revisions.all_reviewed'}}
               </span>
             {{else}}
               <span class='numberStat-reviewPercentage'>
                 {{this.reviewedPercentage}}
                 <span class='numberStat-reviewPercentage-unit'>
-                  {{inlineSvg
-                    '/assets/percent.svg'
-                    class=(scopedClass 'numberStat-reviewPercentage-icon')
-                  }}
+                  <PercentSvg
+                    class={{scopedClass 'numberStat-reviewPercentage-icon'}}
+                  />
                 </span>
               </span>
             {{/if}}
@@ -117,7 +121,7 @@ export default class DashboardRevisions extends Component<Args> {
                     @models={{array @project.id @document.id}}
                     class='button button--filled button--white'
                   >
-                    {{inlineSvg '/assets/sync.svg' class='button-icon'}}
+                    <SyncSvg class='button-icon' />
                     {{t 'components.documents_list.sync'}}
                   </LinkTo>
                 {{/if}}
@@ -127,7 +131,7 @@ export default class DashboardRevisions extends Component<Args> {
                     @models={{array @project.id @document.id}}
                     class='button button--borderLess button--filled button--white'
                   >
-                    {{inlineSvg '/assets/merge.svg' class='button-icon'}}
+                    <MergeSvg class='button-icon' />
                     {{t 'components.documents_list.merge'}}
                   </LinkTo>
                 {{/if}}
@@ -136,7 +140,7 @@ export default class DashboardRevisions extends Component<Args> {
                   @models={{array @project.id @document.id}}
                   class='button button--borderLess button--filled button--white'
                 >
-                  {{inlineSvg '/assets/export.svg' class='button-icon'}}
+                  <ExportSvg class='button-icon' />
                   {{t 'components.documents_list.export'}}
                 </LinkTo>
               </div>
@@ -213,10 +217,9 @@ export default class DashboardRevisions extends Component<Args> {
                     class='empty-slaves-button'
                   >
                     <span class='empty-slaves-button-action'>
-                      {{inlineSvg
-                        'assets/add.svg'
-                        class=(scopedClass 'empty-slaves-button-icon')
-                      }}
+                      <AddSvg
+                        class={{scopedClass 'empty-slaves-button-icon'}}
+                      />
                       {{t
                         'components.dashboard_revisions.new_language_link_title'
                       }}
@@ -241,10 +244,7 @@ export default class DashboardRevisions extends Component<Args> {
         <div class='activities'>
           <h2 class='activities-title'>
             <span class='activities-title-text'>
-              {{inlineSvg
-                'assets/activity.svg'
-                class=(scopedClass 'activities-title-icon')
-              }}
+              <ActivitySvg class={{scopedClass 'activities-title-icon'}} />
               {{t 'components.dashboard_revisions.activities_title'}}
             </span>
 
@@ -265,6 +265,223 @@ export default class DashboardRevisions extends Component<Args> {
         </div>
       {{/if}}
     </div>
+
+    <style scoped>
+      .dashboard-revisions.low-percentage .numberStat-reviewCompleted,
+      .dashboard-revisions.low-percentage .numberStat-reviewPercentage {
+        color: var(--color-error);
+      }
+
+      .dashboard-revisions.medium-percentage .numberStat-reviewCompleted,
+      .dashboard-revisions.medium-percentage .numberStat-reviewPercentage {
+        color: var(--color-warning);
+      }
+
+      .dashboard-revisions.high-percentage .numberStat-reviewCompleted,
+      .dashboard-revisions.high-percentage .numberStat-reviewPercentage {
+        color: var(--color-success);
+      }
+
+      .dashboard-revisions {
+        display: flex;
+      }
+
+      .dashboard-revisions > .content {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 100%;
+        margin-right: 40px;
+        margin-top: 40px;
+      }
+
+      .numberStat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 0 auto 10px;
+      }
+
+      .numberStat-reviewPercentage {
+        letter-spacing: -3px;
+        line-height: 1;
+        font-size: 82px;
+        font-weight: 400;
+      }
+
+      .numberStat-reviewPercentage-icon {
+        width: 35px;
+        height: 35px;
+      }
+
+      .numberStat-reviewPercentage-unit {
+        font-size: 62px;
+        opacity: 0.7;
+      }
+
+      .numberStat-totalKeys {
+        display: block;
+        font-size: 20px;
+        font-family: var(--font-monospace);
+        color: #ccc;
+      }
+
+      .numberStat-totalKeys-label {
+        font-size: 11px;
+      }
+
+      .numberStat-reviewCompleted {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 22px;
+      }
+
+      .numberStat-reviewCompleted-successIcon {
+        display: block;
+        stroke: var(--color-success);
+        width: 52px;
+        height: 52px;
+        margin-bottom: 10px;
+      }
+
+      .stats {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .stats-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 2px;
+      }
+
+      .slaves {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .empty-slaves-button {
+        display: block;
+        width: 100%;
+        max-width: 340px;
+        padding: 15px;
+        background: var(--content-background);
+        box-shadow:
+          0 1px 4px var(--shadow-color),
+          0 7px 12px var(--shadow-color);
+        border-radius: var(--border-radius);
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: box-shadow 0.2s ease-in-out;
+      }
+      .empty-slaves-button:hover,
+      .empty-slaves-button:focus {
+        box-shadow: 0 3px 10px var(--shadow-color);
+      }
+
+      .empty-slaves-button-action {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 12px;
+      }
+
+      .empty-slaves-button-icon {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+        fill: var(--color-primary);
+      }
+
+      .empty-slaves-button-text {
+        display: block;
+        margin-top: 10px;
+        font-size: 11px;
+        color: var(--color-black);
+        opacity: 0.5;
+      }
+
+      .filters {
+        margin-top: 5px;
+      }
+
+      .master {
+        margin: 10px 0 0;
+      }
+
+      .stats-title-links {
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
+      }
+
+      .activities {
+        display: flex;
+        flex-direction: column;
+        max-width: 430px;
+        width: 100%;
+        margin-top: 40px;
+      }
+
+      .activities-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 300;
+      }
+
+      .activities-title-text {
+        display: flex;
+        align-items: center;
+      }
+
+      .activities-title-icon {
+        stroke: #bbb;
+        width: 15px;
+        height: 15px;
+        margin-right: 6px;
+      }
+
+      .activities-viewMoreButton {
+        display: block !important;
+        margin-top: 15px !important;
+        text-align: center !important;
+      }
+
+      .activities-last-sync {
+        font-size: 11px;
+        text-decoration: none;
+        opacity: 0.9;
+      }
+
+      @media (max-width: 1024px) {
+        .dashboard-revisions {
+          flex-direction: column;
+        }
+        .dashboard-revisions > .content {
+          width: 100%;
+          margin-right: 0;
+        }
+        .activities {
+          margin-top: 20px;
+          max-width: none;
+        }
+      }
+      @media (max-width: 640px) {
+        .dashboard-revisions > .content {
+          margin: 0;
+        }
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

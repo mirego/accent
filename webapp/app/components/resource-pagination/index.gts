@@ -3,7 +3,8 @@ import {or, readOnly, not} from '@ember/object/computed';
 import Component from '@glimmer/component';
 import {on} from '@ember/modifier';
 import {fn} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ChevronLeftSvg from 'accent-webapp/svgs/assets/chevron-left.svg';
+import ChevronRightSvg from 'accent-webapp/svgs/assets/chevron-right.svg';
 
 export interface PaginationMeta {
   nextPage: number;
@@ -24,7 +25,7 @@ export default class ResourcePagination extends Component<Args> {
           class='button button--white button--filled button--iconOnly'
           {{on 'click' (fn this.goToPreviousPage)}}
         >
-          {{inlineSvg 'assets/chevron-left.svg' class='button-icon'}}
+          <ChevronLeftSvg class='button-icon' />
         </button>
 
         <span class='label local-label'>
@@ -42,10 +43,29 @@ export default class ResourcePagination extends Component<Args> {
           class='button button--white button--filled button--iconOnly'
           {{on 'click' (fn this.goToNextPage)}}
         >
-          {{inlineSvg 'assets/chevron-right.svg' class='button-icon'}}
+          <ChevronRightSvg class='button-icon' />
         </button>
       {{/if}}
     </div>
+
+    <style scoped>
+      .resource-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+      }
+
+      .local-label {
+        margin: 0 10px;
+        color: var(--color-grey);
+        font-size: 14px;
+      }
+
+      .label-number {
+        margin: 0 4px;
+      }
+    </style>
   </template>
   @or('args.meta.{nextPage,previousPage}')
   showPagination: boolean;

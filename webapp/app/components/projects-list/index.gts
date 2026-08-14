@@ -3,7 +3,7 @@ import {LinkTo} from '@ember/routing';
 import Item from 'accent-webapp/components/projects-list/item/index';
 import EmptyContent from 'accent-webapp/components/empty-content/index';
 import t from 'ember-intl/helpers/t';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import EmptySvg from 'accent-webapp/svgs/assets/empty.svg';
 import {get} from '@ember/helper';
 
 interface Args {
@@ -25,28 +25,67 @@ export default class ProjectsList extends Component<Args> {
             <Item @project={{project}} />
           </LinkTo>
         </li>
-      {{else}}{{#if @query}}
-          <EmptyContent
-            @iconPath='assets/empty.svg'
-            @center={{true}}
-            @text={{t
-              'components.projects_list.no_projects_query'
-              query=@query
-            }}
-          />
-        {{else}}
-          <EmptyContent @center={{true}}>
-            {{inlineSvg 'assets/empty.svg' class='icon'}}
-            {{t 'components.projects_list.no_projects'}}
-            {{#if (get @permissions 'createProject')}}
-              <div class='link-section'>
-                <LinkTo @route='logged-in.projects.new' class='link'>
-                  {{t 'components.projects_list.maybe_create_one'}}
-                </LinkTo>
-              </div>
-            {{/if}}
-          </EmptyContent>
-        {{/if}}{{/each}}
+      {{else if @query}}
+        <EmptyContent
+          @icon={{EmptySvg}}
+          @center={{true}}
+          @text={{t 'components.projects_list.no_projects_query' query=@query}}
+        />
+      {{else}}
+        <EmptyContent @center={{true}}>
+          <EmptySvg class='icon' />
+          {{t 'components.projects_list.no_projects'}}
+          {{#if (get @permissions 'createProject')}}
+            <div class='link-section'>
+              <LinkTo @route='logged-in.projects.new' class='link'>
+                {{t 'components.projects_list.maybe_create_one'}}
+              </LinkTo>
+            </div>
+          {{/if}}
+        </EmptyContent>
+      {{/each}}
     </ul>
+
+    <style scoped>
+      .projects-list {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 10px;
+        margin: 10px auto 0;
+        max-width: var(--screen-lg);
+        position: relative;
+      }
+
+      .item {
+        flex: 1 1 calc(33.3% - 10px);
+        max-width: 33.3%;
+      }
+
+      .item-link {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        margin: 0 10px 20px;
+        transition: 0.2s ease-in-out;
+        transition-property: background;
+      }
+      .item-link:focus {
+        background: var(--background-light);
+      }
+
+      @media (max-width: 640px) {
+        .item {
+          max-width: none;
+          width: 100%;
+          flex: 1 1 auto;
+        }
+        .item-link {
+          margin-bottom: 10px;
+        }
+        .projects-list {
+          padding: 0;
+        }
+      }
+    </style>
   </template>
 }

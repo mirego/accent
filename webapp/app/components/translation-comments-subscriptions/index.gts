@@ -25,6 +25,35 @@ export default class TranslationCommentsSubscriptions extends Component<Args> {
         />
       {{/each}}
     </ul>
+
+    <style scoped>
+      .translation-comments-subscriptions {
+        padding: 5px 0 20px 20px;
+        border-left: 1px solid var(--background-light-highlight);
+      }
+
+      .title {
+        display: block;
+        padding: 0 0 5px;
+        margin: 0 0 2px;
+        font-size: 11px;
+        font-weight: bold;
+        font-style: normal;
+        color: var(--color-black);
+      }
+
+      @media (max-width: 640px) {
+        .translation-comments-subscriptions {
+          padding-left: 0;
+          padding-top: 10px;
+          border-top: 1px solid var(--background-light-highlight);
+          border-left: 0;
+        }
+        .title {
+          font-size: 14px;
+        }
+      }
+    </style>
   </template>
   get filteredCollaborators() {
     return this.args.collaborators

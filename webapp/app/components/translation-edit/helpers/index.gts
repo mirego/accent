@@ -32,6 +32,14 @@ export default class TranslationEditHelpers extends Component<Args> {
         />
       {{/if}}
     </div>
+
+    <style scoped>
+      .root {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+    </style>
   </template>
   get machineTranslationLanguages() {
     if (!this.args.revisions) return [];

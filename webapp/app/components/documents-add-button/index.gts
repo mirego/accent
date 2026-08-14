@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import {LinkTo} from '@ember/routing';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import AddSvg from 'accent-webapp/svgs/assets/add.svg';
 import t from 'ember-intl/helpers/t';
 
 interface Args {
@@ -14,7 +14,7 @@ export default class DocumentsAddButton extends Component<Args> {
       @model={{@project.id}}
       class='button button--primary button--xl button--highlight'
     >
-      {{inlineSvg '/assets/add.svg' class='button-icon'}}
+      <AddSvg class='button-icon' />
       {{t 'components.documents_add_button.link'}}
     </LinkTo>
   </template>

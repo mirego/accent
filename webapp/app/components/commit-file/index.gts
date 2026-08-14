@@ -6,14 +6,15 @@ import IntlService from 'ember-intl/services/intl';
 import GlobalState from 'accent-webapp/services/global-state';
 import {tracked} from '@glimmer/tracking';
 import t from 'ember-intl/helpers/t';
-import {htmlSafe} from '@ember/template';
 import AccSelect from 'accent-webapp/components/acc-select/index';
 import {fn, get, concat} from '@ember/helper';
 import {Input} from '@ember/component';
 import {on} from '@ember/modifier';
 import AsyncButton from 'accent-webapp/components/async-button/index';
 import FileInput from 'accent-webapp/components/file-input/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import FolderSvg from 'accent-webapp/svgs/assets/folder.svg';
+import ImportSvg from 'accent-webapp/svgs/assets/import.svg';
+import CommitFileInstructions from 'accent-webapp/components/commit-file-instructions/index';
 import {scopedClass} from 'ember-scoped-css';
 
 const DEFAULT_PROPERTIES = {
@@ -247,10 +248,7 @@ export default class CommitFile extends Component<Args> {
             />
 
             <strong class='fileInputTitle'>
-              {{inlineSvg
-                '/assets/folder.svg'
-                class=(scopedClass 'fileInputIcon')
-              }}
+              <FolderSvg class={{scopedClass 'fileInputIcon'}} />
               {{t 'components.commit_file.upload_title'}}
             </strong>
 
@@ -259,59 +257,206 @@ export default class CommitFile extends Component<Args> {
             </p>
 
             <label for='file-input' class='button button--filled fileButton'>
-              {{inlineSvg
-                '/assets/import.svg'
-                class=(concat
-                  'button-icon' ' ' (scopedClass 'local-button-icon')
-                )
-              }}
+              <ImportSvg
+                class={{concat
+                  'button-icon'
+                  ' '
+                  (scopedClass 'local-button-icon')
+                }}
+              />
               {{t 'components.commit_file.file_input_button'}}
             </label>
           </div>
 
-          <div>
-            <a
-              rel='noopener noreferrer'
-              href='https://www.accent.reviews/guides/glossary.html#sync'
-              target='_blank'
-              class='instructions-title'
-            >
-              {{t 'components.commit_file.instructions.sync.title'}}
-            </a>
-            <p class='instructions-text'>
-              {{htmlSafe (t 'components.commit_file.instructions.sync.text')}}
-            </p>
-
-            <a
-              rel='noopener noreferrer'
-              href='https://www.accent.reviews/guides/glossary.html#add-translations'
-              target='_blank'
-              class='instructions-title'
-            >
-              {{t 'components.commit_file.instructions.merge.title'}}
-            </a>
-            <p class='instructions-text'>
-              {{htmlSafe (t 'components.commit_file.instructions.merge.text')}}
-            </p>
-
-            <h3 class='instructions-title'>
-              {{t 'components.commit_file.instructions.mistakes.title'}}
-            </h3>
-            <ul class='instructions-list'>
-              <li class='instructions-list-item'>{{t
-                  'components.commit_file.instructions.mistakes.item_1'
-                }}</li>
-              <li class='instructions-list-item'>{{t
-                  'components.commit_file.instructions.mistakes.item_2'
-                }}</li>
-              <li class='instructions-list-item'>{{t
-                  'components.commit_file.instructions.mistakes.item_3'
-                }}</li>
-            </ul>
-          </div>
+          <CommitFileInstructions />
         </div>
       {{/if}}
     </div>
+
+    <style scoped>
+      .fileSourceName,
+      .commit-file :global(.textInput) {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .fileSourceName::-moz-selection,
+      .commit-file :global(.textInput)::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .fileSourceName::selection,
+      .commit-file :global(.textInput)::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .fileSourceName:focus,
+      .commit-file :focus:global(.textInput) {
+        border: 2px solid var(--color-primary);
+      }
+      .fileSourceName:disabled,
+      .commit-file :disabled:global(.textInput) {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .fileSourceName,
+        .commit-file :global(.textInput) {
+          font-size: 16px !important;
+        }
+      }
+      .commit-file :global(.textInput) {
+        margin-bottom: 8px;
+        padding: 5px;
+        outline: 0;
+        background: #fff;
+        font-family: var(--font-monospace);
+        font-size: 12px;
+      }
+      .commit-file :global(.ember-power-select-trigger) {
+        padding: 6px 10px;
+        border: 1px solid var(--background-light-highlight);
+        background: var(--background-light);
+        color: var(--color-black-opacity-70);
+      }
+
+      .textHelper {
+        margin-bottom: 3px;
+        width: 80%;
+        color: var(--color-grey);
+        font-size: 12px;
+      }
+
+      .documentHelper {
+        display: inline-block;
+        margin-bottom: 7px;
+        padding: 2px 0 3px;
+        border-radius: var(--border-radius);
+        color: var(--color-primary);
+        font-size: 11px;
+      }
+      .documentHelper.documentHelper--new {
+        color: var(--color-green);
+      }
+
+      .options {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        font-size: 13px;
+      }
+      .options .option {
+        padding-top: 0;
+      }
+
+      .option {
+        flex: 1 1 auto;
+        width: 100%;
+        padding: 9px 0;
+        margin: 0;
+      }
+      .option.option--borderless {
+        border-bottom: 0;
+      }
+      .option.option--borderless:first-of-type {
+        margin-right: 10px;
+      }
+
+      .optionLabel {
+        display: flex;
+        font-size: 12px;
+      }
+
+      .optionLabelText {
+        margin-left: 5px;
+      }
+
+      .actions {
+        margin-top: 15px;
+      }
+
+      .fileInput {
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .fileInputIcon {
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+        stroke: var(--color-black);
+        stroke: var(--color-black);
+      }
+
+      .fileInputTitle {
+        display: flex;
+        align-items: center;
+        margin: 0 0 6px;
+        color: var(--color-black);
+        color: var(--color-black);
+      }
+
+      .fileInputHelper {
+        max-width: 300px;
+        margin: 0 0 10px;
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--color-black-opacity-70);
+      }
+
+      .fileButton {
+        align-self: center !important;
+        margin-top: 7px !important;
+        padding: 9px 30px !important;
+      }
+      .fileButton .local-button-icon {
+        margin-right: 10px !important;
+      }
+
+      .emptyFile {
+        display: flex;
+      }
+      .emptyFile:global(> div:first-of-type) {
+        width: 35%;
+        flex-shrink: 0;
+      }
+
+      .emptyFile-upload {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .peekButton {
+        margin-top: 7px !important;
+      }
+
+      .errorMessage {
+        margin: 10px 0;
+        color: var(--color-error);
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .fileSourceName {
+        padding: 6px 10px;
+        font-size: 12px;
+        font-family: var(--font-monospace);
+        color: #444;
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;
@@ -409,14 +554,14 @@ export default class CommitFile extends Component<Args> {
 
   get mappedMergeTypes() {
     return this.mergeTypes.map((name) => ({
-      label: name,
+      label: this.intl.t(`components.commit_file.commit_types.${name}`),
       value: name
     }));
   }
 
   get mappedSyncTypes() {
     return this.syncTypes.map((name) => ({
-      label: name,
+      label: this.intl.t(`components.commit_file.commit_types.${name}`),
       value: name
     }));
   }

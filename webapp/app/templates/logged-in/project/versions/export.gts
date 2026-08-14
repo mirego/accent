@@ -4,7 +4,8 @@ import AccModal from 'accent-webapp/components/acc-modal/index';
 import {fn} from '@ember/helper';
 import ProjectFileOperation from 'accent-webapp/components/project-file-operation/index';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import EmptySvg from 'accent-webapp/svgs/assets/empty.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import RevisionExportOptions from 'accent-webapp/components/revision-export-options/index';
 import AsyncButton from 'accent-webapp/components/async-button/index';
 import t from 'ember-intl/helpers/t';
@@ -17,7 +18,7 @@ export default RouteTemplate<RouteTemplateSignature>(
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>
           <div class='closeButton-content'>
-            {{inlineSvg '/assets/x.svg' class='closeButton-icon'}}
+            <XSvg class='closeButton-icon' />
           </div>
         </button>
 
@@ -64,9 +65,9 @@ export default RouteTemplate<RouteTemplateSignature>(
         {{else}}
           <EmptyContent
             @text={{t 'pods.project.versions.export.empty_documents'}}
-            @iconPath='assets/empty.svg'
+            @icon={{EmptySvg}}
             @center={{true}}
-            @background={{'transparent'}}
+            @background='transparent'
           />
         {{/if}}
 

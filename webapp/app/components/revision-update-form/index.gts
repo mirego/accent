@@ -65,6 +65,86 @@ export default class RevisionUpdateForm extends Component<Args> {
         </div>
       </form>
     </div>
+
+    <style scoped>
+      .textInput {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .textInput::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .textInput:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .textInput {
+          font-size: 16px !important;
+        }
+      }
+      .revision-update-form {
+        padding: 20px;
+        background: var(--content-background);
+      }
+
+      .title {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 27px;
+        font-weight: 300;
+        color: var(--color-primary);
+      }
+
+      .textInput {
+        padding: 10px;
+        width: 100%;
+        font-size: 12px;
+        font-family: var(--font-primary);
+      }
+
+      .errors {
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+      }
+
+      .error {
+        margin-bottom: 5px;
+        color: var(--color-error);
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .formItem {
+        margin-bottom: 20px;
+      }
+
+      .formItem-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+
+      .formActions {
+        padding-top: 10px;
+      }
+    </style>
   </template>
   @tracked
   name = this.args.revision.name;

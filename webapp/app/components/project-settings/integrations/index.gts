@@ -4,7 +4,10 @@ import {action} from '@ember/object';
 import Form from 'accent-webapp/components/project-settings/integrations/form/index';
 import {fn} from '@ember/helper';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ServicesAwsS3Svg from 'accent-webapp/svgs/assets/services/aws-s3.svg';
+import ServicesAzureSvg from 'accent-webapp/svgs/assets/services/azure.svg';
+import ServicesDiscordSvg from 'accent-webapp/svgs/assets/services/discord.svg';
+import ServicesSlackSvg from 'accent-webapp/svgs/assets/services/slack.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import List from 'accent-webapp/components/project-settings/integrations/list/index';
@@ -39,10 +42,7 @@ export default class Integrations extends Component<Args> {
             class='empty-description-item'
             {{on 'click' (fn this.toggleCreateForm 'AZURE_STORAGE_CONTAINER')}}
           >
-            {{inlineSvg
-              'assets/services/azure.svg'
-              class=(scopedClass 'empty-description-icon')
-            }}
+            <ServicesAzureSvg class={{scopedClass 'empty-description-icon'}} />
             <strong>{{t
                 'components.project_settings.integrations.empty_description.azure_storage_container.title'
               }}</strong>
@@ -55,10 +55,7 @@ export default class Integrations extends Component<Args> {
             class='empty-description-item'
             {{on 'click' (fn this.toggleCreateForm 'AWS_S3')}}
           >
-            {{inlineSvg
-              'assets/services/aws-s3.svg'
-              class=(scopedClass 'empty-description-icon')
-            }}
+            <ServicesAwsS3Svg class={{scopedClass 'empty-description-icon'}} />
             <strong>{{t
                 'components.project_settings.integrations.empty_description.aws_s3.title'
               }}</strong>
@@ -71,10 +68,7 @@ export default class Integrations extends Component<Args> {
             class='empty-description-item'
             {{on 'click' (fn this.toggleCreateForm 'SLACK')}}
           >
-            {{inlineSvg
-              'assets/services/slack.svg'
-              class=(scopedClass 'empty-description-icon')
-            }}
+            <ServicesSlackSvg class={{scopedClass 'empty-description-icon'}} />
             <strong>{{t
                 'components.project_settings.integrations.empty_description.slack.title'
               }}</strong>
@@ -87,10 +81,9 @@ export default class Integrations extends Component<Args> {
             class='empty-description-item'
             {{on 'click' (fn this.toggleCreateForm 'DISCORD')}}
           >
-            {{inlineSvg
-              'assets/services/discord.svg'
-              class=(scopedClass 'empty-description-icon')
-            }}
+            <ServicesDiscordSvg
+              class={{scopedClass 'empty-description-icon'}}
+            />
             <strong>{{t
                 'components.project_settings.integrations.empty_description.discord.title'
               }}</strong>
@@ -109,6 +102,80 @@ export default class Integrations extends Component<Args> {
         @onDelete={{@onDeleteIntegration}}
       />
     </div>
+
+    <style scoped>
+      .project-settings-integrations {
+        position: relative;
+        margin-top: 30px;
+      }
+
+      .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--background-light);
+        padding-bottom: 6px;
+        margin-bottom: 6px;
+        color: var(--color-grey);
+        font-weight: bold;
+        font-size: 17px;
+      }
+
+      .empty-description {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 30px;
+        margin-top: 20px;
+      }
+
+      .empty-description-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border: 1px solid var(--background-light-highlight);
+        background: var(--background-light);
+        color: var(--text-color-normal);
+        border-radius: var(--border-radius);
+        padding: 20px 30px;
+        gap: 2px;
+        transition: 0.2s ease-in-out;
+        transition-property: box-shadow;
+        line-height: 1.4;
+      }
+      .empty-description-item strong {
+        display: block;
+      }
+      .empty-description-item p {
+        font-size: 12px;
+        margin-top: 2px;
+      }
+      .empty-description-item:focus,
+      .empty-description-item:hover {
+        box-shadow:
+          0 1px 6px var(--shadow-color),
+          0 2px 19px var(--shadow-color);
+      }
+
+      .empty-description-icon {
+        width: 50px;
+        height: 50px;
+        margin: 10px;
+      }
+
+      @media (max-width: 1140px) {
+        .empty-description {
+          grid-template-columns: 1fr 1fr;
+          gap: 15px;
+        }
+      }
+      @media (max-width: 540px) {
+        .empty-description {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+      }
+    </style>
   </template>
   @tracked
   selectedServiceValue: string | null;

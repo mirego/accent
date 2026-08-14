@@ -13,4 +13,10 @@ import Content from 'accent-webapp/components/skeleton-ui/content/index';
       </Content>
     {{/each}}
   </SkeletonUi>
+
+  <style scoped>
+    .skeleton {
+      padding: 15px 0;
+    }
+  </style>
 </template>

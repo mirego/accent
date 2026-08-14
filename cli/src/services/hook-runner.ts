@@ -41,5 +41,4 @@ export default class HookRunner {
 
     return this.document.refreshPaths();
   }
-  /* eslint-disable @typescript-eslint/require-await */
 }

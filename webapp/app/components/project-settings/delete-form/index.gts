@@ -43,6 +43,45 @@ export default class DeleteForm extends Component<Args> {
         </div>
       </div>
     </div>
+
+    <style scoped>
+      .project-settings-delete-form {
+        margin-top: 90px;
+      }
+
+      .title {
+        display: block;
+        width: 100%;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--content-background-border);
+        font-size: 19px;
+        color: var(--color-error);
+      }
+
+      .zone {
+        margin-top: 12px;
+        padding: 10px;
+        border-radius: var(--border-radius);
+        background: var(--background-light);
+        color: var(--color-error);
+      }
+
+      .zone-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .zone-title {
+        font-size: 13px;
+      }
+
+      .zone-text {
+        font-size: 12px;
+        font-style: italic;
+        opacity: 0.5;
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

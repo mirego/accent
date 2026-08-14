@@ -77,7 +77,11 @@ build-language-tool:
 # ----------
 
 .PHONY: lint
-lint: lint-compile lint-format lint-credo lint-eslint lint-prettier ## Run lint tools on the code
+lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-template-hbs
+
+.PHONY: lint-template-hbs
+lint-template-hbs:
+	npx ember-template-lint 'webapp/app/**/*.gts' --config-path './webapp/.template-lintrc'
 
 .PHONY: lint-compile
 lint-compile:
@@ -93,7 +97,7 @@ lint-credo:
 
 .PHONY: lint-eslint
 lint-eslint:
-	npx eslint --ext .js,.ts ./webapp/app ./cli ./jipt
+	npx eslint ./webapp/app ./cli ./jipt
 
 .PHONY: lint-prettier
 lint-prettier:

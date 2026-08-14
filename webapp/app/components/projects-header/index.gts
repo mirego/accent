@@ -6,7 +6,8 @@ import RouterService from '@ember/routing/router-service';
 import GlobalState from 'accent-webapp/services/global-state';
 import {tracked} from '@glimmer/tracking';
 import {timeout, restartableTask} from 'ember-concurrency';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import LogoSvg from 'accent-webapp/svgs/assets/logo.svg';
+import SearchSvg from 'accent-webapp/svgs/assets/search.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import {on} from '@ember/modifier';
@@ -26,10 +27,7 @@ export default class ProjectsHeader extends Component<Args> {
       <div class='content'>
         <div class='content-left'>
           <div class='applicationLogo'>
-            {{inlineSvg
-              'assets/logo.svg'
-              class=(scopedClass 'applicationLogo-image')
-            }}
+            <LogoSvg class={{scopedClass 'applicationLogo-image'}} />
             <span class='applicationLogo-accent'>
               {{t 'general.application_name'}}
             </span>
@@ -39,10 +37,7 @@ export default class ProjectsHeader extends Component<Args> {
         {{#if @project}}
           <div class='content-center'>
             <div class='search'>
-              {{inlineSvg
-                '/assets/search.svg'
-                class=(scopedClass 'search-icon')
-              }}
+              <SearchSvg class={{scopedClass 'search-icon'}} />
               <input
                 type='text'
                 placeholder={{t 'general.search_input_placeholder_text'}}
@@ -79,6 +74,116 @@ export default class ProjectsHeader extends Component<Args> {
         {{/if}}
       </div>
     </header>
+
+    <style scoped>
+      .projects-header {
+        padding: 20px 0 0;
+      }
+
+      .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 auto;
+        max-width: var(--screen-lg);
+        padding: 0 15px 0 20px;
+        width: 100%;
+      }
+
+      .content-right,
+      .content-left {
+        display: flex;
+        align-items: center;
+      }
+
+      .applicationLogo {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .link.active .link-image:focus,
+      .link.active .link-image:hover {
+        transform: rotate(0);
+      }
+
+      .applicationLogo-back,
+      .applicationLogo-image {
+        display: block;
+        transition: 0.7s ease-in-out;
+        transition-property: transform;
+        width: 25px;
+        height: 25px;
+        text-decoration: none;
+      }
+
+      .applicationLogo-back {
+        color: #bbb;
+      }
+      .applicationLogo-back:focus,
+      .applicationLogo-back:hover {
+        opacity: 0.8;
+      }
+
+      .applicationLogo-accent,
+      .applicationLogo-name {
+        margin-left: 15px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--color-black);
+      }
+
+      .picture {
+        width: 18px;
+        height: 18px;
+        margin-right: 4px;
+        border-radius: var(--border-radius);
+      }
+
+      .username {
+        opacity: 0.5;
+        margin-right: 15px;
+        font-size: 12px;
+      }
+
+      @media (max-width: 640px) {
+        .projects-header {
+          padding: 10px 0;
+          margin-bottom: 10px;
+        }
+        .projects-header .content {
+          padding: 0 10px;
+        }
+      }
+      @media (max-width: 440px) {
+        .applicationLogo-image {
+          width: 18px;
+          height: 18px;
+        }
+        .username {
+          font-size: 11px;
+        }
+        :global(.button) {
+          padding: 3px 7px 4px;
+          font-size: 11px;
+        }
+        .applicationLogo-name {
+          display: none;
+        }
+        .project-logo {
+          display: none;
+        }
+        .projects-header.withProject,
+        .projects-header {
+          padding-top: 20px;
+        }
+        .projects-header.withProject .content,
+        .projects-header .content {
+          padding: 0 12px;
+        }
+      }
+    </style>
   </template>
   @service('session')
   declare session: Session;

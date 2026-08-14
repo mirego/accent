@@ -13,7 +13,8 @@ import {fn, get, array} from '@ember/helper';
 import t from 'ember-intl/helpers/t';
 import TimeAgoInWordsTag from 'accent-webapp/components/time-ago-in-words-tag/index';
 import AsyncButton from 'accent-webapp/components/async-button/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import CheckSvg from 'accent-webapp/svgs/assets/check.svg';
+import RevertSvg from 'accent-webapp/svgs/assets/revert.svg';
 import arrayIncludes from 'accent-webapp/helpers/array-includes';
 import {on} from '@ember/modifier';
 import {scopedClass} from 'ember-scoped-css';
@@ -104,7 +105,7 @@ export default class ProjectActivity extends Component<Args> {
               @loading={{this.isRollbacking}}
               class='button button--red button--borderless rollbackButton'
             >
-              {{inlineSvg '/assets/revert.svg' class='button-icon'}}
+              <RevertSvg class='button-icon' />
               {{t 'components.project_activity.rollback'}}
             </AsyncButton>
           {{/if}}
@@ -140,10 +141,7 @@ export default class ProjectActivity extends Component<Args> {
                         }}'
                     >
                       {{#if (arrayIncludes this.selectedActions stat.action)}}
-                        {{inlineSvg
-                          '/assets/check.svg'
-                          class=(scopedClass 'stats-checkbox-icon')
-                        }}
+                        <CheckSvg class={{scopedClass 'stats-checkbox-icon'}} />
                       {{/if}}
                     </span>
                   {{/if}}
@@ -356,6 +354,288 @@ export default class ProjectActivity extends Component<Args> {
         {{/if}}
       </div>
     </div>
+
+    <style scoped>
+      .activity-title {
+        font-size: 19px;
+        color: var(--color-black);
+      }
+
+      .activity-title-author {
+        font-weight: bold;
+        color: var(--color-black);
+      }
+
+      .activity-explanation {
+        padding: 10px 12px;
+        margin: 0 0 20px;
+        font-weight: 300;
+        font-size: 13px;
+        border-radius: var(--border-radius);
+        background: hsl(
+          var(--color-blue-hue),
+          var(--color-blue-saturation),
+          var(--color-highlight-lighteness)
+        );
+        color: var(--color-blue);
+      }
+
+      .activity-explanation-label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .activity-date {
+        display: block;
+        font-size: 12px;
+        font-style: italic;
+        color: #aaa;
+      }
+
+      .activity-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .activity-meta-info {
+        display: flex;
+        align-items: baseline;
+      }
+
+      .activity-git-branch {
+        display: inline-flex;
+        align-items: baseline;
+        margin-left: 10px;
+        font-size: 10px;
+      }
+
+      .activity-git-branch-label {
+        color: #aaa;
+      }
+
+      .activity-git-branch-value {
+        margin-left: 5px;
+        padding: 1px 5px;
+        font-family: monospace;
+        color: #555;
+        background: #f0f0f0;
+        border-radius: 3px;
+      }
+
+      .rollbackButton {
+        font-size: 13px !important;
+        margin-left: 10px !important;
+      }
+
+      .details {
+        display: flex;
+      }
+
+      .details-states {
+        flex: 1 1 auto;
+        width: 45%;
+      }
+
+      .details-associations {
+        flex: 1 1 auto;
+        width: 55%;
+      }
+
+      .details-label {
+        display: block;
+        margin-bottom: 15px;
+        font-size: 15px;
+        color: var(--color-primary);
+      }
+
+      .details-associations-pagination {
+        border-top: 1px solid var(--content-background-border);
+      }
+
+      .stats,
+      .details-associations,
+      .translation-state {
+        margin-top: 20px;
+      }
+
+      .translation-state-items {
+        margin-right: 20px;
+        border: 1px solid var(--content-background-border);
+        padding: 10px;
+        border-radius: var(--border-radius);
+        background: var(--content-background);
+      }
+
+      .stats-items {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+        padding: 10px 6px;
+        background: var(--content-background);
+        box-shadow:
+          0 1px 2px var(--shadow-color),
+          0 5px 10px var(--shadow-color);
+        border-radius: var(--border-radius);
+      }
+
+      .translation-state-item,
+      .stats-item {
+        border-bottom: 1px solid var(--background-light-highlight);
+        font-size: 14px;
+      }
+
+      .stats-item--clickable {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        background: none;
+        border: none;
+        border-bottom: 1px solid var(--background-light-highlight);
+        cursor: pointer;
+        text-align: left;
+        font-size: 14px;
+        padding: 7px 10px;
+        border-radius: 3px;
+        transition: 0.15s ease-in-out;
+        transition-property: background, color;
+        color: inherit;
+      }
+      .stats-item--clickable:last-of-type {
+        border-bottom: 0;
+        margin-bottom: 0;
+      }
+      .stats-item--clickable:hover {
+        background: color-mix(in srgb, var(--color-primary) 20%, transparent);
+      }
+
+      .stats-item--selected {
+        color: var(--color-primary);
+      }
+
+      .stats-checkbox {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        border: 2px solid var(--color-black);
+        border-radius: 3px;
+        opacity: 0.4;
+      }
+
+      .stats-checkbox--checked {
+        border-color: var(--color-primary);
+        background: var(--color-primary);
+        opacity: 1;
+      }
+
+      .stats-checkbox-icon {
+        width: 12px;
+        height: 12px;
+        color: white;
+      }
+
+      .translation-state-item {
+        margin-bottom: 5px;
+      }
+
+      .translation-state-label {
+        color: var(--color-black);
+      }
+
+      .translation-state-key,
+      .translation-state-document,
+      .translation-state-reviewed,
+      .translation-state-value {
+        padding: 5px 0;
+      }
+
+      .translation-state-key {
+        display: block;
+        font-family: var(--font-monospace);
+        word-break: break-all;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 12px;
+        transition: 0.2s ease-in-out;
+        transition-property: color;
+        color: var(--color-primary);
+      }
+      .translation-state-key:focus,
+      .translation-state-key:hover {
+        color: color-mix(in srgb, var(--color-primary) 90%, black);
+      }
+
+      .translation-state-key-prefix {
+        display: block;
+        font-size: 11px;
+        color: var(--color-black);
+        font-weight: 300;
+      }
+
+      .translation-state-document {
+        display: block;
+        font-size: 12px;
+        color: var(--color-black);
+      }
+
+      .translation-state-reviewed {
+        display: block;
+        font-size: 12px;
+      }
+
+      .translation-state-value {
+        display: block;
+        white-space: pre-wrap;
+        font-size: 13px;
+        color: var(--color-black);
+      }
+
+      .translation-state-value--empty {
+        font-style: italic;
+        font-size: 12px;
+      }
+
+      .rollbackedBadge {
+        display: inline-block;
+        margin-left: 7px;
+        font-size: 12px;
+        font-style: italic;
+        color: var(--color-error);
+      }
+
+      .translation-state-label {
+        font-size: 12px;
+      }
+
+      .translation-state-value {
+        display: block;
+        font-weight: 400;
+      }
+
+      .textDiff {
+        white-space: pre-wrap;
+      }
+
+      @media (max-width: 640px) {
+        .details {
+          flex-direction: column;
+        }
+        .translation-state-items,
+        .stats-items {
+          margin-right: 0;
+        }
+        .details-states,
+        .details-associations {
+          width: 100%;
+        }
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

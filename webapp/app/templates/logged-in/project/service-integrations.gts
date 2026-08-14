@@ -1,7 +1,7 @@
 import RouteTemplate from 'ember-route-template';
 import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-signature';
 import PageTitle from 'accent-webapp/components/page-title/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ShareSvg from 'accent-webapp/svgs/assets/share.svg';
 import t from 'ember-intl/helpers/t';
 import End from 'accent-webapp/components/page-title/end/index';
 import {get, fn} from '@ember/helper';
@@ -11,7 +11,7 @@ import Integrations from 'accent-webapp/components/project-settings/integrations
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
     <PageTitle>
-      {{inlineSvg '/assets/share.svg'}}
+      <ShareSvg />
       <h1>{{t 'components.page_title.service_integrations'}}</h1>
       <End>
         {{#if (get @controller.permissions 'createProjectIntegration')}}

@@ -7,7 +7,8 @@ import {tracked} from '@glimmer/tracking';
 import {timeout, restartableTask} from 'ember-concurrency';
 import {on} from '@ember/modifier';
 import {fn} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import FilterSvg from 'accent-webapp/svgs/assets/filter.svg';
+import SearchSvg from 'accent-webapp/svgs/assets/search.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
@@ -51,10 +52,7 @@ export default class TranslationsFilter extends Component<Args> {
             <div class='queryForm local-queryForm'>
               <div class='queryForm-search'>
 
-                {{inlineSvg
-                  '/assets/search.svg'
-                  class=(scopedClass 'search-icon')
-                }}
+                <SearchSvg class={{scopedClass 'search-icon'}} />
 
                 <input
                   type='text'
@@ -71,10 +69,11 @@ export default class TranslationsFilter extends Component<Args> {
 
               {{#if @onChangeAdvancedFilterBoolean}}
                 <button
+                  type='button'
                   {{on 'click' (fn this.toggleAdvancedFilters)}}
                   class='button button--filled button--white advancedFilters'
                 >
-                  {{inlineSvg 'assets/filter.svg' class='button-icon'}}
+                  <FilterSvg class='button-icon' />
                   {{t 'components.translations_filter.advanced_filters_button'}}
 
                   {{#if @withAdvancedFilters}}
@@ -134,6 +133,112 @@ export default class TranslationsFilter extends Component<Args> {
         </form>
       </div>
     </div>
+
+    <style scoped>
+      .input {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .input::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .input::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .input:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .input:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .input {
+          font-size: 16px !important;
+        }
+      }
+      .local-filters-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .local-queryForm {
+        position: relative;
+      }
+
+      .queryForm-search {
+        width: 100%;
+        position: relative;
+      }
+
+      .search-icon {
+        position: absolute;
+        top: 50%;
+        margin-top: -10px;
+        left: 7px;
+        width: 20px;
+        height: 20px;
+        stroke: var(--input-border-color);
+      }
+
+      .input {
+        width: 100%;
+        padding: 7px 7px 7px 30px;
+        font-family: var(--font-primary);
+        font-size: 14px;
+        color: var(--color-black);
+      }
+      .input:focus {
+        box-shadow:
+          inset 0 1px 2px rgba(0, 0, 0, 0.1),
+          0 1px 2px var(--shadow-color);
+      }
+      .input::placeholder {
+        color: var(--color-grey);
+      }
+
+      button.advancedFilters {
+        position: relative;
+        box-shadow: none;
+        flex-shrink: 0;
+      }
+      button.advancedFilters:focus,
+      button.advancedFilters:hover {
+        transform: translate3d(0, 0, 0);
+      }
+
+      .advancedFilters-badge {
+        position: absolute;
+        top: -4px;
+        right: -7px;
+        background: var(--color-primary);
+        border-radius: var(--border-radius);
+        padding: 0 4px 1px;
+        color: #fff;
+        font-size: 10px;
+      }
+
+      @media (max-width: 440px) {
+        .local-filters-wrapper {
+          flex-direction: column;
+        }
+        .local-queryForm,
+        .local-filters-content {
+          width: 100%;
+        }
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

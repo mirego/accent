@@ -10,7 +10,8 @@ import Helpers from 'accent-webapp/components/translation-edit/helpers/index';
 import {LinkTo} from '@ember/routing';
 import t from 'ember-intl/helpers/t';
 import AsyncButton from 'accent-webapp/components/async-button/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import CheckSvg from 'accent-webapp/svgs/assets/check.svg';
+import RevertSvg from 'accent-webapp/svgs/assets/revert.svg';
 
 interface Args {
   translation: any;
@@ -92,7 +93,7 @@ export default class TranslationEdit extends Component<Args> {
                   @onClick={{fn this.setOriginalText}}
                   class='button button--iconOnly button--white actions-button-revert'
                 >
-                  {{inlineSvg '/assets/revert.svg' class='button-icon'}}
+                  <RevertSvg class='button-icon' />
                 </AsyncButton>
               {{/unless}}
 
@@ -112,7 +113,7 @@ export default class TranslationEdit extends Component<Args> {
                     class='button button--filled'
                     @onClick={{fn this.correctConflict}}
                   >
-                    {{inlineSvg '/assets/check.svg' class='button-icon'}}
+                    <CheckSvg class='button-icon' />
                     {{t 'components.translation_edit.correct_button'}}
                   </AsyncButton>
                 {{/if}}
@@ -124,7 +125,7 @@ export default class TranslationEdit extends Component<Args> {
                     class='button button--filled button--red'
                     @onClick={{fn this.uncorrectConflict}}
                   >
-                    {{inlineSvg '/assets/revert.svg' class='button-icon'}}
+                    <RevertSvg class='button-icon' />
                     {{t 'components.translation_edit.uncorrect_button'}}
                   </AsyncButton>
                 {{/if}}
@@ -134,6 +135,100 @@ export default class TranslationEdit extends Component<Args> {
         {{/unless}}
       {{/if}}
     </div>
+
+    <style scoped>
+      .translation-edit {
+        width: 100%;
+      }
+
+      .jipt {
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+
+      .previousText {
+        margin-bottom: 15px;
+        color: var(--color-grey);
+        font-size: 12px;
+      }
+
+      .previousText-label {
+        color: var(--color-gray);
+        font-weight: bold;
+      }
+
+      .previousText-empty {
+        font-style: italic;
+      }
+
+      .previousText-text {
+        white-space: pre-wrap;
+        font-size: 11px;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 15px;
+      }
+
+      .form {
+        position: relative;
+      }
+
+      .form-improve[data-rtl] {
+        left: 6px;
+        right: auto;
+      }
+
+      .form-improve {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+      }
+
+      .actions-link {
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        font-weight: bold;
+        text-decoration: none;
+        color: var(--color-primary);
+        transition: 0.2s ease-in-out;
+        transition-property: color, opacity;
+      }
+      .actions-link:focus,
+      .actions-link:hover {
+        opacity: 0.7;
+      }
+
+      .actions-link-icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 3px;
+        stroke: var(--color-primary);
+        transition: 0.2s ease-in-out;
+        transition-property: stroke;
+      }
+
+      .actions-buttons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+      .actions-buttons > :global(.button) {
+        margin-left: 10px;
+      }
+
+      .actions-button-revert {
+        opacity: 0.6;
+      }
+      .actions-button-revert :global(.label) {
+        padding: 3px 2px;
+      }
+    </style>
   </template>
   @tracked
   isCorrectingConflict = false;

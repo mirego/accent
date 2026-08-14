@@ -5,12 +5,12 @@ import GlobalState from 'accent-webapp/services/global-state';
 import FlashMessages from 'ember-cli-flash/services/flash-messages';
 import IntlService from 'ember-intl/services/intl';
 import {tracked} from '@glimmer/tracking';
-import {get, fn, concat} from '@ember/helper';
+import {get, fn} from '@ember/helper';
 import onKey from 'ember-keyboard/modifiers/on-key';
 import {on} from '@ember/modifier';
 import AccEmojiPicker from 'accent-webapp/components/acc-emoji-picker/index';
 import ProjectLogo from 'accent-webapp/components/project-logo/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import {scopedClass} from 'ember-scoped-css';
 import AsyncButton from 'accent-webapp/components/async-button/index';
 import t from 'ember-intl/helpers/t';
@@ -35,21 +35,34 @@ export default class ProjectSettingsForm extends Component<Args> {
   <template>
     <div class='project-settings-form'>
       {{#if (get @permissions 'updateProject')}}
-        <div class='field'>
+        <label class='field'>
+          <span class='label'>{{t
+              'components.project_settings.form.name_label'
+            }}</span>
           <input
             value={{this.name}}
             class='textInput'
             {{onKey 'cmd+Enter' (fn this.updateProject)}}
             {{on 'input' (fn this.setName)}}
           />
+        </label>
 
+        <label class='field'>
+          <span class='label'>{{t
+              'components.project_settings.form.main_color_label'
+            }}</span>
           <input
             type='color'
             value={{this.mainColor}}
             class='colorInput'
             {{on 'change' (fn this.setMainColor)}}
           />
+        </label>
 
+        <div class='field'>
+          <span class='label'>{{t
+              'components.project_settings.form.logo_label'
+            }}</span>
           <div class='logo-field'>
             <AccEmojiPicker @onPicked={{fn this.logoPicked}} class='logo'>
               <ProjectLogo @logo={{this.logo}} />
@@ -57,7 +70,7 @@ export default class ProjectSettingsForm extends Component<Args> {
 
             {{#if this.logo}}
               <button class='logoReset' {{on 'click' (fn this.logoReset)}}>
-                {{inlineSvg 'assets/x' class=(scopedClass 'logoReset-icon')}}
+                <XSvg class={{scopedClass 'logoReset-icon'}} />
               </button>
             {{/if}}
           </div>
@@ -71,55 +84,135 @@ export default class ProjectSettingsForm extends Component<Args> {
           {{t 'components.project_settings.form.update_button'}}
         </AsyncButton>
       {{/if}}
-
-      {{#if (get @permissions 'lockProjectFileOperations')}}
-        <div class='lock'>
-          {{#if this.isFileOperationsLocked}}
-            <div
-              role='button'
-              class='button lock-text lock-text--active'
-              {{on 'click' (fn this.setLockedFileOperations)}}
-            >
-              {{inlineSvg
-                'assets/lock--unlocked'
-                class=(concat
-                  (scopedClass 'lock-icon')
-                  ' '
-                  (scopedClass 'lock-icon--unlocked')
-                )
-              }}
-
-              {{t
-                'components.project_settings.form.lock_file_operations.remove_lock_button'
-              }}
-            </div>
-          {{else}}
-            <div
-              role='button'
-              class='button lock-text lock-text--inactive'
-              {{on 'click' (fn this.setLockedFileOperations)}}
-            >
-              {{inlineSvg
-                'assets/lock--locked'
-                class=(concat
-                  (scopedClass 'lock-icon')
-                  ' '
-                  (scopedClass 'lock-icon--locked')
-                )
-              }}
-
-              {{t
-                'components.project_settings.form.lock_file_operations.add_lock_button'
-              }}
-            </div>
-          {{/if}}
-
-          <p class='lock-text-helper'>
-            {{t 'components.project_settings.form.lock_file_operations.text_1'}}
-          </p>
-        </div>
-      {{/if}}
     </div>
+
+    <style scoped>
+      .colorInput,
+      .textInput {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .colorInput::-moz-selection,
+      .textInput::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .colorInput::selection,
+      .textInput::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .colorInput:focus,
+      .textInput:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .colorInput:disabled,
+      .textInput:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .colorInput,
+        .textInput {
+          font-size: 16px !important;
+        }
+      }
+      .project-settings-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 25px;
+      }
+
+      .textInput {
+        max-width: 350px;
+        width: 100%;
+        padding: 10px;
+        font-family: var(--font-primary);
+        font-size: 12px;
+      }
+
+      .colorInput {
+        width: 48px;
+        height: 40px;
+        padding: 5px 11px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .label {
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: bold;
+        opacity: 0.7;
+      }
+
+      .logo {
+        display: flex;
+        width: 25px;
+        height: 22px;
+        padding: 0;
+        font-size: 25px;
+        line-height: 1;
+        background: transparent;
+        cursor: pointer;
+      }
+      .logo :global(svg) {
+        width: 25px;
+        height: 21px;
+      }
+      .logo :global(svg circle) {
+        fill: var(--logo-background);
+      }
+      .logo :global(svg path) {
+        fill: var(--logo-foreground);
+      }
+      .logo:hover {
+        opacity: 0.6;
+      }
+
+      .logo-field {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        height: 40px;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+      }
+
+      .logoReset {
+        position: absolute;
+        top: -3px;
+        right: -14px;
+        padding: 0;
+        background: none;
+        color: #999;
+      }
+      .logoReset :global(svg) {
+        width: 10px;
+        height: 10px;
+      }
+      .logoReset:focus,
+      .logoReset:hover {
+        opacity: 0.6;
+      }
+    </style>
   </template>
   @service('global-state')
   declare globalState: GlobalState;
@@ -142,27 +235,9 @@ export default class ProjectSettingsForm extends Component<Args> {
   @tracked
   logo = this.args.project.logo;
 
-  @tracked
-  isFileOperationsLocked = this.args.project.isFileOperationsLocked;
-
   @action
   logoPicked(selection: string) {
     this.logo = selection;
-  }
-
-  @action
-  async setLockedFileOperations() {
-    this.isUpdatingProject = true;
-    this.isFileOperationsLocked = !this.isFileOperationsLocked;
-
-    await this.args.onUpdateProject({
-      isFileOperationsLocked: this.isFileOperationsLocked,
-      name: this.name,
-      mainColor: this.mainColor,
-      logo: this.logo
-    });
-
-    this.isUpdatingProject = false;
   }
 
   @action
@@ -170,7 +245,7 @@ export default class ProjectSettingsForm extends Component<Args> {
     this.isUpdatingProject = true;
 
     await this.args.onUpdateProject({
-      isFileOperationsLocked: this.isFileOperationsLocked,
+      isFileOperationsLocked: this.args.project.isFileOperationsLocked,
       name: this.name,
       mainColor: this.mainColor,
       logo: this.logo

@@ -28,8 +28,8 @@ Accent provides a powerful abstraction around the process maintaining translatio
 | --------------------------------------------------- | -------------------------------------------------------------------- |
 | [🚀 Getting started](#-getting-started)             | Quickly setup a working app                                          |
 | [🚧 Requirements](#-requirements)                   | Dependencies required to run Accent’ stack                           |
-| [🎛 Mix commands](#-executing-mix-commands)         | How to execute mix task with the Twelve-Factor pattern               |
-| [🏎 Quickstart](#-quickstart)                       | Steps to run the project, from API to webapp, with or without Docker |
+| [🎛 Mix commands](#-executing-mix-commands)          | How to execute mix task with the Twelve-Factor pattern               |
+| [🏎 Quickstart](#-quickstart)                        | Steps to run the project, from API to webapp, with or without Docker |
 | [🌳 Environment variables](#-environment-variables) | Required and optional env var used                                   |
 | [✅ Tests](#-tests)                                 | How to run the extensive tests suite                                 |
 | [🚀 Heroku](#-deploy-on-heroku)                     | Easy deployment setup with Heroku                                    |

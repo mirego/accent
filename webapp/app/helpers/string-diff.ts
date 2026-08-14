@@ -21,7 +21,6 @@ const checkSimilarity = (a: string, b: string) => {
     let hits = 0;
     for (let x = 0; x < aBigram.length; ++x) {
       for (let y = 0; y < bBigram.length; ++y) {
-        // eslint-disable-next-line max-depth
         if (aBigram[x] === bBigram[y]) hits += 1;
       }
     }

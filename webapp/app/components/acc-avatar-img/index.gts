@@ -37,6 +37,22 @@ export default class AccAvatarImg extends Component<Args> {
     {{else}}
       <img alt {{on 'error' this.fallbackImage}} ...attributes />
     {{/if}}
+
+    <style scoped>
+      .fallback {
+        stroke-width: 1;
+        stroke-linecap: unset;
+        stroke-linejoin: unset;
+      }
+
+      .fallback path:first-of-type {
+        opacity: 0.3;
+      }
+      .fallback path {
+        fill: var(--text-color-normal);
+        opacity: 0.16;
+      }
+    </style>
   </template>
   @tracked
   showFallback = this.args.showFallback || false;

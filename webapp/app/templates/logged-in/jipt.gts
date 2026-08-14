@@ -6,10 +6,12 @@ import {fn} from '@ember/helper';
 import {htmlSafe} from '@ember/template';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{! prettier-ignore }}
     <style>
       body {
-      {{htmlSafe @controller.colors}}
-      --body-background: #fff; }
+        --body-background: #fff;
+        {{htmlSafe @controller.colors}}
+      }
     </style>
 
     <div>

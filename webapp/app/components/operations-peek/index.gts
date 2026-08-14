@@ -55,6 +55,40 @@ export default class RevisionOperations extends Component<Args> {
       @shouldShowStats={{this.shouldShowStats}}
       @revisionOperation={{this.selectedRevisionOperation}}
     />
+
+    <style scoped>
+      .languageHeader {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .languageHeader-select select {
+        font-weight: bold;
+        border: 0;
+        padding-left: 0;
+        background: var(--content-background);
+        font-size: 15px;
+      }
+
+      .languageHeader-displayOptions-button {
+        padding: 0 10px;
+        background: none;
+        border-right: 1px solid var(--background-light-highlight);
+        color: var(--color-black);
+        font-size: 13px;
+      }
+      .languageHeader-displayOptions-button:focus {
+        outline: none;
+        opacity: 0.6;
+      }
+      .languageHeader-displayOptions-button:last-of-type {
+        border-right-color: transparent;
+      }
+
+      .languageHeader-displayOptions-button[disabled] {
+        color: var(--color-primary);
+      }
+    </style>
   </template>
   @tracked
   selectedRevisionOperation = this.args.revisionOperations[0];

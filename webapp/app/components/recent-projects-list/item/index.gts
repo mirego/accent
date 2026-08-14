@@ -22,6 +22,32 @@ export default class RecentProjectsListItem extends Component<Args> {
         {{htmlSafe this.colors}}
       </style>
     </div>
+
+    <style scoped>
+      .project {
+        display: flex;
+      }
+
+      .projectName {
+        transition: 0.2s ease-in-out;
+        transition-property: color;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--color-primary);
+      }
+
+      .projectLogo {
+        display: flex;
+        align-items: center;
+        margin-right: 8px;
+        font-size: 15px;
+        line-height: 1;
+      }
+      .projectLogo :global(svg) {
+        width: 25px;
+        height: 20px;
+      }
+    </style>
   </template>
   get colors() {
     return `

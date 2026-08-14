@@ -4,7 +4,8 @@ import AccModal from 'accent-webapp/components/acc-modal/index';
 import {fn} from '@ember/helper';
 import ProjectFileOperation from 'accent-webapp/components/project-file-operation/index';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import SyncSvg from 'accent-webapp/svgs/assets/sync.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import t from 'ember-intl/helpers/t';
 import CommitFile from 'accent-webapp/components/commit-file/index';
 import OperationsPeek from 'accent-webapp/components/operations-peek/index';
@@ -14,13 +15,13 @@ export default RouteTemplate<RouteTemplateSignature>(
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>
           <div class='closeButton-content'>
-            {{inlineSvg '/assets/x.svg' class='closeButton-icon'}}
+            <XSvg class='closeButton-icon' />
           </div>
         </button>
 
         <div class='title'>
           <div class='sectionType'>
-            {{inlineSvg '/assets/sync.svg' class='sectionType-icon'}}
+            <SyncSvg class='sectionType-icon' />
             {{t 'components.project_file_operations.sync'}}
           </div>
         </div>

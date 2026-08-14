@@ -27,6 +27,28 @@ export default class HighlightRender extends Component<Args> {
         class='render-source'
       >{{yield}}{{@content}}</span>
     </div>
+
+    <style scoped>
+      .render {
+        height: var(--highlight-render-height, calc(100dvh - 300px));
+        overflow: auto;
+        overscroll-behavior: contain;
+      }
+
+      .render :global(pre) {
+        padding: 10px;
+        border-top: 0;
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+        background: none;
+        font-family: var(--font-monospace);
+        font-size: 11px;
+        line-height: 1.7;
+      }
+
+      .render-source {
+        display: none;
+      }
+    </style>
   </template>
   @action
   setupHighlight(element: HTMLElement) {

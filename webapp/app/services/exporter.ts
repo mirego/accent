@@ -45,7 +45,6 @@ export default class Exporter extends Service {
 
     const url = config.API.EXPORT_DOCUMENT;
 
-    /* eslint-disable camelcase */
     return this.authenticatedRequest.export(
       `${url}?${this.queryParams({
         inline_render: true,
@@ -60,7 +59,6 @@ export default class Exporter extends Service {
         'filters[is_conflicted]': options.filters?.isConflictedFilter
       })}`
     );
-    /* eslint-enable camelcase */
   }
 
   async exportAll(options: ExportAllOptions) {
@@ -68,7 +66,6 @@ export default class Exporter extends Service {
 
     const url = config.API.EXPORT_DOCUMENT;
 
-    /* eslint-disable camelcase */
     return this.authenticatedRequest.export(
       `${url}?${this.queryParams({
         inline_render: true,
@@ -82,14 +79,12 @@ export default class Exporter extends Service {
         'filters[is_conflicted]': options.filters?.isConflictedFilter
       })}`
     );
-    /* eslint-enable camelcase */
   }
 
   async jipt({project, document, version, documentFormat}: JIPTOptions) {
     const url = config.API.JIPT_EXPORT_DOCUMENT;
     documentFormat = (documentFormat || document.format).toLowerCase();
 
-    /* eslint-disable camelcase */
     return this.authenticatedRequest.export(
       `${url}?${this.queryParams({
         inline_render: true,
@@ -99,7 +94,6 @@ export default class Exporter extends Service {
         document_format: documentFormat
       })}`
     );
-    /* eslint-enable camelcase */
   }
 
   private queryParams(

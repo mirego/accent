@@ -8,7 +8,9 @@ import {dropTask} from 'ember-concurrency';
 import IntlService from 'ember-intl/services/intl';
 import Title from 'accent-webapp/components/project-settings/title/index';
 import t from 'ember-intl/helpers/t';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import CheckSvg from 'accent-webapp/svgs/assets/check.svg';
+import DeeplSvg from 'accent-webapp/svgs/assets/machine_translations_providers/deepl.svg';
+import GoogleTranslateSvg from 'accent-webapp/svgs/assets/machine_translations_providers/google_translate.svg';
 import {scopedClass} from 'ember-scoped-css';
 import AccSelect from 'accent-webapp/components/acc-select/index';
 import {fn} from '@ember/helper';
@@ -34,12 +36,6 @@ interface Args {
 
 const PROVIDERS = ['google_translate', 'deepl'];
 
-/* eslint-disable camelcase */
-const LOGOS = {
-  deepl: 'assets/machine_translations_providers/deepl.svg',
-  google_translate: 'assets/machine_translations_providers/google_translate.svg'
-};
-
 export default class ProjectSettingsMachineTranslations extends Component<Args> {
   <template>
     <div class='project-settings-form'>
@@ -56,7 +52,11 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
           {{if @project.machineTranslationsConfig "form--configured"}}'
       >
         <div class='provider'>
-          {{inlineSvg this.logoProvider class=(scopedClass 'logo')}}
+          {{#if this.isDeepl}}
+            <DeeplSvg class={{scopedClass 'logo'}} />
+          {{else if this.isGoogleTranslate}}
+            <GoogleTranslateSvg class={{scopedClass 'logo'}} />
+          {{/if}}
 
           <AccSelect
             @searchEnabled={{false}}
@@ -68,7 +68,7 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
           />
 
           {{#if @project.machineTranslationsConfig}}
-            {{inlineSvg 'assets/check.svg' class=(scopedClass 'check')}}
+            <CheckSvg class={{scopedClass 'check'}} />
           {{/if}}
         </div>
 
@@ -142,6 +142,141 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
         </AsyncButton>
       </div>
     </div>
+
+    <style scoped>
+      .textInput {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .textInput::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .textInput:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .textInput {
+          font-size: 16px !important;
+        }
+      }
+      .project-settings-form {
+        margin-top: 25px;
+        max-width: 550px;
+      }
+
+      .form {
+        margin-top: 25px;
+        padding: 16px;
+        border-radius: var(--border-radius);
+        background: var(--background-light);
+        border: 1px solid var(--background-light-highlight);
+      }
+      .form.form--configured {
+        background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+        border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+      }
+      .form.form--configured .config-key-help {
+        color: color-mix(in srgb, var(--color-primary) 90%, black);
+        opacity: 1;
+      }
+      .form.form--configured .select select {
+        border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+        background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+      }
+
+      .check {
+        width: 18px;
+        stroke: color-mix(in srgb, var(--color-primary) 90%, black);
+      }
+
+      .select {
+        flex-grow: 1;
+        max-width: 200px;
+      }
+
+      .select select {
+        background: transparent;
+        border: 1px solid var(--background-light-highlight);
+        padding: 7px 10px;
+        font-weight: bold;
+        font-size: 13px;
+      }
+
+      .text {
+        max-width: 490px;
+        margin: 10px 0 15px;
+        font-size: 13px;
+        font-style: italic;
+      }
+
+      .logo {
+        width: 25px;
+      }
+
+      .config-key-help {
+        margin-top: 10px;
+        font-size: 12px;
+        padding: 6px 0;
+        font-weight: bold;
+        opacity: 0.4;
+      }
+
+      .provider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .textInput {
+        flex-grow: 1;
+        flex-shrink: 0;
+        padding: 8px 10px;
+        margin-right: 10px;
+        width: 100%;
+        font-family: var(--font-monospace);
+        font-size: 12px;
+      }
+
+      .options {
+        margin: 10px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .option-checkbox {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 20px;
+      }
+    </style>
   </template>
   @service('global-state')
   declare globalState: GlobalState;
@@ -202,10 +337,12 @@ export default class ProjectSettingsMachineTranslations extends Component<Args> 
     }
   }
 
-  get logoProvider() {
-    const provider: keyof typeof LOGOS = this.provider;
+  get isDeepl() {
+    return this.provider === 'deepl';
+  }
 
-    return LOGOS[provider];
+  get isGoogleTranslate() {
+    return this.provider === 'google_translate';
   }
 
   @action

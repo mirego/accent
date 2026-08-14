@@ -1,6 +1,5 @@
 import RSVP from 'rsvp';
 import Service from '@ember/service';
-import {computed} from '@ember/object';
 import {typeOf} from '@ember/utils';
 import {getOnerror, setOnerror} from '@ember/-internals/error-handling';
 import Raven from 'raven-js';
@@ -40,11 +39,11 @@ export default Service.extend({
    * can capture exceptions and messages properly.
    *
    * @property isRavenUsable
-   * @type Ember.ComputedProperty
+   * @type Boolean
    */
-  isRavenUsable: computed(() => {
+  get isRavenUsable() {
     return !!(Raven && Raven.isSetup() === true);
-  }).volatile(),
+  },
 
   /**
    * Tries to have Raven capture exception, or throw it.

@@ -4,4 +4,34 @@
       {{yield}}
     </div>
   </div>
+
+  <style scoped>
+    .content {
+      flex: 1 1 auto;
+      width: 100%;
+      padding: 0 20px 20px;
+      border-left: 1px solid
+        color-mix(in srgb, var(--color-primary) 11%, transparent);
+      background: var(--content-background);
+    }
+
+    html[data-theme='dark'] .content {
+      border-left: 1px solid
+        color-mix(in srgb, var(--color-primary) 7%, transparent);
+    }
+
+    .inner {
+      max-width: 1100px;
+      margin: 20px auto 0;
+    }
+
+    @media (max-width: 800px) {
+      .content {
+        padding: 0 10px 10px;
+      }
+      .inner {
+        margin-top: 10px;
+      }
+    }
+  </style>
 </template>

@@ -63,9 +63,7 @@ export default class AuthenticatedRequest extends Service {
   private async postFile(
     url: string,
     options:
-      | PeekOptions
-      | CommitOptions
-      | MachineTranslationsTranslateFileOptions
+      PeekOptions | CommitOptions | MachineTranslationsTranslateFileOptions
   ) {
     const fetchOptions: RequestInit = {};
 

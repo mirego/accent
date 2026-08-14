@@ -12,7 +12,9 @@ import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import perform from 'ember-concurrency/helpers/perform';
 import AccSelect from 'accent-webapp/components/acc-select/index';
 import {fn} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ChevronRightSvg from 'accent-webapp/svgs/assets/chevron-right.svg';
+import ExportSvg from 'accent-webapp/svgs/assets/export.svg';
+import LanguageSvg from 'accent-webapp/svgs/assets/language.svg';
 import {scopedClass} from 'ember-scoped-css';
 import AsyncButton from 'accent-webapp/components/async-button/index';
 import t from 'ember-intl/helpers/t';
@@ -64,10 +66,7 @@ export default class MachineTranslationsDocumentTranslate extends Component<Args
           />
 
           <div class='arrow'>
-            {{inlineSvg
-              '/assets/chevron-right.svg'
-              class=(scopedClass 'arrow-icon')
-            }}
+            <ChevronRightSvg class={{scopedClass 'arrow-icon'}} />
           </div>
 
           <AccSelect
@@ -93,7 +92,7 @@ export default class MachineTranslationsDocumentTranslate extends Component<Args
             @loading={{this.isSubmitting}}
             @onClick={{perform this.submitTask}}
           >
-            {{inlineSvg '/assets/language.svg' class='button-icon'}}
+            <LanguageSvg class='button-icon' />
             {{t
               'components.machine_translations_translate_upload_form.translate'
             }}
@@ -115,7 +114,7 @@ export default class MachineTranslationsDocumentTranslate extends Component<Args
               @disabled={{this.exportButtonDisabled}}
               class='button button--filled button-export'
             >
-              {{inlineSvg '/assets/export.svg' class='button-icon'}}
+              <ExportSvg class='button-icon' />
               {{t 'components.project_file_operations.export'}}
             </AsyncButton>
 
@@ -130,6 +129,167 @@ export default class MachineTranslationsDocumentTranslate extends Component<Args
         </div>
       </div>
     </div>
+
+    <style scoped>
+      .content {
+        background: var(--content-background);
+      }
+
+      .filters {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background: var(--background-light);
+        border-bottom: 1px solid var(--background-light-highlight);
+      }
+      .filters :global(.ember-power-select-trigger) {
+        min-height: 26px;
+        border: 1px solid var(--background-light-highlight);
+        background: var(--content-background);
+        padding: 4px 8px;
+        border-radius: var(--border-radius);
+      }
+
+      .translate-action,
+      .languages {
+        display: flex;
+        align-items: center;
+      }
+
+      .translate-action-button,
+      .translate-action-select {
+        margin-right: 10px;
+      }
+
+      .button-export {
+        position: absolute;
+        top: 10px;
+        right: 45px;
+      }
+
+      .filters-file {
+        display: flex;
+        align-items: center;
+      }
+
+      .form {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .preview {
+        display: flex;
+      }
+
+      .preview-file-content {
+        width: 50%;
+        border-right: 1px solid var(--background-light-highlight);
+        opacity: 0.7;
+      }
+
+      .preview-translated-content {
+        width: 50%;
+      }
+
+      .preview-translated-content-empty {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        color: var(--color-grey);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .form-content {
+        margin: 0 auto;
+        padding: 100px 10px;
+        max-width: 400px;
+        text-align: center;
+        font-size: 13px;
+      }
+
+      .form-content-icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+      }
+
+      .form-content-icon {
+        width: 40px;
+        opacity: 0.6;
+        stroke: var(--color-grey);
+      }
+
+      .form-content-icon--add {
+        width: 20px;
+        margin: 0 20px;
+      }
+
+      .form-content-text {
+        margin-top: 10px;
+      }
+
+      .form-content-icon--highlight {
+        stroke: var(--color-primary);
+      }
+
+      .fileInput {
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .fileInput--hidden {
+        display: none;
+      }
+
+      .arrow {
+        margin: 0 10px;
+        opacity: 0.6;
+        color: var(--color-black);
+      }
+      .arrow:hover,
+      .arrow:focus {
+        opacity: 0.7;
+        color: var(--color-black);
+      }
+
+      .arrow-icon {
+        width: 14px;
+        height: 14px;
+      }
+
+      :global(.button).button-resubmit {
+        margin-left: 10px;
+      }
+
+      .actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      .render {
+        padding: 15px;
+        min-height: 50px;
+        border-top: 0;
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+        background: var(--content-background);
+        overflow-x: scroll;
+        font-family: var(--font-monospace);
+        font-size: 11px;
+        line-height: 1.7;
+      }
+    </style>
   </template>
   @service('global-state')
   declare globalState: GlobalState;

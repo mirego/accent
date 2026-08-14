@@ -18,6 +18,26 @@ export default class JIPTTranslationsListItem extends Component<Args> {
         <span class='item-key'>{{@translation.key}}</span>
       </span>
     {{/if}}
+
+    <style scoped>
+      .item-text {
+        display: flex;
+        flex-direction: column;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        color: var(--text-color-normal);
+        font-size: 16px;
+      }
+      .item-text.item-text--empty {
+        color: var(--color-grey);
+        font-style: italic;
+      }
+      .item-text .item-key {
+        opacity: 0.5;
+        font-size: 11px;
+        font-family: var(--font-monospace);
+      }
+    </style>
   </template>
   @equal('translation.valueType', 'EMPTY')
   isTextEmpty: boolean;

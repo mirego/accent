@@ -3,5 +3,57 @@ import Component from '@glimmer/component';
 export default class ProgressLine extends Component {
   <template>
     <div class='progress-line'></div>
+
+    <style scoped>
+      .progress-line,
+      .progress-line:before {
+        height: 2px;
+        width: 100%;
+        margin: 0;
+        border-radius: var(--border-radius);
+      }
+
+      .progress-line {
+        display: flex;
+        position: relative;
+        bottom: 1px;
+        margin-bottom: -2px;
+        animation: progress-line-appear 1.8s ease-in forwards;
+      }
+
+      .progress-line:before {
+        background-color: color-mix(
+          in srgb,
+          var(--color-primary) 70%,
+          transparent
+        );
+        content: '';
+        animation: progress-line-running-progress 1.8s
+          cubic-bezier(0.5, 0, 0.1, 1) infinite;
+      }
+
+      @keyframes progress-line-appear {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      @keyframes progress-line-running-progress {
+        0% {
+          margin-left: 0;
+          margin-right: 100%;
+        }
+        50% {
+          margin-left: 25%;
+          margin-right: 0%;
+        }
+        100% {
+          margin-left: 100%;
+          margin-right: 0;
+        }
+      }
+    </style>
   </template>
 }

@@ -3,7 +3,7 @@ import Config from 'accent-webapp/components/project-settings/prompts/config/ind
 import Item from 'accent-webapp/components/project-settings/prompts/item/index';
 import {LinkTo} from '@ember/routing';
 import {array} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import AddSvg from 'accent-webapp/svgs/assets/add.svg';
 import Component from '@glimmer/component';
 
 interface Args {
@@ -53,11 +53,48 @@ export default class ProjectSettingsPrompts extends Component<Args> {
             @models={{array @project.id}}
             class='button button--xl button--primary button--highlight'
           >
-            {{inlineSvg '/assets/add.svg' class='button-icon'}}
+            <AddSvg class='button-icon' />
             {{t 'components.project_settings.prompts.new_button'}}
           </LinkTo>
         </div>
       {{/if}}
     </div>
+
+    <style scoped>
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-top: 25px;
+      }
+
+      .content {
+        margin-top: 20px;
+      }
+
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+        max-width: 450px;
+      }
+
+      .config {
+        max-width: 450px;
+        width: 100%;
+      }
+
+      .title {
+        font-weight: bold;
+        font-size: 17px;
+        padding-bottom: 4px;
+      }
+
+      .text {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+    </style>
   </template>
 }

@@ -14,11 +14,7 @@ export default RouteTemplate<RouteTemplateSignature>(
     <div>
       {{#unless @controller.showError}}
         <style>
-          html body {
           {{htmlSafe @controller.colors}}
-          } html[data-theme='dark'] body {
-          {{htmlSafe @controller.darkColors}}
-          }
         </style>
       {{/unless}}
 

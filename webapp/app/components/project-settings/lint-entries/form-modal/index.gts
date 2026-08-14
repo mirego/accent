@@ -6,7 +6,7 @@ import {dropTask} from 'ember-concurrency';
 import IntlService from 'ember-intl/services/intl';
 import AccModal from 'accent-webapp/components/acc-modal/index';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import AccSelect from 'accent-webapp/components/acc-select/index';
@@ -53,7 +53,7 @@ export default class LintEntriesFormModal extends Component<Args> {
     <AccModal @onClose={{@onClose}} @small={{true}}>
       <div class='wrapper'>
         <button type='button' class='closeButton' {{on 'click' @onClose}}>
-          {{inlineSvg '/assets/x.svg' class=(scopedClass 'closeButton-icon')}}
+          <XSvg class={{scopedClass 'closeButton-icon'}} />
         </button>
 
         <strong class='title'>{{this.title}}</strong>
@@ -131,6 +131,123 @@ export default class LintEntriesFormModal extends Component<Args> {
         </div>
       </div>
     </AccModal>
+
+    <style scoped>
+      .textInput {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .textInput::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .textInput:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .textInput {
+          font-size: 16px !important;
+        }
+      }
+      .wrapper {
+        padding: 20px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .wrapper :global(.ember-power-select-trigger) {
+        min-height: 35px;
+        border: 1px solid var(--background-light-highlight);
+        background: var(--background-light);
+        box-shadow: 0 1px 5px var(--shadow-color);
+      }
+
+      .closeButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 0;
+        background: transparent;
+      }
+      .closeButton:focus .closeButton-icon,
+      .closeButton:hover .closeButton-icon {
+        opacity: 1;
+      }
+
+      .closeButton-icon {
+        width: 20px;
+        height: 20px;
+        stroke: var(--color-grey);
+        opacity: 0.6;
+        transition: 0.2s ease-in-out;
+        transition-property: opacity;
+      }
+
+      .title {
+        font-size: 20px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .labelRow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .label {
+        font-size: 13px;
+      }
+
+      .labelLink {
+        font-size: 12px;
+        color: var(--color-primary);
+        text-decoration: underline;
+      }
+
+      .textInput {
+        width: 100%;
+        padding: 10px;
+        font-size: 12px;
+        font-family: var(--font-primary);
+      }
+
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 6px;
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

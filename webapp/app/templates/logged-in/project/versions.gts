@@ -1,7 +1,7 @@
 import RouteTemplate from 'ember-route-template';
 import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-signature';
 import PageTitle from 'accent-webapp/components/page-title/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import TagSvg from 'accent-webapp/svgs/assets/tag.svg';
 import t from 'ember-intl/helpers/t';
 import End from 'accent-webapp/components/page-title/end/index';
 import {get, fn} from '@ember/helper';
@@ -13,7 +13,7 @@ import ResourcePagination from 'accent-webapp/components/resource-pagination/ind
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
     <PageTitle>
-      {{inlineSvg '/assets/tag.svg'}}
+      <TagSvg />
       <h1>{{t 'components.page_title.versions'}}</h1>
       <End>
         {{#if @controller.model.versions.entries.length}}

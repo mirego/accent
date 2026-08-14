@@ -18,7 +18,7 @@ defmodule Accent.Endpoint do
     at: "/",
     from: {:accent, "priv/static/webapp"},
     gzip: true,
-    only: ~w(favicon.ico assets index.html robot.txt)
+    only: ~w(favicon.ico assets @embroider index.html robot.txt)
   )
 
   if Code.ensure_loaded?(Tidewave) do

@@ -55,6 +55,22 @@ export default class ProjectLastActivitySyncComponent extends Component<Args> {
         <TimeAgoInWordsTag @date={{this.lastActivitySync.insertedAt}} />
       </LinkTo>
     {{/if}}
+
+    <style scoped>
+      .loading {
+        color: #999;
+        font-style: italic;
+      }
+
+      .activities-last-sync {
+        text-decoration: none;
+        color: var(--color-primary);
+        font-size: 10px;
+      }
+      .activities-last-sync:hover {
+        text-decoration: underline;
+      }
+    </style>
   </template>
   @service('apollo')
   declare apollo: Apollo;

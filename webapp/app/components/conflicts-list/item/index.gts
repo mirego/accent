@@ -8,7 +8,9 @@ import t from 'ember-intl/helpers/t';
 import Form from 'accent-webapp/components/translation-edit/form/index';
 import {fn, get} from '@ember/helper';
 import AsyncButton from 'accent-webapp/components/async-button/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import CheckSvg from 'accent-webapp/svgs/assets/check.svg';
+import PencilSvg from 'accent-webapp/svgs/assets/pencil.svg';
+import RevertSvg from 'accent-webapp/svgs/assets/revert.svg';
 import Helpers from 'accent-webapp/components/translation-edit/helpers/index';
 
 interface Translation {
@@ -91,7 +93,7 @@ export default class ConflictsListItem extends Component<Args> {
                       @onClick={{fn this.setOriginalText}}
                       class='button button--iconOnly button--white revert-button'
                     >
-                      {{inlineSvg '/assets/revert.svg' class='button-icon'}}
+                      <RevertSvg class='button-icon' />
                     </AsyncButton>
                   {{/if}}
 
@@ -115,7 +117,7 @@ export default class ConflictsListItem extends Component<Args> {
                         class='button button--iconOnly button--borderLess button--green'
                         @onClick={{fn this.correctConflict}}
                       >
-                        {{inlineSvg '/assets/check.svg' class='button-icon'}}
+                        <CheckSvg class='button-icon' />
                       </AsyncButton>
                     {{else if (get @permissions 'updateTranslation')}}
                       <AsyncButton
@@ -124,7 +126,7 @@ export default class ConflictsListItem extends Component<Args> {
                         class='button button--borderLess button--iconOnly button--grey'
                         @onClick={{fn this.updateConflict}}
                       >
-                        {{inlineSvg '/assets/pencil.svg' class='button-icon'}}
+                        <PencilSvg class='button-icon' />
                       </AsyncButton>
                     {{/if}}
                   {{else}}
@@ -134,7 +136,7 @@ export default class ConflictsListItem extends Component<Args> {
                         class='button button--borderLess button--iconOnly button--red'
                         @onClick={{fn this.uncorrectConflict}}
                       >
-                        {{inlineSvg '/assets/revert.svg' class='button-icon'}}
+                        <RevertSvg class='button-icon' />
                       </AsyncButton>
                     {{else if (get @permissions 'updateTranslation')}}
                       <AsyncButton
@@ -144,7 +146,7 @@ export default class ConflictsListItem extends Component<Args> {
                           {{if form.isTextUnchanged "button--unchanged"}}'
                         @onClick={{fn this.updateConflict}}
                       >
-                        {{inlineSvg '/assets/pencil.svg' class='button-icon'}}
+                        <PencilSvg class='button-icon' />
                       </AsyncButton>
                     {{/if}}
                   {{/if}}
@@ -155,6 +157,134 @@ export default class ConflictsListItem extends Component<Args> {
         </div>
       </div>
     </li>
+
+    <style scoped>
+      .translation-item:hover .form-helpers {
+        pointer-events: all;
+        opacity: 1;
+      }
+      .translation-item:hover .button-submit {
+        pointer-events: all;
+        opacity: 1;
+      }
+
+      .revert-button {
+        position: absolute;
+        right: 8px;
+        top: -30px;
+      }
+      .revert-button :global(.label) {
+        padding-left: 3px;
+        padding-right: 3px;
+      }
+
+      .item-details__column {
+        position: relative;
+      }
+
+      .item-details {
+        display: flex;
+        flex-direction: column;
+      }
+      .item-details[data-dir='rtl'] .revert-button {
+        right: auto;
+        left: 8px;
+      }
+      .item-details[data-dir='rtl'] .item-details__column {
+        align-items: flex-end;
+      }
+      .item-details[data-dir='rtl'] .item-details__column:first-of-type {
+        margin-right: 0;
+        margin-left: 15px;
+      }
+      .item-details[data-dir='rtl'] .item-key {
+        margin-right: 0;
+        margin-left: 15px;
+        flex-direction: row-reverse;
+      }
+      .item-details[data-dir='rtl'] .item-key-prefix::before {
+        content: '';
+      }
+      .item-details[data-dir='rtl'] .item-key-prefix::after {
+        content: '/';
+      }
+
+      .item-details__column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .item-details__column:first-of-type {
+        margin-right: 15px;
+      }
+
+      .translation-item.resolved {
+        background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+      }
+
+      .translation-item.errored .textInput {
+        border-color: var(--color-error);
+      }
+
+      .error {
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--color-error);
+      }
+
+      .button-submit {
+        display: flex;
+        justify-content: flex-end;
+        position: absolute;
+        pointer-events: none;
+        opacity: var(--grid-item-actions-opacity);
+        gap: 0;
+        bottom: 15px;
+        right: 10px;
+        z-index: 3;
+        transition: 0.2s ease-in-out;
+        transition-property: opacity;
+      }
+      .button-submit[data-dir='rtl'] {
+        right: auto;
+        left: 7px;
+        flex-direction: row-reverse;
+      }
+
+      .textInput {
+        flex-grow: 1;
+        flex-shrink: 0;
+        width: 100%;
+        font-size: 13px;
+      }
+
+      .item-text {
+        display: block;
+        width: 100%;
+        color: var(--color-black);
+        line-height: 1.4;
+        padding: 3px 10px 10px 0;
+        font-size: 13px;
+        line-height: 1.6;
+        cursor: pointer;
+        word-break: break-word;
+      }
+      .item-text:focus,
+      .item-text:hover {
+        outline: none;
+        opacity: 0.8;
+      }
+
+      .form-helpers {
+        pointer-events: none;
+        opacity: 0;
+        position: relative;
+        z-index: 1;
+        transition: 0.2s ease-in-out;
+        transition-property: opacity;
+      }
+    </style>
   </template>
   @empty('args.translation.conflictedText')
   emptyPreviousText: boolean;

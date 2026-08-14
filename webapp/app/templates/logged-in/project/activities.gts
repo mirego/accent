@@ -1,7 +1,7 @@
 import RouteTemplate from 'ember-route-template';
 import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-signature';
 import PageTitle from 'accent-webapp/components/page-title/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ActivitySvg from 'accent-webapp/svgs/assets/activity.svg';
 import t from 'ember-intl/helpers/t';
 import ProjectActivitiesFilterSkeleton from 'accent-webapp/components/skeleton-ui/project-activities-filter/index';
 import ProjectActivitiesFilter from 'accent-webapp/components/project-activities-filter/index';
@@ -13,7 +13,7 @@ import ResourcePagination from 'accent-webapp/components/resource-pagination/ind
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
     <PageTitle>
-      {{inlineSvg '/assets/activity.svg'}}
+      <ActivitySvg />
       <h1>{{t 'components.page_title.activities'}}</h1>
     </PageTitle>
 
@@ -47,6 +47,7 @@ export default RouteTemplate<RouteTemplateSignature>(
       <ProjectActivitiesList
         @permissions={{@controller.permissions}}
         @activities={{@controller.model.activities.entries}}
+        @withFilters={{@controller.hasFilters}}
         @project={{@controller.model.project}}
       />
 
@@ -55,5 +56,5 @@ export default RouteTemplate<RouteTemplateSignature>(
         @onSelectPage={{fn @controller.selectPage}}
       />
     {{/if}}
-  </template>
+  </template>,
 );

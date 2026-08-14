@@ -127,6 +127,11 @@
       "no_version_label": "Aucune version",
       "language": "Langue",
       "commit_type": "Mode",
+      "commit_types": {
+        "smart": "Smart — met à jour depuis le fichier, conserve vos modifications récentes dans Accent",
+        "passive": "Passive — ne remplace jamais le texte existant",
+        "force": "Force — le fichier gagne toujours, même sur les chaînes révisées"
+      },
       "file_source": "Chemin d’accès aux documents",
       "merge_button": "Ajouter des traductions",
       "pattern_help": "Vous devez spécifier le modèle des fichiers inclus dans le zip qui seront importés, \"par exemple\": **/*.strings",
@@ -143,17 +148,52 @@
       "instructions": {
         "sync": {
           "title": "Synchroniser",
-          "text": "Mettez à jour la liste des chaînes dans Accent, en supprimant celles qui manquent dans le fichier et en en ajoutant de nouvelles.<em>La synchronisation est toujours effectuée dans la langue principale.</em>Les nouvelles chaînes et les modifications des chaînes supprimées seront reflétées dans toutes les langues traduites."
+          "text": "Téléversez votre fichier dans la <em>langue principale</em>. Accent ajoutera de nouvelles clés, supprimera les clés manquantes et mettra à jour le texte existant selon le mode sélectionné. <em>Synchronisez toujours la langue principale.</em>"
         },
         "merge": {
           "title": "Ajouter des traductions",
-          "text": "Fusionnez les traductions présentes dans le fichier téléchargé avec les chaînes existantes dans Accent. L’ajout de traductions est généralement effectué lorsque vous traduisez la chaîne directement dans votre projet pour faire gagner du temps aux réviseurs."
+          "text": "Remplissez les traductions pour les clés existantes dans <em>une langue sélectionnée</em>. Accent n'ajoutera ni ne supprimera jamais de clés — c'est le travail de la synchronisation."
         },
         "mistakes": {
           "title": "Erreurs fréquentes",
           "item_1": "Exportez les fichiers Accent localement avant une synchronisation. Cela vous obligera à résoudre les conflits localement et à remplacer potentiellement les textes révisés ou à ajouter des chaînes supprimées.",
           "item_2": "Synchronisez une langue traduite (pas votre langue principale). Cela générera effectivement des conflits pour toutes vos clés, changeant le texte de la langue principale pour votre langue traduite.",
-          "item_3": "Synchronisez un fichier par langue. Le \"fichier\" dans Accent a pour but d’être traduit en X langues. Synchronisez votre langue principale et laissez les langues traduites être traduites dans l’interface utilisateur."
+          "item_3": "Synchronisez un fichier par langue. Le \"fichier\" dans Accent a pour but d'être traduit en X langues. Synchronisez votre langue principale et laissez les langues traduites être traduites dans l'interface utilisateur."
+        },
+        "flow": {
+          "file": "Votre fichier",
+          "scope_main": "Langue principale",
+          "scope_selected": "Langue sélectionnée",
+          "sync_keys_added": "Nouvelles clés ajoutées",
+          "sync_keys_removed": "Clés manquantes supprimées",
+          "text_by_mode": "Texte existant par mode",
+          "merge_existing_only": "Clés existantes seulement",
+          "merge_text_by_mode": "Texte par mode",
+          "sync_target": "Toutes les langues",
+          "sync_target_note": "Clés ajoutées et supprimées partout · le texte modifié remet toutes les langues en révision",
+          "merge_target": "Langue sélectionnée seulement",
+          "merge_target_note": "Autres langues non touchées"
+        },
+        "modes": {
+          "title": "Modes",
+          "intro": "Pour chaque clé, Accent compare le texte du fichier, le texte actuel dans Accent et le texte du dernier téléversement.",
+          "col_situation": "Situation (clé existante)",
+          "col_smart": "Smart (par défaut)",
+          "col_passive": "Passive",
+          "col_force": "Force",
+          "row_same": "Le texte du fichier correspond au texte d'Accent",
+          "row_edited": "Fichier inchangé depuis le dernier téléversement, modifié dans Accent",
+          "row_changed": "Fichier modifié, jamais modifié dans Accent",
+          "row_both": "Fichier modifié ET modifié dans Accent",
+          "cell_nothing": "Rien",
+          "cell_kept": "Conservé (vos modifications gagnent)",
+          "cell_untouched": "Non touché",
+          "cell_overwritten_review": "Écrasé, retour en révision",
+          "cell_passive_sync": "Non touché",
+          "cell_passive_merge": "Rempli seulement si encore à réviser",
+          "note_force": "Force est uniquement disponible pour Ajouter des traductions.",
+          "note_keys": "Dans tous les modes, la synchronisation ajoute de nouvelles clés et supprime les clés manquantes du fichier — dans toutes les langues.",
+          "note_correct": "\"Marquer les chaînes comme révisées\" marque les chaînes écrasées comme révisées au lieu de à réviser."
         }
       }
     },
@@ -277,6 +317,9 @@
     },
     "documents_list": {
       "empty_text": "Les fichiers sont la liste réelle des fichiers de langue principaux de votre projet. Ajoutez-les ici ou depuis la CLI et gardez-les synchronisés avec votre projet.",
+      "empty_title": "Aucun fichier",
+      "empty_filters_title": "Aucun fichier avec les filtres",
+      "empty_filters_text": "Aucun fichier trouvé pour les filtres donnés",
       "format": "Format",
       "export_all": "Tout exporter",
       "show_deleted": "Voir les fichiers supprimés",
@@ -509,8 +552,11 @@
         "delete_project_button": "Supprimer ce projet",
         "delete_project_confirm": "Voulez-vous vraiment supprimer ce projet? Cette action ne peut pas être annulée."
       },
-      "form": {
-        "update_button": "Projet de mise à jour",
+  "form": {
+    "update_button": "Projet de mise à jour",
+    "name_label": "Nom",
+    "main_color_label": "Couleur principale",
+    "logo_label": "Icône",
         "unsupported_logo_type": "Seuls les fichiers SVG sont pris en charge comme logo de projet.",
         "reset_logo_button": "Réinitialiser le logo",
         "lock_file_operations": {
@@ -584,6 +630,7 @@
         "create_button": "Créer",
         "create_name_placeholder": "Afficher un nom",
         "create_picture_url_placeholder": "URL de l’avatar (facultatif)",
+        "empty": "Aucun jeton d’API pour le moment. Créez-en un ci-dessous pour commencer à faire des appels authentifiés.",
         "permissions": {
           "select_all": "Tous",
           "unselect_all": "Aucun",
@@ -611,6 +658,9 @@
         "owner_text": "Avec les mêmes rôles que l’administrateur, les propriétaires sont les personnes à qui appartient le projet.",
         "reviewer_text": "Peut effectuer toutes les tâches sauf celles énumérées dans les rôles ci-dessus. Réviser, mettre à jour les chaînes, les commentaires, etc.",
         "translator_text": "Traduire des chaînes et effectuez des mises à jour sur les fichiers. Le traducteur n’est pas inclus dans le processus de révision.",
+        "roles_title": "Rôles et permissions",
+        "rank_full": "Accès complet",
+        "rank_limited": "Accès limité",
         "title": "Collaborateurs"
       },
       "collaborators_item": {
@@ -739,6 +789,9 @@
     },
     "project_activities_list": {
       "title": "Activités",
+      "empty_title": "Aucune activité",
+      "empty_filters_title": "Aucune activité avec les filtres",
+      "empty_filters_text": "Aucune activité trouvée pour les filtres donnés",
       "empty_activities_text": "Aucune activité trouvée"
     },
     "project_activities_list_item": {
@@ -1035,7 +1088,8 @@
       "submit_error": "Votre soumission de commentaire n’a pas réussi, réessayez plus tard."
     },
     "translation_comments_list": {
-      "no_comments": "Sans commentaire"
+      "no_comments": "Aucun commentaire pour le moment",
+      "no_comments_text": "Démarrez la conversation en laissant le premier commentaire sur cette chaîne."
     },
     "translation_edit": {
       "source_translation": "Voir la dernière version de la chaîne",
@@ -1139,9 +1193,9 @@
       }
     },
     "translation_editions_list": {
-      "no_translations": "Aucune autre version du texte n’existe dans votre projet",
-      "no_versions": "Essayez de",
-      "no_versions_link": "créer une nouvelle version →"
+      "no_translations": "Aucun historique de version",
+      "no_versions": "Cette chaîne n’a été capturée dans aucune version de votre projet.",
+      "no_versions_link": "Créer une nouvelle version →"
     },
     "translations_list": {
       "latest_version_label": "Dernière",
@@ -1159,6 +1213,8 @@
       "last_execution_label": "Dernière exécution:",
       "maybe_sync_before": "Essayez peut-être de",
       "maybe_sync_link": "synchroniser certains fichiers →",
+      "no_translations_title": "Aucune chaîne",
+      "no_translations_filters_title": "Aucune chaîne avec les filtres",
       "no_translations": "Il semble qu’aucune chaîne n’ait été ajoutée pour votre projet.",
       "no_translations_query": "Aucune chaîne trouvée pour : {query}",
       "no_translations_filters": "Aucune chaîne trouvée pour les filtres donnés"

@@ -2,4 +2,20 @@
   <div class='sidebar'>
     {{yield}}
   </div>
+
+  <style scoped>
+    .sidebar {
+      flex: 0 0 275px;
+      padding-top: 10px;
+      background: var(--content-background);
+    }
+
+    @media (max-width: 800px) {
+      .sidebar {
+        margin-top: -10px;
+        flex: 0 0 55px;
+        width: 100%;
+      }
+    }
+  </style>
 </template>

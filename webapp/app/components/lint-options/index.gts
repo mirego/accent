@@ -7,7 +7,7 @@ import {tracked} from '@glimmer/tracking';
 import {timeout, restartableTask} from 'ember-concurrency';
 import {on} from '@ember/modifier';
 import {fn} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import SearchSvg from 'accent-webapp/svgs/assets/search.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import onKey from 'ember-keyboard/modifiers/on-key';
@@ -37,10 +37,7 @@ export default class RevisionExportOptions extends Component<Args> {
         >
           <div class='filters-content local-filters-content'>
             <div class='queryForm local-queryForm'>
-              {{inlineSvg
-                '/assets/search.svg'
-                class=(scopedClass 'search-icon')
-              }}
+              <SearchSvg class={{scopedClass 'search-icon'}} />
 
               <input
                 type='text'
@@ -87,6 +84,77 @@ export default class RevisionExportOptions extends Component<Args> {
         </form>
       </div>
     </div>
+
+    <style scoped>
+      .input {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .input::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .input::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .input:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .input:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .input {
+          font-size: 16px !important;
+        }
+      }
+      .search-icon {
+        position: absolute;
+        top: 19px;
+        margin-top: -10px;
+        left: 7px;
+        width: 20px;
+        height: 20px;
+        stroke: var(--input-border-color);
+      }
+
+      .input {
+        width: 100%;
+        padding: 7px 7px 7px 30px;
+        font-family: var(--font-primary);
+        font-size: 14px;
+        color: var(--color-black);
+      }
+      .input:focus {
+        box-shadow:
+          inset 0 1px 2px rgba(0, 0, 0, 0.1),
+          0 1px 2px var(--shadow-color);
+      }
+      .input::placeholder {
+        color: var(--color-grey);
+      }
+
+      @media (max-width: 440px) {
+        .local-filters-wrapper {
+          flex-direction: column;
+        }
+        .local-queryForm,
+        .local-filters-content {
+          width: 100%;
+          margin-right: 0;
+        }
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

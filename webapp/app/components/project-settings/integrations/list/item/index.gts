@@ -5,8 +5,11 @@ import {tracked} from '@glimmer/tracking';
 import IntlService from 'ember-intl/services/intl';
 import Form from 'accent-webapp/components/project-settings/integrations/form/index';
 import {fn, array, get} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
-import integrationLogo from 'accent-webapp/helpers/integration-logo';
+import HistorySvg from 'accent-webapp/svgs/assets/history.svg';
+import PencilSvg from 'accent-webapp/svgs/assets/pencil.svg';
+import PlaySvg from 'accent-webapp/svgs/assets/play.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
+import IntegrationLogo from 'accent-webapp/components/integration-logo/index';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import timeAgoInWords from 'accent-webapp/helpers/time-ago-in-words';
@@ -41,10 +44,10 @@ export default class IntegrationsListItem extends Component<Args> {
       {{else}}
         <div class='details'>
           <div class='details-info'>
-            {{inlineSvg
-              (integrationLogo @integration.service)
-              class=(scopedClass 'details-logo')
-            }}
+            <IntegrationLogo
+              @service={{@integration.service}}
+              class={{scopedClass 'details-logo'}}
+            />
             <span class='details-service'>
               {{t this.mappedServiceTranslationKey}}
             </span>
@@ -73,7 +76,7 @@ export default class IntegrationsListItem extends Component<Args> {
                 class='button button--filled'
                 {{on 'click' (fn this.toggleExecuting)}}
               >
-                {{inlineSvg '/assets/play.svg' class='button-icon'}}
+                <PlaySvg class='button-icon' />
                 {{t 'components.project_settings.integrations.play'}}
               </button>
             {{/if}}
@@ -86,7 +89,7 @@ export default class IntegrationsListItem extends Component<Args> {
                 'components.project_settings.integrations.executions_button'
               }}
             >
-              {{inlineSvg '/assets/history.svg' class='button-icon'}}
+              <HistorySvg class='button-icon' />
               {{t 'components.project_settings.integrations.history'}}
             </LinkTo>
 
@@ -95,7 +98,7 @@ export default class IntegrationsListItem extends Component<Args> {
                 class='button button--filled button--white'
                 {{on 'click' (fn this.toggleEdit)}}
               >
-                {{inlineSvg '/assets/pencil.svg' class='button-icon'}}
+                <PencilSvg class='button-icon' />
                 {{t 'components.project_settings.integrations.edit'}}
               </button>
             {{/if}}
@@ -106,7 +109,7 @@ export default class IntegrationsListItem extends Component<Args> {
                 @loading={{this.isDeleting}}
                 class='button button--filled button--white button--hoverRed button--withIcon'
               >
-                {{inlineSvg '/assets/x.svg' class='button-icon'}}
+                <XSvg class='button-icon' />
               </AsyncButton>
             {{/if}}
           </div>
@@ -129,6 +132,63 @@ export default class IntegrationsListItem extends Component<Args> {
         {{/if}}
       </AccModal>
     {{/if}}
+
+    <style scoped>
+      .project-settings-integrations-list-item {
+        margin-bottom: 10px;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 15px;
+        gap: 15px;
+        border: 1px solid var(--background-light-highlight);
+        border-radius: var(--border-radius);
+      }
+
+      .details-info {
+        display: flex;
+        align-items: center;
+        overflow-x: hidden;
+        flex: 1 1 auto;
+      }
+
+      .details-service {
+        font-size: 13px;
+        font-weight: bold;
+        color: var(--color-black);
+      }
+
+      .details-preview {
+        padding-right: 15px;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        margin-left: 10px;
+        font-size: 13px;
+        color: var(--color-black);
+      }
+
+      .details-last-executed-at {
+        margin-left: 5px;
+        font-size: 11px;
+        opacity: 0.4;
+      }
+
+      .details-logo {
+        flex: 0 0 20px;
+        margin-right: 8px;
+        width: 20px;
+      }
+
+      .details-actions {
+        display: flex;
+        gap: 10px;
+        flex: 0 0 auto;
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

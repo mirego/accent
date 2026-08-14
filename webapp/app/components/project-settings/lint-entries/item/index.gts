@@ -4,7 +4,7 @@ import IntlService from 'ember-intl/services/intl';
 import AccBadge from 'accent-webapp/components/acc-badge/index';
 import {on} from '@ember/modifier';
 import {fn} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import PencilSvg from 'accent-webapp/svgs/assets/pencil.svg';
 
 interface LintEntry {
   id: string;
@@ -42,9 +42,44 @@ export default class LintEntriesItem extends Component<Args> {
         class='button button--iconOnly button--filled button--white button--link edit'
         {{on 'click' (fn @onEdit @lintEntry)}}
       >
-        {{inlineSvg 'assets/pencil.svg' class='button-icon'}}
+        <PencilSvg class='button-icon' />
       </button>
     </div>
+
+    <style scoped>
+      .wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--content-background-border);
+        font-size: 14px;
+      }
+
+      .type {
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+
+      .value {
+        font-family: var(--font-monospace);
+      }
+
+      .checks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .edit {
+        margin-left: auto;
+        flex-shrink: 0;
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

@@ -26,7 +26,7 @@ export default class ActivitiesController extends Controller {
     'actionFilter',
     'userFilter',
     'page',
-    'versionFilter'
+    'versionFilter',
   ];
 
   @tracked
@@ -52,6 +52,15 @@ export default class ActivitiesController extends Controller {
 
   @and('emptyEntries', 'model.loading')
   showSkeleton: boolean;
+
+  get hasFilters() {
+    return Boolean(
+      this.batchFilter ||
+      this.actionFilter ||
+      this.userFilter ||
+      this.versionFilter,
+    );
+  }
 
   @action
   batchFilterChange(checked: boolean) {

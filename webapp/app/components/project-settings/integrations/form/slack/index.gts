@@ -19,10 +19,10 @@ export default class Slack extends Component<Args> {
     <DataControlText
       @error={{fieldError @errors 'data.url'}}
       @label={{t 'components.project_settings.integrations.data.url'}}
-      @placeholder={{'https://hooks.slack.com/services/aaaa/bbbb/cccc'}}
+      @placeholder='https://hooks.slack.com/services/aaaa/bbbb/cccc'
       @value={{@url}}
       @onChange={{this.changeUrl}}
-      @helpLinkHref={{'https://api.slack.com/incoming-webhooks'}}
+      @helpLinkHref='https://api.slack.com/incoming-webhooks'
       @helpLinkTitle={{t
         'components.project_settings.integrations.webhook_url_how'
       }}

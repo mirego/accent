@@ -20,5 +20,22 @@ export default class TranslationActivitiesList extends Component<Args> {
         />
       {{/each}}
     </ul>
+
+    <style scoped>
+      .translations-activities-list {
+        position: relative;
+      }
+      .translations-activities-list:before {
+        display: block;
+        position: absolute;
+        content: '';
+        width: 1px;
+        height: 100%;
+        top: 0;
+        left: 9px;
+        z-index: 8;
+        background: var(--background-light-highlight);
+      }
+    </style>
   </template>
 }

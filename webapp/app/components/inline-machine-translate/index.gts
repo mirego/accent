@@ -5,7 +5,7 @@ import Apollo from 'accent-webapp/services/apollo';
 import projectTranslateTextQuery from 'accent-webapp/queries/translate-text-project';
 import AsyncButton from 'accent-webapp/components/async-button/index';
 import perform from 'ember-concurrency/helpers/perform';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import LanguageSvg from 'accent-webapp/svgs/assets/language.svg';
 
 interface Args {
   text: string;
@@ -32,8 +32,20 @@ export default class ImprovePrompt extends Component<Args> {
       @loading={{this.isSubmitting}}
       class='button button--iconOnly button--link button--filled button--white local-button'
     >
-      {{inlineSvg '/assets/language.svg' class='button-icon'}}
+      <LanguageSvg class='button-icon' />
     </AsyncButton>
+
+    <style scoped>
+      button.local-button {
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: var(--border-radius);
+      }
+      button.local-button:focus,
+      button.local-button:hover {
+        transform: translate3d(0, 0, 0);
+      }
+    </style>
   </template>
   @service('apollo')
   declare apollo: Apollo;

@@ -66,7 +66,6 @@ export default class ProjectLintFormatter extends Base {
       );
       console.log('');
 
-      // eslint-disable-next-line no-throw-literal
       throw {};
     }
   }

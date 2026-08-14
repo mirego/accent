@@ -10,7 +10,13 @@ import {fn, array, get} from '@ember/helper';
 import t from 'ember-intl/helpers/t';
 import {htmlSafe} from '@ember/template';
 import onKey from 'ember-keyboard/modifiers/on-key';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import ExportSvg from 'accent-webapp/svgs/assets/export.svg';
+import LanguageSvg from 'accent-webapp/svgs/assets/language.svg';
+import LoadingSvg from 'accent-webapp/svgs/assets/loading.svg';
+import MergeSvg from 'accent-webapp/svgs/assets/merge.svg';
+import PencilSvg from 'accent-webapp/svgs/assets/pencil.svg';
+import SyncSvg from 'accent-webapp/svgs/assets/sync.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import {scopedClass} from 'ember-scoped-css';
 import {LinkTo} from '@ember/routing';
 import ReviewProgressBar from 'accent-webapp/components/review-progress-bar/index';
@@ -68,12 +74,11 @@ export default class DocumentsListItem extends Component<Args> {
                 <span class='item-toggle-edit'>
                   {{#if this.isDeleting}}
                     <span class='item-document-deleting-title'>
-                      {{inlineSvg
-                        '/assets/loading.svg'
-                        class=(scopedClass
+                      <LoadingSvg
+                        class={{scopedClass
                           'item-document-deleting-title-loading'
-                        )
-                      }}
+                        }}
+                      />
 
                       {{t
                         'components.documents_list.item.deleting_label'
@@ -83,13 +88,11 @@ export default class DocumentsListItem extends Component<Args> {
                     </span>
                   {{else}}
                     <button
+                      type='button'
                       class='item-edit-button'
                       {{on 'click' (fn this.toggleEdit)}}
                     >
-                      {{inlineSvg
-                        'assets/pencil.svg'
-                        class=(scopedClass 'item-edit-icon')
-                      }}
+                      <PencilSvg class={{scopedClass 'item-edit-icon'}} />
                     </button>
 
                     <LinkTo
@@ -140,6 +143,7 @@ export default class DocumentsListItem extends Component<Args> {
               {{t 'components.documents_list.save_button'}}
             </AsyncButton>
             <button
+              type='button'
               class='button button--filled button--white'
               {{on 'click' (fn this.toggleEdit)}}
             >
@@ -155,7 +159,7 @@ export default class DocumentsListItem extends Component<Args> {
                   @models={{array @project.id @document.id}}
                   class='button button--filled button-sync'
                 >
-                  {{inlineSvg '/assets/sync.svg' class='button-icon'}}
+                  <SyncSvg class='button-icon' />
                   {{t 'components.documents_list.sync'}}
                 </LinkTo>
               {{/if}}
@@ -166,7 +170,7 @@ export default class DocumentsListItem extends Component<Args> {
                     @models={{array @project.id @document.id}}
                     class='button button--filled button--white'
                   >
-                    {{inlineSvg '/assets/merge.svg' class='button-icon'}}
+                    <MergeSvg class='button-icon' />
                     {{t 'components.documents_list.merge'}}
                   </LinkTo>
                 {{/if}}
@@ -177,7 +181,7 @@ export default class DocumentsListItem extends Component<Args> {
                   @models={{array @project.id @document.id}}
                   class='button button--filled button--white'
                 >
-                  {{inlineSvg '/assets/language.svg' class='button-icon'}}
+                  <LanguageSvg class='button-icon' />
                   {{t 'components.documents_list.machine_translations'}}
                 </LinkTo>
               {{/if}}
@@ -187,7 +191,7 @@ export default class DocumentsListItem extends Component<Args> {
                   @models={{array @project.id @document.id}}
                   class='button button--filled button--white'
                 >
-                  {{inlineSvg '/assets/export.svg' class='button-icon'}}
+                  <ExportSvg class='button-icon' />
                   {{t 'components.documents_list.export'}}
                 </LinkTo>
               {{/if}}
@@ -202,7 +206,7 @@ export default class DocumentsListItem extends Component<Args> {
                     title={{t 'components.documents_list.delete_document'}}
                     class='tooltip tooltip--top button button--small button--red button--borderless button--iconOnly deleteDocumentButton'
                   >
-                    {{inlineSvg '/assets/x.svg' class='button-icon'}}
+                    <XSvg class='button-icon' />
                   </AsyncButton>
                 {{/if}}
               {{/if}}
@@ -211,6 +215,279 @@ export default class DocumentsListItem extends Component<Args> {
         {{/if}}
       </form>
     </li>
+
+    <style scoped>
+      .textInput {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .textInput::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .textInput:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .textInput {
+          font-size: 16px !important;
+        }
+      }
+      .documents-list-item {
+        position: relative;
+        display: flex;
+        width: 100%;
+        padding: 10px 0;
+      }
+      .documents-list-item:hover .deleteDocumentButton {
+        opacity: 1;
+      }
+
+      .documents-list-item.empty {
+        padding: 0 6px 4px;
+        margin-left: -6px;
+        margin-bottom: 10px;
+        width: calc(100% - 6px);
+        background: var(--body-background);
+        border-radius: var(--border-radius);
+      }
+      .documents-list-item.empty.editing {
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+        margin-left: 0;
+      }
+      .documents-list-item.empty.editing .removed-badge {
+        display: none;
+      }
+
+      .documents-list-item.low-percentage .reviewedPercentage {
+        color: var(--color-error);
+      }
+      .documents-list-item.low-percentage .progress {
+        color: var(--color-error);
+      }
+
+      .documents-list-item.medium-percentage .reviewedPercentage {
+        color: var(--color-warning);
+      }
+      .documents-list-item.medium-percentage .progress {
+        color: var(--color-warning);
+      }
+
+      .documents-list-item.high-percentage .reviewedPercentage {
+        color: var(--color-success);
+      }
+      .documents-list-item.high-percentage .progress {
+        color: var(--color-success);
+      }
+
+      .item-form--deleting {
+        opacity: 0.7;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .item-form--deleting .deleteDocumentButton {
+        opacity: 0;
+      }
+
+      .stat {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+      }
+
+      .progress {
+        margin: 3px 0 10px;
+      }
+
+      .reviewedStats {
+        padding: 2px 0 1px 7px;
+        color: var(--color-black);
+        font-family: var(--font-monospace);
+      }
+
+      .reviewedPercentage {
+        margin-right: 10px;
+        font-size: 18px;
+      }
+
+      .item-title {
+        display: inline-flex;
+        width: 100%;
+        font-size: 15px;
+        margin-left: -2px;
+      }
+
+      .removed-badge {
+        font-size: 11px;
+        opacity: 0.4;
+      }
+
+      .textInput {
+        padding: 5px 8px 4px;
+        width: 100%;
+        font-size: 15px;
+        font-family: var(--font-primary);
+      }
+
+      .item-document-deleting-title {
+        display: flex;
+        color: var(--color-error);
+        font-size: 13px;
+      }
+
+      .item-document-deleting-title-loading {
+        width: 10px;
+        margin-right: 6px;
+        fill: var(--color-error);
+      }
+
+      .item-form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .item-form.item-form--editing {
+        padding: 15px;
+        box-shadow: 0 1px 5px var(--shadow-color);
+      }
+
+      .item-form-content {
+        flex-grow: 1;
+        margin-right: 30px;
+      }
+
+      .item-form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+
+      .item-form-help {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 11px;
+        color: #bbb;
+      }
+      .item-form-help em {
+        margin: 0 2px;
+        padding: 0 2px;
+        border: 1px solid var(--background-light-border);
+        border-radius: var(--border-radius);
+        background: var(--background-light);
+        font-family: var(--font-monospace);
+        font-style: normal;
+        color: #777;
+      }
+
+      .item-form-inputs {
+        width: 100%;
+      }
+
+      .item-toggle-edit {
+        position: relative;
+        left: -24px;
+        padding-left: 37px;
+      }
+      .item-toggle-edit:focus .item-edit-icon,
+      .item-toggle-edit:hover .item-edit-icon {
+        opacity: 1;
+      }
+
+      .item-document {
+        margin-left: -26px;
+        text-decoration: none;
+        color: var(--color-black);
+      }
+
+      .item-edit-button {
+        background: transparent;
+      }
+      .item-edit-button:hover {
+        outline: none;
+      }
+
+      .item-edit-icon {
+        position: absolute;
+        left: 0;
+        top: 4px;
+        width: 16px;
+        height: 16px;
+        opacity: 0;
+        stroke: #ccc;
+        transition: 0.2s ease-in-out;
+        transition-property: opacity, stroke;
+      }
+      .item-edit-icon:focus,
+      .item-edit-icon:hover {
+        stroke: #aaa;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        flex-shrink: 1;
+        justify-content: space-between;
+      }
+      .links :global(.button) {
+        margin-right: 6px;
+      }
+      .links
+        :global(.button):global(
+          .button--borderLess
+        ):first-of-type:last-of-type {
+        margin-left: -14px;
+      }
+
+      .links--editing {
+        width: 100%;
+        justify-content: flex-start;
+        transform: translate3d(0, 0, 0);
+      }
+
+      .deleteDocumentButton-container {
+        display: flex;
+        align-items: center;
+        padding-left: 5px;
+      }
+
+      .deleteDocumentButton {
+        opacity: 0;
+        padding: 2px 6px !important;
+      }
+
+      @media (max-width: 1300px) {
+        .links {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+      @media (max-width: 800px) {
+        .item {
+          margin-right: 0;
+          width: 100%;
+        }
+      }
+    </style>
   </template>
   @service('global-state')
   declare globalState: GlobalState;

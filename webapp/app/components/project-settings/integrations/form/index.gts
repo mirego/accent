@@ -7,8 +7,7 @@ import {tracked} from '@glimmer/tracking';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import {fn} from '@ember/helper';
 import didUpdate from '@ember/render-modifiers/modifiers/did-update';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
-import integrationLogo from 'accent-webapp/helpers/integration-logo';
+import IntegrationLogo from 'accent-webapp/components/integration-logo/index';
 import {scopedClass} from 'ember-scoped-css';
 import AccSelect from 'accent-webapp/components/acc-select/index';
 import Slack from 'accent-webapp/components/project-settings/integrations/form/slack/index';
@@ -58,18 +57,18 @@ export default class IntegrationsForm extends Component<Args> {
       {{#if this.integration}}
         {{#if this.integration.id}}
           <div class='form readonly-service'>
-            {{inlineSvg
-              (integrationLogo this.service)
-              class=(scopedClass 'logo')
-            }}
+            <IntegrationLogo
+              @service={{this.service}}
+              class={{scopedClass 'logo'}}
+            />
             <span class='logo-label'>{{this.serviceValue.label}}</span>
           </div>
         {{else}}
           <div class='form'>
-            {{inlineSvg
-              (integrationLogo this.service)
-              class=(scopedClass 'logo')
-            }}
+            <IntegrationLogo
+              @service={{this.service}}
+              class={{scopedClass 'logo'}}
+            />
 
             <AccSelect
               @searchEnabled={{false}}
@@ -147,6 +146,54 @@ export default class IntegrationsForm extends Component<Args> {
         </div>
       {{/if}}
     </div>
+
+    <style scoped>
+      .project-settings-integrations-form {
+        padding: 10px 15px;
+        border: 1px solid var(--background-light-highlight);
+        background: var(--background-light);
+        border-radius: var(--border-radius);
+      }
+
+      .form {
+        display: flex;
+        padding-bottom: 10px;
+        font-size: 12px;
+        align-items: center;
+      }
+      .form select {
+        font-weight: bold;
+      }
+
+      .data {
+        margin-top: 10px;
+        font-size: 12px;
+      }
+
+      .local-button {
+        margin-right: 5px;
+      }
+
+      .readonly-service {
+        display: flex;
+        align-items: center;
+        margin-top: 3px;
+      }
+      .readonly-service .logo {
+        margin-right: 8px;
+      }
+
+      .logo {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+
+      .logo-label {
+        font-weight: bold;
+        font-size: 13px;
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

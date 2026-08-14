@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import AddSvg from 'accent-webapp/svgs/assets/add.svg';
 import t from 'ember-intl/helpers/t';
 
 interface Args {
@@ -14,8 +14,16 @@ export default class IntegrationsAddButton extends Component<Args> {
       {{on 'click' @onClick}}
       type='button'
     >
-      {{inlineSvg '/assets/add.svg' class='button-icon'}}
+      <AddSvg class='button-icon' />
       <span class='label'>{{t 'components.integrations_add_button.link'}}</span>
     </button>
+
+    <style scoped>
+      @media (max-width: 800px) {
+        .label {
+          display: none;
+        }
+      }
+    </style>
   </template>
 }

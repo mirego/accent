@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import {LinkTo} from '@ember/routing';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import LanguageSvg from 'accent-webapp/svgs/assets/language.svg';
 import t from 'ember-intl/helpers/t';
 
 interface Args {
@@ -14,8 +14,14 @@ export default class DocumentsMachineTranslationsButton extends Component<Args> 
       @model={{@project.id}}
       class='button button--borderLess button--filled button--grey local-button'
     >
-      {{inlineSvg '/assets/language.svg' class='button-icon'}}
+      <LanguageSvg class='button-icon' />
       {{t 'components.documents_machine_translations_button.link'}}
     </LinkTo>
+
+    <style scoped>
+      :global(.button.button--filled).local-button {
+        margin-left: 15px;
+      }
+    </style>
   </template>
 }

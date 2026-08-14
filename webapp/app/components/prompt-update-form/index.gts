@@ -6,7 +6,8 @@ import t from 'ember-intl/helpers/t';
 import {on} from '@ember/modifier';
 import {fn} from '@ember/helper';
 import AccEmojiPicker from 'accent-webapp/components/acc-emoji-picker/index';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import PencilSvg from 'accent-webapp/svgs/assets/pencil.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import {scopedClass} from 'ember-scoped-css';
 import {LinkTo} from '@ember/routing';
 import AsyncButton from 'accent-webapp/components/async-button/index';
@@ -59,10 +60,7 @@ export default class PromptUpdateForm extends Component<Args> {
             {{#if this.quickAccess}}
               {{this.quickAccess}}
             {{else}}
-              {{inlineSvg
-                'assets/pencil.svg'
-                class=(scopedClass 'quickAccess-picker-empty')
-              }}
+              <PencilSvg class={{scopedClass 'quickAccess-picker-empty'}} />
             {{/if}}
           </AccEmojiPicker>
           {{#if this.quickAccess}}
@@ -70,10 +68,7 @@ export default class PromptUpdateForm extends Component<Args> {
               class='quickAccess-picker-remove'
               {{on 'click' this.clearQuickAccess}}
             >
-              {{inlineSvg
-                'assets/x.svg'
-                class=(scopedClass 'quickAccess-picker-remove-icon')
-              }}
+              <XSvg class={{scopedClass 'quickAccess-picker-remove-icon'}} />
             </button>
           {{/if}}
         </div>
@@ -109,6 +104,130 @@ export default class PromptUpdateForm extends Component<Args> {
         </AsyncButton>
       </div>
     </div>
+
+    <style scoped>
+      .textInput {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .textInput::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .textInput:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .textInput:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .textInput {
+          font-size: 16px !important;
+        }
+      }
+      .prompt-update-form {
+        padding: 20px;
+        background: var(--content-background);
+      }
+
+      .title {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 27px;
+        font-weight: 300;
+        color: var(--color-primary);
+      }
+
+      .text {
+        font-size: 13px;
+        margin-bottom: 20px;
+        color: #555;
+      }
+
+      .quickAccess-picker {
+        display: flex;
+        position: relative;
+        align-items: center;
+      }
+
+      .quickAccess-picker-empty {
+        width: 23px;
+        opacity: 0.7;
+        color: var(--text-color-normal);
+      }
+
+      .quickAccess-picker-remove {
+        width: 13px;
+        height: 13px;
+        background: transparent;
+        position: absolute;
+        right: -6px;
+        top: 0;
+        opacity: 0.5;
+        padding: 0;
+        color: var(--text-color-normal);
+      }
+
+      .quickAccess-picker-remove-icon {
+        width: 13px;
+        height: 13px;
+      }
+
+      .quickAccess-emoji {
+        background: transparent;
+        padding-left: 20px;
+        font-size: 28px;
+      }
+
+      .textInput {
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding: 10px;
+        min-width: 250px;
+        width: 100%;
+        font-size: 12px;
+        font-family: var(--font-primary);
+      }
+
+      .errors {
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+      }
+
+      .error {
+        margin-bottom: 5px;
+        color: var(--color-error);
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .formItem {
+        margin-bottom: 20px;
+      }
+
+      .formItem-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+
+      .formActions {
+        padding-top: 10px;
+      }
+    </style>
   </template>
   @tracked
   name = this.args.prompt.name;

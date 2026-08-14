@@ -12,7 +12,9 @@ import AccAvatarImg from 'accent-webapp/components/acc-avatar-img/index';
 import t from 'ember-intl/helpers/t';
 import TimeAgoInWordsTag from 'accent-webapp/components/time-ago-in-words-tag/index';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import CheckSvg from 'accent-webapp/svgs/assets/check.svg';
+import PencilSvg from 'accent-webapp/svgs/assets/pencil.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 
 interface Args {
   permissions: Record<string, true>;
@@ -125,7 +127,7 @@ export default class CollaboratorsListItem extends Component<Args> {
               class='button button--filled local-button'
               {{on 'click' (fn this.updateCollaborator)}}
             >
-              {{inlineSvg '/assets/check.svg' class='button-icon'}}
+              <CheckSvg class='button-icon' />
               {{t 'components.project_settings.collaborators_item.save_role'}}
             </button>
           {{/if}}
@@ -135,7 +137,7 @@ export default class CollaboratorsListItem extends Component<Args> {
               class='button button--filled button--white local-button'
               {{on 'click' (fn this.toggleUpdateCollaborator)}}
             >
-              {{inlineSvg '/assets/pencil.svg' class='button-icon'}}
+              <PencilSvg class='button-icon' />
               {{t 'components.project_settings.collaborators_item.edit_role'}}
             </button>
           {{/if}}
@@ -146,7 +148,7 @@ export default class CollaboratorsListItem extends Component<Args> {
               {{on 'click' (fn this.deleteCollaborator)}}
               data-test-collaborator-remove
             >
-              {{inlineSvg '/assets/x.svg' class='button-icon'}}
+              <XSvg class='button-icon' />
 
               {{#if this.hasJoined}}
                 {{t
@@ -162,6 +164,109 @@ export default class CollaboratorsListItem extends Component<Args> {
         {{/if}}
       </div>
     </li>
+
+    <style scoped>
+      .item {
+        transition: 0.2s ease-in-out;
+        transition-property: background;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        padding: 10px 15px 10px 10px;
+        border-bottom: 1px solid var(--background-light-highlight);
+        overflow-x: hidden;
+      }
+      .item.invited .user {
+        opacity: 0.6;
+        color: var(--color-black);
+      }
+      .item.withPicture .invite {
+        position: relative;
+        left: 46px;
+      }
+      .item.editing,
+      .item:focus,
+      .item:hover {
+        background: var(--background-light);
+      }
+      .item.editing .local-button,
+      .item:focus .local-button,
+      .item:hover .local-button {
+        opacity: 1;
+      }
+      .item .local-button {
+        flex: 0 0 auto;
+        transition: 0.2s ease-in-out;
+        transition-property: opacity;
+        opacity: 0;
+        padding: 6px 7px;
+        margin-left: 10px;
+        font-size: 11px;
+      }
+      .item .local-button :global(.button-icon) {
+        flex-shrink: 0;
+        width: 12px;
+        height: 12px;
+      }
+      .item :global(.ember-power-select-trigger) {
+        min-width: 150px;
+        padding: 5px 7px 4px;
+        margin-bottom: 10px;
+        border: 1px solid var(--content-background-border);
+        border-radius: var(--border-radius);
+        background: var(--content-background);
+        font-size: 12px;
+        box-shadow: 0 1px 5px var(--shadow-color);
+      }
+
+      .role {
+        display: block;
+        color: var(--color-primary);
+        font-size: 12px;
+        font-family: var(--font-monospace);
+      }
+
+      .role-edit {
+        margin-bottom: 5px;
+      }
+
+      .user {
+        display: flex;
+        color: var(--text-color-normal);
+        font-size: 15px;
+      }
+
+      .user-email {
+        display: block;
+        font-size: 12px;
+      }
+
+      .user-picture {
+        width: 36px;
+        height: 36px;
+        margin-right: 10px;
+        margin-top: 3px;
+        border-radius: var(--border-radius);
+      }
+
+      .fullname {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      .invite {
+        opacity: 0.6;
+        color: var(--text-color-normal);
+        font-size: 12px;
+        font-style: italic;
+      }
+
+      .actions {
+        display: flex;
+      }
+    </style>
   </template>
   @service('session')
   declare session: Session;

@@ -12,7 +12,9 @@ import MarkdownIt from 'markdown-it';
 import {htmlSafe} from '@ember/template';
 import didUpdate from '@ember/render-modifiers/modifiers/did-update';
 import perform from 'ember-concurrency/helpers/perform';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import BubbleSvg from 'accent-webapp/svgs/assets/bubble.svg';
+import CodeSvg from 'accent-webapp/svgs/assets/code.svg';
+import LoadingSvg from 'accent-webapp/svgs/assets/loading.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import {get, fn, hash} from '@ember/helper';
@@ -38,13 +40,7 @@ interface Args {
   lintMessages?: any[];
   inputDisabled: boolean;
   valueType:
-    | 'STRING'
-    | 'HTML'
-    | 'BOOLEAN'
-    | 'INTEGER'
-    | 'FLOAT'
-    | 'EMPTY'
-    | 'NULL';
+    'STRING' | 'HTML' | 'BOOLEAN' | 'INTEGER' | 'FLOAT' | 'EMPTY' | 'NULL';
   value: string;
   originalValue?: string;
   onSubmit: () => void;
@@ -66,10 +62,7 @@ export default class TranslationEditForm extends Component<Args> {
       {{#if @placeholders}}
         <div class='placeholders'>
           <span class='placeholders-title'>
-            {{inlineSvg
-              'assets/code.svg'
-              class=(scopedClass 'placeholders-title-icon')
-            }}
+            <CodeSvg class={{scopedClass 'placeholders-title-icon'}} />
             {{t 'components.translation_edit.form.placeholders.title'}}
           </span>
 
@@ -126,10 +119,7 @@ export default class TranslationEditForm extends Component<Args> {
       {{#if @fileComment}}
         <div class='file-comment'>
           <span class='file-comment-title'>
-            {{inlineSvg
-              'assets/bubble.svg'
-              class=(scopedClass 'file-comment-title-icon')
-            }}
+            <BubbleSvg class={{scopedClass 'file-comment-title-icon'}} />
             {{t 'components.translation_edit.form.file_comment.title'}}
           </span>
 
@@ -210,10 +200,7 @@ export default class TranslationEditForm extends Component<Args> {
 
           {{#if this.fetchLintMessagesTask.isRunning}}
             <div class='lint-loading'>
-              {{inlineSvg
-                '/assets/loading.svg'
-                class=(scopedClass 'lint-loading-icon')
-              }}
+              <LoadingSvg class={{scopedClass 'lint-loading-icon'}} />
             </div>
           {{/if}}
         </div>
@@ -234,6 +221,236 @@ export default class TranslationEditForm extends Component<Args> {
         />
       </div>
     </div>
+
+    <style scoped>
+      .inputText {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .inputText::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .inputText::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .inputText:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .inputText:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .inputText {
+          font-size: 16px !important;
+        }
+      }
+      .translation-edit-form {
+        height: 100%;
+      }
+      .translation-edit-form :global(.ember-radio-button) {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        margin-bottom: 3px;
+        border-radius: var(--border-radius);
+        font-weight: bold;
+        font-size: 13px;
+        color: #444;
+      }
+      .translation-edit-form :global(.ember-radio-button).checked {
+        background: var(--background-light-highlight);
+        color: var(--text-color-normal);
+      }
+      .translation-edit-form :global(.ember-radio-button) :global(input) {
+        margin-right: 8px;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .radio-wrapper {
+        margin-top: 6px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .radio-label {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 14px;
+        font-family: var(--font-monospace);
+      }
+      .radio-label:global(> input) {
+        margin-right: 5px;
+      }
+
+      .label {
+        display: inline-block;
+        padding: 5px 8px 4px;
+        border-radius: var(--border-radius);
+        margin-bottom: 5px;
+        background: hsl(
+          var(--color-blue-hue),
+          var(--color-blue-saturation),
+          var(--color-highlight-lighteness)
+        );
+        font-size: 11px;
+        color: var(--color-blue);
+      }
+
+      .lint-loading {
+        position: absolute;
+        left: 0px;
+        top: -22px;
+        opacity: 0.5;
+        font-size: 13px;
+      }
+
+      .lint-loading-icon {
+        width: 10px;
+      }
+
+      .inputText {
+        width: 100%;
+        height: 100%;
+        padding: 10px 130px 10px 10px;
+        font-size: 13px;
+      }
+      .inputText[dir='rtl'] {
+        padding: 10px 10px 10px 130px;
+      }
+      .inputText.inputText--borderless {
+        border-color: transparent;
+        background: transparent;
+      }
+      .inputText.inputText--borderless:focus {
+        border-color: transparent;
+        background: transparent;
+      }
+      .inputText::placeholder {
+        opacity: 0.2;
+        font-style: italic;
+        font-family: var(--font-primary);
+      }
+
+      .placeholders {
+        margin: 0 0 15px;
+        padding: 15px;
+        border-radius: var(--border-radius);
+        font-size: 12px;
+        background: hsl(
+          var(--color-blue-hue),
+          var(--color-blue-saturation),
+          var(--color-highlight-lighteness)
+        );
+        color: var(--color-blue);
+      }
+
+      .placeholders-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 3px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .placeholders-text {
+        margin-bottom: 6px;
+      }
+
+      .placeholders-text-content {
+        max-width: 500px;
+      }
+
+      .placeholders-item {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: var(--text-color-normal);
+        opacity: 0.8;
+        transition:
+          color 0.2s ease-in-out,
+          opacity 0.2s ease-in-out;
+      }
+      .placeholders-item.placeholders-item--warning {
+        opacity: 1;
+        color: var(--color-error);
+      }
+
+      .placeholders-item-icon {
+        margin-right: 5px;
+        width: 14px;
+        height: 14px;
+        stroke: var(--color-error);
+      }
+
+      .placeholders-title-icon {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        stroke: var(--color-blue);
+      }
+
+      .file-comment {
+        margin: 0 0 15px;
+        padding: 15px 15px 5px;
+        border-radius: var(--border-radius);
+        font-size: 12px;
+        background: var(--background-light);
+        color: var(--color-black);
+      }
+
+      .file-comment-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 3px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .file-comment-text {
+        margin-bottom: 6px;
+      }
+
+      .file-comment-text-content {
+        max-width: 500px;
+        font-family: var(--font-monospace);
+      }
+
+      .file-comment-title-icon {
+        width: 14px;
+        height: 14px;
+        margin-right: 6px;
+        stroke: var(--color-black);
+      }
+
+      .lint-messages {
+        transition: 0.2s ease-in-out;
+        transition-property: opacity;
+      }
+
+      .lint-messages--loading {
+        opacity: 0.5;
+      }
+
+      @media (max-width: 640px) {
+        .inputText {
+          font-size: 16px;
+        }
+      }
+    </style>
   </template>
   @service('apollo')
   declare apollo: Apollo;

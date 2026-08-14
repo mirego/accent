@@ -4,7 +4,9 @@ import AccModal from 'accent-webapp/components/acc-modal/index';
 import {fn, array} from '@ember/helper';
 import ProjectFileOperation from 'accent-webapp/components/project-file-operation/index';
 import {on} from '@ember/modifier';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import EditInPlaceSvg from 'accent-webapp/svgs/assets/edit-in-place.svg';
+import ExportSvg from 'accent-webapp/svgs/assets/export.svg';
+import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import t from 'ember-intl/helpers/t';
 import RevisionExportOptions from 'accent-webapp/components/revision-export-options/index';
 import {LinkTo} from '@ember/routing';
@@ -17,13 +19,13 @@ export default RouteTemplate<RouteTemplateSignature>(
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>
           <div class='closeButton-content'>
-            {{inlineSvg '/assets/x.svg' class='closeButton-icon'}}
+            <XSvg class='closeButton-icon' />
           </div>
         </button>
 
         <div class='title'>
           <div class='sectionType'>
-            {{inlineSvg '/assets/edit-in-place.svg' class='sectionType-icon'}}
+            <EditInPlaceSvg class='sectionType-icon' />
             {{t 'components.project_file_operations.export_jipt'}}
           </div>
 
@@ -46,7 +48,7 @@ export default RouteTemplate<RouteTemplateSignature>(
           @models={{array @controller.project.id @controller.document.id}}
           class='button button--filled button--white button--small toggleJiptExport'
         >
-          {{inlineSvg '/assets/export.svg' class='button-icon'}}
+          <ExportSvg class='button-icon' />
           {{t 'components.project_file_operations.export'}}
         </LinkTo>
 

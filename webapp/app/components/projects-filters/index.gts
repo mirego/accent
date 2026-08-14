@@ -6,7 +6,8 @@ import {timeout, restartableTask} from 'ember-concurrency';
 import {tracked} from '@glimmer/tracking';
 import {on} from '@ember/modifier';
 import {fn, get} from '@ember/helper';
-import inlineSvg from 'accent-webapp/helpers/inline-svg';
+import AddSvg from 'accent-webapp/svgs/assets/add.svg';
+import SearchSvg from 'accent-webapp/svgs/assets/search.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import {LinkTo} from '@ember/routing';
@@ -29,7 +30,7 @@ export default class ProjectsFilter extends Component<Args> {
         <div class='queryFilter'>
           <div class='queryForm-search'>
 
-            {{inlineSvg '/assets/search.svg' class=(scopedClass 'search-icon')}}
+            <SearchSvg class={{scopedClass 'search-icon'}} />
             <input
               type='text'
               placeholder={{t
@@ -48,7 +49,7 @@ export default class ProjectsFilter extends Component<Args> {
               @route='logged-in.projects.new'
               class='button button--filled button--green createProjectButton'
             >
-              {{inlineSvg '/assets/add.svg' class='button-icon'}}
+              <AddSvg class='button-icon' />
               {{t 'components.projects_filters.new_project'}}
             </LinkTo>
           {{/if}}
@@ -64,6 +65,117 @@ export default class ProjectsFilter extends Component<Args> {
         {{/if}}
       </div>
     </div>
+
+    <style scoped>
+      .input {
+        transition: 0.2s ease-in-out;
+        transition-property: background, border, box-shadow;
+        resize: vertical;
+        outline: 0;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--input-border-color);
+        background: var(--input-background);
+        color: var(--input-color);
+        font-family: var(--font-monospace);
+        line-height: 1.4;
+        max-height: 200px;
+      }
+      .input::-moz-selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .input::selection {
+        background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+      }
+      .input:focus {
+        border: 2px solid var(--color-primary);
+      }
+      .input:disabled {
+        color: var(--color-grey);
+        background: var(--background-light);
+      }
+
+      @media (hover: none) and (max-width: 640px) {
+        .input {
+          font-size: 16px !important;
+        }
+      }
+      .local-filters:global(.filters) {
+        margin: 20px auto 0;
+        padding: 0 20px !important;
+        max-width: var(--screen-lg);
+      }
+
+      .local-filters-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .queryFilter {
+        flex: 1;
+      }
+
+      .queryForm-search {
+        width: 100%;
+        position: relative;
+      }
+
+      .totalEntries {
+        margin-left: 20px;
+        color: var(--color-grey);
+        font-size: 13px;
+        font-style: italic;
+      }
+
+      .search-icon {
+        position: absolute;
+        top: 50%;
+        margin-top: -10px;
+        left: 7px;
+        width: 20px;
+        height: 20px;
+        stroke: var(--input-border-color);
+      }
+
+      .createProjectButton {
+        margin-left: 15px !important;
+      }
+
+      .input {
+        width: 100%;
+        padding: 7px 7px 7px 30px;
+        font-size: 14px;
+        font-family: var(--font-primary);
+        color: var(--color-black);
+      }
+      .input::placeholder {
+        color: var(--color-grey);
+      }
+      .input:focus {
+        border-color: var(--color-green);
+      }
+
+      .filters-meta {
+        margin-top: 7px;
+        font-size: 14px;
+        color: var(--color-grey);
+      }
+
+      .filters-meta-keyword {
+        font-style: italic;
+        color: var(--color-green);
+      }
+
+      @media (max-width: 640px) {
+        div.local-filters {
+          padding: 0 10px;
+        }
+        .local-filters:global(.filters) {
+          margin: 10px auto 0;
+          padding: 0 10px !important;
+        }
+      }
+    </style>
   </template>
   @service('session')
   declare session: Session;

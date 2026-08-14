@@ -38,11 +38,9 @@ export default class ProjectController extends Controller {
 
   get colors() {
     return `
-    --color-primary: ${this.mainColor || this.defaultColor};
+      html body {
+        --color-primary: ${this.mainColor || this.defaultColor};
+      }
     `;
-  }
-
-  get darkColors() {
-    return '';
   }
 }

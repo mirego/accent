@@ -75,6 +75,40 @@ export default class ProjectActivitiesFilter extends Component<Args> {
         </ul>
       </div>
     </div>
+
+    <style scoped>
+      :global(.filters).local-filters {
+        margin-top: 20px;
+        border: 1px solid var(--content-background-border);
+        border-radius: var(--border-radius);
+        box-shadow: none;
+      }
+
+      .filterList {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        column-gap: 20px;
+        row-gap: 5px;
+        position: relative;
+      }
+
+      .filterList-item {
+        min-width: 150px;
+        font-size: 12px;
+      }
+
+      .label {
+        display: flex;
+        align-items: center;
+      }
+
+      .label-text {
+        margin-left: 4px;
+        color: var(--color-black);
+      }
+    </style>
   </template>
   @service('intl')
   declare intl: IntlService;

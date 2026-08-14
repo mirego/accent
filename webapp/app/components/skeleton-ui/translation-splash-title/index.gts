@@ -8,4 +8,10 @@ import Content from 'accent-webapp/components/skeleton-ui/content/index';
       <rect x='0' y='18' rx='1' ry='1' width='70' height='4'></rect>
     </Content>
   </SkeletonUi>
+
+  <style scoped>
+    .skeleton {
+      padding: 15px 0;
+    }
+  </style>
 </template>

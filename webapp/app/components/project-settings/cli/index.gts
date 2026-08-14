@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import {action} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
 import Title from 'accent-webapp/components/project-settings/title/index';
+import TerminalSvg from 'accent-webapp/svgs/assets/terminal.svg';
 import t from 'ember-intl/helpers/t';
 import {LinkTo} from '@ember/routing';
 import {on} from '@ember/modifier';
@@ -55,7 +56,7 @@ export default class ProjectSettingsCli extends Component<Args> {
       <section class='hero'>
         <div>
           <Title
-            @icon='/assets/terminal.svg'
+            @icon={{TerminalSvg}}
             @title={{t 'components.project_settings.cli.title'}}
           />
 
@@ -204,6 +205,287 @@ export default class ProjectSettingsCli extends Component<Args> {
         </div>
       </section>
     </div>
+
+    <style scoped>
+      .project-settings-cli {
+        margin-top: 30px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 510px);
+        gap: 28px;
+        align-items: flex-start;
+      }
+
+      .hero-text {
+        max-width: 640px;
+        margin: 14px 0 22px;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--text-color-normal);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .token-link {
+        color: var(--color-primary);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .terminal-card,
+      .code-panel,
+      .command-card,
+      .control-card,
+      .commands-grid article {
+        border: 1px solid var(--content-background-border);
+        border-radius: var(--border-radius);
+        background: var(--content-background);
+      }
+
+      .terminal-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        background: #111;
+        color: #ddd;
+      }
+
+      .terminal-header {
+        display: flex;
+        gap: 6px;
+        padding: 8px 10px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .terminal-header span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .terminal-header span:global(:nth-child(1)) {
+        background: rgb(255, 92, 95);
+      }
+      .terminal-header span:global(:nth-child(2)) {
+        background: rgb(250, 200, 0);
+      }
+      .terminal-header span:global(:nth-child(3)) {
+        background: rgb(52, 199, 89);
+      }
+
+      .terminal,
+      .code,
+      .command {
+        font-family: var(--font-monospace);
+        color: var(--text-color-normal);
+      }
+
+      .terminal {
+        width: 100%;
+        min-height: 160px;
+        padding: 18px;
+        border: 0;
+        resize: none;
+        background: transparent;
+        color: #ddd;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      .terminal:focus {
+        outline: none;
+      }
+
+      .playground-grid,
+      .commands-grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .section {
+        margin-top: 34px;
+      }
+
+      .section-heading {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 14px;
+      }
+      .section-heading h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-color-normal);
+      }
+      .section-heading p {
+        max-width: 500px;
+        margin: 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--color-grey);
+      }
+
+      .code-panel {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .code {
+        display: block;
+        width: 100%;
+        padding: 18px;
+        border: 0;
+        background: var(--background-light);
+        font-size: 12px;
+        line-height: 1.6;
+        resize: none;
+      }
+      .code:focus {
+        outline: none;
+        box-shadow: inset 0 0 0 2px
+          color-mix(in srgb, var(--color-primary) 45%, transparent);
+      }
+
+      .code--config {
+        height: 230px;
+      }
+
+      .code--ci {
+        height: 420px;
+      }
+
+      .playground-grid {
+        grid-template-columns: 290px minmax(0, 1fr);
+        align-items: flex-start;
+      }
+
+      .control-card,
+      .command-card {
+        padding: 16px;
+      }
+
+      .label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--color-grey);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .select {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--content-background-border);
+        border-radius: var(--border-radius);
+        background: var(--background-light);
+        color: var(--text-color-normal);
+        font-size: 13px;
+      }
+
+      .workflow-description {
+        margin: 12px 0 0;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--color-grey);
+      }
+
+      .command-card {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: center;
+        background: #111;
+      }
+
+      .prompt {
+        color: color-mix(in srgb, var(--color-primary) 80%, #fff);
+        font-family: var(--font-monospace);
+        font-weight: 700;
+      }
+
+      .command {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        color: #ddd;
+        font-size: 13px;
+      }
+      .command:focus {
+        outline: none;
+      }
+
+      .commands-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .commands-grid article {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 12px;
+      }
+      .commands-grid code {
+        color: var(--color-primary);
+        font-family: var(--font-monospace);
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .commands-grid span {
+        font-size: 12px;
+        line-height: 1.3;
+        color: var(--color-grey);
+      }
+
+      .copy-button {
+        padding: 6px 10px;
+        background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+        border-radius: var(--border-radius);
+        color: var(--color-primary);
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .copy-button--floating {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+      }
+
+      @media (max-width: 920px) {
+        .hero,
+        .playground-grid,
+        .why-grid,
+        .commands-grid {
+          grid-template-columns: 1fr;
+        }
+        .section-heading {
+          display: block;
+        }
+        .section-heading p {
+          margin-top: 8px;
+        }
+      }
+      @media (max-width: 560px) {
+        .hero {
+          padding: 16px;
+        }
+        .command-card {
+          grid-template-columns: auto minmax(0, 1fr);
+        }
+        .command-card .copy-button {
+          grid-column: 1/-1;
+        }
+      }
+    </style>
   </template>
   @tracked
   workflow: Workflow = 'sync';

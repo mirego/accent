@@ -74,6 +74,37 @@ export default class Select extends Component<Args> {
         </select>
       </div>
     {{/if}}
+
+    <style scoped>
+      @charset "UTF-8";
+      .root {
+        position: relative;
+      }
+      .root select {
+        appearance: none;
+        width: 100%;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 8px 25px 8px 13px;
+        background: var(--content-background);
+        box-shadow: none;
+        border-radius: var(--border-radius);
+        border: 1px solid transparent;
+        border-color: var(--background-light-highlight);
+        color: var(--color-black-opacity-70);
+      }
+      .root:after {
+        display: block;
+        pointer-events: none;
+        cursor: pointer;
+        content: '›';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        font-size: 140%;
+        transform: translateY(-50%) rotate(90deg);
+      }
+    </style>
   </template>
   @action
   selectChange(event: Event) {
