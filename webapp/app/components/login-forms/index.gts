@@ -4,6 +4,14 @@ import {action} from '@ember/object';
 import config from 'accent-webapp/config/environment';
 import {tracked} from '@glimmer/tracking';
 import LogoSvg from 'accent-webapp/svgs/assets/logo.svg';
+import GoogleSvg from 'accent-webapp/svgs/assets/auth_providers/google.svg';
+import GithubSvg from 'accent-webapp/svgs/assets/auth_providers/github.svg';
+import GitlabSvg from 'accent-webapp/svgs/assets/auth_providers/gitlab.svg';
+import SlackSvg from 'accent-webapp/svgs/assets/auth_providers/slack.svg';
+import DiscordSvg from 'accent-webapp/svgs/assets/auth_providers/discord.svg';
+import MicrosoftSvg from 'accent-webapp/svgs/assets/auth_providers/microsoft.svg';
+import Auth0Svg from 'accent-webapp/svgs/assets/auth_providers/auth0.svg';
+import OidcSvg from 'accent-webapp/svgs/assets/auth_providers/oidc.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import LoadingContent from 'accent-webapp/components/loading-content/index';
@@ -84,10 +92,7 @@ export default class LoginForms extends Component<Args> {
                 href={{this.googleUrl}}
                 class='button button--filled loginButton loginButton--google'
               >
-                <img
-                  src='assets/auth_providers/google.svg'
-                  class='loginButton-logo'
-                />
+                <GoogleSvg class={{scopedClass 'loginButton-logo'}} />
                 {{t 'components.login_forms.google'}}
               </a>
             {{/if}}
@@ -97,10 +102,7 @@ export default class LoginForms extends Component<Args> {
                 href={{this.githubUrl}}
                 class='button button--filled loginButton loginButton--github'
               >
-                <img
-                  src='assets/auth_providers/github.svg'
-                  class='loginButton-logo'
-                />
+                <GithubSvg class={{scopedClass 'loginButton-logo'}} />
                 {{t 'components.login_forms.github'}}
               </a>
             {{/if}}
@@ -110,10 +112,7 @@ export default class LoginForms extends Component<Args> {
                 href={{this.gitlabUrl}}
                 class='button button--filled loginButton loginButton--gitlab'
               >
-                <img
-                  src='assets/auth_providers/gitlab.svg'
-                  class='loginButton-logo'
-                />
+                <GitlabSvg class={{scopedClass 'loginButton-logo'}} />
                 {{t 'components.login_forms.gitlab'}}
               </a>
             {{/if}}
@@ -123,10 +122,7 @@ export default class LoginForms extends Component<Args> {
                 href={{this.slackUrl}}
                 class='button button--filled loginButton loginButton--slack'
               >
-                <img
-                  src='assets/auth_providers/slack.svg'
-                  class='loginButton-logo'
-                />
+                <SlackSvg class={{scopedClass 'loginButton-logo'}} />
                 {{t 'components.login_forms.slack'}}
               </a>
             {{/if}}
@@ -136,10 +132,7 @@ export default class LoginForms extends Component<Args> {
                 href={{this.discordUrl}}
                 class='button button--filled loginButton loginButton--discord'
               >
-                <img
-                  src='assets/auth_providers/discord.svg'
-                  class='loginButton-logo'
-                />
+                <DiscordSvg class={{scopedClass 'loginButton-logo'}} />
                 {{t 'components.login_forms.discord'}}
               </a>
             {{/if}}
@@ -149,10 +142,7 @@ export default class LoginForms extends Component<Args> {
                 href={{this.microsoftUrl}}
                 class='button button--filled loginButton loginButton--microsoft'
               >
-                <img
-                  src='assets/auth_providers/microsoft.svg'
-                  class='loginButton-logo'
-                />
+                <MicrosoftSvg class={{scopedClass 'loginButton-logo'}} />
                 {{t 'components.login_forms.microsoft'}}
               </a>
             {{/if}}
@@ -162,10 +152,7 @@ export default class LoginForms extends Component<Args> {
                 href={{this.auth0Url}}
                 class='button button--filled loginButton loginButton--auth0'
               >
-                <img
-                  src='assets/auth_providers/auth0.svg'
-                  class='loginButton-logo'
-                />
+                <Auth0Svg class={{scopedClass 'loginButton-logo'}} />
                 {{t 'components.login_forms.auth0'}}
               </a>
             {{/if}}
@@ -175,10 +162,7 @@ export default class LoginForms extends Component<Args> {
                 href={{this.oidcUrl}}
                 class='button button--filled loginButton loginButton--oidc'
               >
-                <img
-                  src='assets/auth_providers/oidc.svg'
-                  class='loginButton-logo'
-                />
+                <OidcSvg class={{scopedClass 'loginButton-logo'}} />
                 {{t 'components.login_forms.oidc'}}
               </a>
             {{/if}}
