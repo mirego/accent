@@ -95,10 +95,47 @@ defmodule AccentTest.APITokenManager do
       {:ok, [access_token: access_token]}
     end
 
-    test "revokes an access token", %{access_token: access_token} do
+    test "revokes an access token by setting revoked_at", %{access_token: access_token} do
       assert :ok = APITokenManager.revoke(access_token)
 
-      assert Repo.get(AccessToken, access_token.id) == nil
+      revoked = Repo.get(AccessToken, access_token.id)
+      assert revoked
+      assert revoked.revoked_at
+    end
+
+    test "keeps the bot user record", %{access_token: access_token} do
+      assert :ok = APITokenManager.revoke(access_token)
+
+      assert Repo.get(User, access_token.user_id)
+    end
+
+    test "deletes the collaborator record", %{access_token: access_token} do
+      assert Repo.get_by(Collaborator, user_id: access_token.user_id)
+
+      assert :ok = APITokenManager.revoke(access_token)
+
+      refute Repo.get_by(Collaborator, user_id: access_token.user_id)
+    end
+
+    test "does not overwrite an already revoked_at timestamp", %{access_token: access_token} do
+      assert :ok = APITokenManager.revoke(access_token)
+      first_revoked_at = Repo.get(AccessToken, access_token.id).revoked_at
+
+      assert :ok = APITokenManager.revoke(access_token)
+      assert Repo.get(AccessToken, access_token.id).revoked_at == first_revoked_at
+    end
+
+    test "revoked token is no longer listed", %{access_token: access_token} do
+      %{project_id: project_id} = Repo.get_by(Collaborator, user_id: access_token.user_id)
+      project = Repo.get!(Project, project_id)
+      admin = Factory.insert(User)
+      admin = %{admin | permissions: %{project.id => "admin"}}
+
+      assert length(APITokenManager.list(project, admin)) == 1
+
+      assert :ok = APITokenManager.revoke(access_token)
+
+      assert Enum.empty?(APITokenManager.list(project, admin))
     end
   end
 

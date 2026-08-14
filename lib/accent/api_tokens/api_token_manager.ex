@@ -47,13 +47,12 @@ defmodule Accent.APITokenManager do
 
   def revoke(access_token) do
     Repo.transaction(fn ->
-      access_token = if Ecto.assoc_loaded?(access_token.user), do: access_token, else: Repo.preload(access_token, :user)
-      Repo.delete_all(from(AccessToken, where: [id: ^access_token.id]))
+      Repo.update_all(
+        from(a in AccessToken, where: a.id == ^access_token.id, where: is_nil(a.revoked_at)),
+        set: [revoked_at: NaiveDateTime.utc_now(:second), updated_at: DateTime.utc_now()]
+      )
 
-      if access_token.user && access_token.user.bot == true do
-        Repo.delete_all(from(Collaborator, where: [user_id: ^access_token.user.id]))
-        Repo.delete(access_token.user)
-      end
+      Repo.delete_all(from(Collaborator, where: [user_id: ^access_token.user_id]))
     end)
 
     :ok
