@@ -35,13 +35,13 @@ type Step =
 const out = (text: string, delay?: number): Step => ({
   run: 'print',
   segments: text ? [{text}] : [],
-  delay,
+  delay
 });
 
 const check = (text: string, delay?: number): Step => ({
   run: 'print',
   segments: [{text}, {text: '✓', color: 'green'}],
-  delay,
+  delay
 });
 
 const guideLink = (): Step => ({
@@ -50,10 +50,10 @@ const guideLink = (): Step => ({
     {text: 'For more informations on operations: '},
     {
       text: 'https://www.accent.reviews/guides/glossary.html#sync',
-      color: 'link',
-    },
+      color: 'link'
+    }
   ],
-  delay: 80,
+  delay: 80
 });
 
 const SCRIPT: Step[] = [
@@ -82,7 +82,7 @@ const SCRIPT: Step[] = [
   {
     run: 'print',
     segments: [{text: '   New : '}, {text: '1', color: 'green'}],
-    delay: 60,
+    delay: 60
   },
   out('', 60),
   guideLink(),
@@ -91,10 +91,10 @@ const SCRIPT: Step[] = [
     segments: [
       {
         text: 'Syncing took 195 milliseconds, remove --dry-run to commit your changes to the server',
-        color: 'dim',
-      },
+        color: 'dim'
+      }
     ],
-    delay: 60,
+    delay: 60
   },
   {run: 'wait', ms: 1600},
   {run: 'prompt'},
@@ -108,9 +108,9 @@ const SCRIPT: Step[] = [
     run: 'print',
     segments: [
       {text: '   ↑ ', color: 'cyan'},
-      {text: 'translations/fr.json translations'},
+      {text: 'translations/fr.json translations'}
     ],
-    delay: 220,
+    delay: 220
   },
   out('', 60),
   out('Writing files locally', 280),
@@ -119,17 +119,17 @@ const SCRIPT: Step[] = [
     run: 'print',
     segments: [
       {text: '   ↓ ', color: 'cyan'},
-      {text: 'translations/fr.json translations → fr'},
+      {text: 'translations/fr.json translations → fr'}
     ],
-    delay: 200,
+    delay: 200
   },
   {
     run: 'print',
     segments: [
       {text: '   ↓ ', color: 'cyan'},
-      {text: 'translations/en.json translations → en'},
+      {text: 'translations/en.json translations → en'}
     ],
-    delay: 140,
+    delay: 140
   },
   out('', 60),
   guideLink(),
@@ -137,12 +137,12 @@ const SCRIPT: Step[] = [
     run: 'print',
     segments: [
       {text: 'Syncing took 650 milliseconds, ', color: 'dim'},
-      {text: 'completed without issues', color: 'dim'},
+      {text: 'completed without issues', color: 'dim'}
     ],
-    delay: 60,
+    delay: 60
   },
   {run: 'wait', ms: 3100},
-  {run: 'prompt'},
+  {run: 'prompt'}
 ];
 
 export default class WelcomeProject extends Component<Args> {
@@ -162,7 +162,7 @@ export default class WelcomeProject extends Component<Args> {
     if (this.paused) return;
     this.paused = true;
     this.resumePromise = new Promise(
-      (resolve) => (this.resumeResolve = resolve),
+      (resolve) => (this.resumeResolve = resolve)
     );
   };
 
@@ -323,12 +323,6 @@ export default class WelcomeProject extends Component<Args> {
             {{/each}}
           </div>
         </div>
-      </div>
-
-      <div class='actions-header'>
-        <h3 class='subtitle'>
-          {{t 'components.welcome_project.first_step'}}:
-        </h3>
       </div>
 
       <div
@@ -636,16 +630,6 @@ export default class WelcomeProject extends Component<Args> {
         );
       }
 
-      .subtitle {
-        margin: 0;
-        font-family: var(--font-monospace);
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        color: color-mix(in srgb, var(--text-color-normal) 72%, transparent);
-        text-transform: uppercase;
-      }
-
       .links {
         position: relative;
         z-index: 1;
@@ -695,17 +679,14 @@ export default class WelcomeProject extends Component<Args> {
       .link-title {
         display: block;
         max-width: 360px;
-        font-size: 17px;
-        font-weight: 800;
+        font-size: 15px;
       }
 
       .link-subtitle {
         display: block;
-        margin-top: 3px;
-        font-size: 13px;
-        font-weight: 500;
-        line-height: 1.45;
-        letter-spacing: 0;
+        margin-top: 2px;
+        font-size: 12px;
+        line-height: 1.25;
         color: color-mix(in srgb, var(--text-color-normal) 58%, transparent);
       }
 

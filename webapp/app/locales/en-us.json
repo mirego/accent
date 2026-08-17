@@ -536,11 +536,11 @@
         "delete_project_button": "Delete this project",
         "delete_project_confirm": "Are you sure you want to delete this project? This action cannot be undone."
       },
-  "form": {
-    "update_button": "Update project",
-    "name_label": "Name",
-    "main_color_label": "Main color",
-    "logo_label": "Icon",
+      "form": {
+        "update_button": "Update project",
+        "name_label": "Name",
+        "main_color_label": "Color",
+        "logo_label": "Icon",
         "unsupported_logo_type": "Only SVG files are supported as project logo.",
         "reset_logo_button": "Reset logo",
         "lock_file_operations": {

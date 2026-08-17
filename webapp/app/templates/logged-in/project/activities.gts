@@ -56,5 +56,5 @@ export default RouteTemplate<RouteTemplateSignature>(
         @onSelectPage={{fn @controller.selectPage}}
       />
     {{/if}}
-  </template>,
+  </template>
 );

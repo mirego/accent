@@ -7,6 +7,9 @@
     .base {
       position: relative;
     }
+    .base :global(svg) {
+      display: block;
+    }
     .base:after {
       content: '';
       display: block;

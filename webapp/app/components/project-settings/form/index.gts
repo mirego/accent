@@ -47,32 +47,34 @@ export default class ProjectSettingsForm extends Component<Args> {
           />
         </label>
 
-        <label class='field'>
-          <span class='label'>{{t
-              'components.project_settings.form.main_color_label'
-            }}</span>
-          <input
-            type='color'
-            value={{this.mainColor}}
-            class='colorInput'
-            {{on 'change' (fn this.setMainColor)}}
-          />
-        </label>
+        <div class='fields'>
+          <label class='field'>
+            <span class='label'>{{t
+                'components.project_settings.form.main_color_label'
+              }}</span>
+            <input
+              type='color'
+              value={{this.mainColor}}
+              class='colorInput'
+              {{on 'change' (fn this.setMainColor)}}
+            />
+          </label>
 
-        <div class='field'>
-          <span class='label'>{{t
-              'components.project_settings.form.logo_label'
-            }}</span>
-          <div class='logo-field'>
-            <AccEmojiPicker @onPicked={{fn this.logoPicked}} class='logo'>
-              <ProjectLogo @logo={{this.logo}} />
-            </AccEmojiPicker>
+          <div class='field'>
+            <span class='label'>{{t
+                'components.project_settings.form.logo_label'
+              }}</span>
+            <div class='logo-field'>
+              <AccEmojiPicker @onPicked={{fn this.logoPicked}} class='logo'>
+                <ProjectLogo @logo={{this.logo}} />
+              </AccEmojiPicker>
 
-            {{#if this.logo}}
-              <button class='logoReset' {{on 'click' (fn this.logoReset)}}>
-                <XSvg class={{scopedClass 'logoReset-icon'}} />
-              </button>
-            {{/if}}
+              {{#if this.logo}}
+                <button class='logoReset' {{on 'click' (fn this.logoReset)}}>
+                  <XSvg class={{scopedClass 'logoReset-icon'}} />
+                </button>
+              {{/if}}
+            </div>
           </div>
         </div>
 
@@ -126,14 +128,19 @@ export default class ProjectSettingsForm extends Component<Args> {
         }
       }
       .project-settings-form {
-        display: flex;
         flex-direction: column;
         gap: 10px;
         margin-top: 25px;
+        display: inline-flex;
+        background: var(--background-light);
+        border: 1px solid var(--background-light-highlight);
+        padding: 12px;
+        border-radius: 6px;
+        width: 100%;
+        max-width: 390px;
       }
 
       .textInput {
-        max-width: 350px;
         width: 100%;
         padding: 10px;
         font-family: var(--font-primary);
@@ -153,11 +160,14 @@ export default class ProjectSettingsForm extends Component<Args> {
         gap: 4px;
       }
 
+      .fields {
+        display: flex;
+        gap: 10px;
+      }
+
       .label {
         font-size: 11px;
-        text-transform: uppercase;
         font-weight: bold;
-        opacity: 0.7;
       }
 
       .logo {

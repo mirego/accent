@@ -26,7 +26,7 @@ export default class ActivitiesController extends Controller {
     'actionFilter',
     'userFilter',
     'page',
-    'versionFilter',
+    'versionFilter'
   ];
 
   @tracked
@@ -58,7 +58,7 @@ export default class ActivitiesController extends Controller {
       this.batchFilter ||
       this.actionFilter ||
       this.userFilter ||
-      this.versionFilter,
+      this.versionFilter
     );
   }
 

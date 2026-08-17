@@ -552,11 +552,11 @@
         "delete_project_button": "Supprimer ce projet",
         "delete_project_confirm": "Voulez-vous vraiment supprimer ce projet? Cette action ne peut pas être annulée."
       },
-  "form": {
-    "update_button": "Projet de mise à jour",
-    "name_label": "Nom",
-    "main_color_label": "Couleur principale",
-    "logo_label": "Icône",
+      "form": {
+        "update_button": "Enregistrer",
+        "name_label": "Nom",
+        "main_color_label": "Couleur",
+        "logo_label": "Icône",
         "unsupported_logo_type": "Seuls les fichiers SVG sont pris en charge comme logo de projet.",
         "reset_logo_button": "Réinitialiser le logo",
         "lock_file_operations": {

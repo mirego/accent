@@ -64,36 +64,54 @@ export default class CommitFileInstructions extends Component {
           <table class='modes-table'>
             <thead>
               <tr>
-                <th>{{t 'components.commit_file.instructions.modes.col_situation'}}</th>
-                <th class='col-smart'>{{t 'components.commit_file.instructions.modes.col_smart'}}</th>
-                <th>{{t 'components.commit_file.instructions.modes.col_passive'}}</th>
-                <th>{{t 'components.commit_file.instructions.modes.col_force'}}</th>
+                <th>{{t
+                    'components.commit_file.instructions.modes.col_situation'
+                  }}</th>
+                <th class='col-smart'>{{t
+                    'components.commit_file.instructions.modes.col_smart'
+                  }}</th>
+                <th>{{t
+                    'components.commit_file.instructions.modes.col_passive'
+                  }}</th>
+                <th>{{t
+                    'components.commit_file.instructions.modes.col_force'
+                  }}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{{t 'components.commit_file.instructions.modes.row_same'}}</td>
+                <td>{{t
+                    'components.commit_file.instructions.modes.row_same'
+                  }}</td>
                 <td class='col-smart'>
                   <span class='pill pill--neutral'>
                     <CheckSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_nothing'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_nothing'
+                    }}
                   </span>
                 </td>
                 <td>
                   <span class='pill pill--neutral'>
                     <CheckSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_nothing'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_nothing'
+                    }}
                   </span>
                 </td>
                 <td>
                   <span class='pill pill--neutral'>
                     <CheckSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_nothing'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_nothing'
+                    }}
                   </span>
                 </td>
               </tr>
               <tr>
-                <td>{{t 'components.commit_file.instructions.modes.row_edited'}}</td>
+                <td>{{t
+                    'components.commit_file.instructions.modes.row_edited'
+                  }}</td>
                 <td class='col-smart'>
                   <span class='pill pill--positive'>
                     <CheckCircleSvg class={{scopedClass 'pill-icon'}} />
@@ -103,61 +121,83 @@ export default class CommitFileInstructions extends Component {
                 <td>
                   <span class='pill pill--neutral'>
                     <CheckSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_untouched'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_untouched'
+                    }}
                   </span>
                 </td>
                 <td>
                   <span class='pill pill--warning'>
                     <WarningSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_overwritten_review'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_overwritten_review'
+                    }}
                   </span>
                 </td>
               </tr>
               <tr>
-                <td>{{t 'components.commit_file.instructions.modes.row_changed'}}</td>
+                <td>{{t
+                    'components.commit_file.instructions.modes.row_changed'
+                  }}</td>
                 <td class='col-smart'>
                   <span class='pill pill--warning'>
                     <WarningSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_overwritten_review'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_overwritten_review'
+                    }}
                   </span>
                 </td>
                 <td>
                   <div class='pillStack'>
                     <span class='pill pill--sync'>
                       <SyncSvg class={{scopedClass 'pill-icon'}} />
-                      {{t 'components.commit_file.instructions.modes.cell_passive_sync'}}
+                      {{t
+                        'components.commit_file.instructions.modes.cell_passive_sync'
+                      }}
                     </span>
                     <span class='pill pill--merge'>
                       <MergeSvg class={{scopedClass 'pill-icon'}} />
-                      {{t 'components.commit_file.instructions.modes.cell_passive_merge'}}
+                      {{t
+                        'components.commit_file.instructions.modes.cell_passive_merge'
+                      }}
                     </span>
                   </div>
                 </td>
                 <td>
                   <span class='pill pill--warning'>
                     <WarningSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_overwritten_review'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_overwritten_review'
+                    }}
                   </span>
                 </td>
               </tr>
               <tr>
-                <td>{{t 'components.commit_file.instructions.modes.row_both'}}</td>
+                <td>{{t
+                    'components.commit_file.instructions.modes.row_both'
+                  }}</td>
                 <td class='col-smart'>
                   <span class='pill pill--warning'>
                     <WarningSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_overwritten_review'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_overwritten_review'
+                    }}
                   </span>
                 </td>
                 <td>
                   <span class='pill pill--neutral'>
                     <CheckSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_untouched'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_untouched'
+                    }}
                   </span>
                 </td>
                 <td>
                   <span class='pill pill--warning'>
                     <WarningSvg class={{scopedClass 'pill-icon'}} />
-                    {{t 'components.commit_file.instructions.modes.cell_overwritten_review'}}
+                    {{t
+                      'components.commit_file.instructions.modes.cell_overwritten_review'
+                    }}
                   </span>
                 </td>
               </tr>
@@ -167,7 +207,9 @@ export default class CommitFileInstructions extends Component {
         <ul class='modes-notes'>
           <li>{{t 'components.commit_file.instructions.modes.note_force'}}</li>
           <li>{{t 'components.commit_file.instructions.modes.note_keys'}}</li>
-          <li>{{t 'components.commit_file.instructions.modes.note_correct'}}</li>
+          <li>{{t
+              'components.commit_file.instructions.modes.note_correct'
+            }}</li>
         </ul>
       </div>
 
@@ -315,7 +357,11 @@ export default class CommitFileInstructions extends Component {
         text-align: left;
         font-weight: 600;
         color: var(--text-color-normal);
-        background: color-mix(in srgb, var(--background-light) 60%, var(--content-background));
+        background: color-mix(
+          in srgb,
+          var(--background-light) 60%,
+          var(--content-background)
+        );
         border-bottom: 1px solid var(--background-light-highlight);
       }
 
@@ -330,7 +376,11 @@ export default class CommitFileInstructions extends Component {
       }
 
       .modes-table tbody tr:hover td {
-        background: color-mix(in srgb, var(--background-light) 60%, var(--content-background));
+        background: color-mix(
+          in srgb,
+          var(--background-light) 60%,
+          var(--content-background)
+        );
       }
 
       .modes-table .col-smart {

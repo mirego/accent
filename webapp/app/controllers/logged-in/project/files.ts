@@ -44,8 +44,8 @@ export default class FilesController extends Controller {
   @readOnly('globalState.permissions')
   permissions: any;
 
-  @and('emptyEntries', 'model.loading')
-  showSkeleton: boolean;
+  // @and('emptyEntries', 'model.loading')
+  showSkeleton: boolean = true;
 
   @action
   async deleteDocument(documentEntity: any) {

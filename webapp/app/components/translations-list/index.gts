@@ -103,7 +103,7 @@ export default class TranslationsList extends Component<Args> {
     if (!this.args.version) return;
 
     return this.args.versions.find(
-      (version) => version.id === this.args.version,
+      (version) => version.id === this.args.version
     );
   }
 }

@@ -58,10 +58,10 @@ export default class DocumentsList extends Component<Args> {
 
   get documents() {
     const emptyDocuments = this.args.documents.filter(
-      (document: Document) => document.translationsCount === 0,
+      (document: Document) => document.translationsCount === 0
     );
     const documents = this.args.documents.filter(
-      (document: Document) => document.translationsCount !== 0,
+      (document: Document) => document.translationsCount !== 0
     );
 
     return [...documents, ...emptyDocuments];

@@ -244,36 +244,40 @@ export default class LintTranslationsPageItem extends Component<Args> {
         display: inline;
       }
 
-.item-text :global(.added) {
-  padding: 0 1px;
-  background: hsl(
-    var(--color-green-hue),
-    var(--color-green-saturation),
-    var(--color-highlight-lighteness)
-  );
-  color: var(--color-green);
-}
+      .item-diff-text :global(.added),
+      .item-text :global(.added) {
+        padding: 0 1px;
+        background: hsl(
+          var(--color-green-hue),
+          var(--color-green-saturation),
+          var(--color-highlight-lighteness)
+        );
+        color: var(--color-green);
+      }
 
-.item-text :global(.undiffable) {
-  padding: 0 1px;
-  background: var(--background-light-highlight);
-  color: var(--color-gray);
-}
+      .item-diff-text :global(.undiffable),
+      .item-text :global(.undiffable) {
+        padding: 0 1px;
+        background: var(--background-light-highlight);
+        color: var(--color-gray);
+      }
 
-.item-text :global([data-underline]) {
-  text-decoration: underline wavy red;
-}
+      .item-diff-text :global([data-underline]),
+      .item-text :global([data-underline]) {
+        text-decoration: underline wavy red;
+      }
 
-.item-text :global(.removed) {
-  padding: 0 1px;
-  background: hsl(
-    var(--color-error-hue),
-    var(--color-error-saturation),
-    var(--color-highlight-lighteness)
-  );
-  color: var(--color-error);
-  text-decoration: line-through;
-}
+      .item-diff-text :global(.removed),
+      .item-text :global(.removed) {
+        padding: 0 1px;
+        background: hsl(
+          var(--color-error-hue),
+          var(--color-error-saturation),
+          var(--color-highlight-lighteness)
+        );
+        color: var(--color-error);
+        text-decoration: line-through;
+      }
 
       .item-text :global(strong) {
         color: var(--color-green);

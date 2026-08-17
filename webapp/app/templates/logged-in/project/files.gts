@@ -65,7 +65,6 @@ export default RouteTemplate<RouteTemplateSignature>(
         @permissions={{@controller.permissions}}
         @documents={{@controller.model.documents.entries}}
         @project={{@controller.model.project}}
-        @withFilters={{@controller.excludeEmptyTranslations}}
         @onDelete={{fn @controller.deleteDocument}}
         @onUpdate={{fn @controller.updateDocument}}
       />
@@ -87,5 +86,5 @@ export default RouteTemplate<RouteTemplateSignature>(
 
       {{outlet}}
     {{/if}}
-  </template>,
+  </template>
 );
