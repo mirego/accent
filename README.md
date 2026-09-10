@@ -284,6 +284,19 @@ $> heroku container:release web --app peaceful-badlands-85887
 Releasing images web to peaceful-badlands-85887... done
 ```
 
+## 🚀 Deploy on Easypanel
+
+[Easypanel](https://easypanel.io/) can deploy Accent with one click using its official template, provisioning the required PostgreSQL database automatically.
+
+1. Open your Easypanel dashboard and create (or open) a project
+2. Click **+ Add Service** and choose **Templates**
+3. Search for **Accent** and select it
+4. Click **Create** to deploy the service
+
+<img src="docs/easypanel_deployed.png" alt="Accent deployed on Easypanel" width="70%">
+
+See the [official Accent template on Easypanel](https://easypanel.io/templates/accent) for more details.
+
 ## 🌎 Contribute
 
 Before opening a pull request, please open an issue first.
