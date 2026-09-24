@@ -1,26 +1,69 @@
 import SkeletonUi from 'accent-webapp/components/skeleton-ui/index';
 import repeat from 'accent-webapp/helpers/repeat';
-import Content from 'accent-webapp/components/skeleton-ui/content/index';
+import {Line, Block} from 'accent-webapp/components/skeleton-ui/content/index';
 <template>
   <SkeletonUi class='skeleton'>
-    {{#each (repeat 6)}}
-      <Content @height='35' @width='400'>
-        <rect x='0' y='0' rx='1' ry='1' width='28' height='2'></rect>
-        <rect x='0' y='6' rx='1' ry='1' width='13' height='4'></rect>
-        <rect x='0' y='13' rx='1' ry='1' width='400' height='1'></rect>
+    <ul class='list'>
+      {{#each (repeat 6)}}
+        <li class='item'>
+          <div class='item-info'>
+            <Line @width='45%' @height='14px' />
 
-        <rect x='0' y='18' rx='2' ry='2' width='30' height='10'></rect>
-        <rect x='36' y='18' rx='2' ry='2' width='37' height='10'></rect>
-        <rect x='78' y='18' rx='2' ry='2' width='32' height='10'></rect>
+            <div class='item-stats'>
+              <Line @width='40px' @height='16px' />
+              <Line @width='70px' />
+            </div>
 
-        <rect x='372' y='0' rx='1' ry='1' width='28' height='2'></rect>
-      </Content>
-    {{/each}}
+            <Block @height='6px' class='item-progress' />
+          </div>
+
+          <div class='item-actions'>
+            <Block @width='70px' @height='28px' />
+            <Block @width='70px' @height='28px' />
+            <Block @width='70px' @height='28px' />
+          </div>
+        </li>
+      {{/each}}
+    </ul>
   </SkeletonUi>
 
   <style scoped>
     .skeleton {
       padding: 15px 0;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 0 0 18px;
+      padding: 10px 0;
+    }
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1 1 260px;
+      min-width: 0;
+    }
+
+    .item-stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .item-progress {
+      border-radius: var(--border-radius);
+    }
+
+    .item-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
   </style>
 </template>

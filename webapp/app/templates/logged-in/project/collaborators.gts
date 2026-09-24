@@ -4,7 +4,7 @@ import PageTitle from 'accent-webapp/components/page-title/index';
 import UsersSvg from 'accent-webapp/svgs/assets/users.svg';
 import t from 'ember-intl/helpers/t';
 import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/index';
-import LoadingContent from 'accent-webapp/components/loading-content/index';
+import CollaboratorsSkeleton from 'accent-webapp/components/skeleton-ui/collaborators/index';
 import Collaborators from 'accent-webapp/components/project-settings/collaborators/index';
 import {fn} from '@ember/helper';
 export default RouteTemplate<RouteTemplateSignature>(
@@ -19,9 +19,7 @@ export default RouteTemplate<RouteTemplateSignature>(
     {{/if}}
 
     {{#if @controller.showLoading}}
-      <LoadingContent
-        @label={{t 'pods.project.collaborators.loading_content'}}
-      />
+      <CollaboratorsSkeleton />
     {{else}}
       <Collaborators
         @project={{@controller.project}}

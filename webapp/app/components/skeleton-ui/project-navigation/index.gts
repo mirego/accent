@@ -1,42 +1,41 @@
 import SkeletonUi from 'accent-webapp/components/skeleton-ui/index';
-import Content from 'accent-webapp/components/skeleton-ui/content/index';
+import repeat from 'accent-webapp/helpers/repeat';
+import {Line, Block} from 'accent-webapp/components/skeleton-ui/content/index';
 <template>
   <SkeletonUi class='skeleton'>
-    <Content @height='15' @width='80'>
-      <rect x='0' y='0' rx='2' ry='2' width='8' height='8'></rect>
-      <rect x='13' y='3' rx='1' ry='1' width='50' height='2'></rect>
-    </Content>
-    <Content @height='15' @width='80'>
-      <rect x='0' y='0' rx='2' ry='2' width='8' height='8'></rect>
-      <rect x='13' y='3' rx='1' ry='1' width='42' height='2'></rect>
-    </Content>
-    <Content @height='15' @width='80'>
-      <rect x='0' y='0' rx='2' ry='2' width='8' height='8'></rect>
-      <rect x='13' y='3' rx='1' ry='1' width='38' height='2'></rect>
-    </Content>
-    <Content @height='15' @width='80'>
-      <rect x='0' y='0' rx='2' ry='2' width='8' height='8'></rect>
-      <rect x='13' y='3' rx='1' ry='1' width='47' height='2'></rect>
-    </Content>
-    <Content @height='15' @width='80'>
-      <rect x='0' y='0' rx='2' ry='2' width='8' height='8'></rect>
-      <rect x='13' y='3' rx='1' ry='1' width='41' height='2'></rect>
-    </Content>
+    {{#each (repeat 6)}}
+      <div class='item'>
+        <Block @width='16px' @height='16px' class='item-icon' />
+        <Line @width='60%' />
+      </div>
+    {{/each}}
   </SkeletonUi>
 
   <style scoped>
     div.skeleton {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
       padding: 25px 10px 0;
       min-height: 100dvh;
       background: var(--content-background);
     }
     div.skeleton:after {
-      background: var(--content-background);
       background: linear-gradient(
         180deg,
         rgba(255, 255, 255, 0) 0,
         var(--body-background) 90%
       );
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item-icon {
+      border-radius: var(--border-radius);
     }
   </style>
 </template>

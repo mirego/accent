@@ -71,7 +71,7 @@ export default class VersionsListItem extends Component<Args> {
           <LinkTo
             @route='logged-in.project.versions.edit'
             @models={{array @project.id @version.id}}
-            class='button button--filled button--white'
+            class='button button--filled button--white linksButton'
           >
             <PencilSvg class='button-icon' />
             {{t 'components.versions_list.update'}}
@@ -82,7 +82,7 @@ export default class VersionsListItem extends Component<Args> {
           <LinkTo
             @route='logged-in.project.versions.export'
             @models={{array @project.id @version.id}}
-            class='button button--filled button--white'
+            class='button button--filled button--white linksButton'
           >
             <ExportSvg class='button-icon' />
             {{t 'components.versions_list.export'}}
@@ -93,7 +93,7 @@ export default class VersionsListItem extends Component<Args> {
           <AsyncButton
             @onClick={{fn this.deleteVersion @version}}
             @loading={{this.isDeleting}}
-            class='button button--outline button--borderless button--red'
+            class='button button--outline button--borderless button--red linksButton'
           >
             <XSvg class='button-icon' />
             {{t 'components.versions_list.delete'}}
@@ -106,6 +106,7 @@ export default class VersionsListItem extends Component<Args> {
       @charset "UTF-8";
       .item {
         position: relative;
+        align-items: center;
         display: flex;
         margin-left: -10px;
         padding: 8px 12px;
@@ -203,14 +204,11 @@ export default class VersionsListItem extends Component<Args> {
         align-items: center;
         flex-shrink: 0;
         opacity: 0;
-        gap: 10px;
+        gap: 4px;
         transition: opacity 0.2s ease-in-out;
       }
-      .links .button {
+      .links .linksButton {
         margin-right: 6px;
-      }
-      .links .button.button--borderLess:first-of-type:last-of-type {
-        margin-left: -14px;
       }
 
       @media (max-width: 800px) {

@@ -1,7 +1,6 @@
 import RouteTemplate from 'ember-route-template';
 import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-signature';
-import LoadingContent from 'accent-webapp/components/loading-content/index';
-import t from 'ember-intl/helpers/t';
+import ProjectSettingsSkeleton from 'accent-webapp/components/skeleton-ui/project-settings/index';
 import Form from 'accent-webapp/components/project-settings/form/index';
 import {fn, get} from '@ember/helper';
 import LinksList from 'accent-webapp/components/project-settings/links-list/index';
@@ -10,7 +9,7 @@ import DeleteForm from 'accent-webapp/components/project-settings/delete-form/in
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
     {{#if @controller.showLoading}}
-      <LoadingContent @label={{t 'pods.project.edit.loading_content'}} />
+      <ProjectSettingsSkeleton />
     {{else}}
       <Form
         @project={{@controller.project}}

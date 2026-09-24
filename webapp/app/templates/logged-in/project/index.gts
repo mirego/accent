@@ -1,8 +1,7 @@
 import RouteTemplate from 'ember-route-template';
 import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-signature';
 import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/index';
-import LoadingContent from 'accent-webapp/components/loading-content/index';
-import t from 'ember-intl/helpers/t';
+import DashboardSkeleton from 'accent-webapp/components/skeleton-ui/dashboard/index';
 import DashboardRevisions from 'accent-webapp/components/dashboard-revisions/index';
 import {fn} from '@ember/helper';
 export default RouteTemplate<RouteTemplateSignature>(
@@ -12,7 +11,7 @@ export default RouteTemplate<RouteTemplateSignature>(
     {{/if}}
 
     {{#if @controller.showLoading}}
-      <LoadingContent @label={{t 'pods.project.index.loading_content'}} />
+      <DashboardSkeleton />
     {{else}}
       <DashboardRevisions
         @document={{@controller.selectedDocument}}

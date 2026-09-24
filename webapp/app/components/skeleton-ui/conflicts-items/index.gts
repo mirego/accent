@@ -1,21 +1,29 @@
 import SkeletonUi from 'accent-webapp/components/skeleton-ui/index';
 import repeat from 'accent-webapp/helpers/repeat';
-import Content from 'accent-webapp/components/skeleton-ui/content/index';
+import {Line, Block} from 'accent-webapp/components/skeleton-ui/content/index';
 <template>
   <SkeletonUi class='skeleton'>
-    {{#each (repeat 6)}}
-      <Content @height='35' @width='400'>
-        <rect x='0' y='0' rx='0' ry='0' width='104' height='2'></rect>
-        <rect x='0' y='3' rx='0' ry='0' width='155' height='2'></rect>
-        <rect x='0' y='7' rx='0' ry='0' width='217' height='12'></rect>
-      </Content>
-    {{/each}}
+    <ul class='list'>
+      {{#each (repeat 6)}}
+        <li class='item'>
+          <Line @width='40%' />
+          <Block @height='60px' />
+        </li>
+      {{/each}}
+    </ul>
   </SkeletonUi>
 
   <style scoped>
     .skeleton {
       margin-top: 20px;
       padding: 15px;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 0 0 20px;
     }
   </style>
 </template>

@@ -7,9 +7,6 @@
     .base {
       position: relative;
     }
-    .base :global(svg) {
-      display: block;
-    }
     .base:after {
       content: '';
       display: block;
@@ -18,7 +15,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      background: var(--content-background);
+      pointer-events: none;
       background: linear-gradient(
         180deg,
         rgba(255, 255, 255, 0) 0%,

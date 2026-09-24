@@ -1,23 +1,75 @@
 import SkeletonUi from 'accent-webapp/components/skeleton-ui/index';
 import repeat from 'accent-webapp/helpers/repeat';
-import Content from 'accent-webapp/components/skeleton-ui/content/index';
+import {Line, Circle} from 'accent-webapp/components/skeleton-ui/content/index';
 <template>
   <SkeletonUi class='skeleton'>
-    {{#each (repeat 6)}}
-      <Content @height='45' @width='400'>
-        <rect x='0' y='0' rx='3' ry='3' width='28' height='2'></rect>
-        <rect x='0' y='5' rx='3' ry='3' width='88' height='2'></rect>
-        <circle cx='4' cy='14' r='4'></circle>
-        <rect x='12' y='14' rx='3' ry='3' width='110' height='2'></rect>
-        <rect x='0' y='22' rx='3' ry='3' width='200' height='2'></rect>
-        <rect x='0' y='26' rx='3' ry='3' width='230' height='2'></rect>
-      </Content>
+    {{#each (repeat 4)}}
+      <div class='group'>
+        <div class='group-header'>
+          <Line @width='70px' @height='8px' />
+          <Line @width='40%' />
+        </div>
+
+        <div class='group-comments'>
+          {{#each (repeat 2)}}
+            <div class='comment'>
+              <div class='comment-header'>
+                <Circle @size='18px' />
+                <Line @width='110px' />
+                <Line @width='60px' @height='8px' class='comment-date' />
+              </div>
+              <Line @width='85%' />
+              <Line @width='60%' />
+            </div>
+          {{/each}}
+        </div>
+      </div>
     {{/each}}
   </SkeletonUi>
 
   <style scoped>
     .skeleton {
       padding: 15px 0;
+    }
+
+    .group {
+      margin-bottom: 30px;
+    }
+
+    .group-header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .group-comments {
+      display: flex;
+      flex-direction: column;
+      background: var(--background-light);
+      border-radius: var(--border-radius);
+    }
+
+    .comment {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px;
+      border-bottom: 1px solid var(--content-background-border);
+    }
+    .comment:last-of-type {
+      border-bottom: 0;
+    }
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .comment-date {
+      margin-left: auto;
     }
   </style>
 </template>

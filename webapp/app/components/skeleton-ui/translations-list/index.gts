@@ -1,22 +1,55 @@
 import SkeletonUi from 'accent-webapp/components/skeleton-ui/index';
 import repeat from 'accent-webapp/helpers/repeat';
-import Content from 'accent-webapp/components/skeleton-ui/content/index';
+import {Line} from 'accent-webapp/components/skeleton-ui/content/index';
 <template>
   <SkeletonUi class='skeleton'>
-    {{#each (repeat 6)}}
-      <Content @height='35' @width='400'>
-        <rect x='0' y='0' rx='0' ry='0' width='104' height='2'></rect>
-        <rect x='0' y='4' rx='0' ry='0' width='155' height='2'></rect>
-        <rect x='0' y='17' rx='0' ry='0' width='217' height='1'></rect>
-        <rect x='0' y='20' rx='0' ry='0' width='200' height='1'></rect>
-      </Content>
-    {{/each}}
+    <ul class='list'>
+      {{#each (repeat 6)}}
+        <li class='item'>
+          <div class='item-header'>
+            <div class='item-key'>
+              <Line @width='45%' />
+              <Line @width='30%' @height='8px' />
+            </div>
+            <Line @width='90px' class='item-meta' />
+          </div>
+          <Line @width='70%' />
+        </li>
+      {{/each}}
+    </ul>
   </SkeletonUi>
 
   <style scoped>
     .skeleton {
       margin-top: 20px;
       padding: 15px;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0 0 18px;
+      padding: 4px 0;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .item-key {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .item-meta {
+      flex-shrink: 0;
     }
   </style>
 </template>

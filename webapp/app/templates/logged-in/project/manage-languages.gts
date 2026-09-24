@@ -4,7 +4,7 @@ import PageTitle from 'accent-webapp/components/page-title/index';
 import LanguageSvg from 'accent-webapp/svgs/assets/language.svg';
 import t from 'ember-intl/helpers/t';
 import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/index';
-import LoadingContent from 'accent-webapp/components/loading-content/index';
+import ManageLanguagesSkeleton from 'accent-webapp/components/skeleton-ui/manage-languages/index';
 import ManageLanguages from 'accent-webapp/components/project-settings/manage-languages/index';
 import {fn} from '@ember/helper';
 export default RouteTemplate<RouteTemplateSignature>(
@@ -19,9 +19,7 @@ export default RouteTemplate<RouteTemplateSignature>(
     {{/if}}
 
     {{#if @controller.showLoading}}
-      <LoadingContent
-        @label={{t 'pods.project.manage_languages.loading_content'}}
-      />
+      <ManageLanguagesSkeleton />
     {{else}}
       <ManageLanguages
         @project={{@controller.model.project}}

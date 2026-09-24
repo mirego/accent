@@ -44,7 +44,6 @@ export default class VersionsList extends Component<Args> {
         width: 100%;
         padding-bottom: 20px;
         margin: 20px 0;
-        border-bottom: 1px solid var(--background-light-highlight);
       }
     </style>
   </template>
