@@ -1,17 +1,9 @@
-import {Config} from './accent';
-import LiveNode from './mutation/live-node';
-import Mutation from './mutation/mutation';
-import State from './state';
-import UI from './ui/ui';
+import type {Config} from './accent.ts';
+import type LiveNode from './mutation/live-node.ts';
+import Mutation from './mutation/mutation.ts';
+import type State from './state.ts';
+import type UI from './ui/ui.ts';
 
-const enum ACTIONS {
-  updateTranslation = 'updateTranslation',
-  listTranslations = 'listTranslations',
-  redirectIfEmbedded = 'redirectIfEmbedded',
-  login = 'login',
-  loggedIn = 'loggedIn',
-  changeText = 'changeText'
-}
 
 interface Props {
   ui: UI;
@@ -48,31 +40,23 @@ export default class FrameListener {
   }
 
   private handleAccentMessage(event: MessageEvent) {
-    if (!event.data.jipt) return;
-    const action = event.data.action;
+    if (!event.data?.jipt) return;
 
-    if (action === ACTIONS.listTranslations) {
-      return this.handleListTranslations(event);
-    }
-
-    if (action === ACTIONS.redirectIfEmbedded) {
-      return this.handleRedirectIfEmbedded();
-    }
-
-    if (action === ACTIONS.login) {
-      return this.handleLogin();
-    }
-
-    if (action === ACTIONS.loggedIn) {
-      return this.handleLoggedIn();
-    }
-
-    if (action === ACTIONS.changeText) {
-      return this.handleChangeText(event);
-    }
-
-    if (action === ACTIONS.updateTranslation) {
-      return this.handleUpdateTranslation(event);
+    switch (event.data.action) {
+      case 'listTranslations':
+        return this.handleListTranslations(event);
+      case 'revisionNotFound':
+        return this.handleRevisionNotFound();
+      case 'redirectIfEmbedded':
+        return this.ui.postMessage({projectId: this.projectId});
+      case 'login':
+        return this.ui.showLogin();
+      case 'loggedIn':
+        return this.ui.collapse();
+      case 'changeText':
+        return this.handleChangeText(event);
+      case 'updateTranslation':
+        return this.handleUpdateTranslation(event);
     }
   }
 
@@ -90,23 +74,18 @@ export default class FrameListener {
     }
   }
 
-  private handleRedirectIfEmbedded() {
-    this.ui.postMessage({projectId: this.projectId});
-  }
+  private handleRevisionNotFound() {
+    if (!this.state.getCurrentRevision()) return;
 
-  private handleLogin() {
-    this.ui.showLogin();
-  }
-
-  private handleLoggedIn() {
-    this.ui.collapse();
+    this.state.removeCurrentRevision();
+    this.ui.reloadFrame();
   }
 
   private handleChangeText(event: MessageEvent) {
     const ref = this.state.refs.get(event.data.payload.translationId);
     if (!ref) return;
 
-    ref.elements.forEach((meta, node: HTMLElement) => {
+    ref.forEach((meta, node) => {
       if (!this.liveNode.isLive(node)) return;
 
       Mutation.nodeChange(node, meta, event.data.payload.text);
@@ -117,7 +96,7 @@ export default class FrameListener {
     const ref = this.state.refs.get(event.data.payload.translationId);
     if (!ref) return;
 
-    ref.elements.forEach((_meta, node: HTMLElement) => {
+    ref.forEach((_meta, node) => {
       if (!this.liveNode.isLive(node)) return;
 
       Mutation.nodeStyleRefresh(node, event.data.payload);

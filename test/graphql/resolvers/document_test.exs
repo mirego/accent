@@ -73,7 +73,7 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
         project_id: project.id,
         path: "test2",
         format: "json",
-        updated_at: DateTime.add(document.updated_at, 3600, :second)
+        updated_at: DateTime.shift(document.updated_at, hour: 1)
       )
 
     context = %{context: %{conn: %PlugConn{assigns: %{current_user: user}}}}
@@ -108,7 +108,7 @@ defmodule AccentTest.GraphQL.Resolvers.Document do
         project_id: project.id,
         path: "test2",
         format: "json",
-        updated_at: DateTime.add(document.updated_at, 3600, :second)
+        updated_at: DateTime.shift(document.updated_at, hour: 1)
       )
 
     _empty_document = Factory.insert(Document, project_id: project.id, path: "test3", format: "json")

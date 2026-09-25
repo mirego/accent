@@ -181,11 +181,13 @@ defmodule Accent.Scopes.Translation do
         query
 
       last_sync_id ->
-        from(
-          translations in query,
-          inner_join: operations in assoc(translations, :operations),
-          where: operations.batch_operation_id == ^last_sync_id
-        )
+        synced_translation_ids =
+          from(operations in Operation,
+            where: operations.batch_operation_id == ^last_sync_id,
+            select: operations.translation_id
+          )
+
+        from(translations in query, where: translations.id in subquery(synced_translation_ids))
     end
   end
 
@@ -201,17 +203,20 @@ defmodule Accent.Scopes.Translation do
     iex> Accent.Scopes.Translation.parse_commented_on(Accent.Translation, nil)
     Accent.Translation
     iex> Accent.Scopes.Translation.parse_commented_on(Accent.Translation, true)
-    #Ecto.Query<from t0 in Accent.Translation, join: c1 in assoc(t0, :comments)>
+    #Ecto.Query<from t0 in Accent.Translation, as: :translation, where: exists(
+      subquery(
+        #Ecto.Query<from c0 in Accent.Comment, where: c0.translation_id == parent_as(:translation).id>
+      )
+    )>
   """
   @spec parse_commented_on(Queryable.t(), nil | boolean()) :: Queryable.t()
   def parse_commented_on(query, nil), do: query
   def parse_commented_on(query, false), do: query
 
   def parse_commented_on(query, true) do
-    from(
-      translations in query,
-      inner_join: comments in assoc(translations, :comments)
-    )
+    comments = from(comments in Accent.Comment, where: comments.translation_id == parent_as(:translation).id)
+
+    from(translations in query, as: :translation, where: exists(comments))
   end
 
   @doc """
@@ -341,15 +346,15 @@ defmodule Accent.Scopes.Translation do
   ## Examples
 
     iex> Accent.Scopes.Translation.from_project(Accent.Translation, "test")
-    #Ecto.Query<from t0 in Accent.Translation, join: p1 in assoc(t0, :project), where: p1.id == ^"test">
+    #Ecto.Query<from t0 in Accent.Translation, where: t0.revision_id in subquery(
+      #Ecto.Query<from r0 in Accent.Revision, where: r0.project_id == ^"test", select: r0.id>
+    )>
   """
   @spec from_project(Queryable.t(), String.t()) :: Queryable.t()
   def from_project(query, project_id) do
-    from(
-      translation in query,
-      inner_join: project in assoc(translation, :project),
-      where: project.id == ^project_id
-    )
+    revision_ids = from(r in Accent.Revision, where: r.project_id == ^project_id, select: r.id)
+
+    from(translation in query, where: translation.revision_id in subquery(revision_ids))
   end
 
   @doc """

@@ -1,10 +1,10 @@
-import State from '../state';
-import randomClass from '../ui/random-class';
-import styles from '../ui/styles';
-import Mutation from './mutation';
+import type State from '../state.ts';
+import styles from '../ui/styles.ts';
+import Mutation from './mutation.ts';
 
-const ACCENT_REGEX = /{\^(.+)}/;
-const ACCENT_CLASS = randomClass();
+const MARKER = '{^';
+const ACCENT_REGEX = /{\^([^}]+)}/;
+const ACCENT_REGEX_GLOBAL = /{\^([^}]+)}/g;
 
 /*
   The LiveNode component takes care of NodeElement modified by Accent client.
@@ -19,84 +19,74 @@ export default class LiveNode {
     this.state = state;
   }
 
-  isLive(node: HTMLElement) {
-    return !!this.state.nodes.get(node);
+  isLive(node: Node) {
+    return this.state.nodes.has(node as HTMLElement);
   }
 
-  matchAttributes(node: HTMLElement) {
-    Array.from(node.attributes).forEach((attribute) => {
-      const translation = this.findTranslationByValue(attribute.value);
-      if (!translation || !translation.text) return;
+  matchAttributes(node: Element) {
+    Array.from(node.attributes).forEach((attribute) =>
+      this.matchAttribute(node, attribute)
+    );
+  }
 
-      styles.set(node, styles.translationNode);
+  matchAttribute(node: Element, attribute: Attr | null) {
+    const value = attribute?.value;
+    if (!value || !value.includes(MARKER)) return;
 
-      const newAttribute = this.replaceValue(attribute.value, translation.text);
-      attribute.value = newAttribute;
+    const match = value.match(ACCENT_REGEX);
+    const translation = match && this.state.translationById(match[1]);
+    if (!translation || !translation.text) return;
 
-      this.state.addReference(node, translation, {
-        attributeName: attribute.name
-      });
+    attribute.value = value.replace(ACCENT_REGEX, () => translation.text);
+    styles.set(node, styles.translationNode);
+
+    this.state.addReference(node as HTMLElement, translation, {
+      attributeName: attribute.name
     });
   }
 
-  matchNode(node: Element) {
-    const translation = this.findTranslationByValue(node.nodeValue);
+  matchText(node: Node) {
+    const value = node.nodeValue;
+    if (!value || !value.includes(MARKER) || !node.parentNode) return;
 
-    if (!translation || !translation.text) return;
-  }
+    const parts: (Node | string)[] = [];
+    let last = 0;
 
-  matchText(node: Element) {
-    const translation = this.findTranslationByValue(node.nodeValue);
+    for (const match of value.matchAll(ACCENT_REGEX_GLOBAL)) {
+      const translation = this.state.translationById(match[1]);
+      if (!translation || translation.text === undefined) continue;
 
-    if (!translation || translation.text === undefined) return;
-    if (translation.text === '') translation.text = '–';
+      const span = document.createElement('span');
+      span.innerHTML = translation.text === '' ? '–' : translation.text;
+      Mutation.nodeStyleRefresh(span, translation);
+      this.state.addReference(span, translation);
 
-    const parentNode = node.parentNode as Element;
-
-    const span = document.createElement('span');
-    span.innerHTML = translation.text;
-    span.setAttribute('class', ACCENT_CLASS);
-
-    const newContent = this.replaceValue(node.nodeValue, span.outerHTML);
-    if (newContent === node.nodeValue) return;
-
-    parentNode.innerHTML = this.replaceValue(parentNode.innerHTML, newContent);
-    const newNode = parentNode.getElementsByClassName(
-      ACCENT_CLASS
-    )[0] as HTMLElement;
-    Mutation.nodeStyleRefresh(newNode, translation);
-
-    this.state.addReference(newNode, translation);
-  }
-
-  evaluate(node: HTMLElement) {
-    node.childNodes &&
-      node.childNodes.forEach((node: HTMLElement) => {
-        this.evaluate(node);
-        if (node.attributes) this.matchAttributes(node);
-      });
-
-    if (node.nodeType === Node.TEXT_NODE) {
-      this.matchText(node);
+      if (match.index > last) parts.push(value.slice(last, match.index));
+      parts.push(span);
+      last = match.index + match[0].length;
     }
+
+    if (!parts.length) return;
+    if (last < value.length) parts.push(value.slice(last));
+
+    (node as ChildNode).replaceWith(...parts);
   }
 
-  private replaceValue(value: string, newContent: string) {
-    return value.replace(ACCENT_REGEX, newContent);
-  }
+  evaluate(root: Node) {
+    const texts: Node[] = [];
+    const walker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT
+    );
 
-  private valueMatch(value: string) {
-    return value.match(ACCENT_REGEX);
-  }
+    for (let node = walker.currentNode; node; node = walker.nextNode()) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        if (node.nodeValue.includes(MARKER)) texts.push(node);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        this.matchAttributes(node as Element);
+      }
+    }
 
-  private findTranslationByValue(value: string) {
-    if (!value) return;
-
-    const match = this.valueMatch(value);
-    if (!match) return;
-
-    const id = match[1];
-
-    return this.state.translationById(id);
+    texts.forEach((node) => this.matchText(node));
   }
 }

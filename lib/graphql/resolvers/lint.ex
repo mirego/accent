@@ -10,10 +10,14 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   alias Accent.Project
   alias Accent.ProjectLintEntry
   alias Accent.Repo
+  alias Accent.Revision
   alias Accent.Scopes.ProjectLintEntry, as: ProjectLintEntryScope
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.Translation
+  alias Ecto.Query
+
+  require Query
 
   @spec create_project_lint_entry(Project.t(), map(), GraphQLContext.t()) ::
           {:middleware, Batch, any()}
@@ -36,10 +40,10 @@ defmodule Accent.GraphQL.Resolvers.Lint do
   end
 
   @spec list_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(ProjectLintEntry.t())}
-  def list_project(project, args, _resolution) do
+  def list_project(project, args, info) do
     ProjectLintEntry
     |> ProjectLintEntryScope.from_project(project.id)
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end
@@ -71,38 +75,42 @@ defmodule Accent.GraphQL.Resolvers.Lint do
 
   def preload_translations(_, [translation | _] = translations) do
     translations = Repo.preload(translations, [:document, [revision: :language]])
+    project_id = hd(translations).revision.project_id
 
-    project =
-      translation
-      |> Ecto.assoc(:project)
-      |> Repo.one()
-
-    master_revision =
-      project
-      |> Ecto.assoc(:revisions)
+    master_revision_id =
+      Revision
       |> RevisionScope.master()
+      |> Query.where(project_id: ^project_id)
+      |> Query.select([r], r.id)
+      |> Query.limit(1)
       |> Repo.one()
 
-    master_translations =
-      Translation
-      |> TranslationScope.from_project(project.id)
-      |> TranslationScope.from_revision(master_revision.id)
-      |> TranslationScope.from_version(translation.version_id)
-      |> TranslationScope.active()
-      |> Repo.all()
-      |> Map.new(&{{&1.key, &1.document_id}, &1})
+    master_translations = master_translations(master_revision_id, translation.version_id, translations)
 
     translations =
-      Enum.reduce(translations, %{}, fn translation, acc ->
-        master_translation =
-          Map.get(master_translations, {translation.key, translation.document_id})
-
-        Map.put(acc, translation.id, %{translation | master_translation: master_translation})
+      Map.new(translations, fn translation ->
+        master_translation = Map.get(master_translations, {translation.key, translation.document_id})
+        {translation.id, %{translation | master_translation: master_translation}}
       end)
 
-    lint_entries = Repo.all(Ecto.assoc(project, [:lint_entries]))
+    lint_entries = Repo.all(Query.where(ProjectLintEntry, project_id: ^project_id))
 
     {translations, lint_entries}
+  end
+
+  defp master_translations(nil, _version_id, _translations), do: %{}
+
+  defp master_translations(master_revision_id, version_id, translations) do
+    keys = translations |> Enum.map(& &1.key) |> Enum.uniq()
+
+    Translation
+    |> TranslationScope.from_revision(master_revision_id)
+    |> TranslationScope.from_version(version_id)
+    |> TranslationScope.from_keys(keys)
+    |> TranslationScope.active()
+    |> Query.select([t], %{key: t.key, document_id: t.document_id, corrected_text: t.corrected_text})
+    |> Repo.all()
+    |> Map.new(&{{&1.key, &1.document_id}, &1})
   end
 
   defp overwrite_text_args(translation, %{text: text}) when is_binary(text) do

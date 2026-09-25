@@ -12,7 +12,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
   require Query
 
   @spec list_project(Project.t(), map(), GraphQLContext.t()) :: {:ok, Paginated.t(Operation.t())}
-  def list_project(project, args, _) do
+  def list_project(project, args, info) do
     Operation
     |> OperationScope.ignore_actions(args[:action], args[:is_batch])
     |> OperationScope.filter_from_user(args[:user_id])
@@ -22,25 +22,25 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     |> Query.join(:left, [o], r in assoc(o, :revision))
     |> Query.where([o, r], r.project_id == ^project.id or o.project_id == ^project.id)
     |> OperationScope.order_last_to_first()
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end
 
   @spec list_operations(Operation.t(), map(), GraphQLContext.t()) ::
           {:ok, Paginated.t(Operation.t())}
-  def list_operations(operation, args, _) do
+  def list_operations(operation, args, info) do
     operation
     |> Ecto.assoc(:operations)
     |> OperationScope.filter_from_actions(args[:actions])
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end
 
   @spec list_translation(Translation.t(), map(), GraphQLContext.t()) ::
           {:ok, Paginated.t(Operation.t())}
-  def list_translation(translation, args, _) do
+  def list_translation(translation, args, info) do
     translation
     |> Ecto.assoc(:operations)
     |> OperationScope.filter_from_user(args[:user_id])
@@ -48,7 +48,7 @@ defmodule Accent.GraphQL.Resolvers.Activity do
     |> OperationScope.filter_from_batch(args[:is_batch])
     |> OperationScope.filter_from_action(args[:action])
     |> OperationScope.order_last_to_first()
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end

@@ -69,7 +69,7 @@ defmodule Accent.GraphQL.Resolvers.Document do
       skip_stats: skip_stats?(info)
     )
     |> Ecto.Query.order_by(asc: :path)
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end

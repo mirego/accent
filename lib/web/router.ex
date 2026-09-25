@@ -43,7 +43,19 @@ defmodule Accent.Router do
     plug :accepts, ~w(json html)
     plug :fetch_session
     plug(:protect_from_forgery)
-    plug :put_secure_browser_headers, %{"x-frame-options" => ""}
+
+    plug :put_browser_security_headers
+  end
+
+  defp put_browser_security_headers(conn, _opts) do
+    if Application.get_env(:accent, :disable_frame_ancestors) do
+      put_secure_browser_headers(conn)
+    else
+      put_secure_browser_headers(conn, %{
+        "x-frame-options" => "",
+        "content-security-policy" => "base-uri 'self'; frame-ancestors *;"
+      })
+    end
   end
 
   pipeline :metrics do

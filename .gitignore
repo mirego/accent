@@ -32,6 +32,7 @@ webapp/dist
 webapp/webapp-dist
 jipt/node_modules
 jipt/.cache
+jipt/.parcel-cache
 jipt/dist
 jipt/jipt-dist
 cli/node_modules

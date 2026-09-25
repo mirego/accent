@@ -2,6 +2,11 @@ defmodule Accent.GraphQL.Paginated do
   @moduledoc false
   use Accessible
 
+  alias Accent.Repo
+  alias Ecto.Query
+
+  require Query
+
   defmodule Meta do
     @moduledoc false
     @type t :: %__MODULE__{}
@@ -15,9 +20,52 @@ defmodule Accent.GraphQL.Paginated do
   @enforce_keys [:entries, :meta]
   defstruct entries: [], meta: %{}, nodes: nil
 
+  @default_page_size 30
+  @max_page_size 10_000
+
   def paginate(query, args, options \\ []) do
-    Accent.Repo.paginate(query, page: args[:page], page_size: args[:page_size], options: options)
+    {info, options} = Keyword.pop(options, :info)
+
+    if meta_requested?(info) do
+      Repo.paginate(query, page: args[:page], page_size: args[:page_size], options: options)
+    else
+      paginate_without_count(query, args, options)
+    end
   end
+
+  defp paginate_without_count(query, args, options) do
+    page_size = min(positive_integer(args[:page_size], @default_page_size), @max_page_size)
+    page_number = positive_integer(args[:page], 1)
+
+    entries =
+      query
+      |> Query.offset(^(page_size * (page_number - 1)))
+      |> Query.limit(^page_size)
+      |> Repo.all()
+
+    if entries == [] and page_number > 1 do
+      Repo.paginate(query, page: page_number, page_size: page_size, options: options)
+    else
+      %Scrivener.Page{
+        entries: entries,
+        page_number: page_number,
+        page_size: page_size,
+        total_entries: 0,
+        total_pages: 1
+      }
+    end
+  end
+
+  defp positive_integer(value, _default) when is_integer(value) and value > 0, do: value
+  defp positive_integer(_value, default), do: default
+
+  defp meta_requested?(%Absinthe.Resolution{} = info) do
+    info
+    |> Absinthe.Resolution.project()
+    |> Enum.any?(&(&1.name == "meta"))
+  end
+
+  defp meta_requested?(_), do: true
 
   def format(paginated_list) do
     %__MODULE__{entries: paginated_list.entries, meta: meta(paginated_list)}

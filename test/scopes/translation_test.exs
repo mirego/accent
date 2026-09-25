@@ -23,7 +23,7 @@ defmodule AccentTest.Scopes.Translation do
       query = Scope.parse_added_last_sync(Translation, true, project.id, nil)
 
       assert inspect(query) ===
-               "#Ecto.Query<from t0 in Accent.Translation, join: o1 in assoc(t0, :operations), where: o1.batch_operation_id == ^\"#{sync.id}\">"
+               "#Ecto.Query<from t0 in Accent.Translation, where: t0.id in subquery(\n  #Ecto.Query<from o0 in Accent.Operation, where: o0.batch_operation_id == ^\"#{sync.id}\", select: o0.translation_id>\n)>"
     end
 
     test "existing sync with document", %{project: project} do
@@ -34,7 +34,7 @@ defmodule AccentTest.Scopes.Translation do
       query = Scope.parse_added_last_sync(Translation, true, project.id, document.id)
 
       assert inspect(query) ===
-               "#Ecto.Query<from t0 in Accent.Translation, join: o1 in assoc(t0, :operations), where: o1.batch_operation_id == ^\"#{sync.id}\">"
+               "#Ecto.Query<from t0 in Accent.Translation, where: t0.id in subquery(\n  #Ecto.Query<from o0 in Accent.Operation, where: o0.batch_operation_id == ^\"#{sync.id}\", select: o0.translation_id>\n)>"
     end
 
     test "many sync", %{project: project} do
@@ -50,7 +50,7 @@ defmodule AccentTest.Scopes.Translation do
       query = Scope.parse_added_last_sync(Translation, true, project.id, nil)
 
       assert inspect(query) ===
-               "#Ecto.Query<from t0 in Accent.Translation, join: o1 in assoc(t0, :operations), where: o1.batch_operation_id == ^\"#{sync.id}\">"
+               "#Ecto.Query<from t0 in Accent.Translation, where: t0.id in subquery(\n  #Ecto.Query<from o0 in Accent.Operation, where: o0.batch_operation_id == ^\"#{sync.id}\", select: o0.translation_id>\n)>"
     end
 
     test "no syncs", %{project: project} do

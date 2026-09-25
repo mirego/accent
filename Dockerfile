@@ -28,7 +28,7 @@ RUN npm run build-production
 ################################################################################
 # Stage 2: Build jipt assets in parallel
 ################################################################################
-FROM node:21.6.1-bullseye-slim AS jipt-builder
+FROM node:24.21.0-trixie-slim AS jipt-builder
 
 WORKDIR /opt/build
 

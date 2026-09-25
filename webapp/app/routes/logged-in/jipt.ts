@@ -52,6 +52,11 @@ export default class JIPTRoute extends Route {
     if (!data.viewer || !data.viewer.project) return {permissions: []};
     this.globalState.mainColor = data.viewer.project.mainColor;
 
+    if (!data.viewer.project.revision) {
+      this.jipt.revisionNotFound();
+      return {permissions: []};
+    }
+
     this.jipt.listTranslations(
       data.viewer.project.revision.translations.entries,
       data.viewer.project.revision

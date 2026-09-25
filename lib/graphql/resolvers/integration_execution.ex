@@ -7,11 +7,11 @@ defmodule Accent.GraphQL.Resolvers.IntegrationExecution do
   alias Accent.IntegrationExecution
   alias Accent.Repo
 
-  def list_integration(integration, args, _resolution) do
+  def list_integration(integration, args, info) do
     IntegrationExecution
     |> where(integration_id: ^integration.id)
     |> order_by(desc: :inserted_at)
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end

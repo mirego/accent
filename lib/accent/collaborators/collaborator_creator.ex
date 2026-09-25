@@ -30,7 +30,7 @@ defmodule Accent.CollaboratorCreator do
 
   defp check_rate_limit(changeset) do
     assigner_id = Changeset.get_field(changeset, :assigner_id)
-    one_minute_ago = DateTime.add(DateTime.utc_now(), -60, :second)
+    one_minute_ago = DateTime.shift(DateTime.utc_now(), minute: -1)
 
     recent_collaborators_count =
       Repo.aggregate(

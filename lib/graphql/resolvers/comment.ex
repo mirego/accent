@@ -68,20 +68,20 @@ defmodule Accent.GraphQL.Resolvers.Comment do
   end
 
   @spec list_project(Project.t(), %{page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Comment.t())}
-  def list_project(project, args, _) do
+  def list_project(project, args, info) do
     Comment
     |> CommentScope.from_project(project.id)
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end
 
   @spec list_translation(Translation.t(), %{page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Comment.t())}
-  def list_translation(translation, args, _) do
+  def list_translation(translation, args, info) do
     translation
     |> Ecto.assoc(:comments)
     |> CommentScope.default_order()
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end

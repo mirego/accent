@@ -473,6 +473,166 @@ defmodule AccentTest.GraphQL.Resolvers.Translation do
     assert result.id == translation.id
   end
 
+  describe "list grouped project" do
+    setup %{project: project, revision: revision} do
+      english_language = Factory.insert(Language, name: "english")
+      spanish_language = Factory.insert(Language, name: "spanish")
+      document = Factory.insert(Document, project_id: project.id, path: "a")
+
+      other_revision =
+        Factory.insert(Revision,
+          language_id: english_language.id,
+          project_id: project.id,
+          master: false,
+          master_revision_id: revision.id
+        )
+
+      third_revision =
+        Factory.insert(Revision,
+          language_id: spanish_language.id,
+          project_id: project.id,
+          master: false,
+          master_revision_id: revision.id
+        )
+
+      insert = fn revision, key, conflicted ->
+        Factory.insert(Translation,
+          revision_id: revision.id,
+          document_id: document.id,
+          key: key,
+          conflicted: conflicted,
+          corrected_text: key,
+          proposed_text: key
+        )
+      end
+
+      a_master = insert.(revision, "a", false)
+      a_other = insert.(other_revision, "a", true)
+      b_master = insert.(revision, "b", false)
+      b_other = insert.(other_revision, "b", false)
+      c_third = insert.(third_revision, "c", true)
+
+      other_project = Factory.insert(Project)
+
+      other_project_revision =
+        Factory.insert(Revision, language_id: english_language.id, project_id: other_project.id, master: true)
+
+      Factory.insert(Translation, revision_id: other_project_revision.id, key: "a", conflicted: true)
+
+      {:ok,
+       [
+         document: document,
+         other_revision: other_revision,
+         third_revision: third_revision,
+         a_master: a_master,
+         a_other: a_other,
+         b_master: b_master,
+         b_other: b_other,
+         c_third: c_third
+       ]}
+    end
+
+    test "default related revisions", %{project: project, revision: revision, other_revision: other_revision} = ctx do
+      {:ok, result} = Resolver.list_grouped_project(project, %{related_revisions: []}, ctx.context)
+
+      assert result.meta.total_entries == 3
+      assert Enum.map(result.revisions, & &1.id) == [revision.id, other_revision.id]
+      assert Enum.map(result.entries, & &1.key) == ["a", "b", "c"]
+      assert Enum.map(result.entries, & &1.document_id) == [ctx.document.id, ctx.document.id, ctx.document.id]
+
+      assert Enum.map(result.entries, &translation_ids/1) == [
+               Enum.sort([ctx.a_master.id, ctx.a_other.id]),
+               Enum.sort([ctx.b_master.id, ctx.b_other.id]),
+               [nil]
+             ]
+
+      assert Enum.all?(result.entries, &(&1.revision_ids == [revision.id, other_revision.id]))
+    end
+
+    test "missing related revisions", %{project: project, revision: revision, other_revision: other_revision} = ctx do
+      {:ok, result} = Resolver.list_grouped_project(project, %{}, ctx.context)
+
+      assert result.meta.total_entries == 3
+      assert Enum.map(result.revisions, & &1.id) == [revision.id, other_revision.id]
+    end
+
+    test "conflicted", %{project: project} = ctx do
+      {:ok, result} = Resolver.list_grouped_project(project, %{related_revisions: [], is_conflicted: true}, ctx.context)
+
+      assert result.meta.total_entries == 2
+      assert Enum.map(result.entries, & &1.key) == ["a", "c"]
+    end
+
+    test "explicit related revisions", %{project: project, revision: revision, third_revision: third_revision} = ctx do
+      {:ok, result} =
+        Resolver.list_grouped_project(
+          project,
+          %{related_revisions: [third_revision.id, revision.id]},
+          ctx.context
+        )
+
+      assert result.meta.total_entries == 3
+      assert Enum.map(result.revisions, & &1.id) == [third_revision.id, revision.id]
+
+      assert Enum.map(result.entries, &translation_ids/1) == [
+               [ctx.a_master.id],
+               [ctx.b_master.id],
+               [ctx.c_third.id]
+             ]
+    end
+
+    test "pagination", %{project: project} = ctx do
+      {:ok, result} =
+        Resolver.list_grouped_project(project, %{related_revisions: [], page: 2, page_size: 2}, ctx.context)
+
+      assert result.meta.total_entries == 3
+      assert result.meta.total_pages == 2
+      assert Enum.map(result.entries, & &1.key) == ["c"]
+    end
+
+    test "graphql translations batch", %{project: project, user: user} = ctx do
+      user = %{user | permissions: %{project.id => "owner"}}
+
+      {:ok, %{data: data}} =
+        Absinthe.run(
+          """
+          query($projectId: ID!) {
+            viewer {
+              project(id: $projectId) {
+                groupedTranslations(relatedRevisions: []) {
+                  meta { totalEntries }
+                  revisions { id }
+                  entries { key document { id } translations { id revision { id } } }
+                }
+              }
+            }
+          }
+          """,
+          Accent.GraphQL.Schema,
+          variables: %{"projectId" => project.id},
+          context: %{conn: %Plug.Conn{assigns: %{current_user: user}}}
+        )
+
+      grouped = data["viewer"]["project"]["groupedTranslations"]
+      [a, b, c] = grouped["entries"]
+
+      assert grouped["meta"]["totalEntries"] == 3
+      assert Enum.map(a["translations"], & &1["id"]) == [ctx.a_master.id, ctx.a_other.id]
+      assert Enum.map(b["translations"], & &1["id"]) == [ctx.b_master.id, ctx.b_other.id]
+      assert c["translations"] == []
+      assert a["document"]["id"] == ctx.document.id
+    end
+  end
+
+  defp translation_ids(entry) do
+    entry.translation_ids
+    |> Enum.map(fn
+      nil -> nil
+      id -> UUID.cast!(id)
+    end)
+    |> Enum.sort()
+  end
+
   test "master translation as master", %{project: project, revision: revision, context: context} do
     english_language = Factory.insert(Language, name: "english")
 

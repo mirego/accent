@@ -1,7 +1,7 @@
-import LiveNode from '../mutation/live-node';
-import State from '../state';
-import styles from './styles';
-import UI from './ui';
+import type LiveNode from '../mutation/live-node.ts';
+import type State from '../state.ts';
+import styles from './styles.ts';
+import type UI from './ui.ts';
 
 interface Props {
   ui: UI;
@@ -58,9 +58,7 @@ export default class Pin {
 
   private showFor(target: HTMLElement) {
     const {left, top, height} = target.getBoundingClientRect();
-    const keys: string[] = Array.from(
-      this.state.nodes.get(target).keys.values()
-    );
+    const keys = Array.from(this.state.nodes.get(target));
     styles.set(
       this.element,
       `top: ${top + height - CENTER_OFFSET}px; left: ${
@@ -69,7 +67,7 @@ export default class Pin {
     );
 
     const ids = keys
-      .map((key: string) => this.state.projectTranslations[key].id)
+      .map((key) => this.state.translationById(key)?.id)
       .filter(Boolean)
       .join(',');
 

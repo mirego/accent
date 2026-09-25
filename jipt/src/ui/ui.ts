@@ -1,7 +1,7 @@
-import {Config} from '../accent';
-import State from '../state';
-import randomClass from './random-class';
-import styles from './styles';
+import type {Config} from '../accent.ts';
+import type State from '../state.ts';
+import randomClass from './random-class.ts';
+import styles from './styles.ts';
 
 const EXPAND_CLASS = randomClass();
 const COLLAPSE_CLASS = randomClass();
@@ -25,6 +25,7 @@ export default class UI {
   private readonly editor: HTMLElement;
   private readonly frame: HTMLIFrameElement;
   private readonly state: State;
+  private readonly config: Config;
   private readonly expandButton: Element;
   private readonly collapseButton: Element;
   private readonly disableButton: Element;
@@ -34,6 +35,7 @@ export default class UI {
 
     this.overlay = this.buildOverlay(props.config);
     this.editor = this.buildContainer();
+    this.config = props.config;
     this.frame = this.buildFrame(props.config);
 
     this.editor.append(this.frame);
@@ -126,13 +128,22 @@ export default class UI {
     return element;
   }
 
-  private buildFrame(config: Config) {
-    const element = document.createElement('iframe');
+  reloadFrame() {
+    this.frame.src = this.frameSrc(this.config);
+  }
+
+  private frameSrc(config: Config) {
     const query = this.state.getCurrentRevision()
       ? `?revisionId=${this.state.getCurrentRevision()}`
       : '';
 
-    element.src = `${config.h}/app/projects/${config.i}/jipt${query}`;
+    return `${config.h}/app/projects/${config.i}/jipt${query}`;
+  }
+
+  private buildFrame(config: Config) {
+    const element = document.createElement('iframe');
+
+    element.src = this.frameSrc(config);
     element.frameBorder = '0';
     styles.set(element, styles.frameWindow);
 

@@ -1,73 +1,51 @@
-interface RefState {
-  elements: Map<HTMLElement, object>;
-}
-
-interface NodeState {
-  keys: Set<string>;
-  meta: object;
-}
-
-interface Translation {
+export interface Translation {
   id: string;
   key: string;
   text: string;
+  isConflicted?: boolean;
 }
 
-interface Args {
-  refs: Map<string, RefState>;
-  nodes: WeakMap<HTMLElement, NodeState>;
-  projectTranslations: Map<string, Translation>;
+export interface Meta {
+  attributeName?: string;
+  head?: boolean;
 }
+
+const REVISION_KEY = 'accent-current-revision';
 
 /*
   The State is a singleton component that keeps track of references
   used in all components. With the state, you can request a NodeElement from a translation, vice and versa.
 */
 export default class State {
-  refs: Map<string, RefState>;
-  nodes: WeakMap<HTMLElement, NodeState>;
-  projectTranslations: Map<string, Translation>;
-
-  constructor(properties: Args) {
-    this.refs = properties.refs;
-    this.nodes = properties.nodes;
-    this.projectTranslations = properties.projectTranslations;
-  }
+  refs = new Map<string, Map<HTMLElement, Meta>>();
+  nodes = new WeakMap<HTMLElement, Set<string>>();
+  projectTranslations: Record<string, Translation> = {};
 
   getCurrentRevision() {
-    return localStorage.getItem('accent-current-revision');
+    return localStorage.getItem(REVISION_KEY);
   }
 
   setCurrentRevision(id: string) {
-    localStorage.setItem('accent-current-revision', id);
+    localStorage.setItem(REVISION_KEY, id);
   }
 
-  addReference(node: HTMLElement, translation: Translation, meta = {}) {
-    this.addTranslationRef(translation, node, meta);
-    this.addNodeRef(node, translation);
+  removeCurrentRevision() {
+    localStorage.removeItem(REVISION_KEY);
+  }
+
+  addReference(node: HTMLElement, translation: Translation, meta: Meta = {}) {
+    let elements = this.refs.get(translation.id);
+    if (!elements) this.refs.set(translation.id, (elements = new Map()));
+    elements.set(node, meta);
+
+    let keys = this.nodes.get(node);
+    if (!keys) this.nodes.set(node, (keys = new Set()));
+    keys.add(translation.key);
   }
 
   translationById(id: string) {
-    return this.projectTranslations[id];
-  }
-
-  private addTranslationRef(
-    translation: Translation,
-    node: HTMLElement,
-    meta = {}
-  ) {
-    const match = this.refs.get(translation.id);
-    const elements = match ? match.elements : new Map();
-    elements.set(node, meta);
-
-    this.refs.set(translation.id, {elements});
-  }
-
-  private addNodeRef(node: HTMLElement, translation: Translation, meta = {}) {
-    const match = this.nodes.get(node);
-    const keys: Set<string> = match ? match.keys : new Set();
-    keys.add(translation.key);
-
-    this.nodes.set(node, {keys, meta});
+    return Object.prototype.hasOwnProperty.call(this.projectTranslations, id)
+      ? this.projectTranslations[id]
+      : undefined;
   }
 }

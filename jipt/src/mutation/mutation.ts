@@ -1,11 +1,8 @@
-import styles from '../ui/styles';
-import LiveNode from './live-node';
+import type {Meta} from '../state.ts';
+import styles from '../ui/styles.ts';
+import type LiveNode from './live-node.ts';
 
 const NODE_UPDATE_STYLE_TIMEOUT = 600;
-
-interface Translation {
-  isConflicted: boolean;
-}
 
 /*
   The Mutation component listens to DOM changes and is responsible of updating parent
@@ -18,41 +15,40 @@ export default class Mutation {
     this.liveNode = liveNode;
   }
 
-  static nodeChange(node: HTMLElement, meta: any, text: string) {
-    this.textNodeChange(node, meta, text);
-    this.attributeNodeChange(node, meta, text);
-  }
-
-  static nodeStyleRefresh(node: HTMLElement, translation: Translation) {
-    node.removeAttribute('class');
-
-    if (translation.isConflicted) {
-      styles.set(node, styles.translationNodeConflicted);
+  static nodeChange(node: HTMLElement, meta: Meta, text: string) {
+    if (meta.attributeName) {
+      this.attributeNodeChange(node, meta.attributeName, text);
     } else {
-      styles.set(node, styles.translationNode);
+      this.textNodeChange(node, meta, text);
     }
   }
 
-  private static textNodeChange(node: HTMLElement, meta: any, text: string) {
+  static nodeStyleRefresh(node: Element, translation: {isConflicted?: boolean}) {
+    node.removeAttribute('class');
+    styles.set(
+      node,
+      translation.isConflicted
+        ? styles.translationNodeConflicted
+        : styles.translationNode
+    );
+  }
+
+  private static textNodeChange(node: HTMLElement, meta: Meta, text: string) {
     if (node.innerHTML === text) return;
-    let updatedText = text;
 
-    if (text.trim() === '') updatedText = '–';
-
-    node.innerHTML = updatedText;
+    node.innerHTML = text.trim() === '' ? '–' : text;
 
     if (!meta.head) this.handleUpdatedNodeStyles(node);
   }
 
   private static attributeNodeChange(
     node: HTMLElement,
-    meta: any,
+    attributeName: string,
     text: string
   ) {
-    if (!meta.attributeName) return;
-    if (node.getAttribute(meta.attributeName) === text) return;
+    if (node.getAttribute(attributeName) === text) return;
 
-    node.setAttribute(meta.attributeName, text);
+    node.setAttribute(attributeName, text);
     this.handleUpdatedNodeStyles(node);
   }
 
@@ -60,33 +56,36 @@ export default class Mutation {
     const originalStyles = node.getAttribute('style');
 
     styles.set(node, styles.translationNodeUpdated);
-    setTimeout(() => {
-      styles.set(node, originalStyles);
-    }, NODE_UPDATE_STYLE_TIMEOUT);
+    setTimeout(() => styles.set(node, originalStyles), NODE_UPDATE_STYLE_TIMEOUT);
   }
 
   bindEvents() {
-    const onMutation = (instance: MutationRecord[]) => {
-      return instance.forEach(this.handleNodeMutation.bind(this));
-    };
-
-    new MutationObserver(onMutation).observe(document, {
-      attributes: true,
-      characterData: true,
-      characterDataOldValue: true,
-      childList: true,
-      subtree: true
-    });
+    new MutationObserver((records) => this.handleMutations(records)).observe(
+      document,
+      {
+        attributes: true,
+        characterData: true,
+        childList: true,
+        subtree: true
+      }
+    );
   }
 
-  handleNodeMutation(node) {
-    if (node.nodeType === Node.TEXT_NODE) this.liveNode.matchText(node.target);
-    if (node.type === 'childList') {
-      node.addedNodes.forEach((node: HTMLElement) =>
-        this.liveNode.evaluate(node)
-      );
-    }
-    if (node.type === 'attributes') this.liveNode.matchAttributes(node.target);
-    if (node.type === 'characterData') this.liveNode.matchText(node.target);
+  handleMutations(records: MutationRecord[]) {
+    records.forEach((record) => {
+      if (record.type === 'childList') {
+        record.addedNodes.forEach((node) => {
+          if (node.isConnected) this.liveNode.evaluate(node);
+        });
+      } else if (record.type === 'attributes') {
+        const target = record.target as Element;
+        this.liveNode.matchAttribute(
+          target,
+          target.getAttributeNode(record.attributeName)
+        );
+      } else if (record.type === 'characterData') {
+        this.liveNode.matchText(record.target);
+      }
+    });
   }
 }

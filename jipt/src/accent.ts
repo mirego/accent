@@ -1,9 +1,9 @@
-import FrameListener from './frame-listener';
-import LiveNode from './mutation/live-node';
-import Mutation from './mutation/mutation';
-import State from './state';
-import Pin from './ui/pin';
-import UI from './ui/ui';
+import FrameListener from './frame-listener.ts';
+import LiveNode from './mutation/live-node.ts';
+import Mutation from './mutation/mutation.ts';
+import State from './state.ts';
+import Pin from './ui/pin.ts';
+import UI from './ui/ui.ts';
 
 export interface Config {
   i: string; // Project’s ID
@@ -11,11 +11,7 @@ export interface Config {
   o: boolean; // Hide black screen overlay on script loading, default: false
 }
 
-const state = new State({
-  nodes: new WeakMap(),
-  projectTranslations: new Map(),
-  refs: new Map()
-});
+const state = new State();
 
 const liveNode = new LiveNode(state);
 

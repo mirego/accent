@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": false,
-    "lib": ["dom", "es2015"],
+    "target": "es2022",
+    "module": "preserve",
+    "lib": ["dom", "dom.iterable", "es2022"],
+    "allowImportingTsExtensions": true,
     "noEmit": true,
-    "downlevelIteration": true
-  }
+    "strict": false
+  },
+  "include": ["index.ts", "src"]
 }

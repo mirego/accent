@@ -81,11 +81,11 @@ defmodule Accent.GraphQL.Resolvers.Version do
   end
 
   @spec list_project(Project.t(), %{page: number()}, GraphQLContext.t()) :: {:ok, Paginated.t(Version.t())}
-  def list_project(project, args, _) do
+  def list_project(project, args, info) do
     project
     |> Ecto.assoc(:versions)
     |> Ecto.Query.order_by(desc: :inserted_at)
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end

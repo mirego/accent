@@ -1,20 +1,35 @@
 {
   "name": "jipt",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
+  "type": "module",
   "scripts": {
     "build": "parcel index.html",
-    "build-production": "parcel build index.ts --out-dir=jipt-dist --target browser --experimental-scope-hoisting",
-    "build-production-inline": "parcel build index.ts --out-dir=../priv/static/jipt --target browser --experimental-scope-hoisting",
-    "watch-production-inline": "parcel watch index.ts --out-dir=../priv/static/jipt --target browser",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-production": "parcel build index.ts --dist-dir=jipt-dist --no-cache",
+    "build-production-inline": "parcel build index.ts --dist-dir=../priv/static/jipt --no-cache",
+    "watch-production-inline": "parcel watch index.ts --dist-dir=../priv/static/jipt",
+    "test": "node --test test/*.test.ts",
+    "bench": "node bench/evaluate.bench.ts",
+    "typecheck": "tsc -p ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "browserslist": "defaults",
+  "targets": {
+    "default": {
+      "context": "browser",
+      "outputFormat": "global",
+      "sourceMap": true
+    }
+  },
+  "engines": {
+    "node": ">= 24"
+  },
   "devDependencies": {
-    "parcel-bundler": "1.12.4",
-    "typescript": "5.8.3"
+    "happy-dom": "^20.14.5",
+    "parcel": "2.16.4",
+    "typescript": "7.0.2"
   }
 }

@@ -86,14 +86,14 @@ defmodule Accent.GraphQL.Resolvers.Project do
 
   @spec list_viewer(User.t(), %{query: String.t(), page: number()}, GraphQLContext.t()) ::
           {:ok, Paginated.t(Project.t())}
-  def list_viewer(viewer, args, _info) do
+  def list_viewer(viewer, args, info) do
     paginated_projects =
       Project
       |> Query.join(:inner, [p], c in assoc(p, :collaborators))
       |> Query.where([_, c], c.user_id == ^viewer.id)
       |> Query.order_by([p, _], desc_nulls_first: p.last_synced_at)
       |> ProjectScope.from_search(args[:query])
-      |> Paginated.paginate(args)
+      |> Paginated.paginate(args, info: info)
       |> Paginated.format()
 
     nodes_projects =
@@ -109,12 +109,22 @@ defmodule Accent.GraphQL.Resolvers.Project do
   end
 
   @spec show_viewer(any(), %{id: String.t()}, Absinthe.Resolution.t()) :: {:ok, Project.t() | nil}
-  def show_viewer(_, %{id: id}, info) do
-    Project
-    |> ProjectScope.with_stats(skip_stats: skip_stats?(info))
-    |> Repo.get(id)
-    |> then(&{:ok, &1})
+  def show_viewer(project, %{id: id}, info) do
+    if skip_stats?(info) do
+      {:ok, with_empty_stats(project)}
+    else
+      Project
+      |> ProjectScope.with_stats()
+      |> Repo.get(id)
+      |> then(&{:ok, &1})
+    end
   end
+
+  defp with_empty_stats(%Project{} = project) do
+    %{project | translations_count: 0, translated_count: 0, reviewed_count: 0, conflicts_count: 0}
+  end
+
+  defp with_empty_stats(_), do: nil
 
   @spec last_activity(Project.t(), any(), GraphQLContext.t()) :: {:ok, Operation.t() | nil}
   def last_activity(project, args, _) do

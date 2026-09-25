@@ -11,7 +11,7 @@ defmodule Accent.GraphQL.Resolvers.Language do
 
     Language
     |> LanguageScope.from_search(current_user, args[:query])
-    |> Paginated.paginate(args)
+    |> Paginated.paginate(args, info: info)
     |> Paginated.format()
     |> then(&{:ok, &1})
   end

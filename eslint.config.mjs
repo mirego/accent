@@ -54,7 +54,9 @@ export default tseslint.config(
       'cli/bin/**',
       'jipt/node_modules/**',
       'jipt/dist/**',
-      'jipt/.cache/**'
+      'jipt/.cache/**',
+      'jipt/.parcel-cache/**',
+      'jipt/jipt-dist/**'
     ]
   },
   {

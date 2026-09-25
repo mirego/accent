@@ -134,6 +134,7 @@ Accent provides a default value for every required environment variable. This me
 | `WEBAPP_SENTRY_DSN`                       | _none_                     | The _public_ Sentry DSN used to collect Webapp runtime errors                                                              |
 | `CANONICAL_URL`                           | _none_                     | The URL of the app. Used in sent emails and to redirect from external services to the app in the authentication flow.      |
 | `DISABLE_CANONICAL_HOST_REDIRECT`         | _none_                     | Remove the redirect to the canonical host URL. Use with caution.                                                           |
+| `DISABLE_FRAME_ANCESTORS`                 | _none_                     | Only allow the webapp to be embedded by the same origin (`frame-ancestors 'self'`). Disables JIPT embedding in other apps. |
 | `STATIC_URL`                              | _none_                     | The URL of the app. Default to the CANONICAL_URL value.                                                                    |
 | `WEBAPP_SKIP_SUBRESOURCE_INTEGRITY`       | _none_                     | Remove integrity attributes on link and script tag. Useful when using a proxy that compress resources before serving them. |
 | `DATABASE_SSL`                            | _false_                    | If SSL should be used to connect to the database                                                                           |

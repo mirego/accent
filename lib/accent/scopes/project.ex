@@ -56,32 +56,40 @@ defmodule Accent.Scopes.Project do
   end
 
   defp do_with_stats(query) do
-    translations =
+    project_ids =
+      query
+      |> exclude(:order_by)
+      |> exclude(:preload)
+      |> exclude(:select)
+      |> exclude(:limit)
+      |> exclude(:offset)
+      |> select([p], p.id)
+
+    stats =
       from(
         t in Accent.Translation,
         inner_join: revisions in assoc(t, :revision),
-        select: %{field_id: revisions.project_id, count: count(t)},
+        select: %{
+          field_id: revisions.project_id,
+          total_count: count(t),
+          reviewed_count: filter(count(t), not t.conflicted),
+          translated_count: filter(count(t), t.translated)
+        },
         where: [removed: false, locked: false],
         where: is_nil(t.version_id),
+        where: revisions.project_id in subquery(project_ids),
         group_by: revisions.project_id
       )
 
-    reviewed = from(translations, where: [conflicted: false])
-    translated = from(translations, where: [translated: true])
-
     from(
       projects in query,
-      left_join: translations in subquery(translations),
-      on: translations.field_id == projects.id,
-      left_join: reviewed in subquery(reviewed),
-      on: reviewed.field_id == projects.id,
-      left_join: translated in subquery(translated),
-      on: translated.field_id == projects.id,
+      left_join: stats in subquery(stats),
+      on: stats.field_id == projects.id,
       select_merge: %{
-        translations_count: coalesce(translations.count, 0),
-        translated_count: coalesce(translated.count, 0),
-        reviewed_count: coalesce(reviewed.count, 0),
-        conflicts_count: coalesce(translations.count, 0) - coalesce(reviewed.count, 0)
+        translations_count: coalesce(stats.total_count, 0),
+        translated_count: coalesce(stats.translated_count, 0),
+        reviewed_count: coalesce(stats.reviewed_count, 0),
+        conflicts_count: coalesce(stats.total_count, 0) - coalesce(stats.reviewed_count, 0)
       }
     )
   end

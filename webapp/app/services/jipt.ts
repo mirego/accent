@@ -28,6 +28,10 @@ export default class JIPT extends Service {
     );
   }
 
+  revisionNotFound() {
+    window.parent.postMessage({jipt: true, action: 'revisionNotFound'}, '*');
+  }
+
   changeText(translationId: string, text: string) {
     const payload = {
       translationId,

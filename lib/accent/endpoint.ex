@@ -22,7 +22,7 @@ defmodule Accent.Endpoint do
   )
 
   if Code.ensure_loaded?(Tidewave) do
-    plug Tidewave
+    plug Tidewave, toolbar: false
   end
 
   if code_reloading? do
