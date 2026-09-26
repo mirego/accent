@@ -121,15 +121,15 @@ export default class UI {
     this.postMessage({selectIds: ids});
   }
 
+  reloadFrame() {
+    this.frame.src = this.frameSrc(this.config);
+  }
+
   private buildOverlay(config: Config) {
     const element = document.createElement('div');
     if (!config.o) styles.set(element, styles.overlay);
 
     return element;
-  }
-
-  reloadFrame() {
-    this.frame.src = this.frameSrc(this.config);
   }
 
   private frameSrc(config: Config) {

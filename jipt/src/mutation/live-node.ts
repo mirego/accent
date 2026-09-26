@@ -49,7 +49,7 @@ export default class LiveNode {
     const value = node.nodeValue;
     if (!value || !value.includes(MARKER) || !node.parentNode) return;
 
-    const parts: (Node | string)[] = [];
+    const parts: Array<Node | string> = [];
     let last = 0;
 
     for (const match of value.matchAll(ACCENT_REGEX_GLOBAL)) {

@@ -4,7 +4,6 @@ import Mutation from './mutation/mutation.ts';
 import type State from './state.ts';
 import type UI from './ui/ui.ts';
 
-
 interface Props {
   ui: UI;
   liveNode: LiveNode;

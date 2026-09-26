@@ -8,5 +8,5 @@
     "noEmit": true,
     "strict": false
   },
-  "include": ["index.ts", "src"]
+  "include": ["index.ts", "src", "test"]
 }

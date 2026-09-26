@@ -24,7 +24,12 @@ beforeEach(() => {
     reloadFrame: () => calls.push('reloadFrame'),
     postMessage: (message: object) => calls.push(JSON.stringify(message))
   } as unknown as UI;
-  listener = new FrameListener({ui, liveNode: new LiveNode(state), config: {i: 'p1', h: '', o: false}, state});
+  listener = new FrameListener({
+    ui,
+    liveNode: new LiveNode(state),
+    config: {i: 'p1', h: '', o: false},
+    state
+  });
 });
 
 test('ignores non jipt messages', () => {
@@ -40,17 +45,28 @@ test('listTranslations evaluates body and changeText updates it', () => {
   send({
     jipt: true,
     action: 'listTranslations',
-    payload: {revisionId: 'r1', translations: {'a@x': {id: 't1', key: 'a@x', text: 'A'}}}
+    payload: {
+      revisionId: 'r1',
+      translations: {'a@x': {id: 't1', key: 'a@x', text: 'A'}}
+    }
   });
 
   assert.deepEqual(calls, ['hideOverlay']);
   assert.equal(state.getCurrentRevision(), 'r1');
   assert.equal(root.textContent, 'A');
 
-  send({jipt: true, action: 'changeText', payload: {translationId: 't1', text: 'B'}});
+  send({
+    jipt: true,
+    action: 'changeText',
+    payload: {translationId: 't1', text: 'B'}
+  });
   assert.equal(root.textContent, 'B');
 
-  send({jipt: true, action: 'updateTranslation', payload: {translationId: 't1', isConflicted: true}});
+  send({
+    jipt: true,
+    action: 'updateTranslation',
+    payload: {translationId: 't1', isConflicted: true}
+  });
   assert.match(root.querySelector('span').getAttribute('style'), /#1ecc8c/);
 });
 
@@ -62,6 +78,11 @@ test('routes simple actions', () => {
   send({jipt: true, action: 'redirectIfEmbedded'});
   send({jipt: true, action: 'revisionNotFound'});
 
-  assert.deepEqual(calls, ['showLogin', 'collapse', '{"projectId":"p1"}', 'reloadFrame']);
+  assert.deepEqual(calls, [
+    'showLogin',
+    'collapse',
+    '{"projectId":"p1"}',
+    'reloadFrame'
+  ]);
   assert.equal(state.getCurrentRevision(), null);
 });

@@ -76,7 +76,7 @@ jobs:
       - name: Run Tests
         run: |
           mix ecto.setup
-          ./priv/scripts/ci-check.sh
+          ./priv/scripts/ci_check.exs
 
       - name: Build CLI
         run: npm --prefix cli run build

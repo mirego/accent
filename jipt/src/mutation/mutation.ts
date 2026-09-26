@@ -23,7 +23,10 @@ export default class Mutation {
     }
   }
 
-  static nodeStyleRefresh(node: Element, translation: {isConflicted?: boolean}) {
+  static nodeStyleRefresh(
+    node: Element,
+    translation: {isConflicted?: boolean}
+  ) {
     node.removeAttribute('class');
     styles.set(
       node,
@@ -56,7 +59,10 @@ export default class Mutation {
     const originalStyles = node.getAttribute('style');
 
     styles.set(node, styles.translationNodeUpdated);
-    setTimeout(() => styles.set(node, originalStyles), NODE_UPDATE_STYLE_TIMEOUT);
+    setTimeout(
+      () => styles.set(node, originalStyles),
+      NODE_UPDATE_STYLE_TIMEOUT
+    );
   }
 
   bindEvents() {

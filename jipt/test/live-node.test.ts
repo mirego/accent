@@ -76,7 +76,9 @@ describe('evaluate', () => {
   });
 
   test('replaces attribute markers', () => {
-    const root = html('<input placeholder="{^title@app}" title="x {^body@app}">');
+    const root = html(
+      '<input placeholder="{^title@app}" title="x {^body@app}">'
+    );
 
     liveNode.evaluate(root);
 
@@ -84,7 +86,10 @@ describe('evaluate', () => {
     assert.equal(input.getAttribute('placeholder'), 'Hello');
     assert.equal(input.getAttribute('title'), 'x <b>World</b>');
     assert.equal(state.refs.get('t1').get(input).attributeName, 'placeholder');
-    assert.deepEqual([...state.nodes.get(input)].sort(), ['body@app', 'title@app']);
+    assert.deepEqual([...state.nodes.get(input)].sort(), [
+      'body@app',
+      'title@app'
+    ]);
   });
 
   test('does not interpret $ patterns in translation', () => {
@@ -97,7 +102,9 @@ describe('evaluate', () => {
   });
 
   test('handles nested nodes', () => {
-    const root = html('<div><ul><li>{^title@app}</li><li><a title="{^body@app}">{^empty@app}</a></li></ul></div>');
+    const root = html(
+      '<div><ul><li>{^title@app}</li><li><a title="{^body@app}">{^empty@app}</a></li></ul></div>'
+    );
 
     liveNode.evaluate(root);
 

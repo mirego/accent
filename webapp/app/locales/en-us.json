@@ -1220,6 +1220,7 @@
       "no_translations_filters": "No strings found for the given filters"
     },
     "welcome_project": {
+      "terminal_paused": "paused",
       "welcome": "Welcome!",
       "welcome_translations": "Bienvenue Bienvenido 환영 欢迎 тавтай морилно уу Welkom Tervetuloa",
       "first_step": "First steps",

@@ -42,7 +42,7 @@
     "types": [
       "@embroider/core/virtual",
       "@svg-jar/plugin/client/ember",
-      "@ember-intl/vite/virtual"
+      "@ember-intl/vite/dist/virtual"
     ]
   },
   "include": [

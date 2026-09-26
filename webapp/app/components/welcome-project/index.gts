@@ -145,6 +145,9 @@ const SCRIPT: Step[] = [
   {run: 'prompt'}
 ];
 
+const TERMINAL_TITLE = 'accent — zsh — 80×24';
+const TERMINAL_PROMPT = '$';
+
 export default class WelcomeProject extends Component<Args> {
   @tracked lines: Line[] = [];
   @tracked typing = false;
@@ -292,12 +295,12 @@ export default class WelcomeProject extends Component<Args> {
             <span class='terminal-dot terminal-dot--red'></span>
             <span class='terminal-dot terminal-dot--yellow'></span>
             <span class='terminal-dot terminal-dot--green'></span>
-            <span class='terminal-title'>accent — zsh — 80×24</span>
+            <span class='terminal-title'>{{TERMINAL_TITLE}}</span>
 
             {{#if this.paused}}
               <span class='terminal-paused'>
                 <span class='terminal-paused-icon'></span>
-                paused
+                {{t 'components.welcome_project.terminal_paused'}}
               </span>
             {{/if}}
           </div>
@@ -309,7 +312,9 @@ export default class WelcomeProject extends Component<Args> {
           >
             {{#each this.lines key='id' as |line index|}}
               <div class='terminal-row'>
-                {{#if line.prompt}}<span class='terminal-prompt'>$</span>{{/if}}
+                {{#if line.prompt}}<span
+                    class='terminal-prompt'
+                  >{{TERMINAL_PROMPT}}</span>{{/if}}
                 {{#each line.segments as |seg|}}<span
                     data-color={{seg.color}}
                   >{{seg.text}}</span>{{/each}}
