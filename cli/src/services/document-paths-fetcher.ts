@@ -16,9 +16,9 @@ export default class DocumentPathsFetcher {
     return languageSlugs.reduce((memo: DocumentPath[], slug) => {
       documentPaths.forEach((path) => {
         const parsedTarget = document.target
-          .replace('%slug%', slug)
-          .replace('%original_file_name%', path)
-          .replace('%document_path%', path);
+          .replace(/%slug%/g, slug)
+          .replace(/%original_file_name%/g, path)
+          .replace(/%document_path%/g, path);
 
         if (!memo.find(({path}) => path === parsedTarget)) {
           memo.push({documentPath: path, path: parsedTarget, language: slug});
