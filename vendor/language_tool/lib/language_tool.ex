@@ -3,7 +3,7 @@ defmodule LanguageTool do
 
   def check(lang, text, opts \\ []) do
     if MapSet.member?(list_languages(), lang) do
-      cache_key = cache_key([lang, text])
+      cache_key = cache_key(lang, text)
 
       case Cachex.fetch(:language_tool_cache, cache_key, fn _key ->
              metadata = %{language_code: lang, cache_key: cache_key, text_length: String.length(text)}
@@ -20,7 +20,7 @@ defmodule LanguageTool do
                    result =
                      GenServer.call(
                        LanguageTool.Server,
-                       {:check, lang, IO.iodata_to_binary(payload)},
+                       {:check, lang, payload},
                        :infinity
                      )
 
@@ -40,8 +40,8 @@ defmodule LanguageTool do
     _ -> empty_matches(lang, text, :check_internal_error)
   end
 
-  defp cache_key(contents) do
-    :erlang.md5(contents)
+  defp cache_key(lang, text) do
+    :erlang.md5([lang, 0, text])
   end
 
   defp empty_matches(lang, text, error) do

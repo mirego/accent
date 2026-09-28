@@ -18,9 +18,7 @@ buildscript {
 
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.9.10"
-    kotlin("plugin.serialization") version "1.9.10"
-    //java
+    id("org.jetbrains.kotlin.jvm") version "1.9.25"
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -43,9 +41,8 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // This dependency is used by the application.
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("com.google.guava:guava:32.1.1-jre")
-    implementation("org.languagetool:language-all:6.3")
+    implementation("org.languagetool:language-all:6.8")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     implementation("org.slf4j:slf4j-nop:2.0.7")
 
@@ -54,7 +51,7 @@ dependencies {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 

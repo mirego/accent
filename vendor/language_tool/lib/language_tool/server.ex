@@ -60,7 +60,7 @@ defmodule LanguageTool.Server do
 
   def handle_call({:check, lang, text}, from, state) do
     lang = sanitize_lang(lang)
-    Port.command(state.port, [String.pad_trailing(lang, 7), text, "\n"])
+    Port.command(state.port, [pad_lang(lang), text, "\n"])
     {:noreply, %{state | queue: :queue.in(from, state.queue)}}
   end
 
@@ -139,6 +139,9 @@ defmodule LanguageTool.Server do
 
   defp sanitize_lang("en"), do: "en-US"
   defp sanitize_lang(lang), do: lang
+
+  defp pad_lang(lang) when byte_size(lang) >= 7, do: lang
+  defp pad_lang(lang), do: lang <> String.duplicate(" ", 7 - byte_size(lang))
 
   defp drain_queue(queue) do
     case :queue.out(queue) do

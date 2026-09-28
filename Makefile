@@ -68,9 +68,9 @@ compose-build: ## Build the Docker image from the docker-compose.yml file
 	docker-compose build
 
 .PHONY: build-language-tool
-build-language-tool:
-	rm -f vendor/language_tool/priv/native/language-tool.jar
+build-language-tool: ## Build the LanguageTool jar (same shadowJar step as the release image)
 	cd vendor/language_tool/priv/native/languagetool && ./gradlew shadowJar
+	mkdir -p priv/native
 	cp vendor/language_tool/priv/native/languagetool/app/build/libs/language-tool.jar priv/native/language-tool.jar
 
 # CI targets

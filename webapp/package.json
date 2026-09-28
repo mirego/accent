@@ -23,7 +23,7 @@
   },
   "repository": "https://github.com/mirego/accent",
   "engines": {
-    "node": ">= 21.6.0"
+    "node": ">= 24"
   },
   "ember": {
     "edition": "octane"

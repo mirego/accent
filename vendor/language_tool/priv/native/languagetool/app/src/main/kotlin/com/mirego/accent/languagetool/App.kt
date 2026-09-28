@@ -1,180 +1,143 @@
 package com.mirego.accent.languagetool
 
 import java.io.BufferedReader
-import java.io.IOException
 import java.io.InputStreamReader
-import java.util.*
-import java.util.concurrent.*
-import org.json.simple.*
-import org.languagetool.*
-import org.languagetool.language.*
-import org.languagetool.rules.*
-import org.languagetool.markup.AnnotatedTextBuilder;
+import org.json.simple.JSONArray
+import org.json.simple.JSONObject
+import org.json.simple.parser.JSONParser
+import org.languagetool.JLanguageTool
+import org.languagetool.Languages
+import org.languagetool.markup.AnnotatedTextBuilder
+import org.languagetool.rules.RuleMatch
 
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
-
-@Serializable
-data class Base(val items: Array<Item>)
-
-@Serializable
-data class Item(val markup: String = "", val text: String = "", val markupAs: String = "x")
+private const val LANG_WIDTH = 7
+private const val MAX_REPLACEMENTS = 5
 
 fun main(args: Array<String>) {
-    val reader = BufferedReader(InputStreamReader(System.`in`))
-    val tools = HashMap<String, JLanguageTool>()
     val languages = ArrayList<String>()
     val disabledRuleIds = ArrayList<String>()
+    val parser = JSONParser()
 
-    for (i in args.indices) {
+    var i = 0
+    while (i < args.size) {
         when (args[i]) {
             "--languages" -> {
-                if (i + 1 < args.size) {
-                    val codes = args[i + 1].split(",")
-                    for (code in codes) {
-                        languages.add(code.trim())
-                    }
-                } else {
+                val value = args.getOrNull(i + 1)
+                if (value == null) {
                     println("Error: Missing languages.")
                     return
                 }
+                value.split(',').mapTo(languages) { it.trim() }
+                i += 2
             }
             "--disabledRuleIds" -> {
-                if (i + 1 < args.size) {
-                    val ids = args[i + 1].split(",")
-                    for (id in ids) {
-                        disabledRuleIds.add(id)
-                    }
-                } else {
+                val value = args.getOrNull(i + 1)
+                if (value == null) {
                     println("Error: Missing rule ids.")
                     return
                 }
+                disabledRuleIds.addAll(value.split(','))
+                i += 2
             }
+            else -> i += 1
         }
     }
 
+    val tools = HashMap<String, JLanguageTool>(languages.size)
     for (code in languages) {
-        val globalConfig = GlobalConfig()
-        val userConfig = UserConfig()
-
-        val lt =
-            JLanguageTool(
-                Languages.getLanguageForShortCode(code),
-                ArrayList(),
-                null,
-                null,
-                globalConfig,
-                userConfig
-            )
-        for (id in disabledRuleIds) {
-            lt.disableRule(id)
-        }
-
-        lt.check("")
-        tools[code] = lt
+        val tool = JLanguageTool(Languages.getLanguageForShortCode(code))
+        if (disabledRuleIds.isNotEmpty()) tool.disableRules(disabledRuleIds)
+        tool.check("")
+        tools[code] = tool
     }
-
-    var input: String?
 
     println(">")
     System.out.flush()
 
+    val reader = BufferedReader(InputStreamReader(System.`in`, Charsets.UTF_8), 8192)
     while (true) {
-        input = reader.readLine()
-        if (input == null) break
-        val languageShortCode = input.substring(0, Math.min(7, input.length)).trim()
-        val text = input.substring(Math.min(7, input.length))
-        val langTool = tools[languageShortCode]
+        val input = reader.readLine() ?: break
+        val languageShortCode = input.take(LANG_WIDTH).trim()
+        val text = input.drop(LANG_WIDTH)
+        val tool = tools[languageShortCode]
 
-        if (text.length == 0) {
-            printError("invalid_input", text, languageShortCode)
-            continue
+        val line = when {
+            text.isEmpty() -> errorJson("invalid_input", text, languageShortCode)
+            tool == null -> errorJson("unsupported_language", text, languageShortCode)
+            else -> check(tool, parser, text, languageShortCode)
         }
-
-        if (langTool == null) {
-            printError("unsupported_language", text, languageShortCode)
-            continue
-        }
-
-        val parsedText = Json.decodeFromString<Base>(text)
-        val annotatedBuilder = AnnotatedTextBuilder()
-        val markups = JSONArray()
-
-        for (item in parsedText.items) {
-          if (item.markup != "") {
-            markups.add(item.markup)
-            annotatedBuilder.addMarkup(item.markup, item.markupAs);
-          } else {
-            annotatedBuilder.addText(item.text);
-          }
-        }
-
-        val annotatedText = annotatedBuilder.build()
-        val matches = langTool.check(annotatedText)
-        val responseObject = JSONObject()
-
-        responseObject.put("text", annotatedText.getTextWithMarkup())
-        responseObject.put("markups", markups)
-        responseObject.put("language", languageShortCode)
-
-        val matchesList = JSONArray()
-
-        for (match in matches) {
-            val matchObject = JSONObject()
-            matchObject.put("offset", match.fromPos)
-            matchObject.put("message", cleanSuggestion(match.message))
-            matchObject.put("length", match.toPos - match.fromPos)
-
-            matchObject.put("replacements", getReplacements(match))
-            matchObject.put("rule", getRule(match))
-
-            matchesList.add(matchObject)
-        }
-
-        responseObject.put("matches", matchesList)
-
-        println(responseObject.toString())
-        System.out.flush()
+        println(line)
     }
 }
 
-@Throws(IOException::class)
-private fun printError(error: String, text: String, languageShortCode: String) {
-    val errorObject = JSONObject()
-    errorObject.put("error", error)
-    errorObject.put("text", text)
-    errorObject.put("matches", JSONArray())
-    errorObject.put("markups", JSONArray())
-    errorObject.put("language", languageShortCode)
-    println(errorObject.toString())
-    System.out.flush()
+private fun check(tool: JLanguageTool, parser: JSONParser, text: String, languageShortCode: String): String {
+    val parsed = parser.parse(text) as JSONObject
+    val builder = AnnotatedTextBuilder()
+    val markups = JSONArray()
+    val rawItems = parsed["items"] as? List<*> ?: emptyList<Any>()
+
+    for (entry in rawItems) {
+        val item = entry as JSONObject
+        val markup = item["markup"] as? String ?: ""
+        if (markup.isNotEmpty()) {
+            markups.add(markup)
+            builder.addMarkup(markup, item["markupAs"] as? String ?: "x")
+        } else {
+            builder.addText(item["text"] as? String ?: "")
+        }
+    }
+
+    val annotated = builder.build()
+    val matches = tool.check(annotated)
+
+    val response = JSONObject()
+    response["text"] = annotated.textWithMarkup
+    response["markups"] = markups
+    response["language"] = languageShortCode
+    val matchesList = JSONArray()
+    for (match in matches) matchesList.add(matchJson(match))
+    response["matches"] = matchesList
+    return response.toJSONString()
 }
 
-@Throws(IOException::class)
-private fun getRule(match: RuleMatch): JSONObject {
-    val rule = match.rule
-    val ruleObject = JSONObject()
-    ruleObject.put("description", rule.description)
-    ruleObject.put("id", match.specificRuleId)
-    return ruleObject
+@Suppress("UNCHECKED_CAST")
+private fun matchJson(match: RuleMatch): JSONObject {
+    val rule = JSONObject()
+    rule["description"] = match.rule.description
+    rule["id"] = match.specificRuleId
+
+    val matchObject = JSONObject()
+    matchObject["offset"] = match.fromPos
+    matchObject["message"] = cleanSuggestion(match.message)
+    matchObject["length"] = match.toPos - match.fromPos
+    matchObject["replacements"] = replacementsJson(match)
+    matchObject["rule"] = rule
+    return matchObject
 }
 
-@Throws(IOException::class)
-private fun getReplacements(match: RuleMatch): JSONArray {
+@Suppress("UNCHECKED_CAST")
+private fun replacementsJson(match: RuleMatch): JSONArray {
     val replacements = JSONArray()
-    val matches = match.suggestedReplacementObjects
-
-    for (replacement in matches.subList(0, Math.min(5, Math.max(0, matches.size - 1)))) {
+    for (replacement in match.suggestedReplacementObjects.take(MAX_REPLACEMENTS)) {
         val replacementObject = JSONObject()
-        replacementObject.put("value", replacement.replacement)
-        replacementObject.put("confidence", replacement.confidence)
-
+        replacementObject["value"] = replacement.replacement
         replacements.add(replacementObject)
     }
-
     return replacements
 }
 
-private fun cleanSuggestion(s: String): String {
-    return s.replace("<suggestion>", "\"").replace("</suggestion>", "\"")
+private fun cleanSuggestion(message: String): String {
+    if (!message.contains("<suggestion>")) return message
+    return message.replace("<suggestion>", "\"").replace("</suggestion>", "\"")
+}
+
+@Suppress("UNCHECKED_CAST")
+private fun errorJson(error: String, text: String, languageShortCode: String): String {
+    val errorObject = JSONObject()
+    errorObject["error"] = error
+    errorObject["text"] = text
+    errorObject["matches"] = JSONArray()
+    errorObject["markups"] = JSONArray()
+    errorObject["language"] = languageShortCode
+    return errorObject.toJSONString()
 }

@@ -1,7 +1,7 @@
 ################################################################################
 # Stage 1: Build webapp assets
 ################################################################################
-FROM node:22.21.1-trixie-slim AS webapp-builder
+FROM node:24.18.0-trixie-slim AS webapp-builder
 
 WORKDIR /opt/build
 
