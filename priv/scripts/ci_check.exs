@@ -3,8 +3,8 @@ defmodule CICheck do
   @moduledoc false
 
   @checks [
-    %{id: :test, label: "API tests", cmd: "make test-api", after: []},
     %{id: :compile, label: "Compilation without warnings", cmd: "make lint-compile", after: []},
+    %{id: :test, label: "API tests", cmd: "make test-api", after: [:compile]},
     %{id: :format, label: "API code auto-formatting", cmd: "make lint-format", after: [:compile]},
     %{id: :credo, label: "API code lint", cmd: "make lint-credo", after: [:compile]},
     %{id: :dialyzer, label: "Dialyzer type check", cmd: "make dialyzer-check", after: [:compile]},
