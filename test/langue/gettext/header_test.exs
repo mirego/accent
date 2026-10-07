@@ -29,6 +29,24 @@ defmodule LangueTest.Formatter.Gettext.Header do
     assert result_serialize =~ "Plural-Forms: #{plural_forms}"
   end
 
+  test "Dutch plural forms from language seeds" do
+    seeds =
+      :accent
+      |> Application.app_dir("priv/repo/languages-plural-forms.json")
+      |> File.read!()
+      |> Jason.decode!()
+
+    seed = Enum.find(seeds, &(&1["locale"] == "nl"))
+
+    {_, result_serialize} =
+      FormatterTestHelper.test_serialize(PluralFormsHeader, Gettext, %Accent.Language{
+        slug: "nl",
+        plural_forms: seed["plural_forms"]
+      })
+
+    assert result_serialize =~ "Plural-Forms: nplurals=2; plural=(n != 1);"
+  end
+
   test "language in header when previously empty" do
     {_, result_serialize} = FormatterTestHelper.test_serialize(LanguageHeader, Gettext, %Accent.Language{slug: "en"})
 
