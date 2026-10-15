@@ -15,7 +15,7 @@
       background: var(--content-background);
     }
 
-    html[data-theme='dark'] .content {
+    :global(html[data-theme='dark']) .content {
       border-left: 1px solid
         color-mix(in srgb, var(--color-primary) 7%, transparent);
     }

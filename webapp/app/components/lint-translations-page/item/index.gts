@@ -284,7 +284,7 @@ export default class LintTranslationsPageItem extends Component<Args> {
         margin-left: 4px;
         font-weight: normal;
       }
-      .item-text span[data-underline] {
+      .item-text :global(span[data-underline]) {
         position: relative;
         text-decoration-line: underline;
         text-decoration-style: wavy;
@@ -292,7 +292,7 @@ export default class LintTranslationsPageItem extends Component<Args> {
         text-decoration-skip-ink: none;
         text-decoration-thickness: 1px;
       }
-      .item-text span[data-rect] {
+      .item-text :global(span[data-rect]) {
         position: relative;
         background-color: var(--color-error);
         padding: 0 2px;

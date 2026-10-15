@@ -3,8 +3,7 @@
     "esModuleInterop": true,
     "target": "es2020",
     "allowJs": false,
-    "ignoreDeprecations": "6.0",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -21,8 +20,7 @@
     "noEmit": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "baseUrl": ".",
-    "module": "es6",
+    "module": "esnext",
     "lib": [
       "dom",
       "es2021",
@@ -30,19 +28,19 @@
     ],
     "paths": {
       "accent-webapp/tests/*": [
-        "tests/*"
+        "./tests/*"
       ],
       "accent-webapp/*": [
-        "app/*"
+        "./app/*"
       ],
       "*": [
-        "types/*"
+        "./types/*"
       ]
     },
     "types": [
       "@embroider/core/virtual",
       "@svg-jar/plugin/client/ember",
-      "@ember-intl/vite/dist/virtual"
+      "@ember-intl/vite/virtual"
     ]
   },
   "include": [

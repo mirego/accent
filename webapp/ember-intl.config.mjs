@@ -1,5 +1,5 @@
 export default {
   buildOptions: {
-    inputPath: 'app/locales',
+    translationsDir: 'app/locales',
   },
 };
