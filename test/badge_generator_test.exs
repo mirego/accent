@@ -1,8 +1,6 @@
 defmodule AccentTest.BadgeGenerator do
   @moduledoc false
-  use Accent.RepoCase, async: true, async: false
-
-  import Mock
+  use Accent.RepoCase, async: true
 
   alias Accent.BadgeGenerator
   alias Accent.Document
@@ -11,6 +9,14 @@ defmodule AccentTest.BadgeGenerator do
   alias Accent.Repo
   alias Accent.Revision
   alias Accent.Translation
+  alias Plug.Conn
+
+  defp stub_badge(expected_url) do
+    Req.Test.expect(Accent.HTTPClient, fn conn ->
+      assert "#{conn.scheme}://#{conn.host}#{conn.request_path}" === expected_url
+      Conn.send_resp(conn, 200, "<svg></svg>")
+    end)
+  end
 
   setup do
     french_language = Factory.insert(Language)
@@ -49,13 +55,9 @@ defmodule AccentTest.BadgeGenerator do
       document_id: document.id
     )
 
-    response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
+    stub_badge("https://img.shields.io/badge/accent-33.33%25-d84444.svg")
 
-    with_mock HTTPoison, response do
-      {:ok, _} = BadgeGenerator.generate(project, :percentage_reviewed_count)
-
-      assert called(HTTPoison.get("https://img.shields.io/badge/accent-33.33%25-d84444.svg", [], recv_timeout: 20_000))
-    end
+    {:ok, _} = BadgeGenerator.generate(project, :percentage_reviewed_count)
   end
 
   test "percentage_reviewed warning", %{project: project, revision: revision, document: document} do
@@ -95,13 +97,9 @@ defmodule AccentTest.BadgeGenerator do
       document_id: document.id
     )
 
-    response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
+    stub_badge("https://img.shields.io/badge/accent-75%25-e4b600.svg")
 
-    with_mock HTTPoison, response do
-      {:ok, _} = BadgeGenerator.generate(project, :percentage_reviewed_count)
-
-      assert called(HTTPoison.get("https://img.shields.io/badge/accent-75%25-e4b600.svg", [], recv_timeout: 20_000))
-    end
+    {:ok, _} = BadgeGenerator.generate(project, :percentage_reviewed_count)
   end
 
   test "percentage_reviewed success", %{project: project, revision: revision, document: document} do
@@ -141,13 +139,9 @@ defmodule AccentTest.BadgeGenerator do
       document_id: document.id
     )
 
-    response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
+    stub_badge("https://img.shields.io/badge/accent-100%25-45c86f.svg")
 
-    with_mock HTTPoison, response do
-      {:ok, _} = BadgeGenerator.generate(project, :percentage_reviewed_count)
-
-      assert called(HTTPoison.get("https://img.shields.io/badge/accent-100%25-45c86f.svg", [], recv_timeout: 20_000))
-    end
+    {:ok, _} = BadgeGenerator.generate(project, :percentage_reviewed_count)
   end
 
   test "translations_count", %{project: project, revision: revision, document: document} do
@@ -187,15 +181,9 @@ defmodule AccentTest.BadgeGenerator do
       document_id: document.id
     )
 
-    response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
+    stub_badge("https://img.shields.io/badge/accent-4%20strings-aaaaaa.svg")
 
-    with_mock HTTPoison, response do
-      {:ok, _} = BadgeGenerator.generate(project, :translations_count)
-
-      assert called(
-               HTTPoison.get("https://img.shields.io/badge/accent-4%20strings-aaaaaa.svg", [], recv_timeout: 20_000)
-             )
-    end
+    {:ok, _} = BadgeGenerator.generate(project, :translations_count)
   end
 
   test "conflicts_count", %{project: project, revision: revision, document: document} do
@@ -217,15 +205,9 @@ defmodule AccentTest.BadgeGenerator do
       document_id: document.id
     )
 
-    response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
+    stub_badge("https://img.shields.io/badge/accent-2%20conflicts-d84444.svg")
 
-    with_mock HTTPoison, response do
-      {:ok, _} = BadgeGenerator.generate(project, :conflicts_count)
-
-      assert called(
-               HTTPoison.get("https://img.shields.io/badge/accent-2%20conflicts-d84444.svg", [], recv_timeout: 20_000)
-             )
-    end
+    {:ok, _} = BadgeGenerator.generate(project, :conflicts_count)
   end
 
   test "reviewed_count", %{project: project, revision: revision, document: document} do
@@ -247,24 +229,14 @@ defmodule AccentTest.BadgeGenerator do
       document_id: document.id
     )
 
-    response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
+    stub_badge("https://img.shields.io/badge/accent-2%20reviewed-aaaaaa.svg")
 
-    with_mock HTTPoison, response do
-      {:ok, _} = BadgeGenerator.generate(project, :reviewed_count)
-
-      assert called(
-               HTTPoison.get("https://img.shields.io/badge/accent-2%20reviewed-aaaaaa.svg", [], recv_timeout: 20_000)
-             )
-    end
+    {:ok, _} = BadgeGenerator.generate(project, :reviewed_count)
   end
 
   test "zero translations", %{project: project} do
-    response = [get: fn _url, _, _ -> {:ok, %{body: "<svg></svg>"}} end]
+    stub_badge("https://img.shields.io/badge/accent-0%25-d84444.svg")
 
-    with_mock HTTPoison, response do
-      {:ok, _} = BadgeGenerator.generate(project, :percentage_reviewed_count)
-
-      assert called(HTTPoison.get("https://img.shields.io/badge/accent-0%25-d84444.svg", [], recv_timeout: 20_000))
-    end
+    {:ok, _} = BadgeGenerator.generate(project, :percentage_reviewed_count)
   end
 end

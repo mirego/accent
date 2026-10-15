@@ -93,31 +93,38 @@ providers =
 
 providers = if get_env("AUTH0_CLIENT_ID"), do: [{:auth0, {Ueberauth.Strategy.Auth0, []}} | providers], else: providers
 
-config :ueberauth_oidcc, :issuers, [
-  %{
-    name: :oidcc_issuer,
-    issuer: get_env("OIDC_ISSUER") || String.trim_trailing(get_env("OIDC_DISCOVERY_URI"), "/.well-known/openid-configuration")
-   }
-]
-
 providers =
   if get_env("OIDC_CLIENT_ID"),
-    do: [{:oidc, { Oidcc,
-      issuer: :oidcc_issuer,
-      client_id: get_env("OIDC_CLIENT_ID"),
-      client_secret: get_env("OIDC_CLIENT_SECRET"),
-      scopes: get_env("OIDC_SCOPE") || "openid profile email",
-      callback_path: "/auth/oidc/callback",
-      uid_field: get_env("OIDC_UID_FIELD") || "sub",
-      userinfo: true,
-      response_type: "code"
-    }} | providers],
+    do: [
+      {:oidc,
+       {Oidcc,
+        issuer: :oidcc_issuer,
+        client_id: get_env("OIDC_CLIENT_ID"),
+        client_secret: get_env("OIDC_CLIENT_SECRET"),
+        scopes: get_env("OIDC_SCOPE") || "openid profile email",
+        callback_path: "/auth/oidc/callback",
+        uid_field: get_env("OIDC_UID_FIELD") || "sub",
+        userinfo: true,
+        response_type: "code"}}
+      | providers
+    ],
     else: providers
 
 providers =
   if get_env("DUMMY_LOGIN_ENABLED"),
     do: [{:dummy, {Accent.Auth.Ueberauth.DummyStrategy, []}} | providers],
     else: providers
+
+if get_env("OIDC_ISSUER") || get_env("OIDC_DISCOVERY_URI") do
+  config :ueberauth_oidcc, :issuers, [
+    %{
+      name: :oidcc_issuer,
+      issuer:
+        get_env("OIDC_ISSUER") ||
+          String.trim_trailing(get_env("OIDC_DISCOVERY_URI"), "/.well-known/openid-configuration")
+    }
+  ]
+end
 
 config :accent, Accent.MachineTranslations,
   default_providers_config: %{
@@ -156,8 +163,6 @@ if otel_endpoint = get_env("OTEL_EXPORTER_OTLP_ENDPOINT") do
 else
   config :opentelemetry, traces_exporter: :none
 end
-
-config :tesla, logger_enabled: true
 
 config :ueberauth, Ueberauth, providers: providers
 

@@ -7,7 +7,7 @@ defmodule AccentTest.CollaboratorCreator do
   alias Accent.Project
   alias Accent.User
 
-  @email Faker.Internet.email()
+  @email Factori.Generator.email()
 
   test "create unknown email" do
     project = Factory.insert(Project)
@@ -111,7 +111,7 @@ defmodule AccentTest.CollaboratorCreator do
 
     {:error, changeset} =
       CollaboratorCreator.create(%{
-        "email" => Faker.Internet.email(),
+        "email" => Factori.Generator.email(),
         "assigner_id" => assigner.id,
         "role" => role,
         "project_id" => project.id

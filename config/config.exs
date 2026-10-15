@@ -50,10 +50,6 @@ config :sentry,
   before_send: {Accent.Sentry, :before_send},
   release: version
 
-config :tesla,
-  auth_enabled: true,
-  adapter: Tesla.Adapter.Hackney
-
 config :ueberauth, Ueberauth, providers: []
 
 import_config "#{Mix.env()}.exs"

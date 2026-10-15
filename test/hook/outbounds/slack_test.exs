@@ -1,8 +1,6 @@
 defmodule AccentTest.Hook.Outbounds.Slack do
   @moduledoc false
-  use Accent.RepoCase, async: false
-
-  import Mock
+  use Accent.RepoCase, async: true
 
   alias Accent.Hook.Outbounds.Slack
   alias Accent.Integration
@@ -10,6 +8,7 @@ defmodule AccentTest.Hook.Outbounds.Slack do
   alias Accent.Project
   alias Accent.Repo
   alias Accent.User
+  alias Plug.Conn
 
   setup do
     project = Factory.insert(Project)
@@ -36,11 +35,8 @@ defmodule AccentTest.Hook.Outbounds.Slack do
     context =
       to_worker_args(%Accent.Hook.Context{project_id: project.id, user_id: user.id, event: "sync", payload: payload})
 
-    received_headers = [{"Content-Type", "application/json"}]
-    received_url = "http://example.com"
-
     received_body =
-      Jason.encode!(%{
+      JSON.encode!(%{
         text:
           String.trim_trailing("""
           *Test* just synced a file: _foo.json_
@@ -51,13 +47,15 @@ defmodule AccentTest.Hook.Outbounds.Slack do
           """)
       })
 
-    with_mock(HTTPoison,
-      post: fn ^received_url, ^received_body, ^received_headers ->
-        {:ok, %HTTPoison.Response{status_code: 200, body: ""}}
-      end
-    ) do
-      Slack.perform(%Oban.Job{args: context})
-    end
+    Req.Test.stub(Accent.HTTPClient, fn conn ->
+      {:ok, body, conn} = Conn.read_body(conn)
+      assert conn.host === "example.com"
+      assert Conn.get_req_header(conn, "content-type") === ["application/json"]
+      assert JSON.decode!(body) === JSON.decode!(received_body)
+      Conn.send_resp(conn, 200, "")
+    end)
+
+    Slack.perform(%Oban.Job{args: context})
 
     [execution] = Repo.all(IntegrationExecution)
     assert execution.integration_id === integration.id

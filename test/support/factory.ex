@@ -9,7 +9,7 @@ defmodule Accent.Factory do
       Accent.Factory.Mappings.Project,
       Factori.Mapping.Embed,
       Factori.Mapping.Enum,
-      Factori.Mapping.Faker
+      Factori.Mapping.Generator
     ]
 
   defmodule Mappings do

@@ -1,23 +1,40 @@
 defmodule AccentTest.MachineTranslations do
   @moduledoc false
-  use ExUnit.Case, async: false
-
-  import Tesla.Mock
+  use ExUnit.Case, async: true
 
   alias Accent.MachineTranslations
+  alias Plug.Conn
+
+  defp stub(url, response_fun) do
+    Req.Test.stub(Accent.HTTPClient, fn conn ->
+      assert "#{conn.scheme}://#{conn.host}#{conn.request_path}" === url
+      {status, body} = response_fun.(conn)
+
+      case body do
+        body when is_binary(body) -> Conn.send_resp(conn, status, body)
+        body -> conn |> Conn.put_status(status) |> Req.Test.json(body)
+      end
+    end)
+  end
+
+  defp read_body(conn) do
+    {:ok, body, _conn} = Conn.read_body(conn)
+    body
+  end
 
   describe "translate/2" do
     test "google_translate" do
-      mock_global(fn
-        %{body: body, url: "https://translation.googleapis.com/v3/projects/1234/:translateText"} ->
-          assert JSON.decode!(body) === %{
-                   "contents" => ["Test"],
-                   "mimeType" => "text/plain",
-                   "sourceLanguageCode" => "fr",
-                   "targetLanguageCode" => "en"
-                 }
+      stub("https://translation.googleapis.com/v3/projects/1234/:translateText", fn conn ->
+        body = read_body(conn)
 
-          %Tesla.Env{status: 200, body: %{"translations" => [%{"translatedText" => "Translated"}]}}
+        assert JSON.decode!(body) === %{
+                 "contents" => ["Test"],
+                 "mimeType" => "text/plain",
+                 "sourceLanguageCode" => "fr",
+                 "targetLanguageCode" => "en"
+               }
+
+        {200, %{"translations" => [%{"translatedText" => "Translated"}]}}
       end)
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
@@ -31,21 +48,20 @@ defmodule AccentTest.MachineTranslations do
     end
 
     test "google_translate no translate span" do
-      mock_global(fn
-        %{body: body, url: "https://translation.googleapis.com/v3/projects/1234/:translateText"} ->
-          assert JSON.decode!(body) === %{
-                   "contents" => [~s(Test <span translate="no">%{placeholder}</span> bla)],
-                   "mimeType" => "text/plain",
-                   "sourceLanguageCode" => "fr",
-                   "targetLanguageCode" => "en"
-                 }
+      stub("https://translation.googleapis.com/v3/projects/1234/:translateText", fn conn ->
+        body = read_body(conn)
 
-          %Tesla.Env{
-            status: 200,
-            body: %{
-              "translations" => [%{"translatedText" => ~s(Translated <span translate="no">%{placeholder}</span> bla)}]
-            }
-          }
+        assert JSON.decode!(body) === %{
+                 "contents" => [~s(Test <span translate="no">%{placeholder}</span> bla)],
+                 "mimeType" => "text/plain",
+                 "sourceLanguageCode" => "fr",
+                 "targetLanguageCode" => "en"
+               }
+
+        {200,
+         %{
+           "translations" => [%{"translatedText" => ~s(Translated <span translate="no">%{placeholder}</span> bla)}]
+         }}
       end)
 
       entries = [%Langue.Entry{value: "Test %{placeholder} bla", value_type: "string", key: "."}]
@@ -59,9 +75,8 @@ defmodule AccentTest.MachineTranslations do
     end
 
     test "google_translate error" do
-      mock_global(fn
-        %{url: "https://translation.googleapis.com/v3/projects/1234/:translateText"} ->
-          %Tesla.Env{status: 400, body: "Something"}
+      stub("https://translation.googleapis.com/v3/projects/1234/:translateText", fn _conn ->
+        {400, "Something"}
       end)
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
@@ -75,11 +90,12 @@ defmodule AccentTest.MachineTranslations do
     end
 
     test "deepl" do
-      mock_global(fn
-        %{body: body, url: "https://api-free.deepl.com/v2/translate"} ->
-          assert JSON.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
+      stub("https://api-free.deepl.com/v2/translate", fn conn ->
+        body = read_body(conn)
 
-          %Tesla.Env{status: 200, body: %{"translations" => [%{"text" => "Translated"}]}}
+        assert JSON.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
+
+        {200, %{"translations" => [%{"text" => "Translated"}]}}
       end)
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
@@ -93,11 +109,12 @@ defmodule AccentTest.MachineTranslations do
     end
 
     test "deepl pro" do
-      mock_global(fn
-        %{body: body, url: "https://api.deepl.com/v2/translate"} ->
-          assert JSON.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
+      stub("https://api.deepl.com/v2/translate", fn conn ->
+        body = read_body(conn)
 
-          %Tesla.Env{status: 200, body: %{"translations" => [%{"text" => "Translated"}]}}
+        assert JSON.decode!(body) === %{"source_lang" => "FR", "target_lang" => "EN", "text" => ["Test"]}
+
+        {200, %{"translations" => [%{"text" => "Translated"}]}}
       end)
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
@@ -111,8 +128,8 @@ defmodule AccentTest.MachineTranslations do
     end
 
     test "deepl error" do
-      mock_global(fn %{url: "https://api-free.deepl.com/v2/translate"} ->
-        %Tesla.Env{status: 400, body: "Something"}
+      stub("https://api-free.deepl.com/v2/translate", fn _conn ->
+        {400, "Something"}
       end)
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]
@@ -126,8 +143,8 @@ defmodule AccentTest.MachineTranslations do
     end
 
     test "deepl detect source" do
-      mock_global(fn %{url: "https://api-free.deepl.com/v2/translate"} ->
-        %Tesla.Env{status: 400, body: "Something"}
+      stub("https://api-free.deepl.com/v2/translate", fn _conn ->
+        {400, "Something"}
       end)
 
       entries = [%Langue.Entry{value: "Test", value_type: "string", key: "."}]

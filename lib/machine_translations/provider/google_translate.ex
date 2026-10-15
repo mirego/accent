@@ -4,7 +4,6 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
 
   defimpl Accent.MachineTranslations.Provider do
     alias Accent.MachineTranslations.TranslatedText
-    alias Tesla.Middleware
 
     @supported_languages ~w(
     af
@@ -141,8 +140,8 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
              sourceLanguageCode: source,
              targetLanguageCode: target
            },
-           {:ok, %{body: %{"translations" => translations}}} <-
-             Tesla.post(client(provider.config), ":translateText", params) do
+           {:ok, %{status: status, body: %{"translations" => translations}}} when status in 200..299 <-
+             Req.post(client(provider.config), url: ":translateText", json: params) do
         {:ok, Enum.map(translations, &%TranslatedText{text: unmark_no_translate(&1["translatedText"])})}
       else
         {:ok, %{status: status, body: body}} when status > 201 ->
@@ -169,32 +168,17 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
       String.replace(value, ~r/<span translate="no">([^<]+)<\/span>/i, "\\1")
     end
 
-    defmodule Auth do
-      @moduledoc false
-      @behaviour Middleware
-
-      @impl Middleware
-      def call(env, next, opts) do
-        case auth_enabled?() && Goth.Token.fetch(%{source: opts}) do
-          {:ok, %{token: token, type: type}} ->
-            env
-            |> Tesla.put_header("authorization", type <> " " <> token)
-            |> Tesla.run(next)
-
-          _ ->
-            Tesla.run(env, next)
-        end
-      end
-
-      defp auth_enabled? do
-        !Application.get_env(:goth, :disabled)
-      end
-    end
-
     defp client(config) do
       {base_url, auth_source} = parse_auth_config(config)
 
-      Accent.Utils.JSONHTTPClient.new(base_url, {Auth, auth_source})
+      Accent.HTTPClient.new(base_url: base_url, auth: authorization(auth_source), receive_timeout: :infinity)
+    end
+
+    defp authorization(auth_source) do
+      case !Application.get_env(:goth, :disabled) && Goth.Token.fetch(%{source: auth_source}) do
+        {:ok, %{token: token, type: type}} -> type <> " " <> token
+        _ -> nil
+      end
     end
 
     defp parse_auth_config(config) do

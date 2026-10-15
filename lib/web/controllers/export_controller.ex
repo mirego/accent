@@ -65,7 +65,7 @@ defmodule Accent.ExportController do
       format: conn.assigns[:document] && conn.assigns[:document].format
     })
 
-    file = Path.join([System.tmp_dir(), Accent.Utils.SecureRandom.urlsafe_base64(16)])
+    file = Path.join([System.tmp_dir(), Accent.SecureRandom.urlsafe_base64(16)])
 
     :ok = File.write(file, conn.assigns[:document].render)
 

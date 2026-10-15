@@ -3,7 +3,7 @@ defmodule Accent.UserRemote.TokenGiver do
   import Ecto.Query
 
   alias Accent.Repo
-  alias Accent.Utils.SecureRandom
+  alias Accent.SecureRandom
 
   def grant_token(user) do
     invalidate_tokens(user)

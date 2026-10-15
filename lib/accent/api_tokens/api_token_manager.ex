@@ -25,7 +25,7 @@ defmodule Accent.APITokenManager do
 
     changeset =
       %AccessToken{
-        token: Accent.Utils.SecureRandom.urlsafe_base64(70)
+        token: Accent.SecureRandom.urlsafe_base64(70)
       }
       |> cast(params, [:custom_permissions])
       |> validate_subset(:custom_permissions, permissions)

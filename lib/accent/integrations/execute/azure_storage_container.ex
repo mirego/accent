@@ -13,7 +13,13 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
     upload_results =
       for upload <- uploads do
         {url, document_name} = UploadDocuments.url(upload, uri, version_tag)
-        response = HTTPoison.put(url, {:file, upload.file}, [{"x-ms-blob-type", "BlockBlob"}])
+
+        response =
+          Req.put(Accent.HTTPClient.new(decode_body: false),
+            url: url,
+            headers: [{"x-ms-blob-type", "BlockBlob"}],
+            body: upload.render
+          )
 
         %{name: document_name, url: url, response: UploadResponse.serialize(response)}
       end

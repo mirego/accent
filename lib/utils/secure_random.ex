@@ -1,11 +1,11 @@
-defmodule Accent.Utils.SecureRandom do
+defmodule Accent.SecureRandom do
   @moduledoc """
   Returns random Base64 encoded string.
   ## Examples
 
-      iex> Accent.Utils.SecureRandom.urlsafe_base64
+      iex> Accent.SecureRandom.urlsafe_base64
       "rmJfqH8YJd7m5SHTHJoA"
-      iex> Accent.Utils.SecureRandom.urlsafe_base64(8)
+      iex> Accent.SecureRandom.urlsafe_base64(8)
       "FOrHdEaqSOU"
   """
 

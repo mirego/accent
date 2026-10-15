@@ -38,7 +38,7 @@ defmodule Accent.Hook.Outbounds.Helpers.PostURL do
       Logger.metadata(hook_service: service, hook_url: url)
       start = System.monotonic_time()
 
-      result = HTTPoison.post(url, Jason.encode!(body), [{"Content-Type", "application/json"}])
+      result = Req.post(Accent.HTTPClient.new(decode_body: false), url: url, json: body)
       stop = System.monotonic_time()
       diff = System.convert_time_unit(stop - start, :native, :microsecond)
 
@@ -63,22 +63,22 @@ defmodule Accent.Hook.Outbounds.Helpers.PostURL do
     :ok
   end
 
-  defp execution_from_result({:ok, %{status_code: status, body: response_body}}, diff) do
+  defp execution_from_result({:ok, %{status: status, body: response_body}}, diff) do
     state = if status in 200..299, do: :success, else: :error
 
     {state, %{"status" => status, "body" => String.slice(to_string(response_body), 0, 1000), "duration_µs" => diff}}
   end
 
-  defp execution_from_result({:error, %{reason: reason}}, diff) do
-    {:error, %{"error" => to_string(reason), "duration_µs" => diff}}
+  defp execution_from_result({:error, exception}, diff) when is_exception(exception) do
+    {:error, %{"error" => Exception.message(exception), "duration_µs" => diff}}
   end
 
   defp execution_from_result(_, diff) do
     {:error, %{"error" => "unknown_response", "duration_µs" => diff}}
   end
 
-  defp results_log({:ok, %{status_code: status}}), do: to_string(status)
-  defp results_log({:error, %{reason: reason}}), do: inspect(reason)
+  defp results_log({:ok, %{status: status}}), do: to_string(status)
+  defp results_log({:error, exception}) when is_exception(exception), do: Exception.message(exception)
   defp results_log(_), do: "unknown"
 
   defp formatted_diff(diff) when diff > 1000, do: [diff |> div(1000) |> Integer.to_string(), "ms"]

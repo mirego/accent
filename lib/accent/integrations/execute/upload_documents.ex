@@ -49,12 +49,9 @@ defmodule Accent.IntegrationManager.Execute.UploadDocuments do
             }
 
             %{render: render} = Accent.TranslationsRenderer.render_translations(render_options)
-            file = Path.join([System.tmp_dir(), Accent.Utils.SecureRandom.urlsafe_base64(16)])
-            :ok = File.write(file, render)
 
             [
               %{
-                file: file,
                 render: render,
                 document: document,
                 language: Revision.language(revision)

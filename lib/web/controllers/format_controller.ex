@@ -42,7 +42,7 @@ defmodule Accent.FormatController do
   end
 
   def format(conn, _) do
-    file = Path.join([System.tmp_dir(), Accent.Utils.SecureRandom.urlsafe_base64(16)])
+    file = Path.join([System.tmp_dir(), Accent.SecureRandom.urlsafe_base64(16)])
 
     :ok = File.write(file, conn.assigns.render)
 

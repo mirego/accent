@@ -3,8 +3,6 @@ defmodule Accent.Prompts.Provider.OpenAI do
   defstruct config: nil
 
   defimpl Accent.Prompts.Provider do
-    alias Tesla.Middleware
-
     def id(_), do: :open_ai
     def enabled?(_), do: true
 
@@ -59,7 +57,8 @@ defmodule Accent.Prompts.Provider.OpenAI do
         stream: false
       }
 
-      with {:ok, %{body: body}} <- Tesla.post(client(config["base_url"], config["key"]), "chat/completions", params) do
+      with {:ok, %{body: body}} <-
+             Req.post(client(config["base_url"], config["key"]), url: "chat/completions", json: params) do
         choices = response_to_choices(body)
 
         Enum.map(choices, fn choice ->
@@ -86,20 +85,8 @@ defmodule Accent.Prompts.Provider.OpenAI do
       [%{"message" => %{"content" => IO.iodata_to_binary(content)}}]
     end
 
-    defmodule Auth do
-      @moduledoc false
-      @behaviour Middleware
-
-      @impl Middleware
-      def call(env, next, opts) do
-        env
-        |> Tesla.put_header("authorization", "Bearer #{opts[:key]}")
-        |> Tesla.run(next)
-      end
-    end
-
     defp client(base_url, key) do
-      Accent.Utils.JSONHTTPClient.new(base_url, {Auth, [key: key]})
+      Accent.HTTPClient.new(base_url: base_url, auth: {:bearer, key}, receive_timeout: :infinity)
     end
   end
 end

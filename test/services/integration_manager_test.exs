@@ -1,8 +1,6 @@
 defmodule AccentTest.IntegrationManager do
   @moduledoc false
-  use Accent.RepoCase, async: false
-
-  import Mock
+  use Accent.RepoCase, async: true
 
   alias Accent.Document
   alias Accent.Integration
@@ -14,7 +12,9 @@ defmodule AccentTest.IntegrationManager do
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
+  alias Accent.HTTPClient
   alias Accent.Version
+  alias Plug.Conn
 
   describe "execute" do
     setup do
@@ -66,23 +66,23 @@ defmodule AccentTest.IntegrationManager do
           data: %{azure_storage_container_sas: "http://azure.blob.test/container?sas=1234"}
         )
 
-      with_mock HTTPoison,
-        put: fn url, {:file, file}, headers ->
-          content = File.read!(file)
+      Req.Test.stub(HTTPClient, fn conn ->
+        {:ok, body, conn} = Conn.read_body(conn)
 
-          assert content === """
-                 msgid "key"
-                 msgstr "value v1.2.45"
-                 """
+        assert body === """
+               msgid "key"
+               msgstr "value v1.2.45"
+               """
 
-          assert String.ends_with?(url, "1.2.45/fr-custom/foo.po?sas=1234")
-          assert headers === [{"x-ms-blob-type", "BlockBlob"}]
-          {:ok, %HTTPoison.Response{status_code: 201, body: ""}}
-        end do
-        IntegrationManager.execute(integration, user, %{
-          azure_storage_container: %{target_version: :specific, tag: "1.2.45"}
-        })
-      end
+        assert conn.method === "PUT"
+        assert String.ends_with?("#{conn.request_path}?#{conn.query_string}", "1.2.45/fr-custom/foo.po?sas=1234")
+        assert Conn.get_req_header(conn, "x-ms-blob-type") === ["BlockBlob"]
+        Conn.send_resp(conn, 201, "")
+      end)
+
+      IntegrationManager.execute(integration, user, %{
+        azure_storage_container: %{target_version: :specific, tag: "1.2.45"}
+      })
 
       updated_integration = Repo.reload!(integration)
       [execution] = Repo.all(IntegrationExecution)
@@ -116,15 +116,14 @@ defmodule AccentTest.IntegrationManager do
           data: %{azure_storage_container_sas: "http://azure.blob.test/container?sas=1234"}
         )
 
-      with_mock HTTPoison,
-        put: fn url, body, headers ->
-          assert match?({:file, _}, body)
-          assert String.ends_with?(url, "latest/fr-custom/foo.po?sas=1234")
-          assert headers === [{"x-ms-blob-type", "BlockBlob"}]
-          {:ok, %HTTPoison.Response{status_code: 201, body: ""}}
-        end do
-        IntegrationManager.execute(integration, user, %{azure_storage_container: %{target_version: :latest}})
-      end
+      Req.Test.stub(HTTPClient, fn conn ->
+        assert conn.method === "PUT"
+        assert String.ends_with?("#{conn.request_path}?#{conn.query_string}", "latest/fr-custom/foo.po?sas=1234")
+        assert Conn.get_req_header(conn, "x-ms-blob-type") === ["BlockBlob"]
+        Conn.send_resp(conn, 201, "")
+      end)
+
+      IntegrationManager.execute(integration, user, %{azure_storage_container: %{target_version: :latest}})
 
       updated_integration = Repo.reload!(integration)
       [execution] = Repo.all(IntegrationExecution)

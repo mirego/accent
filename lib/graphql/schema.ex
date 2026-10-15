@@ -145,10 +145,6 @@ defmodule Accent.GraphQL.Schema do
     [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
   end
 
-  def middleware(middleware, _, _) do
-    [NewRelic.Absinthe.Middleware] ++ middleware
-  end
-
   def absinthe_pipeline(config, opts) do
     options = Pipeline.options(opts)
 

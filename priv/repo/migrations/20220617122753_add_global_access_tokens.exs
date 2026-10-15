@@ -19,7 +19,7 @@ defmodule Accent.Repo.Migrations.AddGlobalAccessTokens do
       Accent.Repo.insert!(%Accent.AccessToken{
         user_id: user_id,
         global: true,
-        token: Accent.Utils.SecureRandom.urlsafe_base64(70)
+        token: Accent.SecureRandom.urlsafe_base64(70)
       })
     end
   end

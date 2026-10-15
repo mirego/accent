@@ -26,8 +26,9 @@ defmodule Accent.BadgeGenerator do
 
     color = color_for_value(project_stats, attribute)
 
-    (@base_badge_service_url <> "accent-#{label(Map.fetch!(project_stats, attribute), attribute)}-#{color}.svg")
-    |> HTTPoison.get([], recv_timeout: @badge_service_timeout)
+    [base_url: @base_badge_service_url, receive_timeout: @badge_service_timeout]
+    |> Accent.HTTPClient.new()
+    |> Req.get(url: "accent-#{label(Map.fetch!(project_stats, attribute), attribute)}-#{color}.svg")
     |> case do
       {:ok, %{body: body}} -> {:ok, body}
       _ -> {:error, "internal error"}

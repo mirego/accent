@@ -84,7 +84,6 @@ defmodule Accent.Mixfile do
       # Utils
       {:jsone, "~> 1.4"},
       {:mochiweb, "~> 3.0"},
-      {:httpoison, "~> 2.0", override: true},
       {:gettext, "~> 0.20.0"},
       {:csv, "~> 2.0"},
       {:php_assoc_map, "~> 3.0"},
@@ -120,7 +119,6 @@ defmodule Accent.Mixfile do
 
       # Metrics and monitoring
       {:new_relic_agent, "~> 1.27"},
-      {:new_relic_absinthe, "~> 0.0"},
       {:telemetry, "~> 1.0"},
       {:telemetry_ui, "~> 5.4"},
       {:ecto_psql_extras, "~> 0.7"},
@@ -133,7 +131,7 @@ defmodule Accent.Mixfile do
       {:opentelemetry_bandit, "~> 0.2"},
       {:opentelemetry_ecto, "~> 1.2"},
       {:opentelemetry_oban, "~> 1.1"},
-      {:opentelemetry_tesla, "~> 2.4"},
+      {:opentelemetry_req, "~> 1.0"},
       {:opentelemetry_absinthe, "~> 2.4"},
       {:opentelemetry_dataloader, "~> 0.1"},
       {:opentelemetry_process_propagator, "~> 0.3"},
@@ -147,7 +145,7 @@ defmodule Accent.Mixfile do
       {:goth, "~> 1.4"},
 
       # Network request
-      {:tesla, "~> 1.3"},
+      {:req, "~> 0.7"},
 
       # Dev
       {:dialyxir, "~> 1.0", only: ~w(dev test)a, runtime: false},

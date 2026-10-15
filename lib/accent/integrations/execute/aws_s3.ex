@@ -47,7 +47,8 @@ defmodule Accent.IntegrationManager.Execute.AWSS3 do
             uri_encode_path: false
           )
 
-        response = HTTPoison.put(url, {:file, upload.file}, headers)
+        response =
+          Req.put(Accent.HTTPClient.new(decode_body: false), url: url, headers: headers, body: upload.render)
 
         %{name: document_name, url: url, response: UploadResponse.serialize(response)}
       end
