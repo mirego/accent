@@ -52,10 +52,10 @@ export default class Export extends BaseCommand {
         await document.export(localFile, language, documentPath, flags);
       }
 
-      const t2 = process.hrtime.bigint();
-      formatter.footer(t2 - t0);
-
       await new HookRunner(document).run(Hooks.afterExport);
     }
+
+    const t2 = process.hrtime.bigint();
+    formatter.footer(t2 - t0);
   }
 }

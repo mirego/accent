@@ -4,8 +4,11 @@ import LoadingContent from 'accent-webapp/components/loading-content/index';
 import t from 'ember-intl/helpers/t';
 import ProjectActivity from 'accent-webapp/components/project-activity/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.activity')}}
+
     {{#if @controller.model.loading}}
       <LoadingContent
         @label={{t 'pods.project.activities.show.loading_content'}}

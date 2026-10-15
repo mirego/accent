@@ -1,57 +1,30 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import {Project} from '../../types/project';
 import {fetchFromRevision} from '../revision-slug-fetcher';
-import Base from './base';
+import {blank, footer, title} from './base';
 
-export default class ProjectSyncFormatter extends Base {
-  log(project: Project, flags: any) {
-    const logFlags = [];
-    if (flags.version) logFlags.push(chalk.gray(`${flags.version}`));
+const GLOSSARY_URL = 'https://www.accent.reviews/guides/glossary.html#sync';
 
-    console.log(
-      chalk.magenta('Syncing sources'),
-      '→',
-      chalk.white(
-        `${fetchFromRevision(project.masterRevision)}`,
-        logFlags.join('') || null
-      ),
-      chalk.green('✓')
-    );
-    console.log('');
+export default class ProjectSyncFormatter {
+  log(project: Project, flags: {version?: string; 'dry-run'?: boolean}) {
+    const details = [chalk.bold(fetchFromRevision(project.masterRevision))];
+    if (flags.version) details.push(chalk.dim(`@ ${flags.version}`));
+    if (flags['dry-run']) details.push(chalk.yellow('(dry run)'));
+
+    title('Syncing sources', details.join(' '));
+    blank();
   }
 
   footerDryRun(time: bigint) {
-    console.log('');
-    console.log(
-      chalk.gray.dim(
-        'For more informations on operations: https://www.accent.reviews/guides/glossary.html#sync'
-      )
+    footer(
+      'Dry run completed',
+      time,
+      `Remove --dry-run to commit changes. Operations: ${GLOSSARY_URL}`
     );
-    console.log(
-      chalk.gray.dim(this.formatSyncingTime(time)),
-      'remove --dry-run to commit your changes to the server'
-    );
-    console.log('');
   }
 
   footer(time: bigint) {
-    console.log('');
-    console.log(
-      chalk.gray.dim(
-        'For more informations on operations: https://www.accent.reviews/guides/glossary.html#sync'
-      )
-    );
-    console.log(
-      chalk.gray.dim(this.formatSyncingTime(time)),
-      'completed without issues'
-    );
-    console.log('');
-  }
-
-  formatSyncingTime(time: bigint) {
-    return this.formatTiming(
-      time,
-      (count) => `Syncing took ${count} milliseconds,`
-    );
+    blank();
+    footer('Sync completed', time, `Operations: ${GLOSSARY_URL}`);
   }
 }

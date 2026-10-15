@@ -19,8 +19,8 @@ defmodule Accent.Scopes.TranslationsCount do
 
   defp do_with_stats(query, column, options) do
     exclude_empty_translations = Keyword.get(options, :exclude_empty_translations, false)
-    version_id = Keyword.get(options, :version_id, nil)
-    document_id = Keyword.get(options, :document_id, nil)
+    version_id = Keyword.get(options, :version_id)
+    document_id = Keyword.get(options, :document_id)
 
     stats_subquery =
       from(t in Accent.Translation,

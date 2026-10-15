@@ -82,33 +82,15 @@ defmodule Accent.GraphQL.Resolvers.Translation do
 
   @spec correct(Translation.t(), %{text: String.t()}, GraphQLContext.t()) :: translation_operation
   def correct(translation, %{text: text}, info) do
-    translation = Repo.preload(translation, :project)
-
-    %Context{}
-    |> Context.assign(:translation, translation)
-    |> Context.assign(:project, translation.revision.project)
-    |> Context.assign(:text, text)
-    |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
-    |> TranslationCorrectConflictBuilder.build()
-    |> then(&fn -> BasePersister.execute(&1) end)
-    |> Repo.transaction()
-    |> case do
-      {:ok, {_context, _}} ->
-        translation =
-          Translation
-          |> Query.where(id: ^translation.id)
-          |> Repo.one()
-          |> Repo.preload(:revision)
-
-        {:ok, %{translation: translation, errors: nil}}
-
-      {:error, _reason} ->
-        {:ok, %{translation: nil, errors: ["unprocessable_entity"]}}
-    end
+    change_conflict(translation, text, info, TranslationCorrectConflictBuilder)
   end
 
   @spec uncorrect(Translation.t(), map(), GraphQLContext.t()) :: translation_operation
   def uncorrect(translation, %{text: text}, info) do
+    change_conflict(translation, text, info, TranslationUncorrectConflictBuilder)
+  end
+
+  defp change_conflict(translation, text, info, builder) do
     translation = Repo.preload(translation, :project)
 
     %Context{}
@@ -116,7 +98,7 @@ defmodule Accent.GraphQL.Resolvers.Translation do
     |> Context.assign(:project, translation.revision.project)
     |> Context.assign(:text, text)
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
-    |> TranslationUncorrectConflictBuilder.build()
+    |> builder.build()
     |> then(&fn -> BasePersister.execute(&1) end)
     |> Repo.transaction()
     |> case do

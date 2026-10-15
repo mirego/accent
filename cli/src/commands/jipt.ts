@@ -47,10 +47,10 @@ export default class Jipt extends BaseCommand {
         await document.exportJipt(path, documentPath);
       }
 
-      const t2 = process.hrtime.bigint();
-      formatter.footer(t2 - t0);
-
       await new HookRunner(document).run(Hooks.afterExport);
     }
+
+    const t2 = process.hrtime.bigint();
+    formatter.footer(t2 - t0);
   }
 }

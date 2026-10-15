@@ -23,12 +23,7 @@ defmodule Movement.Builders.SlaveConflictSync do
   defp process_operations(%Movement.Context{assigns: assigns} = context) do
     new_operations =
       Enum.map(assigns[:translations], fn translation ->
-        OperationMapper.map(@action, translation, %{
-          text: translation.corrected_text,
-          key: translation.key,
-          file_comment: translation.file_comment,
-          file_index: translation.file_index
-        })
+        OperationMapper.map_text(@action, translation, translation.corrected_text)
       end)
 
     %{context | operations: new_operations ++ context.operations}

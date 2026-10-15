@@ -4,8 +4,13 @@ import JiptHeader from 'accent-webapp/components/jipt-header/index';
 import RevisionSelector from 'accent-webapp/components/revision-selector/index';
 import {fn} from '@ember/helper';
 import {htmlSafe} from '@ember/template';
+import {pageTitle} from 'ember-page-title';
+import t from 'ember-intl/helpers/t';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle @controller.model.project.name}}
+    {{pageTitle (t 'general.page_titles.jipt')}}
+
     {{! prettier-ignore }}
     <style>
       body {

@@ -8,8 +8,11 @@ import TranslationsList from 'accent-webapp/components/translations-list/index';
 import LoadingContent from 'accent-webapp/components/loading-content/index';
 import t from 'ember-intl/helpers/t';
 import ResourcePagination from 'accent-webapp/components/resource-pagination/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.all_strings')}}
+
     <TranslationsFilter
       @query={{@controller.query}}
       @document={{@controller.document}}

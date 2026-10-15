@@ -59,12 +59,16 @@ defmodule Accent.MachineTranslations do
               end
             end)
 
-          {:cont, acc ++ translated_entries}
+          {:cont, [translated_entries | acc]}
 
         error ->
           {:halt, error}
       end
     end)
+    |> case do
+      chunks when is_list(chunks) -> chunks |> Enum.reverse() |> Enum.concat()
+      error -> error
+    end
   end
 
   @spec map_source_and_target(String.t() | nil, String.t(), list(String.t())) ::

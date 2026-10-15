@@ -4,6 +4,15 @@ defmodule Accent.BadgeGenerator do
   alias Accent.Repo
   alias Accent.Scopes.Revision, as: RevisionScope
 
+  defmodule Stats do
+    @moduledoc false
+    defstruct translations_count: 0,
+              conflicts_count: 0,
+              reviewed_count: 0,
+              translated_count: 0,
+              percentage_reviewed_count: 0
+  end
+
   @badge_service_timeout 20_000
   @base_badge_service_url "https://img.shields.io/badge/"
 
@@ -17,7 +26,7 @@ defmodule Accent.BadgeGenerator do
 
     color = color_for_value(project_stats, attribute)
 
-    (@base_badge_service_url <> "accent-#{label(project_stats[attribute], attribute)}-#{color}.svg")
+    (@base_badge_service_url <> "accent-#{label(Map.fetch!(project_stats, attribute), attribute)}-#{color}.svg")
     |> HTTPoison.get([], recv_timeout: @badge_service_timeout)
     |> case do
       {:ok, %{body: body}} -> {:ok, body}
@@ -41,29 +50,29 @@ defmodule Accent.BadgeGenerator do
   defp label(value, :conflicts_count), do: "#{value}%20conflicts"
 
   defp merge_project_stats(revisions) do
-    initial_state = %{translations_count: 0, conflicts_count: 0, reviewed_count: 0, translated_count: 0}
-
     revisions
-    |> Enum.reduce(initial_state, fn revision, acc ->
-      acc
-      |> Map.put(:translations_count, acc[:translations_count] + revision.translations_count)
-      |> Map.put(:conflicts_count, acc[:conflicts_count] + revision.conflicts_count)
-      |> Map.put(:reviewed_count, acc[:reviewed_count] + revision.reviewed_count)
-      |> Map.put(:translated_count, acc[:translated_count] + revision.reviewed_count)
+    |> Enum.reduce(%Stats{}, fn revision, stats ->
+      %{
+        stats
+        | translations_count: stats.translations_count + revision.translations_count,
+          conflicts_count: stats.conflicts_count + revision.conflicts_count,
+          reviewed_count: stats.reviewed_count + revision.reviewed_count,
+          translated_count: stats.translated_count + revision.reviewed_count
+      }
     end)
     |> then(fn
-      %{translations_count: 0} = stats ->
-        Map.put(stats, :percentage_reviewed_count, 0)
+      %Stats{translations_count: 0} = stats ->
+        stats
 
       stats ->
         percentage_reviewed =
-          stats[:reviewed_count]
-          |> Kernel./(stats[:translations_count])
+          stats.reviewed_count
+          |> Kernel./(stats.translations_count)
           |> Kernel.*(100)
           |> Float.round(2)
           |> PrettyFloat.convert()
 
-        Map.put(stats, :percentage_reviewed_count, percentage_reviewed)
+        %{stats | percentage_reviewed_count: percentage_reviewed}
     end)
   end
 end

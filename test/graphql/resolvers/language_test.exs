@@ -11,7 +11,7 @@ defmodule AccentTest.GraphQL.Resolvers.Language do
   test "list" do
     {:ok, result} = Resolver.list(nil, %{page_size: 10}, info())
 
-    assert length(result.entries) == 10
+    assert Enum.count(result.entries) == 10
   end
 
   test "list search" do
@@ -23,6 +23,6 @@ defmodule AccentTest.GraphQL.Resolvers.Language do
   test "list empty search" do
     {:ok, result} = Resolver.list(nil, %{query: "", page_size: 10}, info())
 
-    assert length(result.entries) == 10
+    assert Enum.count(result.entries) == 10
   end
 end

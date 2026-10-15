@@ -5,8 +5,11 @@ import LoadingContent from 'accent-webapp/components/loading-content/index';
 import t from 'ember-intl/helpers/t';
 import MachineTranslations from 'accent-webapp/components/project-settings/machine-translations/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.machine_translations')}}
+
     <BackLink @project={{@controller.project}} />
 
     {{#if @controller.showLoading}}

@@ -13,8 +13,12 @@ import {LinkTo} from '@ember/routing';
 import AsyncButton from 'accent-webapp/components/async-button/index';
 import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/index';
 import JiptExport from 'accent-webapp/components/jipt-export/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle @controller.document.path}}
+    {{pageTitle (t 'general.page_titles.export_jipt')}}
+
     <AccModal @onClose={{fn @controller.closeModal}}>
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>

@@ -8,8 +8,12 @@ import LanguageSvg from 'accent-webapp/svgs/assets/language.svg';
 import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import t from 'ember-intl/helpers/t';
 import MachineTranslationsDocumentTranslate from 'accent-webapp/components/machine-translations-document-translate/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle @controller.document.path}}
+    {{pageTitle (t 'general.page_titles.translate')}}
+
     <AccModal @onClose={{fn @controller.closeModal}} @large={{true}}>
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>

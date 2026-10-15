@@ -2,7 +2,9 @@ import {execSync} from 'child_process';
 
 export const getCurrentBranchName = (): string => {
   try {
-    return execSync('git rev-parse --abbrev-ref HEAD')
+    return execSync('git rev-parse --abbrev-ref HEAD', {
+      stdio: ['ignore', 'pipe', 'ignore']
+    })
       .toString('utf8')
       .replace(/[\n\r\s]+$/, '');
   } catch {

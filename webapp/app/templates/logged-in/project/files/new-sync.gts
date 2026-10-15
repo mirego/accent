@@ -9,8 +9,11 @@ import XSvg from 'accent-webapp/svgs/assets/x.svg';
 import t from 'ember-intl/helpers/t';
 import CommitFile from 'accent-webapp/components/commit-file/index';
 import OperationsPeek from 'accent-webapp/components/operations-peek/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.new_sync')}}
+
     <AccModal @large={{true}} @onClose={{fn @controller.closeModal}}>
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>

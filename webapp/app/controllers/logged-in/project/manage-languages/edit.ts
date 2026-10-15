@@ -36,6 +36,10 @@ export default class ManageLanguagesEditController extends Controller {
     );
   }
 
+  get revisionName() {
+    return this.revision?.name || this.revision?.language.name;
+  }
+
   @action
   closeModal() {
     this.router.transitionTo(

@@ -9,7 +9,7 @@ defmodule Movement.Persisters.OperationsUpdateAllDynamic do
   @text_text_text_bool_bool_fragment "SELECT * FROM unnest(?::uuid[], ?::text[], ?::text[], ?::text[], ?::boolean[], ?::boolean[]) AS t(a, b, c, d, e, f)"
 
   def update({{schema, [:text, :text, :boolean, :boolean], fields}, records}) do
-    [bind_1, bind_2, bind_3, bind_4] = values_binding(records, fields)
+    [bind_1, bind_2, bind_3, bind_4] = values_binding(records)
 
     update_all(
       from(entries in schema,
@@ -37,7 +37,7 @@ defmodule Movement.Persisters.OperationsUpdateAllDynamic do
   end
 
   def update({{schema, [:uuid], fields}, records}) do
-    [bind_1] = values_binding(records, fields)
+    [bind_1] = values_binding(records)
 
     update_all(
       from(entries in schema,
@@ -54,7 +54,7 @@ defmodule Movement.Persisters.OperationsUpdateAllDynamic do
   end
 
   def update({{schema, [:text, :text, :text, :boolean, :boolean], fields}, records}) do
-    [bind_1, bind_2, bind_3, bind_4, bind_5] = values_binding(records, fields)
+    [bind_1, bind_2, bind_3, bind_4, bind_5] = values_binding(records)
 
     update_all(
       from(entries in schema,
@@ -91,8 +91,9 @@ defmodule Movement.Persisters.OperationsUpdateAllDynamic do
     Enum.map(records, &Ecto.UUID.dump!(elem(&1, 0)))
   end
 
-  defp values_binding(records, fields) do
-    range = 0..(length(fields) - 1)
-    for i <- range, do: Enum.map(records, &Enum.at(elem(&1, 1), i))
+  defp values_binding(records) do
+    records
+    |> Enum.map(&elem(&1, 1))
+    |> Enum.zip_with(& &1)
   end
 end

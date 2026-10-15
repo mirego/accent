@@ -4,8 +4,11 @@ import TranslationSplashTitleSkeleton from 'accent-webapp/components/skeleton-ui
 import TranslationSplashTitle from 'accent-webapp/components/translation-splash-title/index';
 import TranslationNavigation from 'accent-webapp/components/translation-navigation/index';
 import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle @controller.model.translation.key}}
+
     {{#if @controller.showSkeleton}}
       <TranslationSplashTitleSkeleton />
     {{else}}

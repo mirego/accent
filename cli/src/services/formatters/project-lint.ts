@@ -1,105 +1,116 @@
-import * as chalk from 'chalk';
-import {LintTranslation} from '../../types/lint-translation';
-import Base from './base';
-const MAX_TEXT_SIZE = 100;
+import chalk from 'chalk';
+import {LintMessage, LintTranslation} from '../../types/lint-translation';
+import {
+  blank,
+  footer,
+  formatDuration,
+  hint,
+  line,
+  pluralize,
+  symbols,
+  title,
+  truncate
+} from './base';
+
+const MAX_TEXT_SIZE = 200;
+
+const CHECK_MESSAGES: Record<string, string> = {
+  placeholder_count: 'Number of placeholders does not match the master string',
+  trailing_space: 'String contains a trailing space',
+  leading_spaces: 'String contains leading spaces',
+  double_spaces: 'String contains double spaces',
+  apostrophe_as_single_quote:
+    "A single quote (') has been used instead of an apostrophe (’)",
+  first_letter_case:
+    'First letter does not match the case of the master string',
+  three_dots_ellipsis:
+    'String contains three dots (...) instead of an ellipsis (…)',
+  same_trailing_character:
+    'String does not match the trailing character of the master string',
+  url_count: 'Number of URLs does not match the master string',
+  spelling: 'Spelling or grammar issue'
+};
 
 interface Stats {
   time: bigint;
 }
 
-export default class ProjectLintFormatter extends Base {
+export default class ProjectLintFormatter {
   private readonly lintTranslations: LintTranslation[];
   private readonly stats: Stats;
 
   constructor(lintTranslations: LintTranslation[], stats: Stats) {
-    super();
     this.lintTranslations = lintTranslations;
     this.stats = stats;
   }
 
   log() {
-    const errorsCount = this.lintTranslations.reduce((memo, {messages}) => {
-      return memo + messages.length;
-    }, 0);
+    const errorsCount = this.lintTranslations.reduce(
+      (memo, {messages}) => memo + messages.length,
+      0
+    );
 
     if (errorsCount === 0) {
-      console.log(
-        chalk.gray.dim(this.formatLintingTime(this.stats.time)),
-        chalk.green('found no errors.')
-      );
-      console.log('');
+      footer('No lint errors found', this.stats.time);
       return;
-    } else {
-      console.log(chalk.red(`Lint errors (${errorsCount})`));
-      console.log('');
-
-      this.lintTranslations.forEach((lintTranslation: LintTranslation) => {
-        console.log(
-          chalk.white.bold(lintTranslation.key),
-          chalk.gray.dim.underline(`${lintTranslation.path}`)
-        );
-
-        const message = lintTranslation.messages[0];
-        let displayMessage = message.text.slice(0, MAX_TEXT_SIZE);
-        if (message.text.length > MAX_TEXT_SIZE)
-          displayMessage = `${displayMessage}…`;
-
-        lintTranslation.messages.forEach((message: any) => {
-          const formattedMessage = this.formatMessageCheck(message.check);
-          console.log(chalk.red(formattedMessage));
-        });
-
-        console.log(chalk.white.italic(displayMessage));
-
-        console.log('');
-      });
-
-      console.log(
-        chalk.gray.dim(
-          'Please report incorrect results: https://github.com/mirego/accent/issues'
-        )
-      );
-      console.log(
-        chalk.gray.dim(this.formatLintingTime(this.stats.time)),
-        'found',
-        chalk.red(`${errorsCount} linting errors.`)
-      );
-      console.log('');
-
-      throw {};
     }
-  }
 
-  formatLintingTime(time: bigint) {
-    return this.formatTiming(
-      time,
-      (count) => `Linting took ${count} milliseconds,`
+    title('Lint errors', errorsCount);
+    blank();
+
+    this.groupByPath().forEach((lintTranslations, path) => {
+      line(chalk.underline(path));
+
+      lintTranslations.forEach((lintTranslation) =>
+        this.logLintTranslation(lintTranslation)
+      );
+
+      blank();
+    });
+
+    line(
+      `${chalk.red(symbols.error)} Found ${chalk.red.bold(
+        pluralize(errorsCount, 'lint error')
+      )} ${chalk.dim(`in ${formatDuration(this.stats.time)}`)}`
     );
+    hint(
+      'Report incorrect results: https://github.com/mirego/accent/issues',
+      1
+    );
+    blank();
+
+    throw {};
   }
 
   formatMessageCheck(check: string): string {
-    switch (check) {
-      case 'placeholder_count':
-        return 'Number of placeholders does not match the master string';
-      case 'trailing_space':
-        return 'String contains a trailing space';
-      case 'leading_spaces':
-        return 'String contains leading spaces';
-      case 'double_spaces':
-        return 'String contains double spaces';
-      case 'apostrophe_as_single_quote':
-        return "A single quote (') as been used instead of an apostrophe (’)";
-      case 'first_letter_case':
-        return 'First letter of translation does not match case of the master’s';
-      case 'three_dots_ellipsis':
-        return 'String contains three dots (...) instead of ellipsis (…)';
-      case 'same_trailing_character':
-        return 'String does not match the trailing character of master';
-      case 'url_count':
-        return 'Number of URL does not match the master string';
+    return CHECK_MESSAGES[check] || check;
+  }
 
-      default:
-        return check;
+  private groupByPath() {
+    const grouped = new Map<string, LintTranslation[]>();
+
+    this.lintTranslations.forEach((lintTranslation) => {
+      const list = grouped.get(lintTranslation.path) || [];
+      list.push(lintTranslation);
+      grouped.set(lintTranslation.path, list);
+    });
+
+    return grouped;
+  }
+
+  private logLintTranslation(lintTranslation: LintTranslation) {
+    line(chalk.bold(lintTranslation.key), 1);
+
+    lintTranslation.messages.forEach((message: LintMessage) => {
+      line(
+        `${chalk.red(symbols.error)} ${this.formatMessageCheck(message.check)}`,
+        2
+      );
+    });
+
+    const text = lintTranslation.messages[0]?.text ?? lintTranslation.text;
+    if (text) {
+      line(chalk.dim.italic(JSON.stringify(truncate(text, MAX_TEXT_SIZE))), 2);
     }
   }
 }

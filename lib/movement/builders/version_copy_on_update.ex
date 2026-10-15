@@ -35,6 +35,6 @@ defmodule Movement.Builders.VersionCopyOnUpdate do
   defp copy_to_latest_version(translation, text, action) do
     source_translation = Repo.one!(Ecto.assoc(translation, :source_translation))
     value_type = ValueType.from_translation_new_value(source_translation, text)
-    OperationMapper.map(action, source_translation, %{text: text, value_type: value_type})
+    OperationMapper.map_text(action, source_translation, text, value_type)
   end
 end

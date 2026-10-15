@@ -8,17 +8,16 @@ defmodule Accent.MachineTranslationsController do
   alias Accent.Project
   alias Accent.Repo
   alias Accent.Scopes.Document, as: DocumentScope
-  alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
   alias Accent.Translation
 
   plug(Plug.Assign, %{canary_action: :machine_translations_translate})
   plug(:load_and_authorize_resource, model: Project, id_name: "project_id")
-  plug(:fetch_master_revision)
+  plug(Accent.Plugs.AssignMasterRevision)
   plug(:load_resource, model: Language, id_name: "language", as: :source_language)
   plug(:load_resource, model: Language, id_name: "to_language_id", as: :target_language)
   plug(:fetch_document when action === :translate_document)
-  plug(:fetch_order when action === :translate_document)
+  plug(Accent.Plugs.AssignOrder when action === :translate_document)
   plug(:fetch_format when action === :translate_document)
   plug(Accent.Plugs.MovementContextParser when action === :translate_file)
 
@@ -66,7 +65,7 @@ defmodule Accent.MachineTranslationsController do
          ) do
       entries when is_list(entries) ->
         %{render: render} =
-          Accent.TranslationsRenderer.render_entries(%{
+          Accent.TranslationsRenderer.render_entries(%Accent.TranslationsRenderer{
             entries: entries,
             language: conn.assigns[:target_language],
             master_language: Accent.Revision.language(conn.assigns[:master_revision]),
@@ -116,7 +115,7 @@ defmodule Accent.MachineTranslationsController do
       )
 
     %{render: render} =
-      Accent.TranslationsRenderer.render_entries(%{
+      Accent.TranslationsRenderer.render_entries(%Accent.TranslationsRenderer{
         entries: entries,
         language: conn.assigns[:target_language],
         master_language: Accent.Revision.language(conn.assigns[:master_revision]),
@@ -143,20 +142,5 @@ defmodule Accent.MachineTranslationsController do
       |> Repo.get_by(id: conn.params["document_id"])
 
     assign(conn, :document, document)
-  end
-
-  defp fetch_order(%{params: %{"order_by" => ""}} = conn, _), do: assign(conn, :order, "index")
-  defp fetch_order(%{params: %{"order_by" => order}} = conn, _), do: assign(conn, :order, order)
-  defp fetch_order(conn, _), do: assign(conn, :order, "index")
-
-  defp fetch_master_revision(%{assigns: %{project: project}} = conn, _) do
-    revision =
-      project
-      |> Ecto.assoc(:revisions)
-      |> RevisionScope.master()
-      |> Repo.one()
-      |> Repo.preload(:language)
-
-    assign(conn, :master_revision, revision)
   end
 end

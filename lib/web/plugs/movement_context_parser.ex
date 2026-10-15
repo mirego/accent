@@ -5,8 +5,7 @@ defmodule Accent.Plugs.MovementContextParser do
   alias Accent.Document
   alias Accent.Repo
   alias Accent.Scopes.Document, as: DocumentScope
-  alias Accent.Scopes.Version, as: VersionScope
-  alias Accent.Version
+  alias Accent.VersionFinder
   alias Movement.Context
 
   @non_printable_characters [
@@ -70,10 +69,8 @@ defmodule Accent.Plugs.MovementContextParser do
   end
 
   def assign_version(%{assigns: %{project: project}, params: %{"version" => version}} = conn, _) do
-    Version
-    |> VersionScope.from_project(project.id)
-    |> VersionScope.from_tag(version)
-    |> Repo.one()
+    project.id
+    |> VersionFinder.find_by_tag(version)
     |> case do
       nil ->
         conn
@@ -157,6 +154,7 @@ defmodule Accent.Plugs.MovementContextParser do
 
     parser.(parser_input)
   rescue
+    # reach:disable-next-line bare_rescue -- parsers for 15 formats raise heterogeneous exceptions on invalid input
     _ -> {:error, :invalid_file}
   end
 

@@ -14,7 +14,7 @@ import {on} from '@ember/modifier';
 import AccAvatarImg from 'accent-webapp/components/acc-avatar-img/index';
 import {fn} from '@ember/helper';
 
-const DEBOUNCE_OFFSET = 500; // ms
+const DEBOUNCE_OFFSET = 100; // ms
 
 interface Args {
   session: any;
@@ -43,7 +43,7 @@ export default class ProjectsHeader extends Component<Args> {
                 placeholder={{t 'general.search_input_placeholder_text'}}
                 value={{this.debouncedQuery}}
                 class='search-input'
-                {{on 'keyup' this.setDebouncedQuery}}
+                {{on 'input' this.setDebouncedQuery}}
               />
             </div>
           </div>
@@ -224,7 +224,7 @@ export default class ProjectsHeader extends Component<Args> {
       this.args.project.id,
       this.selectedRevision,
       {
-        queryParams: {query}
+        queryParams: {query, page: 1}
       }
     );
   });

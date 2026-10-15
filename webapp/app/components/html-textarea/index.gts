@@ -5,7 +5,7 @@ import {timeout, restartableTask} from 'ember-concurrency';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import {fn} from '@ember/helper';
 
-const DEBOUNCE_OFFSET = 1000; // ms
+const DEBOUNCE_OFFSET = 500; // ms
 
 interface PellInstance {
   exec: (fun: string, element: string) => void;

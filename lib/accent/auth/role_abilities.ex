@@ -102,7 +102,6 @@ defmodule Accent.RoleAbilities do
     delete_version
   )a
 
-  # Combined permission sets per role
   @bot_actions @read_actions ++ @bot_specific_actions
   @translator_actions @read_actions ++ @write_actions
   @reviewer_actions @translator_actions ++ @reviewer_specific_actions
@@ -143,33 +142,22 @@ defmodule Accent.RoleAbilities do
     Accent.Prompts.enabled?(config)
   end
 
-  # Define abilities function at compile time to remove list lookup at runtime
   def can?(@owner_role, _action, _), do: true
 
   def can?({:custom, permissions}, action, _) do
     to_string(action) in permissions
   end
 
-  for action <- @admin_actions do
-    def can?(@admin_role, unquote(action), _), do: true
+  for {role, actions} <- [
+        {@admin_role, @admin_actions},
+        {@bot_role, @bot_actions},
+        {@developer_role, @developer_actions},
+        {@reviewer_role, @reviewer_actions},
+        {@translator_role, @translator_actions}
+      ],
+      action <- actions do
+    def can?(unquote(role), unquote(action), _), do: true
   end
 
-  for action <- @bot_actions do
-    def can?(@bot_role, unquote(action), _), do: true
-  end
-
-  for action <- @developer_actions do
-    def can?(@developer_role, unquote(action), _), do: true
-  end
-
-  for action <- @reviewer_actions do
-    def can?(@reviewer_role, unquote(action), _), do: true
-  end
-
-  for action <- @translator_actions do
-    def can?(@translator_role, unquote(action), _), do: true
-  end
-
-  # Fallback if no permission has been found for the user on the project
   def can?(_role, _action, _), do: false
 end

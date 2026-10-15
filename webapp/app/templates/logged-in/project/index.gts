@@ -4,8 +4,12 @@ import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/ind
 import DashboardSkeleton from 'accent-webapp/components/skeleton-ui/dashboard/index';
 import DashboardRevisions from 'accent-webapp/components/dashboard-revisions/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
+import t from 'ember-intl/helpers/t';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.dashboard')}}
+
     {{#if @controller.model.loading}}
       <ProgressLine />
     {{/if}}

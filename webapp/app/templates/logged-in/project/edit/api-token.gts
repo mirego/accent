@@ -5,8 +5,11 @@ import LoadingContent from 'accent-webapp/components/loading-content/index';
 import t from 'ember-intl/helpers/t';
 import ApiToken from 'accent-webapp/components/project-settings/api-token/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.api_token')}}
+
     <BackLink @project={{@controller.project}} />
 
     {{#if @controller.showLoading}}

@@ -60,6 +60,9 @@ export default class ConflictsRoute extends Route {
   subscription: Subscription;
 
   model(params: any, transition: Transition) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     params.isTextEmpty = params.isTextEmpty === 'true' ? true : null;
     params.isTextNotEmpty = params.isTextNotEmpty === 'true' ? true : null;
     params.isAddedLastSync = params.isAddedLastSync === 'true' ? true : null;

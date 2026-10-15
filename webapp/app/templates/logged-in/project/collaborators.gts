@@ -7,8 +7,11 @@ import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/ind
 import CollaboratorsSkeleton from 'accent-webapp/components/skeleton-ui/collaborators/index';
 import Collaborators from 'accent-webapp/components/project-settings/collaborators/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.collaborators')}}
+
     <PageTitle>
       <UsersSvg />
       <h1>{{t 'components.page_title.collaborators'}}</h1>

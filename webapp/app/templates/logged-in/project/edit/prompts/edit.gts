@@ -3,8 +3,11 @@ import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-si
 import AccModal from 'accent-webapp/components/acc-modal/index';
 import {fn} from '@ember/helper';
 import PromptUpdateForm from 'accent-webapp/components/prompt-update-form/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle @controller.prompt.name}}
+
     <AccModal @small={{true}} @onClose={{fn @controller.closeModal}}>
       <PromptUpdateForm
         @prompt={{@controller.prompt}}

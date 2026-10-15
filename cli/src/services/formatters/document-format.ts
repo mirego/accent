@@ -1,41 +1,38 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import {FormattedFile} from '../../commands/format';
-import Base from './base';
+import {blank, footer, line, pluralize, symbols, title} from './base';
 
 interface Stats {
   time: bigint;
 }
 
-export default class DocumentFormatFormatter extends Base {
+export default class DocumentFormatFormatter {
   private readonly paths: FormattedFile[];
   private readonly stats: Stats;
 
   constructor(paths: FormattedFile[], stats: Stats) {
-    super();
     this.stats = stats;
     this.paths = paths;
   }
 
   log() {
-    console.log(chalk.magenta(`Formatting files (${this.paths.length})`));
-    console.log('');
+    title('Formatting files', this.paths.length);
+    blank();
 
     for (const path of this.paths) {
-      console.log(
-        '  ',
-        path.unchanged ? chalk.white.dim(path.path) : chalk.white(path.path)
-      );
+      if (path.unchanged) {
+        line(`${chalk.dim(symbols.bullet)} ${chalk.dim(path.path)}`, 1);
+      } else {
+        line(`${chalk.green(symbols.edit)} ${chalk.bold(path.path)}`, 1);
+      }
     }
 
-    console.log('');
-    console.log(chalk.gray.dim(this.formatFormattingTime(this.stats.time)));
-    console.log('');
-  }
+    const changedCount = this.paths.filter(({unchanged}) => !unchanged).length;
 
-  formatFormattingTime(time: bigint) {
-    return this.formatTiming(
-      time,
-      (count) => `Formatting took ${count} milliseconds`
+    blank();
+    footer(
+      `Formatted ${pluralize(this.paths.length, 'file')}, ${changedCount} changed`,
+      this.stats.time
     );
   }
 }

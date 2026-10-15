@@ -11,8 +11,11 @@ import RevisionExportOptions from 'accent-webapp/components/revision-export-opti
 import AsyncButton from 'accent-webapp/components/async-button/index';
 import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/index';
 import FileExportAll from 'accent-webapp/components/file-export-all/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.export_all')}}
+
     <AccModal @onClose={{fn @controller.closeModal}}>
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>

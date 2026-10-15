@@ -14,6 +14,14 @@ export default class RevisionController extends Controller {
   @readOnly('globalState.revision')
   revision: any;
 
+  get revisionName() {
+    const revision = this.revisions?.find(
+      ({id}: {id: string}) => id === this.revision
+    );
+
+    return revision?.name || revision?.language.name;
+  }
+
   @action
   selectRevision(revisionId: string) {
     this.send('onRevisionChange', {revisionId});

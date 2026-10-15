@@ -8,8 +8,11 @@ import LoadingContent from 'accent-webapp/components/loading-content/index';
 import t from 'ember-intl/helpers/t';
 import ConflictsList from 'accent-webapp/components/conflicts-list/index';
 import ResourcePagination from 'accent-webapp/components/resource-pagination/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.review')}}
+
     <ConflictsFilters
       @meta={{@controller.model.groupedTranslations.meta}}
       @conflicts={{@controller.model.groupedTranslations.entries}}

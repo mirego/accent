@@ -79,18 +79,7 @@ defmodule Accent.MachineTranslations.Provider.Deepl do
           "https://api.deepl.com/v2/"
         end
 
-      middlewares =
-        List.flatten([
-          {Middleware.Timeout, [timeout: :infinity]},
-          {Middleware.BaseUrl, base_url},
-          {Auth, [key: key]},
-          Middleware.DecodeJson,
-          Middleware.EncodeJson,
-          Middleware.Logger,
-          Middleware.OpenTelemetry
-        ])
-
-      Tesla.client(middlewares)
+      Accent.Utils.JSONHTTPClient.new(base_url, {Auth, [key: key]})
     end
   end
 end

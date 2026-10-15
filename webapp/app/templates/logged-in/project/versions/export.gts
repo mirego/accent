@@ -12,8 +12,12 @@ import t from 'ember-intl/helpers/t';
 import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/index';
 import EmptyContent from 'accent-webapp/components/empty-content/index';
 import FileExport from 'accent-webapp/components/file-export/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle @controller.version.tag}}
+    {{pageTitle (t 'general.page_titles.export')}}
+
     <AccModal @onClose={{fn @controller.closeModal}}>
       <ProjectFileOperation>
         <button class='closeButton' {{on 'click' (fn @controller.closeModal)}}>

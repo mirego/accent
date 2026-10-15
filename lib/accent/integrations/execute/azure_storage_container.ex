@@ -3,6 +3,7 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
 
   alias Accent.Hook
   alias Accent.IntegrationManager.Execute.UploadDocuments
+  alias Accent.IntegrationManager.Execute.UploadResponse
 
   def upload_translations(integration, user, params) do
     {uploads, version_tag, version} = UploadDocuments.all(integration, params)
@@ -14,7 +15,7 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
         {url, document_name} = UploadDocuments.url(upload, uri, version_tag)
         response = HTTPoison.put(url, {:file, upload.file}, [{"x-ms-blob-type", "BlockBlob"}])
 
-        %{name: document_name, url: url, response: serialize_response(response)}
+        %{name: document_name, url: url, response: UploadResponse.serialize(response)}
       end
 
     document_urls = Enum.map(upload_results, &Map.take(&1, [:name, :url]))
@@ -37,8 +38,4 @@ defmodule Accent.IntegrationManager.Execute.AzureStorageContainer do
        version_tag: version_tag
      }}
   end
-
-  defp serialize_response({:ok, %{status_code: status_code, body: body}}), do: %{status_code: status_code, body: body}
-  defp serialize_response({:error, %{reason: reason}}), do: %{error: inspect(reason)}
-  defp serialize_response(_), do: nil
 end

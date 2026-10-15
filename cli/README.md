@@ -335,13 +335,15 @@ Sync files in Accent and write them to your local filesystem
 
 ```
 USAGE
-  $ accent sync [--add-translations] [--no-local-write] [--dry-run] [--merge-type smart|passive|force]
+  $ accent sync [--add-translations] [--no-local-write] [--dry-run] [--details] [--merge-type smart|passive|force]
     [--order-by index|key] [--sync-type smart|passive] [--version <value>] [-c <value>] [--path <value>]
 
 FLAGS
   -c, --config=<value>       [default: accent.json] Path to the config file
       --add-translations     Add translations in Accent to help translators if you already have translated strings
                              locally
+      --details              With --dry-run, show each operation (key, previous text, new text) grouped by action
+                             instead of a summary
       --dry-run              Do not commit the changes in Accent
       --merge-type=<option>  [default: passive] Algorithm to use on existing strings when adding translation
                              <options: smart|passive|force>
@@ -361,6 +363,8 @@ EXAMPLES
   $ accent sync
 
   $ accent sync --dry-run --sync-type=passive
+
+  $ accent sync --dry-run --details
 
   $ accent sync --add-translations --merge-type=smart --order-by=key --version=v0.23
 ```

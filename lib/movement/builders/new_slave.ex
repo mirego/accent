@@ -26,7 +26,7 @@ defmodule Movement.Builders.NewSlave do
 
     new_operations =
       Enum.map(assigns[:translations], fn translation ->
-        OperationMapper.map(@action, translation, %{
+        OperationMapper.map(@action, translation, %Movement.SuggestedTranslation{
           key: translation.key,
           text: if(default_null, do: "", else: translation.corrected_text),
           file_comment: translation.file_comment,
@@ -38,7 +38,6 @@ defmodule Movement.Builders.NewSlave do
           locked: translation.locked,
           placeholders: translation.placeholders,
           translation_id: translation.id,
-          options: assigns.new_slave_options,
           machine_translations_enabled: machine_translations_enabled
         })
       end)

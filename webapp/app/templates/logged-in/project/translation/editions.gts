@@ -6,8 +6,11 @@ import LoadingContent from 'accent-webapp/components/loading-content/index';
 import t from 'ember-intl/helpers/t';
 import TranslationEditionsList from 'accent-webapp/components/translation-editions-list/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.translation_editions')}}
+
     {{#if @controller.model.loading}}
       <ProgressLine />
     {{/if}}

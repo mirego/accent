@@ -28,8 +28,7 @@ defmodule Langue.Utils.NestedParserHelper do
 
   def parse(data) do
     data
-    |> Enum.map(&flattenize_tuple(&1))
-    |> List.flatten()
+    |> Enum.flat_map(&flattenize_tuple/1)
     |> Enum.with_index(1)
     |> Enum.map(fn {entry, index} -> %{entry | index: index} end)
     |> Enum.map(&parse_plural/1)
@@ -56,7 +55,7 @@ defmodule Langue.Utils.NestedParserHelper do
   defp flattenize_tuple({key, value}) when is_list(value) do
     value
     |> Enum.with_index()
-    |> Enum.map(fn {item, index} ->
+    |> Enum.flat_map(fn {item, index} ->
       if is_tuple(item) && !is_list(elem(item, 0)) do
         flattenize_tuple({"#{key}#{@nested_separator}#{elem(item, 0)}", elem(item, 1)})
       else
@@ -66,6 +65,6 @@ defmodule Langue.Utils.NestedParserHelper do
   end
 
   defp flattenize_tuple({key, value}) do
-    %Entry{key: key, value: to_string(value), value_type: Langue.ValueType.parse(value), placeholders: []}
+    [%Entry{key: key, value: to_string(value), value_type: Langue.ValueType.parse(value), placeholders: []}]
   end
 end

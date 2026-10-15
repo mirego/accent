@@ -77,7 +77,7 @@ build-language-tool: ## Build the LanguageTool jar (same shadowJar step as the r
 # ----------
 
 .PHONY: lint
-lint: lint-compile lint-format lint-credo lint-eslint lint-prettier lint-template-hbs
+lint: lint-compile lint-format lint-credo lint-ex-dna lint-reach lint-eslint lint-prettier lint-template-hbs
 
 .PHONY: lint-template-hbs
 lint-template-hbs:
@@ -94,6 +94,14 @@ lint-format:
 .PHONY: lint-credo
 lint-credo:
 	mix credo --strict
+
+.PHONY: lint-ex-dna
+lint-ex-dna:
+	mix ex_dna --max-clones 0
+
+.PHONY: lint-reach
+lint-reach:
+	mix reach.check --arch --smells
 
 .PHONY: lint-eslint
 lint-eslint:

@@ -9,8 +9,11 @@ import t from 'ember-intl/helpers/t';
 import RecentProjectsList from 'accent-webapp/components/recent-projects-list/index';
 import ProjectsList from 'accent-webapp/components/projects-list/index';
 import ResourcePagination from 'accent-webapp/components/resource-pagination/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.projects')}}
+
     <Projects>
       <ProjectsHeader @session={{@controller.session}} />
       <ProjectsFilters

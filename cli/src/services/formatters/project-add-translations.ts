@@ -1,25 +1,17 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import {Project} from '../../types/project';
 import {fetchFromRevision} from '../revision-slug-fetcher';
+import {blank, title} from './base';
 
 export default class ProjectAddTranslationsFormatter {
   log(project: Project) {
+    const masterLanguage = fetchFromRevision(project.masterRevision);
     const languages = project.revisions
-      .filter(
-        (revision) =>
-          fetchFromRevision(revision) !==
-          fetchFromRevision(project.masterRevision)
-      )
       .map(fetchFromRevision)
+      .filter((language) => language !== masterLanguage)
       .join(', ');
 
-    console.log(
-      chalk.magenta('Adding translations paths'),
-      '→',
-      chalk.white(languages),
-      chalk.green('✓')
-    );
-
-    console.log('');
+    title('Adding translations', chalk.bold(languages));
+    blank();
   }
 }

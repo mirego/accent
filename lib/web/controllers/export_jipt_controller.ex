@@ -3,21 +3,17 @@ defmodule Accent.ExportJIPTController do
 
   import Canary.Plugs
 
-  alias Accent.Document
   alias Accent.Project
   alias Accent.Repo
-  alias Accent.Scopes.Document, as: DocumentScope
-  alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: Scope
-  alias Accent.Scopes.Version, as: VersionScope
   alias Accent.Translation
-  alias Accent.Version
 
   plug(Plug.Assign, %{canary_action: :export_revision})
   plug(:load_resource, model: Project, id_name: "project_id")
 
-  plug(:fetch_version)
-  plug(:fetch_document)
+  plug(Accent.Plugs.AssignVersion)
+  plug(Accent.Plugs.AssignDocumentByPath, required: true)
+  plug(Accent.Plugs.AssignMasterRevision)
   plug(:fetch_translations)
   plug(:fetch_rendered_document)
 
@@ -60,18 +56,15 @@ defmodule Accent.ExportJIPTController do
     |> send_file(:ok, file)
   end
 
-  defp fetch_translations(%{assigns: %{document: document, version: version, project: project}} = conn, _) do
-    revision =
-      project
-      |> Ecto.assoc(:revisions)
-      |> RevisionScope.master()
-      |> Repo.one()
-
+  defp fetch_translations(
+         %{assigns: %{document: document, version: version, master_revision: master_revision}} = conn,
+         _
+       ) do
     translations =
       Translation
       |> Scope.active()
       |> Scope.from_document(document.id)
-      |> Scope.from_revision(revision.id)
+      |> Scope.from_revision(master_revision.id)
       |> Scope.from_version(version && version.id)
       |> Scope.parse_order(nil)
       |> Repo.all()
@@ -79,50 +72,18 @@ defmodule Accent.ExportJIPTController do
     assign(conn, :translations, translations)
   end
 
-  defp fetch_document(%{params: params, assigns: %{project: project}} = conn, _) do
-    Document
-    |> DocumentScope.from_project(project.id)
-    |> DocumentScope.from_path(params["document_path"])
-    |> Repo.one()
-    |> case do
-      document = %Document{} ->
-        document = Map.put(document, :format, params["document_format"])
-        assign(conn, :document, document)
-
-      _ ->
-        Accent.ErrorController.handle_not_found(conn)
-    end
-  end
-
-  defp fetch_version(%{params: %{"version" => version_param}, assigns: %{project: project}} = conn, _) do
-    Version
-    |> VersionScope.from_project(project.id)
-    |> VersionScope.from_tag(version_param)
-    |> Repo.one()
-    |> case do
-      version = %Version{} ->
-        assign(conn, :version, version)
-
-      _ ->
-        Accent.ErrorController.handle_not_found(conn)
-    end
-  end
-
-  defp fetch_version(conn, _), do: assign(conn, :version, nil)
-
   defp fetch_rendered_document(
-         %{assigns: %{project: project, translations: translations, document: document}} = conn,
+         %{assigns: %{master_revision: master_revision, translations: translations, document: document}} = conn,
          _
        ) do
-    project = Repo.preload(project, revisions: :language)
-    revision = Enum.at(project.revisions, 0)
+    language = Accent.Revision.language(master_revision)
 
     %{render: render} =
       Accent.TranslationsRenderer.render_translations(%{
         translations: translations,
         document: document,
-        master_language: Accent.Revision.language(revision),
-        language: Accent.Revision.language(revision),
+        master_language: language,
+        language: language,
         value_map: &"{^#{&1.key}@#{document.path}}"
       })
 

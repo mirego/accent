@@ -7,9 +7,7 @@ defmodule Accent.IntegrationManager.Execute.UploadDocuments do
   alias Accent.Scopes.Document, as: DocumentScope
   alias Accent.Scopes.Revision, as: RevisionScope
   alias Accent.Scopes.Translation, as: TranslationScope
-  alias Accent.Scopes.Version, as: VersionScope
   alias Accent.Translation
-  alias Accent.Version
 
   def url(upload, uri, version_tag) do
     extension = Accent.DocumentFormat.extension_by_format(upload.document.format)
@@ -71,16 +69,10 @@ defmodule Accent.IntegrationManager.Execute.UploadDocuments do
     {uploads, version_tag, version}
   end
 
-  defp fetch_version(project, %{target_version: :specific, tag: tag}) do
-    Version
-    |> VersionScope.from_project(project.id)
-    |> VersionScope.from_tag(tag)
-    |> Repo.one()
-  end
+  defp fetch_version(project, %{target_version: :specific, tag: tag}),
+    do: Accent.VersionFinder.find_by_tag(project.id, tag)
 
-  defp fetch_version(_, _) do
-    nil
-  end
+  defp fetch_version(_, _), do: nil
 
   defp fetch_documents(project) do
     Document

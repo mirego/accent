@@ -1,38 +1,28 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as decamelize from 'decamelize';
+import {blank, humanize, line, symbols} from './base';
 
-const capitalizeFirstLetter = (str: string) =>
-  str.charAt(0).toUpperCase() + str.slice(1);
+const outputLines = (output: string) => output.trimEnd().split('\n');
 
 export default class HookRunnerFomatter {
   log(name: string, commands: string[]) {
-    const operation = capitalizeFirstLetter(
-      decamelize.default(name, {separator: ' '})
-    );
-    console.log(chalk.yellow('➤'), chalk.bold(chalk.yellow(`${operation}:`)));
+    const operation = humanize(decamelize.default(name, {separator: ' '}));
+    line(chalk.yellow.bold(`${symbols.hook} Hook: ${operation}`));
 
-    commands.forEach((command) => {
-      console.log(' ', chalk.yellow(command));
-    });
+    commands.forEach((command) => line(chalk.dim(`$ ${command}`), 1));
 
-    console.log('');
+    blank();
   }
 
   error(command: string, errors: string[]) {
-    console.log(chalk.red('⚠'), chalk.bold(chalk.red(`${command}:`)));
-
-    errors.forEach((error) => {
-      console.log(' ', chalk.red(error));
-    });
-
-    console.log('');
+    line(`${chalk.red(symbols.error)} ${chalk.red.bold(command)}`);
+    errors.flatMap(outputLines).forEach((error) => line(chalk.red(error), 1));
+    blank();
   }
 
   success(command: string, message: string) {
-    console.log(chalk.green('✓'), chalk.bold(chalk.green(`${command}:`)));
-
-    console.log(' ', chalk.green(message));
-
-    console.log('');
+    line(`${chalk.green(symbols.success)} ${chalk.bold(command)}`);
+    outputLines(message).forEach((text) => line(chalk.dim(text), 1));
+    blank();
   }
 }

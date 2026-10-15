@@ -8,8 +8,11 @@ import ProjectCommentsListSkeleton from 'accent-webapp/components/skeleton-ui/pr
 import ProjectCommentsList from 'accent-webapp/components/project-comments-list/index';
 import {fn} from '@ember/helper';
 import ResourcePagination from 'accent-webapp/components/resource-pagination/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.conversation')}}
+
     <PageTitle>
       <BubbleSvg />
       <h1>{{t 'components.page_title.comments'}}</h1>

@@ -8,8 +8,11 @@ import {get, fn} from '@ember/helper';
 import IntegrationsAddButton from 'accent-webapp/components/integrations-add-button/index';
 import LoadingContent from 'accent-webapp/components/loading-content/index';
 import Integrations from 'accent-webapp/components/project-settings/integrations/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.service_integrations')}}
+
     <PageTitle>
       <ShareSvg />
       <h1>{{t 'components.page_title.service_integrations'}}</h1>

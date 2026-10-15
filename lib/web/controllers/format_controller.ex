@@ -63,7 +63,7 @@ defmodule Accent.FormatController do
     document = context.assigns.document
     {:ok, serializer} = Langue.serializer_from_format(document.format)
 
-    serialzier_input = %Langue.Formatter.ParserResult{
+    serializer_input = %Langue.Formatter.ParserResult{
       entries: conn.assigns.entries,
       language: %Langue.Language{slug: conn.params["language"]},
       document: %Langue.Document{
@@ -75,8 +75,9 @@ defmodule Accent.FormatController do
     }
 
     try do
-      assign(conn, :render, serializer.(serialzier_input).render)
+      assign(conn, :render, serializer.(serializer_input).render)
     rescue
+      # reach:disable-next-line bare_rescue -- serializers for 15 formats raise heterogeneous exceptions
       _ -> assign(conn, :render, context.render)
     end
   end

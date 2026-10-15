@@ -5,8 +5,12 @@ import ActivitiesList from 'accent-webapp/components/skeleton-ui/activities-list
 import TranslationActivitiesList from 'accent-webapp/components/translation-activities-list/index';
 import ResourcePagination from 'accent-webapp/components/resource-pagination/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
+import t from 'ember-intl/helpers/t';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.translation_activities')}}
+
     {{#if @controller.model.loading}}
       <ProgressLine />
     {{/if}}

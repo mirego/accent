@@ -4,8 +4,12 @@ import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/ind
 import TranslationCommentsList from 'accent-webapp/components/skeleton-ui/translation-comments-list/index';
 import TranslationConversation from 'accent-webapp/components/translation-conversation/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
+import t from 'ember-intl/helpers/t';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.conversation')}}
+
     {{#if @controller.model.loading}}
       <ProgressLine />
     {{/if}}

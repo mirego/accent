@@ -97,7 +97,7 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
       {rows, names} = metric.data
 
       names =
-        Enum.map_join(names, "", fn name ->
+        Enum.map_join(names, fn name ->
           "<td style='font-weight: bold; padding: 6px 14px; background-color: color-mix(in srgb, currentColor 20%, transparent);'>" <>
             to_string(name) <> "</td>"
         end)
@@ -105,7 +105,7 @@ defmodule Accent.TelemetryUI.EctoPSQLExtras do
       rows =
         for cells <- rows do
           "<tr style='border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);'>" <>
-            Enum.map_join(cells, "", fn cell ->
+            Enum.map_join(cells, fn cell ->
               "<td style='padding: 6px 14px; border-right: 1px solid color-mix(in srgb, currentColor 10%, transparent); '>" <>
                 cell <> "</td>"
             end) <> "</tr>"

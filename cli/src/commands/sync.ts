@@ -12,6 +12,7 @@ import {fetchFromRevision} from '../services/revision-slug-fetcher';
 import {Flags, Interfaces} from '@oclif/core';
 import BaseCommand from '../base';
 import {Hooks} from '../types/document-config';
+import {PeekOperation} from '../types/operation';
 
 export default class Sync extends BaseCommand {
   static description =
@@ -20,6 +21,7 @@ export default class Sync extends BaseCommand {
   static examples = [
     `$ accent sync`,
     `$ accent sync --dry-run --sync-type=force`,
+    `$ accent sync --dry-run --details`,
     `$ accent sync --add-translations --merge-type=smart --order-key=key --version=v0.23`
   ];
 
@@ -38,6 +40,12 @@ export default class Sync extends BaseCommand {
     'dry-run': Flags.boolean({
       default: false,
       description: 'Do not commit the changes in Accent'
+    }),
+    details: Flags.boolean({
+      default: false,
+      dependsOn: ['dry-run'],
+      description:
+        'With --dry-run, show each operation (key, previous text, new text) grouped by action instead of a summary'
     }),
     'merge-type': Flags.string({
       default: 'passive',
@@ -151,7 +159,7 @@ export default class Sync extends BaseCommand {
       const documentPath = document.parseDocumentName(path, document.config);
 
       if (operations.peek) {
-        formatter.logPeek(path, documentPath, operations.peek);
+        this.logPeek(formatter, path, documentPath, operations.peek);
       } else {
         formatter.logSync(path, documentPath);
       }
@@ -191,7 +199,8 @@ export default class Sync extends BaseCommand {
       }
 
       if (operation.peek) {
-        formatter.logPeek(
+        this.logPeek(
+          formatter,
           operation.file,
           operation.documentPath,
           operation.peek
@@ -199,5 +208,18 @@ export default class Sync extends BaseCommand {
       }
     }
     console.log('');
+  }
+
+  private logPeek(
+    formatter: CommitOperationFormatter,
+    path: string,
+    documentPath: string,
+    peek: PeekOperation
+  ) {
+    if (this.parsedFlags.details) {
+      formatter.logPeekDetails(path, documentPath, peek, this.project!);
+    } else {
+      formatter.logPeek(path, documentPath, peek);
+    }
   }
 }

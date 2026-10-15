@@ -97,13 +97,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> RevisionCorrectAllBuilder.build()
     |> RevisionCorrectAllPersister.persist()
-    |> case do
-      {:ok, _} ->
-        {:ok, %{revision: refresh_stats(revision, args), errors: nil}}
-
-      {:error, _reason} ->
-        {:ok, %{revision: nil, errors: ["unprocessable_entity"]}}
-    end
+    |> to_revision_result(revision, args)
   end
 
   @spec uncorrect_all(Revision.t(), any(), GraphQLContext.t()) :: revision_operation
@@ -118,13 +112,7 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> Context.assign(:user_id, info.context[:conn].assigns[:current_user].id)
     |> RevisionUncorrectAllBuilder.build()
     |> RevisionUncorrectAllPersister.persist()
-    |> case do
-      {:ok, _} ->
-        {:ok, %{revision: refresh_stats(revision, args), errors: nil}}
-
-      {:error, _reason} ->
-        {:ok, %{revision: nil, errors: ["unprocessable_entity"]}}
-    end
+    |> to_revision_result(revision, args)
   end
 
   @spec show_project(Project.t(), %{id: String.t()}, Absinthe.Resolution.t()) :: {:ok, Revision.t() | nil}
@@ -161,6 +149,11 @@ defmodule Accent.GraphQL.Resolvers.Revision do
     |> then(&{:ok, &1})
   end
 
+  defp to_revision_result({:ok, _}, revision, args), do: {:ok, %{revision: refresh_stats(revision, args), errors: nil}}
+
+  defp to_revision_result({:error, _reason}, _revision, _args),
+    do: {:ok, %{revision: nil, errors: ["unprocessable_entity"]}}
+
   defp refresh_stats(revision, args) do
     Revision
     |> RevisionScope.with_stats(version_id: args[:version_id], document_id: args[:document_id])
@@ -169,11 +162,8 @@ defmodule Accent.GraphQL.Resolvers.Revision do
   end
 
   defp parse_new_slave_options(args) do
-    options = []
-    options = if args[:default_null], do: ["default_null" | options], else: options
-    options = if args[:machine_translations_enabled], do: ["machine_translations_enabled" | options], else: options
-
-    options
+    options = if args[:default_null], do: ["default_null"], else: []
+    if args[:machine_translations_enabled], do: ["machine_translations_enabled" | options], else: options
   end
 
   defp build_correct_all_options(args) do

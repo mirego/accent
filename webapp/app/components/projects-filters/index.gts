@@ -12,7 +12,7 @@ import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import {LinkTo} from '@ember/routing';
 
-const DEBOUNCE_OFFSET = 1000; // ms
+const DEBOUNCE_OFFSET = 400; // ms
 
 interface Args {
   permissions: any;
@@ -38,7 +38,7 @@ export default class ProjectsFilter extends Component<Args> {
               }}
               value={{this.debouncedQuery}}
               class='input'
-              {{on 'keyup' this.setDebouncedQuery}}
+              {{on 'input' this.setDebouncedQuery}}
             />
           </div>
         </div>
@@ -202,6 +202,7 @@ export default class ProjectsFilter extends Component<Args> {
   submitForm(event: Event) {
     event.preventDefault();
 
+    this.debounceQueryTask.cancelAll();
     this.args.onChangeQuery(this.debouncedQuery);
   }
 }

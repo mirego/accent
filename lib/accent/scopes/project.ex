@@ -36,6 +36,11 @@ defmodule Accent.Scopes.Project do
     from(p in query, where: p.id in ^ids)
   end
 
+  @spec from_collaborator_user(Ecto.Queryable.t(), String.t()) :: Ecto.Queryable.t()
+  def from_collaborator_user(query, user_id) do
+    from(p in query, join: c in assoc(p, :collaborators), where: c.user_id == ^user_id)
+  end
+
   @doc """
   Fill `translations_count`, `conflicts_count`, `translated_count` and `reviewed_count` for projects.
   """

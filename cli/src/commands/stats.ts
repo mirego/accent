@@ -1,4 +1,4 @@
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import {configFlag} from '../base';
 import {Errors, Flags} from '@oclif/core';
 import BaseCommand from '../base';
@@ -89,7 +89,7 @@ export default class Stats extends BaseCommand {
         const versionFormat = version ? ` ${version}` : '';
         throw new Errors.CLIError(
           chalk.red(
-            `Project${versionFormat} has ${translatedCount} strings to be translated`
+            `Project${versionFormat} has ${translationsCount - translatedCount} strings to be translated`
           ),
           {exit: 1}
         );

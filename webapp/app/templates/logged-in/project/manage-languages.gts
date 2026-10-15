@@ -7,8 +7,11 @@ import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/ind
 import ManageLanguagesSkeleton from 'accent-webapp/components/skeleton-ui/manage-languages/index';
 import ManageLanguages from 'accent-webapp/components/project-settings/manage-languages/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.manage_languages')}}
+
     <PageTitle>
       <LanguageSvg />
       <h1>{{t 'components.page_title.manage_languages'}}</h1>

@@ -1,5 +1,5 @@
 import {Errors} from '@oclif/core';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import {Config} from '../types/config';
 import {ProjectViewer} from '../types/project';
 

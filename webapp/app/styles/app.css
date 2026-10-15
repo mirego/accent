@@ -1268,7 +1268,7 @@ html body {
   --color-error-saturation: 65%;
   --shadow-color: rgba(0, 0, 0, 0.07);
   --modal-overlay-background: #333;
-  background: #eee;
+  background: var(--content-background);
 }
 
 html[data-theme='dark'] body {

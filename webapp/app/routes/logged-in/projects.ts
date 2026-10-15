@@ -63,6 +63,9 @@ export default class ProjectsRoute extends Route {
   subscription: Subscription;
 
   model({page, query}: {page: number; query: any}) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     const recentProjectIds = this.recentProjects.fetch();
 
     const props = (data: any) => {

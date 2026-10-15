@@ -5,14 +5,8 @@ defmodule Langue.Formatter.Strings.Serializer do
   alias Langue.Utils.LineByLineHelper
 
   def serialize(%{entries: entries}) do
-    render =
-      entries
-      |> LineByLineHelper.Serializer.lines(&prop_line/1)
-      |> Enum.join("")
-
-    %Langue.Formatter.SerializerResult{render: render}
+    %Langue.Formatter.SerializerResult{render: LineByLineHelper.Serializer.render(entries, &prop_line/1)}
   end
 
-  defp prop_line(%Langue.Entry{key: key, value: nil}), do: "\"" <> key <> "\"" <> " = " <> "\"\";\n"
-  defp prop_line(%Langue.Entry{key: key, value: value}), do: "\"" <> key <> "\"" <> " = " <> "\"" <> value <> "\";\n"
+  defp prop_line(%Langue.Entry{key: key, value: value}), do: ~s("#{key}" = "#{value}";\n)
 end

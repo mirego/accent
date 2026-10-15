@@ -6,8 +6,11 @@ import t from 'ember-intl/helpers/t';
 import LintEntries from 'accent-webapp/components/project-settings/lint-entries/index';
 import ResourcePagination from 'accent-webapp/components/resource-pagination/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.lint_entries')}}
+
     <BackLink @project={{@controller.project}} />
 
     {{#if @controller.showLoading}}

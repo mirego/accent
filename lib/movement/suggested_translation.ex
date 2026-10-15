@@ -9,6 +9,7 @@ defmodule Movement.SuggestedTranslation do
             value_type: nil,
             revision_id: nil,
             translation_id: nil,
+            document_id: nil,
             version_id: nil,
             plural: nil,
             locked: nil,
@@ -16,4 +17,6 @@ defmodule Movement.SuggestedTranslation do
             machine_translations_enabled: nil,
             versioned_translation_ids: [],
             source_translation_id: nil
+
+  @type t :: %__MODULE__{}
 end

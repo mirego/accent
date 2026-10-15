@@ -4,8 +4,11 @@ import BackLink from 'accent-webapp/components/project-settings/back-link/index'
 import LoadingContent from 'accent-webapp/components/loading-content/index';
 import t from 'ember-intl/helpers/t';
 import Cli from 'accent-webapp/components/project-settings/cli/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.cli')}}
+
     <BackLink @project={{@controller.project}} />
 
     {{#if @controller.showLoading}}

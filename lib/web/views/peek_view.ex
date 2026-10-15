@@ -3,16 +3,11 @@ defmodule Accent.PeekView do
 
   def render("index.json", %{operations: operations}) do
     data =
-      Enum.reduce(operations, %{}, fn {revision_id, operations}, acc ->
-        Map.put(acc, revision_id, render_many(operations, Accent.PeekView, "operation.json"))
+      Map.new(operations, fn {revision_id, operations} ->
+        {revision_id, render_many(operations, Accent.PeekView, "operation.json")}
       end)
 
-    stats =
-      Enum.reduce(operations, %{}, fn {revision_id, operations}, acc ->
-        stat = fetch_stats(operations)
-
-        Map.put(acc, revision_id, stat)
-      end)
+    stats = Map.new(operations, fn {revision_id, operations} -> {revision_id, fetch_stats(operations)} end)
 
     %{data: %{operations: data, stats: stats}}
   end
@@ -33,10 +28,6 @@ defmodule Accent.PeekView do
   end
 
   defp fetch_stats(operations) do
-    operations
-    |> Enum.group_by(&Map.get(&1, :action))
-    |> Enum.reduce(%{}, fn {action, operations}, acc ->
-      Map.put(acc, action, Enum.count(operations))
-    end)
+    Enum.frequencies_by(operations, & &1.action)
   end
 end

@@ -19,7 +19,7 @@ import AccAvatarImg from 'accent-webapp/components/acc-avatar-img/index';
 import not from 'ember-truth-helpers/helpers/not';
 import ApplicationFooter from 'accent-webapp/components/application-footer/index';
 
-const DEBOUNCE_OFFSET = 500; // ms
+const DEBOUNCE_OFFSET = 300; // ms
 
 interface Args {
   project: any;
@@ -51,7 +51,7 @@ export default class ProjectNavigation extends Component<Args> {
             placeholder={{t 'general.search_input_placeholder_text'}}
             value={{this.debouncedQuery}}
             class='search-input'
-            {{on 'keyup' this.setDebouncedQuery}}
+            {{on 'input' this.setDebouncedQuery}}
           />
         </div>
         <List
@@ -297,7 +297,7 @@ export default class ProjectNavigation extends Component<Args> {
       this.args.project.id,
       this.selectedRevision,
       {
-        queryParams: {query}
+        queryParams: {query, page: 1}
       }
     );
 

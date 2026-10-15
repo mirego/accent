@@ -131,7 +131,7 @@ defmodule AccentTest.APITokenManager do
       admin = Factory.insert(User)
       admin = %{admin | permissions: %{project.id => "admin"}}
 
-      assert length(APITokenManager.list(project, admin)) == 1
+      assert [_] = APITokenManager.list(project, admin)
 
       assert :ok = APITokenManager.revoke(access_token)
 
@@ -165,9 +165,7 @@ defmodule AccentTest.APITokenManager do
     test "admin user can see all tokens", %{project: project, admin_user: admin_user, bot: bot} do
       Factory.insert(AccessToken, user_id: bot.id, custom_permissions: ["delete_project"])
 
-      tokens = APITokenManager.list(project, admin_user)
-
-      assert length(tokens) == 1
+      assert [_] = APITokenManager.list(project, admin_user)
     end
 
     test "regular user can only see tokens with permissions they have", %{project: project, user: user, bot: bot} do

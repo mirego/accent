@@ -10,7 +10,6 @@ import {fn} from '@ember/helper';
 import SearchSvg from 'accent-webapp/svgs/assets/search.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
-import onKey from 'ember-keyboard/modifiers/on-key';
 import AccSelect from 'accent-webapp/components/acc-select/index';
 
 const DEBOUNCE_OFFSET = 1000; // ms
@@ -46,8 +45,7 @@ export default class RevisionExportOptions extends Component<Args> {
                 }}
                 value={{this.debouncedQuery}}
                 class='input'
-                {{onKey 'Enter' (fn this.submitForm)}}
-                {{on 'keyup' this.setDebouncedQuery}}
+                {{on 'input' this.setDebouncedQuery}}
               />
             </div>
 
@@ -257,6 +255,7 @@ export default class RevisionExportOptions extends Component<Args> {
   submitForm(event: Event) {
     event.preventDefault();
 
+    this.debounceQuery.cancelAll();
     this.args.onChangeQuery(this.debouncedQuery);
   }
 }

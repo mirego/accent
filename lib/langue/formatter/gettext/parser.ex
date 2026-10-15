@@ -40,16 +40,17 @@ defmodule Langue.Formatter.Gettext.Parser do
       locked: true
     }
 
-    Enum.reduce(translation.msgstr, [plural_entry], fn {plural_index, value}, acc ->
-      Enum.concat(acc, [
+    plural_entries =
+      Enum.map(translation.msgstr, fn {plural_index, value} ->
         %Entry{
           key: join_string(translation.msgid) <> key_suffix(plural_index),
           value: join_string(value),
           plural: true,
           value_type: ValueType.parse(join_string(value))
         }
-      ])
-    end)
+      end)
+
+    [plural_entry | plural_entries]
   end
 
   defp parse_translation(%{msgctxt: nil} = translation) do

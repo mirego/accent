@@ -87,19 +87,17 @@ defmodule Accent.GraphQL.Resolvers.Project do
   @spec list_viewer(User.t(), %{query: String.t(), page: number()}, GraphQLContext.t()) ::
           {:ok, Paginated.t(Project.t())}
   def list_viewer(viewer, args, info) do
+    viewer_projects = ProjectScope.from_collaborator_user(Project, viewer.id)
+
     paginated_projects =
-      Project
-      |> Query.join(:inner, [p], c in assoc(p, :collaborators))
-      |> Query.where([_, c], c.user_id == ^viewer.id)
-      |> Query.order_by([p, _], desc_nulls_first: p.last_synced_at)
+      viewer_projects
+      |> Query.order_by([p], desc_nulls_first: p.last_synced_at)
       |> ProjectScope.from_search(args[:query])
       |> Paginated.paginate(args, info: info)
       |> Paginated.format()
 
     nodes_projects =
-      Project
-      |> Query.join(:inner, [p], c in assoc(p, :collaborators))
-      |> Query.where([_, c], c.user_id == ^viewer.id)
+      viewer_projects
       |> ProjectScope.from_ids(args[:node_ids])
       |> Repo.all()
 

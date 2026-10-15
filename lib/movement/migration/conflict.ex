@@ -72,7 +72,7 @@ defmodule Movement.Migration.Conflict do
       proposed_text: operation.text,
       corrected_text: operation.text,
       conflicted_text: operation.previous_translation && operation.previous_translation.corrected_text,
-      conflicted: if("correct" in operation.options, do: false, else: true),
+      conflicted: "correct" not in operation.options,
       placeholders: operation.placeholders
     })
   end

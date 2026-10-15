@@ -8,6 +8,7 @@ const sharedTypescriptRules = {
   complexity: 0,
   'no-irregular-whitespace': 0,
   'no-unused-vars': 0,
+  'no-control-regex': 0,
   '@typescript-eslint/adjacent-overload-signatures': 2,
   '@typescript-eslint/array-type': [2, {default: 'array-simple'}],
   '@typescript-eslint/await-thenable': 2,
@@ -27,14 +28,14 @@ const sharedTypescriptRules = {
       args: 'all',
       argsIgnorePattern: '^_',
       varsIgnorePattern: '^_',
-      caughtErrors: 'none'
-    }
+      caughtErrors: 'none',
+    },
   ],
   '@typescript-eslint/promise-function-async': 2,
   '@typescript-eslint/require-await': 2,
   '@typescript-eslint/unified-signatures': 2,
   '@typescript-eslint/no-unused-expressions': 0,
-  'no-useless-assignment': 0
+  'no-useless-assignment': 0,
 };
 
 export default tseslint.config(
@@ -56,29 +57,29 @@ export default tseslint.config(
       'jipt/dist/**',
       'jipt/.cache/**',
       'jipt/.parcel-cache/**',
-      'jipt/jipt-dist/**'
-    ]
+      'jipt/jipt-dist/**',
+    ],
   },
   {
     files: [
       'webapp/app/**/*.ts',
       'webapp/tests/**/*.ts',
-      'webapp/types/**/*.ts'
+      'webapp/types/**/*.ts',
     ],
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      prettier
+      prettier,
     ],
     plugins: {ember},
     languageOptions: {
       parserOptions: {
-        project: './webapp/tsconfig.json'
+        project: './webapp/tsconfig.json',
       },
       globals: {
         ...globals.browser,
-        JsDiff: true
-      }
+        JsDiff: true,
+      },
     },
     rules: {
       ...sharedTypescriptRules,
@@ -94,53 +95,53 @@ export default tseslint.config(
       'ember/avoid-leaking-state-in-ember-objects': 2,
       'ember/use-brace-expansion': 2,
       'ember/jquery-ember-run': 2,
-      'ember/no-empty-attrs': 2
-    }
+      'ember/no-empty-attrs': 2,
+    },
   },
   {
     files: ['cli/**/*.ts'],
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      prettier
+      prettier,
     ],
     languageOptions: {
       parserOptions: {
-        project: './cli/tsconfig.json'
+        project: './cli/tsconfig.json',
       },
       globals: {
         ...globals.node,
-        process: true
-      }
+        process: true,
+      },
     },
     rules: {
       ...sharedTypescriptRules,
       'no-console': 0,
       'max-nested-callbacks': [2, {max: 3}],
       '@typescript-eslint/member-ordering': 2,
-      '@typescript-eslint/no-non-null-assertion': 0
-    }
+      '@typescript-eslint/no-non-null-assertion': 0,
+    },
   },
   {
     files: ['jipt/**/*.ts'],
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
-      prettier
+      prettier,
     ],
     languageOptions: {
       parserOptions: {
-        project: './jipt/tsconfig.json'
+        project: './jipt/tsconfig.json',
       },
       globals: {
-        ...globals.browser
-      }
+        ...globals.browser,
+      },
     },
     rules: {
       ...sharedTypescriptRules,
       '@typescript-eslint/member-ordering': 2,
-      '@typescript-eslint/no-non-null-assertion': 2
-    }
+      '@typescript-eslint/no-non-null-assertion': 2,
+    },
   },
   {
     files: ['webapp/app/**/*.js', 'cli/**/*.js', 'jipt/**/*.js'],
@@ -148,11 +149,11 @@ export default tseslint.config(
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node
-      }
+        ...globals.node,
+      },
     },
     rules: {
-      'no-useless-assignment': 0
-    }
-  }
+      'no-useless-assignment': 0,
+    },
+  },
 );

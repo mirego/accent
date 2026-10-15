@@ -15,6 +15,7 @@ export default class Lint extends BaseCommand {
   static flags = {config: configFlag, path: pathFlag} as const;
 
   async run() {
+    await this.parse(Lint);
     const documents = this.projectConfig.files();
     const results: LintTranslation[] = [];
     const t0 = process.hrtime.bigint();

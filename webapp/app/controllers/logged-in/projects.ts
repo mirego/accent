@@ -42,6 +42,7 @@ export default class ProjectsController extends Controller {
 
   @action
   changeQuery(query: string) {
+    this.page = 1;
     this.query = query;
   }
 

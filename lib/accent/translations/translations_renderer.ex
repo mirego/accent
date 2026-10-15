@@ -1,9 +1,22 @@
 defmodule Accent.TranslationsRenderer do
   @moduledoc false
-  def render_entries(args) do
+  alias Langue.Formatter.SerializerResult
+
+  @enforce_keys ~w(entries document language master_language)a
+  defstruct @enforce_keys
+
+  @type t :: %__MODULE__{
+          entries: [Langue.Entry.t()],
+          document: map(),
+          language: map(),
+          master_language: map()
+        }
+
+  @spec render_entries(t()) :: SerializerResult.t()
+  def render_entries(%__MODULE__{} = args) do
     {:ok, serializer} = Langue.serializer_from_format(args.document.format)
 
-    serialzier_input = %Langue.Formatter.ParserResult{
+    serializer_input = %Langue.Formatter.ParserResult{
       entries: args.entries,
       language: %Langue.Language{
         slug: args.language.slug,
@@ -18,9 +31,10 @@ defmodule Accent.TranslationsRenderer do
     }
 
     try do
-      serializer.(serialzier_input)
+      serializer.(serializer_input)
     rescue
-      _ -> Langue.Formatter.SerializerResult.empty()
+      # reach:disable-next-line bare_rescue -- serializers for 15 formats raise heterogeneous exceptions
+      _ -> SerializerResult.empty()
     end
   end
 
@@ -28,7 +42,7 @@ defmodule Accent.TranslationsRenderer do
     value_map = Map.get(args, :value_map, & &1.corrected_text)
     entries = translations_to_entries(args[:translations], args[:master_translations], value_map)
 
-    render_entries(%{
+    render_entries(%__MODULE__{
       entries: entries,
       document: args[:document],
       language: args[:language],

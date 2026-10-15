@@ -30,6 +30,9 @@ export default class ProjectRoute extends Route {
   subscription: Subscription;
 
   model(params: any): Model {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     const props = (data: any) => this.transformData(data);
 
     this.subscription = this.apolloSubscription.graphql(

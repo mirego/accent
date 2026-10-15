@@ -27,6 +27,9 @@ export default class JIPTRoute extends Route {
   subscription: Subscription;
 
   model(params: any) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     this.subscription = this.apolloSubscription.graphql(
       () => this.modelFor(this.routeName),
       projectQuery,

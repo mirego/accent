@@ -13,6 +13,9 @@ export default class JIPTExampleRoute extends Route {
   subscription: Subscription;
 
   model(params: any) {
+    if (this.subscription)
+      this.apolloSubscription.clearSubscription(this.subscription);
+
     (window as any).accentJiptInit = {
       h: window.location.origin,
       i: params.projectId

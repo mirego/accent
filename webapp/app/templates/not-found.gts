@@ -3,8 +3,11 @@ import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-si
 import ErrorSection from 'accent-webapp/components/error-section/index';
 import t from 'ember-intl/helpers/t';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.not_found')}}
+
     <ErrorSection
       @status={{t 'pods.error.not_found.status'}}
       @title={{t 'pods.error.not_found.title'}}

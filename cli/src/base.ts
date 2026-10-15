@@ -1,14 +1,11 @@
 import {Command, Flags, ux} from '@oclif/core';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import * as fs from 'fs-extra';
 import ConfigFetcher from './services/config';
 import ProjectFetcher from './services/project-fetcher';
 import {Project, ProjectViewer} from './types/project';
 
 const MISSING_PATH = '__MISSING__';
-
-const sleep = async (ms: number) =>
-  new Promise((resolve: (value: unknown) => void) => setTimeout(resolve, ms));
 
 export const configFlag = Flags.string({
   char: 'c',
@@ -54,8 +51,7 @@ export default abstract class BaseCommand extends Command {
     const config = this.projectConfig.config;
 
     // Fetch project from the GraphQL API.
-    ux.action.start(chalk.white(`Fetch config in ${configPath}`));
-    await sleep(1000);
+    ux.action.start(`Fetching project ${chalk.dim(configPath)}`);
 
     const fetcher = new ProjectFetcher();
     const response = await fetcher.fetch(config);
@@ -64,17 +60,20 @@ export default abstract class BaseCommand extends Command {
 
     if (!this.project) this.error('Unable to fetch project');
 
-    ux.action.stop(chalk.green(`${this.viewer.user.fullname} ✓`));
-
-    if (this.projectConfig.warnings.length) {
-      console.log('');
-      console.log(chalk.yellow.bold('Warnings:'));
-    }
-
-    this.projectConfig.warnings.forEach((warning) =>
-      console.log(chalk.yellow(warning))
+    ux.action.stop(
+      `${chalk.green('✓')} ${chalk.bold(this.project.name)} ${chalk.dim(
+        `as ${this.viewer.user.fullname}`
+      )}`
     );
     console.log('');
+
+    if (this.projectConfig.warnings.length) {
+      console.log(chalk.yellow.bold('⚠ Warnings'));
+      this.projectConfig.warnings.forEach((warning) =>
+        console.log(`  ${chalk.yellow(warning)}`)
+      );
+      console.log('');
+    }
   }
 
   async refreshProject() {

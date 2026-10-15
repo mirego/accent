@@ -1,4 +1,4 @@
-#!/usr/bin/env -S npx ts-node --esm
+#!/usr/bin/env -S npx tsx
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
 (async () => {

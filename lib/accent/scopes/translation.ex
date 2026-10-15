@@ -3,7 +3,6 @@ defmodule Accent.Scopes.Translation do
   import Ecto.Query
 
   alias Accent.Operation
-  alias Accent.Repo
   alias Accent.Translation
   alias Ecto.Queryable
 
@@ -166,36 +165,30 @@ defmodule Accent.Scopes.Translation do
   def parse_added_last_sync(query, nil, _, _), do: query
 
   def parse_added_last_sync(query, true, project_id, document_id) do
-    from(
-      operations in Operation,
-      select: operations.id,
-      where: [project_id: ^project_id],
-      where: [action: ^"sync"],
-      limit: 1,
-      order_by: [desc: :inserted_at]
+    last_sync_ids =
+      maybe_filter_last_sync_by_document(
+        from(operations in Operation,
+          select: operations.id,
+          where: [project_id: ^project_id, action: ^"sync"],
+          order_by: [desc: :inserted_at],
+          limit: 1
+        ),
+        document_id
+      )
+
+    synced_translation_ids =
+      from(operations in Operation,
+        where: operations.batch_operation_id in subquery(last_sync_ids),
+        select: operations.translation_id
+      )
+
+    from(translations in query,
+      where: translations.id in subquery(synced_translation_ids) or not exists(subquery(last_sync_ids))
     )
-    |> maybe_filter_last_sync_by_document(document_id)
-    |> Repo.one()
-    |> case do
-      nil ->
-        query
-
-      last_sync_id ->
-        synced_translation_ids =
-          from(operations in Operation,
-            where: operations.batch_operation_id == ^last_sync_id,
-            select: operations.translation_id
-          )
-
-        from(translations in query, where: translations.id in subquery(synced_translation_ids))
-    end
   end
 
   defp maybe_filter_last_sync_by_document(query, nil), do: query
-
-  defp maybe_filter_last_sync_by_document(query, document_id) do
-    from(query, where: [document_id: ^document_id])
-  end
+  defp maybe_filter_last_sync_by_document(query, document_id), do: from(query, where: [document_id: ^document_id])
 
   @doc """
   ## Examples

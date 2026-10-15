@@ -12,11 +12,10 @@ import SearchSvg from 'accent-webapp/svgs/assets/search.svg';
 import {scopedClass} from 'ember-scoped-css';
 import t from 'ember-intl/helpers/t';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
-import onKey from 'ember-keyboard/modifiers/on-key';
 import AccSelect from 'accent-webapp/components/acc-select/index';
 import AdvancedFilters from 'accent-webapp/components/translations-filter/advanced-filters/index';
 
-const DEBOUNCE_OFFSET = 1000; // ms
+const DEBOUNCE_OFFSET = 300; // ms
 
 interface Args {
   query: string;
@@ -62,8 +61,7 @@ export default class TranslationsFilter extends Component<Args> {
                   value={{this.debouncedQuery}}
                   class='input'
                   {{didInsert (fn this.autofocus)}}
-                  {{onKey 'Enter' (fn this.submitForm)}}
-                  {{on 'keyup' (fn this.setDebouncedQuery)}}
+                  {{on 'input' (fn this.setDebouncedQuery)}}
                 />
               </div>
 
@@ -324,6 +322,7 @@ export default class TranslationsFilter extends Component<Args> {
   submitForm(event: Event) {
     event.preventDefault();
 
+    this.debounceQuery.cancelAll();
     this.args.onChangeQuery(this.debouncedQuery);
   }
 

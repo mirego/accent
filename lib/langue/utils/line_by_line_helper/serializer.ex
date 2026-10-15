@@ -2,6 +2,12 @@ defmodule Langue.Utils.LineByLineHelper.Serializer do
   @moduledoc false
   alias Langue.Entry
 
+  def render(entries, prop_line) do
+    entries
+    |> lines(prop_line)
+    |> Enum.join()
+  end
+
   def lines(entries, prop_line) do
     Enum.map(entries, &serialize_line(&1, prop_line))
   end

@@ -5,8 +5,12 @@ import {fn} from '@ember/helper';
 import ConflictsItems from 'accent-webapp/components/skeleton-ui/conflicts-items/index';
 import ProgressLine from 'accent-webapp/components/skeleton-ui/progress-line/index';
 import LintTranslationsPage from 'accent-webapp/components/lint-translations-page/index';
+import {pageTitle} from 'ember-page-title';
+import t from 'ember-intl/helpers/t';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.lint_translations')}}
+
     <LintOptions
       @documents={{@controller.model.documents.entries}}
       @document={{@controller.documentFilter}}

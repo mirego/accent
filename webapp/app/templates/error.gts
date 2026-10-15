@@ -3,8 +3,11 @@ import type {RouteTemplateSignature} from 'accent-webapp/utils/route-template-si
 import ErrorSection from 'accent-webapp/components/error-section/index';
 import {fn} from '@ember/helper';
 import ApplicationFooter from 'accent-webapp/components/application-footer/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle @controller.title}}
+
     <ErrorSection
       @status={{@controller.status}}
       @title={{@controller.title}}

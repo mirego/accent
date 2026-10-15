@@ -22,7 +22,7 @@ defmodule Langue.Formatter.Android.Serializer do
       |> maybe_add_plural_items()
       |> Map.get(:lines)
 
-    resource_render = {"resources", [], resources} |> :mochiweb_html.to_html() |> Enum.join("")
+    resource_render = {"resources", [], resources} |> :mochiweb_html.to_html() |> Enum.join()
 
     render = @xml_template <> resource_render
 

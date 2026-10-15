@@ -3,6 +3,7 @@
     %{
       name: "default",
       strict: true,
+      plugins: [{ExSlop, []}],
       files: %{
         included: ["lib/", "test/", "priv/"],
         excluded: []
@@ -55,7 +56,8 @@
         {Credo.Check.Warning.UnusedStringOperation},
         {Credo.Check.Warning.UnusedTupleOperation},
         {Credo.Check.Warning.OperationWithConstantResult},
-        {CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime}
+        {CredoEnvvar.Check.Warning.EnvironmentVariablesAtCompileTime},
+        {ExSlop.Check.Readability.NarratorDoc, false}
       ]
     }
   ]

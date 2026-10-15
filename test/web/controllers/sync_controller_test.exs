@@ -57,7 +57,7 @@ defmodule AccentTest.SyncController do
     new_operations = Repo.all(from(o in Operation, where: [action: ^"new"]))
     sync_operation = Repo.one(from(o in Operation, where: [action: ^"sync"]))
 
-    assert length(new_operations) == 3
+    assert [_, _, _] = new_operations
     assert sync_operation.user_id == user.id
     assert sync_operation.project_id == project.id
 

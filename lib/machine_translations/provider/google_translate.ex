@@ -194,18 +194,7 @@ defmodule Accent.MachineTranslations.Provider.GoogleTranslate do
     defp client(config) do
       {base_url, auth_source} = parse_auth_config(config)
 
-      middlewares =
-        List.flatten([
-          {Middleware.Timeout, [timeout: :infinity]},
-          {Middleware.BaseUrl, base_url},
-          {Auth, auth_source},
-          Middleware.DecodeJson,
-          Middleware.EncodeJson,
-          Middleware.Logger,
-          Middleware.OpenTelemetry
-        ])
-
-      Tesla.client(middlewares)
+      Accent.Utils.JSONHTTPClient.new(base_url, {Auth, auth_source})
     end
 
     defp parse_auth_config(config) do

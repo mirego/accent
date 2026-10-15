@@ -7,8 +7,11 @@ import LoadingContent from 'accent-webapp/components/loading-content/index';
 import IntegrationExecutionsList from 'accent-webapp/components/integration-executions-list/index';
 import ResourcePagination from 'accent-webapp/components/resource-pagination/index';
 import {fn} from '@ember/helper';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.integration_executions')}}
+
     <LinkTo
       @route='logged-in.project.service-integrations'
       class='button button--borderless button--primary'

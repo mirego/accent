@@ -14,10 +14,9 @@ import FilterSvg from 'accent-webapp/svgs/assets/filter.svg';
 import SearchSvg from 'accent-webapp/svgs/assets/search.svg';
 import {scopedClass} from 'ember-scoped-css';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
-import onKey from 'ember-keyboard/modifiers/on-key';
 import AdvancedFilters from 'accent-webapp/components/conflicts-list/advanced-filters/index';
 
-const DEBOUNCE_OFFSET = 1000; // ms
+const DEBOUNCE_OFFSET = 400; // ms
 
 interface Args {
   meta: PaginationMeta;
@@ -97,8 +96,7 @@ export default class ConflictsFilters extends Component<Args> {
                   value={{this.debouncedQuery}}
                   class='input'
                   {{didInsert (fn this.autofocus)}}
-                  {{onKey 'Enter' (fn this.submitForm)}}
-                  {{on 'keyup' this.setDebouncedQuery}}
+                  {{on 'input' this.setDebouncedQuery}}
                 />
               </div>
 
@@ -500,6 +498,7 @@ export default class ConflictsFilters extends Component<Args> {
   submitForm(event: Event) {
     event.preventDefault();
 
+    this.debounceQuery.cancelAll();
     this.args.onChangeQuery(this.debouncedQuery);
   }
 

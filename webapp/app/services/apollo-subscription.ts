@@ -27,9 +27,9 @@ export class Subscription {
     props?: (data: any) => any
   ) {
     this.apollo = apollo;
+    this.props = props || ((data) => data);
     this.queryObservable = this.createQuery(query, options);
     this.querySubscription = this.createSubscription(model);
-    this.props = props || ((data) => data);
   }
 
   currentResult() {

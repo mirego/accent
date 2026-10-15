@@ -9,8 +9,11 @@ import ErrorSection from 'accent-webapp/components/error-section/index';
 import t from 'ember-intl/helpers/t';
 import RecentProjectCache from 'accent-webapp/components/recent-project-cache/index';
 import {htmlSafe} from '@ember/template';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle @controller.project.name}}
+
     <div>
       {{#unless @controller.showError}}
         <style>

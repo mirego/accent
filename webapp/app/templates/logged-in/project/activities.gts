@@ -10,8 +10,11 @@ import ActivitiesList from 'accent-webapp/components/skeleton-ui/activities-list
 import {fn} from '@ember/helper';
 import ProjectActivitiesList from 'accent-webapp/components/project-activities-list/index';
 import ResourcePagination from 'accent-webapp/components/resource-pagination/index';
+import {pageTitle} from 'ember-page-title';
 export default RouteTemplate<RouteTemplateSignature>(
   <template>
+    {{pageTitle (t 'general.page_titles.activities')}}
+
     <PageTitle>
       <ActivitySvg />
       <h1>{{t 'components.page_title.activities'}}</h1>

@@ -99,18 +99,7 @@ defmodule Accent.Prompts.Provider.OpenAI do
     end
 
     defp client(base_url, key) do
-      middlewares =
-        List.flatten([
-          {Middleware.Timeout, [timeout: :infinity]},
-          {Middleware.BaseUrl, base_url},
-          {Auth, [key: key]},
-          Middleware.DecodeJson,
-          Middleware.EncodeJson,
-          Middleware.Logger,
-          Middleware.OpenTelemetry
-        ])
-
-      Tesla.client(middlewares)
+      Accent.Utils.JSONHTTPClient.new(base_url, {Auth, [key: key]})
     end
   end
 end

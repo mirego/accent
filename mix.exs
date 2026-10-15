@@ -18,7 +18,8 @@ defmodule Accent.Mixfile do
       releases: releases(),
       listeners: [Phoenix.CodeReloader],
       dialyzer: [
-        list_unused_filters: true
+        list_unused_filters: true,
+        plt_add_apps: [:ex_unit]
       ],
       test_coverage: [tool: ExCoveralls]
     ]
@@ -29,6 +30,10 @@ defmodule Accent.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Accent, []}, extra_applications: [:logger, :canada, :yamerl]]
+  end
+
+  def cli do
+    [preferred_envs: [ci: :test]]
   end
 
   # Specifies which paths to compile per environment.
@@ -148,6 +153,9 @@ defmodule Accent.Mixfile do
       {:dialyxir, "~> 1.0", only: ~w(dev test)a, runtime: false},
       {:credo, ">= 0.0.0", only: ~w(dev test)a},
       {:credo_envvar, "~> 0.1.0", only: ~w(dev test)a, runtime: false},
+      {:ex_dna, "~> 1.5", only: ~w(dev test)a, runtime: false},
+      {:ex_slop, "~> 0.4", only: ~w(dev test)a, runtime: false},
+      {:reach, "~> 2.8", only: ~w(dev test)a, runtime: false},
       {:styler, "~> 1.0", only: ~w(dev test)a, runtime: false},
       {:excoveralls, "~> 0.8", only: :test},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
@@ -159,7 +167,16 @@ defmodule Accent.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      ci: [
+        "compile --warnings-as-errors",
+        "format --check-formatted",
+        "test",
+        "credo --strict",
+        "dialyzer",
+        "ex_dna --max-clones 0",
+        "reach.check --arch --smells"
+      ]
     ]
   end
 

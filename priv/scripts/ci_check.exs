@@ -8,6 +8,8 @@ defmodule CICheck do
     %{id: :format, label: "API code auto-formatting", cmd: "make lint-format", after: [:compile]},
     %{id: :credo, label: "API code lint", cmd: "make lint-credo", after: [:compile]},
     %{id: :dialyzer, label: "Dialyzer type check", cmd: "make dialyzer-check", after: [:compile]},
+    %{id: :ex_dna, label: "Code duplication check", cmd: "make lint-ex-dna", after: [:compile]},
+    %{id: :reach, label: "Architecture and smells check", cmd: "make lint-reach", after: [:compile]},
     %{id: :prettier, label: "Prettier auto-formatting", cmd: "make lint-prettier", after: []},
     %{id: :eslint, label: "Eslint code lint", cmd: "make lint-eslint", after: []},
     %{id: :hbs, label: "Handlebar template lint", cmd: "make lint-template-hbs", after: []},
