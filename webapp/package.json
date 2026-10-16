@@ -36,7 +36,7 @@
     "ember-cli-htmlbars": "7.0.1"
   },
   "dependencies": {
-    "@apollo/client": "4.3.3",
+    "@apollo/client": "4.3.4",
     "@ember/string": "4.0.1",
     "@embroider/macros": "1.21.3",
     "@glimmer/tracking": "1.1.2",
@@ -64,7 +64,7 @@
     "graphql": "17.0.2",
     "graphql-tag": "2.12.7",
     "highlight.js": "11.12.0",
-    "markdown-it": "15.0.2",
+    "markdown-it": "15.0.3",
     "pell": "1.0.6",
     "raven-js": "3.27.2",
     "rxjs": "7.8.2",
