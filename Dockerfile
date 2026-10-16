@@ -78,7 +78,7 @@ RUN mkdir -p /build/priv/native/ && \
 ################################################################################
 # Stage 4: Build the OTP binary (Elixir app)
 ################################################################################
-FROM hexpm/elixir:1.19.5-erlang-28.5.0.1-debian-trixie-20260518-slim AS builder
+FROM hexpm/elixir:1.20.4-erlang-29.1.2-debian-trixie-20261005-slim AS builder
 
 ENV MIX_ENV=prod
 WORKDIR /build

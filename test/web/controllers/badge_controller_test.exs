@@ -1,9 +1,10 @@
 defmodule AccentTest.BadgeController do
-  use Accent.ConnCase, async: false
+  use Accent.ConnCase, async: true
 
-  import Mock
-
+  alias Accent.HTTPClient
   alias Accent.Project
+  alias Plug.Conn
+  alias Req.Test, as: ReqTest
 
   defp behave_like_valid_response(response) do
     assert response.status == 200
@@ -14,49 +15,52 @@ defmodule AccentTest.BadgeController do
   setup do
     id = Ecto.UUID.generate()
     project = Factory.insert(Project, id: id, name: "project", main_color: "#f00")
-    badge_generate_mock = [generate: fn _, _ -> {:ok, "<svg></svg>"} end]
 
-    {:ok, %{project: project, badge_generate_mock: badge_generate_mock}}
+    {:ok, %{project: project}}
+  end
+
+  defp stub_badge_service do
+    ReqTest.stub(HTTPClient, fn conn -> Conn.send_resp(conn, 200, "<svg></svg>") end)
   end
 
   test "internal error on generator", %{conn: conn, project: project} do
-    with_mock Accent.BadgeGenerator, generate: fn _, _ -> {:error, "oops"} end do
-      response = get(conn, badge_path(conn, :percentage_reviewed_count, project.id))
+    ReqTest.stub(HTTPClient, &ReqTest.transport_error(&1, :econnrefused))
 
-      assert response.status == 500
-      assert response.resp_body == "internal server error"
-    end
+    response = get(conn, badge_path(conn, :percentage_reviewed_count, project.id))
+
+    assert response.status == 500
+    assert response.resp_body == "internal server error"
   end
 
-  test "percentage_reviewed_count", %{conn: conn, project: project, badge_generate_mock: badge_generate_mock} do
-    with_mock Accent.BadgeGenerator, badge_generate_mock do
-      response = get(conn, badge_path(conn, :percentage_reviewed_count, project.id))
+  test "percentage_reviewed_count", %{conn: conn, project: project} do
+    stub_badge_service()
 
-      behave_like_valid_response(response)
-    end
+    response = get(conn, badge_path(conn, :percentage_reviewed_count, project.id))
+
+    behave_like_valid_response(response)
   end
 
-  test "translations_count", %{conn: conn, project: project, badge_generate_mock: badge_generate_mock} do
-    with_mock Accent.BadgeGenerator, badge_generate_mock do
-      response = get(conn, badge_path(conn, :translations_count, project.id))
+  test "translations_count", %{conn: conn, project: project} do
+    stub_badge_service()
 
-      behave_like_valid_response(response)
-    end
+    response = get(conn, badge_path(conn, :translations_count, project.id))
+
+    behave_like_valid_response(response)
   end
 
-  test "reviewed_count", %{conn: conn, project: project, badge_generate_mock: badge_generate_mock} do
-    with_mock Accent.BadgeGenerator, badge_generate_mock do
-      response = get(conn, badge_path(conn, :reviewed_count, project.id))
+  test "reviewed_count", %{conn: conn, project: project} do
+    stub_badge_service()
 
-      behave_like_valid_response(response)
-    end
+    response = get(conn, badge_path(conn, :reviewed_count, project.id))
+
+    behave_like_valid_response(response)
   end
 
-  test "conflicts", %{conn: conn, project: project, badge_generate_mock: badge_generate_mock} do
-    with_mock Accent.BadgeGenerator, badge_generate_mock do
-      response = get(conn, badge_path(conn, :conflicts_count, project.id))
+  test "conflicts", %{conn: conn, project: project} do
+    stub_badge_service()
 
-      behave_like_valid_response(response)
-    end
+    response = get(conn, badge_path(conn, :conflicts_count, project.id))
+
+    behave_like_valid_response(response)
   end
 end

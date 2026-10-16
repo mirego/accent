@@ -99,7 +99,7 @@
     ],
     langue: ["Langue", "Langue.*"],
     infra: ["Accent.Config", "Accent.Repo", "Accent.Sentry", "Accent.Vault"],
-    utils: ["Accent.Utils.*", "Accent.PrettyFloat", "Accessible"],
+    utils: ["Accent.HTTPClient", "Accent.PrettyFloat", "Accent.SecureRandom", "Accent.Utils.*", "Accessible"],
     test_support: ["Accent.RepoCase", "Accent.ConnCase", "Accent.Factory", "Accent.Factory.*"]
   ],
   deps: [

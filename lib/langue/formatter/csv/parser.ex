@@ -11,7 +11,7 @@ defmodule Langue.Formatter.CSV.Parser do
     entries =
       input
       |> String.split("\n", trim: true)
-      |> CSV.decode!()
+      |> CSV.decode!(escape_max_lines: 1000, validate_row_length: true)
       |> Stream.with_index(1)
       |> Enum.map(&to_entry/1)
       |> Placeholders.parse(Langue.Formatter.CSV.placeholder_regex())

@@ -48,7 +48,7 @@ defmodule LanguageTool.Server do
     else
       Process.send_after(self(), :init_port, 1)
 
-      {:ok, %{config: config, port: nil, queue: :queue.new(), buffer: ""}}
+      {:ok, %{config: config, port: nil, queue: :queue.new(), buffer: "", started_at: nil}}
     end
   end
 
@@ -73,12 +73,17 @@ defmodule LanguageTool.Server do
         {:noreply, state}
 
       port ->
-        {:noreply, %{state | port: port}}
+        {:noreply, %{state | port: port, started_at: System.monotonic_time()}}
     end
   end
 
   def handle_info({port, {:data, {:eol, ">"}}}, %{port: port} = state) do
-    Logger.info("LanguageTool is ready to spellcheck")
+    duration_ms = System.convert_time_unit(System.monotonic_time() - state.started_at, :native, :millisecond)
+
+    Logger.info(
+      "LanguageTool is ready to spellcheck languages: #{Enum.join(state.config.languages, ", ")} (started in #{duration_ms}ms)"
+    )
+
     :persistent_term.put({:language_tool, :ready}, true)
     {:noreply, state}
   end

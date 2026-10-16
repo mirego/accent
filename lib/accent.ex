@@ -5,6 +5,7 @@ defmodule Accent do
   alias Ueberauth.Strategy.OIDC
 
   def start(_type, _args) do
+    import Cachex.Spec
     import Supervisor.Spec, warn: false
 
     OpentelemetryBandit.setup()
@@ -20,7 +21,7 @@ defmodule Accent do
       {Oban, oban_config()},
       Accent.Vault,
       Accent.AccessTokenUsageWriter,
-      {Cachex, name: :language_tool_cache, limit: 10_000},
+      {Cachex, name: :language_tool_cache, hooks: [hook(module: Cachex.Limit.Scheduled, args: {10_000, [], []})]},
       {LanguageTool.Server, language_tool_config()},
       {TelemetryUI, Accent.TelemetryUI.config()},
       {Phoenix.PubSub, [name: Accent.PubSub, adapter: Phoenix.PubSub.PG2]}

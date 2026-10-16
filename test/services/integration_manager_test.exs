@@ -3,6 +3,7 @@ defmodule AccentTest.IntegrationManager do
   use Accent.RepoCase, async: true
 
   alias Accent.Document
+  alias Accent.HTTPClient
   alias Accent.Integration
   alias Accent.IntegrationExecution
   alias Accent.IntegrationManager
@@ -12,7 +13,6 @@ defmodule AccentTest.IntegrationManager do
   alias Accent.Revision
   alias Accent.Translation
   alias Accent.User
-  alias Accent.HTTPClient
   alias Accent.Version
   alias Plug.Conn
 

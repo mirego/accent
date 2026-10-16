@@ -2,7 +2,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
   @moduledoc false
   @behaviour Langue.Formatter.Serializer
 
-  alias Gettext.PO.Translation
+  alias Expo.Message.Singular
   alias Langue.Utils.NestedParserHelper
 
   def serialize(%{entries: entries, document: document, language: language}) do
@@ -11,6 +11,7 @@ defmodule Langue.Formatter.Gettext.Serializer do
         document.top_of_the_file_comment
         |> String.trim_leading()
         |> String.split("\n", trim: true)
+        |> Enum.map(&String.replace_prefix(&1, "#", ""))
       else
         []
       end
@@ -24,21 +25,31 @@ defmodule Langue.Formatter.Gettext.Serializer do
         |> replace_plural_forms_header(language)
         |> String.replace(~r/\n(\w)/, "_\\1")
         |> String.split("_", trim: true)
+        |> Enum.map(&unescape_header/1)
+        |> prepend_empty_header()
       else
         []
       end
 
     render =
-      %Gettext.PO{
-        translations: parse_entries(entries),
-        top_of_the_file_comments: comments,
+      %Expo.Messages{
+        messages: parse_entries(entries),
+        top_comments: comments,
         headers: headers
       }
-      |> Gettext.PO.dump()
+      |> Expo.PO.compose()
       |> IO.iodata_to_binary()
 
     %Langue.Formatter.SerializerResult{render: render}
   end
+
+  defp prepend_empty_header([]), do: []
+
+  defp prepend_empty_header(["" | _rest] = headers), do: headers
+
+  defp prepend_empty_header(headers), do: ["" | headers]
+
+  defp unescape_header(header), do: String.replace(header, "\\n", "\n")
 
   defp parse_entries(entries) do
     entries
@@ -49,16 +60,16 @@ defmodule Langue.Formatter.Gettext.Serializer do
   defp do_parse_entries({_key, [entry]}) do
     case Regex.named_captures(~r/(?<id>.*)\.__CONTEXT__(?<context>.*)/, entry.key) do
       %{"id" => id, "context" => context} ->
-        %Translation{
-          comments: split_string(entry.comment, []),
+        %Singular{
+          comments: parse_comments(entry.comment),
           msgid: split_string(id),
           msgstr: split_string(entry.value),
           msgctxt: split_string(context)
         }
 
       _ ->
-        %Translation{
-          comments: split_string(entry.comment, []),
+        %Singular{
+          comments: parse_comments(entry.comment),
           msgid: split_string(entry.key),
           msgstr: split_string(entry.value)
         }
@@ -71,8 +82,8 @@ defmodule Langue.Formatter.Gettext.Serializer do
       |> remove_key_suffix()
       |> split_string()
 
-    %Gettext.PO.PluralTranslation{
-      comments: split_string(plural_entry.comment, []),
+    %Expo.Message.Plural{
+      comments: parse_comments(plural_entry.comment),
       msgid: msgid,
       msgid_plural: split_string(plural_entry.value),
       msgstr:
@@ -80,6 +91,12 @@ defmodule Langue.Formatter.Gettext.Serializer do
           {index, split_string(entry.value)}
         end
     }
+  end
+
+  defp parse_comments(comment) do
+    comment
+    |> split_string([])
+    |> Enum.map(&String.replace_prefix(&1, "#", ""))
   end
 
   defp split_string(str, empty \\ [""])

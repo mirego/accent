@@ -9,6 +9,7 @@ defmodule AccentTest.CollaboratorNormalizer do
   alias Accent.Repo
   alias Accent.User
   alias Accent.UserRemote.CollaboratorNormalizer
+  alias Factori.Generator
 
   test "create with many collaborations" do
     project = Factory.insert(Project)
@@ -19,7 +20,7 @@ defmodule AccentTest.CollaboratorNormalizer do
       struct!(
         Collaborator,
         Factory.build(Collaborator,
-          email: Factori.Generator.email(),
+          email: Generator.email(),
           role: "admin",
           project_id: project.id,
           assigner_id: assigner.id
@@ -28,7 +29,7 @@ defmodule AccentTest.CollaboratorNormalizer do
       struct!(
         Collaborator,
         Factory.build(Collaborator,
-          email: Factori.Generator.email(),
+          email: Generator.email(),
           role: "developer",
           project_id: project2.id,
           assigner_id: assigner.id
@@ -60,7 +61,7 @@ defmodule AccentTest.CollaboratorNormalizer do
       struct!(
         Collaborator,
         Factory.build(Collaborator,
-          email: Factori.Generator.email(),
+          email: Generator.email(),
           role: "admin",
           project_id: project.id,
           assigner_id: assigner.id
@@ -69,7 +70,7 @@ defmodule AccentTest.CollaboratorNormalizer do
       struct!(
         Collaborator,
         Factory.build(Collaborator,
-          email: Factori.Generator.email(),
+          email: Generator.email(),
           role: "developer",
           project_id: project2.id,
           assigner_id: assigner.id

@@ -47,7 +47,7 @@ defmodule Accent.Mixfile do
     [
       # Framework
       {:phoenix, "~> 1.4"},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix_html, "~> 4.3"},
       {:phoenix_view, "~> 2.0"},
       {:phoenix_live_view, "~> 1.0"},
 
@@ -68,11 +68,11 @@ defmodule Accent.Mixfile do
       {:cloak_ecto, "~> 1.2"},
 
       # Cache
-      {:cachex, "~> 3.6"},
+      {:cachex, "~> 4.1"},
 
       # Phoenix data helpers
       {:phoenix_ecto, "~> 4.0"},
-      {:scrivener_ecto, "~> 2.0"},
+      {:scrivener_ecto, "~> 3.1"},
       {:dataloader, "~> 2.0"},
 
       # GraphQL
@@ -84,8 +84,8 @@ defmodule Accent.Mixfile do
       # Utils
       {:jsone, "~> 1.4"},
       {:mochiweb, "~> 3.0"},
-      {:gettext, "~> 0.20.0"},
-      {:csv, "~> 2.0"},
+      {:expo, "~> 1.1"},
+      {:csv, "~> 3.2"},
       {:php_assoc_map, "~> 3.0"},
       {:jason, "~> 1.2", override: true},
       {:erlsom, "~> 1.5"},
@@ -96,7 +96,7 @@ defmodule Accent.Mixfile do
       {:gen_smtp, "~> 1.3", override: true},
 
       # Auth
-      {:ueberauth, "~> 0.10"},
+      {:ueberauth, "~> 0.11", override: true},
       {:oauth2, "~> 2.0"},
       {:ueberauth_microsoft, "~> 0.21"},
       {:ueberauth_google, "~> 0.6"},
@@ -106,7 +106,7 @@ defmodule Accent.Mixfile do
       {:ueberauth_oidcc, "~> 0.4.2"},
 
       # Errors
-      {:sentry, "~> 13.0"},
+      {:sentry, "~> 14.0"},
 
       # Mails
       {:bamboo, "~> 2.3", override: true},
@@ -138,7 +138,6 @@ defmodule Accent.Mixfile do
 
       # Mock testing
       {:mox, "~> 1.0", only: :test},
-      {:mock, "~> 0.3.0", only: :test},
       {:factori, "~> 0.13", only: :test},
 
       # Google API authentication
