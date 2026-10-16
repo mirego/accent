@@ -107,7 +107,7 @@ export default tseslint.config(
     ],
     languageOptions: {
       parserOptions: {
-        project: './cli/tsconfig.json',
+        project: ['./cli/tsconfig.json', './cli/test/tsconfig.json'],
       },
       globals: {
         ...globals.node,

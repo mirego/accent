@@ -80,6 +80,8 @@ jobs:
 
       - name: Build CLI
         run: npm --prefix cli run build
+      - name: Test CLI
+        run: npm --prefix cli test
       - name: Build JIPT
         run: npm --prefix jipt run build-production-inline
       - name: Coverage report

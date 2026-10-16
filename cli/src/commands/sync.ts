@@ -38,11 +38,9 @@ export default class Sync extends BaseCommand {
         'Do not write to the local files _after_ the sync. Warning: This option could lead to a mismatch between the source of truth (your code repository) and Accent'
     }),
     'dry-run': Flags.boolean({
-      default: false,
       description: 'Do not commit the changes in Accent'
     }),
     details: Flags.boolean({
-      default: false,
       dependsOn: ['dry-run'],
       description:
         'With --dry-run, show each operation (key, previous text, new text) grouped by action instead of a summary'

@@ -125,11 +125,15 @@ dialyzer-check: ## Type-check Elixir files
 	mix dialyzer
 
 .PHONY: test
-test: test-api
+test: test-api test-cli
 
 .PHONY: test-api
 test-api: ## Run the backend test suite
 	mix test
+
+.PHONY: test-cli
+test-cli: ## Run the CLI test suite
+	cd cli && npm test
 
 .PHONY: test-coverage
 test-coverage: ## Generate the code coverage report

@@ -10,6 +10,7 @@ defmodule CICheck do
     %{id: :dialyzer, label: "Dialyzer type check", cmd: "make dialyzer-check", after: [:compile]},
     %{id: :ex_dna, label: "Code duplication check", cmd: "make lint-ex-dna", after: [:compile]},
     %{id: :reach, label: "Architecture and smells check", cmd: "make lint-reach", after: [:compile]},
+    %{id: :test_cli, label: "CLI tests", cmd: "make test-cli", after: []},
     %{id: :prettier, label: "Prettier auto-formatting", cmd: "make lint-prettier", after: []},
     %{id: :eslint, label: "Eslint code lint", cmd: "make lint-eslint", after: []},
     %{id: :hbs, label: "Handlebar template lint", cmd: "make lint-template-hbs", after: []},
