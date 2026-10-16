@@ -12,9 +12,9 @@ export default class DocumentJiptPathsFetcher {
       .map(({path}) => path)
       .map((path) => {
         const parsedTarget = document.target
-          .replace('%slug%', pseudoLanguageName)
-          .replace('%original_file_name%', path)
-          .replace('%document_path%', path);
+          .replace(/%slug%/g, pseudoLanguageName)
+          .replace(/%original_file_name%/g, path)
+          .replace(/%document_path%/g, path);
 
         return {
           documentPath: path,
